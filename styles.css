@@ -1,0 +1,144 @@
+:root {
+  --bg: #000;
+  --fg: rgba(255, 255, 255, 0.88);
+  --muted: rgba(255, 255, 255, 0.55);
+  --faint: rgba(255, 255, 255, 0.25);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  letter-spacing: 0.2px;
+}
+
+main {
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.wrap {
+  width: min(720px, 100%);
+  text-align: center;
+}
+
+/* --- top tag --- */
+.tag {
+  display: inline-block;
+  padding: 6px 10px;
+  border: 1px solid var(--faint);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1;
+  margin-bottom: 18px;
+}
+
+/* --- titles --- */
+h1 {
+  margin: 0 0 10px;
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 600;
+  letter-spacing: 0.6px;
+}
+
+.sub {
+  margin: 0 0 26px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* --- loading pill --- */
+.loading {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border: 1px solid var(--faint);
+  border-radius: 12px;
+  color: var(--fg);
+  user-select: none;
+}
+
+.dot::after {
+  content: "…";
+  animation: dots 1.2s steps(4, end) infinite;
+}
+
+@keyframes dots {
+  0% {
+    content: "";
+  }
+  25% {
+    content: ".";
+  }
+  50% {
+    content: "..";
+  }
+  75% {
+    content: "...";
+  }
+  100% {
+    content: "";
+  }
+}
+
+.crow {
+  display: inline-block;
+  transform-origin: 50% 60%;
+  animation: pulse 1.6s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.06));
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translateY(-2px) scale(1.03);
+    opacity: 1;
+  }
+}
+
+/* --- nav --- */
+nav {
+  margin-top: 22px;
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+a {
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+}
+
+a:hover {
+  color: var(--fg);
+  border-bottom-color: var(--faint);
+}
+
+/* --- footer --- */
+footer {
+  margin-top: 26px;
+  color: var(--faint);
+  font-size: 12px;
+}

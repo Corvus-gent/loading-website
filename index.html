@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <title>corvus.gent</title>
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main>
+    <div class="wrap">
+      <div class="tag">corvus.gent</div>
+
+      <h1>Triumviraat</h1>
+      <p class="sub">CS Ghent boys, triumvirate craftsmanship in progress.</p>
+
+      <div class="loading" aria-live="polite">
+        <span>
+          Loading<span class="dot"></span>
+        </span>
+        <span class="crow" aria-hidden="true"‍🐦‍⬛</span>
+      </div>
+      
+      <nav aria-label="links">
+        <!-- optional -->
+        <a href="mailto:hello@corvus.gent">contact</a>
+        <a href="#" onclick="return false;">manifesto soon</a>
+        <a href="#" onclick="return false;">status: building</a>
+      </nav>
+
+      <footer>
+        © <span id="y"></span> corvus
+      </footer>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
