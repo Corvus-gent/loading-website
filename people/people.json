@@ -1,0 +1,32 @@
+{
+	"members": [
+		{
+		  "id": "gabriel",
+		  "name": "Francisco Gabriel Van Langenhove",
+		  "position": "Founder",
+		  "about": "TODO.",
+		  "links": [
+		    {
+		      "type": "linkedin",
+		      "href": "https://linkedin.com/in/francisco-gabriel-van-langenhove/",
+		      "text": "LinkedIn"
+		    },
+		    {
+		      "type": "mail",
+		      "href": "mailto:gabriel@corvus.gent",
+		      "text": "E-mail"
+		    },
+		    {
+		    	"type": "insta",
+		    	"href": "https://instagram.com/gabinho_bjj/",
+		    	"text": "Insta"
+		    },
+		    {
+		      "type": "cv",
+		      "href": "/cv/gabriel.pdf",
+		      "text": "CV resume"
+		    }
+		  ]
+		}
+	]
+}
