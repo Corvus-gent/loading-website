@@ -21,13 +21,13 @@
         <span>
           Loading<span class="dot"></span>
         </span>
-        <span class="crow" aria-hidden="true"‍🐦‍⬛</span>
       </div>
       
       <nav aria-label="links">
         <!-- optional -->
-        <a href="mailto:hello@corvus.gent">contact</a>
-        <a href="#" onclick="return false;">manifesto soon</a>
+        <a href="mailto:hello@corvus.gent">contact</a> |
+        <a id="people-link" href="/people">people</a> |
+        <a href="#" onclick="return false;">manifesto soon</a> | 
         <a href="#" onclick="return false;">status: building</a>
       </nav>
 
@@ -39,6 +39,17 @@
 
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
+
+    // people count laden uit JSON en in link tonen
+    fetch("/people/people.json")
+      .then(r => r.json())
+      .then(data => {
+        const count = data.members.length;
+        const link = document.getElementById("people-link");
+        if (link) {
+          link.textContent = `people: ${count}`;
+        }
+      });
   </script>
 </body>
 </html>
