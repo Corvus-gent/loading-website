@@ -142,3 +142,26 @@ footer {
   color: var(--faint);
   font-size: 12px;
 }
+
+/* only for people.html */
+body.people-page main {
+  display: flex;
+  justify-content: center;  /* center op x-as */
+  align-items: flex-start;  /* top op y-as */
+  min-height: 100%;
+  padding-top: 60px;        /* afstand van bovenkant */
+}
+
+.people-sub {
+  margin-top: 24px;
+}
+
+/* only for people.html */
+body.people-page > main {
+  display: flex;
+  justify-content: center;   /* center op x-as */
+  align-items: flex-start;   /* top op y-as */
+  min-height: 100%;
+  padding: 60px 24px 24px;   /* afstand van bovenkant */
+  place-items: initial;      /* overschrijft grid-centering */
+}
