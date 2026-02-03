@@ -1,0 +1,60 @@
+{
+  "meta": {
+    "title": "corvus.gent",
+    "titlePeople": "People | corvus.gent"
+  },
+  "home": {
+    "tag": "corvus.gent",
+    "title": "Corvus 𓅨",
+    "cta": {
+      "title": "Ready to make some magic?",
+      "subtitle1": "Intelligence meets design.",
+      "subtitle2": "We craft websites that think as elegantly as they look.",
+      "slogan": "Websites that linger. Simplified. Amplified."
+    },
+    "nav": {
+      "contact": "contact",
+      "people": "people",
+      "manifesto": "manifesto soon",
+      "status": "status: building"
+    }
+  },
+  "people": {
+    "title": "People @ Corvus",
+    "breadcrumb": "people",
+    "sections": {
+      "about": "About",
+      "contacts": "Contacts"
+    },
+    "notFound": "Person not found.",
+    "noLinks": "No links yet."
+  },
+  "footer": {
+    "email": "hello@corvus.gent",
+    "copyright": "corvus"
+  },
+  "terminal": {
+    "manifesto": {
+      "command": "cat manifesto.txt",
+      "output": "Manifesto wordt geladen...\n\nStatus: In Ontwikkeling 🚧\n\nOns manifesto brouwt in de digitale ketel.\nIntelligentie ontmoet design, code ontmoet creativiteit.\n\nWe geloven in:\n• Elegante oplossingen voor complexe problemen\n• Code die leest als poëzie\n• Design dat spreekt zonder woorden\n• Technologie die de mensheid dient\n\nBlijf op de hoogte voor iets buitengewoons.\n\nBinnenkort™"
+    },
+    "magic": {
+      "command": "magic --initialize",
+      "output": "Magie protocol wordt geïnitialiseerd...\n\n✨ MAGIE.EXE GELADEN ✨\n\nKlaar om wat magie te maken? Zo doen wij het:\n\n1. Intelligentie ontmoet design\n2. Code wordt kunst\n3. Problemen transformeren tot kansen\n4. Magie gebeurt\n\nHuidig magie niveau: MAXIMUM ⚡\n\nDruk op een toets om de magie voort te zetten..."
+    },
+    "corvusFacts": [
+      {
+        "command": "corvus --random-fact",
+        "output": "Corvus Fun Fact #1:\n\nRaven en kraaien (corvids) behoren tot de meest intelligente vogels.\nZe kunnen complexe puzzels oplossen, gereedschappen gebruiken, en zelfs plannen voor toekomstige gebeurtenissen.\n\nNet zoals hoe wij webontwikkeling benaderen - met intelligentie,\ncreativiteit, en vooruitdenkende oplossingen.\n\nWist je dat? Ravens kunnen menselijke spraak beter nabootsen dan\nvele papegaaien! 🐦‍⬛\n\nIntelligentie Niveau: MAXIMUM"
+      },
+      {
+        "command": "corvus --random-fact",
+        "output": "Corvus Fun Fact #2:\n\nKraaien zijn waargenomen bij het maken en gebruiken van gereedschappen in het wild.\nZe maken haken van twijgjes om insecten uit schors te halen.\n\nDeze gereedschap-maak vaardigheid weerspiegelt onze ontwikkeling aanpak -\nhet maken van de juiste tools en oplossingen voor elke unieke uitdaging.\n\nEen groep kraaien wordt een 'moord' genoemd - maar wij verkiezen onze\nteam een 'probleem-oplossend collectief' te noemen 😄\n\nGereedschap Meesterschap: LEGENDARISCH"
+      },
+      {
+        "command": "corvus --random-fact",
+        "output": "Corvus Fun Fact #3:\n\nRavens kunnen tot 20+ jaar leven en vormen levenslange partnerschappen.\nZe staan bekend om hun loyaliteit en complexe sociale structuren.\n\nBij Corvus geloven we in het bouwen van duurzame relaties met onze\nklanten en het creëren van digitale oplossingen die de test des tijds doorstaan.\n\nRavens spelen ook in de sneeuw en voeren luchtacrobatiek uit\ngewoon voor de lol - omdat werk ook leuk moet zijn! ⚡\n\nPartnerschap Niveau: EEUWIG"
+      }
+    ]
+  }
+}
