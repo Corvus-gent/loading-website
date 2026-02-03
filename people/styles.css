@@ -1,0 +1,64 @@
+/* people/styles.css */
+
+/* alleen de detail-secties links uitlijnen, rest blijft center */
+body.people-page .person-view-wrap {
+  text-align: left;
+}
+
+/* titel en onderste call-to-action blijven centraal via globale .wrap-rule */
+
+/* detail view titel iets compacter, maar center blijft gelden */
+body.people-page .person-view-wrap h1 {
+  font-size: clamp(24px, 3.2vw, 34px);
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+
+/* About / Contacts headings links */
+body.people-page .person-view-wrap h2 {
+  margin-top: 24px;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+/* about-tekst links, iets subtieler */
+body.people-page .person-about {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* people list styling */
+body.people-page .people-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+body.people-page .people-list .people-item {
+  margin: 16px 0;
+}
+
+body.people-page .people-list .people-item:first-child {
+  margin-top: 0;
+}
+
+body.people-page .people-list .people-item:last-child {
+  margin-bottom: 0;
+}
+
+/* contact links: links uitgelijnde lijst zonder bullets */
+body.people-page .contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 4px 0 0;
+}
+
+body.people-page .contact-list li {
+  margin: 2px 0;
+}
+
+/* extra ruimte boven de call-to-action onderaan op people page */
+body.people-page .cta-section {
+  margin-top: 56px;
+  margin-bottom: 32px;
+}

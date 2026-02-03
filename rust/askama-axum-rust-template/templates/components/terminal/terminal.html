@@ -1,0 +1,104 @@
+<!-- Terminal Popup Component - HTMX Powered -->
+<div id="terminal-popup" class="terminal-popup hidden">
+    <div class="terminal-window">
+        <div class="terminal-header">
+            <div class="terminal-controls">
+                <span
+                    class="terminal-button close"
+                    onclick="
+                        document
+                            .getElementById('terminal-popup')
+                            .classList.add('hidden')
+                    "
+                ></span>
+                <span class="terminal-button minimize"></span>
+                <span class="terminal-button maximize"></span>
+            </div>
+            <div class="terminal-title">corvus.terminal</div>
+        </div>
+        <div class="terminal-content" id="terminal-content">
+            <div class="terminal-line">
+                <span class="terminal-prompt">corvus@gent:~$</span>
+                <span class="terminal-command" id="terminal-command"></span>
+            </div>
+            <div class="terminal-output" id="terminal-output"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Pure HTML/CSS terminal with minimal JavaScript for popup control
+    document.addEventListener("DOMContentLoaded", function () {
+        const terminalPopup = document.getElementById("terminal-popup");
+
+        // Close on ESC key
+        document.addEventListener("keydown", function (e) {
+            if (
+                e.key === "Escape" &&
+                !terminalPopup.classList.contains("hidden")
+            ) {
+                terminalPopup.classList.add("hidden");
+            }
+        });
+
+        // Close when clicking outside
+        terminalPopup.addEventListener("click", function (e) {
+            if (e.target === terminalPopup) {
+                terminalPopup.classList.add("hidden");
+            }
+        });
+
+        // Show terminal function
+        window.showTerminal = function (command, output) {
+            document.getElementById("terminal-command").textContent = command;
+            const outputEl = document.getElementById("terminal-output");
+            outputEl.innerHTML = "";
+            terminalPopup.classList.remove("hidden");
+
+            // Trigger typewriter animation
+            setTimeout(() => {
+                outputEl.innerHTML = output.replace(/\n/g, "<br>");
+                outputEl.classList.add("typewriter-animate");
+            }, 300);
+        };
+    });
+</script>
+
+<style>
+    /* Typewriter animation using CSS */
+    @keyframes typewriter {
+        from {
+            width: 0;
+            opacity: 0;
+        }
+        to {
+            width: 100%;
+            opacity: 1;
+        }
+    }
+
+    .typewriter-animate {
+        overflow: hidden;
+        white-space: nowrap;
+        animation: typewriter 2s steps(40, end) forwards;
+        animation-delay: 0.3s;
+        width: 0;
+    }
+
+    .typewriter-animate::after {
+        content: "|";
+        animation: blink 1s infinite;
+        margin-left: 4px;
+    }
+
+    @keyframes blink {
+        0%,
+        50% {
+            opacity: 1;
+        }
+        51%,
+        100% {
+            opacity: 0;
+        }
+    }
+</style>

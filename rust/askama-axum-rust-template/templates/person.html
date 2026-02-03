@@ -1,0 +1,49 @@
+{% extends "people-base.html" %} {% block title %}{{ person.name }} - {{
+i18n.meta.title }}{% endblock %} {% block content %}
+<div class="tag">
+    <a href="/people">← {{ i18n.people.breadcrumb }}</a>
+    <span>{{ person.id }}</span>
+</div>
+
+<section class="person-view">
+    <h1>{{ person.name }}</h1>
+    <p class="person-about">{{ person.position }}</p>
+
+    <section class="person-about-section">
+        <h2>{{ i18n.people.sections.about }}</h2>
+        <p>{{ person.about }}</p>
+    </section>
+
+    <section class="person-contact">
+        <h2>{{ i18n.people.sections.contacts }}</h2>
+        {% if person.links.len() > 0 %}
+        <ul class="contact-list">
+            {% for link in person.links %}
+            <li>
+                {% if link.href.starts_with("mailto:") %}
+                <a href="{{ link.href }}">{{ link.text }}</a>
+                {% else %}
+                <a href="{{ link.href }}" target="_blank" rel="noopener"
+                    >{{ link.text }}</a
+                >
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>{{ i18n.people.no_links }}</p>
+        {% endif %}
+    </section>
+</section>
+
+<div class="spacer"></div>
+<div class="spacer"></div>
+<div class="spacer"></div>
+
+<footer>
+    <div class="wrap">
+        <a href="mailto:{{ i18n.footer.email }}">{{ i18n.footer.email }}</a>
+        <span>{{ i18n.footer.copyright }}</span>
+    </div>
+</footer>
+{% endblock %}

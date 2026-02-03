@@ -15,30 +15,38 @@
       <div class="tag">corvus.gent</div>
 
       <h1>Corvus 𓅨</h1>
-      <p class="sub">CS Ghent boys, triumvirate craftsmanship in progress.</p>
 
-      <div class="loading" aria-live="polite">
-        <span>
-          Loading<span class="dot"></span>
-        </span>
-        <span class="crow" aria-hidden="true"‍🐦‍⬛</span>
-      </div>
+      <section class="cta-section">
+        <h2 class="cta-title">Ready to make some magic?</h2>
+        <p class="cta-subtitle">Intelligence meets design. </p>
+        <p class="cta-subtitle">We craft websites that think as elegantly as they look.</p>
+        <p class="cta-slogan">Websites that linger. Simplified. Amplified.</p>
+      </section>
+
+      <div class="spacer"></div>
+      <div class="spacer"></div>
+      <div class="spacer"></div>
       
       <nav aria-label="links">
         <!-- optional -->
-        <a href="mailto:hello@corvus.gent">contact</a>
-        <a href="#" onclick="return false;">manifesto soon</a>
+        <a href="mailto:hello@corvus.gent">contact</a> |
+        <a id="people-link" href="/people">people</a> |
+        <a href="#" onclick="return false;">manifesto soon</a> | 
         <a href="#" onclick="return false;">status: building</a>
       </nav>
 
-      <footer>
-        © <span id="y"></span> corvus
-      </footer>
+      <div class="spacer"></div>
+      <div class="spacer"></div>
+      <div class="spacer"></div>
+      <div class="spacer"></div>
+      <div class="spacer"></div>
+      <div class="spacer"></div>
+
+      <div id="footer-container"></div>
     </div>
   </main>
 
-  <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
-  </script>
+  <script src="footer/footer.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>

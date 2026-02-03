@@ -1,0 +1,73 @@
+{% extends "base.html" %} {% block title %}{{ i18n.meta.title }}{% endblock %}
+{% block content %}
+<div class="tag">{{ i18n.home.tag }}</div>
+<h1
+    id="title"
+    class="interactive-title"
+    hx-get="/terminal/corvus-fact"
+    hx-target="#terminal-content"
+    hx-swap="innerHTML"
+    hx-on::after-request="document.getElementById('terminal-popup').classList.remove('hidden')"
+>
+    {{ i18n.home.title }}
+</h1>
+
+<div class="spacer"></div>
+<div class="spacer"></div>
+
+<section class="cta-section">
+    <h2
+        class="cta-title interactive-magic"
+        hx-get="/terminal/magic"
+        hx-target="#terminal-content"
+        hx-swap="innerHTML"
+        hx-on::after-request="document.getElementById('terminal-popup').classList.remove('hidden')"
+    >
+        {{ i18n.home.cta.title }}
+    </h2>
+    <p class="cta-subtitle">{{ i18n.home.cta.subtitle1 }}</p>
+    <p class="cta-subtitle">{{ i18n.home.cta.subtitle2 }}</p>
+    <p class="cta-slogan">{{ i18n.home.cta.slogan }}</p>
+</section>
+
+<div class="spacer"></div>
+<div class="spacer"></div>
+<div class="spacer"></div>
+
+<nav></nav>
+<nav>
+    <a href="/">home</a>
+    <a href="/people">{{ i18n.home.nav.people }} ({{ people_count }})</a>
+    <a
+        href="#"
+        hx-get="/terminal/manifesto"
+        hx-target="#terminal-content"
+        hx-swap="innerHTML"
+        hx-on::after-request="document.getElementById('terminal-popup').classList.remove('hidden')"
+    >
+        {{ i18n.home.nav.manifesto }}
+    </a>
+    <a href="#contact">{{ i18n.home.nav.contact }}</a>
+</nav>
+
+<div class="spacer"></div>
+<div class="spacer"></div>
+<div class="spacer"></div>
+<div class="spacer"></div>
+<div class="spacer"></div>
+<div class="spacer"></div>
+
+<footer></footer>
+<footer>
+    <div class="wrap">
+        <a href="mailto:{{ i18n.footer.email }}">{{ i18n.footer.email }}</a>
+        <span>{{ i18n.footer.copyright }}</span>
+    </div>
+</footer>
+
+{% include "components/terminal/terminal.html" %}
+
+<link rel="stylesheet" href="/_assets/css/interactions.css" />
+<link rel="stylesheet" href="/_assets/css/terminal.css" />
+<script src="/_assets/htmx.min.js"></script>
+{% endblock %}

@@ -1,0 +1,60 @@
+{
+  "meta": {
+    "title": "corvus.gent",
+    "titlePeople": "People | corvus.gent"
+  },
+  "home": {
+    "tag": "corvus.gent",
+    "title": "Corvus 𓅨",
+    "cta": {
+      "title": "Ready to make some magic?",
+      "subtitle1": "Intelligence meets design.",
+      "subtitle2": "We craft websites that think as elegantly as they look.",
+      "slogan": "Websites that linger. Simplified. Amplified."
+    },
+    "nav": {
+      "contact": "contact",
+      "people": "people",
+      "manifesto": "manifesto soon",
+      "status": "status: building"
+    }
+  },
+  "people": {
+    "title": "People @ Corvus",
+    "breadcrumb": "people",
+    "sections": {
+      "about": "About",
+      "contacts": "Contacts"
+    },
+    "notFound": "Person not found.",
+    "noLinks": "No links yet."
+  },
+  "footer": {
+    "email": "hello@corvus.gent",
+    "copyright": "corvus"
+  },
+  "terminal": {
+    "manifesto": {
+      "command": "cat manifesto.txt",
+      "output": "Loading manifesto...\n\nStatus: Under Construction 🚧\n\nOur manifesto is brewing in the digital cauldron.\nIntelligence meets design, code meets creativity.\n\nWe believe in:\n• Elegant solutions to complex problems\n• Code that reads like poetry\n• Design that speaks without words\n• Technology that serves humanity\n\nStay tuned for something extraordinary.\n\nComing Soon™"
+    },
+    "magic": {
+      "command": "magic --initialize",
+      "output": "Initializing magic protocol...\n\n✨ MAGIC.EXE LOADED ✨\n\nReady to make some magic? Here's how we do it:\n\n1. Intelligence meets design\n2. Code becomes art\n3. Problems transform into opportunities\n4. Magic happens\n\nCurrent magic level: MAXIMUM ⚡\n\nPress any key to continue the magic..."
+    },
+    "corvusFacts": [
+      {
+        "command": "corvus --random-fact",
+        "output": "Corvus Fun Fact #1:\n\nRavens and crows (corvids) are among the most intelligent birds.\nThey can solve complex puzzles, use tools, and even plan for future events.\n\nJust like how we approach web development - with intelligence,\ncreativity, and forward-thinking solutions.\n\nDid you know? Ravens can learn to mimic human speech better than\nmany parrots! 🐦‍⬛\n\nIntelligence Level: MAXIMUM"
+      },
+      {
+        "command": "corvus --random-fact",
+        "output": "Corvus Fun Fact #2:\n\nCrows have been observed making and using tools in the wild.\nThey craft hooks from twigs to extract insects from bark.\n\nThis tool-making ability mirrors our approach to development -\ncrafting the right tools and solutions for each unique challenge.\n\nA group of crows is called a \"murder\" - but we prefer to call\nour team a \"problem-solving collective\" 😄\n\nTool Mastery: LEGENDARY"
+      },
+      {
+        "command": "corvus --random-fact",
+        "output": "Corvus Fun Fact #3:\n\nRavens can live up to 20+ years and form lifelong partnerships.\nThey're known for their loyalty and complex social structures.\n\nAt Corvus, we believe in building lasting relationships with our\nclients and creating digital solutions that stand the test of time.\n\nRavens also play in the snow and perform aerial acrobatics\njust for fun - because work should be enjoyable too! ⚡\n\nPartnership Level: ETERNAL"
+      }
+    ]
+  }
+}

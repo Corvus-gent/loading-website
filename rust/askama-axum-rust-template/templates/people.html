@@ -1,0 +1,32 @@
+{% extends "people-base.html" %} {% block title %}{{ i18n.meta.title_people }}{%
+endblock %} {% block content %}
+<div class="tag">
+    <a href="/">← back</a>
+    <span>{{ i18n.people.breadcrumb }}</span>
+</div>
+
+<section class="people-section">
+    <h1>{{ i18n.people.title }}</h1>
+    <ul class="people-list">
+        {% for person in people.members %}
+        <li class="people-item">
+            <a href="/people/{{ person.id }}">
+                <span>{{ person.name }}</span>
+                <span class="sub">{{ person.position }}</span>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</section>
+
+<div class="spacer"></div>
+<div class="spacer"></div>
+<div class="spacer"></div>
+
+<footer>
+    <div class="wrap">
+        <a href="mailto:{{ i18n.footer.email }}">{{ i18n.footer.email }}</a>
+        <span>{{ i18n.footer.copyright }}</span>
+    </div>
+</footer>
+{% endblock %}
