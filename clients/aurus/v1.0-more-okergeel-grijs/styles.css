@@ -204,11 +204,11 @@ em {
   display: flex;
   align-items: center;
   text-decoration: none;
-  height: 60px;
+  height: 90px;
 }
 
 .logo-img {
-  height: 60px;
+  height: 90px;
   width: auto;
   transition: opacity 0.3s ease, height 0.3s ease;
 }
@@ -1210,11 +1210,11 @@ em {
   }
 
   .logo {
-    height: 48px;
+    height: 70px;
   }
 
   .logo-img {
-    height: 48px;
+    height: 70px;
   }
 
   .logo-text {
