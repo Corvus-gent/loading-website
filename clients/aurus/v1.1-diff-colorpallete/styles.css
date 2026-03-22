@@ -201,11 +201,44 @@ em {
 }
 
 .logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  height: 60px;
+}
+
+.logo-img {
+  height: 60px;
+  width: auto;
+  transition: opacity 0.3s ease, height 0.3s ease;
+}
+
+.logo-text {
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 26px;
   color: var(--color-black);
+  letter-spacing: 1px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  position: absolute;
+}
+
+/* Scrolled state: hide logo image, show text */
+.header.scrolled .logo-img {
+  opacity: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.header.scrolled .logo-text {
+  opacity: 1;
+  position: static;
+}
+
+.header.scrolled .logo {
+  height: auto;
 }
 
 .nav {
@@ -1174,6 +1207,18 @@ em {
 @media (max-width: 992px) {
   .header {
     padding: 15px 30px;
+  }
+
+  .logo {
+    height: 48px;
+  }
+
+  .logo-img {
+    height: 48px;
+  }
+
+  .logo-text {
+    font-size: 22px;
   }
 
   .nav {
