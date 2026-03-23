@@ -9,10 +9,10 @@
 
 :root {
   /* IMPORTANT: Aurus Brand Colors - okergeel-grijs palette */
-  --color-gold: #D4A93C;
-  --color-silver: #ECEAE5;
+  --color-gold: #d4a93c;
+  --color-silver: #eceae5;
   --color-black: #141414;
-  --color-cream: #F3F0EB;
+  --color-cream: #f3f0eb;
   --color-white: #ffffff;
   --color-dark: #1e1e1e;
 
@@ -204,13 +204,15 @@ em {
   display: flex;
   align-items: center;
   text-decoration: none;
-  height: 90px;
+  height: 110px;
 }
 
 .logo-img {
-  height: 90px;
+  height: 110px;
   width: auto;
-  transition: opacity 0.3s ease, height 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    height 0.3s ease;
 }
 
 .logo-text {
@@ -952,7 +954,7 @@ em {
 }
 
 .forms-dropdown-menu::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -8px;
   left: 50%;
@@ -1210,11 +1212,11 @@ em {
   }
 
   .logo {
-    height: 70px;
+    height: 90px;
   }
 
   .logo-img {
-    height: 70px;
+    height: 90px;
   }
 
   .logo-text {
@@ -1967,4 +1969,3 @@ em {
     left: 30px;
   }
 }
-
