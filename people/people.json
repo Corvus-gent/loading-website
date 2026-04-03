@@ -1,0 +1,61 @@
+{
+	"members": [
+		{
+		  "id": "gabriel",
+		  "name": "Francisco Gabriel Van Langenhove",
+		  "position": "Founder",
+		  "about": "TODO.",
+		  "links": [
+		    {
+		      "type": "linkedin",
+		      "href": "https://linkedin.com/in/francisco-gabriel-van-langenhove/",
+		      "text": "LinkedIn"
+		    },
+		    {
+		      "type": "mail",
+		      "href": "mailto:gabriel@corvus.gent",
+		      "text": "E-mail"
+		    },
+		    {
+		    	"type": "insta",
+		    	"href": "https://instagram.com/gabinho_bjj/",
+		    	"text": "Insta"
+		    },
+		    {
+		      "type": "cv",
+		      "href": "/cv/gabriel.pdf",
+		      "text": "CV resume"
+		    }
+		  ]
+		},
+		{
+		  "id": "wisdom",
+		  "name": "Wisdom Ononiba",
+		  "position": "Co-Founder",
+		  "about": "I'm a Computer Science student at Ghent University (UGent) and a co‑founder of Corvus. Avid reader of scientific non-fiction (and recently, novels), disciplined gym-goer, and marathon trainee. But most of all, I love spending time with my sisters.",
+		  "links": [
+		    {
+		      "type": "linkedin",
+		      "href": "https://linkedin.com/in/wisdom-ononiba/",
+		      "text": "LinkedIn"
+		    },
+		    {
+		      "type": "mail",
+		      "href": "mailto:wisdom@corvus.gent",
+		      "text": "E-mail"
+		    },
+		    {
+		    	"type": "insta",
+		    	"href": "https://www.instagram.com/wisdom.oni1/",
+		    	"text": "Insta"
+		    },
+		    {
+		      "type": "cv",
+		      "href": "/cv/wisdom.pdf",
+		      "text": "CV resume"
+		    }
+		  ]
+		}
+		
+	]
+}

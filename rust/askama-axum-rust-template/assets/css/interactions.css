@@ -1,0 +1,161 @@
+/* Interactive Elements Styles */
+
+/* Interactive Title (Bird Symbol) */
+.interactive-title {
+    cursor: pointer;
+    transition:
+        transform 0.3s ease,
+        filter 0.3s ease,
+        text-shadow 0.3s ease;
+    user-select: none;
+}
+
+.interactive-title:hover {
+    transform: scale(1.02) rotate(-0.5deg);
+    filter: brightness(1.1);
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.interactive-title:active {
+    transform: scale(0.98) rotate(0.2deg);
+}
+
+/* Interactive Magic Text */
+.interactive-magic {
+    cursor: pointer;
+    transition:
+        transform 0.3s ease,
+        color 0.3s ease,
+        text-shadow 0.3s ease;
+    user-select: none;
+    display: inline-block;
+}
+
+.interactive-magic:hover {
+    transform: translateY(-2px) scale(1.01);
+    color: var(--fg);
+    text-shadow:
+        0 0 20px rgba(255, 255, 255, 0.3),
+        0 0 40px rgba(255, 255, 255, 0.1);
+}
+
+.interactive-magic:active {
+    transform: translateY(0) scale(1.005);
+}
+
+/* Navigation Enhancements */
+nav a {
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+}
+
+nav a:hover {
+    transform: translateY(-1px);
+    color: var(--fg);
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: -2px;
+    left: 50%;
+    background: var(--fg);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+/* Clickable Elements Feedback */
+.interactive-title,
+.interactive-magic,
+nav a[href="#manifesto"] {
+    position: relative;
+}
+
+.interactive-title::before,
+.interactive-magic::before,
+nav a[href="#manifesto"]::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.interactive-title:hover::before,
+.interactive-magic:hover::before,
+nav a[href="#manifesto"]:hover::before {
+    width: 120%;
+    height: 120%;
+}
+
+/* Focus States for Accessibility */
+.interactive-title:focus,
+.interactive-magic:focus,
+nav a:focus {
+    outline: 2px solid var(--fg);
+    outline-offset: 4px;
+    border-radius: 4px;
+}
+
+/* Mobile Touch Enhancements */
+@media (hover: none) and (pointer: coarse) {
+    .interactive-title:active,
+    .interactive-magic:active {
+        transform: scale(0.95);
+    }
+
+    nav a:active {
+        transform: scale(0.98);
+    }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .interactive-title:hover,
+    .interactive-magic:hover,
+    nav a:hover {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 4px 8px;
+        border-radius: 4px;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .interactive-title,
+    .interactive-magic,
+    nav a {
+        transition: none;
+    }
+
+    .interactive-title:hover,
+    .interactive-magic:hover {
+        transform: none;
+        filter: none;
+        text-shadow: none;
+    }
+
+    nav a:hover {
+        transform: none;
+    }
+
+    .interactive-title::before,
+    .interactive-magic::before,
+    nav a[href="#manifesto"]::before {
+        display: none;
+    }
+}

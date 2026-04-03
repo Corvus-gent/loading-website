@@ -1,0 +1,269 @@
+:root {
+    --bg: #000;
+    --fg: rgba(255, 255, 255, 0.88);
+    --muted: rgba(255, 255, 255, 0.55);
+    --faint: rgba(255, 255, 255, 0.25);
+    --spacing-xs: 8px;
+    --spacing-sm: 16px;
+    --spacing-md: 24px;
+    --spacing-lg: 32px;
+    --spacing-xl: 48px;
+    --spacing-2xl: 64px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family:
+        ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
+    letter-spacing: 0.2px;
+}
+
+main {
+    min-height: 100%;
+    display: grid;
+    place-items: center;
+    padding: var(--spacing-md);
+}
+
+.wrap {
+    width: min(720px, 100%);
+    text-align: center;
+}
+
+/* Typography */
+h1 {
+    margin: 0 0 var(--spacing-xl);
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 600;
+    letter-spacing: 0.6px;
+}
+
+h2 {
+    margin: var(--spacing-md) 0 var(--spacing-xs);
+    font-size: 16px;
+}
+
+.sub {
+    margin: 0 0 var(--spacing-md);
+    color: var(--muted);
+    font-size: 14px;
+}
+
+/* Components */
+.tag {
+    display: inline-block;
+    padding: 6px 10px;
+    border: 1px solid var(--faint);
+    border-radius: 999px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1;
+    margin-bottom: 18px;
+}
+
+.cta-section {
+    margin-top: 0;
+    margin-bottom: var(--spacing-xl);
+}
+
+.cta-title {
+    margin: 0 0 var(--spacing-sm);
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 600;
+    letter-spacing: 0.6px;
+}
+
+.cta-subtitle {
+    margin: 0 0 var(--spacing-xs);
+    color: var(--muted);
+    font-size: clamp(14px, 2vw, 16px);
+    line-height: 1.5;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cta-subtitle:last-of-type {
+    margin-bottom: var(--spacing-sm);
+}
+
+.cta-slogan {
+    margin: 0 0 var(--spacing-lg);
+    color: var(--fg);
+    font-size: clamp(16px, 2.5vw, 20px);
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
+.loading {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border: 1px solid var(--faint);
+    border-radius: 12px;
+    user-select: none;
+}
+
+.dot::after {
+    content: "…";
+    animation: dots 1.2s steps(4, end) infinite;
+}
+
+@keyframes dots {
+    0%,
+    100% {
+        content: "";
+    }
+    25% {
+        content: ".";
+    }
+    50% {
+        content: "..";
+    }
+    75% {
+        content: "...";
+    }
+}
+
+nav {
+    margin-top: var(--spacing-sm);
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+a {
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+}
+
+a:hover {
+    color: var(--fg);
+    border-bottom-color: var(--faint);
+}
+
+footer {
+    margin-top: var(--spacing-sm);
+    color: var(--faint);
+    font-size: 11px;
+    opacity: 0.7;
+}
+
+footer .wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+footer a {
+    color: var(--faint);
+    opacity: 0.7;
+}
+
+footer a:hover {
+    color: var(--muted);
+    opacity: 1;
+}
+
+/* People page */
+body.people-page main {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 60px var(--spacing-md) var(--spacing-md);
+    place-items: initial;
+}
+
+.person-view {
+    text-align: left;
+}
+
+.person-view h1 {
+    font-size: clamp(24px, 3.2vw, 34px);
+    line-height: 1.2;
+    margin-bottom: 6px;
+}
+
+.person-about {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.people-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.people-item {
+    margin: var(--spacing-sm) 0;
+}
+
+.contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 4px 0 0;
+}
+
+.contact-list li {
+    margin: 2px 0;
+}
+
+/* Utilities */
+.spacer {
+    display: block;
+    width: 100%;
+    height: var(--spacing-md);
+    flex-shrink: 0;
+}
+
+/* Interactive elements */
+.interactive-title {
+    cursor: pointer;
+    transition:
+        transform 0.3s ease,
+        filter 0.3s ease;
+    user-select: none;
+}
+
+.interactive-title:hover {
+    transform: scale(1.02) rotate(-0.5deg);
+    filter: brightness(1.1);
+}
+
+.interactive-magic {
+    cursor: pointer;
+    transition:
+        transform 0.3s ease,
+        color 0.3s ease,
+        text-shadow 0.3s ease;
+    user-select: none;
+}
+
+.interactive-magic:hover {
+    transform: translateY(-2px) scale(1.01);
+    color: var(--fg);
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+/* Smooth transitions for all links */
+nav a {
+    transition: all 0.3s ease;
+}
+
+nav a:hover {
+    transform: translateY(-1px);
+}

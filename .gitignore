@@ -13,5 +13,25 @@
 # OS junk
 Thumbs.db
 
-# Local dev servers
+# Rust (Cargo) - build outputs
+**/target/
+**/*.rlib
+**/*.rmeta
+
+# Rust tooling caches
+**/.rustc_info.json
+**/.cargo/
+**/cargo-timing*.html
+
+# rust-analyzer / flycheck
+**/rust-analyzer/
+**/rust-project.json
+**/flycheck*
+**/.cache/
+
+# =========================
+# Environment / secrets
+# =========================
 .env
+.env.*
+!.env.example
