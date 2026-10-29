@@ -62,3 +62,7 @@ body.people-page .cta-section {
   margin-top: 56px;
   margin-bottom: 32px;
 }
+
+body.people-page .person-about {
+  white-space: pre-line;
+}
