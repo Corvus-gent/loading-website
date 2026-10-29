@@ -1,0 +1,37 @@
+{
+  "members": [
+    {
+      "id": "gabriel",
+      "name": "Francisco Gabriel Van Langenhove",
+      "position": "GTM @ Pidgy · upcoming business philosopher",
+      "about": "Solving email chaos as full-time GTM Engineer at Pidgy, then trying to sell it (to you?). Upcoming business philosopher. Computer science background, sales brain. When I'm not doing that: Brazilian jiu-jitsu, planning a surf or hike trip, learning Chinese, or counting the days until I can go back to China. Still builds the odd special website, for people who pay on time. Always down for a good conversation. Say hi.",
+      "links": [
+        {
+          "type": "work",
+          "href": "https://pidgy-ai.com",
+          "text": "Pidgy"
+        },
+        {
+          "type": "linkedin",
+          "href": "https://linkedin.com/in/francisco-gabriel-van-langenhove/",
+          "text": "LinkedIn"
+        },
+        {
+          "type": "mail",
+          "href": "mailto:gabriel@corvus.gent",
+          "text": "E-mail"
+        },
+        {
+          "type": "insta",
+          "href": "https://instagram.com/gabinho_bjj/",
+          "text": "Insta"
+        },
+        {
+          "type": "cv",
+          "href": "/cv/gabriel.pdf",
+          "text": "CV resume"
+        }
+      ]
+    }
+  ]
+}

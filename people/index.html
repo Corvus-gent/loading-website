@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <title>People | corvus.gent</title>
+  <link rel="icon" type="image/png" href="/logo.png" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/people/styles.css" />
+</head>
+<body class="people-page">
+  <main>
+    <div class="wrap">
+      <div class="tag">
+        <a href="/">corvus.gent</a> / <a href="/people">people</a><span id="crumb-id-wrap"></span>
+      </div>
+
+      <section id="people-list-view">
+        <h1>People @ Corvus</h1>
+        <p class="sub">population: 1</p>
+        <div>&nbsp;</div>
+        <ul id="people-list" class="people-list"></ul>
+      </section>
+
+      <section id="person-view" class="person-view-wrap" style="display:none;">
+        <h1 id="person-name"></h1>
+
+        <section>
+          <h2>About</h2>
+          <p id="person-about" class="person-about"></p>
+        </section>
+
+        <section>
+          <h2>Contacts</h2>
+          <ul class="contact-list" id="person-links"></ul>
+        </section>
+      </section>
+
+      <footer>
+        © <span id="y"></span> corvus
+      </footer>
+    </div>
+  </main>
+
+  <script type="module" src="/js/people.js"></script>
+</body>
+</html>

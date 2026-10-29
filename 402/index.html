@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>402 Payment Required</title>
+<style>pre{white-space:pre-wrap}</style>
+</head>
+<body style="font-family: monospace; max-width: 640px; margin: 40px auto; padding: 0 16px;">
+
+<p>
+<button onclick="setLang('fr')">FR</button>
+<button onclick="setLang('nl')">NL</button>
+<button onclick="setLang('en')">EN</button>
+<button onclick="setLang('zh')">中文</button>
+</p>
+
+<h1>402 Payment Required</h1>
+
+<div id="content"></div>
+
+<script>
+// Payment requested: Thu 15 Oct 2026, 14:40 (Brussels)
+var START = new Date('2026-10-15T14:40:00+02:00');
+
+var t = {
+fr: {
+  timer: "en attente de paiement depuis",
+  units: ["jours", "heures", "min", "sec"],
+  html: `<p>Ce site est hors ligne.</p>
+<p>Le nom de domaine n'a pas été payé.<br>
+Montant : moins qu'un mois d'abonnement à une salle de sport.</p>
+<pre>
+[x] 08/26  domaine renouvelé (payé par le développeur)
+[x] 15/10  demande de paiement
+[x] ..     appel téléphonique  -> "je vais payer"
+[x] 20/10  rappel
+[x] 23/10  "à 17:00, il serait désactivé"
+[ ] ..     paiement
+
+statut du paiement : [..........] 0%
+</pre>
+<hr>
+<p>Besoin d'un site web ? Prix correct, développeur honnête.<br>
+Une seule condition : payer à temps.<br>
+→ <a href="mailto:gabriel@corvus.gent">contact</a></p>`
+},
+nl: {
+  timer: "wacht op betaling sinds",
+  units: ["dagen", "uur", "min", "sec"],
+  html: `<p>Deze website staat offline.</p>
+<p>De domeinnaam werd niet betaald.<br>
+Bedrag: minder dan een maandabonnement in de fitness.</p>
+<pre>
+[x] 08/26  domein verlengd (betaald door de developer)
+[x] 15/10  betaalverzoek
+[x] ..     telefoontje  -> "ik ga betalen"
+[x] 20/10  herinnering
+[x] 23/10  "om 17:00 gaat de site offline"
+[ ] ..     betaling
+
+betaalstatus: [..........] 0%
+</pre>
+<hr>
+<p>Website nodig? Correcte prijs, eerlijke developer.<br>
+Eén voorwaarde: op tijd betalen.<br>
+→ <a href="mailto:gabriel@corvus.gent">contact</a></p>`
+},
+en: {
+  timer: "waiting for payment for",
+  units: ["days", "hours", "min", "sec"],
+  html: `<p>This website is offline.</p>
+<p>The domain name was not paid for.<br>
+Amount: less than one month of gym membership.</p>
+<pre>
+[x] 08/26  domain renewed (paid by the developer)
+[x] 15/10  payment request
+[x] ..     phone call  -> "I'll pay"
+[x] 20/10  reminder
+[x] 23/10  "at 17:00, the site goes offline"
+[ ] ..     payment
+
+payment status: [..........] 0%
+</pre>
+<hr>
+<p>Need a website? Fair price, honest developer.<br>
+One condition: pay on time.<br>
+→ <a href="mailto:gabriel@corvus.gent">contact</a></p>`
+},
+zh: {
+  timer: "等待付款已",
+  units: ["天", "小时", "分", "秒"],
+  html: `<p>本网站已下线。</p>
+<p>域名费用尚未支付。<br>
+金额：不到一个月的健身房会员费。</p>
+<pre>
+[x] 08/26  域名已续费（由开发者垫付）
+[x] 15/10  付款请求
+[x] ..     电话  -> "我会付款"
+[x] 20/10  提醒
+[x] 23/10  "17:00 网站将下线"
+[ ] ..     付款
+
+付款状态：[..........] 0%
+</pre>
+<hr>
+<p>需要网站吗？价格公道，开发者诚实。<br>
+唯一条件：按时付款。<br>
+→ <a href="mailto:gabriel@corvus.gent">联系</a></p>`
+}
+};
+
+var lang = 'fr';
+
+function tick() {
+  var s = Math.max(0, Math.floor((Date.now() - START) / 1000));
+  var d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600),
+      m = Math.floor(s % 3600 / 60), sec = s % 60;
+  var u = t[lang].units;
+  document.getElementById('timer').textContent =
+    t[lang].timer + ": " + d + " " + u[0] + ", " + h + " " + u[1] + ", " +
+    m + " " + u[2] + ", " + sec + " " + u[3];
+}
+
+function setLang(l) {
+  lang = l;
+  document.getElementById('content').innerHTML =
+    '<p><b id="timer"></b></p>' + t[l].html;
+  document.documentElement.lang = l;
+  tick();
+}
+
+setLang('fr');
+setInterval(tick, 1000);
+</script>
+
+</body>
+</html>
