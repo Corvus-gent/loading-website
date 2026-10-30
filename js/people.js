@@ -36,6 +36,20 @@ async function showDetailView(id) {
   personName().textContent = member.name;
   personAbout().textContent = member.about;
 
+  if (member.research?.length) {
+    document.getElementById("research-section").style.display = "block";
+    const ul = document.getElementById("person-research");
+    member.research.forEach(r => {
+      const li = document.createElement("li");
+      const a = document.createElement("a");
+      a.href = r.href; a.target = "_blank"; a.rel = "noreferrer"; a.textContent = r.text;
+      const note = document.createElement("span");
+      note.className = "sub"; note.textContent = " (" + r.note + ")";
+      li.append(a, note);
+      ul.appendChild(li);
+    });
+  }
+
   if (member.links?.length) {
     renderList(personLinks(), member.links, createExternalLink);
   } else {

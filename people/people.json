@@ -36,6 +36,18 @@
           "href": "/cv/gabriel.pdf",
           "text": "CV resume"
         }
+      ],
+      "research": [
+        {
+          "href": "/papers/llm-human-manipulation.pdf",
+          "text": "Mutual Manipulation Between LLMs and Humans",
+          "note": "with A. Buzogany, 2025"
+        },
+        {
+          "href": "/papers/model-based-dl-medical-imaging.pdf",
+          "text": "Model-Based & Physics-Informed Deep Learning in Medical Imaging",
+          "note": "team of 5, 2025"
+        }
       ]
     }
   ]
