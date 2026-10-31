@@ -4,7 +4,7 @@
       "id": "gabriel",
       "name": "Francisco Gabriel Van Langenhove",
       "position": "GTM @ Pidgy · upcoming business philosopher",
-      "about": "GTM @ Pidgy. Solving email chaos, then trying to sell it (to you?).\nUpcoming business philosopher.\n\nWhen I'm not doing that:\n> @gabe.maxxing\n> brazilian jiu jitsu\n> planning surf / hike trip\n> learning chinese\n> shipping fun things with Claudia when I have a creative peak\nor counting the days until I can go back to China.\n\nAlways down for a good conversation. Say hi.",
+      "about": "GTM @ Pidgy. Solving email chaos, then trying to sell it (to you?).\nUpcoming business philosopher.\n\nWhen I'm not doing that:\n> @gabe.maxxing\n> brazilian jiu jitsu\n> planning surf / hike trip\n> luma SF maxxing\n> learning chinese\n> shipping fun things with Claudia when I have a creative peak\nor counting the days until I can go back to China.\n\nAlways down for a good conversation. Say hi.",
       "links": [
         {
           "type": "work",
@@ -30,6 +30,11 @@
           "type": "insta",
           "href": "https://instagram.com/gabinho_bjj/",
           "text": "@gabinho_bjj (bjj)"
+        },
+        {
+          "type": "x",
+          "href": "https://x.com/gabe_maxxing",
+          "text": "@gabe_maxxing (X)"
         },
         {
           "type": "cv",
