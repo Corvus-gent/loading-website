@@ -255,3 +255,4 @@ footer {
 }
 .corner-nav a:hover { color: var(--fg); border-color: var(--muted); }
 body:has(.corner-nav) main { padding-top: 64px; }
+.og-visitors { color: var(--faint); font-size: 12px; margin-top: 30px; }
