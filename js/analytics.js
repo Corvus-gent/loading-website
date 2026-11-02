@@ -2,7 +2,7 @@
  * PostHog analytics (cookieless: no consent banner needed).
  * Paste the project API key of a personal PostHog project below.
  */
-const POSTHOG_KEY = "phc_REPLACE_ME";
+const POSTHOG_KEY = "phc_tqJYxREMXWjzQusx6xNPuEa2fNCzKmVpAURSHKnVbpro";
 const POSTHOG_HOST = "https://eu.i.posthog.com";
 
 if (!POSTHOG_KEY.startsWith("phc_REPLACE")) {
