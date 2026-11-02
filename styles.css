@@ -256,3 +256,7 @@ footer {
 .corner-nav a:hover { color: var(--fg); border-color: var(--muted); }
 body:has(.corner-nav) main { padding-top: 64px; }
 .og-visitors { color: var(--faint); font-size: 12px; margin-top: 30px; }
+.call-drop summary { list-style: none; cursor: pointer; font-size: 20px; opacity: .55; transition: opacity .2s; display: inline-block; }
+.call-drop summary::-webkit-details-marker { display: none; }
+.call-drop summary:hover, .call-drop[open] summary { opacity: 1; }
+.call-drop .cta { margin-top: 10px; }
