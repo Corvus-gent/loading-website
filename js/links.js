@@ -83,6 +83,14 @@ if (person.trial) {
   const trial = a(person.trial, "lt-trial");
   trial.textContent = person.trial.text;
   document.getElementById("main").appendChild(trial);
+  const qr = document.createElement("details");
+  qr.className = "lt-qr";
+  qr.innerHTML = `<summary>▦ show QR for the free trial</summary>
+    <div class="lt-qr-card"><img src="${PIDGY_IMG}" alt="" class="lt-qr-bird"><img src="/img/pidgy-trial-qr.svg" alt="QR code: free Pidgy trial week" class="lt-qr-code"><span>scan → free trial week</span></div>`;
+  qr.addEventListener("toggle", () => {
+    if (qr.open && window.posthog?.capture) window.posthog.capture("links_qr_open", window.__phProps);
+  });
+  document.getElementById("main").appendChild(qr);
 }
 
 const fill = (id, list, cls) => list.forEach(l => { const el = a(l, cls); el.textContent = l.text; document.getElementById(id).appendChild(el); });

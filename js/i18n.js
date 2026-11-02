@@ -22,7 +22,7 @@ const STRINGS = {
   "nav.about": { en: "about", nl: "over mij", fr: "à propos", es: "sobre mí", pt: "sobre mim", de: "über mich", zh: "关于我" },
   "nav.sidequests": { en: "sidequests", nl: "sidequests", fr: "quêtes annexes", es: "misiones secundarias", pt: "missões secundárias", de: "nebenquests", zh: "支线任务" },
   "nav.now": { en: "now", nl: "nu", fr: "maintenant", es: "ahora", pt: "agora", de: "jetzt", zh: "现在" },
-  "footer.deceased": { en: "corvus (deceased)", nl: "corvus (overleden)", fr: "corvus (décédé)", es: "corvus (fallecido)", pt: "corvus (falecido)", de: "corvus (verstorben)", zh: "corvus（已故）" },
+  "footer.deceased": { en: "corvus · deceased 2025 · revived 2026", nl: "corvus · overleden 2025 · herrezen 2026", fr: "corvus · décédé 2025 · ressuscité 2026", es: "corvus · fallecido 2025 · resucitado 2026", pt: "corvus · falecido 2025 · ressuscitado 2026", de: "corvus · verstorben 2025 · auferstanden 2026", zh: "corvus · 2025 年逝去 · 2026 年复活" },
 
   "people.title": { en: "People @ Corvus", nl: "Mensen @ Corvus", fr: "Équipe @ Corvus", es: "Gente @ Corvus", pt: "Pessoas @ Corvus", de: "Leute @ Corvus", zh: "Corvus 的成员" },
   "people.population": { en: "population: 1", nl: "bevolking: 1", fr: "population : 1", es: "población: 1", pt: "população: 1", de: "Bevölkerung: 1", zh: "人口：1" },

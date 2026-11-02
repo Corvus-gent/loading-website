@@ -281,3 +281,23 @@ body:has(.corner-nav) main { padding-top: 64px; }
 .lt-main { margin-bottom: 8px; }
 .lt-trial { display: block; margin: 0 0 18px; padding: 10px 14px; border-radius: 12px; background: var(--fg); color: var(--bg) !important; font-weight: 600; border: 0; }
 .lt-trial:hover { opacity: .85; }
+
+/* --- every link underlined (buttons excluded) --- */
+a { text-decoration: underline; text-decoration-color: var(--faint); text-underline-offset: 3px; border-bottom: 0; }
+a:hover { text-decoration-color: var(--fg); border-bottom: 0; }
+.cta a, .lt-main, .lt-btn, .lt-trial, .corner-nav a, .lang-switcher a, .bmc, .tag a { text-decoration: none; }
+
+/* --- trial QR --- */
+.lt-qr { margin: -8px 0 18px; }
+.lt-qr summary { list-style: none; cursor: pointer; color: var(--muted); font-size: 12px; }
+.lt-qr summary::-webkit-details-marker { display: none; }
+.lt-qr[open] summary { color: var(--fg); }
+.lt-qr-card {
+  margin: 12px auto 0; width: 220px; padding: 14px 14px 12px; border-radius: 16px;
+  background: #f8f5ea; color: #1f3d4a; display: flex; flex-direction: column; align-items: center; gap: 6px;
+  animation: qrspawn .45s cubic-bezier(.2,1.4,.4,1);
+}
+.lt-qr-bird { width: 56px; margin-bottom: -6px; }
+.lt-qr-code { width: 180px; height: 180px; }
+.lt-qr-card span { font-size: 12px; font-weight: 600; }
+@keyframes qrspawn { from { transform: scale(.6) rotate(-6deg); opacity: 0; } to { transform: none; opacity: 1; } }

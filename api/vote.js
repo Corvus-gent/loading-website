@@ -2,7 +2,7 @@
 // 1. signed, HttpOnly voter cookie (one vote per voter, ever)
 // 2. one-time server challenge + proof-of-work (scripts pay CPU per vote)
 // 3. same-origin check
-// 4. per-IP limits: 1 vote / 24h, max 3 votes per IP forever
+// 4. per-IP limits (shared wifi friendly): 5 votes / 24h, 25 per IP forever
 import crypto from "node:crypto";
 import { redis, connected } from "./_redis.js";
 
@@ -60,10 +60,11 @@ export default async function handler(req, res) {
       const ipKey = crypto.createHash("sha256").update(ip + SECRET).digest("hex").slice(0, 32);
 
       if (await redis(["EXISTS", `voted:v:${voter}`])) return res.status(409).json({ error: "already voted" });
-      const daily = await redis(["SET", `voted:ipday:${ipKey}`, "1", "NX", "EX", "86400"]);
-      if (!daily) return res.status(429).json({ error: "one vote per day" });
+      const day = Number(await redis(["INCR", `voted:ipday:${ipKey}`]));
+      if (day === 1) await redis(["EXPIRE", `voted:ipday:${ipKey}`, "86400"]);
+      if (day > 5) return res.status(429).json({ error: "too many votes from this network today" });
       const total = Number(await redis(["INCR", `voted:iptotal:${ipKey}`]));
-      if (total > 3) return res.status(429).json({ error: "limit reached" });
+      if (total > 25) return res.status(429).json({ error: "too many votes from this network" });
       if (!(await redis(["SET", `voted:v:${voter}`, code, "NX"]))) return res.status(409).json({ error: "already voted" });
 
       await redis(["HINCRBY", "lang_votes", code, "1"]);
