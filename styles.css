@@ -308,3 +308,4 @@ a:hover { text-decoration-color: var(--fg); border-bottom: 0; }
 @keyframes flicker { 0%, 100% { opacity: 1; } 45% { opacity: .75; } 50% { opacity: .95; } 70% { opacity: .8; } }
 .term-no { opacity: 0; transition: opacity .6s; color: #ffd76a; text-decoration-color: rgba(255, 215, 106, .4); }
 .term-no.show { opacity: 1; }
+.term-nontech { color: var(--faint); }
