@@ -8,6 +8,16 @@
 
   <link rel="icon" type="image/png" href="/logo.png" />
   <link rel="stylesheet" href="/styles.css" />
+  <meta name="description" content="The crow died. The domain didn't." />
+  <meta property="og:title" content="corvus.gent" />
+  <meta property="og:description" content="The crow died. The domain didn't." />
+  <meta property="og:url" content="https://corvus.gent/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://corvus.gent/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://corvus.gent/og.png" />
 </head>
 <body>
   <main>
@@ -17,13 +27,17 @@
 
       <h1>Corvus 𓅨</h1>
       <p class="sub" data-i18n="home.sub">The crow died. The domain didn't.</p>
+      <p class="location"><span data-i18n="location.label">📍 currently in:</span> <span id="city">Gent</span></p>
 
       <nav aria-label="links">
         <a href="mailto:gabriel@corvus.gent" data-i18n="nav.contact">contact</a>
         <a href="/people/?id=gabriel" data-i18n="nav.about">about</a>
         <a href="/sidequests/" data-i18n="nav.sidequests">sidequests</a>
         <a href="/now/" data-i18n="nav.now">now</a>
+        <a href="/support/" data-i18n="nav.support">support</a>
       </nav>
+
+      <p class="term-hint"><a href="#" data-terminal>&gt;_ <span data-i18n="term.hint">press any key</span></a></p>
 
       <footer>
         © <span id="y"></span> <span data-i18n="footer.deceased">corvus (deceased)</span>
@@ -36,7 +50,12 @@
     import { setFooterYear } from "/js/utils.js";
     setFooterYear();
     initI18n();
+    fetch("/location.json", { cache: "no-store" })
+      .then(r => r.json())
+      .then(d => { document.getElementById("city").textContent = d.city; })
+      .catch(() => {});
   </script>
+  <script type="module" src="/js/terminal.js"></script>
   <script src="/js/analytics.js"></script>
 </body>
 </html>

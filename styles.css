@@ -154,3 +154,43 @@ footer {
 }
 .lang-switcher a { color: var(--faint); }
 .lang-switcher a.active { color: var(--fg); }
+
+/* --- terminal easter egg --- */
+.term {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.82);
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  z-index: 10;
+}
+.term-box {
+  width: min(640px, 100%);
+  height: min(380px, 70vh);
+  border: 1px solid var(--faint);
+  border-radius: 12px;
+  background: #050505;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  font-size: 13px;
+}
+.term-out { flex: 1; overflow-y: auto; color: var(--muted); white-space: pre-wrap; }
+.term-cmd { color: var(--fg); margin-top: 6px; }
+.term-line { display: flex; gap: 8px; color: var(--fg); }
+.term-line input {
+  flex: 1;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  color: var(--fg);
+  font: inherit;
+}
+.term-hint { color: var(--faint); font-size: 12px; margin-top: 10px; }
+.term-hint a { color: var(--faint); }
+
+/* --- location badge --- */
+.location { color: var(--faint); font-size: 12px; margin: -14px 0 22px; }

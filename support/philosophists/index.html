@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <title>Philosophists | corvus.gent</title>
+  <link rel="icon" type="image/png" href="/logo.png" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/people/styles.css" />
+  <meta name="description" content="People, companies and ideas I'd vouch for." />
+  <meta property="og:title" content="Philosophists | corvus.gent" />
+  <meta property="og:description" content="People, companies and ideas I'd vouch for." />
+  <meta property="og:url" content="https://corvus.gent/support/philosophists/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://corvus.gent/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://corvus.gent/og.png" />
+</head>
+<body class="people-page">
+  <main>
+    <div class="wrap">
+      <div class="lang-switcher" id="lang-switcher"></div>
+      <div class="tag"><a href="/">corvus.gent</a> / support / philosophists</div>
+      <h1 data-i18n="support.philosophists"></h1>
+      <section class="person-view-wrap">
+        <h2>Diogenes of Sinope</h2>
+        <p class="sub" data-i18n="phil.no1"></p>
+        <img src="/img/diogenes-sun.svg" alt="Diogenes in his barrel, the sun, and Alexander's shadow" style="width:100%;height:auto;margin:10px 0">
+        <p class="person-about" data-i18n="phil.alexander"></p>
+        <p class="person-about" data-i18n="phil.diogenes"></p>
+        <div class="phil-me" id="phil-me">
+          <img src="/img/gabriel.jpg" alt="Gabriel" onerror="document.getElementById('phil-me').style.display='none'">
+          <p class="sub" data-i18n="phil.me"></p>
+        </div>
+      </section>
+      <p><a href="/support/" data-i18n="support.back">← support</a></p>
+      <footer>© <span id="y"></span> corvus</footer>
+    </div>
+  </main>
+  <script type="module">
+    import { initI18n } from "/js/i18n.js";
+    import { setFooterYear } from "/js/utils.js";
+    setFooterYear();
+    initI18n();
+  </script>
+  <script src="/js/analytics.js"></script>
+</body>
+</html>

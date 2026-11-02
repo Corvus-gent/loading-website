@@ -83,3 +83,6 @@ body.people-page .dropdown-list {
   margin: 2px 0;
 }
 body.people-page .person-about a { color: var(--fg); border-bottom: none; padding-bottom: 0; text-decoration: underline; text-decoration-color: var(--faint); }
+
+body.people-page .phil-me { display: flex; align-items: center; gap: 14px; margin-top: 18px; }
+body.people-page .phil-me img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; filter: grayscale(1); border: 1px solid var(--faint); }
