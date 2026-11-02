@@ -1,5 +1,8 @@
 {
   "redirects": [
     { "source": "/gabriel", "destination": "/people/?id=gabriel", "permanent": false }
+  ],
+  "rewrites": [
+    { "source": "/go/:path*", "destination": "/go/index.html" }
   ]
 }

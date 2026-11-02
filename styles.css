@@ -194,3 +194,23 @@ footer {
 
 /* --- location badge --- */
 .location { color: var(--faint); font-size: 12px; margin: -14px 0 22px; }
+
+/* --- central call-to-action --- */
+.cta { margin: 6px 0 4px; }
+.cta a {
+  display: inline-block;
+  padding: 10px 16px;
+  border: 1px solid var(--fg);
+  border-radius: 999px;
+  color: var(--fg);
+}
+.cta a:hover { background: var(--fg); color: var(--bg); }
+
+/* --- request access form --- */
+.access-form { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+.access-form input, .access-form button {
+  font: inherit; font-size: 13px; padding: 8px 10px; border-radius: 8px;
+  border: 1px solid var(--faint); background: transparent; color: var(--fg);
+}
+.access-form input { flex: 1; min-width: 180px; }
+.access-form button { cursor: pointer; }

@@ -29,12 +29,15 @@
       <p class="sub" data-i18n="home.sub">The crow died. The domain didn't.</p>
       <p class="location"><span data-i18n="location.label">📍 currently in:</span> <span id="city">Gent</span></p>
 
+      <p class="cta" id="cta-book" style="display:none"><a id="book-link" href="#" target="_blank" rel="noreferrer" data-i18n="home.book">book a 15-min call</a></p>
+
       <nav aria-label="links">
         <a href="mailto:gabriel@corvus.gent" data-i18n="nav.contact">contact</a>
         <a href="/people/?id=gabriel" data-i18n="nav.about">about</a>
         <a href="/sidequests/" data-i18n="nav.sidequests">sidequests</a>
         <a href="/now/" data-i18n="nav.now">now</a>
         <a href="/support/" data-i18n="nav.support">support</a>
+        <a id="coffee-link" href="#" target="_blank" rel="noreferrer" style="display:none" data-i18n="home.coffee">buy me a coffee</a>
       </nav>
 
       <p class="term-hint"><a href="#" data-terminal>&gt;_ <span data-i18n="term.hint">press any key</span></a></p>
@@ -53,6 +56,13 @@
     fetch("/location.json", { cache: "no-store" })
       .then(r => r.json())
       .then(d => { document.getElementById("city").textContent = d.city; })
+      .catch(() => {});
+    fetch("/site.json", { cache: "no-store" })
+      .then(r => r.json())
+      .then(c => {
+        if (c.booking) { document.getElementById("book-link").href = c.booking; document.getElementById("cta-book").style.display = "block"; }
+        if (c.coffee) { const a = document.getElementById("coffee-link"); a.href = c.coffee; a.style.display = ""; }
+      })
       .catch(() => {});
   </script>
   <script type="module" src="/js/terminal.js"></script>

@@ -186,6 +186,10 @@ const STRINGS = {
     zh: "第欧根尼：“请别挡住我的阳光。”",
   },
   "phil.me": { en: "me. still carrying the lantern.", nl: "ik. draag de lantaarn nog altijd.", fr: "moi. je porte toujours la lanterne.", es: "yo. todavía llevo la linterna.", pt: "eu. ainda carrego a lanterna.", de: "ich. trage die Laterne immer noch.", zh: "我，依然提着那盏灯。" },
+  "books.request": { en: "request access", nl: "toegang aanvragen", fr: "demander l'accès", es: "solicitar acceso", pt: "pedir acesso", de: "Zugang anfragen", zh: "申请权限" },
+  "books.sent": { en: "Request received. Don't call us, we'll call you.", nl: "Aanvraag ontvangen. Bel ons niet, wij bellen jou.", fr: "Demande reçue. Ne nous appelle pas, on t'appellera.", es: "Solicitud recibida. No nos llames, nosotros te llamamos.", pt: "Pedido recebido. Não ligue pra gente, a gente liga pra você.", de: "Anfrage erhalten. Ruf uns nicht an, wir rufen dich an.", zh: "已收到申请。不用联系我们，我们会联系你。" },
+  "home.book": { en: "book a 15-min call", nl: "boek een call van 15 min", fr: "réserve un appel de 15 min", es: "reserva una llamada de 15 min", pt: "agende uma call de 15 min", de: "buch einen 15-Min-Call", zh: "预约 15 分钟通话" },
+  "home.coffee": { en: "buy me a coffee", nl: "trakteer me op een koffie", fr: "offre-moi un café", es: "invítame a un café", pt: "me paga um café", de: "spendier mir einen Kaffee", zh: "请我喝杯咖啡" },
 };
 
 function savedLang() {
