@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="color-scheme" content="dark" />
   <title>corvus.gent</title>
-
   <link rel="icon" type="image/png" href="/logo.png" />
   <link rel="stylesheet" href="/styles.css" />
   <meta name="description" content="The crow died. The domain didn't." />
@@ -21,34 +20,23 @@
 </head>
 <body>
   <main>
-    <div class="wrap">
+    <div class="wrap home">
       <div class="lang-switcher" id="lang-switcher"></div>
-      <div class="tag">corvus.gent</div>
-
-      <h1>Corvus 𓅨</h1>
-      <p class="sub" data-i18n="home.sub">The crow died. The domain didn't.</p>
+      <img class="hero" src="/img/diogenes.svg" alt="A crow flying towards Diogenes in his barrel, lantern in hand">
+      <p class="tagline" data-i18n="home.tagline">still looking for an honest man.</p>
       <p class="location"><span data-i18n="location.label">📍 currently in:</span> <span id="city">Gent</span></p>
 
-      <div id="cta-book" style="display:none">
-        <p class="cta"><a id="book-link" href="#" target="_blank" rel="noreferrer" data-i18n="home.book">book a free 15-min call</a></p>
-        <p class="sub" id="call60" style="display:none"><a id="book60-link" href="#" target="_blank" rel="noreferrer" data-i18n="home.call60"></a></p>
-        <p class="sub" data-i18n="home.broke"></p>
-      </div>
+      <p class="cta"><a href="/call/" data-i18n="home.callbtn">want to call with gabe maxxer? 📞</a></p>
 
       <nav aria-label="links">
-        <a href="mailto:gabriel@corvus.gent" data-i18n="nav.contact">contact</a>
         <a href="/people/?id=gabriel" data-i18n="nav.about">about</a>
         <a href="/sidequests/" data-i18n="nav.sidequests">sidequests</a>
         <a href="/now/" data-i18n="nav.now">now</a>
         <a href="/support/" data-i18n="nav.support">support</a>
-        <a id="coffee-link" href="#" target="_blank" rel="noreferrer" style="display:none" data-i18n="home.coffee">buy me a coffee</a>
       </nav>
 
       <p class="term-hint"><a href="#" data-terminal>&gt;_ <span data-i18n="term.hint">press any key</span></a></p>
-
-      <footer>
-        © <span id="y"></span> <span data-i18n="footer.deceased">corvus (deceased)</span>
-      </footer>
+      <footer>© <span id="y"></span> <span data-i18n="footer.deceased">corvus (deceased)</span></footer>
     </div>
   </main>
 
@@ -60,14 +48,6 @@
     fetch("/location.json", { cache: "no-store" })
       .then(r => r.json())
       .then(d => { document.getElementById("city").textContent = d.city; })
-      .catch(() => {});
-    fetch("/site.json", { cache: "no-store" })
-      .then(r => r.json())
-      .then(c => {
-        if (c.booking15) { document.getElementById("book-link").href = c.booking15; document.getElementById("cta-book").style.display = "block"; }
-        if (c.booking60) { document.getElementById("book60-link").href = c.booking60; document.getElementById("call60").style.display = "block"; }
-        if (c.coffee) { const a = document.getElementById("coffee-link"); a.href = c.coffee; a.style.display = ""; }
-      })
       .catch(() => {});
   </script>
   <script type="module" src="/js/terminal.js"></script>

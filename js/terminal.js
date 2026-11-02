@@ -84,6 +84,7 @@ function build() {
     <div class="term-box">
       <div class="term-out"></div>
       <div class="term-line"><span>$</span><input autocomplete="off" spellcheck="false" aria-label="terminal"></div>
+      <div class="term-foot">esc · click outside to close</div>
     </div>`;
   document.body.appendChild(overlay);
   out = overlay.querySelector(".term-out");

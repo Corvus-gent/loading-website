@@ -61,12 +61,6 @@ async function showDetailView(id) {
     });
   }
 
-  if (member.shoutouts?.length) {
-    $("shoutouts-section").style.display = "block";
-    const ul = $("person-shoutouts");
-    ul.innerHTML = "";
-    member.shoutouts.forEach(s => ul.appendChild(simpleLink(s)));
-  }
 
   $("person-links").innerHTML = "";
   renderList($("person-links"), member.links || [], createExternalLink);

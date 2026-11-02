@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <title>Call | corvus.gent</title>
+  <link rel="icon" type="image/png" href="/logo.png" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/people/styles.css" />
+  <meta name="description" content="Book a call with Gabriel." />
+  <meta property="og:title" content="Call | corvus.gent" />
+  <meta property="og:description" content="Book a call with Gabriel." />
+  <meta property="og:url" content="https://corvus.gent/call/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://corvus.gent/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://corvus.gent/og.png" />
+</head>
+<body class="people-page">
+  <main>
+    <div class="wrap">
+      <div class="lang-switcher" id="lang-switcher"></div>
+      <div class="tag"><a href="/">corvus.gent</a> / call</div>
+      <h1 data-i18n="call.title">Call</h1>
+      <p class="sub" data-i18n="call.who"></p>
+      <p class="cta"><a id="book-link" href="#" target="_blank" rel="noreferrer" data-i18n="home.book">book a free 15-min call</a></p>
+      <p><a id="coffee-link" href="#" target="_blank" rel="noreferrer" data-i18n="call.longer">☕ want a longer call? →</a></p>
+      <footer>© <span id="y"></span> corvus</footer>
+    </div>
+  </main>
+  <script type="module">
+    import { initI18n } from "/js/i18n.js";
+    import { setFooterYear } from "/js/utils.js";
+    setFooterYear();
+    initI18n();
+    fetch("/site.json", { cache: "no-store" }).then(r => r.json()).then(c => {
+      if (c.booking15) document.getElementById("book-link").href = c.booking15;
+      if (c.booking60) document.getElementById("coffee-link").href = c.booking60;
+    }).catch(() => {});
+  </script>
+  <script src="/js/analytics.js"></script>
+</body>
+</html>

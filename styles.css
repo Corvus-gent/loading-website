@@ -214,3 +214,10 @@ footer {
 }
 .access-form input { flex: 1; min-width: 180px; }
 .access-form button { cursor: pointer; }
+
+/* --- clean home --- */
+.home .hero { width: min(560px, 100%); height: auto; display: block; margin: 0 auto 8px; }
+.home .tagline { font-size: clamp(16px, 2.6vw, 22px); color: var(--fg); margin: 0 0 18px; }
+.home .location { margin: 0 0 26px; }
+.home nav { margin-top: 26px; font-size: 13px; }
+.term-foot { color: var(--faint); font-size: 11px; margin-top: 8px; text-align: right; }
