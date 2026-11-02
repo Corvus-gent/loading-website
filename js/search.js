@@ -3,6 +3,9 @@
  */
 
 const INDEX = [
+  { title: "wiki · corvuspedia", url: "/wiki/", keys: "wiki wikipedia encyclopedia corvuspedia" },
+  { title: "wiki · what is a corvus?", url: "/wiki/corvus/", keys: "corvus crow bird studio" },
+  { title: "wiki · what is a pidgy?", url: "/wiki/pidgy/", keys: "pidgy pigeon inbox email bird" },
   { title: "army · join the people", url: "/people/", keys: "army join people team crew recruit" },
   { title: "gabe · about me", url: "/gabe", keys: "gabe gabriel about me bio profile portfolio who" },
   { title: "call · book 15 min", url: "/call/", keys: "call book meeting talk coffee calendar" },
@@ -24,7 +27,7 @@ const INDEX = [
 
 function match(q) {
   q = q.trim().toLowerCase();
-  if (!q) return INDEX.slice(0, 1);
+  if (!q) return [INDEX[3], INDEX[0]];
   return INDEX.filter(i => (i.title + " " + i.keys).toLowerCase().includes(q)).slice(0, 6);
 }
 
@@ -32,7 +35,7 @@ export function renderSearch(container) {
   const box = document.createElement("div");
   box.className = "search";
   box.innerHTML = `<button class="search-btn" aria-label="search">⌕</button>
-    <input class="search-in" type="search" placeholder="try: army" aria-label="search the site" autocomplete="off">
+    <input class="search-in" type="search" placeholder="try: army or wiki" aria-label="search the site" autocomplete="off">
     <ul class="search-list"></ul>`;
   const btn = box.querySelector("button"), input = box.querySelector("input"), list = box.querySelector("ul");
 
