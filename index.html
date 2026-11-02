@@ -22,9 +22,9 @@
   <main>
     <div class="wrap home">
       <div class="lang-switcher" id="lang-switcher"></div>
-      <img class="hero" src="/img/diogenes.svg" alt="A crow flying towards Diogenes in his barrel, lantern in hand">
+      <img class="hero" id="hero" src="/img/diogenes.svg" title="?" alt="A crow flying towards Diogenes in his barrel, lantern in hand">
       <p class="tagline" data-i18n="home.tagline">still looking for an honest man.</p>
-      <p class="location"><span data-i18n="location.label">📍 currently in:</span> <span id="city">Gent</span></p>
+      <p class="location" id="loc"><span data-i18n="location.label">📍 currently in:</span> <span id="city">Gent</span></p>
 
       <p class="cta"><a href="/call/" data-i18n="home.callbtn">want to call with gabe maxxer? 📞</a></p>
 
@@ -49,6 +49,9 @@
       .then(r => r.json())
       .then(d => { document.getElementById("city").textContent = d.city; })
       .catch(() => {});
+    document.getElementById("hero").addEventListener("click", () => {
+      document.getElementById("loc").classList.toggle("show");
+    });
   </script>
   <script type="module" src="/js/terminal.js"></script>
   <script src="/js/analytics.js"></script>

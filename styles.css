@@ -221,3 +221,6 @@ footer {
 .home .location { margin: 0 0 26px; }
 .home nav { margin-top: 26px; font-size: 13px; }
 .term-foot { color: var(--faint); font-size: 11px; margin-top: 8px; text-align: right; }
+.home .hero { cursor: pointer; }
+.home .location { opacity: 0; max-height: 0; overflow: hidden; transition: opacity .3s, max-height .3s; margin: 0; }
+.home .location.show { opacity: 1; max-height: 40px; margin: 0 0 18px; }
