@@ -39,18 +39,9 @@
 
       <section class="suggest">
         <p data-i18n="sug.q">Which language should I learn next?</p>
-        <form id="sug-form" class="access-form">
-          <select name="language" id="sug-lang" required>
-            <option value="" data-i18n="sug.pick">pick one</option>
-            <option>日本語 (Japanese)</option><option>한국어 (Korean)</option><option>Italiano</option><option>العربية (Arabic)</option><option>Русский (Russian)</option><option>हिन्दी (Hindi)</option><option>Türkçe</option><option>Svenska</option><option>Polski</option><option>Ελληνικά (Greek)</option>
-            <option value="other" data-i18n="sug.other">other</option>
-          </select>
-          <div id="sug-more" style="display:none; width:100%">
-            <input type="text" name="why" data-i18n-placeholder="sug.why" placeholder="why? (convince me in one line)" maxlength="200">
-            <button type="submit" data-i18n="sug.send">send</button>
-          </div>
-        </form>
-        <p class="sub" id="sug-done" style="display:none" data-i18n="sug.thanks"></p>
+        <select id="sug-lang" aria-label="language"><option value="" data-i18n="sug.pick">pick one</option></select>
+        <p class="sub" id="sug-status"></p>
+        <div id="sug-results"></div>
       </section>
       <footer>© <span id="y"></span> corvus</footer>
     </div>
@@ -61,24 +52,48 @@
     setFooterYear();
     initI18n();
     requestAnimationFrame(() => document.querySelector(".langs").classList.add("go"));
-    const form = document.getElementById("sug-form");
-    document.getElementById("sug-lang").addEventListener("change", e => {
-      document.getElementById("sug-more").style.display = e.target.value ? "flex" : "none";
+    const MINE = ["en", "nl", "es", "fr", "pt", "de", "zh"];
+    const CODES = "af am ar as az be bg bn bo br bs ca cs cy da dz el eo et eu fa fi fil fo ga gd gl gu ha he hi hr ht hu hy id ig is it ja jv ka kk km kn ko ku ky la lb lo lt lv mg mi mk ml mn mr ms mt my ne no or pa pl ps qu ro ru rw sa sd si sk sl sm so sq sr su sv sw ta te tg th ti tk tl tr tt ug uk ur uz vi wo xh yi yo zu".split(" ").filter(c => !MINE.includes(c));
+    const names = new Intl.DisplayNames(["en"], { type: "language" });
+    const label = c => { try { const own = new Intl.DisplayNames([c], { type: "language" }).of(c); const en = names.of(c); return own && own !== en ? `${en} (${own})` : en; } catch { return c; } };
+    const sel = document.getElementById("sug-lang");
+    CODES.map(c => [c, label(c)]).sort((a, b) => a[1].localeCompare(b[1])).forEach(([c, l]) => {
+      const o = document.createElement("option"); o.value = c; o.textContent = l; sel.appendChild(o);
     });
-    form.addEventListener("submit", async e => {
-      e.preventDefault();
-      const language = form.language.value, why = form.why.value;
+
+    function render(votes) {
+      const box = document.getElementById("sug-results");
+      const rows = Object.entries(votes || {}).sort((a, b) => b[1] - a[1]).slice(0, 8);
+      const max = Math.max(1, ...rows.map(r => r[1]));
+      box.innerHTML = "";
+      rows.forEach(([c, n]) => {
+        const row = document.createElement("div");
+        row.className = "lrow";
+        row.innerHTML = `<span class="lname"></span><span class="lbar"><span style="width:${(n / max) * 100}%"></span></span><span class="lval">${n}</span>`;
+        row.querySelector(".lname").textContent = names.of(c);
+        box.appendChild(row);
+      });
+    }
+    async function load(method = "GET", lang) {
       try {
-        await fetch("https://formsubmit.co/ajax/gabriel@corvus.gent", {
-          method: "POST",
-          headers: { "Content-Type": "application/json", Accept: "application/json" },
-          body: JSON.stringify({ language, why, _subject: "🗣️ Language suggestion: " + language }),
-        });
-      } catch {}
-      if (window.posthog?.capture) window.posthog.capture("language_suggestion", { language });
-      form.style.display = "none";
-      document.getElementById("sug-done").style.display = "block";
+        const r = await fetch("/api/vote", method === "POST"
+          ? { method, headers: { "Content-Type": "application/json" }, body: JSON.stringify({ lang }) }
+          : { cache: "no-store" });
+        if (!r.ok) throw 0;
+        render((await r.json()).votes);
+      } catch { document.getElementById("sug-status").textContent = "voting opens soon."; }
+    }
+    let voted = null; try { voted = localStorage.getItem("voted_lang"); } catch {}
+    if (voted) { sel.value = voted; sel.disabled = true; }
+    sel.addEventListener("change", async () => {
+      if (!sel.value) return;
+      sel.disabled = true;
+      try { localStorage.setItem("voted_lang", sel.value); } catch {}
+      if (window.posthog?.capture) window.posthog.capture("language_vote", { language: sel.value });
+      await load("POST", sel.value);
     });
+    load();
+    setInterval(load, 10000);
   </script>
   <script src="/js/analytics.js"></script>
 </body>

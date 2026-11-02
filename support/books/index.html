@@ -50,10 +50,10 @@
           e.preventDefault();
           const email = e.target.email.value;
           try {
-            await fetch("https://formsubmit.co/ajax/gabriel@corvus.gent", {
+            await fetch("/api/access", {
               method: "POST",
-              headers: { "Content-Type": "application/json", Accept: "application/json" },
-              body: JSON.stringify({ email, _subject: "📚 Goodreads access request", page: "corvus.gent/support/books" }),
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ email }),
             });
           } catch {}
           e.target.style.display = "none";
