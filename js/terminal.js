@@ -33,6 +33,9 @@ const COMMANDS = {
   diogenes: () => ["stand a little out of my sun."],
   lantern: () => ["still looking for an honest man."],
   pay: () => ["402 payment required."],
+  pidgy: () => ["coo. 🐦", "→ pidgy-ai.com"],
+  coo: () => ["coo coo."],
+  headache: () => ["fast-acting inbox relief: paracetamail® 500 mg", "side effects may include free time."].concat(go("/img/paracetamail.png")),
   sudo: args => args.join(" ") === "hire gabe"
     ? ["permission granted.", "→ gabriel@corvus.gent"]
     : ["nice try."],

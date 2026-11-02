@@ -1,3 +1,4 @@
+import "./eggs.js";
 import { renderSearch } from "./search.js";
 /**
  * Tiny i18n layer: 7 languages, picked from ?lang=, then saved choice, then browser.
