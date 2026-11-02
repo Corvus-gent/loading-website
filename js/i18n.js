@@ -1,3 +1,4 @@
+import { renderSearch } from "./search.js";
 /**
  * Tiny i18n layer: 7 languages, picked from ?lang=, then saved choice, then browser.
  * Elements with data-i18n="key" get their text replaced.
@@ -299,10 +300,12 @@ export function renderSwitcher(onChange) {
 }
 
 function renderCornerNav() {
-  if (location.pathname === "/" || document.getElementById("corner-nav")) return;
+  if (document.getElementById("corner-nav")) return;
   const nav = document.createElement("div");
   nav.id = "corner-nav";
   nav.className = "corner-nav";
+  renderSearch(nav);
+  if (location.pathname === "/") { document.body.appendChild(nav); return; }
   const back = document.createElement("a");
   back.href = "#"; back.textContent = "←"; back.title = "back"; back.setAttribute("aria-label", "back");
   back.addEventListener("click", e => {

@@ -309,3 +309,15 @@ a:hover { text-decoration-color: var(--fg); border-bottom: 0; }
 .term-no { opacity: 0; transition: opacity .6s; color: #ffd76a; text-decoration-color: rgba(255, 215, 106, .4); }
 .term-no.show { opacity: 1; }
 .term-nontech { color: var(--faint); }
+
+/* --- tiny search --- */
+.search { position: relative; display: flex; align-items: center; }
+.search-btn { width: 32px; height: 32px; border-radius: 999px; border: 1px solid var(--faint); background: rgba(0,0,0,.6); color: var(--muted); font: inherit; font-size: 16px; cursor: pointer; padding: 0; }
+.search-in { width: 0; opacity: 0; padding: 0; border: 0; transition: width .25s, opacity .2s; background: transparent; color: var(--fg); font: inherit; font-size: 12px; outline: 0; }
+.search.open .search-in { width: 140px; opacity: 1; padding: 6px 10px; margin-right: 6px; border: 1px solid var(--faint); border-radius: 999px; background: #000; order: -1; }
+.search-list { display: none; position: absolute; top: 38px; right: 0; width: 230px; list-style: none; margin: 0; padding: 6px; background: #050505; border: 1px solid var(--faint); border-radius: 10px; text-align: left; font-size: 12px; }
+.search.open .search-list { display: block; }
+.search-list a { display: block; padding: 5px 6px; text-decoration: none; }
+.search-list a:hover { background: #111; }
+.corner-nav .search-list a { display: block; width: auto; height: auto; border: 0; border-radius: 6px; background: none; place-items: initial; font-size: 12px; color: var(--muted); padding: 6px 8px; text-align: left; }
+.corner-nav .search-list a:hover { color: var(--fg); background: #111; }
