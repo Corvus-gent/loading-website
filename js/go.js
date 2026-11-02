@@ -26,7 +26,7 @@ export async function resolve(pathname) {
 
   if (EXTERNAL[target] || target === "book" || target === "coffee") {
     const cfg = await siteConfig();
-    const base = EXTERNAL[target] || cfg[target === "book" ? "booking" : "coffee"] || TARGETS.me;
+    const base = EXTERNAL[target] || cfg[target === "book" ? "booking15" : "coffee"] || TARGETS.me;
     const url = new URL(base, location.origin);
     url.searchParams.set("utm_source", source);
     url.searchParams.set("utm_medium", "social");

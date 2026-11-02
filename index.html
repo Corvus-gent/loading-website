@@ -29,7 +29,11 @@
       <p class="sub" data-i18n="home.sub">The crow died. The domain didn't.</p>
       <p class="location"><span data-i18n="location.label">📍 currently in:</span> <span id="city">Gent</span></p>
 
-      <p class="cta" id="cta-book" style="display:none"><a id="book-link" href="#" target="_blank" rel="noreferrer" data-i18n="home.book">book a 15-min call</a></p>
+      <div id="cta-book" style="display:none">
+        <p class="cta"><a id="book-link" href="#" target="_blank" rel="noreferrer" data-i18n="home.book">book a free 15-min call</a></p>
+        <p class="sub" id="call60" style="display:none"><a id="book60-link" href="#" target="_blank" rel="noreferrer" data-i18n="home.call60"></a></p>
+        <p class="sub" data-i18n="home.broke"></p>
+      </div>
 
       <nav aria-label="links">
         <a href="mailto:gabriel@corvus.gent" data-i18n="nav.contact">contact</a>
@@ -60,7 +64,8 @@
     fetch("/site.json", { cache: "no-store" })
       .then(r => r.json())
       .then(c => {
-        if (c.booking) { document.getElementById("book-link").href = c.booking; document.getElementById("cta-book").style.display = "block"; }
+        if (c.booking15) { document.getElementById("book-link").href = c.booking15; document.getElementById("cta-book").style.display = "block"; }
+        if (c.booking60) { document.getElementById("book60-link").href = c.booking60; document.getElementById("call60").style.display = "block"; }
         if (c.coffee) { const a = document.getElementById("coffee-link"); a.href = c.coffee; a.style.display = ""; }
       })
       .catch(() => {});
