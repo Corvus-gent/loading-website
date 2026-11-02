@@ -225,3 +225,6 @@ footer {
 .home .location { opacity: 0; max-height: 0; overflow: hidden; transition: opacity .3s, max-height .3s; margin: 0; }
 .home .location.show { opacity: 1; max-height: 40px; margin: 0 0 18px; }
 .bmc img { height: 44px; width: auto; border: 0; } .bmc { border-bottom: 0 !important; }
+.cta + .longer { margin-top: 36px; }
+.longer { display: inline-flex; align-items: center; gap: 14px; flex-wrap: wrap; justify-content: center; color: var(--muted); font-size: 14px; }
+.longer .bmc img { height: 36px; display: block; }
