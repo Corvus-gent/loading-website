@@ -298,7 +298,26 @@ export function renderSwitcher(onChange) {
   box.appendChild(stats);
 }
 
+function renderCornerNav() {
+  if (location.pathname === "/" || document.getElementById("corner-nav")) return;
+  const nav = document.createElement("div");
+  nav.id = "corner-nav";
+  nav.className = "corner-nav";
+  const back = document.createElement("a");
+  back.href = "#"; back.textContent = "←"; back.title = "back"; back.setAttribute("aria-label", "back");
+  back.addEventListener("click", e => {
+    e.preventDefault();
+    if (history.length > 1 && document.referrer.startsWith(location.origin)) history.back();
+    else location.href = "/";
+  });
+  const home = document.createElement("a");
+  home.href = "/"; home.textContent = "⌂"; home.title = "home"; home.setAttribute("aria-label", "home");
+  nav.append(back, home);
+  document.body.appendChild(nav);
+}
+
 export function initI18n(onChange) {
   applyI18n();
   renderSwitcher(onChange);
+  renderCornerNav();
 }

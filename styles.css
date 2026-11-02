@@ -245,3 +245,12 @@ footer {
 .suggest select { font: inherit; font-size: 13px; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--faint); background: #000; color: var(--fg); width: 100%; }
 #sug-more { gap: 8px; margin-top: 8px; }
 #sug-more input { flex: 1; }
+
+/* --- corner nav (back + home) --- */
+.corner-nav { position: fixed; top: 14px; right: 16px; display: flex; gap: 6px; z-index: 5; }
+.corner-nav a {
+  display: grid; place-items: center; width: 32px; height: 32px;
+  border: 1px solid var(--faint); border-radius: 999px; color: var(--muted);
+  font-size: 15px; padding: 0; background: rgba(0,0,0,.6);
+}
+.corner-nav a:hover { color: var(--fg); border-color: var(--muted); }
