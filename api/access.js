@@ -1,6 +1,8 @@
 // Goodreads "request access": stores emails in Upstash Redis (no emails sent).
-const URL_ = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
-const TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+// Works with any prefix Vercel gives the Upstash vars (KV_, STORAGE_, UPSTASH_REDIS_ ...)
+const envEnding = end => Object.entries(process.env).find(([k, v]) => k.endsWith(end) && !k.includes("READ_ONLY") && v)?.[1];
+const URL_ = envEnding("_REST_API_URL") || envEnding("_REDIS_REST_URL");
+const TOKEN = envEnding("_REST_API_TOKEN") || envEnding("_REDIS_REST_TOKEN");
 
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).end();
