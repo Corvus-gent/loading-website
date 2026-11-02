@@ -1,0 +1,8 @@
+{
+  "name": "corvus-gent",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "redis": "^4.7.0"
+  }
+}

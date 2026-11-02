@@ -15,3 +15,4 @@ Thumbs.db
 
 # Local dev servers
 .env
+node_modules
