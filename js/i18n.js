@@ -4,7 +4,7 @@
  */
 
 export const LANGS = [
-  ["en", "EN"], ["nl", "NL"], ["fr", "FR"], ["es", "ES"],
+  ["en", "EN"], ["nl", "NL"], ["es", "ES"], ["fr", "FR"],
   ["pt", "PT"], ["de", "DE"], ["zh", "中文"],
 ];
 
@@ -28,13 +28,13 @@ const STRINGS = {
   "people.population": { en: "population: 1", nl: "bevolking: 1", fr: "population : 1", es: "población: 1", pt: "população: 1", de: "Bevölkerung: 1", zh: "人口：1" },
 
   "profile.languages": {
-    en: "Speaks 7 languages: EN · NL · FR · ES · PT · DE · 中文",
-    nl: "Spreekt 7 talen: EN · NL · FR · ES · PT · DE · 中文",
-    fr: "Parle 7 langues : EN · NL · FR · ES · PT · DE · 中文",
-    es: "Habla 7 idiomas: EN · NL · FR · ES · PT · DE · 中文",
-    pt: "Fala 7 idiomas: EN · NL · FR · ES · PT · DE · 中文",
-    de: "Spricht 7 Sprachen: EN · NL · FR · ES · PT · DE · 中文",
-    zh: "会说 7 种语言：EN · NL · FR · ES · PT · DE · 中文",
+    en: "Speaks 7 languages: EN · NL · ES · FR · PT · DE · 中文",
+    nl: "Spreekt 7 talen: EN · NL · ES · FR · PT · DE · 中文",
+    fr: "Parle 7 langues : EN · NL · ES · FR · PT · DE · 中文",
+    es: "Habla 7 idiomas: EN · NL · ES · FR · PT · DE · 中文",
+    pt: "Fala 7 idiomas: EN · NL · ES · FR · PT · DE · 中文",
+    de: "Spricht 7 Sprachen: EN · NL · ES · FR · PT · DE · 中文",
+    zh: "会说 7 种语言：EN · NL · ES · FR · PT · DE · 中文",
   },
   "sec.about": { en: "About", nl: "Over mij", fr: "À propos", es: "Sobre mí", pt: "Sobre mim", de: "Über mich", zh: "关于我" },
   "sec.research": { en: "Research", nl: "Onderzoek", fr: "Recherche", es: "Investigación", pt: "Pesquisa", de: "Forschung", zh: "研究" },
@@ -221,6 +221,10 @@ const STRINGS = {
     zh: "在世界各地结识创始人。中国、葡萄牙、旧金山。很快会更多。",
   },
   "sq.travel.follow": { en: "follow along:", nl: "volg mee:", fr: "suis l'aventure :", es: "sígueme:", pt: "acompanhe:", de: "folge mit:", zh: "关注：" },
+  "lang.title": { en: "Languages", nl: "Talen", fr: "Langues", es: "Idiomas", pt: "Idiomas", de: "Sprachen", zh: "语言" },
+  "lang.sub": { en: "Seven and counting. Honest scores.", nl: "Zeven en het worden er meer. Eerlijke scores.", fr: "Sept, et ce n'est pas fini. Scores honnêtes.", es: "Siete y contando. Notas honestas.", pt: "Sete e contando. Notas honestas.", de: "Sieben und es werden mehr. Ehrliche Werte.", zh: "七种，还在增加。诚实打分。" },
+  "lang.zh.note": { en: "nǐ hǎo & xièxie. fluent in 6 months. stay tuned.", nl: "nǐ hǎo & xièxie. vloeiend binnen 6 maanden. stay tuned.", fr: "nǐ hǎo & xièxie. courant dans 6 mois. restez à l'écoute.", es: "nǐ hǎo & xièxie. fluido en 6 meses. atentos.", pt: "nǐ hǎo & xièxie. fluente em 6 meses. fiquem ligados.", de: "nǐ hǎo & xièxie. fließend in 6 Monaten. stay tuned.", zh: "你好 & 谢谢。六个月内流利。敬请期待。" },
+  "home.evolving": { en: "this website is constantly evolving. peek again whenever you have time.", nl: "deze website evolueert constant. kom gerust nog eens piepen.", fr: "ce site évolue sans cesse. reviens jeter un œil quand tu as le temps.", es: "esta web evoluciona constantemente. vuelve a echar un vistazo cuando tengas tiempo.", pt: "este site está sempre evoluindo. volte para espiar quando tiver tempo.", de: "diese Website entwickelt sich ständig weiter. schau einfach wieder rein.", zh: "这个网站在不断进化。有空随时回来看看。" },
 };
 
 function savedLang() {

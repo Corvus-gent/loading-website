@@ -4,7 +4,7 @@
 
 const PAGES = {
   home: "/", about: "/gabriel", now: "/now/", sidequests: "/sidequests/",
-  support: "/support/", "402": "/402/", cv: "/cv/gabriel.pdf",
+  support: "/support/", languages: "/languages/", "402": "/402/", cv: "/cv/gabriel.pdf",
 };
 
 const COMMANDS = {

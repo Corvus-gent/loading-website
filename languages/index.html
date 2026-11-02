@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <title>Languages | corvus.gent</title>
+  <link rel="icon" type="image/png" href="/logo.png" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/people/styles.css" />
+  <meta name="description" content="Seven languages. Honest scores." />
+  <meta property="og:title" content="Languages | corvus.gent" />
+  <meta property="og:description" content="Seven languages. Honest scores." />
+  <meta property="og:url" content="https://corvus.gent/languages/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://corvus.gent/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://corvus.gent/og.png" />
+</head>
+<body class="people-page">
+  <main>
+    <div class="wrap">
+      <div class="lang-switcher" id="lang-switcher"></div>
+      <div class="tag"><a href="/">corvus.gent</a> / languages</div>
+      <h1 data-i18n="lang.title">Languages</h1>
+      <p class="sub" data-i18n="lang.sub"></p>
+      <section class="langs">
+        <div class="lrow"><span class="lname">English</span><span class="lbar"><span style="--w:97%"></span></span><span class="lval">97%</span></div>
+        <div class="lrow"><span class="lname">Nederlands</span><span class="lbar"><span style="--w:99%"></span></span><span class="lval">99%</span></div>
+        <div class="lrow"><span class="lname">Español</span><span class="lbar"><span style="--w:88%"></span></span><span class="lval">88%</span></div>
+        <div class="lrow"><span class="lname">Français</span><span class="lbar"><span style="--w:72%"></span></span><span class="lval">72%</span></div>
+        <div class="lrow"><span class="lname">Português</span><span class="lbar"><span style="--w:44%"></span></span><span class="lval">44%</span></div>
+        <div class="lrow"><span class="lname">Deutsch</span><span class="lbar"><span style="--w:33%"></span></span><span class="lval">33%</span></div>
+        <div class="lrow"><span class="lname">中文</span><span class="lbar"><span style="--w:1%"></span></span><span class="lval">1%</span></div>
+        <p class="sub lnote" data-i18n="lang.zh.note"></p>
+      </section>
+      <footer>© <span id="y"></span> corvus</footer>
+    </div>
+  </main>
+  <script type="module">
+    import { initI18n } from "/js/i18n.js";
+    import { setFooterYear } from "/js/utils.js";
+    setFooterYear();
+    initI18n();
+    requestAnimationFrame(() => document.querySelector(".langs").classList.add("go"));
+  </script>
+  <script src="/js/analytics.js"></script>
+</body>
+</html>

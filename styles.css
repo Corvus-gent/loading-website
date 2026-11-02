@@ -228,3 +228,14 @@ footer {
 .cta + .longer { margin-top: 36px; }
 .longer { display: inline-flex; align-items: center; gap: 14px; flex-wrap: wrap; justify-content: center; color: var(--muted); font-size: 14px; }
 .longer .bmc img { height: 36px; display: block; }
+
+/* --- languages page --- */
+.langs { text-align: left; margin-top: 10px; }
+.lrow { display: grid; grid-template-columns: 110px 1fr 48px; align-items: center; gap: 12px; margin: 12px 0; font-size: 14px; }
+.lname { color: var(--fg); }
+.lval { color: var(--muted); text-align: right; }
+.lbar { height: 6px; border: 1px solid var(--faint); border-radius: 999px; overflow: hidden; }
+.lbar span { display: block; height: 100%; width: 0; background: var(--fg); transition: width 1.2s ease; }
+.langs.go .lbar span { width: var(--w); }
+.lnote { margin-top: 4px; text-align: right; }
+.home .evolving { color: var(--faint); font-size: 12px; margin: 22px 0 0; }
