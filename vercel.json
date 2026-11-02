@@ -1,0 +1,5 @@
+{
+  "redirects": [
+    { "source": "/gabriel", "destination": "/people/?id=gabriel", "permanent": false }
+  ]
+}

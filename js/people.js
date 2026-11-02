@@ -34,7 +34,7 @@ async function showDetailView(id) {
   }
 
   personName().textContent = member.name;
-  personAbout().textContent = member.about;
+  personAbout().innerHTML = member.about; // trusted content from people.json
 
   if (member.research?.length) {
     document.getElementById("research-section").style.display = "block";

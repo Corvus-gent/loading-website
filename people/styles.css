@@ -66,3 +66,20 @@ body.people-page .cta-section {
 body.people-page .person-about {
   white-space: pre-line;
 }
+
+/* dropdowns in contacts */
+body.people-page .contact-list summary {
+  cursor: pointer;
+  color: var(--muted);
+  list-style: none;
+}
+body.people-page .contact-list summary::-webkit-details-marker { display: none; }
+body.people-page .contact-list summary::after { content: " +"; color: var(--faint); }
+body.people-page .contact-list details[open] > summary::after { content: " −"; }
+body.people-page .contact-list summary:hover { color: var(--fg); }
+body.people-page .dropdown-list {
+  list-style: none;
+  padding: 0 0 4px 16px;
+  margin: 2px 0;
+}
+body.people-page .person-about a { color: var(--fg); border-bottom: none; padding-bottom: 0; text-decoration: underline; text-decoration-color: var(--faint); }

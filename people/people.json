@@ -4,42 +4,96 @@
       "id": "gabriel",
       "name": "Francisco Gabriel Van Langenhove",
       "position": "GTM @ Pidgy · upcoming business philosopher",
-      "about": "GTM @ Pidgy. Solving email chaos, then trying to sell it (to you?).\nUpcoming business philosopher.\n\nWhen I'm not doing that:\n> @gabe.maxxing\n> brazilian jiu jitsu\n> planning surf / hike trip\n> luma SF maxxing\n> learning chinese\n> shipping fun things with Claudia when I have a creative peak\nor counting the days until I can go back to China.\n\nAlways down for a good conversation. Say hi.",
+      "about": "GTM @ <a href=\"https://pidgy-ai.com\" target=\"_blank\" rel=\"noreferrer\">Pidgy</a> (by <a href=\"https://alkmist.com\" target=\"_blank\" rel=\"noreferrer\">Alkmist</a>). Solving email chaos, then trying to sell it (to you?).\nUpcoming business philosopher.\n\nWhen I'm not doing that:\n> @gabe.maxxing\n> brazilian jiu jitsu\n> planning surf / hike trip\n> luma SF maxxing\n> learning chinese\n> shipping fun things with Claudia when I have a creative peak\nor counting the days until I can go back to China.\n\nAlways down for a good conversation. Say hi.",
       "links": [
         {
-          "type": "work",
-          "href": "https://pidgy-ai.com",
-          "text": "Pidgy"
+          "text": "Pidgy",
+          "href": "https://pidgy-ai.com"
         },
         {
-          "type": "linkedin",
-          "href": "https://linkedin.com/in/francisco-gabriel-van-langenhove/",
-          "text": "LinkedIn"
+          "text": "Alkmist",
+          "href": "https://alkmist.com"
         },
         {
-          "type": "mail",
-          "href": "mailto:gabriel@corvus.gent",
-          "text": "E-mail"
+          "text": "LinkedIn",
+          "items": [
+            {
+              "text": "personal",
+              "href": "https://www.linkedin.com/in/francisco-gabriel-van-langenhove/"
+            },
+            {
+              "text": "Pidgy",
+              "href": "https://www.linkedin.com/company/pidgy/"
+            },
+            {
+              "text": "Alkmist",
+              "href": "https://www.linkedin.com/company/alkmist-global/"
+            }
+          ]
         },
         {
-          "type": "insta",
-          "href": "https://instagram.com/gabe.maxxing/",
-          "text": "@gabe.maxxing (startup)"
+          "text": "Instagram",
+          "items": [
+            {
+              "text": "@gabe.maxxing (startup)",
+              "href": "https://instagram.com/gabe.maxxing/"
+            },
+            {
+              "text": "@gabinho_bjj (bjj)",
+              "href": "https://instagram.com/gabinho_bjj/"
+            }
+          ]
         },
         {
-          "type": "insta",
-          "href": "https://instagram.com/gabinho_bjj/",
-          "text": "@gabinho_bjj (bjj)"
+          "text": "TikTok",
+          "items": [
+            {
+              "text": "@gabriellvl (general)",
+              "href": "https://www.tiktok.com/@gabriellvl"
+            },
+            {
+              "text": "@gabinho_bjj (bjj)",
+              "href": "https://www.tiktok.com/@gabinho_bjj"
+            },
+            {
+              "text": "@gabe.maxxing (startup)",
+              "href": "https://www.tiktok.com/@gabe.maxxing"
+            }
+          ]
         },
         {
-          "type": "x",
-          "href": "https://x.com/gabe_maxxing",
-          "text": "@gabe_maxxing (X)"
+          "text": "X",
+          "items": [
+            {
+              "text": "@gabe_maxxing",
+              "href": "https://x.com/gabe_maxxing"
+            },
+            {
+              "text": "@pidgy_ai",
+              "href": "https://x.com/pidgy_ai"
+            }
+          ]
         },
         {
-          "type": "cv",
-          "href": "/cv/gabriel.pdf",
-          "text": "CV resume"
+          "text": "my cool bosses",
+          "items": [
+            {
+              "text": "Toto De Brant",
+              "href": "https://www.linkedin.com/in/toto/"
+            },
+            {
+              "text": "Mathias Celis",
+              "href": "https://www.linkedin.com/in/mathiascelis/"
+            }
+          ]
+        },
+        {
+          "text": "E-mail",
+          "href": "mailto:gabriel@corvus.gent"
+        },
+        {
+          "text": "CV resume",
+          "href": "/cv/gabriel.pdf"
         }
       ],
       "research": [
