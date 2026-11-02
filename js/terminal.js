@@ -82,6 +82,8 @@ function build() {
   overlay.className = "term";
   overlay.innerHTML = `
     <div class="term-box">
+      <div class="term-warn"><span class="term-lantern" aria-hidden="true"></span>do you know what a terminal is?
+        <a class="term-no" href="https://en.wikipedia.org/wiki/Command-line_interface" target="_blank" rel="noreferrer">no? → this is one</a></div>
       <div class="term-out"></div>
       <div class="term-line"><span>$</span><input autocomplete="off" spellcheck="false" aria-label="terminal"></div>
       <div class="term-foot">esc · click outside to close</div>
@@ -100,6 +102,9 @@ function build() {
 function open(firstKey) {
   if (!overlay) build();
   overlay.style.display = "flex";
+  const no = overlay.querySelector(".term-no");
+  no.classList.remove("show");
+  setTimeout(() => no.classList.add("show"), 2000);
   input.focus();
   if (firstKey) input.value = firstKey;
 }

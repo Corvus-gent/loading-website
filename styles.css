@@ -301,3 +301,10 @@ a:hover { text-decoration-color: var(--fg); border-bottom: 0; }
 .lt-qr-code { width: 180px; height: 180px; }
 .lt-qr-card span { font-size: 12px; font-weight: 600; }
 @keyframes qrspawn { from { transform: scale(.6) rotate(-6deg); opacity: 0; } to { transform: none; opacity: 1; } }
+
+/* --- terminal warning with Diogenes' lantern --- */
+.term-warn { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; color: var(--muted); font-size: 12px; padding-bottom: 10px; margin-bottom: 10px; border-bottom: 1px solid #1a1a1a; }
+.term-lantern { width: 9px; height: 13px; border-radius: 3px; background: #ffd76a; box-shadow: 0 0 10px 4px rgba(255, 215, 106, .45); animation: flicker 2.4s infinite; }
+@keyframes flicker { 0%, 100% { opacity: 1; } 45% { opacity: .75; } 50% { opacity: .95; } 70% { opacity: .8; } }
+.term-no { opacity: 0; transition: opacity .6s; color: #ffd76a; text-decoration-color: rgba(255, 215, 106, .4); }
+.term-no.show { opacity: 1; }
