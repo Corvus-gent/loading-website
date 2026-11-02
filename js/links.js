@@ -16,6 +16,7 @@ const PEOPLE = {
     photo: "/img/gabe.jpg",
     line: "GTM @ Pidgy · upcoming business philosopher",
     main: { id: "pidgy", text: "Try Pidgy, your AI inbox agent", href: "https://pidgy-ai.com/", img: PIDGY_IMG },
+    trial: { id: "pidgy-trial", text: "start your free trial week →", href: "https://app.pidgy-ai.com/?invite=GABE" },
     links: [
       { id: "call", text: "📞 book a free 15-min call", href: "/call/" },
       { id: "portfolio", text: "portfolio", href: "/people/?id=gabe" },
@@ -78,6 +79,11 @@ const main = a(person.main, "lt-main");
 main.innerHTML = `<img src="${person.main.img}" alt=""><span></span>`;
 main.querySelector("span").textContent = person.main.text;
 document.getElementById("main").appendChild(main);
+if (person.trial) {
+  const trial = a(person.trial, "lt-trial");
+  trial.textContent = person.trial.text;
+  document.getElementById("main").appendChild(trial);
+}
 
 const fill = (id, list, cls) => list.forEach(l => { const el = a(l, cls); el.textContent = l.text; document.getElementById(id).appendChild(el); });
 fill("links", person.links, "lt-btn");

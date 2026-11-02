@@ -278,3 +278,6 @@ body:has(.corner-nav) main { padding-top: 64px; }
 .lt-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 16px; margin-top: 22px; font-size: 13px; }
 .lt-extra { margin-top: 12px; font-size: 12px; }
 .lt-extra a { color: var(--faint); }
+.lt-main { margin-bottom: 8px; }
+.lt-trial { display: block; margin: 0 0 18px; padding: 10px 14px; border-radius: 12px; background: var(--fg); color: var(--bg) !important; font-weight: 600; border: 0; }
+.lt-trial:hover { opacity: .85; }
