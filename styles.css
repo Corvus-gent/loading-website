@@ -254,3 +254,4 @@ footer {
   font-size: 15px; padding: 0; background: rgba(0,0,0,.6);
 }
 .corner-nav a:hover { color: var(--fg); border-color: var(--muted); }
+body:has(.corner-nav) main { padding-top: 64px; }
