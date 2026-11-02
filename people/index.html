@@ -33,7 +33,9 @@
         <div>&nbsp;</div>
         <ul id="people-list" class="people-list"></ul>
         <div>&nbsp;</div>
-        <p class="cta"><a href="mailto:gabriel@corvus.gent?subject=I%20want%20to%20join%20the%20army" data-i18n="army.btn">want to join this army?</a></p>
+        <img src="/img/fire-pidgy.png" alt="Pidgy on fire" class="flock-pidgy" id="flock-pidgy" title="?">
+        <p class="sub flock-egg" id="flock-egg">the flock grows stronger. 🔥</p>
+        <p class="cta"><a href="mailto:gabriel@corvus.gent?subject=I%20want%20to%20join%20the%20flock" data-i18n="army.btn">want to join this army?</a></p>
         <p class="sub" data-i18n="army.text"></p>
       </section>
 
@@ -74,6 +76,12 @@
   </main>
 
   <script type="module" src="/js/people.js"></script>
+  <script>
+    document.getElementById("flock-pidgy").addEventListener("click", e => {
+      e.currentTarget.classList.remove("burn"); void e.currentTarget.offsetWidth; e.currentTarget.classList.add("burn");
+      document.getElementById("flock-egg").classList.add("show");
+    });
+  </script>
   <script src="/js/analytics.js"></script>
 </body>
 </html>
