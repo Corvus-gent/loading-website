@@ -239,3 +239,4 @@ footer {
 .langs.go .lbar span { width: var(--w); }
 .lnote { margin-top: 4px; text-align: right; }
 .home .evolving { color: var(--faint); font-size: 12px; margin: 22px 0 0; }
+.lang-switcher a.stats { color: var(--muted); }
