@@ -225,6 +225,12 @@ const STRINGS = {
   "lang.sub": { en: "Seven and counting. Honest scores.", nl: "Zeven en het worden er meer. Eerlijke scores.", fr: "Sept, et ce n'est pas fini. Scores honnêtes.", es: "Siete y contando. Notas honestas.", pt: "Sete e contando. Notas honestas.", de: "Sieben und es werden mehr. Ehrliche Werte.", zh: "七种，还在增加。诚实打分。" },
   "lang.zh.note": { en: "nǐ hǎo & xièxie. fluent in 6 months. stay tuned.", nl: "nǐ hǎo & xièxie. vloeiend binnen 6 maanden. stay tuned.", fr: "nǐ hǎo & xièxie. courant dans 6 mois. restez à l'écoute.", es: "nǐ hǎo & xièxie. fluido en 6 meses. atentos.", pt: "nǐ hǎo & xièxie. fluente em 6 meses. fiquem ligados.", de: "nǐ hǎo & xièxie. fließend in 6 Monaten. stay tuned.", zh: "你好 & 谢谢。六个月内流利。敬请期待。" },
   "home.evolving": { en: "this website is constantly evolving. peek again whenever you have time.", nl: "deze website evolueert constant. kom gerust nog eens piepen.", fr: "ce site évolue sans cesse. reviens jeter un œil quand tu as le temps.", es: "esta web evoluciona constantemente. vuelve a echar un vistazo cuando tengas tiempo.", pt: "este site está sempre evoluindo. volte para espiar quando tiver tempo.", de: "diese Website entwickelt sich ständig weiter. schau einfach wieder rein.", zh: "这个网站在不断进化。有空随时回来看看。" },
+  "sug.q": { en: "Which language should I learn next?", nl: "Welke taal moet ik hierna leren?", fr: "Quelle langue devrais-je apprendre ensuite ?", es: "¿Qué idioma debería aprender ahora?", pt: "Qual idioma devo aprender a seguir?", de: "Welche Sprache soll ich als Nächstes lernen?", zh: "我下一门该学什么语言？" },
+  "sug.pick": { en: "pick one", nl: "kies er een", fr: "choisis", es: "elige uno", pt: "escolha um", de: "wähl eine", zh: "选一个" },
+  "sug.why": { en: "why? (convince me in one line)", nl: "waarom? (overtuig me in één zin)", fr: "pourquoi ? (convaincs-moi en une ligne)", es: "¿por qué? (convénceme en una línea)", pt: "por quê? (me convença em uma linha)", de: "warum? (überzeug mich in einem Satz)", zh: "为什么？（一句话说服我）" },
+  "sug.send": { en: "send", nl: "verstuur", fr: "envoyer", es: "enviar", pt: "enviar", de: "senden", zh: "发送" },
+  "sug.thanks": { en: "Noted. The polyglot thanks you.", nl: "Genoteerd. De polyglot bedankt je.", fr: "Noté. Le polyglotte te remercie.", es: "Anotado. El políglota te lo agradece.", pt: "Anotado. O poliglota agradece.", de: "Notiert. Der Polyglott dankt dir.", zh: "已记下。多语者谢谢你。" },
+  "sug.other": { en: "other", nl: "andere", fr: "autre", es: "otro", pt: "outro", de: "andere", zh: "其他" },
 };
 
 function savedLang() {
@@ -257,6 +263,9 @@ export function applyI18n(lang = getLang()) {
   document.documentElement.lang = lang;
   document.querySelectorAll("[data-i18n]").forEach(el => {
     el.textContent = t(el.dataset.i18n, lang);
+  });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    el.placeholder = t(el.dataset.i18nPlaceholder, lang);
   });
 }
 

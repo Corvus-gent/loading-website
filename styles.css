@@ -240,3 +240,8 @@ footer {
 .lnote { margin-top: 4px; text-align: right; }
 .home .evolving { color: var(--faint); font-size: 12px; margin: 22px 0 0; }
 .lang-switcher a.stats { color: var(--muted); }
+.suggest { margin-top: 34px; text-align: left; }
+.suggest p { margin: 0 0 8px; }
+.suggest select { font: inherit; font-size: 13px; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--faint); background: #000; color: var(--fg); width: 100%; }
+#sug-more { gap: 8px; margin-top: 8px; }
+#sug-more input { flex: 1; }
