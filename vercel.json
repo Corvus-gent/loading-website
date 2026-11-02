@@ -1,8 +1,34 @@
 {
   "redirects": [
-    { "source": "/gabriel", "destination": "/people/?id=gabriel", "permanent": false }
+    {
+      "source": "/gabe",
+      "destination": "/people/?id=gabe",
+      "permanent": false
+    },
+    {
+      "source": "/gabriel",
+      "destination": "/people/?id=gabe",
+      "permanent": true
+    },
+    {
+      "source": "/cv/gabriel.pdf",
+      "destination": "/cv/gabe.pdf",
+      "permanent": true
+    },
+    {
+      "source": "/links",
+      "destination": "/links/gabe",
+      "permanent": false
+    }
   ],
   "rewrites": [
-    { "source": "/go/:path*", "destination": "/go/index.html" }
+    {
+      "source": "/go/:path*",
+      "destination": "/go/index.html"
+    },
+    {
+      "source": "/links/:path+",
+      "destination": "/links/index.html"
+    }
   ]
 }

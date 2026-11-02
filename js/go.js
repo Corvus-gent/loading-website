@@ -2,14 +2,14 @@
  * Short links: /go/<platform>/<target>/<campaign>
  *   /go/ig            -> profile, from instagram bio
  *   /go/li/home/402   -> home page, from the LinkedIn "402" post
- *   /go/tt/pidgy      -> pidgy-ai.com, credited to Gabriel
+ *   /go/tt/pidgy      -> pidgy-ai.com, credited to Gabe
  */
 
 const PLATFORMS = { ig: "instagram", li: "linkedin", tt: "tiktok", x: "x", luma: "luma", wa: "whatsapp", mail: "email", qr: "qr" };
 
 const TARGETS = {
-  me: "/people/?id=gabriel", home: "/", now: "/now/", sidequests: "/sidequests/",
-  support: "/support/", "402": "/402/", cv: "/cv/gabriel.pdf",
+  me: "/people/?id=gabe", home: "/", now: "/now/", sidequests: "/sidequests/",
+  support: "/support/", "402": "/402/", cv: "/cv/gabe.pdf",
 };
 
 const EXTERNAL = { pidgy: "https://pidgy-ai.com/" };
@@ -30,9 +30,9 @@ export async function resolve(pathname) {
     const url = new URL(base, location.origin);
     url.searchParams.set("utm_source", source);
     url.searchParams.set("utm_medium", "social");
-    url.searchParams.set("utm_campaign", "gabriel" + (campaign ? "-" + campaign : ""));
+    url.searchParams.set("utm_campaign", "gabe" + (campaign ? "-" + campaign : ""));
     url.searchParams.set("utm_content", "corvus");
-    if (target === "pidgy") url.searchParams.set("ref", "gabriel");
+    if (target === "pidgy") url.searchParams.set("ref", "gabe");
     return { url: url.toString(), source, medium, campaign, target, external: true };
   }
 

@@ -1,7 +1,7 @@
 {
   "members": [
     {
-      "id": "gabriel",
+      "id": "gabe",
       "name": "Francisco Gabriel Van Langenhove",
       "position": "GTM @ Pidgy · upcoming business philosopher",
       "about": {
@@ -102,7 +102,7 @@
         },
         {
           "text": "CV resume",
-          "href": "/cv/gabriel.pdf"
+          "href": "/cv/gabe.pdf"
         }
       ],
       "research": [

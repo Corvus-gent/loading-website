@@ -16,6 +16,7 @@ if (!POSTHOG_KEY.startsWith("phc_REPLACE")) {
       disable_session_recording: true,
       capture_pageview: true,
       autocapture: true,
+      loaded: ph => { if (window.__phProps) ph.register(window.__phProps); },
     });
   };
   document.head.appendChild(s);

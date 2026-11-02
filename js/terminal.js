@@ -3,8 +3,8 @@
  */
 
 const PAGES = {
-  home: "/", about: "/gabriel", now: "/now/", sidequests: "/sidequests/",
-  support: "/support/", languages: "/languages/", "402": "/402/", cv: "/cv/gabriel.pdf",
+  home: "/", about: "/gabe", now: "/now/", sidequests: "/sidequests/",
+  support: "/support/", languages: "/languages/", "402": "/402/", cv: "/cv/gabe.pdf",
 };
 
 const COMMANDS = {
@@ -15,13 +15,13 @@ const COMMANDS = {
     "  (there might be more. sudo is watching.)",
   ],
   whoami: () => [
-    "gabriel. gtm @ pidgy. upcoming business philosopher.",
+    "gabe. gtm @ pidgy. upcoming business philosopher.",
     "dropped out with one year left. got bored. wanted to build.",
   ],
   now: () => ["opening /now ..."].concat(go("/now/")),
   sidequests: () => ["opening /sidequests ..."].concat(go("/sidequests/")),
   support: () => ["opening /support ..."].concat(go("/support/")),
-  cv: () => ["opening cv ..."].concat(go("/cv/gabriel.pdf")),
+  cv: () => ["opening cv ..."].concat(go("/cv/gabe.pdf")),
   contact: () => ["gabriel@corvus.gent"].concat(go("mailto:gabriel@corvus.gent")),
   ls: () => [Object.keys(PAGES).join("  ")],
   location: async () => {
@@ -33,7 +33,7 @@ const COMMANDS = {
   diogenes: () => ["stand a little out of my sun."],
   lantern: () => ["still looking for an honest man."],
   pay: () => ["402 payment required."],
-  sudo: args => args.join(" ") === "hire gabriel"
+  sudo: args => args.join(" ") === "hire gabe"
     ? ["permission granted.", "→ gabriel@corvus.gent"]
     : ["nice try."],
   exit: () => { close(); return []; },

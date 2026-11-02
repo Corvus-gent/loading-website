@@ -67,7 +67,8 @@ async function showDetailView(id) {
 }
 
 async function render() {
-  const id = getQueryParam("id");
+  let id = getQueryParam("id");
+  if (id === "gabriel") id = "gabe";
   if (id) await showDetailView(id);
   else await showListView();
 }
