@@ -74,14 +74,39 @@
         box.appendChild(row);
       });
     }
-    async function load(method = "GET", lang) {
+    let challenge = null;
+    const status = t => { document.getElementById("sug-status").textContent = t; };
+    async function load() {
       try {
-        const r = await fetch("/api/vote", method === "POST"
-          ? { method, headers: { "Content-Type": "application/json" }, body: JSON.stringify({ lang }) }
-          : { cache: "no-store" });
+        const r = await fetch("/api/vote", { cache: "no-store", credentials: "same-origin" });
         if (!r.ok) throw 0;
-        render((await r.json()).votes);
-      } catch { document.getElementById("sug-status").textContent = "voting opens soon."; }
+        const d = await r.json();
+        challenge = d.challenge;
+        render(d.votes);
+      } catch { status("voting opens soon."); }
+    }
+    async function solve({ salt, bits }) {
+      const enc = new TextEncoder();
+      for (let n = 0; ; n++) {
+        const h = new Uint8Array(await crypto.subtle.digest("SHA-256", enc.encode(`${salt}:${n}`)));
+        let z = 0;
+        for (const byte of h) { if (byte === 0) { z += 8; continue; } z += Math.clz32(byte) - 24; break; }
+        if (z >= bits) return n;
+      }
+    }
+    async function vote(lang) {
+      if (!challenge) await load();
+      status("verifying you're human…");
+      const nonce = await solve(challenge);
+      const r = await fetch("/api/vote", {
+        method: "POST", credentials: "same-origin",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ lang, challenge: challenge.id, nonce }),
+      });
+      const d = await r.json().catch(() => ({}));
+      if (d.challenge) challenge = d.challenge;
+      if (d.votes) render(d.votes);
+      status(r.ok ? "vote counted." : (d.error || "try again later."));
     }
     let voted = null; try { voted = localStorage.getItem("voted_lang"); } catch {}
     if (voted) { sel.value = voted; sel.disabled = true; }
@@ -90,7 +115,7 @@
       sel.disabled = true;
       try { localStorage.setItem("voted_lang", sel.value); } catch {}
       if (window.posthog?.capture) window.posthog.capture("language_vote", { language: sel.value });
-      await load("POST", sel.value);
+      await vote(sel.value);
     });
     load();
     setInterval(load, 10000);
