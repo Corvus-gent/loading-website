@@ -7,29 +7,36 @@
   <title>corvus.gent</title>
 
   <link rel="icon" type="image/png" href="/logo.png" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
   <main>
     <div class="wrap">
+      <div class="lang-switcher" id="lang-switcher"></div>
       <div class="tag">corvus.gent</div>
 
       <h1>Corvus 𓅨</h1>
-      <p class="sub">The crow died. The domain didn't.</p>
+      <p class="sub" data-i18n="home.sub">The crow died. The domain didn't.</p>
 
       <nav aria-label="links">
-        <a href="mailto:gabriel@corvus.gent">contact</a>
-        <a href="/people/?id=gabriel">about</a>
-        <a href="/402/">402</a>
+        <a href="mailto:gabriel@corvus.gent" data-i18n="nav.contact">contact</a>
+        <a href="/people/?id=gabriel" data-i18n="nav.about">about</a>
+        <a href="/sidequests/" data-i18n="nav.sidequests">sidequests</a>
+        <a href="/now/" data-i18n="nav.now">now</a>
       </nav>
 
       <footer>
-        © <span id="y"></span> corvus (deceased)
+        © <span id="y"></span> <span data-i18n="footer.deceased">corvus (deceased)</span>
       </footer>
     </div>
   </main>
 
-  <script type="module" src="/js/main.js"></script>
+  <script type="module">
+    import { initI18n } from "/js/i18n.js";
+    import { setFooterYear } from "/js/utils.js";
+    setFooterYear();
+    initI18n();
+  </script>
   <script src="/js/analytics.js"></script>
 </body>
 </html>

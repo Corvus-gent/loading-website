@@ -12,32 +12,45 @@
 <body class="people-page">
   <main>
     <div class="wrap">
+      <div class="lang-switcher" id="lang-switcher"></div>
       <div class="tag">
         <a href="/">corvus.gent</a> / <a href="/people">people</a><span id="crumb-id-wrap"></span>
       </div>
 
       <section id="people-list-view">
-        <h1>People @ Corvus</h1>
-        <p class="sub">population: 1</p>
+        <h1 data-i18n="people.title">People @ Corvus</h1>
+        <p class="sub" data-i18n="people.population">population: 1</p>
         <div>&nbsp;</div>
         <ul id="people-list" class="people-list"></ul>
       </section>
 
       <section id="person-view" class="person-view-wrap" style="display:none;">
         <h1 id="person-name"></h1>
+        <p class="sub" data-i18n="profile.languages"></p>
 
         <section>
-          <h2>About</h2>
+          <h2 data-i18n="sec.about">About</h2>
           <p id="person-about" class="person-about"></p>
         </section>
 
         <section id="research-section" style="display:none;">
-          <h2>Research</h2>
+          <h2 data-i18n="sec.research">Research</h2>
           <ul class="contact-list" id="person-research"></ul>
         </section>
 
+        <section id="blogs-section" style="display:none;">
+          <h2 data-i18n="sec.blogs">Blogs</h2>
+          <ul class="contact-list" id="person-blogs"></ul>
+        </section>
+
+        <section id="shoutouts-section" style="display:none;">
+          <h2 data-i18n="sec.shoutouts">Shout-outs</h2>
+          <p class="sub" data-i18n="shoutouts.sub"></p>
+          <ul class="contact-list" id="person-shoutouts"></ul>
+        </section>
+
         <section>
-          <h2>Contacts</h2>
+          <h2 data-i18n="sec.contacts">Contacts</h2>
           <ul class="contact-list" id="person-links"></ul>
         </section>
       </section>

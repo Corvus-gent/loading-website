@@ -12,6 +12,9 @@
 <button onclick="setLang('fr')">FR</button>
 <button onclick="setLang('nl')">NL</button>
 <button onclick="setLang('en')">EN</button>
+<button onclick="setLang('es')">ES</button>
+<button onclick="setLang('pt')">PT</button>
+<button onclick="setLang('de')">DE</button>
 <button onclick="setLang('zh')">中文</button>
 </p>
 
@@ -86,6 +89,69 @@ payment status: [..........] 0%
 <p>Need a website? Fair price, honest developer.<br>
 One condition: pay on time.<br>
 → <a href="mailto:gabriel@corvus.gent">contact</a></p>`
+},
+es: {
+  timer: "esperando el pago desde",
+  units: ["días","horas","min","seg"],
+  html: `<p>Este sitio está fuera de línea.</p>
+<p>El dominio no ha sido pagado.<br>
+Importe: menos de 100 €.</p>
+<pre>
+[x] ../08  dominio renovado (pagado por el desarrollador)
+[x] 15/10  solicitud de pago
+[x] ..     llamada  -> "voy a pagar"
+[x] 20/10  recordatorio
+[x] 23/10  "a las 17:00, el sitio se desactiva"
+[ ] ..     pago
+
+estado del pago: [..........] 0%
+</pre>
+<hr>
+<p>¿Necesitas una web? Precio justo, desarrollador honesto.<br>
+Una sola condición: pagar a tiempo.<br>
+→ <a href="mailto:gabriel@corvus.gent">contacto</a></p>`
+},
+pt: {
+  timer: "aguardando pagamento há",
+  units: ["dias","horas","min","seg"],
+  html: `<p>Este site está fora do ar.</p>
+<p>O domínio não foi pago.<br>
+Valor: menos de 100 €.</p>
+<pre>
+[x] ../08  domínio renovado (pago pelo desenvolvedor)
+[x] 15/10  pedido de pagamento
+[x] ..     ligação  -> "vou pagar"
+[x] 20/10  lembrete
+[x] 23/10  "às 17:00, o site sai do ar"
+[ ] ..     pagamento
+
+status do pagamento: [..........] 0%
+</pre>
+<hr>
+<p>Precisa de um site? Preço justo, desenvolvedor honesto.<br>
+Uma única condição: pagar em dia.<br>
+→ <a href="mailto:gabriel@corvus.gent">contato</a></p>`
+},
+de: {
+  timer: "wartet auf Zahlung seit",
+  units: ["Tage","Std","Min","Sek"],
+  html: `<p>Diese Website ist offline.</p>
+<p>Die Domain wurde nicht bezahlt.<br>
+Betrag: weniger als 100 €.</p>
+<pre>
+[x] ../08  Domain verlängert (vom Entwickler bezahlt)
+[x] 15/10  Zahlungsaufforderung
+[x] ..     Anruf  -> "ich zahle"
+[x] 20/10  Erinnerung
+[x] 23/10  "um 17:00 geht die Seite offline"
+[ ] ..     Zahlung
+
+Zahlungsstatus: [..........] 0%
+</pre>
+<hr>
+<p>Brauchst du eine Website? Fairer Preis, ehrlicher Entwickler.<br>
+Eine Bedingung: pünktlich zahlen.<br>
+→ <a href="mailto:gabriel@corvus.gent">Kontakt</a></p>`
 },
 zh: {
   timer: "等待付款已",

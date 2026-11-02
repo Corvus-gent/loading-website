@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <title>Sidequests | corvus.gent</title>
+  <link rel="icon" type="image/png" href="/logo.png" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/people/styles.css" />
+</head>
+<body class="people-page">
+  <main>
+    <div class="wrap">
+      <div class="lang-switcher" id="lang-switcher"></div>
+      <div class="tag"><a href="/">corvus.gent</a> / sidequests</div>
+
+      <h1 data-i18n="sq.title">Sidequests</h1>
+      <p class="sub" data-i18n="sq.sub"></p>
+
+      <section class="person-view-wrap">
+        <h2><a href="/402/">402 Payment Required</a></h2>
+        <p class="person-about" data-i18n="sq.402.desc"></p>
+
+        <h2>PartyCrasher 3000</h2>
+        <p class="sub">Python · ROS2 · Bash · 2025</p>
+        <p class="person-about" data-i18n="sq.pc.desc"></p>
+        <p class="person-about"><span data-i18n="sq.pc.note"></span>
+          <a href="https://instagram.com/gabinho_bjj/" target="_blank" rel="noreferrer">@gabinho_bjj</a>.</p>
+      </section>
+
+      <footer>© <span id="y"></span> corvus</footer>
+    </div>
+  </main>
+  <script type="module">
+    import { initI18n } from "/js/i18n.js";
+    import { setFooterYear } from "/js/utils.js";
+    setFooterYear();
+    initI18n();
+  </script>
+  <script src="/js/analytics.js"></script>
+</body>
+</html>

@@ -1,3 +1,4 @@
+import { t } from "./i18n.js";
 /**
  * Reusable DOM rendering components
  */
@@ -31,7 +32,7 @@ export function createExternalLink(link) {
   if (link.items?.length) {
     const details = document.createElement("details");
     const summary = document.createElement("summary");
-    summary.textContent = link.text;
+    summary.textContent = link.i18n ? t(link.i18n) : link.text;
     const ul = document.createElement("ul");
     ul.className = "dropdown-list";
     link.items.forEach(item => {

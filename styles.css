@@ -142,3 +142,15 @@ footer {
   color: var(--faint);
   font-size: 12px;
 }
+
+/* --- language switcher --- */
+.lang-switcher {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-size: 12px;
+  margin-bottom: 18px;
+}
+.lang-switcher a { color: var(--faint); }
+.lang-switcher a.active { color: var(--fg); }

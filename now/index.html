@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <title>Now | corvus.gent</title>
+  <link rel="icon" type="image/png" href="/logo.png" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/people/styles.css" />
+</head>
+<body class="people-page">
+  <main>
+    <div class="wrap">
+      <div class="lang-switcher" id="lang-switcher"></div>
+      <div class="tag"><a href="/">corvus.gent</a> / now</div>
+
+      <h1 data-i18n="now.title">Now</h1>
+      <p class="sub" data-i18n="now.sub"></p>
+
+      <section class="person-view-wrap">
+        <p class="person-about">&gt; <span data-i18n="now.1"></span><br>
+&gt; <span data-i18n="now.2"></span><br>
+&gt; <span data-i18n="now.3"></span><br>
+&gt; <span data-i18n="now.4"></span><br>
+&gt; <span data-i18n="now.5"></span></p>
+        <p class="sub" data-i18n="now.updated"></p>
+      </section>
+
+      <footer>© <span id="y"></span> corvus</footer>
+    </div>
+  </main>
+  <script type="module">
+    import { initI18n } from "/js/i18n.js";
+    import { setFooterYear } from "/js/utils.js";
+    setFooterYear();
+    initI18n();
+  </script>
+  <script src="/js/analytics.js"></script>
+</body>
+</html>

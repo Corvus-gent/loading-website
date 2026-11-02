@@ -5,67 +5,83 @@
 import { setFooterYear, getQueryParam, toggleViews } from "./utils.js";
 import { getAllMembers, getMemberById } from "./peopleData.js";
 import { createPersonListItem, createExternalLink, renderList } from "./components.js";
+import { initI18n, pick, t } from "./i18n.js";
 
-const elements = {
-  crumbIdWrap: () => document.getElementById("crumb-id-wrap"),
-  listView: () => document.getElementById("people-list-view"),
-  personView: () => document.getElementById("person-view"),
-  peopleList: () => document.getElementById("people-list"),
-  personName: () => document.getElementById("person-name"),
-  personAbout: () => document.getElementById("person-about"),
-  personLinks: () => document.getElementById("person-links"),
-};
+const $ = id => document.getElementById(id);
 
 async function showListView() {
   const members = await getAllMembers();
-  renderList(elements.peopleList(), members, createPersonListItem);
+  $("people-list").innerHTML = "";
+  renderList($("people-list"), members, createPersonListItem);
+}
+
+function simpleLink(item) {
+  const li = document.createElement("li");
+  const a = document.createElement("a");
+  a.href = item.href; a.target = "_blank"; a.rel = "noreferrer"; a.textContent = item.text;
+  li.appendChild(a);
+  return li;
 }
 
 async function showDetailView(id) {
   const member = await getMemberById(id);
-  const { listView, personView, crumbIdWrap, personName, personAbout, personLinks } = elements;
-
-  crumbIdWrap().textContent = ` / ${id}`;
-  toggleViews(personView(), listView());
+  $("crumb-id-wrap").textContent = ` / ${id}`;
+  toggleViews($("person-view"), $("people-list-view"));
 
   if (!member) {
-    personView().innerHTML = "<p class='sub'>Person not found.</p>";
+    $("person-view").innerHTML = "<p class='sub'>Person not found.</p>";
     return;
   }
 
-  personName().textContent = member.name;
-  personAbout().innerHTML = member.about; // trusted content from people.json
+  $("person-name").textContent = member.name;
+  $("person-about").innerHTML = pick(member.about); // trusted content from people.json
 
   if (member.research?.length) {
-    document.getElementById("research-section").style.display = "block";
-    const ul = document.getElementById("person-research");
+    $("research-section").style.display = "block";
+    const ul = $("person-research");
+    ul.innerHTML = "";
     member.research.forEach(r => {
-      const li = document.createElement("li");
-      const a = document.createElement("a");
-      a.href = r.href; a.target = "_blank"; a.rel = "noreferrer"; a.textContent = r.text;
+      const li = simpleLink(r);
       const note = document.createElement("span");
       note.className = "sub"; note.textContent = " (" + r.note + ")";
-      li.append(a, note);
+      li.appendChild(note);
       ul.appendChild(li);
     });
   }
 
-  if (member.links?.length) {
-    renderList(personLinks(), member.links, createExternalLink);
-  } else {
-    personLinks().innerHTML = "<li><span class='sub'>No links yet.</span></li>";
+  if (member.blogs?.length) {
+    $("blogs-section").style.display = "block";
+    const ul = $("person-blogs");
+    ul.innerHTML = "";
+    member.blogs.forEach(b => {
+      const li = document.createElement("li");
+      li.className = "sub";
+      li.textContent = b.wip ? `WIP: ${t("blogs." + b.title)}` : b.title;
+      ul.appendChild(li);
+    });
   }
+
+  if (member.shoutouts?.length) {
+    $("shoutouts-section").style.display = "block";
+    const ul = $("person-shoutouts");
+    ul.innerHTML = "";
+    member.shoutouts.forEach(s => ul.appendChild(simpleLink(s)));
+  }
+
+  $("person-links").innerHTML = "";
+  renderList($("person-links"), member.links || [], createExternalLink);
+}
+
+async function render() {
+  const id = getQueryParam("id");
+  if (id) await showDetailView(id);
+  else await showListView();
 }
 
 async function init() {
   setFooterYear();
-
-  const id = getQueryParam("id");
-  if (id) {
-    await showDetailView(id);
-  } else {
-    await showListView();
-  }
+  initI18n(() => render());
+  await render();
 }
 
 init();
