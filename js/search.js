@@ -18,7 +18,7 @@ const INDEX = [
   { title: "support", url: "/support/", keys: "support shoutouts vouch" },
   { title: "support · people", url: "/support/people/", keys: "toto mathias simon siebe ashkan friends" },
   { title: "support · founders", url: "/support/founders/", keys: "founders james posthog" },
-  { title: "support · companies", url: "/support/companies/", keys: "companies pidgy alkmist compound posthog anthropic exoligamentz" },
+  { title: "support · companies", url: "/support/companies/", keys: "companies pidgy alkmist compound posthog anthropic exoligamentz routergrowth router growth" },
   { title: "support · books", url: "/support/books/", keys: "books reading goodreads contagious" },
   { title: "support · philosophists", url: "/support/philosophists/", keys: "philosophy philosophists diogenes alexander lantern sun" },
   { title: "support · sport people", url: "/support/sport-people/", keys: "bjj jiu jitsu sport tainan jose santo" },
