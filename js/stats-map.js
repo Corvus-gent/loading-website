@@ -36,9 +36,9 @@ async function initMap() {
   const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>';
   map.attributionControl.addAttribution(attribution);
   // Tile configuration is independent of visitor data, so geo outages keep the basemap.
-  fetch('/api/geo-tiles', { signal: AbortSignal.timeout(10000) }).then(async response => {
+  fetch('/api/geo?tiles=1', { signal: AbortSignal.timeout(10000) }).then(async response => {
     if (!response.ok || !(await response.json()).available) throw new Error('tiles unavailable');
-    L.tileLayer('/api/geo-tiles?z={z}&x={x}&y={y}', { maxZoom: 12 }).on('tileerror', () => {
+    L.tileLayer('/api/geo?tiles=1&z={z}&x={x}&y={y}', { maxZoom: 12 }).on('tileerror', () => {
       document.getElementById('visitor-map-background').hidden = false;
     }).addTo(map);
   }).catch(() => { document.getElementById('visitor-map-background').hidden = false; });
