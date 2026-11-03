@@ -23,6 +23,7 @@ const STRINGS = {
   "nav.contact": { en: "contact", nl: "contact", fr: "contact", es: "contacto", pt: "contato", de: "kontakt", zh: "联系" },
   "nav.about": { en: "about", nl: "over mij", fr: "à propos", es: "sobre mí", pt: "sobre mim", de: "über mich", zh: "关于我" },
   "nav.sidequests": { en: "sidequests", nl: "sidequests", fr: "quêtes annexes", es: "misiones secundarias", pt: "missões secundárias", de: "nebenquests", zh: "支线任务" },
+  "nav.music": { en: "music", nl: "muziek", fr: "musique", es: "música", pt: "música", de: "Musik", zh: "音乐" },
   "nav.now": { en: "now", nl: "nu", fr: "maintenant", es: "ahora", pt: "agora", de: "jetzt", zh: "现在" },
   "footer.deceased": { en: "corvus · deceased feb 2026 · revived nov 2026", nl: "corvus · overleden feb 2026 · herrezen nov 2026", fr: "corvus · décédé fév 2026 · ressuscité nov 2026", es: "corvus · fallecido feb 2026 · resucitado nov 2026", pt: "corvus · falecido fev 2026 · ressuscitado nov 2026", de: "corvus · verstorben Feb 2026 · auferstanden Nov 2026", zh: "corvus · 2026 年 2 月逝去 · 2026 年 11 月复活" },
 
