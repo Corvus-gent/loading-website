@@ -20,30 +20,6 @@
   <meta name="twitter:image" content="https://corvus.gent/og.png" />
   <style>
     .call-wrap { max-width: 520px; }
-    .deck { display: flex; flex-direction: column; align-items: center; margin: 28px 0 8px; }
-    .vinyl { width: 200px; height: 200px; border-radius: 50%; border: 0; padding: 0; cursor: pointer; position: relative;
-      background:
-        radial-gradient(circle at 50% 50%, transparent 0 31%, rgba(255,255,255,.04) 31.5%, transparent 32%),
-        repeating-radial-gradient(circle at 50% 50%, #0c0c0c 0 1.5px, #161616 1.5px 3px),
-        #111;
-      box-shadow: 0 0 0 1px #2a2a2a, 0 18px 40px rgba(0,0,0,.6);
-      animation: spin 2.2s linear infinite; animation-play-state: paused; }
-    .vinyl::after { content: ""; position: absolute; inset: 0; border-radius: 50%;
-      background: conic-gradient(from 20deg, transparent 0 40deg, rgba(255,255,255,.07) 60deg, transparent 80deg, transparent 220deg, rgba(255,255,255,.05) 240deg, transparent 260deg); }
-    .vinyl.spinning { animation-play-state: running; }
-    .vinyl .label { position: absolute; inset: 34%; border-radius: 50%; background: #e8e8e8; display: grid; place-items: center; overflow: hidden; }
-    .vinyl .label img { width: 62%; filter: grayscale(1) contrast(1.2); }
-    .vinyl .label::after { content: ""; position: absolute; width: 8px; height: 8px; border-radius: 50%; background: #000; }
-    .vinyl:focus-visible { outline: 1px dashed #888; outline-offset: 6px; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    @media (prefers-reduced-motion: reduce) { .vinyl { animation-duration: 8s; } }
-    .np { margin-top: 14px; font-size: 12px; color: #777; letter-spacing: .04em; min-height: 1.2em; }
-    .np .bar { display: inline-block; width: 2px; height: 9px; margin-right: 1px; background: #777; vertical-align: -1px; transform-origin: bottom; }
-    .playing .np .bar { animation: eq .9s ease-in-out infinite; background: #ddd; }
-    .playing .np .bar:nth-child(2) { animation-delay: .2s } .playing .np .bar:nth-child(3) { animation-delay: .4s }
-    @keyframes eq { 50% { transform: scaleY(.35); } }
-    #spotify-wrap { width: 100%; max-width: 360px; height: 0; overflow: hidden; transition: height .4s ease, margin .4s ease; }
-    #spotify-wrap.open { height: 80px; margin-top: 12px; }
     .card { border: 1px solid #2a2a2a; border-radius: 14px; padding: 22px 22px 20px; margin: 22px 0 0; background: linear-gradient(180deg, #0d0d0d, #070707); }
     .card h2 { font-size: 20px; margin: 0 0 6px; letter-spacing: -.01em; }
     .card p { margin: 0 0 16px; color: #9a9a9a; font-size: 14px; line-height: 1.5; }
@@ -73,6 +49,8 @@
         <div class="np"><span class="bar"></span><span class="bar"></span><span class="bar"></span> <span id="np-text">hotline bling · <span data-i18n="call.tap">tap the record</span></span></div>
         <div id="spotify-wrap"><div id="spotify-embed"></div></div>
       </div>
+
+      <a class="lt-lantern music-note" href="/music/"><span class="term-lantern" aria-hidden="true"></span><span data-i18n="call.diogenes">tired of life? come listen to some bangers →</span><em>diogenes</em></a>
 
       <section class="card">
         <h2 data-i18n="call.pitch">15 minutes. free. no slides.</h2>
