@@ -40,6 +40,14 @@
         <a href="https://stats.corvus.gent/">stats</a>
       </nav>
 
+      <details class="share-drop">
+        <summary>share ↗</summary>
+        <div class="share-opts">
+          <button data-share="https://corvus.gent/self" data-what="site">corvus.gent</button>
+          <button data-share="https://corvus.gent/links/gabe/self" data-what="gabe">gabe</button>
+        </div>
+        <p class="sub share-msg" id="share-msg"></p>
+      </details>
       <p class="evolving" data-i18n="home.evolving"></p>
       <p class="term-hint"><a href="#" data-terminal>&gt;_ <span data-i18n="term.hint">press any key</span></a></p>
       <footer><span data-i18n="footer.deceased">corvus · deceased feb 2026 · revived nov 2026</span></footer>
@@ -58,6 +66,17 @@
     document.getElementById("hero").addEventListener("click", () => {
       document.getElementById("loc").classList.toggle("show");
     });
+  </script>
+  <script>
+    document.querySelectorAll("[data-share]").forEach(b => b.addEventListener("click", async () => {
+      const url = b.dataset.share, msg = document.getElementById("share-msg");
+      if (window.posthog?.capture) window.posthog.capture("share_click", { what: b.dataset.what });
+      try {
+        if (navigator.share) { await navigator.share({ title: "corvus.gent", url }); msg.textContent = "shared. the flock grows."; return; }
+      } catch (e) { if (e && e.name === "AbortError") return; }
+      try { await navigator.clipboard.writeText(url); msg.textContent = `copied: ${url.replace("https://", "")}`; }
+      catch { msg.textContent = url; }
+    }));
   </script>
   <script type="module" src="/js/terminal.js"></script>
   <script src="/js/analytics.js"></script>

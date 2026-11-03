@@ -19,6 +19,11 @@
       "source": "/cv/gabriel.pdf",
       "destination": "/cv",
       "permanent": true
+    },
+    {
+      "source": "/self",
+      "destination": "/?utm_source=self&utm_medium=share&utm_campaign=home-share",
+      "permanent": false
     }
   ],
   "rewrites": [

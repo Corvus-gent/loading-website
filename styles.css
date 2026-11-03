@@ -368,3 +368,11 @@ a:hover { text-decoration-color: var(--fg); border-bottom: 0; }
 .lt-crow.in .lt-bubble { animation: shake .4s 1.6s 3; }
 @keyframes shake { 0%,100% { transform: rotate(0); } 25% { transform: rotate(-3deg); } 75% { transform: rotate(3deg); } }
 .lt-bubble { white-space: normal; max-width: 220px; text-align: center; }
+.share-drop { margin-top: 18px; font-size: 13px; }
+.share-drop summary { list-style: none; cursor: pointer; color: var(--muted); display: inline-block; }
+.share-drop summary::-webkit-details-marker { display: none; }
+.share-drop[open] summary { color: var(--fg); }
+.share-opts { display: flex; gap: 8px; justify-content: center; margin-top: 10px; }
+.share-opts button { font: inherit; font-size: 12px; padding: 7px 12px; border-radius: 999px; border: 1px solid var(--faint); background: transparent; color: var(--fg); cursor: pointer; }
+.share-opts button:hover { border-color: var(--fg); }
+.share-msg { font-size: 11px; margin: 8px 0 0; min-height: 14px; }
