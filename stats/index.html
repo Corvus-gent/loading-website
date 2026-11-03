@@ -8,6 +8,8 @@
   <link rel="icon" type="image/png" href="/logo.png" />
   <link rel="stylesheet" href="/styles.css" />
   <link rel="stylesheet" href="/people/styles.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="/stats/map.css" />
   <meta name="description" content="Live, honest numbers from corvus.gent." />
   <meta property="og:title" content="Stats | corvus.gent" />
   <meta property="og:description" content="Live, honest numbers from corvus.gent." />
@@ -30,6 +32,7 @@
         <p class="sub" id="total-line"></p>
         <section class="st-sec"><h2>per hour (brussels)</h2><pre id="hours"></pre></section>
         <section class="st-sec"><h2>from</h2><div id="countries"></div></section>
+        <section class="st-sec" aria-labelledby="visitor-map-title"><h2 id="visitor-map-title">every ping, ever</h2><div class="visitor-map-shell"><div id="visitor-map" aria-label="All-time visitor map"></div><p id="visitor-map-status" role="status">lighting the lantern…</p></div><p id="visitor-map-background" class="visitor-map-caption" hidden>map background unavailable.</p><p class="visitor-map-caption">drag. zoom. the lantern finds them all.</p></section>
         <section class="st-sec"><h2>via</h2><div id="sources"></div></section>
         <section class="st-sec"><h2>browsers</h2><div id="browsers"></div></section>
         <section class="st-sec"><h2>curled?</h2><p class="sub" id="cli"></p></section>
@@ -54,6 +57,8 @@
       <footer><a href="https://corvus.gent/">corvus.gent</a></footer>
     </div>
   </main>
+  <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script type="module" src="/js/stats-map.js"></script>
   <script type="module" src="/js/stats.js"></script>
   <script src="/js/analytics.js"></script>
 </body>

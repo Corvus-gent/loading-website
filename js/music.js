@@ -39,7 +39,12 @@ function row(track,index,suggestion=false) {
   const rank=suggestion?index+1:state.tracks.findIndex(t=>t.id===track.id)+1;
   return `<li class="track-row${track.id===current?' current':''}" data-track="${esc(track.id)}" id="song-${esc(track.id)}"><span class="track-rank">${rank}</span><div class="track-info"><button type="button" class="track-title" data-play="${esc(track.id)}">${esc(track.title)}</button><small>${esc(track.artist || t('m.unknown'))}${track.needsReview?`<span class="review-label">${label('m.review')}</span>`:''}</small>${track.note?`<details class="song-note"><summary>${label('m.fact')}</summary><p>${esc(track.note)}</p></details>`:''}</div><span class="genre-tag">${esc(track.genre||'')}</span><button type="button" class="like${mine?' mine':''}" data-vote="${esc(track.id)}" aria-label="${label(mine?'m.likedTrack':'m.like')} · ${esc(track.title)}" aria-pressed="${mine}" ${mine||busy||!state.storage?'disabled':''}>${mine?'♥':'♡'} <span>${votes}</span></button>${linksHTML(track)}</li>`;
 }
+function renderShuffle() {
+  $('shuffle').setAttribute('aria-checked',String(shuffle));
+  $('shuffle-label').textContent=t(shuffle?'m.shuffleOn':'m.shuffleOff');
+}
 function render() {
+  renderShuffle();
   const list=visible();
   $('total').textContent=state.tracks.length;
   $('visible-count').textContent=`${mapView?list.length:Math.min(trackLimit,list.length)} / ${list.length}`;
@@ -163,7 +168,7 @@ $('sort').onchange=()=>{trackLimit=INITIAL_TRACKS;render();};
 let searchTimer;
 $('search').oninput=()=>{clearTimeout(searchTimer);searchTimer=setTimeout(()=>{trackLimit=INITIAL_TRACKS;render();},150);};
 $('liked-filter').onclick=()=>{onlyLiked=!onlyLiked;trackLimit=INITIAL_TRACKS;render();};
-$('shuffle').onclick=()=>{shuffle=!shuffle;$('shuffle').setAttribute('aria-pressed',String(shuffle));rebuildQueue();};
+$('shuffle').onclick=()=>{shuffle=!shuffle;renderShuffle();rebuildQueue();};
 $('play-all').onclick=()=>{if(queue.length)play(queue[0]);};$('next').onclick=next;
 $('close-player').onclick=()=>{closePlayer();current=null;$('now-title').textContent=t('m.choose');$('now-artist').textContent=t('m.playerHint');render();};
 $('suggest').onsubmit=event=>{event.preventDefault();send({action:'suggest',url:$('song-url').value,website:event.target.elements.website.value});};

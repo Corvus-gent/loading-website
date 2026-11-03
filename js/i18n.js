@@ -11,6 +11,9 @@ export const LANGS = [
 ];
 
 const STRINGS = {
+  "m.shuffleOff": {en:"shuffle: off",nl:"shuffle: uit",fr:"aléatoire : non",es:"aleatorio: no",pt:"aleatório: não",de:"Zufall: aus",zh:"随机播放：关"},
+  "m.shuffleOn": {en:"shuffle: on",nl:"shuffle: aan",fr:"aléatoire : oui",es:"aleatorio: sí",pt:"aleatório: sim",de:"Zufall: an",zh:"随机播放：开"},
+  "m.shuffleHint": {en:"shuffle changes the order. press play to start.",nl:"shuffle verandert de volgorde. druk op afspelen om te starten.",fr:"le mode aléatoire change l’ordre. appuie sur lecture pour démarrer.",es:"el modo aleatorio cambia el orden. pulsa reproducir para empezar.",pt:"o modo aleatório muda a ordem. carrega em reproduzir para começar.",de:"Zufall ändert die Reihenfolge. Drücke zum Start auf Abspielen.",zh:"随机模式改变顺序。点击播放开始。"},
   "m.deviceTip": {en:"This device may find the full collection and map heavy. Take it easy here, or explore on a laptop.",nl:"De volledige collectie en map kunnen zwaar zijn voor dit toestel. Bekijk hier rustig wat nummers, of ontdek alles op een laptop."},
   "m.birdInvite": {en:"let’s fly to the bottom. an egg is waiting for you…",nl:"vlieg mee naar beneden. er wacht een eitje op jou…"},
   "m.openTracks": {en:"open the list · next 50 ↓",nl:"open de lijst · volgende 50 ↓"},

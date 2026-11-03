@@ -69,7 +69,7 @@ async function render() {
 $("prev").addEventListener("click", () => { day = shift(day, -1); render(); });
 $("next").addEventListener("click", () => { day = shift(day, 1); render(); });
 document.addEventListener("keydown", e => {
-  if (e.target.closest("input")) return;
+  if (e.target.closest("input, #visitor-map")) return;
   if (e.key === "ArrowLeft" && !$("prev").disabled) $("prev").click();
   if (e.key === "ArrowRight" && !$("next").disabled) $("next").click();
 });
