@@ -1,101 +1,76 @@
-// Song suggestions + votes for /music.
-// Same protection as the language vote: signed voter cookie, one-time proof-of-work
-// challenge, origin check, per-IP limits. Only Spotify track IDs are stored; the title
-// comes from Spotify's own oEmbed, so there is no free text from visitors.
-import crypto from "node:crypto";
-import { redis, connected } from "./_redis.js";
+import { redis, connected } from './_redis.js';
+import { loadTracks, seedTracks, suggestions, validId, resolveLink, sameTrack, ORIGINS } from './_music-store.js';
+import { ensureVoter, readVoter, ipHash, rateLimit, makeChallenge, verifyChallenge } from './_music-security.js';
 
-const BITS = 16;
-const ORIGINS = ["https://corvus.gent", "https://www.corvus.gent"];
-const SECRET = process.env.VOTE_SECRET || crypto.createHash("sha256").update(String(process.env.REDIS_URL || "corvus")).digest("hex");
-const MAX_SUGGESTIONS = 300;
+const VOTE = "if redis.call('SADD',KEYS[1],ARGV[1])==1 then redis.call('ZINCRBY',KEYS[2],1,ARGV[1]); return 1 end; return 0";
+const POLL = "if redis.call('HSETNX',KEYS[1],ARGV[1],ARGV[2])==1 then redis.call('HINCRBY',KEYS[2],ARGV[2],1); return 1 end; return 0";
+// Limits and insertion are one transaction: concurrent requests cannot bypass the timer or cap.
+const SUGGEST = `
+local retry=math.max(redis.call('TTL',KEYS[1]),redis.call('TTL',KEYS[2]))
+if retry>0 then return retry end
+if tonumber(redis.call('GET',KEYS[3]) or '0')>=5 then return -2 end
+if redis.call('HLEN',KEYS[4])>=300 then return -3 end
+if redis.call('HEXISTS',KEYS[4],ARGV[1])==1 then return -4 end
+redis.call('SET',KEYS[1],1,'EX',60); redis.call('SET',KEYS[2],1,'EX',60)
+local n=redis.call('INCR',KEYS[3]); if n==1 then redis.call('EXPIRE',KEYS[3],86400) end
+redis.call('HSET',KEYS[4],ARGV[1],ARGV[2]); return 0`;
 
-const sign = v => crypto.createHmac("sha256", SECRET).update(v).digest("base64url");
-const makeVoter = () => { const id = crypto.randomBytes(16).toString("base64url"); return `${id}.${sign(id)}`; };
-function readVoter(req) {
-  const m = /(?:^|;\s*)vid=([^;]+)/.exec(req.headers.cookie || "");
-  if (!m) return null;
-  const [id, sig] = m[1].split(".");
-  if (!id || !sig) return null;
-  const good = sign(id);
-  return sig.length === good.length && crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(good)) ? id : null;
+async function state(voter,ip) {
+  const [catalog,list,scores,mine,poll,myPoll,voterTTL,ipTTL] = await Promise.all([
+    loadTracks(), suggestions(), redis(['ZRANGE','music:votes','0','-1','WITHSCORES']), redis(['SMEMBERS',`music:voted:${voter}`]),
+    redis(['HGETALL','music:poll:counts']), redis(['HGET','music:poll:voters',voter]),
+    redis(['TTL',`music:cool:v:${voter}`]), redis(['TTL',`music:cool:ip:${ip}`])
+  ]);
+  const votes = {}, counts = {spotify:0,apple:0};
+  for(let i=0;i<(scores||[]).length;i+=2) votes[scores[i]]=Number(scores[i+1]);
+  for(let i=0;i<(poll||[]).length;i+=2) if (poll[i] in counts) counts[poll[i]]=Number(poll[i+1]);
+  return { tracks:catalog.tracks, revision:catalog.revision, suggestions:list, votes, mine:mine||[], poll:{...counts,mine:myPoll||null}, retryAfter:Math.max(0,Number(voterTTL),Number(ipTTL)), storage:true };
 }
-const zeroBits = buf => { let n = 0; for (const b of buf) { if (b === 0) { n += 8; continue; } n += Math.clz32(b) - 24; break; } return n; };
-const trackId = s => (/(?:open\.spotify\.com\/(?:intl-[a-z-]+\/)?track\/|spotify:track:)([A-Za-z0-9]{22})/.exec(String(s || "")) || [])[1] || null;
-
-async function spotifyTitle(id) {
-  try {
-    const r = await fetch(`https://open.spotify.com/oembed?url=https://open.spotify.com/track/${id}`, { signal: AbortSignal.timeout(4000) });
-    if (!r.ok) return null;
-    const d = await r.json();
-    return String(d.title || "").slice(0, 120) || null;
-  } catch { return null; }
-}
-
-export default async function handler(req, res) {
-  res.setHeader("Cache-Control", "no-store");
-  if (!connected()) return res.status(503).json({ error: "storage not connected" });
-  try {
-    let voter = readVoter(req);
-    if (!voter) {
-      const cookie = makeVoter();
-      voter = cookie.split(".")[0];
-      res.setHeader("Set-Cookie", `vid=${cookie}; Path=/api; Max-Age=31536000; HttpOnly; Secure; SameSite=Strict`);
-    }
-    let message = null;
-
-    if (req.method === "POST") {
-      if (!ORIGINS.includes(req.headers.origin || "")) return res.status(403).json({ error: "forbidden" });
-      if (!readVoter(req)) return res.status(403).json({ error: "no voter cookie" });
-      const { action, url, id: rawId, challenge, nonce } = req.body || {};
-
-      const salt = await redis(["GETDEL", `ch:${String(challenge || "").slice(0, 64)}`]);
-      if (!salt) return res.status(403).json({ error: "challenge expired" });
-      if (zeroBits(crypto.createHash("sha256").update(`${salt}:${nonce}`).digest()) < BITS) return res.status(403).json({ error: "bad proof" });
-
-      const ip = (req.headers["x-forwarded-for"] || "").split(",")[0].trim() || "unknown";
-      const ipKey = crypto.createHash("sha256").update(ip + SECRET).digest("hex").slice(0, 32);
-      const day = Number(await redis(["INCR", `music:ipday:${ipKey}`]));
-      if (day === 1) await redis(["EXPIRE", `music:ipday:${ipKey}`, "86400"]);
-      if (day > 30) return res.status(429).json({ error: "easy, DJ. try again tomorrow." });
-
-      let id = null;
-      if (action === "suggest") {
-        id = trackId(url);
-        if (!id) return res.status(400).json({ error: "that's not a spotify track link" });
-        if (!(await redis(["HEXISTS", "music:sugg", id]))) {
-          const sDay = Number(await redis(["INCR", `music:suggday:${ipKey}`]));
-          if (sDay === 1) await redis(["EXPIRE", `music:suggday:${ipKey}`, "86400"]);
-          if (sDay > 5) return res.status(429).json({ error: "max 5 suggestions a day" });
-          if (Number(await redis(["HLEN", "music:sugg"])) >= MAX_SUGGESTIONS) return res.status(429).json({ error: "suggestion box is full" });
-          const title = await spotifyTitle(id);
-          if (!title) return res.status(400).json({ error: "spotify doesn't know that track" });
-          await redis(["HSET", "music:sugg", id, title]);
-          message = "added. you voted for it too.";
-        } else message = "already suggested, counted as a vote.";
-      } else if (action === "vote") {
-        id = /^[A-Za-z0-9]{22}$/.test(String(rawId || "")) ? rawId : null;
-        if (!id || !(await redis(["HEXISTS", "music:sugg", id]))) return res.status(400).json({ error: "unknown track" });
-      } else return res.status(400).json({ error: "bad action" });
-
-      if (Number(await redis(["SADD", `music:voted:${voter}`, id])) === 1) await redis(["ZINCRBY", "music:votes", "1", id]);
-      else if (action === "vote") message = "you already voted for this one.";
-    }
-
-    const ch = crypto.randomBytes(12).toString("base64url");
-    const chSalt = crypto.randomBytes(16).toString("hex");
-    await redis(["SET", `ch:${ch}`, chSalt, "EX", "300"]);
-
-    const titles = await redis(["HGETALL", "music:sugg"]) || [];
-    const scores = await redis(["ZRANGE", "music:votes", "0", "-1", "WITHSCORES"]) || [];
-    const mine = new Set(await redis(["SMEMBERS", `music:voted:${voter}`]) || []);
-    const score = {};
-    for (let i = 0; i < scores.length; i += 2) score[scores[i]] = Number(scores[i + 1]);
-    const suggestions = [];
-    for (let i = 0; i < titles.length; i += 2) suggestions.push({ id: titles[i], title: titles[i + 1], votes: score[titles[i]] || 0, mine: mine.has(titles[i]) });
-    suggestions.sort((a, b) => b.votes - a.votes);
-    return res.status(200).json({ suggestions, message, challenge: { id: ch, salt: chSalt, bits: BITS } });
-  } catch (e) {
-    return res.status(500).json({ error: "storage error" });
+export default async function handler(req,res) {
+  res.setHeader('Cache-Control','no-store');
+  if (!['GET','POST'].includes(req.method)) return res.status(405).json({error:'method_not_allowed'});
+  if (!connected()) {
+    if(req.method==='GET' && !req.query?.challenge) return res.status(200).json({tracks:await seedTracks(),suggestions:[],votes:{},mine:[],poll:{spotify:0,apple:0},storage:false});
+    return res.status(503).json({error:'storage_unavailable'});
   }
+  try {
+    const voter = ensureVoter(req,res), ip = ipHash(req);
+    await redis(['SET',`music:seen:${voter}`,String(Date.now()),'NX','EX','3600']);
+    if(req.method==='GET') {
+      if(req.query?.challenge) {
+        const action=req.query.challenge;
+        if(!['vote','suggest','poll'].includes(action)) return res.status(400).json({error:'bad_action'});
+        if(!await rateLimit(`music:challenge-rate:${ip}`,90,60)) return res.status(429).json({error:'rate_limited',retryAfter:60});
+        return res.status(200).json({challenge:await makeChallenge(voter,action)});
+      }
+      return res.status(200).json(await state(voter,ip));
+    }
+    if(!ORIGINS.includes(req.headers.origin || '') || !readVoter(req)) return res.status(403).json({error:'forbidden'});
+    const body=req.body || {};
+    if(!['vote','suggest','poll'].includes(body.action) || body.website) return res.status(400).json({error:'bad_request'});
+    if(!await rateLimit(`music:posts:${ip}`,600,86400)) return res.status(429).json({error:'daily_limit'});
+    if(!await verifyChallenge(voter,body)) return res.status(403).json({error:'challenge_expired'});
+    let message='voted';
+    if(body.action==='poll') {
+      if(!['spotify','apple'].includes(body.choice)) return res.status(400).json({error:'bad_choice'});
+      await redis(['EVAL',POLL,'2','music:poll:voters','music:poll:counts',voter,body.choice]);
+    } else {
+      const {tracks}=await loadTracks();
+      let id=body.id;
+      if(body.action==='suggest') {
+        const retry=Math.max(Number(await redis(['TTL',`music:cool:v:${voter}`])),Number(await redis(['TTL',`music:cool:ip:${ip}`])));
+        if(retry>0) {res.setHeader('Retry-After',String(retry)); return res.status(429).json({error:'cooldown',retryAfter:retry});}
+        const track=await resolveLink(body.url);
+        const existing=tracks.find(t=>sameTrack(t,track)) || (await suggestions()).find(t=>sameTrack(t,track));
+        if(existing) return res.status(409).json({error:'already_listed',id:existing.id});
+        id=track.id;
+        const result=Number(await redis(['EVAL',SUGGEST,'4',`music:cool:v:${voter}`,`music:cool:ip:${ip}`,`music:suggday:${ip}`,'music:sugg',id,JSON.stringify(track)]));
+        if(result>0) {res.setHeader('Retry-After',String(result)); return res.status(429).json({error:'cooldown',retryAfter:result});}
+        if(result<0) return res.status(result===-4?409:429).json({error:result===-2?'daily_limit':result===-3?'box_full':'already_listed'});
+        message='suggested';
+      } else if(!validId(id) || (!tracks.some(t=>t.id===id) && !Number(await redis(['HEXISTS','music:sugg',id])))) return res.status(400).json({error:'unknown_track'});
+      await redis(['EVAL',VOTE,'2',`music:voted:${voter}`,'music:votes',id]);
+    }
+    return res.status(200).json({...await state(voter,ip),message});
+  } catch(error) { return res.status(error.status || 500).json({error:error.status?error.message:'storage_error'}); }
 }
