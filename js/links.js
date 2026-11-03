@@ -97,3 +97,24 @@ const fill = (id, list, cls) => list.forEach(l => { const el = a(l, cls); el.tex
 fill("links", person.links, "lt-btn");
 fill("socials", person.socials, "lt-small");
 fill("extra", person.extra, "lt-small");
+
+// --- Diogenes' lantern note + the crow that flies in ---
+const home = new URL("/", location.origin);
+home.searchParams.set("utm_source", source);
+home.searchParams.set("utm_medium", "links");
+home.searchParams.set("utm_campaign", `${personId}-${campaign || "bio"}`);
+
+const note = document.createElement("a");
+note.className = "lt-lantern";
+note.href = home.toString();
+note.innerHTML = '<span class="term-lantern" aria-hidden="true"></span><span>I walk around with a lantern, looking for an honest man. maybe he\'s on the homepage. go look →</span>';
+document.querySelector(".lt").insertBefore(note, document.getElementById("main"));
+
+setTimeout(() => {
+  const crow = document.createElement("a");
+  crow.className = "lt-crow";
+  crow.href = home.toString();
+  crow.innerHTML = `<svg viewBox="0 0 140 40" aria-hidden="true"><g fill="#141414" stroke="#d8d8d8" stroke-width="1.6" stroke-linejoin="round"><path d="M0 20 C18 -8 46 -14 64 10 C74 -4 104 -10 124 14 C104 10 86 16 66 26 C46 16 22 11 0 20Z"/><ellipse cx="66" cy="24" rx="16" ry="7"/><circle cx="82" cy="20" r="6"/><path d="M87 18 L98 21 L87 23Z"/></g></svg><span class="lt-bubble">URGENT. go to the homepage. NOW!!!!</span>`;
+  crow.addEventListener("click", () => { if (window.posthog?.capture) window.posthog.capture("links_crow_click", window.__phProps); });
+  document.body.appendChild(crow);
+}, 12000);
