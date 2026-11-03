@@ -23,6 +23,12 @@ async function compute() {
   const list = async k => ((await redis(["LRANGE", k, "0", "49"])) || []).map(x => JSON.parse(x));
   out.access_requests = await list("access_requests");
   out.logins = await list("logins");
+  const days = (await redis(["SMEMBERS", "guess_days"])) || [];
+  out.guesses = [];
+  for (const d of days.sort()) {
+    const raw = (await redis(["HGETALL", `guesses:${d}`])) || [];
+    for (let i = 0; i < raw.length; i += 2) { const g = JSON.parse(raw[i + 1]); out.guesses.push({ day: d, email: raw[i], guess: g.guess }); }
+  }
   out.updated = new Date().toISOString();
   return out;
 }

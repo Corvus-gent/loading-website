@@ -23,16 +23,30 @@
   <main>
     <div class="wrap st">
       <div class="tag"><a href="https://corvus.gent/">corvus.gent</a> / stats</div>
-      <h1 id="today">…</h1>
-      <p class="sub" id="today-line">visitors today</p>
-      <p class="sub" id="total-line"></p>
-      <section class="st-sec"><h2>per day</h2><pre id="daily"></pre></section>
-      <section class="st-sec"><h2>from</h2><div id="countries"></div></section>
-      <section class="st-sec"><h2>via</h2><div id="sources"></div></section>
-      <section class="st-sec"><h2>most visited</h2><div id="pages"></div></section>
-      <section class="st-sec"><h2>the hunt</h2><p class="sub" id="feathers"></p><p class="sub" id="terminal"></p></section>
-      <section class="st-sec"><h2>next language</h2><div id="votes"></div></section>
-      <section class="st-sec"><h2>402</h2><p class="sub" id="unpaid"></p></section>
+      <div class="st-nav"><button id="prev" aria-label="previous day">←</button><span id="day"></span><button id="next" aria-label="next day">→</button></div>
+      <section id="past">
+        <h1 id="visitors">…</h1>
+        <p class="sub" id="visitors-line"></p>
+        <p class="sub" id="total-line"></p>
+        <section class="st-sec"><h2>per hour (brussels)</h2><pre id="hours"></pre></section>
+        <section class="st-sec"><h2>from</h2><div id="countries"></div></section>
+        <section class="st-sec"><h2>via</h2><div id="sources"></div></section>
+        <section class="st-sec"><h2>most visited</h2><div id="pages"></div></section>
+        <section class="st-sec"><h2>the hunt</h2><p class="sub" id="feathers"></p><p class="sub" id="terminal"></p></section>
+        <section class="st-sec" id="votes-sec"><h2>next language</h2><div id="votes"></div></section>
+        <section class="st-sec" id="unpaid-sec"><h2>402</h2><p class="sub" id="unpaid"></p></section>
+      </section>
+      <section id="future" style="display:none">
+        <h1>?</h1>
+        <p class="sub">the future hasn't happened yet.</p>
+        <p>how many visitors will <span id="fday"></span> get? guess it exactly and win a gift.</p>
+        <form id="guess" class="access-form">
+          <input type="number" name="guess" min="0" required placeholder="your guess">
+          <input type="email" name="email" required placeholder="you@email.com">
+          <button>lock it in</button>
+        </form>
+        <p class="sub" id="guess-msg"></p>
+      </section>
       <p class="sub st-upd" id="updated"></p>
       <footer><a href="https://corvus.gent/">corvus.gent</a></footer>
     </div>

@@ -36,6 +36,7 @@ async function dash(who) {
   const s = await r.json();
   Object.entries(TITLES).forEach(([k, [title, head]]) => $("out").appendChild(table(title, head, s[k] || [])));
   $("out").appendChild(table("goodreads requests", ["email", "at"], s.access_requests || []));
+  $("out").appendChild(table("visitor guesses (exact = gift)", ["day", "email", "guess"], s.guesses || []));
   $("out").appendChild(table("logins", ["email", "at"], s.logins || []));
   $("updated").textContent = `refreshes every 10 minutes · last: ${new Date(s.updated).toLocaleString()}`;
 }
