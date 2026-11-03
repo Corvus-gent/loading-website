@@ -26,10 +26,27 @@ const INDEX = [
   { title: "research · papers", url: "/gabe", keys: "research papers llm manipulation medical imaging" },
 ];
 
+let FULL = [];
+fetch("/search-index.json").then(r => r.json()).then(d => { FULL = d; }).catch(() => {});
+
+function snippet(text, words) {
+  const i = text.indexOf(words[0]);
+  if (i < 0) return "";
+  const start = Math.max(0, i - 25);
+  return (start ? "…" : "") + text.slice(start, i + 45) + "…";
+}
+
 function match(q) {
   q = q.trim().toLowerCase();
   if (!q) return [INDEX[3], INDEX[0]];
-  return INDEX.filter(i => (i.title + " " + i.keys).toLowerCase().includes(q)).slice(0, 6);
+  const words = q.split(/\s+/).filter(Boolean);
+  const hit = str => words.every(w => str.includes(w));
+  const out = INDEX.filter(i => hit((i.title + " " + i.keys).toLowerCase()));
+  FULL.forEach(p => {
+    if (out.length >= 7 || out.some(o => o.url === p.url)) return;
+    if (hit(p.text) || hit(p.title)) out.push({ title: p.title, url: p.url, snip: snippet(p.text, words) });
+  });
+  return out.slice(0, 7);
 }
 
 export function renderSearch(container) {
@@ -42,10 +59,13 @@ export function renderSearch(container) {
 
   const show = () => {
     list.innerHTML = "";
-    match(input.value).forEach(i => {
+    const results = match(input.value);
+    if (!results.length) { list.innerHTML = '<li class="sub" style="padding:6px 8px">nothing. the crow looked everywhere.</li>'; return; }
+    results.forEach(i => {
       const li = document.createElement("li");
       const a = document.createElement("a");
       a.href = i.url; a.textContent = i.title;
+      if (i.snip) { const sm = document.createElement("small"); sm.textContent = i.snip; a.appendChild(sm); }
       li.appendChild(a); list.appendChild(li);
     });
   };

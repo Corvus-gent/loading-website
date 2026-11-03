@@ -1,0 +1,32 @@
+#!/usr/bin/env python3
+"""Builds search-index.json: every page's visible text (English), so any phrase is searchable.
+Run after content changes:  python3 tools/build-search.py"""
+import glob, html, json, re
+
+i18n = open("js/i18n.js", encoding="utf-8").read()
+EN = {m.group(1): m.group(2) for m in re.finditer(r'"([\w.]+)":\s*\{[^}]*?\ben:\s*"((?:[^"\\]|\\.)*)"', i18n)}
+people = json.load(open("people/people.json", encoding="utf-8"))["members"][0]
+
+TITLES = {"/": "home", "/gabe": "gabe · about me"}
+pages = []
+for f in sorted(glob.glob("**/index.html", recursive=True)):
+    if f.startswith(("clients/", "go/", "gabe/", "node_modules/")): continue
+    url = "/" + f[:-len("index.html")]
+    if url == "/people/": url_title = "army · join the people"
+    src = open(f, encoding="utf-8").read()
+    body = src.split("<body", 1)[-1]
+    keys = re.findall(r'data-i18n="([\w.]+)"', body)
+    body = re.sub(r"<script.*?</script>|<style.*?</style>", " ", body, flags=re.S)
+    text = html.unescape(re.sub(r"<[^>]+>", " ", body))
+    text += " " + " ".join(EN.get(k, "") for k in keys)
+    title = re.search(r"<title>(.*?)</title>", src)
+    title = (title.group(1).split("|")[0].strip() if title else url).lower()
+    if url == "/stats/": url = "https://stats.corvus.gent/"
+    if url == "/people/":
+        pages.append({"title": "gabe · about me", "url": "/gabe", "text": re.sub(r"<[^>]+>", " ", people["about"]["en"]) + " " + " ".join(EN.get(k, "") for k in ["profile.languages"]) + " " + " ".join(r["text"] for r in people.get("research", []))})
+        title = "army · join the people"
+    pages.append({"title": TITLES.get(url, title), "url": url, "text": text})
+for p in pages:
+    p["text"] = re.sub(r"\s+", " ", p["text"]).strip().lower()[:6000]
+json.dump(pages, open("search-index.json", "w", encoding="utf-8"), ensure_ascii=False)
+print(len(pages), "pages indexed")

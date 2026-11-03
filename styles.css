@@ -381,3 +381,4 @@ a:hover { text-decoration-color: var(--fg); border-bottom: 0; }
 .share-msg.fade { color: #000; }
 .share-msg.gone { visibility: hidden; }
 .share-msg.collapse { max-height: 0; margin: 0; }
+.search-list small { display: block; color: var(--faint); font-size: 10px; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
