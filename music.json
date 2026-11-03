@@ -1,5 +1,2302 @@
 {
   "tracks": [
-    { "id": "0wwPcA6wtMf6HUMpIRdeP7", "title": "Hotline Bling", "artist": "Drake" }
+    {
+      "id": "track_f98379fada39c12ea845",
+      "title": "Dance With the Devil",
+      "artist": "Immortal Technique",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "spotifyId": "4LCzEYKPFcd2FCOmZdVDnM"
+    },
+    {
+      "id": "track_c7e7ffdee6f4ea83c0a2",
+      "title": "Repose en paix",
+      "artist": "Booba",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "appleId": "447306936",
+      "appleUrl": "https://music.apple.com/us/album/repose-en-paix/447306902?i=447306936&uo=4"
+    },
+    {
+      "id": "track_ace4b2a9c8f71fd39ac8",
+      "title": "Mosaïque solitaire",
+      "artist": "Damso",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "spotifyId": "7wFK2ReVQpq80IAGs6eI1l"
+    },
+    {
+      "id": "track_20c9c24f1496bf9ed317",
+      "title": "Hier encore",
+      "artist": "Charles Aznavour",
+      "genre": "classics",
+      "added": "2026-11-03",
+      "appleId": "1743410975",
+      "appleUrl": "https://music.apple.com/us/album/hier-encore/1743410743?i=1743410975&uo=4",
+      "spotifyId": "5LKDYtE72aAQwg9KcQk06S"
+    },
+    {
+      "id": "track_0275f9c894a1e1135355",
+      "title": "Tropical Birds",
+      "artist": "",
+      "genre": "electronic",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_f5c93a2fd226479ecf83",
+      "title": "Chiru Chiru",
+      "artist": "Yuvan Shankar Raja",
+      "genre": "soundtrack",
+      "added": "2026-11-03",
+      "appleId": "1836384382",
+      "appleUrl": "https://music.apple.com/us/song/1836384382"
+    },
+    {
+      "id": "track_a75e9178ffc9b5d6767c",
+      "title": "La petite fille de la mer",
+      "artist": "Vangelis",
+      "genre": "soundtrack",
+      "added": "2026-11-03",
+      "appleId": "405597307",
+      "appleUrl": "https://music.apple.com/us/album/la-petite-fille-de-la-mer/405597276?i=405597307&uo=4",
+      "spotifyId": "4VAXv97d5bREzLv4xsIqEx"
+    },
+    {
+      "id": "track_02abd9d4b6f5702544e0",
+      "title": "Lady Brown",
+      "artist": "Nujabes",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "1078898191",
+      "appleUrl": "https://music.apple.com/us/album/lady-brown-feat-cise-starr/1078898175?i=1078898191&uo=4"
+    },
+    {
+      "id": "track_fdb6c5b8f5c15d96ab52",
+      "title": "Vomitspit",
+      "artist": "MF DOOM",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "spotifyId": "07nA7gafu75RjIkAUxtjjr"
+    },
+    {
+      "id": "track_77d61d168f02a0b3b002",
+      "title": "Comme un aimant",
+      "artist": "ROMSII",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "appleId": "6805501436",
+      "appleUrl": "https://music.apple.com/us/song/6805501436"
+    },
+    {
+      "id": "track_dbb573b0e4ff5dfd6dc9",
+      "title": "Adam and Eve",
+      "artist": "Nas",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "1402278490",
+      "appleUrl": "https://music.apple.com/us/album/adam-and-eve-feat-the-dream/1402278252?i=1402278490&uo=4",
+      "spotifyId": "5VuIv74kM7xvRg7xMmxZhS"
+    },
+    {
+      "id": "track_6ed37635b3b2a6c4b34d",
+      "title": "Cabeza",
+      "artist": "Oboy",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "spotifyId": "6Zm3cz2V1Bqq0emEuXY4bm"
+    },
+    {
+      "id": "track_a9f0b6b17337c735e4e9",
+      "title": "Babi",
+      "artist": "13 Block",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "spotifyId": "3FrbLRZXo94g9dnJzxQLNP"
+    },
+    {
+      "id": "track_14ec59c22ab7f5f7993a",
+      "title": "À l'ammoniaque",
+      "artist": "PNL",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "appleId": "1448699414",
+      "appleUrl": "https://music.apple.com/us/album/a-lammoniaque/1448699412?i=1448699414&uo=4",
+      "spotifyId": "5SCEn39dgCQjtXDkrQ9nJA"
+    },
+    {
+      "id": "track_b98077683fe6e03f6155",
+      "title": "Veridis Quo",
+      "artist": "Daft Punk",
+      "genre": "electronic",
+      "added": "2026-11-03",
+      "appleId": "697196125",
+      "appleUrl": "https://music.apple.com/us/album/veridis-quo/697194953?i=697196125&uo=4"
+    },
+    {
+      "id": "track_96344c2a3b942d3f8247",
+      "title": "Giorgio by Moroder",
+      "artist": "Daft Punk",
+      "genre": "electronic",
+      "added": "2026-11-03",
+      "appleId": "617154360",
+      "appleUrl": "https://music.apple.com/us/album/giorgio-by-moroder/617154241?i=617154360&uo=4"
+    },
+    {
+      "id": "track_23309fec1e34930147c9",
+      "title": "Passing Out Pieces",
+      "artist": "Mac DeMarco",
+      "genre": "rock",
+      "added": "2026-11-03",
+      "appleId": "6789834610",
+      "appleUrl": "https://music.apple.com/us/album/passing-out-pieces/6789834398?i=6789834610&uo=4",
+      "spotifyId": "7m0HWMjdCYc2EodpKN4gaf"
+    },
+    {
+      "id": "track_fa802e8d5606ffbdab74",
+      "title": "Lemon Tree",
+      "artist": "Fools Garden",
+      "genre": "rock",
+      "added": "2026-11-03",
+      "appleId": "1847889648",
+      "appleUrl": "https://music.apple.com/us/album/lemon-tree/1847889646?i=1847889648&uo=4"
+    },
+    {
+      "id": "track_8b25c81d62d4c732a4e9",
+      "title": "Eternity and a Day",
+      "artist": "Eleni Karaindrou",
+      "genre": "soundtrack",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_638a897fa1ab87affce9",
+      "title": "Across the Stars",
+      "artist": "John Williams",
+      "genre": "soundtrack",
+      "added": "2026-11-03",
+      "appleId": "157522020",
+      "appleUrl": "https://music.apple.com/us/album/across-the-stars/157521329?i=157522020&uo=4"
+    },
+    {
+      "id": "track_c04cc4d4b1a4d4958781",
+      "title": "Les Duele",
+      "artist": "Morad",
+      "genre": "latin",
+      "added": "2026-11-03",
+      "appleId": "6772227478",
+      "appleUrl": "https://music.apple.com/us/album/les-duele/6772227470?i=6772227478&uo=4",
+      "spotifyId": "0JC2yPGYZsO9zR9Bss3Hi8"
+    },
+    {
+      "id": "track_9375ff1096c811672f27",
+      "title": "92i Veyron",
+      "artist": "Booba",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "appleId": "1440834237",
+      "appleUrl": "https://music.apple.com/us/album/92i-veyron/1440833914?i=1440834237&uo=4"
+    },
+    {
+      "id": "track_d37938b3076a15cce468",
+      "title": "92i",
+      "artist": "SDM",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "spotifyId": "6zfvtSOE1xpcv3TnbYBVkp"
+    },
+    {
+      "id": "track_db8cc3619cde9f16e0c4",
+      "title": "Akatsuki",
+      "artist": "",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_724ba26803d7af58f56b",
+      "title": "Monaco",
+      "artist": "",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_a04cee9939c26b76f863",
+      "title": "Yo No Sé",
+      "artist": "RVFV",
+      "genre": "latin",
+      "added": "2026-11-03",
+      "appleId": "1797603145",
+      "appleUrl": "https://music.apple.com/us/album/yo-no-s%C3%A9/1797603144?i=1797603145&uo=4"
+    },
+    {
+      "id": "track_a7a0de8b714ab75a3041",
+      "title": "Ma Chérie",
+      "artist": "",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_79bfe692af7077bf463f",
+      "title": "Djomb",
+      "artist": "Bosh",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "appleId": "1510577938",
+      "appleUrl": "https://music.apple.com/il/song/1510577938"
+    },
+    {
+      "id": "track_8eee871fb1b2e882716f",
+      "title": "El cuento de Pedro y el lobo",
+      "artist": "",
+      "genre": "soundtrack",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_f3c6c80f298086158c52",
+      "title": "Mala",
+      "artist": "6ix9ine",
+      "genre": "latin",
+      "added": "2026-11-03",
+      "spotifyId": "77CcBvCJaw2mHkRP9lLRgt"
+    },
+    {
+      "id": "track_fd9169afff4d73db6a45",
+      "title": "Ce soir ne sors pas",
+      "artist": "Lacrim",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "appleId": "1443226497",
+      "appleUrl": "https://music.apple.com/us/song/1443226497",
+      "spotifyId": "1ecAbxjHH1rouXaWyrnVbj"
+    },
+    {
+      "id": "track_c781518ee83f97a7026c",
+      "title": "El Ombliguito",
+      "artist": "",
+      "genre": "latin",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_fcfb42b9ad295507920d",
+      "title": "Canción del Mariachi",
+      "artist": "Los Lobos & Antonio Banderas",
+      "genre": "soundtrack",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_0f0d45fb2c657fd4f3b7",
+      "title": "Se Preparó",
+      "artist": "Ozuna",
+      "genre": "latin",
+      "added": "2026-11-03",
+      "appleId": "1269286798",
+      "appleUrl": "https://music.apple.com/us/album/se-prepar%C3%B3/1269285897?i=1269286798&uo=4",
+      "spotifyId": "6p64SixEcFhMdcJ66Utqlx"
+    },
+    {
+      "id": "track_bcfb2f27b06f874478e4",
+      "title": "Portabilidade",
+      "artist": "",
+      "genre": "lusophone",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_f9aa98424248173cf7b7",
+      "title": "Ayúdame",
+      "artist": "Romeo Santos",
+      "genre": "latin",
+      "added": "2026-11-03",
+      "appleId": "1640944213",
+      "appleUrl": "https://music.apple.com/us/album/ay%C3%BAdame/1640943885?i=1640944213&uo=4"
+    },
+    {
+      "id": "track_159c0697aafc18ddace0",
+      "title": "Revolú",
+      "artist": "",
+      "genre": "latin",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_e1b189f4d53ccf1bd9d2",
+      "title": "Cabo Verde Riba Nhos",
+      "artist": "Dj Doraemon",
+      "genre": "lusophone",
+      "added": "2026-11-03",
+      "appleId": "1732127247",
+      "appleUrl": "https://music.apple.com/us/song/1732127247",
+      "spotifyId": "2VFv3lmC9kRaz8QT1OjTPS"
+    },
+    {
+      "id": "track_0c84ee19a6a040d2dbe5",
+      "title": "Fimbu",
+      "artist": "",
+      "genre": "afro",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_b89ff0aede003635cec1",
+      "title": "Surfboard",
+      "artist": "",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_30ad9cc5480ab9bc58fe",
+      "title": "A Fábrica",
+      "artist": "Nazfitaz",
+      "genre": "lusophone",
+      "added": "2026-11-03",
+      "appleId": "1686461521",
+      "appleUrl": "https://music.apple.com/us/song/1686461521"
+    },
+    {
+      "id": "track_29c7bce6083960870417",
+      "title": "Strangers in the Night",
+      "artist": "Frank Sinatra",
+      "genre": "classics",
+      "added": "2026-11-03",
+      "appleId": "1440858701",
+      "appleUrl": "https://music.apple.com/us/album/strangers-in-the-night/1440858119?i=1440858701&uo=4"
+    },
+    {
+      "id": "track_ed83f1978e0609879612",
+      "title": "Theme from New York, New York",
+      "artist": "Frank Sinatra",
+      "genre": "classics",
+      "added": "2026-11-03",
+      "appleId": "1440858721",
+      "appleUrl": "https://music.apple.com/us/album/theme-from-new-york-new-york/1440858119?i=1440858721&uo=4"
+    },
+    {
+      "id": "track_bbfd44f9d47240102b1f",
+      "title": "Fly Me to the Moon",
+      "artist": "Frank Sinatra",
+      "genre": "classics",
+      "added": "2026-11-03",
+      "appleId": "1443167444",
+      "appleUrl": "https://music.apple.com/us/album/fly-me-to-the-moon/1443165749?i=1443167444&uo=4",
+      "spotifyId": "3NkGnS5ixFa8AWhCUCdj5U"
+    },
+    {
+      "id": "track_e8c1b20292011571c25c",
+      "title": "Le palais de nos chimères",
+      "artist": "Charles Aznavour",
+      "genre": "classics",
+      "added": "2026-11-03",
+      "appleId": "892816970",
+      "appleUrl": "https://music.apple.com/us/song/892816970"
+    },
+    {
+      "id": "track_6e77cd37abd000b81a6e",
+      "title": "Stronger",
+      "artist": "Kanye West",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "1442846328",
+      "appleUrl": "https://music.apple.com/us/album/stronger/1442845779?i=1442846328&uo=4",
+      "spotifyId": "6pzB87Wi31IBUMe5xc6xgl"
+    },
+    {
+      "id": "track_3c98ae30fbb8050f0cf7",
+      "title": "Homecoming",
+      "artist": "Kanye West",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "1442846735",
+      "appleUrl": "https://music.apple.com/us/album/homecoming-feat-chris-martin/1442845779?i=1442846735&uo=4",
+      "spotifyId": "51ayJ1r626si5LUBuOV5GR"
+    },
+    {
+      "id": "track_f29e1e6d863e94fcc6f3",
+      "title": "American Boy",
+      "artist": "Estelle",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "spotifyId": "6etwirSInfuJrSOlogS6Sh"
+    },
+    {
+      "id": "track_af676f6199df8d772794",
+      "title": "Gold Digger",
+      "artist": "Kanye West",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "1440763833",
+      "appleUrl": "https://music.apple.com/us/album/gold-digger-feat-jamie-foxx/1440763821?i=1440763833&uo=4"
+    },
+    {
+      "id": "track_21993e0b67dbd940fe24",
+      "title": "90mph",
+      "artist": "",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_00cd771622fcbc82ad42",
+      "title": "The Race",
+      "artist": "Tay-K",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "1324759457",
+      "appleUrl": "https://music.apple.com/us/album/the-race/1324759046?i=1324759457&uo=4"
+    },
+    {
+      "id": "track_5968b55e970eab0d4c5d",
+      "title": "Steve Biko",
+      "artist": "",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_6e1beedfa22c28a7ada2",
+      "title": "Magnolia",
+      "artist": "Playboi Carti",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "spotifyId": "49EKPSERKqAkM4szIkhHx0"
+    },
+    {
+      "id": "track_98f56d58434aa633c260",
+      "title": "Run This Town",
+      "artist": "JAY-Z",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "1440776346",
+      "appleUrl": "https://music.apple.com/us/album/run-this-town-feat-rihanna-kanye-west/1440776162?i=1440776346&uo=4"
+    },
+    {
+      "id": "track_c8b540f658f74d17d53f",
+      "title": "Rapp Snitch Knishes",
+      "artist": "MF DOOM",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "1516751193",
+      "appleUrl": "https://music.apple.com/us/song/1516751193"
+    },
+    {
+      "id": "track_24443f9d5880fae03db0",
+      "title": "Catch Me Outside",
+      "artist": "Ski Mask the Slump God",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "1824076169",
+      "appleUrl": "https://music.apple.com/us/album/catch-me-outside-2/1824076168?i=1824076169&uo=4",
+      "spotifyId": "43qH1WhEUpq8ozw13CT19t"
+    },
+    {
+      "id": "track_eaadc18e3190db86ae71",
+      "title": "No Suburban",
+      "artist": "Sheff G",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_ab19553d3a72975d5876",
+      "title": "Réseaux",
+      "artist": "Niska",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "spotifyId": "2GmpWQTJrhTIWkgXiYKKlo"
+    },
+    {
+      "id": "track_e589b1de0675bdbb757e",
+      "title": "Professor X",
+      "artist": "Dave",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "6814093859",
+      "appleUrl": "https://music.apple.com/us/album/professor-x/6814093839?i=6814093859&uo=4",
+      "spotifyId": "47fff9EhXHJQPGb55nxV6d"
+    },
+    {
+      "id": "track_37986d6801e413d78f2e",
+      "title": "Camelot",
+      "artist": "NLE Choppa",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "1525263227",
+      "appleUrl": "https://music.apple.com/us/album/camelot/1525263223?i=1525263227&uo=4",
+      "spotifyId": "4TvxszMsC27CnZlwuaxTuD"
+    },
+    {
+      "id": "track_0ddc391693fcc9bb2121",
+      "title": "Scarface",
+      "artist": "Capital",
+      "genre": "rap nl/be",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_c4a215a1bb07db6caee1",
+      "title": "Shavkat",
+      "artist": "Freeze Corleone",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "spotifyId": "1A3eBtA4ath65H7PFySd6l"
+    },
+    {
+      "id": "track_ee75e1a118be73ad79d1",
+      "title": "Chop",
+      "artist": "",
+      "genre": "rap nl/be",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_609b8a2765886b7c3fd5",
+      "title": "Hosselen",
+      "artist": "Boef",
+      "genre": "rap nl/be",
+      "added": "2026-11-03",
+      "appleId": "1084665231",
+      "appleUrl": "https://music.apple.com/us/song/1084665231",
+      "spotifyId": "3pupFhUH3n5CfXQ8KO70S0"
+    },
+    {
+      "id": "track_85004fff21d0d67ca1f0",
+      "title": "Sofiane",
+      "artist": "",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_1e96315d1575646cc7d4",
+      "title": "Leon the Professional",
+      "artist": "",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_6dd06c00566e4b6b5dde",
+      "title": "Kon Queso",
+      "artist": "MF DOOM",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "1767672232",
+      "appleUrl": "https://music.apple.com/us/song/1767672232"
+    },
+    {
+      "id": "track_bb6d67a57158ee28bb1f",
+      "title": "Money Folder",
+      "artist": "Madvillain",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "887699520",
+      "appleUrl": "https://music.apple.com/us/album/money-folder/887699504?i=887699520&uo=4",
+      "spotifyId": "6TO0wnNQn2nyBFNQcpNgRs"
+    },
+    {
+      "id": "track_d342457c1a8b297e7b30",
+      "title": "Money Folder (Four Tet Remix)",
+      "artist": "Madvillain",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "1325899575",
+      "appleUrl": "https://music.apple.com/us/song/1325899575"
+    },
+    {
+      "id": "track_7f2bf081051ad21036af",
+      "title": "Özür",
+      "artist": "",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_9dd6689b2c55e6450697",
+      "title": "4:44",
+      "artist": "JAY-Z",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "1440935736",
+      "appleUrl": "https://music.apple.com/us/album/4-44/1440935729?i=1440935736&uo=4"
+    },
+    {
+      "id": "track_aca22fe62786a1addbd4",
+      "title": "Figaro",
+      "artist": "Madvillain",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "41655314",
+      "appleUrl": "https://music.apple.com/us/album/figaro/41655332?i=41655314&uo=4",
+      "spotifyId": "7oFiFPltiQTBqVutyiSwvE"
+    },
+    {
+      "id": "track_2b8a640d2659d565f54e",
+      "title": "Malavita",
+      "artist": "",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_aebd42009def0b3c21eb",
+      "title": "Absolutely",
+      "artist": "MF DOOM",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "1829721795",
+      "appleUrl": "https://music.apple.com/us/song/1829721795"
+    },
+    {
+      "id": "track_a6749fe4c32c855e5c63",
+      "title": "Runaway",
+      "artist": "Kanye West",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "1443160699",
+      "appleUrl": "https://music.apple.com/us/album/runaway-feat-pusha-t/1443160553?i=1443160699&uo=4",
+      "spotifyId": "50HCj9kEXIonBwRLXFWCr8"
+    },
+    {
+      "id": "track_a683b146d46229f3de58",
+      "title": "The Light",
+      "artist": "",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_26e5535521a38b8eba85",
+      "title": "Maman ne le sait pas",
+      "artist": "Ninho",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_2b03f79d2a55ba31eebd",
+      "title": "Brilliant Mind",
+      "artist": "Blanco",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "1695643412",
+      "appleUrl": "https://music.apple.com/us/album/brilliant-mind/1695643186?i=1695643412&uo=4"
+    },
+    {
+      "id": "track_a6e2c9357a07e16c4c5f",
+      "title": "Baybay",
+      "artist": "BLOK3",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "appleId": "1674684540",
+      "appleUrl": "https://music.apple.com/us/song/1674684540"
+    },
+    {
+      "id": "track_c586761505438fe2a25f",
+      "title": "Paperchase",
+      "artist": "",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_da0720cc64bce9a46502",
+      "title": "Vanished",
+      "artist": "Crystal Castles",
+      "genre": "electronic",
+      "added": "2026-11-03",
+      "appleId": "1132754196",
+      "appleUrl": "https://music.apple.com/us/album/vanished/1132754123?i=1132754196&uo=4",
+      "spotifyId": "0Q2YGyMeeZMAvzebtxoQ5f"
+    },
+    {
+      "id": "track_bf82f7f5112f3417308c",
+      "title": "Crimewave",
+      "artist": "Crystal Castles",
+      "genre": "electronic",
+      "added": "2026-11-03",
+      "appleId": "1132754189",
+      "appleUrl": "https://music.apple.com/us/album/crimewave/1132754123?i=1132754189&uo=4",
+      "spotifyId": "4yk1OoIYOdocy7ZuHENtMu"
+    },
+    {
+      "id": "track_33cbe12411146922e351",
+      "title": "Who's That Chick?",
+      "artist": "David Guetta & Rihanna",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "appleId": "693169615",
+      "appleUrl": "https://music.apple.com/us/album/whos-that-chick-feat-rihanna-extended/693169565?i=693169615&uo=4",
+      "spotifyId": "20Es2D9SULAqYCaR5s0SJk"
+    },
+    {
+      "id": "track_059db560760b4852e811",
+      "title": "Did I Tell U That I Miss U",
+      "artist": "",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_22df96ce248eb93b702b",
+      "title": "Häschenparty",
+      "artist": "Schnuffel",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "appleId": "292657388",
+      "appleUrl": "https://music.apple.com/us/album/h%C3%A4schenparty/292657356?i=292657388&uo=4",
+      "spotifyId": "2FC82Ws0t43Qrv5cX0KlfS"
+    },
+    {
+      "id": "track_476b042b68c6d20f51f4",
+      "title": "Kak Mommy",
+      "artist": "",
+      "genre": "rap nl/be",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_bd44845976bce3fc1bb0",
+      "title": "Nardo",
+      "artist": "RS",
+      "genre": "rap nl/be",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_7945f90957753f362312",
+      "title": "Slapend Rijk",
+      "artist": "Boef",
+      "genre": "rap nl/be",
+      "added": "2026-11-03",
+      "spotifyId": "3QW4Z0otVIQEPWxP7K4v3M",
+      "appleId": "1502125401",
+      "appleUrl": "https://music.apple.com/us/song/1502125401"
+    },
+    {
+      "id": "track_a1d773d42c30130f460e",
+      "title": "Roi",
+      "artist": "VIDÉOCLUB",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "appleId": "1469040760",
+      "appleUrl": "https://music.apple.com/us/album/roi/1469040759?i=1469040760&uo=4",
+      "spotifyId": "1UFyg50crB3cjd2euYKHoH"
+    },
+    {
+      "id": "track_55f60394fdde7dcbe8c6",
+      "title": "La Camisa Negra",
+      "artist": "Juanes",
+      "genre": "latin",
+      "added": "2026-11-03",
+      "appleId": "1440652265",
+      "appleUrl": "https://music.apple.com/us/album/la-camisa-negra/1440652099?i=1440652265&uo=4",
+      "spotifyId": "6rTrKtMghnC7WqJVSmqdMC"
+    },
+    {
+      "id": "track_05197b53a3761e5e3cbf",
+      "title": "When the Sun Hits",
+      "artist": "Slowdive",
+      "genre": "rock",
+      "added": "2026-11-03",
+      "appleId": "292885262",
+      "appleUrl": "https://music.apple.com/us/album/when-the-sun-hits/292885238?i=292885262&uo=4"
+    },
+    {
+      "id": "track_c917116d8f1d3f28abce",
+      "title": "Panamera",
+      "artist": "Ashafar",
+      "genre": "rap nl/be",
+      "added": "2026-11-03",
+      "spotifyId": "2S4exmZO3aVEcoxLdKhC47"
+    },
+    {
+      "id": "track_4a61e6c1b34cd211f8b2",
+      "title": "Una Noche en Medellín",
+      "artist": "Cris Mj",
+      "genre": "latin",
+      "added": "2026-11-03",
+      "spotifyId": "0lREs0EdgrMQQKw00yx0Ct"
+    },
+    {
+      "id": "track_049628a816de25db7010",
+      "title": "Sky",
+      "artist": "Playboi Carti",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "spotifyId": "3AwFX7oWkcIoYZpxXqNO4E"
+    },
+    {
+      "id": "track_f3854a2ee273e460c598",
+      "title": "The Way I Are (Bonus Track Version)",
+      "artist": "Timbaland",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_99e2f2fc655f23a0fdbe",
+      "title": "Madrina",
+      "artist": "Maes",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "appleId": "1439574924",
+      "appleUrl": "https://music.apple.com/us/song/1439574924"
+    },
+    {
+      "id": "track_c8bc141d2ca3a6366f2c",
+      "title": "Drill FR 4",
+      "artist": "Gazo",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_299e74bd959feae2d41c",
+      "title": "Posso Beijar Sua Boca",
+      "artist": "Léo Santana & Anitta",
+      "genre": "lusophone",
+      "added": "2026-11-03",
+      "spotifyId": "6KBQLMixmXFOQl37P9JNzw"
+    },
+    {
+      "id": "track_2408d560a472a13dc333",
+      "title": "Baila",
+      "artist": "Soolking",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "appleId": "1620177667",
+      "appleUrl": "https://music.apple.com/us/song/1620177667"
+    },
+    {
+      "id": "track_a04032c938bea35796a4",
+      "title": "MHD: Bzrp Music Sessions, Vol. 44",
+      "artist": "Bizarrap & MHD",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "spotifyId": "4JC18crxRPZOuTqBfXKFIR"
+    },
+    {
+      "id": "track_5262af71deb99e2568f0",
+      "title": "Extinct",
+      "artist": "REASON",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "spotifyId": "70hDklZStSazrExPjHJPfR"
+    },
+    {
+      "id": "track_f01e07b79d895c107ed5",
+      "title": "Right Round",
+      "artist": "Flo Rida",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "appleId": "308842100",
+      "appleUrl": "https://music.apple.com/us/album/right-round-feat-ke%24ha/308841964?i=308842100&uo=4",
+      "spotifyId": "5CDYL6P0MlyDH5VdaStm8I"
+    },
+    {
+      "id": "track_54e2fdadb118408f8675",
+      "title": "Céline 3X",
+      "artist": "Gazo",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "spotifyId": "2APwDsIavDeJRJFcz6s8Ow"
+    },
+    {
+      "id": "track_cadc171246d534062e6a",
+      "title": "Ma 6t a craqué",
+      "artist": "KPoint",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "spotifyId": "2KtpMkc1TS1FMwy9FR0gCM"
+    },
+    {
+      "id": "track_2e7532ba7fc8cef335f6",
+      "title": "Alaka",
+      "artist": "Broederliefde",
+      "genre": "rap nl/be",
+      "added": "2026-11-03",
+      "spotifyId": "1VUBnozAZ9KRY9mYzaSWM1"
+    },
+    {
+      "id": "track_8cdcf28509ed11a3f265",
+      "title": "A Dead Mouse",
+      "artist": "Viktor Vaughn",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "706186837",
+      "appleUrl": "https://music.apple.com/us/album/a-dead-mouse/706186757?i=706186837&uo=4"
+    },
+    {
+      "id": "track_7836a3678461aa0c6594",
+      "title": "Beware",
+      "artist": "Big Sean",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "1442393265",
+      "appleUrl": "https://music.apple.com/us/album/beware-feat-lil-wayne-jhene-aiko/1442393017?i=1442393265&uo=4"
+    },
+    {
+      "id": "track_c7a6a42c383d2c4038da",
+      "title": "Blessings",
+      "artist": "Big Sean",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "1442857513",
+      "appleUrl": "https://music.apple.com/us/album/blessings-feat-drake/1442857082?i=1442857513&uo=4",
+      "spotifyId": "1bzM1cd6oqFozdr4wK6HdR"
+    },
+    {
+      "id": "track_899047fe81ec8548fac8",
+      "title": "Mercy",
+      "artist": "Kanye West",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "1443478650",
+      "appleUrl": "https://music.apple.com/us/album/mercy/1443478391?i=1443478650&uo=4",
+      "spotifyId": "2dNoNn1COwngJg8ifw1h4y"
+    },
+    {
+      "id": "track_8df7261fce7df0f78b74",
+      "title": "I Don't Fuck With You",
+      "artist": "Big Sean",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "spotifyId": "6FGUUkF4HCDT0nW34i4der"
+    },
+    {
+      "id": "track_a87766da74c678419607",
+      "title": "Menina de Vermelho",
+      "artist": "MC Menor JP, RAMONMIX & The Ironix",
+      "genre": "funk & phonk",
+      "added": "2026-11-03",
+      "appleId": "1773787759",
+      "appleUrl": "https://music.apple.com/cy/song/1773787759"
+    },
+    {
+      "id": "track_bb64573658ee149c2faf",
+      "title": "Mas Que Nada",
+      "artist": "Sérgio Mendes",
+      "genre": "lusophone",
+      "added": "2026-11-03",
+      "appleId": "1443794605",
+      "appleUrl": "https://music.apple.com/us/album/mas-que-nada/1443794592?i=1443794605&uo=4",
+      "spotifyId": "7LWQOAnEwrspOO7m0vEzEw"
+    },
+    {
+      "id": "track_c49e0c0aa254a754872b",
+      "title": "Shook Ones, Pt. II",
+      "artist": "Mobb Deep",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "1751384037",
+      "appleUrl": "https://music.apple.com/us/album/shook-ones-pt-iii/1751383938?i=1751384037&uo=4",
+      "spotifyId": "33ZXjLCpiINn8eQIDYEPTD"
+    },
+    {
+      "id": "track_006dd9514f1663dad584",
+      "title": "Mirándote",
+      "artist": "RVFV",
+      "genre": "latin",
+      "added": "2026-11-03",
+      "spotifyId": "0gxbA4bZN8KyNHsCUfNvyr",
+      "appleId": "1797602297",
+      "appleUrl": "https://music.apple.com/us/song/1797602297"
+    },
+    {
+      "id": "track_f46e4587e776e16db510",
+      "title": "The Message",
+      "artist": "Nas",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "858268038",
+      "appleUrl": "https://music.apple.com/us/album/the-message/858268019?i=858268038&uo=4"
+    },
+    {
+      "id": "track_5e27a09914f2310fbe9d",
+      "title": "Eng",
+      "artist": "Lijpe",
+      "genre": "rap nl/be",
+      "added": "2026-11-03",
+      "spotifyId": "7lU6Bsf1wmHUEgnQW6oIlR"
+    },
+    {
+      "id": "track_1e706b76da70dcf71bc2",
+      "title": "Life's a Bitch",
+      "artist": "Nas",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "201424375",
+      "appleUrl": "https://music.apple.com/us/album/lifes-a-bitch/201424295?i=201424375&uo=4"
+    },
+    {
+      "id": "track_de46c16314749ea44bbf",
+      "title": "If I Ruled the World",
+      "artist": "Nas",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "spotifyId": "1Uu9TLDnMFuUBT7EEMoNDS"
+    },
+    {
+      "id": "track_82c8ca598a9b711cd0af",
+      "title": "'03 Bonnie & Clyde",
+      "artist": "JAY-Z & Beyoncé",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "6815858477",
+      "appleUrl": "https://music.apple.com/us/album/03-bonnie-clyde-feat-beyonc%C3%A9-radio-edit/6815858475?i=6815858477&uo=4"
+    },
+    {
+      "id": "track_d1a5b9fb1506ced4b8e1",
+      "title": "King Kunta",
+      "artist": "Kendrick Lamar",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "1440871882",
+      "appleUrl": "https://music.apple.com/us/album/king-kunta/1440871877?i=1440871882&uo=4",
+      "spotifyId": "0YMB62d2wShNLvzZRbut7S"
+    },
+    {
+      "id": "track_7e003b53267b67903a50",
+      "title": "Sur Paname",
+      "artist": "Ninho",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "appleId": "1537133461",
+      "appleUrl": "https://music.apple.com/us/album/sur-paname/1537133456?i=1537133461&uo=4"
+    },
+    {
+      "id": "track_41e621b67cbac03deed1",
+      "title": "No Church in the Wild",
+      "artist": "JAY-Z & Kanye West",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "1440766287",
+      "appleUrl": "https://music.apple.com/us/album/no-church-in-the-wild-feat-frank-ocean/1440766278?i=1440766287&uo=4"
+    },
+    {
+      "id": "track_b5e8d3ed76f148b89d02",
+      "title": "Haine & Sex",
+      "artist": "Gazo",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "appleId": "1551334828",
+      "appleUrl": "https://music.apple.com/us/song/1551334828"
+    },
+    {
+      "id": "track_089da45bdd5e0de792ca",
+      "title": "Bâtiment",
+      "artist": "Niska",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "spotifyId": "5yp1rCmVCAeTLa7DNOpea5"
+    },
+    {
+      "id": "track_ce2c8491f0e6b388be32",
+      "title": "Heimwee",
+      "artist": "Lijpe",
+      "genre": "rap nl/be",
+      "added": "2026-11-03",
+      "appleId": "1442301120",
+      "appleUrl": "https://music.apple.com/us/song/1442301120"
+    },
+    {
+      "id": "track_0f5366293c0c5a134b0a",
+      "title": "Déjà Vu",
+      "artist": "INNA",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "appleId": "1612290438",
+      "appleUrl": "https://music.apple.com/us/album/d%C3%A9j%C3%A0-vu/1612290149?i=1612290438&uo=4",
+      "spotifyId": "2ozFGx8Ehi6Wp51pYlJjEK"
+    },
+    {
+      "id": "track_abc506cae99703358f32",
+      "title": "Kleine Jongen",
+      "artist": "Lil Kleine",
+      "genre": "rap nl/be",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_9f70fc87600966f35119",
+      "title": "Mr. Saxobeat",
+      "artist": "Alexandra Stan",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "spotifyId": "5eYznw3dM96R1MlVfLJJgK"
+    },
+    {
+      "id": "track_c0004e559a35b9afe92a",
+      "title": "Siktir Git",
+      "artist": "Orco & Rocky",
+      "genre": "rap nl/be",
+      "added": "2026-11-03",
+      "appleId": "1780602017",
+      "appleUrl": "https://music.apple.com/us/song/1780602017"
+    },
+    {
+      "id": "track_f9cda4ad099b9289ee7b",
+      "title": "Boom Boom Pow",
+      "artist": "Black Eyed Peas",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "appleId": "1443060256",
+      "appleUrl": "https://music.apple.com/us/album/boom-boom-pow/1443059530?i=1443060256&uo=4",
+      "spotifyId": "0uOOY7CtJXwDqowjTf8OYP"
+    },
+    {
+      "id": "track_8ff7fe732e33e605f413",
+      "title": "Laisse moi t'aimer",
+      "artist": "",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_d909c2fe04819970a35a",
+      "title": "Evacuate the Dancefloor",
+      "artist": "Cascada",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "appleId": "413632188",
+      "appleUrl": "https://music.apple.com/us/album/evacuate-the-dancefloor/413632187?i=413632188&uo=4",
+      "spotifyId": "2JreXnkSzK2oVk2yQInpsi"
+    },
+    {
+      "id": "track_1c70fce02daa3dbc0a5e",
+      "title": "Down",
+      "artist": "Jay Sean",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "appleId": "1445002842",
+      "appleUrl": "https://music.apple.com/us/album/down/1445002536?i=1445002842&uo=4",
+      "spotifyId": "6U6eiice5i4CnGeINPKVfI"
+    },
+    {
+      "id": "track_522b6871dc34761f024d",
+      "title": "Gasolina",
+      "artist": "Daddy Yankee",
+      "genre": "latin",
+      "added": "2026-11-03",
+      "appleId": "1786000124",
+      "appleUrl": "https://music.apple.com/us/album/gasolina/1785999696?i=1786000124&uo=4",
+      "spotifyId": "53VPNOnUI7L3nVrKyAdBil"
+    },
+    {
+      "id": "track_4c875662834b1c66761c",
+      "title": "Man Down",
+      "artist": "Rihanna",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "appleId": "1440808457",
+      "appleUrl": "https://music.apple.com/us/album/man-down/1440808164?i=1440808457&uo=4"
+    },
+    {
+      "id": "track_a66e102545674da84246",
+      "title": "Paris Como Hakimi",
+      "artist": "Morad",
+      "genre": "latin",
+      "added": "2026-11-03",
+      "spotifyId": "0vYhUMxQbxYzvjx82707U9",
+      "appleId": "1725017426",
+      "appleUrl": "https://music.apple.com/es/song/1725017426"
+    },
+    {
+      "id": "track_1d82962b6ebe6afd6ffb",
+      "title": "Speak Softly Love",
+      "artist": "Frank Nagai",
+      "genre": "classics",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_26ebd87530b0541e4c33",
+      "title": "Just Dance (Remix)",
+      "artist": "Bread Beatz & New Magick",
+      "genre": "electronic",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_718fdddabd1f3fe03650",
+      "title": "Just Dance",
+      "artist": "Lady Gaga",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "appleId": "1445006767",
+      "appleUrl": "https://music.apple.com/us/album/just-dance/1445006763?i=1445006767&uo=4",
+      "spotifyId": "1CK4cysjAXazotGBl11PkV"
+    },
+    {
+      "id": "track_2b498009c38e8b615a42",
+      "title": "Can't Get You Out of My Head",
+      "artist": "Kylie Minogue",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "appleId": "726320692",
+      "appleUrl": "https://music.apple.com/us/album/cant-get-you-out-of-my-head/726320287?i=726320692&uo=4",
+      "spotifyId": "1fRJN10NZrdcBIViHf1gxx"
+    },
+    {
+      "id": "track_dc1aaf8bcdce3353d5ff",
+      "title": "I Know You Want Me (Calle Ocho)",
+      "artist": "Pitbull",
+      "genre": "latin",
+      "added": "2026-11-03",
+      "appleId": "326894019",
+      "appleUrl": "https://music.apple.com/us/album/i-know-you-want-me-calle-ocho/326893904?i=326894019&uo=4",
+      "spotifyId": "52T7poWHne78fZMZE14JtG"
+    },
+    {
+      "id": "track_bb02e64145699e87a0ae",
+      "title": "Don't Stop the Music",
+      "artist": "Rihanna",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "appleId": "1441154439",
+      "appleUrl": "https://music.apple.com/us/album/dont-stop-the-music/1441154435?i=1441154439&uo=4"
+    },
+    {
+      "id": "track_3964771bd68ca531c045",
+      "title": "Poker Face",
+      "artist": "Lady Gaga",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "spotifyId": "38eFEWt7u4bITC7linepi3"
+    },
+    {
+      "id": "track_80c6c514d1cfa958b63e",
+      "title": "Umbrella",
+      "artist": "Rihanna",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "appleId": "1441154437",
+      "appleUrl": "https://music.apple.com/us/album/umbrella-feat-ja%C3%BF-z/1441154435?i=1441154437&uo=4",
+      "spotifyId": "4XYfSqEQSgb4ZpHhRphE4b"
+    },
+    {
+      "id": "track_dcd92d69a72a58ad8d9d",
+      "title": "Instant Crush",
+      "artist": "Daft Punk",
+      "genre": "electronic",
+      "added": "2026-11-03",
+      "appleId": "617154362",
+      "appleUrl": "https://music.apple.com/us/album/instant-crush/617154241?i=617154362&uo=4"
+    },
+    {
+      "id": "track_4b628a722274988b6cf5",
+      "title": "Afro Trap Part. 7 (La Puissance)",
+      "artist": "MHD",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "appleId": "1445292839",
+      "appleUrl": "https://music.apple.com/us/album/afro-trap-pt-7-la-puissance/1445292520?i=1445292839&uo=4"
+    },
+    {
+      "id": "track_0650244551a9db648a5d",
+      "title": "23",
+      "artist": "Mike WiLL Made-It & Miley Cyrus",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "appleId": "1444899827",
+      "appleUrl": "https://music.apple.com/us/album/23-feat-miley-cyrus-wiz-khalifa-juicy-j/1444899578?i=1444899827&uo=4"
+    },
+    {
+      "id": "track_b6b648e24273e9b499f5",
+      "title": "Ric Flair Drip",
+      "artist": "Offset & Metro Boomin",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "1310807838",
+      "appleUrl": "https://music.apple.com/us/album/ric-flair-drip/1310806859?i=1310807838&uo=4"
+    },
+    {
+      "id": "track_d7dd3b164cd66137be03",
+      "title": "Tití Me Preguntó",
+      "artist": "Bad Bunny",
+      "genre": "latin",
+      "added": "2026-11-03",
+      "appleId": "1622045635",
+      "appleUrl": "https://music.apple.com/us/song/1622045635"
+    },
+    {
+      "id": "track_e9070e5b109ea53edc81",
+      "title": "Save Me",
+      "artist": "Chief Keef",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "854626810",
+      "appleUrl": "https://music.apple.com/us/song/854626810"
+    },
+    {
+      "id": "track_e4ff69619872d222356a",
+      "title": "Love Sosa",
+      "artist": "Chief Keef",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "1444005838",
+      "appleUrl": "https://music.apple.com/us/album/love-sosa/1444005836?i=1444005838&uo=4"
+    },
+    {
+      "id": "track_4301ea2a4a699d3efdb4",
+      "title": "I Don't Like",
+      "artist": "Chief Keef",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "1444005844",
+      "appleUrl": "https://music.apple.com/us/album/i-dont-like-feat-lil-reese-edited-version/1444005836?i=1444005844&uo=4",
+      "spotifyId": "6jwKT7up3HfqzRoPJLytCX"
+    },
+    {
+      "id": "track_de331254110201c57b73",
+      "title": "Faneto",
+      "artist": "Chief Keef",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "spotifyId": "6QVn8vdUbYlx2sWApkcmwX"
+    },
+    {
+      "id": "track_9c38ea1156d6d61ef30f",
+      "title": "4K",
+      "artist": "El Alfa",
+      "genre": "latin",
+      "added": "2026-11-03",
+      "appleId": "1690659015",
+      "appleUrl": "https://music.apple.com/us/album/4k/1690659001?i=1690659015&uo=4"
+    },
+    {
+      "id": "track_e3abe79e626b2098b090",
+      "title": "Montagem Lunar Celestia 1.0",
+      "artist": "",
+      "genre": "funk & phonk",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_5e5d82ffe07f27c7febf",
+      "title": "Like a G6",
+      "artist": "Far East Movement",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "appleId": "1442933060",
+      "appleUrl": "https://music.apple.com/us/album/like-a-g6/1442932822?i=1442933060&uo=4"
+    },
+    {
+      "id": "track_68cb022628db14e270ac",
+      "title": "Curse",
+      "artist": "Bass Santana",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_d9089a873a3f42fe9877",
+      "title": "Si No Es Contigo",
+      "artist": "Cris Mj",
+      "genre": "latin",
+      "added": "2026-11-03",
+      "appleId": "1746602973",
+      "appleUrl": "https://music.apple.com/mn/song/1746602973"
+    },
+    {
+      "id": "track_db48694367338d40eed3",
+      "title": "Bruce Wayne",
+      "artist": "Airborn Gav",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "1608539798",
+      "appleUrl": "https://music.apple.com/us/song/1608539798"
+    },
+    {
+      "id": "track_6b4b5c390a59b6dd839b",
+      "title": "Madrid",
+      "artist": "Danny Chaska",
+      "genre": "latin",
+      "added": "2026-11-03",
+      "appleId": "1779358433",
+      "appleUrl": "https://music.apple.com/us/song/1779358433"
+    },
+    {
+      "id": "track_dccaa8a6b10a39e0e14d",
+      "title": "If U Were Really",
+      "artist": "DJ Assault",
+      "genre": "electronic",
+      "added": "2026-11-03",
+      "appleId": "1047149475",
+      "appleUrl": "https://music.apple.com/us/album/if-u-were-really/1047148310?i=1047149475&uo=4"
+    },
+    {
+      "id": "track_afc79173ce1d9c76b3de",
+      "title": "Interpol",
+      "artist": "Maes",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "appleId": "1755591650",
+      "appleUrl": "https://music.apple.com/us/song/1755591650"
+    },
+    {
+      "id": "track_bae553a5e4e74449a4b1",
+      "title": "I Need U",
+      "artist": "Ken Carson",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "1711247325",
+      "appleUrl": "https://music.apple.com/us/album/i-need-u/1711245729?i=1711247325&uo=4"
+    },
+    {
+      "id": "track_7475b0dca82482fb2d65",
+      "title": "Rather Be",
+      "artist": "Clean Bandit",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "appleId": "1027563268",
+      "appleUrl": "https://music.apple.com/us/album/rather-be-feat-jess-glynne/1027561834?i=1027563268&uo=4",
+      "spotifyId": "5ydKdOKH8BERmrDLsQruDD"
+    },
+    {
+      "id": "track_f81b29b0b12df071eccf",
+      "title": "TiK ToK",
+      "artist": "Kesha",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "appleId": "381237322",
+      "appleUrl": "https://music.apple.com/us/album/tik-tok/381237317?i=381237322&uo=4",
+      "spotifyId": "5PSba04SiAEUe3q6PyaTpQ"
+    },
+    {
+      "id": "track_ff56c99f32491fc3ea15",
+      "title": "Hot N Cold",
+      "artist": "Katy Perry",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "appleId": "715891658",
+      "appleUrl": "https://music.apple.com/us/album/hot-n-cold/715891425?i=715891658&uo=4",
+      "spotifyId": "4OKdMWJl5M2NrWOqZWTPZb"
+    },
+    {
+      "id": "track_7d4c091438e5765886f3",
+      "title": "We R Who We R",
+      "artist": "Kesha",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "appleId": "406171601",
+      "appleUrl": "https://music.apple.com/us/album/we-r-who-we-r/406171590?i=406171601&uo=4",
+      "spotifyId": "3LrbW5Sn7G6h4zwmNGfvBk"
+    },
+    {
+      "id": "track_acada36bd2d9106a3553",
+      "title": "Pon de Replay",
+      "artist": "Rihanna",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "appleId": "1440867324",
+      "appleUrl": "https://music.apple.com/us/album/pon-de-replay/1440867092?i=1440867324&uo=4",
+      "spotifyId": "4LiWeLLaVUmikDDvNqtcC1"
+    },
+    {
+      "id": "track_0a783b5e4608fb4c6acf",
+      "title": "The Way I Are",
+      "artist": "Timbaland",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "appleId": "1442423039",
+      "appleUrl": "https://music.apple.com/us/album/the-way-i-are/1442422053?i=1442423039&uo=4"
+    },
+    {
+      "id": "track_33922b1c58a416cdfe7d",
+      "title": "Maneater",
+      "artist": "Nelly Furtado",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "appleId": "1442463828",
+      "appleUrl": "https://music.apple.com/us/album/maneater/1442463545?i=1442463828&uo=4",
+      "spotifyId": "03kqIF10Eaf8NlZ91jbjfH"
+    },
+    {
+      "id": "track_a6afb73016909b885100",
+      "title": "Promiscuous",
+      "artist": "Nelly Furtado",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "appleId": "1445011775",
+      "appleUrl": "https://music.apple.com/us/album/promiscuous/1445011766?i=1445011775&uo=4",
+      "spotifyId": "4MWNGxbyV6HAFgpAVSYISr"
+    },
+    {
+      "id": "track_07cf702cf85a13a38c1f",
+      "title": "Obsessed",
+      "artist": "Mariah Carey",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "appleId": "1440493525",
+      "appleUrl": "https://music.apple.com/us/album/obsessed/1440493522?i=1440493525&uo=4"
+    },
+    {
+      "id": "track_da901e3b1959ba80fc78",
+      "title": "Offense",
+      "artist": "Big Sean",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "1591603085",
+      "appleUrl": "https://music.apple.com/us/album/offense-feat-babyface-ray-42-dugg/1591603073?i=1591603085&uo=4"
+    },
+    {
+      "id": "track_ad395fda142dfde8f773",
+      "title": "Algo Muy Raro",
+      "artist": "Morad",
+      "genre": "latin",
+      "added": "2026-11-03",
+      "appleId": "6772230310",
+      "appleUrl": "https://music.apple.com/us/album/algo-muy-raro/6772230309?i=6772230310&uo=4"
+    },
+    {
+      "id": "track_b61300a7d1d7ca6c9efc",
+      "title": "Tout en Gucci",
+      "artist": "Ninho",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "spotifyId": "0i5GJckWb9uCZU4jcGoBca"
+    },
+    {
+      "id": "track_5603650d034af9ac80ca",
+      "title": "M.I.L.S 2.0",
+      "artist": "Ninho",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "appleId": "1363233216",
+      "appleUrl": "https://music.apple.com/us/song/1363233216"
+    },
+    {
+      "id": "track_6a97f07e4194d4b38296",
+      "title": "Boulbi",
+      "artist": "Booba",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "spotifyId": "34ZScx0VBeATy3OrtOopAy"
+    },
+    {
+      "id": "track_f27738d72b896c725cd5",
+      "title": "Salé",
+      "artist": "Niska",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "spotifyId": "7vGjuo8KcNIODW3dVW4t17"
+    },
+    {
+      "id": "track_345849c734be963651e6",
+      "title": "Bande Organisée",
+      "artist": "13 Organisé",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_5409acffb18ac22c83ff",
+      "title": "Seya",
+      "artist": "",
+      "genre": "latin",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_dff73878f9719dcbb8b6",
+      "title": "Se Grita",
+      "artist": "",
+      "genre": "latin",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_47197240d675f491c5d3",
+      "title": "Morad: Bzrp Music Sessions, Vol. 47",
+      "artist": "Bizarrap & Morad",
+      "genre": "latin",
+      "added": "2026-11-03",
+      "appleId": "1598926954",
+      "appleUrl": "https://music.apple.com/us/album/morad-bzrp-music-sessions-vol-47-66/1598926947?i=1598926954&uo=4"
+    },
+    {
+      "id": "track_ae295bd177232e31b15e",
+      "title": "Je veux que toi",
+      "artist": "",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_0f9189dc1c410649ca3e",
+      "title": "Contesto",
+      "artist": "Morad",
+      "genre": "latin",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_2770d1499810d14ff856",
+      "title": "Grisaille",
+      "artist": "",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_c844542989f3c171299e",
+      "title": "Destinée",
+      "artist": "",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_669a02b926085e46e1a2",
+      "title": "Pilote",
+      "artist": "",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_b5aaa9f1183037510419",
+      "title": "Deux Frères",
+      "artist": "PNL",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "appleId": "1663914579",
+      "appleUrl": "https://music.apple.com/us/song/1663914579",
+      "spotifyId": "7xy0ELfUz8xEon8B4K55Vb"
+    },
+    {
+      "id": "track_43c3431382c202322112",
+      "title": "Habibi",
+      "artist": "GIMS",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "spotifyId": "7eLswMjAWPbvG5gS6AWuWl"
+    },
+    {
+      "id": "track_38e130ea872a82410a08",
+      "title": "Dans le noir",
+      "artist": "Bosh",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "appleId": "1376834602",
+      "appleUrl": "https://music.apple.com/us/song/1376834602",
+      "spotifyId": "3ITfHO9mLy7rKPRzpIPVlO"
+    },
+    {
+      "id": "track_c30ad61f12304c9817ee",
+      "title": "Escorte",
+      "artist": "Werenoi",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "spotifyId": "4cj9dhfsdN71e2gBgCP8Ho"
+    },
+    {
+      "id": "track_9d067437284698d8f284",
+      "title": "La danse des bandits",
+      "artist": "Naps",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "appleId": "1557944648",
+      "appleUrl": "https://music.apple.com/us/song/1557944648"
+    },
+    {
+      "id": "track_162fa3c5fbefc98b0faa",
+      "title": "Banda",
+      "artist": "",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_2540711a5431b5707276",
+      "title": "Petete",
+      "artist": "",
+      "genre": "latin",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_4bb71d4d26b207edbbaa",
+      "title": "Sousou",
+      "artist": "",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_fed671633aac7d4160dd",
+      "title": "Tes parents",
+      "artist": "Leto",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "appleId": "1468300332",
+      "appleUrl": "https://music.apple.com/us/song/1468300332"
+    },
+    {
+      "id": "track_ec95afc2325311dc5a32",
+      "title": "Qué Dirá",
+      "artist": "Beny Jr",
+      "genre": "latin",
+      "added": "2026-11-03",
+      "appleId": "6787161547",
+      "appleUrl": "https://music.apple.com/us/album/que-dir%C3%A1/6787161532?i=6787161547&uo=4",
+      "spotifyId": "6ij236QJAGyCWyq7UhQYzO"
+    },
+    {
+      "id": "track_83d886a95d3e4d7f362a",
+      "title": "Cocodrilo Tiburón",
+      "artist": "",
+      "genre": "latin",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_d6cac287eadcfbd2ff60",
+      "title": "Bella",
+      "artist": "GIMS",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "appleId": "749321955",
+      "appleUrl": "https://music.apple.com/us/album/bella/749310581?i=749321955&uo=4",
+      "spotifyId": "2fhU1xZgUJXpdEy4hqA0vx"
+    },
+    {
+      "id": "track_5f7e866c7ee7728bcb4a",
+      "title": "Les Méchants",
+      "artist": "",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_cf247a510d8fc4aca5e7",
+      "title": "Cinderela",
+      "artist": "",
+      "genre": "lusophone",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_6448d7494379a11dd5f6",
+      "title": "Le Navire",
+      "artist": "Miv@me",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "appleId": "1765422097",
+      "appleUrl": "https://music.apple.com/us/song/1765422097"
+    },
+    {
+      "id": "track_8cdfa5c935c069df3996",
+      "title": "Charger",
+      "artist": "",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_c992c0c1d3cb3bdee056",
+      "title": "Tarzan",
+      "artist": "Kerchak",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "spotifyId": "7bTEYM4keeHBnm8h0nBj5G"
+    },
+    {
+      "id": "track_7f04ebdcfb4f5bca771d",
+      "title": "Bah Ouais",
+      "artist": "",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_e18d731a5138858e8e20",
+      "title": "Enfumé",
+      "artist": "",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_5852904af1cf5d3b7216",
+      "title": "Ruinart",
+      "artist": "",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_307dfc56b4b7f17063d6",
+      "title": "Whine",
+      "artist": "",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_9b57d868e53fb9194646",
+      "title": "Ciel",
+      "artist": "",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_0d5e7fa6fb56a0f59f78",
+      "title": "Chambre 04",
+      "artist": "Dj Kawest & Attachingboy",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "appleId": "1792032144",
+      "appleUrl": "https://music.apple.com/ng/song/1792032144"
+    },
+    {
+      "id": "track_4bce58767487bbaffc49",
+      "title": "Parisienne",
+      "artist": "",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_5ffa6ba3c258c0487c66",
+      "title": "Nois e Nois",
+      "artist": "Veigh & Supernova Ent",
+      "genre": "lusophone",
+      "added": "2026-11-03",
+      "appleId": "1734222476",
+      "appleUrl": "https://music.apple.com/us/song/1734222476"
+    },
+    {
+      "id": "track_3cf4ed51c34b83805e08",
+      "title": "Alingo",
+      "artist": "P-Square",
+      "genre": "afro",
+      "added": "2026-11-03",
+      "appleId": "611354300",
+      "appleUrl": "https://music.apple.com/us/album/alingo/611354299?i=611354300&uo=4",
+      "spotifyId": "6egXefvYcksYJcJJo2vnT5"
+    },
+    {
+      "id": "track_71fb1a806b50c655ebf0",
+      "title": "Alpha",
+      "artist": "Damso",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "spotifyId": "1y7dY7Xu4nWM4SK2dEnoAT",
+      "appleId": "1779570183",
+      "appleUrl": "https://music.apple.com/us/song/1779570183"
+    },
+    {
+      "id": "track_59ea7745d39e6eddf394",
+      "title": "Freeze Raël",
+      "artist": "Freeze Corleone",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "spotifyId": "6DPrYPPGYK218iVIZDix3i"
+    },
+    {
+      "id": "track_dbf535edce3451398893",
+      "title": "Nirvana",
+      "artist": "Kerchak",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "spotifyId": "7G1IeMizAZcs5jj7niOnv0"
+    },
+    {
+      "id": "track_dd7dc2c93df19e1fb900",
+      "title": "Adriano",
+      "artist": "Niska",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_b6d706f625e1ac3c2486",
+      "title": "Viano",
+      "artist": "RK",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "appleId": "1826734890",
+      "appleUrl": "https://music.apple.com/sg/song/1826734890"
+    },
+    {
+      "id": "track_089717e6504c4d3345bc",
+      "title": "Muchachos",
+      "artist": "Konieur",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "spotifyId": "6Jz699cA2UrKXEkJZT7FxG"
+    },
+    {
+      "id": "track_72ec5172ffcddbf8ed12",
+      "title": "Va Bene",
+      "artist": "L'Algérino",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "spotifyId": "6gsYEbgcju0zMyIHysHBqM"
+    },
+    {
+      "id": "track_747ec4314a76b43790ce",
+      "title": "No Peace & Love",
+      "artist": "",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_1751cc08dfa9ba0d1a5f",
+      "title": "Zou Bisou",
+      "artist": "",
+      "genre": "classics",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_0a0115dd4872f8648c18",
+      "title": "Tous les mêmes",
+      "artist": "Stromae",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "note": "I ate Korean next to him in Brussels. Shy guy irl, crazy good writer, Belgian GOAT by far. Gave us 00s kids a f*cking good childhood with these bangers.",
+      "appleId": "1440862286",
+      "appleUrl": "https://music.apple.com/us/album/tous-les-m%C3%AAmes/1440862091?i=1440862286&uo=4",
+      "spotifyId": "5ch9QMioHfB71SvS1rlP9n"
+    },
+    {
+      "id": "track_879f74d43f98fdc1a517",
+      "title": "Alors on danse",
+      "artist": "Stromae",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "note": "I ate Korean next to him in Brussels. Shy guy irl, crazy good writer, Belgian GOAT by far. Gave us 00s kids a f*cking good childhood with these bangers.",
+      "appleId": "1444872841",
+      "appleUrl": "https://music.apple.com/us/album/alors-on-danse/1444872839?i=1444872841&uo=4"
+    },
+    {
+      "id": "track_319ebd88f2704f4884a1",
+      "title": "Formidable",
+      "artist": "Stromae",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "note": "I ate Korean next to him in Brussels. Shy guy irl, crazy good writer, Belgian GOAT by far. Gave us 00s kids a f*cking good childhood with these bangers.",
+      "spotifyId": "7FmkTTKBPG8RTYu6iBMihD"
+    },
+    {
+      "id": "track_a3a0386d7fe0682c60a0",
+      "title": "Te quiero",
+      "artist": "Stromae",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "note": "I ate Korean next to him in Brussels. Shy guy irl, crazy good writer, Belgian GOAT by far. Gave us 00s kids a f*cking good childhood with these bangers.",
+      "appleId": "1442790079",
+      "appleUrl": "https://music.apple.com/us/album/te-quiero/1442790072?i=1442790079&uo=4"
+    },
+    {
+      "id": "track_c34081157db9bb88f74e",
+      "title": "Carmen",
+      "artist": "Stromae",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "note": "I ate Korean next to him in Brussels. Shy guy irl, crazy good writer, Belgian GOAT by far. Gave us 00s kids a f*cking good childhood with these bangers.",
+      "appleId": "1440862428",
+      "appleUrl": "https://music.apple.com/us/album/carmen/1440862091?i=1440862428&uo=4"
+    },
+    {
+      "id": "track_b1c5b4ffb774b8dc67b7",
+      "title": "Ave Cesaria",
+      "artist": "Stromae",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "note": "I ate Korean next to him in Brussels. Shy guy irl, crazy good writer, Belgian GOAT by far. Gave us 00s kids a f*cking good childhood with these bangers.",
+      "appleId": "1440862280",
+      "appleUrl": "https://music.apple.com/us/album/ave-cesaria/1440862091?i=1440862280&uo=4"
+    },
+    {
+      "id": "track_936c12dc3591ec74ab22",
+      "title": "Fils de joie",
+      "artist": "Stromae",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "note": "I ate Korean next to him in Brussels. Shy guy irl, crazy good writer, Belgian GOAT by far. Gave us 00s kids a f*cking good childhood with these bangers.",
+      "appleId": "1621698812",
+      "appleUrl": "https://music.apple.com/us/album/fils-de-joie/1621698801?i=1621698812&uo=4"
+    },
+    {
+      "id": "track_d84539559087b2b40176",
+      "title": "Peace or Violence",
+      "artist": "Stromae",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "note": "I ate Korean next to him in Brussels. Shy guy irl, crazy good writer, Belgian GOAT by far. Gave us 00s kids a f*cking good childhood with these bangers.",
+      "appleId": "1442790082",
+      "appleUrl": "https://music.apple.com/us/album/peace-or-violence/1442790072?i=1442790082&uo=4",
+      "spotifyId": "1yEMJ0JSbes4skN1b72y3Y"
+    },
+    {
+      "id": "track_b99b589357b5a25f16b8",
+      "title": "Ta fête",
+      "artist": "Stromae",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "note": "I ate Korean next to him in Brussels. Shy guy irl, crazy good writer, Belgian GOAT by far. Gave us 00s kids a f*cking good childhood with these bangers.",
+      "appleId": "1440862103",
+      "appleUrl": "https://music.apple.com/us/album/ta-f%C3%AAte/1440862091?i=1440862103&uo=4",
+      "spotifyId": "3bmIrApCP9xy0UhUOtvwWi"
+    },
+    {
+      "id": "track_f93a9c2be6ea26ca7bd7",
+      "title": "Je me tire",
+      "artist": "GIMS",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_57a06558c7ab69f5e20e",
+      "title": "Est-ce que tu m'aimes ?",
+      "artist": "GIMS",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "spotifyId": "71Z03Q1F7P0hz6mxv7qOmS"
+    },
+    {
+      "id": "track_9595177d4642a2aa408c",
+      "title": "Tout donner",
+      "artist": "GIMS",
+      "genre": "rap fr",
+      "added": "2026-11-03",
+      "appleId": "1139265045",
+      "appleUrl": "https://music.apple.com/us/song/1139265045"
+    },
+    {
+      "id": "track_7e103b0582866f919edb",
+      "title": "Dracula Flow",
+      "artist": "Charlito Lan",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "spotifyId": "6l6UBy2TAgw1IfGHhW7qyR"
+    },
+    {
+      "id": "track_2a85de41cc09b5bc6da9",
+      "title": "Living in the World Today",
+      "artist": "GZA",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "1440835708",
+      "appleUrl": "https://music.apple.com/us/album/living-in-the-world-today/1440835438?i=1440835708&uo=4"
+    },
+    {
+      "id": "track_7d050561f08aedb71065",
+      "title": "Brooklyn",
+      "artist": "Mos Def",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "1444214894",
+      "appleUrl": "https://music.apple.com/us/song/1444214894"
+    },
+    {
+      "id": "track_aa6789b972d694632d2c",
+      "title": "F Song",
+      "artist": "Strawberry Guy",
+      "genre": "rock",
+      "added": "2026-11-03",
+      "appleId": "1423648886",
+      "appleUrl": "https://music.apple.com/us/album/f-song/1423648880?i=1423648886&uo=4"
+    },
+    {
+      "id": "track_ce81d492a657c5eb4fe3",
+      "title": "Next Time",
+      "artist": "Gang Starr",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "723352539",
+      "appleUrl": "https://music.apple.com/us/song/723352539"
+    },
+    {
+      "id": "track_2e19fd1dd201d40612ed",
+      "title": "Freaking Out the Neighborhood",
+      "artist": "Mac DeMarco",
+      "genre": "rock",
+      "added": "2026-11-03",
+      "appleId": "6789812648",
+      "appleUrl": "https://music.apple.com/us/album/freaking-out-the-neighborhood/6789812611?i=6789812648&uo=4"
+    },
+    {
+      "id": "track_befe80544a068d1c9fb8",
+      "title": "Smells Like Teen Spirit",
+      "artist": "Nirvana",
+      "genre": "rock",
+      "added": "2026-11-03",
+      "appleId": "1440783625",
+      "appleUrl": "https://music.apple.com/us/album/smells-like-teen-spirit/1440783617?i=1440783625&uo=4",
+      "spotifyId": "75aLTVBSGIquqzQ6AkmK3Q"
+    },
+    {
+      "id": "track_5213ca36e8bd1dfb5b47",
+      "title": "Stairway to Heaven",
+      "artist": "Led Zeppelin",
+      "genre": "rock",
+      "added": "2026-11-03",
+      "appleId": "580708180",
+      "appleUrl": "https://music.apple.com/us/album/stairway-to-heaven/580708175?i=580708180&uo=4"
+    },
+    {
+      "id": "track_535d3bcd18fc9556a1d1",
+      "title": "Immigrant Song",
+      "artist": "Led Zeppelin",
+      "genre": "rock",
+      "added": "2026-11-03",
+      "appleId": "580708280",
+      "appleUrl": "https://music.apple.com/us/album/immigrant-song/580708279?i=580708280&uo=4",
+      "spotifyId": "6kjlvJLh2DBsSQtqVzFh8I"
+    },
+    {
+      "id": "track_354b56bb0c1ac66f38f7",
+      "title": "Come as You Are",
+      "artist": "Nirvana",
+      "genre": "rock",
+      "added": "2026-11-03",
+      "appleId": "1440783636",
+      "appleUrl": "https://music.apple.com/us/album/come-as-you-are/1440783617?i=1440783636&uo=4"
+    },
+    {
+      "id": "track_87be9a660ce2a508bed3",
+      "title": "Lithium",
+      "artist": "Nirvana",
+      "genre": "rock",
+      "added": "2026-11-03",
+      "appleId": "1440783764",
+      "appleUrl": "https://music.apple.com/us/album/lithium/1440783617?i=1440783764&uo=4",
+      "spotifyId": "1Vdz3WUy9baNOs4YU4LlKJ"
+    },
+    {
+      "id": "track_078e70d5d3bb5696ec49",
+      "title": "In Bloom",
+      "artist": "Nirvana",
+      "genre": "rock",
+      "added": "2026-11-03",
+      "appleId": "1440783633",
+      "appleUrl": "https://music.apple.com/us/album/in-bloom/1440783617?i=1440783633&uo=4",
+      "spotifyId": "3sKLf8SmgbyIikCTBZty9F"
+    },
+    {
+      "id": "track_a573ede093d24cbcc174",
+      "title": "Heart-Shaped Box",
+      "artist": "Nirvana",
+      "genre": "rock",
+      "added": "2026-11-03",
+      "appleId": "1440859107",
+      "appleUrl": "https://music.apple.com/us/album/heart-shaped-box/1440858699?i=1440859107&uo=4"
+    },
+    {
+      "id": "track_b07f10bad0bbd9e2ec5a",
+      "title": "Seven Seas",
+      "artist": "",
+      "genre": "rock",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_02217cc6c6ab64f33a69",
+      "title": "Golden Brown",
+      "artist": "The Stranglers",
+      "genre": "rock",
+      "added": "2026-11-03",
+      "appleId": "696838901",
+      "appleUrl": "https://music.apple.com/us/album/golden-brown/696838485?i=696838901&uo=4",
+      "spotifyId": "0cLmDwdLlmpbZkr0PrQAhB"
+    },
+    {
+      "id": "track_4efbe95c776906f89c4f",
+      "title": "The Man They Love to Hate",
+      "artist": "The Stranglers",
+      "genre": "rock",
+      "added": "2026-11-03",
+      "appleId": "696838898",
+      "appleUrl": "https://music.apple.com/us/song/696838898"
+    },
+    {
+      "id": "track_75736ec8b256048bfbdd",
+      "title": "All the Things She Said",
+      "artist": "t.A.T.u.",
+      "genre": "pop 00s",
+      "added": "2026-11-03",
+      "appleId": "1454026498",
+      "appleUrl": "https://music.apple.com/us/album/all-the-things-she-said/1454026496?i=1454026498&uo=4",
+      "spotifyId": "3MgV8WWWlyuBRmq4nYKKoD"
+    },
+    {
+      "id": "track_207d3c414a1a9b6f3abb",
+      "title": "Piano Man",
+      "artist": "Billy Joel",
+      "genre": "classics",
+      "added": "2026-11-03",
+      "appleId": "158617575",
+      "appleUrl": "https://music.apple.com/us/album/piano-man/158617297?i=158617575&uo=4",
+      "spotifyId": "7GHvBwMdHDpasF84ttkrAC"
+    },
+    {
+      "id": "track_53bcdd9ce4cd18df4cc4",
+      "title": "Silenced by the Night",
+      "artist": "Keane",
+      "genre": "rock",
+      "added": "2026-11-03",
+      "appleId": "1443182653",
+      "appleUrl": "https://music.apple.com/us/album/silenced-by-the-night/1443182651?i=1443182653&uo=4",
+      "spotifyId": "7kqUw6kLH07YbwSsmt7mv6"
+    },
+    {
+      "id": "track_a3c0424091d3aa44b6cf",
+      "title": "My Life",
+      "artist": "Billy Joel",
+      "genre": "classics",
+      "added": "2026-11-03",
+      "appleId": "158816084",
+      "appleUrl": "https://music.apple.com/us/album/my-life/158815463?i=158816084&uo=4"
+    },
+    {
+      "id": "track_cd1a9af78cba5836426a",
+      "title": "Money",
+      "artist": "The Drums",
+      "genre": "rock",
+      "added": "2026-11-03",
+      "appleId": "1581702298",
+      "appleUrl": "https://music.apple.com/us/album/money/1581702290?i=1581702298&uo=4",
+      "spotifyId": "27fzdo69JYhrAwt86PWPKZ"
+    },
+    {
+      "id": "track_401b55818eabcac10218",
+      "title": "Kalinka",
+      "artist": "Les Balalaïkas de Moscou",
+      "genre": "classics",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "track_a63fbad662527a326c2d",
+      "title": "Qué Locura Enamorarme de Ti",
+      "artist": "",
+      "genre": "latin",
+      "added": "2026-11-03",
+      "needsReview": true
+    },
+    {
+      "id": "0wwPcA6wtMf6HUMpIRdeP7",
+      "spotifyId": "0wwPcA6wtMf6HUMpIRdeP7",
+      "title": "Hotline Bling",
+      "artist": "Drake",
+      "genre": "us hip-hop",
+      "added": "2026-11-03",
+      "appleId": "1440841730",
+      "appleUrl": "https://music.apple.com/us/album/hotline-bling/1440841363?i=1440841730&uo=4"
+    }
   ]
 }

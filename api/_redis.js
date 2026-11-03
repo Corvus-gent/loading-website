@@ -17,7 +17,9 @@ export async function redis(cmd) {
       headers: { Authorization: `Bearer ${REST_TOKEN}`, "Content-Type": "application/json" },
       body: JSON.stringify(cmd),
     });
-    return (await r.json()).result;
+    const data = await r.json();
+    if (!r.ok || data.error) throw new Error("Redis command failed");
+    return data.result;
   }
   if (!client) {
     client = createClient({ url: REDIS_URL });

@@ -1,188 +1,22 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="color-scheme" content="dark" />
-  <title>Bangers | corvus.gent</title>
-  <link rel="icon" type="image/png" href="/logo.png" />
-  <link rel="stylesheet" href="/styles.css" />
-  <link rel="stylesheet" href="/people/styles.css" />
-  <meta name="description" content="A tiny list of bangers. Suggest one, vote on others." />
-  <meta property="og:title" content="Bangers | corvus.gent" />
-  <meta property="og:description" content="A tiny list of bangers. Suggest one, vote on others." />
-  <meta property="og:url" content="https://corvus.gent/music/" />
-  <meta property="og:image" content="https://corvus.gent/og.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <style>
-    .music-wrap { max-width: 520px; }
-    .controls { display: flex; gap: 8px; justify-content: center; margin: 4px 0 0; flex-wrap: wrap; }
-    .ctl { background: none; border: 1px solid #333; color: #ccc; border-radius: 999px; padding: 7px 14px; font: inherit; font-size: 13px; cursor: pointer; }
-    .ctl:hover { border-color: #666; }
-    .ctl.on { background: #f2f2f2; color: #000; border-color: #f2f2f2; }
-    .tracks { list-style: none; padding: 0; margin: 22px 0 0; border-top: 1px solid #1d1d1d; }
-    .tracks li { display: flex; align-items: center; gap: 12px; padding: 11px 4px; border-bottom: 1px solid #1d1d1d; cursor: pointer; font-size: 14px; }
-    .tracks li:hover { background: #0c0c0c; }
-    .tracks .n { width: 22px; color: #555; font-size: 12px; text-align: right; }
-    .tracks .t { flex: 1; min-width: 0; text-align: left; }
-    .tracks .t small { display: block; color: #777; font-size: 12px; }
-    .tracks li.cur .n { color: #ffd76a; }
-    .tracks li.cur .t { color: #fff; }
-    h2.sec { font-size: 15px; margin: 40px 0 6px; }
-    .hint { color: #777; font-size: 12px; margin: 0 0 12px; }
-    .suggest { display: flex; gap: 8px; }
-    .suggest input { flex: 1; min-width: 0; background: #0b0b0b; border: 1px solid #2a2a2a; border-radius: 10px; color: #ddd; padding: 10px 12px; font: inherit; font-size: 13px; }
-    .suggest input:focus { outline: none; border-color: #555; }
-    #msg { min-height: 1.2em; font-size: 12px; color: #9a9a9a; margin: 8px 0 0; }
-    .sugg li { cursor: default; }
-    .vote { background: none; border: 1px solid #333; color: #ccc; border-radius: 999px; padding: 4px 10px; font: inherit; font-size: 12px; cursor: pointer; white-space: nowrap; }
-    .vote.mine { border-color: #ffd76a; color: #ffd76a; cursor: default; }
-    .listen { color: #777; font-size: 12px; text-decoration: none; }
-    .listen:hover { color: #ddd; }
-  </style>
-</head>
-<body class="people-page">
-  <main>
-    <div class="wrap music-wrap">
-      <div class="lang-switcher" id="lang-switcher"></div>
-      <div class="tag"><a href="/">corvus.gent</a> / music</div>
-      <h1 data-i18n="music.title">bangers</h1>
-      <p class="sub" data-i18n="music.sub">a tiny list. no skips needed.</p>
-
-      <div class="deck" id="deck">
-        <button class="vinyl" id="vinyl" aria-label="play / pause" aria-pressed="false">
-          <span class="label"><img src="/logo.png" alt=""></span>
-        </button>
-        <div class="np"><span class="bar"></span><span class="bar"></span><span class="bar"></span> <span id="np-text" data-i18n="call.tap">tap the record</span></div>
-        <div id="spotify-wrap"><div id="spotify-embed"></div></div>
-      </div>
-
-      <div class="controls">
-        <button class="ctl on" id="m-normal" data-i18n="music.normal">in order</button>
-        <button class="ctl" id="m-shuffle" data-i18n="music.shuffle">shuffle</button>
-        <button class="ctl" id="m-next" data-i18n="music.next">next ⏭</button>
-      </div>
-
-      <ol class="tracks" id="tracks"></ol>
-
-      <h2 class="sec" data-i18n="music.suggest">suggest a banger</h2>
-      <p class="hint" data-i18n="music.hint">paste a spotify track link. the most voted ones might make the list.</p>
-      <form class="suggest" id="suggest">
-        <input id="url" type="url" inputmode="url" placeholder="https://open.spotify.com/track/..." required>
-        <button class="ctl" type="submit" data-i18n="music.send">suggest</button>
-      </form>
-      <p id="msg"></p>
-      <ol class="tracks sugg" id="sugg"></ol>
-
-      <footer>© <span id="y"></span> corvus</footer>
-    </div>
-  </main>
-  <script type="module">
-    import { initI18n, t } from "/js/i18n.js";
-    import { setFooterYear } from "/js/utils.js";
-    setFooterYear();
-    initI18n();
-
-    const $ = id => document.getElementById(id);
-    const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-
-    // ---------- player ----------
-    let tracks = [], order = [], pos = 0, shuffle = false, ctrl = null, playing = false, pending = null, ended = false;
-    const vinyl = $("vinyl"), deck = $("deck");
-    function spin(on) { playing = on; vinyl.classList.toggle("spinning", on); deck.classList.toggle("playing", on); vinyl.setAttribute("aria-pressed", String(on)); }
-    function makeOrder() {
-      order = tracks.map((_, i) => i);
-      if (shuffle) for (let i = order.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [order[i], order[j]] = [order[j], order[i]]; }
-    }
-    function mark() {
-      const cur = order[pos];
-      document.querySelectorAll("#tracks li").forEach((li, i) => li.classList.toggle("cur", i === cur));
-      const tr = tracks[cur];
-      if (tr) $("np-text").textContent = `${tr.title.toLowerCase()} · ${tr.artist.toLowerCase()}`;
-    }
-    function play(p) {
-      if (!tracks.length) return;
-      pos = (p + order.length) % order.length;
-      mark();
-      $("spotify-wrap").classList.add("open");
-      spin(true); ended = false;
-      const uri = `spotify:track:${tracks[order[pos]].id}`;
-      if (ctrl) { ctrl.loadUri(uri); ctrl.play(); } else pending = uri;
-      if (window.posthog) try { posthog.capture("music_play", { track: tracks[order[pos]].title, shuffle }); } catch {}
-    }
-    window.onSpotifyIframeApiReady = API => {
-      API.createController($("spotify-embed"), { uri: `spotify:track:${(tracks[0] || {}).id || "0wwPcA6wtMf6HUMpIRdeP7"}`, width: "100%", height: 80 }, c => {
-        ctrl = c;
-        c.addListener("ready", () => { if (pending) { c.loadUri(pending); c.play(); pending = null; } });
-        c.addListener("playback_update", e => {
-          const { isPaused, position, duration } = e.data;
-          if (!isPaused && !playing) spin(true);
-          if (isPaused && playing && position > 0) spin(false);
-          if (duration > 0 && position >= duration - 400 && !ended) { ended = true; play(pos + 1); }
-        });
-      });
-    };
-    vinyl.addEventListener("click", () => {
-      if (playing) { spin(false); if (ctrl) ctrl.pause(); return; }
-      if (!ctrl || !$("spotify-wrap").classList.contains("open")) return play(pos);
-      spin(true); ctrl.resume();
-    });
-    $("m-next").onclick = () => play(pos + 1);
-    $("m-normal").onclick = () => { shuffle = false; $("m-normal").classList.add("on"); $("m-shuffle").classList.remove("on"); makeOrder(); play(0); };
-    $("m-shuffle").onclick = () => { shuffle = true; $("m-shuffle").classList.add("on"); $("m-normal").classList.remove("on"); makeOrder(); play(0); };
-
-    fetch("/music.json", { cache: "no-store" }).then(r => r.json()).then(d => {
-      tracks = d.tracks || [];
-      makeOrder();
-      $("tracks").innerHTML = tracks.map((tr, i) => `<li data-i="${i}"><span class="n">${i + 1}</span><span class="t">${esc(tr.title)}<small>${esc(tr.artist)}</small></span></li>`).join("");
-      $("tracks").querySelectorAll("li").forEach(li => li.onclick = () => { const i = +li.dataset.i; play(order.indexOf(i)); });
-      const s = document.createElement("script"); s.src = "https://open.spotify.com/embed/iframe-api/v1"; s.async = true; document.body.appendChild(s);
-    });
-
-    // ---------- suggestions + votes ----------
-    let challenge = null;
-    const msg = m => $("msg").textContent = m || "";
-    function render(list) {
-      const known = new Set(tracks.map(x => x.id));
-      list = (list || []).filter(x => !known.has(x.id));
-      if (!list.length) { $("sugg").innerHTML = `<li><span class="t" style="color:#666">${esc(t("music.empty"))}</span></li>`; return; }
-      $("sugg").innerHTML = list.map(x => `<li><span class="n">${x.votes}</span><span class="t">${esc(x.title)}</span>
-        <a class="listen" href="https://open.spotify.com/track/${esc(x.id)}" target="_blank" rel="noreferrer">listen ↗</a>
-        <button class="vote${x.mine ? " mine" : ""}" data-id="${esc(x.id)}">${x.mine ? "voted ✓" : "+1"}</button></li>`).join("");
-      $("sugg").querySelectorAll(".vote:not(.mine)").forEach(b => b.onclick = () => send({ action: "vote", id: b.dataset.id }, b));
-    }
-    async function load() {
-      try { const d = await (await fetch("/api/music")).json(); challenge = d.challenge; render(d.suggestions); }
-      catch { $("sugg").innerHTML = ""; }
-    }
-    async function solve({ salt, bits }) {
-      const enc = new TextEncoder();
-      for (let n = 0; ; n++) {
-        const h = new Uint8Array(await crypto.subtle.digest("SHA-256", enc.encode(`${salt}:${n}`)));
-        let z = 0;
-        for (const b of h) { if (b === 0) { z += 8; continue; } z += Math.clz32(b) - 24; break; }
-        if (z >= bits) return n;
-      }
-    }
-    async function send(body, btn) {
-      if (btn) btn.disabled = true;
-      msg("…");
-      try {
-        if (!challenge) await load();
-        const nonce = await solve(challenge);
-        const r = await fetch("/api/music", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...body, challenge: challenge.id, nonce }) });
-        const d = await r.json();
-        if (d.challenge) challenge = d.challenge;
-        if (d.suggestions) render(d.suggestions);
-        msg(d.error || d.message || "");
-        if (r.ok && body.action === "suggest") $("url").value = "";
-        if (!d.challenge) await load();
-      } catch { msg("something broke. try again."); }
-      if (btn) btn.disabled = false;
-    }
-    $("suggest").onsubmit = e => { e.preventDefault(); send({ action: "suggest", url: $("url").value }, e.submitter); };
-    load();
-  </script>
-  <script src="/js/analytics.js"></script>
-</body>
-</html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark">
+<title>Music · Gabe’s collection | corvus.gent</title>
+<meta name="description" content="Gabe’s ranked music collection. Find a favourite, leave a like, share a song or suggest your next obsession.">
+<meta property="og:title" content="Gabe’s collection · corvus.gent"><meta property="og:description" content="Your next favourite is probably in here."><meta property="og:url" content="https://corvus.gent/music/"><meta property="og:image" content="https://corvus.gent/og.png">
+<link rel="icon" href="/logo.png"><link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/music/music.css">
+</head><body class="music-page"><main class="music-shell">
+<header class="music-top"><a href="/">corvus.gent</a><div id="lang-switcher" class="lang-switcher"></div><a href="/music/admin/" class="admin-link" data-i18n="m.manage">manage collection</a></header>
+<section class="collection-hero"><div class="hero-record" aria-hidden="true"><div>g.</div></div><div><p class="eyebrow">GABE’S ROTATION / 001</p><h1 data-i18n="music.title">bangers</h1><p class="muted" data-i18n="m.subtitle">gabe’s collection. your favourites. no gatekeeping.</p><p class="collection-meta"><span class="status-dot"></span> <span id="total">…</span> <span data-i18n="m.tracks">tracks</span> <span class="separator">/</span> <span>curated by gabe</span></p></div></section>
+<section class="platform-poll" aria-labelledby="poll-title"><div><span class="eyebrow" data-i18n="m.pollTitle">settle this.</span><h2 id="poll-title" data-i18n="m.pollQuestion">spotify or apple music — who wins?</h2><small data-i18n="m.pollHint">one vote per browser. no login.</small></div><div class="poll-voting"><div class="poll-buttons"><button type="button" data-poll="spotify">Spotify <strong id="spotify-count">0</strong></button><button type="button" data-poll="apple">Apple Music <strong id="apple-count">0</strong></button></div><div class="poll-meter" aria-hidden="true"><span id="poll-meter"></span></div><small id="poll-total">0 votes</small></div></section>
+<div id="notice" class="notice" role="status" aria-live="polite"></div>
+<section class="catalog" aria-labelledby="collection-title"><div class="catalog-heading"><h2 id="collection-title" data-i18n="m.collection">the collection</h2><span id="visible-count" class="muted"></span></div>
+<div class="catalog-controls"><div class="play-controls"><button id="play-all" class="primary" type="button" data-i18n="m.play">play</button><button id="shuffle" type="button" aria-pressed="false" data-i18n="music.shuffle">shuffle</button><button id="next" type="button" data-i18n="music.next">next ⏭</button></div><label class="sr-only" for="sort" data-i18n="m.sort">sort by</label><select id="sort"><option value="order" data-i18n="m.order">gabe’s order</option><option value="popular" data-i18n="m.popular">most loved</option><option value="latest" data-i18n="m.latest">latest added</option></select></div>
+<div class="filter-row"><label class="search-box"><span aria-hidden="true">⌕</span><span class="sr-only" data-i18n="m.search">find a song or artist</span><input id="search" type="search" data-i18n-placeholder="m.search" placeholder="find a song or artist"></label><button id="liked-filter" type="button" aria-pressed="false">♡ <span data-i18n="m.liked">my likes</span></button></div>
+<div id="genres" class="genre-chips" role="group" aria-label="genre"></div>
+<div class="track-head"><span>#</span><span data-i18n="m.title">title / artist</span><span class="genre-column" data-i18n="m.genre">genre</span><span data-i18n="m.likes">likes</span><span></span></div><ol id="tracks" class="track-list"></ol><p id="empty" class="empty" hidden data-i18n="m.noResults">no songs found. try another filter.</p>
+</section>
+<section class="suggestion-panel"><div><p class="eyebrow">PASS THE AUX</p><h2 data-i18n="music.suggest">suggest a banger</h2><p class="muted" data-i18n="m.suggestHint">paste a Spotify or Apple Music song link. one suggestion per minute, five per day.</p></div><form id="suggest" class="suggest-form"><label class="sr-only" for="song-url" data-i18n="m.link">song link</label><input id="song-url" type="url" required placeholder="https://music.apple.com/… / https://open.spotify.com/…"><div class="honey" aria-hidden="true"><label>website<input name="website" tabindex="-1" autocomplete="off"></label></div><button type="submit" id="suggest-button" data-i18n="music.send">suggest</button><output id="countdown" aria-live="off"></output></form><h3 data-i18n="m.suggestions">your suggestions</h3><ol id="suggestions" class="track-list suggestion-list"></ol></section>
+<footer><a href="/">© corvus</a><p data-i18n="m.linkHint">search links are labelled; they may return several versions.</p><p data-i18n="m.playerLimits">playback depends on the service, your region and subscription.</p></footer>
+</main><aside class="now-playing" aria-label="player"><div class="now-meta"><span class="mini-record" aria-hidden="true">♪</span><div><strong id="now-title" data-i18n="m.choose">pick a song</strong><small id="now-artist" data-i18n="m.playerHint">verified links play here. other versions open through search.</small></div><button id="close-player" type="button" aria-label="close" hidden>×</button></div><div id="embed"></div><div id="player-links"></div></aside>
+<script type="module" src="/js/music.js"></script><script src="/js/analytics.js"></script></body></html>

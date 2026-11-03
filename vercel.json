@@ -47,6 +47,12 @@
   "functions": {
     "api/cv.js": {
       "includeFiles": "cv/**"
+    },
+    "api/music.js": {
+      "includeFiles": "music.json"
+    },
+    "api/music-admin.js": {
+      "includeFiles": "music.json"
     }
   }
 }

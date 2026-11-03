@@ -10,7 +10,7 @@ people = json.load(open("people/people.json", encoding="utf-8"))["members"][0]
 TITLES = {"/": "home", "/gabe": "gabe · about me"}
 pages = []
 for f in sorted(glob.glob("**/index.html", recursive=True)):
-    if f.startswith(("clients/", "go/", "gabe/", "node_modules/")): continue
+    if f.startswith(("clients/", "go/", "gabe/", "node_modules/", "music/admin/")): continue
     url = "/" + f[:-len("index.html")]
     if url == "/people/": url_title = "army · join the people"
     src = open(f, encoding="utf-8").read()
@@ -26,6 +26,8 @@ for f in sorted(glob.glob("**/index.html", recursive=True)):
         pages.append({"title": "gabe · about me", "url": "/gabe", "text": re.sub(r"<[^>]+>", " ", people["about"]["en"]) + " " + " ".join(EN.get(k, "") for k in ["profile.languages"]) + " " + " ".join(r["text"] for r in people.get("research", []))})
         title = "army · join the people"
     pages.append({"title": TITLES.get(url, title), "url": url, "text": text})
+for track in json.load(open("music.json", encoding="utf-8"))["tracks"]:
+    pages.append({"title": track["title"] + " · " + track.get("artist", ""), "url": "/music/#track=" + track["id"], "text": " ".join([track["title"], track.get("artist", ""), track.get("genre", ""), track.get("note", "")])})
 for p in pages:
     p["text"] = re.sub(r"\s+", " ", p["text"]).strip().lower()[:6000]
 json.dump(pages, open("search-index.json", "w", encoding="utf-8"), ensure_ascii=False)
