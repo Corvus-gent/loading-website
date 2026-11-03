@@ -1,0 +1,16 @@
+.visitor-map-shell { position:relative; width:100%; margin-top:12px; }
+#visitor-map { height:420px; width:100%; background:#000; border:1px solid #23221b; border-radius:6px; font-family:monospace; isolation:isolate; }
+#visitor-map-status { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:450; margin:0; padding:9px 14px; background:#000d; color:#b1a98e; font:12px monospace; white-space:nowrap; pointer-events:none; }
+.visitor-map-caption { margin:10px 0 0; font:10px/1.6 monospace; color:#777368; }
+.visitor-dot { background:none; border:0; }
+.visitor-flame { display:block; border-radius:50%; background:#ffd76a; box-shadow:0 0 9px 4px #ffd76a55,0 0 24px 7px #ffd76a1f; animation:visitor-flicker 6s ease-in-out infinite; }
+@keyframes visitor-flicker { 0%,100% { opacity:.85; } 28% { opacity:.62; } 33% { opacity:.9; } 60% { opacity:.74; } 78% { opacity:1; } }
+#visitor-map .leaflet-tooltip { background:#0a0906ed; border:1px solid #655637; color:#ffd76a; box-shadow:none; font:11px/1.5 monospace; text-transform:lowercase; }
+#visitor-map .leaflet-tooltip-top:before { border-top-color:#655637; }
+#visitor-map .leaflet-control-attribution { background:#000a; color:#888; font:9px/1.4 monospace; padding:2px 5px; }
+#visitor-map .leaflet-control-attribution a { color:#999; }
+#visitor-map .leaflet-bar a { background:#111; color:#c6b986; border-color:#333; }
+#visitor-map .leaflet-bar a:hover { background:#242015; }
+#visitor-map .visitor-dot:focus-visible { outline:1px solid #ffd76a; outline-offset:6px; border-radius:50%; }
+@media(max-width:600px) { #visitor-map { height:300px; } }
+@media(prefers-reduced-motion:reduce) { .visitor-flame { animation:none; } }
