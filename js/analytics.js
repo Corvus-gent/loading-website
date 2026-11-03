@@ -12,7 +12,7 @@ if (!POSTHOG_KEY.startsWith("phc_REPLACE")) {
   s.onload = () => {
     window.posthog.init(POSTHOG_KEY, {
       api_host: POSTHOG_HOST,
-      persistence: "memory",
+      cookieless_mode: "always",
       disable_session_recording: true,
       capture_pageview: true,
       autocapture: true,

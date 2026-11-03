@@ -337,3 +337,17 @@ a:hover { text-decoration-color: var(--fg); border-bottom: 0; }
 .peek:hover { bottom: -10px; }
 .egg-toast { position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 20px); opacity: 0; pointer-events: none; transition: .3s; background: #0b0b0b; border: 1px solid var(--faint); border-radius: 999px; padding: 8px 14px; font-size: 12px; color: var(--fg); z-index: 20; white-space: nowrap; }
 .egg-toast.show { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+
+/* --- stats --- */
+.key { position: fixed; top: 14px; left: 16px; font-size: 18px; text-decoration: none; opacity: .5; z-index: 6; }
+.key:hover { opacity: 1; }
+.st { text-align: left; }
+.st h1 { font-size: 64px; margin: 10px 0 0; }
+.st-sec { margin-top: 28px; }
+.st-sec h2 { font-size: 13px; color: var(--muted); text-transform: lowercase; margin: 0 0 8px; }
+.st pre { margin: 0; color: var(--fg); font-size: 12px; }
+.st-upd { margin-top: 30px; font-size: 11px; }
+.st-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.st-table th { text-align: left; color: var(--faint); font-weight: 400; padding: 4px 6px; border-bottom: 1px solid #1a1a1a; }
+.st-table td { padding: 4px 6px; border-bottom: 1px solid #0f0f0f; word-break: break-all; }
+.st { padding-top: 34px; }

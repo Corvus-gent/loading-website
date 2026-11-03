@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <title>Private | corvus.gent</title>
+  <link rel="icon" type="image/png" href="/logo.png" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/people/styles.css" />
+  <meta name="robots" content="noindex" />
+  <meta property="og:title" content="Private | corvus.gent" />
+  <meta property="og:description" content="Live, honest numbers from corvus.gent." />
+  <meta property="og:url" content="https://stats.corvus.gent/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://corvus.gent/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://corvus.gent/og.png" />
+</head><body class="people-page">
+  <a href="/stats/" class="key" title="public stats">🔓</a>
+  <main>
+    <div class="wrap st">
+      <div class="tag"><a href="/stats/">stats</a> / private</div>
+      <section id="login">
+        <h1>🔑</h1>
+        <p class="sub">corvus.gent addresses only.</p>
+        <form id="f-mail" class="access-form"><input type="email" name="email" required placeholder="you@corvus.gent"><button>send code</button></form>
+        <form id="f-code" class="access-form" style="display:none"><input name="code" inputmode="numeric" pattern="\d{6}" maxlength="6" required placeholder="6-digit code"><button>enter</button></form>
+        <p class="sub" id="msg"></p>
+      </section>
+      <section id="dash" style="display:none">
+        <p class="sub">logged in as <span id="who"></span> · <a href="#" id="logout">log out</a></p>
+        <div id="out"></div>
+        <p class="sub st-upd" id="updated"></p>
+      </section>
+    </div>
+  </main>
+  <script type="module" src="/js/private.js"></script>
+</body>
+</html>
