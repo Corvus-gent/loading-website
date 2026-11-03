@@ -8,9 +8,9 @@
   <link rel="icon" type="image/png" href="/logo.png" />
   <link rel="stylesheet" href="/styles.css" />
   <link rel="stylesheet" href="/people/styles.css" />
-  <meta name="description" content="Book a call with Gabriel." />
+  <meta name="description" content="Book a free 15-min call with Gabriel." />
   <meta property="og:title" content="Call | corvus.gent" />
-  <meta property="og:description" content="Book a call with Gabriel." />
+  <meta property="og:description" content="Book a free 15-min call with Gabriel." />
   <meta property="og:url" content="https://corvus.gent/call/" />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://corvus.gent/og.png" />
@@ -18,19 +18,76 @@
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://corvus.gent/og.png" />
+  <style>
+    .call-wrap { max-width: 520px; }
+    .deck { display: flex; flex-direction: column; align-items: center; margin: 28px 0 8px; }
+    .vinyl { width: 200px; height: 200px; border-radius: 50%; border: 0; padding: 0; cursor: pointer; position: relative;
+      background:
+        radial-gradient(circle at 50% 50%, transparent 0 31%, rgba(255,255,255,.04) 31.5%, transparent 32%),
+        repeating-radial-gradient(circle at 50% 50%, #0c0c0c 0 1.5px, #161616 1.5px 3px),
+        #111;
+      box-shadow: 0 0 0 1px #2a2a2a, 0 18px 40px rgba(0,0,0,.6);
+      animation: spin 2.2s linear infinite; animation-play-state: paused; }
+    .vinyl::after { content: ""; position: absolute; inset: 0; border-radius: 50%;
+      background: conic-gradient(from 20deg, transparent 0 40deg, rgba(255,255,255,.07) 60deg, transparent 80deg, transparent 220deg, rgba(255,255,255,.05) 240deg, transparent 260deg); }
+    .vinyl.spinning { animation-play-state: running; }
+    .vinyl .label { position: absolute; inset: 34%; border-radius: 50%; background: #e8e8e8; display: grid; place-items: center; overflow: hidden; }
+    .vinyl .label img { width: 62%; filter: grayscale(1) contrast(1.2); }
+    .vinyl .label::after { content: ""; position: absolute; width: 8px; height: 8px; border-radius: 50%; background: #000; }
+    .vinyl:focus-visible { outline: 1px dashed #888; outline-offset: 6px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .vinyl { animation-duration: 8s; } }
+    .np { margin-top: 14px; font-size: 12px; color: #777; letter-spacing: .04em; min-height: 1.2em; }
+    .np .bar { display: inline-block; width: 2px; height: 9px; margin-right: 1px; background: #777; vertical-align: -1px; transform-origin: bottom; }
+    .playing .np .bar { animation: eq .9s ease-in-out infinite; background: #ddd; }
+    .playing .np .bar:nth-child(2) { animation-delay: .2s } .playing .np .bar:nth-child(3) { animation-delay: .4s }
+    @keyframes eq { 50% { transform: scaleY(.35); } }
+    #spotify-wrap { width: 100%; max-width: 360px; height: 0; overflow: hidden; transition: height .4s ease, margin .4s ease; }
+    #spotify-wrap.open { height: 80px; margin-top: 12px; }
+    .card { border: 1px solid #2a2a2a; border-radius: 14px; padding: 22px 22px 20px; margin: 22px 0 0; background: linear-gradient(180deg, #0d0d0d, #070707); }
+    .card h2 { font-size: 20px; margin: 0 0 6px; letter-spacing: -.01em; }
+    .card p { margin: 0 0 16px; color: #9a9a9a; font-size: 14px; line-height: 1.5; }
+    .btn { display: inline-block; padding: 11px 18px; border-radius: 999px; text-decoration: none; font-size: 14px; transition: transform .15s ease, background .15s ease; }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-main { background: #f2f2f2; color: #000 !important; font-weight: 600; }
+    .btn-main:hover { background: #fff; }
+    .btn-ghost { border: 1px solid #3a3a3a; color: #ddd !important; }
+    .btn-ghost:hover { background: #161616; }
+    .card.alt h2 { font-size: 16px; }
+    .or { display: flex; align-items: center; gap: 12px; color: #555; font-size: 12px; margin: 22px 0 0; }
+    .or::before, .or::after { content: ""; flex: 1; height: 1px; background: #222; }
+  </style>
 </head>
 <body class="people-page">
   <main>
-    <div class="wrap">
+    <div class="wrap call-wrap">
       <div class="lang-switcher" id="lang-switcher"></div>
       <div class="tag"><a href="/">corvus.gent</a> / call</div>
       <h1 data-i18n="call.title">Call</h1>
       <p class="sub" data-i18n="call.who"></p>
-      <p class="cta"><a id="book-link" href="#" target="_blank" rel="noreferrer" data-i18n="home.book">book a free 15-min call</a></p>
-      <div class="longer">
-        <span data-i18n="call.longer">want a longer call?</span>
-        <a id="coffee-link" class="bmc" href="#" target="_blank" rel="noreferrer"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me a Coffee"></a>
+
+      <div class="deck" id="deck">
+        <button class="vinyl" id="vinyl" aria-label="play / pause Hotline Bling" aria-pressed="false">
+          <span class="label"><img src="/logo.png" alt=""></span>
+        </button>
+        <div class="np"><span class="bar"></span><span class="bar"></span><span class="bar"></span> <span id="np-text">hotline bling · <span data-i18n="call.tap">tap the record</span></span></div>
+        <div id="spotify-wrap"><div id="spotify-embed"></div></div>
       </div>
+
+      <section class="card">
+        <h2 data-i18n="call.pitch">15 minutes. free. no slides.</h2>
+        <p data-i18n="call.pitchsub">growth, GTM, AI agents, or whatever's keeping you up at night.</p>
+        <a id="book-link" class="btn btn-main" href="#" target="_blank" rel="noreferrer" data-i18n="call.cta">book your slot →</a>
+      </section>
+
+      <div class="or" data-i18n="call.or">or</div>
+
+      <section class="card alt">
+        <h2 data-i18n="call.longer">want a longer call?</h2>
+        <p data-i18n="call.longsub">60+ min deep dive. pay what it's worth, in coffee.</p>
+        <a id="coffee-link" class="btn btn-ghost" href="#" target="_blank" rel="noreferrer">☕ <span data-i18n="call.coffee">buy me a coffee</span></a>
+      </section>
+
       <footer>© <span id="y"></span> corvus</footer>
     </div>
   </main>
@@ -43,6 +100,42 @@
       if (c.booking15) document.getElementById("book-link").href = c.booking15;
       if (c.booking60) document.getElementById("coffee-link").href = c.booking60;
     }).catch(() => {});
+  </script>
+  <script>
+    // Hotline Bling: official Spotify embed (no audio hosted here). Still by default, click = spin + play, click again = stop.
+    (function () {
+      var vinyl = document.getElementById("vinyl"), deck = document.getElementById("deck"),
+          wrap = document.getElementById("spotify-wrap"), ctrl = null, playing = false, pending = false;
+      function set(on) {
+        playing = on;
+        vinyl.classList.toggle("spinning", on);
+        deck.classList.toggle("playing", on);
+        vinyl.setAttribute("aria-pressed", on ? "true" : "false");
+      }
+      window.onSpotifyIframeApiReady = function (API) {
+        API.createController(document.getElementById("spotify-embed"),
+          { uri: "spotify:track:0wwPcA6wtMf6HUMpIRdeP7", width: "100%", height: 80 },
+          function (c) {
+            ctrl = c;
+            c.addListener("ready", function () { if (pending) { pending = false; c.resume(); } });
+            c.addListener("playback_update", function (e) {
+              var paused = e.data.isPaused;
+              if (!paused && !playing) set(true);
+              if (paused && playing && e.data.position > 0) set(false);
+            });
+          });
+      };
+      vinyl.addEventListener("click", function () {
+        wrap.classList.add("open");
+        if (playing) { set(false); if (ctrl) ctrl.pause(); return; }
+        set(true);
+        if (ctrl) ctrl.resume(); else pending = true;
+        if (window.posthog) try { posthog.capture("vinyl_play"); } catch (e) {}
+      });
+      var s = document.createElement("script");
+      s.src = "https://open.spotify.com/embed/iframe-api/v1"; s.async = true;
+      document.body.appendChild(s);
+    })();
   </script>
   <script src="/js/analytics.js"></script>
 </body>
