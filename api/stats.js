@@ -7,7 +7,7 @@ async function compute() {
   const [[today]] = await hogql(`SELECT count(DISTINCT distinct_id) FROM events WHERE ${pv} AND timestamp >= toStartOfDay(now('Europe/Brussels'))`);
   const daily = await hogql(`SELECT toDate(toTimeZone(timestamp, 'Europe/Brussels')) d, count(DISTINCT distinct_id) FROM events WHERE ${pv} GROUP BY d ORDER BY d`);
   const countries = await hogql(`SELECT coalesce(properties.$geoip_country_name, '?') c, count(DISTINCT distinct_id) n FROM events WHERE ${pv} GROUP BY c ORDER BY n DESC LIMIT 6`);
-  const sources = await hogql(`SELECT coalesce(properties.links_source, properties.utm_source, nullIf(properties.$referring_domain, '$direct'), 'direct') s, count() n FROM events WHERE ${pv} GROUP BY s ORDER BY n DESC LIMIT 5`);
+  const sources = await hogql(`SELECT multiIf(properties.links_source IS NOT NULL, properties.links_source, properties.utm_source IS NOT NULL, properties.utm_source, properties.$referring_domain LIKE '%instagram%', 'instagram', properties.$referring_domain LIKE '%linkedin%' OR properties.$referring_domain = 'lnkd.in', 'linkedin', properties.$referring_domain LIKE '%tiktok%', 'tiktok', properties.$referring_domain IN ('t.co', 'x.com', 'twitter.com'), 'x', properties.$referring_domain IN ('$direct', '') OR properties.$referring_domain IS NULL, 'direct', properties.$referring_domain) s, count() n FROM events WHERE ${pv} AND coalesce(properties.$referring_domain, '') NOT LIKE '%corvus.gent' GROUP BY s ORDER BY n DESC LIMIT 6`);
   const pages = await hogql(`SELECT properties.$pathname p, count() n FROM events WHERE ${pv} GROUP BY p ORDER BY n DESC LIMIT 5`);
   const [[feathers, hunters]] = await hogql(`SELECT count(), count(DISTINCT distinct_id) FROM events WHERE event = 'feather_found' AND ${REAL}`);
   const terminal = await hogql(`SELECT properties.command c, count() n FROM events WHERE event = 'terminal_command' AND ${REAL} GROUP BY c ORDER BY n DESC LIMIT 3`);
@@ -32,10 +32,10 @@ export default async function handler(req, res) {
   res.setHeader("Cache-Control", "public, max-age=300");
   if (!connected() || !posthogReady()) return res.status(503).json({ error: "stats not connected yet" });
   try {
-    const cached = await redis(["GET", "stats:public"]);
+    const cached = await redis(["GET", "stats:public:v2"]);
     if (cached) return res.status(200).send(cached);
     const body = JSON.stringify(await compute());
-    await redis(["SET", "stats:public", body, "EX", "3600"]);
+    await redis(["SET", "stats:public:v2", body, "EX", "3600"]);
     return res.status(200).send(body);
   } catch {
     return res.status(500).json({ error: "stats error" });
