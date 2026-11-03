@@ -5,7 +5,7 @@
  *   /go/tt/pidgy      -> pidgy-ai.com, credited to Gabe
  */
 
-const PLATFORMS = { ig: "instagram", li: "linkedin", tt: "tiktok", x: "x", luma: "luma", wa: "whatsapp", mail: "email", qr: "qr" };
+const PLATFORMS = { ig: "instagram", li: "linkedin", tt: "tiktok", x: "x", luma: "luma", dc: "discord", wa: "whatsapp", mail: "email", qr: "qr" };
 
 const TARGETS = {
   me: "/people/?id=gabe", home: "/", now: "/now/", sidequests: "/sidequests/",

@@ -6,7 +6,7 @@
  * Every link carries the source along as UTM, every click is logged.
  */
 
-const PLATFORMS = { li: "linkedin", ig: "instagram", tt: "tiktok", x: "x", luma: "luma" };
+const PLATFORMS = { li: "linkedin", ig: "instagram", tt: "tiktok", x: "x", luma: "luma", dc: "discord" };
 const PIDGY_IMG = "https://cdn.prod.website-files.com/6a509b285b7ecf3280ec45a7/6abd0b36b07d3e8a652e8bb3_happy.png";
 
 const PEOPLE = {
