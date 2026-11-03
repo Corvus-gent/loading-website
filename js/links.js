@@ -6,7 +6,7 @@
  * Every link carries the source along as UTM, every click is logged.
  */
 
-const PLATFORMS = { li: "linkedin", ig: "instagram", tt: "tiktok", x: "x", luma: "luma", dc: "discord" };
+const PLATFORMS = { li: "linkedin", ig: "instagram", tt: "tiktok", x: "x", luma: "luma", dc: "discord", bmc: "buymeacoffee" };
 const PIDGY_IMG = "https://cdn.prod.website-files.com/6a509b285b7ecf3280ec45a7/6abd0b36b07d3e8a652e8bb3_happy.png";
 
 const PEOPLE = {
@@ -39,7 +39,9 @@ const PEOPLE = {
   },
 };
 
-const [, , rawPerson = "gabe", p = "", campaign = ""] = location.pathname.replace(/\/+$/, "").split("/");
+let [, , rawPerson = "gabe", p = "", campaign = ""] = location.pathname.replace(/\/+$/, "").split("/");
+// short form /links/<platform>[/<campaign>] defaults to gabe
+if (!PEOPLE[rawPerson] && rawPerson) { campaign = p; p = rawPerson; rawPerson = "gabe"; }
 const personId = PEOPLE[rawPerson] ? rawPerson : "gabe";
 const person = PEOPLE[personId];
 const source = PLATFORMS[p] || p || "direct";
