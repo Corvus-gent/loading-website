@@ -11,6 +11,8 @@ export const LANGS = [
 ];
 
 const STRINGS = {
+  "m.listView": {en:"☷ list",nl:"☷ lijst",fr:"☷ liste",es:"☷ lista",pt:"☷ lista",de:"☷ Liste",zh:"☷ 列表"},
+  "m.mapView": {en:"✺ genre map",nl:"✺ genremap",fr:"✺ carte des genres",es:"✺ mapa de géneros",pt:"✺ mapa de gêneros",de:"✺ Genre-Karte",zh:"✺ 音乐地图"},
   "m.subtitle": { en: "gabe’s collection. your favourites. no gatekeeping.", nl: "gabe z’n collectie. jouw favorieten. voor iedereen.", fr: "la collection de gabe. vos favoris. pour tout le monde.", es: "la colección de gabe. tus favoritas. para todos.", pt: "a coleção do gabe. teus favoritos. para todos.", de: "gabes Sammlung. deine Favoriten. für alle.", zh: "gabe 的收藏，你的最爱，人人都能听。" },
   "m.collection": { en: "the collection", nl: "de collectie", fr: "la collection", es: "la colección", pt: "a coleção", de: "die Sammlung", zh: "歌曲收藏" },
   "m.tracks": { en: "tracks", nl: "nummers", fr: "morceaux", es: "canciones", pt: "faixas", de: "Songs", zh: "首歌" },

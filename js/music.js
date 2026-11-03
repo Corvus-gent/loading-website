@@ -1,7 +1,12 @@
+import {createMusicMap} from './music-map.js';
 import {initI18n,t} from './i18n.js';
 import {$,esc,label,norm,genres,providers,linksHTML,copyLink,request} from './music-shared.js';
 let state={tracks:[],suggestions:[],votes:{},mine:[],poll:{spotify:0,apple:0},storage:false};
 let genre='',onlyLiked=false,current=null,shuffle=false,queue=[],busy=false,deadline=0,controller=null,spotifyAPI=null,spotifyReady=false,playbackEnded=false;
+let mapView=false;
+const atlas=createMusicMap($('genre-atlas'),{chooseGenre(value,showList){genre=value;if(showList)setView(false);render();},playTrack:play});
+function setView(map){mapView=map;const url=new URL(location.href);if(map)url.searchParams.set('view','map');else url.searchParams.delete('view');history.replaceState(null,'',url);$('genre-atlas').hidden=!map;$('list-view').hidden=map;$('view-map').setAttribute('aria-pressed',String(map));$('view-list').setAttribute('aria-pressed',String(!map));if(map)atlas.update(state.tracks,visible(),genre);}
+$('view-list').onclick=()=>setView(false);$('view-map').onclick=()=>setView(true);
 const msg=text=>{$('notice').textContent=text || '';};
 function visible() {
   const query=norm($('search').value.trim()),mine=new Set(state.mine);
@@ -35,6 +40,7 @@ function render() {
   $('poll-meter').style.width=`${total?Math.round(state.poll.spotify/total*100):50}%`;
   $('poll-total').textContent=`${total} ${t('m.votes')}`;
   $('liked-filter').setAttribute('aria-pressed',String(onlyLiked));
+  if(mapView)atlas.update(state.tracks,list,genre);
   rebuildQueue(); tick();
 }
 function rebuildQueue() {
@@ -150,3 +156,4 @@ function focusShared() {
   document.getElementById(`song-${id}`)?.scrollIntoView({block:'center'});
 }
 focusShared();window.addEventListener('hashchange',focusShared);
+if(new URLSearchParams(location.search).get('view')==='map'){setView(true);$('genre-atlas').scrollIntoView({block:'start'});}
