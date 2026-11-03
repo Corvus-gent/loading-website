@@ -360,13 +360,11 @@ a:hover { text-decoration-color: var(--fg); border-bottom: 0; }
 /* --- links: lantern note + flying crow --- */
 .lt-lantern { display: flex; align-items: center; gap: 10px; margin: 16px 0 0; padding: 10px 12px; border: 1px dashed #3a3220; border-radius: 12px; color: #e9d9a6; font-size: 12px; text-align: left; text-decoration: none; }
 .lt-lantern:hover { border-color: #ffd76a; }
-.lt-crow { position: fixed; top: 18%; left: -200px; z-index: 30; display: flex; flex-direction: column; align-items: center; text-decoration: none; animation: crowin 1.6s cubic-bezier(.3,.8,.4,1) forwards, hover 1.4s ease-in-out 1.6s infinite; }
+.lt-crow { position: fixed; top: 18%; left: -220px; z-index: 30; display: flex; flex-direction: column; align-items: center; text-decoration: none; transform: translate(0, 0) rotate(0); opacity: 0; pointer-events: none; }
 .lt-crow svg { width: 110px; }
-.lt-bubble { margin-top: 4px; background: #fff; color: #000; font-size: 12px; font-weight: 700; padding: 6px 10px; border-radius: 10px; white-space: nowrap; animation: shake .4s 1.6s 3; }
-@keyframes crowin { to { left: calc(50% - 75px); } }
-@keyframes hover { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+.lt-crow.in { opacity: 1; pointer-events: auto; left: 50%; transform: translateX(-50%); transition: left 1.6s cubic-bezier(.3,.8,.4,1), opacity .2s; }
+.lt-crow.out { opacity: 0; left: 120%; transform: translate(0, 70vh) rotate(25deg); transition: left 1.5s ease-in, transform 1.5s ease-in, opacity 1.5s ease-in; }
+.lt-bubble { margin-top: 4px; background: #fff; color: #000; font-size: 12px; font-weight: 700; padding: 6px 10px; border-radius: 10px; }
+.lt-crow.in .lt-bubble { animation: shake .4s 1.6s 3; }
 @keyframes shake { 0%,100% { transform: rotate(0); } 25% { transform: rotate(-3deg); } 75% { transform: rotate(3deg); } }
-.lt-crow { transform: translateX(-50%); }
-@keyframes crowin { from { left: -200px; } to { left: 50%; } }
-@keyframes hover { 0%,100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, -6px); } }
 .lt-bubble { white-space: normal; max-width: 220px; text-align: center; }

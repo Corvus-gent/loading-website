@@ -110,11 +110,22 @@ note.href = home.toString();
 note.innerHTML = '<span class="term-lantern" aria-hidden="true"></span><span>I walk around with a lantern, looking for an honest man. maybe he\'s on the homepage. go look →</span>';
 document.querySelector(".lt").insertBefore(note, document.getElementById("main"));
 
-setTimeout(() => {
-  const crow = document.createElement("a");
-  crow.className = "lt-crow";
-  crow.href = home.toString();
-  crow.innerHTML = `<svg viewBox="0 0 140 40" aria-hidden="true"><g fill="#141414" stroke="#d8d8d8" stroke-width="1.6" stroke-linejoin="round"><path d="M0 20 C18 -8 46 -14 64 10 C74 -4 104 -10 124 14 C104 10 86 16 66 26 C46 16 22 11 0 20Z"/><ellipse cx="66" cy="24" rx="16" ry="7"/><circle cx="82" cy="20" r="6"/><path d="M87 18 L98 21 L87 23Z"/></g></svg><span class="lt-bubble">URGENT. go to the homepage. NOW!!!!</span>`;
-  crow.addEventListener("click", () => { if (window.posthog?.capture) window.posthog.capture("links_crow_click", window.__phProps); });
-  document.body.appendChild(crow);
-}, 12000);
+// crow loop: comes in, stays 3s, flies out bottom right. waits 10s, 11s, 13s, 16s, 20s, ...
+const crow = document.createElement("a");
+crow.className = "lt-crow";
+crow.href = home.toString();
+crow.innerHTML = `<svg viewBox="0 0 140 40" aria-hidden="true"><g fill="#141414" stroke="#d8d8d8" stroke-width="1.6" stroke-linejoin="round"><path d="M0 20 C18 -8 46 -14 64 10 C74 -4 104 -10 124 14 C104 10 86 16 66 26 C46 16 22 11 0 20Z"/><ellipse cx="66" cy="24" rx="16" ry="7"/><circle cx="82" cy="20" r="6"/><path d="M87 18 L98 21 L87 23Z"/></g></svg><span class="lt-bubble">URGENT. go to the homepage. NOW!!!!</span>`;
+crow.addEventListener("click", () => { if (window.posthog?.capture) window.posthog.capture("links_crow_click", window.__phProps); });
+document.body.appendChild(crow);
+
+const wait = ms => new Promise(r => setTimeout(r, ms));
+(async () => {
+  for (let n = 0; ; n++) {
+    await wait((10 + (n * (n + 1)) / 2) * 1000);
+    crow.className = "lt-crow in";
+    await wait(1600 + 3000);
+    crow.className = "lt-crow out";
+    await wait(1500);
+    crow.className = "lt-crow";
+  }
+})();
