@@ -102,7 +102,11 @@
         },
         {
           "text": "CV resume",
-          "href": "/cv/gabe.pdf"
+          "href": "/cv"
+        },
+        {
+          "text": "CV download ↓",
+          "href": "/cv/download"
         }
       ],
       "research": [

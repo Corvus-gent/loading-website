@@ -4,7 +4,7 @@
 
 const PAGES = {
   home: "/", about: "/gabe", now: "/now/", sidequests: "/sidequests/",
-  support: "/support/", languages: "/languages/", "402": "/402/", cv: "/cv/gabe.pdf",
+  support: "/support/", languages: "/languages/", "402": "/402/", cv: "/cv",
 };
 
 const COMMANDS = {
@@ -21,7 +21,7 @@ const COMMANDS = {
   now: () => ["opening /now ..."].concat(go("/now/")),
   sidequests: () => ["opening /sidequests ..."].concat(go("/sidequests/")),
   support: () => ["opening /support ..."].concat(go("/support/")),
-  cv: () => ["opening cv ..."].concat(go("/cv/gabe.pdf")),
+  cv: () => ["opening cv ..."].concat(go("/cv")),
   contact: () => ["gabriel@corvus.gent"].concat(go("mailto:gabriel@corvus.gent")),
   ls: () => [Object.keys(PAGES).join("  ")],
   location: async () => {

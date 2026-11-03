@@ -11,17 +11,25 @@
       "permanent": true
     },
     {
-      "source": "/cv/gabriel.pdf",
-      "destination": "/cv/gabe.pdf",
-      "permanent": true
-    },
-    {
       "source": "/links",
       "destination": "/links/gabe",
       "permanent": false
+    },
+    {
+      "source": "/cv/gabriel.pdf",
+      "destination": "/cv",
+      "permanent": true
     }
   ],
   "rewrites": [
+    {
+      "source": "/cv",
+      "destination": "/api/cv"
+    },
+    {
+      "source": "/cv/download",
+      "destination": "/api/cv?dl=1"
+    },
     {
       "source": "/go/:path*",
       "destination": "/go/index.html"
@@ -30,5 +38,10 @@
       "source": "/links/:path+",
       "destination": "/links/index.html"
     }
-  ]
+  ],
+  "functions": {
+    "api/cv.js": {
+      "includeFiles": "cv/**"
+    }
+  }
 }

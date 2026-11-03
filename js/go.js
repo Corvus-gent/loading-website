@@ -9,7 +9,7 @@ const PLATFORMS = { ig: "instagram", li: "linkedin", tt: "tiktok", x: "x", luma:
 
 const TARGETS = {
   me: "/people/?id=gabe", home: "/", now: "/now/", sidequests: "/sidequests/",
-  support: "/support/", "402": "/402/", cv: "/cv/gabe.pdf",
+  support: "/support/", "402": "/402/", cv: "/cv",
 };
 
 const EXTERNAL = { pidgy: "https://pidgy-ai.com/" };

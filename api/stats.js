@@ -39,6 +39,8 @@ export default async function handler(req, res) {
     let body = await redis(["GET", key]);
     if (!body) {
       const data = await compute(day);
+      const [o, dl, oT, dlT] = await Promise.all([`cv:open:${day}`, `cv:download:${day}`, "cv:open", "cv:download"].map(k => redis(["GET", k])));
+      data.cv = { open: Number(o || 0), download: Number(dl || 0), openTotal: Number(oT || 0), downloadTotal: Number(dlT || 0) };
       if (day === today) {
         const raw = (await redis(["HGETALL", "lang_votes"])) || [];
         data.votes = {};

@@ -50,6 +50,7 @@ async function render() {
     rows("pages", s.pages, "p");
     $("feathers").textContent = `🪶 ${s.feathers} feathers found by ${s.hunters} hunters.`;
     $("terminal").textContent = s.terminal.length ? `most typed in the terminal: ${s.terminal.map(t => t.c).join(", ")}` : "nobody opened the terminal.";
+    if (s.cv) $("cv").textContent = `📄 opened ${s.cv.open}× and downloaded ${s.cv.download}× this day · all time: ${s.cv.openTotal} opens, ${s.cv.downloadTotal} downloads.`;
     $("votes-sec").style.display = s.votes ? "block" : "none";
     $("unpaid-sec").style.display = s.unpaid_days ? "block" : "none";
     if (s.votes) rows("votes", Object.entries(s.votes).sort((a, b) => b[1] - a[1]).slice(0, 5).map(([c, n]) => ({ c: names.of(c), n })), "c");

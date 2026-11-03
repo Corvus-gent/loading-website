@@ -22,7 +22,7 @@ const INDEX = [
   { title: "support · books", url: "/support/books/", keys: "books reading goodreads contagious" },
   { title: "support · philosophists", url: "/support/philosophists/", keys: "philosophy philosophists diogenes alexander lantern sun" },
   { title: "support · sport people", url: "/support/sport-people/", keys: "bjj jiu jitsu sport tainan jose santo" },
-  { title: "cv · resume", url: "/cv/gabe.pdf", keys: "cv resume experience education" },
+  { title: "cv · resume", url: "/cv", keys: "cv resume experience education" },
   { title: "research · papers", url: "/gabe", keys: "research papers llm manipulation medical imaging" },
 ];
 

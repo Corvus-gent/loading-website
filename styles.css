@@ -354,3 +354,4 @@ a:hover { text-decoration-color: var(--fg); border-bottom: 0; }
 .st-nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 12px 0 6px; font-size: 13px; color: var(--muted); }
 .st-nav button { background: none; border: 1px solid var(--faint); color: var(--fg); border-radius: 999px; width: 32px; height: 32px; cursor: pointer; font: inherit; }
 .st-nav button:disabled { opacity: .2; cursor: default; }
+.cv-lol { color: var(--faint); font-size: 12px; margin-top: -4px; }
