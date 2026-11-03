@@ -21,7 +21,7 @@ async function sendCode(email, code) {
       from: process.env.LOGIN_FROM || "corvus <login@corvus.gent>",
       to: [email],
       subject: `${code} is your corvus.gent code`,
-      text: `Your code: ${code}\n\nValid for 10 minutes. If you didn't ask for this, ignore it.\n\n— the crow`,
+      text: `Your code: ${code}\n\nValid for 3 minutes. If you didn't ask for this, ignore it.\n\n— the crow`,
     }),
   });
   if (!r.ok) throw new Error("mail failed");
@@ -50,7 +50,7 @@ export default async function handler(req, res) {
     if (!(await limit(`otp:rl:ip:${hash(ip(req))}`, 10, 3600))) return res.status(429).json({ error: "slow down" });
     if (!(await limit(`otp:rl:mail:${hash(email)}`, 3, 900))) return res.status(429).json({ error: "slow down" });
     const otp = String(crypto.randomInt(0, 1000000)).padStart(6, "0");
-    await redis(["SET", `otp:${hash(email)}`, JSON.stringify({ h: hash(otp), tries: 0 }), "EX", "600"]);
+    await redis(["SET", `otp:${hash(email)}`, JSON.stringify({ h: hash(otp), tries: 0 }), "EX", "180"]);
     try { await sendCode(email, otp); } catch { return res.status(500).json({ error: "could not send" }); }
     return res.status(200).json(ok);
   }
@@ -61,7 +61,7 @@ export default async function handler(req, res) {
     const raw = await redis(["GET", key]);
     if (!raw) return res.status(400).json({ error: "code expired" });
     const rec = JSON.parse(raw);
-    if (rec.tries >= 5) { await redis(["DEL", key]); return res.status(429).json({ error: "too many tries" }); }
+    if (rec.tries >= 3) { await redis(["DEL", key]); return res.status(429).json({ error: "too many tries" }); }
     if (!safeEqual(rec.h, hash(String(code)))) {
       rec.tries++;
       await redis(["SET", key, JSON.stringify(rec), "KEEPTTL"]);

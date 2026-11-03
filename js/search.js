@@ -3,6 +3,7 @@
  */
 
 const INDEX = [
+  { title: "stats · live numbers", url: "https://stats.corvus.gent/", keys: "stats analytics visitors numbers dashboard" },
   { title: "wiki · corvuspedia", url: "/wiki/", keys: "wiki wikipedia encyclopedia corvuspedia" },
   { title: "wiki · what is a corvus?", url: "/wiki/corvus/", keys: "corvus crow bird studio" },
   { title: "wiki · what is a pidgy?", url: "/wiki/pidgy/", keys: "pidgy pigeon inbox email bird" },
