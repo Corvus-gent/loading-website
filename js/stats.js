@@ -48,6 +48,11 @@ async function render() {
     rows("countries", s.countries, "c");
     rows("sources", s.sources, "s");
     rows("pages", s.pages, "p");
+    rows("browsers", s.browsers || [], "b");
+    const cliDay = Object.entries((s.cli && s.cli.day) || {}), cliAll = Object.values((s.cli && s.cli.all) || {}).reduce((a, b) => a + b, 0);
+    $("cli").textContent = cliDay.length
+      ? `yes. ${cliDay.map(([t, n]) => `${n}× ${t}`).join(", ")} this day. someone's poking around 🕵️ · all time: ${cliAll}.`
+      : `nobody curled corvus.gent this day.${cliAll ? ` all time: ${cliAll}.` : ""} (try: curl corvus.gent)`;
     $("feathers").textContent = `🪶 ${s.feathers} feathers found by ${s.hunters} hunters.`;
     $("terminal").textContent = s.terminal.length ? `most typed in the terminal: ${s.terminal.map(t => t.c).join(", ")}` : "nobody opened the terminal.";
     if (s.cv) $("cv").textContent = `📄 opened ${s.cv.open}× and downloaded ${s.cv.download}× this day · all time: ${s.cv.openTotal} opens, ${s.cv.downloadTotal} downloads.`;

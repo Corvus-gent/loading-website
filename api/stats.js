@@ -13,6 +13,7 @@ async function compute(day) {
   const hours = await hogql(`SELECT toHour(toTimeZone(timestamp, 'Europe/Brussels')) h, count(DISTINCT distinct_id) n FROM events WHERE ${pv} GROUP BY h ORDER BY h`);
   const countries = await hogql(`SELECT coalesce(properties.$geoip_country_name, '?') c, count(DISTINCT distinct_id) n FROM events WHERE ${pv} GROUP BY c ORDER BY n DESC LIMIT 6`);
   const sources = await hogql(`SELECT multiIf(properties.links_source IS NOT NULL, properties.links_source, properties.utm_source IS NOT NULL, properties.utm_source, properties.$referring_domain LIKE '%instagram%', 'instagram', properties.$referring_domain LIKE '%linkedin%' OR properties.$referring_domain = 'lnkd.in', 'linkedin', properties.$referring_domain LIKE '%tiktok%', 'tiktok', properties.$referring_domain LIKE '%facebook%', 'facebook', properties.$referring_domain IN ('t.co', 'x.com', 'twitter.com'), 'x', properties.$referring_domain IN ('$direct', '') OR properties.$referring_domain IS NULL, 'direct', properties.$referring_domain) s, count() n FROM events WHERE ${pv} AND coalesce(properties.$referring_domain, '') NOT LIKE '%corvus.gent' GROUP BY s ORDER BY n DESC LIMIT 6`);
+  const browsers = await hogql(`SELECT coalesce(properties.$browser, '?') b, count(DISTINCT distinct_id) n FROM events WHERE ${pv} GROUP BY b ORDER BY n DESC LIMIT 6`);
   const pages = await hogql(`SELECT properties.$pathname p, count() n FROM events WHERE ${pv} GROUP BY p ORDER BY n DESC LIMIT 5`);
   const [[feathers, hunters]] = await hogql(`SELECT count(), count(DISTINCT distinct_id) FROM events WHERE event = 'feather_found' AND ${REAL} AND ${inDay}`);
   const terminal = await hogql(`SELECT properties.command c, count() n FROM events WHERE event = 'terminal_command' AND ${REAL} AND ${inDay} GROUP BY c ORDER BY n DESC LIMIT 3`);
@@ -22,6 +23,7 @@ async function compute(day) {
     countries: countries.map(([c, n]) => ({ c, n })),
     sources: sources.map(([s, n]) => ({ s, n })),
     pages: pages.map(([p, n]) => ({ p, n })),
+    browsers: browsers.map(([b, n]) => ({ b, n })),
     feathers, hunters,
     terminal: terminal.map(([c, n]) => ({ c, n })),
     updated: new Date().toISOString(),
@@ -35,11 +37,13 @@ export default async function handler(req, res) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(day) || day < FIRST || day > today) day = today;
   res.setHeader("Cache-Control", day === today ? "public, max-age=300" : "public, max-age=86400");
   try {
-    const key = `stats:day:${day}`;
+    const key = `stats:v3:${day}`;
     let body = await redis(["GET", key]);
     if (!body) {
       const data = await compute(day);
       const [o, dl, oT, dlT] = await Promise.all([`cv:open:${day}`, `cv:download:${day}`, "cv:open", "cv:download"].map(k => redis(["GET", k])));
+      const toObj = a => { const o = {}; for (let i = 0; i < (a || []).length; i += 2) o[a[i]] = Number(a[i + 1]); return o; };
+      data.cli = { day: toObj(await redis(["HGETALL", `cli:${day}`])), all: toObj(await redis(["HGETALL", "cli:all"])) };
       data.cv = { open: Number(o || 0), download: Number(dl || 0), openTotal: Number(oT || 0), downloadTotal: Number(dlT || 0) };
       if (day === today) {
         const raw = (await redis(["HGETALL", "lang_votes"])) || [];
