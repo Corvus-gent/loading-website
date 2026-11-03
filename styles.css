@@ -376,3 +376,8 @@ a:hover { text-decoration-color: var(--fg); border-bottom: 0; }
 .share-opts button { font: inherit; font-size: 12px; padding: 7px 12px; border-radius: 999px; border: 1px solid var(--faint); background: transparent; color: var(--fg); cursor: pointer; }
 .share-opts button:hover { border-color: var(--fg); }
 .share-msg { font-size: 11px; margin: 8px 0 0; min-height: 14px; }
+.share-msg { max-height: 0; overflow: hidden; opacity: 0; margin: 0; color: var(--muted); transition: color 1s ease, max-height .4s ease, margin .4s ease; }
+.share-msg.show { max-height: 20px; opacity: 1; margin: 8px 0 0; }
+.share-msg.fade { color: #000; }
+.share-msg.gone { visibility: hidden; }
+.share-msg.collapse { max-height: 0; margin: 0; }

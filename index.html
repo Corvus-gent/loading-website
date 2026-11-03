@@ -68,14 +68,21 @@
     });
   </script>
   <script>
+    let shareTimers = [];
     document.querySelectorAll("[data-share]").forEach(b => b.addEventListener("click", async () => {
       const url = b.dataset.share, msg = document.getElementById("share-msg");
       if (window.posthog?.capture) window.posthog.capture("share_click", { what: b.dataset.what });
-      try {
-        if (navigator.share) { await navigator.share({ title: "corvus.gent", url }); msg.textContent = "shared. the flock grows."; return; }
-      } catch (e) { if (e && e.name === "AbortError") return; }
-      try { await navigator.clipboard.writeText(url); msg.textContent = `copied: ${url.replace("https://", "")}`; }
-      catch { msg.textContent = url; }
+      try { await navigator.clipboard.writeText(url); } catch {
+        const t = document.createElement("textarea"); t.value = url; document.body.appendChild(t); t.select(); document.execCommand("copy"); t.remove();
+      }
+      shareTimers.forEach(clearTimeout);
+      msg.textContent = "copied to clipboard";
+      msg.className = "sub share-msg show";
+      shareTimers = [
+        setTimeout(() => msg.classList.add("fade"), 5000),
+        setTimeout(() => msg.classList.add("gone"), 6000),
+        setTimeout(() => msg.classList.add("collapse"), 8000),
+      ];
     }));
   </script>
   <script type="module" src="/js/terminal.js"></script>
