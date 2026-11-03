@@ -1,6 +1,28 @@
 {
   "redirects": [
     {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "stats.corvus.gent"
+        }
+      ],
+      "destination": "/stats/",
+      "permanent": false
+    },
+    {
+      "source": "/private",
+      "has": [
+        {
+          "type": "host",
+          "value": "stats.corvus.gent"
+        }
+      ],
+      "destination": "/stats/private/",
+      "permanent": false
+    },
+    {
       "source": "/gabe",
       "destination": "/people/?id=gabe",
       "permanent": false
@@ -22,26 +44,6 @@
     }
   ],
   "rewrites": [
-    {
-      "source": "/",
-      "has": [
-        {
-          "type": "host",
-          "value": "stats.corvus.gent"
-        }
-      ],
-      "destination": "/stats/"
-    },
-    {
-      "source": "/private",
-      "has": [
-        {
-          "type": "host",
-          "value": "stats.corvus.gent"
-        }
-      ],
-      "destination": "/stats/private/"
-    },
     {
       "source": "/go/:path*",
       "destination": "/go/index.html"
