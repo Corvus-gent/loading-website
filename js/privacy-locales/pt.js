@@ -39,7 +39,8 @@ export default {
       "outside",
       "outros serviços",
       "o Spotify só recebe o pedido de reprodução depois do clique e pode então guardar os seus cookies. o nosso servidor consulta Spotify ou Apple quando envias um link musical. os mapas CARTO passam pelo nosso servidor sem enviar o teu IP. Leaflet, Sortable e a biblioteca PostHog estão alojados aqui.",
-      "Buy Me a Coffee e Pidgy são links, não formulários incorporados. aplicam-se as suas políticas após a visita. /links, /go e os atalhos de campanha só acrescentam etiquetas UTM e contam visitas/cliques, sem recolher formulários ou identidades. (analytics só com consentimento)."
+      "Buy Me a Coffee e Pidgy são links, não formulários incorporados. aplicam-se as suas políticas após a visita. /links, /go e os atalhos de campanha só acrescentam etiquetas UTM e contam visitas/cliques, sem recolher formulários ou identidades. (analytics só com consentimento).",
+      "o Notion guarda o meu registo manual de X. as estatísticas públicas mostram totais, nomes públicos de campanhas e vozes, e os meus próprios posts; respostas e URLs de destino ficam atrás do início de sessão. campanhas aprovadas e intervalos região-hora acompanham a análise opcional. as cópias no Corvus expiram em 24 horas; as fontes seguem a minha retenção no Notion. a região ainda precisa de confirmação, sem promessa de armazenamento só na UE."
     ],
     [
       "where",
@@ -67,7 +68,8 @@ export default {
     "reprodução",
     "consulta musical",
     "apoios",
-    "reservas"
+    "reservas",
+    "registo manual de x"
   ],
   "consentInfo": "analytics opcional fica desligado até o permitires. podes alterar a escolha aqui a qualquer momento. cada origem do site guarda a sua escolha por 180 dias. recusar não limita o site; só contamos visitantes que aceitam. retirar a permissão interrompe tratamentos futuros sem anular os anteriores."
 };

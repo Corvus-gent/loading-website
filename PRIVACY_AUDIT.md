@@ -458,3 +458,82 @@ The migration never modifies the source or automatically deletes either database
   changes, Resend domain-region check, production function after-check, or an
   after-move Belgian latency comparison. These require the actual account/URLs
   and deployment; no sample or preview success substitutes for them.
+
+## Notion X-log extension — 4 November 2026
+
+Gabriel requested a Notion-backed X activity dashboard in this same daily PR.
+The source is his manually entered log, not a crawler of other people's X posts.
+No browser sends requests to Notion, and no Notion/X SDK or embed is added.
+
+| ID | Finding / implementation constraint | Fix |
+| --- | --- | --- |
+| P27 | The privacy allowlist drops new X campaign names and all region-hour attribution; old hub/shortcut tagging replaces that slot. | **Fixed:** after analytics consent, load a cached catalog of owner-curated campaign slugs; retain only approved X campaigns and `eu/sf` + integer hour slots. Preserve slots through /links and /go. Unknown free-form labels are still stripped. |
+| P28 | A public Notion serialization could expose reply text, target URLs or internal page IDs. | **Fixed:** explicit public aggregate projection; only `type=post` URLs for `gabe_maxxing/status/...` qualify for own-post text publication. Full rows stay session-protected/no-store. Manual sync also checks same-origin. |
+| P29 | 2,000 writes at Notion's request limit exceed one server invocation; concurrent page views could duplicate writes. | **Fixed:** 350 ms request spacing, Retry-After, Redis lease, 15-minute start gate, durable cursors/checkpoints, authenticated continuation, daily backup cron. Unchanged rows are not rewritten. Every new Redis key expires. |
+| P30 | Summing landing, generic link and outbound events would count the same action multiple times. Missing/shared attribution cannot identify an individual reply. | **Fixed:** Corvus landing views and canonical Pidgy actions only; exclude /go pageviews, internal links landings and generic click events. Fractional shared-key allocation is labeled an estimate. Unmatched clicks remain unassigned, visible in totals. |
+
+### Added inventory
+
+| Surface / key | Data and purpose | Basis / recipient / retention |
+| --- | --- | --- |
+| Notion source `X log` | Owner-entered posting date/hour, audience region, reply/post type, voice/lane, campaign, target/my/link URLs, text and link type; updated with counts, estimate flag and sync timestamp. | Owner-requested dashboard; LI for proportionate outreach measurement, subject to Gabriel's balancing/retention decision. Notion stores the source; source retention is controlled in that workspace and is not changed by the Corvus TTL. Confirm DPA/deletion/region. |
+| Server → Notion API | Database/source/page IDs and authentication token; reads rows/schema, writes only four sync columns. | Same purpose/basis; Notion receives the server request, not the visitor's browser/IP or cookies. No credentials in code or public JSON. |
+| Server → PostHog EU | Bounded aggregate query by date/campaign/region-hour/destination, paginated; no visitor-level results. | Existing optional-analytics consent for input events, LI for anonymous totals. Existing PostHog retention applies. |
+| `x:public:v1`, `x:campaigns:v1` | Aggregate stats + latest 50 eligible own posts; curated public campaign slugs for the capture allowlist. | Owner-requested publication / anonymous totals. Redis and public browser/CDN; 900 s, CDN no longer than remaining Redis TTL. |
+| `x:public:last:v1`, `x:result:v1:<run>` | Last public snapshot / computed snapshot for resume. | Same public data; Redis, max 24 h. Stale responses are labeled and not CDN cached. |
+| `x:private:v1`, `x:rows:v1:<run>:<chunk>` | Snapshot manifest and normalized full log rows, including private reply text/target URLs. | Same limited dashboard purpose; Redis + authenticated dashboard only. Max 24 h per stored copy; previous row chunks deleted when replaced. Private response no-store, 50 rows/page. |
+| `x:clicks:v1:<run>:<chunk>` | Aggregate date/campaign/slot/destination counts awaiting the join, no identities. | Anonymous computation; Redis, max 24 h, removed after writeback completes. |
+| `x:job:v1` | Run/source IDs, cursors, counts, stage and retry timing; no token or personal click identifiers. | Necessary operational state; Redis, 24 h. |
+| `x:lock:v1`, `x:start:v1`, `x:error:v1` | Random lease token, start gate, sanitized provider error category/time. | Necessary anti-duplication/rate protection; Redis, 270 s / 900 s / 900 s. No raw provider error body is logged or returned. |
+| Added analytics properties | `utm_content` only `eu/sf` + 0–23; X `utm_campaign`/`campaign`/`links_campaign` only owner-approved slugs. | Existing affirmative consent and PostHog EU retention. Describes a public marketing slot, never a visitor. No new cookies, localStorage keys, email/name, visitor ID or raw IP. |
+| Daily cron / continuations | A bearer CRON_SECRET authenticates requests to the owned production API. | Necessary background sync; Vercel functions configured Frankfurt. Secret stays in environment/headers; never in URLs, stored job state or response data. |
+
+### Publication and attribution limits
+
+Reply text and `target_url` never enter the public payload. The public page uses
+one cached JSON, no live Notion calls; own-post links are plain links, not embeds.
+Voice and campaign labels are intentionally public, so they must not contain
+personal identifiers. Private table filters are server-side and not tracked.
+
+CSV date/hour are assumed Europe/Brussels for both audience regions; this was
+asked explicitly and remains the documented default pending a different answer.
+The join uses click calendar date plus logged region-hour and campaign. Links do
+not carry a posting-date identifier: late clicks are not reliable per-post
+attribution. Shared linked rows split counts and carry `clicks_estimated`; missing
+slots never get guessed. The visible rate is clicks per logged link, can exceed
+100%, and is not X's impressions CTR. Refused analytics stays uncounted.
+
+### Notion residency / data requests
+
+Notion is an additional processor, not covered by Vercel's Frankfurt setting.
+Its [residency documentation](https://www.notion.com/help/data-residency) says US
+storage remains until an eligible Enterprise EU migration is confirmed, and even
+EU residency has scope limits. This workspace's actual region/agreements remain
+unverified. All seven privacy translations now disclose the integration and the
+24-hour Corvus-copy limit; no unconditional EU-only claim is introduced.
+
+For a data request involving an X record, Gabriel must correct/delete the source
+in Notion and refresh/clear relevant 24-hour snapshots/jobs. The email-only deletion
+tool cannot infer a social profile's row from an email address. Notion source
+retention and backups need separate review. Follow
+[tools/notion-setup.md](tools/notion-setup.md) for integration/sharing/env settings,
+schema, attribution examples, first sync, failures and operational checks.
+
+### Evidence
+
+- Local real Redis + controlled Notion/PostHog fixtures: empty, one and 2,000 rows,
+  paginated reads, resumed writes, per-row estimates, no unchanged-row writes,
+  lease/throttle/expiry and API session/origin/cron boundaries.
+- Real browser privacy transport tests: approved X campaign and slot preserved
+  after opt-in; no catalog request before opt-in; arbitrary visitor labels stripped;
+  /links and /go propagate the slot. Public responses exclude unique reply/target
+  fixture markers; private rows include them only after authentication.
+- New page/mobile/private browser checks pass after correcting a narrow-screen
+  grid overflow and explicit filter labels. Local tests never write a real Notion
+  workspace or fabricate production PostHog events.
+- [Lighthouse comparison](tests/results/lighthouse-x.json): three alternating
+  mobile runs, 6× CPU slowdown, cached API fixture from 2,000 rows (latest 50 own
+  posts). Existing overview median **100 → 100**, new X page median **100**;
+  new page CLS **0.014**, TBT **0 ms**. Local lab evidence, not field measurements.
+- Live integration/sharing/env variables, actual Notion region and production
+  writeback remain manual verification; credentials were not available here.

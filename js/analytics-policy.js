@@ -1,3 +1,4 @@
+import {approvedCampaign,contentSlot} from './x-attribution.js';
 // Shared by browser capture and public stats: never publish free-form labels.
 export const SOURCES = ['direct','corvus','linkedin','instagram','tiktok','facebook','discord','x','luma','whatsapp','email','qr','buymeacoffee','share','self','google','bing','duckduckgo','other'];
 export const CAMPAIGNS = ['bio','coffee-bio','gabe-coffee-bio','gabe-important-call','402','402-post','gabe','gabe-bio','gabe-402','gabe-402-post','gabe-self','gabe-coffee-bio','site','game-babel','game-borders','game-wordle','game-flags','game-combo','game-bangle','game-pingle','game-lantern','other'];
@@ -7,7 +8,7 @@ export const GENRES = ['us hip-hop','rap fr','rap nl/be','latin','lusophone','af
 export const BROWSERS = ['Chrome','Chrome iOS','Safari','Mobile Safari','Firefox','Microsoft Edge','Edge','Opera','Samsung Internet','Internet Explorer','Android Mobile','Other'];
 const HOSTS = ['corvus.gent','www.corvus.gent','stats.corvus.gent'];
 const EXTERNAL = ['pidgy-ai.com','app.pidgy-ai.com','buymeacoffee.com','www.buymeacoffee.com','open.spotify.com','music.apple.com','bandcamp.com','soundcloud.com','musicbrainz.org','www.linkedin.com','linkedin.com','instagram.com','www.instagram.com','www.tiktok.com','x.com','luma.com','alkmist.com','posthog.com','github.com'];
-const ROUTES = new Set(['/', '/realm/', '/gabe/', '/people/', '/now/', '/sidequests/', '/support/', '/support/books/', '/support/companies/', '/support/people/', '/support/founders/', '/support/sport-people/', '/support/philosophists/', '/languages/', '/402/', '/call/', '/music/', '/games/', '/wiki/', '/wiki/corvus/', '/wiki/pidgy/', '/privacy/', '/cv/', '/pidgy/', '/map/', '/hunt/', '/stats/', '/stats/pidgy/', '/stats/games/', '/stats/map/', '/stats/music/', '/stats/hunt/']);
+const ROUTES = new Set(['/', '/realm/', '/gabe/', '/people/', '/now/', '/sidequests/', '/support/', '/support/books/', '/support/companies/', '/support/people/', '/support/founders/', '/support/sport-people/', '/support/philosophists/', '/languages/', '/402/', '/call/', '/music/', '/games/', '/wiki/', '/wiki/corvus/', '/wiki/pidgy/', '/privacy/', '/cv/', '/pidgy/', '/map/', '/hunt/', '/stats/', '/stats/pidgy/', '/stats/games/', '/stats/map/', '/stats/music/', '/stats/hunt/', '/x/', '/stats/x/']);
 export const category = (value, allowed, fallback = 'other') => allowed.includes(value) ? value : fallback;
 export const sourceCategory = value => category(value, SOURCES);
 export const campaignCategory = value => category(value, CAMPAIGNS);
@@ -71,6 +72,13 @@ export function privacyEvent(event) {
   for (const key of ['utm_source','links_source','source']) if (p[key]) properties[key] = sourceCategory(p[key]);
   for (const key of ['utm_campaign','links_campaign','campaign']) if (p[key]) properties[key] = campaignCategory(p[key]);
   for (const key of ['utm_medium','medium']) if (p[key]) properties[key] = category(p[key], ['post','bio','links','social','game','qr','email',...ROUTES]);
+  const xSource=[p.utm_source,p.links_source,p.source].includes('x');
+  const xCampaign=xSource&&approvedCampaign(p.utm_campaign||p.links_campaign||p.campaign);
+  if(xCampaign){
+    properties.utm_source='x';properties.utm_campaign='gabe-'+xCampaign;
+    for(const key of ['links_campaign','campaign'])if(p[key])properties[key]=xCampaign;
+    const slot=contentSlot(p.utm_content);if(slot)properties.utm_content=slot;
+  }
   if (p.links_person === 'gabe') properties.links_person = 'gabe';
   if (event.event === 'link_click') { properties.link_href=safeURL(p.link_href); properties.page=pathCategory(p.page); }
   if (event.event === 'outbound_click') { properties.host=hostCategory(p.host); properties.href=safeURL(p.href); properties.path=pathCategory(p.path); }

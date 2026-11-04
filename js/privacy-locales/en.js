@@ -39,7 +39,8 @@ export default {
       "outside",
       "when another service gets involved",
       "Spotify receives a playback request only after play, and may then set its own cookies. our server looks up song links at Spotify or Apple when you submit one. map tiles come through our server from CARTO, without forwarding your IP. Leaflet, Sortable and the PostHog library are hosted here.",
-      "Buy Me a Coffee and Pidgy booking are links, not embedded forms. their privacy rules apply after you follow them. /links, /go and our campaign shortcuts only add campaign labels (UTMs) and count visits/clicks; they never collect form contents or visitor identities. (analytics only with consent)."
+      "Buy Me a Coffee and Pidgy booking are links, not embedded forms. their privacy rules apply after you follow them. /links, /go and our campaign shortcuts only add campaign labels (UTMs) and count visits/clicks; they never collect form contents or visitor identities. (analytics only with consent).",
+      "Notion holds my manually entered X log. public stats show totals, public campaign/voice labels and my own posts; reply text and target URLs stay behind login. approved campaign labels and region-hour slots accompany optional analytics. Corvus copies expire within 24 hours; source records follow my Notion retention. the workspace region still needs confirmation, so EU-only storage is not promised."
     ],
     [
       "where",
@@ -67,7 +68,8 @@ export default {
     "playback",
     "song lookup",
     "support payments",
-    "bookings"
+    "bookings",
+    "manual x log"
   ],
   "consentInfo": "optional analytics is off until you allow it. change your choice here at any time. each site origin remembers its own choice for 180 days. declining does not limit the site; visit statistics only include people who allow counting. withdrawal stops future analytics and does not undo processing already performed."
 };

@@ -16,7 +16,7 @@ const providers = [
  ['Resend','https://resend.com/legal/privacy-policy'],['Upstash','https://upstash.com/trust/privacy.pdf'],
  ['Redis Cloud','https://redis.io/legal/privacy-policy/'],['CARTO','https://carto.com/privacy'],
  ['Spotify','https://www.spotify.com/legal/privacy-policy/'],['Apple','https://www.apple.com/legal/privacy/'],
- ['Buy Me a Coffee','https://buymeacoffee.com/privacy-policy'],['Pidgy','https://app.pidgy-ai.com/privacy-policy'],
+ ['Buy Me a Coffee','https://buymeacoffee.com/privacy-policy'],['Pidgy','https://app.pidgy-ai.com/privacy-policy'],['Notion','https://www.notion.com/privacy'],
 ];
 let generation=0;
 async function render(){

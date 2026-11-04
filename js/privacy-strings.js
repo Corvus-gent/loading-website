@@ -1,5 +1,5 @@
 // A changed version requires a fresh choice; an old dismissal is never consent.
-export const PRIVACY_VERSION = '2026-11-04.3';
+export const PRIVACY_VERSION = '2026-11-04.4';
 export const strings = {
  en:{label:'privacy',allow:'allow',deny:'no thanks',notice:'posthog stats? daily pseudonym, no cookies.',on:'analytics is on.',off:'analytics is off.',signal:'analytics is off: browser privacy signal.',change:'your analytics choice',withdraw:'turn analytics off',spotify:'plays via spotify, which may set cookies.'},
  nl:{label:'privacy',allow:'toestaan',deny:'nee bedankt',notice:'posthog-tellingen? dagelijks pseudoniem, geen cookies.',on:'analytics staat aan.',off:'analytics staat uit.',signal:'analytics staat uit: privacysignaal van je browser.',change:'jouw keuze voor analytics',withdraw:'analytics uitzetten',spotify:'speelt via spotify, dat cookies kan plaatsen.'},

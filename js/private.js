@@ -1,3 +1,4 @@
+import {mountXLog} from './private-x.js';
 const $ = id => document.getElementById(id);
 const post = body => fetch("/api/auth", { method: "POST", credentials: "same-origin", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }).then(async r => ({ ok: r.ok, ...(await r.json().catch(() => ({}))) }));
 let email = "";
@@ -32,6 +33,7 @@ function table(title, head, data) {
 
 async function dash(who) {
   $("login").style.display = "none"; $("dash").style.display = "block"; $("who").textContent = who;
+  mountXLog($("x-log"));
   const r = await fetch("/api/private-stats", { credentials: "same-origin" });
   if (!r.ok) { $("out").textContent = r.status === 401 ? "session expired." : "stats not connected yet."; return; }
   const s = await r.json();

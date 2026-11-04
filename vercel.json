@@ -71,6 +71,9 @@
     },
     "api/stats.js": {
       "includeFiles": "music.json"
+    },
+    "api/x-stats.js": {
+      "maxDuration": 60
     }
   },
   "headers": [
@@ -162,6 +165,12 @@
           "value": "public, max-age=31536000, immutable"
         }
       ]
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/x-stats?cron=1",
+      "schedule": "17 3 * * *"
     }
   ]
 }

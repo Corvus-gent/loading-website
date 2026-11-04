@@ -39,7 +39,8 @@ export default {
       "outside",
       "andere dienste",
       "Spotify erhält erst nach play eine wiedergabeanfrage und kann dann eigene cookies setzen. unser server fragt bei Spotify oder Apple nach, wenn du einen songlink einreichst. CARTO-kartenkacheln kommen über unseren server, ohne deine IP weiterzugeben. Leaflet, Sortable und die PostHog-bibliothek liegen hier.",
-      "Buy Me a Coffee und Pidgy sind links, keine eingebetteten formulare. nach dem anklicken gelten deren regeln. /links, /go und kampagnen-kurzlinks ergänzen nur UTM-kategorien und zählen besuche/klicks; sie erfassen weder formulare noch besucheridentitäten. (analytics nur mit einwilligung)."
+      "Buy Me a Coffee und Pidgy sind links, keine eingebetteten formulare. nach dem anklicken gelten deren regeln. /links, /go und kampagnen-kurzlinks ergänzen nur UTM-kategorien und zählen besuche/klicks; sie erfassen weder formulare noch besucheridentitäten. (analytics nur mit einwilligung).",
+      "Notion enthält mein manuell gepflegtes X-protokoll. öffentliche statistiken zeigen summen, öffentliche kampagnen- und stilnamen und meine eigenen posts; antworttexte und ziel-URLs bleiben hinter dem login. freigegebene kampagnen und regions-stunden begleiten die freiwillige analyse. Corvus-kopien verfallen binnen 24 stunden; quelldaten folgen meiner Notion-aufbewahrung. die region muss noch bestätigt werden; reine EU-speicherung wird nicht versprochen."
     ],
     [
       "where",
@@ -67,7 +68,8 @@ export default {
     "wiedergabe",
     "songabfrage",
     "unterstützung",
-    "buchungen"
+    "buchungen",
+    "manuelles x-protokoll"
   ],
   "consentInfo": "optionale analytics bleibt bis zu deiner erlaubnis aus. ändere deine wahl hier jederzeit. jede website-origin merkt sich die eigene wahl 180 tage. ablehnen schränkt die seite nicht ein; besuchsstatistiken zählen nur zustimmende besucher. ein widerruf stoppt künftige verarbeitung, ohne frühere verarbeitung rückgängig zu machen."
 };

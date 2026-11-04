@@ -21,6 +21,8 @@
     "test:privacy:browser": "REDIS_URL=redis://127.0.0.1:16380/14 SESSION_SECRET=local-test-only playwright test tests/privacy.spec.mjs",
     "test:geo": "node --experimental-vm-modules tests/geo.mjs",
     "test:stats": "node --experimental-vm-modules tests/stats-countries.mjs",
-    "test:eu": "node tests/eu-config.mjs && node tests/redis-migration.mjs && node tests/region-probe.mjs"
+    "test:eu": "node tests/eu-config.mjs && node tests/redis-migration.mjs && node tests/region-probe.mjs",
+    "test:x": "node tests/x-stats.mjs",
+    "test:x:browser": "playwright test tests/x-stats.spec.mjs"
   }
 }

@@ -39,7 +39,8 @@ export default {
       "outside",
       "wanneer een andere dienst meedoet",
       "Spotify krijgt pas na play een afspeelverzoek en kan dan eigen cookies plaatsen. onze server zoekt een song op bij Spotify of Apple wanneer je een link indient. kaarttegels komen via onze server van CARTO, zonder je IP door te sturen. Leaflet, Sortable en de PostHog-bibliotheek staan hier lokaal.",
-      "Buy Me a Coffee en Pidgy-booking zijn links, geen ingebouwde formulieren. na doorklikken gelden hun privacyregels. /links, /go en onze campagnesnelkoppelingen voegen alleen campagnelabels (UTMs) toe en tellen bezoeken/klikken; ze verzamelen geen formulierinhoud of bezoekersidentiteiten. (analytics alleen met toestemming)."
+      "Buy Me a Coffee en Pidgy-booking zijn links, geen ingebouwde formulieren. na doorklikken gelden hun privacyregels. /links, /go en onze campagnesnelkoppelingen voegen alleen campagnelabels (UTMs) toe en tellen bezoeken/klikken; ze verzamelen geen formulierinhoud of bezoekersidentiteiten. (analytics alleen met toestemming).",
+      "Notion bevat mijn handmatig ingevulde X-log. openbare stats tonen totalen, publieke campagne- en stemlabels en mijn eigen posts; replyteksten en doel-URL’s blijven achter de login. goedgekeurde campagnes en regio-uurvakken horen bij optionele analytics. kopieën op Corvus vervallen binnen 24 uur; bronregels volgen mijn Notion-bewaarbeleid. de werkruimteregio moet nog worden bevestigd, dus uitsluitend EU-opslag wordt niet beloofd."
     ],
     [
       "where",
@@ -67,7 +68,8 @@ export default {
     "afspelen",
     "songs opzoeken",
     "steunbetalingen",
-    "boekingen"
+    "boekingen",
+    "handmatig x-log"
   ],
   "consentInfo": "optionele analytics staat uit tot je toestemming geeft. je kunt je keuze hier altijd wijzigen. elk siteadres onthoudt zijn eigen keuze 180 dagen. weigeren beperkt de site niet; bezoekstatistieken tellen alleen mensen die toestemming geven. intrekken stopt toekomstige analytics, zonder eerdere verwerking ongedaan te maken."
 };

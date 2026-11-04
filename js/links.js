@@ -1,3 +1,4 @@
+import {campaignSlug,contentSlot} from './x-attribution.js';
 import {sourceCategory, campaignCategory} from './analytics-policy.js';
 /**
  * Link-in-bio: /links/<person>/<platform>/<campaign>
@@ -46,10 +47,11 @@ if (!PEOPLE[rawPerson] && rawPerson) { campaign = p; p = rawPerson; rawPerson = 
 const personId = PEOPLE[rawPerson] ? rawPerson : "gabe";
 const person = PEOPLE[personId];
 const source = sourceCategory(PLATFORMS[p] || p || "direct");
-campaign = campaignCategory(campaign || "bio");
+campaign = source==='x'?campaignSlug(campaign||"bio"):campaignCategory(campaign || "bio");
+const slot=source==='x'?contentSlot(new URLSearchParams(location.search).get('utm_content')):'';
 
 // every pageview on this page carries person, source and campaign
-window.__phProps = { links_person: personId, links_source: source, links_campaign: campaign || "bio" };
+window.__phProps = { links_person: personId, links_source: source, links_campaign: campaign || "bio", ...(slot?{utm_content:slot}:{}) };
 if (window.posthog?.register) window.posthog.register(window.__phProps);
 
 function tagged(link) {
@@ -58,7 +60,7 @@ function tagged(link) {
   url.searchParams.set("utm_source", source);
   url.searchParams.set("utm_medium", "links");
   url.searchParams.set("utm_campaign", `${personId}-${campaign || "bio"}`);
-  url.searchParams.set("utm_content", link.id);
+  url.searchParams.set("utm_content", slot || link.id);
   return url.toString();
 }
 

@@ -1,5 +1,6 @@
 // Opt-in cookieless counting with an explicit payload allowlist; no form/DOM capture.
 (async () => {
+  const {setXCampaigns,xContext} = await import('./x-attribution.js');
   const {privacyEvent, sourceCategory, campaignCategory, pathCategory, safeURL} = await import('/js/analytics-policy.js');
   import('/js/performance.js');
   import('/js/outbound.js');
@@ -18,12 +19,15 @@
     start();
   }
   function start(){
+  const x=xContext(location.pathname,location.search);
+  const catalog=x?fetch('/api/x-stats?catalog=1',{signal:AbortSignal.timeout(3000),credentials:'omit'}).then(r=>r.ok?r.json():null).catch(()=>null):Promise.resolve(null);
   const country = fetch('/api/geo?country=1', {cache:'no-store',signal:AbortSignal.timeout(2000)})
     .then(r=>r.ok?r.json():null).catch(()=>null);
   const s=document.createElement('script');
   s.src='/js/vendor/posthog-1.445.3.min.js'; s.async=true;
   s.onload=async()=>{
-    const geo=await country;
+    const [geo,allowed]=await Promise.all([country,catalog]);
+    setXCampaigns(allowed?.campaigns);
     if(!analyticsAllowed()||stopped)return;
     window.posthog.init('phc_tqJYxREMXWjzQusx6xNPuEa2fNCzKmVpAURSHKnVbpro', {
       api_host:'https://eu.i.posthog.com', cookieless_mode:'always', person_profiles:'never',
@@ -45,7 +49,8 @@
         const props={...window.__phProps};
         const query=new URLSearchParams(location.search);
         if(query.has('utm_source')) props.utm_source=sourceCategory(query.get('utm_source'));
-        if(query.has('utm_campaign')) props.utm_campaign=campaignCategory(query.get('utm_campaign'));
+        if(query.has('utm_campaign')) props.utm_campaign=query.get('utm_campaign');
+        if(x?.content)props.utm_content=x.content;
         if(query.has('utm_medium')) props.utm_medium=query.get('utm_medium');
         if(/^[A-Z]{2}$/.test(geo?.countryCode||'')) props.corvus_country_code=geo.countryCode;
         ph.register(props);

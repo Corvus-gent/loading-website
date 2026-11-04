@@ -33,18 +33,19 @@ async function setup(page,{realSpotify=false}={}){
   if(u.pathname==='/api/geo')return route.fulfill({json:u.searchParams.has('country')?{countryCode:'BE'}:u.searchParams.has('tiles')?{available:false}:{cities:[{countryCode:'BE',country:'Belgium',region:'Flanders',city:'Ghent',lat:51.1,lng:3.7,visitors:3}]}});
   if(u.pathname==='/api/music')return route.fulfill({headers:u.searchParams.has('public')?{}:{'Set-Cookie':'mvid=fixture.signature; Path=/api; Max-Age=31536000; HttpOnly; Secure; SameSite=Strict'},json:{tracks,suggestions:[],votes:{},mine:[],poll:{spotify:0,apple:0},storage:true}});
   if(u.pathname.startsWith('/api/game'))return route.fulfill({headers:{'Set-Cookie':'mvid=fixture.signature; Path=/api; Max-Age=31536000; HttpOnly; Secure; SameSite=Strict'},json:r.method()==='POST'?{...game,done:true,solved:true,history:[{guess:'English',feedback:'🟩'}],answer:'English',streak:1}:game});
+  if(u.pathname==='/api/x-stats')return route.fulfill({json:{ready:false}});
   if(u.pathname==='/api/auth')return route.fulfill({json:{email:null}});
   if(u.pathname==='/api/stats'){
    const section=u.searchParams.get('section');
    return route.fulfill({json:section==='outbound'?{hosts:[]}:section==='pidgy'?{today:{visitors:3,clickers:0,clicks:0},all:{visitors:3,clickers:0,clicks:0},signups:null,scene:0,variant:0}:section==='music'?{genres:[]}:section==='games'?{today:{played:0},all:{played:0},best:0,types:[]}:stats});
   }
-  if(['corvus.gent','stats.corvus.gent'].includes(u.hostname)){let path=u.pathname;if(u.hostname==='stats.corvus.gent'){if(path==='/')path='/stats/';else if(/^\/(pidgy|games|map|music|hunt|private)\/?$/.test(path))path='/stats'+path.replace(/\/$/,'')+'/';}const local=await page.request.get('http://127.0.0.1:4176'+path+u.search);return route.fulfill({response:local});}
+  if(['corvus.gent','stats.corvus.gent'].includes(u.hostname)){let path=u.pathname;if(u.hostname==='stats.corvus.gent'){if(path==='/')path='/stats/';else if(/^\/(pidgy|games|map|music|hunt|private|x)\/?$/.test(path))path='/stats'+path.replace(/\/$/,'')+'/';}const local=await page.request.get('http://127.0.0.1:4176'+path+u.search);return route.fulfill({response:local});}
   return route.continue();
  });
  return {requests,events,errors};
 }
 test.use({userAgent:'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15'});
-for(const path of ['/','/call/','/music/','/games/','/stats/','/stats/map/','/stats/games/','/stats/music/','/stats/pidgy/','/stats/hunt/']){
+for(const path of ['/','/call/','/music/','/games/','/stats/','/stats/map/','/stats/games/','/stats/music/','/stats/pidgy/','/stats/hunt/','/stats/x/']){
  test(`new visitor ${path}: no Spotify, no tracking cookies or remote libraries`,async({page,context})=>{
   const {requests,events,errors}=await setup(page);await page.goto(path);
   await page.waitForTimeout(1700);
@@ -109,7 +110,7 @@ test('notice hides throughout gameplay and returns on completion',async({page})=
 });
 test('privacy page and Spotify disclosure support all seven languages',async({page})=>{
  const {errors}=await setup(page);
- for(const lang of Object.keys(strings)){await page.goto(`/privacy/?lang=${lang}`);await expect(page.locator('html')).toHaveAttribute('lang',lang);await expect(page.locator('#privacy-sections section')).toHaveCount(8);await expect(page.locator('#privacy-providers a')).toHaveCount(10);await expect(page.locator('#who')).toContainText('Francisco Gabriel Van Langenhove');await expect(page.locator('#privacy-title')).not.toBeEmpty();
+ for(const lang of Object.keys(strings)){await page.goto(`/privacy/?lang=${lang}`);await expect(page.locator('html')).toHaveAttribute('lang',lang);await expect(page.locator('#privacy-sections section')).toHaveCount(8);await expect(page.locator('#privacy-providers a')).toHaveCount(11);await expect(page.locator('#who')).toContainText('Francisco Gabriel Van Langenhove');await expect(page.locator('#privacy-title')).not.toBeEmpty();
   await page.goto(`/call/?lang=${lang}`);await expect(page.locator('[data-spotify-notice]')).toHaveText(strings[lang].spotify);
  }
  expect(errors).toEqual([]);
@@ -193,4 +194,20 @@ test('language vote preference expires and is only saved after success',async({p
  await page.goto('/languages/');await page.locator('#sug-lang').selectOption('ja');await expect(page.locator('#sug-lang')).toBeEnabled();expect(await page.evaluate(()=>localStorage.getItem('voted_lang'))).toBeNull();
  fail=false;await page.locator('#sug-lang').selectOption('ko');await expect(page.locator('#sug-status')).toHaveText('vote counted.');const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('voted_lang')));expect(saved.value).toBe('ko');expect(saved.expires).toBeGreaterThan(Date.now());expect(saved.expires).toBeLessThanOrEqual(Date.now()+365*86400000);
  await page.evaluate(()=>localStorage.setItem('voted_lang',JSON.stringify({value:'ko',expires:Date.now()-1})));await page.reload();await expect(page.locator('#sug-lang')).toBeEnabled();expect(await page.evaluate(()=>localStorage.getItem('voted_lang'))).toBeNull();
+});
+
+
+test('X attribution keeps only approved campaigns and region-hour slots after consent',async({page})=>{
+ const {events,requests,errors}=await setup(page);
+ await page.route('**/api/x-stats?catalog=1',route=>route.fulfill({json:{ready:true,campaigns:['launch']}}));
+ await page.goto('/call/?utm_source=x&utm_campaign=gabe-launch&utm_content=eu-09');
+ await page.waitForTimeout(1700);expect(requests.some(url=>url.includes('catalog=1'))).toBe(false);
+ await page.locator('#privacy-notice [data-allow]').click();await expect.poll(()=>events.some(e=>e.event==='$pageview'),{timeout:12000}).toBe(true);
+ let view=events.find(e=>e.event==='$pageview');expect(view.properties.utm_campaign).toBe('gabe-launch');expect(view.properties.utm_content).toBe('eu-9');
+ events.length=0;await page.goto('/call/?utm_source=x&utm_campaign=visitor-private-name&utm_content=visitor@example.test');await expect.poll(()=>events.some(e=>e.event==='$pageview'),{timeout:12000}).toBe(true);
+ view=events.find(e=>e.event==='$pageview');expect(view.properties.utm_campaign).toBe('other');expect(view.properties.utm_content).toBeUndefined();expect(JSON.stringify(events)).not.toMatch(/visitor-private-name|example.test/);
+ events.length=0;await page.goto('/links/gabe/x/launch?utm_content=sf-23');await expect.poll(()=>events.some(e=>e.event==='$pageview'),{timeout:12000}).toBe(true);
+ view=events.find(e=>e.event==='$pageview');expect(view.properties.utm_campaign).toBe('gabe-launch');expect(view.properties.utm_content).toBe('sf-23');
+ const tagged=await page.locator('a[href*="pidgy-ai.com"]').first().getAttribute('href');expect(tagged).toContain('utm_campaign=gabe-launch');expect(tagged).toContain('utm_content=sf-23');
+ const go=await page.evaluate(async()=>{const {resolve}=await import('/js/go.js');return resolve('/go/x/pidgy/launch','?utm_content=sf-23');});expect(go.utm_content).toBe('sf-23');expect(go.url).toContain('utm_content=sf-23');expect(go.url).toContain('utm_campaign=gabe-launch');expect(errors).toEqual([]);
 });

@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import middleware from '../middleware.js';
 import bank from '../api/_game-data.js';
 const request=url=>middleware(new Request(url,{headers:{'user-agent':'Mozilla/5.0'}}));
-for(const page of ['', 'pidgy', 'games', 'map', 'music', 'hunt', 'private']){
+for(const page of ['', 'pidgy', 'games', 'map', 'music', 'hunt', 'x', 'private']){
   const route=page?`/${page}/`:'/';
   const result=request(`https://stats.corvus.gent${route}`);
   assert.equal(result.headers.get('x-middleware-rewrite'),`https://stats.corvus.gent/stats/${page?`${page}/`:''}`);

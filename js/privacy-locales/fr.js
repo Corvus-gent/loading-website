@@ -39,7 +39,8 @@ export default {
       "outside",
       "les autres services",
       "Spotify ne reçoit une demande de lecture qu’après votre clic et peut ensuite déposer ses cookies. notre serveur recherche un morceau chez Spotify ou Apple lorsque vous proposez un lien. les tuiles CARTO passent par notre serveur sans transmettre votre IP. Leaflet, Sortable et la bibliothèque PostHog sont hébergés ici.",
-      "Buy Me a Coffee et Pidgy sont des liens, pas des formulaires intégrés. leurs règles s’appliquent après le clic. /links, /go et les raccourcis de campagne ajoutent seulement des étiquettes UTM et comptent visites/clics, sans contenu de formulaire ni identité. (analytics uniquement avec consentement)."
+      "Buy Me a Coffee et Pidgy sont des liens, pas des formulaires intégrés. leurs règles s’appliquent après le clic. /links, /go et les raccourcis de campagne ajoutent seulement des étiquettes UTM et comptent visites/clics, sans contenu de formulaire ni identité. (analytics uniquement avec consentement).",
+      "Notion contient mon journal X saisi à la main. les stats publiques montrent des totaux, des noms publics de campagnes et de styles, et mes propres posts ; les réponses et URL cibles restent derrière la connexion. campagnes approuvées et créneaux région-heure accompagnent les statistiques facultatives. les copies Corvus expirent sous 24 heures ; les sources suivent ma conservation Notion. la région reste à confirmer, sans garantie de stockage exclusivement dans l’UE."
     ],
     [
       "where",
@@ -67,7 +68,8 @@ export default {
     "lecture",
     "recherche musicale",
     "soutien financier",
-    "réservations"
+    "réservations",
+    "journal x manuel"
   ],
   "consentInfo": "les analytics facultatives restent désactivées sans votre accord. modifiez votre choix ici à tout moment. chaque origine du site retient son propre choix pendant 180 jours. refuser ne limite pas le site ; seuls les visiteurs ayant accepté sont comptés. le retrait arrête les traitements futurs sans annuler ceux déjà effectués."
 };
