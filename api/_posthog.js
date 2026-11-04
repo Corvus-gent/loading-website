@@ -8,6 +8,7 @@ export const posthogReady = () => Boolean(KEY);
 export async function hogql(sql) {
   const r = await fetch(`${HOST}/api/projects/${PROJECT}/query/`, {
     method: "POST",
+    signal: AbortSignal.timeout(10000),
     headers: { Authorization: `Bearer ${KEY}`, "Content-Type": "application/json" },
     body: JSON.stringify({ query: { kind: "HogQLQuery", query: sql } }),
   });

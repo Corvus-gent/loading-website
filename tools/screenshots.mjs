@@ -1,0 +1,2 @@
+import {chromium} from '@playwright/test';import fs from 'node:fs/promises';
+const b=await chromium.launch();const p=await b.newPage({viewport:{width:1280,height:900}});await fs.mkdir('tests/results/screenshots',{recursive:true});for(const name of ['portal','realm']){await p.goto('http://127.0.0.1:4176/'+(name==='portal'?'':'realm/'));await p.waitForTimeout(300);await p.screenshot({path:`tests/results/screenshots/${name}.png`,fullPage:false});}await b.close();

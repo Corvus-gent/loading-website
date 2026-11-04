@@ -40,6 +40,8 @@ export function pick(value, lang = getLang()) {
 
 export function applyI18n(lang = getLang()) {
   document.documentElement.lang = lang;
+  document.querySelectorAll("#corner-nav a").forEach(a=>{const key=a.textContent==="⌂"?"nav.home":"nav.back";a.title=t(key);a.setAttribute("aria-label",t(key));});
+  const search=document.querySelector(".search-btn");if(search)search.setAttribute("aria-label",t("nav.search"));
   document.querySelectorAll("[data-i18n]").forEach(el => {
     el.textContent = t(el.dataset.i18n, lang);
   });
@@ -86,14 +88,14 @@ function renderCornerNav() {
   if (location.pathname !== "/") renderSearch(nav);
   if (location.pathname === "/") { document.body.appendChild(nav); return; }
   const back = document.createElement("a");
-  back.href = "#"; back.textContent = "←"; back.title = "back"; back.setAttribute("aria-label", "back");
+  back.href = "#"; back.textContent = "←"; back.title = "back"; back.setAttribute("aria-label", t("nav.back"));
   back.addEventListener("click", e => {
     e.preventDefault();
     if (history.length > 1 && document.referrer.startsWith(location.origin)) history.back();
     else location.href = "/realm/";
   });
   const home = document.createElement("a");
-  home.href = "https://corvus.gent/realm/"; home.textContent = "⌂"; home.title = "home"; home.setAttribute("aria-label", "home");
+  home.href = "https://corvus.gent/realm/"; home.textContent = "⌂"; home.title = "home"; home.setAttribute("aria-label", t("nav.home"));
   nav.append(back, home);
   document.body.appendChild(nav);
 }

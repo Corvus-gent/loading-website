@@ -6,8 +6,8 @@
   <meta name="color-scheme" content="dark" />
   <title>People | corvus.gent</title>
   <link rel="icon" type="image/png" href="/logo.png" />
-  <link rel="stylesheet" href="/styles.css" />
-  <link rel="stylesheet" href="/people/styles.css" />
+  <link rel="stylesheet" href="/styles.css?v=473f044ad297" />
+  <link rel="stylesheet" href="/people/styles.css?v=1b7535a5d1d1" />
   <meta name="description" content="GTM @ Pidgy. Upcoming business philosopher. Speaks 7 languages." />
   <meta property="og:title" content="Gabriel | corvus.gent" />
   <meta property="og:description" content="GTM @ Pidgy. Upcoming business philosopher. Speaks 7 languages." />
@@ -36,12 +36,12 @@
         <img src="/img/fire-pidgy.png" alt="Pidgy on fire" class="flock-pidgy" id="flock-pidgy" title="?">
         <p class="sub flock-egg" id="flock-egg">the flock grows stronger. 🔥</p>
         <p class="cta"><a href="mailto:gabriel@corvus.gent?subject=I%20want%20to%20join%20the%20flock" data-i18n="army.btn">want to join this army?</a></p>
-        <p class="sub" data-i18n="army.text"></p>
+        <p class="sub" data-i18n="army.text">Try to impress me in the least words possible, and I might take a look.</p>
       </section>
 
       <section id="person-view" class="person-view-wrap" style="display:none;">
         <h1 id="person-name"></h1>
-        <p class="sub"><a href="/languages/" data-i18n="profile.languages"></a></p>
+        <p class="sub"><a href="/languages/" data-i18n="profile.languages">Speaks 7 languages: EN · NL · ES · FR · PT · DE · 中文</a></p>
 
         <section>
           <h2 data-i18n="sec.about">About</h2>
@@ -60,7 +60,7 @@
 
         <section id="shoutouts-section">
           <h2 data-i18n="sec.shoutouts">Shout-outs</h2>
-          <p><a href="/support/" data-i18n="shoutouts.more"></a></p>
+          <p><a href="/support/" data-i18n="shoutouts.more">people &amp; companies I vouch for →</a></p>
         </section>
 
         <section>
@@ -75,13 +75,13 @@
     </div>
   </main>
 
-  <script type="module" src="/js/people.js"></script>
+  <script type="module" src="/js/people.js?v=2b9f79b83b8f"></script>
   <script>
     document.getElementById("flock-pidgy").addEventListener("click", e => {
       e.currentTarget.classList.remove("burn"); void e.currentTarget.offsetWidth; e.currentTarget.classList.add("burn");
       document.getElementById("flock-egg").classList.add("show");
     });
   </script>
-  <script src="/js/analytics.js"></script>
+  <script src="/js/analytics.js?v=1fa4c19f43d5"></script>
 </body>
 </html>
