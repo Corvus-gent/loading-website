@@ -10,338 +10,7 @@ export const LANGS = [
   ["pt", "PT"], ["de", "DE"], ["zh", "中文"],
 ];
 
-const STRINGS = {
-  "m.shuffleOff": {en:"shuffle: off",nl:"shuffle: uit",fr:"aléatoire : non",es:"aleatorio: no",pt:"aleatório: não",de:"Zufall: aus",zh:"随机播放：关"},
-  "m.shuffleOn": {en:"shuffle: on",nl:"shuffle: aan",fr:"aléatoire : oui",es:"aleatorio: sí",pt:"aleatório: sim",de:"Zufall: an",zh:"随机播放：开"},
-  "m.shuffleHint": {en:"shuffle changes the order. press play to start.",nl:"shuffle verandert de volgorde. druk op afspelen om te starten.",fr:"le mode aléatoire change l’ordre. appuie sur lecture pour démarrer.",es:"el modo aleatorio cambia el orden. pulsa reproducir para empezar.",pt:"o modo aleatório muda a ordem. carrega em reproduzir para começar.",de:"Zufall ändert die Reihenfolge. Drücke zum Start auf Abspielen.",zh:"随机模式改变顺序。点击播放开始。"},
-  "m.deviceTip": {en:"This device may find the full collection and map heavy. Take it easy here, or explore on a laptop.",nl:"De volledige collectie en map kunnen zwaar zijn voor dit toestel. Bekijk hier rustig wat nummers, of ontdek alles op een laptop."},
-  "m.birdInvite": {en:"let’s fly to the bottom. an egg is waiting for you…",nl:"vlieg mee naar beneden. er wacht een eitje op jou…"},
-  "m.openTracks": {en:"open the list · next 50 ↓",nl:"open de lijst · volgende 50 ↓"},
-  "m.moreTracks": {en:"show 50 more ↓",nl:"toon 50 extra ↓"},
-  "m.collapseTracks": {en:"back to 25",nl:"terug naar 25"},
-  "m.moreSuggestions": {en:"more suggestions ↓",nl:"meer voorstellen ↓"},
-  "m.listView": {en:"☷ list",nl:"☷ lijst",fr:"☷ liste",es:"☷ lista",pt:"☷ lista",de:"☷ Liste",zh:"☷ 列表"},
-  "m.mapView": {en:"✺ genre map",nl:"✺ genremap",fr:"✺ carte des genres",es:"✺ mapa de géneros",pt:"✺ mapa de gêneros",de:"✺ Genre-Karte",zh:"✺ 音乐地图"},
-  "m.subtitle": { en: "gabe’s collection. your favourites. no gatekeeping.", nl: "gabe z’n collectie. jouw favorieten. voor iedereen.", fr: "la collection de gabe. vos favoris. pour tout le monde.", es: "la colección de gabe. tus favoritas. para todos.", pt: "a coleção do gabe. teus favoritos. para todos.", de: "gabes Sammlung. deine Favoriten. für alle.", zh: "gabe 的收藏，你的最爱，人人都能听。" },
-  "m.collection": { en: "the collection", nl: "de collectie", fr: "la collection", es: "la colección", pt: "a coleção", de: "die Sammlung", zh: "歌曲收藏" },
-  "m.tracks": { en: "tracks", nl: "nummers", fr: "morceaux", es: "canciones", pt: "faixas", de: "Songs", zh: "首歌" },
-  "m.order": { en: "gabe’s order", nl: "gabe z’n volgorde", fr: "l’ordre de gabe", es: "el orden de gabe", pt: "a ordem do gabe", de: "gabes Reihenfolge", zh: "gabe 的排序" },
-  "m.popular": { en: "most loved", nl: "meest geliefd", fr: "les plus aimés", es: "las más queridas", pt: "mais curtidas", de: "am beliebtesten", zh: "最受喜爱" },
-  "m.latest": { en: "latest added", nl: "laatst toegevoegd", fr: "derniers ajouts", es: "últimas añadidas", pt: "últimas adicionadas", de: "zuletzt hinzugefügt", zh: "最新添加" },
-  "m.all": { en: "all", nl: "alles", fr: "tous", es: "todas", pt: "todas", de: "alle", zh: "全部" },
-  "m.search": { en: "find a song or artist", nl: "zoek een nummer of artiest", fr: "chercher un titre ou artiste", es: "buscar canción o artista", pt: "buscar música ou artista", de: "Song oder Künstler suchen", zh: "搜索歌曲或艺人" },
-  "m.liked": { en: "my likes", nl: "mijn likes", fr: "mes favoris", es: "mis favoritas", pt: "meus favoritos", de: "meine Favoriten", zh: "我的最爱" },
-  "m.like": { en: "like", nl: "liken", fr: "aimer", es: "me gusta", pt: "curtir", de: "gefällt mir", zh: "喜欢" },
-  "m.likedTrack": { en: "liked", nl: "geliket", fr: "aimé", es: "te gusta", pt: "curtida", de: "gefällt dir", zh: "已喜欢" },
-  "m.likes": { en: "likes", nl: "likes", fr: "j’aime", es: "me gusta", pt: "curtidas", de: "Likes", zh: "喜欢" },
-  "m.title": { en: "title / artist", nl: "titel / artiest", fr: "titre / artiste", es: "título / artista", pt: "título / artista", de: "Titel / Künstler", zh: "歌曲／艺人" },
-  "m.genre": { en: "genre", nl: "genre", fr: "genre", es: "género", pt: "género", de: "Genre", zh: "曲风" },
-  "m.links": { en: "listen & share", nl: "luisteren & delen", fr: "écouter et partager", es: "escuchar y compartir", pt: "ouvir e partilhar", de: "hören & teilen", zh: "收听与分享" },
-  "m.copy": { en: "copy link", nl: "kopieer link", fr: "copier le lien", es: "copiar enlace", pt: "copiar link", de: "Link kopieren", zh: "复制链接" },
-  "m.copied": { en: "link copied", nl: "link gekopieerd", fr: "lien copié", es: "enlace copiado", pt: "link copiado", de: "Link kopiert", zh: "链接已复制" },
-  "m.share": { en: "share song", nl: "deel nummer", fr: "partager le titre", es: "compartir canción", pt: "partilhar música", de: "Song teilen", zh: "分享歌曲" },
-  "m.searchOn": { en: "search on", nl: "zoek op", fr: "chercher sur", es: "buscar en", pt: "buscar em", de: "suchen auf", zh: "搜索平台" },
-  "m.fact": { en: "fun fact", nl: "fun fact", fr: "anecdote", es: "dato curioso", pt: "curiosidade", de: "Fun Fact", zh: "趣事" },
-  "m.unknown": { en: "artist to confirm", nl: "artiest te bevestigen", fr: "artiste à confirmer", es: "artista por confirmar", pt: "artista a confirmar", de: "Künstler noch offen", zh: "艺人待确认" },
-  "m.review": { en: "version to confirm", nl: "uitvoering te bevestigen", fr: "version à confirmer", es: "versión por confirmar", pt: "versão a confirmar", de: "Version noch offen", zh: "版本待确认" },
-  "m.noResults": { en: "no songs found. try another filter.", nl: "geen nummers gevonden. probeer een andere filter.", fr: "aucun titre. essaie un autre filtre.", es: "sin canciones. prueba otro filtro.", pt: "sem músicas. tenta outro filtro.", de: "keine Songs. versuch einen anderen Filter.", zh: "未找到歌曲，请更换筛选条件。" },
-  "m.play": { en: "play", nl: "afspelen", fr: "écouter", es: "reproducir", pt: "reproduzir", de: "abspielen", zh: "播放" },
-  "m.choose": { en: "pick a song", nl: "kies een nummer", fr: "choisis un titre", es: "elige una canción", pt: "escolhe uma música", de: "wähle einen Song", zh: "选择一首歌" },
-  "m.playerHint": { en: "verified links play here. other versions open through search.", nl: "geverifieerde links spelen hier. andere uitvoeringen vind je via zoeken.", fr: "les liens vérifiés jouent ici. cherche les autres versions.", es: "los enlaces verificados suenan aquí. busca las otras versiones.", pt: "links verificados tocam aqui. procura as outras versões.", de: "bestätigte Links spielen hier. andere Versionen findest du über die Suche.", zh: "已确认的链接可在此播放，其他版本请搜索。" },
-  "m.playerLimits": { en: "playback depends on the service, your region and subscription.", nl: "afspelen hangt af van de dienst, je regio en abonnement.", fr: "la lecture dépend du service, de ta région et de ton abonnement.", es: "la reproducción depende del servicio, región y suscripción.", pt: "a reprodução depende do serviço, região e subscrição.", de: "Wiedergabe hängt von Dienst, Region und Abo ab.", zh: "播放取决于平台、地区及订阅。" },
-  "m.pollTitle": { en: "settle this.", nl: "beslis dit eens.", fr: "on tranche.", es: "decidamos esto.", pt: "vamos decidir.", de: "entscheiden wir das.", zh: "来做个决定。" },
-  "m.pollQuestion": { en: "spotify or apple music — who wins?", nl: "spotify of apple music — wie wint?", fr: "spotify ou apple music — qui gagne ?", es: "spotify o apple music — ¿quién gana?", pt: "spotify ou apple music — quem ganha?", de: "spotify oder apple music — wer gewinnt?", zh: "Spotify 还是 Apple Music，谁更好？" },
-  "m.pollHint": { en: "one vote per browser. no login.", nl: "één stem per browser. zonder login.", fr: "un vote par navigateur. sans connexion.", es: "un voto por navegador. sin iniciar sesión.", pt: "um voto por navegador. sem login.", de: "eine Stimme pro Browser. ohne Anmeldung.", zh: "每个浏览器一票，无需登录。" },
-  "m.votes": { en: "votes", nl: "stemmen", fr: "votes", es: "votos", pt: "votos", de: "Stimmen", zh: "票" },
-  "m.suggestHint": { en: "paste a Spotify or Apple Music song link. one suggestion per minute, five per day.", nl: "plak een Spotify- of Apple Music-songlink. één voorstel per minuut, vijf per dag.", fr: "colle un lien Spotify ou Apple Music. un par minute, cinq par jour.", es: "pega un enlace de Spotify o Apple Music. uno por minuto, cinco al día.", pt: "cola um link Spotify ou Apple Music. um por minuto, cinco por dia.", de: "Spotify- oder Apple-Music-Songlink einfügen. einer pro Minute, fünf pro Tag.", zh: "粘贴 Spotify 或 Apple Music 歌曲链接，每分钟一首，每天五首。" },
-  "m.link": { en: "song link", nl: "songlink", fr: "lien du morceau", es: "enlace de canción", pt: "link da música", de: "Songlink", zh: "歌曲链接" },
-  "m.suggestions": { en: "your suggestions", nl: "jullie voorstellen", fr: "vos propositions", es: "vuestras sugerencias", pt: "as vossas sugestões", de: "eure Vorschläge", zh: "大家的推荐" },
-  "m.manage": { en: "manage collection", nl: "collectie beheren", fr: "gérer la collection", es: "gestionar colección", pt: "gerir coleção", de: "Sammlung verwalten", zh: "管理收藏" },
-  "m.offline": { en: "likes and suggestions are temporarily unavailable. the collection is still here.", nl: "likes en voorstellen zijn tijdelijk niet beschikbaar. de collectie blijft zichtbaar.", fr: "votes et suggestions indisponibles pour le moment. la collection reste visible.", es: "votos y sugerencias no disponibles temporalmente. la colección sigue aquí.", pt: "votos e sugestões temporariamente indisponíveis. a coleção continua aqui.", de: "Likes und Vorschläge sind vorübergehend nicht verfügbar. die Sammlung bleibt sichtbar.", zh: "点赞和推荐暂时不可用，仍可查看收藏。" },
-  "m.working": { en: "working…", nl: "bezig…", fr: "en cours…", es: "procesando…", pt: "a processar…", de: "läuft…", zh: "处理中…" },
-  "m.saved": { en: "saved. already live.", nl: "opgeslagen. staat live.", fr: "enregistré. déjà en ligne.", es: "guardado. ya está publicado.", pt: "guardado. já está online.", de: "gespeichert. schon live.", zh: "已保存并更新上线。" },
-  "m.save": { en: "save changes", nl: "wijzigingen opslaan", fr: "enregistrer", es: "guardar cambios", pt: "guardar alterações", de: "Änderungen speichern", zh: "保存修改" },
-  "m.saveOrder": { en: "save order", nl: "volgorde opslaan", fr: "enregistrer l’ordre", es: "guardar orden", pt: "guardar ordem", de: "Reihenfolge speichern", zh: "保存顺序" },
-  "m.unsaved": { en: "order changed — save to publish", nl: "volgorde gewijzigd — sla op om te publiceren", fr: "ordre modifié — enregistre pour publier", es: "orden cambiado — guarda para publicar", pt: "ordem alterada — guarda para publicar", de: "Reihenfolge geändert — zum Veröffentlichen speichern", zh: "顺序已更改，保存后发布" },
-  "m.drag": { en: "drag to reorder", nl: "sleep om te sorteren", fr: "glisser pour réordonner", es: "arrastra para ordenar", pt: "arrasta para ordenar", de: "zum Sortieren ziehen", zh: "拖动排序" },
-  "m.moveUp": { en: "move up", nl: "omhoog", fr: "monter", es: "subir", pt: "subir", de: "nach oben", zh: "上移" },
-  "m.moveDown": { en: "move down", nl: "omlaag", fr: "descendre", es: "bajar", pt: "descer", de: "nach unten", zh: "下移" },
-  "m.position": { en: "position", nl: "positie", fr: "position", es: "posición", pt: "posição", de: "Position", zh: "位置" },
-  "m.edit": { en: "edit", nl: "bewerken", fr: "modifier", es: "editar", pt: "editar", de: "bearbeiten", zh: "编辑" },
-  "m.remove": { en: "remove", nl: "verwijderen", fr: "retirer", es: "quitar", pt: "remover", de: "entfernen", zh: "移除" },
-  "m.confirmRemove": { en: "remove this song from the collection?", nl: "dit nummer uit de collectie verwijderen?", fr: "retirer ce titre de la collection ?", es: "¿quitar esta canción de la colección?", pt: "remover esta música da coleção?", de: "diesen Song aus der Sammlung entfernen?", zh: "从收藏中移除此歌曲？" },
-  "m.add": { en: "add to collection", nl: "voeg toe aan collectie", fr: "ajouter à la collection", es: "añadir a colección", pt: "adicionar à coleção", de: "zur Sammlung hinzufügen", zh: "添加到收藏" },
-  "m.dismiss": { en: "dismiss", nl: "afwijzen", fr: "rejeter", es: "descartar", pt: "rejeitar", de: "verwerfen", zh: "忽略" },
-  "m.note": { en: "note / fun fact", nl: "notitie / fun fact", fr: "note / anecdote", es: "nota / dato curioso", pt: "nota / curiosidade", de: "Notiz / Fun Fact", zh: "备注／趣事" },
-  "m.artist": { en: "artist", nl: "artiest", fr: "artiste", es: "artista", pt: "artista", de: "Künstler", zh: "艺人" },
-  "m.songTitle": { en: "song title", nl: "titel", fr: "titre", es: "título", pt: "título", de: "Songtitel", zh: "歌曲名称" },
-  "m.attachLink": { en: "attach or replace a Spotify / Apple Music link", nl: "Spotify- / Apple Music-link toevoegen of vervangen", fr: "ajouter ou remplacer un lien Spotify / Apple Music", es: "añadir o reemplazar enlace Spotify / Apple Music", pt: "adicionar ou substituir link Spotify / Apple Music", de: "Spotify- / Apple-Music-Link hinzufügen oder ersetzen", zh: "添加或替换 Spotify／Apple Music 链接" },
-  "m.loginHint": { en: "only gabriel@corvus.gent can edit this collection.", nl: "alleen gabriel@corvus.gent kan deze collectie aanpassen.", fr: "seul gabriel@corvus.gent peut modifier cette collection.", es: "solo gabriel@corvus.gent puede editar esta colección.", pt: "só gabriel@corvus.gent pode editar esta coleção.", de: "nur gabriel@corvus.gent kann diese Sammlung bearbeiten.", zh: "仅 gabriel@corvus.gent 可编辑收藏。" },
-  "m.sendCode": { en: "send login code", nl: "stuur inlogcode", fr: "envoyer le code", es: "enviar código", pt: "enviar código", de: "Anmeldecode senden", zh: "发送登录验证码" },
-  "m.code": { en: "6-digit code", nl: "6-cijferige code", fr: "code à 6 chiffres", es: "código de 6 cifras", pt: "código de 6 dígitos", de: "6-stelliger Code", zh: "六位验证码" },
-  "m.enter": { en: "log in", nl: "inloggen", fr: "se connecter", es: "iniciar sesión", pt: "entrar", de: "anmelden", zh: "登录" },
-  "m.logout": { en: "log out", nl: "uitloggen", fr: "se déconnecter", es: "cerrar sesión", pt: "sair", de: "abmelden", zh: "退出登录" },
-  "m.codeSent": { en: "check your email for the login code.", nl: "check je e-mail voor de inlogcode.", fr: "consulte ton e-mail pour le code.", es: "revisa tu correo para el código.", pt: "vê o código no teu e-mail.", de: "prüfe deine E-Mails auf den Code.", zh: "请查看邮箱中的验证码。" },
-  "m.loginError": { en: "login failed. check your code or request a new one.", nl: "inloggen mislukt. controleer je code of vraag een nieuwe.", fr: "connexion échouée. vérifie le code ou demandes-en un nouveau.", es: "error de acceso. revisa el código o pide otro.", pt: "falha ao entrar. verifica o código ou pede outro.", de: "Anmeldung fehlgeschlagen. Code prüfen oder neu anfordern.", zh: "登录失败，请检查验证码或重新获取。" },
-  "m.resend": { en: "use another code", nl: "andere code aanvragen", fr: "demander un autre code", es: "pedir otro código", pt: "pedir outro código", de: "neuen Code anfordern", zh: "重新获取验证码" },
-  "m.refresh": { en: "reload collection", nl: "collectie herladen", fr: "recharger la collection", es: "recargar colección", pt: "recarregar coleção", de: "Sammlung neu laden", zh: "重新加载收藏" },
-  "m.close": { en: "close", nl: "sluiten", fr: "fermer", es: "cerrar", pt: "fechar", de: "schließen", zh: "关闭" },
-  "m.adminHint": { en: "drag the handles, then save. changes go live immediately.", nl: "sleep de handvatten en sla op. wijzigingen staan meteen live.", fr: "glisse les poignées, puis enregistre. les changements sont immédiats.", es: "arrastra y guarda. los cambios se publican al momento.", pt: "arrasta e guarda. as alterações ficam logo online.", de: "Griffe ziehen, dann speichern. Änderungen sind sofort live.", zh: "拖动手柄后保存，修改立即上线。" },
-  "m.suggested": { en: "added to suggestions. your like counts too.", nl: "voorstel toegevoegd. je like telt ook mee.", fr: "proposition ajoutée. ton vote compte aussi.", es: "sugerencia añadida. tu voto también cuenta.", pt: "sugestão adicionada. o teu voto também conta.", de: "Vorschlag hinzugefügt. dein Like zählt auch.", zh: "已推荐，同时计入你的点赞。" },
-  "m.voted": { en: "your vote counts.", nl: "je stem telt mee.", fr: "ton vote compte.", es: "tu voto cuenta.", pt: "o teu voto conta.", de: "deine Stimme zählt.", zh: "已计入你的投票。" },
-  "m.error": { en: "could not save. please try again.", nl: "opslaan mislukt. probeer opnieuw.", fr: "impossible d’enregistrer. réessaie.", es: "no se pudo guardar. inténtalo de nuevo.", pt: "não foi possível guardar. tenta de novo.", de: "Speichern fehlgeschlagen. bitte erneut versuchen.", zh: "保存失败，请重试。" },
-  "m.conflict": { en: "the collection changed elsewhere. reload before saving.", nl: "de collectie is elders gewijzigd. herlaad voor je opslaat.", fr: "la collection a changé ailleurs. recharge avant d’enregistrer.", es: "la colección cambió en otro lugar. recarga antes de guardar.", pt: "a coleção mudou noutro local. recarrega antes de guardar.", de: "die Sammlung wurde anderswo geändert. vor dem Speichern neu laden.", zh: "收藏已在其他位置修改，请重新加载后保存。" },
-  "m.invalidLink": { en: "use a Spotify or Apple Music link to a single song.", nl: "gebruik een Spotify- of Apple Music-link naar één nummer.", fr: "utilise un lien Spotify ou Apple Music vers un titre.", es: "usa un enlace Spotify o Apple Music a una canción.", pt: "usa um link Spotify ou Apple Music de uma música.", de: "nutze einen Spotify- oder Apple-Music-Link zu einem Song.", zh: "请使用单首歌曲的 Spotify 或 Apple Music 链接。" },
-  "m.alreadyListed": { en: "this song is already in the collection or suggestions.", nl: "dit nummer staat al in de collectie of voorstellen.", fr: "ce titre est déjà dans la collection ou les propositions.", es: "esta canción ya está en la colección o sugerencias.", pt: "esta música já está na coleção ou sugestões.", de: "dieser Song ist schon in der Sammlung oder den Vorschlägen.", zh: "收藏或推荐中已有此歌曲。" },
-  "m.dailyLimit": { en: "daily limit reached. try again tomorrow.", nl: "daglimiet bereikt. probeer morgen opnieuw.", fr: "limite quotidienne atteinte. réessaie demain.", es: "límite diario alcanzado. vuelve mañana.", pt: "limite diário atingido. tenta amanhã.", de: "Tageslimit erreicht. versuch es morgen wieder.", zh: "已达每日上限，请明天再试。" },
-  "m.wait": { en: "wait a moment before suggesting another.", nl: "wacht even voor je nog iets voorstelt.", fr: "attends avant une autre proposition.", es: "espera antes de sugerir otra.", pt: "espera antes de sugerir outra.", de: "warte vor dem nächsten Vorschlag.", zh: "请稍后再推荐。" },
-  "m.full": { en: "the suggestion box is full.", nl: "de voorstellenlijst is vol.", fr: "la boîte à suggestions est pleine.", es: "el buzón de sugerencias está lleno.", pt: "a caixa de sugestões está cheia.", de: "die Vorschlagsliste ist voll.", zh: "推荐列表已满。" },
-  "m.forbidden": { en: "this account cannot edit the collection.", nl: "dit account mag de collectie niet aanpassen.", fr: "ce compte ne peut pas modifier la collection.", es: "esta cuenta no puede editar la colección.", pt: "esta conta não pode editar a coleção.", de: "dieses Konto darf die Sammlung nicht bearbeiten.", zh: "此账户无权编辑收藏。" },
-  "m.challenge": { en: "verification expired. please try again.", nl: "controle verlopen. probeer opnieuw.", fr: "vérification expirée. réessaie.", es: "verificación caducada. inténtalo de nuevo.", pt: "verificação expirada. tenta de novo.", de: "Prüfung abgelaufen. bitte erneut versuchen.", zh: "验证已过期，请重试。" },
-  "m.sort": { en: "sort by", nl: "sorteer op", fr: "trier par", es: "ordenar por", pt: "ordenar por", de: "sortieren nach", zh: "排序方式" },
-  "m.linkHint": { en: "search links are labelled; they may return several versions.", nl: "zoeklinks zijn aangeduid; ze kunnen meerdere uitvoeringen tonen.", fr: "les liens de recherche sont indiqués ; plusieurs versions sont possibles.", es: "los enlaces de búsqueda están marcados; pueden mostrar varias versiones.", pt: "links de pesquisa estão marcados; podem mostrar várias versões.", de: "Suchlinks sind markiert; sie können mehrere Versionen zeigen.", zh: "搜索链接已标明，可能显示多个版本。" },
-  "home.sub": {
-    en: "The crow died. The domain didn't.",
-    nl: "De kraai is dood. Het domein niet.",
-    fr: "Le corbeau est mort. Le domaine, non.",
-    es: "El cuervo murió. El dominio no.",
-    pt: "O corvo morreu. O domínio não.",
-    de: "Die Krähe ist tot. Die Domain nicht.",
-    zh: "乌鸦死了，域名还在。",
-  },
-  "nav.contact": { en: "contact", nl: "contact", fr: "contact", es: "contacto", pt: "contato", de: "kontakt", zh: "联系" },
-  "nav.about": { en: "about", nl: "over mij", fr: "à propos", es: "sobre mí", pt: "sobre mim", de: "über mich", zh: "关于我" },
-  "nav.sidequests": { en: "sidequests", nl: "sidequests", fr: "quêtes annexes", es: "misiones secundarias", pt: "missões secundárias", de: "nebenquests", zh: "支线任务" },
-  "nav.music": { en: "music", nl: "muziek", fr: "musique", es: "música", pt: "música", de: "Musik", zh: "音乐" },
-  "nav.now": { en: "now", nl: "nu", fr: "maintenant", es: "ahora", pt: "agora", de: "jetzt", zh: "现在" },
-  "footer.deceased": { en: "corvus · deceased feb 2026 · revived nov 2026", nl: "corvus · overleden feb 2026 · herrezen nov 2026", fr: "corvus · décédé fév 2026 · ressuscité nov 2026", es: "corvus · fallecido feb 2026 · resucitado nov 2026", pt: "corvus · falecido fev 2026 · ressuscitado nov 2026", de: "corvus · verstorben Feb 2026 · auferstanden Nov 2026", zh: "corvus · 2026 年 2 月逝去 · 2026 年 11 月复活" },
-
-  "people.title": { en: "People @ Corvus", nl: "Mensen @ Corvus", fr: "Équipe @ Corvus", es: "Gente @ Corvus", pt: "Pessoas @ Corvus", de: "Leute @ Corvus", zh: "Corvus 的成员" },
-  "people.population": { en: "population: 1", nl: "bevolking: 1", fr: "population : 1", es: "población: 1", pt: "população: 1", de: "Bevölkerung: 1", zh: "人口：1" },
-
-  "profile.languages": {
-    en: "Speaks 7 languages: EN · NL · ES · FR · PT · DE · 中文",
-    nl: "Spreekt 7 talen: EN · NL · ES · FR · PT · DE · 中文",
-    fr: "Parle 7 langues : EN · NL · ES · FR · PT · DE · 中文",
-    es: "Habla 7 idiomas: EN · NL · ES · FR · PT · DE · 中文",
-    pt: "Fala 7 idiomas: EN · NL · ES · FR · PT · DE · 中文",
-    de: "Spricht 7 Sprachen: EN · NL · ES · FR · PT · DE · 中文",
-    zh: "会说 7 种语言：EN · NL · ES · FR · PT · DE · 中文",
-  },
-  "sec.about": { en: "About", nl: "Over mij", fr: "À propos", es: "Sobre mí", pt: "Sobre mim", de: "Über mich", zh: "关于我" },
-  "sec.research": { en: "Research", nl: "Onderzoek", fr: "Recherche", es: "Investigación", pt: "Pesquisa", de: "Forschung", zh: "研究" },
-  "sec.blogs": { en: "Blogs", nl: "Blogs", fr: "Blogs", es: "Blogs", pt: "Blogs", de: "Blogs", zh: "博客" },
-  "sec.shoutouts": { en: "Shout-outs", nl: "Shout-outs", fr: "Dédicaces", es: "Menciones", pt: "Menções", de: "Shout-outs", zh: "致敬" },
-  "sec.contacts": { en: "Contacts", nl: "Contact", fr: "Contacts", es: "Contactos", pt: "Contatos", de: "Kontakte", zh: "联系方式" },
-  "shoutouts.sub": {
-    en: "cool companies and people",
-    nl: "coole bedrijven en mensen",
-    fr: "entreprises et gens cool",
-    es: "empresas y personas geniales",
-    pt: "empresas e pessoas incríveis",
-    de: "coole Firmen und Leute",
-    zh: "很酷的公司和人",
-  },
-  "blogs.cooking": { en: "cooking", nl: "aan het koken", fr: "en préparation", es: "cocinándose", pt: "cozinhando", de: "in Arbeit", zh: "酝酿中" },
-  "links.bosses": { en: "my cool bosses", nl: "mijn coole bazen", fr: "mes boss cool", es: "mis jefes geniales", pt: "meus chefes incríveis", de: "meine coolen Chefs", zh: "我很酷的老板们" },
-
-  "sq.title": { en: "Sidequests", nl: "Sidequests", fr: "Quêtes annexes", es: "Misiones secundarias", pt: "Missões secundárias", de: "Nebenquests", zh: "支线任务" },
-  "sq.sub": {
-    en: "Things I build when I have a creative peak.",
-    nl: "Dingen die ik bouw als ik een creatieve piek heb.",
-    fr: "Ce que je construis quand j'ai un pic de créativité.",
-    es: "Cosas que construyo cuando tengo un pico creativo.",
-    pt: "Coisas que construo quando tenho um pico criativo.",
-    de: "Dinge, die ich baue, wenn ich einen kreativen Höhepunkt habe.",
-    zh: "灵感爆发时做的东西。",
-  },
-  "sq.402.desc": {
-    en: "A client stopped paying for his domain. So the site got a live timer instead. Dry, petty, legal.",
-    nl: "Een klant stopte met betalen voor zijn domein. Dus kreeg de site een live teller. Droog, kleinzielig, legaal.",
-    fr: "Un client a arrêté de payer son domaine. Alors le site a eu un compteur en direct. Sec, mesquin, légal.",
-    es: "Un cliente dejó de pagar su dominio. Así que la web recibió un contador en vivo. Seco, mezquino, legal.",
-    pt: "Um cliente parou de pagar o domínio. Então o site ganhou um contador ao vivo. Seco, mesquinho, legal.",
-    de: "Ein Kunde hat seine Domain nicht mehr bezahlt. Also bekam die Seite einen Live-Timer. Trocken, kleinlich, legal.",
-    zh: "一个客户不再支付域名费用，于是网站换成了实时计时器。冷幽默、小心眼、合法。",
-  },
-  "sq.pc.desc": {
-    en: "An autonomous party robot built with ROS2 and Python. It drives around, dances salsa, plays music, talks and listens, serves beer and shoots M&M's from a mini-gun on command.",
-    nl: "Een autonome feestrobot, gebouwd met ROS2 en Python. Hij rijdt rond, danst salsa, speelt muziek, praat en luistert, schenkt bier en schiet op commando M&M's uit een minigun.",
-    fr: "Un robot de fête autonome construit avec ROS2 et Python. Il se déplace, danse la salsa, joue de la musique, parle et écoute, sert de la bière et tire des M&M's avec un mini-gun sur commande.",
-    es: "Un robot de fiesta autónomo hecho con ROS2 y Python. Se mueve solo, baila salsa, pone música, habla y escucha, sirve cerveza y dispara M&M's con una minigun cuando se lo pides.",
-    pt: "Um robô de festa autônomo feito com ROS2 e Python. Anda sozinho, dança salsa, toca música, fala e escuta, serve cerveja e dispara M&M's de uma minigun sob comando.",
-    de: "Ein autonomer Party-Roboter, gebaut mit ROS2 und Python. Er fährt herum, tanzt Salsa, spielt Musik, redet und hört zu, schenkt Bier aus und schießt auf Befehl M&M's aus einer Minigun.",
-    zh: "一个用 ROS2 和 Python 打造的自主派对机器人。它会四处移动、跳萨尔萨舞、放音乐、说话和聆听、倒啤酒，还能按指令用迷你机枪发射 M&M 巧克力豆。",
-  },
-  "sq.pc.note": {
-    en: "No code link: it was held together by vibes. Clips live in the highlight stories of",
-    nl: "Geen link naar de code: die hing aan elkaar met vibes. Clips staan in de highlight stories van",
-    fr: "Pas de lien vers le code : il tenait avec des vibes. Les clips sont dans les stories à la une de",
-    es: "Sin enlace al código: se sostenía a base de vibes. Los clips están en las historias destacadas de",
-    pt: "Sem link para o código: era mantido por vibes. Os clipes estão nos destaques dos stories de",
-    de: "Kein Link zum Code: der hielt nur durch Vibes. Clips gibt es in den Story-Highlights von",
-    zh: "没有代码链接：它全靠氛围撑着。片段在这个账号的精选快拍里：",
-  },
-
-  "now.title": { en: "Now", nl: "Nu", fr: "Maintenant", es: "Ahora", pt: "Agora", de: "Jetzt", zh: "现在" },
-  "now.sub": {
-    en: "What I'm focused on right now.",
-    nl: "Waar ik nu mee bezig ben.",
-    fr: "Ce sur quoi je me concentre en ce moment.",
-    es: "En qué estoy centrado ahora mismo.",
-    pt: "No que estou focado agora.",
-    de: "Worauf ich mich gerade konzentriere.",
-    zh: "我最近在专注的事。",
-  },
-  "now.1": { en: "GTM maxxing for Pidgy", nl: "GTM maxxing voor Pidgy", fr: "GTM maxxing pour Pidgy", es: "GTM maxxing para Pidgy", pt: "GTM maxxing para a Pidgy", de: "GTM maxxing für Pidgy", zh: "为 Pidgy 全力做 GTM" },
-  "now.2": {
-    en: "Social media engineering maxxing on all platforms with Compound.mov",
-    nl: "Social media engineering maxxing op alle platformen met Compound.mov",
-    fr: "Social media engineering maxxing sur toutes les plateformes avec Compound.mov",
-    es: "Social media engineering maxxing en todas las plataformas con Compound.mov",
-    pt: "Social media engineering maxxing em todas as plataformas com a Compound.mov",
-    de: "Social media engineering maxxing auf allen Plattformen mit Compound.mov",
-    zh: "和 Compound.mov 一起在所有平台全力做社交媒体工程",
-  },
-  "now.3": { en: "Chinese maxxing", nl: "Chinees maxxing", fr: "Chinois maxxing", es: "Chino maxxing", pt: "Chinês maxxing", de: "Chinesisch maxxing", zh: "全力学中文" },
-  "now.4": {
-    en: "Jiu-jitsu maxxing for competitions",
-    nl: "Jiu-jitsu maxxing voor wedstrijden",
-    fr: "Jiu-jitsu maxxing pour les compétitions",
-    es: "Jiu-jitsu maxxing para competiciones",
-    pt: "Jiu-jitsu maxxing para campeonatos",
-    de: "Jiu-Jitsu maxxing für Wettkämpfe",
-    zh: "为比赛全力练柔术",
-  },
-  "now.5": { en: "Hackathon soon 👀", nl: "Binnenkort hackathon 👀", fr: "Hackathon bientôt 👀", es: "Hackathon pronto 👀", pt: "Hackathon em breve 👀", de: "Bald Hackathon 👀", zh: "黑客松快来了 👀" },
-  "now.updated": { en: "updated November 2026", nl: "bijgewerkt november 2026", fr: "mis à jour novembre 2026", es: "actualizado noviembre 2026", pt: "atualizado novembro 2026", de: "aktualisiert November 2026", zh: "更新于 2026 年 11 月" },
-  "nav.support": { en: "support", nl: "support", fr: "soutien", es: "apoyo", pt: "apoio", de: "support", zh: "支持" },
-  "location.label": { en: "📍 currently in:", nl: "📍 nu in:", fr: "📍 actuellement à :", es: "📍 ahora en:", pt: "📍 agora em:", de: "📍 gerade in:", zh: "📍 目前在：" },
-  "term.hint": { en: "press any key", nl: "druk op een toets", fr: "appuie sur une touche", es: "pulsa cualquier tecla", pt: "aperte qualquer tecla", de: "drück eine Taste", zh: "按任意键" },
-  "now.intro": {
-    en: "Five points. Every week. Four of them aren't going anywhere: GTM, social media, jiu-jitsu, Chinese. The only real question is which sidequest gets slot five.",
-    nl: "Vijf punten. Elke week. Vier ervan gaan nergens heen: GTM, social media, jiu-jitsu, Chinees. De enige echte vraag is welke sidequest plek vijf krijgt.",
-    fr: "Cinq points. Chaque semaine. Quatre ne bougent pas : GTM, réseaux sociaux, jiu-jitsu, chinois. La seule vraie question : quelle quête annexe prend la cinquième place.",
-    es: "Cinco puntos. Cada semana. Cuatro no se mueven: GTM, redes sociales, jiu-jitsu, chino. La única pregunta real es qué misión secundaria ocupa el quinto puesto.",
-    pt: "Cinco pontos. Toda semana. Quatro não saem do lugar: GTM, redes sociais, jiu-jitsu, chinês. A única pergunta real é qual missão secundária fica com o quinto lugar.",
-    de: "Fünf Punkte. Jede Woche. Vier davon bleiben: GTM, Social Media, Jiu-Jitsu, Chinesisch. Die einzige echte Frage ist, welche Nebenquest Platz fünf bekommt.",
-    zh: "每周五件事。其中四件不会变：GTM、社交媒体、柔术、中文。真正的问题只有一个：第五个位置给哪个支线任务。",
-  },
-  "now.weekly": { en: "this week's sidequest:", nl: "sidequest van deze week:", fr: "quête annexe de la semaine :", es: "misión secundaria de esta semana:", pt: "missão secundária da semana:", de: "Nebenquest dieser Woche:", zh: "本周支线任务：" },
-
-  "support.title": { en: "Support", nl: "Support", fr: "Soutien", es: "Apoyo", pt: "Apoio", de: "Support", zh: "支持" },
-  "support.sub": {
-    en: "People, companies and ideas I'd vouch for.",
-    nl: "Mensen, bedrijven en ideeën waar ik voor insta.",
-    fr: "Des gens, des entreprises et des idées dont je me porte garant.",
-    es: "Personas, empresas e ideas por las que respondo.",
-    pt: "Pessoas, empresas e ideias pelas quais eu respondo.",
-    de: "Menschen, Firmen und Ideen, für die ich bürge.",
-    zh: "我愿意为之担保的人、公司和想法。",
-  },
-  "support.people": { en: "people", nl: "mensen", fr: "personnes", es: "personas", pt: "pessoas", de: "Menschen", zh: "人" },
-  "support.founders": { en: "founders", nl: "founders", fr: "fondateurs", es: "fundadores", pt: "fundadores", de: "Gründer", zh: "创始人" },
-  "support.companies": { en: "companies", nl: "bedrijven", fr: "entreprises", es: "empresas", pt: "empresas", de: "Firmen", zh: "公司" },
-  "support.books": { en: "books", nl: "boeken", fr: "livres", es: "libros", pt: "livros", de: "Bücher", zh: "书" },
-  "support.philosophists": { en: "philosophists", nl: "filosofen", fr: "philosophes", es: "filósofos", pt: "filósofos", de: "Philosophen", zh: "哲学家" },
-  "support.sport": { en: "sport people", nl: "sporters", fr: "sportifs", es: "deportistas", pt: "atletas", de: "Sportler", zh: "运动员" },
-  "support.back": { en: "← support", nl: "← support", fr: "← soutien", es: "← apoyo", pt: "← apoio", de: "← support", zh: "← 支持" },
-
-  "books.wip": { en: "WIP. More soon.", nl: "WIP. Binnenkort meer.", fr: "WIP. La suite bientôt.", es: "WIP. Pronto más.", pt: "WIP. Mais em breve.", de: "WIP. Bald mehr.", zh: "进行中，敬请期待。" },
-  "books.locked": {
-    en: "Inner circle only. Access is granted, not requested.",
-    nl: "Alleen voor de inner circle. Toegang krijg je, die vraag je niet.",
-    fr: "Réservé au cercle restreint. L'accès s'accorde, il ne se demande pas.",
-    es: "Solo para el círculo cercano. El acceso se concede, no se pide.",
-    pt: "Só para o círculo íntimo. O acesso é concedido, não pedido.",
-    de: "Nur für den inneren Kreis. Zugang wird gewährt, nicht erfragt.",
-    zh: "仅限核心圈子。权限只会被授予，不能申请。",
-  },
-
-  "phil.no1": { en: "no. 1, no discussion.", nl: "nr. 1, geen discussie.", fr: "n° 1, sans discussion.", es: "n.º 1, sin discusión.", pt: "n.º 1, sem discussão.", de: "Nr. 1, keine Diskussion.", zh: "第一名，没得商量。" },
-  "phil.alexander": {
-    en: "Alexander the Great: “If I were not Alexander, I would want to be Diogenes.”",
-    nl: "Alexander de Grote: “Als ik Alexander niet was, zou ik Diogenes willen zijn.”",
-    fr: "Alexandre le Grand : « Si je n'étais pas Alexandre, je voudrais être Diogène. »",
-    es: "Alejandro Magno: «Si no fuera Alejandro, querría ser Diógenes.»",
-    pt: "Alexandre, o Grande: “Se eu não fosse Alexandre, gostaria de ser Diógenes.”",
-    de: "Alexander der Große: „Wäre ich nicht Alexander, wollte ich Diogenes sein.“",
-    zh: "亚历山大大帝：“如果我不是亚历山大，我愿做第欧根尼。”",
-  },
-  "phil.diogenes": {
-    en: "Diogenes: “Stand a little out of my sun.”",
-    nl: "Diogenes: “Ga eens een beetje uit mijn zon.”",
-    fr: "Diogène : « Ôte-toi de mon soleil. »",
-    es: "Diógenes: «Apártate, que me quitas el sol.»",
-    pt: "Diógenes: “Sai da frente do meu sol.”",
-    de: "Diogenes: „Geh mir ein wenig aus der Sonne.“",
-    zh: "第欧根尼：“请别挡住我的阳光。”",
-  },
-  "phil.me": { en: "me. still carrying the lantern.", nl: "ik. draag de lantaarn nog altijd.", fr: "moi. je porte toujours la lanterne.", es: "yo. todavía llevo la linterna.", pt: "eu. ainda carrego a lanterna.", de: "ich. trage die Laterne immer noch.", zh: "我，依然提着那盏灯。" },
-  "books.request": { en: "request access", nl: "toegang aanvragen", fr: "demander l'accès", es: "solicitar acceso", pt: "pedir acesso", de: "Zugang anfragen", zh: "申请权限" },
-  "books.sent": { en: "Request received. Don't call us, we'll call you.", nl: "Aanvraag ontvangen. Bel ons niet, wij bellen jou.", fr: "Demande reçue. Ne nous appelle pas, on t'appellera.", es: "Solicitud recibida. No nos llames, nosotros te llamamos.", pt: "Pedido recebido. Não ligue pra gente, a gente liga pra você.", de: "Anfrage erhalten. Ruf uns nicht an, wir rufen dich an.", zh: "已收到申请。不用联系我们，我们会联系你。" },
-  "home.coffee": { en: "or just buy me a coffee ☕", nl: "of trakteer me gewoon op een koffie ☕", fr: "ou offre-moi juste un café ☕", es: "o simplemente invítame a un café ☕", pt: "ou só me pague um café ☕", de: "oder spendier mir einfach einen Kaffee ☕", zh: "或者请我喝杯咖啡 ☕" },
-  "home.book": { en: "book a free 15-min call", nl: "boek een gratis call van 15 min", fr: "réserve un appel gratuit de 15 min", es: "reserva una llamada gratis de 15 min", pt: "agende uma call grátis de 15 min", de: "buch einen kostenlosen 15-Min-Call", zh: "预约免费 15 分钟通话" },
-  "home.coffee": { en: "buy me a coffee", nl: "trakteer me op een koffie", fr: "offre-moi un café", es: "invítame a un café", pt: "me paga um café", de: "spendier mir einen Kaffee", zh: "请我喝杯咖啡" },
-  "home.call60": { en: "60+ min call: you buy me a coffee", nl: "call van 60+ min: jij trakteert op koffie", fr: "appel de 60+ min : tu m'offres un café", es: "llamada de 60+ min: tú me invitas a un café", pt: "call de 60+ min: você me paga um café", de: "60+-Min-Call: du spendierst mir einen Kaffee", zh: "60 分钟以上通话：你请我喝咖啡" },
-  "home.broke": { en: "broke GTM entrepreneur, always looking for opportunities.", nl: "blutte GTM-ondernemer, altijd op zoek naar kansen.", fr: "entrepreneur GTM fauché, toujours à l'affût d'opportunités.", es: "emprendedor GTM sin blanca, siempre buscando oportunidades.", pt: "empreendedor GTM duro, sempre atrás de oportunidades.", de: "pleiter GTM-Unternehmer, immer auf der Suche nach Chancen.", zh: "穷困的 GTM 创业者，永远在找机会。" },
-  "home.tagline": { en: "still looking for an honest man.", nl: "nog altijd op zoek naar een eerlijke man.", fr: "toujours à la recherche d'un homme honnête.", es: "aún buscando a un hombre honesto.", pt: "ainda procurando um homem honesto.", de: "immer noch auf der Suche nach einem ehrlichen Menschen.", zh: "仍在寻找一个诚实的人。" },
-  "home.callbtn": { en: "want to call with gabe maxxer? 📞", nl: "bellen met gabe maxxer? 📞", fr: "un appel avec gabe maxxer ? 📞", es: "¿llamada con gabe maxxer? 📞", pt: "uma call com o gabe maxxer? 📞", de: "Call mit gabe maxxer? 📞", zh: "想和 gabe maxxer 通话？📞" },
-  "call.title": { en: "Call", nl: "Bellen", fr: "Appel", es: "Llamada", pt: "Call", de: "Call", zh: "通话" },
-  "call.who": {
-    en: "competitive baby GTM entrepreneur, upcoming business philosopher and social media engineer maxxer. always looking for opportunities.",
-    nl: "competitieve baby-GTM-ondernemer, toekomstig bedrijfsfilosoof en social media engineer maxxer. altijd op zoek naar kansen.",
-    fr: "bébé entrepreneur GTM compétitif, futur philosophe des affaires et social media engineer maxxer. toujours à l'affût d'opportunités.",
-    es: "bebé emprendedor GTM competitivo, futuro filósofo de negocios y social media engineer maxxer. siempre buscando oportunidades.",
-    pt: "bebê empreendedor GTM competitivo, futuro filósofo de negócios e social media engineer maxxer. sempre atrás de oportunidades.",
-    de: "ehrgeiziger Baby-GTM-Unternehmer, angehender Business-Philosoph und Social Media Engineer Maxxer. immer auf der Suche nach Chancen.",
-    zh: "好胜的新手 GTM 创业者，未来的商业哲学家，社交媒体工程狂人。永远在找机会。",
-  },
-  "call.pitch": { en: "15 minutes. free. no slides.", nl: "15 minuten. gratis. geen slides.", fr: "15 minutes. gratuit. pas de slides.", es: "15 minutos. gratis. sin slides.", pt: "15 minutos. grátis. sem slides.", de: "15 Minuten. kostenlos. keine Slides.", zh: "15 分钟。免费。不放 PPT。" },
-  "call.pitchsub": { en: "growth, GTM, AI agents, or whatever's keeping you up at night.", nl: "growth, GTM, AI agents, of wat je ook wakker houdt.", fr: "growth, GTM, agents IA, ou ce qui t'empêche de dormir.", es: "growth, GTM, agentes de IA, o lo que no te deja dormir.", pt: "growth, GTM, agentes de IA, ou o que estiver tirando seu sono.", de: "Growth, GTM, KI-Agenten oder was dich nachts wach hält.", zh: "增长、GTM、AI 智能体，或任何让你睡不着的事。" },
-  "call.cta": { en: "book your slot →", nl: "boek je slot →", fr: "réserve ton créneau →", es: "reserva tu hueco →", pt: "reserve seu horário →", de: "Slot buchen →", zh: "预约时间 →" },
-  "call.or": { en: "or", nl: "of", fr: "ou", es: "o", pt: "ou", de: "oder", zh: "或" },
-  "call.longsub": { en: "60+ min deep dive. pay what it's worth, in coffee.", nl: "60+ min deep dive. betaal wat het waard is, in koffie.", fr: "60+ min en profondeur. paie ce que ça vaut, en café.", es: "60+ min a fondo. paga lo que valga, en café.", pt: "60+ min a fundo. pague o que valer, em café.", de: "60+ Min Deep Dive. zahl, was es wert ist, in Kaffee.", zh: "60 分钟以上深聊。值多少，就请几杯咖啡。" },
-  "call.coffee": { en: "buy me a coffee", nl: "trakteer me op koffie", fr: "offre-moi un café", es: "invítame a un café", pt: "me pague um café", de: "spendier mir einen Kaffee", zh: "请我喝杯咖啡" },
-  "call.tap": { en: "tap the record", nl: "tik op de plaat", fr: "touche le disque", es: "toca el disco", pt: "toque no disco", de: "tipp auf die Platte", zh: "点一下唱片" },
-  "call.diogenes": { en: "tired of life? come listen to some bangers →", nl: "het leven beu? kom wat bangers luisteren →", fr: "fatigué de la vie ? viens écouter des bangers →", es: "¿cansado de la vida? ven a escuchar unos temazos →", pt: "cansado da vida? vem ouvir uns bangers →", de: "keinen Bock mehr aufs Leben? hör dir ein paar Banger an →", zh: "厌倦生活了？来听几首神曲 →" },
-  "music.title": { en: "bangers", nl: "bangers", fr: "bangers", es: "temazos", pt: "bangers", de: "Banger", zh: "神曲" },
-  "music.sub": { en: "a tiny list. no skips needed.", nl: "een heel klein lijstje. skippen hoeft niet.", fr: "une toute petite liste. rien à zapper.", es: "una lista mini. nada que saltar.", pt: "uma listinha. nada pra pular.", de: "eine winzige Liste. nichts zum Skippen.", zh: "很短的歌单，首首不用切。" },
-  "music.normal": { en: "in order", nl: "op volgorde", fr: "dans l'ordre", es: "en orden", pt: "em ordem", de: "der Reihe nach", zh: "顺序播放" },
-  "music.shuffle": { en: "shuffle", nl: "shuffle", fr: "aléatoire", es: "aleatorio", pt: "aleatório", de: "Zufall", zh: "随机播放" },
-  "music.next": { en: "next ⏭", nl: "volgende ⏭", fr: "suivant ⏭", es: "siguiente ⏭", pt: "próxima ⏭", de: "weiter ⏭", zh: "下一首 ⏭" },
-  "music.suggest": { en: "suggest a banger", nl: "stel een banger voor", fr: "propose un banger", es: "sugiere un temazo", pt: "sugira um banger", de: "schlag einen Banger vor", zh: "推荐一首神曲" },
-  "music.hint": { en: "paste a spotify track link. the most voted ones might make the list.", nl: "plak een spotify-link van een nummer. de meest gestemde komen misschien op de lijst.", fr: "colle un lien spotify d'un morceau. les plus votés finiront peut-être dans la liste.", es: "pega un enlace de spotify de una canción. las más votadas quizá entren en la lista.", pt: "cole um link de música do spotify. as mais votadas podem entrar na lista.", de: "füg einen Spotify-Songlink ein. die meistgewählten landen vielleicht auf der Liste.", zh: "粘贴一首歌的 Spotify 链接，票数最高的可能会进歌单。" },
-  "music.send": { en: "suggest", nl: "voorstellen", fr: "proposer", es: "sugerir", pt: "sugerir", de: "vorschlagen", zh: "推荐" },
-  "music.empty": { en: "no suggestions yet. be the first.", nl: "nog geen voorstellen. wees de eerste.", fr: "pas encore de propositions. sois le premier.", es: "aún no hay sugerencias. sé el primero.", pt: "ainda sem sugestões. seja o primeiro.", de: "noch keine Vorschläge. sei der Erste.", zh: "还没有推荐，来当第一个吧。" },
-  "call.longer": { en: "want a longer call?", nl: "liever een langere call?", fr: "envie d'un appel plus long ?", es: "¿quieres una llamada más larga?", pt: "quer uma call mais longa?", de: "lieber einen längeren Call?", zh: "想聊更久？" },
-  "term.close": { en: "esc or click outside to close", nl: "esc of klik ernaast om te sluiten", fr: "échap ou clique à côté pour fermer", es: "esc o haz clic fuera para cerrar", pt: "esc ou clique fora para fechar", de: "Esc oder daneben klicken zum Schließen", zh: "按 Esc 或点击外部关闭" },
-  "army.btn": { en: "join the army / flock 🐦‍🔥", nl: "join het leger / de flock 🐦‍🔥", fr: "tu veux rejoindre cette armée ?", es: "¿quieres unirte a este ejército?", pt: "quer entrar nesse exército?", de: "willst du dieser Armee beitreten?", zh: "想加入这支队伍吗？" },
-  "army.text": { en: "Try to impress me in the least words possible, and I might take a look.", nl: "Probeer me te imponeren in zo weinig mogelijk woorden, en misschien kijk ik ernaar.", fr: "Essaie de m'impressionner en un minimum de mots, et j'y jetterai peut-être un œil.", es: "Intenta impresionarme con las menos palabras posibles y quizá le eche un vistazo.", pt: "Tente me impressionar com o mínimo de palavras possível, e talvez eu dê uma olhada.", de: "Versuch mich mit so wenig Worten wie möglich zu beeindrucken, dann schaue ich vielleicht rein.", zh: "用尽可能少的字打动我，我也许会看一眼。" },
-  "shoutouts.more": { en: "people & companies I vouch for →", nl: "mensen & bedrijven waar ik voor insta →", fr: "les gens et entreprises que je recommande →", es: "personas y empresas por las que respondo →", pt: "pessoas e empresas que eu recomendo →", de: "Menschen & Firmen, für die ich bürge →", zh: "我担保的人和公司 →" },
-  "sq.tech": { en: "(tech projects)", nl: "(tech-projecten)", fr: "(projets tech)", es: "(proyectos tech)", pt: "(projetos tech)", de: "(Tech-Projekte)", zh: "（技术项目）" },
-  "sq.travel": { en: "Travel sidequests", nl: "Reis-sidequests", fr: "Quêtes annexes de voyage", es: "Misiones secundarias de viaje", pt: "Missões secundárias de viagem", de: "Reise-Nebenquests", zh: "旅行支线任务" },
-  "sq.travel.desc": {
-    en: "Trying to meet founders all over the world. China, Portugal, San Francisco. Soon so much more.",
-    nl: "Founders proberen te ontmoeten over heel de wereld. China, Portugal, San Francisco. Binnenkort nog veel meer.",
-    fr: "J'essaie de rencontrer des fondateurs partout dans le monde. Chine, Portugal, San Francisco. Bientôt bien plus.",
-    es: "Intentando conocer fundadores por todo el mundo. China, Portugal, San Francisco. Pronto mucho más.",
-    pt: "Tentando conhecer fundadores no mundo todo. China, Portugal, San Francisco. Em breve muito mais.",
-    de: "Ich versuche, Gründer auf der ganzen Welt zu treffen. China, Portugal, San Francisco. Bald noch viel mehr.",
-    zh: "在世界各地结识创始人。中国、葡萄牙、旧金山。很快会更多。",
-  },
-  "sq.travel.follow": { en: "follow along:", nl: "volg mee:", fr: "suis l'aventure :", es: "sígueme:", pt: "acompanhe:", de: "folge mit:", zh: "关注：" },
-  "lang.title": { en: "polyglot stats", nl: "polyglot stats", fr: "polyglot stats", es: "polyglot stats", pt: "polyglot stats", de: "polyglot stats", zh: "polyglot stats" },
-  "lang.sub": { en: "Seven and counting. Honest scores.", nl: "Zeven en het worden er meer. Eerlijke scores.", fr: "Sept, et ce n'est pas fini. Scores honnêtes.", es: "Siete y contando. Notas honestas.", pt: "Sete e contando. Notas honestas.", de: "Sieben und es werden mehr. Ehrliche Werte.", zh: "七种，还在增加。诚实打分。" },
-  "lang.zh.note": { en: "nǐ hǎo & xièxie. fluent in 6 months. stay tuned.", nl: "nǐ hǎo & xièxie. vloeiend binnen 6 maanden. stay tuned.", fr: "nǐ hǎo & xièxie. courant dans 6 mois. restez à l'écoute.", es: "nǐ hǎo & xièxie. fluido en 6 meses. atentos.", pt: "nǐ hǎo & xièxie. fluente em 6 meses. fiquem ligados.", de: "nǐ hǎo & xièxie. fließend in 6 Monaten. stay tuned.", zh: "你好 & 谢谢。六个月内流利。敬请期待。" },
-  "home.evolving": { en: "this website is constantly evolving. peek again whenever you have time.", nl: "deze website evolueert constant. kom gerust nog eens piepen.", fr: "ce site évolue sans cesse. reviens jeter un œil quand tu as le temps.", es: "esta web evoluciona constantemente. vuelve a echar un vistazo cuando tengas tiempo.", pt: "este site está sempre evoluindo. volte para espiar quando tiver tempo.", de: "diese Website entwickelt sich ständig weiter. schau einfach wieder rein.", zh: "这个网站在不断进化。有空随时回来看看。" },
-  "sug.q": { en: "Which language should I learn next?", nl: "Welke taal moet ik hierna leren?", fr: "Quelle langue devrais-je apprendre ensuite ?", es: "¿Qué idioma debería aprender ahora?", pt: "Qual idioma devo aprender a seguir?", de: "Welche Sprache soll ich als Nächstes lernen?", zh: "我下一门该学什么语言？" },
-  "sug.pick": { en: "pick one", nl: "kies er een", fr: "choisis", es: "elige uno", pt: "escolha um", de: "wähl eine", zh: "选一个" },
-  "sug.why": { en: "why? (convince me in one line)", nl: "waarom? (overtuig me in één zin)", fr: "pourquoi ? (convaincs-moi en une ligne)", es: "¿por qué? (convénceme en una línea)", pt: "por quê? (me convença em uma linha)", de: "warum? (überzeug mich in einem Satz)", zh: "为什么？（一句话说服我）" },
-  "sug.send": { en: "send", nl: "verstuur", fr: "envoyer", es: "enviar", pt: "enviar", de: "senden", zh: "发送" },
-  "sug.thanks": { en: "Noted. The polyglot thanks you.", nl: "Genoteerd. De polyglot bedankt je.", fr: "Noté. Le polyglotte te remercie.", es: "Anotado. El políglota te lo agradece.", pt: "Anotado. O poliglota agradece.", de: "Notiert. Der Polyglott dankt dir.", zh: "已记下。多语者谢谢你。" },
-  "sug.other": { en: "other", nl: "andere", fr: "autre", es: "otro", pt: "outro", de: "andere", zh: "其他" },
-};
+let STRINGS = (await import(`./locales/${getLang()}.js`)).default;
 
 function savedLang() {
   try { return localStorage.getItem("lang"); } catch { return null; }
@@ -360,7 +29,7 @@ export function getLang() {
 export function t(key, lang = getLang()) {
   const entry = STRINGS[key];
   if (!entry) return key;
-  return entry[lang] ?? entry.en;
+  return entry;
 }
 
 // Pick the right language from a {en, nl, ...} object or return a plain string
@@ -389,12 +58,13 @@ export function renderSwitcher(onChange) {
     a.href = "#";
     a.textContent = label;
     if (code === current) a.className = "active";
-    a.addEventListener("click", e => {
+    a.addEventListener("click", async e => {
       e.preventDefault();
       try { localStorage.setItem("lang", code); } catch {}
       const url = new URL(location.href);
       url.searchParams.set("lang", code);
       history.replaceState(null, "", url);
+      STRINGS = (await import(`./locales/${code}.js`)).default;
       applyI18n(code);
       renderSwitcher(onChange);
       if (onChange) onChange(code);
@@ -413,17 +83,17 @@ function renderCornerNav() {
   const nav = document.createElement("div");
   nav.id = "corner-nav";
   nav.className = "corner-nav";
-  renderSearch(nav);
+  if (location.pathname !== "/") renderSearch(nav);
   if (location.pathname === "/") { document.body.appendChild(nav); return; }
   const back = document.createElement("a");
   back.href = "#"; back.textContent = "←"; back.title = "back"; back.setAttribute("aria-label", "back");
   back.addEventListener("click", e => {
     e.preventDefault();
     if (history.length > 1 && document.referrer.startsWith(location.origin)) history.back();
-    else location.href = "/";
+    else location.href = "/realm/";
   });
   const home = document.createElement("a");
-  home.href = "/"; home.textContent = "⌂"; home.title = "home"; home.setAttribute("aria-label", "home");
+  home.href = "https://corvus.gent/realm/"; home.textContent = "⌂"; home.title = "home"; home.setAttribute("aria-label", "home");
   nav.append(back, home);
   document.body.appendChild(nav);
 }

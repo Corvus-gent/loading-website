@@ -12,7 +12,6 @@ const INDEX = [
   { title: "call · book 15 min", url: "/call/", keys: "call book meeting talk coffee calendar" },
   { title: "now · this week", url: "/now/", keys: "now week focus current hackathon" },
   { title: "sidequests · projects & travel", url: "/sidequests/", keys: "sidequests projects robot partycrasher travel china portugal sf" },
-  { title: "402 · payment required", url: "/402/", keys: "402 payment client domain pay" },
   { title: "polyglot stats · languages", url: "/languages/", keys: "languages polyglot vote chinese french spanish lingo" },
   { title: "links · all my links", url: "/links/gabe", keys: "links linktree socials instagram tiktok linkedin x luma pidgy trial qr" },
   { title: "support", url: "/support/", keys: "support shoutouts vouch" },
@@ -27,7 +26,8 @@ const INDEX = [
 ];
 
 let FULL = [];
-fetch("/search-index.json").then(r => r.json()).then(d => { FULL = d; }).catch(() => {});
+let loaded=false;
+function loadIndex(){if(loaded)return;loaded=true;fetch("/search-index.json").then(r => r.json()).then(d => { FULL = d; }).catch(() => {}); }
 
 function snippet(text, words) {
   const i = text.indexOf(words[0]);
@@ -57,7 +57,7 @@ export function renderSearch(container) {
     <ul class="search-list"></ul>`;
   const btn = box.querySelector("button"), input = box.querySelector("input"), list = box.querySelector("ul");
 
-  const show = () => {
+  const show = () => { loadIndex();
     list.innerHTML = "";
     const results = match(input.value);
     if (!results.length) { list.innerHTML = '<li class="sub" style="padding:6px 8px">nothing. the crow looked everywhere.</li>'; return; }

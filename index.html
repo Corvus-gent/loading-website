@@ -18,41 +18,20 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://corvus.gent/og.png" />
 </head>
-<body>
+<body class="portal">
   <main>
     <div class="wrap home">
-      <div class="lang-switcher" id="lang-switcher"></div>
-      <img class="hero" id="hero" src="/img/diogenes.svg" title="?" alt="A crow flying towards Diogenes in his barrel, lantern in hand">
-      <p class="tagline" data-i18n="home.tagline">still looking for an honest man.</p>
+      
+      <img class="hero" id="hero" width="520" height="260" src="/img/diogenes.svg" title="?" alt="A crow flying towards Diogenes in his barrel, lantern in hand">
       <p class="location" id="loc"><span data-i18n="location.label">📍 currently in:</span> <span id="city">Gent</span></p>
 
-      <details class="call-drop">
-        <summary aria-label="call">📞</summary>
-        <p class="cta"><a href="/call/" data-i18n="home.callbtn">want to call with gabe maxxer? 📞</a></p>
-        <p class="cta"><a href="https://buymeacoffee.com/gabe.maxxing" target="_blank" rel="noreferrer" data-i18n="home.coffee">or just buy me a coffee ☕</a></p>
-      </details>
 
-      <nav aria-label="links">
-        <a href="/people/?id=gabe" data-i18n="nav.about">about</a>
-        <a href="/sidequests/" data-i18n="nav.sidequests">sidequests</a>
-        <a href="/now/" data-i18n="nav.now">now</a>
-        <a href="/music/" data-i18n="nav.music">music</a>
-        <a href="/support/" data-i18n="nav.support">support</a>
-        <a href="/wiki/">wiki</a>
-        <a href="https://stats.corvus.gent/">stats</a>
-      </nav>
 
-      <details class="share-drop">
-        <summary>share ↗</summary>
-        <div class="share-opts">
-          <button data-share="https://corvus.gent/self" data-what="site">corvus</button>
-          <button data-share="https://corvus.gent/links/gabe/self" data-what="gabe">gabe</button>
-        </div>
-        <p class="sub share-msg" id="share-msg"></p>
-      </details>
-      <p class="evolving" data-i18n="home.evolving"></p>
-      <p class="term-hint"><a href="#" data-terminal>&gt;_ <span data-i18n="term.hint">press any key</span></a></p>
-      <footer><span data-i18n="footer.deceased">corvus · deceased feb 2026 · revived nov 2026</span></footer>
+<h1>corvus</h1><a class="realm-enter" href="/realm/" data-i18n="realm.enter">enter the realm</a><a class="realm-skip" href="/realm/" data-i18n="realm.skip" hidden>skip to the realm →</a>
+
+
+      <p class="term-hint" hidden><a href="#" data-terminal>&gt;_ <span data-i18n="term.hint">press any key</span></a></p>
+
     </div>
   </main>
 
@@ -69,29 +48,7 @@
       document.getElementById("loc").classList.toggle("show");
     });
   </script>
-  <script>
-    let shareTimers = [];
-    let shareRedirectTimer;
-    document.querySelectorAll("[data-share]").forEach(b => b.addEventListener("click", async () => {
-      const url = b.dataset.share, msg = document.getElementById("share-msg");
-      clearTimeout(shareRedirectTimer);
-      if (b.dataset.what === "gabe") {
-        shareRedirectTimer = setTimeout(() => location.assign("/links/gabe"), 2000);
-      }
-      if (window.posthog?.capture) window.posthog.capture("share_click", { what: b.dataset.what });
-      try { await navigator.clipboard.writeText(url); } catch {
-        const t = document.createElement("textarea"); t.value = url; document.body.appendChild(t); t.select(); document.execCommand("copy"); t.remove();
-      }
-      shareTimers.forEach(clearTimeout);
-      msg.textContent = b.dataset.what === "gabe" ? "copied · opening Gabe’s links…" : "copied to clipboard";
-      msg.className = "sub share-msg show";
-      shareTimers = [
-        setTimeout(() => msg.classList.add("fade"), 5000),
-        setTimeout(() => msg.classList.add("gone"), 6000),
-        setTimeout(() => msg.classList.add("collapse"), 8000),
-      ];
-    }));
-  </script>
+  <script type="module" src="/js/portal.js"></script>
   <script type="module" src="/js/terminal.js"></script>
   <script src="/js/analytics.js"></script>
 </body>
