@@ -42,6 +42,13 @@ export default {
       "Buy Me a Coffee 和 Pidgy 预约都是链接，不是嵌入式表单。点击后适用各自的隐私政策。/links、/go 及推广短链接只添加 UTM 推广标签并统计访问和点击，不采集表单内容或访客身份。（统计仅在同意后进行）."
     ],
     [
+      "where",
+      "数据会去哪里",
+      "我们的 Vercel 函数配置在法兰克福（fra1）。静态文件和请求路由使用全球网络。PostHog EU 位于法兰克福。Redis 的迁移目标也是法兰克福；当前数据库区域和迁移结果仍需核实。",
+      "Resend 暂时保留为例外：计划从爱尔兰发送邮件，仍待核实账户设置，但邮件内容和日志存储在美国。从爱尔兰发送并不会改变存储地点。<a href=\"https://resend.com/docs/dashboard/domains/regions\" rel=\"noreferrer\">Resend</a>。",
+      "Vercel 是美国公司。其 <a href=\"https://vercel.com/legal/dpa\" rel=\"noreferrer\">Vercel DPA</a> 和 <a href=\"https://vercel.com/security\" rel=\"noreferrer\">EU–US Data Privacy Framework</a> 为跨境传输提供保障，但不代表所有供应商日志、支持访问或备份都留在欧盟。我们仍需确认账户设置和适用协议。"
+    ],
+    [
       "rights",
       "你的权利",
       "你可以通过邮件请求访问、更正、删除、限制处理或转移数据，也可以反对基于合法利益的处理。关闭播放器或页面即可撤回播放同意；已设置的 cookie 由 Spotify 管理。我们通常在一个月内回复。可能需要合理证据确认请求涉及你的数据；匿名汇总无法追溯到个人。",

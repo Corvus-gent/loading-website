@@ -42,6 +42,13 @@ export default {
       "Buy Me a Coffee und Pidgy sind links, keine eingebetteten formulare. nach dem anklicken gelten deren regeln. /links, /go und kampagnen-kurzlinks ergänzen nur UTM-kategorien und zählen besuche/klicks; sie erfassen weder formulare noch besucheridentitäten. (analytics nur mit einwilligung)."
     ],
     [
+      "where",
+      "wohin die daten gehen",
+      "unsere Vercel-funktionen sind für Frankfurt (fra1) konfiguriert. statische dateien und die weiterleitung von anfragen nutzen ein weltweites netz. PostHog EU liegt in Frankfurt. auch Redis soll nach Frankfurt; die aktuelle datenbankregion und der erfolgte umzug müssen noch geprüft werden.",
+      "Resend bleibt vorläufig eine ausnahme: Irland ist die geplante versandregion, noch im konto zu prüfen. mailinhalte und protokolle werden jedoch in den USA gespeichert. ein versand aus Irland ändert daran nichts. <a href=\"https://resend.com/docs/dashboard/domains/regions\" rel=\"noreferrer\">Resend</a>.",
+      "Vercel ist ein US-unternehmen. das <a href=\"https://vercel.com/legal/dpa\" rel=\"noreferrer\">Vercel DPA</a> und das <a href=\"https://vercel.com/security\" rel=\"noreferrer\">EU–US Data Privacy Framework</a> bieten garantien für übermittlungen; sie bedeuten nicht, dass sämtliche anbieterprotokolle, supportzugriffe oder sicherungskopien in der EU bleiben. kontoeinstellungen und geltende vereinbarungen sind noch zu bestätigen."
+    ],
+    [
       "rights",
       "deine rechte",
       "schreib mir für auskunft, berichtigung, löschung, einschränkung oder übertragbarkeit deiner daten oder einen widerspruch gegen verarbeitung auf grundlage berechtigten interesses. schließen von player oder seite widerruft die wiedergabeeinwilligung; bereits gesetzte cookies verwaltet Spotify. normalerweise antworten wir innerhalb eines monats. ein angemessener identitätsnachweis kann nötig sein; anonyme summen lassen sich dir nicht zuordnen.",

@@ -1,9 +1,8 @@
 // Signed session cookies for the private dashboard.
 import crypto from "node:crypto";
 import { redis } from "./_redis.js";
-import { serverSecret } from "./_privacy.js";
+import { sessionSecret as secret } from "./_secrets.js";
 
-const secret = () => { const verified = serverSecret(); return process.env.SESSION_SECRET || crypto.createHash("sha256").update("corvus" + (process.env.REDIS_URL && new URL(process.env.REDIS_URL).password ? process.env.REDIS_URL : verified)).digest("hex"); };
 export const sign = v => crypto.createHmac("sha256", secret()).update(v).digest("base64url");
 export const hash = v => crypto.createHash("sha256").update(v + secret()).digest("hex");
 export const safeEqual = (a, b) => typeof a === "string" && typeof b === "string" && Buffer.byteLength(a) === Buffer.byteLength(b) && crypto.timingSafeEqual(Buffer.from(a), Buffer.from(b));

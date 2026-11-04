@@ -231,9 +231,10 @@ to third parties; no analytics on private dashboard or music administration.
   storage, and retain this consent wording/version as evidence of the offered choice.
   No analytics event is sent without opt-in. Review actual processors and update all
   seven privacy translations with confirmed provider/retention details before publication.
-- Set a strong SESSION_SECRET (and optionally separate PRIVACY_SECRET/VOTE_SECRET)
-  in all environments. Existing signed sessions may need login again if their old
-  secret was the unsafe fallback. Require rediss:// or HTTPS REST for remote Redis;
+- For a new installation, set strong dedicated signing secrets. For this existing
+  deployment, pin the current values with tools/pin-redis-secrets.mjs before any
+  Redis change (see the Frankfurt runbook); do not casually rotate them mid-move.
+  Sessions using an old unsafe fallback may need a separate planned rotation. Require rediss:// or HTTPS REST for remote Redis;
   do not “fix” a deployment error by disabling transport encryption.
 - The historic all-time PostHog queries are limited by whatever event history is
   retained. Reducing retention to 90 days changes these numbers; export only safe
@@ -380,3 +381,80 @@ inventory item, not something this repository can enumerate as if it knew the
 actual log drains or backups.
 
 Preview validation: Vercel reported deployment success for `89d2d3f`; the secondary Netlify preview also built successfully. Production /privacy still returned 404 as expected before merge. Provider account settings remain unverified.
+
+## Frankfurt migration extension — 4 November 2026
+
+This extends the same daily PR. Gabriel approved **retaining Resend temporarily as
+an explicitly documented exception**: its Ireland sending region does not move
+email content/logs out of US storage. The site must not claim EU-only processing.
+
+| ID | Additional finding | Fix / remaining action |
+| --- | --- | --- |
+| P21 | Live functions execute in `iad1` (US), even though requests enter through `fra1`. | **Code fixed:** top-level `regions: ["fra1"]`. Dashboard setting, production deploy and uncached after-check pending. Static CDN/routing middleware remain global. |
+| P22 | Current Redis provider/host/region cannot be established without deployment credentials. | **Prepared, not migrated:** binary-safe SCAN + atomic DUMP/PTTL + RESTORE ABSTTL tool, dry-run default, count/content/expiry verification, isolated local tests. Gabriel must confirm current region and create Frankfurt database if necessary. |
+| P23 | Several cookie/OTP/game secrets fall back to Redis credentials; changing only the database can invalidate sessions/votes or change the daily puzzle. | **Fixed:** dedicated resolvers and a private-file pinning tool preserve each existing value before the environment changes; regression-tested across old/new credentials. Pinning in Vercel remains an operator step. |
+| P24 | Legacy Marketplace REST settings took priority over `REDIS_URL`, so a URL switch alone could keep using the old database. | **Fixed:** explicit `REDIS_URL` wins; legacy-only REST precedence is unchanged. Maintenance mode rejects all adapter commands/pipelines for a controlled pause. Old deployments/jobs must separately be stopped. |
+| P25 | `POSTHOG_HOST` could override the EU endpoint with a US/arbitrary host. | **Fixed:** only HTTPS `eu.posthog.com` accepted for server queries; a bad override fails closed before sending the query or key. Browser ingestion remains the existing EU host. |
+| P26 | An Irish mail-sending region could be described incorrectly as EU mail storage. | **Documented exception:** all seven privacy translations distinguish Resend sending from US content/log storage; actual domain sending region/account retention still require verification. |
+
+### Updated processor locations and transfer position
+
+- **Vercel:** code configures application functions in Frankfurt; live migration
+  not yet verified. Static delivery and routing use a global network, so request
+  metadata still reaches global infrastructure. Vercel is a US company; its
+  [DPA](https://vercel.com/legal/dpa) and published
+  [EU–US DPF participation](https://vercel.com/security) provide transfer
+  safeguards. Confirm the actual account agreement, log drains, retention, support
+  access and backups; do not interpret those safeguards as EU-only storage.
+- **Redis:** Frankfurt (`eu-central-1`) is the target. Current provider, effective
+  host, region, replicas/backups and completed migration remain **unverified**.
+  No secret or production URL was available in this working environment. Tools
+  use encrypted transport and never report keys, values, email addresses or URLs.
+  The operator's temporary copy is for the requested infrastructure move under
+  the same underlying purposes/bases as the original records; no retention reset.
+- **PostHog:** Cloud EU uses [Frankfurt](https://posthog.com/docs/privacy/data-storage).
+  Browser/server endpoints are EU, but project discard-IP and retention account
+  settings remain manual. Region pinning does not replace consent/minimisation.
+- **Resend:** retained by Gabriel's explicit choice. Ireland (`eu-west-1`) is the
+  intended sending region, pending domain/account confirmation; [sending-region
+  docs](https://resend.com/docs/dashboard/domains/regions) explicitly separate
+  this from US storage. Existing disclosed 30-day mail/log / 7-day backup retention
+  applies to Free/Pro/Scale per [Resend GDPR](https://resend.com/security/gdpr/);
+  actual plan and DPA/SCC/DPF safeguards still require account confirmation.
+- **Secondary Netlify previews:** remain a separate provider/deployment check;
+  Vercel's `regions` setting does not configure Netlify. Remove unused copies.
+
+### Migration operations and retention
+
+Follow [tools/EU_MIGRATION.md](tools/EU_MIGRATION.md) in order. Pin existing signing
+values before the URL changes, restrict all writers including historical deployment
+URLs, dry-run then copy with original absolute expirations, require successful
+verification, switch/deploy, check product flows and execution region, and retain
+the read-only old database for **7 days from the actual switch**. Then Gabriel
+removes it and applicable backups. During this window data requests cover both
+copies. A rollback after new writes needs reconciliation; the old copy is stale.
+The migration never modifies the source or automatically deletes either database.
+
+### Verification evidence
+
+- [Live before report](tests/results/eu-region-before.json): **Belgium confirmed**
+  by the site's coarse-country response. Five uncached samples per endpoint on
+  4 November 2026: `/api/auth` median **162 ms**, p95 **1096 ms**;
+  `/api/geo?country=1` median **155 ms**, p95 **235 ms**. All execution regions
+  `iad1`, ingress `fra1`. Total response time, including cold connection effects;
+  this is not Redis latency and no speedup is claimed yet.
+- Local Redis migration tests cover binary key/value data, strings, hashes, lists,
+  sets, sorted sets, streams with consumer groups, original TTL and persistence,
+  no-write dry-run, same-target/non-TLS/nonempty-target/unpaused-write refusal,
+  partial-copy resume, and count/value/expiry corruption detection. Source stays
+  unchanged. Dedicated disposable loopback databases 11/12 only.
+- Config tests cover signing-value stability, owner-only secret files outside the
+  repository, no overwrite/no secret logging, explicit URL versus legacy REST
+  selection, maintenance refusal, EU PostHog guard and the single fra1 region.
+- Existing privacy-data, all eight daily-game engines, geo aggregation and daily
+  country-stat checks pass after the refactor. Browser translation checks include
+  the new processing-location section in all seven languages.
+- **Not completed here:** production Redis location lookup/copy, Vercel account
+  changes, Resend domain-region check, production function after-check, or an
+  after-move Belgian latency comparison. These require the actual account/URLs
+  and deployment; no sample or preview success substitutes for them.

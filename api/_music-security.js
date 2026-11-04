@@ -1,11 +1,7 @@
 import crypto from 'node:crypto';
 import { redis } from './_redis.js';
-import { serverSecret } from './_privacy.js';
-const sign = value => {
-  const verified=serverSecret();
-  const secret=process.env.VOTE_SECRET || process.env.SESSION_SECRET || (process.env.REDIS_URL && new URL(process.env.REDIS_URL).password ? process.env.REDIS_URL : verified);
-  return crypto.createHmac('sha256', secret).update(value).digest('base64url');
-};
+import {musicVoteSecret} from './_secrets.js';
+const sign = value => crypto.createHmac('sha256',musicVoteSecret()).update(value).digest('base64url');
 export function readVoter(req) {
   const match = /(?:^|;\s*)mvid=([A-Za-z0-9_-]+)\.([A-Za-z0-9_-]+)/.exec(req.headers.cookie || '');
   if (!match) return null;

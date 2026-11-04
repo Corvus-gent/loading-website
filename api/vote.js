@@ -5,11 +5,12 @@
 // 4. per-IP limits (shared wifi friendly): 5 votes / day; daily, unlinkable network hashes
 import crypto from "node:crypto";
 import { redis, connected } from "./_redis.js";
-import { serverSecret, dailyIPHash, rateLimit } from "./_privacy.js";
+import { dailyIPHash, rateLimit } from "./_privacy.js";
+
+import {languageVoteSecret as secret} from "./_secrets.js";
 
 const BITS = 16;                     // proof-of-work difficulty (~65k hashes)
 const ORIGINS = ["https://corvus.gent", "https://www.corvus.gent"];
-const secret = () => { const verified = serverSecret(); return process.env.VOTE_SECRET || crypto.createHash("sha256").update(String(process.env.REDIS_URL && new URL(process.env.REDIS_URL).password ? process.env.REDIS_URL : verified)).digest("hex"); };
 
 const sign = v => crypto.createHmac("sha256", secret()).update(v).digest("base64url");
 const makeVoter = () => { const id = crypto.randomBytes(16).toString("base64url"); return `${id}.${sign(id)}`; };

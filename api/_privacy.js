@@ -6,17 +6,8 @@ export const LOG_RETENTION = 90 * DAY;
 export const VOTER_RETENTION = 365 * DAY;
 export const ORIGINS = ['https://corvus.gent', 'https://www.corvus.gent', 'https://stats.corvus.gent'];
 
-// Secrets never fall back to a public constant. Redis credentials are supported
-// for existing installations; a dedicated SESSION_SECRET is preferred.
-export function serverSecret() {
-  let value = process.env.PRIVACY_SECRET || process.env.SESSION_SECRET || process.env.VOTE_SECRET
-    || Object.entries(process.env).find(([key, value]) => /(?:REST_API_TOKEN|REDIS_REST_TOKEN)$/.test(key) && value)?.[1];
-  if (!value && process.env.REDIS_URL) {
-    try { if (new URL(process.env.REDIS_URL).password) value = process.env.REDIS_URL; } catch {}
-  }
-  if (!value) throw new Error('server secret missing');
-  return value;
-}
+import {serverSecret} from './_secrets.js';
+export {serverSecret} from './_secrets.js';
 
 export function dailyIPHash(req, scope = 'abuse', now = new Date()) {
   const day = now.toISOString().slice(0, 10);

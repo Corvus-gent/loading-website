@@ -42,6 +42,13 @@ export default {
       "Buy Me a Coffee y Pidgy son enlaces, no formularios integrados. sus políticas se aplican al visitarlos. /links, /go y nuestros atajos de campaña solo añaden etiquetas UTM y cuentan visitas/clics, sin captar formularios ni identidades. (analytics solo con consentimiento)."
     ],
     [
+      "where",
+      "adónde van los datos",
+      "nuestras funciones de Vercel están configuradas en Fráncfort (fra1). los archivos estáticos y el enrutamiento usan una red mundial. PostHog EU está en Fráncfort. Redis también tiene Fráncfort como destino; aún falta verificar su región actual y completar la migración.",
+      "Resend sigue como excepción temporal: Irlanda es la región de envío prevista, pendiente de comprobar en la cuenta, pero el contenido de los correos y los registros se guardan en EE. UU. enviar desde Irlanda no cambia eso. <a href=\"https://resend.com/docs/dashboard/domains/regions\" rel=\"noreferrer\">Resend</a>.",
+      "Vercel es una empresa estadounidense. su <a href=\"https://vercel.com/legal/dpa\" rel=\"noreferrer\">Vercel DPA</a> y el <a href=\"https://vercel.com/security\" rel=\"noreferrer\">EU–US Data Privacy Framework</a> ofrecen garantías para las transferencias; no significan que todos los registros, accesos de soporte o copias permanezcan en la UE. aún debemos confirmar la configuración y los acuerdos aplicables."
+    ],
+    [
       "rights",
       "tus derechos",
       "escríbeme para acceder, corregir, borrar, limitar o trasladar tus datos, u oponerte al tratamiento basado en interés legítimo. cerrar el reproductor o la página retira el consentimiento de reproducción; Spotify controla las cookies ya guardadas. normalmente respondemos en un mes. podemos pedir una prueba proporcionada de que los datos son tuyos; no podemos vincularte a totales anónimos.",

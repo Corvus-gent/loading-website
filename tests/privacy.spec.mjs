@@ -109,7 +109,7 @@ test('notice hides throughout gameplay and returns on completion',async({page})=
 });
 test('privacy page and Spotify disclosure support all seven languages',async({page})=>{
  const {errors}=await setup(page);
- for(const lang of Object.keys(strings)){await page.goto(`/privacy/?lang=${lang}`);await expect(page.locator('html')).toHaveAttribute('lang',lang);await expect(page.locator('#privacy-sections section')).toHaveCount(7);await expect(page.locator('#privacy-providers a')).toHaveCount(10);await expect(page.locator('#who')).toContainText('Francisco Gabriel Van Langenhove');await expect(page.locator('#privacy-title')).not.toBeEmpty();
+ for(const lang of Object.keys(strings)){await page.goto(`/privacy/?lang=${lang}`);await expect(page.locator('html')).toHaveAttribute('lang',lang);await expect(page.locator('#privacy-sections section')).toHaveCount(8);await expect(page.locator('#privacy-providers a')).toHaveCount(10);await expect(page.locator('#who')).toContainText('Francisco Gabriel Van Langenhove');await expect(page.locator('#privacy-title')).not.toBeEmpty();
   await page.goto(`/call/?lang=${lang}`);await expect(page.locator('[data-spotify-notice]')).toHaveText(strings[lang].spotify);
  }
  expect(errors).toEqual([]);

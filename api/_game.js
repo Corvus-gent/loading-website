@@ -1,4 +1,5 @@
 import crypto from 'node:crypto';
+import {gameSecret as secret} from './_secrets.js';
 import fs from 'node:fs';
 import sharp from 'sharp';
 import {redis,connected} from './_redis.js';
@@ -13,7 +14,6 @@ export const LAUNCH='2026-11-04';
 export const dateKey=(date=new Date())=>new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Brussels'}).format(date);
 export const number=day=>Math.max(1,Math.round((Date.parse(day)-Date.parse(LAUNCH))/86400000)+1);
 export const fold=s=>String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
-const secret=()=>process.env.GAME_SECRET||process.env.SESSION_SECRET||process.env.VOTE_SECRET||process.env.REDIS_URL||Object.entries(process.env).find(([k,v])=>/REST_API_TOKEN$/.test(k)&&v)?.[1];
 const choose=(day,label,arr)=>{if(!secret())throw Error('missing secret');return arr[crypto.createHmac('sha256',secret()).update(`${day}:${label}`).digest().readUInt32BE()%arr.length];};
 export function distance(a,b){const r=Math.PI/180,dlat=(b.lat-a.lat)*r,dlng=(b.lng-a.lng)*r;const km=Math.round(6371*2*Math.asin(Math.min(1,Math.sqrt(Math.sin(dlat/2)**2+Math.cos(a.lat*r)*Math.cos(b.lat*r)*Math.sin(dlng/2)**2))));const bearing=(Math.atan2(Math.sin(dlng)*Math.cos(b.lat*r),Math.cos(a.lat*r)*Math.sin(b.lat*r)-Math.sin(a.lat*r)*Math.cos(b.lat*r)*Math.cos(dlng))*180/Math.PI+360)%360;return {km,arrow:['↑','↗','→','↘','↓','↙','←','↖'][Math.round(bearing/45)%8],proximity:Math.max(0,Math.round(100-km/200))};}
 export function wordFeedback(guess,answer){const out=Array(5).fill('⬛'),pool=[...answer];[...guess].forEach((c,i)=>{if(c===answer[i]){out[i]='🟩';pool[i]=null;}});[...guess].forEach((c,i)=>{if(out[i]!=='🟩'){const j=pool.indexOf(c);if(j>=0){out[i]='🟨';pool[j]=null;}}});return out.join('');}

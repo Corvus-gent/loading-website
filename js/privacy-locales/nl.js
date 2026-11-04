@@ -42,6 +42,13 @@ export default {
       "Buy Me a Coffee en Pidgy-booking zijn links, geen ingebouwde formulieren. na doorklikken gelden hun privacyregels. /links, /go en onze campagnesnelkoppelingen voegen alleen campagnelabels (UTMs) toe en tellen bezoeken/klikken; ze verzamelen geen formulierinhoud of bezoekersidentiteiten. (analytics alleen met toestemming)."
     ],
     [
+      "where",
+      "waar de gegevens naartoe gaan",
+      "onze Vercel-functies zijn ingesteld op Frankfurt (fra1). statische bestanden en de routering van verzoeken gebruiken een wereldwijd netwerk. PostHog EU staat in Frankfurt. ook Redis moet naar Frankfurt; de huidige databaseregio en de uitgevoerde verhuis moeten nog worden gecontroleerd.",
+      "Resend blijft tijdelijk een uitzondering: Ierland is de beoogde verzendregio, nog te controleren in het account, maar mailinhoud en logs worden in de VS opgeslagen. een Ierse verzendregio verandert dat niet. <a href=\"https://resend.com/docs/dashboard/domains/regions\" rel=\"noreferrer\">Resend</a>.",
+      "Vercel is een Amerikaans bedrijf. de <a href=\"https://vercel.com/legal/dpa\" rel=\"noreferrer\">Vercel DPA</a> en het <a href=\"https://vercel.com/security\" rel=\"noreferrer\">EU–US Data Privacy Framework</a> bieden waarborgen voor doorgifte; dat betekent niet dat alle providerlogs, ondersteuning of back-ups in de EU blijven. onze accountinstellingen en toepasselijke overeenkomsten moeten nog worden bevestigd."
+    ],
+    [
       "rights",
       "jouw gegevens, jouw stem",
       "mail me voor inzage, correctie, verwijdering, beperking of overdraagbaarheid, of om bezwaar te maken tegen verwerking op basis van gerechtvaardigd belang. toestemming voor afspelen intrekken kan door de speler of pagina te sluiten; Spotify beheert cookies die het al plaatste. normaal antwoorden we binnen een maand. we kunnen beperkt bewijs vragen dat het om jouw gegevens gaat; anonieme totalen kunnen we niet naar jou herleiden.",
