@@ -30,6 +30,13 @@ export default {
       "Resend：美国存储；Free/Pro/Scale 邮件和日志保存 30 天，备份 7 天；Enterprise 可能不同。 <a href=\"https://resend.com/security/gdpr/\" rel=\"noreferrer\">Resend GDPR</a>."
     ],
     [
+      "sf",
+      "旧金山行程留言",
+      "提交 sf 表单后，只有 gabe 能在私人面板中查看你的姓名、联系方式、工作、活动、日期、地点和留言。这些信息用于安排你请求的见面，不用于营销。每条记录在提交 60 天后自动从 Redis 删除；标记完成不会延长保存时间。",
+      "副本会通过 Resend 发到 gabriel@corvus.gent，属于本页说明的美国存储例外。Resend 有自己的发送日志保存期限；gabe 必须在同样的 60 天内删除邮箱中的通知。你可以要求提前删除，即使用的是 x 用户名或 linkedin 主页。",
+      "签名的 vid cookie 也用于防止表单滥用；验证挑战在 5 分钟后失效，ip 哈希每天变化并在一天内到期，重试凭证在 24 小时后到期。首页纸条用 sessionStorage（sf-note:2026-11）保证每个标签页会话只出现一次。可选统计只记录操作次数，不记录表单内容。"
+    ],
+    [
       "browser",
       "浏览器里的少量信息",
       "必要 cookie：sess 保持登录；vid 防止语言投票重复；mvid 保存音乐投票和每日游戏进度。它们经过签名、安全传输，页面脚本无法读取。sess 在 7 天后过期，vid 和 mvid 在一年后过期。它们从不用于分析身份识别。",

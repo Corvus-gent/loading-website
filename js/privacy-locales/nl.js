@@ -30,6 +30,13 @@ export default {
       "Resend: opslag in de VS; mails/logs 30 dagen op Free/Pro/Scale, back-ups 7 dagen; Enterprise kan afwijken. <a href=\"https://resend.com/security/gdpr/\" rel=\"noreferrer\">Resend GDPR</a>."
     ],
     [
+      "sf",
+      "berichten voor de sf-trip",
+      "als je het sf-formulier verstuurt, kan alleen gabe je naam, contact, werk, plannen, datums, plaats en bericht zien in het privédashboard. we gebruiken dit om je gevraagde afspraak te regelen (uitvoering van je verzoek), niet voor marketing. elk formulierrecord verdwijnt automatisch uit Redis 60 dagen na inzending; afvinken verlengt dit niet.",
+      "een kopie gaat via Resend naar gabriel@corvus.gent, de beschreven uitzondering met opslag in de vs. Resend heeft een eigen bewaartermijn voor verzendlogs; gabe moet de melding binnen dezelfde 60 dagen uit zijn mailbox verwijderen. vraag gabe om eerdere verwijdering, ook als je een x-naam of linkedin-profiel gebruikte.",
+      "de ondertekende vid-cookie dient ook voor formulierbeveiliging; controles verlopen na 5 minuten, ip-hashes wisselen dagelijks en verlopen binnen een dag, ontvangstbewijzen voor nieuwe pogingen na 24 uur. het briefje gebruikt sessionStorage (sf-note:2026-11) om eenmaal per tabsessie te verschijnen. optionele analytics telt alleen briefje- en formulieracties, nooit je invoer."
+    ],
+    [
       "browser",
       "het kleine beetje in je browser",
       "noodzakelijke cookies: sess houdt je ingelogd; vid voorkomt dubbele taalstemmen; mvid onthoudt muziekstemmen en dagelijkse spelvoortgang. ze zijn ondertekend, beveiligd en niet leesbaar door paginascripts. sess vervalt na 7 dagen, vid en mvid na een jaar. we gebruiken ze nooit om je in analytics te herkennen.",

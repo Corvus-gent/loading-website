@@ -30,6 +30,13 @@ export default {
       "Resend: almacenamiento en EE. UU.; emails/registros 30 días en Free/Pro/Scale, copias 7 días; Enterprise puede variar. <a href=\"https://resend.com/security/gdpr/\" rel=\"noreferrer\">Resend GDPR</a>."
     ],
     [
+      "sf",
+      "mensajes del viaje a sf",
+      "si envías el formulario sf, solo gabe ve tu nombre, contacto, trabajo, planes, fechas, lugar y mensaje en el panel privado. se usan para organizar el encuentro solicitado (ejecución de tu petición), no para marketing. cada registro se borra automáticamente de Redis 60 días después del envío; marcarlo como hecho no alarga ese plazo.",
+      "se envía una copia a gabriel@corvus.gent mediante Resend, la excepción documentada de almacenamiento en ee. uu. Resend tiene su propia retención de registros; gabe debe borrar la notificación de su buzón dentro de esos mismos 60 días. puedes pedir borrarla antes, también si usaste un usuario de x o perfil de linkedin.",
+      "la cookie firmada vid también evita abusos del formulario; los retos caducan a los 5 minutos, los hashes ip cambian a diario y caducan en un día, y los recibos de reintento a las 24 horas. la nota usa sessionStorage (sf-note:2026-11) para mostrarse una vez por sesión de pestaña. las estadísticas opcionales cuentan acciones, nunca tus campos."
+    ],
+    [
       "browser",
       "en tu navegador",
       "cookies necesarias: sess mantiene la sesión; vid evita votos de idioma duplicados; mvid recuerda votos musicales y progreso diario. están firmadas, protegidas y no son accesibles a scripts. sess caduca en 7 días; vid y mvid en un año. nunca las usamos para identificarte en analytics.",

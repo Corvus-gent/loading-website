@@ -24,6 +24,8 @@
     "test:eu": "node tests/eu-config.mjs && node tests/redis-migration.mjs && node tests/region-probe.mjs",
     "test:x": "node tests/x-time.mjs && node tests/x-stats.mjs",
     "test:x:browser": "playwright test tests/x-stats.spec.mjs",
-    "test:vanity": "node tests/vanity-links.mjs"
+    "test:vanity": "node tests/vanity-links.mjs",
+    "test:sf": "REDIS_URL=redis://127.0.0.1:16380/9 SESSION_SECRET=sf-local-test node tests/sf-data.mjs",
+    "test:sf:browser": "SESSION_SECRET=sf-local-test playwright test tests/sf.spec.mjs"
   }
 }

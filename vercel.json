@@ -31,6 +31,10 @@
   ],
   "rewrites": [
     {
+      "source": "/api/sf",
+      "destination": "/api/stats?sf=1"
+    },
+    {
       "source": "/api/hit",
       "destination": "/api/stats?hit=1"
     },
@@ -74,7 +78,8 @@
       "includeFiles": "music.json"
     },
     "api/stats.js": {
-      "includeFiles": "music.json"
+      "includeFiles": "music.json",
+      "maxDuration": 60
     },
     "api/x-stats.js": {
       "maxDuration": 60

@@ -568,3 +568,29 @@ consent, handle an existing opt-in, retain unrelated params/fragments/history st
 and still propagate X slots after removing them from the visible URL. No production
 redirect claim is made before merge; Vercel's protected preview may intercept curl
 with its own login response.
+
+## SF trip extension · 4 November 2026
+
+| Surface / key | Data, purpose and ground | Retention / recipient |
+| --- | --- | --- |
+| `/sf` form → `/api/sf` | Name/contact, work, requested activities/days, venue, optional message; arranging the visitor's requested meeting (Request), no marketing use. | Only Gabriel's exact email session can read leads. Existing Vercel Frankfurt function / configured Redis; no new public data endpoint. |
+| `sf:lead:<random id>` | Only the submitted fields, creation date and done flag. | Individual 60-day expiry from creation; done updates keep TTL. |
+| `sf:leads` | Random-ID/timestamp index, no names or contact fields. | 60-day TTL; stale IDs pruned on read/write. Individual record expiry prevents sliding retention. |
+| Existing `vid` cookie | Reused signed anti-abuse identifier; not passed to analytics. Issued only when the form requests a challenge. | Existing Secure, HttpOnly, SameSite=Strict, /api, max one year; no new cookie name. |
+| `sf:challenge:<id>` | Random salt, difficulty, minimum time and signed-voter binding; Request/security LI. | Single use, 5 minutes. |
+| `sf:challenge-rate:<daily hash>` | Count, no raw IP. | 10 minutes. |
+| `sf:cool:v:<voter>`, `sf:cool:ip:<daily hash>` | Abuse-prevention cooldown counts. | 60 seconds. |
+| `sf:day:<daily hash>` | Accepted submission count; daily scoped HMAC, never raw IP. | Until next UTC midnight, at most 24 hours. |
+| `sf:receipt:<voter>:<random request id>` | Random lead ID only, prevents duplicate submissions. | 24 hours. |
+| `sf:mail:<id>`, `sf:outbox` | Pending/sent status and random-ID queue; delivery reliability. | 60 days, original lead lifetime; removed from queue on success. |
+| `sf:mail-lock:<id>` | Random concurrency token, no contact contents. | 30 seconds, normally deleted immediately. |
+| Resend notification / receiving mailbox | All form fields sent only to gabriel@corvus.gent; valid visitor email may be Reply-To. Request; existing disclosed Resend US-storage exception. | Existing Resend retention; receiving-mailbox 60-day deletion must be configured by Gabriel. Not enforceable by this repository. |
+| `sessionStorage['sf-note:2026-11']` | Boolean shown flag, no visitor ID; display preference to prevent repeated flight. | Browser tab session; feature hidden after trip cutoff regardless of flag. |
+| `sf_note_seen/open/click`, `sf_form_start/submit` | Optional consent-gated event counts and already-allowed campaign/page categories. | Existing PostHog retention; no form fields, contact, request/lead ID or cookie ID allowed in events. Private funnel only. |
+
+`/privacy` explains this in all seven languages and the notice version is updated.
+The signed `vid` reuse does not join leads to language votes in application data.
+Email and direct-ID deletion helpers remove records, delivery status and indexes;
+mailbox copies need separate deletion. Public replies contain no personal fields.
+There is no body logging, third-party browser embed, new analytics identifier or
+browser call to Resend/Redis. Static `sf.json` is owner-curated public event data.

@@ -30,6 +30,13 @@ export default {
       "Resend: US storage; 30-day email/log retention on Free/Pro/Scale, 7-day backups; Enterprise may differ. <a href=\"https://resend.com/security/gdpr/\" rel=\"noreferrer\">Resend GDPR</a>."
     ],
     [
+      "sf",
+      "sf trip messages",
+      "if you send the sf form, only gabe can view its name, contact, work, meeting choices, dates, place and message in the private dashboard. we use them to arrange the meeting you requested (performance of your request), not for marketing. each form record is automatically deleted from Redis 60 days after submission; marking it done does not extend this.",
+      "a copy is emailed to gabriel@corvus.gent through Resend, the documented US-storage exception. Resend has its own delivery-log retention; gabe must delete the notification from his mailbox within the same 60 days. contact gabe to request earlier deletion, including if you gave an x handle or linkedin profile instead of email.",
+      "the signed vid cookie is reused only for form abuse prevention; challenges expire after 5 minutes, rate-limit hashes change daily and expire within a day, and retry receipts expire after 24 hours. the homepage note uses sessionStorage (sf-note:2026-11) to appear once per browser tab session. optional analytics records only note/form action counts, never your fields."
+    ],
+    [
       "browser",
       "the small things in your browser",
       "necessary cookies: sess keeps you logged in; vid prevents duplicate language votes; mvid remembers music votes and daily-game progress. they are signed, secure and inaccessible to page scripts. sess expires after 7 days; vid and mvid after one year. they are never used to identify you in analytics.",

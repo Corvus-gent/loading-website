@@ -45,7 +45,7 @@ async function setup(page,{realSpotify=false}={}){
  return {requests,events,errors};
 }
 test.use({userAgent:'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15'});
-for(const path of ['/','/call/','/music/','/games/','/stats/','/stats/map/','/stats/games/','/stats/music/','/stats/pidgy/','/stats/hunt/','/stats/x/']){
+for(const path of ['/','/call/','/music/','/games/','/stats/','/stats/map/','/stats/games/','/stats/music/','/stats/pidgy/','/stats/hunt/','/stats/x/','/sf/']){
  test(`new visitor ${path}: no Spotify, no tracking cookies or remote libraries`,async({page,context})=>{
   const {requests,events,errors}=await setup(page);await page.goto(path);
   await page.waitForTimeout(1700);
@@ -57,7 +57,7 @@ for(const path of ['/','/call/','/music/','/games/','/stats/','/stats/map/','/st
   expect((await context.cookies()).map(c=>c.name).filter(name=>!['mvid','vid','sess'].includes(name))).toEqual([]);
   for(const cookie of await context.cookies()){expect(cookie.httpOnly).toBe(true);expect(cookie.secure).toBe(true);expect(cookie.sameSite).toBe('Strict');}
   const storage=await page.evaluate(()=>({local:Object.keys(localStorage),session:Object.keys(sessionStorage)}));
-  expect(storage.local.some(key=>/^ph_|posthog/i.test(key))).toBe(false);expect(storage.session).toEqual([]);
+  expect(storage.local.some(key=>/^ph_|posthog/i.test(key))).toBe(false);expect(storage.session.filter(key=>key!=='sf-note:2026-11')).toEqual([]);
   expect(errors).toEqual([]);
  });
 }
@@ -110,7 +110,7 @@ test('notice hides throughout gameplay and returns on completion',async({page})=
 });
 test('privacy page and Spotify disclosure support all seven languages',async({page})=>{
  const {errors}=await setup(page);
- for(const lang of Object.keys(strings)){await page.goto(`/privacy/?lang=${lang}`);await expect(page.locator('html')).toHaveAttribute('lang',lang);await expect(page.locator('#privacy-sections section')).toHaveCount(8);await expect(page.locator('#privacy-providers a')).toHaveCount(11);await expect(page.locator('#who')).toContainText('Francisco Gabriel Van Langenhove');await expect(page.locator('#privacy-title')).not.toBeEmpty();
+ for(const lang of Object.keys(strings)){await page.goto(`/privacy/?lang=${lang}`);await expect(page.locator('html')).toHaveAttribute('lang',lang);await expect(page.locator('#privacy-sections section')).toHaveCount(9);await expect(page.locator('#privacy-providers a')).toHaveCount(11);await expect(page.locator('#who')).toContainText('Francisco Gabriel Van Langenhove');await expect(page.locator('#privacy-title')).not.toBeEmpty();await expect(page.locator('#sf')).toContainText('60');
   await page.goto(`/call/?lang=${lang}`);await expect(page.locator('[data-spotify-notice]')).toHaveText(strings[lang].spotify);
  }
  expect(errors).toEqual([]);
@@ -237,4 +237,14 @@ test('cleanup preserves history state, functional queries and fragments on priva
  await page.goto('/stats/private/?UTM_SOURCE=linkedin&utm_custom=x&utm_custom=y&REF=partner&lang=nl&tab=login#code');
  await expect(page).toHaveURL(/\/stats\/private\/\?lang=nl&tab=login#code$/);
  expect(await page.evaluate(()=>history.state)).toEqual({marker:'keep'});expect(events).toEqual([]);expect(errors).toEqual([]);
+});
+test('SF opt-in analytics keeps campaign and action counts, never contact or form text',async({page})=>{
+ const {events,errors}=await setup(page);
+ await page.route('**/api/sf',r=>r.fulfill({json:r.request().postDataJSON()?.action==='challenge'?{challenge:{id:'a'.repeat(24),salt:'sf-privacy-fixture',bits:2,notBefore:Date.now()+3000},retryAfter:0}:{ok:true,retryAfter:60}}));
+ await page.goto('/sf/?utm_source=x&utm_campaign=gabe-sf-trip');await page.locator('#privacy-notice [data-allow]').click();
+ await expect.poll(()=>events.some(e=>e.event==='$pageview')).toBe(true);
+ const pv=events.find(e=>e.event==='$pageview');expect(pv.properties.utm_campaign).toBe('gabe-sf-trip');expect(pv.properties.$pathname).toBe('/sf/');expect(new URL(page.url()).search).toBe('');
+ await page.locator('[name=name]').fill('private-sf-person');await page.locator('[name=contact]').fill('private-sf@example.test');await page.locator('[name=message]').fill('private message never in analytics');await page.locator('[name=lets][value=coffee]').check();await page.locator('#sf-send').click();await expect(page.locator('#sf-success')).toBeVisible();
+ await expect.poll(()=>events.some(e=>e.event==='sf_form_submit')).toBe(true);expect(events.some(e=>e.event==='sf_form_start')).toBe(true);
+ const raw=JSON.stringify(events);for(const secret of ['private-sf-person','private-sf@example.test','private message never in analytics'])expect(raw).not.toContain(secret);expect(errors).toEqual([]);
 });

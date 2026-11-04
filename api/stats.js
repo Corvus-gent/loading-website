@@ -41,6 +41,7 @@ async function compute(day) {
 }
 
 export default async function handler(req, res) {
+  if(req.query.sf === "1") return (await import("./_sf.js")).default(req,res);
   if(req.query.hit === "1") return (await import("./_hit.js")).default(req,res);
   if(req.query.game === "1") return (await import("./_game.js")).default(req,res);
   if(req.query.section) return sections(req,res);

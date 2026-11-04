@@ -30,6 +30,13 @@ export default {
       "Resend : stockage aux États-Unis ; emails/journaux 30 jours sur Free/Pro/Scale, sauvegardes 7 jours ; Enterprise peut différer. <a href=\"https://resend.com/security/gdpr/\" rel=\"noreferrer\">Resend GDPR</a>."
     ],
     [
+      "sf",
+      "messages pour le voyage à sf",
+      "si tu envoies le formulaire sf, seul gabe peut voir ton nom, contact, activité, choix de rencontre, dates, lieu et message dans le tableau privé. ces données servent à organiser la rencontre demandée (exécution de ta demande), pas au marketing. chaque fiche est supprimée automatiquement de Redis 60 jours après l’envoi ; la marquer comme traitée ne prolonge pas ce délai.",
+      "une copie est envoyée à gabriel@corvus.gent via Resend, l’exception de stockage aux états-unis documentée ici. Resend applique sa propre conservation des journaux ; gabe doit supprimer la notification de sa boîte sous les mêmes 60 jours. contacte-le pour une suppression anticipée, même avec un pseudo x ou un profil linkedin.",
+      "le cookie signé vid sert aussi à éviter les abus du formulaire ; les défis expirent après 5 minutes, les empreintes ip changent chaque jour et expirent sous un jour, les reçus de nouvelle tentative sous 24 heures. le billet utilise sessionStorage (sf-note:2026-11) pour apparaître une fois par session d’onglet. les statistiques facultatives comptent les actions, jamais les champs."
+    ],
+    [
       "browser",
       "dans votre navigateur",
       "cookies nécessaires : sess maintient la connexion ; vid évite les doubles votes de langue ; mvid conserve votes musicaux et progression quotidienne. signés, sécurisés, inaccessibles aux scripts. sess expire après 7 jours, vid et mvid après un an. jamais utilisés comme identifiants analytics.",

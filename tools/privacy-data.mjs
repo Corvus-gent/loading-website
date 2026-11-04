@@ -18,7 +18,7 @@ const parse = raw => { try { return JSON.parse(raw); } catch { return null; } };
 export async function deleteUserData(email, { dryRun = false } = {}) {
   email = normal(email);
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) || email.length > 254) throw Error('a valid email is required');
-  const counts = { otp: 0, sessions: 0, logRecords: 0, legacyLogRecords: 0, guesses: 0, caches: 0 };
+  const counts = { otp: 0, sessions: 0, logRecords: 0, legacyLogRecords: 0, guesses: 0, sfLeads: 0, caches: 0 };
   const remove = async (key, type) => {
     if (Number(await redis(['EXISTS', key]))) { counts[type]++; if (!dryRun) await redis(['DEL', key]); }
   };
@@ -46,6 +46,11 @@ export async function deleteUserData(email, { dryRun = false } = {}) {
       counts.guesses++;
       if (!dryRun) await redis(['HDEL', key, field]);
     }
+  }
+  for await (const key of keys('sf:lead:*')) {
+    if(normal(parse(await redis(['GET',key]))?.contact)!==email)continue;
+    counts.sfLeads++;
+    if(!dryRun){const id=key.slice('sf:lead:'.length);await redis(['DEL',key,`sf:mail:${id}`,`sf:mail-lock:${id}`]);await redis(['ZREM','sf:leads',id]);await redis(['ZREM','sf:outbox',id]);}
   }
   for await (const key of keys('stats:private*')) await remove(key, 'caches');
   return counts;

@@ -7,6 +7,7 @@ async function setup(page,{data=snapshot.public,privateLog=false,fail=false}={})
  await page.route('**/api/**',async route=>{
   const req=route.request(),url=new URL(req.url());
   if(url.pathname==='/api/auth')return route.fulfill({json:{email:privateLog?'gabriel@corvus.gent':null}});
+  if(url.pathname==='/api/sf')return route.fulfill({json:{rows:[],total:0,page:1,pages:1,funnel:{}}});
   if(url.pathname==='/api/private-stats')return route.fulfill({json:{updated:'2026-11-04T12:00:00Z'}});
   if(url.pathname==='/api/x-stats'){
    if(fail)return route.fulfill({status:200,json:{ready:true,state:'unavailable'}});
@@ -38,7 +39,7 @@ test('mobile public page fits without horizontal overflow',async({page})=>{
  await page.setViewportSize({width:360,height:800});const {errors}=await setup(page);await page.goto('/stats/x/');await expect(page.locator('.x-heat')).toBeVisible();expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);await page.getByText('hourly numbers',{exact:true}).click();await expect(page.locator('details table')).toBeVisible();expect(errors).toEqual([]);
 });
 test('private 2,000-row table paginates, filters and guards sync feedback',async({page})=>{
- const {errors,requests}=await setup(page,{privateLog:true});await page.goto('/stats/private/');await expect(page.locator('#x-log .x-private-table tr')).toHaveCount(51);await expect(page.locator('#x-log > [role=status]')).toContainText('2000 rows');await page.getByRole('button',{name:'next →',exact:true}).click();await expect(page.locator('.x-pager')).toContainText('2 / 40');expect(requests.some(url=>url.includes('page=2'))).toBe(true);
+ const {errors,requests}=await setup(page,{privateLog:true});await page.goto('/stats/private/');await expect(page.locator('#x-log .x-private-table tr')).toHaveCount(51);await expect(page.locator('#x-log > [role=status]')).toContainText('2000 rows');await page.getByRole('button',{name:'next →',exact:true}).click();await expect(page.locator('#x-log .x-pager')).toContainText('2 / 40');expect(requests.some(url=>url.includes('page=2'))).toBe(true);
  await page.getByLabel('voice',{exact:true}).selectOption('dry');await page.getByLabel('region',{exact:true}).selectOption('sf');await page.getByLabel('date',{exact:true}).fill('2026-11-04');await page.getByRole('button',{name:'filter',exact:true}).click();await expect(page.locator('#x-log > [role=status]')).toContainText('1 rows');await expect(page.locator('#x-log .x-private-table tr')).toHaveCount(2);expect(requests.some(url=>url.includes('region=sf')&&url.includes('voice=dry')&&url.includes('date=2026-11-04'))).toBe(true);
  await page.getByRole('button',{name:'sync now'}).click();await expect(page.locator('#x-log > [role=status]')).toContainText('next sync in 2 min');expect(errors).toEqual([]);
 });

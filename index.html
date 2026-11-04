@@ -18,6 +18,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://corvus.gent/og.png" />
 <link rel="stylesheet" href="/privacy/privacy.css?v=202ae89baeff"><meta name="referrer" content="no-referrer">
+<link rel="stylesheet" href="/sf/note.css?v=ed9d5f6d5d7f">
 </head>
 <body class="portal">
   <main>
@@ -36,19 +37,7 @@
     </div>
   </main>
 
-  <script type="module">
-    import { initI18n } from "/js/i18n.js";
-    import { setFooterYear } from "/js/utils.js";
-    setFooterYear();
-    initI18n();
-    fetch("/location.json", { cache: "no-store" })
-      .then(r => r.json())
-      .then(d => { document.getElementById("city").textContent = d.city; })
-      .catch(() => {});
-    document.getElementById("hero").addEventListener("click", () => {
-      document.getElementById("loc").classList.toggle("show");
-    });
-  </script>
+  <script type="module" src="/js/home.js?v=baad844cb5b6"></script>
   <script type="module" src="/js/portal.js?v=56fa6aa5d4ce"></script>
   <script type="module" src="/js/terminal.js?v=1d0b918c0b1b"></script>
   <script src="/js/analytics.js?v=29cc2295c3ec"></script>
