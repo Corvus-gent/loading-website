@@ -28,6 +28,13 @@ export default async function handler(req, res) {
     res.setHeader('Allow', 'GET');
     return res.status(405).json({ error: 'method not allowed' });
   }
+  if (req.query?.country === '1') {
+    // Vercel supplies the coarse country code. Never return the IP or precise location.
+    res.setHeader('Cache-Control', 'private, no-store');
+    const code = req.headers?.['x-vercel-ip-country'];
+    const countryCode = typeof code === 'string' && /^[A-Z]{2}$/.test(code) && !['XX', 'ZZ'].includes(code) ? code : null;
+    return res.status(200).json({ countryCode });
+  }
   if (!posthogReady()) return res.status(503).json({ error: 'the lantern is out.' });
   try {
     let cached;

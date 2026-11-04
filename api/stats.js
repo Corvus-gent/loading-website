@@ -1,4 +1,4 @@
-// Public stats per day (Brussels time). Past days cached a week, today an hour.
+// Public stats per day (Brussels time). Past days cached a week, today five minutes.
 import sections from "./_stats-sections.js";
 import { redis, connected } from "./_redis.js";
 import { hogql, posthogReady, REAL } from "./_posthog.js";
@@ -12,7 +12,7 @@ async function compute(day) {
   const [[visitors]] = await hogql(`SELECT count(DISTINCT distinct_id) FROM events WHERE ${pv}`);
   const [[total]] = await hogql(`SELECT sum(c) FROM (SELECT count(DISTINCT distinct_id) c FROM events WHERE event = '$pageview' AND ${REAL} AND toDate(toTimeZone(timestamp, 'Europe/Brussels')) <= toDate('${day}') GROUP BY toDate(toTimeZone(timestamp, 'Europe/Brussels')))`);
   const hours = await hogql(`SELECT toHour(toTimeZone(timestamp, 'Europe/Brussels')) h, count(DISTINCT distinct_id) n FROM events WHERE ${pv} GROUP BY h ORDER BY h`);
-  const countries = await hogql(`SELECT coalesce(properties.$geoip_country_name, '?') c, count(DISTINCT distinct_id) n FROM events WHERE ${pv} GROUP BY c ORDER BY n DESC LIMIT 6`);
+  const countries = await hogql(`SELECT coalesce(nullIf(properties.corvus_country_code, ''), nullIf(properties.$geoip_country_code, ''), nullIf(properties.$geoip_country_name, ''), '?') c, count(DISTINCT distinct_id) n FROM events WHERE ${pv} GROUP BY c ORDER BY n DESC, c ASC LIMIT 300`);
   const sources = await hogql(`SELECT multiIf(properties.links_source IS NOT NULL, properties.links_source, properties.utm_source IS NOT NULL, properties.utm_source, properties.$referring_domain LIKE '%instagram%', 'instagram', properties.$referring_domain LIKE '%linkedin%' OR properties.$referring_domain = 'lnkd.in', 'linkedin', properties.$referring_domain LIKE '%tiktok%', 'tiktok', properties.$referring_domain LIKE '%facebook%', 'facebook', properties.$referring_domain LIKE '%discord%', 'discord', properties.$referring_domain IN ('t.co', 'x.com', 'twitter.com'), 'x', properties.$referring_domain IN ('$direct', '') OR properties.$referring_domain IS NULL, 'direct', properties.$referring_domain) s, count() n FROM events WHERE ${pv} AND coalesce(properties.$referring_domain, '') NOT LIKE '%corvus.gent' GROUP BY s ORDER BY n DESC LIMIT 6`);
   const browsers = await hogql(`SELECT coalesce(properties.$browser, '?') b, count(DISTINCT distinct_id) n FROM events WHERE ${pv} GROUP BY b ORDER BY n DESC LIMIT 6`);
   const pages = await hogql(`SELECT properties.$pathname p, count() n FROM events WHERE ${pv} GROUP BY p ORDER BY n DESC LIMIT 5`);
@@ -38,9 +38,9 @@ export default async function handler(req, res) {
   const today = tzDay();
   let day = String((req.query && req.query.day) || today);
   if (!/^\d{4}-\d{2}-\d{2}$/.test(day) || day < FIRST || day > today) day = today;
-  res.setHeader("Cache-Control", day === today ? "public, max-age=300" : "public, max-age=86400");
+  res.setHeader("Cache-Control", day === today ? "public, max-age=60" : "public, max-age=86400");
   try {
-    const key = `stats:v3:${day}`;
+    const key = `stats:v4:${day}`;
     let body = await redis(["GET", key]);
     if (!body) {
       const data = await compute(day);
@@ -55,7 +55,7 @@ export default async function handler(req, res) {
         data.unpaid_days = Math.floor((Date.now() - Date.parse("2026-10-15T12:40:00Z")) / 86400000);
       }
       body = JSON.stringify(data);
-      await redis(["SET", key, body, "EX", day === today ? "3600" : String(7 * 86400)]);
+      await redis(["SET", key, body, "EX", day === today ? "300" : String(7 * 86400)]);
     }
     return res.status(200).send(body);
   } catch {

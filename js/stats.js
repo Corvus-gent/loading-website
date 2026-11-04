@@ -1,3 +1,4 @@
+import {renderCountries, countryPeriod, countryStatsURL} from './stats-countries.js';
 const $ = id => document.getElementById(id);
 const bar = (n, max, w = 18) => n ? "█".repeat(Math.max(1, Math.round((n / Math.max(1, max)) * w))) : "";
 const names = new Intl.DisplayNames(["en"], { type: "language" });
@@ -36,10 +37,14 @@ async function render() {
   if (future) { $("fday").textContent = fmt(day); return; }
 
   $("visitors").textContent = "…";
+  $("countries-period").textContent = countryPeriod(day);
+  $("countries").textContent = 'counting visitors…';
+  const requestedDay = day;
   try {
-    const r = await fetch(`/api/stats?day=${day}`);
+    const r = await fetch(countryStatsURL(requestedDay));
     if (!r.ok) throw 0;
     const s = await r.json();
+    if (requestedDay !== day) return;
     $("visitors").textContent = s.visitors;
     $("visitors-line").textContent = day === TODAY
       ? (s.visitors === 1 ? "visitor today. just the one, so far." : `visitors today. so far, just ${s.visitors}.`)
@@ -48,7 +53,7 @@ async function render() {
     const max = Math.max(1, ...s.hours.map(h => h.n));
     const byHour = Object.fromEntries(s.hours.map(h => [h.h, h.n]));
     $("hours").textContent = Array.from({ length: 24 }, (_, h) => `${String(h).padStart(2, "0")}h ${bar(byHour[h] || 0, max)} ${byHour[h] || ""}`).join("\n");
-    rows("countries", s.countries, "c");
+    renderCountries($("countries"), s.countries);
     rows("sources", s.sources, "s");
     rows("pages", s.pages, "p");
     rows("browsers", s.browsers || [], "b");
@@ -63,9 +68,11 @@ async function render() {
     $("unpaid-sec").style.display = s.unpaid_days ? "block" : "none";
     if (s.votes) rows("votes", Object.entries(s.votes).sort((a, b) => b[1] - a[1]).slice(0, 5).map(([c, n]) => ({ c: names.of(c), n })), "c");
     if (s.unpaid_days) $("unpaid").textContent = `domain still unpaid: day ${s.unpaid_days}.`;
-    $("updated").textContent = `brussels time · updated every hour · last: ${new Date(s.updated).toLocaleString("en-GB", { timeZone: "Europe/Brussels" })}`;
+    $("updated").textContent = `brussels time · today refreshes every 5 minutes · last: ${new Date(s.updated).toLocaleString("en-GB", { timeZone: "Europe/Brussels" })}`;
   } catch {
+    if (requestedDay !== day) return;
     $("visitors").textContent = "…"; $("visitors-line").textContent = "the crow is still counting. come back soon.";
+    $("countries").textContent = 'country counts are unavailable. try again shortly.';
   }
 }
 
