@@ -1,0 +1,14 @@
+{
+  "fixture": "2,000 rows, latest 50 own posts; mobile 6x CPU, one targeted clock-page check; local cached API fixtures",
+  "results": [
+    {
+      "round": 1,
+      "phase": "clocks",
+      "path": "/stats/x/",
+      "score": 1,
+      "lcp": 1378.8899999999999,
+      "cls": 0,
+      "tbt": 66
+    }
+  ]
+}

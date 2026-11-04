@@ -63,6 +63,30 @@ Notion requires one Title property. Use `text` as Title, or retain a separate
 `entry` Title and make `text` a Text property. The sync never overwrites CSV content,
 URLs, titles, selections or dates; only the four sync-owned columns above.
 
+### One crow, two clocks
+
+The public X page and private X log show **BX / Brussels** in amber and
+**SF / San Francisco** in blue. Both clocks show their own date and local time;
+the gap follows the IANA timezones, including the weeks when Europe and the US
+change their clocks on different dates. They work even before Notion is connected.
+Open **plan across the pond** to enter a date/time in either city, see the other
+city's time, or return to live time. Repeated autumn hours have an explicit
+first/second choice; nonexistent spring hours ask for a valid time.
+
+**Import convention, pending confirmation from the actual CSV:** `date` and
+`hour` stay in Brussels time for all rows. `region=sf` selects the audience; it
+does not silently reinterpret the CSV as Pacific time. Ask Grok to export the
+posting date/hour in `Europe/Brussels`, even for the SF audience. If an existing
+CSV uses SF-local timestamps, convert those dates/hours before importing and use
+the resulting BX hour in the tracking slot. Do not relabel existing rows blindly.
+The private table and Gabe's own public posts show the corresponding SF date/time
+beside BX. A repeated BX hour without an offset shows both possible SF times.
+
+Today, the weekly boundary, date filter and all-time heat strip remain on the
+clearly labeled BX clock. The all-time strip is deliberately not shifted by
+"today's offset": historic entries can have different offsets. The planner is a
+local browser utility, with no external requests, extra storage or tracking.
+
 ## 3. Add Vercel variables and deploy
 
 Project → Settings → Environment Variables, at least **Production**:
