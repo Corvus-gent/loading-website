@@ -60,7 +60,7 @@ export function privacyEvent(event) {
   const properties = {
     token: p.token, distinct_id: '$posthog_cookieless', $cookieless_mode: true,
     $process_person_profile: false, $geoip_disable: true,
-    $host: category(p.$host, HOSTS, 'corvus.gent'),
+    $host: category(p.$host, HOSTS, 'other'),
     $pathname: pathCategory(p.$pathname), $current_url: safeURL(p.$current_url),
     $browser: category(p.$browser, BROWSERS, 'Other'),
     $device_type: category(p.$device_type, ['Desktop','Mobile','Tablet'], 'Other'),

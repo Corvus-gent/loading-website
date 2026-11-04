@@ -156,7 +156,7 @@ test('allow starts the real cookieless SDK; withdrawal stops capture and survive
  await expect(page.locator('#analytics-status')).toHaveText(strings.en.off);
  await page.locator('#analytics-allow').click();
  await expect.poll(()=>events.some(e=>e.event==='$pageview'),{timeout:12000}).toBe(true);
- const view=events.find(e=>e.event==='$pageview');expect(view.properties.$cookieless_mode).toBe(true);expect(view.properties.$process_person_profile).toBe(false);expect(view.properties.corvus_country_code).toBe('BE');
+ const view=events.find(e=>e.event==='$pageview');expect(view.properties.$host).toBe('other');expect(view.properties.$cookieless_mode).toBe(true);expect(view.properties.$process_person_profile).toBe(false);expect(view.properties.corvus_country_code).toBe('BE');
  for(const key of ['$session_id','$ip','$screen_width','$set'])expect(view.properties).not.toHaveProperty(key);
  expect((await context.cookies()).map(c=>c.name)).toEqual([]);
  expect(await page.evaluate(()=>Object.keys(localStorage))).toEqual(['analytics-consent']);

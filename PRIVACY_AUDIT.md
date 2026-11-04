@@ -28,6 +28,7 @@ cannot be inferred from source code. It is not a claim of legal certification.
 | P17 | A dismissal-only notice would imply that cookieless daily pseudonymous PostHog tracking needs no choice. | **Fixed:** no PostHog SDK, network, country enrichment or capture before affirmative consent. Equal allow/refuse choices, withdrawal on /privacy, versioned 180-day preference, GPC/DNT honoured. User explicitly authorized real opt-in if non-essential tracking remained. |
 | P18 | Public music stats call the personalized music API and create an unnecessary voter cookie/seen record. | **Fixed:** public=1 returns catalogue/aggregates without a voter cookie, IP hash or personal record. |
 | P19 | The tracked search index included text/base64 from a generated Playwright report and its trace viewer. | **Fixed:** explicit public-root allowlist in the generator; regenerated index contains no report/trace/internal pages and includes /privacy. Existing .vercelignore already excludes direct test-artifact deployment. Review historic published report fragments for any sensitive material and purge caches/history if needed. |
+| P20 | GitHub checks revealed a second Netlify deployment/preview integration, outside the Vercel production route. | **Documented/manual:** confirm its purpose, access/log retention and DPA; disable unused deployment copies. Main corvus.gent responds from Vercel. Unknown preview/local analytics hosts remain `other`, excluded by the production REAL filter. |
 | P15 | Hosting/processor logs, backups, transfers and project settings are outside the repository. | Manual verification required; see checklist. No raw-IP logging found in application code. |
 
 ## Meaning of the legal-basis labels
@@ -186,6 +187,7 @@ counts attributed to Corvus from a separate project; never return Pidgy identiti
 | Recipient | Data / trigger / purpose | Basis and retention |
 | --- | --- | --- |
 | Vercel | HTTPS IP/UA/request path needed to deliver site/APIs; coarse country header; potential hosting/security/access logs. Application handlers do not log bodies, emails, OTPs, cookies or raw IPs. | Request/security LI. Actual account log/backup retention and log drains **unverified**; minimise/disable raw-IP retention in account. Cannot promise source code controls infrastructure logs. |
+| Netlify (secondary deploy previews) | GitHub PR #11 also deployed `unique-snickerdoodle-103783`; visitors who open that separate preview contact Netlify with IP/UA/path. No request to Netlify is made by the main site. | Request/security LI for preview delivery; account access/log/backup retention and DPA unverified. Confirm whether this legacy integration is needed. |
 | Configured Redis provider | Above records over TLS/REST; Vercel server connection, not browser access. | Request/LI; application TTLs above; provider backups/regions/DPA need verification. |
 | PostHog EU / `eu.i.posthog.com`, `eu-assets.i.posthog.com` | Cookieless events only after analytics opt-in; SDK is now self-hosted, no eu-assets request. Network IP/UA received transiently for daily hash processing. Query API called server-side. | Consent; individual-event target 90d, actual account setting unverified. Discard IP and disable unused data capture. |
 | Resend / `api.resend.com` | Requested email address, login code and mail content sent server-side. | Request; Redis code 3min. Resend publishes US storage, 30-day email/log retention on Free/Pro/Scale, 7-day backups, Enterprise-specific terms. Confirm actual plan; contact Resend for early message deletion. Sending region does not change storage region. |
@@ -218,6 +220,7 @@ to third parties; no analytics on private dashboard or music administration.
 - Vercel: verify runtime/security/access logs and drains; disable unnecessary logs,
   redact IP/query data where supported and select the shortest available retention.
   Document any unavoidable provider retention instead of claiming “IPs never stored”.
+- Netlify: review the secondary deploy-preview integration, its access/log retention and DPA; disable unused public copies. Its policy link is https://www.netlify.com/privacy/. This was discovered from GitHub deployment checks, not inferred as a production processor.
 - Confirm actual Redis integration vendor/EU region, encryption, DPA and backup
   expiry. Run the retention migration against production after deploying code;
   expired/deleted records can remain in provider backups until their rotation ends.
@@ -353,7 +356,7 @@ identifier is saved. A daily cookieless pseudonym can correlate events within th
   `properties.token` (public project token, not a visitor secret),
   `distinct_id=$posthog_cookieless`, `$cookieless_mode=true`,
   `$process_person_profile=false`, `$geoip_disable=true`.
-- Coarse context: `$host` (three owned hosts only), `$pathname` (known route category),
+- Coarse context: `$host` (three owned hosts or other; preview/local hosts never become production), `$pathname` (known route category),
   `$current_url` (owned known path only, no query/fragment), `$browser` (allowlist),
   `$device_type` (Desktop/Mobile/Tablet/Other), `corvus_country_code` (country code),
   `$referring_domain` (known source category or direct/other).
@@ -375,3 +378,5 @@ credential is not returned in public responses. Application `console` logging ha
 no visitor-data sinks; provider request/access/error logs remain a manual account
 inventory item, not something this repository can enumerate as if it knew the
 actual log drains or backups.
+
+Preview validation: Vercel reported deployment success for `89d2d3f`; the secondary Netlify preview also built successfully. Production /privacy still returned 404 as expected before merge. Provider account settings remain unverified.
