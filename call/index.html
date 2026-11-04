@@ -6,8 +6,8 @@
   <meta name="color-scheme" content="dark" />
   <title>Call | corvus.gent</title>
   <link rel="icon" type="image/png" href="/logo.png" />
-  <link rel="stylesheet" href="/styles.css" />
-  <link rel="stylesheet" href="/people/styles.css" />
+  <link rel="stylesheet" href="/styles.css?v=8da4ddf17660" />
+  <link rel="stylesheet" href="/people/styles.css?v=1b7535a5d1d1" />
   <meta name="description" content="Book a free 15-min call with Gabriel." />
   <meta property="og:title" content="Call | corvus.gent" />
   <meta property="og:description" content="Book a free 15-min call with Gabriel." />
@@ -40,7 +40,7 @@
       <div class="lang-switcher" id="lang-switcher"></div>
       <div class="tag"><a href="/">corvus.gent</a> / call</div>
       <h1 data-i18n="call.title">Call</h1>
-      <p class="sub" data-i18n="call.who"></p>
+      <p class="sub" data-i18n="call.who">competitive baby GTM entrepreneur, upcoming business philosopher and social media engineer maxxer. always looking for opportunities.</p>
 
       <div class="deck" id="deck">
         <button class="vinyl" id="vinyl" aria-label="play / pause Hotline Bling" aria-pressed="false">
@@ -66,7 +66,7 @@
         <a id="coffee-link" class="btn btn-ghost" href="#" target="_blank" rel="noreferrer">☕ <span data-i18n="call.coffee">buy me a coffee</span></a>
       </section>
 
-      <footer>© <span id="y"></span> corvus</footer>
+      <p class="puzzle-note"><a href="/games/">🕯 today’s puzzle is waiting →</a></p><footer>© <span id="y"></span> corvus</footer>
     </div>
   </main>
   <script type="module">
@@ -83,7 +83,7 @@
     // Hotline Bling: official Spotify embed (no audio hosted here). Still by default, click = spin + play, click again = stop.
     (function () {
       var vinyl = document.getElementById("vinyl"), deck = document.getElementById("deck"),
-          wrap = document.getElementById("spotify-wrap"), ctrl = null, playing = false, pending = false;
+          wrap = document.getElementById("spotify-wrap"), ctrl = null, playing = false, pending = false, loaded = false;
       function set(on) {
         playing = on;
         vinyl.classList.toggle("spinning", on);
@@ -105,16 +105,15 @@
       };
       vinyl.addEventListener("click", function () {
         wrap.classList.add("open");
+        if(!loaded){loaded=true;var s=document.createElement("script");s.src="https://open.spotify.com/embed/iframe-api/v1";s.async=true;document.body.appendChild(s);s.onerror=function(){loaded=false;set(false);};}
         if (playing) { set(false); if (ctrl) ctrl.pause(); return; }
         set(true);
         if (ctrl) ctrl.resume(); else pending = true;
         if (window.posthog) try { posthog.capture("vinyl_play"); } catch (e) {}
       });
-      var s = document.createElement("script");
-      s.src = "https://open.spotify.com/embed/iframe-api/v1"; s.async = true;
-      document.body.appendChild(s);
+
     })();
   </script>
-  <script src="/js/analytics.js"></script>
+  <script src="/js/analytics.js?v=1fa4c19f43d5"></script>
 </body>
 </html>

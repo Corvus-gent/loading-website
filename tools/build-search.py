@@ -3,14 +3,13 @@
 Run after content changes:  python3 tools/build-search.py"""
 import glob, html, json, re
 
-i18n = open("js/i18n.js", encoding="utf-8").read()
-EN = {m.group(1): m.group(2) for m in re.finditer(r'"([\w.]+)":\s*\{[^}]*?\ben:\s*"((?:[^"\\]|\\.)*)"', i18n)}
+EN = json.loads(open("js/locales/en.js", encoding="utf-8").read().removeprefix("export default ").rstrip(";\n"))
 people = json.load(open("people/people.json", encoding="utf-8"))["members"][0]
 
 TITLES = {"/": "home", "/gabe": "gabe · about me"}
 pages = []
 for f in sorted(glob.glob("**/index.html", recursive=True)):
-    if f.startswith(("clients/", "go/", "gabe/", "node_modules/", "music/admin/")): continue
+    if f.startswith(("clients/", "go/", "gabe/", "node_modules/", "music/admin/", "402/", "stats/private/", "stats/hunt/")): continue
     url = "/" + f[:-len("index.html")]
     if url == "/people/": url_title = "army · join the people"
     src = open(f, encoding="utf-8").read()
@@ -21,7 +20,7 @@ for f in sorted(glob.glob("**/index.html", recursive=True)):
     text += " " + " ".join(EN.get(k, "") for k in keys)
     title = re.search(r"<title>(.*?)</title>", src)
     title = (title.group(1).split("|")[0].strip() if title else url).lower()
-    if url == "/stats/": url = "https://stats.corvus.gent/"
+    if url.startswith("/stats/"): url = "https://stats.corvus.gent/" + url[len("/stats/"): ]
     if url == "/people/":
         pages.append({"title": "gabe · about me", "url": "/gabe", "text": re.sub(r"<[^>]+>", " ", people["about"]["en"]) + " " + " ".join(EN.get(k, "") for k in ["profile.languages"]) + " " + " ".join(r["text"] for r in people.get("research", []))})
         title = "army · join the people"

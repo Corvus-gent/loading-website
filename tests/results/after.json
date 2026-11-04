@@ -1,0 +1,79 @@
+[
+  {
+    "path": "/",
+    "status": 200,
+    "lcp": 644,
+    "cls": 0,
+    "long": 81
+  },
+  {
+    "path": "/realm/",
+    "status": 200,
+    "lcp": 520,
+    "cls": 0,
+    "long": 64
+  },
+  {
+    "path": "/music/",
+    "status": 200,
+    "lcp": 2060,
+    "cls": 0.018842753226199174,
+    "long": 68
+  },
+  {
+    "path": "/call/",
+    "status": 200,
+    "lcp": 756,
+    "cls": 0,
+    "long": 67
+  },
+  {
+    "path": "/games/",
+    "status": 200,
+    "lcp": 580,
+    "cls": 0.02113172632091551,
+    "long": 85
+  },
+  {
+    "path": "/stats/",
+    "status": 200,
+    "lcp": 1560,
+    "cls": 0,
+    "long": 70
+  },
+  {
+    "path": "/stats/pidgy/",
+    "status": 200,
+    "lcp": 572,
+    "cls": 0,
+    "long": 66
+  },
+  {
+    "path": "/stats/games/",
+    "status": 200,
+    "lcp": 568,
+    "cls": 0,
+    "long": 66
+  },
+  {
+    "path": "/stats/map/",
+    "status": 200,
+    "lcp": 780,
+    "cls": 0,
+    "long": 66
+  },
+  {
+    "path": "/stats/music/",
+    "status": 200,
+    "lcp": 564,
+    "cls": 0,
+    "long": 66
+  },
+  {
+    "path": "/stats/hunt/",
+    "status": 200,
+    "lcp": 572,
+    "cls": 0,
+    "long": 68
+  }
+]

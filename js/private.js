@@ -3,6 +3,7 @@ const post = body => fetch("/api/auth", { method: "POST", credentials: "same-ori
 let email = "";
 
 const TITLES = {
+  outbound: ["outbound links", ["page", "host", "link", "clicks"]],
   funnel: ["per platform & post", ["source", "post", "views", "clicks", "pidgy", "trial", "qr"]],
   links: ["clicks per link", ["link", "clicks"]],
   pidgy_out: ["short links out (pidgy)", ["source", "campaign", "n"]],

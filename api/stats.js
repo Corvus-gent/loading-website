@@ -1,4 +1,5 @@
 // Public stats per day (Brussels time). Past days cached a week, today an hour.
+import sections from "./_stats-sections.js";
 import { redis, connected } from "./_redis.js";
 import { hogql, posthogReady, REAL } from "./_posthog.js";
 
@@ -31,6 +32,8 @@ async function compute(day) {
 }
 
 export default async function handler(req, res) {
+  if(req.query.game === "1") return (await import("./_game.js")).default(req,res);
+  if(req.query.section) return sections(req,res);
   if (!connected() || !posthogReady()) return res.status(503).json({ error: "stats not connected yet" });
   const today = tzDay();
   let day = String((req.query && req.query.day) || today);

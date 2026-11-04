@@ -37,13 +37,14 @@ export default function middleware(request) {
 
   if (url.hostname === "stats.corvus.gent") {
     if (url.pathname === "/") return rewrite(new URL("/stats/", url));
+    if (/^\/(pidgy|games|map|music|hunt)\/?$/.test(url.pathname)) return rewrite(new URL(`/stats/${url.pathname.split("/")[1]}/`, url));
     if (url.pathname.startsWith("/private")) return rewrite(new URL("/stats/private/", url));
-    if (url.pathname.startsWith("/stats")) return Response.redirect(new URL(url.pathname.replace(/^\/stats/, "") || "/", url), 308);
+    if (/^\/stats(?:\/|$)/.test(url.pathname)) return Response.redirect(new URL((url.pathname.replace(/^\/stats/, "") || "/") + url.search, url), 308);
     return next();
   }
-  if (url.pathname.startsWith("/stats")) {
+  if (/^\/stats(?:\/|$)/.test(url.pathname)) {
     const rest = url.pathname.replace(/^\/stats\/?/, "");
-    return Response.redirect(`https://stats.corvus.gent/${rest.startsWith("private") ? "private" : ""}`, 308);
+    return Response.redirect(`https://stats.corvus.gent/${rest}${url.search}`, 308);
   }
   return next();
 }
