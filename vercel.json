@@ -28,6 +28,18 @@
   ],
   "rewrites": [
     {
+      "source": "/games/data/:path*",
+      "destination": "/404.html"
+    },
+    {
+      "source": "/api/game/:path*",
+      "destination": "/api/stats?game=1"
+    },
+    {
+      "source": "/api/game",
+      "destination": "/api/stats?game=1"
+    },
+    {
       "source": "/cv",
       "destination": "/api/cv"
     },
@@ -53,6 +65,9 @@
     },
     "api/music-admin.js": {
       "includeFiles": "music.json"
+    },
+    "api/stats.js": {
+      "includeFiles": "{games/data/**,music.json}"
     }
   }
 }

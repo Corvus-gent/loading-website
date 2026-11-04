@@ -66,7 +66,7 @@
         <a id="coffee-link" class="btn btn-ghost" href="#" target="_blank" rel="noreferrer">☕ <span data-i18n="call.coffee">buy me a coffee</span></a>
       </section>
 
-      <footer>© <span id="y"></span> corvus</footer>
+      <p class="puzzle-note"><a href="/games/">🕯 today’s puzzle is waiting →</a></p><footer>© <span id="y"></span> corvus</footer>
     </div>
   </main>
   <script type="module">
@@ -83,7 +83,7 @@
     // Hotline Bling: official Spotify embed (no audio hosted here). Still by default, click = spin + play, click again = stop.
     (function () {
       var vinyl = document.getElementById("vinyl"), deck = document.getElementById("deck"),
-          wrap = document.getElementById("spotify-wrap"), ctrl = null, playing = false, pending = false;
+          wrap = document.getElementById("spotify-wrap"), ctrl = null, playing = false, pending = false, loaded = false;
       function set(on) {
         playing = on;
         vinyl.classList.toggle("spinning", on);
@@ -105,14 +105,13 @@
       };
       vinyl.addEventListener("click", function () {
         wrap.classList.add("open");
+        if(!loaded){loaded=true;var s=document.createElement("script");s.src="https://open.spotify.com/embed/iframe-api/v1";s.async=true;document.body.appendChild(s);s.onerror=function(){loaded=false;set(false);};}
         if (playing) { set(false); if (ctrl) ctrl.pause(); return; }
         set(true);
         if (ctrl) ctrl.resume(); else pending = true;
         if (window.posthog) try { posthog.capture("vinyl_play"); } catch (e) {}
       });
-      var s = document.createElement("script");
-      s.src = "https://open.spotify.com/embed/iframe-api/v1"; s.async = true;
-      document.body.appendChild(s);
+
     })();
   </script>
   <script src="/js/analytics.js"></script>

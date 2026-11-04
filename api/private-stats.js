@@ -8,6 +8,7 @@ const rows = r => r.map(x => x);
 async function compute() {
   const q = async (name, sql) => [name, rows(await hogql(sql))];
   const parts = await Promise.all([
+    q("outbound", `SELECT properties.path, properties.host, properties.href, count() n FROM events WHERE event='outbound_click' AND ${REAL} GROUP BY 1,2,3 ORDER BY n DESC LIMIT 100`),
     q("funnel", `SELECT properties.links_source s, properties.links_campaign c, countIf(event = '$pageview') views, countIf(event = 'links_click') clicks, countIf(event = 'links_click' AND properties.link IN ('pidgy', 'pidgy-trial')) pidgy, countIf(event = 'links_click' AND properties.link = 'pidgy-trial') trial, countIf(event = 'links_qr_open') qr FROM events WHERE properties.links_source IS NOT NULL AND ${REAL} GROUP BY s, c ORDER BY views DESC LIMIT 40`),
     q("links", `SELECT properties.link l, count() n FROM events WHERE event = 'links_click' AND ${REAL} GROUP BY l ORDER BY n DESC`),
     q("pidgy_out", `SELECT properties.source s, properties.campaign c, count() n FROM events WHERE event = 'short_link_out' AND ${REAL} GROUP BY s, c ORDER BY n DESC LIMIT 20`),

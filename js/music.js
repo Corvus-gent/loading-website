@@ -81,6 +81,7 @@ function closePlayer() {controller?.destroy?.();controller=null;spotifyReady=fal
 async function play(id) {
   const track=trackById(id); if(!track) return;
   current=id; playbackEnded=false;
+  window.posthog?.capture("music_play",{track:id,genre:track.genre,artist:track.artist});
   $('now-title').textContent=track.title; $('now-artist').textContent=track.artist || t('m.unknown');
   document.querySelectorAll('.track-row').forEach(el=>el.classList.toggle('current',el.dataset.track===id));
   const links=providers(track), spotify=links[0],apple=links[1];
@@ -188,3 +189,5 @@ function focusShared() {
 }
 focusShared();window.addEventListener('hashchange',focusShared);
 if(new URLSearchParams(location.search).get('view')==='map'&&!lightDevice){await setView(true);$('genre-atlas').scrollIntoView({block:'start'});}
+
+const artistQuery=new URLSearchParams(location.search).get('artist');if(artistQuery){$('search').value=artistQuery;render();}

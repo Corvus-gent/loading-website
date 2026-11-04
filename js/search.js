@@ -3,6 +3,8 @@
  */
 
 const INDEX = [
+  { title:"the realm",url:"/realm/",keys:"home portal navigation" },
+  { title:"daily games",url:"/games/",keys:"games puzzle daily babel borders wordle flags combo bangle pingle lantern" },
   { title: "stats · live numbers", url: "https://stats.corvus.gent/", keys: "stats analytics visitors numbers dashboard" },
   { title: "wiki · corvuspedia", url: "/wiki/", keys: "wiki wikipedia encyclopedia corvuspedia" },
   { title: "wiki · what is a corvus?", url: "/wiki/corvus/", keys: "corvus crow bird studio" },

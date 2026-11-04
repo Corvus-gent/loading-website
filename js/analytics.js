@@ -34,3 +34,5 @@ if (!POSTHOG_KEY.startsWith("phc_REPLACE")) {
 }
 
 import("/js/performance.js");
+
+import("/js/outbound.js");
