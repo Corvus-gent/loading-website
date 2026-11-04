@@ -5,6 +5,7 @@ async function openGame(page, type='babel') {
   const posted=[], errors=[];
   page.on('pageerror',error=>errors.push(error.message));
   page.on('console',message=>{if(message.type()==='error')errors.push(message.text());});
+  await page.route('**/js/vendor/posthog-*.min.js',route=>route.fulfill({contentType:'text/javascript',body:''}));
   await page.addInitScript(type=>{
     localStorage.setItem('lang','en');
     localStorage.setItem(`game-help:${type}`,'1');

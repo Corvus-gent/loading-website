@@ -1,46 +1,64 @@
-/**
- * PostHog analytics (cookieless: no consent banner needed).
- * Paste the project API key of a personal PostHog project below.
- */
-const POSTHOG_KEY = "phc_tqJYxREMXWjzQusx6xNPuEa2fNCzKmVpAURSHKnVbpro";
-const POSTHOG_HOST = "https://eu.i.posthog.com";
-
-if (!POSTHOG_KEY.startsWith("phc_REPLACE")) {
-  // Cookieless PostHog does not enrich GeoIP; attach only Vercel's country code.
-  const country = fetch('/api/geo?country=1', {cache: 'no-store', signal: AbortSignal.timeout(2000)})
-    .then(response => response.ok ? response.json() : null).catch(() => null);
-  const s = document.createElement("script");
-  s.src = "https://eu-assets.i.posthog.com/static/array.js";
-  s.async = true;
-  s.onload = async () => {
-    const geo = await country;
-    window.posthog.init(POSTHOG_KEY, {
-      api_host: POSTHOG_HOST,
-      cookieless_mode: "always",
-      disable_session_recording: true,
-      capture_pageview: true,
-      autocapture: true,
-      loaded: ph => {
-        const props = {...window.__phProps};
-        if (/^[A-Z]{2}$/.test(geo?.countryCode || '')) props.corvus_country_code = geo.countryCode;
+// Opt-in cookieless counting with an explicit payload allowlist; no form/DOM capture.
+(async () => {
+  const {privacyEvent, sourceCategory, campaignCategory, pathCategory, safeURL} = await import('/js/analytics-policy.js');
+  import('/js/performance.js');
+  import('/js/outbound.js');
+  const {analyticsAllowed}=await import('/js/analytics-consent.js');
+  let started=false,stopped=false,transport;
+  const privatePage = /^\/(?:stats\/)?private(?:\/|$)/.test(location.pathname) || /^\/music\/admin(?:\/|$)/.test(location.pathname);
+  if (privatePage) return;
+  function sync(){
+    if(!analyticsAllowed()){
+      if(started){stopped=true;transport.abort();window.posthog?.set_config?.({before_send:()=>null});window.posthog?.shutdown?.();}
+      return;
+    }
+    if(stopped){location.reload();return;}
+    if(started)return;
+    started=true;transport=new AbortController();
+    start();
+  }
+  function start(){
+  const country = fetch('/api/geo?country=1', {cache:'no-store',signal:AbortSignal.timeout(2000)})
+    .then(r=>r.ok?r.json():null).catch(()=>null);
+  const s=document.createElement('script');
+  s.src='/js/vendor/posthog-1.445.3.min.js'; s.async=true;
+  s.onload=async()=>{
+    const geo=await country;
+    if(!analyticsAllowed()||stopped)return;
+    window.posthog.init('phc_tqJYxREMXWjzQusx6xNPuEa2fNCzKmVpAURSHKnVbpro', {
+      api_host:'https://eu.i.posthog.com', cookieless_mode:'always', person_profiles:'never',
+      persistence:'memory', disable_persistence:true, ip:false, respect_dnt:true, debug:false,
+      autocapture:false, capture_pageview:false, capture_pageleave:false,
+      capture_heatmaps:false, capture_performance:false, capture_dead_clicks:false, rageclick:false,
+      disable_session_recording:true, session_recording:{maskAllInputs:true,maskTextSelector:'*'},
+      mask_all_text:true, mask_all_element_attributes:true, mask_personal_data_properties:true,
+      disableDeviceModel:true, disable_surveys:true, disable_conversations:true, disable_product_tours:true,
+      disable_web_experiments:true, disable_external_dependency_loading:true,
+      advanced_disable_flags:true, advanced_disable_feature_flags:true, enable_recording_console_log:false,
+      capture_exceptions:false, save_campaign_params:false, save_referrer:false,
+      // Always mode ignores SDK opt_out. Gate capture ourselves and abort the
+      // fetch transport on withdrawal, including queued retries. No beacon fallback.
+      request_batching:false, api_transport:'fetch', disable_beacon:true,
+      fetch_options:{signal:transport.signal,credentials:'omit',keepalive:false,referrerPolicy:'no-referrer'},
+      before_send:event=>analyticsAllowed()?privacyEvent(event):null,
+      loaded:ph=>{
+        const props={...window.__phProps};
+        const query=new URLSearchParams(location.search);
+        if(query.has('utm_source')) props.utm_source=sourceCategory(query.get('utm_source'));
+        if(query.has('utm_campaign')) props.utm_campaign=campaignCategory(query.get('utm_campaign'));
+        if(query.has('utm_medium')) props.utm_medium=query.get('utm_medium');
+        if(/^[A-Z]{2}$/.test(geo?.countryCode||'')) props.corvus_country_code=geo.countryCode;
         ph.register(props);
+        ph.capture('$pageview');
       },
     });
   };
   document.head.appendChild(s);
-
-  // One clear event per link click: easy "clicks per day" per link
-  document.addEventListener("click", e => {
-    const a = e.target.closest("a");
-    if (!a || !window.posthog?.capture) return;
-    window.posthog.capture("link_click", {
-      link_text: a.textContent.trim(),
-      link_href: a.getAttribute("href"),
-      page: location.pathname + location.search,
-    });
+  }
+  window.addEventListener('analytics-consent-change',sync);
+  sync();
+  document.addEventListener('click', e=>{
+    const a=e.target.closest('a');
+    if (a&&analyticsAllowed()) window.posthog?.capture('link_click',{link_href:safeURL(a.href),page:pathCategory(location.pathname)});
   });
-}
-
-import("/js/performance.js");
-
-import("/js/outbound.js");
+})();

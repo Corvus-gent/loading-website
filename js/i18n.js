@@ -1,3 +1,4 @@
+import {readPreference,savePreference} from './storage.js';
 import "./eggs.js";
 import { renderSearch } from "./search.js";
 /**
@@ -13,7 +14,7 @@ export const LANGS = [
 let STRINGS = (await import(`./locales/${getLang()}.js`)).default;
 
 function savedLang() {
-  try { return localStorage.getItem("lang"); } catch { return null; }
+  return readPreference("lang");
 }
 
 export function getLang() {
@@ -63,7 +64,7 @@ export function renderSwitcher(onChange) {
     if (code === current) a.className = "active";
     a.addEventListener("click", async e => {
       e.preventDefault();
-      try { localStorage.setItem("lang", code); } catch {}
+      savePreference("lang", code);
       const url = new URL(location.href);
       url.searchParams.set("lang", code);
       history.replaceState(null, "", url);
@@ -102,7 +103,6 @@ function renderCornerNav() {
 }
 
 export function initI18n(onChange) {
-  try { localStorage.setItem("lang", getLang()); } catch {}
   applyI18n();
   renderSwitcher(onChange);
   renderCornerNav();

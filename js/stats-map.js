@@ -3,7 +3,7 @@ export function mergeLocations(cities, zoom) {
   const level = zoom < 4 ? 'country' : zoom < 7 ? 'region' : 'city';
   const groups = new Map();
   for (const city of cities) {
-    if (!Number.isFinite(city.lat) || !Number.isFinite(city.lng) || Math.abs(city.lat) > 90 || Math.abs(city.lng) > 180 || !Number.isSafeInteger(city.visitors) || city.visitors < 1) continue;
+    if (!Number.isFinite(city.lat) || !Number.isFinite(city.lng) || Math.abs(city.lat) > 90 || Math.abs(city.lng) > 180 || !Number.isSafeInteger(city.visitors) || city.visitors < 2) continue;
     const countryKey = city.countryCode || city.country || '';
     const key = JSON.stringify([countryKey, level !== 'country' ? city.region || '' : '', level === 'city' ? city.city || '' : '']);
     let group = groups.get(key);
@@ -47,7 +47,7 @@ async function initMap() {
   const resize = new ResizeObserver(() => map.invalidateSize({ pan: false }));
   resize.observe(container);
   try {
-    const response = await fetch('/api/geo', { signal: AbortSignal.timeout(15000) });
+    const response = await fetch('/api/geo?privacy=2', { signal: AbortSignal.timeout(15000) });
     if (!response.ok) throw new Error('geo unavailable');
     const data = await response.json();
     if (!Array.isArray(data.cities)) throw new Error('invalid geo');

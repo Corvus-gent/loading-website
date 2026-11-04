@@ -8,7 +8,7 @@ export const GEO_QUERY = `SELECT properties.$geoip_country_code, properties.$geo
   round(avg(toFloat(properties.$geoip_longitude)), 1),
   count(DISTINCT distinct_id)
 FROM events WHERE event = '$pageview' AND ${REAL} AND properties.$geoip_latitude IS NOT NULL
-GROUP BY 1,2,3,4 LIMIT 3000`;
+GROUP BY 1,2,3,4 HAVING count(DISTINCT distinct_id) >= 2 LIMIT 3000`;
 
 export function cityRows(rows) {
   const name = value => typeof value === 'string' ? value.trim().slice(0, 160) : '';
@@ -16,7 +16,7 @@ export function cityRows(rows) {
     const [code, country, region, city, rawLat, rawLng, rawVisitors] = row;
     if (rawLat == null || rawLng == null || rawLat === '' || rawLng === '') return [];
     const lat = Number(rawLat), lng = Number(rawLng), visitors = Number(rawVisitors);
-    if (!Number.isFinite(lat) || Math.abs(lat) > 90 || !Number.isFinite(lng) || Math.abs(lng) > 180 || !Number.isSafeInteger(visitors) || visitors < 1) return [];
+    if (!Number.isFinite(lat) || Math.abs(lat) > 90 || !Number.isFinite(lng) || Math.abs(lng) > 180 || !Number.isSafeInteger(visitors) || visitors < 2) return [];
     return [{ countryCode: name(code), country: name(country), region: name(region), city: name(city), lat: Math.round(lat * 10) / 10, lng: Math.round(lng * 10) / 10, visitors }];
   });
 }
@@ -39,11 +39,12 @@ export default async function handler(req, res) {
   try {
     let cached;
     if (connected()) {
-      try { cached = JSON.parse(await redis(['GET', 'geo:all'])); } catch { /* Query PostHog if the cache is unavailable. */ }
+      try { cached = JSON.parse(await redis(['GET', 'geo:all:v2'])); } catch { /* Query PostHog if the cache is unavailable. */ }
     }
-    const data = cached && Array.isArray(cached.cities) ? cached : { cities: cityRows(await hogql(GEO_QUERY)) };
-    if (!cached && connected()) {
-      try { await redis(['SET', 'geo:all', JSON.stringify(data), 'EX', '900']); } catch { /* A cache outage must not hide the map. */ }
+    const validCache = cached && Array.isArray(cached.cities);
+    const data = { cities: validCache ? cityRows(cached.cities.map(c => [c.countryCode, c.country, c.region, c.city, c.lat, c.lng, c.visitors])) : cityRows(await hogql(GEO_QUERY)) };
+    if (!validCache && connected()) {
+      try { await redis(['SET', 'geo:all:v2', JSON.stringify(data), 'EX', '900']); } catch { /* A cache outage must not hide the map. */ }
     }
     res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=900');
     return res.status(200).json(data);

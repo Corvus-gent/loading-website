@@ -19,12 +19,14 @@ assert.equal(dotRadius(1),4);assert.equal(dotRadius(100),10);assert.equal(dotRad
 const source = await readFile(new URL('../api/geo.js',import.meta.url),'utf8');
 let queries=0,commands=[],cache=null,fail=false,ready=true,redisFail=false;
 const context=vm.createContext({});
-const hog=new vm.SyntheticModule(['hogql','posthogReady','REAL'],function(){this.setExport('REAL',"properties.$host = 'corvus.gent'");this.setExport('posthogReady',()=>ready);this.setExport('hogql',async query=>{queries++;assert.match(query,/count\(DISTINCT distinct_id\)/);assert.match(query,/GROUP BY 1,2,3,4 LIMIT 3000/);if(fail)throw Error();return [['BE','Belgium','Flanders','Ghent',51.053,3.724,12],['BE','Belgium','','',null,4,1],['BE','Belgium','','',400,4,1]];});},{context});
+const hog=new vm.SyntheticModule(['hogql','posthogReady','REAL'],function(){this.setExport('REAL',"properties.$host = 'corvus.gent'");this.setExport('posthogReady',()=>ready);this.setExport('hogql',async query=>{queries++;assert.match(query,/count\(DISTINCT distinct_id\)/);assert.match(query,/GROUP BY 1,2,3,4 HAVING count\(DISTINCT distinct_id\) >= 2 LIMIT 3000/);if(fail)throw Error();return [['BE','Belgium','Flanders','Ghent',51.053,3.724,12],['BE','Belgium','Flanders','Single visitor',51,3.8,1],['BE','Belgium','','',null,4,1],['BE','Belgium','','',400,4,1]];});},{context});
 const redis=new vm.SyntheticModule(['redis','connected'],function(){this.setExport('connected',()=>true);this.setExport('redis',async command=>{commands.push(command);if(redisFail)throw Error();if(command[0]==='GET')return cache;cache=command[2];return 'OK';});},{context});
 const module=new vm.SourceTextModule(source,{context});await module.link(s=>s.includes('_posthog')?hog:redis);await module.evaluate();
 async function call(method='GET',query={},headers={}){const res={headers:{},setHeader(k,v){this.headers[k]=v;},status(s){this.code=s;return this;},json(data){this.data=JSON.parse(JSON.stringify(data));return this;}};return module.namespace.default({method,query,headers},res);}
-let response=await call();assert.equal(response.code,200);assert.equal(response.headers['Cache-Control'],'public, max-age=0, s-maxage=900');assert.deepEqual(response.data.cities,[{...cities[0],lat:51.1}]);assert.ok(commands.some(c=>c[0]==='SET'&&c[1]==='geo:all'&&c[3]==='EX'&&c[4]==='900'));
+let response=await call();assert.equal(response.code,200);assert.equal(response.headers['Cache-Control'],'public, max-age=0, s-maxage=900');assert.deepEqual(response.data.cities,[{...cities[0],lat:51.1}]);assert.ok(commands.some(c=>c[0]==='SET'&&c[1]==='geo:all:v2'&&c[3]==='EX'&&c[4]==='900'));
 await call();assert.equal(queries,1);
+cache=JSON.stringify({cities:[...cities,{...cities[0],city:'single visitor',visitors:1}]});response=await call();assert.equal(response.data.cities.length,4);
+assert.equal(mergeLocations([{...cities[0],visitors:1}],7).length,0);
 cache=null;redisFail=true;response=await call();assert.equal(response.code,200);
 fail=true;response=await call();assert.equal(response.code,502);assert.equal(response.headers['Cache-Control'],'no-store');
 ready=false;response=await call();assert.equal(response.code,503);

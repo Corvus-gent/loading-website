@@ -8,7 +8,7 @@ const TITLES = {
   links: ["clicks per link", ["link", "clicks"]],
   pidgy_out: ["short links out (pidgy)", ["source", "campaign", "n"]],
   calls: ["call & coffee clicks", ["page", "n"]],
-  search: ["searched for", ["query", "n"]],
+  search: ["search activity", ["action", "n"]],
   terminal: ["terminal commands", ["command", "n"]],
   hours: ["hour of day (Brussels)", ["hour", "views"]],
   pages: ["pages", ["page", "views", "visitors"]],

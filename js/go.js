@@ -1,3 +1,4 @@
+import {sourceCategory, campaignCategory} from './analytics-policy.js';
 /**
  * Short links: /go/<platform>/<target>/<campaign>
  *   /go/ig            -> profile, from instagram bio
@@ -20,8 +21,10 @@ async function siteConfig() {
 }
 
 export async function resolve(pathname) {
-  const [, , p = "", target = "me", campaign = ""] = pathname.replace(/\/+$/, "").split("/");
-  const source = PLATFORMS[p] || p || "direct";
+  const [, , p = "", rawTarget = "me", rawCampaign = ""] = pathname.replace(/\/+$/, "").split("/");
+  const source = sourceCategory(PLATFORMS[p] || p || "direct");
+  const campaign = rawCampaign ? campaignCategory(rawCampaign) : "";
+  const target = Object.hasOwn(TARGETS, rawTarget) || Object.hasOwn(EXTERNAL, rawTarget) || ["book","coffee"].includes(rawTarget) ? rawTarget : "me";
   const medium = campaign ? "post" : "bio";
 
   if (EXTERNAL[target] || target === "book" || target === "coffee") {

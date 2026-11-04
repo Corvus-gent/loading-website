@@ -1,7 +1,7 @@
 const numbers = new Intl.NumberFormat('en');
 const regions = new Intl.DisplayNames(['en'], {type: 'region'});
 export const brusselsDay = () => new Intl.DateTimeFormat('en-CA', {timeZone: 'Europe/Brussels'}).format(new Date());
-export const countryStatsURL = day => `/api/stats?day=${encodeURIComponent(day)}&v=4`;
+export const countryStatsURL = day => `/api/stats?day=${encodeURIComponent(day)}&v=5`;
 
 export function countryPeriod(day) {
   const date = new Date(`${day}T12:00:00Z`).toLocaleDateString('en-GB', {day: 'numeric', month: 'short', year: 'numeric', timeZone: 'Europe/Brussels'}).toLowerCase();

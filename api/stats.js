@@ -1,3 +1,4 @@
+import {category, sourceCategory, pathCategory, countryCategory, BROWSERS, COMMANDS} from '../js/analytics-policy.js';
 // Public stats per day (Brussels time). Past days cached a week, today five minutes.
 import sections from "./_stats-sections.js";
 import { redis, connected } from "./_redis.js";
@@ -5,6 +6,14 @@ import { hogql, posthogReady, REAL } from "./_posthog.js";
 
 const FIRST = "2026-11-02";
 const tzDay = (d = new Date()) => new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Brussels" }).format(d);
+
+function group(rows, key, label) {
+  const totals = new Map();
+  for (const [raw, n] of rows) if (Number.isSafeInteger(Number(n)) && Number(n) >= 0) {
+    const value = label(raw); totals.set(value, (totals.get(value) || 0) + Number(n));
+  }
+  return [...totals].map(([value,n])=>({[key]:value,n})).sort((a,b)=>b.n-a.n);
+}
 
 async function compute(day) {
   const inDay = `toDate(toTimeZone(timestamp, 'Europe/Brussels')) = toDate('${day}')`;
@@ -21,12 +30,12 @@ async function compute(day) {
   return {
     day, first: FIRST, today: tzDay(), visitors, total: Number(total || 0),
     hours: hours.map(([h, n]) => ({ h, n })),
-    countries: countries.map(([c, n]) => ({ c, n })),
-    sources: sources.map(([s, n]) => ({ s, n })),
-    pages: pages.map(([p, n]) => ({ p, n })),
-    browsers: browsers.map(([b, n]) => ({ b, n })),
+    countries: group(countries, "c", countryCategory),
+    sources: group(sources, "s", sourceCategory),
+    pages: group(pages, "p", pathCategory),
+    browsers: group(browsers, "b", value => category(value, BROWSERS, "Other")),
     feathers, hunters,
-    terminal: terminal.map(([c, n]) => ({ c, n })),
+    terminal: group(terminal, "c", value => category(value, COMMANDS, "unknown")),
     updated: new Date().toISOString(),
   };
 }
@@ -40,7 +49,7 @@ export default async function handler(req, res) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(day) || day < FIRST || day > today) day = today;
   res.setHeader("Cache-Control", day === today ? "public, max-age=60" : "public, max-age=86400");
   try {
-    const key = `stats:v4:${day}`;
+    const key = `stats:v5:${day}`;
     let body = await redis(["GET", key]);
     if (!body) {
       const data = await compute(day);

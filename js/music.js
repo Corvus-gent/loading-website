@@ -81,7 +81,7 @@ function closePlayer() {controller?.destroy?.();controller=null;spotifyReady=fal
 async function play(id) {
   const track=trackById(id); if(!track) return;
   current=id; playbackEnded=false;
-  window.posthog?.capture("music_play",{track:id,genre:track.genre,artist:track.artist});
+  window.posthog?.capture("music_play",{genre:track.genre});
   $('now-title').textContent=track.title; $('now-artist').textContent=track.artist || t('m.unknown');
   document.querySelectorAll('.track-row').forEach(el=>el.classList.toggle('current',el.dataset.track===id));
   const links=providers(track), spotify=links[0],apple=links[1];

@@ -33,6 +33,7 @@
     .or { display: flex; align-items: center; gap: 12px; color: #555; font-size: 12px; margin: 22px 0 0; }
     .or::before, .or::after { content: ""; flex: 1; height: 1px; background: #222; }
   </style>
+<link rel="stylesheet" href="/privacy/privacy.css?v=202ae89baeff"><meta name="referrer" content="no-referrer">
 </head>
 <body class="people-page">
   <main>
@@ -47,6 +48,7 @@
           <span class="label"><img src="/logo.png" alt=""></span>
         </button>
         <div class="np"><span class="bar"></span><span class="bar"></span><span class="bar"></span> <span id="np-text">hotline bling · <span data-i18n="call.tap">tap the record</span></span></div>
+        <p class="spotify-privacy" data-spotify-notice>plays via spotify, which may set cookies.</p>
         <div id="spotify-wrap"><div id="spotify-embed"></div></div>
       </div>
 
@@ -66,7 +68,7 @@
         <a id="coffee-link" class="btn btn-ghost" href="#" target="_blank" rel="noreferrer">☕ <span data-i18n="call.coffee">buy me a coffee</span></a>
       </section>
 
-      <p class="puzzle-note"><a href="/games/">🕯 today’s puzzle is waiting →</a></p><footer>© <span id="y"></span> corvus</footer>
+      <p class="puzzle-note"><a href="/games/">🕯 today’s puzzle is waiting →</a></p><footer>© <span id="y"></span> corvus <a href="/privacy/" data-privacy-link>privacy</a></footer>
     </div>
   </main>
   <script type="module">
@@ -114,6 +116,7 @@
 
     })();
   </script>
-  <script src="/js/analytics.js?v=aa7a8b654e2f"></script>
+  <script src="/js/analytics.js?v=be192ad6aed9"></script>
+<script type="module" src="/js/privacy.js?v=e9a5d63e81de"></script>
 </body>
 </html>

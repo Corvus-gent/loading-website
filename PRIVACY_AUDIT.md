@@ -1,0 +1,377 @@
+# Privacy audit — 4 November 2026
+
+Scope: corvus.gent, www.corvus.gent, stats.corvus.gent, music, games, redirects,
+private dashboard and the published client demos. Baseline: `2a13612`.
+This inventory was written **before implementing changes**. Status is updated as
+fixes and tests land. It separates repository evidence from account settings that
+cannot be inferred from source code. It is not a claim of legal certification.
+
+## Findings and work log
+
+| ID | Finding at baseline | Required fix / status |
+| --- | --- | --- |
+| P01 | Rate limits use stable IP hashes; guesses use unsalted SHA-256. | **Fixed:** domain-separated daily HMAC salt, no raw IP persistence; atomic TTLs. |
+| P02 | Language-voter records, lifetime IP counters, music-voter sets and poll-voter hash never expire. | **Fixed:** bounded voter retention, remove lifetime IP tracking, individually expiring poll records. |
+| P03 | Login/access lists and email-keyed visitor guesses have no age limit; a sliding list TTL alone would not remove old entries. | **Fixed:** individually expiring records, max 90 days; migration for old lists. |
+| P04 | OTP increment can recreate an expired key without expiry; verification is not atomic. | **Fixed:** atomic, single-use verification preserving a hard expiry. |
+| P05 | Session/language signatures have predictable fallback secrets when environment is missing. | **Fixed:** fail closed without a server secret. |
+| P06 | Search query, arbitrary terminal command, anchor text, paths, complete URLs and campaigns can contain personal data. | **Fixed:** explicit analytics property/event allowlist and URL reduction; protect public results from legacy values. |
+| P07 | PostHog cookieless is on, but autocapture is enabled; person profiles/heatmaps/surveys are not explicitly disabled. | **Fixed:** disable optional capture, mask all inputs, no identify; exclude private pages. Account settings need verification. |
+| P08 | City map exposes places with just one visitor. Pingle already has HAVING n>=2 but needs defensive validation. | **Fixed:** >=2 in query, response and cached data; coarse coordinates only. |
+| P09 | Spotify API is already click-loaded on call/music, but disclosure is missing. | **Fixed:** visible note and browser regression tests, including no preclick requests. |
+| P10 | Leaflet loads from unpkg; link hub image from Webflow; three client demos request Google Fonts. Sortable is already local. | **Fixed:** local assets/system fonts; retain licenses. |
+| P11 | No complete privacy page, ordinary footer link or versioned informational notice. | **Fixed:** seven languages, ordinary footer links, accessible nonblocking opt-in (see P17), private/game exclusions. |
+| P12 | No operator data-deletion or legacy-retention migration tool. | **Fixed:** tested CLI tools; clear private caches, include sessions and guesses. |
+| P13 | Access-request endpoint lacks origin/rate controls; stored addresses are not normalized. | **Fixed:** same-origin validation, daily IP abuse limit and normalized bounded email. |
+| P14 | Functional local preferences/history have no explicit retention. | **Fixed:** document each; minimise automatic writes, expire history/preferences where appropriate. Functional preferences expire after 365 days; analytics choice after 180 days/version change. |
+| P16 | Remote Redis URLs could use plaintext transport. | **Fixed:** require HTTPS REST or rediss; plain Redis only on loopback for tests. Deployment must confirm TLS configuration. |
+| P17 | A dismissal-only notice would imply that cookieless daily pseudonymous PostHog tracking needs no choice. | **Fixed:** no PostHog SDK, network, country enrichment or capture before affirmative consent. Equal allow/refuse choices, withdrawal on /privacy, versioned 180-day preference, GPC/DNT honoured. User explicitly authorized real opt-in if non-essential tracking remained. |
+| P18 | Public music stats call the personalized music API and create an unnecessary voter cookie/seen record. | **Fixed:** public=1 returns catalogue/aggregates without a voter cookie, IP hash or personal record. |
+| P19 | The tracked search index included text/base64 from a generated Playwright report and its trace viewer. | **Fixed:** explicit public-root allowlist in the generator; regenerated index contains no report/trace/internal pages and includes /privacy. Existing .vercelignore already excludes direct test-artifact deployment. Review historic published report fragments for any sensitive material and purge caches/history if needed. |
+| P15 | Hosting/processor logs, backups, transfers and project settings are outside the repository. | Manual verification required; see checklist. No raw-IP logging found in application code. |
+
+## Meaning of the legal-basis labels
+
+- **LI**: proposed legitimate interest in proportionate security and abuse prevention (GDPR 6(1)(f)); controller must record a balancing test.
+  Pseudonymous identifiers are still personal data, not automatically anonymous.
+- **Request**: performing the requested login, game, vote, access request or booking
+  (GDPR 6(1)(b) where applicable); security also relies on LI. Necessary storage is
+  limited to that requested function, not reused as an analytics identifier.
+- **Consent**: explicit opt-in before optional PostHog analytics; separate informed play click before Spotify contact (GDPR 6(1)(a)/ePrivacy).
+- **Aggregate/public**: counts with no visitor identifier, or published catalogue
+  content; no personal visitor record. No expiry required for the count itself.
+
+Cookieless is a technical property, **not an automatic exemption** from GDPR or
+ePrivacy. Do not describe PostHog's transient daily pseudonym as fully anonymous.
+The final implementation treats PostHog daily pseudonymous analytics as optional
+and gates it before loading. This is the conservative implementation decision from
+the Belgian DPA guidance on similar tracking technologies, not a claim that merely
+setting cookieless mode establishes an exemption. The user's conditional opt-in
+instruction applies. Therefore the original “anonymous visits / almost nothing is
+stored / ok” text was replaced with “posthog stats? daily pseudonym, no cookies.”
+and equally styled allow/no-thanks buttons plus privacy. No wall or preselected
+choice. Necessary votes/login/games and map display work without analytics.
+
+`analytics-consent.js` is shared by capture and UI. The real pinned SDK ignores
+opt_out in always mode, so capture is guarded explicitly; fetch-only transport is
+aborted on withdrawal (including retries), beacons and batching are disabled, and
+the SDK is shut down. Events already received before withdrawal are not magically
+erased. No pre-consent events are queued/replayed. GPC/DNT override a saved allow.
+Choices are origin-specific; every footer uses same-origin /privacy so withdrawal
+also works on stats.corvus.gent. Private/admin pages never load analytics.
+
+## Cookies and browser storage
+
+Receivers for first-party cookies: browser, Corvus/Vercel API; corresponding records
+are held by the configured Redis provider. Local storage stays in that browser;
+it is not sent to analytics. Cookie scope is host-only (not shared across subdomains).
+
+| Name | Data / purpose / basis | Baseline retention → implemented retention |
+| --- | --- | --- |
+| `sess` | Signed random login ID; HttpOnly, Secure, SameSite=Strict, Path=/; Request/security LI. | 7 days, logout invalidates Redis session. |
+| `vid` | Signed random language-voter ID; HttpOnly, Secure, SameSite=Strict, Path=/api; duplicate-vote protection, Request/LI. | 365 days; matching Redis deduplication also expires. |
+| `mvid` | Signed random music/game ID; same flags and Path=/api; likes/poll, challenge and daily game continuity, Request/LI. | 365 days; matching state expires as below. |
+| Spotify's cookies/storage | Observed after explicit play: `sp_t` and `sp_landing` on `.spotify.com`, Secure, SameSite=None; `sp_landing` HttpOnly. Spotify can use additional names/storage depending on region/login. | None before play. Observed `sp_t` lifetime ~365 days; `sp_landing` ~1 day. Vendor-controlled; other contexts may differ. Corvus cannot delete Spotify's cookies. |
+| PostHog cookies/storage | `cookieless_mode: always`; no `ph_*` cookies/analytics local storage intended. | None; verified with actual local SDK after opt-in. Remote config/feature-flag loading disabled. |
+| `lang` (localStorage) | Requested language, functional preference. | Unbounded → explicit selection, 365 days after saving. |
+| `voted_lang` (localStorage) | Chosen language vote, so the form remembers a successful submission; functional duplicate-vote UI. | Unbounded → 365 days after successful vote; failed submissions are not saved. |
+| `realm-entered` (localStorage) | Remember visitor used entry animation; functional preference. | Unbounded → 365 days after saving. |
+| `feathers` (localStorage) | Found egg IDs/progress; requested discovery game. | Unbounded → 365 days after saving. |
+| `daily-games` (localStorage) | Up to 400 played dates, streak and per-game results (no email); requested history. | Unbounded → 365 days after saving, prune played dates older than 365 days. |
+| `game-help:<type>` (localStorage) | Instructions were read; requested game preference. | Unbounded → 365 days after saving. |
+| New `analytics-consent` (localStorage) | Allow/deny, policy version and expiry; necessary to honour the choice, no visitor ID. | 180 days or policy version change. Unavailable storage falls back to this page only. Old `privacy-notice` dismissal is never consent and is removed when a choice is saved. |
+
+Low-power hints (`deviceMemory`, `hardwareConcurrency`, reduced-motion/save-data where available) are read locally for the music performance warning; no serial numbers, no values sent to analytics or stored server-side.
+
+No application use of sessionStorage or other cookies found at baseline. Storage
+from development tooling/preview login is not a production site cookie. Third-party
+destination sites may use their own storage once visitors intentionally leave Corvus.
+
+## Redis inventory
+
+All Redis data goes to the configured Redis service, administered by Gabriel;
+private data is only returned through authenticated APIs. `_redis.js` supports REST
+providers (e.g. Upstash) and a Redis URL; **actual vendor, region and backup retention
+must be confirmed from the deployed integration**. Keys below are exhaustive key
+families found in API source, including generated Lua keys.
+
+| Key family | Data and purpose | Basis | Baseline retention / fix |
+| --- | --- | --- | --- |
+| `otp:<email hash>` | Hashed code, attempt count; email lookup hash | Request/LI | 180s; fix atomic verification/expiry race |
+| `otp:rl:mail:<email hash>` | Email request count | LI | 900s; atomic expiry |
+| `otp:rl:ip:<hash>` | Network request count | LI | 3600s; switch stable to daily hash |
+| `sess:<random>` | Login email | Request/LI | 7 days |
+| `logins` (legacy) | Email/time list, last 100 | LI/security | No TTL → migrate to per-record 90-day TTL |
+| `access_requests` (legacy) | Email/time list, unlimited | Request | No TTL → per-record 90-day TTL |
+| New `privacy:log:<kind>:<id>` | One email/time record | Same as old log | 90 days from original record time |
+| New `privacy:log-index:<kind>` | Random record IDs/timestamps for private listing | Same | 90 days; age pruning; no email |
+| New `access:rate:<daily hash>` | Access-request rate | LI | 1 hour |
+| `guess:rl:<hash>` | Network guess count | LI | 24h; replace unsalted hash |
+| `guesses:<day>` | Email → numeric guess/time | Request | No TTL → max 90 days, fixed deadline for that day's entries |
+| `guess_days` | Day index for private guesses | Request | No TTL → prune old days, expiring index |
+| `ch:<random>` | Language proof-of-work salt | LI | 300s |
+| `voted:v:<vid>` | Chosen language, duplicate-vote prevention | Request/LI | No TTL → 365 days |
+| `voted:ipday:<hash>` | Network vote count | LI | 24h; replace stable hash |
+| `voted:iptotal:<hash>` | Lifetime network vote count | LI | No TTL → remove and purge legacy records |
+| `lang_votes` | Language → count | Aggregate | Permanent |
+| `music:tracks` | Owner's ordered public catalogue/notes/links | Public content | Until owner edits/deletes |
+| `music:sugg` | Public song metadata, no submitter identity | Public content | Until moderated; bounded to 300 suggestions |
+| `music:votes` | Track ID → count | Aggregate | Permanent |
+| `music:voted:<mvid>` | Set of liked track IDs | Request/LI | No TTL → 365 days |
+| `music:poll:voters` (legacy) | Voter ID → service choice | Request/LI | No TTL → migrate to individually expiring keys |
+| New `music:poll:voter:<mvid>` | Service choice/deduplication | Request/LI | 365 days |
+| `music:poll:counts` | Spotify/Apple vote totals | Aggregate | Permanent |
+| `music:seen:<mvid>` | First seen timestamp for minimum challenge delay | LI | 3600s |
+| `music:challenge:<id>` | Voter, action, salt, bits, not-before time | LI | 300s, consumed once |
+| `music:challenge-rate:<hash>` | Challenge request count | LI | 60s; daily hash |
+| `music:posts:<hash>` | Music POST count | LI | 24h; daily hash |
+| `music:cool:v:<mvid>`, `music:cool:ip:<hash>` | Suggestion cooldown | LI | 60s; IP hash rotates daily |
+| `music:suggday:<hash>` | Daily submission count | LI | 24h; daily hash |
+| `game:rate:<hash>` | Game request count | LI | 60s; daily hash |
+| `game:state:<day>:<mvid>` | Guesses, reveal cells, times, result/streak | Request | 48h; never public individual history |
+| `game:state:<day>:<mvid>:lock` | Random concurrency token | LI | 15s |
+| `game:streak:<mvid>` | Last day/current streak | Request | 400 days → align to 365 days |
+| `game:city:v2:<day>` (old `game:city:<day>` ignored) | Rounded eligible city for Pingle | Aggregate | 48h; >=2 visitors, no visitor IDs |
+| `games:day:<day>`, `games:all`, `games:type:<type>`, `games:best` | Plays/results/streak maximum, counts only | Aggregate | Permanent |
+| `cv:open`, `cv:download`, `cv:<kind>:<day>` | CV open/download counts | Aggregate | Permanent |
+| `cli:all`, `cli:<day>` | Coarse tool-name → count | Aggregate | Permanent; raw user agent not stored |
+| `stats:v4:<day>` (and prior versions) | Public aggregate daily results; legacy arbitrary labels risky | Aggregate | Today 300s, history 7d; new `stats:v5:<day>`, browser URL v=5, legacy caches purged |
+| `stats:section:v1:<section>:<day>` | Public section counts | Aggregate | 900s; new `stats:section:v2:…`, labels sanitized |
+| `stats:private` | Private results including emails/guesses | Request/LI | new `stats:private:v2`, 600s aggregates only; emails/guesses fetched fresh; deletion purges all versions |
+| `geo:all` (legacy) | City names/coarse positions/counts including singletons | LI/aggregate | 900s → `geo:all:v2`; suppress singleton cities on query, cached response and client; never per-visit points |
+
+TTL must be applied atomically. Increasing activity must not extend a record beyond
+its promised maximum age. Updating code does not erase historic data: the migration
+tool and provider-side cleanup are part of deployment, not optional documentation.
+
+## Analytics inventory
+
+Receiver: PostHog EU (events/aggregate queries); Corvus/Vercel serves the stats.
+Final basis: consent before SDK load, independent of Spotify play consent. At baseline the SDK
+sent automatic browser/OS/device/screen metadata, URL/referrer/campaign
+properties, library metadata, timestamp, session/distinct bookkeeping and optional
+autocapture DOM properties. Cookieless processing derives a daily pseudonym from
+network/browser information server-side; this is **not** a persistent account ID.
+No `identify`, `alias`, email/name person properties or session replay are needed.
+Account event retention is unverified; target 90 days for individual events, with
+non-identifying totals retained longer. PostHog project configuration and historical
+event deletion require operator verification.
+
+| Event | Baseline explicit properties | Implemented minimisation |
+| --- | --- | --- |
+| `$pageview` (+ automatic page leave/autocapture) | SDK metadata + `corvus_country_code`, `links_person/source/campaign` | Disable autocapture/pageleave/heatmaps/replay/profiles; allow only bounded coarse metadata, known routes and campaign categories |
+| `link_click` | `link_text`, `link_href`, `page` | Drop text, queries/fragments, mailto details, unknown paths |
+| `outbound_click` | `host`, `href`, `path`, `label` | Known destination category, reduced URL; drop text |
+| `short_link_out` | `url`, `source`, `medium`, `campaign`, `target`, `external` | Fixed source/target/campaign categories; no input values or destination query |
+| `links_click` | `link`, `links_person`, `links_source`, `links_campaign` | Known public owner and link IDs/categories only |
+| `links_qr_open`, `links_crow_click` | Same link-hub context | Same allowlist |
+| `music_play` | `track`, `genre`, `artist` | Genre only; drop track ID, artist and title |
+| `game_start`, `game_guess`, `game_end`, `game_share` | `type`, `day`, numeric `guesses`, boolean `solved` | Keep enumerated game/result counts; never guess text or coordinates |
+| `share_click` | `what` | Known share button values only |
+| `feather_found` | `id`, `total` | Known egg ID/count, not contents |
+| `terminal_command` | `command` (includes arbitrary unknown words) | Known command verb only; unknown category, never arguments |
+| `site_search` | Raw `q` | Count searches only; never text |
+| `visitor_guess` | `day` | Valid date only; never email/guess |
+| `vinyl_play` | No explicit fields | Count only |
+| `language_vote` | `language` | Valid known language code only |
+| `goodreads_locked_click`, `goodreads_access_request` | No explicit fields | Count only, never email |
+
+Public endpoints must return aggregate counts with safe category labels, not raw
+identifiers/URLs/free text from historical PostHog events. Private dashboard remains
+session-protected. Optional `PIDGY_POSTHOG_*` queries read only aggregate signup
+counts attributed to Corvus from a separate project; never return Pidgy identities.
+
+## Network requests, processors and logs
+
+| Recipient | Data / trigger / purpose | Basis and retention |
+| --- | --- | --- |
+| Vercel | HTTPS IP/UA/request path needed to deliver site/APIs; coarse country header; potential hosting/security/access logs. Application handlers do not log bodies, emails, OTPs, cookies or raw IPs. | Request/security LI. Actual account log/backup retention and log drains **unverified**; minimise/disable raw-IP retention in account. Cannot promise source code controls infrastructure logs. |
+| Configured Redis provider | Above records over TLS/REST; Vercel server connection, not browser access. | Request/LI; application TTLs above; provider backups/regions/DPA need verification. |
+| PostHog EU / `eu.i.posthog.com`, `eu-assets.i.posthog.com` | Cookieless events only after analytics opt-in; SDK is now self-hosted, no eu-assets request. Network IP/UA received transiently for daily hash processing. Query API called server-side. | Consent; individual-event target 90d, actual account setting unverified. Discard IP and disable unused data capture. |
+| Resend / `api.resend.com` | Requested email address, login code and mail content sent server-side. | Request; Redis code 3min. Resend publishes US storage, 30-day email/log retention on Free/Pro/Scale, 7-day backups, Enterprise-specific terms. Confirm actual plan; contact Resend for early message deletion. Sending region does not change storage region. |
+| Spotify / `open.spotify.com` and Spotify-selected playback hosts | Browser IP/UA/referrer and song after play click; Spotify controls playback cookies. Server oEmbed fetch only on requested link submission/admin lookup (song ID, server IP; no visitor email/IP forwarded). | Consent for playback; Request for metadata lookup. Spotify controls its retention. |
+| Apple / `itunes.apple.com` | Server lookup of submitted song ID/country; no visitor identifiers forwarded. External Apple Music link opens only on click. | Request; no local requester record in song metadata; Apple policy for their logs. |
+| CARTO / `basemaps.cartocdn.com` | Tile z/x/y and server IP/key via `/api/geo?tiles=1`; browser never contacts CARTO directly. | LI/service delivery; tiles cached 24h, no visitor identity forwarded. CARTO's infrastructure logs are its policy. |
+| unpkg | Leaflet 1.9.4 JS/CSS, browser IP/UA/referrer on map load at baseline. | Remove browser requests by self-hosting; BSD license retained. |
+| jsDelivr | Sortable reference in vendored license/source; no live browser request found. | Already self-hosted; keep MIT license. |
+| Google Fonts | Three published Aurus demos request CSS/font with browser IP/UA/referrer. | Remove requests; use system fallback. |
+| Webflow `cdn.prod.website-files.com` | Link-hub Pidgy image exposes browser IP/UA/referrer. | Replace with local asset. |
+| Buy Me a Coffee | Ordinary outbound links, no widget/iframe/API before click. UTM categories accompany intentional visit. | Request; destination controls payment/account data and retention. Corvus does not receive form/payment details. |
+| Pidgy / `pidgy-ai.com`, `app.pidgy-ai.com` | Ordinary link to trial or booking; fixed invite/UTM/ref parameters. No booking iframe or form capture. | Request; booking info is collected by Pidgy on its own site under its policy. |
+| Other external links (LinkedIn, Instagram, TikTok, X, Luma, Discord, Bandcamp, SoundCloud, MusicBrainz, articles) | Navigation after deliberate click, no embedded trackers. | Requested navigation; external policy applies. Strip identifying query data from Corvus event copies, not legitimate destination functionality. |
+
+Tracking links `/links`, `/go`, `/important-call-gabe-maxxer` and
+`/coffee-with-gabe` add fixed/category UTM labels; optional views/clicks are counted only with analytics consent. Anonymous CLI counters are server-only aggregate increments. They do not
+collect form contents or identify a visitor. Reject/normalise arbitrary path and
+query labels before analytics. Referrer policy should prevent query/fragment leakage
+to third parties; no analytics on private dashboard or music administration.
+
+## Manual deployment/account checklist (not verified by code)
+
+- PostHog **Settings → Project → General → IP data capture**: discard client IP;
+  organization defaults do not retroactively fix existing projects. Confirm
+  cookieless tracking enabled under Project → Web analytics. Disable recordings,
+  heatmaps/autocapture, surveys and person creation at project level too.
+- Set event retention to 90 days (or shorter supported plan limit). Purge historical
+  raw search/unknown command/full URL/DOM events, person profiles and any replay data;
+  do not assume new capture settings clean old events. Check exports and backups.
+- Vercel: verify runtime/security/access logs and drains; disable unnecessary logs,
+  redact IP/query data where supported and select the shortest available retention.
+  Document any unavoidable provider retention instead of claiming “IPs never stored”.
+- Confirm actual Redis integration vendor/EU region, encryption, DPA and backup
+  expiry. Run the retention migration against production after deploying code;
+  expired/deleted records can remain in provider backups until their rotation ends.
+- Resend: minimise delivery/content logs, verify deletion process and retention.
+- Confirm processor contracts, subprocessors and international-transfer safeguards
+  (EU hosting does not itself rule out international access/transfers).
+- Controller: record LI balancing assessment for abuse prevention and necessary
+  storage, and retain this consent wording/version as evidence of the offered choice.
+  No analytics event is sent without opt-in. Review actual processors and update all
+  seven privacy translations with confirmed provider/retention details before publication.
+- Set a strong SESSION_SECRET (and optionally separate PRIVACY_SECRET/VOTE_SECRET)
+  in all environments. Existing signed sessions may need login again if their old
+  secret was the unsafe fallback. Require rediss:// or HTTPS REST for remote Redis;
+  do not “fix” a deployment error by disabling transport encryption.
+- The historic all-time PostHog queries are limited by whatever event history is
+  retained. Reducing retention to 90 days changes these numbers; export only safe
+  anonymous rollups if historic totals need preservation. Public maps receive no new
+  IP-derived cities with GeoIP disabled; Pingle safely falls back to Borders when
+  yesterday has no eligible city. Country counts continue via coarse Vercel country.
+- Treat code merge, legacy Redis migration and processor cleanup as separate steps.
+  This PR does not claim account settings, historic data or production are already fixed.
+
+## Evidence and authoritative references
+
+- [GDPR (EUR-Lex)](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A02016R0679-20160504): minimisation, retention, lawful basis, rights; pseudonymous data is not necessarily anonymous.
+- [Belgian DPA — cookies and other tracking technologies](https://www.gegevensbeschermingsautoriteit.be/professioneel/thema-s/cookies): necessity, consent and technologies other than cookies.
+- [EDPB Guidelines 2/2023, final version](https://www.edpb.europa.eu/system/files/2024-10/edpb_guidelines_202302_technical_scope_art_53_eprivacydirective_v2_en_0.pdf): technical scope of ePrivacy Article 5(3), including IP-based tracking.
+- [PostHog collection controls](https://posthog.com/docs/privacy/data-collection): masking, cookieless processing, IP-discard setting and limits.
+- [PostHog JavaScript configuration](https://posthog.com/docs/libraries/js/config): explicit SDK privacy controls.
+- [PostHog cookieless guide](https://posthog.com/tutorials/cookieless-tracking): daily hashing and no browser persistence.
+
+## Validation
+
+Completed locally on 4 November 2026:
+
+- Node syntax: 90 first-party JS/MJS files and 21 executable inline HTML scripts;
+  `git diff --check` clean. Every ordinary HTML page has its privacy footer link.
+  Static resource scan found no direct remote script/image/stylesheet/preconnect.
+- Actual local Redis tests (`npm run test:privacy:data`): daily/scope-separated
+  hashes, no raw IP in keys, atomic rate expiry repair, original-age 90-day log
+  retention, dry-run/idempotent legacy migration, three concurrent wrong OTPs,
+  one session from racing correct OTPs, expired/no-TTL OTP rejection, Unicode cookie
+  rejection, private authentication, normalized access requests, guess expiry,
+  vote/poll retention, cookie-free public music counts and per-email deletion that
+  preserves other users and aggregate votes. Loopback DB 13 only.
+- Eight game engines (`npm run test:games`), including DST, replay/concurrency,
+  answer protection, origins/cookies, Pingle threshold/fallback. Loopback DB 15 only.
+- `npm run test:geo`: SQL HAVING >=2, cached singleton suppression, rounding,
+  zoom aggregation, failures and coarse country-only response.
+- `npm run test:stats`: daily country totals plus hostile legacy email labels in
+  countries/sources/pages/browser/terminal are reduced to safe categories.
+- `node tests/routes.mjs`: stats/private routing, redirects and private game bank.
+- **49 browser checks passed** across privacy, existing persona/mobile/game-picker
+  and country-list suites. The full run passed 46 checks initially; two existing
+  analytics tests were updated to explicitly opt in and passed on rerun. One new
+  language-preference retention check also passed. Two separate live Spotify checks
+  bring the total to **51**. No failing check remains.
+- Actual local PostHog SDK with all ingestion intercepted: no PostHog or country
+  enrichment before consent; no Spotify before play; no tracking cookies or
+  analytics browser storage after opt-in. Tests cover payload stripping, attribution,
+  refusal/version/expiry, GPC, withdrawal/reload/cross-tab, blocked/read-only storage,
+  private/admin exclusions, hidden notice during gameplay, all seven translations,
+  reduced motion, reading-position preservation, mobile fit and player clearance.
+- **Live Spotify iframe checks passed on /call and /music**: no Spotify request
+  before play; actual iframe/API fetched after play, embed document HTTP 200.
+  Observed cookie names/flags/lifetimes only were recorded, never values: `sp_t`
+  ~365 days, `sp_landing` ~1 day. This verifies loading, not audible playback or
+  every Spotify region/login variation. No synthetic visit was sent to PostHog.
+- Search generator boundary: 285 public entries including /privacy, no report,
+  trace, private/admin, easter-egg or tracking-shortcut entries. Rebuilt after changes.
+
+Browser tests use local static pages and controlled first-party API fixtures;
+backend behavior is tested separately against real local Redis. Production provider
+settings, infrastructure logs/backups and historic production data were **not**
+verified or changed. The PR/preview is not a claim of a production GDPR certification.
+
+## Deployment and data-request runbook
+
+No production credentials were available in this checkout, and no production Redis
+mutation or provider setting change was performed. Tools below were exercised only
+against a dedicated loopback database with synthetic addresses. Use the deployed
+secret/environment through your normal secure environment loader, never commit it.
+
+1. Verify encrypted Redis connection and signing secret, PostHog settings and provider
+   contracts/retentions above. Confirm the actual Redis processor in the public page.
+2. Deploy this branch's new writers before migrating; otherwise old code can recreate
+   unbounded legacy lists. Avoid rolling back to the old writers after migration.
+3. Preview `node tools/apply-privacy-retention.mjs`, then apply with `--apply`.
+   SCAN batches locate keys. Recent legacy log records keep their original timestamp
+   and remaining 90-day TTL; older/invalid rows are removed. Migration is idempotent.
+   Legacy poll voters get bounded individual keys. Stable IP counters and old stats
+   caches are removed; new daily `d1:` keys are preserved. Existing shorter TTLs are
+   never extended. Untimestamped legacy voter records cannot be age-reconstructed;
+   their maximum remaining retention becomes 365 days from migration.
+4. Purge historic sensitive PostHog events/profiles/replay and review backups/exports.
+   Cache version changes stop serving pre-fix data immediately; migration deletes it.
+5. For a verified email request, run
+   `node tools/delete-user-data.mjs --email person@example.test --dry-run`, then the
+   same command without `--dry-run`. It removes current/legacy OTP and mail-rate keys,
+   all matching sessions, current/legacy login/access rows, email fields in guesses,
+   index references and private caches. Output is counts only. Avoid retaining the
+   actual email in shell history/process logs; use a trusted operator session.
+6. Request deletion of relevant Resend delivery records and check correspondence,
+   exports and provider backups separately. Anonymous votes/aggregates cannot be
+   matched to an email; do not invent an identity link to delete them. Reply within
+   the applicable rights-request deadline, normally one month.
+
+## Processor policy links
+
+[Vercel](https://vercel.com/legal/privacy-notice),
+[PostHog](https://posthog.com/privacy),
+[Resend](https://resend.com/legal/privacy-policy) and [retention/US storage](https://resend.com/security/gdpr/),
+[Upstash (if used)](https://upstash.com/trust/privacy.pdf),
+[Redis Cloud (if used)](https://redis.io/legal/privacy-policy/),
+[CARTO](https://carto.com/privacy),
+[Spotify](https://www.spotify.com/legal/privacy-policy/),
+[Apple](https://www.apple.com/legal/privacy/),
+[Buy Me a Coffee](https://buymeacoffee.com/privacy-policy),
+[Pidgy](https://app.pidgy-ai.com/privacy-policy).
+Pidgy's policy URL is linked by its official Chrome Web Store listing; its contents
+were not retrievable here. Listing a policy is not proof of a signed processor DPA.
+
+### Exact final analytics payload surface
+
+All of the following share **consent** as the collection basis, PostHog EU as the
+recipient and the account event retention (90-day target, not yet verified).
+The transport also inevitably receives IP, User-Agent, site origin and request time
+while processing the request. No raw IP is an application property; discard-client-IP
+must also be enabled in the project. Request credentials are omitted and no browser
+identifier is saved. A daily cookieless pseudonym can correlate events within that day.
+
+- Envelope: `event`, `timestamp`, per-event `uuid` (SDK deduplication only),
+  `properties.token` (public project token, not a visitor secret),
+  `distinct_id=$posthog_cookieless`, `$cookieless_mode=true`,
+  `$process_person_profile=false`, `$geoip_disable=true`.
+- Coarse context: `$host` (three owned hosts only), `$pathname` (known route category),
+  `$current_url` (owned known path only, no query/fragment), `$browser` (allowlist),
+  `$device_type` (Desktop/Mobile/Tablet/Other), `corvus_country_code` (country code),
+  `$referring_domain` (known source category or direct/other).
+- Attribution when present: `utm_source`, `links_source`, `source` (source allowlist);
+  `utm_campaign`, `links_campaign`, `campaign` (known campaigns or other);
+  `utm_medium`, `medium` (known medium/route categories); `links_person=gabe` refers
+  to the public page owner, never the visitor.
+- Event-specific: `link_href`, `page`; `host`, `href`, `path`; `url`, `target`,
+  `external`; `link`; `genre`; `type`, `guesses` (0–6), `solved` (boolean), `day`
+  (date only); `language`; `command`; `id`, `total` (egg category/count); `what`.
+  These are the only properties beyond the common context and attribution.
+- Rejected entirely: unlisted events, names/emails, form values, search text, free
+  terminal text/arguments, arbitrary URLs/UTMs, song title/artist/ID, anchor/DOM text,
+  IP properties, raw UA, detailed OS/device/screen data, session/window/device IDs,
+  `$set`/`$set_once`, profiles, automatic pageleave/autocapture, replay and heatmaps.
+
+Processor queries use server secrets, never browser API keys. The personal query
+credential is not returned in public responses. Application `console` logging has
+no visitor-data sinks; provider request/access/error logs remain a manual account
+inventory item, not something this repository can enumerate as if it knew the
+actual log drains or backups.
