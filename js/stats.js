@@ -23,7 +23,10 @@ function rows(el, list, key) {
 }
 
 async function render() {
-  history.replaceState(null, "", day === TODAY ? location.pathname : `?day=${day}`);
+  const currentURL = new URL(location.href);
+  if (day === TODAY) currentURL.searchParams.delete('day');
+  else currentURL.searchParams.set('day', day);
+  history.replaceState(null, "", currentURL);
   $("day").textContent = day === TODAY ? `today · ${fmt(day)}` : fmt(day);
   $("prev").disabled = day <= FIRST;
   $("next").disabled = day > TODAY;

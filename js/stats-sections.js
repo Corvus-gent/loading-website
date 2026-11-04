@@ -1,6 +1,6 @@
-import {initI18n} from "./i18n.js";initI18n();
+import {initI18n,getLang} from "./i18n.js";initI18n();
 const $=s=>document.querySelector(s),el=(tag,text,cls)=>{const e=document.createElement(tag);e.textContent=text;if(cls)e.className=cls;return e;};const page=document.body.dataset.statPage||'overview',out=$('#section-output');
-for(const a of document.querySelectorAll('[data-stat]')){a.href='https://stats.corvus.gent/'+(a.dataset.stat==='overview'?'':a.dataset.stat);if(a.dataset.stat===page)a.setAttribute('aria-current','page');}
+for(const a of document.querySelectorAll('[data-stat]')){a.href='https://stats.corvus.gent/'+(a.dataset.stat==='overview'?'':a.dataset.stat)+'?lang='+getLang();if(a.dataset.stat===page)a.setAttribute('aria-current','page');}
 $('.stat-copy')?.addEventListener('click',async e=>{try{await navigator.clipboard.writeText('https://stats.corvus.gent/'+(page==='overview'?'':page));e.target.textContent='copied';}catch{e.target.textContent=location.href;}});
 const api=async path=>{const r=await fetch(path);if(!r.ok)throw Error('the crow is still counting. try again soon.');return r.json();};const rows=(container,items)=>{for(const [label,n]of items){const row=el('div','','stat-item');row.append(el('span',label||'?'),el('span',String(n)));container.append(row);}};const percent=(a,b)=>b?`${Math.round(a/b*100)}%`:'—';
 try{

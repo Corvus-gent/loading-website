@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';import {redis} from '../api/_redis.js';import game,{puzzle,publicPuzzle,applyGuess,wordFeedback,dateKey,number,CYCLE,distance} from '../api/_game.js';
 if(process.env.REDIS_URL!=='redis://127.0.0.1:16380/15')throw Error('isolated Redis required');await redis(['FLUSHDB']);
+const RealDate=Date;globalThis.Date=class extends RealDate{constructor(...args){super(...(args.length?args:['2026-11-04T12:00:00Z']));}static now(){return RealDate.parse('2026-11-04T12:00:00Z');}};
 assert.equal(dateKey(new Date('2026-11-03T23:01:00Z')),'2026-11-04');assert.equal(dateKey(new Date('2027-03-28T22:01:00Z')),'2027-03-29');assert.equal(number('2026-11-04'),1);assert.equal(wordFeedback('allee','apple'),'🟩🟨⬛⬛🟩');assert.equal(distance({lat:50,lng:4},{lat:50,lng:4}).km,0);
 const solutions=[];
 for(let i=0;i<8;i++){const day=new Date(Date.parse('2026-11-04')+i*86400000).toISOString().slice(0,10);if(i===6)await redis(['SET',`game:city:${day}`,JSON.stringify({name:'Ghent',lat:51.1,lng:3.7})]);const p=await puzzle(day);assert.equal(p.type,CYCLE[i]);let s={history:[],cells:[],deadline:Date.now()+10000};assert.ok(!('answer'in publicPuzzle(p,s)));assert.ok(!('country'in publicPuzzle(p,s)));if(p.type==='flags'){for(let j=0;j<5;j++)applyGuess(p,s,j%2?p.rounds[j].country.capital:p.rounds[j].country.name);}else if(p.type==='combo'){applyGuess(p,s,p.language.name);applyGuess(p,s,p.language.country);}else applyGuess(p,s,p.type==='babel'?p.language.name:p.type==='borders'?p.country.name:p.type==='bangle'?p.artist.name:p.type==='pingle'?{lat:51.1,lng:3.7}:p.answer);assert.ok(s.done&&s.solved,p.type);assert.ok(publicPuzzle(p,s).answer);solutions.push(p.type);}
@@ -10,7 +11,6 @@ let first=await call();assert.equal(first.code,200);const cookie=first.headers['
 const value=p.language.name;const solved=await call({method:'POST',cookie,body:{day:today,index:0,value}});assert.equal(solved.code,200);assert.equal(solved.body.solved,true);await Promise.all(Array.from({length:4},()=>call({method:'POST',cookie,body:{day:today,index:0,value}})));assert.equal(await redis(['HGET',`games:day:${today}`,'played']),'1');assert.equal(await redis(['HGET',`games:day:${today}`,'solved']),'1');
 // Malformed inputs never consume a guess. Separate browser identity.
 const second=await call();const cookie2=second.headers['Set-Cookie'].split(';')[0];assert.equal((await call({method:'POST',cookie:cookie2,body:{day:today,index:0,value:'not a language'}})).code,400);assert.equal((await call({cookie:cookie2})).body.history.length,0);
-const RealDate=Date;
 for(let i=1;i<8;i++){
  const millis=RealDate.parse('2026-11-04T12:00:00Z')+i*86400000;
  globalThis.Date=class extends RealDate{constructor(...args){super(...(args.length?args:[millis]));}static now(){return millis;}};

@@ -40,6 +40,7 @@ export function pick(value, lang = getLang()) {
 
 export function applyI18n(lang = getLang()) {
   document.documentElement.lang = lang;
+  document.querySelectorAll('a[href^="https://stats.corvus.gent"]').forEach(a=>{const url=new URL(a.href);url.searchParams.set("lang",lang);a.href=url.href;});
   document.querySelectorAll("#corner-nav a").forEach(a=>{const key=a.textContent==="⌂"?"nav.home":"nav.back";a.title=t(key);a.setAttribute("aria-label",t(key));});
   const search=document.querySelector(".search-btn");if(search)search.setAttribute("aria-label",t("nav.search"));
   document.querySelectorAll("[data-i18n]").forEach(el => {
@@ -95,12 +96,13 @@ function renderCornerNav() {
     else location.href = "/realm/";
   });
   const home = document.createElement("a");
-  home.href = "https://corvus.gent/realm/"; home.textContent = "⌂"; home.title = "home"; home.setAttribute("aria-label", t("nav.home"));
+  home.href = location.hostname==="stats.corvus.gent"?"https://corvus.gent/realm/":"/realm/"; home.textContent = "⌂"; home.title = "home"; home.setAttribute("aria-label", t("nav.home"));
   nav.append(back, home);
   document.body.appendChild(nav);
 }
 
 export function initI18n(onChange) {
+  try { localStorage.setItem("lang", getLang()); } catch {}
   applyI18n();
   renderSwitcher(onChange);
   renderCornerNav();

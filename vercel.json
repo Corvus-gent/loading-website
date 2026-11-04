@@ -67,7 +67,7 @@
       "includeFiles": "music.json"
     },
     "api/stats.js": {
-      "includeFiles": "{games/data/**,music.json}"
+      "includeFiles": "music.json"
     }
   },
   "headers": [
