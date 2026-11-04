@@ -44,6 +44,11 @@ async function showDetailView(id) {
       const li = simpleLink(r);
       const note = document.createElement("span");
       note.className = "sub"; note.textContent = " (" + r.note + ")";
+      const start = r.noteLink ? r.note.indexOf(r.noteLink.text) : -1;
+      if (start >= 0) {
+        const author = simpleLink(r.noteLink).firstElementChild;
+        note.replaceChildren(" (" + r.note.slice(0, start), author, r.note.slice(start + r.noteLink.text.length) + ")");
+      }
       li.appendChild(note);
       ul.appendChild(li);
     });

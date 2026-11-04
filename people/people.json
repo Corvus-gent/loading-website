@@ -113,7 +113,11 @@
         {
           "href": "/papers/llm-human-manipulation.pdf",
           "text": "Mutual Manipulation Between LLMs and Humans",
-          "note": "with A. Buzogany, 2025"
+          "note": "with A. Buzogany, 2025",
+          "noteLink": {
+            "text": "A. Buzogany",
+            "href": "https://www.linkedin.com/in/buzogany-aron/"
+          }
         },
         {
           "href": "/papers/model-based-dl-medical-imaging.pdf",
