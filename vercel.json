@@ -31,6 +31,10 @@
   ],
   "rewrites": [
     {
+      "source": "/api/hit",
+      "destination": "/api/stats?hit=1"
+    },
+    {
       "source": "/games/data/:path*",
       "destination": "/404.html"
     },

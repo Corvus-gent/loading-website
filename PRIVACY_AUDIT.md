@@ -537,3 +537,7 @@ schema, attribution examples, first sync, failures and operational checks.
   new page CLS **0.014**, TBT **0 ms**. Local lab evidence, not field measurements.
 - Live integration/sharing/env variables, actual Notion region and production
   writeback remain manual verification; credentials were not available here.
+
+Deployment footprint: `/api/hit` retains its route and behavior through a rewrite
+to the existing stats function; its helper is now `_hit.js`. This keeps the API
+function count at 11 while adding X stats. Route and country-stat checks pass.

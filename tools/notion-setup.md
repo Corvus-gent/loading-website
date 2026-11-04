@@ -80,7 +80,9 @@ than exposing a production log to unrelated branch deployments. Redeploy after
 saving variables. `vercel.json` already specifies Frankfurt (`fra1`), one 60-second
 function maximum, and the daily backup cron `17 3 * * *` (03:17 UTC; Hobby timing
 may be approximate). Enable/confirm Cron Jobs in the dashboard. No separate
-scheduler service or browser-side Notion API is needed.
+scheduler service or browser-side Notion API is needed. The existing `/api/hit`
+route now delegates to the stats function, keeping the number of separate API
+functions at its previous level.
 
 Then sign in at `https://stats.corvus.gent/private`, open **x log**, and click
 **sync now**. Use **filter** to refresh progress/results. Confirm one row's numbers
