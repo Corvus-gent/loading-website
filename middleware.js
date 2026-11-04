@@ -23,6 +23,9 @@ const CURL_REPLY = `
 
 export default function middleware(request) {
   const url = new URL(request.url);
+  if (url.hostname !== "stats.corvus.gent" && /^\/important-call-gabe-maxxer\/?$/.test(url.pathname)) {
+    return new Response(null, { status: 307, headers: { Location: "/call/?utm_source=linkedin&utm_medium=post&utm_campaign=gabe-important-call" } });
+  }
   const ua = request.headers.get("user-agent") || "";
   const hit = CLI.find(([re]) => re.test(ua));
 
