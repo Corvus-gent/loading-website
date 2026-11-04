@@ -4,6 +4,12 @@ import { rewrite, next, waitUntil } from "@vercel/functions";
 
 export const config = { matcher: ["/((?!api/|js/|img/|cv/|papers/|.*\\.(?:css|js|png|jpg|svg|pdf|json|ico)$).*)"] };
 
+const COMPANY_LINKS = {
+  "/enter": "/?utm_source=linkedin&utm_medium=company-page&utm_campaign=gabe-corvus-page&utm_content=button",
+  "/the-crow": "/?utm_source=linkedin&utm_medium=company-page&utm_campaign=gabe-corvus-page&utm_content=website",
+  "/revived": "/?utm_source=linkedin&utm_medium=company-post&utm_campaign=gabe-corvus-revival",
+};
+
 const CLI = [[/^curl/i, "curl"], [/^wget/i, "wget"], [/httpie/i, "httpie"], [/python|aiohttp/i, "python"], [/^go-http/i, "go"], [/node-fetch|undici|axios/i, "node"], [/postman/i, "postman"], [/insomnia/i, "insomnia"], [/powershell/i, "powershell"]];
 
 const CURL_REPLY = `
@@ -23,6 +29,8 @@ const CURL_REPLY = `
 
 export default function middleware(request) {
   const url = new URL(request.url);
+  const companyLink=COMPANY_LINKS[url.pathname.replace(/\/$/, "")];
+  if(url.hostname!=="stats.corvus.gent"&&companyLink)return new Response(null,{status:307,headers:{Location:companyLink}});
   if (url.hostname !== "stats.corvus.gent" && /^\/important-call-gabe-maxxer\/?$/.test(url.pathname)) {
     return new Response(null, { status: 307, headers: { Location: "/call/?utm_source=linkedin&utm_medium=post&utm_campaign=gabe-important-call" } });
   }
