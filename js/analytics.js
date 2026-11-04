@@ -1,15 +1,17 @@
 // Opt-in cookieless counting with an explicit payload allowlist; no form/DOM capture.
 (async () => {
+  const {arrivalSearch,clearTrackingURL}=await import('/js/arrival.js');
   const {setXCampaigns,xContext} = await import('./x-attribution.js');
-  const {privacyEvent, sourceCategory, campaignCategory, pathCategory, safeURL} = await import('/js/analytics-policy.js');
+  const {privacyEvent, sourceCategory, pathCategory, safeURL} = await import('/js/analytics-policy.js');
   import('/js/performance.js');
   import('/js/outbound.js');
   const {analyticsAllowed}=await import('/js/analytics-consent.js');
   let started=false,stopped=false,transport;
   const privatePage = /^\/(?:stats\/)?private(?:\/|$)/.test(location.pathname) || /^\/music\/admin(?:\/|$)/.test(location.pathname);
-  if (privatePage) return;
+  if (privatePage) {clearTrackingURL();return;}
   function sync(){
     if(!analyticsAllowed()){
+      clearTrackingURL();
       if(started){stopped=true;transport.abort();window.posthog?.set_config?.({before_send:()=>null});window.posthog?.shutdown?.();}
       return;
     }
@@ -19,16 +21,19 @@
     start();
   }
   function start(){
-  const x=xContext(location.pathname,location.search);
+  const x=xContext(location.pathname,arrivalSearch);
   const catalog=x?fetch('/api/x-stats?catalog=1',{signal:AbortSignal.timeout(3000),credentials:'omit'}).then(r=>r.ok?r.json():null).catch(()=>null):Promise.resolve(null);
   const country = fetch('/api/geo?country=1', {cache:'no-store',signal:AbortSignal.timeout(2000)})
     .then(r=>r.ok?r.json():null).catch(()=>null);
+  const cleanupTimer=setTimeout(clearTrackingURL,5000);
   const s=document.createElement('script');
+  s.onerror=()=>{clearTimeout(cleanupTimer);clearTrackingURL();};
   s.src='/js/vendor/posthog-1.445.3.min.js'; s.async=true;
   s.onload=async()=>{
     const [geo,allowed]=await Promise.all([country,catalog]);
     setXCampaigns(allowed?.campaigns);
-    if(!analyticsAllowed()||stopped)return;
+    if(!analyticsAllowed()||stopped){clearTimeout(cleanupTimer);clearTrackingURL();return;}
+    if(!window.posthog?.init){clearTimeout(cleanupTimer);clearTrackingURL();return;}
     window.posthog.init('phc_tqJYxREMXWjzQusx6xNPuEa2fNCzKmVpAURSHKnVbpro', {
       api_host:'https://eu.i.posthog.com', cookieless_mode:'always', person_profiles:'never',
       persistence:'memory', disable_persistence:true, ip:false, respect_dnt:true, debug:false,
@@ -47,14 +52,17 @@
       before_send:event=>analyticsAllowed()?privacyEvent(event):null,
       loaded:ph=>{
         const props={...window.__phProps};
-        const query=new URLSearchParams(location.search);
+        const query=new URLSearchParams(arrivalSearch);
         if(query.has('utm_source')) props.utm_source=sourceCategory(query.get('utm_source'));
         if(query.has('utm_campaign')) props.utm_campaign=query.get('utm_campaign');
+        if(query.has('utm_content'))props.utm_content=query.get('utm_content');
         if(x?.content)props.utm_content=x.content;
         if(query.has('utm_medium')) props.utm_medium=query.get('utm_medium');
         if(/^[A-Z]{2}$/.test(geo?.countryCode||'')) props.corvus_country_code=geo.countryCode;
         ph.register(props);
         ph.capture('$pageview');
+        clearTimeout(cleanupTimer);
+        clearTrackingURL();
       },
     });
   };

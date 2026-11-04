@@ -1,5 +1,6 @@
+import {clearTrackingURL} from './arrival.js';
 import {strings} from './privacy-strings.js';
-import {consentChoice,chooseAnalytics,privacySignal} from './analytics-consent.js';
+import {consentChoice,chooseAnalytics,privacySignal,analyticsAllowed} from './analytics-consent.js';
 import {readPreference} from './storage.js';
 const lang=()=>{
   const query=new URLSearchParams(location.search).get('lang');
@@ -20,6 +21,8 @@ function labels() {
   if(notice){notice.setAttribute('aria-label',copy.label);notice.querySelector('.privacy-copy').textContent=copy.notice;notice.querySelector('a').textContent=copy.label+' →';notice.querySelector('a').href='/privacy/'+(lang()==='en'?'':'?lang='+lang());notice.querySelector('[data-allow]').textContent=copy.allow;notice.querySelector('[data-deny]').textContent=copy.deny;}
 }
 const privatePage=/^\/(?:stats\/)?private(?:\/|$)/.test(location.pathname)||/^\/music\/admin(?:\/|$)/.test(location.pathname);
+// Disabled analytics and pages without an analytics script still get clean URLs.
+if(privatePage||!analyticsAllowed()||!document.querySelector('script[src^="/js/analytics.js"]'))clearTrackingURL();
 const dismissed=consentChoice()||privacySignal();
 if(!dismissed&&!privatePage&&!/^\/402(?:\/|$)/.test(location.pathname)){
   notice=document.createElement('aside');notice.id='privacy-notice';notice.className='privacy-notice';notice.hidden=true;

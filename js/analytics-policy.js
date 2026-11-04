@@ -1,7 +1,7 @@
 import {approvedCampaign,contentSlot} from './x-attribution.js';
 // Shared by browser capture and public stats: never publish free-form labels.
 export const SOURCES = ['direct','corvus','linkedin','instagram','tiktok','facebook','discord','x','luma','whatsapp','email','qr','buymeacoffee','share','self','google','bing','duckduckgo','other'];
-export const CAMPAIGNS = ['bio','coffee-bio','gabe-coffee-bio','gabe-important-call','402','402-post','gabe','gabe-bio','gabe-402','gabe-402-post','gabe-self','gabe-coffee-bio','site','game-babel','game-borders','game-wordle','game-flags','game-combo','game-bangle','game-pingle','game-lantern','other'];
+export const CAMPAIGNS = ['bio','coffee-bio','gabe-coffee-bio','gabe-important-call','gabe-corvus-page','gabe-corvus-revival','402','402-post','gabe','gabe-bio','gabe-402','gabe-402-post','gabe-self','gabe-coffee-bio','site','game-babel','game-borders','game-wordle','game-flags','game-combo','game-bangle','game-pingle','game-lantern','other'];
 export const COMMANDS = ['help','whoami','now','sidequests','support','cv','contact','ls','location','diogenes','lantern','pay','pidgy','coo','headache','sudo','exit','clear','cd','lang','unknown'];
 export const GAME_TYPES = ['babel','borders','wordle','flags','combo','bangle','pingle','lantern'];
 export const GENRES = ['us hip-hop','rap fr','rap nl/be','latin','lusophone','afro','pop 00s','electronic','rock','classics','soundtrack','funk & phonk'];
@@ -71,7 +71,8 @@ export function privacyEvent(event) {
   properties.$referring_domain = referrer === 'direct' ? '$direct' : referrer;
   for (const key of ['utm_source','links_source','source']) if (p[key]) properties[key] = sourceCategory(p[key]);
   for (const key of ['utm_campaign','links_campaign','campaign']) if (p[key]) properties[key] = campaignCategory(p[key]);
-  for (const key of ['utm_medium','medium']) if (p[key]) properties[key] = category(p[key], ['post','bio','links','social','game','qr','email',...ROUTES]);
+  for (const key of ['utm_medium','medium']) if (p[key]) properties[key] = category(p[key], ['post','company-page','company-post','bio','links','social','game','qr','email',...ROUTES]);
+  if(p.utm_source==='linkedin'&&p.utm_campaign==='gabe-corvus-page'&&['button','website'].includes(p.utm_content))properties.utm_content=p.utm_content;
   const xSource=[p.utm_source,p.links_source,p.source].includes('x');
   const xCampaign=xSource&&approvedCampaign(p.utm_campaign||p.links_campaign||p.campaign);
   if(xCampaign){

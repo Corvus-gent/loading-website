@@ -541,3 +541,30 @@ schema, attribution examples, first sync, failures and operational checks.
 Deployment footprint: `/api/hit` retains its route and behavior through a rewrite
 to the existing stats function; its helper is now `_hit.js`. This keeps the API
 function count at 11 while adding X stats. Route and country-stat checks pass.
+
+## LinkedIn company vanity links — 4 November 2026
+
+`/enter`, `/the-crow` and `/revived` are fixed server-side 307 redirects, accepting
+one trailing slash. They do not create content pages or entries in navigation,
+search or a sitemap. Existing /realm, /games, /music, /call and stats routes remain
+unchanged. Exact targets and local HTTP HEAD evidence are in
+[tests/results/vanity-redirects.json](tests/results/vanity-redirects.json).
+
+| ID | Finding / requirement | Fix |
+| --- | --- | --- |
+| P31 | Company-page campaign/content labels would be stripped by the existing analytics allowlist, while incoming tracking tags remained in the address bar. | **Fixed:** allow only the two named LinkedIn campaigns, company-page/company-post media, and button/website content for the company-page campaign. After the pageview capture call, remove all utm_* and ref query keys using replaceState, preserving functional queries, hash and history state. |
+
+Initial UTM values are retained only in this page's module memory so delayed consent
+and link-hub/short-link propagation still work. No new cookies, localStorage,
+Redis records, visitor IDs or raw ref property are introduced. Without permission,
+on private/non-analytics pages, or when the SDK is blocked, URL cleanup still works
+without sending analytics. An SDK-load timeout also cleans the URL; memory retains
+the attribution for a later successful opt-in capture. There is no claim of server
+acknowledgement: URL cleanup follows the capture call, not a receipt from PostHog.
+
+Checks: real local `curl -sI` yields the exact 307/Location for all six slash/no-slash
+variants. Browser tests preserve company attribution after cleanup and delayed
+consent, handle an existing opt-in, retain unrelated params/fragments/history state,
+and still propagate X slots after removing them from the visible URL. No production
+redirect claim is made before merge; Vercel's protected preview may intercept curl
+with its own login response.

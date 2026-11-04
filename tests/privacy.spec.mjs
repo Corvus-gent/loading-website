@@ -211,3 +211,30 @@ test('X attribution keeps only approved campaigns and region-hour slots after co
  const tagged=await page.locator('a[href*="pidgy-ai.com"]').first().getAttribute('href');expect(tagged).toContain('utm_campaign=gabe-launch');expect(tagged).toContain('utm_content=sf-23');
  const go=await page.evaluate(async()=>{const {resolve}=await import('/js/go.js');return resolve('/go/x/pidgy/launch','?utm_content=sf-23');});expect(go.utm_content).toBe('sf-23');expect(go.url).toContain('utm_content=sf-23');expect(go.url).toContain('utm_campaign=gabe-launch');expect(errors).toEqual([]);
 });
+
+test('company vanity attribution survives cleanup and a delayed consent choice',async({page,context})=>{
+ const {events,requests,errors}=await setup(page);
+ await page.goto('/?utm_source=linkedin&utm_medium=company-page&utm_campaign=gabe-corvus-page&utm_content=button&utm_extra=remove-me&ref=partner&lang=en&id=keep#arrival');
+ await expect(page).toHaveURL(/\/\?lang=en&id=keep#arrival$/);
+ expect(events).toEqual([]);expect(requests.some(url=>url.includes('posthog'))).toBe(false);
+ await page.locator('#privacy-notice [data-allow]').click();await expect.poll(()=>events.some(e=>e.event==='$pageview'),{timeout:12000}).toBe(true);
+ const view=events.find(e=>e.event==='$pageview');expect(view.properties.utm_source).toBe('linkedin');expect(view.properties.utm_medium).toBe('company-page');expect(view.properties.utm_campaign).toBe('gabe-corvus-page');expect(view.properties.utm_content).toBe('button');expect(view.properties.utm_extra).toBeUndefined();expect(view.properties.ref).toBeUndefined();
+ expect(await context.cookies()).toEqual([]);expect(errors).toEqual([]);
+});
+test('previously allowed analytics captures company tags then leaves a clean URL',async({page})=>{
+ const {events,errors}=await setup(page);
+ await page.addInitScript(version=>localStorage.setItem('analytics-consent',JSON.stringify({version,choice:'allow',expires:Date.now()+86400000})),PRIVACY_VERSION);
+ for(const [medium,campaign,content]of [['company-page','gabe-corvus-page','website'],['company-post','gabe-corvus-revival','']]){
+  events.length=0;await page.goto(`/?utm_source=linkedin&utm_medium=${medium}&utm_campaign=${campaign}${content?'&utm_content='+content:''}`);
+  await expect.poll(()=>events.some(e=>e.event==='$pageview'),{timeout:12000}).toBe(true);await expect(page).toHaveURL('http://127.0.0.1:4176/');
+  const view=events.find(e=>e.event==='$pageview');expect(view.properties.utm_medium).toBe(medium);expect(view.properties.utm_campaign).toBe(campaign);if(content)expect(view.properties.utm_content).toBe(content);
+ }
+ expect(errors).toEqual([]);
+});
+test('cleanup preserves history state, functional queries and fragments on private pages',async({page})=>{
+ const {events,errors}=await setup(page);
+ await page.addInitScript(()=>history.replaceState({marker:'keep'},'',location.href));
+ await page.goto('/stats/private/?UTM_SOURCE=linkedin&utm_custom=x&utm_custom=y&REF=partner&lang=nl&tab=login#code');
+ await expect(page).toHaveURL(/\/stats\/private\/\?lang=nl&tab=login#code$/);
+ expect(await page.evaluate(()=>history.state)).toEqual({marker:'keep'});expect(events).toEqual([]);expect(errors).toEqual([]);
+});

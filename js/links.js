@@ -1,3 +1,4 @@
+import {arrivalSearch} from './arrival.js';
 import {campaignSlug,contentSlot} from './x-attribution.js';
 import {sourceCategory, campaignCategory} from './analytics-policy.js';
 /**
@@ -48,7 +49,7 @@ const personId = PEOPLE[rawPerson] ? rawPerson : "gabe";
 const person = PEOPLE[personId];
 const source = sourceCategory(PLATFORMS[p] || p || "direct");
 campaign = source==='x'?campaignSlug(campaign||"bio"):campaignCategory(campaign || "bio");
-const slot=source==='x'?contentSlot(new URLSearchParams(location.search).get('utm_content')):'';
+const slot=source==='x'?contentSlot(new URLSearchParams(arrivalSearch).get('utm_content')):'';
 
 // every pageview on this page carries person, source and campaign
 window.__phProps = { links_person: personId, links_source: source, links_campaign: campaign || "bio", ...(slot?{utm_content:slot}:{}) };

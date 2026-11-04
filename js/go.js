@@ -1,3 +1,4 @@
+import {arrivalSearch} from './arrival.js';
 import {campaignSlug,contentSlot} from './x-attribution.js';
 import {sourceCategory, campaignCategory} from './analytics-policy.js';
 /**
@@ -21,7 +22,7 @@ async function siteConfig() {
   catch { return {}; }
 }
 
-export async function resolve(pathname, search=location.search) {
+export async function resolve(pathname, search=arrivalSearch) {
   const [, , p = "", rawTarget = "me", rawCampaign = ""] = pathname.replace(/\/+$/, "").split("/");
   const source = sourceCategory(PLATFORMS[p] || p || "direct");
   const campaign = rawCampaign ? (source==='x'?campaignSlug(rawCampaign):campaignCategory(rawCampaign)) : "";

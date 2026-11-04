@@ -1,0 +1,35 @@
+{
+  "environment": "local HTTP adapter running repository middleware; curl -sI; not a production measurement",
+  "results": [
+    {
+      "path": "/enter",
+      "status": 307,
+      "location": "/?utm_source=linkedin&utm_medium=company-page&utm_campaign=gabe-corvus-page&utm_content=button"
+    },
+    {
+      "path": "/enter/",
+      "status": 307,
+      "location": "/?utm_source=linkedin&utm_medium=company-page&utm_campaign=gabe-corvus-page&utm_content=button"
+    },
+    {
+      "path": "/the-crow",
+      "status": 307,
+      "location": "/?utm_source=linkedin&utm_medium=company-page&utm_campaign=gabe-corvus-page&utm_content=website"
+    },
+    {
+      "path": "/the-crow/",
+      "status": 307,
+      "location": "/?utm_source=linkedin&utm_medium=company-page&utm_campaign=gabe-corvus-page&utm_content=website"
+    },
+    {
+      "path": "/revived",
+      "status": 307,
+      "location": "/?utm_source=linkedin&utm_medium=company-post&utm_campaign=gabe-corvus-revival"
+    },
+    {
+      "path": "/revived/",
+      "status": 307,
+      "location": "/?utm_source=linkedin&utm_medium=company-post&utm_campaign=gabe-corvus-revival"
+    }
+  ]
+}

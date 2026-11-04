@@ -23,6 +23,7 @@
     "test:stats": "node --experimental-vm-modules tests/stats-countries.mjs",
     "test:eu": "node tests/eu-config.mjs && node tests/redis-migration.mjs && node tests/region-probe.mjs",
     "test:x": "node tests/x-stats.mjs",
-    "test:x:browser": "playwright test tests/x-stats.spec.mjs"
+    "test:x:browser": "playwright test tests/x-stats.spec.mjs",
+    "test:vanity": "node tests/vanity-links.mjs"
   }
 }
