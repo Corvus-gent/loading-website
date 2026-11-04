@@ -11,6 +11,7 @@ async function openGame(page, type='babel') {
     window.posthog={init(){},capture(){}};
   },type);
   await page.route('https://**/*',route=>route.fulfill({contentType:'text/javascript',body:''}));
+  await page.route('**/api/geo?country=1',route=>route.fulfill({json:{countryCode:'BE'}}));
   await page.route('**/api/game**',route=>{
     if(route.request().method()==='POST')posted.push(route.request().postDataJSON());
     return route.fulfill({json:{day:'2026-11-04',n:1,type,rotation:['babel','borders','wordle'],tomorrow:'borders',

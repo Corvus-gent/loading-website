@@ -20,7 +20,7 @@
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://corvus.gent/og.png" />
-<link rel="stylesheet" href="/stats/sections.css?v=bd04917f474e"></head><body class="people-page">
+<link rel="stylesheet" href="/stats/sections.css?v=d116b376837b"></head><body class="people-page">
   <a href="/private" class="key" title="private" aria-label="private dashboard">🔑</a>
   <main><div id="lang-switcher" class="lang-switcher"></div>
     <div class="wrap st">
@@ -30,9 +30,14 @@
         <h1 id="visitors">…</h1>
         <p class="sub" id="visitors-line"></p>
         <p class="sub" id="total-line"></p>
+        <section class="st-sec country-section" aria-labelledby="countries-title">
+          <h2 id="countries-title">visitors by country</h2>
+          <p class="sub" id="countries-period">today · brussels time</p>
+          <div id="countries" aria-live="polite">counting visitors…</div>
+          <p class="sub country-note">unique visitors per country for this day.</p>
+          <a class="country-map-link" href="https://stats.corvus.gent/map">see the all-time visitor map →</a>
+        </section>
         <section class="st-sec"><h2>per hour (brussels)</h2><pre id="hours"></pre></section>
-        <section class="st-sec"><h2>from</h2><div id="countries"></div></section>
-        <section class="st-sec"><a class="map-preview" href="https://stats.corvus.gent/map">✧ every ping, ever →<br><small>explore the visitor map</small></a></section>
         <section class="st-sec"><h2>via</h2><div id="sources"></div></section>
         <section class="st-sec"><h2>browsers</h2><div id="browsers"></div></section>
         <section class="st-sec"><h2>curiosity</h2><a href="https://stats.corvus.gent/hunt">activity totals →</a><p class="sub" id="cli" hidden></p></section>
@@ -59,7 +64,7 @@
   </main>
 
 
-  <script type="module" src="/js/stats.js?v=733e73d8eb17"></script>
-  <script src="/js/analytics.js?v=1fa4c19f43d5"></script>
+  <script type="module" src="/js/stats.js?v=38b1f05d78f7"></script>
+  <script src="/js/analytics.js?v=aa7a8b654e2f"></script>
 <script type="module" src="/js/stats-sections.js?v=99da738096f2"></script></body>
 </html>

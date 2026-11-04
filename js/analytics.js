@@ -6,17 +6,25 @@ const POSTHOG_KEY = "phc_tqJYxREMXWjzQusx6xNPuEa2fNCzKmVpAURSHKnVbpro";
 const POSTHOG_HOST = "https://eu.i.posthog.com";
 
 if (!POSTHOG_KEY.startsWith("phc_REPLACE")) {
+  // Cookieless PostHog does not enrich GeoIP; attach only Vercel's country code.
+  const country = fetch('/api/geo?country=1', {cache: 'no-store', signal: AbortSignal.timeout(2000)})
+    .then(response => response.ok ? response.json() : null).catch(() => null);
   const s = document.createElement("script");
   s.src = "https://eu-assets.i.posthog.com/static/array.js";
   s.async = true;
-  s.onload = () => {
+  s.onload = async () => {
+    const geo = await country;
     window.posthog.init(POSTHOG_KEY, {
       api_host: POSTHOG_HOST,
       cookieless_mode: "always",
       disable_session_recording: true,
       capture_pageview: true,
       autocapture: true,
-      loaded: ph => { if (window.__phProps) ph.register(window.__phProps); },
+      loaded: ph => {
+        const props = {...window.__phProps};
+        if (/^[A-Z]{2}$/.test(geo?.countryCode || '')) props.corvus_country_code = geo.countryCode;
+        ph.register(props);
+      },
     });
   };
   document.head.appendChild(s);
