@@ -5,7 +5,7 @@ export function statusFixture(scenario = 'healthy', range = '24h', at = Date.now
   if (scenario === 'empty') return result;
   const end = at - 120000,
     count = { '24h': 288, '7d': 168, '30d': 720 }[range],
-    spike = count - 16;
+    spike = count - (scenario === 'slow' ? 1 : Math.ceil((16 * 300000) / result.step));
   result.times = Array.from({ length: count }, (_, i) => end - (count - i - 1) * result.step);
   result.status = { healthy: 'ok', slow: 'degraded', outage: 'degraded', down: 'down' }[scenario];
   result.checked_at = new Date(end).toISOString();
@@ -23,18 +23,18 @@ export function statusFixture(scenario = 'healthy', range = '24h', at = Date.now
       return [ms, ms, 1];
     });
     result.series[name] = readings;
-    const uptime = bad && affected ? 99.81 : 100;
+    const uptime = [1, 7, 30, 81].map((days) => (bad && affected ? 100 * (1 - 16 / (288 * days)) : 100));
     result.checks.push({
       name,
       state: affected ? level : 1,
-      uptime: [uptime, uptime, uptime, uptime],
+      uptime,
       spark: readings.slice(-24).map((v) => [v[1], v[2]]),
       days: result.days.map((_, i) =>
         i < 9
           ? null
           : [
               affected && i === 89 ? level : 1,
-              uptime,
+              i === 89 ? uptime[0] : 100,
               readings.at(-1)[0],
               affected && i === 89 && level > 1 ? 1 : 0
             ]
@@ -48,6 +48,8 @@ export function statusFixture(scenario = 'healthy', range = '24h', at = Date.now
   });
   result.uptime = result.checks.find((c) => c.name === 'redis').uptime;
   if (level > 1)
-    result.incidents = [{ name: 'redis', start: result.times[spike], last: end, worst: level }];
+    result.incidents = result.checks
+      .filter((c) => c.state > 1)
+      .map((c) => ({ name: c.name, start: slow ? end : end - 15 * 300000, last: end, worst: level }));
   return result;
 }

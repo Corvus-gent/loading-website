@@ -44,6 +44,10 @@ for (const [scenario, headline] of Object.entries({
       const level = scenario === 'slow' ? 2 : 3;
       await expect(chart.locator('[data-markers="' + level + '"]')).toBeVisible();
       await expect(strip.locator('[data-days-state="' + level + '"]')).toBeVisible();
+      if (scenario === 'slow') {
+        const markers = await chart.locator('[data-markers="2"]').getAttribute('d');
+        expect(markers.match(/M/g)).toHaveLength(1);
+      }
       await expect(log).toContainText(scenario === 'slow' ? 'redis was slow' : 'redis went down');
       await chart.locator('.plot').focus();
       await page.keyboard.press('End');
