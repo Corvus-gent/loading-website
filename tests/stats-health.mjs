@@ -66,6 +66,29 @@ try {
     assert.equal(new URL(url).hostname, 'eu.posthog.com', 'only mock PostHog here');
     return Response.json({ results: await runQuery(JSON.parse(init.body).query.query) });
   };
+  // The screenshot showed 4 November stuck warming while Redis was unreachable.
+  const offlineStore=async()=>{throw Error('secret-host and credentials');};
+  const background=[];
+  const offline={store:offlineStore,enqueue:p=>background.push(p)};
+  const cold=await request('overview','2026-11-04',offline);
+  assert.equal(cold.body.reason,'storage');assert.equal(cold.body.state,'warming');
+  await Promise.all(background);
+  const rescued=await request('overview','2026-11-04',offline);
+  assert.equal(rescued.body.data.visitors,40);assert.equal(rescued.body.state,'partial');
+  assert.equal(rescued.body.data.cv,undefined);
+  assert(!JSON.stringify(rescued.body).includes('secret-host'));
+  const noGames=await request('games',today,offline);
+  assert.equal(noGames.body.state,'unavailable');assert.equal(noGames.body.reason,'storage');
+  const absent=await request('map','2026-11-04',offline);
+  assert.equal(absent.body.data,null);
+  const noPrivate=await request('private',today,{...offline,session:async()=>({email:'reader@corvus.gent'})});
+  assert.equal(noPrivate.body.state,'unavailable');assert.match(noPrivate.headers['Cache-Control'],/no-store/);
+  const { recover }=await import('../api/_stats-recovery.js');
+  const memory=new Map(), options={cache:memory,tasks:()=>({visitors:()=>Promise.reject(Error('token'))})};
+  const recovering=await recover('overview','2026-11-03',p=>background.push(p),options);
+  assert.equal(recovering.state,'warming');await Promise.all(background);
+  const failed=await recover('overview','2026-11-03',()=>assert.fail('negative cache'),options);
+  assert.equal(failed.state,'unavailable');assert.equal(failed.reason,'storage-and-source');
   const context = vm.createContext({}),
     mod = (data) =>
       new vm.SyntheticModule(

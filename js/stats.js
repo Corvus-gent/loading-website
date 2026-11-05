@@ -40,13 +40,20 @@ function render() {
   if (future) { $("fday").textContent = fmt(day); return; }
 
   $("visitors").textContent = "…";
+  $("visitors-line").textContent="";
+  $("overview-details").hidden=true;
   $("countries-period").textContent = countryPeriod(day);
   $("countries").textContent = 'counting visitors…';
   const requestedDay = day;
   stop=window.statsPage.watch('overview',requestedDay,snapshot=>{
     if(day!==requestedDay)return;
     const s=snapshot.data;
-    if(!s){$("visitors-line").textContent=snapshot.state==='warming'?'preparing the first snapshot…':'snapshot unavailable.';$("countries").textContent='country counts unavailable.';return;}
+    if(!s){
+      $("visitors").textContent=snapshot.state==='warming'?'…':'—';
+      $("visitors-line").textContent=snapshot.state==='warming'?'':'visitor count unavailable.';
+      $("overview-details").hidden=true;return;
+    }
+    $("overview-details").hidden=false;
     const measuredDay=snapshot.day||day;
     $("countries-period").textContent=countryPeriod(measuredDay);
     window.overviewCoffee=s.coffee;
@@ -62,7 +69,7 @@ function render() {
     $("total-line").textContent = day === FIRST ? "day one. the crow came back." : `${s.total??'—'} visits since the crow came back (2 nov 2026).`;
     const max = Math.max(1, ...(s.hours||[]).map(h => h.n));
     const byHour = Object.fromEntries((s.hours||[]).map(h => [h.h, h.n]));
-    $("hours").textContent = Array.from({ length: 24 }, (_, h) => `${String(h).padStart(2, "0")}h ${bar(byHour[h] || 0, max)} ${byHour[h] || ""}`).join("\n");
+    $("hours").textContent = !s.hours ? "hourly counts unavailable." : Array.from({ length: 24 }, (_, h) => `${String(h).padStart(2, "0")}h ${bar(byHour[h] || 0, max)} ${byHour[h] || ""}`).join("\n");
     if(s.countries)renderCountries($("countries"),s.countries);else $("countries").textContent="country counts unavailable.";
     rows("sources", s.sources, "s");
     rows("pages", s.pages, "p");

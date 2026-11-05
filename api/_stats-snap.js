@@ -197,23 +197,30 @@ export async function serve(
     try {
       user = await bounded(session(req), 800);
     } catch {
-      return res.status(200).json({ page, day, state: 'unavailable', data: null });
+      return res.status(200).json({ page, day, state: 'unavailable', reason: 'storage', data: null });
     }
     if (!user) return res.status(200).json({ page, day, state: 'login', data: null });
   }
   const past = day < today;
-  let snap;
+  let snap,
+    storageFailed = false,
+    lock;
   try {
     const started = performance.now();
-    const [raw, last] = await bounded(store(['MGET', key(page, day), key(page, 'last')]), 800);
+    const [raw, last, lease] = await bounded(
+      store(['MGET', key(page, day), key(page, 'last'), key(page, day) + ':lock']),
+      800
+    );
+    lock = lease;
     res.setHeader('Server-Timing', 'redis;dur=' + (performance.now() - started).toFixed(1));
     snap = JSON.parse(raw || (!past && last) || 'null');
     if (snap) memo.set(page, snap);
   } catch {
+    storageFailed = true;
     const last = memo.get(page);
     if (
       last &&
-      (last.day === day || !past) &&
+      last.day === day &&
       Date.now() - Date.parse(last.checked) < (priv || page === 'x' ? 1 : 7) * 86400000
     )
       snap = last;
@@ -222,12 +229,28 @@ export async function serve(
   // As-of snapshots for cumulative pages cannot be reconstructed retroactively.
   const sealed = past && snap?.day === day && snap.state === 'ready' && !historicalBuild;
   const stale = !sealed && !fresh(snap, page, day);
-  if (stale && historicalBuild) enqueue(refresh(page, day).catch(() => {}));
+  if (storageFailed && !snap && !priv && historicalBuild) {
+    const { recover } = await import('./_stats-recovery.js');
+    const result = await recover(page, day, enqueue);
+    if (result.data)
+      res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=15, stale-while-revalidate=60');
+    const { dates, ...body } = result;
+    return res.status(200).json(body);
+  }
+  if (!storageFailed && stale && historicalBuild && lock !== 'retry')
+    enqueue(refresh(page, day).catch(() => {}));
   if (!snap)
     return res.status(200).json({
       page,
       day,
-      state: historicalBuild ? 'warming' : 'unavailable',
+      state: historicalBuild && !storageFailed && lock !== 'retry' ? 'warming' : 'unavailable',
+      reason: storageFailed
+        ? 'storage'
+        : lock === 'retry'
+          ? 'source'
+          : historicalBuild
+            ? undefined
+            : 'history',
       data: null,
       updated: null,
       ...(priv ? { viewer: user.email } : {})
@@ -254,7 +277,18 @@ export async function serve(
         publicFields.data.funnelSF = payload.funnelSF;
     }
   }
-  return res.status(200).json({ ...publicFields, stale, ...(priv ? { viewer: user.email } : {}) });
+  return res
+    .status(200)
+    .json({
+      ...publicFields,
+      stale: stale || storageFailed,
+      ...(storageFailed
+        ? { reason: 'storage' }
+        : snap.state === 'partial'
+          ? { reason: lock ? 'building' : 'source', working: !!lock && lock !== 'retry' }
+          : {}),
+      ...(priv ? { viewer: user.email } : {})
+    });
 }
 export default serve;
 
