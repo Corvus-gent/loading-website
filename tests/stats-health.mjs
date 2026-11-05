@@ -167,6 +167,9 @@ try {
   await build('private', today, {
     makeTasks: () => ({ internal: () => ({ pages: [['/', 12, 9]], funnelSF: { sf_note_seen: 4 } }) })
   });
+  const offlineSession=await request('private',today,{session:async()=>{throw Error('offline');}});
+  assert.equal(offlineSession.body.state,'unavailable');
+  assert.equal(offlineSession.body.data,null);
   const anon = await request('private');
   assert.equal(anon.body.data, null);
   assert.match(anon.headers['Cache-Control'], /private, no-store/);

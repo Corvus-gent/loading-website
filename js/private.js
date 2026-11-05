@@ -65,6 +65,11 @@ function whenVisible(id, fn) {
 }
 let opened = false;
 function dash(snap) {
+  if (!snap.viewer && snap.state !== 'login') {
+    $('private-pending').hidden = false;
+    $('private-pending').textContent = 'the dashboard could not check your session. reload to try again.';
+    return;
+  }
   $('private-pending').hidden = true;
   if (!snap.viewer) {
     $('login').hidden = false;

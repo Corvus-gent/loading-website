@@ -195,8 +195,10 @@ export async function serve(
   if (priv) {
     res.setHeader('Vary', 'Cookie');
     try {
-      user = await session(req);
-    } catch {}
+      user = await bounded(session(req), 800);
+    } catch {
+      return res.status(200).json({ page, day, state: 'unavailable', data: null });
+    }
     if (!user) return res.status(200).json({ page, day, state: 'login', data: null });
   }
   const past = day < today;
