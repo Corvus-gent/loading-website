@@ -5,7 +5,7 @@ export default {
     "met je toestemming worden bezoeken anonieme totalen, zonder trackingcookies.",
     "het beetje dat we bewaren (zoals een stem of inlogcode) staat hieronder en vervalt."
   ],
-  "updated": "bijgewerkt op 4 november 2026",
+  "updated": "bijgewerkt op 5 november 2026",
   "sections": [
     [
       "who",
@@ -40,14 +40,16 @@ export default {
       "browser",
       "het kleine beetje in je browser",
       "noodzakelijke cookies: sess houdt je ingelogd; vid voorkomt dubbele taalstemmen; mvid onthoudt muziekstemmen en dagelijkse spelvoortgang. ze zijn ondertekend, beveiligd en niet leesbaar door paginascripts. sess vervalt na 7 dagen, vid en mvid na een jaar. we gebruiken ze nooit om je in analytics te herkennen.",
-      "je analyticskeuze en privacyversie blijven in deze browser 180 dagen bewaard, of tot het beleid wijzigt. localStorage bewaart je taalstemkeuze, je taal, realm-voorkeur, veren, spelresultaten en gelezen speluitleg tot een jaar na het opslaan. sitegegevens wissen verwijdert voorkeuren, niet de stemmen die al zijn uitgebracht."
+      "je analyticskeuze en privacyversie blijven in deze browser 180 dagen bewaard, of tot het beleid wijzigt. localStorage bewaart je taalstemkeuze, je taal, realm-voorkeur, veren, spelresultaten en gelezen speluitleg tot een jaar na het opslaan. sitegegevens wissen verwijdert voorkeuren, niet de stemmen die al zijn uitgebracht.",
+      "als je statistieken toestaat, onthoudt dit tabblad de publieke campagnelabels van een sidequests-link tot je het sluit of statistieken uitzet. zo tellen we bezoeken, klikken en deelacties uit een post."
     ],
     [
       "outside",
       "wanneer een andere dienst meedoet",
       "Spotify krijgt pas na play een afspeelverzoek en kan dan eigen cookies plaatsen. onze server zoekt een song op bij Spotify of Apple wanneer je een link indient. kaarttegels komen via onze server van CARTO, zonder je IP door te sturen. Leaflet, Sortable en de PostHog-bibliotheek staan hier lokaal.",
       "Buy Me a Coffee en Pidgy-booking zijn links, geen ingebouwde formulieren. na doorklikken gelden hun privacyregels. /links, /go en onze campagnesnelkoppelingen voegen alleen campagnelabels (UTMs) toe en tellen bezoeken/klikken; ze verzamelen geen formulierinhoud of bezoekersidentiteiten. (analytics alleen met toestemming).",
-      "Notion bevat mijn handmatig ingevulde X-log. openbare stats tonen totalen, publieke campagne- en stemlabels en mijn eigen posts; replyteksten en doel-URL’s blijven achter de login. goedgekeurde campagnes en regio-uurvakken horen bij optionele analytics. kopieën op Corvus vervallen binnen 24 uur; bronregels volgen mijn Notion-bewaarbeleid. de werkruimteregio moet nog worden bevestigd, dus uitsluitend EU-opslag wordt niet beloofd."
+      "Notion bevat mijn handmatig ingevulde X-log. openbare stats tonen totalen, publieke campagne- en stemlabels en mijn eigen posts; replyteksten en doel-URL’s blijven achter de login. goedgekeurde campagnes en regio-uurvakken horen bij optionele analytics. kopieën op Corvus vervallen binnen 24 uur; bronregels volgen mijn Notion-bewaarbeleid. de werkruimteregio moet nog worden bevestigd, dus uitsluitend EU-opslag wordt niet beloofd.",
+      "om koffies te tellen leest onze server kort de gegevens van Buy Me a Coffee. waar mogelijk herkennen we terugkerende supporters aan een account of e-mailadres. alleen de totalen en de datum van de laatste koffie worden 30 minuten bewaard."
     ],
     [
       "where",

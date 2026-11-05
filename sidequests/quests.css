@@ -1,0 +1,24 @@
+.quest-page{background:radial-gradient(ellipse at 70% 35%,#17150e55,transparent 55%),#060606}
+body.quest-page main{padding:44px 22px 22px;min-height:100svh}
+.quest-sheet{width:min(100%,35rem);text-align:left}
+.quest-sheet h1{font-size:clamp(2.5rem,7vw,4rem);font-weight:500;letter-spacing:-.075em;line-height:1;margin:.5rem 0 .9rem}
+.route-mark{width:90px;height:30px}
+.quest-sheet header p{font-size:.88rem;line-height:1.6;color:#b4afa4;max-width:47ch;margin:0}
+.quest-log{padding:0;margin:1.6rem 0;list-style:none;border-top:1px solid #39362d}
+.quest-log li{padding:.85rem .15rem;display:flex;gap:.6rem;justify-content:space-between;align-items:center;border-bottom:1px solid #302e28;font-size:.9rem}
+.quest-log small{flex:none;color:#a5a29a;font-size:.65rem}
+.quest-log .main-quest,.quest-actions a:last-child{color:#ffd76a}
+.quest-log .shipped{color:#a0ba9b}
+.quest-locked{background:repeating-linear-gradient(125deg,transparent 0 5px,#e2bf7010 6px,transparent 7px) right / 45% 100% no-repeat}
+.quest-locked>span{letter-spacing:.3em;filter:blur(.7px);color:#bcb6a4}
+.quest-locked small{display:flex;align-items:center;gap:.5rem}
+.quest-actions,.quest-sheet footer,.quest-share{display:flex;align-items:center;gap:1.1rem}
+.quest-actions a,.quest-share a,.quest-share button{min-height:40px;display:inline-flex;align-items:center}
+.quest-sheet a{text-decoration:none}.quest-sheet a:hover,.quest-share button:hover{text-decoration:underline}
+.quest-actions a{gap:.35em}.quest-actions a,.quest-sheet footer{font-size:.75rem}
+.quest-sheet footer{margin:0;justify-content:space-between;color:#a5a29a}
+.quest-share{gap:.25rem}.quest-share a{width:38px;justify-content:center}
+.quest-share svg{width:15px;height:15px}.quest-share button{background:none;border:0;font:inherit;color:inherit;cursor:pointer;padding:0 .4rem 0 0}
+#share-result{min-height:1.3em;font-size:.75rem;color:#ffd76a;margin:0}
+@media(max-height:750px){.quest-log{margin:.9rem 0}.quest-log li{padding:.65rem .15rem}.route-mark{height:20px}}
+@media(max-width:400px){.quest-log li{font-size:.81rem}.quest-actions{gap:.8rem}}

@@ -1,0 +1,28 @@
+.night-scene{isolation:isolate;position:relative}
+.night-scene.awake{overflow:hidden;border-radius:8px;background:#060705}
+.night-scene{margin-top:1.5rem}
+.night-scene .realm-places{position:relative;z-index:1;background:none;margin:0;padding:2rem .6rem}
+.awake::before{content:"";position:absolute;inset:0;pointer-events:none;background:url('/img/realm-night.svg') center/100% 100% no-repeat;opacity:.17}
+.night-light{pointer-events:none;position:absolute;left:0;top:0;width:320px;height:320px;border-radius:50%;background:radial-gradient(closest-side,#ffe9a523,#dca74410 47%,transparent);will-change:transform;transform:translate(-500px,-500px)}
+.night-scene.drifting .night-light{transition:transform 2.8s ease-in-out}
+.awake .realm-places a{color:#f8d793;background:none;transition:opacity .2s;opacity:.11}
+.night-scene .realm-places a,.night-scene .realm-places a:nth-child(3n+2){transform:none}
+.awake .realm-places a span{filter:none}
+@media(scripting:enabled) and (prefers-reduced-motion:no-preference){
+  .night-scene:not(.awake) .realm-places a:not(:focus-visible):not(:hover){opacity:.11}
+  .night-scene:not(.awake) .realm-places a:not(:focus-visible):not(:hover) b{opacity:0}
+}
+.awake .realm-places a b{opacity:0;transition:opacity .2s}
+.awake .realm-places a:is(.lit,:focus-visible){opacity:1}
+.awake .realm-places a:is(.lit,:focus-visible) b{opacity:1}
+.awake .sf-realm:is(.lit,:focus-visible) span{filter:drop-shadow(0 0 9px #ffc76788)}
+.night-whisper{min-height:1.3em;color:#858177;font-size:.7rem;margin:1rem .4rem}
+.night-door,.night-crow{z-index:2;position:absolute;border:0;background:none;cursor:pointer;padding:8px;width:44px;height:44px;color:#81765b}
+.night-door{bottom:5px;right:4%}.night-crow{left:3%;top:2px;color:#b7a780}
+.night-door:is(:hover,:focus-visible),.night-crow:is(:hover,:focus-visible){color:#ffd76a}
+.night-stars{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.night-stars i{position:absolute;width:2px;height:2px;background:#ffe7ac;border-radius:50%;animation:night-blink 8s infinite;opacity:.2}
+@keyframes night-blink{0%,21%,35%,49%,100%{opacity:.12}18%,32%,46%{opacity:.8}}
+.tab-hidden .night-stars i{animation-play-state:paused}
+@media(max-width:600px){.night-scene .realm-places{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:2.5rem .6rem}.night-scene .realm-places a,.night-scene .realm-places a:last-child{flex-direction:column;justify-content:center;min-height:96px;border:0}.night-scene .realm-places b{font-size:.75rem}}
+@media(prefers-reduced-motion:reduce){.awake .realm-places a{opacity:.55}.awake .realm-places a b{opacity:.8}.night-stars i{animation:none}.awake .night-light{will-change:auto}.night-scene.drifting .night-light{transition:none}}

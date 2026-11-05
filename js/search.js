@@ -13,7 +13,7 @@ const INDEX = [
   { title: "gabe · about me", url: "/gabe", keys: "gabe gabriel about me bio profile portfolio who" },
   { title: "call · book 15 min", url: "/call/", keys: "call book meeting talk coffee calendar" },
   { title: "now · this week", url: "/now/", keys: "now week focus current hackathon" },
-  { title: "sidequests · projects & travel", url: "/sidequests/", keys: "sidequests projects robot partycrasher travel china portugal sf" },
+  { title: "sidequests · gabriel", url: "/sidequests/", keys: "sidequests pidgy jiu-jitsu chinese projects" },
   { title: "polyglot stats · languages", url: "/languages/", keys: "languages polyglot vote chinese french spanish lingo" },
   { title: "links · all my links", url: "/links/gabe", keys: "links linktree socials instagram tiktok linkedin x luma pidgy trial qr" },
   { title: "support", url: "/support/", keys: "support shoutouts vouch" },

@@ -5,7 +5,7 @@ export default {
     "con tu permiso, las visitas se convierten en totales anónimos, sin cookies de rastreo.",
     "lo poco que guardamos (un voto o código de acceso) aparece aquí y caduca."
   ],
-  "updated": "actualizado el 4 de noviembre de 2026",
+  "updated": "actualizado el 5 de noviembre de 2026",
   "sections": [
     [
       "who",
@@ -40,14 +40,16 @@ export default {
       "browser",
       "en tu navegador",
       "cookies necesarias: sess mantiene la sesión; vid evita votos de idioma duplicados; mvid recuerda votos musicales y progreso diario. están firmadas, protegidas y no son accesibles a scripts. sess caduca en 7 días; vid y mvid en un año. nunca las usamos para identificarte en analytics.",
-      "tu elección de analytics y la versión de privacidad se guardan en este navegador durante 180 días o hasta que cambie la política. localStorage guarda tu voto de idioma, idioma, preferencia de entrada, plumas, resultados e instrucciones leídas hasta un año después de guardarlos. borrar datos del sitio elimina preferencias, no votos ya enviados."
+      "tu elección de analytics y la versión de privacidad se guardan en este navegador durante 180 días o hasta que cambie la política. localStorage guarda tu voto de idioma, idioma, preferencia de entrada, plumas, resultados e instrucciones leídas hasta un año después de guardarlos. borrar datos del sitio elimina preferencias, no votos ya enviados.",
+      "si permites las estadísticas, esta pestaña recuerda las etiquetas públicas de la campaña de sidequests hasta que la cierres o desactives las estadísticas. agrupan las visitas, clics y veces que se comparte desde una publicación."
     ],
     [
       "outside",
       "otros servicios",
       "Spotify recibe la solicitud de reproducción solo tras tu clic y puede entonces guardar sus cookies. nuestro servidor consulta Spotify o Apple cuando envías el enlace de una canción. los mapas CARTO pasan por nuestro servidor sin enviar tu IP. Leaflet, Sortable y la biblioteca PostHog se alojan aquí.",
       "Buy Me a Coffee y Pidgy son enlaces, no formularios integrados. sus políticas se aplican al visitarlos. /links, /go y nuestros atajos de campaña solo añaden etiquetas UTM y cuentan visitas/clics, sin captar formularios ni identidades. (analytics solo con consentimiento).",
-      "Notion guarda mi registro manual de X. las estadísticas públicas muestran totales, etiquetas públicas de campañas y voces, y mis propios posts; los textos de respuestas y las URL de destino quedan tras el acceso privado. las campañas aprobadas y franjas región-hora acompañan la analítica opcional. las copias de Corvus caducan en 24 horas; el origen sigue mi retención en Notion. la región está pendiente de confirmar, sin promesa de almacenamiento solo en la UE."
+      "Notion guarda mi registro manual de X. las estadísticas públicas muestran totales, etiquetas públicas de campañas y voces, y mis propios posts; los textos de respuestas y las URL de destino quedan tras el acceso privado. las campañas aprobadas y franjas región-hora acompañan la analítica opcional. las copias de Corvus caducan en 24 horas; el origen sigue mi retención en Notion. la región está pendiente de confirmar, sin promesa de almacenamiento solo en la UE.",
+      "para contar cafés, el servidor lee brevemente los registros de Buy Me a Coffee y reconoce a quienes repiten por su cuenta o correo si está disponible. solo guarda los totales y la fecha del último café durante 30 minutos."
     ],
     [
       "where",

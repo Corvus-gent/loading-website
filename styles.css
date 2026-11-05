@@ -166,6 +166,9 @@ footer {
   padding: 16px;
   z-index: 10;
 }
+dialog.term {width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;border:0;color:var(--fg)}
+.term-hint span {opacity:0}
+.term-hint a:is(:hover,:focus-visible) span {opacity:1}
 .term-box {
   width: min(640px, 100%);
   height: min(380px, 70vh);

@@ -594,3 +594,13 @@ Email and direct-ID deletion helpers remove records, delivery status and indexes
 mailbox copies need separate deletion. Public replies contain no personal fields.
 There is no body logging, third-party browser embed, new analytics identifier or
 browser call to Resend/Redis. Static `sf.json` is owner-curated public event data.
+
+### Coffee totals and sidequests attribution · 5 November 2026
+
+| Data | Purpose, access and retention |
+| --- | --- |
+| Buy Me a Coffee v1 supporters, subscriptions and extras | Server-only bearer token. Process contribution dates, quantities, transaction IDs and available account/email fields in request memory to deduplicate and count. Names, messages, payment details and individual records are never sent to visitors, written to Redis or logged by the app. Existing providers retain their own source records. Legitimate interest in publishing aggregate support. |
+| Redis `stats:coffee:v1:YYYY-MM` | Anonymous totals, estimated-count flag and latest Brussels calendar date. TTL 1,800 seconds. The Frankfurt function can keep the same aggregate in memory for up to 30 minutes when Redis is unavailable. No browser requests to the coffee provider. |
+| `sessionStorage['sidequests:arrival']` | With analytics consent, this tab remembers six approved campaign categories until closed or consent is withdrawn. PostHog EU receives those categories on pageviews and subsequent events. Unknown labels are reduced to categories; no LinkedIn account or person is identified. `sidequests_cta_click` adds only home/contact/pidgy; `sidequests_share` adds native/copy/linkedin/x. The external share destination always receives the untagged canonical URL. |
+| One-time home-click receipt | With analytics consent, `sessionStorage['sidequests:home']` holds a timestamp so same-tab navigation can finish sending the click. Consumed by the home page, accepted for 30 seconds and cleared on withdrawal or tab close. |
+| Realm preferences | The tab stores a rotating line number in `realm:whisper`. The first deliberate reward claim saves one existing feather slot in `realm-feather` using the standard one-year preference expiry. These UI choices never enter analytics. |

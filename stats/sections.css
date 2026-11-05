@@ -3,3 +3,11 @@
 .people-page:has(.stats-tabs) main{padding-top:64px}.people-page:has(.stats-tabs) #lang-switcher{min-height:34px}.st #outbound{min-height:70px}.st #visitors-line{min-height:44px}.st #total-line{min-height:44px}.st #visitors{min-height:100px}.st #section-output{min-height:260px}
 
 .country-section{padding:20px;border:1px solid #ffd76a33;border-radius:12px;background:#090a0b}.st .country-section h2{font-size:16px;color:#ffd76a}.country-list{list-style:none;margin:16px 0;padding:0}.country-row{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid #242424}.country-name{overflow-wrap:anywhere}.country-count{font-variant-numeric:tabular-nums;color:#ffd76a;font-weight:600}.country-bar{position:absolute;bottom:-1px;left:0;height:2px;background:#ffd76a66}.country-note,#countries-period{font-size:12px;line-height:1.6}.country-map-link{display:inline-block;min-height:44px;padding:12px 0;box-sizing:border-box;color:#ffd76a}#countries{min-height:48px}@media(max-width:480px){.country-section{padding:16px}.country-row{gap:12px}}
+
+.coffee-counts{display:flex;flex-wrap:wrap;gap:1rem 2.2rem;margin:1.2rem 0}
+.coffee-counts dt,.coffee-context{color:#999;font-size:.75rem}
+.coffee-counts dd{margin:.35rem 0;color:#ffd76a;font-size:1.6rem}
+.coffee-stat [data-cups]{overflow-wrap:anywhere;line-height:1.7;max-width:36em}
+.coffee-context{max-width:68ch;line-height:1.6;margin-top:.8rem}
+
+.st .coffee-stat h1{font-size:clamp(1.75rem,6vw,3rem);line-height:1.1;letter-spacing:-.045em;max-width:16ch}

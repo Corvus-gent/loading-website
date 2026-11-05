@@ -8,3 +8,5 @@ dialog.addEventListener('click',async e=>{const button=e.target.closest('[data-s
 const sf=document.getElementById('sf-realm');let sfTimer;
 function sfLink(){clearTimeout(sfTimer);const state=tripState();sf.hidden=state.phase!=='during';const boundary=state.phase==='before'?SF_START:state.phase==='during'?SF_END:0;if(boundary)sfTimer=setTimeout(sfLink,Math.min(2147483647,Math.max(0,boundary-Date.now())));}
 sfLink();document.addEventListener('visibilitychange',sfLink);
+
+import './realm-night.js';

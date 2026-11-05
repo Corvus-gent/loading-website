@@ -12,18 +12,32 @@ function toast(html) {
   clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove("show"), 3500);
 }
 
+function collect(id) {
+  const got = found();
+  const fresh = !got.includes(id);
+  if (fresh) { got.push(id); save(got); }
+  const n = got.length;
+  toast(n >= TOTAL
+    ? `🪶 ${n}/${TOTAL}. you found the whole flock. <a href="/links/gabe">claim your free Pidgy trial →</a>`
+    : `🪶 ${LINES[(n - 1) % LINES.length]} ${n}/${TOTAL} feathers found.`);
+  if (fresh) window.posthog?.capture("feather_found",{id,total:n});
+}
+export function collectRealmFeather() {
+  // An alternate hiding place for one of the original seven.
+  let id = readPreference('realm-feather');
+  if (!Object.hasOwn(SPOTS,id)) {
+    id = Object.keys(SPOTS).find(key => !found().includes(key)) || '/';
+    savePreference('realm-feather',id);
+  }
+  collect(id);
+}
 function feather(id, style) {
   const f = document.createElement("img");
   f.src = "/img/feather.png"; f.alt = ""; f.className = "feather"; Object.assign(f.style, style);
   f.addEventListener("click", e => {
     e.stopPropagation();
-    const got = found(); if (!got.includes(id)) { got.push(id); save(got); }
+    collect(id);
     f.classList.add("caught");
-    const n = got.length;
-    toast(n >= TOTAL
-      ? `🪶 ${n}/${TOTAL}. you found the whole flock. <a href="/links/gabe">claim your free Pidgy trial →</a>`
-      : `🪶 ${LINES[(n - 1) % LINES.length]} ${n}/${TOTAL} feathers found.`);
-    if (window.posthog?.capture) window.posthog.capture("feather_found", { id, total: n });
   });
   document.body.appendChild(f);
 }
@@ -38,8 +52,9 @@ const SPOTS = {
   "/languages/": { top: "64px", left: "50%", transform: "rotate(160deg)" },
   "/call/": { bottom: "30px", left: "20px", transform: "rotate(90deg)" },
 };
-const spot = SPOTS[location.pathname];
-if (spot) feather(location.pathname, spot);
+const page = location.pathname.replace(/\/?$/, "/");
+const spot = SPOTS[page];
+if (spot) feather(page, spot);
 
 // the sticky-note Pidgy peeks on /now
 if (location.pathname === "/now/") {

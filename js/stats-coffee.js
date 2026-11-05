@@ -1,0 +1,34 @@
+import {getLang, t} from './i18n.js';
+const panel = document.querySelector('[data-coffee]');
+const state = panel.querySelector('[role=status]');
+const details = panel.querySelector('[data-counts]');
+let stats;
+
+function render() {
+  details.hidden = !stats?.ready;
+  state.hidden = !!stats?.ready;
+  if (details.hidden) {
+    state.textContent = t(stats?.ready === false ? 'coffee.empty' : 'coffee.unavailable');
+    return;
+  }
+  for (const key of ['total','supporters','month']) {
+    details.querySelector('[data-' + key + ']').textContent = (key === 'supporters' && stats.supportersEstimated ? '≈ ' : '') + stats[key].toLocaleString(getLang());
+  }
+  const cups = Math.min(50,stats.total);
+  details.querySelector('[data-cups]').textContent = '☕'.repeat(cups) + (stats.total > cups ? ' +' + (stats.total-cups) : '');
+  const latest = panel.querySelector('time');
+  latest.parentElement.hidden = !stats.latest;
+  if (stats.latest) {
+    const format = new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Brussels'});
+    const days = Math.round((Date.parse(stats.latest) - Date.parse(format.format(new Date()))) / 86400000);
+    latest.dateTime = stats.latest;
+    latest.title = stats.latest;
+    latest.textContent = new Intl.RelativeTimeFormat(getLang(),{numeric:'auto'}).format(days,'day');
+  }
+}
+new MutationObserver(render).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
+try {
+  const res = await fetch('/api/stats?section=coffee');
+  if (res.ok) stats = await res.json();
+} catch { /* The rest of the stats page works independently. */ }
+render();
