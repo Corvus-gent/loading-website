@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Gabriel – call me pls</title>
+<link rel="icon" type="image/png" href="/logo.png">
+<style>
+  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;font-family:system-ui,-apple-system,sans-serif;background:#f6f5f2;color:#1a1a1a;padding:24px;box-sizing:border-box}
+  .card{max-width:440px;width:100%;background:#fff;border-radius:16px;padding:28px 28px 24px;box-shadow:0 4px 24px rgba(0,0,0,.06);text-align:center}
+  .langs{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:0 0 22px}
+  .langs button{border:1px solid #ddd;background:#fff;border-radius:999px;padding:5px 11px;font-size:.8rem;cursor:pointer;color:#555}
+  .langs button.on{background:#1a1a1a;border-color:#1a1a1a;color:#fff}
+  h1{font-size:1.5rem;margin:0 0 12px}
+  p{line-height:1.5;margin:0 0 24px;color:#444}
+  a.btn{display:block;text-decoration:none;padding:15px;border-radius:12px;font-weight:600}
+  a.call{background:#1a1a1a;color:#fff;font-size:1.2rem}
+  a.site{margin-top:10px;border:1px solid #ddd;color:#1a1a1a;font-size:1rem}
+  .small{font-size:.85rem;color:#888;margin:16px 0 0}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="langs" id="langs"></div>
+    <h1 id="t-h">Hey 👋</h1>
+    <p id="t-p"></p>
+    <span class="btn call" id="t-call" style="opacity:.5;cursor:not-allowed;display:block;padding:15px;border-radius:12px">🔒</span>
+    <a class="btn site" href="https://corvus.gent" id="t-site">corvus.gent</a>
+    <p class="small">Number hidden: this one was only for the host 😉<br><a href="/airbnb-filter/" style="color:#888">read the story</a></p>
+  </div>
+<script>
+const T = {
+  nl:{n:"NL",h:"Hey 👋",p:"Ik ben Gabriel, je gast via Airbnb. Ik wil graag nog vandaag in de namiddag boeken, maar heb eerst een korte vraag die ik liever even telefonisch bespreek. Airbnb laat geen telefoonnummers door in berichten, vandaar deze pagina.",c:"Bel me: •••• •• •• •• 🔒",s:"Meer over mij op corvus.gent",f:"Veilige link, enkel bedoeld voor dit telefoontje."},
+  en:{n:"EN",h:"Hey 👋",p:"I'm Gabriel, your guest via Airbnb. I'd like to book for this afternoon, but first I have a quick question I'd rather discuss by phone. Airbnb doesn't allow phone numbers in messages, hence this page.",c:"Call me: •••• •• •• •• 🔒",s:"More about me on corvus.gent",f:"Safe link, only meant for this call."},
+  fr:{n:"FR",h:"Bonjour 👋",p:"Je suis Gabriel, votre voyageur via Airbnb. J'aimerais réserver pour cet après-midi, mais j'ai d'abord une petite question que je préfère poser par téléphone. Airbnb n'autorise pas les numéros de téléphone dans les messages, d'où cette page.",c:"Appelez-moi : •••• •• •• •• 🔒",s:"En savoir plus sur moi : corvus.gent",f:"Lien sûr, uniquement pour cet appel."},
+  es:{n:"ES",h:"Hola 👋",p:"Soy Gabriel, tu huésped a través de Airbnb. Me gustaría reservar para esta tarde, pero antes tengo una pregunta rápida que prefiero hablar por teléfono. Airbnb no permite números de teléfono en los mensajes, por eso esta página.",c:"Llámame: •••• •• •• •• 🔒",s:"Más sobre mí en corvus.gent",f:"Enlace seguro, solo para esta llamada."},
+  pt:{n:"PT",h:"Olá 👋",p:"Sou o Gabriel, o seu hóspede pelo Airbnb. Gostaria de reservar para esta tarde, mas antes tenho uma pergunta rápida que prefiro tratar por telefone. O Airbnb não permite números de telefone nas mensagens, por isso esta página.",c:"Ligue-me: •••• •• •• •• 🔒",s:"Mais sobre mim em corvus.gent",f:"Link seguro, apenas para esta chamada."},
+  de:{n:"DE",h:"Hallo 👋",p:"Ich bin Gabriel, Ihr Gast über Airbnb. Ich würde gerne für heute Nachmittag buchen, habe aber vorher eine kurze Frage, die ich lieber telefonisch besprechen möchte. Airbnb erlaubt keine Telefonnummern in Nachrichten, deshalb diese Seite.",c:"Rufen Sie mich an: •••• •• •• •• 🔒",s:"Mehr über mich auf corvus.gent",f:"Sicherer Link, nur für diesen Anruf gedacht."},
+  zh:{n:"中文",h:"您好 👋",p:"我是 Gabriel，您在 Airbnb 上的房客。我想预订今天下午入住，但先有一个小问题，想通过电话沟通。Airbnb 不允许在消息中发送电话号码，所以我做了这个页面。",c:"给我打电话：•••• •• •• •• 🔒",s:"在 corvus.gent 了解更多关于我",f:"安全链接，仅用于这次通话。"}
+};
+const $ = id => document.getElementById(id);
+function set(l){
+  const t = T[l]; document.documentElement.lang = l;
+  $("t-h").textContent=t.h; $("t-p").innerHTML=t.p.replace("Gabriel",'<a href="https://corvus.gent/links/gabe" style="color:#1a1a1a;font-weight:600">Gabriel</a>'); $("t-call").textContent=t.c; $("t-site").textContent=t.s; 
+  document.querySelectorAll(".langs button").forEach(b=>b.classList.toggle("on",b.dataset.l===l));
+}
+Object.keys(T).forEach(l=>{const b=document.createElement("button");b.textContent=T[l].n;b.dataset.l=l;b.onclick=()=>set(l);$("langs").appendChild(b);});
+const pref=(navigator.language||"nl").slice(0,2);
+set(T[pref]?pref:"nl");
+</script>
+</body>
+</html>
