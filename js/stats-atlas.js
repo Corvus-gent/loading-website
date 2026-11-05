@@ -39,7 +39,11 @@ window.statsPage.watch('map', window.statsPage.today, (s) => {
   document.querySelector('#countries-period').textContent = countryPeriod(
     s.day || window.statsPage.today
   );
-  if (data?.countries) renderCountries(list, data.countries);
+  if (data?.countries) {
+    const count=data.countries.filter(row=>row.c&&row.c!=='?').length;
+    document.querySelector('#map-count').textContent=count+' '+(count===1?'country':'countries')+' on '+(s.day||window.statsPage.today)+' · city-level lights, all time.';
+    renderCountries(list, data.countries);
+  }
   else list.textContent = 'country counts are unavailable. try again shortly.';
   if (!data) document.querySelector('#visitor-map-status').textContent = 'the lantern is out.';
   mount();

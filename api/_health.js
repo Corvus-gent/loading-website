@@ -33,7 +33,12 @@ export function checks({
 } = {}) {
   const optional = (enabled, run) => (enabled ? run : null);
   async function get(url, options = {}, statuses = [200]) {
-    const r = await request(url, { redirect: 'manual', ...options, signal: AbortSignal.timeout(2900) });
+    const r = await request(url, {
+      redirect: 'manual',
+      ...options,
+      headers: { 'User-Agent': 'Corvus-Health/1.0', ...options.headers },
+      signal: AbortSignal.timeout(2900)
+    });
     if (!statuses.includes(r.status)) throw new CheckError('HTTP ' + r.status);
     return r;
   }

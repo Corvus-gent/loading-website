@@ -7,6 +7,7 @@ assert.equal(target.hostname, '127.0.0.1');
 assert(Number(target.pathname.slice(1)) >= 1);
 Object.assign(process.env, {
   REDIS_URL: target.href,
+  VERCEL_ENV: 'test',
   POSTHOG_PERSONAL_API_KEY: 'fixture',
   SESSION_SECRET: 'fixture-local',
   HEALTH_TOKEN: 'private-token'

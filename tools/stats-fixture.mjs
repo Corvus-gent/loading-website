@@ -88,9 +88,13 @@ const byPage = {
 let serve;
 if (process.env.STATS_FIXTURE_REDIS) {
   const url = new URL(process.env.STATS_FIXTURE_REDIS);
-  if (url.hostname !== '127.0.0.1') throw Error('local test Redis required');
+  if (url.hostname !== '127.0.0.1' || !/^\/[1-9]\d*$/.test(url.pathname))
+    throw Error('dedicated numbered local Redis DB required');
   process.env.REDIS_URL = url.href;
   const { redis } = await import('../api/_redis.js');
+  if ((await redis(['DBSIZE'])) && !(await redis(['EXISTS', 'stats:fixture:owned'])))
+    throw Error('choose an empty local fixture DB');
+  await redis(['SET', 'stats:fixture:owned', '1', 'EX', '86400']);
   ({ serve } = await import('../api/_stats-snap.js'));
   for (const [page, data] of Object.entries(byPage))
     await redis([

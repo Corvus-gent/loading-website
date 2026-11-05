@@ -10,10 +10,10 @@ const selectors = {
   overview: '#visitors',
   pidgy: '.flight',
   games: '#section-output h2',
-  map: '.country-count',
+  map: '#map-count, .country-count',
   music: '.stat-item',
   hunt: '#section-output p',
-  x: '.x-metrics dd',
+  x: '#x-count, .x-metrics dd',
   coffee: '[data-total]',
   private: '#out td',
   status: '.health-check'
@@ -41,7 +41,12 @@ try {
       await page.addInitScript((selector) => {
         const observer = new MutationObserver(() => {
           const ready = Array.from(document.querySelectorAll(selector)).some(
-            (el) => el.getBoundingClientRect().height && /\d/.test(el.textContent)
+            (el) => {
+              const r=el.getBoundingClientRect();
+              if(!r.height||!/\d/.test(el.textContent))return false;
+              if(r.top<innerHeight && r.bottom>0)window.__metricInViewport=true;
+              return true;
+            }
           );
           if (!ready) return;
           observer.disconnect();
@@ -87,6 +92,7 @@ try {
               fcp:
                 Math.round(performance.getEntriesByName('first-contentful-paint')[0]?.startTime) || null,
               numbers: Math.round(window.__numbers) || null,
+              inViewport: !!window.__metricInViewport,
               requests: timings.length,
               api: timings.map((x) => ({
                 path: new URL(x.name).pathname + new URL(x.name).search,

@@ -26,7 +26,12 @@
   <main><div id="lang-switcher" class="lang-switcher"></div>
     <div class="wrap st">
       <div class="tag"><a href="https://corvus.gent/">corvus.gent</a> / stats</div>
-      <nav class="stats-tabs" aria-label="statistics"><a href="/" data-stat="overview" data-i18n="stats.overview">overview</a><a href="/pidgy" data-stat="pidgy" data-i18n="stats.pidgy">pidgy</a><a href="/games" data-stat="games" data-i18n="nav.games">games</a><a href="/map" data-stat="map" data-i18n="stats.map">map</a><a href="/music" data-stat="music" data-i18n="nav.music">music</a><a href="/hunt" data-stat="hunt" data-i18n="stats.hunt">hunt</a><a href="/x" data-stat="x">x</a><a href="/coffee" data-stat="coffee" data-i18n="coffee.nav">coffee</a><a href="/status" data-stat="status">status</a></nav><button class="stat-copy" data-i18n="stats.copy" type="button">copy link to this stat ↗</button><div class="stats-hero"><a href="https://stats.corvus.gent/pidgy">corvus → pidgy ↗</a><p>follow the birds. count the crossings.</p></div><p><a data-uptime href="/status">uptime 30d: —</a></p><section><h2>outbound</h2><div id="outbound"></div></section>
+      <nav class="stats-tabs" aria-label="statistics"><a href="/" data-stat="overview" data-i18n="stats.overview">overview</a><a href="/pidgy" data-stat="pidgy" data-i18n="stats.pidgy">pidgy</a><a href="/games" data-stat="games" data-i18n="nav.games">games</a><a href="/map" data-stat="map" data-i18n="stats.map">map</a><a href="/music" data-stat="music" data-i18n="nav.music">music</a><a href="/hunt" data-stat="hunt" data-i18n="stats.hunt">hunt</a><a href="/x" data-stat="x">x</a><a href="/coffee" data-stat="coffee" data-i18n="coffee.nav">coffee</a><a href="/status" data-stat="status">status</a></nav><button class="stat-copy" data-i18n="stats.copy" type="button">copy link to this stat ↗</button><div class="st-nav"><button id="prev" aria-label="previous day">←</button><span id="day"></span><button id="next" aria-label="next day">→</button></div>
+      <section id="past">
+        <h1 id="visitors">…</h1>
+        <p class="sub" id="visitors-line"></p>
+        <p class="sub" id="total-line"></p>
+        <div class="stats-hero"><a href="https://stats.corvus.gent/pidgy">corvus → pidgy ↗</a><p>follow the birds. count the crossings.</p></div><p><a data-uptime href="/status">uptime 30d: —</a></p><section><h2>outbound</h2><div id="outbound"></div></section>
 <section class="st-sec coffee-stat" data-coffee>
   <h2 data-i18n="coffee.title">coffees bought for gabe</h2>
   <p role="status">…</p>
@@ -41,11 +46,7 @@
   </div>
   <a href="https://stats.corvus.gent/coffee-with-gabe" data-i18n="coffee.buy">buy one →</a>
   <p class="coffee-context" data-i18n="coffee.context">context: for one month I lived on €200 in meal vouchers and was in the pidgy hq day and night. literally.</p>
-</section><div class="st-nav"><button id="prev" aria-label="previous day">←</button><span id="day"></span><button id="next" aria-label="next day">→</button></div>
-      <section id="past">
-        <h1 id="visitors">…</h1>
-        <p class="sub" id="visitors-line"></p>
-        <p class="sub" id="total-line"></p>
+</section>
         <section class="st-sec country-section" aria-labelledby="countries-title">
           <h2 id="countries-title">visitors by country</h2>
           <p class="sub" id="countries-period">today · brussels time</p>

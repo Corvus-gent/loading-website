@@ -8,6 +8,7 @@ function section(title){const s=el('section',undefined,'st-sec');s.append(el('h2
 function table(headers,rows){const wrap=el('div',undefined,'x-scroll'),t=el('table'),head=el('thead'),tr=el('tr');for(const h of headers){const th=el('th',h);th.scope='col';tr.append(th);}head.append(tr);t.append(head);const body=el('tbody');for(const row of rows){const tr=el('tr');for(const value of row)tr.append(el('td',String(value)));body.append(tr);}t.append(body);wrap.append(t);return wrap;}
 function metrics(title,data){const s=section(title),dl=el('dl',undefined,'x-metrics');for(const [label,value]of [['replies',data.replies],['posts',data.posts],['links used',data.links],['clicks to corvus',data.clicks],['clicks to pidgy',data.clicksPidgy],['clicks / links',data.ctr===null?'—':`${number(data.ctr*100)}%`]]){const block=el('div');block.append(el('dt',label),el('dd',typeof value==='number'?number(value):value));dl.append(block);}s.append(dl);return s;}
 function render(data){
+ document.querySelector('#x-count').textContent=data.today?number(data.today.replies)+' replies · '+number(data.today.posts)+' posts today in brussels.':'replies, posts, and where the links lead.';
  out.replaceChildren();
  if(!data.ready){out.append(el('p','the log is empty for now'));return;}
  if(!data.all){out.append(el('p',data.state==='unavailable'?'the log is resting. try again soon.':'the crow is syncing the log. check back in a moment.'));const b=el('button','refresh','stat-copy');b.type='button';b.onclick=load;out.append(b);return;}
