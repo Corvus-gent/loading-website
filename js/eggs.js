@@ -1,8 +1,9 @@
+import {readPreference,savePreference} from './storage.js';
 // Pidgy easter eggs: hidden feathers on every page + a peeking Pidgy here and there.
 const TOTAL = 7;
 const LINES = ["coo.", "a Pidgy feather.", "Pidgy was here.", "inbox zero tastes like this.", "the flock sees you.", "follow the feathers.", "almost there."];
-const found = () => { try { return JSON.parse(localStorage.getItem("feathers") || "[]"); } catch { return []; } };
-const save = arr => { try { localStorage.setItem("feathers", JSON.stringify(arr)); } catch {} };
+const found = () => { const value=readPreference("feathers",[]);return Array.isArray(value)?value:[]; };
+const save = arr => savePreference("feathers", arr);
 
 function toast(html) {
   let t = document.getElementById("egg-toast");

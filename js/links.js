@@ -1,3 +1,6 @@
+import {arrivalSearch} from './arrival.js';
+import {campaignSlug,contentSlot} from './x-attribution.js';
+import {sourceCategory, campaignCategory} from './analytics-policy.js';
 /**
  * Link-in-bio: /links/<person>/<platform>/<campaign>
  *   /links/gabe              -> direct
@@ -7,7 +10,7 @@
  */
 
 const PLATFORMS = { li: "linkedin", ig: "instagram", tt: "tiktok", x: "x", luma: "luma", dc: "discord", bmc: "buymeacoffee" };
-const PIDGY_IMG = "https://cdn.prod.website-files.com/6a509b285b7ecf3280ec45a7/6abd0b36b07d3e8a652e8bb3_happy.png";
+const PIDGY_IMG = "/img/pidgy-happy.png";
 
 const PEOPLE = {
   gabe: {
@@ -44,10 +47,12 @@ let [, , rawPerson = "gabe", p = "", campaign = ""] = location.pathname.replace(
 if (!PEOPLE[rawPerson] && rawPerson) { campaign = p; p = rawPerson; rawPerson = "gabe"; }
 const personId = PEOPLE[rawPerson] ? rawPerson : "gabe";
 const person = PEOPLE[personId];
-const source = PLATFORMS[p] || p || "direct";
+const source = sourceCategory(PLATFORMS[p] || p || "direct");
+campaign = source==='x'?campaignSlug(campaign||"bio"):campaignCategory(campaign || "bio");
+const slot=source==='x'?contentSlot(new URLSearchParams(arrivalSearch).get('utm_content')):'';
 
 // every pageview on this page carries person, source and campaign
-window.__phProps = { links_person: personId, links_source: source, links_campaign: campaign || "bio" };
+window.__phProps = { links_person: personId, links_source: source, links_campaign: campaign || "bio", ...(slot?{utm_content:slot}:{}) };
 if (window.posthog?.register) window.posthog.register(window.__phProps);
 
 function tagged(link) {
@@ -56,7 +61,7 @@ function tagged(link) {
   url.searchParams.set("utm_source", source);
   url.searchParams.set("utm_medium", "links");
   url.searchParams.set("utm_campaign", `${personId}-${campaign || "bio"}`);
-  url.searchParams.set("utm_content", link.id);
+  url.searchParams.set("utm_content", slot || link.id);
   return url.toString();
 }
 

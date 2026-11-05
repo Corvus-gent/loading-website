@@ -1,0 +1,11 @@
+// Local before/after lab check; API fixtures contain no real visitor data.
+import http from 'node:http';import fs from 'node:fs/promises';import path from 'node:path';
+import lighthouse from 'lighthouse';import {launch} from 'chrome-launcher';import {chromium} from '@playwright/test';
+const baseline=process.argv[2];if(!baseline)throw Error('pass an absolute baseline snapshot directory');
+async function server(root){root=path.resolve(root);const srv=http.createServer(async(req,res)=>{try{const u=new URL(req.url,'http://localhost');if(u.pathname.startsWith('/api/')){res.setHeader('Content-Type','application/json');res.end('{}');return;}let file=path.resolve(root,'.'+decodeURIComponent(u.pathname));if(!file.startsWith(root+path.sep)&&file!==root)throw Error();if((await fs.stat(file)).isDirectory())file=path.join(file,'index.html');res.setHeader('Content-Type',({'.js':'text/javascript','.css':'text/css','.html':'text/html','.json':'application/json','.svg':'image/svg+xml','.png':'image/png'})[path.extname(file)]||'application/octet-stream');res.end(await fs.readFile(file));}catch{res.writeHead(404);res.end();}});await new Promise(r=>srv.listen(0,'127.0.0.1',r));return {srv,url:'http://127.0.0.1:'+srv.address().port};}
+const before=await server(baseline),after=await server(process.cwd()),chrome=await launch({chromePath:chromium.executablePath(),chromeFlags:['--headless','--no-sandbox']}),results=[];
+try{for(let round=1;round<=3;round++)for(const [phase,base,route]of [['before',before.url,'/'],['after',after.url,'/'],['sf',after.url,'/sf/']]){
+ const {lhr}=await lighthouse(base+route,{port:chrome.port,onlyCategories:['performance'],logLevel:'error',formFactor:'mobile',throttling:{rttMs:150,throughputKbps:1600,cpuSlowdownMultiplier:6}});
+ const row={round,phase,path:route,score:lhr.categories.performance.score,lcp:lhr.audits['largest-contentful-paint'].numericValue,cls:lhr.audits['cumulative-layout-shift'].numericValue,tbt:lhr.audits['total-blocking-time'].numericValue};results.push(row);console.log(JSON.stringify(row));
+ }await fs.writeFile('tests/results/lighthouse-sf.json',JSON.stringify({fixture:'local static pages, three alternating mobile rounds, 6x CPU; no form submissions or real analytics',results},null,2)+'\n');
+}finally{await chrome.kill();await Promise.all([before,after].map(({srv})=>new Promise(r=>srv.close(r))));}

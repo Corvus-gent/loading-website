@@ -5,6 +5,7 @@ const leaflet=`window.L={map:()=>({setView(){return this},attributionControl:{ad
 async function setup(page,{empty=false,statsFailure=false,countryFailure=false}={}){
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
   await page.addInitScript(()=>{localStorage.setItem('lang','en');window.__phProps={links_source:'buymeacoffee'};});
+  await page.route('**/js/vendor/posthog-*.min.js',route=>route.fulfill({contentType:'text/javascript',body:sdk}));
   await page.route('https://**/*',route=>{
     const url=route.request().url();
     return route.fulfill({contentType:url.endsWith('.css')?'text/css':'text/javascript',body:url.includes('/static/array.js')?sdk:url.endsWith('/leaflet.js')?leaflet:''});
@@ -76,6 +77,7 @@ test('map country request failure stays contained to its own panel',async({page}
 test('analytics receives the coarse country before its first pageview and keeps source attribution',async({page})=>{
   await setup(page);
   await page.goto('/stats/');
+  await page.locator('#privacy-notice [data-allow]').click();
   await expect.poll(()=>page.evaluate(()=>window.testPageview)).toEqual({links_source:'buymeacoffee',corvus_country_code:'BE'});
   expect(await page.evaluate(()=>window.testAnalyticsConfig.cookieless)).toBe('always');
 });
@@ -83,6 +85,7 @@ test('analytics receives the coarse country before its first pageview and keeps 
 test('analytics still initializes when the country lookup fails',async({page})=>{
   const {errors}=await setup(page,{countryFailure:true});
   await page.goto('/stats/');
+  await page.locator('#privacy-notice [data-allow]').click();
   await expect.poll(()=>page.evaluate(()=>window.testPageview)).toEqual({links_source:'buymeacoffee'});
   expect(errors).toEqual([]);
 });

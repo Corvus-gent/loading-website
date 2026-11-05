@@ -1,0 +1,86 @@
+{
+  "fixture": "2,000 rows, latest 50 own posts; mobile 6x CPU, three alternating rounds; local cached API fixtures",
+  "results": [
+    {
+      "round": 1,
+      "phase": "before",
+      "path": "/stats/",
+      "score": 1,
+      "lcp": 1373.234,
+      "cls": 0,
+      "tbt": 0
+    },
+    {
+      "round": 1,
+      "phase": "after",
+      "path": "/stats/",
+      "score": 1,
+      "lcp": 1208.58045,
+      "cls": 0,
+      "tbt": 0
+    },
+    {
+      "round": 1,
+      "phase": "new",
+      "path": "/stats/x/",
+      "score": 0.99,
+      "lcp": 1656.4632,
+      "cls": 0.01395557338177872,
+      "tbt": 0
+    },
+    {
+      "round": 2,
+      "phase": "before",
+      "path": "/stats/",
+      "score": 1,
+      "lcp": 1362.62,
+      "cls": 0,
+      "tbt": 0
+    },
+    {
+      "round": 2,
+      "phase": "after",
+      "path": "/stats/",
+      "score": 1,
+      "lcp": 1363.4298,
+      "cls": 0,
+      "tbt": 0
+    },
+    {
+      "round": 2,
+      "phase": "new",
+      "path": "/stats/x/",
+      "score": 1,
+      "lcp": 1509.4645,
+      "cls": 0.01395557338177872,
+      "tbt": 0
+    },
+    {
+      "round": 3,
+      "phase": "before",
+      "path": "/stats/",
+      "score": 0.99,
+      "lcp": 1663.01075,
+      "cls": 0,
+      "tbt": 0
+    },
+    {
+      "round": 3,
+      "phase": "after",
+      "path": "/stats/",
+      "score": 1,
+      "lcp": 1361.7345999999998,
+      "cls": 0,
+      "tbt": 0
+    },
+    {
+      "round": 3,
+      "phase": "new",
+      "path": "/stats/x/",
+      "score": 1,
+      "lcp": 1354.7026,
+      "cls": 0.01395557338177872,
+      "tbt": 0
+    }
+  ]
+}

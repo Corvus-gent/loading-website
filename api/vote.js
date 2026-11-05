@@ -1,16 +1,18 @@
 // Public language vote with layered abuse protection:
-// 1. signed, HttpOnly voter cookie (one vote per voter, ever)
+// 1. signed, HttpOnly voter cookie (one vote per voter during the 365-day retention window)
 // 2. one-time server challenge + proof-of-work (scripts pay CPU per vote)
 // 3. same-origin check
-// 4. per-IP limits (shared wifi friendly): 5 votes / 24h, 25 per IP forever
+// 4. per-IP limits (shared wifi friendly): 5 votes / day; daily, unlinkable network hashes
 import crypto from "node:crypto";
 import { redis, connected } from "./_redis.js";
+import { dailyIPHash, rateLimit } from "./_privacy.js";
+
+import {languageVoteSecret as secret} from "./_secrets.js";
 
 const BITS = 16;                     // proof-of-work difficulty (~65k hashes)
 const ORIGINS = ["https://corvus.gent", "https://www.corvus.gent"];
-const SECRET = process.env.VOTE_SECRET || crypto.createHash("sha256").update(String(process.env.REDIS_URL || "corvus")).digest("hex");
 
-const sign = v => crypto.createHmac("sha256", SECRET).update(v).digest("base64url");
+const sign = v => crypto.createHmac("sha256", secret()).update(v).digest("base64url");
 const makeVoter = () => { const id = crypto.randomBytes(16).toString("base64url"); return `${id}.${sign(id)}`; };
 function readVoter(req) {
   const m = /(?:^|;\s*)vid=([^;]+)/.exec(req.headers.cookie || "");
@@ -18,7 +20,7 @@ function readVoter(req) {
   const [id, sig] = m[1].split(".");
   if (!id || !sig) return null;
   const good = sign(id);
-  return sig.length === good.length && crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(good)) ? id : null;
+  return Buffer.byteLength(sig) === Buffer.byteLength(good) && crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(good)) ? id : null;
 }
 const leadingZeroBits = buf => {
   let n = 0;
@@ -33,6 +35,7 @@ function toObject(arr) {
 
 export default async function handler(req, res) {
   res.setHeader("Cache-Control", "no-store");
+  if (!["GET", "POST"].includes(req.method)) return res.status(405).end();
   if (!connected()) return res.status(503).json({ error: "storage not connected" });
   try {
     let voter = readVoter(req);
@@ -56,18 +59,10 @@ export default async function handler(req, res) {
       const hash = crypto.createHash("sha256").update(`${salt}:${nonce}`).digest();
       if (leadingZeroBits(hash) < BITS) return res.status(403).json({ error: "bad proof" });
 
-      const ip = (req.headers["x-forwarded-for"] || "").split(",")[0].trim() || "unknown";
-      const ipKey = crypto.createHash("sha256").update(ip + SECRET).digest("hex").slice(0, 32);
+      if (!await rateLimit(`voted:ipday:${dailyIPHash(req, 'language')}`, 5, 86400)) return res.status(429).json({ error: "too many votes from this network today" });
+      const first = await redis(['EVAL', "if redis.call('SET',KEYS[1],ARGV[1],'NX','EX',31536000) then redis.call('HINCRBY',KEYS[2],ARGV[1],1); return 1 end; return 0", '2', `voted:v:${voter}`, 'lang_votes', code]);
+      if (!Number(first)) return res.status(409).json({ error: 'already voted' });
 
-      if (await redis(["EXISTS", `voted:v:${voter}`])) return res.status(409).json({ error: "already voted" });
-      const day = Number(await redis(["INCR", `voted:ipday:${ipKey}`]));
-      if (day === 1) await redis(["EXPIRE", `voted:ipday:${ipKey}`, "86400"]);
-      if (day > 5) return res.status(429).json({ error: "too many votes from this network today" });
-      const total = Number(await redis(["INCR", `voted:iptotal:${ipKey}`]));
-      if (total > 25) return res.status(429).json({ error: "too many votes from this network" });
-      if (!(await redis(["SET", `voted:v:${voter}`, code, "NX"]))) return res.status(409).json({ error: "already voted" });
-
-      await redis(["HINCRBY", "lang_votes", code, "1"]);
     }
 
     // fresh one-time challenge for the next vote (valid 5 minutes)

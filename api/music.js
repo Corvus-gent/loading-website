@@ -2,8 +2,8 @@ import { redis, connected } from './_redis.js';
 import { loadTracks, seedTracks, suggestions, validId, resolveLink, sameTrack, ORIGINS } from './_music-store.js';
 import { ensureVoter, readVoter, ipHash, rateLimit, makeChallenge, verifyChallenge } from './_music-security.js';
 
-const VOTE = "if redis.call('SADD',KEYS[1],ARGV[1])==1 then redis.call('ZINCRBY',KEYS[2],1,ARGV[1]); return 1 end; return 0";
-const POLL = "if redis.call('HSETNX',KEYS[1],ARGV[1],ARGV[2])==1 then redis.call('HINCRBY',KEYS[2],ARGV[2],1); return 1 end; return 0";
+const VOTE = "local first=redis.call('SADD',KEYS[1],ARGV[1]); if redis.call('TTL',KEYS[1])<0 then redis.call('EXPIRE',KEYS[1],31536000) end; if first==1 then redis.call('ZINCRBY',KEYS[2],1,ARGV[1]) end; return first";
+const POLL = "if redis.call('SET',KEYS[1],ARGV[1],'NX','EX',31536000) then redis.call('HINCRBY',KEYS[2],ARGV[1],1); return 1 end; return 0";
 // Limits and insertion are one transaction: concurrent requests cannot bypass the timer or cap.
 const SUGGEST = `
 local retry=math.max(redis.call('TTL',KEYS[1]),redis.call('TTL',KEYS[2]))
@@ -12,14 +12,14 @@ if tonumber(redis.call('GET',KEYS[3]) or '0')>=5 then return -2 end
 if redis.call('HLEN',KEYS[4])>=300 then return -3 end
 if redis.call('HEXISTS',KEYS[4],ARGV[1])==1 then return -4 end
 redis.call('SET',KEYS[1],1,'EX',60); redis.call('SET',KEYS[2],1,'EX',60)
-local n=redis.call('INCR',KEYS[3]); if n==1 then redis.call('EXPIRE',KEYS[3],86400) end
+local n=redis.call('INCR',KEYS[3]); if redis.call('TTL',KEYS[3])<0 then redis.call('EXPIRE',KEYS[3],86400) end
 redis.call('HSET',KEYS[4],ARGV[1],ARGV[2]); return 0`;
 
 async function state(voter,ip) {
   const [catalog,list,scores,mine,poll,myPoll,voterTTL,ipTTL] = await Promise.all([
-    loadTracks(), suggestions(), redis(['ZRANGE','music:votes','0','-1','WITHSCORES']), redis(['SMEMBERS',`music:voted:${voter}`]),
-    redis(['HGETALL','music:poll:counts']), redis(['HGET','music:poll:voters',voter]),
-    redis(['TTL',`music:cool:v:${voter}`]), redis(['TTL',`music:cool:ip:${ip}`])
+    loadTracks(), suggestions(), redis(['ZRANGE','music:votes','0','-1','WITHSCORES']), voter?redis(['SMEMBERS',`music:voted:${voter}`]):[],
+    redis(['HGETALL','music:poll:counts']), voter?redis(['GET',`music:poll:voter:${voter}`]):null,
+    voter?redis(['TTL',`music:cool:v:${voter}`]):0, ip?redis(['TTL',`music:cool:ip:${ip}`]):0
   ]);
   const votes = {}, counts = {spotify:0,apple:0};
   for(let i=0;i<(scores||[]).length;i+=2) votes[scores[i]]=Number(scores[i+1]);
@@ -34,6 +34,8 @@ export default async function handler(req,res) {
     return res.status(503).json({error:'storage_unavailable'});
   }
   try {
+    // Public statistics need catalogue/counts, never a voter cookie or seen record.
+    if(req.method==='GET'&&req.query?.public==='1')return res.status(200).json(await state(null,null));
     const voter = ensureVoter(req,res), ip = ipHash(req);
     await redis(['SET',`music:seen:${voter}`,String(Date.now()),'NX','EX','3600']);
     if(req.method==='GET') {
@@ -53,7 +55,7 @@ export default async function handler(req,res) {
     let message='voted';
     if(body.action==='poll') {
       if(!['spotify','apple'].includes(body.choice)) return res.status(400).json({error:'bad_choice'});
-      await redis(['EVAL',POLL,'2','music:poll:voters','music:poll:counts',voter,body.choice]);
+      await redis(['EVAL',POLL,'2',`music:poll:voter:${voter}`,'music:poll:counts',body.choice]);
     } else {
       const {tracks}=await loadTracks();
       let id=body.id;

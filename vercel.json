@@ -1,4 +1,7 @@
 {
+  "regions": [
+    "fra1"
+  ],
   "redirects": [
     {
       "source": "/gabe",
@@ -27,6 +30,14 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/api/sf",
+      "destination": "/api/stats?sf=1"
+    },
+    {
+      "source": "/api/hit",
+      "destination": "/api/stats?hit=1"
+    },
     {
       "source": "/games/data/:path*",
       "destination": "/404.html"
@@ -67,10 +78,23 @@
       "includeFiles": "music.json"
     },
     "api/stats.js": {
-      "includeFiles": "music.json"
+      "includeFiles": "music.json",
+      "maxDuration": 60
+    },
+    "api/x-stats.js": {
+      "maxDuration": 60
     }
   },
   "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Referrer-Policy",
+          "value": "no-referrer"
+        }
+      ]
+    },
     {
       "source": "/js/:path*",
       "has": [
@@ -150,6 +174,12 @@
           "value": "public, max-age=31536000, immutable"
         }
       ]
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/x-stats?cron=1",
+      "schedule": "17 3 * * *"
     }
   ]
 }

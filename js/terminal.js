@@ -77,7 +77,7 @@ async function run(raw) {
   }
   const fn = COMMANDS[cmd];
   print(fn ? await fn(args) : [`command not found: ${cmd}. try 'help'.`]);
-  if (window.posthog?.capture) window.posthog.capture("terminal_command", { command: cmd });
+  if (window.posthog?.capture) window.posthog.capture("terminal_command", { command: Object.hasOwn(COMMANDS, cmd) ? cmd : "unknown" });
 }
 
 function build() {

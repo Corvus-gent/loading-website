@@ -79,7 +79,7 @@ export function renderSearch(container) {
   input.addEventListener("keydown", e => {
     if (e.key === "Enter") { const first = match(input.value)[0]; if (first) location.href = first.url; }
     if (e.key === "Escape") box.classList.remove("open");
-    if (e.key === "Enter" && window.posthog?.capture) window.posthog.capture("site_search", { q: input.value });
+    if (e.key === "Enter" && window.posthog?.capture) window.posthog.capture("site_search");
   });
   document.addEventListener("click", e => { if (!box.contains(e.target)) box.classList.remove("open"); });
   container.prepend(box);

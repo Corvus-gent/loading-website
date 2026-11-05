@@ -1,11 +1,7 @@
 import crypto from 'node:crypto';
 import { redis } from './_redis.js';
-const privateEnv = Object.entries(process.env).find(([k,v]) => /(?:REST_API_TOKEN|REDIS_REST_TOKEN)$/.test(k) && v)?.[1];
-const secret = process.env.VOTE_SECRET || process.env.SESSION_SECRET || process.env.REDIS_URL || privateEnv;
-const sign = value => {
-  if (!secret) throw new Error('vote secret unavailable');
-  return crypto.createHmac('sha256', secret).update(value).digest('base64url');
-};
+import {musicVoteSecret} from './_secrets.js';
+const sign = value => crypto.createHmac('sha256',musicVoteSecret()).update(value).digest('base64url');
 export function readVoter(req) {
   const match = /(?:^|;\s*)mvid=([A-Za-z0-9_-]+)\.([A-Za-z0-9_-]+)/.exec(req.headers.cookie || '');
   if (!match) return null;
@@ -19,10 +15,7 @@ export function ensureVoter(req,res) {
   res.setHeader('Set-Cookie', `mvid=${id}.${sign(id)}; Path=/api; Max-Age=31536000; HttpOnly; Secure; SameSite=Strict`);
   return id;
 }
-export const ipHash = req => sign(String(req.headers['x-forwarded-for'] || '').split(',')[0].trim() || 'unknown');
-export async function rateLimit(key, max, seconds) {
-  return Number(await redis(['EVAL', "local n=redis.call('INCR',KEYS[1]); if n==1 then redis.call('EXPIRE',KEYS[1],ARGV[1]) end; return n", '1', key, String(seconds)])) <= max;
-}
+export { dailyIPHash as ipHash, rateLimit } from './_privacy.js';
 export const zeroBits = buffer => { let n=0; for (const b of buffer) { if (!b) n+=8; else { n+=Math.clz32(b)-24; break; } } return n; };
 export async function makeChallenge(voter,action) {
   const id = crypto.randomBytes(18).toString('base64url'), salt = crypto.randomBytes(24).toString('hex');

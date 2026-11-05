@@ -16,6 +16,16 @@
     "test:personas": "REDIS_URL=redis://127.0.0.1:16380/14 SESSION_SECRET=local-test-only playwright test",
     "test:performance": "node tools/performance.mjs after",
     "test:lighthouse": "node tools/lighthouse.mjs",
-    "test:screenshots": "node tools/screenshots.mjs"
+    "test:screenshots": "node tools/screenshots.mjs",
+    "test:privacy:data": "REDIS_URL=redis://127.0.0.1:16380/13 SESSION_SECRET=privacy-local-test node tests/privacy-data.mjs",
+    "test:privacy:browser": "REDIS_URL=redis://127.0.0.1:16380/14 SESSION_SECRET=local-test-only playwright test tests/privacy.spec.mjs",
+    "test:geo": "node --experimental-vm-modules tests/geo.mjs",
+    "test:stats": "node --experimental-vm-modules tests/stats-countries.mjs",
+    "test:eu": "node tests/eu-config.mjs && node tests/redis-migration.mjs && node tests/region-probe.mjs",
+    "test:x": "node tests/x-time.mjs && node tests/x-stats.mjs",
+    "test:x:browser": "playwright test tests/x-stats.spec.mjs",
+    "test:vanity": "node tests/vanity-links.mjs",
+    "test:sf": "REDIS_URL=redis://127.0.0.1:16380/9 SESSION_SECRET=sf-local-test node tests/sf-data.mjs",
+    "test:sf:browser": "SESSION_SECRET=sf-local-test playwright test tests/sf.spec.mjs"
   }
 }
