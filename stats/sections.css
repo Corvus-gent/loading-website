@@ -11,3 +11,15 @@
 .coffee-context{max-width:68ch;line-height:1.6;margin-top:.8rem}
 
 .st .coffee-stat h1{font-size:clamp(1.75rem,6vw,3rem);line-height:1.1;letter-spacing:-.045em;max-width:16ch}
+
+.snapshot-age,[data-snapshot-age]{min-height:1.5em;color:#999;font-size:.75rem}
+.health-check{margin:1.25rem 0}.health-check p,.health-check small{font-size:.76rem;color:#bbb}
+.health-strip{display:grid;grid-template-columns:repeat(30,1fr);gap:3px;max-width:32rem}
+.health-strip i{aspect-ratio:1;border-radius:2px;background:#343434}
+.health-strip .health-ok{background:#6ba780}.health-strip .health-degraded{background:#d4a347}.health-strip .health-down{background:#bb615e}
+#records,#sf-leads,#x-log{min-height:4rem}.st #section-output{contain:layout}.st [data-counts]{min-height:7rem}
+
+.private-stats main{display:block;min-height:100svh}.private-stats .wrap{margin:0 auto}
+.private-stats #private-pending{min-height:65vh;font-size:.85rem;color:#999}
+.private-slot{min-height:8rem}.private-slot>.st-sec{margin:0}
+.st #health-title{font-size:clamp(2rem,8vw,4rem);overflow-wrap:anywhere;min-height:2.4em;line-height:1.15}

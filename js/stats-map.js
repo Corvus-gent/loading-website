@@ -24,11 +24,14 @@ export function locationLabel(group) {
 }
 export const dotRadius = visitors => Math.max(4, Math.min(24, Math.sqrt(visitors)));
 
-async function initMap() {
+async function initMap(snapshot) {
   const container = document.getElementById('visitor-map');
   const status = document.getElementById('visitor-map-status');
   if (!container) return;
   const out = () => { status.textContent = 'the lantern is out.'; status.hidden = false; };
+  if(!window.L)await new Promise(resolve=>{
+    const script=document.createElement('script');script.src='/js/vendor/leaflet/leaflet.js';script.onload=script.onerror=resolve;document.head.append(script);
+  });
   if (!window.L) { out(); return; }
   const L = window.L;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -36,22 +39,16 @@ async function initMap() {
   const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>';
   map.attributionControl.addAttribution(attribution);
   // Tile configuration is independent of visitor data, so geo outages keep the basemap.
-  fetch('/api/geo?tiles=1', { signal: AbortSignal.timeout(10000) }).then(async response => {
-    if (!response.ok || !(await response.json()).available) throw new Error('tiles unavailable');
-    L.tileLayer('/api/geo?tiles=1&z={z}&x={x}&y={y}', { maxZoom: 12 }).on('tileerror', () => {
-      document.getElementById('visitor-map-background').hidden = false;
-    }).addTo(map);
-  }).catch(() => { document.getElementById('visitor-map-background').hidden = false; });
+  let tiles;
+  function updateTiles(enabled){
+  if(enabled&&!tiles)tiles=L.tileLayer('/api/geo?tiles=1&z={z}&x={x}&y={y}',{maxZoom:12}).on('tileerror',()=>{document.querySelector('#visitor-map-background').hidden=false;}).addTo(map);
+  document.querySelector('#visitor-map-background').hidden=!!enabled;
+  }
   const markers = L.layerGroup().addTo(map);
   // The daily stats panel can be hidden while browsing tomorrow's prediction.
   const resize = new ResizeObserver(() => map.invalidateSize({ pan: false }));
   resize.observe(container);
-  try {
-    const response = await fetch('/api/geo?privacy=2', { signal: AbortSignal.timeout(15000) });
-    if (!response.ok) throw new Error('geo unavailable');
-    const data = await response.json();
-    if (!Array.isArray(data.cities)) throw new Error('invalid geo');
-    const cities = data.cities.slice(0, 3000);
+  let cities=[];
     function draw() {
       markers.clearLayers();
       mergeLocations(cities, map.getZoom()).forEach((group, index) => {
@@ -73,12 +70,15 @@ async function initMap() {
         element?.addEventListener('blur', () => marker.closeTooltip());
       });
     }
-    draw(); map.on('zoomend', draw);
+  map.on('zoomend',draw);
+  const update=data=>{
+    updateTiles(data?.tiles);
+    if(!Array.isArray(data?.cities)){out();return;}
+    cities=data.cities.slice(0,3000);
+    draw();
     status.textContent = cities.length ? '' : 'no lanterns yet.';
     status.hidden = cities.length > 0;
-  } catch { out(); }
+  };
+  update(snapshot);return update;
 }
-if (typeof document !== 'undefined') {
-  if (document.readyState === 'complete') initMap();
-  else window.addEventListener('load', initMap, { once: true });
-}
+export {initMap};

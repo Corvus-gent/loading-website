@@ -31,6 +31,10 @@
   ],
   "rewrites": [
     {
+      "source": "/api/health",
+      "destination": "/api/stats?health=1"
+    },
+    {
       "source": "/api/sf",
       "destination": "/api/stats?sf=1"
     },
@@ -188,6 +192,10 @@
     {
       "path": "/api/x-stats?cron=1",
       "schedule": "17 3 * * *"
+    },
+    {
+      "path": "/api/stats?snapJob=1",
+      "schedule": "12 2 * * *"
     }
   ]
 }

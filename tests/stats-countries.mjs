@@ -16,13 +16,16 @@ const posthog=new vm.SyntheticModule(['hogql','posthogReady','REAL'],function(){
     return [];
   });
 },{context});
-const storage=new vm.SyntheticModule(['redis','connected'],function(){
-  this.setExport('connected',()=>true);this.setExport('redis',async command=>{commands.push(command);return command[0]==='HGETALL'?[]:null;});
+const storage=new vm.SyntheticModule(['redis','connected','pipeline'],function(){
+  this.setExport('pipeline',async cmds=>cmds.map(command=>command[0]==='HGETALL'?[]:null));this.setExport('connected',()=>true);this.setExport('redis',async command=>{commands.push(command);return command[0]==='HGETALL'?[]:null;});
 },{context});
 const sections=new vm.SyntheticModule(['default'],function(){this.setExport('default',()=>{});},{context});
 const policyModule=new vm.SyntheticModule(Object.keys(policy),function(){for(const [k,v] of Object.entries(policy))this.setExport(k,v);},{context});
-const module=new vm.SourceTextModule(await readFile(new URL('../api/stats.js',import.meta.url),'utf8'),{context});
-await module.link(name=>name.includes('analytics-policy')?policyModule:name.includes('_posthog')?posthog:name.includes('_redis')?storage:sections);await module.evaluate();
+const daily=new vm.SourceTextModule(await readFile(new URL('../api/_stats-daily.js',import.meta.url),'utf8'),{context});
+const linker=name=>name.includes('analytics-policy')?policyModule:name.includes('_posthog')?posthog:name.includes('_redis')?storage:sections;
+await daily.link(linker);await daily.evaluate();
+const module=new vm.SourceTextModule(await readFile(new URL('../api/stats.js',import.meta.url),'utf8'),{context,importModuleDynamically:async()=>daily});
+await module.link(linker);await module.evaluate();
 const response={headers:{},setHeader(k,v){this.headers[k]=v},status(code){this.code=code;return this},send(body){this.data=JSON.parse(body);return this},json(body){this.data=body;return this}};
 await module.namespace.default({query:{}},response);
 assert.equal(response.code,200);

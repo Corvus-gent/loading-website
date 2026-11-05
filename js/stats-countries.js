@@ -39,17 +39,3 @@ export function renderCountries(container, countries) {
   }
   container.replaceChildren(list);
 }
-
-// The map's daily list loads separately from Leaflet and the all-time geo API.
-const daily = document.querySelector('[data-countries-today]');
-if (daily) {
-  const day = brusselsDay();
-  document.getElementById('countries-period').textContent = countryPeriod(day);
-  fetch(countryStatsURL(day), {signal: AbortSignal.timeout(20000)})
-    .then(async response => {
-      if (!response.ok) throw new Error('country counts unavailable');
-      const data = await response.json();
-      renderCountries(daily, data.countries);
-    })
-    .catch(() => { daily.textContent = 'country counts are unavailable. try again shortly.'; });
-}

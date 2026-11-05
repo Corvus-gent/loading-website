@@ -1,13 +1,9 @@
 import {mountXClocks} from './x-clocks.js';
 import {sfLoggedTime} from './x-time.js';
-import {initI18n,getLang} from './i18n.js';
-initI18n();
 mountXClocks(document.querySelector('#x-world-clock'));
 const out=document.querySelector('#section-output');
 const el=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;};
 const number=n=>new Intl.NumberFormat('en',{maximumFractionDigits:2}).format(Number(n)||0);
-for(const a of document.querySelectorAll('[data-stat]')){a.href='https://stats.corvus.gent/'+(a.dataset.stat==='overview'?'':a.dataset.stat)+'?lang='+getLang();if(a.dataset.stat==='x')a.setAttribute('aria-current','page');}
-document.querySelector('.stat-copy')?.addEventListener('click',async e=>{try{await navigator.clipboard.writeText('https://stats.corvus.gent/x');e.target.textContent='copied';}catch{e.target.textContent='https://stats.corvus.gent/x';}});
 function section(title){const s=el('section',undefined,'st-sec');s.append(el('h2',title));return s;}
 function table(headers,rows){const wrap=el('div',undefined,'x-scroll'),t=el('table'),head=el('thead'),tr=el('tr');for(const h of headers){const th=el('th',h);th.scope='col';tr.append(th);}head.append(tr);t.append(head);const body=el('tbody');for(const row of rows){const tr=el('tr');for(const value of row)tr.append(el('td',String(value)));body.append(tr);}t.append(body);wrap.append(t);return wrap;}
 function metrics(title,data){const s=section(title),dl=el('dl',undefined,'x-metrics');for(const [label,value]of [['replies',data.replies],['posts',data.posts],['links used',data.links],['clicks to corvus',data.clicks],['clicks to pidgy',data.clicksPidgy],['clicks / links',data.ctr===null?'—':`${number(data.ctr*100)}%`]]){const block=el('div');block.append(el('dt',label),el('dd',typeof value==='number'?number(value):value));dl.append(block);}s.append(dl);return s;}
@@ -28,5 +24,5 @@ function render(data){
  if(data.unmatchedClicks)out.append(el('p',`${number(data.unmatchedClicks)} clicks could not be matched to a dated region-hour slot. totals include them; voice and hour estimates do not.`,'sub'));
  out.append(el('p',`${data.stale?'last saved snapshot · ':''}updated ${new Date(data.updated).toLocaleString('en-GB',{timeZone:'Europe/Brussels'})} brussels · refreshes at most every 15 minutes`,'sub'));
 }
-async function load(){try{const r=await fetch('/api/x-stats',{credentials:'omit'});if(!r.ok)throw Error('unavailable');render(await r.json());}catch{out.replaceChildren(el('p','the log is resting. try again soon.'));}}
-load();
+function load(){window.statsPage.load('x',window.statsPage.today,true);}
+window.statsPage.watch('x',window.statsPage.today,s=>{if(s.data)render(s.data);else out.textContent=s.state==='warming'?'preparing the first snapshot…':'the log is resting.';});

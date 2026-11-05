@@ -27,8 +27,7 @@ function render() {
   }
 }
 new MutationObserver(render).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
-try {
-  const res = await fetch('/api/stats?section=coffee');
-  if (res.ok) stats = await res.json();
-} catch { /* The rest of the stats page works independently. */ }
-render();
+const {page,today,watch}=window.statsPage;
+if(page==='coffee')watch(page,today,s=>{stats=s.data;render();});
+else document.addEventListener('overview-coffee',e=>{stats=e.detail;render();});
+if(page==='overview'&&window.overviewCoffee){stats=window.overviewCoffee;render();}

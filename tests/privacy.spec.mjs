@@ -36,8 +36,10 @@ async function setup(page,{realSpotify=false}={}){
   if(u.pathname==='/api/x-stats')return route.fulfill({json:{ready:false}});
   if(u.pathname==='/api/auth')return route.fulfill({json:{email:null}});
   if(u.pathname==='/api/stats'){
-   const section=u.searchParams.get('section');
-   return route.fulfill({json:section==='outbound'?{hosts:[]}:section==='pidgy'?{today:{visitors:3,clickers:0,clicks:0},all:{visitors:3,clickers:0,clicks:0},signups:null,scene:0,variant:0}:section==='music'?{genres:[]}:section==='games'?{today:{played:0},all:{played:0},best:0,types:[]}:stats});
+   const name=u.searchParams.get('page');
+   const metric={visitors:3,clicker:0,clicks:0};
+   const data={pidgy:{today:metric,all:metric,signups:null,scene:0,variant:0},music:{genres:[],loved:[],suggestions:[]},games:{today:{played:0},all:{played:0},best:0,types:[]},x:{ready:false},map:{cities:[],countries:[]},coffee:{ready:false},status:{status:'unknown',checks:[]},private:null};
+   return route.fulfill({json:{page:name,day:u.searchParams.get('day'),checked:new Date().toISOString(),state:name==='private'?'login':'ready',data:name in data?data[name]:stats}});
   }
   if(['corvus.gent','stats.corvus.gent'].includes(u.hostname)){let path=u.pathname;if(u.hostname==='stats.corvus.gent'){if(path==='/')path='/stats/';else if(/^\/(pidgy|games|map|music|hunt|private|x|coffee)\/?$/.test(path))path='/stats'+path.replace(/\/$/,'')+'/';}const local=await page.request.get((process.env.TEST_BASE_URL || 'http://127.0.0.1:4176')+path+u.search);return route.fulfill({response:local});}
   return route.continue();
@@ -57,7 +59,7 @@ for(const path of ['/','/call/','/music/','/games/','/stats/','/stats/map/','/st
   expect((await context.cookies()).map(c=>c.name).filter(name=>!['mvid','vid','sess'].includes(name))).toEqual([]);
   for(const cookie of await context.cookies()){expect(cookie.httpOnly).toBe(true);expect(cookie.secure).toBe(true);expect(cookie.sameSite).toBe('Strict');}
   const storage=await page.evaluate(()=>({local:Object.keys(localStorage),session:Object.keys(sessionStorage)}));
-  expect(storage.local.some(key=>/^ph_|posthog/i.test(key))).toBe(false);expect(storage.session.filter(key=>key!=='sf-note:2026-11')).toEqual([]);
+  expect(storage.local.some(key=>/^ph_|posthog/i.test(key))).toBe(false);expect(storage.session.filter(key=>key!=='sf-note:2026-11'&&!(path.startsWith('/stats/')&&key.startsWith('stats:snap:v1:')&&!key.includes(':private:')))).toEqual([]);
   expect(errors).toEqual([]);
  });
 }

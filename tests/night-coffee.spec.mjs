@@ -64,11 +64,14 @@ test('touch lights the scene; reduced motion keeps labels visible',async({browse
 });
 for(const path of ['/stats/','/stats/coffee/'])test('coffee states and languages on '+path,async({page})=>{
   let coffee={ready:false};
-  await page.route('**/api/stats?section=coffee',r=>r.fulfill({json:coffee}));
+  await page.route('**/api/stats?*',r=>{
+    const params=new URL(r.request().url()).searchParams,name=params.get('page');
+    return r.fulfill({json:{page:name,day:params.get('day'),state:'ready',checked:new Date().toISOString(),data:name==='coffee'?coffee:{coffee}}});
+  });
   await page.goto(path);const panel=page.locator('[data-coffee]');
   await expect(panel).toContainText('the cup is still empty.');await expect(panel.locator('[data-counts]')).toBeHidden();
   coffee={ready:true,total:68,supporters:5,month:6,latest:'2026-11-02'};
-  await page.clock.setFixedTime(new Date('2026-11-05T09:00:00Z'));await page.reload();
+  await page.clock.setFixedTime(new Date('2026-11-05T09:00:00Z'));await page.evaluate(()=>sessionStorage.clear());await page.reload();
   await expect(panel.locator('[data-cups]')).toHaveText('☕'.repeat(50)+' +18');
   await expect(panel.locator('time')).toHaveText('3 days ago');
   await page.locator('#lang-switcher a').filter({hasText:/^NL$/}).click();

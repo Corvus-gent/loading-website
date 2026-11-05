@@ -1,4 +1,4 @@
-import {renderCountries, countryPeriod, countryStatsURL} from './stats-countries.js';
+import {renderCountries, countryPeriod} from './stats-countries.js';
 const $ = id => document.getElementById(id);
 const bar = (n, max, w = 18) => n ? "█".repeat(Math.max(1, Math.round((n / Math.max(1, max)) * w))) : "";
 const names = new Intl.DisplayNames(["en"], { type: "language" });
@@ -8,11 +8,12 @@ const tzToday = () => new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Bruss
 
 const FIRST = "2026-11-02";
 const TODAY = tzToday();
-let day = new URLSearchParams(location.search).get("day") || TODAY;
+let day = window.statsPage.selected;
 if (day < FIRST) day = FIRST;
 if (day > shift(TODAY, 1)) day = shift(TODAY, 1);
 
 function rows(el, list, key) {
+  if(!list){$(el).textContent="counts unavailable.";return;}
   const max = Math.max(1, ...list.map(x => x.n));
   $(el).innerHTML = list.length ? "" : '<p class="sub">nothing yet.</p>';
   list.forEach(x => {
@@ -23,7 +24,9 @@ function rows(el, list, key) {
   });
 }
 
-async function render() {
+let stop;
+function render() {
+  stop?.();
   const currentURL = new URL(location.href);
   if (day === TODAY) currentURL.searchParams.delete('day');
   else currentURL.searchParams.set('day', day);
@@ -40,40 +43,42 @@ async function render() {
   $("countries-period").textContent = countryPeriod(day);
   $("countries").textContent = 'counting visitors…';
   const requestedDay = day;
-  try {
-    const r = await fetch(countryStatsURL(requestedDay));
-    if (!r.ok) throw 0;
-    const s = await r.json();
-    if (requestedDay !== day) return;
-    $("visitors").textContent = s.visitors;
-    $("visitors-line").textContent = day === TODAY
+  stop=window.statsPage.watch('overview',requestedDay,snapshot=>{
+    if(day!==requestedDay)return;
+    const s=snapshot.data;
+    if(!s){$("visitors-line").textContent=snapshot.state==='warming'?'preparing the first snapshot…':'snapshot unavailable.';$("countries").textContent='country counts unavailable.';return;}
+    const measuredDay=snapshot.day||day;
+    $("countries-period").textContent=countryPeriod(measuredDay);
+    window.overviewCoffee=s.coffee;
+    document.dispatchEvent(new CustomEvent('overview-coffee',{detail:s.coffee}));
+    document.querySelector('[data-coffee]').hidden=day!==TODAY;
+    const uptime=document.querySelector('[data-uptime]');uptime.textContent='uptime 30d: '+(s.uptime==null?'—':s.uptime.toFixed(1)+'%');
+    const outbound=$("outbound");outbound.replaceChildren();
+    if(s.outbound)rows("outbound",s.outbound.hosts.map(([label,n])=>({label,n})),"label");else outbound.textContent='outbound counts unavailable.';
+    $("visitors").textContent = s.visitors??"—";
+    $("visitors-line").textContent = s.visitors==null?"visitor count unavailable.":measuredDay === TODAY
       ? (s.visitors === 1 ? "visitor today. just the one, so far." : `visitors today. so far, just ${s.visitors}.`)
-      : `visitors on ${fmt(day)}.`;
-    $("total-line").textContent = day === FIRST ? "day one. the crow came back." : `${s.total} visits since the crow came back (2 nov 2026).`;
-    const max = Math.max(1, ...s.hours.map(h => h.n));
-    const byHour = Object.fromEntries(s.hours.map(h => [h.h, h.n]));
+      : `visitors on ${fmt(measuredDay)}.`;
+    $("total-line").textContent = day === FIRST ? "day one. the crow came back." : `${s.total??'—'} visits since the crow came back (2 nov 2026).`;
+    const max = Math.max(1, ...(s.hours||[]).map(h => h.n));
+    const byHour = Object.fromEntries((s.hours||[]).map(h => [h.h, h.n]));
     $("hours").textContent = Array.from({ length: 24 }, (_, h) => `${String(h).padStart(2, "0")}h ${bar(byHour[h] || 0, max)} ${byHour[h] || ""}`).join("\n");
-    renderCountries($("countries"), s.countries);
+    if(s.countries)renderCountries($("countries"),s.countries);else $("countries").textContent="country counts unavailable.";
     rows("sources", s.sources, "s");
     rows("pages", s.pages, "p");
-    rows("browsers", s.browsers || [], "b");
+    rows("browsers", s.browsers, "b");
     const cliDay = Object.entries((s.cli && s.cli.day) || {}), cliAll = Object.values((s.cli && s.cli.all) || {}).reduce((a, b) => a + b, 0);
-    $("cli").textContent = cliDay.length
+    $("cli").textContent = !s.cli ? "command-line counts unavailable." : cliDay.length
       ? `yes. ${cliDay.map(([t, n]) => `${n}× ${t}`).join(", ")} this day. someone's poking around 🕵️ · all time: ${cliAll}.`
       : `nobody curled corvus.gent this day.${cliAll ? ` all time: ${cliAll}.` : ""} (try: curl corvus.gent)`;
-    $("feathers").textContent = `🪶 ${s.feathers} feathers found by ${s.hunters} hunters.`;
-    $("terminal").textContent = s.terminal.length ? `most typed in the terminal: ${s.terminal.map(t => t.c).join(", ")}` : "nobody opened the terminal.";
+    $("feathers").textContent = `🪶 ${s.feathers??'—'} feathers found by ${s.hunters??'—'} hunters.`;
+    $("terminal").textContent = !s.terminal ? "terminal counts unavailable." : s.terminal.length ? `most typed in the terminal: ${s.terminal.map(t => t.c).join(", ")}` : "nobody opened the terminal.";
     if (s.cv) $("cv").textContent = `📄 opened ${s.cv.open}× and downloaded ${s.cv.download}× this day · all time: ${s.cv.openTotal} opens, ${s.cv.downloadTotal} downloads.`;
     $("votes-sec").style.display = s.votes ? "block" : "none";
     $("unpaid-sec").style.display = s.unpaid_days ? "block" : "none";
     if (s.votes) rows("votes", Object.entries(s.votes).sort((a, b) => b[1] - a[1]).slice(0, 5).map(([c, n]) => ({ c: names.of(c), n })), "c");
     if (s.unpaid_days) $("unpaid").textContent = `domain still unpaid: day ${s.unpaid_days}.`;
-    $("updated").textContent = `brussels time · today refreshes every 5 minutes · last: ${new Date(s.updated).toLocaleString("en-GB", { timeZone: "Europe/Brussels" })}`;
-  } catch {
-    if (requestedDay !== day) return;
-    $("visitors").textContent = "…"; $("visitors-line").textContent = "the crow is still counting. come back soon.";
-    $("countries").textContent = 'country counts are unavailable. try again shortly.';
-  }
+  });
 }
 
 $("prev").addEventListener("click", () => { day = shift(day, -1); render(); });
