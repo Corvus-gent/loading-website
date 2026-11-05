@@ -1,0 +1,101 @@
+:root {
+  color-scheme: dark;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  background: #101b26;
+  color: #f3f0e5;
+}
+* { box-sizing: border-box; }
+body { margin: 0; }
+[hidden] { display: none !important; }
+.postcard {
+  position: relative; isolation: isolate; overflow: hidden;
+  min-height: 100vh; min-height: 100svh;
+  background: linear-gradient(176deg,#0b141e 1%,#162834 40%,#3b5058 72%,#172d37 86%,#10252f 100%);
+}
+.letter {
+  position: relative; z-index: 5; width: fit-content; max-width: 100%;
+  padding: max(36px,env(safe-area-inset-top)) 22px 0;
+  pointer-events: none;
+}
+.letter h1 {
+  font-size: clamp(37px,9.8vw,60px); font-weight: 550; line-height: 1.05;
+  letter-spacing: -.075em; margin: 0;
+}
+.letter h1 span { color: #efc383; }
+.letter p {
+  max-width: 42ch; font-size: clamp(13px,2.1vw,16px); line-height: 1.65;
+  margin: 17px 0 21px; color: #dbe1db;
+}
+.letter nav { display: flex; gap: 9px; flex-wrap: wrap; }
+.letter a {
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  min-height: 44px; padding: 10px 12px; border: 1px solid #7c898c; border-radius: 5px;
+  background: #15242e; color: #f3f0e5; text-decoration: none; font-size: 12px;
+  pointer-events: auto;
+}
+.letter a.email { background: #efc383; color: #1d2223; border-color: #efc383; }
+.letter a:hover { border-color: #f9e1bd; }
+.letter a.email:hover { background: #ffdb9e; }
+.letter a svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+a:focus-visible, button:focus-visible { outline: 3px solid #fff1cb; outline-offset: 4px; }
+.sky { position: absolute; inset: 0; z-index: -2; pointer-events: none; }
+.stars { width: 100%; height: 58%; opacity: .66; }
+.moon {
+  position: absolute; right: 11%; top: 34%; width: 40px; aspect-ratio: 1; border-radius: 50%;
+  background: linear-gradient(170deg,#dddaca,#adb5ad 70%,#9aa8a5);
+  box-shadow: 0 0 44px 10px #d7d6bb18;
+}
+.bay {
+  position: absolute; z-index: -1; width: max(122%,570px); right: -12%;
+  bottom: 10%; aspect-ratio: 1200 / 500;
+}
+.bridge { display: block; width: 100%; height: 100%; mask-image: linear-gradient(#000 0 83%, transparent); }
+.raven,.still-raven {
+  position: absolute; left: 75%; top: 33%; transform: translate(-50%,-60%);
+  width: 48px; height: 48px;
+}
+.raven,.lantern { appearance: none; background: transparent; border: none; padding: 0; border-radius: 50%; cursor: pointer; }
+.raven img,.still-raven { width: clamp(22px,2.3vw,34px); }
+.raven img { display: block; margin: auto; height: auto; pointer-events: none; }
+.still-raven { height: auto; }
+.raven.flown img { animation: fly 1.2s ease-in forwards; }
+@keyframes fly { 18% { transform: translate(3px,-9px) rotate(-14deg); } 100% { transform: translate(125px,-105px) rotate(-18deg) scale(.65); opacity: 0; } }
+.caw,.inscription { z-index: 4; background: #101c24; color: #f1e1c3; border: 1px solid #897657; border-radius: 4px; font-size: 12px; line-height: 1.55; }
+.caw { font-family: ui-monospace, monospace; position: absolute; left: 50%; bottom: 100%; transform: translateX(-75%); padding: 5px 9px; white-space: nowrap; }
+.bluff { position: absolute; bottom: 0; left: 0; width: 100%; height: 17%; pointer-events: none; }
+.philosopher { position: absolute; left: 4%; bottom: 9.4%; width: clamp(108px,28vw,154px); aspect-ratio: 200 / 220; }
+.diogenes { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.beam,.halo { position: absolute; pointer-events: none; }
+.beam {
+  left: 79%; top: 43.6%; width: min(79vw,930px); height: clamp(100px,23vh,260px);
+  transform: translateY(-50%) rotate(-13deg); transform-origin: 0 50%;
+  clip-path: polygon(0 50%,100% 0,100% 100%);
+  background: radial-gradient(ellipse 95% 62% at 0% 50%,#ffdd9d85 0%,#f9c77d40 37%,#e3b17314 74%,transparent 100%);
+  animation: wick 3.7s ease-in-out infinite;
+}
+.halo { top: 43.6%; left: 79%; transform: translate(-50%,-50%); width: 60%; aspect-ratio: 1; background: radial-gradient(ellipse,#ffd18e72,transparent 69%); animation: wick 3.7s ease-in-out infinite; }
+@keyframes wick { 0%,41%,57%,100% { opacity: .95; } 45%,74% { opacity: .77; } 50%,80% { opacity: .89; } }
+.lantern { position: absolute; width: 46px; height: 46px; left: 79%; top: 43.6%; transform: translate(-50%,-50%); }
+.inscription { position: absolute; left: 0; bottom: 70%; width: min(270px,86vw); margin: 0; padding: 10px 13px; }
+footer { position: absolute; right: max(19px,env(safe-area-inset-right)); bottom: max(7px,env(safe-area-inset-bottom)); font-size: 11px; }
+footer a { color: #bac5c5; padding: 12px 0; display: inline-block; text-underline-offset: 3px; }
+@media (min-width: 680px) {
+  .letter { padding: clamp(38px,10vh,110px) 0 0 7vw; }
+  .letter h1 { font-size: clamp(54px,6.4vw,100px); }
+  .letter nav { gap: 12px; }.letter a { padding: 12px 16px; font-size: 13px; }
+  .letter p { max-width: 44ch; margin: 20px 0 23px; }
+  .moon { top: 9%; right: 12%; width: clamp(40px,4vw,67px); }
+  .bay { width: 100%; right: 0; bottom: 6%; }
+  .philosopher { left: 11%; bottom: 9.8%; width: clamp(116px,17vw,245px); }
+}
+@media (min-aspect-ratio: 2/1) {
+  .bay { width: 100%; height: min(41.67vw,88vh); bottom: 3%; }
+  .philosopher { width: min(16vw,34vh); }
+  .letter { padding-top: 5vh; }
+  .letter h1 { font-size: clamp(36px,8vh,76px); }
+  .letter p { margin: 10px 0 13px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,*::before,*::after { animation: none !important; transition: none !important; }
+  .raven.flown img { opacity: .35; }
+}

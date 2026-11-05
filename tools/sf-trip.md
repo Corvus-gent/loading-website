@@ -1,5 +1,10 @@
 # SF soft launch · 6–15 November 2026
 
+The public `/sf/` route now serves a static contact card. Its two buttons open
+Gabriel’s email address and `/links/gabe`. The page has no form, reads no events
+calendar, and sends no analytics or API requests. The earlier rollout notes
+below document the trip note, private dashboard and legacy form infrastructure.
+
 The SF feature stays on `daily/2026-11-04` / PR #11. Nothing here deploys to main.
 
 - `/sf/` is the outreach page, in the seven existing languages. Use

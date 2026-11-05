@@ -238,13 +238,14 @@ test('cleanup preserves history state, functional queries and fragments on priva
  await expect(page).toHaveURL(/\/stats\/private\/\?lang=nl&tab=login#code$/);
  expect(await page.evaluate(()=>history.state)).toEqual({marker:'keep'});expect(events).toEqual([]);expect(errors).toEqual([]);
 });
-test('SF opt-in analytics keeps campaign and action counts, never contact or form text',async({page})=>{
- const {events,errors}=await setup(page);
- await page.route('**/api/sf',r=>r.fulfill({json:r.request().postDataJSON()?.action==='challenge'?{challenge:{id:'a'.repeat(24),salt:'sf-privacy-fixture',bits:2,notBefore:Date.now()+3000},retryAfter:0}:{ok:true,retryAfter:60}}));
- await page.goto('/sf/?utm_source=x&utm_campaign=gabe-sf-trip');await page.locator('#privacy-notice [data-allow]').click();
- await expect.poll(()=>events.some(e=>e.event==='$pageview')).toBe(true);
- const pv=events.find(e=>e.event==='$pageview');expect(pv.properties.utm_campaign).toBe('gabe-sf-trip');expect(pv.properties.$pathname).toBe('/sf/');expect(new URL(page.url()).search).toBe('');
- await page.locator('[name=name]').fill('private-sf-person');await page.locator('[name=contact]').fill('private-sf@example.test');await page.locator('[name=message]').fill('private message never in analytics');await page.locator('[name=lets][value=coffee]').check();await page.locator('#sf-send').click();await expect(page.locator('#sf-success')).toBeVisible();
- await expect.poll(()=>events.some(e=>e.event==='sf_form_submit')).toBe(true);expect(events.some(e=>e.event==='sf_form_start')).toBe(true);
- const raw=JSON.stringify(events);for(const secret of ['private-sf-person','private-sf@example.test','private message never in analytics'])expect(raw).not.toContain(secret);expect(errors).toEqual([]);
+test('static SF contact page makes no backend or analytics requests even with prior consent',async({page})=>{
+ const {requests,events,errors}=await setup(page);
+ await page.addInitScript(version=>localStorage.setItem('analytics-consent',JSON.stringify({choice:'allow',version,expires:Date.now()+86400000})),PRIVACY_VERSION);
+ await page.goto('/sf/?utm_source=x&utm_campaign=gabe-sf-trip');
+ await expect(page.getByRole('link',{name:'Send me an email'})).toBeVisible();
+ await page.getByRole('button',{name:'Reveal the lantern inscription'}).click();
+ await expect(page.locator('#inscription')).toBeVisible();
+ await expect(page).toHaveURL(/\/sf\/$/);
+ expect(requests.every(url=>new URL(url).origin===new URL(page.url()).origin && !new URL(url).pathname.startsWith('/api/'))).toBe(true);
+ expect(events).toEqual([]);expect(errors).toEqual([]);
 });

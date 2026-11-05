@@ -571,6 +571,10 @@ with its own login response.
 
 ## SF trip extension · 4 November 2026
 
+The replacement `/sf/` contact card loads local artwork and uses a mailto link
+and Gabe’s public link hub. It does not call the legacy form API or PostHog.
+The form entries below document the earlier flow and its retained records.
+
 | Surface / key | Data, purpose and ground | Retention / recipient |
 | --- | --- | --- |
 | `/sf` form → `/api/sf` | Name/contact, work, requested activities/days, venue, optional message; arranging the visitor's requested meeting (Request), no marketing use. | Only Gabriel's exact email session can read leads. Existing Vercel Frankfurt function / configured Redis; no new public data endpoint. |

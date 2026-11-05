@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" preserveAspectRatio="none">
+  <title>Golden Gate Bridge in the evening fog</title>
+  <defs>
+    <linearGradient id="hills" x2="0" y2="1" gradientUnits="objectBoundingBox">
+      <stop stop-color="#374955"/><stop offset="1" stop-color="#172a34"/>
+    </linearGradient>
+    <linearGradient id="iron" x1="0" y1="0" x2=".8" y2="1">
+      <stop stop-color="#d29274"/><stop offset=".24" stop-color="#ac6855"/><stop offset=".72" stop-color="#704b48"/><stop offset="1" stop-color="#3e4246"/>
+    </linearGradient>
+    <linearGradient id="water" x2="0" y2="1">
+      <stop stop-color="#3d535b"/><stop offset=".35" stop-color="#253e48"/><stop offset="1" stop-color="#132833"/>
+    </linearGradient>
+    <linearGradient id="mist"><stop stop-color="#9db0af" stop-opacity="0"/><stop offset=".45" stop-color="#a8b9b6" stop-opacity=".52"/><stop offset="1" stop-color="#82959b" stop-opacity="0"/></linearGradient>
+    <filter id="sea-haze" x="-10%" y="-60%" width="120%" height="220%"><feGaussianBlur stdDeviation="6"/></filter>
+    <g id="tower">
+      <!-- Stepped Art Deco piers, two crossbeams, and an open roadway portal. -->
+      <path fill="url(#iron)" fill-rule="evenodd" d="M-36 304l5-237 2-42h4V8h3V1h6v8h4v17h23V9h4V1h6v7h3v17h4l2 42 5 237h-19l-2-71-4-10H-9l-5 10-3 71zm19-263-1 35 4 5h27l4-5-1-35-4 4h-25zm-2 59-1 41 6 5h28l5-5-1-41-5 5h-27zm-2 66-1 41 7 6h29l7-6-1-41-6 6h-29z"/>
+      <path d="M-27 28l-5 267m13-280-2 59m37-57 3 58M-19 89l39 0m-41 66 43 0m-45 64 47 0" fill="none" stroke="#e19a79" stroke-width="1.5" opacity=".67"/>
+      <path d="m24 26 6 4 7 272-5 3zM-14 81l27 0 4-5-1 10-30 0zm-1 65 29 0 5-5v10h-35z" fill="#553c3d"/>
+      <path d="M-40 302h81l3 12h-87z" fill="#3b4145"/><path d="M-45 314h91v13h-92z" fill="#273b43"/>
+      <g fill="#ffe0a0"><circle cx="-20" cy="1" r="1.8"/><circle cx="18" cy="1" r="1.7"/></g>
+    </g>
+    <pattern id="truss" width="22" height="10" patternUnits="userSpaceOnUse">
+      <path d="M0 1l11 8 11-8M0 0v10" fill="none" stroke="#a47965" stroke-width="1.4"/>
+    </pattern>
+  </defs>
+  <!-- Headlands behind the northern anchorage. -->
+  <path fill="url(#hills)" d="M0 260q48-8 98-44l38-14q20 1 50-16 31-18 63-13l24-9 33 12 28-5q26 2 45 17l57 17 26 18 66 14 51 31 64 12 60 20 56-2 42 16 58 3 36-12 54-1 50-23 71-4 68-14 62-4v103H0z"/>
+  <path fill="#30454d" d="M0 268l56-5 94-31 69-10 28-16 32-9-16 16-53 16-31 23-41 8-45 24L0 305z"/>
+  <path fill="#263c46" d="M0 287q67-1 118-22l43-11 47-5 42-12 45 5q71-14 122-45l-29 29-52 24-34 20-88 6-55 18-63 4-96 20z"/>
+  <path fill="url(#water)" d="M0 335q290-26 599-25 306 2 601-14v204H0z"/>
+  <g fill="none" stroke-linecap="round">
+    <path d="M0 366q98-9 165-7m20-3 103-5m316-15 97-2m264-12 90-2m-837 64 128-5m-295 17 81-5m297-12 109-3m64-20 85-2m14 38 141-3m43-29 142-4m-659 48 102-5m-316 28 154-8m427-29 78-1m115 24 111-2" stroke="#8aa1a1" stroke-opacity=".24" stroke-width="1.5"/>
+    <path d="m718 369 71-4m-55 10 44-2m-70 9 62-3m-29 9 37-1m-45 4 27 0m-51 8 41-2m-20 7 16-1m-13 6 20 0" stroke="#c49870" stroke-opacity=".34" stroke-width="2"/>
+  </g>
+  <!-- The two cable planes and their vertical suspenders. -->
+  <g fill="none" stroke="#785a51" stroke-width="2.1">
+    <path d="M-35 284Q154 360 338 204Q530 407 737 72Q954 296 1250 257"/>
+    <g stroke-width="1.1" opacity=".88"><path d="M23 301.9V341.3M71 308.4V337.7M119 307.3V334.1M167 298.6V330.5M215 282.1V326.9M263 257.8V323.3M311 225.6V319.7M359 224.6V316.1M407 259.3V312.5M455 277.5V308.9M503 279.5V305.3M551 265.8V301.7M599 236.8V298.1M647 193.0V294.5M695 134.6V290.9M743 78.1V287.3M791 122.6V283.7M839 159.7V280.1M887 190.2V276.5M935 214.6V272.9M983 233.5V269.3M1031 247.4V265.7M1079 256.7V262.1"/></g>
+  </g>
+  <use href="#tower" transform="translate(350 188) scale(.53)"/>
+  <g fill="none" stroke="#af7e66" stroke-width="2.6">
+    <path d="M-30 275Q157 356 360 190Q549 393 790 65Q960 265 1235 254"/>
+    <g stroke-width="1.25" opacity=".92"><path d="M40 296.6V340.0M88 301.5V336.4M136 298.7V332.8M184 288.4V329.2M232 270.8V325.6M280 246.2V322.0M328 214.7V318.4M376 206.1V314.8M424 242.7V311.2M472 262.6V307.6M520 267.4V304.0M568 258.4V300.4M616 236.7V296.8M664 203.1V293.2M712 158.7V289.6M760 104.0V286.0M808 85.3V282.4M856 131.4V278.8M904 167.7V275.2M952 196.1V271.6M1000 217.8V268.0M1048 233.9V264.4M1096 244.9V260.8M1144 251.6V257.2"/></g>
+  </g>
+  <g transform="matrix(1,-.075,0,1,0,347)">
+    <path d="M-20-4h1250v14H-20z" fill="#3d4045"/>
+    <path d="M-20-2h1250v10H-20z" fill="url(#truss)"/>
+    <path d="M-20-4h1250M-20 9h1250" fill="none" stroke="#b38269" stroke-width="2"/>
+    <path d="M-20-6h1250" stroke="#e8ba83" stroke-width="1" stroke-dasharray="2 14"/>
+  </g>
+  <use href="#tower" transform="translate(765 60)"/>
+  <g fill="url(#mist)" filter="url(#sea-haze)" opacity=".7">
+    <path d="M-70 297q186-20 314 0t250-11q186-26 304-10-128 9-277 39-165 17-291-1T-70 319z"/>
+    <path d="M532 339q176-3 311-37 105-26 217-15l178-26v25q-100 23-187 16-113 1-209 30-132 32-310 30z"/>
+  </g>
+  <g fill="url(#mist)" opacity=".8">
+    <path d="M-80 310q188-21 318-2t252-4q103-24 259-24-113 25-239 39-150 16-284 3T-80 332z"/>
+    <path d="M478 329q184-6 285-24t213-14q75 1 202-20-74 35-181 45-150 0-246 20-136 16-273 9z"/>
+    <path d="M-70 375q157-19 296-13 92 5 198-1 137-13 265-7-108 21-239 24-79 13-242 6t-278 9z"/>
+    <path d="M679 393q136-11 238-27t207-17l130-11v17q-132 4-261 25t-314 23z"/>
+  </g>
+</svg>

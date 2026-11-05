@@ -1,15 +1,70 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>in sf? let's meet | corvus</title><meta name="description" content="san francisco. francisco's little town. gabe is visiting 6–15 november 2026. coffee, builders, hackathons and bjj."><meta property="og:title" content="in sf? let's meet"><meta property="og:description" content="san francisco. francisco's little town. 6–15 nov 2026."><meta property="og:url" content="https://corvus.gent/sf/"><meta property="og:image" content="https://corvus.gent/og.png"><meta name="referrer" content="no-referrer"><link rel="icon" href="/logo.png"><link rel="stylesheet" href="/styles.css?v=8da4ddf17660"><link rel="stylesheet" href="/sf/style.css?v=72587a15b7aa"><link rel="stylesheet" href="/privacy/privacy.css?v=202ae89baeff"></head><body class="sf-page"><main><div class="sf-wrap"><div id="lang-switcher" class="lang-switcher"></div><a href="/realm/">corvus / realm</a><header><img class="sf-crow-mark" src="/img/sf-crow.svg" width="130" height="90" alt=""><h1 data-i18n="sf.headline">san francisco. francisco's little town.</h1><p class="sf-intro" data-i18n="sf.intro">my name is francisco, so technically this is my city. fri 6 → sun 15 nov.</p><p id="sf-state" class="sf-state"></p><p class="sf-who" data-i18n="sf.who">founders. builders. investors. hackathon people. bjj open mats. anyone with a good coffee spot.</p></header>
-<form id="sf-form" class="sf-form" method="post" action="/api/sf"><h2 data-i18n="sf.formTitle">in sf? let's meet</h2>
-<label class="sf-field"><span data-i18n="sf.name">name *</span><input name="name" required maxlength="80" autocomplete="name"></label>
-<label class="sf-field"><span data-i18n="sf.contact">how to reach you *</span><input name="contact" required maxlength="300" autocapitalize="off" spellcheck="false" aria-describedby="contact-hint"><small id="contact-hint" data-i18n="sf.contactHint">email, @x handle or linkedin profile url</small></label>
-<label class="sf-field"><span data-i18n="sf.what">what you do</span><input name="what" maxlength="140"></label>
-<fieldset><legend data-i18n="sf.lets">let's *</legend><div id="sf-lets" class="sf-chips"></div></fieldset>
-<fieldset><legend data-i18n="sf.when">when *</legend><div id="sf-when" class="sf-chips"></div></fieldset>
-<label class="sf-field"><span data-i18n="sf.where">where</span><input name="where" maxlength="60"></label>
-<label class="sf-field"><span data-i18n="sf.message">a message, if you like</span><textarea name="message" maxlength="500" rows="4"></textarea></label>
-<div class="sf-hp" aria-hidden="true"><label>website<input name="website" tabindex="-1" autocomplete="off"></label></div>
-<button id="sf-send" class="sf-submit" type="submit" data-i18n="sf.send">send the crow</button><p id="sf-status" class="sf-status" role="status" aria-live="polite"></p>
-<p class="sf-privacy"><span data-i18n="sf.privacy">only gabe sees this. deleted after 60 days.</span> <a href="/privacy/#sf" data-i18n="sf.privacyLink">privacy →</a></p></form>
-<div id="sf-success" class="sf-success" hidden role="status" tabindex="-1"><img src="/img/sf-crow.svg" width="110" height="74" alt=""><p data-i18n="sf.success">got it. the crow is on its way. gabe answers within a day.</p></div>
-<div class="sf-alternatives"><a href="/call/" data-i18n="sf.book">or book a call →</a><a href="https://x.com/gabe_maxxing" rel="noopener noreferrer" data-i18n="sf.dm">or dm on x →</a></div>
-<section id="sf-events" class="sf-events" hidden><h2 data-i18n="sf.events">where i'll be</h2><ul></ul></section></div></main><script type="module" src="/js/sf.js?v=4d70d2f8fd00"></script><script src="/js/analytics.js?v=29cc2295c3ec"></script><footer class="privacy-footer"><a href="/privacy/" data-privacy-link>privacy</a></footer><script type="module" src="/js/privacy.js?v=84dad2cdf8aa"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101b26">
+  <meta name="color-scheme" content="dark">
+  <title>Gabriel in SF</title>
+  <meta name="description" content="Homeless-maxxing in San Francisco. Want to hear the story? Let's meet.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Gabriel in SF">
+  <meta property="og:description" content="Homeless-maxxing in San Francisco. Want to hear the story? Let's meet.">
+  <meta property="og:url" content="https://corvus.gent/sf/">
+  <meta property="og:image" content="https://corvus.gent/sf/night-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Diogenes lights the fog around the Golden Gate Bridge. A raven perches on a suspension cable.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="referrer" content="no-referrer">
+  <link rel="canonical" href="https://corvus.gent/sf/">
+  <link rel="icon" href="/logo.png">
+  <link rel="stylesheet" href="/sf/contact.css?v=7a5987a7c85d">
+  <script type="module" src="/js/sf.js?v=67447e5676e2"></script>
+</head>
+<body>
+  <main class="postcard">
+    <section class="letter" aria-labelledby="heading">
+      <h1 id="heading">Gabriel in <span>SF</span></h1>
+      <p>Homeless-maxxing in San Francisco. Want to hear the story? Let's meet.</p>
+      <nav aria-label="Contact Gabriel">
+        <a class="email" href="mailto:gabriel@corvus.gent?subject=Let's%20meet%20in%20SF">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="m3 6 9 7 9-7"/></svg>
+          Send me an email
+        </a>
+        <a href="https://corvus.gent/links/gabe" target="_blank" rel="noopener noreferrer">
+          Look at my Linktree <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M7 6h11v11"/></svg>
+        </a>
+      </nav>
+    </section>
+
+    <div class="sky" aria-hidden="true">
+      <svg class="stars" viewBox="0 0 1000 360" preserveAspectRatio="xMidYMin slice">
+        <g fill="#d4dbd5"><circle cx="45" cy="36" r=".8"/><circle cx="120" cy="144" r=".55"/><circle cx="221" cy="45" r=".7"/><circle cx="336" cy="79" r="1"/><circle cx="406" cy="28" r=".5"/><circle cx="477" cy="160" r=".9"/><circle cx="521" cy="55" r=".75"/><circle cx="569" cy="100" r="1.2"/><circle cx="592" cy="93" r=".55"/><circle cx="676" cy="27" r="1"/><circle cx="738" cy="171" r=".75"/><circle cx="783" cy="55" r=".55"/><circle cx="864" cy="137" r=".8"/><circle cx="948" cy="36" r=".95"/><circle cx="970" cy="196" r=".55"/></g>
+      </svg>
+      <div class="moon"></div>
+    </div>
+    <div class="bay">
+      <img class="bridge" src="/sf/bridge.svg" width="1200" height="500" alt="The Golden Gate Bridge at night, its copper towers rising through sea fog.">
+      <button class="raven" type="button" aria-label="Let Corvus fly" aria-describedby="caw" hidden>
+        <img src="/sf/raven.svg" alt="" width="40" height="30">
+        <span id="caw" class="caw" role="tooltip" hidden>Caw. — Corvus</span>
+      </button>
+      <noscript><img class="still-raven" src="/sf/raven.svg" alt="Corvus perched on a bridge cable"></noscript>
+    </div>
+    <svg class="bluff" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">
+      <path fill="#182b32" d="m0 30 28-5 17 6 36-1 43 7 39-1 35 8 43 0 28 7 33-1 68 17 29 0 68 18 62 7 59 12 97 8 80 8H0z"/>
+      <path fill="#0e1b22" d="m0 39 38-4 22 4 33-3 26 4 41-2 29 7 28-2 28 9 40 2 44 9 19 7 26-1 64 19 33 3 57 14 43 5 78 10H0z"/>
+      <g fill="none" stroke="#40524c" stroke-width="1" opacity=".75"><path d="m28 37-2-9m1 5-6-4m7 5 3-8m106 12 3-7m-1 4 5-4m-68 7-2-5m152 12-2-7m2 5 4-3m92 20 3-5"/></g>
+    </svg>
+    <div class="philosopher">
+      <div class="beam" aria-hidden="true"></div>
+      <div class="halo" aria-hidden="true"></div>
+      <img class="diogenes" src="/sf/diogenes.svg" width="200" height="220" alt="Diogenes holds his lantern out over the bay.">
+      <button class="lantern" type="button" aria-label="Reveal the lantern inscription" aria-controls="inscription" aria-expanded="false" hidden></button>
+      <p id="inscription" class="inscription" hidden>Diogenes searched Athens for an honest man. I'm searching SF for an honest founder.</p>
+    </div>
+    <footer><a href="/privacy/">privacy</a></footer>
+  </main>
+</body>
+</html>
