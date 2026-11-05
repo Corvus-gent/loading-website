@@ -1,0 +1,258 @@
+{
+  "gabe": {
+    "name": "Gabe",
+    "main": {
+      "id": "pidgy",
+      "text": "Try Pidgy, your AI inbox agent",
+      "href": "https://pidgy-ai.com/",
+      "img": "/img/pidgy-happy.png"
+    },
+    "trial": {
+      "id": "pidgy-trial",
+      "text": "start your free trial week →",
+      "href": "https://app.pidgy-ai.com/?invite=GABE",
+      "qr": {
+        "src": "/img/pidgy-trial-qr.svg",
+        "summary": "▦ show QR for the free trial",
+        "caption": "scan → free trial week"
+      }
+    },
+    "links": [
+      {
+        "id": "call",
+        "text": "📞 book a free 15-min call",
+        "href": "/call/"
+      },
+      {
+        "id": "portfolio",
+        "text": "portfolio",
+        "href": "/people/?id=gabe"
+      },
+      {
+        "id": "now",
+        "text": "now",
+        "href": "/now/"
+      },
+      {
+        "id": "sidequests",
+        "text": "sidequests",
+        "href": "/sidequests/"
+      }
+    ],
+    "socials": [
+      {
+        "id": "linkedin",
+        "text": "LinkedIn",
+        "href": "https://www.linkedin.com/in/francisco-gabriel-van-langenhove/"
+      },
+      {
+        "id": "ig-startup",
+        "text": "Instagram · startup",
+        "href": "https://instagram.com/gabe.maxxing/"
+      },
+      {
+        "id": "ig-bjj",
+        "text": "Instagram · bjj",
+        "href": "https://instagram.com/gabinho_bjj/"
+      },
+      {
+        "id": "tiktok",
+        "text": "TikTok",
+        "href": "https://www.tiktok.com/@gabe.maxxing"
+      },
+      {
+        "id": "x",
+        "text": "X",
+        "href": "https://x.com/gabe_maxxing"
+      },
+      {
+        "id": "luma",
+        "text": "Luma",
+        "href": "https://luma.com/user/usr-SAWed3lOjW3IN3u"
+      }
+    ],
+    "extra": [
+      {
+        "id": "alkmist",
+        "text": "Alkmist",
+        "href": "https://alkmist.com/"
+      },
+      {
+        "id": "coffee",
+        "text": "buy me a coffee",
+        "href": "https://buymeacoffee.com/gabe.maxxing"
+      },
+      {
+        "id": "home",
+        "text": "corvus.gent",
+        "href": "/"
+      }
+    ],
+    "tagline": "GTM @ Pidgy · upcoming business philosopher",
+    "bio": "Francisco Gabriel Van Langenhove",
+    "photos": [
+      "/img/gabe.jpg"
+    ],
+    "preview": {
+      "title": "Gabe | corvus.gent",
+      "description": "Gabe’s links, writing, sidequests and free Pidgy trial.",
+      "image": "/img/gabe.jpg"
+    },
+    "lantern": {
+      "id": "lantern",
+      "href": "/",
+      "text": "I walk around with a lantern, looking for an honest man. maybe he's on the homepage. go look →",
+      "crowText": "URGENT. go to the homepage. NOW!!!!"
+    }
+  },
+  "corvus": {
+    "name": "Corvus",
+    "main": {
+      "id": "realm",
+      "text": "enter the realm",
+      "href": "/realm/",
+      "img": "/logo.png"
+    },
+    "links": [
+      {
+        "id": "games",
+        "text": "today's puzzle",
+        "href": "/games/"
+      },
+      {
+        "id": "music",
+        "text": "bangers",
+        "href": "/music/"
+      },
+      {
+        "id": "stats",
+        "text": "live stats",
+        "href": "https://stats.corvus.gent/"
+      },
+      {
+        "id": "wiki",
+        "text": "corvuspedia",
+        "href": "/wiki/corvus/"
+      }
+    ],
+    "socials": [
+      {
+        "id": "linkedin",
+        "text": "LinkedIn",
+        "href": "https://www.linkedin.com/company/corvus-gent/"
+      },
+      {
+        "id": "instagram",
+        "text": "Instagram",
+        "href": ""
+      },
+      {
+        "id": "x",
+        "text": "X",
+        "href": ""
+      },
+      {
+        "id": "tiktok",
+        "text": "TikTok",
+        "href": ""
+      },
+      {
+        "id": "threads",
+        "text": "Threads",
+        "href": ""
+      }
+    ],
+    "extra": [
+      {
+        "id": "keeper",
+        "text": "the keeper: gabe",
+        "href": "/links/gabe"
+      }
+    ],
+    "tagline": "still looking for an honest man.",
+    "bio": "died feb 2026 · revived nov 2026",
+    "photos": [
+      "/logo.png"
+    ],
+    "preview": {
+      "title": "Corvus | corvus.gent",
+      "description": "The crow of Ghent. Find the realm, the music collection and the lantern.",
+      "image": "/logo.png"
+    },
+    "lantern": {
+      "id": "lantern",
+      "href": "/",
+      "text": "I walk around with a lantern, looking for an honest man. maybe he's on the homepage. go look →",
+      "crowText": "URGENT. go to the homepage. NOW!!!!"
+    }
+  },
+  "pidgy": {
+    "name": "Pidgy",
+    "photos": [
+      "/img/pidgy-happy.png",
+      "/img/fire-pidgy.webp",
+      "/img/sticky-pidgy.webp",
+      "/img/builder-pidgies.webp",
+      "/img/paracetamail.png"
+    ],
+    "main": {
+      "id": "pidgy",
+      "text": "Try Pidgy, your AI inbox agent",
+      "href": "https://pidgy-ai.com/",
+      "img": "/img/pidgy-happy.png"
+    },
+    "links": [
+      {
+        "id": "alkmist",
+        "text": "made by Alkmist",
+        "href": "https://alkmist.com/"
+      },
+      {
+        "id": "wiki",
+        "text": "pidgy on corvuspedia",
+        "href": "/wiki/pidgy/"
+      }
+    ],
+    "socials": [
+      {
+        "id": "linkedin",
+        "text": "LinkedIn",
+        "href": "https://www.linkedin.com/company/pidgy"
+      },
+      {
+        "id": "instagram",
+        "text": "Instagram",
+        "href": "https://www.instagram.com/pidgy_ai/"
+      },
+      {
+        "id": "tiktok",
+        "text": "TikTok",
+        "href": "https://www.tiktok.com/@pidgy_ai"
+      },
+      {
+        "id": "youtube",
+        "text": "YouTube",
+        "href": "https://www.youtube.com/@Alkmisthq"
+      },
+      {
+        "id": "facebook",
+        "text": "Facebook",
+        "href": "https://www.facebook.com/PidgyAI/"
+      }
+    ],
+    "extra": [
+      {
+        "id": "gtm",
+        "text": "gtm: gabe",
+        "href": "/links/gabe"
+      }
+    ],
+    "tagline": "inbox at 0. again.",
+    "bio": "the AI inbox agent for Outlook & Gmail",
+    "preview": {
+      "title": "Pidgy | corvus.gent",
+      "description": "Meet the Alkmist pigeon that sorts your inbox and drafts your replies.",
+      "image": "/img/pidgy-happy.png"
+    }
+  }
+}

@@ -29,6 +29,13 @@ const CURL_REPLY = `
 
 export default function middleware(request) {
   const url = new URL(request.url);
+  if (url.hostname !== "stats.corvus.gent" && /^\/sidequest\/?$/.test(url.pathname)) {
+    url.pathname = "/sidequests";
+    return Response.redirect(url, 307);
+  }
+  if (url.hostname === "stats.corvus.gent" && /^\/coffee-with-gabe\/?$/.test(url.pathname)) {
+    return Response.redirect("https://corvus.gent/go/corvus/coffee/coffee-stats", 307);
+  }
   const companyLink=COMPANY_LINKS[url.pathname.replace(/\/$/, "")];
   if(url.hostname!=="stats.corvus.gent"&&companyLink)return new Response(null,{status:307,headers:{Location:companyLink}});
   if (url.hostname !== "stats.corvus.gent" && /^\/important-call-gabe-maxxer\/?$/.test(url.pathname)) {
@@ -51,7 +58,7 @@ export default function middleware(request) {
 
   if (url.hostname === "stats.corvus.gent") {
     if (url.pathname === "/") return rewrite(new URL("/stats/", url));
-    if (/^\/(pidgy|games|map|music|hunt|x)\/?$/.test(url.pathname)) return rewrite(new URL(`/stats/${url.pathname.split("/")[1]}/`, url));
+    if (/^\/(pidgy|games|map|music|hunt|x|coffee|status)\/?$/.test(url.pathname)) return rewrite(new URL(`/stats/${url.pathname.split("/")[1]}/`, url));
     if (url.pathname.startsWith("/private")) return rewrite(new URL("/stats/private/", url));
     if (/^\/stats(?:\/|$)/.test(url.pathname)) return Response.redirect(new URL((url.pathname.replace(/^\/stats/, "") || "/") + url.search, url), 308);
     return next();

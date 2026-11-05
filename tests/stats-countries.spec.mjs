@@ -19,9 +19,9 @@ async function setup(page,{empty=false,statsFailure=false,countryFailure=false}=
   await page.route('**/api/stats**',route=>{
     const u=new URL(route.request().url());
     if(u.searchParams.has('section'))return route.fulfill({json:{hosts:[]}});
-    if(statsFailure)return route.fulfill({status:503,json:{error:'unavailable'}});
+    if(statsFailure)return route.fulfill({json:{page:'map',state:'unavailable',data:null}});
     const day=u.searchParams.get('day')||today;
-    return route.fulfill({json:{day,visitors:empty?0:36,total:90,hours:[],countries:empty?[]:day===today?countries:[{c:'BR',n:2}],sources:[],pages:[],browsers:[],cli:{day:{},all:{}},feathers:0,hunters:0,terminal:[],updated:new Date().toISOString()}});
+    return route.fulfill({json:{page:u.searchParams.get('page'),day,state:'ready',checked:new Date().toISOString(),updated:new Date().toISOString(),data:{visitors:empty?0:36,total:90,hours:[],countries:empty?[]:day===today?countries:[{c:'BR',n:2}],sources:[],pages:[],browsers:[],cli:{day:{},all:{}},feathers:0,hunters:0,terminal:[],updated:new Date().toISOString()}}});
   });
   return {errors};
 }

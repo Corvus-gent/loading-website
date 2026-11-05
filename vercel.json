@@ -31,6 +31,10 @@
   ],
   "rewrites": [
     {
+      "source": "/api/health",
+      "destination": "/api/stats?health=1"
+    },
+    {
       "source": "/api/sf",
       "destination": "/api/stats?sf=1"
     },
@@ -61,6 +65,14 @@
     {
       "source": "/go/:path*",
       "destination": "/go/index.html"
+    },
+    {
+      "source": "/links/corvus/:path*",
+      "destination": "/links/corvus/index.html"
+    },
+    {
+      "source": "/links/pidgy/:path*",
+      "destination": "/links/pidgy/index.html"
     },
     {
       "source": "/links/:path+",
@@ -180,6 +192,10 @@
     {
       "path": "/api/x-stats?cron=1",
       "schedule": "17 3 * * *"
+    },
+    {
+      "path": "/api/stats?snapJob=1",
+      "schedule": "12 2 * * *"
     }
   ]
 }

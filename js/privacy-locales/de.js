@@ -5,7 +5,7 @@ export default {
     "mit deiner erlaubnis werden besuche zu anonymen summen, ohne tracking-cookies.",
     "die wenigen gespeicherten dinge (etwa eine stimme oder ein login-code) stehen hier und laufen ab."
   ],
-  "updated": "aktualisiert am 4. november 2026",
+  "updated": "aktualisiert am 5. november 2026",
   "sections": [
     [
       "who",
@@ -40,14 +40,16 @@ export default {
       "browser",
       "in deinem browser",
       "notwendige cookies: sess hält dich angemeldet; vid verhindert doppelte sprachstimmen; mvid merkt sich musikstimmen und täglichen spielfortschritt. sie sind signiert, gesichert und für seitenskripte unzugänglich. sess läuft nach 7 tagen ab, vid und mvid nach einem jahr. sie sind niemals analytics-kennungen.",
-      "deine analytics-wahl und die datenschutzversion bleiben 180 tage in diesem browser, oder bis sich die richtlinie ändert. localStorage merkt sich deine sprachstimme, sprache, eingangspräferenz, federn, ergebnisse und gelesene spielanleitungen bis zu einem jahr nach dem speichern. löschen der websitedaten entfernt einstellungen, keine bereits abgegebenen stimmen."
+      "deine analytics-wahl und die datenschutzversion bleiben 180 tage in diesem browser, oder bis sich die richtlinie ändert. localStorage merkt sich deine sprachstimme, sprache, eingangspräferenz, federn, ergebnisse und gelesene spielanleitungen bis zu einem jahr nach dem speichern. löschen der websitedaten entfernt einstellungen, keine bereits abgegebenen stimmen.",
+      "wenn du der statistik zustimmst, merkt sich dieser tab die öffentlichen kampagnenangaben eines sidequests-links, bis du ihn schließt oder die statistik abschaltest. so lassen sich besuche, klicks und teilaktionen einem beitrag zuordnen."
     ],
     [
       "outside",
       "andere dienste",
       "Spotify erhält erst nach play eine wiedergabeanfrage und kann dann eigene cookies setzen. unser server fragt bei Spotify oder Apple nach, wenn du einen songlink einreichst. CARTO-kartenkacheln kommen über unseren server, ohne deine IP weiterzugeben. Leaflet, Sortable und die PostHog-bibliothek liegen hier.",
       "Buy Me a Coffee und Pidgy sind links, keine eingebetteten formulare. nach dem anklicken gelten deren regeln. /links, /go und kampagnen-kurzlinks ergänzen nur UTM-kategorien und zählen besuche/klicks; sie erfassen weder formulare noch besucheridentitäten. (analytics nur mit einwilligung).",
-      "Notion enthält mein manuell gepflegtes X-protokoll. öffentliche statistiken zeigen summen, öffentliche kampagnen- und stilnamen und meine eigenen posts; antworttexte und ziel-URLs bleiben hinter dem login. freigegebene kampagnen und regions-stunden begleiten die freiwillige analyse. Corvus-kopien verfallen binnen 24 stunden; quelldaten folgen meiner Notion-aufbewahrung. die region muss noch bestätigt werden; reine EU-speicherung wird nicht versprochen."
+      "Notion enthält mein manuell gepflegtes X-protokoll. öffentliche statistiken zeigen summen, öffentliche kampagnen- und stilnamen und meine eigenen posts; antworttexte und ziel-URLs bleiben hinter dem login. freigegebene kampagnen und regions-stunden begleiten die freiwillige analyse. Corvus-kopien verfallen binnen 24 stunden; quelldaten folgen meiner Notion-aufbewahrung. die region muss noch bestätigt werden; reine EU-speicherung wird nicht versprochen.",
+      "zum zählen der kaffees liest unser server kurz die daten von Buy Me a Coffee. wiederkehrende unterstützer erkennt er, wenn möglich, am konto oder an der e-mail-adresse. nur summen und das datum des letzten kaffees werden 30 minuten gespeichert."
     ],
     [
       "where",

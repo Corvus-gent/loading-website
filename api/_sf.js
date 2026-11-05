@@ -19,7 +19,7 @@ export function createSFHandler({redis=defaultRedis,ready=connected,session=getS
    if(privateRequest){
     const user=await session(req);if(user?.email?.toLowerCase()!=='gabriel@corvus.gent')return res.status(403).json({error:'forbidden'});
     if(req.method==='GET'){
-     let funnel=null;try{if(analyticsReady())funnel=Object.fromEntries(await query(SF_FUNNEL_SQL));}catch{}
+     let funnel=null;try{if(q.rowsOnly!=='1'&&analyticsReady())funnel=Object.fromEntries(await query(SF_FUNNEL_SQL));}catch{}
      return res.status(200).json({...await store.list(q.page),funnel});
     }
     if(req.method!=='PATCH'||!ORIGINS.includes(req.headers.origin||''))return res.status(403).json({error:'forbidden'});

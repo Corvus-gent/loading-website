@@ -26,6 +26,7 @@
     "test:x:browser": "playwright test tests/x-stats.spec.mjs",
     "test:vanity": "node tests/vanity-links.mjs",
     "test:sf": "REDIS_URL=redis://127.0.0.1:16380/9 SESSION_SECRET=sf-local-test node tests/sf-data.mjs",
-    "test:sf:browser": "SESSION_SECRET=sf-local-test playwright test tests/sf.spec.mjs"
+    "test:sf:browser": "SESSION_SECRET=sf-local-test playwright test tests/sf.spec.mjs",
+    "build:persona-pages": "node tools/build-persona-pages.mjs"
   }
 }

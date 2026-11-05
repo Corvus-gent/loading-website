@@ -42,7 +42,7 @@ const COMMANDS = {
   exit: () => { close(); return []; },
 };
 
-let overlay, out, input;
+let overlay, out, input, hintTimer, noteTimer;
 
 function go(url) {
   setTimeout(() => { location.href = url; }, 500);
@@ -65,7 +65,7 @@ async function run(raw) {
   if (!cmd) return;
   if (cmd === "clear") { out.innerHTML = ""; return; }
   if (cmd === "cd") {
-    const target = PAGES[args[0]];
+    const target = Object.hasOwn(PAGES,args[0]) && PAGES[args[0]];
     print(target ? [`→ ${args[0]}`].concat(go(target)) : [`cd: no such page: ${args[0] || ""}`]);
     return;
   }
@@ -75,13 +75,14 @@ async function run(raw) {
     print([`→ ${args[0] || "en"}`].concat(go(url.toString())));
     return;
   }
-  const fn = COMMANDS[cmd];
+  const fn = Object.hasOwn(COMMANDS,cmd) && COMMANDS[cmd];
   print(fn ? await fn(args) : [`command not found: ${cmd}. try 'help'.`]);
   if (window.posthog?.capture) window.posthog.capture("terminal_command", { command: Object.hasOwn(COMMANDS, cmd) ? cmd : "unknown" });
 }
 
 function build() {
-  overlay = document.createElement("div");
+  overlay = document.createElement("dialog");
+  overlay.setAttribute("aria-label","terminal");
   overlay.className = "term";
   overlay.innerHTML = `
     <div class="term-box">
@@ -98,33 +99,37 @@ function build() {
   print(["corvus.gent terminal. type 'help'."]);
   input.addEventListener("keydown", e => {
     if (e.key === "Enter") { run(input.value); input.value = ""; }
-    if (e.key === "Escape") close();
   });
+  overlay.addEventListener("close", () => { overlay.style.display = "none"; });
   overlay.addEventListener("click", e => { if (e.target === overlay) close(); });
 }
 
-function open(firstKey) {
+export function openTerminal(firstKey) {
   if (!overlay) build();
+  if (overlay.open) return;
   overlay.style.display = "flex";
+  overlay.showModal();
   const [no, nontech] = overlay.querySelectorAll(".term-no");
   no.classList.remove("show"); nontech.classList.remove("show");
-  setTimeout(() => no.classList.add("show"), 2000);
-  setTimeout(() => nontech.classList.add("show"), 4000);
+  clearTimeout(hintTimer); clearTimeout(noteTimer);
+  hintTimer = setTimeout(() => no.classList.add("show"), 2000);
+  noteTimer = setTimeout(() => nontech.classList.add("show"), 4000);
   input.focus();
-  if (firstKey) input.value = firstKey;
+  input.value = firstKey || "";
 }
 
 function close() {
-  if (overlay) overlay.style.display = "none";
+  overlay?.close();
 }
 
 document.addEventListener("keydown", e => {
-  if (overlay && overlay.style.display === "flex") return;
+  if (e.defaultPrevented || e.isComposing || e.repeat || document.querySelector("dialog[open]")) return;
   if (e.metaKey || e.ctrlKey || e.altKey) return;
-  if (e.target.closest && e.target.closest("input, textarea")) return;
-  if (e.key.length === 1) { e.preventDefault(); open(e.key); }
+  if (e.target.closest && e.target.closest("input,textarea,select,[contenteditable]:not([contenteditable=false]),[role=textbox]")) return;
+  if (e.key === " " && e.target.closest?.("a,button,summary,[role=button]")) return;
+  if (e.key.length === 1) { e.preventDefault(); openTerminal(e.key); }
 });
 
 document.querySelectorAll("[data-terminal]").forEach(el =>
-  el.addEventListener("click", e => { e.preventDefault(); open(); })
+  el.addEventListener("click", e => { e.preventDefault(); openTerminal(); })
 );

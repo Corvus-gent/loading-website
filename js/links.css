@@ -1,0 +1,17 @@
+#portrait img {width:96px;height:96px;object-fit:cover;border-radius:50%;border:1px solid var(--faint)}
+body[data-persona=pidgy] {--accent:#73dbce}
+body[data-persona=corvus] {--accent:#ffd76a}
+body[data-persona=pidgy] #portrait img, body[data-persona=corvus] #portrait img {object-fit:contain;background:#f4f1ea;padding:8px;border-color:var(--accent)}
+body[data-persona=corvus] #portrait img {box-shadow:0 0 25px #ffd76a34}
+body[data-persona=pidgy] .lt-main,body[data-persona=corvus] .lt-main {border-color:var(--accent)}
+body[data-persona=pidgy] .lt-main:hover,body[data-persona=corvus] .lt-main:hover {background:var(--accent);color:#111}
+.portrait-next {border:0;background:none;padding:0;cursor:pointer;line-height:0;border-radius:50%}
+.lt-crow img {width:110px}
+.lt-follow {display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;margin-top:24px}
+.lt-follow[hidden] {display:none}
+.lt-follow span {font-size:12px;color:var(--muted);margin-right:4px}
+.follow-button {display:grid;place-items:center;width:44px;height:44px;border:1px solid var(--faint);border-radius:50%;color:var(--accent)}
+.follow-button:hover,.follow-button:focus-visible {border-color:var(--accent)}
+.follow-button svg {width:22px;height:22px}
+.lt-follow:not([hidden]) + .lt-row {margin-top:10px}
+.lt-extra a {color:var(--muted)}

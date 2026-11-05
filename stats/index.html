@@ -6,7 +6,7 @@
   <meta name="color-scheme" content="dark" />
   <title>Stats | corvus.gent</title>
   <link rel="icon" type="image/png" href="/logo.png" />
-  <link rel="stylesheet" href="/styles.css?v=8da4ddf17660" />
+  <link rel="stylesheet" href="/styles.css?v=4d681edec0fb" />
   <link rel="stylesheet" href="/people/styles.css?v=1b7535a5d1d1" />
 
 
@@ -20,17 +20,33 @@
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://corvus.gent/og.png" />
-<link rel="stylesheet" href="/stats/sections.css?v=d116b376837b"><link rel="stylesheet" href="/privacy/privacy.css?v=202ae89baeff"><meta name="referrer" content="no-referrer">
-</head><body class="people-page">
+<link rel="stylesheet" href="/stats/sections.css?v=42e15e3fef52"><link rel="stylesheet" href="/privacy/privacy.css?v=202ae89baeff"><meta name="referrer" content="no-referrer">
+<script defer src="/js/stats-data.js?v=618788f853c0" data-page="overview"></script></head><body class="people-page">
   <a href="/private" class="key" title="private" aria-label="private dashboard">🔑</a>
   <main><div id="lang-switcher" class="lang-switcher"></div>
     <div class="wrap st">
       <div class="tag"><a href="https://corvus.gent/">corvus.gent</a> / stats</div>
-      <nav class="stats-tabs" aria-label="statistics"><a href="/" data-stat="overview" data-i18n="stats.overview">overview</a><a href="/pidgy" data-stat="pidgy" data-i18n="stats.pidgy">pidgy</a><a href="/games" data-stat="games" data-i18n="nav.games">games</a><a href="/map" data-stat="map" data-i18n="stats.map">map</a><a href="/music" data-stat="music" data-i18n="nav.music">music</a><a href="/hunt" data-stat="hunt" data-i18n="stats.hunt">hunt</a><a href="/x" data-stat="x">x</a></nav><button class="stat-copy" data-i18n="stats.copy" type="button">copy link to this stat ↗</button><div class="stats-hero"><a href="https://stats.corvus.gent/pidgy">corvus → pidgy ↗</a><p>follow the birds. count the crossings.</p></div><section><h2>outbound today</h2><div id="outbound"></div></section><div class="st-nav"><button id="prev" aria-label="previous day">←</button><span id="day"></span><button id="next" aria-label="next day">→</button></div>
+      <nav class="stats-tabs" aria-label="statistics"><a href="/" data-stat="overview" data-i18n="stats.overview">overview</a><a href="/pidgy" data-stat="pidgy" data-i18n="stats.pidgy">pidgy</a><a href="/games" data-stat="games" data-i18n="nav.games">games</a><a href="/map" data-stat="map" data-i18n="stats.map">map</a><a href="/music" data-stat="music" data-i18n="nav.music">music</a><a href="/hunt" data-stat="hunt" data-i18n="stats.hunt">hunt</a><a href="/x" data-stat="x">x</a><a href="/coffee" data-stat="coffee" data-i18n="coffee.nav">coffee</a><a href="/status" data-stat="status">status</a></nav><button class="stat-copy" data-i18n="stats.copy" type="button">copy link to this stat ↗</button><div class="st-nav"><button id="prev" aria-label="previous day">←</button><span id="day"></span><button id="next" aria-label="next day">→</button></div>
       <section id="past">
         <h1 id="visitors">…</h1>
         <p class="sub" id="visitors-line"></p>
         <p class="sub" id="total-line"></p>
+        <div class="stats-hero"><a href="https://stats.corvus.gent/pidgy">corvus → pidgy ↗</a><p>follow the birds. count the crossings.</p></div><p><a data-uptime href="/status">uptime 30d: —</a></p><section><h2>outbound</h2><div id="outbound"></div></section>
+<section class="st-sec coffee-stat" data-coffee>
+  <h2 data-i18n="coffee.title">coffees bought for gabe</h2>
+  <p role="status">…</p>
+  <div data-counts hidden>
+    <dl class="coffee-counts">
+      <div><dt data-i18n="coffee.total">coffees</dt><dd data-total></dd></div>
+      <div><dt data-i18n="coffee.supporters">supporters</dt><dd data-supporters></dd></div>
+      <div><dt data-i18n="coffee.month">this month</dt><dd data-month></dd></div>
+    </dl>
+    <p data-cups aria-hidden="true"></p>
+    <p class="sub"><span data-i18n="coffee.latest">last coffee</span> · <time></time></p>
+  </div>
+  <a href="https://stats.corvus.gent/coffee-with-gabe" data-i18n="coffee.buy">buy one →</a>
+  <p class="coffee-context" data-i18n="coffee.context">context: for one month I lived on €200 in meal vouchers and was in the pidgy hq day and night. literally.</p>
+</section>
         <section class="st-sec country-section" aria-labelledby="countries-title">
           <h2 id="countries-title">visitors by country</h2>
           <p class="sub" id="countries-period">today · brussels time</p>
@@ -59,14 +75,14 @@
         </form>
         <p class="sub" id="guess-msg"></p>
       </section>
-      <p class="sub st-upd" id="updated"></p>
+      <p class="sub st-upd" id="updated" data-snapshot-age></p>
       <footer><a href="https://corvus.gent/">corvus.gent</a> <a href="/privacy/" data-privacy-link>privacy</a></footer>
     </div>
   </main>
 
 
-  <script type="module" src="/js/stats.js?v=38b1f05d78f7"></script>
-  <script src="/js/analytics.js?v=29cc2295c3ec"></script>
-<script type="module" src="/js/stats-sections.js?v=0b5b70cd739b"></script><script type="module" src="/js/privacy.js?v=84dad2cdf8aa"></script>
-</body>
+  <script type="module" src="/js/stats.js?v=0ba129c8b89e"></script>
+  <script defer src="/js/analytics.js?v=811c28467bec"></script>
+<script type="module" src="/js/privacy.js?v=2c0385e220c2"></script>
+<script type="module" src="/js/stats-coffee.js?v=72a587f6ab34"></script><script type="module" src="/js/stats-nav.js?v=7a7db1987334"></script></body>
 </html>

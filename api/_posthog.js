@@ -11,11 +11,11 @@ const EU_HOST = (() => {
 })();
 export const posthogReady = () => Boolean(KEY) && EU_HOST;
 
-export async function hogql(sql) {
+export async function hogql(sql, signal = AbortSignal.timeout(10000)) {
   if (!posthogReady()) throw new Error('PostHog EU configuration required');
   const r = await fetch(`${HOST}/api/projects/${PROJECT}/query/`, {
     method: "POST",
-    signal: AbortSignal.timeout(10000),
+    signal,
     headers: { Authorization: `Bearer ${KEY}`, "Content-Type": "application/json" },
     body: JSON.stringify({ query: { kind: "HogQLQuery", query: sql } }),
   });

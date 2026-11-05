@@ -363,8 +363,8 @@ identifier is saved. A daily cookieless pseudonym can correlate events within th
   `$referring_domain` (known source category or direct/other).
 - Attribution when present: `utm_source`, `links_source`, `source` (source allowlist);
   `utm_campaign`, `links_campaign`, `campaign` (known campaigns or other);
-  `utm_medium`, `medium` (known medium/route categories); `links_person=gabe` refers
-  to the public page owner, never the visitor.
+  `utm_medium`, `medium` (known medium/route categories); `links_person` identifies the public
+  hub (gabe, corvus or pidgy).
 - Event-specific: `link_href`, `page`; `host`, `href`, `path`; `url`, `target`,
   `external`; `link`; `genre`; `type`, `guesses` (0–6), `solved` (boolean), `day`
   (date only); `language`; `command`; `id`, `total` (egg category/count); `what`.
@@ -594,3 +594,19 @@ Email and direct-ID deletion helpers remove records, delivery status and indexes
 mailbox copies need separate deletion. Public replies contain no personal fields.
 There is no body logging, third-party browser embed, new analytics identifier or
 browser call to Resend/Redis. Static `sf.json` is owner-curated public event data.
+
+### Coffee totals and sidequests attribution · 5 November 2026
+
+| Data | Purpose, access and retention |
+| --- | --- |
+| Buy Me a Coffee v1 supporters, subscriptions and extras | Server-only bearer token. Process contribution dates, quantities, transaction IDs and available account/email fields in request memory to deduplicate and count. Names, messages, payment details and individual records are never sent to visitors, written to Redis or logged by the app. Existing providers retain their own source records. Legitimate interest in publishing aggregate support. |
+| Redis `stats:coffee:v1:YYYY-MM` | Anonymous totals, estimated-count flag and latest Brussels calendar date. TTL 1,800 seconds. The Frankfurt function can keep the same aggregate in memory for up to 30 minutes when Redis is unavailable. No browser requests to the coffee provider. |
+| `sessionStorage['sidequests:arrival']` | With analytics consent, this tab remembers six approved campaign categories until closed or consent is withdrawn. PostHog EU receives those categories on pageviews and subsequent events. Unknown labels are reduced to categories; no LinkedIn account or person is identified. `sidequests_cta_click` adds only home/contact/pidgy; `sidequests_share` adds native/copy/linkedin/x. The external share destination always receives the untagged canonical URL. |
+| One-time home-click receipt | With analytics consent, `sessionStorage['sidequests:home']` holds a timestamp so same-tab navigation can finish sending the click. Consumed by the home page, accepted for 30 seconds and cleared on withdrawal or tab close. |
+| Realm preferences | The tab stores a rotating line number in `realm:whisper`. The first deliberate reward claim saves one existing feather slot in `realm-feather` using the standard one-year preference expiry. These UI choices never enter analytics. |
+
+### Stats snapshots and service health (5 November 2026)
+- Stats pages cache the public figures for a selected Brussels day in sessionStorage under `stats:snap:v1:<page>:<day>`. They expire with the tab. The client ignores recent-day entries older than seven days and X entries older than one day. Private tables and sessions stay out of this cache.
+- Redis stores daily public counts under `stats:snap:<page>:<day>` and a last-known copy. Completed historical aggregate counts are retained for comparison. X and authenticated dashboard snapshots expire within 24 hours. Personal login, access and SF records are read only through the existing authenticated routes. They keep their existing expiry rules.
+- Health probes use fixed service URLs. Public results contain component states, elapsed times and timestamps. Redis keeps measurements, daily summaries and alert state for 30 days. Write probes expire after 15 seconds. Sampling leases expire after 30 seconds. Rate-limit buckets use the existing daily-salted address hash and expire after a minute.
+- Gabriel can receive a service name and status change via Resend. The external uptime monitor reads the same public status as a visitor. No visitor details are sent in an alert. Processing serves availability and abuse prevention.

@@ -5,7 +5,7 @@ export default {
     "with your permission, visits become anonymous totals, without tracking cookies.",
     "the few things we store (like a vote or a login code) are listed below, and they expire."
   ],
-  "updated": "updated 4 november 2026",
+  "updated": "updated 5 november 2026",
   "sections": [
     [
       "who",
@@ -40,14 +40,16 @@ export default {
       "browser",
       "the small things in your browser",
       "necessary cookies: sess keeps you logged in; vid prevents duplicate language votes; mvid remembers music votes and daily-game progress. they are signed, secure and inaccessible to page scripts. sess expires after 7 days; vid and mvid after one year. they are never used to identify you in analytics.",
-      "your analytics choice and privacy version are stored on this browser for 180 days, or until the policy changes. localStorage holds your language-vote choice, your language, realm entry preference, feathers, game results and whether game instructions were read, for up to one year after saving. clearing site data removes these preferences; it does not erase already submitted votes."
+      "your analytics choice and privacy version are stored on this browser for 180 days, or until the policy changes. localStorage holds your language-vote choice, your language, realm entry preference, feathers, game results and whether game instructions were read, for up to one year after saving. clearing site data removes these preferences; it does not erase already submitted votes.",
+      "if you allow analytics, this tab remembers the public labels on a sidequests campaign link until you close it or turn analytics off. they group visits, button clicks and shares from a post."
     ],
     [
       "outside",
       "when another service gets involved",
       "Spotify receives a playback request only after play, and may then set its own cookies. our server looks up song links at Spotify or Apple when you submit one. map tiles come through our server from CARTO, without forwarding your IP. Leaflet, Sortable and the PostHog library are hosted here.",
       "Buy Me a Coffee and Pidgy booking are links, not embedded forms. their privacy rules apply after you follow them. /links, /go and our campaign shortcuts only add campaign labels (UTMs) and count visits/clicks; they never collect form contents or visitor identities. (analytics only with consent).",
-      "Notion holds my manually entered X log. public stats show totals, public campaign/voice labels and my own posts; reply text and target URLs stay behind login. approved campaign labels and region-hour slots accompany optional analytics. Corvus copies expire within 24 hours; source records follow my Notion retention. the workspace region still needs confirmation, so EU-only storage is not promised."
+      "Notion holds my manually entered X log. public stats show totals, public campaign/voice labels and my own posts; reply text and target URLs stay behind login. approved campaign labels and region-hour slots accompany optional analytics. Corvus copies expire within 24 hours; source records follow my Notion retention. the workspace region still needs confirmation, so EU-only storage is not promised.",
+      "to count coffees, our server briefly reads Buy Me a Coffee records and recognises repeat supporters using account or email fields when available. only totals and the latest coffee date are cached for 30 minutes."
     ],
     [
       "where",

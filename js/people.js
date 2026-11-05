@@ -33,6 +33,7 @@ async function showDetailView(id) {
     return;
   }
 
+  $("birds-section").hidden = id !== "gabe";
   $("person-name").textContent = member.name;
   $("person-about").innerHTML = pick(member.about); // trusted content from people.json
 

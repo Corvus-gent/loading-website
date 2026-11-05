@@ -1,64 +1,55 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="color-scheme" content="dark" />
-  <title>Sidequests | corvus.gent</title>
-  <link rel="icon" type="image/png" href="/logo.png" />
-  <link rel="stylesheet" href="/styles.css?v=8da4ddf17660" />
-  <link rel="stylesheet" href="/people/styles.css?v=1b7535a5d1d1" />
-  <meta name="description" content="Things I build when I have a creative peak." />
-  <meta property="og:title" content="Sidequests | corvus.gent" />
-  <meta property="og:description" content="Things I build when I have a creative peak." />
-  <meta property="og:url" content="https://corvus.gent/sidequests/" />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://corvus.gent/og.png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:image" content="https://corvus.gent/og.png" />
-<link rel="stylesheet" href="/privacy/privacy.css?v=202ae89baeff"><meta name="referrer" content="no-referrer">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="referrer" content="no-referrer">
+  <title>Sidequests — Gabriel</title>
+  <meta name="description" content="Built this site in 2 days. Here's what else is running in the background.">
+  <link rel="canonical" href="https://corvus.gent/sidequests">
+  <meta property="og:title" content="Sidequests — Gabriel">
+  <meta property="og:description" content="Built this site in 2 days. Here's what else is running in the background.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://corvus.gent/sidequests">
+  <meta property="og:image" content="https://corvus.gent/sidequests/preview.png">
+  <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Sidequests — Gabriel, next to a small constellation of quests.">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/logo.png">
+  <link rel="stylesheet" href="/styles.css?v=4d681edec0fb">
+  <link rel="stylesheet" href="/sidequests/quests.css?v=b81de02bb43b">
+  <link rel="stylesheet" href="/privacy/privacy.css?v=202ae89baeff">
 </head>
-<body class="people-page">
-  <main>
-    <div class="wrap">
-      <div class="lang-switcher" id="lang-switcher"></div>
-      <div class="tag"><a href="/">corvus.gent</a> / sidequests</div>
-
-      <h1><span data-i18n="sq.title">Sidequests</span> <span class="sub" data-i18n="sq.tech">(tech projects)</span></h1>
-      <p class="sub" data-i18n="sq.sub">Things I build when I have a creative peak.</p>
-
-      <section class="person-view-wrap">
-        <h2><a href="/402/">402 Payment Required</a></h2>
-        <p class="person-about" data-i18n="sq.402.desc">A client stopped paying for his domain. So the site got a live timer instead. Dry, petty, legal.</p>
-
-        <h2><a href="/airbnb-filter/">Me vs. the Airbnb filter</a></h2>
+<body class="quest-page">
+<main><article class="quest-sheet">
+  <div id="lang-switcher" class="lang-switcher"></div>
+  <header>
+    <svg class="route-mark" viewBox="0 0 98 32" fill="none" aria-hidden="true"><path d="m3 24 22-12 24 10L76 8l18 3" stroke="#726344" stroke-dasharray="2 4"/><g fill="#bdad88"><circle cx="3" cy="24" r="2"/><circle cx="25" cy="12" r="2"/><circle cx="49" cy="22" r="2"/></g><path d="m76 2 1.6 4.4L82 8l-4.4 1.6L76 14l-1.6-4.4L70 8l4.4-1.6Z" fill="#ffd76a"/></svg>
+    <h1>Sidequests</h1>
+    <p data-i18n="quests.intro">Built this site in 2 days. Here's what else is running in the background.</p>
+  </header>
+  <ul class="quest-log">
+    <li><a data-cta="pidgy" target="_blank" rel="noopener noreferrer" href="https://pidgy-ai.com/?utm_source=corvus.gent&amp;utm_medium=referral&amp;utm_campaign=corvus_softlaunch&amp;utm_content=sidequests_page"><span data-i18n="quests.gtm">Full-time GTM @ Pidgy</span> ↗</a><small class="main-quest" data-i18n="quests.main">main quest</small></li>
+    <li><span data-i18n="quests.bjj">Brazilian jiu-jitsu, almost every day</span><small data-i18n="quests.progress">in progress</small></li>
+    <li><span data-i18n="quests.chinese">Learning Chinese</span><small data-i18n="quests.progress">in progress</small></li>
+    <li><span data-i18n="quests.site">This website</span><small class="shipped" data-i18n="quests.shipped">just shipped</small></li>
+    <li class="quest-locked"><span>???</span><small><svg width="12" height="16" viewBox="0 0 14 20" fill="none" stroke="#dfb965" aria-hidden="true"><path d="M5 6V4a2 2 0 0 1 4 0v2M3 7h8l-1 10H4zM3 17h8M5 19h4"/><path d="M7 10v4" stroke-width="2"/></svg> <span data-i18n="quests.locked">Unlocking soon</span></small></li>
+  </ul>
+  <h2><a href="/airbnb-filter/">Me vs. the Airbnb filter</a></h2>
         <p class="person-about">Airbnb wouldn't let me send my phone number. So I shipped a website instead. Airbnb 6, me 1.</p>
-
-        <h2>PartyCrasher 3000</h2>
-        <p class="sub">Python · ROS2 · Bash · 2025</p>
-        <p class="person-about" data-i18n="sq.pc.desc">An autonomous party robot built with ROS2 and Python. It drives around, dances salsa, plays music, talks and listens, serves beer and shoots M&amp;M&#x27;s from a mini-gun on command.</p>
-        <p class="person-about"><span data-i18n="sq.pc.note">No code link: it was held together by vibes. Clips live in the highlight stories of</span>
-          <a href="https://instagram.com/gabinho_bjj/" target="_blank" rel="noreferrer">@gabinho_bjj</a>.</p>
-
-        <h2 data-i18n="sq.travel">Travel sidequests</h2>
-        <p class="person-about" data-i18n="sq.travel.desc">Trying to meet founders all over the world. China, Portugal, San Francisco. Soon so much more.</p>
-        <p class="person-about"><span data-i18n="sq.travel.follow">follow along:</span>
-          <a href="https://instagram.com/gabe.maxxing/" target="_blank" rel="noreferrer">@gabe.maxxing</a> ·
-          <a href="https://instagram.com/gabinho_bjj/" target="_blank" rel="noreferrer">@gabinho_bjj</a></p>
-      </section>
-
-      <footer>© <span id="y"></span> corvus <a href="/privacy/" data-privacy-link>privacy</a></footer>
-    </div>
-  </main>
-  <script type="module">
-    import { initI18n } from "/js/i18n.js";
-    import { setFooterYear } from "/js/utils.js";
-    setFooterYear();
-    initI18n();
-  </script>
-  <script src="/js/analytics.js?v=29cc2295c3ec"></script>
-<script type="module" src="/js/privacy.js?v=84dad2cdf8aa"></script>
-</body>
-</html>
+  <div class="quest-actions">
+    <a href="/" data-cta="home">← <span data-i18n="quests.back">Back to corvus.gent</span></a>
+    <a href="mailto:gabriel@corvus.gent" data-cta="contact"><span data-i18n="quests.contact">Contact me</span> ↗</a>
+  </div>
+  <footer><div class="quest-share">
+    <button type="button" id="quest-share" data-i18n="quests.share">Share</button>
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fcorvus.gent%2Fsidequests" data-share="linkedin" aria-label="Share on LinkedIn" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 8h4v13H3zm2-6a2.2 2.2 0 1 1 0 4.4A2.2 2.2 0 0 1 5 2zm5 6h4v1.7c1-1.5 2-2 4-2 3 0 4 2 4 5V21h-4v-8c0-1.6-.4-2.3-1.7-2.3-1.6 0-2.3 1.1-2.3 3V21h-4z"/></svg></a>
+    <a href="https://x.com/intent/post?url=https%3A%2F%2Fcorvus.gent%2Fsidequests&amp;text=Sidequests%20%E2%80%94%20Gabriel" data-share="x" aria-label="Share on X" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 3h5l13 18h-5zM20 3l-7 8M4 21l7-8"/></svg></a>
+  </div><a href="/privacy/" data-privacy-link>privacy</a></footer>
+  <p id="share-result" role="status"></p>
+</article></main>
+<script type="module" src="/js/sidequests.js?v=af897836e0d6"></script>
+<script src="/js/analytics.js?v=811c28467bec"></script>
+<script type="module" src="/js/privacy.js?v=2c0385e220c2"></script>
+</body></html>

@@ -11,7 +11,7 @@ export const contentSlot = value => {
 export function setXCampaigns(values){approved=new Set((Array.isArray(values)?values:[]).map(campaignSlug).filter(Boolean));}
 export function approvedCampaign(value){const slug=campaignSlug(value);return approved.has(slug)?slug:'';}
 export function xContext(pathname,search=''){
- const query=new URLSearchParams(search),links=/^\/links\/gabe\/x\/([^/]+)\/?$/.exec(pathname),go=/^\/go\/x\/pidgy\/([^/]+)\/?$/.exec(pathname);
+ const query=new URLSearchParams(search),links=/^\/links\/(?:gabe|corvus|pidgy)\/x\/([^/]+)\/?$/.exec(pathname),go=/^\/go\/x\/pidgy\/([^/]+)\/?$/.exec(pathname);
  const source=query.get('utm_source')==='x'||links||go;
  return source?{campaign:campaignSlug(query.get('utm_campaign')||links?.[1]||go?.[1]),content:contentSlot(query.get('utm_content'))}:null;
 }

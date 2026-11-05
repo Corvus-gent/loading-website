@@ -5,7 +5,7 @@ export default {
     "avec votre accord, les visites deviennent des totaux anonymes, sans cookies de suivi.",
     "le peu que nous gardons (un vote, un code de connexion) est décrit ici et expire."
   ],
-  "updated": "mise à jour le 4 novembre 2026",
+  "updated": "mise à jour le 5 novembre 2026",
   "sections": [
     [
       "who",
@@ -40,14 +40,16 @@ export default {
       "browser",
       "dans votre navigateur",
       "cookies nécessaires : sess maintient la connexion ; vid évite les doubles votes de langue ; mvid conserve votes musicaux et progression quotidienne. signés, sécurisés, inaccessibles aux scripts. sess expire après 7 jours, vid et mvid après un an. jamais utilisés comme identifiants analytics.",
-      "votre choix analytics et la version de confidentialité restent dans ce navigateur 180 jours, ou jusqu’au changement de politique. localStorage conserve votre vote de langue, la langue, préférence d’entrée, plumes, résultats et lecture des instructions jusqu’à un an après sauvegarde. effacer les données du site retire les préférences, pas les votes déjà envoyés."
+      "votre choix analytics et la version de confidentialité restent dans ce navigateur 180 jours, ou jusqu’au changement de politique. localStorage conserve votre vote de langue, la langue, préférence d’entrée, plumes, résultats et lecture des instructions jusqu’à un an après sauvegarde. effacer les données du site retire les préférences, pas les votes déjà envoyés.",
+      "si tu autorises les statistiques, cet onglet garde les libellés publics du lien de campagne sidequests jusqu’à sa fermeture ou au retrait du consentement. ils regroupent les visites, clics et partages issus d’une publication."
     ],
     [
       "outside",
       "les autres services",
       "Spotify ne reçoit une demande de lecture qu’après votre clic et peut ensuite déposer ses cookies. notre serveur recherche un morceau chez Spotify ou Apple lorsque vous proposez un lien. les tuiles CARTO passent par notre serveur sans transmettre votre IP. Leaflet, Sortable et la bibliothèque PostHog sont hébergés ici.",
       "Buy Me a Coffee et Pidgy sont des liens, pas des formulaires intégrés. leurs règles s’appliquent après le clic. /links, /go et les raccourcis de campagne ajoutent seulement des étiquettes UTM et comptent visites/clics, sans contenu de formulaire ni identité. (analytics uniquement avec consentement).",
-      "Notion contient mon journal X saisi à la main. les stats publiques montrent des totaux, des noms publics de campagnes et de styles, et mes propres posts ; les réponses et URL cibles restent derrière la connexion. campagnes approuvées et créneaux région-heure accompagnent les statistiques facultatives. les copies Corvus expirent sous 24 heures ; les sources suivent ma conservation Notion. la région reste à confirmer, sans garantie de stockage exclusivement dans l’UE."
+      "Notion contient mon journal X saisi à la main. les stats publiques montrent des totaux, des noms publics de campagnes et de styles, et mes propres posts ; les réponses et URL cibles restent derrière la connexion. campagnes approuvées et créneaux région-heure accompagnent les statistiques facultatives. les copies Corvus expirent sous 24 heures ; les sources suivent ma conservation Notion. la région reste à confirmer, sans garantie de stockage exclusivement dans l’UE.",
+      "pour compter les cafés, notre serveur lit brièvement les données de Buy Me a Coffee et reconnaît les soutiens récurrents par leur compte ou courriel si disponible. seuls les totaux et la date du dernier café sont conservés 30 minutes."
     ],
     [
       "where",

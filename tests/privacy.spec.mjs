@@ -36,10 +36,12 @@ async function setup(page,{realSpotify=false}={}){
   if(u.pathname==='/api/x-stats')return route.fulfill({json:{ready:false}});
   if(u.pathname==='/api/auth')return route.fulfill({json:{email:null}});
   if(u.pathname==='/api/stats'){
-   const section=u.searchParams.get('section');
-   return route.fulfill({json:section==='outbound'?{hosts:[]}:section==='pidgy'?{today:{visitors:3,clickers:0,clicks:0},all:{visitors:3,clickers:0,clicks:0},signups:null,scene:0,variant:0}:section==='music'?{genres:[]}:section==='games'?{today:{played:0},all:{played:0},best:0,types:[]}:stats});
+   const name=u.searchParams.get('page');
+   const metric={visitors:3,clicker:0,clicks:0};
+   const data={pidgy:{today:metric,all:metric,signups:null,scene:0,variant:0},music:{genres:[],loved:[],suggestions:[]},games:{today:{played:0},all:{played:0},best:0,types:[]},x:{ready:false},map:{cities:[],countries:[]},coffee:{ready:false},status:{status:'unknown',checks:[]},private:null};
+   return route.fulfill({json:{page:name,day:u.searchParams.get('day'),checked:new Date().toISOString(),state:name==='private'?'login':'ready',data:name in data?data[name]:stats}});
   }
-  if(['corvus.gent','stats.corvus.gent'].includes(u.hostname)){let path=u.pathname;if(u.hostname==='stats.corvus.gent'){if(path==='/')path='/stats/';else if(/^\/(pidgy|games|map|music|hunt|private|x)\/?$/.test(path))path='/stats'+path.replace(/\/$/,'')+'/';}const local=await page.request.get('http://127.0.0.1:4176'+path+u.search);return route.fulfill({response:local});}
+  if(['corvus.gent','stats.corvus.gent'].includes(u.hostname)){let path=u.pathname;if(u.hostname==='stats.corvus.gent'){if(path==='/')path='/stats/';else if(/^\/(pidgy|games|map|music|hunt|private|x|coffee)\/?$/.test(path))path='/stats'+path.replace(/\/$/,'')+'/';}const local=await page.request.get((process.env.TEST_BASE_URL || 'http://127.0.0.1:4176')+path+u.search);return route.fulfill({response:local});}
   return route.continue();
  });
  return {requests,events,errors};
@@ -57,7 +59,7 @@ for(const path of ['/','/call/','/music/','/games/','/stats/','/stats/map/','/st
   expect((await context.cookies()).map(c=>c.name).filter(name=>!['mvid','vid','sess'].includes(name))).toEqual([]);
   for(const cookie of await context.cookies()){expect(cookie.httpOnly).toBe(true);expect(cookie.secure).toBe(true);expect(cookie.sameSite).toBe('Strict');}
   const storage=await page.evaluate(()=>({local:Object.keys(localStorage),session:Object.keys(sessionStorage)}));
-  expect(storage.local.some(key=>/^ph_|posthog/i.test(key))).toBe(false);expect(storage.session.filter(key=>key!=='sf-note:2026-11')).toEqual([]);
+  expect(storage.local.some(key=>/^ph_|posthog/i.test(key))).toBe(false);expect(storage.session.filter(key=>key!=='sf-note:2026-11'&&!(path.startsWith('/stats/')&&key.startsWith('stats:snap:v1:')&&!key.includes(':private:')))).toEqual([]);
   expect(errors).toEqual([]);
  });
 }
@@ -226,7 +228,7 @@ test('previously allowed analytics captures company tags then leaves a clean URL
  await page.addInitScript(version=>localStorage.setItem('analytics-consent',JSON.stringify({version,choice:'allow',expires:Date.now()+86400000})),PRIVACY_VERSION);
  for(const [medium,campaign,content]of [['company-page','gabe-corvus-page','website'],['company-post','gabe-corvus-revival','']]){
   events.length=0;await page.goto(`/?utm_source=linkedin&utm_medium=${medium}&utm_campaign=${campaign}${content?'&utm_content='+content:''}`);
-  await expect.poll(()=>events.some(e=>e.event==='$pageview'),{timeout:12000}).toBe(true);await expect(page).toHaveURL('http://127.0.0.1:4176/');
+  await expect.poll(()=>events.some(e=>e.event==='$pageview'),{timeout:12000}).toBe(true);await expect(page).toHaveURL(new URL('/', process.env.TEST_BASE_URL || 'http://127.0.0.1:4176').href);
   const view=events.find(e=>e.event==='$pageview');expect(view.properties.utm_medium).toBe(medium);expect(view.properties.utm_campaign).toBe(campaign);if(content)expect(view.properties.utm_content).toBe(content);
  }
  expect(errors).toEqual([]);
@@ -247,4 +249,83 @@ test('SF opt-in analytics keeps campaign and action counts, never contact or for
  await page.locator('[name=name]').fill('private-sf-person');await page.locator('[name=contact]').fill('private-sf@example.test');await page.locator('[name=message]').fill('private message never in analytics');await page.locator('[name=lets][value=coffee]').check();await page.locator('#sf-send').click();await expect(page.locator('#sf-success')).toBeVisible();
  await expect.poll(()=>events.some(e=>e.event==='sf_form_submit')).toBe(true);expect(events.some(e=>e.event==='sf_form_start')).toBe(true);
  const raw=JSON.stringify(events);for(const secret of ['private-sf-person','private-sf@example.test','private message never in analytics'])expect(raw).not.toContain(secret);expect(errors).toEqual([]);
+});
+
+const questUTM={utm_source:'linkedin',utm_medium:'social',utm_campaign:'corvus_softlaunch',utm_content:'built_in_2_days_post',utm_id:'li_20261105',utm_term:'founders'};
+const questURL='/sidequests/?'+new URLSearchParams(questUTM)+'&ref=keep&foo=bar#quest';
+test('sidequests captures before cleanup and attributes CTAs and clean shares across navigation',async({page,context})=>{
+  const {events,errors}=await setup(page);
+  await page.addInitScript(version=>{
+    localStorage.setItem('analytics-consent',JSON.stringify({version,choice:'allow',expires:Date.now()+86400000}));
+    Object.defineProperty(navigator,'share',{value:undefined});
+    Object.defineProperty(navigator,'clipboard',{value:{writeText:async text=>{window.copied=text;}}});
+    const replace=history.replaceState.bind(history);
+    history.replaceState=(state,title,url)=>{if(location.search.includes('utm_id')&&!String(url).includes('utm_id'))window.registeredAtCleanup=window.posthog?.get_property('utm_id');return replace(state,title,url);};
+  },PRIVACY_VERSION);
+  await page.goto(questURL);await expect(page).toHaveURL(/\/sidequests\?ref=keep&foo=bar#quest$/);
+  expect(await page.evaluate(()=>window.registeredAtCleanup)).toBe('li_20261105');
+  await expect.poll(()=>events.find(e=>e.event==='$pageview')?.properties.utm_id).toBe('li_20261105');
+  await page.locator('#quest-share').click();
+  await expect(page.locator('#share-result')).toHaveText('Link copied 🏮');
+  expect(await page.evaluate(()=>window.copied)).toBe('https://corvus.gent/sidequests');
+  const social=page.locator('.quest-share a');
+  for(const link of await social.all()){
+    const u=new URL(await link.getAttribute('href'));expect(u.searchParams.get('url')).toBe('https://corvus.gent/sidequests');
+    await link.evaluate(el=>el.addEventListener('click',e=>e.preventDefault(),{once:true}));await link.click();
+  }
+  const pidgy=page.locator('[data-cta=pidgy]');
+  expect(Object.fromEntries(new URL(await pidgy.getAttribute('href')).searchParams)).toEqual({utm_source:'corvus.gent',utm_medium:'referral',utm_campaign:'corvus_softlaunch',utm_content:'sidequests_page'});
+  for(const button of ['pidgy','contact','home']){
+    const link=page.locator('[data-cta='+button+']');await link.evaluate(el=>el.addEventListener('click',e=>e.preventDefault(),{once:true}));await link.click();
+  }
+  await expect.poll(()=>events.filter(e=>e.event==='sidequests_cta_click').length).toBe(3);
+  expect(events.filter(e=>e.event==='sidequests_share').map(e=>e.properties.method)).toEqual(['copy','linkedin','x']);
+  for(const e of events.filter(e=>e.event.startsWith('sidequests_')||e.event==='$pageview'))expect(e.properties).toMatchObject(questUTM);
+  await page.goto('/now/');await expect.poll(()=>events.filter(e=>e.event==='$pageview').length).toBe(2);
+  expect(events.filter(e=>e.event==='$pageview').at(-1).properties).toMatchObject(questUTM);
+  await page.goto('/privacy/');await page.locator('#analytics-deny').click();
+  expect(await page.evaluate(()=>sessionStorage.getItem('sidequests:arrival'))).toBeNull();expect(errors).toEqual([]);
+});
+test('sidequests native share, blocked storage and denied analytics',async({page})=>{
+  const {events,errors}=await setup(page);
+  await page.addInitScript(()=>{
+    Object.defineProperty(navigator,'share',{value:async data=>{window.shared=data;}});
+    Storage.prototype.setItem=()=>{throw Error('unavailable');};
+  });
+  await page.goto(questURL);await page.locator('[data-deny]').click();
+  await expect(page).toHaveURL(/\/sidequests\?ref=keep&foo=bar#quest$/);
+  await page.locator('#quest-share').click();
+  expect(await page.evaluate(()=>window.shared.url)).toBe('https://corvus.gent/sidequests');
+  expect(events).toEqual([]);expect(errors).toEqual([]);
+});
+
+test('blocking analytics scripts leaves clean clipboard sharing and ordinary links usable',async({page})=>{
+  await page.route('**/*analytics*.js*',r=>r.abort('blockedbyclient'));
+  await page.addInitScript(()=>{
+    Object.defineProperty(navigator,'share',{value:undefined});
+    Object.defineProperty(navigator,'clipboard',{value:{writeText:async text=>{window.copied=text;}}});
+  });
+  await page.clock.install();await page.goto(questURL);
+  await page.locator('#quest-share').click();
+  expect(await page.evaluate(()=>window.copied)).toBe('https://corvus.gent/sidequests');
+  await expect(page.locator('[data-cta=contact]')).toHaveAttribute('href','mailto:gabriel@corvus.gent');
+  await page.clock.fastForward(8100);
+  await expect(page).toHaveURL(/\/sidequests\?ref=keep&foo=bar#quest$/);
+});
+
+test('successful native share and real home navigation carry the original post',async({page})=>{
+  const {events,errors}=await setup(page);
+  await page.addInitScript(version=>{
+    localStorage.setItem('analytics-consent',JSON.stringify({version,choice:'allow',expires:Date.now()+86400000}));
+    Object.defineProperty(navigator,'share',{value:async data=>{window.shared=data;}});
+  },PRIVACY_VERSION);
+  await page.goto(questURL);
+  await expect.poll(()=>events.some(e=>e.event==='$pageview')).toBe(true);
+  await page.locator('#quest-share').click();
+  await expect.poll(()=>events.find(e=>e.event==='sidequests_share')?.properties.method).toBe('native');
+  expect(await page.evaluate(()=>window.shared)).toMatchObject({title:'Sidequests — Gabriel',url:'https://corvus.gent/sidequests'});
+  await page.locator('[data-cta=home]').click();await expect(page).toHaveURL(/\/$/);
+  await expect.poll(()=>events.find(e=>e.event==='sidequests_cta_click')?.properties.button).toBe('home');
+  await expect.poll(()=>events.find(e=>e.event==='$pageview'&&e.properties.$pathname==='/')?.properties.utm_id).toBe('li_20261105');
+  expect(errors).toEqual([]);
 });
