@@ -139,3 +139,43 @@ test('authenticated scrolling fetches each table once and keeps it out of tab st
  expect(seen).toEqual([null,'pages']);
  expect(await page.evaluate(()=>Object.keys(sessionStorage).some(k=>k.includes(':private:')))).toBe(false);
 });
+
+test('a slow request shows a bar, reports the failing service and recovers on retry', async ({page})=>{
+  let release,healthy=false;
+  const held=new Promise(resolve=>{release=resolve;});
+  const {errors}=await harness(page,async()=>{
+    await held;
+    return healthy?{data:{visitors:17,countries:[]}}:{state:'unavailable',reason:'storage',data:null};
+  });
+  await page.goto('/stats/?day=2026-11-04');
+  await expect(page.getByRole('progressbar')).toBeVisible();
+  release();
+  await expect(page.locator('.stats-feedback')).toContainText('stats storage (redis) is unavailable');
+  await expect(page.getByRole('progressbar')).toBeHidden();
+  await expect(page.locator('#overview-details')).toBeHidden();
+  healthy=true;await page.getByRole('button',{name:'try again'}).click();
+  await expect(page.locator('#visitors')).toHaveText('17');
+  await expect(page.locator('.stats-feedback')).toBeHidden();expect(errors).toEqual([]);
+});
+test('warming has a finite end and retry starts a new attempt',async({page})=>{
+  await page.clock.install();
+  let calls=0;
+  await harness(page,()=>{calls++;return {state:'warming',data:null};});
+  await page.goto('/stats/?day=2026-11-04');
+  for(const delay of [1000,2000,4000,6000,6000]){
+    const before=calls;await expect(page.getByRole('progressbar')).toBeVisible();
+    await page.clock.fastForward(delay+80);await expect.poll(()=>calls).toBeGreaterThan(before);
+  }
+  await expect(page.locator('.stats-feedback')).toContainText('took too long');
+  await expect(page.getByRole('progressbar')).toBeHidden();
+  await expect(page.locator('#visitors')).toHaveText('—');
+  await page.getByRole('button',{name:'try again'}).click();await expect(page.getByRole('progressbar')).toBeVisible();
+});
+test('switching days hides previous numbers when the new day fails',async({page})=>{
+  const {errors}=await harness(page,(name,day)=>day==='2026-11-03'?{state:'unavailable',reason:'source',data:null}:{data:{visitors:18,total:87,countries:[]}});
+  await page.goto('/stats/?day=2026-11-04');await expect(page.locator('#visitors')).toHaveText('18');
+  await page.locator('#prev').click();await expect(page.locator('#overview-details')).toBeHidden();
+  await expect(page.locator('.stats-feedback')).toContainText('data source failed');
+  await page.locator('#next').click();await expect(page.locator('#visitors')).toHaveText('18');
+  await expect(page.locator('.stats-feedback')).toBeHidden();expect(errors).toEqual([]);
+});

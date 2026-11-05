@@ -23,3 +23,13 @@
 .private-stats #private-pending{min-height:65vh;font-size:.85rem;color:#999}
 .private-slot{min-height:8rem}.private-slot>.st-sec{margin:0}
 .st #health-title{font-size:clamp(2rem,8vw,4rem);overflow-wrap:anywhere;min-height:2.4em;line-height:1.15}
+
+.stats-feedback{max-width:40rem;margin:1rem 0;color:#d0c7b1;font-size:.82rem;line-height:1.5}
+.stats-feedback p{margin:0 0 .5rem}
+.stats-track{height:3px;background:#322d22;border-radius:2px;overflow:hidden;max-width:22rem}
+.stats-track i{display:block;height:100%;width:40%;background:#ffd76a;animation:stats-travel 1.6s ease-in-out infinite alternate}
+@keyframes stats-travel{from{transform:translateX(0)}to{transform:translateX(150%)}}
+.stats-actions{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.stats-actions button{color:#ffd76a;border:1px solid #665632;background:transparent;border-radius:4px;font:inherit;padding:.4rem .65rem;cursor:pointer}
+.stats-actions a{color:#aaa}
+@media(prefers-reduced-motion:reduce){.stats-track i{animation:none;width:100%;background:repeating-linear-gradient(90deg,#a48a46 0 6px,transparent 6px 10px)}}

@@ -12,6 +12,11 @@ view((s) => {
     const card = el('section', null, 'health-check');
     const title = el('h2', c.name);
     card.append(title);
+    if (s.liveOnly) {
+      card.append(el('p', c.skipped ? 'not configured' : (c.ok ? 'up' : 'down') + ' · ' + c.ms + ' ms'));
+      out.append(card);
+      continue;
+    }
     const strip = el('div', null, 'health-strip');
     strip.setAttribute('role', 'img');
     const day = new Date(s.checked_at || Date.now());
@@ -47,5 +52,6 @@ view((s) => {
     );
     out.append(card);
   }
+  if (s.liveOnly) out.prepend(el('p', 'live checks · uptime history is unavailable.', 'sub'));
   if (!s.checks.length) out.textContent = 'no checks recorded yet.';
 });

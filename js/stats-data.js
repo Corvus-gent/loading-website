@@ -17,8 +17,7 @@
     : today;
   const cache = new Map(),
     pending = new Map(),
-    listeners = new Map(),
-    retry = new Map();
+    listeners = new Map();
   const limit = (name) => ({ coffee: 1800, x: 900 })[name] || 60;
   const storageKey = (name, day) => 'stats:snap:v1:' + name + ':' + day;
   function saved(name, day) {
@@ -48,17 +47,20 @@
       (old.final || Date.now() - Date.parse(old.checked || old.updated) < limit(name) * 1000)
     )
       return Promise.resolve(old);
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
     const promise = fetch('/api/stats?' + new URLSearchParams({ page: name, day }), {
       credentials: name === 'private' ? 'same-origin' : 'omit',
       ...(name === 'private' ? { cache: 'no-store' } : {}),
-      signal: AbortSignal.timeout(8000)
+      signal: controller.signal
     })
       .then(async (r) => {
         if (r.status === 401 && name === 'private') return { state: 'login', data: null };
         if (!r.ok) throw Error('snapshot unavailable');
         const s = await r.json();
         if (s.page !== name || !s.data) {
-          if (old) return { ...old, stale: true };
+          if (old)
+            return { ...old, stale: true, reason: s.reason || 'api', working: s.state === 'warming' };
           return s.page === name ? s : { state: 'unavailable', data: null };
         }
         if (name !== 'private') {
@@ -69,13 +71,23 @@
         }
         return s;
       })
-      .catch(() => (old ? { ...old, stale: true } : { state: 'unavailable', data: null }))
+      .catch(() => {
+        const reason = controller.signal.aborted
+          ? 'timeout'
+          : navigator.onLine === false
+            ? 'offline'
+            : 'api';
+        return old ? { ...old, stale: true, reason } : { state: 'unavailable', data: null, reason };
+      })
       .then((s) => {
         const active = listeners.get(k);
         active?.forEach((fn) => fn(s));
         return s;
       })
-      .finally(() => pending.delete(k));
+      .finally(() => {
+        clearTimeout(timeout);
+        pending.delete(k);
+      });
     pending.set(k, promise);
     return promise;
   }
@@ -85,12 +97,7 @@
     if (!label || !shown) return;
     const s = shown;
     if (!s.updated) {
-      label.textContent =
-        s.state === 'login'
-          ? ''
-          : s.state === 'warming'
-            ? 'preparing the first snapshot…'
-            : 'snapshot unavailable.';
+      label.textContent = '';
       return;
     }
     const mins = Math.max(0, Math.floor((Date.now() - Date.parse(s.updated)) / 60000));
@@ -100,41 +107,122 @@
       'updated ' +
       (mins ? mins + ' min ago' : 'just now');
   }
+  let feedback;
+  function panel() {
+    if (feedback) return feedback;
+    const root = document.createElement('div');
+    root.className = 'stats-feedback';
+    root.hidden = true;
+    root.innerHTML =
+      '<p role="status" aria-live="polite"></p><div class="stats-track" role="progressbar" aria-label="loading statistics"><i></i></div><div class="stats-actions"><button type="button">try again</button><a>service status →</a></div>';
+    const anchor = document.querySelector('#visitors, #private-pending, [data-snapshot-age]');
+    anchor.before(root);
+    const link = root.querySelector('a');
+    link.href = page === 'status' ? '/api/health' : 'https://stats.corvus.gent/status';
+    feedback = {
+      root,
+      text: root.querySelector('p'),
+      bar: root.querySelector('[role=progressbar]'),
+      actions: root.querySelector('.stats-actions'),
+      button: root.querySelector('button')
+    };
+    return feedback;
+  }
+  function describe(s, busy) {
+    if (s.reason === 'storage-and-source') return 'stats storage and a data source are unavailable.';
+    if (s.reason === 'storage') {
+      if (busy) return 'stats storage (redis) is unavailable. checking other sources…';
+      return 'stats storage (redis) is unavailable.' + (s.data ? ' showing the available figures.' : '');
+    }
+    if (s.reason === 'source')
+      return (
+        'a stats data source failed to respond.' + (s.data ? ' showing the available figures.' : '')
+      );
+    if (s.reason === 'timeout') return 'the stats request took too long.';
+    if (s.reason === 'offline') return 'you appear to be offline.';
+    if (s.reason === 'history') return 'there is no saved report for this day.';
+    if (!busy && !s.reason && s.stale) return 'showing the last saved figures.';
+    if (busy) return s.state === 'warming' ? 'preparing the figures…' : 'loading stats…';
+    return 'the stats API is unavailable.' + (s.data ? ' showing the last saved figures.' : '');
+  }
   function watch(name, day, render) {
     const k = storageKey(name, day),
       callbacks = listeners.get(k) || new Set();
     listeners.set(k, callbacks);
-    const fn = (s) => {
-      shown = s;
+    const ui = panel();
+    let active = true,
+      tries = 0,
+      timer,
+      delay,
+      received;
+    function paint(s, busy) {
+      ui.root.hidden =
+        !busy && !s.reason && s.state !== 'unavailable' && s.state !== 'partial' && !s.stale;
+      if (ui.root.hidden) return;
+      ui.text.textContent = describe(s, busy);
+      ui.bar.hidden = !busy;
+      ui.actions.hidden = busy;
+    }
+    function accept(s) {
+      if (!active) return;
+      received = s;
+      clearTimeout(delay);
+      clearTimeout(timer);
+      const waiting = s.state === 'warming' || s.working === true;
+      const expired = waiting && tries >= 5;
+      const view = expired
+        ? {
+            ...s,
+            state: s.data ? 'partial' : 'unavailable',
+            reason: s.reason === 'storage' ? 'storage' : 'timeout',
+            working: false
+          }
+        : s;
+      shown = view;
       viewDay = day;
       age();
-      render(s);
-      const tries = retry.get(k) || 0;
-      if (['warming','partial'].includes(s.state) && tries < 4) {
-        retry.set(k, tries + 1);
-        setTimeout(
+      render(view);
+      paint(view, waiting && !expired);
+      if (waiting && !expired) {
+        timer = setTimeout(
           () => {
-            if (callbacks.has(fn)) load(name, day, true);
+            tries++;
+            load(name, day, true);
           },
-          1000 * 2 ** tries
+          Math.min(1000 * 2 ** tries, 6000)
         );
       }
-    };
-    callbacks.add(fn);
+    }
+    callbacks.add(accept);
+    ui.root.hidden = true;
     const old = saved(name, day);
-    if (old) fn(old);
-    // A completed early request, including login/empty, is consumed once by the view.
-    if (name === page && day === selected && initial) {
-      const p = initial;
-      initial = null;
-      p.then((s) => {
-        if (callbacks.has(fn) && shown !== s) fn(s);
-      });
-    } else
-      load(name, day).then((s) => {
-        if (callbacks.has(fn) && shown !== s) fn(s);
-      });
-    return () => callbacks.delete(fn);
+    if (old) accept(old);
+    function start() {
+      // Avoid flashing the indicator on a fast cache hit.
+      delay = setTimeout(() => {
+        if (active) paint({ state: 'loading' }, true);
+      }, 350);
+    }
+    ui.button.onclick = () => {
+      tries = 0;
+      clearTimeout(timer);
+      paint({ state: 'loading' }, true);
+      load(name, day, true);
+    };
+    const first = name === page && day === selected && initial ? initial : load(name, day);
+    if (first === initial) initial = null;
+    if (!old) start();
+    first.then((s) => {
+      if (active && received !== s) accept(s);
+    });
+    return () => {
+      active = false;
+      clearTimeout(delay);
+      clearTimeout(timer);
+      callbacks.delete(accept);
+      if (!callbacks.size) listeners.delete(k);
+      ui.root.hidden = true;
+    };
   }
   let initial = selected <= today ? load(page, selected) : null;
   window.statsPage = { page, today, selected, watch, load };
