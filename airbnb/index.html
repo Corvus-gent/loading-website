@@ -42,7 +42,7 @@ const T = {
 const $ = id => document.getElementById(id);
 function set(l){
   const t = T[l]; document.documentElement.lang = l;
-  $("t-h").textContent=t.h; $("t-p").textContent=t.p; $("t-call").textContent=t.c; $("t-site").textContent=t.s; $("t-safe").textContent=t.f;
+  $("t-h").textContent=t.h; $("t-p").innerHTML=t.p.replace("Gabriel",'<a href="https://corvus.gent/links/gabe" style="color:#1a1a1a;font-weight:600">Gabriel</a>'); $("t-call").textContent=t.c; $("t-site").textContent=t.s; $("t-safe").textContent=t.f;
   document.querySelectorAll(".langs button").forEach(b=>b.classList.toggle("on",b.dataset.l===l));
 }
 Object.keys(T).forEach(l=>{const b=document.createElement("button");b.textContent=T[l].n;b.dataset.l=l;b.onclick=()=>set(l);$("langs").appendChild(b);});
