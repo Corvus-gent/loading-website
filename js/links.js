@@ -40,6 +40,51 @@ const PEOPLE = {
       { id: "home", text: "corvus.gent", href: "/" },
     ],
   },
+  corvus: {
+    name: "Corvus",
+    full: "died feb 2026 · revived nov 2026",
+    photo: "/logo.png",
+    line: "still looking for an honest man.",
+    main: { id: "realm", text: "enter the realm", href: "/realm/", img: "/logo.png" },
+    links: [
+      { id: "games", text: "today's puzzle", href: "/games/" },
+      { id: "music", text: "bangers", href: "/music/" },
+      { id: "sf", text: "francisco's little town (sf)", href: "/sf/" },
+      { id: "call", text: "📞 book a call with gabe", href: "/call/" },
+      { id: "stats", text: "live stats", href: "https://stats.corvus.gent/" },
+      { id: "wiki", text: "corvuspedia", href: "/wiki/" },
+    ],
+    socials: [
+      { id: "linkedin", text: "LinkedIn", href: "https://www.linkedin.com/company/corvus-gent/" },
+      { id: "keeper", text: "the keeper: gabe", href: "/links/gabe" },
+      { id: "x", text: "X", href: "https://x.com/gabe_maxxing" },
+      { id: "instagram", text: "Instagram", href: "https://instagram.com/gabe.maxxing/" },
+      { id: "tiktok", text: "TikTok", href: "https://www.tiktok.com/@gabe.maxxing" },
+    ],
+    extra: [],
+  },
+  pidgy: {
+    name: "Pidgy",
+    full: "the AI inbox agent for Outlook & Gmail",
+    photo: "/img/pidgy-happy.png",
+    photos: ["/img/pidgy-happy.png", "/img/fire-pidgy.webp", "/img/sticky-pidgy.webp", "/img/builder-pidgies.webp", "/img/paracetamail.png"],
+    line: "inbox at 0. again.",
+    main: { id: "pidgy", text: "Try Pidgy, your AI inbox agent", href: "https://pidgy-ai.com/", img: PIDGY_IMG },
+    links: [
+      { id: "call", text: "📞 talk to gabe (gtm @ pidgy)", href: "/call/" },
+      { id: "alkmist", text: "made by Alkmist", href: "https://alkmist.com/" },
+    ],
+    socials: [
+      { id: "linkedin", text: "LinkedIn", href: "https://www.linkedin.com/company/pidgy" },
+      { id: "instagram", text: "Instagram", href: "https://www.instagram.com/pidgy_ai/" },
+      { id: "tiktok", text: "TikTok", href: "https://www.tiktok.com/@pidgy_ai" },
+      { id: "youtube", text: "YouTube", href: "https://www.youtube.com/@Alkmisthq" },
+      { id: "facebook", text: "Facebook", href: "https://www.facebook.com/PidgyAI/" },
+    ],
+    extra: [
+      { id: "gabe", text: "gabe's links", href: "/links/gabe" },
+    ],
+  },
 };
 
 let [, , rawPerson = "gabe", p = "", campaign = ""] = location.pathname.replace(/\/+$/, "").split("/");
@@ -76,7 +121,19 @@ function a(link, cls = "") {
   return el;
 }
 
-document.getElementById("photo").src = person.photo;
+const photoEl = document.getElementById("photo");
+photoEl.src = person.photo;
+if (personId !== "gabe") photoEl.classList.add("lt-photo-art");
+// rotating profile photos (e.g. all the Pidgies): random start, next one every 5 s or on tap
+if (person.photos?.length > 1) {
+  let i = Math.floor(Math.random() * person.photos.length);
+  person.photos.forEach(src => { const im = new Image(); im.src = src; });
+  const show = () => { photoEl.style.opacity = "0"; setTimeout(() => { photoEl.src = person.photos[i]; photoEl.style.opacity = "1"; }, 200); };
+  photoEl.style.transition = "opacity .2s ease"; photoEl.src = person.photos[i];
+  const next = () => { i = (i + 1) % person.photos.length; show(); };
+  photoEl.style.cursor = "pointer"; photoEl.addEventListener("click", next);
+  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) setInterval(() => { if (!document.hidden) next(); }, 5000);
+}
 document.getElementById("name").textContent = person.name;
 document.getElementById("full").textContent = person.full;
 document.getElementById("line").textContent = person.line;

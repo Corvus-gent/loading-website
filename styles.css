@@ -264,6 +264,7 @@ body:has(.corner-nav) main { padding-top: 64px; }
 /* --- link in bio --- */
 .lt { max-width: 440px; }
 .lt-photo { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; border: 1px solid var(--faint); filter: grayscale(.2); }
+.lt-photo-art { object-fit: contain; background: #f4f1ea; padding: 10px; box-sizing: border-box; filter: none; }
 .lt h1 { margin: 12px 0 2px; }
 .lt-full { margin: 0 0 4px; font-size: 12px; }
 .lt-main {
