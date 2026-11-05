@@ -21,37 +21,6 @@ async function harness(page, reply) {
   });
   return { requests, errors };
 }
-for (const [status, title] of [
-  ['ok', 'the lantern is burning.'],
-  ['degraded', 'the lantern flickers.'],
-  ['down', 'the lantern is out.']
-]) {
-  test('status renders ' + status + ' on mobile from one snapshot', async ({ page }) => {
-    await page.setViewportSize({ width: 360, height: 760 });
-    const { requests, errors } = await harness(page, () => ({
-      data: {
-        status,
-        checks: [
-          {
-            name: 'redis',
-            days: Array(29).fill('unknown').concat(status),
-            uptime: [75, 98, 99.9],
-            average: 12,
-            lastIncident: '2026-11-03T11:12:00Z'
-          }
-        ]
-      }
-    }));
-    await page.goto('/stats/status/');
-    await expect(page.locator('#health-title')).toHaveText(title);
-    await expect(page.locator('.health-strip i')).toHaveCount(30);
-    await expect(page.locator('.health-check')).toContainText('99.9%');
-    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
-    expect(requests.filter((u) => u.pathname.startsWith('/api/'))).toHaveLength(1);
-    expect(requests.some((u) => u.pathname.includes('leaflet'))).toBe(false);
-    expect(errors).toEqual([]);
-  });
-}
 test('cached figures survive an upstream outage; a tab revisit can paint without a request', async ({
   page
 }) => {

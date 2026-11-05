@@ -1,4 +1,136 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>the lantern | corvus stats</title><meta name="description" content="service status and uptime."><meta property="og:title" content="the lantern | corvus stats"><meta property="og:description" content="service status and uptime."><meta property="og:url" content="https://stats.corvus.gent/status"><link rel="icon" href="/logo.png"><link rel="stylesheet" href="/styles.css?v=4d681edec0fb"><link rel="stylesheet" href="/people/styles.css?v=1b7535a5d1d1"><link rel="stylesheet" href="/stats/sections.css?v=932b02565c30"><link rel="stylesheet" href="/privacy/privacy.css?v=202ae89baeff"><meta name="referrer" content="no-referrer">
-<script defer src="/js/stats-data.js?v=6a060aef374c" data-page="status"></script></head><body class="people-page" data-stat-page="status"><main><div id="lang-switcher" class="lang-switcher"></div><div class="wrap st"><a href="https://corvus.gent/realm/">corvus / realm</a><nav class="stats-tabs" aria-label="statistics"><a href="/" data-stat="overview" data-i18n="stats.overview">overview</a><a href="/pidgy" data-stat="pidgy" data-i18n="stats.pidgy">pidgy</a><a href="/games" data-stat="games" data-i18n="nav.games">games</a><a href="/map" data-stat="map" data-i18n="stats.map">map</a><a href="/music" data-stat="music" data-i18n="nav.music">music</a><a href="/hunt" data-stat="hunt" data-i18n="stats.hunt">hunt</a><a href="/x" data-stat="x">x</a><a href="/coffee" data-stat="coffee" data-i18n="coffee.nav">coffee</a><a href="/status" data-stat="status">status</a></nav><p class="snapshot-age" data-snapshot-age></p><button class="stat-copy" data-i18n="stats.copy" type="button">copy link to this stat ↗</button><h1 id="health-title">the lantern</h1><p class="sub">uptime uses recorded checks. grey days have no samples.</p><div id="section-output" aria-live="polite">the crow is counting…</div></div></main><script defer src="/js/analytics.js?v=811c28467bec"></script><footer class="privacy-footer"><a href="/privacy/" data-privacy-link>privacy</a></footer>
-<script type="module" src="/js/privacy.js?v=2c0385e220c2"></script>
-<script type="module" src="/js/stats-nav.js?v=7a7db1987334"></script><script type="module" src="/js/stats-status.js?v=8571e10548f4"></script></body></html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>service status | corvus</title>
+    <meta
+      name="description"
+      content="live service checks, response times and incidents for corvus.gent."
+    />
+    <meta property="og:title" content="the lantern | corvus status" />
+    <meta property="og:description" content="service health and uptime, by the light of the lantern." />
+    <meta property="og:url" content="https://stats.corvus.gent/status" />
+    <meta name="referrer" content="no-referrer" />
+    <link rel="icon" href="/img/link-crow.svg" />
+    <link rel="stylesheet" href="/styles.css?v=4d681edec0fb" />
+    <link rel="stylesheet" href="/privacy/privacy.css?v=202ae89baeff" />
+    <link rel="stylesheet" href="/stats/status/status.css?v=a67b7aa111fa" />
+    <script type="module" src="/js/stats-status.js?v=27860c5896cf"></script>
+  </head>
+  <body class="status-page" data-stat-page="status">
+    <main>
+      <header class="mast">
+        <a class="brand" href="https://corvus.gent/realm/"
+          ><img width="32" height="24" src="/img/link-crow.svg" alt="" />corvus.gent</a
+        ><span>/</span><a href="/">stats</a><span>/</span><strong>status</strong>
+      </header>
+      <nav class="stats-tabs" aria-label="statistics">
+        <a href="/" data-stat="overview" data-i18n="stats.overview">overview</a
+        ><a href="/pidgy" data-stat="pidgy" data-i18n="stats.pidgy">pidgy</a
+        ><a href="/games" data-stat="games" data-i18n="nav.games">games</a
+        ><a href="/map" data-stat="map" data-i18n="stats.map">map</a
+        ><a href="/music" data-stat="music" data-i18n="nav.music">music</a
+        ><a href="/hunt" data-stat="hunt" data-i18n="stats.hunt">hunt</a><a href="/x" data-stat="x">x</a
+        ><a href="/coffee" data-stat="coffee" data-i18n="coffee.nav">coffee</a
+        ><a href="/status" data-stat="status">status</a>
+      </nav>
+      <section class="beacon" data-state="0">
+        <div>
+          <p class="kicker"><i class="dot"></i> service status</p>
+          <h1 id="health-title">reading the lantern.</h1>
+          <p id="checked" class="muted" aria-live="polite">waiting for the latest check…</p>
+        </div>
+        <svg class="lantern" viewBox="0 0 140 140" fill="none" aria-hidden="true">
+          <defs>
+            <radialGradient id="halo">
+              <stop stop-color="currentColor" stop-opacity=".33" />
+              <stop offset=".55" stop-color="currentColor" stop-opacity=".09" />
+              <stop offset="1" stop-color="currentColor" stop-opacity="0" />
+            </radialGradient>
+          </defs>
+          <circle cx="73" cy="81" r="58" fill="url(#halo)" />
+          <g stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round">
+            <path d="M55 54c-8-13-4-33 7-37 12-5 24 3 25 16 M58 51c-5-10-4-23 3-28" />
+            <path
+              d="M57 62l3-9 9-6 1-7h9l2 7 10 6 4 9z M53 62h45l-3 6H56z M56 69l6 33h25l8-33 M61 103l-5 6v4h37v-4l-6-6z M54 115h42 M64 70l4 29 M88 70l-5 29"
+            />
+            <path d="M71 94c-4-5 0-10 4-16-1 8 7 9 4 16-1 4-6 5-8 0z" fill="currentColor" />
+          </g>
+        </svg>
+      </section>
+      <dl class="metrics">
+        <div>
+          <dt>uptime · 24h</dt>
+          <dd>—</dd>
+        </div>
+        <div>
+          <dt>uptime · 7d</dt>
+          <dd>—</dd>
+        </div>
+        <div>
+          <dt>uptime · 30d</dt>
+          <dd>—</dd>
+        </div>
+        <div>
+          <dt>uptime · 90d</dt>
+          <dd>—</dd>
+        </div>
+      </dl>
+      <div class="load-state" role="status">
+        <span id="load-message"></span><button hidden type="button" id="retry">try again ↻</button
+        ><span hidden class="track" role="progressbar" aria-label="loading service history"
+          ><i></i
+        ></span>
+      </div>
+      <section class="panel" aria-labelledby="response-heading">
+        <header class="panel-head">
+          <div>
+            <h2 id="response-heading">response time</h2>
+            <p>average across measured checks · brussels time</p>
+          </div>
+          <div class="ranges" role="group" aria-label="timeline range">
+            <button type="button" data-range="24h" aria-pressed="true">24h</button
+            ><button type="button" data-range="7d" aria-pressed="false">7d</button
+            ><button type="button" data-range="30d" aria-pressed="false">30d</button>
+          </div>
+        </header>
+        <div id="overall-chart" class="chart"></div>
+        <ul class="legend">
+          <li data-state="1"><i class="dot"></i>healthy</li>
+          <li data-state="2"><i class="dot"></i>degraded / slow</li>
+          <li data-state="3"><i class="dot"></i>down</li>
+          <li data-state="0"><i class="dot"></i>no data</li>
+        </ul>
+      </section>
+      <section class="systems" aria-labelledby="checks-heading">
+        <header class="section-head">
+          <h2 id="checks-heading">service checks</h2>
+          <span><b class="days-count"></b> days · worst per day</span>
+        </header>
+        <div class="column-guide" aria-hidden="true">
+          <span>service</span><span>daily history</span><span>30d uptime</span><span>24h latency</span>
+        </div>
+        <div id="checks" aria-busy="true"></div>
+        <p class="footnote">
+          uptime uses recorded checks only. slow starts at 1,500 ms. 7d–90d use brussels calendar days.
+        </p>
+      </section>
+      <section class="incidents" aria-labelledby="incident-heading">
+        <header class="section-head">
+          <h2 id="incident-heading">incident log</h2>
+          <span>latest 10</span>
+        </header>
+        <ol id="incidents"></ol>
+      </section>
+      <footer>
+        <button class="stat-copy" type="button">copy status link ↗</button
+        ><a href="/privacy/" data-privacy-link>privacy</a>
+        <div id="lang-switcher" class="lang-switcher"></div>
+      </footer>
+    </main>
+    <script defer src="/js/analytics.js?v=811c28467bec"></script>
+    <script type="module" src="/js/privacy.js?v=2c0385e220c2"></script>
+    <script type="module" src="/js/stats-nav.js?v=7a7db1987334"></script>
+  </body>
+</html>

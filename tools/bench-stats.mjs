@@ -16,7 +16,7 @@ const selectors = {
   x: '#x-count, .x-metrics dd',
   coffee: '[data-total]',
   private: '#out td',
-  status: '.health-check'
+  status: '.metrics dd'
 };
 try {
   for (const profile of ['normal', 'slow4g'])

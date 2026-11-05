@@ -122,6 +122,12 @@ http
         p = u.pathname,
         q = u.searchParams;
       if (p.startsWith('/api/')) {
+        if (p === '/api/health/history') {
+          const {statusFixture}=await import('../tests/status-fixture.mjs');
+          res.setHeader('Content-Type','application/json');
+          res.setHeader('Content-Encoding','gzip');
+          return res.end(gzipSync(JSON.stringify(statusFixture('healthy',q.get('range') || '24h'))));
+        }
         const name = q.get('page'),
           section = q.get('section');
         if (serve && p === '/api/stats' && name) {
