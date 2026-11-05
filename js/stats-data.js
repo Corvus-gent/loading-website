@@ -47,10 +47,12 @@
       (old.final || Date.now() - Date.parse(old.checked || old.updated) < limit(name) * 1000)
     )
       return Promise.resolve(old);
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
     const promise = fetch('/api/stats?' + new URLSearchParams({ page: name, day }), {
       credentials: name === 'private' ? 'same-origin' : 'omit',
       ...(name === 'private' ? { cache: 'no-store' } : {}),
-      signal: AbortSignal.timeout(8000)
+      signal: controller.signal
     })
       .then(async (r) => {
         if (r.status === 401 && name === 'private') return { state: 'login', data: null };
@@ -69,9 +71,12 @@
         }
         return s;
       })
-      .catch((error) => {
-        const reason =
-          error.name === 'TimeoutError' ? 'timeout' : navigator.onLine === false ? 'offline' : 'api';
+      .catch(() => {
+        const reason = controller.signal.aborted
+          ? 'timeout'
+          : navigator.onLine === false
+            ? 'offline'
+            : 'api';
         return old ? { ...old, stale: true, reason } : { state: 'unavailable', data: null, reason };
       })
       .then((s) => {
@@ -79,7 +84,10 @@
         active?.forEach((fn) => fn(s));
         return s;
       })
-      .finally(() => pending.delete(k));
+      .finally(() => {
+        clearTimeout(timeout);
+        pending.delete(k);
+      });
     pending.set(k, promise);
     return promise;
   }
@@ -133,6 +141,7 @@
     if (s.reason === 'timeout') return 'the stats request took too long.';
     if (s.reason === 'offline') return 'you appear to be offline.';
     if (s.reason === 'history') return 'there is no saved report for this day.';
+    if (!busy && !s.reason && s.stale) return 'showing the last saved figures.';
     if (busy) return s.state === 'warming' ? 'preparing the figures…' : 'loading stats…';
     return 'the stats API is unavailable.' + (s.data ? ' showing the last saved figures.' : '');
   }

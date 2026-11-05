@@ -71,7 +71,10 @@ export async function recover(page, day, enqueue, { cache = regional, tasks = ta
 
   const key = page + ':' + day;
   let old = recent.get(key);
-  if (old && Date.now()-Date.parse(old.checked)>86400000){recent.delete(key);old=null;}
+  if (old && Date.now() - Date.parse(old.checked) > 86400000) {
+    recent.delete(key);
+    old = null;
+  }
   if (!old || Date.now() - Date.parse(old.checked) > ttl(page) * 1000) {
     const stored = await bounded(cache.get(key), 400).catch(() => null);
     if (stored?.day === day && stored.page === page && (!old || stored.checked > old.checked))
@@ -86,7 +89,10 @@ export async function recover(page, day, enqueue, { cache = regional, tasks = ta
       await Promise.all(
         Object.entries(sources).map(async ([name, run]) => {
           try {
-            const part = await bounded(Promise.resolve().then(run), (name === 'coffee' || page === 'coffee') ? 23000 : 11000);
+            const part = await bounded(
+              Promise.resolve().then(run),
+              name === 'coffee' || page === 'coffee' ? 23000 : 11000
+            );
             Object.assign(data, part);
             dates[name] = new Date().toISOString();
           } catch {
