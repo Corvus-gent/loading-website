@@ -28,7 +28,7 @@ const eligible = {
   coffee: ['coffee']
 };
 
-async function liveStatus() {
+export async function liveStatus() {
   const { default: health } = await import('./_health.js');
   const writer = {
     setHeader() {},

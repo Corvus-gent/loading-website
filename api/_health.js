@@ -5,7 +5,7 @@ import { dailyIPHash, rateLimit } from './_privacy.js';
 import { hogql } from './_posthog.js';
 import { brusselsDay } from './_stats-daily.js';
 import { pages, ttl, bounded, build } from './_stats-snap.js';
-import { record } from './_health-history.js';
+import { record, importLegacy, slowMs } from './_health-history.js';
 import { waitUntil } from '@vercel/functions';
 const site = 'https://corvus.gent',
   stats = 'https://stats.corvus.gent';
@@ -188,12 +188,9 @@ export async function inspect(list, now = Date.now) {
       })
     )
   );
-  const failed = Object.entries(results).filter(([, r]) => r.ok === false);
-  const status = !failed.length
-    ? 'ok'
-    : results.site?.ok === false && results.stats?.ok === false
-      ? 'down'
-      : 'degraded';
+  const impaired = Object.values(results).some((c) => c.ok === false || (c.ok && c.ms >= slowMs));
+  let status = impaired ? 'degraded' : 'ok';
+  if (results.site?.ok === false && results.stats?.ok === false) status = 'down';
   return { status, checks: results, checked_at: new Date(now()).toISOString() };
 }
 export function publicResult(sample) {
@@ -286,7 +283,8 @@ export default async function health(req, res) {
       !safeEqual(req.headers['x-health-token'] || '', process.env.HEALTH_TOKEN))
   )
     return res.status(401).json({ error: 'unauthorized' });
-  if (!deep) res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=30');
+  const monitor = req.query?.monitor === '1';
+  if (!deep && !monitor) res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=30');
   const respond = (s) => res.status(s.status === 'down' ? 503 : 200).json(deep ? s : publicResult(s));
   try {
     if (
@@ -297,10 +295,25 @@ export default async function health(req, res) {
       return res.status(429).json({ error: 'rate limited' });
     }
     // A global sampling lease limits upstream fan-out across all source addresses.
-    if (!deep && memory && Date.now() - Date.parse(memory.checked_at) < 30000) return respond(memory);
+    if (!deep && !monitor && memory && Date.now() - Date.parse(memory.checked_at) < 30000)
+      return respond(memory);
     const cached = JSON.parse(await bounded(redis(['GET', 'health:last']), 500));
-    if (!deep && cached && Date.now() - Date.parse(cached.checked_at) < 30000) return respond(cached);
-    if (!deep && !(await bounded(redis(['SET', 'health:sampling', '1', 'NX', 'EX', '30']), 500))) {
+    if (!deep && !monitor && cached && Date.now() - Date.parse(cached.checked_at) < 30000)
+      return respond(cached);
+    if (
+      !deep &&
+      !(await bounded(
+        redis([
+          'SET',
+          monitor ? 'health:monitor:sampling' : 'health:sampling',
+          '1',
+          'NX',
+          'EX',
+          monitor ? '240' : '30'
+        ]),
+        500
+      ))
+    ) {
       if (cached) return respond(cached);
       if (inflight) return respond(await inflight);
       return res.status(503).json({
@@ -312,7 +325,7 @@ export default async function health(req, res) {
   } catch {
     /* Keep the external monitor useful during a storage outage. */
   }
-  if (!inflight || deep) {
+  if (!inflight || deep || monitor) {
     if (Date.now() - windowStart >= 60000) {
       windowStart = Date.now();
       originSamples = 0;
@@ -326,13 +339,8 @@ export default async function health(req, res) {
       const safe = publicResult(sample);
       memory = safe;
       try {
-        await bounded(
-          Promise.all([
-            record(safe),
-            redis(['SET', 'health:last', JSON.stringify(safe), 'EX', '2592000'])
-          ]),
-          1000
-        );
+        await bounded(record(safe, Date.now(), monitor), 1000);
+        waitUntil(importLegacy().catch(() => {}));
         if (process.env.VERCEL_ENV === 'production' && process.env.RESEND_API_KEY)
           waitUntil(notify(safe));
       } catch {
@@ -340,7 +348,7 @@ export default async function health(req, res) {
       }
       return sample;
     });
-    if (deep) return respond(await work);
+    if (deep || monitor) return respond(await work);
     inflight = work.finally(() => {
       inflight = null;
     });

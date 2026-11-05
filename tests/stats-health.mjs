@@ -317,11 +317,11 @@ try {
   await record(sample(0, true));
   const h = await history(now);
   const check = h.checks.find((c) => c.name === 'redis');
-  assert.deepEqual(check.uptime, [100, 200 / 3, 75]);
-  assert.equal(check.days.length, 30);
-  assert.equal(check.average, 10);
-  assert.equal(await redis(['ZCARD', 'health:log']), 4);
-  assert((await redis(['TTL', 'health:log'])) <= 2592000);
+  assert.deepEqual(check.uptime, [100, 200 / 3, 75, 60]);
+  assert.equal(check.days.length, 90);
+  assert.equal(check.days.at(-1)[2], 10);
+  assert.equal(await redis(['ZCARD', 'health:v2:raw']), 2);
+  assert((await redis(['TTL', 'health:v2:raw'])) <= 172800);
   // Exercise the protected endpoint itself. Every network dependency is mocked.
   for (const name of pages)
     await redis([
@@ -346,6 +346,24 @@ try {
   const shallow = await health({ method: 'GET', query: {}, headers: {} }, res());
   assert.equal(shallow.body.status, 'degraded');
   assert.doesNotMatch(JSON.stringify(shallow.body), /HTTP 429|detail|private-token|stack/);
+  // External monitors bypass visitor and CDN caches, but rapid retries share a lease.
+  const monitorReq={method:'GET',query:{monitor:'1'},headers:{'x-forwarded-for':'192.0.2.12'}};
+  const monitored=await health(monitorReq,res());
+  assert.match(monitored.headers['Cache-Control'],/no-store/);
+  assert.equal(monitored.body.checks.spotify.ok,false);
+  assert(!monitored.body.checks.spotify.detail);
+  assert(await redis(['EXISTS','health:monitor:sampling']));
+  assert.equal((await health(monitorReq,res())).body.checked_at,monitored.body.checked_at);
+  const {default:historyEndpoint}=await import('../api/_health-history.js');
+  process.env.REDIS_MAINTENANCE='1';
+  try {
+    const offline=await historyEndpoint({method:'GET',query:{range:'7d'}},res());
+    assert(offline.body.historyUnavailable);
+    assert.equal(offline.body.status,'degraded');
+    assert.equal(offline.body.checks.find(c=>c.name==='redis').state,3);
+    assert(offline.body.uptime.every(p=>p===null));
+    assert.doesNotMatch(JSON.stringify(offline.body),/HTTP 429|private-token|stack/);
+  }finally{delete process.env.REDIS_MAINTENANCE;}
   let limited;
   for (let i = 0; i < 31; i++)
     limited = await health(

@@ -87,7 +87,23 @@ export function snapshotTasks(page, day) {
     return {
       history: async () => {
         const { history } = await import('./_health-history.js');
-        return history();
+        const h = await history();
+        await redis(['SET', 'health:summary', JSON.stringify({ uptime: h.uptime[2] }), 'EX', '2592000']);
+        // Keep existing overview / snapshot consumers on their small, original projection.
+        return {
+          status: h.status,
+          checked_at: h.checked_at,
+          uptime: h.uptime[2],
+          checks: h.checks.map((c) => ({
+            name: c.name,
+            ok: c.state ? c.state < 3 : null,
+            skipped: !c.state,
+            days: c.days.slice(-30).map((d) => ['unknown', 'ok', 'degraded', 'down'][d?.[0] || 0]),
+            uptime: c.uptime.slice(0, 3),
+            average: c.average,
+            lastIncident: c.lastIncident
+          }))
+        };
       }
     };
   throw Error('unknown snapshot');
