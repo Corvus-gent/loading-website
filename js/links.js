@@ -1,195 +1,124 @@
 import {arrivalSearch} from './arrival.js';
-import {campaignSlug,contentSlot} from './x-attribution.js';
-import {sourceCategory, campaignCategory} from './analytics-policy.js';
-/**
- * Link-in-bio: /links/<person>/<platform>/<campaign>
- *   /links/gabe              -> direct
- *   /links/gabe/li           -> from LinkedIn
- *   /links/gabe/li/402-post  -> from the LinkedIn "402" post
- * Every link carries the source along as UTM, every click is logged.
- */
+import {linkContext} from './link-context.js';
+import {loadPersonas, mountPortrait, publicSocials} from './personas.js';
 
-const PLATFORMS = { li: "linkedin", ig: "instagram", tt: "tiktok", x: "x", luma: "luma", dc: "discord", bmc: "buymeacoffee" };
-const PIDGY_IMG = "/img/pidgy-happy.png";
+const props = linkContext(location.pathname, arrivalSearch);
+const id = props.links_person;
+const $ = id => document.getElementById(id);
 
-const PEOPLE = {
-  gabe: {
-    name: "Gabe",
-    full: "Francisco Gabriel Van Langenhove",
-    photo: "/img/gabe.jpg",
-    line: "GTM @ Pidgy · upcoming business philosopher",
-    main: { id: "pidgy", text: "Try Pidgy, your AI inbox agent", href: "https://pidgy-ai.com/", img: PIDGY_IMG },
-    trial: { id: "pidgy-trial", text: "start your free trial week →", href: "https://app.pidgy-ai.com/?invite=GABE" },
-    links: [
-      { id: "call", text: "📞 book a free 15-min call", href: "/call/" },
-      { id: "portfolio", text: "portfolio", href: "/people/?id=gabe" },
-      { id: "now", text: "now", href: "/now/" },
-      { id: "sidequests", text: "sidequests", href: "/sidequests/" },
-    ],
-    socials: [
-      { id: "linkedin", text: "LinkedIn", href: "https://www.linkedin.com/in/francisco-gabriel-van-langenhove/" },
-      { id: "ig-startup", text: "Instagram · startup", href: "https://instagram.com/gabe.maxxing/" },
-      { id: "ig-bjj", text: "Instagram · bjj", href: "https://instagram.com/gabinho_bjj/" },
-      { id: "tiktok", text: "TikTok", href: "https://www.tiktok.com/@gabe.maxxing" },
-      { id: "x", text: "X", href: "https://x.com/gabe_maxxing" },
-      { id: "luma", text: "Luma", href: "https://luma.com/user/usr-SAWed3lOjW3IN3u" },
-    ],
-    extra: [
-      { id: "alkmist", text: "Alkmist", href: "https://alkmist.com/" },
-      { id: "coffee", text: "buy me a coffee", href: "https://buymeacoffee.com/gabe.maxxing" },
-      { id: "home", text: "corvus.gent", href: "/" },
-    ],
-  },
-  corvus: {
-    name: "Corvus",
-    full: "died feb 2026 · revived nov 2026",
-    photo: "/logo.png",
-    line: "still looking for an honest man.",
-    main: { id: "realm", text: "enter the realm", href: "/realm/", img: "/logo.png" },
-    links: [
-      { id: "games", text: "today's puzzle", href: "/games/" },
-      { id: "music", text: "bangers", href: "/music/" },
-      { id: "sf", text: "francisco's little town (sf)", href: "/sf/" },
-      { id: "call", text: "📞 book a call with gabe", href: "/call/" },
-      { id: "stats", text: "live stats", href: "https://stats.corvus.gent/" },
-      { id: "wiki", text: "corvuspedia", href: "/wiki/" },
-    ],
-    socials: [
-      { id: "linkedin", text: "LinkedIn", href: "https://www.linkedin.com/company/corvus-gent/" },
-      { id: "keeper", text: "the keeper: gabe", href: "/links/gabe" },
-      { id: "x", text: "X", href: "https://x.com/gabe_maxxing" },
-      { id: "instagram", text: "Instagram", href: "https://instagram.com/gabe.maxxing/" },
-      { id: "tiktok", text: "TikTok", href: "https://www.tiktok.com/@gabe.maxxing" },
-    ],
-    extra: [],
-  },
-  pidgy: {
-    name: "Pidgy",
-    full: "the AI inbox agent for Outlook & Gmail",
-    photo: "/img/pidgy-happy.png",
-    photos: ["/img/pidgy-happy.png", "/img/fire-pidgy.webp", "/img/sticky-pidgy.webp", "/img/builder-pidgies.webp", "/img/paracetamail.png"],
-    line: "inbox at 0. again.",
-    main: { id: "pidgy", text: "Try Pidgy, your AI inbox agent", href: "https://pidgy-ai.com/", img: PIDGY_IMG },
-    links: [
-      { id: "call", text: "📞 talk to gabe (gtm @ pidgy)", href: "/call/" },
-      { id: "alkmist", text: "made by Alkmist", href: "https://alkmist.com/" },
-    ],
-    socials: [
-      { id: "linkedin", text: "LinkedIn", href: "https://www.linkedin.com/company/pidgy" },
-      { id: "instagram", text: "Instagram", href: "https://www.instagram.com/pidgy_ai/" },
-      { id: "tiktok", text: "TikTok", href: "https://www.tiktok.com/@pidgy_ai" },
-      { id: "youtube", text: "YouTube", href: "https://www.youtube.com/@Alkmisthq" },
-      { id: "facebook", text: "Facebook", href: "https://www.facebook.com/PidgyAI/" },
-    ],
-    extra: [
-      { id: "gabe", text: "gabe's links", href: "/links/gabe" },
-    ],
-  },
-};
-
-let [, , rawPerson = "gabe", p = "", campaign = ""] = location.pathname.replace(/\/+$/, "").split("/");
-// short form /links/<platform>[/<campaign>] defaults to gabe
-if (!PEOPLE[rawPerson] && rawPerson) { campaign = p; p = rawPerson; rawPerson = "gabe"; }
-const personId = PEOPLE[rawPerson] ? rawPerson : "gabe";
-const person = PEOPLE[personId];
-const source = sourceCategory(PLATFORMS[p] || p || "direct");
-campaign = source==='x'?campaignSlug(campaign||"bio"):campaignCategory(campaign || "bio");
-const slot=source==='x'?contentSlot(new URLSearchParams(arrivalSearch).get('utm_content')):'';
-
-// every pageview on this page carries person, source and campaign
-window.__phProps = { links_person: personId, links_source: source, links_campaign: campaign || "bio", ...(slot?{utm_content:slot}:{}) };
-if (window.posthog?.register) window.posthog.register(window.__phProps);
-
-function tagged(link) {
+function anchor(link, className) {
+  const element = document.createElement('a');
   const url = new URL(link.href, location.origin);
-  if (url.protocol === "mailto:") return url.toString();
-  url.searchParams.set("utm_source", source);
-  url.searchParams.set("utm_medium", "links");
-  url.searchParams.set("utm_campaign", `${personId}-${campaign || "bio"}`);
-  url.searchParams.set("utm_content", slot || link.id);
-  return url.toString();
-}
-
-function a(link, cls = "") {
-  const el = document.createElement("a");
-  el.href = tagged(link);
-  el.className = cls;
-  if (!link.href.startsWith("/")) { el.target = "_blank"; el.rel = "noreferrer"; }
-  el.addEventListener("click", () => {
-    if (window.posthog?.capture) window.posthog.capture("links_click", { link: link.id, ...window.__phProps });
-  });
-  return el;
-}
-
-const photoEl = document.getElementById("photo");
-photoEl.src = person.photo;
-if (personId !== "gabe") photoEl.classList.add("lt-photo-art");
-// rotating profile photos (e.g. all the Pidgies): random start, next one every 5 s or on tap
-if (person.photos?.length > 1) {
-  let i = Math.floor(Math.random() * person.photos.length);
-  person.photos.forEach(src => { const im = new Image(); im.src = src; });
-  const show = () => { photoEl.style.opacity = "0"; setTimeout(() => { photoEl.src = person.photos[i]; photoEl.style.opacity = "1"; }, 200); };
-  photoEl.style.transition = "opacity .2s ease"; photoEl.src = person.photos[i];
-  const next = () => { i = (i + 1) % person.photos.length; show(); };
-  photoEl.style.cursor = "pointer"; photoEl.addEventListener("click", next);
-  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) setInterval(() => { if (!document.hidden) next(); }, 5000);
-}
-document.getElementById("name").textContent = person.name;
-document.getElementById("full").textContent = person.full;
-document.getElementById("line").textContent = person.line;
-document.title = `${person.name} | corvus.gent`;
-
-const main = a(person.main, "lt-main");
-main.innerHTML = `<img src="${person.main.img}" alt=""><span></span>`;
-main.querySelector("span").textContent = person.main.text;
-document.getElementById("main").appendChild(main);
-if (person.trial) {
-  const trial = a(person.trial, "lt-trial");
-  trial.textContent = person.trial.text;
-  document.getElementById("main").appendChild(trial);
-  const qr = document.createElement("details");
-  qr.className = "lt-qr";
-  qr.innerHTML = `<summary>▦ show QR for the free trial</summary>
-    <div class="lt-qr-card"><img src="${PIDGY_IMG}" alt="" class="lt-qr-bird"><img src="/img/pidgy-trial-qr.svg" alt="QR code: free Pidgy trial week" class="lt-qr-code"><span>scan → free trial week</span></div>`;
-  qr.addEventListener("toggle", () => {
-    if (qr.open && window.posthog?.capture) window.posthog.capture("links_qr_open", window.__phProps);
-  });
-  document.getElementById("main").appendChild(qr);
-}
-
-const fill = (id, list, cls) => list.forEach(l => { const el = a(l, cls); el.textContent = l.text; document.getElementById(id).appendChild(el); });
-fill("links", person.links, "lt-btn");
-fill("socials", person.socials, "lt-small");
-fill("extra", person.extra, "lt-small");
-
-// --- Diogenes' lantern note + the crow that flies in ---
-const home = new URL("/", location.origin);
-home.searchParams.set("utm_source", source);
-home.searchParams.set("utm_medium", "links");
-home.searchParams.set("utm_campaign", `${personId}-${campaign || "bio"}`);
-
-const note = document.createElement("a");
-note.className = "lt-lantern";
-note.href = home.toString();
-note.innerHTML = '<span class="term-lantern" aria-hidden="true"></span><span>I walk around with a lantern, looking for an honest man. maybe he\'s on the homepage. go look →</span>';
-document.querySelector(".lt").insertBefore(note, document.getElementById("main"));
-
-// crow loop: comes in, stays 3s, flies out bottom right. waits 10s, 11s, 13s, 16s, 20s, ...
-const crow = document.createElement("a");
-crow.className = "lt-crow";
-crow.href = home.toString();
-crow.innerHTML = `<svg viewBox="0 0 140 40" aria-hidden="true"><g fill="#141414" stroke="#d8d8d8" stroke-width="1.6" stroke-linejoin="round"><path d="M0 20 C18 -8 46 -14 64 10 C74 -4 104 -10 124 14 C104 10 86 16 66 26 C46 16 22 11 0 20Z"/><ellipse cx="66" cy="24" rx="16" ry="7"/><circle cx="82" cy="20" r="6"/><path d="M87 18 L98 21 L87 23Z"/></g></svg><span class="lt-bubble">URGENT. go to the homepage. NOW!!!!</span>`;
-crow.addEventListener("click", () => { if (window.posthog?.capture) window.posthog.capture("links_crow_click", window.__phProps); });
-document.body.appendChild(crow);
-
-const wait = ms => new Promise(r => setTimeout(r, ms));
-(async () => {
-  for (let n = 0; ; n++) {
-    await wait((10 + (n * (n + 1)) / 2) * 1000);
-    crow.className = "lt-crow in";
-    await wait(1600 + 3000);
-    crow.className = "lt-crow out";
-    await wait(1500);
-    crow.className = "lt-crow";
+  url.searchParams.set('utm_source', props.links_source);
+  url.searchParams.set('utm_medium', 'links');
+  url.searchParams.set('utm_campaign', id + '-' + props.links_campaign);
+  url.searchParams.set('utm_content', props.utm_content || link.id);
+  element.href = url;
+  element.className = className;
+  element.dataset.link = link.id;
+  element.textContent = link.text;
+  if (url.origin !== location.origin) {
+    element.target = '_blank';
+    element.rel = 'noopener noreferrer';
   }
-})();
+  function capture() {
+    window.posthog?.capture('links_click', {...props, link:link.id});
+    if (link.id === 'crow') window.posthog?.capture('links_crow_click', props);
+  }
+  element.addEventListener('click', capture);
+  element.addEventListener('auxclick', e => { if (e.button === 1) capture(); });
+  return element;
+}
+
+function image(src, className = '', alt = '') {
+  const img = document.createElement('img');
+  Object.assign(img, {src, alt, className});
+  return img;
+}
+
+function renderTrial(person) {
+  const trial = person.trial;
+  $('main').append(anchor(trial, 'lt-trial'));
+  const details = document.createElement('details');
+  details.className = 'lt-qr';
+  const summary = document.createElement('summary');
+  summary.textContent = trial.qr.summary;
+  const card = document.createElement('div');
+  card.className = 'lt-qr-card';
+  const caption = document.createElement('span');
+  caption.textContent = trial.qr.caption;
+  card.append(image(person.main.img, 'lt-qr-bird'), image(trial.qr.src, 'lt-qr-code', trial.qr.caption), caption);
+  details.append(summary, card);
+  details.addEventListener('toggle', () => { if (details.open) window.posthog?.capture('links_qr_open', props); });
+  $('main').append(details);
+}
+
+function renderLantern(lantern) {
+  const note = anchor(lantern, 'lt-lantern');
+  const glow = document.createElement('span');
+  glow.className = 'term-lantern';
+  glow.ariaHidden = 'true';
+  note.prepend(glow);
+  $('main').before(note);
+
+  const crow = anchor({...lantern, id:'crow', text:lantern.crowText}, 'lt-crow');
+  const bubble = document.createElement('span');
+  bubble.className = 'lt-bubble';
+  bubble.textContent = lantern.crowText;
+  crow.replaceChildren(image('/img/link-crow.svg'), bubble);
+  crow.tabIndex = -1;
+  document.body.append(crow);
+  let round = 0;
+  function fly() {
+    if (!document.hidden && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      crow.className = 'lt-crow in';
+      crow.tabIndex = 0;
+      setTimeout(() => { crow.tabIndex = -1; crow.className = 'lt-crow out'; }, 4600);
+      setTimeout(() => { crow.className = 'lt-crow'; }, 6100);
+    }
+    round++;
+    setTimeout(fly, 6100 + (10 + round * (round + 1) / 2) * 1000);
+  }
+  setTimeout(fly, 10000);
+}
+
+function follow(socials) {
+  const nav = $('follow');
+  if (!socials.length) return;
+  nav.hidden = false;
+  for (const link of socials) {
+    const a = anchor(link, 'follow-button');
+    a.setAttribute('aria-label', 'Follow on ' + link.text);
+    a.title = link.text;
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('aria-hidden', 'true');
+    const use = document.createElementNS(svg.namespaceURI, 'use');
+    use.setAttribute('href', '/img/follow.svg#' + link.id);
+    svg.append(use);
+    a.replaceChildren(svg);
+    nav.append(a);
+  }
+}
+
+async function render() {
+  const person = (await loadPersonas())[id];
+  document.body.dataset.persona = id;
+  document.title = person.name + ' | corvus.gent';
+  mountPortrait($('portrait'), person, 'Next portrait of ' + person.name);
+  $('name').textContent = person.name;
+  $('full').textContent = person.bio;
+  $('line').textContent = person.tagline;
+
+  const main = anchor(person.main, 'lt-main');
+  main.prepend(image(person.main.img));
+  $('main').append(main);
+  if (person.trial) renderTrial(person);
+  if (person.lantern) renderLantern(person.lantern);
+  const socials = publicSocials(person);
+  if (id !== 'gabe') follow(socials);
+  for (const [where, links, cls] of [['links', person.links, 'lt-btn'], ['socials', socials, 'lt-small'], ['extra', person.extra, 'lt-small']]) {
+    $(where).replaceChildren(...links.map(link => anchor(link, cls)));
+  }
+}
+
+render().catch(() => { $('line').textContent = 'these links could not load. refresh to try again.'; });

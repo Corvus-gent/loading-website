@@ -54,7 +54,9 @@ export function clickQuery(cutoff,offset=0){
  if(event IN ('links_click','short_link_out'),'pidgy','corvus') AS destination
  SELECT toString(toDate(toTimeZone(timestamp,'Europe/Brussels'))),campaign,content,destination,count()
  FROM events WHERE ${REAL} AND timestamp <= toDateTime('${cutoff.replace('T',' ').slice(0,19)}')
- AND source='x' AND campaign!='' AND (
+ AND source='x' AND campaign!=''
+ AND coalesce(toString(properties.links_person),'') NOT IN ('corvus','pidgy')
+ AND NOT (coalesce(toString(properties.utm_medium),'')='links' AND match(coalesce(toString(properties.utm_campaign),''),'^(corvus|pidgy)-')) AND (
   (event='$pageview' AND toString(properties.$pathname) NOT LIKE '/go%' AND (properties.links_source='x' OR coalesce(toString(properties.utm_medium),'')!='links'))
   OR (event='links_click' AND properties.link IN ('pidgy','pidgy-trial'))
   OR (event='short_link_out' AND properties.target='pidgy'))

@@ -63,6 +63,14 @@
       "destination": "/go/index.html"
     },
     {
+      "source": "/links/corvus/:path*",
+      "destination": "/links/corvus/index.html"
+    },
+    {
+      "source": "/links/pidgy/:path*",
+      "destination": "/links/pidgy/index.html"
+    },
+    {
       "source": "/links/:path+",
       "destination": "/links/index.html"
     }

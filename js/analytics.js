@@ -5,6 +5,10 @@
   const {privacyEvent, sourceCategory, pathCategory, safeURL} = await import('/js/analytics-policy.js');
   import('/js/performance.js');
   import('/js/outbound.js');
+  if (/^\/links(?:\/|$)/.test(location.pathname)) {
+    const {linkContext} = await import('./link-context.js');
+    window.__phProps = linkContext(location.pathname, arrivalSearch);
+  }
   const {analyticsAllowed}=await import('/js/analytics-consent.js');
   let started=false,stopped=false,transport;
   const privatePage = /^\/(?:stats\/)?private(?:\/|$)/.test(location.pathname) || /^\/music\/admin(?:\/|$)/.test(location.pathname);

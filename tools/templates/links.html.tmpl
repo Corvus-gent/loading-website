@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <title>{{title}}</title>
+  <link rel="icon" type="image/png" href="/logo.png" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/people/styles.css" />
+  <link rel="stylesheet" href="/js/links.css">
+  <meta name="description" content="{{description}}" />
+  <meta property="og:title" content="{{title}}" />
+  <meta property="og:description" content="{{description}}" />
+  <meta property="og:url" content="https://corvus.gent/links/{{id}}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://corvus.gent{{image}}" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://corvus.gent{{image}}" />
+<link rel="stylesheet" href="/privacy/privacy.css"><meta name="referrer" content="no-referrer">
+</head><body class="people-page" data-persona="{{id}}">
+  <main>
+    <div class="wrap lt">
+      <div id="portrait"></div>
+      <h1 id="name">{{name}}</h1>
+      <p class="sub lt-full" id="full"></p>
+      <p class="sub" id="line"></p>
+      <div id="main"></div>
+      <div id="links" class="lt-list"></div>
+      <nav id="follow" class="lt-follow" aria-label="follow" hidden><span>follow</span></nav>
+      <div id="socials" class="lt-row"></div>
+      <div id="extra" class="lt-row lt-extra"></div>
+      <footer>corvus.gent <a href="/privacy/" data-privacy-link>privacy</a></footer>
+    </div>
+  </main>
+  <script src="/js/analytics.js"></script>
+  <script type="module" src="/js/links.js"></script>
+<script type="module" src="/js/privacy.js"></script>
+</body>
+</html>

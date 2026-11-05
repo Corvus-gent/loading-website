@@ -363,8 +363,8 @@ identifier is saved. A daily cookieless pseudonym can correlate events within th
   `$referring_domain` (known source category or direct/other).
 - Attribution when present: `utm_source`, `links_source`, `source` (source allowlist);
   `utm_campaign`, `links_campaign`, `campaign` (known campaigns or other);
-  `utm_medium`, `medium` (known medium/route categories); `links_person=gabe` refers
-  to the public page owner, never the visitor.
+  `utm_medium`, `medium` (known medium/route categories); `links_person` identifies the public
+  hub (gabe, corvus or pidgy).
 - Event-specific: `link_href`, `page`; `host`, `href`, `path`; `url`, `target`,
   `external`; `link`; `genre`; `type`, `guesses` (0–6), `solved` (boolean), `day`
   (date only); `language`; `command`; `id`, `total` (egg category/count); `what`.

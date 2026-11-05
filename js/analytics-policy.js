@@ -1,17 +1,20 @@
 import {approvedCampaign,contentSlot} from './x-attribution.js';
 // Shared by browser capture and public stats: never publish free-form labels.
-export const SOURCES = ['direct','corvus','linkedin','instagram','tiktok','facebook','discord','x','luma','whatsapp','email','qr','buymeacoffee','share','self','google','bing','duckduckgo','other'];
+export const SOURCES = ['direct','corvus','linkedin','instagram','tiktok','facebook','youtube','threads','discord','x','luma','whatsapp','email','qr','buymeacoffee','share','self','google','bing','duckduckgo','other'];
 export const CAMPAIGNS = ['bio','coffee-bio','gabe-coffee-bio','gabe-important-call','gabe-corvus-page','gabe-corvus-revival','gabe-sf-trip','402','402-post','gabe','gabe-bio','gabe-402','gabe-402-post','gabe-self','gabe-coffee-bio','site','game-babel','game-borders','game-wordle','game-flags','game-combo','game-bangle','game-pingle','game-lantern','other'];
 export const COMMANDS = ['help','whoami','now','sidequests','support','cv','contact','ls','location','diogenes','lantern','pay','pidgy','coo','headache','sudo','exit','clear','cd','lang','unknown'];
 export const GAME_TYPES = ['babel','borders','wordle','flags','combo','bangle','pingle','lantern'];
 export const GENRES = ['us hip-hop','rap fr','rap nl/be','latin','lusophone','afro','pop 00s','electronic','rock','classics','soundtrack','funk & phonk'];
 export const BROWSERS = ['Chrome','Chrome iOS','Safari','Mobile Safari','Firefox','Microsoft Edge','Edge','Opera','Samsung Internet','Internet Explorer','Android Mobile','Other'];
 const HOSTS = ['corvus.gent','www.corvus.gent','stats.corvus.gent'];
-const EXTERNAL = ['pidgy-ai.com','app.pidgy-ai.com','buymeacoffee.com','www.buymeacoffee.com','open.spotify.com','music.apple.com','bandcamp.com','soundcloud.com','musicbrainz.org','www.linkedin.com','linkedin.com','instagram.com','www.instagram.com','www.tiktok.com','x.com','luma.com','alkmist.com','posthog.com','github.com'];
+const EXTERNAL = ['pidgy-ai.com','app.pidgy-ai.com','buymeacoffee.com','www.buymeacoffee.com','open.spotify.com','music.apple.com','bandcamp.com','soundcloud.com','musicbrainz.org','www.linkedin.com','linkedin.com','instagram.com','www.instagram.com','www.tiktok.com','www.facebook.com','www.youtube.com','threads.net','www.threads.net','x.com','luma.com','alkmist.com','posthog.com','github.com'];
 const ROUTES = new Set(['/', '/realm/', '/sf/', '/gabe/', '/people/', '/now/', '/sidequests/', '/support/', '/support/books/', '/support/companies/', '/support/people/', '/support/founders/', '/support/sport-people/', '/support/philosophists/', '/languages/', '/402/', '/call/', '/music/', '/games/', '/wiki/', '/wiki/corvus/', '/wiki/pidgy/', '/privacy/', '/cv/', '/pidgy/', '/map/', '/hunt/', '/stats/', '/stats/pidgy/', '/stats/games/', '/stats/map/', '/stats/music/', '/stats/hunt/', '/x/', '/stats/x/']);
 export const category = (value, allowed, fallback = 'other') => allowed.includes(value) ? value : fallback;
 export const sourceCategory = value => category(value, SOURCES);
-export const campaignCategory = value => category(value, CAMPAIGNS);
+export const campaignCategory = value => {
+  if (typeof value === 'string' && /^(corvus|pidgy)-(bio|402|402-post)$/.test(value)) return value;
+  return category(value, CAMPAIGNS);
+};
 export function referrerCategory(value) {
   if (!value || value==='$direct') return 'direct';
   const host=String(value).toLowerCase();
@@ -25,7 +28,10 @@ export function referrerCategory(value) {
 export function pathCategory(path) {
   if (typeof path !== 'string') return '/other/';
   path = path.split(/[?#]/)[0].replace(/\/+$/, '') + '/';
-  if (path.startsWith('/links/')) return '/links/gabe/';
+  if (path.startsWith('/links/')) {
+    const persona = path.split('/')[2];
+    return '/links/' + (['corvus','pidgy'].includes(persona) ? persona : 'gabe') + '/';
+  }
   if (path.startsWith('/go/')) return '/go/';
   if (path.startsWith('/clients/aurus/')) return '/clients/aurus/';
   return ROUTES.has(path) ? path : '/other/';
@@ -74,17 +80,20 @@ export function privacyEvent(event) {
   for (const key of ['utm_medium','medium']) if (p[key]) properties[key] = category(p[key], ['post','company-page','company-post','bio','links','social','game','qr','email',...ROUTES]);
   if(p.utm_source==='linkedin'&&p.utm_campaign==='gabe-corvus-page'&&['button','website'].includes(p.utm_content))properties.utm_content=p.utm_content;
   const xSource=[p.utm_source,p.links_source,p.source].includes('x');
-  const xCampaign=xSource&&approvedCampaign(p.utm_campaign||p.links_campaign||p.campaign);
+  const rawCampaign = p.utm_campaign || p.links_campaign || p.campaign;
+  const arrivalOwner = /^(corvus|pidgy)-/.exec(rawCampaign || '')?.[1];
+  const xCampaign = xSource && approvedCampaign(arrivalOwner ? rawCampaign.slice(arrivalOwner.length + 1) : rawCampaign);
   if(xCampaign){
-    properties.utm_source='x';properties.utm_campaign='gabe-'+xCampaign;
+    const owner = ['corvus','pidgy','gabe'].includes(p.links_person) ? p.links_person : arrivalOwner || 'gabe';
+    properties.utm_source='x';properties.utm_campaign=owner+'-'+xCampaign;
     for(const key of ['links_campaign','campaign'])if(p[key])properties[key]=xCampaign;
     const slot=contentSlot(p.utm_content);if(slot)properties.utm_content=slot;
   }
-  if (p.links_person === 'gabe') properties.links_person = 'gabe';
+  if (['gabe','pidgy','corvus'].includes(p.links_person)) properties.links_person = p.links_person;
   if (event.event === 'link_click') { properties.link_href=safeURL(p.link_href); properties.page=pathCategory(p.page); }
   if (event.event === 'outbound_click') { properties.host=hostCategory(p.host); properties.href=safeURL(p.href); properties.path=pathCategory(p.path); }
   if (event.event === 'short_link_out') { properties.url=safeURL(p.url); properties.target=category(p.target,['me','home','now','sidequests','support','402','cv','pidgy','book','coffee']); properties.external=!!p.external; }
-  if (event.event === 'links_click') properties.link=category(p.link,['pidgy','pidgy-trial','call','portfolio','now','sidequests','linkedin','ig-startup','ig-bjj','tiktok','x','luma','alkmist','coffee','home']);
+  if (event.event === 'links_click') properties.link=category(p.link,['pidgy','pidgy-trial','call','portfolio','now','sidequests','linkedin','ig-startup','ig-bjj','realm','games','music','wiki','stats','lantern','crow','keeper','gtm','instagram','youtube','facebook','threads','tiktok','x','luma','alkmist','coffee','home']);
   if (event.event === 'music_play') { properties.genre=category(p.genre,GENRES); /* no artist, title or user-provided track ID */ }
   if (event.event.startsWith('game_')) {
     properties.type=category(p.type,GAME_TYPES);
