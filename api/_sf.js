@@ -5,7 +5,7 @@ import {dailyIPHash,ORIGINS} from './_privacy.js';
 import {readVoter,ensureVoter} from './_voter.js';
 import {zeroBits} from './_music-security.js';
 import {sfStore,validateLead} from './_sf-store.js';
-import {SF_END} from '../js/sf-trip.js';
+import {SF_END,SF_LETS} from '../js/sf-trip.js';
 import {hogql,posthogReady,REAL} from './_posthog.js';
 export const SF_EVENTS=['sf_note_seen','sf_note_open','sf_note_click','sf_form_start','sf_form_submit'];
 export const SF_FUNNEL_SQL=`SELECT event,count() FROM events WHERE ${REAL} AND timestamp >= toDateTime('2026-11-04 00:00:00') AND (event IN ('sf_note_seen','sf_note_open','sf_form_start','sf_form_submit') OR (event='$pageview' AND properties.$pathname='/sf/')) GROUP BY event`;
@@ -19,8 +19,10 @@ export function createSFHandler({redis=defaultRedis,ready=connected,session=getS
    if(privateRequest){
     const user=await session(req);if(user?.email?.toLowerCase()!=='gabriel@corvus.gent')return res.status(403).json({error:'forbidden'});
     if(req.method==='GET'){
+     const activity=q.activity??'',thing=q.thing??'';
+     if(typeof activity!=='string'||(activity&&!SF_LETS.includes(activity))||typeof thing!=='string'||thing.length>60)return res.status(400).json({error:'invalid_fields'});
      let funnel=null;try{if(q.rowsOnly!=='1'&&analyticsReady())funnel=Object.fromEntries(await query(SF_FUNNEL_SQL));}catch{}
-     return res.status(200).json({...await store.list(q.page),funnel});
+     return res.status(200).json({...await store.list(q.page,{activity,thing}),funnel});
     }
     if(req.method!=='PATCH'||!ORIGINS.includes(req.headers.origin||''))return res.status(403).json({error:'forbidden'});
     if(!/^[a-f0-9-]{36}$/.test(body.id||''))return res.status(400).json({error:'invalid_fields'});
