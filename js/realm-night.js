@@ -42,7 +42,7 @@ whisper.textContent = whispers[index];
 
 
 let boxes = [], x = 0, y = 0, frame = 0, drift, idle;
-let point, focused;
+let point, focused, tour = null, tourStep = 0, touched = false;
 function measure() {
   const outer = scene.getBoundingClientRect();
   boxes = places.map(place => {
@@ -55,7 +55,9 @@ function draw() {
   frame = 0;
   const bounds = scene.getBoundingClientRect();
   const target = boxes[places.indexOf(focused)];
+  const stop = tour === null ? null : boxes[tour];
   if (target) ({x,y} = target);
+  else if (stop) ({x,y} = stop);
   else if (point && !reduced.matches) { x=point.x-bounds.left; y=point.y-bounds.top; }
   else { x=bounds.width*.49; y=Math.min(150,bounds.height*.32); }
   light.style.transform = 'translate3d('+(x-160)+'px,'+(y-160)+'px,0)';
@@ -79,19 +81,19 @@ function restartIdle() {
 function wander() {
   clearTimeout(drift);
   if (!touch.matches || reduced.matches || document.hidden || focused) return;
+  // touch has no hover: walk the light past every place in order, so each one shows its name.
+  // (it used to drift to random points and kept parking on the right column.)
   drift = setTimeout(() => {
-    const bounds = scene.getBoundingClientRect();
-    const top = Math.max(bounds.top,0), bottom = Math.min(bounds.bottom,innerHeight);
-    if (bottom > top) {
-      point={x:bounds.left+bounds.width*(.2+Math.random()*.6),y:top+(bottom-top)*Math.random()};
+    if (boxes.length) {
+      tour = tourStep++ % boxes.length; point = null;
       scene.classList.add('drifting');
       schedule();
     }
     wander();
-  },4500);
+  },touched ? (touched = false, 4500) : tour === null ? 1200 : 2600);
 }
 function pointer(event) {
-  focused = null;
+  focused = null; tour = null; touched = true;
   point = {x:event.clientX,y:event.clientY};
   scene.classList.remove('drifting');
   schedule();
@@ -99,7 +101,7 @@ function pointer(event) {
 }
 scene.addEventListener('pointermove',pointer,{passive:true});
 scene.addEventListener('pointerdown',pointer,{passive:true});
-scene.addEventListener('pointerleave',() => { point=null; schedule(); });
+scene.addEventListener('pointerleave',event => { if (event.pointerType === 'touch') return; point=null; schedule(); });
 scene.addEventListener('focusin',event => {
   focused=event.target.closest('a'); scene.classList.remove('drifting'); schedule(); wander();
 });
