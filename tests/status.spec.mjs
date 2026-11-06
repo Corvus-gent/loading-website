@@ -120,3 +120,26 @@ test('one-minute refresh pauses while hidden and failed reads keep measurements'
   await page.clock.fastForward(60010);
   await expect.poll(() => calls).toBe(4);
 });
+
+for (const path of ['/stats/status/', '/stats/private/']) {
+  test('temporary storage warning expires on ' + path, async ({ page }) => {
+    const moment = new Date('2026-11-19T23:59:58Z');
+    await page.clock.install({ time: moment });
+    await page.route('**/api/**', route => {
+      const url = new URL(route.request().url());
+      if (url.pathname === '/api/health/history')
+        return route.fulfill({ json: { ...statusFixture('healthy', '24h', +moment), storage_plaintext_until: '2026-11-20' } });
+      if (url.pathname === '/api/stats')
+        return route.fulfill({ json: { page: 'private', day: url.searchParams.get('day'), state: 'ready',
+          updated: moment.toISOString(), checked: moment.toISOString(), viewer: 'gabriel@corvus.gent',
+          data: {}, storage_plaintext_until: '2026-11-20' } });
+      return route.fulfill({ json: { ready: false, logins: [], guesses: [], access_requests: [] } });
+    });
+    await page.goto(path);
+    const note = page.locator('#storage-warning');
+    await expect(note).toHaveText('storage link not encrypted until 2026-11-20');
+    await expect(note).toBeVisible();
+    await page.clock.fastForward(2100);
+    await expect(note).toBeHidden();
+  });
+}

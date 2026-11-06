@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { waitUntil } from '@vercel/functions';
-import { redis } from './_redis.js';
+import { redis, plaintextExceptionUntil } from './_redis.js';
 import { brusselsDay } from './_stats-daily.js';
 import { getSession, safeEqual } from './_session.js';
 
@@ -191,15 +191,16 @@ export async function serve(
   )
     return res.status(400).json({ error: 'invalid page or day' });
   const priv = page === 'private';
+  const transport = priv ? { storage_plaintext_until: plaintextExceptionUntil() } : {};
   let user;
   if (priv) {
     res.setHeader('Vary', 'Cookie');
     try {
       user = await bounded(session(req), 800);
     } catch {
-      return res.status(200).json({ page, day, state: 'unavailable', reason: 'storage', data: null });
+      return res.status(200).json({ page, day, state: 'unavailable', reason: 'storage', data: null, ...transport });
     }
-    if (!user) return res.status(200).json({ page, day, state: 'login', data: null });
+    if (!user) return res.status(200).json({ page, day, state: 'login', data: null, ...transport });
   }
   const past = day < today;
   let snap,
@@ -253,6 +254,7 @@ export async function serve(
             : 'history',
       data: null,
       updated: null,
+      ...transport,
       ...(priv ? { viewer: user.email } : {})
     });
   if (!priv && snap.state !== 'partial')
@@ -287,6 +289,7 @@ export async function serve(
         : snap.state === 'partial'
           ? { reason: lock ? 'building' : 'source', working: !!lock && lock !== 'retry' }
           : {}),
+      ...transport,
       ...(priv ? { viewer: user.email } : {})
     });
 }

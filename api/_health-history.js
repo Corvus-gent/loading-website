@@ -1,4 +1,4 @@
-import { redis, pipeline } from './_redis.js';
+import { redis, pipeline, plaintextExceptionUntil } from './_redis.js';
 import { waitUntil } from '@vercel/functions';
 
 const MIN = 60000,
@@ -327,7 +327,7 @@ export default async function historyEndpoint(req, res) {
       );
     recent.set(range, body);
     res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=30, stale-while-revalidate=60');
-    return res.status(200).json(body);
+    return res.status(200).json({ ...body, storage_plaintext_until: plaintextExceptionUntil() });
   } catch {
     const saved = recent.get(range);
     const body = saved && Date.now() - saved.built_at < DAY ? { ...saved } : emptyHistory(range);
@@ -346,6 +346,6 @@ export default async function historyEndpoint(req, res) {
       /* The UI distinguishes an unavailable endpoint from an unsampled day. */
     }
     res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=30');
-    return res.status(200).json({ ...body, historyUnavailable: true });
+    return res.status(200).json({ ...body, historyUnavailable: true, storage_plaintext_until: plaintextExceptionUntil() });
   }
 }

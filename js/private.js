@@ -1,3 +1,4 @@
+import { showStorageWarning } from './storage-warning.js';
 const $ = (id) => document.getElementById(id);
 const post = (body) =>
   fetch('/api/auth', {
@@ -77,6 +78,7 @@ function dash(snap) {
   }
   $('login').style.display = 'none';
   $('dash').style.display = 'block';
+  showStorageWarning(snap.storage_plaintext_until);
   $('who').textContent = snap.viewer;
   const s = snap.data || {};
   const output = $('out');

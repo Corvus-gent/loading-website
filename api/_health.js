@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { safeEqual } from './_session.js';
-import { redis, pipeline } from './_redis.js';
+import { redis, pipeline, plaintextExceptionUntil } from './_redis.js';
 import { dailyIPHash, rateLimit } from './_privacy.js';
 import { hogql } from './_posthog.js';
 import { brusselsDay } from './_stats-daily.js';
@@ -202,7 +202,8 @@ export function publicResult(sample) {
         { ok, ms, ...(skipped ? { skipped: true } : {}) }
       ])
     ),
-    checked_at: sample.checked_at
+    checked_at: sample.checked_at,
+    storage_plaintext_until: plaintextExceptionUntil()
   };
 }
 // Transition and reserve a delivery atomically. Unacknowledged delivery is retried
