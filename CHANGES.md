@@ -1,5 +1,14 @@
 # Changes
 
+## 2026-11-06 — claude/pidgy-recruits
+
+Pidgy trials earn waitlist priority, never approval: 1 trial ≈ tiro, 5 trials from
+different emails ≈ miles. Signed webhook POST /api/pidgy-trial (HMAC-SHA256 of the raw
+body in x-signature-sha256, secret PIDGY_WEBHOOK_SECRET). Body for Alkmist:
+{"event_id","referral_code":"corvus-<handle>","email","started_at"}. Email is hashed
+transiently for dedupe/self-referral, never stored raw. Admin list sorts by priority().
+Copy keys for door iii, the private code and next rank added; UI wiring is Codex's.
+
 ## 2026-11-06 — claude/napoleon-copy
 
 Add Napoleon-gate copy (hero, three doors, painting alt) to the seven army

@@ -7,7 +7,7 @@ import {armyDiscord} from './_discord.js';
 import {id,digest,readCookie,cookie,validID,validCode,rateHash,country} from './_security.js';
 import {readVoter as gameVoter} from '../_music-security.js';
 import {zeroBits} from '../_music-security.js';
-import {publicSoldier,normalizeEmail,LANGUAGES,DAY,RETENTION,dayKey} from '../../js/army/domain.js';
+import {publicSoldier,normalizeEmail,LANGUAGES,DAY,RETENTION,dayKey,priority} from '../../js/army/domain.js';
 
 export function armyService({store=armyStore(),mailOptions={},bits=16}={}) {
   const auth=armyAuth(store),mail=armyMail(store,auth,mailOptions),publicAPI=armyPublic(store);
@@ -126,9 +126,9 @@ export function armyService({store=armyStore(),mailOptions={},bits=16}={}) {
     if(filters.paid==='1')rows=rows.filter(s=>s.paid);
     const search=String(filters.search||'').trim().toLowerCase().slice(0,100);
     if(search)rows=rows.filter(s=>(s.username+' '+s.email).toLowerCase().includes(search));
-    rows.sort((a,b)=>Number(!!b.paid||b.recruits>=3)-Number(!!a.paid||a.recruits>=3)||a.applied.localeCompare(b.applied));
+    rows.sort((a,b)=>priority(b)-priority(a)||a.applied.localeCompare(b.applied));
     const page=Math.max(0,Math.min(rows.length,Math.floor(Number(filters.offset)||0)));
-    return {discordAudit:await store.get('discord:audit'),total:rows.length,rows:rows.slice(page,page+40).map(s=>({id:s.id,username:s.username,email:s.email,link:s.link,why:s.why,status:s.status,verified:!!s.verifiedAt,paid:!!s.paid,recruits:s.recruits,applied:s.applied,expires:s.expires,inviteSent:!!s.invitedAt})),mail:await store.get('mail-status'),discordReady:!!process.env.DISCORD_BOT_TOKEN,unmatched:await (await import('./_tolls.js')).bmcPayments(store).unmatched()};
+    return {discordAudit:await store.get('discord:audit'),total:rows.length,rows:rows.slice(page,page+40).map(s=>({id:s.id,username:s.username,email:s.email,link:s.link,why:s.why,status:s.status,verified:!!s.verifiedAt,paid:!!s.paid,recruits:s.recruits,pidgyTrials:s.pidgyTrials||0,priority:priority(s),applied:s.applied,expires:s.expires,inviteSent:!!s.invitedAt})),mail:await store.get('mail-status'),discordReady:!!process.env.DISCORD_BOT_TOKEN,unmatched:await (await import('./_tolls.js')).bmcPayments(store).unmatched()};
   }
   return {store,auth,mail,publicAPI,identity,self,challenge,submit,claim,admin,adminList};
 }
