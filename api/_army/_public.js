@@ -30,7 +30,7 @@ export function armyPublic(store) {
       tree:treeUsers.map(s=>({key:treeIDs.get(s.id),username:s.verifiedAt&&!s.hidden?s.username||null:null,rank:rank(s),parent:treeIDs.get(s.parent)||null})),treeTotal:users.length,
       remindersWaiting:mailStatus?.waiting||0};
     result.tiers=Object.fromEntries(TIERS.map(t=>[t,users.filter(s=>activeTier(s,store.now())===t).length]));
-    result.mrr=Math.round(users.filter(s=>activeTier(s,store.now())&&s.membership?.currency==='USD'&&s.membership.tier!=='senator').reduce((n,s)=>n+s.membership.amount/(s.membership.interval==='year'?12:1),0));
+    result.mrr=Math.round(users.filter(s=>activeTier(s,store.now())&&s.membership?.currency==='USD'&&!['senator','consul'].includes(s.membership.tier)).reduce((n,s)=>n+s.membership.amount/(s.membership.interval==='year'?12:1),0));
     result.coffees=Math.max(0,Number(await store.run(['GET',store.key('bmc:coffees')]))||0)+Math.max(0,Number(process.env.COFFEE_BASELINE)||0);
     await store.run(['EVAL',"if (redis.call('GET',KEYS[1]) or '0')==ARGV[1] then redis.call('SET',KEYS[2],ARGV[2],'EX',30);return 1 end return 0",2,store.key('revision'),store.key('public'),revision,JSON.stringify(result)]);
     return result;
