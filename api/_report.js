@@ -9,11 +9,11 @@ const safe=s=>String(s??'unknown').replace(/[\r\n|`<>]/g,' ').slice(0,180);
 export async function reportData({store=redis,query=hogql,health=()=>inspect(checks()),now=Date.now}={}){
  const at=now(),day=countDay(at),yesterday=countDay(at-86400000),start=countDay(at-7*86400000);
  const read=async fn=>{try{return await fn();}catch{return null;}};
- const [status,snapshots,daily,events,counters,info,size,cron,errors]=await Promise.all([
+ const [status,snapshots,daily,events,counters,info,size,cron,errors,warnings]=await Promise.all([
   read(health),read(()=>store(['MGET',...pages.map(p=>`stats:snap:${p}:${day}`)])),
   read(()=>query(`SELECT toString(toDate(toTimeZone(timestamp,'Europe/Brussels'))) d,count(DISTINCT distinct_id),count() FROM events WHERE event='$pageview' AND ${REAL} AND toDate(toTimeZone(timestamp,'Europe/Brussels'))>=toDate('${start}') GROUP BY d ORDER BY d`)),
   read(()=>query(`SELECT event,properties.$pathname,count(),max(timestamp) FROM events WHERE ${REAL} AND timestamp>now()-INTERVAL 60 MINUTE GROUP BY event,properties.$pathname ORDER BY count() DESC LIMIT 100`)),
-  read(()=>visitorCounters(day,store)),read(()=>store(['INFO','memory'])),read(()=>store(['DBSIZE'])),read(()=>store(['GET','stats:job:last'])),read(()=>store(['LRANGE','report:errors','0','9']))
+  read(()=>visitorCounters(day,store)),read(()=>store(['INFO','memory'])),read(()=>store(['DBSIZE'])),read(()=>store(['GET','stats:job:last'])),read(()=>store(['LRANGE','report:errors','0','9'])),read(()=>query("SELECT type,count(),max(timestamp) FROM system.ingestion_warnings WHERE timestamp>now()-INTERVAL 10 MINUTE GROUP BY type ORDER BY count() DESC LIMIT 10"))
  ]);
  const days=Array.from({length:8},(_,i)=>countDay(at-i*86400000));
  const unseen=await read(()=>store(['MGET',...days.map(d=>'unseen:hits:'+d)]));
@@ -26,8 +26,10 @@ export async function reportData({store=redis,query=hogql,health=()=>inspect(che
  if(!daily||!events)broken.push(['PostHog query unavailable','check the EU project, personal key and query quota']);
  if(daily&&average>0&&counts[0].total<average/2)broken.push(['today is >50% below the previous 7-day average','check ingestion and compare the same hours; today is incomplete']);
  if(plaintextExceptionUntil())broken.push(['storage transport is temporarily unencrypted','complete the paid Redis TLS migration before '+plaintextExceptionUntil()]);
+ const ingestion=(warnings||[]).filter(([type])=>/^[a-z_]{1,100}$/.test(type)).map(([type,count,last])=>({type,count:Number(count)||0,last}));
+ for(const warning of ingestion)if(warning.type.startsWith('cookieless_')&&Date.parse(warning.last)>at-120000)broken.push(['PostHog drops events: '+warning.type,'inspect the cookieless protocol inputs and project settings']);
  const numeric=Object.fromEntries(String(info||'').split('\n').filter(x=>/^(used_memory|maxmemory):\d+/.test(x)).map(x=>{const [k,v]=x.trim().split(':');return [k,Number(v)];}));
- return {at:new Date(at).toISOString(),day,yesterday,status,snapshots:snapshotRows,counts,average,counters,events:events?.map(([event,page,count,last])=>({event:EVENTS.has(event)?event:'other',page:pathCategory(page),count:Number(count),last})),memory:numeric.used_memory??null,keys:size,cron,errors:(errors||[]).flatMap(x=>{try{return [JSON.parse(x)];}catch{return [];}}),broken};
+ return {ingestion,at:new Date(at).toISOString(),day,yesterday,status,snapshots:snapshotRows,counts,average,counters,events:events?.map(([event,page,count,last])=>({event:EVENTS.has(event)?event:'other',page:pathCategory(page),count:Number(count),last})),memory:numeric.used_memory??null,keys:size,cron,errors:(errors||[]).flatMap(x=>{try{return [JSON.parse(x)];}catch{return [];}}),broken};
 }
 export function markdown(r){
  const lines=['# corvus self-check','',`checked: ${r.at}`,`overall status: ${r.status?.status||'unavailable'}`,'','## health checks','check | ok | ms','--- | --- | ---'];
@@ -36,6 +38,7 @@ export function markdown(r){
  for(const s of r.snapshots){const slow=Object.entries(s.timings).sort((a,b)=>b[1]-a[1])[0];lines.push(`${s.page} | ${s.state} | ${s.age??'unknown'} | ${s.ttl} | ${slow?safe(slow[0])+' '+slow[1]+' ms':'not measured yet'}`);}
  lines.push('','## audience',`today: ${r.counts[0].total}`,`yesterday: ${r.counts[1].total}`,`previous 7-day average: ${r.average.toFixed(2)}`,'These are PostHog daily visitor estimates + anonymous page hits, not a deduplicated census. Today is incomplete.',`soldiers who said ok today: ${r.counters?.soldiers.day??'unavailable'}`,`soldiers all time: ${r.counters?.soldiers.all??'unavailable'}`,`unseen visitors today (page hits): ${r.counters?.unseen.day??'unavailable'}`,'','## posthog events in the last 60 minutes','event | page category | count | latest UTC','--- | --- | --- | ---');
  for(const e of r.events||[])lines.push(`${safe(e.event)} | ${safe(e.page)} | ${e.count} | ${safe(e.last)}`);
+ lines.push('','## ingestion warnings (last 10 minutes)');for(const w of r.ingestion||[])lines.push(`- ${safe(w.type)} · ${w.count} · latest ${safe(w.last)}`);if(!r.ingestion?.length)lines.push('none returned.');
  lines.push('','## storage and jobs',`redis used memory bytes: ${r.memory??'unavailable'}`,`redis key count: ${r.keys??'unavailable'}`,`plaintext exception expiry: ${plaintextExceptionUntil()||'inactive'}`,`last completed cron/snapshot job: ${r.cron||'unavailable'}`,'','## last 10 function errors','Sanitized application errors recorded since this release (7-day retention), not a complete Vercel platform log. Historical errors are not fabricated.');
  for(const e of r.errors)lines.push(`- ${safe(e.at)} · ${safe(e.area)} · ${safe(e.code)}`);
  if(!r.errors.length)lines.push('none recorded.');

@@ -86,6 +86,9 @@ export function privacyEvent(event) {
     $browser: category(p.$browser, BROWSERS, 'Other'),
     $device_type: category(p.$device_type, ['Desktop','Mobile','Tablet'], 'Other'),
   };
+  // Cookieless ingestion requires this hash input. Send only the two existing
+  // coarse categories, never the browser's raw user agent, versions or model.
+  properties.$raw_user_agent = `${properties.$browser}/${properties.$device_type}`;
   if (p.corvus_country_code) properties.corvus_country_code = countryCategory(p.corvus_country_code);
   const referrer = referrerCategory(p.$referring_domain);
   properties.$referring_domain = referrer === 'direct' ? '$direct' : referrer;
