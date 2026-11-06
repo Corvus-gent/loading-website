@@ -1,5 +1,13 @@
 # Changes
 
+## 2026-11-06 — claude/enlist-form
+
+Tester feedback on mobile: the link field said optional but was required and only
+accepted full https:// URLs; the handle field rejected "@name" or spaces, and every
+native validation error jumped back to the top. Link is now optional plain text
+(scheme added for you, http upgraded), handle auto-tidies while typing (strip @,
+spaces to _, lowercase), server normalises the same way. Module version → 20261106c.
+
 ## 2026-11-06 — claude/gate-unstuck
 
 The Napoleon-gate opening could stay on screen forever when the gate.js module
@@ -16,6 +24,13 @@ body in x-signature-sha256, secret PIDGY_WEBHOOK_SECRET). Body for Alkmist:
 {"event_id","referral_code":"corvus-<handle>","email","started_at"}. Email is hashed
 transiently for dedupe/self-referral, never stored raw. Admin list sorts by priority().
 Copy keys for door iii, the private code and next rank added; UI wiring is Codex's.
+## 2026-11-06 — claude/consul
+
+New lifetime tier consul ($10,000 one-time, max 2 seats) above senator. Detected only
+from an explicitly named consul BMC product of at least $10,000; a third buyer stays
+unlevelled for manual review. Discord: consul role and private #war-council
+(imperator + consul); consul also sees centurio-tent. Excluded from MRR. Copy keys
+tierConsul/tierConsulPerk in 7 locales. BMC (37) and Discord tests pass.
 
 ## 2026-11-06 — claude/napoleon-copy
 
@@ -59,10 +74,15 @@ main is still untouched and all commits integrate through the daily PR.
 
 Cache integration: the Napoleon gate removes the opening altogether, retains PR #24’s versioned army modules/revalidation, and loads the versioned feature-locale module directly so returning browsers cannot reuse old hero JSON. The temporary image publishing workflow is removed after its successful run.
 
-## 2026-11-06 — Pidgy account UI and manual investor access
+## 2026-11-06 — Pidgy account UI
 
 - Merge Claude #21/#22 first; keep Pidgy webhook and priority rules unchanged. Authenticated self responses alone include the owner's referral code/trial count. Account UI copies the code and shows next-tier BMC benefits; gate door iii includes the Pidgy option.
-- Gabe-only investor toggle controls a separate Discord role and private war council; purchases/refunds cannot grant or revoke it. The new role lives outside tier-role config for compatibility with existing production sync. Invite permissions remain limited to the two owners and approved bot invitations.
 - Generate PIDGY_WEBHOOK_SECRET outside Git and install as sensitive Production/Preview env. Preview only for this feature; main unchanged.
 
-Validation: all army store/BMC/mail/Discord/Pidgy tests, owner-only response/admin authorization tests, account end-to-end flow, seven-language 360px browser checks, general smoke and locale/link/syntax checks. Discord role/channel provisioned without assigning any members; invite audit passed.
+Validation: all army store/BMC/mail/Discord/Pidgy tests, owner-only response/admin authorization tests, account end-to-end flow, seven-language 360px browser checks, general smoke and locale/link/syntax checks. The superseded investor extension was withdrawn in favour of Claude’s consul tier.
+
+## 2026-11-06 — Consul integration and local-only test evidence
+
+- Merge Claude #23 and preserve #26’s live mobile form fixes. Take api/_army/_discord.js byte-for-byte from Claude’s branch; remove the superseded investor toggle, action and setup helper. Next-tier UI includes consul using Claude’s locale keys.
+- Run the standard Discord setup once for consul and the private war council; preserve owner-only invite rules.
+- Ignore tests/results and Lighthouse output; remove previously tracked evidence from the index while keeping local files. Napoleon and social hero assets use Sharp WebP quality 78, at most 1200 px wide (under the 1600 px limit).

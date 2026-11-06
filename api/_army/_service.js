@@ -10,8 +10,8 @@ import {readVoter as gameVoter} from '../_music-security.js';
 import {zeroBits} from '../_music-security.js';
 import {publicSoldier,normalizeEmail,LANGUAGES,DAY,RETENTION,dayKey,priority} from '../../js/army/domain.js';
 
-export function armyService({store=armyStore(),mailOptions={},discordOptions={},bits=16}={}) {
-  const auth=armyAuth(store),mail=armyMail(store,auth,mailOptions),publicAPI=armyPublic(store),discord=armyDiscord(store,discordOptions);
+export function armyService({store=armyStore(),mailOptions={},bits=16}={}) {
+  const auth=armyAuth(store),mail=armyMail(store,auth,mailOptions),publicAPI=armyPublic(store);
   async function identity(req,res,{create=false}={}) {
     const logged=await auth.session(req); if(logged)return logged;
     const uid=readCookie(req,'army_id','army_id');
@@ -106,11 +106,7 @@ export function armyService({store=armyStore(),mailOptions={},discordOptions={},
   async function admin(action,uid,body={}){
     return store.lock(uid,async()=>{
       const user=await store.getUser(uid);if(!user?.applied)throw Error('missing');
-      if(action==='investor'){
-        if(typeof body.enabled!=='boolean')throw Error('fields');
-        if(body.enabled&&(!user.verifiedAt||user.status!=='approved'||!user.discordId))throw Error('unverified');
-        await discord.setInvestor(user,body.enabled);
-      }else if(action==='approve'){
+      if(action==='approve'){
         if(!user.verifiedAt)throw Error('unverified');
         user.status='approved';user.expires=new Date(store.now()+RETENTION.member*DAY*1000).toISOString();
         await store.persist(user);
@@ -133,7 +129,7 @@ export function armyService({store=armyStore(),mailOptions={},discordOptions={},
     if(search)rows=rows.filter(s=>(s.username+' '+s.email).toLowerCase().includes(search));
     rows.sort((a,b)=>priority(b)-priority(a)||a.applied.localeCompare(b.applied));
     const page=Math.max(0,Math.min(rows.length,Math.floor(Number(filters.offset)||0)));
-    return {discordAudit:await store.get('discord:audit'),total:rows.length,rows:rows.slice(page,page+40).map(s=>({id:s.id,username:s.username,email:s.email,link:s.link,why:s.why,status:s.status,verified:!!s.verifiedAt,paid:!!s.paid,recruits:s.recruits,pidgyTrials:s.pidgyTrials||0,investor:s.investor===true,discordLinked:!!s.discordId,priority:priority(s),applied:s.applied,expires:s.expires,inviteSent:!!s.invitedAt})),mail:await store.get('mail-status'),discordReady:!!process.env.DISCORD_BOT_TOKEN,unmatched:await (await import('./_tolls.js')).bmcPayments(store).unmatched()};
+    return {discordAudit:await store.get('discord:audit'),total:rows.length,rows:rows.slice(page,page+40).map(s=>({id:s.id,username:s.username,email:s.email,link:s.link,why:s.why,status:s.status,verified:!!s.verifiedAt,paid:!!s.paid,recruits:s.recruits,pidgyTrials:s.pidgyTrials||0,priority:priority(s),applied:s.applied,expires:s.expires,inviteSent:!!s.invitedAt})),mail:await store.get('mail-status'),discordReady:!!process.env.DISCORD_BOT_TOKEN,unmatched:await (await import('./_tolls.js')).bmcPayments(store).unmatched()};
   }
   return {store,auth,mail,publicAPI,identity,self,challenge,submit,claim,admin,adminList};
 }

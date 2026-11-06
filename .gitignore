@@ -21,3 +21,8 @@ test-results/
 playwright-report/
 .vercel
 .env*
+
+# Local-only test evidence: never commit screenshots or Lighthouse output.
+tests/results/
+**/lighthouse*.json
+**/lighthouse*.html

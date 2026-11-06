@@ -1,18 +1,8 @@
 import crypto from 'node:crypto';
 import {activeTier,DAY} from '../../js/army/domain.js';
 import {digest,seal,open} from './_security.js';
-export const DISCORD_ROLES=['imperator','senator','legatus','centurio','miles','tiro','recruit (unverified)'];
-export const DISCORD_CHANNELS=['the-gate','announcements','general','missions','bangers','build-in-public','sf','introductions','campfire','centurio-tent'];
-// Kept outside config.roles: old deployments and BMC tier sync must never remove it.
-export function investorChannel({guild,bot,owners,investorRole,restrictedBots=[]}){
- if(![guild,bot,investorRole,...owners].every(snowflake)||owners.length!==2)throw Error('discord_configuration');
- return {name:'war-council',type:0,permission_overwrites:[
-  {id:guild,type:0,allow:'0',deny:'1025'},
-  {id:investorRole,type:0,allow:'68608',deny:'1'},
-  ...restrictedBots.map(id=>({id,type:1,allow:'0',deny:'1'})),
-  ...[...owners,bot].map(id=>({id,type:1,allow:'68609',deny:'0'}))
- ]};
-}
+export const DISCORD_ROLES=['imperator','consul','senator','legatus','centurio','miles','tiro','recruit (unverified)'];
+export const DISCORD_CHANNELS=['the-gate','announcements','general','missions','bangers','build-in-public','sf','introductions','campfire','centurio-tent','war-council'];
 const snowflake=value=>typeof value==='string'&&/^\d{15,22}$/.test(value);
 export function verifyInteraction(raw,signature,timestamp,publicKey,now=Date.now()){
  if(!/^[a-f0-9]{128}$/i.test(signature||'')||!/^\d{10}$/.test(timestamp||'')||Math.abs(now-Number(timestamp)*1000)>300000||!/^[a-f0-9]{64}$/i.test(publicKey||''))return false;
@@ -23,10 +13,10 @@ export function discordPlan({guild,bot,owners,roles={},restrictedBots=[]}){
  if(!snowflake(guild)||!snowflake(bot)||!Array.isArray(owners)||owners.length!==2||new Set(owners).size!==2||owners.some(id=>!snowflake(id)))throw Error('discord_configuration');
  const memberRoles=DISCORD_ROLES.filter(name=>name!=='recruit (unverified)');
  return {
-  roles:DISCORD_ROLES.map((name,i)=>({name,permissions:'0',color:[0xffd76a,0xd7ae59,0xb8862b,0x96805a,0x777777,0x555555,0x333333][i],hoist:false,mentionable:false})),
+  roles:DISCORD_ROLES.map((name,i)=>({name,permissions:'0',color:[0xffd76a,0xe8c25f,0xd7ae59,0xb8862b,0x96805a,0x777777,0x555555,0x333333][i],hoist:false,mentionable:false})),
   channels:DISCORD_CHANNELS.map(name=>{
-   const gate=name==='the-gate',announcement=name==='announcements',tent=name==='centurio-tent';
-   const allowed=tent?['imperator','senator','legatus','centurio']:memberRoles;
+   const gate=name==='the-gate',announcement=name==='announcements',tent=name==='centurio-tent',council=name==='war-council';
+   const allowed=council?['imperator','consul']:tent?['imperator','consul','senator','legatus','centurio']:memberRoles;
    const overwrites=[{id:guild,type:0,deny:gate?'2049':'1025',allow:gate?'2147550208':'0'},
     ...restrictedBots.map(id=>({id,type:1,allow:'0',deny:'1'})),...owners.map(id=>({id,type:1,allow:'3073',deny:'0'})),{id:bot,type:1,allow:'3073',deny:'0'},
     ...allowed.filter(n=>roles[n]).map(n=>({id:roles[n],type:0,allow:name==='campfire'?'3146752':announcement&&n!=='imperator'?'1024':'3072',deny:announcement&&n!=='imperator'?'2049':'1'}))];
@@ -79,20 +69,7 @@ export function armyDiscord(store,{request=fetch,token=()=>process.env.DISCORD_B
   const managed=new Set(Object.values(config.roles));
   for(const old of member.roles.filter(id=>managed.has(id)&&id!==role))await api('/guilds/'+config.guild+'/members/'+user.discordId+'/roles/'+old,{method:'DELETE'});
   if(!member.roles.includes(role))await api('/guilds/'+config.guild+'/members/'+user.discordId+'/roles/'+role,{method:'PUT'});
-  if(config.investorRole)await syncInvestor(user,config,member.roles);
   return {ok:true};
- }
- async function syncInvestor(user,config,memberRoles){
-  const wanted=user.investor===true&&user.status==='approved'&&!!user.verifiedAt;
-  if(memberRoles.includes(config.investorRole)!==wanted)await api('/guilds/'+config.guild+'/members/'+user.discordId+'/roles/'+config.investorRole,{method:wanted?'PUT':'DELETE'});
- }
- async function setInvestor(user,enabled){
-  const config=await configuration();if(!snowflake(config.investorRole))throw Error('discord_configuration');
-  if(!snowflake(user.discordId)||typeof enabled!=='boolean')throw Error('fields');
-  if(enabled&&(!user.verifiedAt||user.status!=='approved'))throw Error('unverified');
-  // Only the owner-protected admin handler calls this. Tier/payment events never set the flag.
-  await api('/guilds/'+config.guild+'/members/'+user.discordId+'/roles/'+config.investorRole,{method:enabled?'PUT':'DELETE'});
-  user.investor=enabled;await store.persist(user);return {ok:true};
  }
  async function claim(code,discordId,guild){
   const config=await configuration();
@@ -127,7 +104,7 @@ export function armyDiscord(store,{request=fetch,token=()=>process.env.DISCORD_B
   // Clean roles after account deletion/TTL expiry; no deleted person's ID needs to be retained in Redis.
   let removed=0;const after=await store.get('discord:member-cursor');
   const members=await api('/guilds/'+config.guild+'/members?limit=100'+(after?'&after='+after:''));
-  const managed=new Set([...Object.values(config.roles),...(config.investorRole?[config.investorRole]:[])]),allowed=new Set([...config.owners,config.bot]);
+  const managed=new Set(Object.values(config.roles)),allowed=new Set([...config.owners,config.bot]);
   const managedMembers=members.filter(m=>!allowed.has(m.user.id)&&m.roles.some(id=>managed.has(id)&&id!==config.roles['recruit (unverified)']));
   const owners=managedMembers.length?await store.run(['MGET',...managedMembers.map(m=>store.key('discord:owner:'+m.user.id))]):[];
   for(let i=0;i<managedMembers.length;i++){
@@ -150,5 +127,5 @@ export function armyDiscord(store,{request=fetch,token=()=>process.env.DISCORD_B
   // Interaction token is used in memory only; never logged or stored.
   await request('https://discord.com/api/v10/webhooks/'+interaction.application_id+'/'+interaction.token+'/messages/@original',{method:'PATCH',redirect:'error',signal:AbortSignal.timeout(6000),headers:{'Content-Type':'application/json'},body:JSON.stringify({content,allowed_mentions:{parse:[]}})});
  }
- return {api,configuration,invite,issue,sync,setInvestor,claim,audit,refresh,complete};
+ return {api,configuration,invite,issue,sync,claim,audit,refresh,complete};
 }

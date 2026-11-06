@@ -14,7 +14,7 @@ export function weekKey(now = Date.now()) {
   d.setUTCDate(d.getUTCDate() - (d.getUTCDay() + 6) % 7);
   return d.toISOString().slice(0, 10);
 }
-export const cleanUsername = value => typeof value === 'string' ? value.trim().toLowerCase() : '';
+export const cleanUsername = value => typeof value === 'string' ? value.trim().toLowerCase().replace(/^@+/, '').replace(/\s+/g, '_') : '';
 export const validUsername = value => /^[a-z][a-z0-9_-]{2,23}$/.test(value) && !['admin', 'private', 'api', 'general', 'corvus', 'soldier', 'unknown', 'undefined', 'null'].includes(value);
 export function normalizeEmail(value) {
   const email = typeof value === 'string' ? value.trim().toLowerCase() : '';
@@ -22,8 +22,12 @@ export function normalizeEmail(value) {
   return email;
 }
 export function publicLink(value) {
+  if (typeof value === 'string') value = value.trim();
   if (!value) return '';
   if (typeof value !== 'string' || value.length > 300) throw Error('link');
+  // People type "linkedin.com/in/me" or "@handle"-style links; add the scheme for them.
+  if (!/^[a-z][a-z0-9+.-]*:\/\//i.test(value)) value = 'https://' + value.replace(/^\/+/, '');
+  value = value.replace(/^http:\/\//i, 'https://');
   let url; try { url = new URL(value); } catch { throw Error('link'); }
   if (url.protocol !== 'https:' || url.username || url.password || !url.hostname.includes('.') || /^(localhost|127\.|0\.|\[)/.test(url.hostname)) throw Error('link');
   // Links are displayed, never fetched server-side.
@@ -54,11 +58,13 @@ export function publicSoldier(s, {link = true} = {}) {
     recruits: s.recruits || 0, approved: s.status === 'approved', tier:activeTier(s),country:s.country||null,hidden:!!s.hidden,
     ...(link && named ? {link: s.link || ''} : {})};
 }
-export const TIERS=['tiro','miles','centurio','legatus','senator','imperator'];
+export const TIERS=['tiro','miles','centurio','legatus','senator','consul','imperator'];
+export const LIFETIME=['senator','consul'];
+export const CONSUL_SEATS=2;
 export function activeTier(s,now=Date.now()){
   if(s.general&&s.verifiedAt)return 'imperator';
   const p=s.membership;
-  return p&&TIERS.includes(p.tier)&&p.tier!=='imperator'&&p.state!=='refunded'&&(p.tier==='senator'||Date.parse(p.until)>now)?p.tier:null;
+  return p&&TIERS.includes(p.tier)&&p.tier!=='imperator'&&p.state!=='refunded'&&(LIFETIME.includes(p.tier)||Date.parse(p.until)>now)?p.tier:null;
 }
 export function dailyMission(day, type) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(day) || !['babel','borders','wordle','flags','combo','bangle','pingle','lantern'].includes(type)) throw Error('mission');
