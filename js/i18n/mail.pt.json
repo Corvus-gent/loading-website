@@ -1,0 +1,16 @@
+{
+  "claim.subject": "reivindica o teu nome.",
+  "claim.body": "a tua placa espera. abre o link e confirma. expira em 30 minutos.\n\n{url}\n\nnão foste tu? ignora. — o corvo",
+  "confirm.subject": "um pequeno sim.",
+  "confirm.body": "pediste {kind}. confirma aqui:\n\n{url}\n\nsem clique, sem lembretes. expira em 30 minutos. — o corvo",
+  "daily.subject": "a lanterna tem um enigma.",
+  "daily.body": "missão #{number}: {type}.\num pequeno desafio. traz a cabeça.\nsérie: {streak}. patente: {rank}.\n\n{url}\n\ncancelar: {unsubscribe}\n— o corvo",
+  "weekly.subject": "a entrega semanal.",
+  "weekly.body": "soldado da semana: {winner}.\num grande som: {song}.\numa pista: os cantos silenciosos veem-te.\n\n{url}\n\ncancelar: {unsubscribe}\n— diógenes",
+  "welcome.subject": "estás dentro, soldado.",
+  "welcome.body": "gabe abriu o portão. traz curiosidade. ajuda alguém.\n\n{url}\n\n— o corvo",
+  "reject.subject": "desta vez não.",
+  "reject.body": "obrigado por bateres. desta vez o portão fica fechado. um pequeno exército procura os seus. a candidatura desaparece em 30 dias.\n\ngerir ou apagar agora: {url}\n— o corvo",
+  "expiry.subject": "o corvo deixa isto ir.",
+  "expiry.body": "a candidatura chegou aos 90 dias e será apagada. podes voltar a bater.\n\n{url}\n— o corvo"
+}
