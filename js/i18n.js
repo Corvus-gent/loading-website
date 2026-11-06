@@ -103,6 +103,14 @@ function renderCornerNav() {
   });
   const home = document.createElement("a");
   home.href = location.hostname==="stats.corvus.gent"?"https://corvus.gent/realm/":"/realm/"; home.textContent = "⌂"; home.title = "home"; home.setAttribute("aria-label", t("nav.home"));
+  // recruiting is reachable from every page (feedback: "can't find the recruiting anywhere")
+  const onArmy=/^\/(join-the-army-now|army|legion|soldier)(\/|$)/.test(location.pathname);
+  if (!onArmy) {
+    const army = document.createElement("a");
+    army.href = location.hostname==="stats.corvus.gent"?"https://corvus.gent/join-the-army-now":"/join-the-army-now";
+    army.className = "nav-army"; army.textContent = "⚑"; army.title = "join the army"; army.setAttribute("aria-label", "join the army");
+    nav.append(army);
+  }
   nav.append(back, home);
   document.body.appendChild(nav);
 }
