@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-11-06 — codex/pidgy-ui final integration
+
+Keep the live mobile form fix, use Claude's consul tier and private war council, and remove the superseded investor extension. Hero assets are quality-78 WebP; mobile uses the 800px ceiling. Screenshots and Lighthouse evidence stay ignored locally. Remove the one-off asset publishing workflow after successful publication.
+
 ## 2026-11-06 — claude/enlist-form
 
 Tester feedback on mobile: the link field said optional but was required and only
