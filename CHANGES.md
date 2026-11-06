@@ -1,5 +1,11 @@
 # Changes
 
+## 2026-11-06 — claude/gate-unstuck
+
+The Napoleon-gate opening could stay on screen forever when the gate.js module
+failed to load (e.g. stale cached client.js/copy.js after a deploy). A tiny inline
+fallback now closes it on any tap, any key, or after 5 s, independent of modules.
+
 ## 2026-11-06 — claude/napoleon-copy
 
 Add Napoleon-gate copy (hero, three doors, painting alt) to the seven army
