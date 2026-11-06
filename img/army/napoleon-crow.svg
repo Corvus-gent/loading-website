@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 1000" fill="none">
+  <!-- Original Corvus drawing. Coordinates keep its feet on Napoleon's raised sleeve. -->
+  <g transform="translate(442 190) scale(.58)" stroke-linejoin="round">
+    <path d="M-8-5C-29-14-29-34-20-48L-27-53-42-57-26-62Q-24-77-9-75 5-76 9-62C10-50 23-42 24-26L42 3 19-6 10-10Q4-4-8-5Z" fill="#080a09" stroke="#c5ab6e" stroke-opacity=".6" stroke-width="1.6"/>
+    <path d="M-9-46Q13-46 15-17L-7-29M-5-5-8 3-16 5M6-7 8 2 17 4" stroke="#a49061" stroke-width="1.5"/>
+    <circle cx="-17" cy="-63" r="1.6" fill="#ffd76a"/>
+  </g>
+</svg>

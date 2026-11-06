@@ -33,3 +33,9 @@ the app signing key and enable Members Intent. Signed interactions link approved
 accounts; BMC changes sync roles immediately with cron retry and orphan cleanup.
 The latest explicit ship instruction authorises a production Vercel deployment;
 main is still untouched and all commits integrate through the daily PR.
+
+## 2026-11-06 — Napoleon gate
+
+- Full-bleed public-domain David hero, original crow, responsive AVIF/WebP/JPEG, eager image preload, lantern light and static reduced-motion treatment. Removed the blocking five-second opening.
+- Wired Claude PR #21’s seven-language hero/door/painting keys; compact doors keep the existing enlistment, BMC and recruitment flows. Added source credit and 1200×630 social image.
+- Playwright desktop/360px mobile: seven languages, dialogs, CTAs, no overflow or page errors, reduced motion. Lighthouse compressed local mobile: 99 performance / 100 accessibility, LCP 1.83 s, CLS 0 at CPU 6× + Slow 4G. Evidence: tests/results/napoleon-gate/.

@@ -1,9 +1,7 @@
 import {init,t,getLang} from './copy.js';
 import {$,api,wireForm,errorText,tag,copy,share,saveArt,recruitURL,countryOptions,submit} from './client.js';
 import {RANKS,WEIGHTS} from './domain.js';
-let self=null;const opening=$('opening'),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
-function skip(){opening.hidden=true;document.removeEventListener('keydown',skip);}
-$('opening-skip').onclick=skip;document.addEventListener('keydown',skip);setTimeout(skip,reduced?0:5000);
+let self=null;const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 function renderRanks(){
  $('rank-ladder').replaceChildren(...RANKS.map(([name,minimum])=>{const span=document.createElement('span');span.textContent=name+' · '+minimum;return span;}));
  $('rank-rules').replaceChildren(...[[t('streak'),WEIGHTS.streak],[t('streak')+' · best',WEIGHTS.best],[t('feathers'),WEIGHTS.feather],[t('recruits'),WEIGHTS.recruit],['daily mission',WEIGHTS.daily],['toll',WEIGHTS.toll],['soldier of the week',WEIGHTS.weekly]].map(([label,value])=>{const row=document.createElement('tr'),a=document.createElement('td'),b=document.createElement('td');a.textContent=label;b.textContent='+'+value;row.append(a,b);return row;}));
