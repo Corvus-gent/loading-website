@@ -2,12 +2,12 @@ import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
 import {createClient} from 'redis';
 import {armyStore} from '../../api/_army/_store.js';
-import {armyDiscord,discordPlan,permissionFindings,verifyInteraction,DISCORD_ROLES} from '../../api/_army/_discord.js';
+import {armyDiscord,discordPlan,permissionFindings,verifyInteraction,DISCORD_ROLES,roleAbove} from '../../api/_army/_discord.js';
 import {interactionHandler} from '../../api/discord.js';
 const guild='100000000000000001',bot='100000000000000002',owners=['100000000000000003','100000000000000004'],discordId='100000000000000005';
 const roles=Object.fromEntries(DISCORD_ROLES.map((name,i)=>[name,'1000000000000000'+String(i+10)]));
 const config={guild,bot,owners,roles,channels:{'the-gate':'100000000000000030'}},plan=discordPlan(config);
-assert.equal(plan.roles.length,7);assert.equal(plan.channels.length,10);
+assert(roleAbove({id:'100',position:1},{id:'101',position:1}));assert(!roleAbove({id:'101',position:1},{id:'100',position:1}));assert.equal(plan.roles.length,7);assert.equal(plan.channels.length,10);
 for(const role of plan.roles)assert.equal(BigInt(role.permissions)&9n,0n);
 for(const channel of plan.channels)for(const row of channel.permission_overwrites)if(BigInt(row.allow)&1n)assert([bot,...owners].includes(row.id)&&row.type===1);
 assert.deepEqual(permissionFindings(config,plan.roles,plan.channels),[]);
@@ -22,6 +22,7 @@ const url=process.env.REDIS_URL;if(url!=='redis://127.0.0.1:16380/6')throw Error
 const client=createClient({url});await client.connect();const prefix='army:discord-test:',store=armyStore({redis:args=>client.sendCommand(args),prefix});let memberRoles=[],invites=0;
 const request=async(url,options)=>{
  if(url.endsWith('/invites')){const body=JSON.parse(options.body);assert.equal(body.max_uses,1);assert.equal(body.max_age,604800);assert.equal(body.unique,true);invites++;return Response.json({code:'one-use-test'});}
+ if(url.includes('/members/'+discordId+'/roles/')){const role=url.split('/').at(-1);memberRoles=options.method==='PUT'?[...new Set([...memberRoles,role])]:memberRoles.filter(id=>id!==role);return new Response(null,{status:204});}
  if(url.endsWith('/members/'+discordId)){if(options.method==='PATCH'){memberRoles=JSON.parse(options.body).roles;return Response.json({});}return Response.json({roles:memberRoles});}
  throw Error('unexpected mocked Discord path');
 };

@@ -8,7 +8,8 @@ export function verifyInteraction(raw,signature,timestamp,publicKey,now=Date.now
  if(!/^[a-f0-9]{128}$/i.test(signature||'')||!/^\d{10}$/.test(timestamp||'')||Math.abs(now-Number(timestamp)*1000)>300000||!/^[a-f0-9]{64}$/i.test(publicKey||''))return false;
  try{return crypto.verify(null,Buffer.concat([Buffer.from(timestamp),raw]),crypto.createPublicKey({key:Buffer.concat([Buffer.from('302a300506032b6570032100','hex'),Buffer.from(publicKey,'hex')]),format:'der',type:'spki'}),Buffer.from(signature,'hex'));}catch{return false;}
 }
-export function discordPlan({guild,bot,owners,roles={}}){
+export const roleAbove=(a,b)=>a.position>b.position||a.position===b.position&&BigInt(a.id)<BigInt(b.id);
+export function discordPlan({guild,bot,owners,roles={},restrictedBots=[]}){
  if(!snowflake(guild)||!snowflake(bot)||!Array.isArray(owners)||owners.length!==2||new Set(owners).size!==2||owners.some(id=>!snowflake(id)))throw Error('discord_configuration');
  const memberRoles=DISCORD_ROLES.filter(name=>name!=='recruit (unverified)');
  return {
@@ -16,8 +17,8 @@ export function discordPlan({guild,bot,owners,roles={}}){
   channels:DISCORD_CHANNELS.map(name=>{
    const gate=name==='the-gate',announcement=name==='announcements',tent=name==='centurio-tent';
    const allowed=tent?['imperator','senator','legatus','centurio']:memberRoles;
-   const overwrites=[{id:guild,type:0,deny:gate?'2049':'1025',allow:gate?'2147484672':'0'},
-    ...owners.map(id=>({id,type:1,allow:'3073',deny:'0'})),{id:bot,type:1,allow:'3073',deny:'0'},
+   const overwrites=[{id:guild,type:0,deny:gate?'2049':'1025',allow:gate?'2147550208':'0'},
+    ...restrictedBots.map(id=>({id,type:1,allow:'0',deny:'1'})),...owners.map(id=>({id,type:1,allow:'3073',deny:'0'})),{id:bot,type:1,allow:'3073',deny:'0'},
     ...allowed.filter(n=>roles[n]).map(n=>({id:roles[n],type:0,allow:name==='campfire'?'3146752':announcement&&n!=='imperator'?'1024':'3072',deny:announcement&&n!=='imperator'?'2049':'1'}))];
    if(gate)for(const row of overwrites.filter(x=>x.type===0))row.deny=String(BigInt(row.deny)|2048n);
    return {name,type:name==='campfire'?2:0,permission_overwrites:overwrites};
@@ -29,7 +30,8 @@ export function permissionFindings(config,roles,channels){
  for(const role of roles){
   if(role.tags?.bot_id===config.bot)continue;
   const permissions=BigInt(role.permissions||'0');
-  if(permissions&9n)findings.push('role:'+role.id+':invite_or_admin');
+  const blockedBot=role.tags?.bot_id&&config.restrictedBots?.includes(role.tags.bot_id)&&channels.every(c=>(c.permission_overwrites||[]).some(o=>o.type===1&&o.id===role.tags.bot_id&&(BigInt(o.deny||'0')&1n)));
+  if(permissions&8n||permissions&1n&&!blockedBot)findings.push('role:'+role.id+':invite_or_admin');
  }
  for(const channel of channels)for(const row of channel.permission_overwrites||[]){
   if(BigInt(row.allow||'0')&1n && !(row.type===1&&allowed.has(row.id)))findings.push('channel:'+channel.id+':invite_override');
@@ -40,7 +42,7 @@ export function armyDiscord(store,{request=fetch,token=()=>process.env.DISCORD_B
  async function api(path,{method='GET',body}={}){
   if(!token())throw Error('discord_not_configured');
   const response=await request('https://discord.com/api/v10'+path,{method,redirect:'error',signal:AbortSignal.timeout(6000),headers:{Authorization:'Bot '+token(),'Content-Type':'application/json'},...(body?{body:JSON.stringify(body)}:{})});
-  if(!response.ok)throw Error(response.status===429?'discord_rate':'discord_unavailable');
+  if(!response.ok)throw Error(response.status===429?'discord_rate':'discord_http_'+response.status);
   return response.status===204?null:response.json();
  }
  async function configuration(){const c=await store.get('discord:config');if(!token()||!c?.guild||!c?.channels?.['the-gate'])throw Error('discord_not_configured');return c;}
@@ -65,8 +67,8 @@ export function armyDiscord(store,{request=fetch,token=()=>process.env.DISCORD_B
   const config=await configuration(),member=await api('/guilds/'+config.guild+'/members/'+user.discordId),wanted=user.status==='approved'?(activeTier(user,store.now())||'tiro'):'recruit (unverified)';
   const role=config.roles[wanted];if(!role)throw Error('discord_configuration');
   const managed=new Set(Object.values(config.roles));
-  const next=[...new Set([...member.roles.filter(id=>!managed.has(id)),role])];
-  if([...member.roles].sort().join(',')!==[...next].sort().join(','))await api('/guilds/'+config.guild+'/members/'+user.discordId,{method:'PATCH',body:{roles:next}});
+  for(const old of member.roles.filter(id=>managed.has(id)&&id!==role))await api('/guilds/'+config.guild+'/members/'+user.discordId+'/roles/'+old,{method:'DELETE'});
+  if(!member.roles.includes(role))await api('/guilds/'+config.guild+'/members/'+user.discordId+'/roles/'+role,{method:'PUT'});
   return {ok:true};
  }
  async function claim(code,discordId,guild){
@@ -96,9 +98,22 @@ export function armyDiscord(store,{request=fetch,token=()=>process.env.DISCORD_B
  }
  async function refresh(users){
   if(!token())return {state:'not_configured',synced:0};
-  let synced=0,failed=0;for(const user of users.filter(u=>u.discordId)){try{await sync(user);synced++;}catch{failed++;}}
+  const config=await configuration(),linked=users.filter(u=>u.discordId),offset=Number(await store.get('discord:sync-offset')||0)%Math.max(1,linked.length);
+  let synced=0,failed=0;for(const user of [...linked.slice(offset),...linked.slice(0,offset)].slice(0,10)){try{await sync(user);synced++;}catch{failed++;}}
+  await store.run(['SET',store.key('discord:sync-offset'),String((offset+10)%Math.max(1,linked.length)),'EX',DAY]);
+  // Clean roles after account deletion/TTL expiry; no deleted person's ID needs to be retained in Redis.
+  let removed=0;const after=await store.get('discord:member-cursor');
+  const members=await api('/guilds/'+config.guild+'/members?limit=100'+(after?'&after='+after:''));
+  const managed=new Set(Object.values(config.roles)),allowed=new Set([...config.owners,config.bot]);
+  const managedMembers=members.filter(m=>!allowed.has(m.user.id)&&m.roles.some(id=>managed.has(id)&&id!==config.roles['recruit (unverified)']));
+  const owners=managedMembers.length?await store.run(['MGET',...managedMembers.map(m=>store.key('discord:owner:'+m.user.id))]):[];
+  for(let i=0;i<managedMembers.length;i++){
+   const uid=owners[i]?JSON.parse(owners[i]):null,user=uid?await store.getUser(uid):null;if(user?.status==='approved')continue;
+   const member=managedMembers[i];for(const role of member.roles.filter(id=>managed.has(id)))await api('/guilds/'+config.guild+'/members/'+member.user.id+'/roles/'+role,{method:'DELETE'});removed++;
+  }
+  await store.run(['SET',store.key('discord:member-cursor'),JSON.stringify(members.length===100?members.at(-1).user.id:null),'EX',DAY]);
   const last=await store.get('discord:audit');if(!last||Date.parse(last.checked)<store.now()-DAY*1000)await audit();
-  return {synced,failed};
+  return {synced,failed,removed};
  }
  async function respond(interaction){
   const config=await configuration();

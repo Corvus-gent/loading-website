@@ -19,3 +19,12 @@ list. Add signed, idempotent BMC deliveries, private matching, membership expiry
 scoped data deletion and queued mail. Discord code and mocks cover permission
 planning, one-use invites/linking, tier sync and daily permission audits; live
 activation remains blocked on the bot credentials and installed server.
+
+## 2026-11-06 — codex/discord-legion
+
+Derive the existing Discord server and two owner IDs; configure seven roles, ten
+channels and restricted invites. Fix equal-position role hierarchy checks, refresh
+the app signing key and enable Members Intent. Signed interactions link approved
+accounts; BMC changes sync roles immediately with cron retry and orphan cleanup.
+The latest explicit ship instruction authorises a production Vercel deployment;
+main is still untouched and all commits integrate through the daily PR.

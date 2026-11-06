@@ -1,5 +1,7 @@
 import crypto from 'node:crypto';
+import process from 'node:process';
 import {digest} from './_security.js';
+import {armyDiscord} from './_discord.js';
 import {DAY,TIERS,activeTier,cleanUsername,validUsername,normalizeEmail} from '../../js/army/domain.js';
 
 // Official schema: https://cdn.buymeacoffee.com/assets/integrations/bmc-webhooks-openapi.json
@@ -52,7 +54,7 @@ local record=cjson.decode(ARGV[1]);if record.uid~=cjson.null then local user=red
 redis.call('SET',KEYS[1],'1','EX',ARGV[3]);redis.call('SET',KEYS[2],cjson.encode(record),'EX',ARGV[4]);redis.call('ZADD',KEYS[3],ARGV[2],ARGV[5]);return 1`,5,receipt,k,store.key('bmc:pending'),store.key('u:'+(p.uid||'none')),store.key('owned:'+(p.uid||'none')),JSON.stringify(p),store.now(),400*DAY,30*DAY,p.event]));
   return {accepted:!!added,event:p.event};
  }
- async function process(eventID){
+ async function processPayment(eventID){
   if(!/^\d{1,20}$/.test(String(eventID)))throw Error('payment');
   return store.lock('payment:'+eventID,async()=>{
    let p=await store.get('bmc:event:'+eventID);
@@ -84,16 +86,18 @@ redis.call('SET',KEYS[1],'1','EX',ARGV[3]);redis.call('SET',KEYS[2],cjson.encode
     await store.run(['ZADD',store.key('bmc:unmatched'),store.now(),eventID]);
    }
    await store.run(['ZREM',store.key('bmc:pending'),eventID]);
-   await store.run(['DEL',store.key('public')]);return {matched:!!user};
+   await store.run(['DEL',store.key('public')]);
+   if(user&&process.env.DISCORD_BOT_TOKEN){try{await armyDiscord(store).sync(await store.getUser(user.id));}catch{/* The periodic reconciliation retries role delivery. */}}
+   return {matched:!!user};
   });
  }
- async function drain(){const ids=await store.run(['ZRANGE',store.key('bmc:pending'),0,99]);let matched=0;for(const id of ids){const r=await process(id);if(r.matched)matched++;}return {processed:ids.length,matched};}
+ async function drain(){const ids=await store.run(['ZRANGE',store.key('bmc:pending'),0,99]);let matched=0;for(const id of ids){const r=await processPayment(id);if(r.matched)matched++;}return {processed:ids.length,matched};}
  async function unmatched(){const ids=await store.run(['ZREVRANGE',store.key('bmc:unmatched'),0,99]);const rows=[];for(const id of ids){const p=await store.get('bmc:event:'+id);if(p)rows.push({event:p.event,type:p.type,level:p.level,amount:p.amount,currency:p.currency,date:p.date,username:p.username});else await store.run(['ZREM',store.key('bmc:unmatched'),id]);}return rows;}
  async function link(eventID,username){
   const user=await store.byName(cleanUsername(username)),p=await store.get('bmc:event:'+String(eventID));if(!user?.verifiedAt||!p)throw Error('missing');
   if(p.uid&&p.uid!==user.id)throw Error('payment');p.uid=user.id;p.username=user.username;
-  await store.run(['SET',store.key('bmc:event:'+p.event),JSON.stringify(p),'EX',30*DAY]);return process(p.event);
+  await store.run(['SET',store.key('bmc:event:'+p.event),JSON.stringify(p),'EX',30*DAY]);return processPayment(p.event);
  }
- return {normalize,accept,process,drain,unmatched,link};
+ return {normalize,accept,process:processPayment,drain,unmatched,link};
 }
 export const linkToll=(store,event,username)=>bmcPayments(store).link(event,username);
