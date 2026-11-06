@@ -25,18 +25,16 @@ export function pidgyTrials(store){
   const account=await store.byName(handle);
   if(!account?.verifiedAt||account.status==='deleting')return {counted:false,reason:'account'};
   const self=await store.byEmail(email);if(self?.id===account.id)return {counted:false,reason:'self'};
-  // One trial email counts once, ever, for one recruiter; one event id once.
-  const fresh=Number(await store.run(['EVAL',`if redis.call('EXISTS',KEYS[1])==1 then return 0 end
-if redis.call('SET',KEYS[2],ARGV[1],'NX','EX',ARGV[2])==false then redis.call('SET',KEYS[1],'1','EX',ARGV[2]);return 0 end
-redis.call('SET',KEYS[1],'1','EX',ARGV[2]);return 1`,2,store.key('pidgy:event:'+digest('pidgy-event:'+eventID)),store.key('pidgy:email:'+digest('pidgy:'+email)),account.id,400*DAY]));
-  if(!fresh)return {counted:false,reason:'duplicate'};
-  let trials=0;
-  await store.lock(account.id,async()=>{
-   const current=await store.getUser(account.id);if(!current||current.status==='deleting')return;
-   current.pidgyTrials=Math.max(0,Number(current.pidgyTrials||0))+1;trials=current.pidgyTrials;
-   await store.persist(current);
-  });
-  return {counted:!!trials,trials};
+  // Atomically award one recruiting credit per distinct signed trial email.
+  // Deduplication and the counter commit together, including concurrent retries.
+  const result=await store.lock(account.id,()=>store.run(['EVAL',`local raw=redis.call('GET',KEYS[3]);if not raw then return {-1,0} end
+local user=cjson.decode(raw);if not user.verifiedAt or user.status=='deleting' then return {-1,0} end
+if redis.call('EXISTS',KEYS[1])==1 then return {0,0} end
+if redis.call('SET',KEYS[2],ARGV[1],'NX','EX',ARGV[2])==false then redis.call('SET',KEYS[1],'1','EX',ARGV[2]);return {0,0} end
+redis.call('SET',KEYS[1],'1','EX',ARGV[2]);user.pidgyTrials=(user.pidgyTrials or 0)+1
+redis.call('SET',KEYS[3],cjson.encode(user),'KEEPTTL');redis.call('SADD',KEYS[4],KEYS[2]);redis.call('EXPIRE',KEYS[4],ARGV[2]);redis.call('INCR',KEYS[5]);redis.call('DEL',KEYS[6],KEYS[7]);return {1,user.pidgyTrials}`,7,
+    store.key('pidgy:event:'+digest('pidgy-event:'+eventID)),store.key('pidgy:email:'+digest('pidgy:'+email)),store.key('u:'+account.id),store.key('owned:'+account.id),store.key('revision'),store.key('public'),store.key('legion'),account.id,400*DAY]));
+  return Number(result[0])===1?{counted:true,trials:Number(result[1])}:{counted:false,reason:Number(result[0])===0?'duplicate':'account'};
  }
  return {accept};
 }

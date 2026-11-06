@@ -69,7 +69,15 @@ async function showDetailView(id) {
 
 
   $("person-links").innerHTML = "";
-  renderList($("person-links"), member.links || [], createExternalLink);
+  // Keep links in their prose context; list only destinations not already there.
+  const destination = href => {const url=new URL(href,location.origin);for(const key of [...url.searchParams.keys()])if(/^utm_/i.test(key)||key==='ref')url.searchParams.delete(key);url.searchParams.sort();return url.hostname.toLowerCase().replace(/^www\./,'')+url.pathname.replace(/\/+$/,'')+url.search+url.hash;};
+  const seen=new Set([...$("person-about").querySelectorAll('a[href]')].map(a=>destination(a.href)));
+  function unique(links){return links.flatMap(link=>{
+    if(link.items){const items=unique(link.items);return items.length?[{...link,items}]:[];}
+    const key=destination(link.href);if(seen.has(key))return [];seen.add(key);return [link];
+  });}
+  const links=unique(member.links||[]);
+  renderList($("person-links"), links, createExternalLink);
 }
 
 async function render() {

@@ -1,5 +1,5 @@
-import {init,t,getLang} from './copy.js?v=20261106-integration25';
-import {$,api,errorText} from './client.js?v=20261106-integration25';
+import {init,t,getLang} from './copy.js?v=20261106-earned1';
+import {$,api,errorText} from './client.js?v=20261106-earned1';
 let members=[];
 function flag(code){return code?.match(/^[A-Z]{2}$/)?String.fromCodePoint(...[...code].map(c=>127397+c.charCodeAt(0))):'';}
 function render(){

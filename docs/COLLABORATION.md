@@ -44,8 +44,8 @@ Use existing data-army keys; request new slots instead of changing form IDs.
 ## Immediate Claude packages
 
 1. claude/legion-copy: army/mail JSON, oath, seven-language wording. Payment buys
-   priority, not approval; tier and earned Roman rank are separate. Discord is
-   not connected yet. Daily mail about 60 words; no puzzle answer.
+   supporter perks only: no rank, priority or admission. Earned rank comes from
+   approved help, missions and recruits. Discord is connected. Daily mail about 60 words; no puzzle answer.
 2. claude/wiki: wiki/diogenes/index.html, wiki/icarus/index.html,
    wiki/sisyphus/index.html, Corvus cross-links and wiki JSON. Keep the Pidgy
    persona unchanged and preserve hidden eggs. Use sources for factual claims.

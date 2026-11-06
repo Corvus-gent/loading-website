@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';import crypto from 'node:crypto';import {createClient} from 'redis';
-import {armyStore} from '../../api/_army/_store.js';import {bmcPayments,verifyBMC,tierName} from '../../api/_army/_tolls.js';import {activeTier,rank} from '../../js/army/domain.js';
+import {armyStore} from '../../api/_army/_store.js';import {bmcPayments,verifyBMC,tierName} from '../../api/_army/_tolls.js';import {activeTier,rank,points} from '../../js/army/domain.js';
 const url=process.env.REDIS_URL;if(url!=='redis://127.0.0.1:16380/6')throw Error('local test database required');const client=createClient({url});await client.connect();const prefix='army:bmc-test:';
 const store=armyStore({redis:args=>client.sendCommand(args),prefix});const bmc=bmcPayments(store);let count=0;
 try{
@@ -8,7 +8,7 @@ try{
  for(const [i,tier] of ['tiro','miles','centurio','legatus','senator'].entries()){
   assert.equal(tierName(tier+' (test)'),tier);const now=Math.floor(Date.now()/1000)+i;
   const event={event_id:100+i,type:'membership.started',live_mode:true,created:now,data:{id:1,membership_level_name:tier,amount:1,currency:'USD',supporter_email:'test@example.test',supporter_name:'DO NOT STORE',support_note:'PRIVATE MESSAGE',current_period_end:now+86400,duration_type:'month'}};
-  const first=await bmc.accept(event);assert(first.accepted);assert.equal((await bmc.accept(event)).accepted,false);await bmc.process(String(100+i));assert.equal(activeTier(await store.getUser(u.id)),tier);assert.equal(rank(await store.getUser(u.id)),'tiro');count+=4;
+  const first=await bmc.accept(event);assert(first.accepted);assert.equal((await bmc.accept(event)).accepted,false);await bmc.process(String(100+i));assert.equal(activeTier(await store.getUser(u.id)),tier);assert.equal(rank(await store.getUser(u.id)),'tiro');assert.equal(points(await store.getUser(u.id)),0);count+=5;
  }
  const now=Math.floor(Date.now()/1000)+10;await bmc.accept({event_id:200,type:'membership.cancelled',live_mode:true,created:now,data:{id:1,membership_level_name:'centurio',amount:10,currency:'USD',current_period_end:now+60,status:'canceled'}});await bmc.process('200');await bmc.process('200');const user=await store.getUser(u.id);assert.equal(activeTier(user,now*1000),'centurio');assert.equal(activeTier(user,(now+61)*1000),null);count+=2;
  const donation={event_id:300,type:'donation.created',live_mode:true,created:now,data:{id:300,amount:2,currency:'USD',coffee_count:2,support_note:'@payment_test'}};await bmc.accept(donation);await bmc.process('300');await bmc.accept({...donation,event_id:301});await bmc.process('301');assert.equal(Number(await store.run(['GET',store.key('bmc:coffees')])),2);count++;
