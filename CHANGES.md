@@ -15,6 +15,14 @@ from an explicitly named consul BMC product of at least $10,000; a third buyer s
 unlevelled for manual review. Discord: consul role and private #war-council
 (imperator + consul); consul also sees centurio-tent. Excluded from MRR. Copy keys
 tierConsul/tierConsulPerk in 7 locales. BMC (37) and Discord tests pass.
+## 2026-11-06 — claude/gate-unstuck
+
+The Napoleon-gate opening could stay on screen forever when the gate.js module
+failed to load (e.g. stale cached client.js/copy.js after a deploy). A tiny inline
+fallback now closes it on any tap, any key, or after 5 s, independent of modules.
+Root cause: /js/* is cached immutable for a year while army modules had no version,
+so returning visitors mixed old and new files after each deploy. Army and i18n
+scripts now revalidate (max-age=0) and every army module URL carries ?v=20261106b.
 
 ## 2026-11-06 — claude/napoleon-copy
 

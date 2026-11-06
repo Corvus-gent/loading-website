@@ -1,5 +1,5 @@
-import {init,t,getLang} from './copy.js';
-import {$,api,wireForm,errorText,tag,countryOptions,recruitURL,copy,share,saveArt,saveBlob} from './client.js';
+import {init,t,getLang} from './copy.js?v=20261106b';
+import {$,api,wireForm,errorText,tag,countryOptions,recruitURL,copy,share,saveArt,saveBlob} from './client.js?v=20261106b';
 let self=null;
 let token=window.__armyClaimToken||new URLSearchParams(location.hash.slice(1)).get('token');delete window.__armyClaimToken;
 if(token)history.replaceState(null,'',location.pathname+location.search);
