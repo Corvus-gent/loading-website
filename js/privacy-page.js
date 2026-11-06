@@ -1,11 +1,12 @@
 import {initI18n, getLang} from './i18n.js';
 import {PRIVACY_VERSION,strings} from './privacy-strings.js';
-import {analyticsAllowed,chooseAnalytics,privacySignal} from './analytics-consent.js';
+import {analyticsAllowed,chooseAnalytics,privacySignal,consentChoice} from './analytics-consent.js';
+import {ARMY_PRIVACY} from './army/privacy-copy.js';
 function choiceLabels(){
  const copy=strings[getLang()];
  document.getElementById('analytics-choice-title').textContent=copy.change;
  document.getElementById('analytics-status').textContent=privacySignal()?copy.signal:analyticsAllowed()?copy.on:copy.off;
- const allow=document.getElementById('analytics-allow');allow.textContent=copy.allow;allow.disabled=privacySignal()||analyticsAllowed();
+ const allow=document.getElementById('analytics-allow');allow.textContent=copy.allow;allow.disabled=consentChoice()?.choice==='allow';
  document.getElementById('analytics-deny').textContent=analyticsAllowed()?copy.withdraw:copy.deny;
 }
 document.getElementById('analytics-allow').onclick=()=>chooseAnalytics('allow');
@@ -36,6 +37,7 @@ async function render(){
   for(const html of paragraphs){const p=document.createElement('p');p.innerHTML=html;section.append(p);}
   sections.append(section);
  }
+ const army=document.createElement('section');army.id='legion-privacy';const [armyTitle,...armyText]=ARMY_PRIVACY[getLang()]||ARMY_PRIVACY.en;const armyHeading=document.createElement('h2');armyHeading.textContent=armyTitle;army.append(armyHeading);for(const text of armyText){const p=document.createElement('p');p.textContent=text;army.append(p);}const account=document.createElement('a');account.href='/army/access/';account.textContent='corvus.gent/army/access →';army.append(account);sections.append(army);
  document.getElementById('privacy-providers-title').textContent=copy.providersTitle;
  document.getElementById('privacy-providers-note').textContent=copy.providersNote;
  const list=document.getElementById('privacy-providers');list.replaceChildren();

@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import {privacyEvent} from '../js/analytics-policy.js';
+const clean=privacyEvent({event:'$pageview',properties:{$cookieless_mode:true,$host:'corvus.gent',$pathname:'/call/',$browser:'Chrome',$device_type:'Desktop',$raw_user_agent:'private model and exact browser version',$ip:'203.0.113.1',email:'private@example.test'}});
+assert.equal(clean.properties.$raw_user_agent,'Chrome/Desktop');
+assert(!JSON.stringify(clean).includes('private'));assert(!('$ip' in clean.properties));
+process.env.POSTHOG_PERSONAL_API_KEY='local-test-token';
+let body;
+globalThis.fetch=async(_url,init)=>{body=JSON.parse(init.body);return {ok:true,json:async()=>({results:[[1]]})};};
+const {hogql}=await import('../api/_posthog.js');
+assert.deepEqual(await hogql('SELECT 1'),[[1]]);assert.equal(body.refresh,'force_blocking');
+const {configureCookieless}=await import('../api/_posthog-config.js');
+let requests=0;
+const result=await configureCookieless({request:async(_url,init)=>{requests++;assert(!init.method||init.method==='GET');return {ok:true,status:200,json:async()=>({id:331552,api_token:'private',cookieless_server_hash_mode:2,anonymize_ips:true})};},query:async sql=>sql.includes('ingestion_warnings')?[['cookieless_missing_user_agent',2,'2026-11-06']]:[['/private/name@example.test',1,'2026-11-06']]});
+assert.equal(requests,1);assert(!JSON.stringify(result).includes('name@example.test'));assert(!JSON.stringify(result).includes('"private"'));assert.equal(result.warnings[0].count,2);
+console.log('PostHog protocol: coarse mandatory hash input, no raw UA/IP, fresh query and read-only redacted diagnostics passed');

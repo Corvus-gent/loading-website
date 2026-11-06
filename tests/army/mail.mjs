@@ -1,0 +1,40 @@
+import assert from 'node:assert/strict';
+import {createClient} from 'redis';
+import {armyStore} from '../../api/_army/_store.js';
+import {armyAuth} from '../../api/_army/_auth.js';
+import {armyMail} from '../../api/_army/_mail.js';
+import {dayKey, DAY} from '../../js/army/domain.js';
+assert.equal(process.env.REDIS_URL,'redis://127.0.0.1:16380/6');
+const c=createClient({url:process.env.REDIS_URL,socket:{reconnectStrategy:false}}).on('error',()=>{});await c.connect();
+let clock=Date.parse('2026-11-06T08:00:00Z'),invite='',quota=10,fail=false;const sent=[];
+const store=armyStore({redis:cmd=>c.sendCommand(cmd),prefix:'army:mail-test:',now:()=>clock}),auth=armyAuth(store);
+const mail=armyMail(store,auth,{apiKey:()=> 'test-token',invite:()=>invite,request:async(url,opts)=>{
+ assert.equal(opts.redirect,'error');
+ if(url.endsWith('/usage'))return Response.json({emails:{daily:{limit:quota,used:0},monthly:{limit:3000,used:0}}});
+ assert.equal(url,'https://api.resend.com/emails/batch');const messages=JSON.parse(opts.body);sent.push({messages,key:opts.headers['Idempotency-Key']});
+ if(fail)throw Error('simulated lost response');return Response.json({data:messages.map((_,i)=>({id:'mail-'+i}))});
+}});
+const response=()=>({headers:{},setHeader(k,v){this.headers[k]=v;},getHeader(k){return this.headers[k];}});
+try{
+ const anon=await store.create();await store.enlist(anon.id,{email:'test@example.test',username:'tester',why:'i build things',link:'https://example.com',lang:'nl'});
+ const issued=await auth.issue(anon.id);assert(!JSON.stringify(await store.get('token:'+issued.token)).includes('test@example.test'));
+ await mail.flush({dryRun:true});assert.equal(sent.length,0);
+ fail=true;assert.equal((await mail.flush()).state,'retry');fail=false;assert.equal((await mail.flush()).sent,1);assert.equal(sent[0].key,sent[1].key);assert.deepEqual(sent[0].messages,sent[1].messages,'stable retry body');
+ assert.match(sent[1].messages[0].text,/#token=/);assert.equal(sent[1].messages[0].from,'the crow <crow@corvus.gent>');
+ let res=response();await auth.consume(issued.token,res);assert.equal((await store.getUser(anon.id)).status,'waiting');assert.equal(res.headers['Set-Cookie'].length,2);
+ await assert.rejects(auth.consume(issued.token,response()),/expired/,'single use');
+ const cookie=res.headers['Set-Cookie'].map(x=>x.split(';')[0]).join('; ');assert.equal((await auth.session({headers:{cookie}})).id,anon.id);
+ assert.equal(await auth.session({headers:{cookie:cookie.replace('army_session=','army_session=bad')}}),null);
+ for(const kind of ['daily','weekly'])await store.own(anon.id,'sub:'+anon.id+':'+kind,{confirmed:false,lang:'nl',created:new Date(clock).toISOString(),lastSent:null},7*DAY);
+ const confirm=await auth.issue(anon.id,'daily');await auth.consume(confirm.token,response());assert.equal((await store.get('sub:'+anon.id+':daily')).confirmed,true);assert.equal((await store.get('sub:'+anon.id+':weekly')).confirmed,false);
+ await store.run(['DEL',store.key('mail:'+confirm.job)]);await store.run(['ZREM',store.key('outbox'),confirm.job]);
+ const day=dayKey(clock);await auth.queue(anon.id,'daily',{day,type:'wordle',number:3});
+ assert.equal((await mail.flush()).sent,1);const message=sent.at(-1).messages[0];assert(message.headers['List-Unsubscribe']);assert.equal(message.headers['List-Unsubscribe-Post'],'List-Unsubscribe=One-Click');assert(!message.text.includes('answer'));assert.equal((await store.get('sub:'+anon.id+':daily')).lastSent,day);
+ const unsubscribe=new URL(message.headers['List-Unsubscribe'].slice(1,-1)).searchParams.get('unsubscribe');await auth.unsubscribe(unsubscribe);assert.equal(await store.get('sub:'+anon.id+':daily'),null);assert(await store.get('sub:'+anon.id+':weekly'),'independent subscription');
+ const accepted=await store.getUser(anon.id);accepted.status='approved';await store.persist(accepted);
+ await auth.queue(anon.id,'welcome');assert.equal((await mail.flush()).sent,0);assert.equal(Number(await store.run(['ZCARD',store.key('outbox')])),1);
+ invite='https://discord.gg/example';assert.equal((await mail.flush()).sent,1);assert.match(sent.at(-1).messages[0].text,/https:\/\/discord.gg\/example/);
+ await auth.issue(anon.id);quota=0;assert.equal((await mail.flush()).state,'quota');assert.equal(Number(await store.run(['ZCARD',store.key('outbox')])),1,'overflow retained');
+ const owned=await store.run(['SMEMBERS',store.key('owned:'+anon.id)]);await store.remove(anon.id);for(const key of owned)assert.equal(await c.exists(key),0,key);assert.equal(Number(await store.run(['ZCARD',store.key('outbox')])),0);assert.equal(await auth.session({headers:{cookie}}),null);
+ console.log('army mail: magic link, session, one-time claim, independent double opt-in, stable batch retry, quota queue, unsubscribe, queued Discord and erasure passed');
+}finally{const keys=await c.keys(store.key('*'));if(keys.length)await c.del(keys);await c.disconnect();}

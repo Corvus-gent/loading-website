@@ -23,18 +23,19 @@ async function clearCooldown(){for(const key of await client.keys('sf:cool:*'))a
 try{
  assert.equal(tripState(SF_START-1).phase,'before');assert.equal(tripState(SF_START).number,1);assert.equal(tripState(SF_END-1).number,10);assert.equal(tripState(SF_END).phase,'after');
  for(const [date,key]of [['2026-11-05T22:59:59Z','sf.packing'],['2026-11-05T23:00:00Z','sf.flying'],['2026-11-06T23:00:00Z','sf.founder'],['2026-11-15T23:00:00Z','sf.returned'],['2026-11-16T23:00:00Z',null]])assert.equal(sfLocationKey(Date.parse(date)),key);
- for(const patch of [{name:''},{contact:'javascript:alert(1)'},{contact:'https://linkedin.com.evil.test/in/name'},{what:'a'.repeat(141)},{where:'a'.repeat(61)},{message:'a'.repeat(501)},{lets:[]},{when:['anytime','2026-11-07']},{when:['2026-12-01']},{name:'injected\nsubject'}])assert.throws(()=>validateLead({...valid,...patch}));
+ for(const patch of [{name:''},{contact:'javascript:alert(1)'},{contact:'https://linkedin.com.evil.test/in/name'},{what:'a'.repeat(141)},{thing:'a'.repeat(61)},{thing:'bad\nsubject'},{thing:42},{where:'a'.repeat(61)},{message:'a'.repeat(501)},{lets:[]},{when:['anytime','2026-11-07']},{when:['2026-12-01']},{name:'injected\nsubject'}])assert.throws(()=>validateLead({...valid,...patch}));
+ assert.equal(validateLead(valid).thing,'');assert.equal(validateLead({...valid,thing:'  rapper  '}).thing,'rapper');assert.equal(validateLead({...valid,thing:'a'.repeat(60)}).thing.length,60);
  assert.equal(validateLead({...valid,contact:'@valid_handle'}).contact,'@valid_handle');assert.equal(validateLead({...valid,contact:'https://www.linkedin.com/in/a-person/'}).contact,'https://www.linkedin.com/in/a-person/');
  assert.equal((await call({body:{action:'challenge'},origin:'https://evil.test'})).status,403);
  assert.equal((await call({body:valid})).status,403);
  let p=await proof('',false);assert.equal((await call({cookie:p.cookie,body:{...valid,challenge:p.challenge,nonce:p.nonce}})).status,403,'three-second minimum');
  p=await proof();assert.equal((await call({cookie:p.cookie,body:{...valid,website:'bot',challenge:p.challenge,nonce:p.nonce}})).status,400);
  assert.equal((await call({cookie:p.cookie+'tampered',body:{...valid,challenge:p.challenge,nonce:p.nonce}})).status,403);
- const first=await submit();assert.equal(first.result.status,201);assert.deepEqual(Object.keys(first.result.body).sort(),['ok','retryAfter']);assert.equal(emails.length,1);assert.equal(emails[0].body.to[0],'gabriel@corvus.gent');assert.equal(emails[0].body.from,'corvus <login@corvus.gent>');assert.equal(emails[0].body.reply_to,'visitor@example.test');assert.match(emails[0].body.subject,/coffee, bjj open mat/);assert.match(emails[0].body.text,/hello <script>/);
+ const first=await submit();assert.equal(first.result.status,201);assert.deepEqual(Object.keys(first.result.body).sort(),['ok','retryAfter']);assert.equal(emails.length,1);assert.equal(emails[0].body.to[0],'gabriel@corvus.gent');assert.equal(emails[0].body.from,'corvus <login@corvus.gent>');assert.equal(emails[0].body.reply_to,'visitor@example.test');assert.equal(emails[0].body.subject,'🐦 sf: visitor <test> wants to coffee, open mat (bjj/mma)');assert.match(emails[0].body.text,/hello <script>/);
  assert.equal((await call({cookie:first.p.cookie,body:{...valid,challenge:first.p.challenge,nonce:first.p.nonce}})).status,403,'one-time challenge');
  const duplicate=await submit({},first.p.cookie);assert.equal(duplicate.result.status,201);assert.equal(emails.length,1);assert.equal(await client.zCard('sf:leads'),1);
  const cool=await submit({requestId:crypto.randomUUID()},first.p.cookie);assert.equal(cool.result.status,429);assert.ok(cool.result.body.retryAfter>0&&cool.result.body.retryAfter<=60);assert.equal(cool.result.headers['Retry-After'],String(cool.result.body.retryAfter));
- await clearCooldown();assert.equal((await submit({requestId:crypto.randomUUID(),contact:'@someone'},first.p.cookie)).result.status,201);assert.equal(emails.at(-1).body.reply_to,undefined);
+ await clearCooldown();assert.equal((await submit({requestId:crypto.randomUUID(),contact:'@someone',thing:'rapper',lets:['studio','thrift']},first.p.cookie)).result.status,201);assert.equal(emails.at(-1).body.reply_to,undefined);assert.equal(emails.at(-1).body.subject,'🐦 sf: visitor <test> (rapper) wants to studio session / cypher, thrift & fashion');assert.match(emails.at(-1).body.text,/your thing: rapper/);
  await clearCooldown();assert.equal((await submit({requestId:crypto.randomUUID()},first.p.cookie)).result.status,201);
  await clearCooldown();const daily=await submit({requestId:crypto.randomUUID()},first.p.cookie);assert.equal(daily.result.status,429);assert.ok(daily.result.body.retryAfter>60);
  const [id]=await client.zRange('sf:leads',0,0),before=await client.pTTL('sf:lead:'+id);assert.ok(before>SF_RETENTION*1000-10000&&before<=SF_RETENTION*1000);
@@ -47,6 +48,13 @@ try{
  const hash1=dailyIPHash({headers:{'x-forwarded-for':'198.51.100.23'}},'sf',new Date('2026-11-04')),hash2=dailyIPHash({headers:{'x-forwarded-for':'198.51.100.23'}},'sf',new Date('2026-11-05'));assert.notEqual(hash1,hash2);
  for(const event of ['sf_note_seen','sf_note_open','sf_note_click','sf_form_start','sf_form_submit']){const safe=privacyEvent({event,properties:{$cookieless_mode:true,$pathname:'/sf/',$current_url:'https://corvus.gent/sf/?ref=secret',utm_source:'linkedin',utm_campaign:'gabe-sf-trip',...valid,leadId:id}});assert.equal(safe.properties.$pathname,'/sf/');assert.equal(safe.properties.utm_campaign,'gabe-sf-trip');assert.ok(!JSON.stringify(safe).includes('visitor@example.test'));assert.equal(safe.properties.name,undefined);assert.equal(safe.properties.leadId,undefined);}
  const deleted=await deleteUserData('visitor@example.test');assert.ok(deleted.sfLeads>=3);for(const key of await client.keys('sf:lead:*'))assert.notEqual(JSON.parse(await client.get(key)).contact,'visitor@example.test');
+ // Filters must include older pages, compose, and preserve records without thing.
+ for(let i=0;i<55;i++){time++;const data=validateLead({...valid,name:'filter '+i,thing:i===0?'Boulder guide':'',lets:i<2?['boulder']:['walk']});if(i===1)delete data.thing;await store.save(data,{voter:'filter-'+i,ip:'filter-'+i,requestId:crypto.randomUUID()});}
+ const filter=query=>call({method:'GET',query:{private:'1',rowsOnly:'1',...query}});
+ assert.equal((await filter({activity:'boulder'})).body.total,2);
+ const filtered=await filter({activity:'boulder',thing:'  GUIDE  ',page:'20'});assert.equal(filtered.body.total,1);assert.equal(filtered.body.rows[0].name,'filter 0');assert.equal(filtered.body.page,1);
+ assert.equal((await filter({thing:'guide'})).body.total,1);assert.equal((await filter({activity:'coffee',thing:'guide'})).body.total,0);
+ assert.equal((await filter({activity:'bad'})).status,400);assert.equal((await filter({thing:'a'.repeat(61)})).status,400);assert.equal((await filter({thing:['bad']})).status,400);
  time=SF_END;assert.equal((await call({body:{action:'challenge'}})).status,410);
  let retries=0;
  const cron=createXHandler({ready:()=>false,service:{},cronSecret:()=> 'sf-cron-test',onDaily:async()=>{retries++;}});

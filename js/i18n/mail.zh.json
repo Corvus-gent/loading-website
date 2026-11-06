@@ -1,0 +1,16 @@
+{
+  "claim.subject": "认领你的名字。",
+  "claim.body": "你的身份牌在等你。打开链接，再确认。30分钟后失效。\n\n{url}\n\n不是你申请的？忽略就好。— 乌鸦",
+  "confirm.subject": "轻轻说声“好”。",
+  "confirm.body": "你申请了{kind}。请在这里确认：\n\n{url}\n\n不点，就不发提醒。30分钟后失效。— 乌鸦",
+  "daily.subject": "灯笼带来一道谜题。",
+  "daily.body": "第{number}号任务：{type}。\n一道小谜题，带上脑子来。\n连续天数：{streak}。军衔：{rank}。\n\n{url}\n\n退订：{unsubscribe}\n— 乌鸦",
+  "weekly.subject": "本周来信。",
+  "weekly.body": "本周士兵：{winner}。\n一首好歌：{song}。\n一条线索：安静的角落也看得见你。\n\n{url}\n\n退订：{unsubscribe}\n— 第欧根尼",
+  "welcome.subject": "你加入了，士兵。",
+  "welcome.body": "gabe打开了门。带上好奇心，帮一个人。\n\n{url}\n\n— 乌鸦",
+  "reject.subject": "这次还不行。",
+  "reject.body": "谢谢你来敲门。这次门还没开。小小的队伍在寻找同路人。申请将在30天后删除。\n\n现在管理或删除：{url}\n— 乌鸦",
+  "expiry.subject": "乌鸦要放下这封信了。",
+  "expiry.body": "申请已满90天，即将删除。随时欢迎再次敲门。\n\n{url}\n— 乌鸦"
+}

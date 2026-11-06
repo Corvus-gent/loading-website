@@ -1,5 +1,19 @@
 import { test, expect } from '@playwright/test';
 
+test('a rebuilt final day replaces an older session snapshot after reload', async ({page}) => {
+  let visitors=7;
+  const {requests,errors}=await harness(page,()=>({final:true,data:{visitors,countries:[]}}));
+  await page.goto('/stats/?day=2026-11-05');
+  await expect(page.locator('#visitors')).toHaveText('7');
+  visitors=12;
+  await page.reload();
+  await expect(page.locator('#visitors')).toHaveText('12');
+  expect(requests.filter(u=>u.pathname==='/api/stats')).toHaveLength(2);
+  await page.evaluate(()=>window.statsPage.load('overview','2026-11-05'));
+  expect(requests.filter(u=>u.pathname==='/api/stats')).toHaveLength(2);
+  expect(errors).toEqual([]);
+});
+
 async function harness(page, reply) {
   const requests = [],
     errors = [];
@@ -103,7 +117,7 @@ test('authenticated scrolling fetches each table once and keeps it out of tab st
  });
  await page.goto('/stats/private/');await expect(page.locator('#out td').first()).toHaveText('/');
  expect(seen).toEqual([null]);
- const section=page.locator('#out > section').nth(8);await section.scrollIntoViewIfNeeded();
+ const section=page.locator('#out > section').filter({hasText:/^pages/});await section.scrollIntoViewIfNeeded();
  await expect(section.getByText('/call/',{exact:true})).toBeVisible();
  expect(seen).toEqual([null,'pages']);
  expect(await page.evaluate(()=>Object.keys(sessionStorage).some(k=>k.includes(':private:')))).toBe(false);

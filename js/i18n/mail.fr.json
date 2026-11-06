@@ -1,0 +1,16 @@
+{
+  "claim.subject": "prends ton nom.",
+  "claim.body": "ta plaque t’attend. ouvre le lien et confirme. il expire dans 30 minutes.\n\n{url}\n\nce n’était pas toi ? ignore ce mail. — le corbeau",
+  "confirm.subject": "un petit oui.",
+  "confirm.body": "tu as demandé {kind}. confirme ici :\n\n{url}\n\npas de clic, pas de rappels. expire dans 30 minutes. — le corbeau",
+  "daily.subject": "la lanterne a une énigme.",
+  "daily.body": "mission nº{number} : {type}.\nun petit défi. viens avec ton cerveau.\nsérie : {streak}. grade : {rank}.\n\n{url}\n\nse désinscrire : {unsubscribe}\n— le corbeau",
+  "weekly.subject": "le rendez-vous de la semaine.",
+  "weekly.body": "soldat de la semaine : {winner}.\nun son : {song}.\nun indice : les coins tranquilles te voient.\n\n{url}\n\nse désinscrire : {unsubscribe}\n— diogène",
+  "welcome.subject": "tu es des nôtres, soldat.",
+  "welcome.body": "gabe a ouvert la porte. viens curieux. aide quelqu’un.\n\n{url}\n\n— le corbeau",
+  "reject.subject": "pas cette fois.",
+  "reject.body": "merci d’avoir frappé. cette fois, la porte reste fermée. une petite armée cherche les siens. ta candidature disparaît dans 30 jours.\n\ngérer ou supprimer maintenant : {url}\n— le corbeau",
+  "expiry.subject": "le corbeau tourne la page.",
+  "expiry.body": "ta candidature a atteint 90 jours et sera supprimée. tu peux toujours revenir frapper.\n\n{url}\n— le corbeau"
+}

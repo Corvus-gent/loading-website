@@ -16,6 +16,7 @@
         : input
     : today;
   const cache = new Map(),
+    checkedThisVisit = new Set(),
     pending = new Map(),
     listeners = new Map();
   const limit = (name) => ({ coffee: 1800, x: 900 })[name] || 60;
@@ -44,7 +45,7 @@
       old &&
       !old.stale &&
       old.state === 'ready' &&
-      (old.final || Date.now() - Date.parse(old.checked || old.updated) < limit(name) * 1000)
+      (old.final ? checkedThisVisit.has(k) : Date.now() - Date.parse(old.checked || old.updated) < limit(name) * 1000)
     )
       return Promise.resolve(old);
     const controller = new AbortController();
@@ -65,6 +66,7 @@
         }
         if (name !== 'private') {
           cache.set(k, s);
+          checkedThisVisit.add(k);
           try {
             sessionStorage.setItem(k, JSON.stringify(s));
           } catch {}

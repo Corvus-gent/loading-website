@@ -1,6 +1,7 @@
 export const SF_START=Date.parse('2026-11-06T00:00:00-08:00');
 export const SF_END=Date.parse('2026-11-16T00:00:00-08:00');
-export const SF_LETS=['coffee','walk','hackathon','demo','bjj','intro','other'];
+// Keep the existing bjj/intro IDs so older leads remain filterable.
+export const SF_LETS=['coffee','walk','surf','bjj','skate','boulder','hike','studio','thrift','hackathon','demo','intro','other'];
 export const SF_DAYS=Array.from({length:9},(_,i)=>`2026-11-${String(i+7).padStart(2,'0')}`);
 export const dayIn=(at,zone)=>new Intl.DateTimeFormat('en-CA',{timeZone:zone}).format(new Date(at));
 export function tripState(at=Date.now()){

@@ -4,6 +4,7 @@
   "type": "module",
   "dependencies": {
     "@vercel/functions": "^2.0.0",
+    "qrcode-generator": "2.0.4",
     "redis": "^4.7.0",
     "sharp": "^0.35.5"
   },

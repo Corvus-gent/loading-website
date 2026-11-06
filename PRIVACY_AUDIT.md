@@ -1,5 +1,20 @@
 # Privacy audit — 4 November 2026
 
+## Current counting policy — 6 November 2026 update
+
+This section supersedes the opt-in analytics/180-day-choice descriptions in the original audit below. Gabriel explicitly requested default cookieless measurement and the production rollout on 6 November.
+
+- Default: self-hosted PostHog SDK, EU ingestion, `cookieless_mode: always`, memory-only persistence, no autocapture, profiles, recordings, heatmaps, raw inputs or full URLs. Only allowlisted events/properties leave the browser. Campaign labels now stay in page memory; analytics writes no cookies, localStorage or sessionStorage.
+- Cookieless protocol repair: `$raw_user_agent` is synthesized from the existing browser/device categories (for example `Chrome/Desktop`), never copied from the raw user agent. PostHog requires this hash input and drops events when it is absent; raw IP and user-agent hash inputs are removed by its cookieless ingestion pipeline. Project mode 2 and discard-client-IP were confirmed; no provider setting was changed. Coarse categories can merge people sharing a network/browser type.
+- PostHog still derives a daily pseudonym from transport IP/browser information. Only aggregate results are anonymous. `ip:false` does not eliminate that transient provider processing. The stated GDPR basis is legitimate interest for limited audience measurement, not the `ok` click. This is the owner's requested basis, **not a legal conclusion that cookieless hashing is exempt from Belgian ePrivacy consent rules**. The existing DPA and PostHog sources below remain relevant; a documented legitimate-interest assessment and ePrivacy review remain necessary.
+- GPC, DNT, an existing unexpired refusal, or `don't count me`: no PostHog script/request. One first-party `POST /api/hit` per page load increments only a Brussels-day total and an allowlisted page category. No per-hit record, identifier, hash, IP or headers are stored by this handler. Hosting-layer request logs remain subject to Vercel's settings; the app cannot promise those do not exist.
+- These unseen hits are pageviews, **not unique people**. The displayed visitor estimate adds PostHog daily visitor estimates and unseen hits and discloses that limitation. Mid-page opt-out does not add a second count for an already captured pageview. No retroactive recovery of missing visitors is possible.
+- `privacy-choice` is the only new local flag: choice, notice version and whether this browser/site origin already acknowledged. Written only after an explicit `ok`/refusal; retained until changed or site data is cleared. Needed to remember that requested preference, not an analytics identifier. Previous consent/dismissal keys are removed when choosing. `ok` adds a `notice_ok` event only when PostHog is allowed and an anonymous soldier counter independently. Acknowledgements are best-effort once per browser/site origin; clearing storage or using another origin/browser can count again. They are not verified people. GPC/DNT always override `ok` for PostHog.
+- Redis: `unseen:hits:<day>`, `unseen:pages:<day>`, `soldiers:ok:<day>` contain anonymous aggregates only, retained 400 days. `unseen:hits:all` and `soldiers:ok:all` are indefinite aggregate totals. `counting:limit:<minute>` is a global abuse budget, expires in 120 seconds, no IP hash. Count endpoints use origin/schema validation and no cookies; they cannot deduplicate bots/persons without identifiers.
+- `report:markdown:v1`: aggregate health/report text, 60-second TTL; token-authenticated, HTTP no-store. `REPORT_TOKEN` is sensitive in Vercel; an `x-report-token` header is preferred to a query token, which can appear in hosting/browser logs. `report:errors`: last 10 sanitized application error codes/timestamps, max seven days, no messages, request inputs, emails, IDs or stack traces. This is instrumentation from this release onward, not an export of every historic Vercel runtime log.
+- Snapshot health now reads stored ages and queues refresh through waitUntil. TTL is a refresh target; health fails missing/partial snapshots or ages above max(15 minutes, twice that page's TTL). Per-task build timings identify the slow source without holding health open for the build.
+
+
 Scope: corvus.gent, www.corvus.gent, stats.corvus.gent, music, games, redirects,
 private dashboard and the published client demos. Baseline: `2a13612`.
 This inventory was written **before implementing changes**. Status is updated as
@@ -611,3 +626,33 @@ browser call to Resend/Redis. Static `sf.json` is owner-curated public event dat
 - During a Redis outage, the Frankfurt function can cache allowlisted public aggregates and public service health for up to 24 hours in Vercel Runtime Cache. Empty failure results expire after 20 seconds. Private dashboard tables, sessions and personal records stay on their existing authenticated paths. [Vercel Runtime Cache](https://vercel.com/docs/caching/runtime-cache)
 - Health probes use fixed service URLs. Public results contain component states, elapsed times and timestamps. Redis keeps five-minute samples for 48 hours, hourly summaries for 30 days and Brussels-day summaries and bounded incident history for 120 days. Public history responses are cached for one hour. Alert state expires after 30 days. Write probes expire after 15 seconds. Sampling leases expire after 30 seconds for visitors and four minutes for the five-minute monitor. Rate-limit buckets use the existing daily-salted address hash and expire after a minute.
 - Gabriel can receive a service name and status change via Resend. The external uptime monitor reads the same public status as a visitor. No visitor details are sent in an alert. Processing serves availability and abuse prevention.
+
+## Legion/accounts/BMC/Discord — 6 November 2026
+
+The new handlers use the existing Frankfurt Redis connection. The temporary
+plaintext exception still applies to OLD; NEW TLS was re-tested and is refused.
+No migration or weakening of secureEndpoint is included in this feature.
+
+| Data / key family | Purpose / basis | Retention / recipients |
+| --- | --- | --- |
+| Signed HttpOnly Secure army_id, army_session, army_ref cookies | Requested account continuity, authentication, referral attribution | 90 / 7 / 30 days; Corvus only |
+| army:*:u, name, code, email-HMAC, owned, game-owner | Requested account, public handle/link/optional country, progress; private email and application reason | Anonymous 90d; unconfirmed 7d; waiting 90d from application; rejected 30d; member 365d renewed on confirmed login or active entitlement; Redis/Vercel |
+| token/session/challenge/unsubscribe records | Necessary authentication, independent opt-in and unsubscribe | 30min / 7d / 5min / up to account expiry (365d); Redis |
+| Daily salted rate/referral IP keys | Legitimate-interest abuse prevention; no raw IP stored | Max 24h; Redis |
+| Referral receipts / weekly leaderboard | Earned recruitment progress, deduplication | Receipts max367d; weekly 9d; owned records erased on deletion |
+| mail jobs, outbox, encrypted payload | Requested login/invitation; reminders only after separate confirmation | Ordinary jobs2d, claim token30min, invitation until account expiry; Resend is the documented US-storage exception |
+| BMC event records | Fulfil requested payment, match verified account, expire paid tier | Unmatched30d; matched max365d clamped to account; removed on account deletion; BMC/Redis/Vercel |
+| BMC receipt/payment-object HMAC | Prevent duplicate delivery/refund counting | 400d; no payer name/email/message; anonymous total remains |
+| Discord user ID, owner mapping, one-use code, encrypted invite | Link approved account and grant/revoke role | Code10min; invite7d single use; mapping follows account max365d; Discord/Redis |
+| Discord config/audit | Server routing and permission safety | Config persistent role/channel/approved owner IDs; audit2d; alert debounce1d |
+
+BMC supporter email is used in memory only for a hashed lookup against an
+existing verified account, then discarded. Unknown payer email, payer name and
+free-form message are not stored. Only a handle is extracted from the message.
+Public legion JSON contains username, tier, earned rank, country, link and join
+date; no email or account IDs. Hide removes it from lists; the shared profile
+remains available until deletion. Export excludes credentials and other users.
+The account page removes mail tokens from the fragment before app code and does
+not load analytics. No geolocation request is implemented in this base; country
+is explicitly chosen. QR code generation is self-hosted and sends no request.
+Discord is not connected until its token and installed-guild configuration exist.

@@ -17,7 +17,8 @@ export async function hogql(sql, signal = AbortSignal.timeout(10000)) {
     method: "POST",
     signal,
     headers: { Authorization: `Bearer ${KEY}`, "Content-Type": "application/json" },
-    body: JSON.stringify({ query: { kind: "HogQLQuery", query: sql } }),
+    // Redis controls freshness. Do not rebuild a snapshot from PostHog's query cache.
+    body: JSON.stringify({ query: { kind: "HogQLQuery", query: sql }, refresh: "force_blocking" }),
   });
   if (!r.ok) throw new Error(`posthog ${r.status}`);
   return (await r.json()).results || [];

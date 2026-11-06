@@ -31,6 +31,38 @@
   ],
   "rewrites": [
     {
+      "source": "/r/:code/games",
+      "destination": "/api/army?ref=:code&to=games"
+    },
+    {
+      "source": "/r/:code",
+      "destination": "/api/army?ref=:code"
+    },
+    {
+      "source": "/soldier/:username/og.png",
+      "destination": "/api/army?profile=:username&image=1"
+    },
+    {
+      "source": "/soldier/:username/poster.png",
+      "destination": "/api/army?profile=:username&image=1&poster=1"
+    },
+    {
+      "source": "/soldier/:username",
+      "destination": "/api/army?profile=:username&html=1"
+    },
+    {
+      "source": "/join-the-army-now/:platform/:campaign",
+      "destination": "/join-the-army-now/index.html"
+    },
+    {
+      "source": "/api/report.md",
+      "destination": "/api/stats?report=1"
+    },
+    {
+      "source": "/api/notice-ok",
+      "destination": "/api/stats?notice=1"
+    },
+    {
       "source": "/api/health/history",
       "destination": "/api/stats?healthHistory=1"
     },
@@ -98,6 +130,10 @@
       "maxDuration": 60
     },
     "api/x-stats.js": {
+      "maxDuration": 60
+    },
+    "api/army.js": {
+      "includeFiles": "{soldier/index.html,js/i18n/mail.*.json}",
       "maxDuration": 60
     }
   },
@@ -200,6 +236,11 @@
     {
       "path": "/api/stats?snapJob=1",
       "schedule": "12 2 * * *"
+    },
+    {
+      "path": "/api/army?job=1",
+      "schedule": "*/15 * * * *"
     }
-  ]
+  ],
+  "buildCommand": "python3 tools/build-search.py"
 }

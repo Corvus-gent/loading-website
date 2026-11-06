@@ -3,6 +3,8 @@ import "./eggs.js";
 // Legacy destinations also accept the original keyboard shortcut.
 if (/^\/(?:now|sidequests|support|languages|call|people|gabe|402)(?:\/|$)/.test(location.pathname)) import('./terminal.js');
 import { renderSearch } from "./search.js";
+import {loadFeature,featureText} from './i18n/feature.js';
+export {loadFeature,featureText};
 /**
  * Tiny i18n layer: 7 languages, picked from ?lang=, then saved choice, then browser.
  * Elements with data-i18n="key" get their text replaced.
@@ -73,6 +75,7 @@ export function renderSwitcher(onChange) {
       STRINGS = (await import(`./locales/${code}.js`)).default;
       applyI18n(code);
       renderSwitcher(onChange);
+      window.dispatchEvent(new CustomEvent('corvus-language-change',{detail:{lang:code}}));
       if (onChange) onChange(code);
     });
     box.appendChild(a);

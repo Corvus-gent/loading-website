@@ -74,5 +74,12 @@ export default async function game(req,res){res.setHeader('Cache-Control','no-st
  const committed=await redis(['EVAL',transaction,'6',key,`games:day:${day}`,'games:all',`games:type:${p.type}`,`game:streak:${vid}`,'games:best',JSON.stringify(s),String(previous),s.done?'1':'0',s.solved?'1':'0',String(s.history.length),JSON.stringify({day,streak:s.streak||0}),String(s.streak||0)]);
  if(!Number(committed))return res.status(409).json({error:'refresh to restore your latest guess'});
  }
- await save(key,s);const result=publicPuzzle(p,s);if(s.map)result.map=s.map;return res.json(result);
+ await save(key,s);const result=publicPuzzle(p,s);if(s.map)result.map=s.map;
+ // Army is optional: an invitation/account opts this browser in. A failure here
+ // must never take the existing daily game or its counters down.
+ if(/(?:^|;\s*)army_(?:id|ref|session)=/.test(req.headers.cookie||''))try{
+  const {armyService}=await import('./_army/_service.js'),{rateHash}=await import('./_army/_security.js');const army=armyService(),user=await army.identity(req,res,{create:true});
+  if(user){const updated=s.done&&s.finishedAt-s.started>=3000?await army.store.complete(user.id,{day,type:p.type,streak:s.streak,solved:s.solved},rateHash(req,'referral',Date.now())):user;result.army=await army.self(updated);}
+ }catch{}
+ return res.json(result);
  }catch(e){return res.status(/choose|enter|pick/.test(e.message)?400:503).json({error:/choose|enter|pick/.test(e.message)?e.message:'the lantern needs a moment. try again.'});}finally{if(lock?.token)await redis(['EVAL',"if redis.call('GET',KEYS[1])==ARGV[1] then return redis.call('DEL',KEYS[1]) end return 0",'1',lock.key,lock.token]).catch(()=>{});}}
