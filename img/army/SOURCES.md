@@ -11,3 +11,7 @@
 - `napoleon-{480,800,1200}.webp` and `gate-napoleon-og.webp` are generated with `node tools/build-napoleon-art.mjs /path/to/downloaded-original.jpg`. Sharp encodes WebP at quality 78; all outputs are at most 1200 px wide (below the 1600 px limit). The original download stays outside the repository.
 
 The earlier `crow.svg`, `diogenes.svg`, `gate.svg` and `gate-og.png` are original Corvus illustrations retained for existing references.
+
+## Share-card type
+
+Server-rendered dog tags/posters bundle DejaVu Sans Mono (subset of the local distribution for Latin text, punctuation and arrows used by English share cards) because the function runtime has no system fonts. Bitstream Vera/DejaVu license: https://dejavu-fonts.github.io/License.html ; upstream notice is in `fonts/LICENSE.txt`. It is loaded server-side only, not requested by the browser.

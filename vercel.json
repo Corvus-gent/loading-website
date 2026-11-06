@@ -133,7 +133,7 @@
       "maxDuration": 60
     },
     "api/army.js": {
-      "includeFiles": "{soldier/index.html,js/i18n/mail.*.json,js/i18n/army.*.json}",
+      "includeFiles": "{soldier/index.html,js/i18n/mail.*.json,js/i18n/army.*.json,img/army/fonts/**}",
       "maxDuration": 60
     },
     "api/discord.js": {
