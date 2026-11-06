@@ -424,3 +424,5 @@ body:not(.portal) main{padding-top:64px}.lang-switcher{min-height:24px}
 #realm-share{background:#111;color:#eee;border:1px solid #ffd76a77;border-radius:16px;padding:28px;min-width:240px}#realm-share::backdrop{background:#000b}#realm-share button{font:inherit;min-height:44px;padding:10px 22px;background:#171717;color:#ffd76a;border:1px solid #555;border-radius:8px;margin:8px}
 
 .corner-nav a.nav-army{color:#ffd76a;border-color:#ffd76a88;box-shadow:0 0 14px #ffd76a22}
+
+.portal-what{color:#9f9888;font-size:12px;letter-spacing:.06em;margin:-6px 0 22px}
