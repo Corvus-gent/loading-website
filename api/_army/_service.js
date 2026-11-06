@@ -38,7 +38,7 @@ export function armyService({store=armyStore(),mailOptions={},bits=16}={}) {
     const subs=await Promise.all(['daily','weekly'].map(kind=>store.get('sub:'+user.id+':'+kind)));
     const referrer=user.referral?await store.byCode(user.referral.code):null;
     return {...publicSoldier(user),username:user.username||null,code:user.code,status:user.status,verified:!!user.verifiedAt,
-      paid:!!user.paid,canManage:logged,
+      paid:!!user.paid,canManage:logged,featherSpots:[...user.feathers],
       discordReady:!!process.env.DISCORD_BOT_TOKEN&&user.status==='approved',
       subscriptions:{daily:subs[0]?.confirmed||false,weekly:subs[1]?.confirmed||false},
       ...(logged?{email:user.email||'',why:user.why||'',expires:user.expires,pidgyCode:user.verifiedAt&&user.username?referralCode(user.username):null,pidgyTrials:Math.max(0,Number(user.pidgyTrials)||0)}:{}),
