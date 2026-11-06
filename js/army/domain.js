@@ -68,3 +68,12 @@ export function missionReward(mission, at = Date.now()) {
   if (!['daily-game', 'special-puzzle', 'hackathon'].includes(mission.type) || !Number.isSafeInteger(mission.reward) || mission.reward < 0 || mission.reward > 1000) throw Error('mission');
   const day = dayKey(at); return day >= mission.start && day <= mission.end ? mission.reward : 0;
 }
+// Waitlist priority, highest first. Paying, recruiting or Pidgy trials move you up
+// the line; none of them ever approve you. Pidgy: 1 trial ≈ tiro, 5 ≈ miles.
+export const PIDGY = {tiro: 1, miles: 5};
+export function priority(s, now = Date.now()) {
+  const tier = activeTier(s, now), trials = Math.max(0, Number(s.pidgyTrials || 0));
+  const fromTier = tier ? TIERS.indexOf(tier) + 1 : (s.paid ? 1 : 0);
+  const fromPidgy = trials >= PIDGY.miles ? 2 : trials >= PIDGY.tiro ? 1 : 0;
+  return Math.max(fromTier, fromPidgy, Number(s.recruits || 0) >= 3 ? 1 : 0);
+}
