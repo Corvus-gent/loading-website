@@ -165,5 +165,15 @@
   "rankTop": "plus haut rang gagné.",
   "tierLabel": "soutien",
   "tierWhy": "pour qui soutient corvus. des avantages, jamais un rang.",
-  "gateAlready": "tu es à la porte. regarde ta plaque ↓"
+  "gateAlready": "tu es à la porte. regarde ta plaque ↓",
+  "supporterLifetime": "à vie",
+  "supporterLifetimeNote": "les avantages senator et consul sont à vie, payés ou offerts. le grade gagné reste distinct.",
+  "rankTierSplit": "deux badges. le grade se gagne en aidant, en accomplissant des missions et en recrutant. les niveaux de soutien payés ou offerts donnent des avantages, jamais un grade.",
+  "rankPoints": "{n} pts",
+  "warLeaderboard": "points gagnés · depuis le début",
+  "warRecruiters": "les recruteurs",
+  "warApproved": "approuvés",
+  "discordRoleNote": "les rôles discord donnent accès aux espaces et aux avantages de soutien. ton grade gagné est sur ton profil corvus.",
+  "statsArmyNote": "les visiteurs invisibles sont des vues anonymes, pas des personnes uniques. le total les ajoute aux estimations quotidiennes de PostHog. dire ok est une confirmation du navigateur, pas un compte enrôlé, un grade gagné ou un niveau de soutien.",
+  "discordLinked": "lié. ta place dans la légion est prête."
 }

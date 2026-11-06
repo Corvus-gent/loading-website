@@ -1,4 +1,5 @@
 import crypto from 'node:crypto';
+import {armyCopy} from './_copy.js';
 import {activeTier,DAY} from '../../js/army/domain.js';
 import {digest,seal,open} from './_security.js';
 export const DISCORD_ROLES=['imperator','consul','senator','legatus','centurio','miles','tiro','recruit (unverified)'];
@@ -120,7 +121,8 @@ export function armyDiscord(store,{request=fetch,token=()=>process.env.DISCORD_B
   if(interaction.guild_id!==config.guild||interaction.data?.name!=='claim')throw Error('verification');
   const code=interaction.data.options?.find(o=>o.name==='code')?.value;
   await claim(code,interaction.member?.user?.id,interaction.guild_id);
-  return 'linked. your place in the legion is ready.';
+  const locale=(interaction.locale||'en').split('-')[0],copy=await armyCopy(locale);
+  return copy.discordLinked+'\n\n'+copy.discordRoleNote;
  }
  async function complete(interaction){
   let content;try{content=await respond(interaction);}catch{content='the code expired or could not be linked. get a fresh code on corvus.gent/army/access/.';}

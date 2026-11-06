@@ -165,5 +165,15 @@
   "rankTop": "hoogste verdiende rang.",
   "tierLabel": "supporter",
   "tierWhy": "voor wie corvus steunt. geeft perks, nooit rang.",
-  "gateAlready": "je staat aan de poort. bekijk je tag ↓"
+  "gateAlready": "je staat aan de poort. bekijk je tag ↓",
+  "supporterLifetime": "levenslang",
+  "supporterLifetimeNote": "senator- en consul-perks zijn levenslang, betaald of cadeau. je verdiende rang staat daar los van.",
+  "rankTierSplit": "twee badges. rang verdien je met hulp, missies en rekruten. betaalde of cadeau gegeven supportertiers geven perks, nooit rang.",
+  "rankPoints": "{n} punten",
+  "warLeaderboard": "verdiende punten · altijd",
+  "warRecruiters": "de rekruteerders",
+  "warApproved": "goedgekeurd",
+  "discordRoleNote": "discordrollen regelen toegang en supporterperks. je verdiende rang staat op je corvus-profiel.",
+  "statsArmyNote": "onzichtbare bezoekers zijn anonieme paginahits, geen unieke mensen. het totaal telt ze bij de dagelijkse bezoekersschatting van PostHog. ok zeggen is een browserbevestiging, geen ingeschreven account, verdiende rang of supportertier.",
+  "discordLinked": "gekoppeld. je plek in het legioen is klaar."
 }

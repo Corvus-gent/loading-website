@@ -165,5 +165,15 @@
   "rankTop": "patente mais alta.",
   "tierLabel": "apoiante",
   "tierWhy": "por apoiar a corvus. dá vantagens, nunca patente.",
-  "gateAlready": "já estás à porta. vê a tua placa ↓"
+  "gateAlready": "já estás à porta. vê a tua placa ↓",
+  "supporterLifetime": "vitalício",
+  "supporterLifetimeNote": "os benefícios senator e consul são vitalícios, pagos ou oferecidos. a patente conquistada fica à parte.",
+  "rankTierSplit": "dois emblemas. a patente conquista-se com ajuda, missões e recrutas. os níveis de apoio pagos ou oferecidos dão benefícios, nunca patente.",
+  "rankPoints": "{n} pts",
+  "warLeaderboard": "pontos conquistados · sempre",
+  "warRecruiters": "os recrutadores",
+  "warApproved": "aprovados",
+  "discordRoleNote": "os cargos do discord dão acesso e benefícios de apoio. a tua patente conquistada está no teu perfil corvus.",
+  "statsArmyNote": "os visitantes invisíveis são visitas anónimas a páginas, não pessoas únicas. o total soma-as às estimativas diárias do PostHog. dizer ok é uma confirmação do navegador, não uma conta alistada, uma patente conquistada ou um nível de apoio.",
+  "discordLinked": "ligado. o teu lugar na legião está pronto."
 }

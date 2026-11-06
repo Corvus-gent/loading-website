@@ -1,6 +1,6 @@
 import {open, seal, digest} from './_security.js';
-import {dayKey, rank, DAY, LANGUAGES} from '../../js/army/domain.js';
-import {mailCopy,fill} from './_copy.js';
+import {dayKey, rank, activeTier, DAY, LANGUAGES} from '../../js/army/domain.js';
+import {mailCopy,armyCopy,fill} from './_copy.js';
 import {armyDiscord} from './_discord.js';
 const BASE = 'https://corvus.gent';
 const localizedKinds = {en:['daily reminders','the weekly drop'],nl:['dagelijkse herinneringen','de wekelijkse drop'],es:['recordatorios diarios','la entrega semanal'],fr:['les rappels quotidiens','le rendez-vous hebdomadaire'],pt:['lembretes diários','a entrega semanal'],de:['tägliche erinnerungen','die wöchentliche lieferung'],zh:['每日提醒','每周来信']};
@@ -47,8 +47,12 @@ export function armyMail(store, auth, {request = fetch, apiKey = () => process.e
       values.url = kind === 'daily' ? BASE + '/games/?utm_source=email&utm_medium=reminder&utm_campaign=gabe-daily-' + job.data.type : BASE + '/army/';
     } else values.url = BASE + '/army/access/';
     if (!copy[kind+'.subject'] || !copy[kind+'.body']) return null;
+    const badges=await armyCopy(lang),tier=activeTier(user,store.now());
+    const rankLines=[badges.rankLabel+' '+rank(user)+' · '+badges.rankWhy];
+    if(tier&&tier!=='imperator')rankLines.push(badges.tierLabel+' '+tier+' · '+badges.tierWhy+(['senator','consul'].includes(tier)?' · '+badges.supporterLifetime:''));
+    const body=fill(copy[kind+'.body'],values)+(['claim','welcome','daily'].includes(kind)?'\n\n'+rankLines.join('\n'):'');
     return {from:(kind === 'weekly' ? 'diogenes' : 'the crow') + ' <crow@corvus.gent>',to:[user.email],subject:copy[kind+'.subject'],
-      text:fill(copy[kind+'.body'],values), ...(unsub ? {headers:{'List-Unsubscribe':`<${unsub}>`,'List-Unsubscribe-Post':'List-Unsubscribe=One-Click'}} : {})};
+      text:body, ...(unsub ? {headers:{'List-Unsubscribe':`<${unsub}>`,'List-Unsubscribe-Post':'List-Unsubscribe=One-Click'}} : {})};
   }
   async function finish(jobs) {
     const utc = new Date(store.now()).toISOString().slice(0,10), month = utc.slice(0,7);

@@ -20,7 +20,7 @@ async function syncFound(){
  try{
   // Loaded only for an existing identity. submit() obtains the action-bound
   // challenge and solves it in the same worker used by enlistment.
-  const {submit}=await import('./army/client.js?v=20261106-knock1');
+  const {submit}=await import('./army/client.js?v=20261106-ranks1');
   for(let i=0;i<TOTAL;i++){
    const spot=found().find(id=>!serverSpots.has(id));if(!spot)break;
    const result=await submit('feather',{spot});mergeSelf(result.self);

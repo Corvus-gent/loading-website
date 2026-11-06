@@ -1,5 +1,5 @@
 import {limitedDevice,INITIAL_TRACKS,TRACK_BATCH} from './music-performance.js';
-import {initI18n,t} from './i18n.js?v=20261106-knock1';
+import {initI18n,t} from './i18n.js?v=20261106-ranks1';
 import {$,esc,label,norm,genres,providers,linksHTML,copyLink,request} from './music-shared.js';
 let state={tracks:[],suggestions:[],votes:{},mine:[],poll:{spotify:0,apple:0},storage:false};
 let genre='',onlyLiked=false,current=null,shuffle=false,queue=[],busy=false,deadline=0,controller=null,spotifyAPI=null,spotifyReady=false,playbackEnded=false;

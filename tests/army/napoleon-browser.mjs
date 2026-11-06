@@ -17,7 +17,7 @@ try{
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
   assert.equal(Math.round((await page.locator('.gate-hero').boundingBox()).width),viewport.width);
   await page.screenshot({path:new URL(name+'.jpg',output).pathname,type:'jpeg',quality:75});
-  await page.locator('.hero-actions .primary').click();assert.equal(new URL(page.url()).hash,'#doors');
+  await page.locator('.hero-actions .primary').click();assert.equal(new URL(page.url()).hash,'#enlist');
   assert.equal(await page.locator('.army-door').count(),3);
   for(const card of await page.locator('.army-door').all())assert.equal(await card.locator('a,button').count(),1);
   await page.locator('#toll-door').click();assert(await page.locator('#toll-dialog').isVisible());

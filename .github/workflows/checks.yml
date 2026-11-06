@@ -38,7 +38,7 @@ jobs:
           ARMY_SECRET: local-army-tests-only
           SESSION_SECRET: local-test-only
         run: |
-          for test in store bmc mail discord pidgy-ui earned-ranks; do node "tests/army/$test.mjs" || exit 1; done
+          for test in store bmc mail discord pidgy-ui earned-ranks tier-rank; do node "tests/army/$test.mjs" || exit 1; done
           REDIS_URL=redis://127.0.0.1:16380/5 node tests/army/pidgy.mjs
       - run: npx playwright install --with-deps chromium
       - run: node tests/smoke-ci.mjs

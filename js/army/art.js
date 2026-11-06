@@ -13,7 +13,7 @@ export function qrMarkup(url,x,y,size=160){
  for(let r=0;r<n;r++)for(let c=0;c<n;c++)if(qr.isDark(r,c))path+=`M${(x+(c+4)*unit).toFixed(3)} ${(y+(r+4)*unit).toFixed(3)}h${unit.toFixed(3)}v${unit.toFixed(3)}h-${unit.toFixed(3)}z`;
  return `<rect x="${x}" y="${y}" width="${size}" height="${size}" fill="#f4e8c9"/><path d="${path}" fill="#090909"/>`;
 }
-export function tagSVG(s,code,{poster=false}={}){
+export function tagSVG(s,code,{poster=false,labels={}}={}){
  const username=s.username||'unknown soldier',serial=String(s.serial||0).padStart(4,'0'),url='https://corvus.gent/r/'+code;
  const width=poster?1080:1200,height=poster?1350:630;
  const textSize=Math.min(60,650/(username.length*.62));
@@ -24,7 +24,8 @@ export function tagSVG(s,code,{poster=false}={}){
  <path d="M78 505H1002" stroke="#51472e"/><text x="78" y="550" font-size="24" fill="#b5ad99">quality over noise. people over performance.</text>
  <g transform="translate(680 660) scale(2.25)">${crow}</g><g transform="translate(135 650) scale(2.35)">${lamp}</g>
  <text x="78" y="1020" font-size="${Math.min(44,textSize)}" fill="#ffd76a">${esc(username)} enlisted.</text>
- <text x="78" y="1070" font-size="21" fill="#9c9585">${esc(s.rank||'tiro')} · #${serial} · ${esc(s.created||'')}</text>
+ <text x="78" y="1070" font-size="21" fill="#9c9585">${esc(labels.rankLabel)} ${esc(s.rank||'tiro')} · #${serial} · ${esc(s.created||'')}</text>
+ ${s.tier&&s.tier!=='imperator'?`<text x="78" y="1105" font-size="21" fill="#ffd76a">${esc(labels.tierLabel)} ${esc(s.tier)}${['senator','consul'].includes(s.tier)?' · '+esc(labels.supporterLifetime):''}</text>`:''}
  <text x="78" y="1160" font-size="31">you?</text><text x="78" y="1215" font-size="22" fill="#b5ad99">corvus.gent/r/${esc(code)}</text>
  ${qrMarkup(url,790,1025,212)}
  <text x="78" y="1295" font-size="17" fill="#726b5d">one soldier at a time. #jointhearmy</text>`:`
@@ -33,12 +34,13 @@ export function tagSVG(s,code,{poster=false}={}){
  <g transform="rotate(-3 600 320)"><rect x="165" y="123" width="870" height="385" rx="72" fill="url(#metal)" stroke="#7f7357" stroke-width="1.5"/><rect x="176" y="134" width="848" height="363" rx="62" fill="none" stroke="#302d24"/>
  <circle cx="224" cy="314" r="14" fill="#020202" stroke="#625844" stroke-width="3"/><text x="280" y="207" fill="#8e8778" font-size="15" letter-spacing="6">CORVUS ARMY / #${serial}</text>
  <text x="277" y="292" font-size="${textSize}" fill="#eee5d2" font-weight="700">${esc(username)}</text>
- <text x="280" y="349" font-size="23" fill="#ffd76a">${esc(s.rank||'tiro')}</text><text x="280" y="393" font-size="17" fill="#8e8778">enlisted ${esc(s.created||'')}</text>
+ <text x="280" y="349" font-size="23" fill="#ffd76a">${esc(labels.rankLabel)} ${esc(s.rank||'tiro')}</text>
+ ${s.tier&&s.tier!=='imperator'?`<text x="280" y="380" font-size="20" fill="#c8bea6">${esc(labels.tierLabel)} ${esc(s.tier)}${['senator','consul'].includes(s.tier)?' · '+esc(labels.supporterLifetime):''}</text>`:''}<text x="280" y="412" font-size="17" fill="#8e8778">enlisted ${esc(s.created||'')}</text>
  <text x="280" y="454" font-size="16" fill="#b8ad94">corvus.gent/r/${esc(code)}</text>${qrMarkup(url,825,330,136)}</g>
  <g transform="translate(927 60) scale(.9)">${crow}</g><text x="60" y="582" font-size="26" fill="#c8bea6">i enlisted. you?</text><text x="1140" y="582" text-anchor="end" font-size="16" fill="#726b5d">#jointhearmy</text>`;
  return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="${esc(username)} · corvus army dog tag"><defs><radialGradient id="glow"><stop stop-color="#d79b29" stop-opacity=".19"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient><linearGradient id="metal" x2=".9" y2="1"><stop stop-color="#211f19"/><stop offset=".45" stop-color="#11110f"/><stop offset="1" stop-color="#242018"/></linearGradient></defs><rect width="100%" height="100%" fill="#030303"/><ellipse cx="${width*.42}" cy="${height*.48}" rx="${width*.55}" ry="${height*.68}" fill="url(#glow)"/>${stars}<g font-family="monospace" fill="#eee5d2">${content}</g></svg>`;
 }
-export async function downloadArt(s,code,poster=false){
- const svg=tagSVG(s,code,{poster}),object=URL.createObjectURL(new Blob([svg],{type:'image/svg+xml'}));
+export async function downloadArt(s,code,poster=false,labels={}){
+ const svg=tagSVG(s,code,{poster,labels}),object=URL.createObjectURL(new Blob([svg],{type:'image/svg+xml'}));
  try{const img=new Image();img.src=object;await img.decode();const canvas=document.createElement('canvas');canvas.width=poster?1080:1200;canvas.height=poster?1350:630;canvas.getContext('2d').drawImage(img,0,0);return await new Promise(resolve=>canvas.toBlob(resolve,'image/png'));}finally{URL.revokeObjectURL(object);}
 }

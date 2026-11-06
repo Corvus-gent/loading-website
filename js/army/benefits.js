@@ -1,4 +1,4 @@
-import {t} from './copy.js?v=20261106-knock1';
+import {t} from './copy.js?v=20261106-ranks1';
 const next={tiro:'miles',miles:'centurio',centurio:'legatus',legatus:'senator',senator:'consul'};
 export function nextBenefit(tier){
  if(tier==='consul'||tier==='imperator')return null;

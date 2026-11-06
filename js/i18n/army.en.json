@@ -165,5 +165,15 @@
   "rankTop": "top earned rank.",
   "tierLabel": "supporter",
   "tierWhy": "for backing corvus. gives perks, never rank.",
-  "gateAlready": "you're at the gate. see your tag ↓"
+  "gateAlready": "you're at the gate. see your tag ↓",
+  "supporterLifetime": "lifetime",
+  "supporterLifetimeNote": "senator and consul perks are for life, whether paid or gifted. earned rank stays separate.",
+  "rankTierSplit": "two badges. rank comes from helping, missions and recruits. paid or gifted supporter tiers give perks, never rank.",
+  "rankPoints": "{n} pts",
+  "warLeaderboard": "earned points · all time",
+  "warRecruiters": "the recruiters",
+  "warApproved": "approved",
+  "discordRoleNote": "discord roles control access and supporter perks. your earned rank lives on your corvus profile.",
+  "statsArmyNote": "unseen visitors are anonymous page hits, not unique people. the total combines them with PostHog daily visitor estimates. saying ok is a browser acknowledgement, not an enlisted account, earned rank or supporter tier.",
+  "discordLinked": "linked. your place in the legion is ready."
 }
