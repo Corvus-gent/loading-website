@@ -397,7 +397,10 @@
     "votes": 5,
     "matchingFormat": [
       "sortedEntries"
-    ]
+    ],
+    "rankingUnchanged": true,
+    "baselineAt": "2026-11-06T11:04:28.689Z",
+    "baselineIsPreOutage": false
   },
   "redis_snapshot": {
     "at": "2026-11-06T12:03:11.971Z",
