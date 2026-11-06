@@ -12,7 +12,7 @@
   const {questTags,deferHomeClick,takeHomeClick}=await import('/js/quest-attribution.js');
   const {analyticsAllowed,consentChoice,privacySignal}=await import('/js/analytics-consent.js');
   let started=false,stopped=false,transport,pageviewSent=false,bareSent=false,pendingOK=false;
-  const privatePage = /^\/(?:stats\/)?private(?:\/|$)/.test(location.pathname) || /^\/music\/admin(?:\/|$)/.test(location.pathname);
+  const privatePage = /^\/army\/access(?:\/|$)/.test(location.pathname) || /^\/(?:stats\/)?private(?:\/|$)/.test(location.pathname) || /^\/music\/admin(?:\/|$)/.test(location.pathname);
   if (privatePage) {clearTrackingURL();return;}
   let pendingCleanup, questClient;
   const pendingActions=[];
