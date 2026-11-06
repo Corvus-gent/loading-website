@@ -34,11 +34,16 @@ function renderHours() {
   const opt = (tz, label) => new Option(label || tzName(tz), tz);
   const top = ["America/Los_Angeles", "Asia/Shanghai", HOME_TZ];
   const group = (label, list) => { const g = document.createElement("optgroup"); g.label = label; g.append(...list); return g; };
-  let all = []; try { all = Intl.supportedValuesOf("timeZone"); } catch {}
-  const quick = top.map(tz => opt(tz));
-  if (!top.includes(ownTZ)) quick.push(opt(ownTZ, `your time · ${tzName(ownTZ)}`));
+  const quick = top.filter(tz => tz !== ownTZ).map(tz => opt(tz));
+  quick.unshift(opt(ownTZ, `your time · ${tzName(ownTZ)}`));
   select.append(group("quick", quick));
-  if (all.length) select.append(group("all time zones", all.filter(tz => !top.includes(tz)).map(tz => opt(tz, tz.replace(/_/g, " ").toLowerCase()))));
+  // capitals, west to east by current UTC offset (whole list of IANA zones is 400+ and unreadable)
+  const CAPITALS = [["Pacific/Honolulu","honolulu"],["America/Anchorage","anchorage"],["America/Mexico_City","mexico city"],["America/Bogota","bogotá"],["America/New_York","washington / new york"],["America/La_Paz","la paz"],["America/Santiago","santiago"],["America/Argentina/Buenos_Aires","buenos aires"],["America/Sao_Paulo","brasília / são paulo"],["Atlantic/Azores","azores"],["Europe/London","london"],["Europe/Lisbon","lisbon"],["Africa/Lagos","lagos"],["Europe/Paris","paris"],["Europe/Berlin","berlin"],["Europe/Madrid","madrid"],["Europe/Amsterdam","amsterdam"],["Europe/Rome","rome"],["Africa/Cairo","cairo"],["Europe/Athens","athens"],["Europe/Kyiv","kyiv"],["Africa/Johannesburg","pretoria / johannesburg"],["Europe/Istanbul","ankara / istanbul"],["Europe/Moscow","moscow"],["Africa/Nairobi","nairobi"],["Asia/Riyadh","riyadh"],["Asia/Tehran","tehran"],["Asia/Dubai","abu dhabi / dubai"],["Asia/Karachi","islamabad / karachi"],["Asia/Kolkata","new delhi"],["Asia/Kathmandu","kathmandu"],["Asia/Dhaka","dhaka"],["Asia/Bangkok","bangkok"],["Asia/Jakarta","jakarta"],["Asia/Singapore","singapore"],["Asia/Hong_Kong","hong kong"],["Asia/Taipei","taipei"],["Asia/Manila","manila"],["Asia/Seoul","seoul"],["Asia/Tokyo","tokyo"],["Australia/Sydney","canberra / sydney"],["Pacific/Auckland","wellington / auckland"]];
+  const now = new Date();
+  const off = tz => { try { return Math.round(offsetMin(tz, now)); } catch { return null; } };
+  const fmtOff = m => `utc${m < 0 ? "−" : "+"}${String(Math.floor(Math.abs(m) / 60)).padStart(2, "0")}${Math.abs(m) % 60 ? ":" + String(Math.abs(m) % 60).padStart(2, "0") : ""}`;
+  const caps = CAPITALS.filter(([tz]) => !top.includes(tz) && off(tz) !== null).sort((a, b) => off(a[0]) - off(b[0])).map(([tz, name]) => opt(tz, `${name} · ${fmtOff(off(tz))}`));
+  select.append(group("capitals", caps));
   if (![...select.options].some(o => o.value === hoursTZ)) hoursTZ = HOME_TZ;
   select.value = hoursTZ;
   select.addEventListener("change", () => { hoursTZ = select.value; savePreference("stats-hours-tz", hoursTZ); renderHours(); });
