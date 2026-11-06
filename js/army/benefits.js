@@ -1,4 +1,4 @@
-import {t} from './copy.js?v=20261106-pidgy';
+import {t} from './copy.js?v=20261106-consul';
 const next={tiro:'miles',miles:'centurio',centurio:'legatus',legatus:'senator'};
 export function nextBenefit(tier){
  if(tier==='senator'||tier==='imperator')return null;

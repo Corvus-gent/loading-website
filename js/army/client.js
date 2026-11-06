@@ -1,4 +1,4 @@
-import {t,getLang} from './copy.js?v=20261106-pidgy';
+import {t,getLang} from './copy.js?v=20261106-consul';
 export const $=id=>document.getElementById(id);
 export async function api(data,query=''){
  const response=await fetch('/api/army'+query,{credentials:'same-origin',cache:'no-store',signal:AbortSignal.timeout(18000),...(data?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}:{})});
@@ -16,7 +16,13 @@ export function prepare(action){
  proofs.set(action,entry);entry.promise.catch(()=>{if(proofs.get(action)===entry)proofs.delete(action);});return entry.promise;
 }
 export async function submit(action,fields){try{const proof=await prepare(action);return await api({...fields,lang:getLang(),action,...proof});}finally{proofs.delete(action);}}
+export function tidyFields(form){
+ const name=form.querySelector('input[name="username"]'),link=form.querySelector('input[name="link"]');
+ if(name)name.addEventListener('input',()=>{const v=name.value.replace(/^@+/,'').replace(/\s+/g,'_').replace(/[^a-zA-Z0-9_-]/g,'').toLowerCase().slice(0,24);if(v!==name.value)name.value=v;});
+ if(link)link.addEventListener('blur',()=>{const v=link.value.trim();if(v&&!/^[a-z][a-z0-9+.-]*:\/\//i.test(v))link.value='https://'+v.replace(/^\/+/,'');});
+}
 export function wireForm(form,action,done,status){
+ tidyFields(form);
  form.addEventListener('focusin',()=>prepare(action).catch(()=>{}),{once:true});
  form.addEventListener('submit',async e=>{e.preventDefault();if(!form.reportValidity())return;const button=form.querySelector('button[type="submit"],button:not([type])');button.disabled=true;status.textContent=t('proof');
   try{const result=await submit(action,Object.fromEntries(new FormData(form)));await done(result);}
@@ -27,12 +33,12 @@ export const recruitURL=code=>'https://corvus.gent/r/'+code;
 export async function share(code,status){const url=recruitURL(code);try{if(navigator.share)await navigator.share({title:'corvus',text:t('shareTag').replace(' ↗',''),url});else{await navigator.clipboard.writeText(url);status.textContent=t('copied');}}catch(error){if(error.name!=='AbortError'){status.textContent=url;}}}
 export async function copy(code,status){try{await navigator.clipboard.writeText(recruitURL(code));status.textContent=t('copied');}catch{status.textContent=recruitURL(code);}}
 export function saveBlob(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
-export async function tag(container,s,code){const {tagSVG}=await import('./art.js?v=20261106-pidgy');container.innerHTML=tagSVG(s,code);}
-export async function saveArt(s,code,poster,status){try{const {downloadArt}=await import('./art.js?v=20261106-pidgy');saveBlob(await downloadArt(s,code,poster),poster?'corvus-recruit-poster.png':'corvus-dog-tag.png');}catch{status.textContent=t('resting');}}
+export async function tag(container,s,code){const {tagSVG}=await import('./art.js?v=20261106-consul');container.innerHTML=tagSVG(s,code);}
+export async function saveArt(s,code,poster,status){try{const {downloadArt}=await import('./art.js?v=20261106-consul');saveBlob(await downloadArt(s,code,poster),poster?'corvus-recruit-poster.png':'corvus-dog-tag.png');}catch{status.textContent=t('resting');}}
 export function countryOptions(select,value=''){
- import('./countries.js?v=20261106-pidgy').then(({CURRENCIES})=>{const names=new Intl.DisplayNames([getLang()],{type:'region'});select.replaceChildren(new Option(t('notGiven'),''),...Object.keys(CURRENCIES).map(code=>({code,name:names.of(code)})).sort((a,b)=>a.name.localeCompare(b.name,getLang())).map(({code,name})=>new Option(name,code)));select.value=value;});
+ import('./countries.js?v=20261106-consul').then(({CURRENCIES})=>{const names=new Intl.DisplayNames([getLang()],{type:'region'});select.replaceChildren(new Option(t('notGiven'),''),...Object.keys(CURRENCIES).map(code=>({code,name:names.of(code)})).sort((a,b)=>a.name.localeCompare(b.name,getLang())).map(({code,name})=>new Option(name,code)));select.value=value;});
 }
 export async function rankMoment(previous,s){
  if(!previous||previous===s.rank)return;
- const {insignia}=await import('./art.js?v=20261106-pidgy'),box=document.createElement('aside');box.className='army-rank-toast';box.setAttribute('role','status');box.innerHTML=insignia(s.rank);const text=document.createElement('span');text.textContent=t('rankUp')+' '+s.rank;box.append(text);document.body.append(box);setTimeout(()=>box.remove(),6000);
+ const {insignia}=await import('./art.js?v=20261106-consul'),box=document.createElement('aside');box.className='army-rank-toast';box.setAttribute('role','status');box.innerHTML=insignia(s.rank);const text=document.createElement('span');text.textContent=t('rankUp')+' '+s.rank;box.append(text);document.body.append(box);setTimeout(()=>box.remove(),6000);
 }

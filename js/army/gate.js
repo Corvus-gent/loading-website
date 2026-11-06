@@ -1,14 +1,14 @@
-import {renderNextBenefit} from './benefits.js?v=20261106-pidgy';
-import {init,t,getLang} from './copy.js?v=20261106-pidgy';
-import {$,api,wireForm,errorText,tag,copy,share,saveArt,recruitURL,countryOptions,submit} from './client.js?v=20261106-pidgy';
-import {RANKS,WEIGHTS} from './domain.js?v=20261106-pidgy';
+import {renderNextBenefit} from './benefits.js?v=20261106-consul';
+import {init,t,getLang} from './copy.js?v=20261106-consul';
+import {$,api,wireForm,errorText,tag,copy,share,saveArt,recruitURL,countryOptions,submit} from './client.js?v=20261106-consul';
+import {RANKS,WEIGHTS} from './domain.js?v=20261106-consul';
 let self=null;const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 function renderRanks(){
  $('rank-ladder').replaceChildren(...RANKS.map(([name,minimum])=>{const span=document.createElement('span');span.textContent=name+' · '+minimum;return span;}));
  $('rank-rules').replaceChildren(...[[t('streak'),WEIGHTS.streak],[t('streak')+' · best',WEIGHTS.best],[t('feathers'),WEIGHTS.feather],[t('recruits'),WEIGHTS.recruit],['daily mission',WEIGHTS.daily],['toll',WEIGHTS.toll],['soldier of the week',WEIGHTS.weekly]].map(([label,value])=>{const row=document.createElement('tr'),a=document.createElement('td'),b=document.createElement('td');a.textContent=label;b.textContent='+'+value;row.append(a,b);return row;}));
 }
 init(()=>{renderRanks();renderNextBenefit($('toll-next-rank'),self?.tier);if($('enlist-country'))countryOptions($('enlist-country'),$('enlist-country').value);});renderRanks();
-const country=document.createElement('div');country.innerHTML='<label for="enlist-country" data-army="country"></label><select id="enlist-country" name="country"></select><small data-army="countryNote"></small>';$('enlist-form').insertBefore(country,$('enlist-why').previousElementSibling);import('./copy.js?v=20261106-pidgy').then(({translate})=>translate(country));countryOptions($('enlist-country'));
+const country=document.createElement('div');country.innerHTML='<label for="enlist-country" data-army="country"></label><select id="enlist-country" name="country"></select><small data-army="countryNote"></small>';$('enlist-form').insertBefore(country,$('enlist-why').previousElementSibling);import('./copy.js?v=20261106-consul').then(({translate})=>translate(country));countryOptions($('enlist-country'));
 $('enlist-why').addEventListener('input',()=>{$('why-count').textContent=[...$('enlist-why').value].length+'/280';});
 async function ceremony(user){self=user;$('enlist').hidden=true;$('ceremony').hidden=false;await tag($('dog-tag'),user,user.code);$('ceremony').focus({preventScroll:true});$('ceremony').scrollIntoView({behavior:reduced?'instant':'smooth',block:'center'});}
 wireForm($('enlist-form'),'enlist',async data=>{await ceremony(data.self);$('ceremony-note').textContent=t(data.mail==='sent'?'verifyNote':'mailQueued');loadCounts();},$('enlist-status'));
