@@ -26,3 +26,12 @@
 .tab-hidden .night-stars i{animation-play-state:paused}
 @media(max-width:600px){.night-scene .realm-places{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:2.5rem .6rem}.night-scene .realm-places a,.night-scene .realm-places a:last-child{flex-direction:column;justify-content:center;min-height:96px;border:0}.night-scene .realm-places b{font-size:.75rem}}
 @media(prefers-reduced-motion:reduce){.awake .realm-places a{opacity:.55}.awake .realm-places a b{opacity:.8}.night-stars i{animation:none}.awake .night-light{will-change:auto}.night-scene.drifting .night-light{transition:none}}
+
+.realm-what{color:#bdb6a6;max-width:46ch;margin-top:10px}
+.realm-recruit{display:grid;gap:6px;margin:26px 0 30px;padding:22px 24px;border:1px solid #ffd76a66;border-radius:14px;background:radial-gradient(ellipse at top left,#ffd76a1c,transparent 70%);color:#f2ede2;text-decoration:none;box-shadow:0 0 30px #ffd76a12;transition:transform .2s}
+.realm-recruit:hover{transform:translateY(-2px)}
+.realm-recruit-eyebrow{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#ffd76a}
+.realm-recruit strong{font-size:clamp(22px,4vw,30px);font-weight:500;color:#ffd76a}
+.realm-recruit small{font-size:11px;color:#9f9888}
+.realm-more{font-size:11px;color:#8a8577;margin-top:22px}
+.realm-more a{color:#bdb6a6}
