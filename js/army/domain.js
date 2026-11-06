@@ -14,7 +14,7 @@ export function weekKey(now = Date.now()) {
   d.setUTCDate(d.getUTCDate() - (d.getUTCDay() + 6) % 7);
   return d.toISOString().slice(0, 10);
 }
-export const cleanUsername = value => typeof value === 'string' ? value.trim().toLowerCase() : '';
+export const cleanUsername = value => typeof value === 'string' ? value.trim().toLowerCase().replace(/^@+/, '').replace(/\s+/g, '_') : '';
 export const validUsername = value => /^[a-z][a-z0-9_-]{2,23}$/.test(value) && !['admin', 'private', 'api', 'general', 'corvus', 'soldier', 'unknown', 'undefined', 'null'].includes(value);
 export function normalizeEmail(value) {
   const email = typeof value === 'string' ? value.trim().toLowerCase() : '';
@@ -22,8 +22,12 @@ export function normalizeEmail(value) {
   return email;
 }
 export function publicLink(value) {
+  if (typeof value === 'string') value = value.trim();
   if (!value) return '';
   if (typeof value !== 'string' || value.length > 300) throw Error('link');
+  // People type "linkedin.com/in/me" or "@handle"-style links; add the scheme for them.
+  if (!/^[a-z][a-z0-9+.-]*:\/\//i.test(value)) value = 'https://' + value.replace(/^\/+/, '');
+  value = value.replace(/^http:\/\//i, 'https://');
   let url; try { url = new URL(value); } catch { throw Error('link'); }
   if (url.protocol !== 'https:' || url.username || url.password || !url.hostname.includes('.') || /^(localhost|127\.|0\.|\[)/.test(url.hostname)) throw Error('link');
   // Links are displayed, never fetched server-side.
