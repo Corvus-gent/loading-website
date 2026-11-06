@@ -1,5 +1,5 @@
-import {init,t} from './copy.js?v=20261106b';
-import {$,api,tag,recruitURL,copy,share,saveArt,errorText} from './client.js?v=20261106b';
+import {init,t} from './copy.js?v=20261106-pidgy';
+import {$,api,tag,recruitURL,copy,share,saveArt,errorText} from './client.js?v=20261106-pidgy';
 const username=location.pathname.split('/').filter(Boolean)[1];let soldier,code;
 async function render(){
  if(!soldier)return;$('soldier-name').textContent=soldier.username;$('soldier-ranks').textContent=t('tier')+': '+(soldier.tier||t('unpaid'))+' · '+t('rank')+': '+soldier.rank;

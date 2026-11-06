@@ -1,5 +1,6 @@
-import {init,t,getLang} from './copy.js?v=20261106b';
-import {$,api,wireForm,errorText,tag,countryOptions,recruitURL,copy,share,saveArt,saveBlob} from './client.js?v=20261106b';
+import {renderNextBenefit} from './benefits.js?v=20261106-pidgy';
+import {init,t,getLang} from './copy.js?v=20261106-pidgy';
+import {$,api,wireForm,errorText,tag,countryOptions,recruitURL,copy,share,saveArt,saveBlob} from './client.js?v=20261106-pidgy';
 let self=null;
 let token=window.__armyClaimToken||new URLSearchParams(location.hash.slice(1)).get('token');delete window.__armyClaimToken;
 if(token)history.replaceState(null,'',location.pathname+location.search);
@@ -9,6 +10,10 @@ const status=$('account-status');
 async function show(user){
  self=user;$('account-forms').hidden=!!user?.canManage;$('account-settings').hidden=!user?.canManage;$('account-pending').hidden=true;
  if(!user?.canManage)return;
+ renderNextBenefit($('account-next-rank'),user.tier);
+ $('account-pidgy').hidden=!user.pidgyCode;
+ $('account-pidgy-code').textContent=user.pidgyCode||'';
+ $('account-pidgy-trials').textContent=t('pidgyTrials',{count:user.pidgyTrials||0});
  $('public-profile').href='/soldier/'+encodeURIComponent(user.username);$('public-profile').hidden=!user.username;
  let discordButton=$('account-discord');if(!discordButton){discordButton=document.createElement('button');discordButton.id='account-discord';discordButton.type='button';discordButton.textContent='discord →';$('account-ranks').after(discordButton);discordButton.onclick=async()=>{try{const result=await api({action:'discord-code'});status.textContent='/claim '+result.code;}catch(error){status.textContent=errorText(error);}};}discordButton.hidden=!user.discordReady;
  $('account-ranks').textContent=t('tier')+': '+(user.tier||t('unpaid'))+' · '+t('rank')+': '+user.rank;
@@ -25,3 +30,5 @@ $('account-copy').onclick=()=>copy(self.code,status);$('account-share').onclick=
 $('account-export').onclick=async()=>{try{saveBlob(new Blob([JSON.stringify(await api({action:'export'}),null,2)],{type:'application/json'}),'corvus-my-data.json');}catch(error){status.textContent=errorText(error);}};
 $('account-delete').onclick=async()=>{if(!confirm(t('deleteConfirm')))return;try{await api({action:'delete',confirm:true});self=null;$('account-settings').hidden=true;$('account-forms').hidden=true;status.textContent=t('deleted');}catch(error){status.textContent=errorText(error);}};
 $('account-logout').onclick=async()=>{try{await api({action:'logout'});location.reload();}catch(error){status.textContent=errorText(error);}};
+
+$('account-pidgy-copy').onclick=async()=>{if(!self?.canManage||!self.pidgyCode)return;try{await navigator.clipboard.writeText(self.pidgyCode);$('account-pidgy-status').textContent=t('codeCopied');}catch{const selection=getSelection(),range=document.createRange();range.selectNodeContents($('account-pidgy-code'));selection.removeAllRanges();selection.addRange(range);$('account-pidgy-status').textContent=self.pidgyCode;}};

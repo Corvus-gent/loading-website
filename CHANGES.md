@@ -58,3 +58,11 @@ main is still untouched and all commits integrate through the daily PR.
 - Playwright desktop/360px mobile: seven languages, dialogs, CTAs, no overflow or page errors, reduced motion. Lighthouse compressed local mobile: 99 performance / 100 accessibility, LCP 1.83 s, CLS 0 at CPU 6× + Slow 4G. Evidence: tests/results/napoleon-gate/.
 
 Cache integration: the Napoleon gate removes the opening altogether, retains PR #24’s versioned army modules/revalidation, and loads the versioned feature-locale module directly so returning browsers cannot reuse old hero JSON. The temporary image publishing workflow is removed after its successful run.
+
+## 2026-11-06 — Pidgy account UI and manual investor access
+
+- Merge Claude #21/#22 first; keep Pidgy webhook and priority rules unchanged. Authenticated self responses alone include the owner's referral code/trial count. Account UI copies the code and shows next-tier BMC benefits; gate door iii includes the Pidgy option.
+- Gabe-only investor toggle controls a separate Discord role and private war council; purchases/refunds cannot grant or revoke it. The new role lives outside tier-role config for compatibility with existing production sync. Invite permissions remain limited to the two owners and approved bot invitations.
+- Generate PIDGY_WEBHOOK_SECRET outside Git and install as sensitive Production/Preview env. Preview only for this feature; main unchanged.
+
+Validation: all army store/BMC/mail/Discord/Pidgy tests, owner-only response/admin authorization tests, account end-to-end flow, seven-language 360px browser checks, general smoke and locale/link/syntax checks. Discord role/channel provisioned without assigning any members; invite audit passed.
