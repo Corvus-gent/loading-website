@@ -1,4 +1,4 @@
-import {init,t} from './copy.js?v=20261106b';import {$,api,errorText} from './client.js?v=20261106b';
+import {init,t} from './copy.js?v=20261106-pidgy';import {$,api,errorText} from './client.js?v=20261106-pidgy';
 let data;function render(){if(!data)return;
  const metric=(label,value)=>{const div=document.createElement('div'),n=document.createElement('strong'),l=document.createElement('span');n.textContent=String(value??0);l.textContent=label;div.append(n,l);return div;};
  $('war-counts').replaceChildren(metric('soldiers',data.soldiers),metric('at the gate',data.atGate),metric(t('recruits'),data.recruits),metric('approved',data.approved));

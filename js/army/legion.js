@@ -1,5 +1,5 @@
-import {init,t,getLang} from './copy.js?v=20261106b';
-import {$,api,errorText} from './client.js?v=20261106b';
+import {init,t,getLang} from './copy.js?v=20261106-pidgy';
+import {$,api,errorText} from './client.js?v=20261106-pidgy';
 let members=[];
 function flag(code){return code?.match(/^[A-Z]{2}$/)?String.fromCodePoint(...[...code].map(c=>127397+c.charCodeAt(0))):'';}
 function render(){

@@ -1,22 +1,23 @@
-import {init,t,getLang} from './copy.js?v=20261106b';
-import {$,api,wireForm,errorText,tag,copy,share,saveArt,recruitURL,countryOptions,submit} from './client.js?v=20261106b';
-import {RANKS,WEIGHTS} from './domain.js?v=20261106b';
+import {renderNextBenefit} from './benefits.js?v=20261106-pidgy';
+import {init,t,getLang} from './copy.js?v=20261106-pidgy';
+import {$,api,wireForm,errorText,tag,copy,share,saveArt,recruitURL,countryOptions,submit} from './client.js?v=20261106-pidgy';
+import {RANKS,WEIGHTS} from './domain.js?v=20261106-pidgy';
 let self=null;const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 function renderRanks(){
  $('rank-ladder').replaceChildren(...RANKS.map(([name,minimum])=>{const span=document.createElement('span');span.textContent=name+' · '+minimum;return span;}));
  $('rank-rules').replaceChildren(...[[t('streak'),WEIGHTS.streak],[t('streak')+' · best',WEIGHTS.best],[t('feathers'),WEIGHTS.feather],[t('recruits'),WEIGHTS.recruit],['daily mission',WEIGHTS.daily],['toll',WEIGHTS.toll],['soldier of the week',WEIGHTS.weekly]].map(([label,value])=>{const row=document.createElement('tr'),a=document.createElement('td'),b=document.createElement('td');a.textContent=label;b.textContent='+'+value;row.append(a,b);return row;}));
 }
-init(()=>{renderRanks();if($('enlist-country'))countryOptions($('enlist-country'),$('enlist-country').value);});renderRanks();
-const country=document.createElement('div');country.innerHTML='<label for="enlist-country" data-army="country"></label><select id="enlist-country" name="country"></select><small data-army="countryNote"></small>';$('enlist-form').insertBefore(country,$('enlist-why').previousElementSibling);import('./copy.js?v=20261106b').then(({translate})=>translate(country));countryOptions($('enlist-country'));
+init(()=>{renderRanks();renderNextBenefit($('toll-next-rank'),self?.tier);if($('enlist-country'))countryOptions($('enlist-country'),$('enlist-country').value);});renderRanks();
+const country=document.createElement('div');country.innerHTML='<label for="enlist-country" data-army="country"></label><select id="enlist-country" name="country"></select><small data-army="countryNote"></small>';$('enlist-form').insertBefore(country,$('enlist-why').previousElementSibling);import('./copy.js?v=20261106-pidgy').then(({translate})=>translate(country));countryOptions($('enlist-country'));
 $('enlist-why').addEventListener('input',()=>{$('why-count').textContent=[...$('enlist-why').value].length+'/280';});
 async function ceremony(user){self=user;$('enlist').hidden=true;$('ceremony').hidden=false;await tag($('dog-tag'),user,user.code);$('ceremony').focus({preventScroll:true});$('ceremony').scrollIntoView({behavior:reduced?'instant':'smooth',block:'center'});}
 wireForm($('enlist-form'),'enlist',async data=>{await ceremony(data.self);$('ceremony-note').textContent=t(data.mail==='sent'?'verifyNote':'mailQueued');loadCounts();},$('enlist-status'));
 async function identity(){if(!self)self=(await api({action:'begin'})).self;return self;}
 $('stripes-door').onclick=async()=>{$('stripes-dialog').showModal();$('stripes-status').textContent=t('working');try{const u=await identity();$('recruit-link').textContent=recruitURL(u.code);$('stripes-status').textContent='';}catch(e){$('stripes-status').textContent=errorText(e);}};
-$('toll-door').onclick=()=>$('toll-dialog').showModal();
+$('toll-door').onclick=()=>{renderNextBenefit($('toll-next-rank'),self?.tier);$('toll-dialog').showModal();};
 document.querySelectorAll('[data-close]').forEach(button=>button.onclick=()=>button.closest('dialog').close());document.querySelectorAll('dialog').forEach(dialog=>dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}}));
 $('stripes-copy').onclick=()=>self&&copy(self.code,$('stripes-status'));$('stripes-share').onclick=()=>self&&share(self.code,$('stripes-status'));$('copy-recruit').onclick=()=>self&&copy(self.code,$('share-status'));$('share-tag').onclick=()=>self&&share(self.code,$('share-status'));$('save-tag').onclick=()=>self&&saveArt(self,self.code,false,$('share-status'));
 async function loadCounts(){if(document.hidden)return;try{const data=await api(null,'?view=public');for(const [id,key]of [['count-soldiers','soldiers'],['count-gate','atGate'],['count-today','recruitedToday']]){const node=$(id),value=String(data[key]||0);if(node.textContent!==value){node.textContent=value;if(!reduced)node.animate([{opacity:.3,transform:'translateY(5px)'},{opacity:1,transform:'translateY(0)'}],{duration:400});}}}catch{$('count-status').textContent=t('resting');}}
 loadCounts();const poll=setInterval(loadCounts,30000);window.addEventListener('pagehide',()=>clearInterval(poll));document.addEventListener('visibilitychange',()=>{document.body.classList.toggle('army-paused',document.hidden);if(!document.hidden)loadCounts();});
-api().then(async data=>{self=data.self;if(self?.referrer){$('invitation').textContent=t('invitation',{name:self.referrer});$('invitation').hidden=false;}if(self?.serial&&['unconfirmed','waiting','approved','later'].includes(self.status))await ceremony(self);}).catch(()=>{});
+api().then(async data=>{self=data.self;renderNextBenefit($('toll-next-rank'),self?.tier);if(self?.referrer){$('invitation').textContent=t('invitation',{name:self.referrer});$('invitation').hidden=false;}if(self?.serial&&['unconfirmed','waiting','approved','later'].includes(self.status))await ceremony(self);}).catch(()=>{});
 $('reminder-form').addEventListener('submit',async e=>{e.preventDefault();const form=e.currentTarget,kinds=['daily','weekly'].filter(k=>form.elements[k].checked),button=form.querySelector('button'),status=$('reminder-status');if(!kinds.length){status.textContent=t('fields');return;}button.disabled=true;status.textContent=t('working');try{for(const kind of kinds)await submit('subscribe',{email:form.elements.email.value,kind});status.textContent=t('verifyNote');}catch(error){status.textContent=errorText(error);}finally{button.disabled=false;}});
