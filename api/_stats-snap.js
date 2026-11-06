@@ -67,7 +67,7 @@ export async function build(
   if (!(await store(['SET', lock, token, 'NX', 'EX', '55']))) return;
   try {
     const previous = JSON.parse(await store(['GET', k]));
-    if (previous?.final || (!force && fresh(previous, page, day))) return;
+    if (!force && (previous?.final || fresh(previous, page, day))) return;
     const tasks = (makeTasks || (await import('./_stats-build.js')).snapshotTasks)(page, day);
     const data = { ...previous?.data },
       dates = { ...previous?.dates },
@@ -302,6 +302,12 @@ export async function job(req, res) {
     !safeEqual(req.headers.authorization || '', 'Bearer ' + process.env.CRON_SECRET)
   )
     return res.status(401).json({ error: 'unauthorized' });
+  if (req.query?.day !== undefined) {
+    if (req.method !== 'POST') return res.status(405).json({ error: 'use POST for a dated rebuild' });
+    const { rebuildDay } = await import('./_stats-rebuild.js');
+    try { return res.status(200).json(await rebuildDay(req.query.day)); }
+    catch (error) { return res.status(error.message === 'invalid day' ? 400 : 503).json({ error: error.message === 'invalid day' ? 'invalid day' : 'rebuild unavailable' }); }
+  }
   const today = brusselsDay(),
     yesterday = new Date(Date.parse(today) - 86400000).toISOString().slice(0, 10);
   const work = async () => {
