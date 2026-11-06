@@ -250,7 +250,7 @@ dialog.term {width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;b
 #sug-more input { flex: 1; }
 
 /* --- corner nav (back + home) --- */
-.corner-nav { position: fixed; top: 14px; right: 16px; display: flex; gap: 6px; z-index: 5; }
+.corner-nav { position: fixed; top: 14px; right: 16px; display: flex; align-items: center; gap: 6px; z-index: 5; }
 .corner-nav a {
   display: grid; place-items: center; width: 32px; height: 32px;
   border: 1px solid var(--faint); border-radius: 999px; color: var(--muted);
