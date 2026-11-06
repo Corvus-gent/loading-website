@@ -150,5 +150,9 @@
   "welcomeKinds": "founders, rappers, skaters, surfers, fighters, climbers, artists. cool people in general.",
   "why": "warum du?",
   "whyNote": "nur gabe liest das. bewerbungen verfallen binnen 90 tagen.",
-  "working": "der rabe arbeitet…"
+  "working": "der rabe arbeitet…",
+  "legionAtGate": "{n} am tor. namen erscheinen hier, sobald die mail bestätigt ist.",
+  "legionHidden": "{n} marschiert lieber unsichtbar.",
+  "crowCaw": "krah. das tor ist hier entlang ↓",
+  "crowTap": "die krähe. tipp sie an."
 }

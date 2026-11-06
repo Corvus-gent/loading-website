@@ -50,9 +50,10 @@ export function createArmyHandler({service=armyService(),ready=connected,ownerSe
     if(q.view==='legion'){
      const cached=await service.store.get('legion');if(cached)return res.status(200).json(cached);
      const revision=await service.store.run(['GET',service.store.key('revision')])||'0';
-     const users=(await service.store.all()).filter(s=>s.verifiedAt&&s.username&&!s.hidden&&s.status!=='deleting');
+     const everyone=await service.store.all(),users=everyone.filter(s=>s.verifiedAt&&s.username&&!s.hidden&&s.status!=='deleting');
      const members=users.map(s=>{const {username,tier,rank,country,link,created}=publicSoldier(s);return {username,tier,rank,country,link,created};}).sort((a,b)=>(TIERS.indexOf(b.tier)-TIERS.indexOf(a.tier))||a.created.localeCompare(b.created));
-     const result={updated:new Date().toISOString(),members};
+     const all=everyone.filter(s=>s.status!=='deleting'),hiddenCount=all.filter(s=>s.verifiedAt&&s.username&&s.hidden).length,gateCount=all.filter(s=>!s.verifiedAt&&s.username&&s.applied).length;
+     const result={updated:new Date().toISOString(),members,hidden:hiddenCount,atGate:gateCount};
      await service.store.run(['EVAL',"if (redis.call('GET',KEYS[1]) or '0')==ARGV[1] then redis.call('SET',KEYS[2],ARGV[2],'EX',30);return 1 end;return 0",2,service.store.key('revision'),service.store.key('legion'),revision,JSON.stringify(result)]);
      return res.status(200).json(result);
     }

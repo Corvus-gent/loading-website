@@ -150,5 +150,9 @@
   "welcomeKinds": "founders, rappers, skaters, surfers, fighters, climbers, artists. cool people in general.",
   "why": "¿por qué tú?",
   "whyNote": "solo gabe lo lee. las solicitudes caducan en 90 días.",
-  "working": "el cuervo está trabajando…"
+  "working": "el cuervo está trabajando…",
+  "legionAtGate": "{n} en la puerta. los nombres aparecen aquí al confirmar el correo.",
+  "legionHidden": "{n} prefiere marchar sin ser visto.",
+  "crowCaw": "cra. la puerta está por aquí ↓",
+  "crowTap": "el cuervo. tócalo."
 }

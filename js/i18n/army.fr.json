@@ -150,5 +150,9 @@
   "welcomeKinds": "founders, rappers, skaters, surfers, fighters, climbers, artists. cool people in general.",
   "why": "pourquoi toi ?",
   "whyNote": "seul gabe lit ceci. les candidatures expirent sous 90 jours.",
-  "working": "le corbeau travaille…"
+  "working": "le corbeau travaille…",
+  "legionAtGate": "{n} à la porte. les noms apparaissent ici après confirmation du mail.",
+  "legionHidden": "{n} a choisi de marcher dans l'ombre.",
+  "crowCaw": "croa. la porte, c'est par ici ↓",
+  "crowTap": "le corbeau. touche-le."
 }

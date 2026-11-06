@@ -150,5 +150,9 @@
   "welcomeKinds": "founders, rappers, skaters, surfers, fighters, climbers, artists. cool people in general.",
   "why": "waarom jij?",
   "whyNote": "alleen gabe leest dit. aanvragen vervallen binnen 90 dagen.",
-  "working": "de kraai is bezig…"
+  "working": "de kraai is bezig…",
+  "legionAtGate": "{n} aan de poort. namen verschijnen hier zodra ze hun e-mail bevestigen.",
+  "legionHidden": "{n} marcheert liever onzichtbaar.",
+  "crowCaw": "kraa. de poort is deze kant op ↓",
+  "crowTap": "de kraai. tik erop."
 }

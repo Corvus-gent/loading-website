@@ -150,5 +150,9 @@
   "welcomeKinds": "founders, rappers, skaters, surfers, fighters, climbers, artists. cool people in general.",
   "why": "why you?",
   "whyNote": "only gabe reads this. applications expire within 90 days.",
-  "working": "the crow is working…"
+  "working": "the crow is working…",
+  "legionAtGate": "{n} at the gate. names show up here once they confirm their email.",
+  "legionHidden": "{n} chose to march unseen.",
+  "crowCaw": "caw. the gate is this way ↓",
+  "crowTap": "the crow. tap it."
 }

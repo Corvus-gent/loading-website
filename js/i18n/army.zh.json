@@ -150,5 +150,9 @@
   "welcomeKinds": "founders, rappers, skaters, surfers, fighters, climbers, artists. cool people in general.",
   "why": "为什么是你？",
   "whyNote": "仅gabe阅读。申请最多保留90天。",
-  "working": "乌鸦正在忙…"
+  "working": "乌鸦正在忙…",
+  "legionAtGate": "{n} 人在门口。确认邮件后名字才会出现在这里。",
+  "legionHidden": "{n} 人选择隐身行军。",
+  "crowCaw": "嘎。大门在这边 ↓",
+  "crowTap": "乌鸦。点一下。"
 }

@@ -150,5 +150,9 @@
   "welcomeKinds": "founders, rappers, skaters, surfers, fighters, climbers, artists. cool people in general.",
   "why": "porquê tu?",
   "whyNote": "só o gabe lê isto. candidaturas expiram em 90 dias.",
-  "working": "o corvo está a trabalhar…"
+  "working": "o corvo está a trabalhar…",
+  "legionAtGate": "{n} à porta. os nomes aparecem aqui depois de confirmarem o email.",
+  "legionHidden": "{n} prefere marchar sem ser visto.",
+  "crowCaw": "crá. o portão é por aqui ↓",
+  "crowTap": "o corvo. toca-lhe."
 }
