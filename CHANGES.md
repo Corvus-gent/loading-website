@@ -106,3 +106,7 @@ Caught feathers render a quiet, accessible mark after reload. Existing army iden
 ## 2026-11-06 — gate link destinations
 
 The hero and first door now lead to the enlist form for new visitors, without opening the keyboard. Once enlisted, both link to the visible ceremony and use `gateAlready` in all seven army locales. Existing iOS keyboard settling remains intact. 375px Chromium/WebKit checks cover submission, reload and each language. Shared cache version: `20261106-knock1`.
+
+## 2026-11-06 — rank versus supporter in every flow
+
+The existing labelled badges now appear in the enlist ceremony, both dialogs, war-room leaderboards and rank-up toast. The ladder names earned ranks; dog tags/posters label rank and show supporter only when present. Senator/consul perks are labelled lifetime. Account/Discord messaging explains role access separately, welcome/claim/daily emails use the same army locale labels, and stats distinguish anonymous notice acknowledgements from accounts/ranks/supporter tiers. Seven-language copy lives in army locales; rank thresholds, points, tiers and role permissions are unchanged. Shared cache version: `20261106-ranks1`. 375px Chromium/WebKit flows and mail/art tests pass.

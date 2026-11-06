@@ -1,5 +1,5 @@
-import {t,getLang} from './copy.js?v=20261106-knock1';
-import {RANKS} from './domain.js?v=20261106-knock1';
+import {t,getLang} from './copy.js?v=20261106-ranks1';
+import {RANKS} from './domain.js?v=20261106-ranks1';
 export const $=id=>document.getElementById(id);
 export async function api(data,query=''){
  const response=await fetch('/api/army'+query,{credentials:'same-origin',cache:'no-store',signal:AbortSignal.timeout(18000),...(data?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}:{})});
@@ -34,22 +34,24 @@ export const recruitURL=code=>'https://corvus.gent/r/'+code;
 export async function share(code,status){const url=recruitURL(code);try{if(navigator.share)await navigator.share({title:'corvus',text:t('shareTag').replace(' ↗',''),url});else{await navigator.clipboard.writeText(url);status.textContent=t('copied');}}catch(error){if(error.name!=='AbortError'){status.textContent=url;}}}
 export async function copy(code,status){try{await navigator.clipboard.writeText(recruitURL(code));status.textContent=t('copied');}catch{status.textContent=recruitURL(code);}}
 export function saveBlob(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
-export async function tag(container,s,code){const {tagSVG}=await import('./art.js?v=20261106-knock1');container.innerHTML=tagSVG(s,code);}
-export async function saveArt(s,code,poster,status){try{const {downloadArt}=await import('./art.js?v=20261106-knock1');saveBlob(await downloadArt(s,code,poster),poster?'corvus-recruit-poster.png':'corvus-dog-tag.png');}catch{status.textContent=t('resting');}}
+const artLabels=()=>Object.fromEntries(['rankLabel','tierLabel','supporterLifetime'].map(key=>[key,t(key)]));
+export async function tag(container,s,code){const {tagSVG}=await import('./art.js?v=20261106-ranks1');container.innerHTML=tagSVG(s,code,{labels:artLabels()});}
+export async function saveArt(s,code,poster,status){try{const {downloadArt}=await import('./art.js?v=20261106-ranks1');saveBlob(await downloadArt(s,code,poster,artLabels()),poster?'corvus-recruit-poster.png':'corvus-dog-tag.png');}catch{status.textContent=t('resting');}}
 export function countryOptions(select,value=''){
- import('./countries.js?v=20261106-knock1').then(({CURRENCIES})=>{const names=new Intl.DisplayNames([getLang()],{type:'region'});select.replaceChildren(new Option(t('notGiven'),''),...Object.keys(CURRENCIES).map(code=>({code,name:names.of(code)})).sort((a,b)=>a.name.localeCompare(b.name,getLang())).map(({code,name})=>new Option(name,code)));select.value=value;});
+ import('./countries.js?v=20261106-ranks1').then(({CURRENCIES})=>{const names=new Intl.DisplayNames([getLang()],{type:'region'});select.replaceChildren(new Option(t('notGiven'),''),...Object.keys(CURRENCIES).map(code=>({code,name:names.of(code)})).sort((a,b)=>a.name.localeCompare(b.name,getLang())).map(({code,name})=>new Option(name,code)));select.value=value;});
 }
 export async function rankMoment(previous,s){
  if(!previous||previous===s.rank)return;
- const {insignia}=await import('./art.js?v=20261106-knock1'),box=document.createElement('aside');box.className='army-rank-toast';box.setAttribute('role','status');box.innerHTML=insignia(s.rank);const text=document.createElement('span');text.textContent=t('rankUp')+' '+s.rank;box.append(text);document.body.append(box);setTimeout(()=>box.remove(),6000);
+ const {insignia}=await import('./art.js?v=20261106-ranks1'),box=document.createElement('aside');box.className='army-rank-toast';box.setAttribute('role','status');box.innerHTML=insignia(s.rank);const text=document.createElement('span');text.textContent=t('rankUp');const badges=document.createElement('div');rankBadges(badges,s);box.append(text,badges);document.body.append(box);setTimeout(()=>box.remove(),6000);
 }
 
 // rank and supporter tier are two different ladders; show them as two labelled badges so nobody mixes them up.
 export function rankBadges(el,s,{compact=false}={}){
- const badge=(cls,value,label,why)=>{const box=document.createElement('div');box.className='rank-badge '+cls;const b=document.createElement('b');b.textContent=value;const l=document.createElement('span');l.textContent=label;box.append(l,b);if(why&&!compact){const w=document.createElement('small');w.textContent=why;box.append(w);}return box;};
+ const badge=(cls,value,label,why)=>{const box=document.createElement('div');box.className='rank-badge '+cls;box.title=why||'';const b=document.createElement('b');b.textContent=value;const l=document.createElement('span');l.textContent=label;box.append(l,b);if(why&&!compact){const w=document.createElement('small');w.textContent=why;box.append(w);}return box;};
  let progress=t('rankWhy');
- if(Number.isFinite(s.points)){const i=RANKS.findIndex(([name])=>name===s.rank),next=RANKS[i+1];progress=next?t('rankNext',{n:Math.max(0,next[1]-s.points),rank:next[0]})+' · '+t('rankWhy'):t('rankTop');}
+ if(s.rank==='imperator')progress=t('generalOnly');
+ else if(Number.isFinite(s.points)){const i=RANKS.findIndex(([name])=>name===s.rank),next=RANKS[i+1];progress=next?t('rankNext',{n:Math.max(0,next[1]-s.points),rank:next[0]})+' · '+t('rankWhy'):t('rankTop');}
  const parts=[badge('is-rank',s.rank||'tiro',t('rankLabel'),progress)];
- if(s.tier&&s.tier!=='imperator')parts.push(badge('is-tier',s.tier,t('tierLabel'),t('tierWhy')));
+ if(s.tier&&s.tier!=='imperator')parts.push(badge('is-tier',s.tier,t('tierLabel'),t('tierWhy')+(['senator','consul'].includes(s.tier)?' · '+t('supporterLifetime'):'')));
  el.classList.add('rank-badges');el.replaceChildren(...parts);
 }

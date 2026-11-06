@@ -165,5 +165,15 @@
   "rankTop": "最高军衔。",
   "tierLabel": "支持者",
   "tierWhy": "支持 corvus 的人。有福利，但不带军衔。",
-  "gateAlready": "你已到门前。查看你的身份牌 ↓"
+  "gateAlready": "你已到门前。查看你的身份牌 ↓",
+  "supporterLifetime": "终身",
+  "supporterLifetimeNote": "senator 和 consul 的权益终身有效，无论是付费还是获赠。挣来的军衔单独计算。",
+  "rankTierSplit": "两个徽章。军衔靠帮助他人、完成任务和招募获得。付费或获赠的支持者等级提供权益，不提供军衔。",
+  "rankPoints": "{n} 积分",
+  "warLeaderboard": "挣得的积分 · 累计",
+  "warRecruiters": "招募者",
+  "warApproved": "已获批准",
+  "discordRoleNote": "discord 身份组控制访问权限和支持者权益。挣来的军衔显示在你的 corvus 个人页。",
+  "statsArmyNote": "隐身访客数是匿名页面访问次数，不是独立人数。总数将其与 PostHog 的每日访客估算相加。点击 ok 只是浏览器确认，不代表已入伍账号、挣来的军衔或支持者等级。",
+  "discordLinked": "已关联。你在军团中的位置准备好了。"
 }

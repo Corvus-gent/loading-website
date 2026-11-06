@@ -5,7 +5,7 @@
 import { setFooterYear, getQueryParam, toggleViews } from "./utils.js";
 import { getAllMembers, getMemberById } from "./peopleData.js";
 import { createPersonListItem, createExternalLink, renderList } from "./components.js";
-import { initI18n, pick, t } from "./i18n.js?v=20261106-knock1";
+import { initI18n, pick, t } from "./i18n.js?v=20261106-ranks1";
 
 const $ = id => document.getElementById(id);
 

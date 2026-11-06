@@ -165,5 +165,15 @@
   "rankTop": "höchster verdienter rang.",
   "tierLabel": "unterstützer",
   "tierWhy": "für alle, die corvus unterstützen. perks, nie ein rang.",
-  "gateAlready": "du stehst am tor. zeig deine marke ↓"
+  "gateAlready": "du stehst am tor. zeig deine marke ↓",
+  "supporterLifetime": "lebenslang",
+  "supporterLifetimeNote": "senator- und consul-vorteile gelten lebenslang, bezahlt oder geschenkt. der verdiente rang bleibt getrennt.",
+  "rankTierSplit": "zwei abzeichen. rang verdient man durch hilfe, missionen und rekruten. bezahlte oder geschenkte unterstützerstufen geben vorteile, niemals rang.",
+  "rankPoints": "{n} punkte",
+  "warLeaderboard": "verdiente punkte · insgesamt",
+  "warRecruiters": "die rekrutierer",
+  "warApproved": "zugelassen",
+  "discordRoleNote": "discord-rollen regeln zugang und unterstützervorteile. dein verdienter rang steht auf deinem corvus-profil.",
+  "statsArmyNote": "unsichtbare besucher sind anonyme seitenaufrufe, keine einzelnen personen. die summe zählt sie zu den täglichen besucherschätzungen von PostHog. ok ist eine browserbestätigung, kein eingeschriebenes konto, verdienter rang oder unterstützerstatus.",
+  "discordLinked": "verknüpft. dein platz in der legion ist bereit."
 }

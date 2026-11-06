@@ -165,5 +165,15 @@
   "rankTop": "rango ganado más alto.",
   "tierLabel": "apoyo",
   "tierWhy": "por apoyar corvus. da ventajas, nunca rango.",
-  "gateAlready": "ya estás en la puerta. mira tu placa ↓"
+  "gateAlready": "ya estás en la puerta. mira tu placa ↓",
+  "supporterLifetime": "de por vida",
+  "supporterLifetimeNote": "los beneficios senator y consul son de por vida, pagados o regalados. el rango ganado va aparte.",
+  "rankTierSplit": "dos insignias. el rango se gana ayudando, completando misiones y reclutando. los niveles de apoyo pagados o regalados dan beneficios, nunca rango.",
+  "rankPoints": "{n} pts",
+  "warLeaderboard": "puntos ganados · histórico",
+  "warRecruiters": "los reclutadores",
+  "warApproved": "aprobados",
+  "discordRoleNote": "los roles de discord dan acceso y beneficios de apoyo. tu rango ganado está en tu perfil de corvus.",
+  "statsArmyNote": "los visitantes invisibles son visitas anónimas a páginas, no personas únicas. el total las suma a las estimaciones diarias de PostHog. decir ok es una confirmación del navegador, no una cuenta alistada, un rango ganado ni un nivel de apoyo.",
+  "discordLinked": "vinculado. tu sitio en la legión está listo."
 }

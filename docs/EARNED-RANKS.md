@@ -22,3 +22,7 @@ Claude can refine these values in `js/i18n/army.<lang>.json`, preserving the key
 ## Phone UX
 
 Link hubs retain one social set: Gabe's text row, Corvus/Pidgy's icon row. All hubs have static ⌂ home and gold ⚑ navigation. Privacy has the corner home plus one realm wordmark. People profiles retain in-prose links and suppress duplicate list destinations, including grouped social links.
+
+## Flow labels (2026-11-06)
+
+Use `rankBadges` everywhere an account is shown, including the ceremony, war-room lists and rank toast. Compact variants retain the two labels. Art and mail take labels from army locales too; no inferred rank from a supporter name. New shared copy keys: `gateAlready`, `supporterLifetime`, `supporterLifetimeNote`, `rankTierSplit`, `rankPoints`, `warLeaderboard`, `warRecruiters`, `warApproved`, `discordRoleNote`, `discordLinked`, `statsArmyNote`. The notice-based stats page counts acknowledgements, not legion accounts or ranks. Discord role assignment remains a perk/access rule, not earned rank. Current coordinated browser version: `20261106-ranks1`.

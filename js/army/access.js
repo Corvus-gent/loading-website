@@ -1,6 +1,6 @@
-import {renderNextBenefit} from './benefits.js?v=20261106-knock1';
-import {init,t,getLang} from './copy.js?v=20261106-knock1';
-import {$,api,wireForm,errorText,tag,countryOptions,recruitURL,copy,share,saveArt,saveBlob,rankBadges} from './client.js?v=20261106-knock1';
+import {renderNextBenefit} from './benefits.js?v=20261106-ranks1';
+import {init,t,getLang} from './copy.js?v=20261106-ranks1';
+import {$,api,wireForm,errorText,tag,countryOptions,recruitURL,copy,share,saveArt,saveBlob,rankBadges} from './client.js?v=20261106-ranks1';
 let self=null;
 let token=window.__armyClaimToken||new URLSearchParams(location.hash.slice(1)).get('token');delete window.__armyClaimToken;
 if(token)history.replaceState(null,'',location.pathname+location.search);
