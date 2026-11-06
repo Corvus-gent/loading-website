@@ -1,0 +1,457 @@
+{
+  "date": "2026-11-06",
+  "warning": "Local burst latencies include generator/network constraints; not a production capacity guarantee. External health probes mocked in API test. No production write load test.",
+  "production_features": {
+    "language": {
+      "vote": 200,
+      "increment": 1,
+      "duplicate": 409
+    },
+    "musicVote": {
+      "status": 200,
+      "increment": 1,
+      "duplicateCountUnchanged": true
+    },
+    "musicSuggest": {
+      "status": 200,
+      "cooldownStatus": 429,
+      "seconds": 57,
+      "headerSeconds": 57
+    },
+    "game": {
+      "get": 200,
+      "guess": 200,
+      "history": 1,
+      "playedIncrement": 1
+    },
+    "cv": {
+      "status": 200,
+      "pdf": true,
+      "increment": 1
+    },
+    "curl": {
+      "status": 200,
+      "increment": 1
+    },
+    "sf": {
+      "status": 201,
+      "stored": true,
+      "mailAccepted": true,
+      "ttl": 5183996
+    },
+    "cleanup": {
+      "cleaned": 9,
+      "failed": 0
+    }
+  },
+  "authenticated_features": {
+    "adminRead": 200,
+    "adminSave": 200,
+    "rankingUnchanged": true,
+    "tracks": 258,
+    "sessionRead": 200,
+    "owner": true,
+    "privateHttp": 200,
+    "privateState": "ready",
+    "privateData": true,
+    "sfPrivateRead": 200
+  },
+  "browser_mobile": [
+    {
+      "path": "/music/",
+      "host": "corvus.gent",
+      "http": 200,
+      "jsErrors": 0,
+      "overflow": false,
+      "loginVisible": false,
+      "privateDashboardVisible": false,
+      "rows": 0
+    },
+    {
+      "path": "/music/admin/",
+      "host": "corvus.gent",
+      "http": 200,
+      "jsErrors": 0,
+      "overflow": false,
+      "loginVisible": false,
+      "privateDashboardVisible": false,
+      "rows": 0
+    },
+    {
+      "path": "/private",
+      "host": "stats.corvus.gent",
+      "http": 200,
+      "jsErrors": 0,
+      "overflow": false,
+      "loginVisible": false,
+      "privateDashboardVisible": true,
+      "rows": 0
+    },
+    {
+      "path": "/status",
+      "host": "stats.corvus.gent",
+      "http": 200,
+      "jsErrors": 0,
+      "overflow": false,
+      "loginVisible": false,
+      "privateDashboardVisible": false,
+      "rows": 0
+    },
+    {
+      "path": "/sf/",
+      "host": "corvus.gent",
+      "http": 200,
+      "jsErrors": 0,
+      "overflow": false,
+      "loginVisible": false,
+      "privateDashboardVisible": false,
+      "rows": 0
+    }
+  ],
+  "preview_bursts": [
+    {
+      "route": "/",
+      "connections": 200,
+      "requests": 200,
+      "p50": 5481.445916,
+      "p95": 5722.902791,
+      "errors": 0,
+      "timeouts": 0,
+      "non2xx": 0,
+      "statusCodes": {
+        "200": {
+          "count": 200
+        }
+      },
+      "seconds": 7.27
+    },
+    {
+      "route": "/",
+      "connections": 500,
+      "requests": 500,
+      "p50": 8336.89675,
+      "p95": 14134.62,
+      "errors": 0,
+      "timeouts": 0,
+      "non2xx": 0,
+      "statusCodes": {
+        "200": {
+          "count": 500
+        }
+      },
+      "seconds": 22.28
+    },
+    {
+      "route": "/",
+      "connections": 1000,
+      "requests": 989,
+      "p50": 12178.092292,
+      "p95": 23376.199,
+      "errors": 11,
+      "timeouts": 11,
+      "non2xx": 0,
+      "statusCodes": {
+        "200": {
+          "count": 989
+        }
+      },
+      "seconds": 30.57
+    },
+    {
+      "route": "/realm/",
+      "connections": 200,
+      "requests": 200,
+      "p50": 6056.425583,
+      "p95": 6906.063,
+      "errors": 0,
+      "timeouts": 0,
+      "non2xx": 0,
+      "statusCodes": {
+        "200": {
+          "count": 200
+        }
+      },
+      "seconds": 8.2
+    },
+    {
+      "route": "/realm/",
+      "connections": 500,
+      "requests": 396,
+      "p50": 14864.003917,
+      "p95": 23917.612917,
+      "errors": 104,
+      "timeouts": 104,
+      "non2xx": 0,
+      "statusCodes": {
+        "200": {
+          "count": 396
+        }
+      },
+      "seconds": 30.29
+    },
+    {
+      "route": "/music/",
+      "connections": 200,
+      "requests": 200,
+      "p50": 7188.2215830000005,
+      "p95": 8877.913917,
+      "errors": 0,
+      "timeouts": 0,
+      "non2xx": 0,
+      "statusCodes": {
+        "200": {
+          "count": 200
+        }
+      },
+      "seconds": 11.1
+    },
+    {
+      "route": "/music/",
+      "connections": 500,
+      "requests": 447,
+      "p50": 11473.081334,
+      "p95": 25608.032,
+      "errors": 53,
+      "timeouts": 53,
+      "non2xx": 0,
+      "statusCodes": {
+        "200": {
+          "count": 447
+        }
+      },
+      "seconds": 30.4
+    },
+    {
+      "route": "/games/",
+      "connections": 200,
+      "requests": 200,
+      "p50": 4486.975625,
+      "p95": 7652.566375,
+      "errors": 0,
+      "timeouts": 0,
+      "non2xx": 0,
+      "statusCodes": {
+        "200": {
+          "count": 200
+        }
+      },
+      "seconds": 9.11
+    },
+    {
+      "route": "/games/",
+      "connections": 500,
+      "requests": 499,
+      "p50": 8581.854209,
+      "p95": 14967.686875,
+      "errors": 1,
+      "timeouts": 1,
+      "non2xx": 0,
+      "statusCodes": {
+        "200": {
+          "count": 499
+        }
+      },
+      "seconds": 30.29
+    },
+    {
+      "route": "/links/gabe",
+      "connections": 200,
+      "requests": 199,
+      "p50": 4076.644959,
+      "p95": 5300.331542,
+      "errors": 1,
+      "timeouts": 1,
+      "non2xx": 0,
+      "statusCodes": {
+        "200": {
+          "count": 199
+        }
+      },
+      "seconds": 30.2
+    }
+  ],
+  "local_api_bursts": [
+    {
+      "route": "/api/music",
+      "connections": 200,
+      "workers": 8,
+      "rateCap": null,
+      "duration": 30.11,
+      "requests": 117,
+      "rps": 3.9,
+      "p50": 15713,
+      "p95": 29522.7075,
+      "p99": 29954,
+      "errors": 83,
+      "timeouts": 83,
+      "non2xx": 0,
+      "statusCodes": {
+        "200": {
+          "count": 117
+        }
+      },
+      "memoryPeak": 7554384,
+      "connectionsPeak": 10,
+      "opsPeak": 116,
+      "commands": 1820,
+      "keysAfter": 750,
+      "guardStopped": false
+    },
+    {
+      "route": "/api/health",
+      "connections": 200,
+      "workers": 8,
+      "rateCap": null,
+      "duration": 5.08,
+      "requests": 200,
+      "rps": 40,
+      "p50": 4581,
+      "p95": 4596.516834,
+      "p99": 4604,
+      "errors": 0,
+      "timeouts": 0,
+      "non2xx": 0,
+      "statusCodes": {
+        "200": {
+          "count": 200
+        }
+      },
+      "memoryPeak": 7121744,
+      "connectionsPeak": 9,
+      "opsPeak": 56,
+      "commands": 275,
+      "keysAfter": 958,
+      "guardStopped": false
+    },
+    {
+      "route": "/api/health",
+      "connections": 500,
+      "workers": 8,
+      "rateCap": null,
+      "duration": 5.11,
+      "requests": 500,
+      "rps": 100,
+      "p50": 4626,
+      "p95": 4665.054709,
+      "p99": 4683,
+      "errors": 0,
+      "timeouts": 0,
+      "non2xx": 0,
+      "statusCodes": {
+        "200": {
+          "count": 500
+        }
+      },
+      "memoryPeak": 7622896,
+      "connectionsPeak": 9,
+      "opsPeak": 107,
+      "commands": 639,
+      "keysAfter": 1453,
+      "guardStopped": false
+    },
+    {
+      "route": "/api/health",
+      "connections": 1000,
+      "workers": 8,
+      "rateCap": null,
+      "duration": 5.13,
+      "requests": 1000,
+      "rps": 200,
+      "p50": 4668,
+      "p95": 4710.754833,
+      "p99": 4717,
+      "errors": 0,
+      "timeouts": 0,
+      "non2xx": 0,
+      "statusCodes": {
+        "200": {
+          "count": 1000
+        }
+      },
+      "memoryPeak": 8200704,
+      "connectionsPeak": 9,
+      "opsPeak": 32,
+      "commands": 1098,
+      "keysAfter": 2456,
+      "guardStopped": false
+    }
+  ],
+  "new_database_cleanup": {
+    "newOnly": true,
+    "keysRemoved": 750,
+    "dbsize": 0
+  },
+  "retention_dry_run": {
+    "expiredOrObsolete": 8,
+    "migratedLogs": 1,
+    "migratedPollVotes": 4,
+    "cappedTTLs": 9
+  },
+  "temp_key": {
+    "write": true,
+    "read": true,
+    "expired": true
+  },
+  "integrity": {
+    "voteHashMatch": true,
+    "votes": 5,
+    "matchingFormat": [
+      "sortedEntries"
+    ]
+  },
+  "redis_snapshot": {
+    "at": "2026-11-06T12:03:11.971Z",
+    "keys": 115,
+    "prefixes": {
+      "music": 11,
+      "stats": 32,
+      "health": 19,
+      "sf": 1,
+      "cv": 8,
+      "game": 18,
+      "games": 8,
+      "cli": 5,
+      "voted": 7,
+      "privacy": 2,
+      "sess": 1,
+      "otp": 1,
+      "logins": 1,
+      "lang_votes": 1
+    },
+    "ttl": {
+      "persistent": 55,
+      "expiring": 60
+    },
+    "catalogBytes": 53323,
+    "tracks": 258,
+    "votes": 5,
+    "sample": 1793966130281,
+    "job": "2026-11-06T11:42:43.920Z",
+    "memory": 3324480,
+    "connections": 6
+  },
+  "redis_outage_browser": {
+    "tested_on": "local static server with browser API failures injected",
+    "pages": [
+      "/",
+      "/realm/",
+      "/call/",
+      "/links/gabe",
+      "/music/",
+      "/games/",
+      "/stats/"
+    ],
+    "javascript_errors": 0,
+    "music_fallback_notice": true,
+    "games_retry_message": true,
+    "stats_api_unavailable_message": true
+  },
+  "production_health_1155UTC": {
+    "redis_ok": true,
+    "redis_ms": 17,
+    "cron_ok": true,
+    "status": "degraded",
+    "failed_check": "snapshots",
+    "snapshot_timeout_ms": 3001
+  }
+}
