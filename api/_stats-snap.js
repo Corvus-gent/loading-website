@@ -310,6 +310,11 @@ export async function job(req, res) {
     !safeEqual(req.headers.authorization || '', 'Bearer ' + process.env.CRON_SECRET)
   )
     return res.status(401).json({ error: 'unauthorized' });
+  if(req.query?.posthogConfig!==undefined){
+    if(req.method!=='POST'||!['inspect','enable'].includes(req.query.posthogConfig))return res.status(405).json({error:'invalid maintenance action'});
+    try{return res.status(200).json(await (await import('./_posthog-config.js')).configureCookieless({enable:req.query.posthogConfig==='enable'}));}
+    catch{return res.status(503).json({error:'project configuration unavailable'});}
+  }
   if (req.query?.day !== undefined) {
     if (req.method !== 'POST') return res.status(405).json({ error: 'use POST for a dated rebuild' });
     const { rebuildDay } = await import('./_stats-rebuild.js');
