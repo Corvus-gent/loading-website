@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-11-06 — PR #25 final integration
+
+Merge Claude’s integration branch while preserving later mobile form fixes, current copy, consul/Pidgy UI and WebP artwork. All army imports, HTML entry scripts and feature-locale URLs move together to `20261106-integration25`. No blocking splash returns.
+
 ## 2026-11-06 — codex/pidgy-ui final integration
 
 Keep the live mobile form fix, use Claude's consul tier and private war council, and remove the superseded investor extension. Hero assets are quality-78 WebP; mobile uses the 800px ceiling. Screenshots and Lighthouse evidence stay ignored locally. Remove the one-off asset publishing workflow after successful publication.

@@ -60,3 +60,7 @@ entries without discarding them. CI: node --check, feature-locale validation,
 Playwright smoke, local link validation, generated search-index artifact.
 search-index.json is generated from source during CI/build, never hand-edited.
 Do not commit personal test fixtures or credentials. Tests use local/mocked APIs.
+
+## Army cache-version rule
+
+Whenever a file under `js/army/` or `js/i18n/` changes, bump the same `?v=` value in all army static/dynamic imports, every army HTML entry script (including legion and soldier pages), and the feature loader reference and JSON URL in `js/i18n/feature.js`. Ship the edit and all version changes in the same commit. Preserve `max-age=0, must-revalidate` for these script/locale paths.
