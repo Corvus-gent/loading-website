@@ -8,6 +8,14 @@ fallback now closes it on any tap, any key, or after 5 s, independent of modules
 Root cause: /js/* is cached immutable for a year while army modules had no version,
 so returning visitors mixed old and new files after each deploy. Army and i18n
 scripts now revalidate (max-age=0) and every army module URL carries ?v=20261106b.
+## 2026-11-06 — claude/pidgy-recruits
+
+Pidgy trials earn waitlist priority, never approval: 1 trial ≈ tiro, 5 trials from
+different emails ≈ miles. Signed webhook POST /api/pidgy-trial (HMAC-SHA256 of the raw
+body in x-signature-sha256, secret PIDGY_WEBHOOK_SECRET). Body for Alkmist:
+{"event_id","referral_code":"corvus-<handle>","email","started_at"}. Email is hashed
+transiently for dedupe/self-referral, never stored raw. Admin list sorts by priority().
+Copy keys for door iii, the private code and next rank added; UI wiring is Codex's.
 
 ## 2026-11-06 — claude/napoleon-copy
 
