@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-11-06 — claude/genghis-gabe
+
+New static field-notes page /genghis-gabe (English, no JS): Genghis Khan's merit, units-of-ten and speed rules mapped to Corvus, with a join-the-army CTA. Linked from the #genghisgabe posts.
+
 ## 2026-11-06 — claude/enlist-form
 
 Tester feedback on mobile: the link field said optional but was required and only
