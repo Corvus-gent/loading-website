@@ -1,0 +1,17 @@
+{
+  "environment": "local HTTP server with gzip, existing local army API fixture; Chromium via Lighthouse 12.8.2",
+  "date": "2026-11-06",
+  "url": "/join-the-army-now/",
+  "mobile": true,
+  "throttling": {
+    "rttMs": 150,
+    "throughputKbps": 1600,
+    "cpuSlowdownMultiplier": 6
+  },
+  "performance": 99.0,
+  "accessibility": 100,
+  "lcpMs": 1833.4652999999998,
+  "cls": 0,
+  "tbtMs": 92.5,
+  "note": "Lab result, not a production field measurement. Uncompressed fixture scored 75 with 6.80s LCP; Vercel must serve static text with gzip/brotli."
+}

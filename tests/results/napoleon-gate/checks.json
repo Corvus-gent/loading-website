@@ -1,0 +1,19 @@
+{
+  "results": [
+    {
+      "viewport": "desktop",
+      "languages": 7,
+      "dialogs": "pass",
+      "reducedMotion": "pass",
+      "overflow": false
+    },
+    {
+      "viewport": "mobile",
+      "languages": 7,
+      "dialogs": "pass",
+      "reducedMotion": "pass",
+      "overflow": false
+    }
+  ],
+  "pageErrors": []
+}
