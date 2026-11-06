@@ -53,9 +53,10 @@ sending, not email/log storage. Do not claim that setting makes storage European
    `SESSION_SECRET`, `LANGUAGE_VOTE_SECRET`, `MUSIC_VOTE_SECRET`, `GAME_SECRET`,
    `PRIVACY_SECRET`. Do not generate replacements during the move. The different
    defaults were not interchangeable: changing only `SESSION_SECRET` could break
-   existing music cookies or change the daily puzzle. Deploy this PR's code with
-   the pinned values and the **old** database first. Confirm existing cookies and
-   game answers remain valid, then remove the local secret file. This avoids
+   existing music cookies or change the daily puzzle. Preserve these values in both Production and Preview before the storage switch.
+   The old non-TLS endpoint is rejected by the app, so it cannot validate live
+   cookies during this outage. Confirm cookies and game answers after the TLS
+   cutover, then remove the local secret file. This avoids
    invalidating sessions, OTP lookup hashes, voters, privacy hashes and game seeds.
 
 3. **Set the application region.** Settings → Functions → Function Regions →
@@ -77,41 +78,70 @@ sending, not email/log storage. Do not claim that setting makes storage European
    do not run the real copy against active writers. Retention cleanup must not run
    concurrently. Freezing traffic briefly is safer than losing a concurrent vote.
 
-5. **Dry run, copy, verify.** Load `OLD_REDIS_URL` and `NEW_REDIS_URL` into the
-   process environment (TLS `rediss://`, not REST URLs). Run:
+5. **Dry run, copy, verify.** Load `OLD_REDIS_URL` and `NEW_REDIS_URL` securely
+   into the local process. The destination must use `rediss://`. The one-off
+   `--allow-plaintext-source` flag accepts `redis://` on the source only. It sends
+   the source credentials and copied data over that existing unencrypted transport
+   for this explicitly requested migration. The app's `secureEndpoint()` remains
+   enforced. Keep the credential file outside the repository, owner-only (0600).
 
    ```sh
-   node tools/migrate-redis.mjs --dry-run
-   node tools/migrate-redis.mjs --apply --source-paused
-   node tools/migrate-redis.mjs --verify
+   node tools/migrate-redis.mjs --dry-run --allow-plaintext-source
+   node tools/migrate-redis.mjs --apply --source-paused --allow-plaintext-source
+   node tools/migrate-redis.mjs --verify --allow-plaintext-source
    ```
 
-   Default is dry-run: no destination writes. Apply refuses a nonempty target and
-   requires the explicit paused-writer flag. It never changes the source. Binary
-   DUMP/RESTORE copies all Redis types; per-key Lua captures DUMP/PTTL atomically,
-   with absolute expiration passed to RESTORE so copying cannot extend retention
-   or resurrect an expired login code. Persistent keys remain persistent (run the
-   separate privacy-retention tool before/after the move for legacy personal keys).
-   Verification compares key counts, types, values and absolute expirations;
-   unordered hashes/sets compare logically when serialized bytes differ. Streams
-   preserve group metadata. Provider/RDB incompatibility fails without changing
-   the source. Reports contain counts and sizes only.
+   Dry run inventories counts per known application prefix (`other` groups unknown
+   and binary keys) and type. It probes `EVAL`, `DUMP`, `PTTL`, `RESTORE ABSTTL`,
+   rejection of existing keys, and actual source payload compatibility per type.
+   Probes create random temporary keys **only in the destination**, each with a
+   10-second TTL and explicit cleanup. Source commands are reads throughout.
 
-   Exit 0 with `verification.ok=true` is required for both apply and verify. Exit 1
-   means failure; exit 2 means differences. A partial copy may be resumed using
-   `--apply --source-paused --resume` **only against this same migration target,
-   while all writers remain paused**; it deliberately replaces matching keys.
-   It does not delete extra target keys, so verification will flag them. Natural
-   expiry near a check can require rerunning `--verify`. Never switch on a failed
-   comparison. Do not delete the source to resolve a mismatch.
+   Require `features.ok=1` before copying. Apply requires paused source writers and
+   an empty destination. Binary DUMP/RESTORE preserves all supported types and
+   persistent keys; Lua captures each value and its deadline atomically. Absolute
+   expiration preserves remaining TTLs even during transfer. The app adapter is
+   unchanged. An incompatible provider, type or payload stops the migration.
 
-6. **Switch and redeploy.** Set production `REDIS_URL` to the new TLS URL. Remove
-   obsolete REST/legacy bindings, or ensure they also reference the new database.
-   An explicit `REDIS_URL` now wins over old Marketplace REST variables; without
-   it, legacy REST selection remains unchanged. Keep the five signing values
-   exactly as pinned. Clear `REDIS_MAINTENANCE`, redeploy, and restrict old URLs from
-   accepting writes. Also update authorised previews/jobs that should use the new
-   database; don't accidentally expose production data to unrelated previews.
+   Verification compares DBSIZE, prefix counts, every key's type/content hash and
+   expiration, plus a random sample of up to 20 surviving source keys. PTTL and
+   absolute deadlines must agree within 5 seconds. The sample is 20 when at least
+   20 keys remain. Printed JSON has numeric leaves only, with no actual key names,
+   values, hashes, URLs or credentials. Require `verification.ok=1` on apply and
+   verify before switching. Exit 1 means an operational failure; exit 2 means
+   incompatible features or verification differences.
+
+   A partial copy can be retried against the same destination with
+   `--apply --source-paused --resume --allow-plaintext-source`. This adds missing
+   keys only. `RESTORE` always omits `REPLACE`, so existing keys survive concurrent
+   writes and retries. Any conflicting contents remain intact and make verification
+   fail. Extra destination keys also make verification fail. Expiring keys can
+   require another verification pass after their natural expiry.
+
+6. **Switch and redeploy after verified copy.** Gabriel sets `REDIS_URL` to the
+   exact value of `NEW_REDIS_URL` in Vercel **Production and Preview**, marked
+   **Sensitive**, then redeploys both environments. Retain the pinned signing
+   values. The explicit `REDIS_URL` takes precedence over old REST variables.
+   Clear the maintenance flag for the new deployment after the copy verification.
+   Confirm the provider console shows the actual Upstash database in Frankfurt.
+
+   After redeploy, check `/api/health` reports `redis.ok=true`. Run a uniquely named
+   temporary-key write/read/expiry test through the new production configuration
+   (NX + short TTL, read the value, wait for expiration, confirm absence). Report
+   only pass/fail counters. Check `/music` still shows the verified existing
+   ranking and vote counts. Request a stats page and confirm a newly completed
+   snapshot timestamp, then inspect the snapshot-job timestamp independently.
+   A manual fresh snapshot does not prove the daily cron has run. The current
+   snapshot cron is `12 2 * * *` UTC; explicitly report when the next scheduled run
+   is still pending. Retained old timestamps must not be presented as a new run.
+
+   **Recovery stays on the new database.** Setting the old non-TLS `REDIS_URL`
+   back makes the app reject it again. Keep the TLS database and pinned signing
+   values. If data is missing, pause writers and rerun the missing-only copy with
+   `--resume`. Existing new writes are preserved. After cutover, normal writes
+   make full old/new equality inappropriate, so investigate reported differences
+   against the saved cutover counts rather than replacing new data. Keys already
+   expired in the source cannot be recovered by extending their retention.
 
 7. **Verify before declaring completion.** Check an existing logged-in session,
    a fresh login initiated by Gabriel, music ranking and counts, language/music
