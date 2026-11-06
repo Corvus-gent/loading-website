@@ -8,11 +8,9 @@ const lang=()=>{
 };
 let notice;
 function openNotice(open) {
- const root=document.documentElement,wasOpen=root.classList.contains('privacy-notice-open');
- if(wasOpen===open)return;
- const y=wasOpen?document.body.scrollTop:window.scrollY;
- root.classList.toggle('privacy-notice-open',open);
- if(open)document.body.scrollTop=y;else window.scrollTo(0,y);
+ // the page keeps scrolling on the window; the notice only reserves space at the bottom
+ // (a body scroll container + html overflow:hidden broke iOS after the keyboard closed)
+ document.documentElement.classList.toggle('privacy-notice-open',open);
 }
 function labels() {
   const copy=strings[lang()];
