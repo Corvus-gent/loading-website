@@ -15,7 +15,7 @@ const TARGETS = {
   support: "/support/", "402": "/402/", cv: "/cv",
 };
 
-const EXTERNAL = { pidgy: "https://pidgy-ai.com/" };
+const EXTERNAL = { pidgy: "https://pidgy-ai.com/", x: "https://x.com/gabe_maxxing" };
 
 async function siteConfig() {
   try { return await fetch("/site.json", { cache: "no-store" }).then(r => r.json()); }
