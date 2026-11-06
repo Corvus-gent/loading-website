@@ -1,5 +1,13 @@
 # Changes
 
+## 2026-11-06 — claude/enlist-form
+
+Tester feedback on mobile: the link field said optional but was required and only
+accepted full https:// URLs; the handle field rejected "@name" or spaces, and every
+native validation error jumped back to the top. Link is now optional plain text
+(scheme added for you, http upgraded), handle auto-tidies while typing (strip @,
+spaces to _, lowercase), server normalises the same way. Module version → 20261106c.
+
 ## 2026-11-06 — claude/gate-unstuck
 
 The Napoleon-gate opening could stay on screen forever when the gate.js module
