@@ -98,3 +98,7 @@ Validation: all army store/BMC/mail/Discord/Pidgy tests, owner-only response/adm
 - Merge Claude #23 and preserve #26’s live mobile form fixes. Take api/_army/_discord.js byte-for-byte from Claude’s branch; remove the superseded investor toggle, action and setup helper. Next-tier UI includes consul using Claude’s locale keys.
 - Run the standard Discord setup once for consul and the private war council; preserve owner-only invite rules.
 - Ignore tests/results and Lighthouse output; remove previously tracked evidence from the index while keeping local files. Napoleon and social hero assets use Sharp WebP quality 78, at most 1200 px wide (under the 1600 px limit).
+
+## 2026-11-06 — feather memory
+
+Caught feathers render a quiet, accessible mark after reload. Existing army identities sync local catches through the existing proof worker and merge server spots on load; anonymous visitors remain local-only. Self responses keep the public numeric feather count and add private `featherSpots` for restoration. Uniform versioned eggs/i18n imports and refreshed entrypoints prevent stale or double collectors. Real local account + challenge tests cover 375px Chromium/WebKit, cleared storage and another signed-in browser context.

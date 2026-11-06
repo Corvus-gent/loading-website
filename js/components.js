@@ -1,4 +1,4 @@
-import { t } from "./i18n.js";
+import { t } from "./i18n.js?v=20261106-feathers1";
 /**
  * Reusable DOM rendering components
  */

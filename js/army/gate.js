@@ -1,14 +1,14 @@
-import {renderNextBenefit} from './benefits.js?v=20261106-earned1';
-import {init,t,getLang} from './copy.js?v=20261106-earned1';
-import {$,api,wireForm,errorText,tag,copy,share,saveArt,recruitURL,countryOptions,submit} from './client.js?v=20261106-earned1';
-import {RANKS,WEIGHTS} from './domain.js?v=20261106-earned1';
+import {renderNextBenefit} from './benefits.js?v=20261106-feathers1';
+import {init,t,getLang} from './copy.js?v=20261106-feathers1';
+import {$,api,wireForm,errorText,tag,copy,share,saveArt,recruitURL,countryOptions,submit} from './client.js?v=20261106-feathers1';
+import {RANKS,WEIGHTS} from './domain.js?v=20261106-feathers1';
 let self=null;const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 function renderRanks(){
  $('rank-ladder').replaceChildren(...RANKS.map(([name,minimum])=>{const span=document.createElement('span');span.textContent=name+' · '+minimum;return span;}));
  $('rank-rules').replaceChildren(...[[t('rankHelp'),WEIGHTS.help],[t('rankMission'),WEIGHTS.daily],[t('rankRecruit'),WEIGHTS.recruit],[t('rankPidgyRecruit'),WEIGHTS.recruit]].map(([label,value])=>{const row=document.createElement('tr'),a=document.createElement('td'),b=document.createElement('td');a.textContent=label;b.textContent='+'+value;row.append(a,b);return row;}));
 }
 init(()=>{renderRanks();renderNextBenefit($('toll-next-rank'),self?.tier);if($('enlist-country'))countryOptions($('enlist-country'),$('enlist-country').value);});renderRanks();
-const country=document.createElement('div');country.innerHTML='<label for="enlist-country" data-army="country"></label><select id="enlist-country" name="country"></select><small data-army="countryNote"></small>';$('enlist-form').insertBefore(country,$('enlist-why').previousElementSibling);import('./copy.js?v=20261106-earned1').then(({translate})=>translate(country));countryOptions($('enlist-country'));
+const country=document.createElement('div');country.innerHTML='<label for="enlist-country" data-army="country"></label><select id="enlist-country" name="country"></select><small data-army="countryNote"></small>';$('enlist-form').insertBefore(country,$('enlist-why').previousElementSibling);import('./copy.js?v=20261106-feathers1').then(({translate})=>translate(country));countryOptions($('enlist-country'));
 $('enlist-why').addEventListener('input',()=>{$('why-count').textContent=[...$('enlist-why').value].length+'/280';});
 // iOS: hiding the focused field while the keyboard is up left the page shifted into empty black space.
 // close the keyboard first, wait for the viewport to settle, then jump (no smooth scroll) to the dog tag.

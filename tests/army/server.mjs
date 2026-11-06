@@ -7,6 +7,8 @@ const service=armyService({store,bits:8,mailOptions:{apiKey:()=> 'test-key',requ
 const handler=createArmyHandler({service,ready:()=>true,ownerSession:async req=>req.headers['x-test-admin']==='yes'?{email:'gabriel@corvus.gent'}:null});
 const webhook=createBMCHandler({store,secret:()=> 'test-bmc-secret',background:p=>background.push(p)});
 const server=http.createServer(async(req,res)=>{try{
+ // This fixture is HTTP loopback only; production cookies stay Secure.
+ const setHeader=res.setHeader.bind(res);res.setHeader=(key,value)=>setHeader(key,key.toLowerCase()==='set-cookie'?(Array.isArray(value)?value:[value]).map(v=>v.replace('; Secure','')):value);
  const url=new URL(req.url,'http://localhost'),pathname=decodeURIComponent(url.pathname);req.query=Object.fromEntries(url.searchParams);res.status=n=>(res.statusCode=n,res);res.json=data=>{res.setHeader('Content-Type','application/json');res.end(JSON.stringify(data));};res.send=data=>res.end(data);
  if(req.headers.origin===`http://localhost:${process.env.PORT||4188}`||req.headers.origin===`http://127.0.0.1:${process.env.PORT||4188}`)req.headers.origin='https://corvus.gent';
  req.headers['x-forwarded-for']=req.headers['x-test-ip']||'198.51.100.10';
