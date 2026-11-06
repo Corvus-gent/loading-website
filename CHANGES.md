@@ -8,6 +8,13 @@ body in x-signature-sha256, secret PIDGY_WEBHOOK_SECRET). Body for Alkmist:
 {"event_id","referral_code":"corvus-<handle>","email","started_at"}. Email is hashed
 transiently for dedupe/self-referral, never stored raw. Admin list sorts by priority().
 Copy keys for door iii, the private code and next rank added; UI wiring is Codex's.
+## 2026-11-06 — claude/consul
+
+New lifetime tier consul ($10,000 one-time, max 2 seats) above senator. Detected only
+from an explicitly named consul BMC product of at least $10,000; a third buyer stays
+unlevelled for manual review. Discord: consul role and private #war-council
+(imperator + consul); consul also sees centurio-tent. Excluded from MRR. Copy keys
+tierConsul/tierConsulPerk in 7 locales. BMC (37) and Discord tests pass.
 
 ## 2026-11-06 — claude/napoleon-copy
 

@@ -19,6 +19,12 @@ try{
  // Erasure between durable acceptance and the background processor must remove the pending personal record too.
  await bmc.accept({...donation,event_id:402});
 
+
+ // Consul: explicit product, >= $10,000, lifetime, max 2 seats.
+ const consul=(id,email)=>({event_id:id,type:'extra_purchase.created',live_mode:true,created:Math.floor(Date.now()/1000)+20,data:{id,amount:10000,currency:'USD',supporter_email:email,extras:[{title:'consul (backer)'}]}});
+ for(const [n,name] of ['c_one','c_two','c_three'].entries()){const c=await store.create();await store.register(c.id,{username:name,email:name+'@example.test',country:'BE'});await store.verify(c.id);await bmc.accept(consul(500+n,name+'@example.test'));await bmc.process(String(500+n));}
+ assert.equal(tierName('consul (backer)'),'consul');assert.equal(activeTier(await store.byName('c_one')),'consul');assert.equal(activeTier(await store.byName('c_two'),Date.now()+5*365*86400000),'consul');assert.equal(activeTier(await store.byName('c_three')),null);count+=4;
+ for(const name of ['c_one','c_two','c_three'])await store.remove((await store.byName(name)).id);
  const keys=await client.keys(prefix+'*');for(const key of keys){if(await client.type(key)==='string'){const value=await client.get(key);assert(!value.includes('DO NOT STORE'));assert(!value.includes('PRIVATE MESSAGE'));}}
  await store.remove(u.id);assert.equal(await store.byName('payment_test'),null);assert.equal(await store.get('bmc:event:100'),null);assert.equal(await store.get('bmc:event:402'),null);count+=3;
  console.log('BMC checks passed:',count,'(signature, replay, tiers, expiry, privacy, refunds, deletion).');

@@ -2,7 +2,7 @@ import crypto from 'node:crypto';
 import process from 'node:process';
 import {digest} from './_security.js';
 import {armyDiscord} from './_discord.js';
-import {DAY,TIERS,activeTier,cleanUsername,validUsername,normalizeEmail} from '../../js/army/domain.js';
+import {DAY,TIERS,CONSUL_SEATS,activeTier,cleanUsername,validUsername,normalizeEmail} from '../../js/army/domain.js';
 
 // Official schema: https://cdn.buymeacoffee.com/assets/integrations/bmc-webhooks-openapi.json
 export function verifyBMC(raw,signature,secret){
@@ -44,6 +44,12 @@ export function bmcPayments(store){
   // Senator is never inferred from an arbitrary $1000 gift: only an explicitly
   // named senator product or level qualifies; everything ambiguous is reviewed.
   if(!subscription&&state==='active'&&amount>=1000&&currency==='USD'&&Array.isArray(d.extras)&&d.extras.some(e=>tierName(e.title)==='senator'))record.level='senator';
+  // Consul: only an explicitly named consul product of at least $10,000, and only while
+  // a seat is free. A third buyer is left unlevelled so Gabe reviews and refunds by hand.
+  if(!subscription&&state==='active'&&amount>=10000&&currency==='USD'&&Array.isArray(d.extras)&&d.extras.some(e=>tierName(e.title)==='consul')){
+   const held=(await store.all()).filter(s=>s.membership?.tier==='consul'&&s.membership.state!=='refunded'&&s.id!==account?.id).length;
+   record.level=held<CONSUL_SEATS?'consul':null;
+  }
   return record;
  }
  async function accept(event){
