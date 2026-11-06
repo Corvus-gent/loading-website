@@ -117,7 +117,7 @@ test('authenticated scrolling fetches each table once and keeps it out of tab st
  });
  await page.goto('/stats/private/');await expect(page.locator('#out td').first()).toHaveText('/');
  expect(seen).toEqual([null]);
- const section=page.locator('#out > section').filter({has:page.getByRole('heading',{name:'pages',exact:true})});await section.scrollIntoViewIfNeeded();
+ const section=page.locator('#out > section').filter({hasText:/^pages/});await section.scrollIntoViewIfNeeded();
  await expect(section.getByText('/call/',{exact:true})).toBeVisible();
  expect(seen).toEqual([null,'pages']);
  expect(await page.evaluate(()=>Object.keys(sessionStorage).some(k=>k.includes(':private:')))).toBe(false);
