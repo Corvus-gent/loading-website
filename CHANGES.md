@@ -1,7 +1,21 @@
 # Changes
 
+## 2026-11-06 — codex/legion checkpoint
+
+Preserve the work in progress for legion accounts, recruitment, dog-tag art,
+public profiles/list, BMC webhook, private moderation and mail queues.
+Account browser flow and BMC domain checks pass locally; this checkpoint is not
+release approval. Discord is not connected. No production deployment included.
 ## 2026-11-06 — codex/i18n-split
 
 Create the main-based Codex/Claude content boundary: 21 flat feature-locale files,
 lazy browser loader, locale validation and a documented ownership contract.
 Legacy page locales are preserved; the legion branch wires the new consumers.
+
+## 2026-11-06 — codex/legion account and BMC base
+
+Wire feature-locales, passwordless accounts, public profiles and the cached legion
+list. Add signed, idempotent BMC deliveries, private matching, membership expiry,
+scoped data deletion and queued mail. Discord code and mocks cover permission
+planning, one-use invites/linking, tier sync and daily permission audits; live
+activation remains blocked on the bot credentials and installed server.
