@@ -158,5 +158,11 @@
   "legionAtGate": "{n} à porta. os nomes aparecem aqui depois de confirmarem o email.",
   "legionHidden": "{n} prefere marchar sem ser visto.",
   "crowCaw": "crá. o portão é por aqui ↓",
-  "crowTap": "o corvo. toca-lhe."
+  "crowTap": "o corvo. toca-lhe.",
+  "rankLabel": "patente",
+  "rankWhy": "ganha a recrutar, a ajudar e a aparecer. não se compra.",
+  "rankNext": "faltam {n} pts para {rank}",
+  "rankTop": "patente mais alta.",
+  "tierLabel": "apoiante",
+  "tierWhy": "por apoiar a corvus. dá vantagens, nunca patente."
 }

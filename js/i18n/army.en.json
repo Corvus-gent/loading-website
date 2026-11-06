@@ -158,5 +158,11 @@
   "legionAtGate": "{n} at the gate. names show up here once they confirm their email.",
   "legionHidden": "{n} chose to march unseen.",
   "crowCaw": "caw. the gate is this way ↓",
-  "crowTap": "the crow. tap it."
+  "crowTap": "the crow. tap it.",
+  "rankLabel": "rank",
+  "rankWhy": "earned by recruiting, helping and showing up. can't be bought.",
+  "rankNext": "{n} pts to {rank}",
+  "rankTop": "top earned rank.",
+  "tierLabel": "supporter",
+  "tierWhy": "for backing corvus. gives perks, never rank."
 }

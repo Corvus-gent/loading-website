@@ -1,8 +1,8 @@
 import {init,t} from './copy.js?v=20261106-earned1';
-import {$,api,tag,recruitURL,copy,share,saveArt,errorText} from './client.js?v=20261106-earned1';
+import {$,api,tag,recruitURL,copy,share,saveArt,errorText,rankBadges} from './client.js?v=20261106-earned1';
 const username=location.pathname.split('/').filter(Boolean)[1];let soldier,code;
 async function render(){
- if(!soldier)return;$('soldier-name').textContent=soldier.username;$('soldier-ranks').textContent=t('tier')+': '+(soldier.tier||t('unpaid'))+' · '+t('rank')+': '+soldier.rank;
+ if(!soldier)return;$('soldier-name').textContent=soldier.username;rankBadges($('soldier-ranks'),soldier);
  $('soldier-metrics').replaceChildren(...['streak','feathers','recruits','since'].map(key=>{const box=document.createElement('div'),strong=document.createElement('strong'),label=document.createElement('span');strong.textContent=key==='since'?soldier.created:soldier[key];label.textContent=t(key);box.append(strong,label);return box;}));
  $('soldier-recruit-url').textContent=recruitURL(code);
  if(soldier.link){$('soldier-link').href=soldier.link;$('soldier-link').textContent=new URL(soldier.link).hostname+' ↗';$('soldier-link').hidden=false;}

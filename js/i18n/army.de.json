@@ -158,5 +158,11 @@
   "legionAtGate": "{n} am tor. namen erscheinen hier, sobald die mail bestätigt ist.",
   "legionHidden": "{n} marschiert lieber unsichtbar.",
   "crowCaw": "krah. das tor ist hier entlang ↓",
-  "crowTap": "die krähe. tipp sie an."
+  "crowTap": "die krähe. tipp sie an.",
+  "rankLabel": "rang",
+  "rankWhy": "verdient durch rekrutieren, helfen und dabei sein. nicht käuflich.",
+  "rankNext": "noch {n} pkt bis {rank}",
+  "rankTop": "höchster verdienter rang.",
+  "tierLabel": "unterstützer",
+  "tierWhy": "für alle, die corvus unterstützen. perks, nie ein rang."
 }

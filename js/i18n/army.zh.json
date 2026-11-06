@@ -158,5 +158,11 @@
   "legionAtGate": "{n} 人在门口。确认邮件后名字才会出现在这里。",
   "legionHidden": "{n} 人选择隐身行军。",
   "crowCaw": "嘎。大门在这边 ↓",
-  "crowTap": "乌鸦。点一下。"
+  "crowTap": "乌鸦。点一下。",
+  "rankLabel": "军衔",
+  "rankWhy": "靠招募、帮助和坚持获得，买不到。",
+  "rankNext": "距 {rank} 还差 {n} 分",
+  "rankTop": "最高军衔。",
+  "tierLabel": "支持者",
+  "tierWhy": "支持 corvus 的人。有福利，但不带军衔。"
 }

@@ -158,5 +158,11 @@
   "legionAtGate": "{n} en la puerta. los nombres aparecen aquí al confirmar el correo.",
   "legionHidden": "{n} prefiere marchar sin ser visto.",
   "crowCaw": "cra. la puerta está por aquí ↓",
-  "crowTap": "el cuervo. tócalo."
+  "crowTap": "el cuervo. tócalo.",
+  "rankLabel": "rango",
+  "rankWhy": "se gana reclutando, ayudando y apareciendo. no se compra.",
+  "rankNext": "faltan {n} pts para {rank}",
+  "rankTop": "rango ganado más alto.",
+  "tierLabel": "apoyo",
+  "tierWhy": "por apoyar corvus. da ventajas, nunca rango."
 }

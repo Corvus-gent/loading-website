@@ -1,5 +1,5 @@
 import {init,t,getLang} from './copy.js?v=20261106-earned1';
-import {$,api,errorText} from './client.js?v=20261106-earned1';
+import {$,api,errorText,rankBadges} from './client.js?v=20261106-earned1';
 let members=[],extra={atGate:0,hidden:0};
 function flag(code){return code?.match(/^[A-Z]{2}$/)?String.fromCodePoint(...[...code].map(c=>127397+c.charCodeAt(0))):'';}
 function render(){
@@ -7,7 +7,7 @@ function render(){
  const rows=members.filter(s=>(!query||s.username.includes(query))&&(!tier||s.tier===tier)&&(!country||s.country===country));
  $('legion-list').replaceChildren(...rows.map(s=>{const card=document.createElement('article');card.className='legion-card tier-'+(s.tier||'none');
  const name=document.createElement('a');name.className='legion-name';name.href='/soldier/'+encodeURIComponent(s.username);name.textContent=s.username;
- const badge=document.createElement('p');badge.className='legion-badge';badge.textContent=t('tier')+': '+(s.tier||t('unpaid'))+' · '+t('rank')+': '+s.rank;
+ const badge=document.createElement('div');badge.className='legion-badge';rankBadges(badge,s,{compact:true});
  const date=document.createElement('p');date.className='army-fine';date.textContent=flag(s.country)+' '+t('since')+' '+s.created;card.append(name,badge,date);
  if(s.link){const link=document.createElement('a');link.href=s.link;link.rel='noopener noreferrer';link.target='_blank';link.className='legion-external';link.textContent=new URL(s.link).hostname+' ↗';card.append(link);}return card;
  }));$('legion-status').textContent=rows.length?'':members.length?t('noResults'):[t('empty'),extra.atGate?t('legionAtGate',{n:extra.atGate}):'',extra.hidden?t('legionHidden',{n:extra.hidden}):''].filter(Boolean).join(' ');

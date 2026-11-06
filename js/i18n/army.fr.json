@@ -158,5 +158,11 @@
   "legionAtGate": "{n} à la porte. les noms apparaissent ici après confirmation du mail.",
   "legionHidden": "{n} a choisi de marcher dans l'ombre.",
   "crowCaw": "croa. la porte, c'est par ici ↓",
-  "crowTap": "le corbeau. touche-le."
+  "crowTap": "le corbeau. touche-le.",
+  "rankLabel": "rang",
+  "rankWhy": "gagné en recrutant, en aidant et en étant là. ne s'achète pas.",
+  "rankNext": "encore {n} pts avant {rank}",
+  "rankTop": "plus haut rang gagné.",
+  "tierLabel": "soutien",
+  "tierWhy": "pour qui soutient corvus. des avantages, jamais un rang."
 }

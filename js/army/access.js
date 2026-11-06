@@ -1,6 +1,6 @@
 import {renderNextBenefit} from './benefits.js?v=20261106-earned1';
 import {init,t,getLang} from './copy.js?v=20261106-earned1';
-import {$,api,wireForm,errorText,tag,countryOptions,recruitURL,copy,share,saveArt,saveBlob} from './client.js?v=20261106-earned1';
+import {$,api,wireForm,errorText,tag,countryOptions,recruitURL,copy,share,saveArt,saveBlob,rankBadges} from './client.js?v=20261106-earned1';
 let self=null;
 let token=window.__armyClaimToken||new URLSearchParams(location.hash.slice(1)).get('token');delete window.__armyClaimToken;
 if(token)history.replaceState(null,'',location.pathname+location.search);
@@ -16,7 +16,7 @@ async function show(user){
  $('account-pidgy-trials').textContent=t('pidgyTrials',{count:user.pidgyTrials||0});
  $('public-profile').href='/soldier/'+encodeURIComponent(user.username);$('public-profile').hidden=!user.username;
  let discordButton=$('account-discord');if(!discordButton){discordButton=document.createElement('button');discordButton.id='account-discord';discordButton.type='button';discordButton.textContent='discord →';$('account-ranks').after(discordButton);discordButton.onclick=async()=>{try{const result=await api({action:'discord-code'});status.textContent='/claim '+result.code;}catch(error){status.textContent=errorText(error);}};}discordButton.hidden=!user.discordReady;
- $('account-ranks').textContent=t('tier')+': '+(user.tier||t('unpaid'))+' · '+t('rank')+': '+user.rank;
+ rankBadges($('account-ranks'),user);
  await tag($('account-tag'),user,user.code);$('edit-link').value=user.link||'';countryOptions($('edit-country'),user.country||'');$('profile-form').elements.hidden.checked=!!user.hidden;$('account-recruit-url').textContent=recruitURL(user.code);
 }
 wireForm($('register-form'),'register',async result=>{self=result.self;$('account-forms').hidden=true;$('account-pending').hidden=false;status.textContent=t(result.mail==='sent'?'verifyNote':'mailQueued');await tag($('pending-tag'),self,self.code);},status);

@@ -158,5 +158,11 @@
   "legionAtGate": "{n} aan de poort. namen verschijnen hier zodra ze hun e-mail bevestigen.",
   "legionHidden": "{n} marcheert liever onzichtbaar.",
   "crowCaw": "kraa. de poort is deze kant op ↓",
-  "crowTap": "de kraai. tik erop."
+  "crowTap": "de kraai. tik erop.",
+  "rankLabel": "rang",
+  "rankWhy": "verdiend door te recruiten, te helpen en er te zijn. niet te koop.",
+  "rankNext": "nog {n} pts tot {rank}",
+  "rankTop": "hoogste verdiende rang.",
+  "tierLabel": "supporter",
+  "tierWhy": "voor wie corvus steunt. geeft perks, nooit rang."
 }

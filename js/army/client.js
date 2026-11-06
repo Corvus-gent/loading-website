@@ -1,4 +1,5 @@
 import {t,getLang} from './copy.js?v=20261106-earned1';
+import {RANKS} from './domain.js?v=20261106-earned1';
 export const $=id=>document.getElementById(id);
 export async function api(data,query=''){
  const response=await fetch('/api/army'+query,{credentials:'same-origin',cache:'no-store',signal:AbortSignal.timeout(18000),...(data?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}:{})});
@@ -41,4 +42,14 @@ export function countryOptions(select,value=''){
 export async function rankMoment(previous,s){
  if(!previous||previous===s.rank)return;
  const {insignia}=await import('./art.js?v=20261106-earned1'),box=document.createElement('aside');box.className='army-rank-toast';box.setAttribute('role','status');box.innerHTML=insignia(s.rank);const text=document.createElement('span');text.textContent=t('rankUp')+' '+s.rank;box.append(text);document.body.append(box);setTimeout(()=>box.remove(),6000);
+}
+
+// rank and supporter tier are two different ladders; show them as two labelled badges so nobody mixes them up.
+export function rankBadges(el,s,{compact=false}={}){
+ const badge=(cls,value,label,why)=>{const box=document.createElement('div');box.className='rank-badge '+cls;const b=document.createElement('b');b.textContent=value;const l=document.createElement('span');l.textContent=label;box.append(l,b);if(why&&!compact){const w=document.createElement('small');w.textContent=why;box.append(w);}return box;};
+ let progress=t('rankWhy');
+ if(Number.isFinite(s.points)){const i=RANKS.findIndex(([name])=>name===s.rank),next=RANKS[i+1];progress=next?t('rankNext',{n:Math.max(0,next[1]-s.points),rank:next[0]})+' · '+t('rankWhy'):t('rankTop');}
+ const parts=[badge('is-rank',s.rank||'tiro',t('rankLabel'),progress)];
+ if(s.tier&&s.tier!=='imperator')parts.push(badge('is-tier',s.tier,t('tierLabel'),t('tierWhy')));
+ el.classList.add('rank-badges');el.replaceChildren(...parts);
 }
