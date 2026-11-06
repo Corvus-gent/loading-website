@@ -164,5 +164,6 @@
   "rankNext": "faltan {n} pts para {rank}",
   "rankTop": "rango ganado más alto.",
   "tierLabel": "apoyo",
-  "tierWhy": "por apoyar corvus. da ventajas, nunca rango."
+  "tierWhy": "por apoyar corvus. da ventajas, nunca rango.",
+  "gateAlready": "ya estás en la puerta. mira tu placa ↓"
 }

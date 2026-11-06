@@ -1,20 +1,26 @@
-import {renderNextBenefit} from './benefits.js?v=20261106-feathers1';
-import {init,t,getLang} from './copy.js?v=20261106-feathers1';
-import {$,api,wireForm,errorText,tag,copy,share,saveArt,recruitURL,countryOptions,submit} from './client.js?v=20261106-feathers1';
-import {RANKS,WEIGHTS} from './domain.js?v=20261106-feathers1';
+import {renderNextBenefit} from './benefits.js?v=20261106-knock1';
+import {init,t,getLang} from './copy.js?v=20261106-knock1';
+import {$,api,wireForm,errorText,tag,copy,share,saveArt,recruitURL,countryOptions,submit} from './client.js?v=20261106-knock1';
+import {RANKS,WEIGHTS} from './domain.js?v=20261106-knock1';
 let self=null;const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function renderGateLinks(){
+ const enlisted=!$('ceremony').hidden;
+ document.querySelectorAll('[data-gate-enlist]').forEach(link=>{
+  link.href=enlisted?'#ceremony':'#enlist';link.dataset.army=enlisted?'gateAlready':link.dataset.gateEnlist;link.textContent=t(link.dataset.army);
+ });
+}
 function renderRanks(){
  $('rank-ladder').replaceChildren(...RANKS.map(([name,minimum])=>{const span=document.createElement('span');span.textContent=name+' · '+minimum;return span;}));
  $('rank-rules').replaceChildren(...[[t('rankHelp'),WEIGHTS.help],[t('rankMission'),WEIGHTS.daily],[t('rankRecruit'),WEIGHTS.recruit],[t('rankPidgyRecruit'),WEIGHTS.recruit]].map(([label,value])=>{const row=document.createElement('tr'),a=document.createElement('td'),b=document.createElement('td');a.textContent=label;b.textContent='+'+value;row.append(a,b);return row;}));
 }
-init(()=>{renderRanks();renderNextBenefit($('toll-next-rank'),self?.tier);if($('enlist-country'))countryOptions($('enlist-country'),$('enlist-country').value);});renderRanks();
-const country=document.createElement('div');country.innerHTML='<label for="enlist-country" data-army="country"></label><select id="enlist-country" name="country"></select><small data-army="countryNote"></small>';$('enlist-form').insertBefore(country,$('enlist-why').previousElementSibling);import('./copy.js?v=20261106-feathers1').then(({translate})=>translate(country));countryOptions($('enlist-country'));
+init(()=>{renderGateLinks();renderRanks();renderNextBenefit($('toll-next-rank'),self?.tier);if($('enlist-country'))countryOptions($('enlist-country'),$('enlist-country').value);});renderRanks();
+const country=document.createElement('div');country.innerHTML='<label for="enlist-country" data-army="country"></label><select id="enlist-country" name="country"></select><small data-army="countryNote"></small>';$('enlist-form').insertBefore(country,$('enlist-why').previousElementSibling);import('./copy.js?v=20261106-knock1').then(({translate})=>translate(country));countryOptions($('enlist-country'));
 $('enlist-why').addEventListener('input',()=>{$('why-count').textContent=[...$('enlist-why').value].length+'/280';});
 // iOS: hiding the focused field while the keyboard is up left the page shifted into empty black space.
 // close the keyboard first, wait for the viewport to settle, then jump (no smooth scroll) to the dog tag.
 const frame=()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
 function keyboardClosed(){const vv=window.visualViewport;if(!vv||vv.height>innerHeight*.85)return Promise.resolve();return new Promise(r=>{const done=()=>{vv.removeEventListener('resize',check);clearTimeout(timer);r();},check=()=>{if(vv.height>innerHeight*.85)done();},timer=setTimeout(done,600);vv.addEventListener('resize',check);});}
-async function ceremony(user){self=user;const active=document.activeElement;if(active&&active!==document.body&&typeof active.blur==='function')active.blur();await keyboardClosed();await tag($('dog-tag'),user,user.code);$('enlist').hidden=true;$('ceremony').hidden=false;await frame();const box=$('ceremony').getBoundingClientRect();window.scrollTo({top:Math.max(0,scrollY+box.top-Math.max(0,(innerHeight-box.height)/2)),behavior:'instant'});$('ceremony').focus({preventScroll:true});}
+async function ceremony(user){self=user;const active=document.activeElement;if(active&&active!==document.body&&typeof active.blur==='function')active.blur();await keyboardClosed();await tag($('dog-tag'),user,user.code);$('enlist').hidden=true;$('ceremony').hidden=false;renderGateLinks();await frame();const box=$('ceremony').getBoundingClientRect();window.scrollTo({top:Math.max(0,scrollY+box.top-Math.max(0,(innerHeight-box.height)/2)),behavior:'instant'});$('ceremony').focus({preventScroll:true});}
 wireForm($('enlist-form'),'enlist',async data=>{await ceremony(data.self);$('ceremony-note').textContent=t(data.mail==='sent'?'verifyNote':'mailQueued');loadCounts();},$('enlist-status'));
 async function identity(){if(!self)self=(await api({action:'begin'})).self;return self;}
 $('stripes-door').onclick=async()=>{$('stripes-dialog').showModal();$('stripes-status').textContent=t('working');try{const u=await identity();$('recruit-link').textContent=recruitURL(u.code);$('stripes-status').textContent='';}catch(e){$('stripes-status').textContent=errorText(e);}};

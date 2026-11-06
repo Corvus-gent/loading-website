@@ -1,4 +1,4 @@
-import {initI18n, t} from './i18n.js?v=20261106-feathers1';
+import {initI18n, t} from './i18n.js?v=20261106-knock1';
 import {loadPersonas, mountPortrait, publicSocials} from './personas.js';
 
 const id = document.body.dataset.article;
