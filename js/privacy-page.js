@@ -1,11 +1,11 @@
 import {initI18n, getLang} from './i18n.js';
 import {PRIVACY_VERSION,strings} from './privacy-strings.js';
-import {analyticsAllowed,chooseAnalytics,privacySignal} from './analytics-consent.js';
+import {analyticsAllowed,chooseAnalytics,privacySignal,consentChoice} from './analytics-consent.js';
 function choiceLabels(){
  const copy=strings[getLang()];
  document.getElementById('analytics-choice-title').textContent=copy.change;
  document.getElementById('analytics-status').textContent=privacySignal()?copy.signal:analyticsAllowed()?copy.on:copy.off;
- const allow=document.getElementById('analytics-allow');allow.textContent=copy.allow;allow.disabled=privacySignal()||analyticsAllowed();
+ const allow=document.getElementById('analytics-allow');allow.textContent=copy.allow;allow.disabled=consentChoice()?.choice==='allow';
  document.getElementById('analytics-deny').textContent=analyticsAllowed()?copy.withdraw:copy.deny;
 }
 document.getElementById('analytics-allow').onclick=()=>chooseAnalytics('allow');

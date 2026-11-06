@@ -6,6 +6,7 @@ import { getSession, safeEqual } from './_session.js';
 
 export const pages = [
   'overview',
+  'army',
   'pidgy',
   'games',
   'map',
@@ -19,6 +20,7 @@ export const pages = [
 // The first screen has its own small payload. Detail tables are projected only
 // after a fresh session check, when the dashboard scrolls to that section.
 const dashboardTables = [
+  'army',
   'outbound',
   'funnel',
   'links',
@@ -71,6 +73,7 @@ export async function build(
     const tasks = (makeTasks || (await import('./_stats-build.js')).snapshotTasks)(page, day);
     const data = { ...previous?.data },
       dates = { ...previous?.dates },
+      timings = { ...previous?.timings },
       missing = new Set(Object.keys(tasks));
     const now = timestamp();
     let successes = 0;
@@ -87,6 +90,7 @@ export async function build(
         day,
         data: { ...data },
         dates: { ...dates },
+        timings: {...timings},
         missing: [...missing],
         updated: Object.values(dates).sort()[0] || now,
         checked: now,
@@ -115,6 +119,7 @@ export async function build(
     }
     const work = Promise.all(
       Object.entries(tasks).map(async ([name, run]) => {
+        const taskStart=performance.now();
         // Reuse identical day-level source queries across pages during a cron run.
         const sharedName =
           ['countries', 'feathers', 'terminal', 'counters'].includes(name) && page !== 'private'
@@ -131,7 +136,10 @@ export async function build(
           missing.delete(name);
           successes++;
         } catch {
+          await (await import('./_function-errors.js')).recordError('snapshot',page+':'+name);
           /* Retain the previous value and its timestamp. */
+        } finally {
+          timings[name]=Math.round(performance.now()-taskStart);
         }
       })
     );

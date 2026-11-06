@@ -8,7 +8,7 @@ export const GENRES = ['us hip-hop','rap fr','rap nl/be','latin','lusophone','af
 export const BROWSERS = ['Chrome','Chrome iOS','Safari','Mobile Safari','Firefox','Microsoft Edge','Edge','Opera','Samsung Internet','Internet Explorer','Android Mobile','Other'];
 const HOSTS = ['corvus.gent','www.corvus.gent','stats.corvus.gent'];
 const EXTERNAL = ['pidgy-ai.com','app.pidgy-ai.com','buymeacoffee.com','www.buymeacoffee.com','open.spotify.com','music.apple.com','bandcamp.com','soundcloud.com','musicbrainz.org','www.linkedin.com','linkedin.com','instagram.com','www.instagram.com','www.tiktok.com','www.facebook.com','www.youtube.com','threads.net','www.threads.net','x.com','luma.com','alkmist.com','posthog.com','github.com'];
-const ROUTES = new Set(['/', '/realm/', '/sf/', '/gabe/', '/people/', '/now/', '/sidequests/', '/support/', '/support/books/', '/support/companies/', '/support/people/', '/support/founders/', '/support/sport-people/', '/support/philosophists/', '/languages/', '/402/', '/call/', '/music/', '/games/', '/wiki/', '/wiki/corvus/', '/wiki/pidgy/', '/privacy/', '/cv/', '/pidgy/', '/map/', '/hunt/', '/stats/', '/stats/pidgy/', '/stats/games/', '/stats/map/', '/stats/music/', '/stats/hunt/', '/x/', '/stats/x/', '/coffee/', '/stats/coffee/', '/coffee-with-gabe/']);
+const ROUTES = new Set(['/', '/realm/', '/sf/', '/gabe/', '/people/', '/now/', '/sidequests/', '/support/', '/support/books/', '/support/companies/', '/support/people/', '/support/founders/', '/support/sport-people/', '/support/philosophists/', '/languages/', '/402/', '/call/', '/music/', '/games/', '/wiki/', '/wiki/corvus/', '/wiki/pidgy/', '/privacy/', '/cv/', '/pidgy/', '/map/', '/hunt/', '/stats/', '/stats/pidgy/', '/stats/games/', '/stats/map/', '/stats/music/', '/stats/hunt/', '/x/', '/stats/x/', '/coffee/', '/stats/coffee/', '/army/', '/stats/army/', '/status/', '/stats/status/', '/coffee-with-gabe/']);
 export const category = (value, allowed, fallback = 'other') => allowed.includes(value) ? value : fallback;
 export const sourceCategory = value => category(value, SOURCES);
 export const campaignCategory = value => {
@@ -60,7 +60,7 @@ export function countryCategory(value) {
   }
   return countryCategory.names.get(value) || '?';
 }
-const EVENTS = new Set(['sidequests_cta_click','sidequests_share','sf_note_seen','sf_note_open','sf_note_click','sf_form_start','sf_form_submit','$pageview','link_click','outbound_click','short_link_out','links_click','links_qr_open','links_crow_click','music_play','vinyl_play','language_vote','goodreads_locked_click','goodreads_access_request','game_start','game_guess','game_end','game_share','share_click','feather_found','terminal_command','site_search','visitor_guess']);
+export const EVENTS = new Set(['notice_ok','sidequests_cta_click','sidequests_share','sf_note_seen','sf_note_open','sf_note_click','sf_form_start','sf_form_submit','$pageview','link_click','outbound_click','short_link_out','links_click','links_qr_open','links_crow_click','music_play','vinyl_play','language_vote','goodreads_locked_click','goodreads_access_request','game_start','game_guess','game_end','game_share','share_click','feather_found','terminal_command','site_search','visitor_guess']);
 // The campaign owner controls these six categories. Drop arbitrary URL text,
 // including email addresses, rather than turning it into a visitor identifier.
 export function sidequestTags(p) {

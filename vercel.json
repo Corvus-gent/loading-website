@@ -31,6 +31,14 @@
   ],
   "rewrites": [
     {
+      "source": "/api/report.md",
+      "destination": "/api/stats?report=1"
+    },
+    {
+      "source": "/api/notice-ok",
+      "destination": "/api/stats?notice=1"
+    },
+    {
       "source": "/api/health/history",
       "destination": "/api/stats?healthHistory=1"
     },

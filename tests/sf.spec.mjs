@@ -15,6 +15,7 @@ async function setup(page,{date='2026-11-04T12:00:00Z',events=[],reduced=false}=
  const errors=[],requests=[];await page.clock.install({time:new Date(date)});if(reduced)await page.emulateMedia({reducedMotion:'reduce'});
  page.on('pageerror',e=>errors.push(e.message));page.on('console',e=>{if(e.type()==='error')errors.push(e.text());});page.on('request',r=>requests.push(r.url()));
  await page.addInitScript(()=>{window.sfCaptured=[];window.posthog={capture:(event,props)=>window.sfCaptured.push({event,props})};});
+ await page.route('**/js/vendor/posthog*',r=>r.fulfill({body:'',contentType:'text/javascript'}));
  await page.route('**/sf.json',r=>r.fulfill({json:{events}}));
  await page.route('**/api/**',async route=>{
   const r=route.request(),u=new URL(r.url());

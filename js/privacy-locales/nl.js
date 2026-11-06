@@ -2,10 +2,10 @@ export default {
   "title": "privacy, zonder mist.",
   "intro": [
     "we willen je data niet.",
-    "met je toestemming worden bezoeken anonieme totalen, zonder trackingcookies.",
+    "bezoeken worden anonieme totalen, zonder trackingcookies.",
     "het beetje dat we bewaren (zoals een stem of inlogcode) staat hieronder en vervalt."
   ],
-  "updated": "bijgewerkt op 5 november 2026",
+  "updated": "2026-11-06",
   "sections": [
     [
       "who",
@@ -15,12 +15,12 @@ export default {
     [
       "counts",
       "wat we tellen",
-      "alleen nadat je optionele analytics toestaat: paginaweergaven, algemene land- en browsercategorieën, bekende linkbestemmingen en eenvoudige acties bij muziek en games. PostHog EU telt zonder trackingcookies of persoonlijke profielen. netwerk- en browserinformatie wordt kort verwerkt tot een dagelijks pseudoniem; alleen de uiteindelijke totalen zijn anoniem. namen, e-mails, formulierinhoud, zoektekst en opnames horen niet in onze analytics. de openbare kaart en pingle gebruiken alleen afgeronde stadsgegevens met minstens twee getelde bezoekers."
+      "PostHog EU telt standaard bezoeken en toegestane acties, zonder cookies, browseropslag, profielen of opnames. PostHog maakt tijdelijk een dagelijks pseudoniem uit netwerk- en browserinfo; enkel de totalen zijn anoniem. namen, e-mails en formulierinhoud blijven eruit. bij GPC, DNT of ‘tel mij niet mee’ laadt PostHog niet: enkel een teller per pagina/dag stijgt, zonder ID, hash of opgeslagen headers. die hits zijn geen unieke personen."
     ],
     [
       "why",
       "waarom, en op welke grond",
-      "toestemming: optionele PostHog-analytics en, apart daarvan, op play klikken voor Spotify. gerechtvaardigd belang: misbruik voorkomen en anonieme totalen gebruiken. uitvoering van je verzoek: inlogmails, stemmen, games, toegangsaanvragen en boekingen. sluit de Spotify-speler of pagina om afspelen te stoppen. we verkopen geen bezoekersdata. voor analytics respecteren we do-not-track en global privacy control."
+      "gerechtvaardigd belang is de opgegeven basis voor eenvoudige cookieless bezoekstatistieken en misbruikpreventie. Spotify start met jouw klik. loginmails, stemmen en boekingen voeren jouw verzoek uit. je kunt hier bezwaar maken tegen PostHog; enkel een anonieme hit blijft. we verkopen geen data."
     ],
     [
       "storage",
@@ -40,16 +40,16 @@ export default {
       "browser",
       "het kleine beetje in je browser",
       "noodzakelijke cookies: sess houdt je ingelogd; vid voorkomt dubbele taalstemmen; mvid onthoudt muziekstemmen en dagelijkse spelvoortgang. ze zijn ondertekend, beveiligd en niet leesbaar door paginascripts. sess vervalt na 7 dagen, vid en mvid na een jaar. we gebruiken ze nooit om je in analytics te herkennen.",
-      "je analyticskeuze en privacyversie blijven in deze browser 180 dagen bewaard, of tot het beleid wijzigt. localStorage bewaart je taalstemkeuze, je taal, realm-voorkeur, veren, spelresultaten en gelezen speluitleg tot een jaar na het opslaan. sitegegevens wissen verwijdert voorkeuren, niet de stemmen die al zijn uitgebracht.",
-      "als je statistieken toestaat, onthoudt dit tabblad de publieke campagnelabels van een sidequests-link tot je het sluit of statistieken uitzet. zo tellen we bezoeken, klikken en deelacties uit een post."
+      "één lokale privacy-choice-vlag onthoudt ‘ok’ of ‘tel mij niet mee’. ‘ok’ telt ook één soldier per browser/site-origin; na het wissen van sitegegevens kan dat opnieuw. de vlag gaat niet naar PostHog. analytics en campagnelabels blijven in het geheugen, zonder browseropslag."
     ],
     [
       "outside",
       "wanneer een andere dienst meedoet",
       "Spotify krijgt pas na play een afspeelverzoek en kan dan eigen cookies plaatsen. onze server zoekt een song op bij Spotify of Apple wanneer je een link indient. kaarttegels komen via onze server van CARTO, zonder je IP door te sturen. Leaflet, Sortable en de PostHog-bibliotheek staan hier lokaal.",
-      "Buy Me a Coffee en Pidgy-booking zijn links, geen ingebouwde formulieren. na doorklikken gelden hun privacyregels. /links, /go en onze campagnesnelkoppelingen voegen alleen campagnelabels (UTMs) toe en tellen bezoeken/klikken; ze verzamelen geen formulierinhoud of bezoekersidentiteiten. (analytics alleen met toestemming).",
+      "Buy Me a Coffee en Pidgy-booking zijn links, geen ingebouwde formulieren. na doorklikken gelden hun privacyregels. /links, /go en onze campagnesnelkoppelingen voegen alleen campagnelabels (UTMs) toe en tellen bezoeken/klikken; ze verzamelen geen formulierinhoud of bezoekersidentiteiten.",
       "Notion bevat mijn handmatig ingevulde X-log. openbare stats tonen totalen, publieke campagne- en stemlabels en mijn eigen posts; replyteksten en doel-URL’s blijven achter de login. goedgekeurde campagnes en regio-uurvakken horen bij optionele analytics. kopieën op Corvus vervallen binnen 24 uur; bronregels volgen mijn Notion-bewaarbeleid. de werkruimteregio moet nog worden bevestigd, dus uitsluitend EU-opslag wordt niet beloofd.",
-      "om koffies te tellen leest onze server kort de gegevens van Buy Me a Coffee. waar mogelijk herkennen we terugkerende supporters aan een account of e-mailadres. alleen de totalen en de datum van de laatste koffie worden 30 minuten bewaard."
+      "om koffies te tellen leest onze server kort de gegevens van Buy Me a Coffee. waar mogelijk herkennen we terugkerende supporters aan een account of e-mailadres. alleen de totalen en de datum van de laatste koffie worden 30 minuten bewaard.",
+      "PostHog EU telt standaard bezoeken en toegestane acties, zonder cookies, browseropslag, profielen of opnames. PostHog maakt tijdelijk een dagelijks pseudoniem uit netwerk- en browserinfo; enkel de totalen zijn anoniem. namen, e-mails en formulierinhoud blijven eruit. bij GPC, DNT of ‘tel mij niet mee’ laadt PostHog niet: enkel een teller per pagina/dag stijgt, zonder ID, hash of opgeslagen headers. die hits zijn geen unieke personen."
     ],
     [
       "where",
@@ -80,5 +80,5 @@ export default {
     "boekingen",
     "handmatig x-log"
   ],
-  "consentInfo": "optionele analytics staat uit tot je toestemming geeft. je kunt je keuze hier altijd wijzigen. elk siteadres onthoudt zijn eigen keuze 180 dagen. weigeren beperkt de site niet; bezoekstatistieken tellen alleen mensen die toestemming geven. intrekken stopt toekomstige analytics, zonder eerdere verwerking ongedaan te maken."
+  "consentInfo": "tellen start standaard. ‘ok’ sluit de melding en telt één soldier; het is geen toestemming voor analytics. ‘tel mij niet mee’, GPC en DNT schakelen naar enkel anonieme pagina-hits. je keuze blijft tot je ze wijzigt of sitegegevens wist. een weigering blijft gelden bij een nieuwe melding."
 };

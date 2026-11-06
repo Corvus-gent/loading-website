@@ -62,9 +62,12 @@ function render() {
     const uptime=document.querySelector('[data-uptime]');uptime.textContent='uptime 30d: '+(s.uptime==null?'—':s.uptime.toFixed(1)+'%');
     const outbound=$("outbound");outbound.replaceChildren();
     if(s.outbound)rows("outbound",s.outbound.hosts.map(([label,n])=>({label,n})),"label");else outbound.textContent='outbound counts unavailable.';
-    $("visitors").textContent = s.visitors??"—";
+    const visitors=s.visitors==null?null:s.visitors+(s.unseen?.day||0);
+    $("visitors").textContent = visitors??"—";
+    const army=document.getElementById("audience-counts");
+    if(army)army.textContent=`soldiers who said ok: ${s.soldiers?.day??0} today · ${s.soldiers?.all??0} all time · unseen visitors: ${s.unseen?.day??0}`;
     $("visitors-line").textContent = s.visitors==null?"visitor count unavailable.":measuredDay === TODAY
-      ? (s.visitors === 1 ? "visitor today. just the one, so far." : `visitors today. so far, just ${s.visitors}.`)
+      ? (visitors === 1 ? "visitor today. just the one, so far." : `visitors today. so far, just ${visitors}.`)
       : `visitors on ${fmt(measuredDay)}.`;
     $("total-line").textContent = day === FIRST ? "day one. the crow came back." : `${s.total??'—'} visits since the crow came back (2 nov 2026).`;
     const max = Math.max(1, ...(s.hours||[]).map(h => h.n));

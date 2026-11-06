@@ -10,6 +10,7 @@ const post = (body) =>
 let email = '';
 
 const TITLES = {
+  army: ['soldiers per day (visitor estimates include unseen page hits)', ['day','visitors','said ok','ok rate']],
   outbound: ['outbound links', ['page', 'host', 'link', 'clicks']],
   funnel: ['per platform & post', ['source', 'post', 'views', 'clicks', 'pidgy', 'trial', 'qr']],
   links: ['clicks per link', ['link', 'clicks']],
