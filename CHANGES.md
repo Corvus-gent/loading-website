@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-11-06 — claude/napoleon-copy
+
+Add Napoleon-gate copy (hero, three doors, painting alt) to the seven army
+locales. Copy only: paying buys priority, never automatic admission.
+
 ## 2026-11-06 — codex/legion checkpoint
 
 Preserve the work in progress for legion accounts, recruitment, dog-tag art,
