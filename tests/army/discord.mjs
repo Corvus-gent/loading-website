@@ -7,7 +7,7 @@ import {interactionHandler} from '../../api/discord.js';
 const guild='100000000000000001',bot='100000000000000002',owners=['100000000000000003','100000000000000004'],discordId='100000000000000005';
 const roles=Object.fromEntries(DISCORD_ROLES.map((name,i)=>[name,'1000000000000000'+String(i+10)]));
 const config={guild,bot,owners,roles,channels:{'the-gate':'100000000000000030'}},plan=discordPlan(config);
-assert(roleAbove({id:'100',position:1},{id:'101',position:1}));assert(!roleAbove({id:'101',position:1},{id:'100',position:1}));assert.equal(plan.roles.length,7);assert.equal(plan.channels.length,10);
+assert(roleAbove({id:'100',position:1},{id:'101',position:1}));assert(!roleAbove({id:'101',position:1},{id:'100',position:1}));assert.equal(plan.roles.length,8);assert.equal(plan.channels.length,11);
 for(const role of plan.roles)assert.equal(BigInt(role.permissions)&9n,0n);
 for(const channel of plan.channels)for(const row of channel.permission_overwrites)if(BigInt(row.allow)&1n)assert([bot,...owners].includes(row.id)&&row.type===1);
 assert.deepEqual(permissionFindings(config,plan.roles,plan.channels),[]);

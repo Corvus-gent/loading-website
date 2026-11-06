@@ -1,8 +1,8 @@
 import crypto from 'node:crypto';
 import {activeTier,DAY} from '../../js/army/domain.js';
 import {digest,seal,open} from './_security.js';
-export const DISCORD_ROLES=['imperator','senator','legatus','centurio','miles','tiro','recruit (unverified)'];
-export const DISCORD_CHANNELS=['the-gate','announcements','general','missions','bangers','build-in-public','sf','introductions','campfire','centurio-tent'];
+export const DISCORD_ROLES=['imperator','consul','senator','legatus','centurio','miles','tiro','recruit (unverified)'];
+export const DISCORD_CHANNELS=['the-gate','announcements','general','missions','bangers','build-in-public','sf','introductions','campfire','centurio-tent','war-council'];
 const snowflake=value=>typeof value==='string'&&/^\d{15,22}$/.test(value);
 export function verifyInteraction(raw,signature,timestamp,publicKey,now=Date.now()){
  if(!/^[a-f0-9]{128}$/i.test(signature||'')||!/^\d{10}$/.test(timestamp||'')||Math.abs(now-Number(timestamp)*1000)>300000||!/^[a-f0-9]{64}$/i.test(publicKey||''))return false;
@@ -13,10 +13,10 @@ export function discordPlan({guild,bot,owners,roles={},restrictedBots=[]}){
  if(!snowflake(guild)||!snowflake(bot)||!Array.isArray(owners)||owners.length!==2||new Set(owners).size!==2||owners.some(id=>!snowflake(id)))throw Error('discord_configuration');
  const memberRoles=DISCORD_ROLES.filter(name=>name!=='recruit (unverified)');
  return {
-  roles:DISCORD_ROLES.map((name,i)=>({name,permissions:'0',color:[0xffd76a,0xd7ae59,0xb8862b,0x96805a,0x777777,0x555555,0x333333][i],hoist:false,mentionable:false})),
+  roles:DISCORD_ROLES.map((name,i)=>({name,permissions:'0',color:[0xffd76a,0xe8c25f,0xd7ae59,0xb8862b,0x96805a,0x777777,0x555555,0x333333][i],hoist:false,mentionable:false})),
   channels:DISCORD_CHANNELS.map(name=>{
-   const gate=name==='the-gate',announcement=name==='announcements',tent=name==='centurio-tent';
-   const allowed=tent?['imperator','senator','legatus','centurio']:memberRoles;
+   const gate=name==='the-gate',announcement=name==='announcements',tent=name==='centurio-tent',council=name==='war-council';
+   const allowed=council?['imperator','consul']:tent?['imperator','consul','senator','legatus','centurio']:memberRoles;
    const overwrites=[{id:guild,type:0,deny:gate?'2049':'1025',allow:gate?'2147550208':'0'},
     ...restrictedBots.map(id=>({id,type:1,allow:'0',deny:'1'})),...owners.map(id=>({id,type:1,allow:'3073',deny:'0'})),{id:bot,type:1,allow:'3073',deny:'0'},
     ...allowed.filter(n=>roles[n]).map(n=>({id:roles[n],type:0,allow:name==='campfire'?'3146752':announcement&&n!=='imperator'?'1024':'3072',deny:announcement&&n!=='imperator'?'2049':'1'}))];
