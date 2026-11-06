@@ -12,6 +12,9 @@ test.use({viewport:{width:360,height:740}, userAgent:'Mozilla/5.0 (Macintosh; In
 let errors;
 test.beforeEach(async({page})=>{
   errors=[];
+  await page.route('**/api/geo?country=1',r=>r.fulfill({json:{countryCode:'BE'}}));
+  await page.route('**/api/hit',r=>r.fulfill({json:{ok:true}}));
+  await page.route('**/api/notice-ok',r=>r.fulfill({json:{ok:true}}));
   page.on('pageerror', error=>errors.push(error.message));
   page.on('console', msg=>{if(msg.type()==='error') errors.push(msg.text());});
 });
@@ -47,9 +50,10 @@ for(const [id, profile] of Object.entries(profiles)) {
     expect(links.filter(l=>new URL(l.href).searchParams.get('invite')==='GABE')).toHaveLength(id==='gabe'?1:0);
     await expect(page.locator('.lt-qr')).toHaveCount(id==='gabe'?1:0);
     const socials=page.locator('#socials a'),follow=page.locator('#follow a');
-    expect(await socials.allTextContents()).toEqual(profile.socials.filter(s=>s.href).map(s=>s.text));
+    expect(await socials.allTextContents()).toEqual(id==='gabe'?profile.socials.filter(s=>s.href).map(s=>s.text):[]);
+    await expect(page.locator('#corner-nav a[href="/realm/"]')).toBeVisible();
     if(id!=='gabe') {
-      expect(await socials.evaluateAll(a=>a.map(e=>e.href))).toEqual(await follow.evaluateAll(a=>a.map(e=>e.href)));
+      await expect(socials).toHaveCount(0);
       expect((await follow.evaluateAll(a=>a.map(e=>e.href))).map(barePath)).toEqual(socialPaths[id]);
       await expect(page.locator('a[href*="/links/gabe"]')).toHaveCount(1);
       expect((await page.locator('a').allTextContents()).filter(t=>/gabe/i.test(t.trim()))).toEqual([id==='corvus'?'the keeper: gabe':'gtm: gabe']);

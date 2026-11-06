@@ -8,7 +8,7 @@ import {referralCode} from './_pidgy.js';
 import {id,digest,readCookie,cookie,validID,validCode,rateHash,country} from './_security.js';
 import {readVoter as gameVoter} from '../_music-security.js';
 import {zeroBits} from '../_music-security.js';
-import {publicSoldier,normalizeEmail,LANGUAGES,DAY,RETENTION,dayKey,priority} from '../../js/army/domain.js';
+import {publicSoldier,normalizeEmail,LANGUAGES,DAY,RETENTION,dayKey} from '../../js/army/domain.js';
 
 export function armyService({store=armyStore(),mailOptions={},bits=16}={}) {
   const auth=armyAuth(store),mail=armyMail(store,auth,mailOptions),publicAPI=armyPublic(store);
@@ -38,7 +38,7 @@ export function armyService({store=armyStore(),mailOptions={},bits=16}={}) {
     const subs=await Promise.all(['daily','weekly'].map(kind=>store.get('sub:'+user.id+':'+kind)));
     const referrer=user.referral?await store.byCode(user.referral.code):null;
     return {...publicSoldier(user),username:user.username||null,code:user.code,status:user.status,verified:!!user.verifiedAt,
-      tollWaived:user.recruits>=3,paid:!!user.paid,canManage:logged,
+      paid:!!user.paid,canManage:logged,
       discordReady:!!process.env.DISCORD_BOT_TOKEN&&user.status==='approved',
       subscriptions:{daily:subs[0]?.confirmed||false,weekly:subs[1]?.confirmed||false},
       ...(logged?{email:user.email||'',why:user.why||'',expires:user.expires,pidgyCode:user.verifiedAt&&user.username?referralCode(user.username):null,pidgyTrials:Math.max(0,Number(user.pidgyTrials)||0)}:{}),
@@ -124,12 +124,11 @@ export function armyService({store=armyStore(),mailOptions={},bits=16}={}) {
   async function adminList(filters={}){
     let rows=(await store.all()).filter(s=>s.applied&&s.status!=='deleting');
     if(filters.status)rows=rows.filter(s=>s.status===filters.status);
-    if(filters.paid==='1')rows=rows.filter(s=>s.paid);
     const search=String(filters.search||'').trim().toLowerCase().slice(0,100);
     if(search)rows=rows.filter(s=>(s.username+' '+s.email).toLowerCase().includes(search));
-    rows.sort((a,b)=>priority(b)-priority(a)||a.applied.localeCompare(b.applied));
+    rows.sort((a,b)=>a.applied.localeCompare(b.applied)||a.id.localeCompare(b.id));
     const page=Math.max(0,Math.min(rows.length,Math.floor(Number(filters.offset)||0)));
-    return {discordAudit:await store.get('discord:audit'),total:rows.length,rows:rows.slice(page,page+40).map(s=>({id:s.id,username:s.username,email:s.email,link:s.link,why:s.why,status:s.status,verified:!!s.verifiedAt,paid:!!s.paid,recruits:s.recruits,pidgyTrials:s.pidgyTrials||0,priority:priority(s),applied:s.applied,expires:s.expires,inviteSent:!!s.invitedAt})),mail:await store.get('mail-status'),discordReady:!!process.env.DISCORD_BOT_TOKEN,unmatched:await (await import('./_tolls.js')).bmcPayments(store).unmatched()};
+    return {discordAudit:await store.get('discord:audit'),total:rows.length,rows:rows.slice(page,page+40).map(s=>({id:s.id,username:s.username,email:s.email,link:s.link,why:s.why,status:s.status,verified:!!s.verifiedAt,paid:!!s.paid,recruits:s.recruits,pidgyTrials:s.pidgyTrials||0,applied:s.applied,expires:s.expires,inviteSent:!!s.invitedAt})),mail:await store.get('mail-status'),discordReady:!!process.env.DISCORD_BOT_TOKEN,unmatched:await (await import('./_tolls.js')).bmcPayments(store).unmatched()};
   }
   return {store,auth,mail,publicAPI,identity,self,challenge,submit,claim,admin,adminList};
 }

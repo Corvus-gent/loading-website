@@ -40,6 +40,10 @@ export function createArmyHandler({service=armyService(),ready=connected,ownerSe
     const owner=await ownerSession(req);if(owner?.email?.toLowerCase()!=='gabriel@corvus.gent')return res.status(403).json({error:'forbidden'});
     if(req.method==='GET')return res.status(200).json(await service.adminList(q));
     if(req.method!=='POST'||!sameOrigin(req))return res.status(403).json({error:'forbidden'});
+    if(body.action==='approve-help'){
+     const user=await service.store.byName(cleanUsername(body.username));if(!user?.verifiedAt)return res.status(400).json({error:'unverified'});
+     return res.status(200).json(await service.store.approveHelp(user.id,body));
+    }
     if(body.action==='flush-mail')return res.status(200).json(await service.mail.flush());
     if(body.action==='sync-tolls')return res.status(200).json(await (await import('./_army/_tolls.js')).bmcPayments(service.store).drain());
     if(body.action==='link-toll')return res.status(200).json(await (await import('./_army/_tolls.js')).linkToll(service.store,body.payment,body.username));

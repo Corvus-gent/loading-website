@@ -656,3 +656,10 @@ The account page removes mail tokens from the fragment before app code and does
 not load analytics. No geolocation request is implemented in this base; country
 is explicitly chosen. QR code generation is self-hosted and sends no request.
 Discord is not connected until its token and installed-guild configuration exist.
+
+## Earned contribution records — 6 November 2026
+
+- Owner-confirmed help/intro: private reference, kind and approval date in `help-report:<uid>:<hash>`; at most 90 days, clamped to account expiry. Necessary requested account progress; only the owner dashboard and the account export can read the reference.
+- `help-credit:<uid>:<hash>` prevents repeat awards until account expiry; only a digest and boolean. Counts remain on the account. Both keys join its deletion registry and carry TTLs.
+- Pidgy trial email hashes expire after 400 days and now join the referring account’s deletion registry. Raw email is never stored. The signed trial/deduplication/rank count commit together; retries after contention cannot burn a credit.
+- No payment, tier, feather, streak or old weekly-win field influences rank or admission order. The application queue is chronological. Legacy records are retained; earned rank is recomputed on read.

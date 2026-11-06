@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-11-06 — earned ranks and phone audit
+
+BMC grants supporter perks only. Applications are chronological, without payment, Pidgy or recruiting priority. Rank uses owner-confirmed help/intros (+25), daily missions (+10), qualified Corvus recruits and unique signed Pidgy trial referrals (+100 each); legacy cosmetic/payment bonuses no longer count. The owner dashboard records private, deduplicated help references with expiry/export/deletion. Fix duplicate social/profile links, reduce privacy realm links and add home navigation to all link hubs. All army imports/entries/locales share `20261106-earned1`.
+
 ## 2026-11-06 — PR #25 final integration
 
 Merge Claude’s integration branch while preserving later mobile form fixes, current copy, consul/Pidgy UI and WebP artwork. All army imports, HTML entry scripts and feature-locale URLs move together to `20261106-integration25`. No blocking splash returns.

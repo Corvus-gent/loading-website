@@ -3,7 +3,7 @@ import "./eggs.js";
 // Legacy destinations also accept the original keyboard shortcut.
 if (/^\/(?:now|sidequests|support|languages|call|people|gabe|402)(?:\/|$)/.test(location.pathname)) import('./terminal.js');
 import { renderSearch } from "./search.js";
-import {loadFeature,featureText} from './i18n/feature.js';
+import {loadFeature,featureText} from './i18n/feature.js?v=20261106-earned1';
 export {loadFeature,featureText};
 /**
  * Tiny i18n layer: 7 languages, picked from ?lang=, then saved choice, then browser.

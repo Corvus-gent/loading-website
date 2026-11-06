@@ -143,6 +143,26 @@ redis.call('SADD',KEYS[9],KEYS[3]);redis.call('EXPIRE',KEYS[9],ARGV[6]);return 1
     if (result) await qualify(uid, ip);
     return getUser(uid);
   }
+  // Gabe records a concrete, already-verified help/intro report. No self-awards.
+  async function approveHelp(uid, {kind, reference}) {
+    if (!['help','intro'].includes(kind) || typeof reference !== 'string') throw Error('fields');
+    reference=reference.trim();
+    if (reference.length<8 || reference.length>180 || /[\u0000-\u001f]/.test(reference)) throw Error('fields');
+    const user=await getUser(uid);if(!user?.verifiedAt||user.status==='deleting')throw Error('unverified');
+    const receipt=digest('help:'+reference.toLowerCase()), seconds=ttl(user);
+    return lock(uid,async()=>{
+    const credited=Number(await run(['EVAL',`local raw=redis.call('GET',KEYS[1]);if not raw then return -1 end
+local user=cjson.decode(raw);if not user.verifiedAt or user.status=='deleting' then return -1 end
+if redis.call('EXISTS',KEYS[2])==1 then return 0 end
+user.approvedHelp=(user.approvedHelp or 0)+1
+redis.call('SET',KEYS[1],cjson.encode(user),'KEEPTTL');redis.call('SET',KEYS[2],'true','EX',ARGV[1]);redis.call('SET',KEYS[3],ARGV[2],'EX',ARGV[3])
+redis.call('SADD',KEYS[4],KEYS[2],KEYS[3]);redis.call('EXPIRE',KEYS[4],ARGV[4]);redis.call('INCR',KEYS[5]);redis.call('DEL',KEYS[6],KEYS[7]);return 1`,7,
+      key('u:'+uid),key('help-credit:'+uid+':'+receipt),key('help-report:'+uid+':'+receipt),key('owned:'+uid),key('revision'),key('public'),key('legion'),
+      seconds,JSON.stringify({kind,reference,approvedAt:timestamp()}),Math.min(seconds,90*DAY),367*DAY]));
+    if(credited<0)throw Error('unverified');
+    return {credited:credited===1};
+    });
+  }
   async function feather(uid, spot) {
     if (!FEATHERS.includes(spot)) throw Error('feather');
     return lock(uid, async () => {
@@ -204,5 +224,5 @@ if redis.call('EXISTS',KEYS[3])==1 then redis.call('ZINCRBY',KEYS[3],-1,ARGV[2])
   }
   async function cleanup() {const expired=await run(['ZRANGEBYSCORE',key('users'),'-inf',now(),'LIMIT',0,100]);for(const uid of expired)await remove(uid);return expired.length;}
   async function seen(uid, ip) { if (await getUser(uid)) await own(uid, 'owner-ip:' + uid + ':' + ip, true, DAY); }
-  return {cleanup, seen, key, run, get, getUser, own, lock, persist, create, byCode, byName, byEmail, attachEmail, register, enlist, verify, rate, rememberReferral, qualify, complete, feather, all, remove, exportData, now, ttl};
+  return {cleanup, seen, key, run, get, getUser, own, lock, persist, create, byCode, byName, byEmail, attachEmail, register, enlist, verify, rate, rememberReferral, qualify, complete, approveHelp, feather, all, remove, exportData, now, ttl};
 }
