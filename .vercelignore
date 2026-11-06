@@ -2,7 +2,8 @@ node_modules
 tests
 test-results
 playwright-report
-tools
+tools/*
+!tools/build-search.py
 PLAN.md
 .git
 

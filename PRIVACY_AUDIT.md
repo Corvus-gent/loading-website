@@ -626,3 +626,33 @@ browser call to Resend/Redis. Static `sf.json` is owner-curated public event dat
 - During a Redis outage, the Frankfurt function can cache allowlisted public aggregates and public service health for up to 24 hours in Vercel Runtime Cache. Empty failure results expire after 20 seconds. Private dashboard tables, sessions and personal records stay on their existing authenticated paths. [Vercel Runtime Cache](https://vercel.com/docs/caching/runtime-cache)
 - Health probes use fixed service URLs. Public results contain component states, elapsed times and timestamps. Redis keeps five-minute samples for 48 hours, hourly summaries for 30 days and Brussels-day summaries and bounded incident history for 120 days. Public history responses are cached for one hour. Alert state expires after 30 days. Write probes expire after 15 seconds. Sampling leases expire after 30 seconds for visitors and four minutes for the five-minute monitor. Rate-limit buckets use the existing daily-salted address hash and expire after a minute.
 - Gabriel can receive a service name and status change via Resend. The external uptime monitor reads the same public status as a visitor. No visitor details are sent in an alert. Processing serves availability and abuse prevention.
+
+## Legion/accounts/BMC/Discord — 6 November 2026
+
+The new handlers use the existing Frankfurt Redis connection. The temporary
+plaintext exception still applies to OLD; NEW TLS was re-tested and is refused.
+No migration or weakening of secureEndpoint is included in this feature.
+
+| Data / key family | Purpose / basis | Retention / recipients |
+| --- | --- | --- |
+| Signed HttpOnly Secure army_id, army_session, army_ref cookies | Requested account continuity, authentication, referral attribution | 90 / 7 / 30 days; Corvus only |
+| army:*:u, name, code, email-HMAC, owned, game-owner | Requested account, public handle/link/optional country, progress; private email and application reason | Anonymous 90d; unconfirmed 7d; waiting 90d from application; rejected 30d; member 365d renewed on confirmed login or active entitlement; Redis/Vercel |
+| token/session/challenge/unsubscribe records | Necessary authentication, independent opt-in and unsubscribe | 30min / 7d / 5min / up to account expiry (365d); Redis |
+| Daily salted rate/referral IP keys | Legitimate-interest abuse prevention; no raw IP stored | Max 24h; Redis |
+| Referral receipts / weekly leaderboard | Earned recruitment progress, deduplication | Receipts max367d; weekly 9d; owned records erased on deletion |
+| mail jobs, outbox, encrypted payload | Requested login/invitation; reminders only after separate confirmation | Ordinary jobs2d, claim token30min, invitation until account expiry; Resend is the documented US-storage exception |
+| BMC event records | Fulfil requested payment, match verified account, expire paid tier | Unmatched30d; matched max365d clamped to account; removed on account deletion; BMC/Redis/Vercel |
+| BMC receipt/payment-object HMAC | Prevent duplicate delivery/refund counting | 400d; no payer name/email/message; anonymous total remains |
+| Discord user ID, owner mapping, one-use code, encrypted invite | Link approved account and grant/revoke role | Code10min; invite7d single use; mapping follows account max365d; Discord/Redis |
+| Discord config/audit | Server routing and permission safety | Config persistent role/channel/approved owner IDs; audit2d; alert debounce1d |
+
+BMC supporter email is used in memory only for a hashed lookup against an
+existing verified account, then discarded. Unknown payer email, payer name and
+free-form message are not stored. Only a handle is extracted from the message.
+Public legion JSON contains username, tier, earned rank, country, link and join
+date; no email or account IDs. Hide removes it from lists; the shared profile
+remains available until deletion. Export excludes credentials and other users.
+The account page removes mail tokens from the fragment before app code and does
+not load analytics. No geolocation request is implemented in this base; country
+is explicitly chosen. QR code generation is self-hosted and sends no request.
+Discord is not connected until its token and installed-guild configuration exist.

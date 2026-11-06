@@ -1,0 +1,42 @@
+import assert from 'node:assert/strict';
+import {createClient} from 'redis';
+import {armyStore} from '../../api/_army/_store.js';
+import {digest} from '../../api/_army/_security.js';
+import {rank, points, publicSoldier, dailyMission, missionReward, dayKey} from '../../js/army/domain.js';
+assert.equal(process.env.REDIS_URL,'redis://127.0.0.1:16380/6');
+assert.equal(process.env.ARMY_SECRET,'local-army-tests-only');
+const client=createClient({url:process.env.REDIS_URL,socket:{reconnectStrategy:false}}).on('error',()=>{});
+await client.connect();
+let time=Date.parse('2026-11-06T12:00:00Z');const now=()=>time;
+const store=armyStore({redis:cmd=>client.sendCommand(cmd),now,prefix:'army:test:'});
+const input=(n='alpha')=>({username:n,email:n+'@example.test',link:'https://example.com/'+n,why:'i build and help people.',lang:'en'});
+try{
+ const parent=await store.create({country:'BE'});await store.seen(parent.id,'parent-ip');
+ const app=await store.enlist(parent.id,input());assert.equal(app.serial,1);assert.equal(app.status,'unconfirmed');assert.equal(publicSoldier(app).username,null);
+ assert.equal((await store.byEmail('alpha@example.test')).id,parent.id);
+ const verified=await store.verify(parent.id);assert.equal(verified.status,'waiting');assert.equal(publicSoldier(verified).username,'alpha');
+ assert.equal(await store.rememberReferral(parent.id,parent.code,'parent-ip'),false,'self');
+ const child=await store.create();assert.equal(await store.rememberReferral(child.id,parent.code,'child-ip'),true);
+ assert.equal((await store.getUser(parent.id)).recruits,0,'views never count');
+ const results=await Promise.all(Array.from({length:8},()=>store.qualify(child.id,'child-ip')));assert.equal(results.filter(Boolean).length,1,'atomic duplicate credit');
+ assert.equal((await store.getUser(parent.id)).recruits,1);
+ const repeat=await store.create();await store.rememberReferral(repeat.id,parent.code,'child-ip');assert.equal(await store.qualify(repeat.id,'child-ip'),false,'daily IP dedup');
+ const selfOtherCookie=await store.create();await store.rememberReferral(selfOtherCookie.id,parent.code,'parent-ip');assert.equal(await store.qualify(selfOtherCookie.id,'parent-ip'),false,'same day owner IP');
+ const old=await store.create({existingBrowser:true});assert.equal(await store.rememberReferral(old.id,parent.code,'other'),false);
+ for(let i=0;i<11;i++){const next=await store.create();await store.rememberReferral(next.id,parent.code,'new'+i);await store.qualify(next.id,'new'+i);}
+ assert.equal((await store.getUser(parent.id)).recruits,10,'ten per day cap');
+ const day=dayKey(now());await store.complete(parent.id,{day,type:'wordle',streak:4,solved:true},'parent-ip');await store.complete(parent.id,{day,type:'wordle',streak:100,solved:true},'parent-ip');
+ let latest=await store.getUser(parent.id);assert.equal(latest.missionPoints,10);assert.equal(latest.streak,4);assert.equal(latest.best,4);
+ assert.equal(missionReward(dailyMission('2026-11-05','wordle'),now()),0);
+ await store.feather(parent.id,'/');await store.feather(parent.id,'/');assert.equal((await store.getUser(parent.id)).feathers.length,1);
+ const exported=await store.exportData(parent.id);assert.equal(exported.profile.email,'alpha@example.test');assert(!JSON.stringify(exported).includes('parent-ip'));
+ const second=await store.create();await assert.rejects(store.enlist(second.id,input()),/unavailable/);assert.equal(await store.byName('alpha').then(x=>x.id),parent.id);
+ assert.equal(rank({verifiedAt:'yes',general:true}),'imperator');assert.notEqual(rank({points:1e9}),'imperator');assert.equal(points({recruits:3}),300);
+ const before=(await store.getUser(parent.id)).recruits;await store.remove(child.id);assert.equal((await store.getUser(parent.id)).recruits,before-1);
+ assert.equal(await client.exists(store.key('credited:'+digest('recruit:'+child.id))),0);
+ await store.remove(parent.id);assert.equal(await store.byEmail('alpha@example.test'),null);assert.equal(await store.byName('alpha'),null);assert.equal(await store.byCode(parent.code),null);
+ assert.equal((await client.keys(store.key('*'))).filter(k=>k.includes(parent.id)).length,0);
+ for(const s of await store.all())assert.notEqual(s.parent,parent.id);
+ for(const key of await client.keys(store.key('*')))if(!['army:test:serial','army:test:users','army:test:revision'].includes(key))assert(await client.ttl(key)>0,key);
+ console.log('army store: aliases, verification, referral races/dedup/cap/self, missions, ranks, feathers, export and exhaustive deletion passed');
+}finally{const keys=await client.keys(store.key('*'));if(keys.length)await client.del(keys);await client.disconnect();}

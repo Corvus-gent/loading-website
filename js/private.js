@@ -128,6 +128,7 @@ function dash(snap) {
       table('logins', ['email', 'at'], records.logins || [])
     );
   });
+  if(snap.viewer.toLowerCase()==='gabriel@corvus.gent')whenVisible('army-admin',async root=>(await import('./private-army.js')).mountArmy(root));
   whenVisible('x-log', async (root) => (await import('./private-x.js')).mountXLog(root));
   if (snap.viewer.toLowerCase() === 'gabriel@corvus.gent')
     whenVisible('sf-leads', async (root) =>

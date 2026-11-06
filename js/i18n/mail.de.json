@@ -1,0 +1,16 @@
+{
+  "claim.subject": "hol dir deinen namen.",
+  "claim.body": "deine marke wartet. öffne den link und bestätige. er gilt 30 minuten.\n\n{url}\n\ndas warst nicht du? ignorieren. — der rabe",
+  "confirm.subject": "ein kleines ja.",
+  "confirm.body": "du möchtest {kind}. bestätige hier:\n\n{url}\n\nkein klick, keine erinnerungen. gilt 30 minuten. — der rabe",
+  "daily.subject": "die laterne hat ein rätsel.",
+  "daily.body": "mission #{number}: {type}.\nein kleines rätsel. bring deinen kopf mit.\nserie: {streak}. rang: {rank}.\n\n{url}\n\nabmelden: {unsubscribe}\n— der rabe",
+  "weekly.subject": "die wöchentliche lieferung.",
+  "weekly.body": "soldat der woche: {winner}.\nein guter track: {song}.\nein hinweis: stille ecken bemerken dich.\n\n{url}\n\nabmelden: {unsubscribe}\n— diogenes",
+  "welcome.subject": "du bist dabei, soldat.",
+  "welcome.body": "gabe hat das tor geöffnet. sei neugierig. hilf jemandem.\n\n{url}\n\n— der rabe",
+  "reject.subject": "diesmal nicht.",
+  "reject.body": "danke fürs anklopfen. diesmal bleibt das tor zu. eine kleine armee sucht ihre leute. deine bewerbung wird in 30 tagen gelöscht.\n\njetzt verwalten oder löschen: {url}\n— der rabe",
+  "expiry.subject": "der rabe lässt los.",
+  "expiry.body": "deine bewerbung hat 90 tage erreicht und wird gelöscht. du darfst jederzeit wieder anklopfen.\n\n{url}\n— der rabe"
+}
