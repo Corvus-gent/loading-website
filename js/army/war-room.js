@@ -1,4 +1,4 @@
-import {init,t} from './copy.js?v=20261106-consul';import {$,api,errorText} from './client.js?v=20261106-consul';
+import {init,t} from './copy.js?v=20261106-integration25';import {$,api,errorText} from './client.js?v=20261106-integration25';
 let data;function render(){if(!data)return;
  const metric=(label,value)=>{const div=document.createElement('div'),n=document.createElement('strong'),l=document.createElement('span');n.textContent=String(value??0);l.textContent=label;div.append(n,l);return div;};
  $('war-counts').replaceChildren(metric('soldiers',data.soldiers),metric('at the gate',data.atGate),metric(t('recruits'),data.recruits),metric('approved',data.approved));
