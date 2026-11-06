@@ -164,5 +164,6 @@
   "rankNext": "noch {n} pkt bis {rank}",
   "rankTop": "höchster verdienter rang.",
   "tierLabel": "unterstützer",
-  "tierWhy": "für alle, die corvus unterstützen. perks, nie ein rang."
+  "tierWhy": "für alle, die corvus unterstützen. perks, nie ein rang.",
+  "gateAlready": "du stehst am tor. zeig deine marke ↓"
 }

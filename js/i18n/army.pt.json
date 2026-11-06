@@ -164,5 +164,6 @@
   "rankNext": "faltam {n} pts para {rank}",
   "rankTop": "patente mais alta.",
   "tierLabel": "apoiante",
-  "tierWhy": "por apoiar a corvus. dá vantagens, nunca patente."
+  "tierWhy": "por apoiar a corvus. dá vantagens, nunca patente.",
+  "gateAlready": "já estás à porta. vê a tua placa ↓"
 }

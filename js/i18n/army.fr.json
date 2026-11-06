@@ -164,5 +164,6 @@
   "rankNext": "encore {n} pts avant {rank}",
   "rankTop": "plus haut rang gagné.",
   "tierLabel": "soutien",
-  "tierWhy": "pour qui soutient corvus. des avantages, jamais un rang."
+  "tierWhy": "pour qui soutient corvus. des avantages, jamais un rang.",
+  "gateAlready": "tu es à la porte. regarde ta plaque ↓"
 }

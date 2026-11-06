@@ -164,5 +164,6 @@
   "rankNext": "{n} pts to {rank}",
   "rankTop": "top earned rank.",
   "tierLabel": "supporter",
-  "tierWhy": "for backing corvus. gives perks, never rank."
+  "tierWhy": "for backing corvus. gives perks, never rank.",
+  "gateAlready": "you're at the gate. see your tag ↓"
 }

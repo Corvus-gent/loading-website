@@ -164,5 +164,6 @@
   "rankNext": "nog {n} pts tot {rank}",
   "rankTop": "hoogste verdiende rang.",
   "tierLabel": "supporter",
-  "tierWhy": "voor wie corvus steunt. geeft perks, nooit rang."
+  "tierWhy": "voor wie corvus steunt. geeft perks, nooit rang.",
+  "gateAlready": "je staat aan de poort. bekijk je tag ↓"
 }

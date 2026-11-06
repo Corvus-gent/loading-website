@@ -102,3 +102,7 @@ Validation: all army store/BMC/mail/Discord/Pidgy tests, owner-only response/adm
 ## 2026-11-06 — feather memory
 
 Caught feathers render a quiet, accessible mark after reload. Existing army identities sync local catches through the existing proof worker and merge server spots on load; anonymous visitors remain local-only. Self responses keep the public numeric feather count and add private `featherSpots` for restoration. Uniform versioned eggs/i18n imports and refreshed entrypoints prevent stale or double collectors. Real local account + challenge tests cover 375px Chromium/WebKit, cleared storage and another signed-in browser context.
+
+## 2026-11-06 — gate link destinations
+
+The hero and first door now lead to the enlist form for new visitors, without opening the keyboard. Once enlisted, both link to the visible ceremony and use `gateAlready` in all seven army locales. Existing iOS keyboard settling remains intact. 375px Chromium/WebKit checks cover submission, reload and each language. Shared cache version: `20261106-knock1`.

@@ -164,5 +164,6 @@
   "rankNext": "距 {rank} 还差 {n} 分",
   "rankTop": "最高军衔。",
   "tierLabel": "支持者",
-  "tierWhy": "支持 corvus 的人。有福利，但不带军衔。"
+  "tierWhy": "支持 corvus 的人。有福利，但不带军衔。",
+  "gateAlready": "你已到门前。查看你的身份牌 ↓"
 }
