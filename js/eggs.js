@@ -42,15 +42,15 @@ function feather(id, style) {
   document.body.appendChild(f);
 }
 
-// one feather per page, in a different obscure spot each time
+// one feather per page. kept clear of the privacy notice and the header so it can actually be tapped
 const SPOTS = {
-  "/": { bottom: "6px", left: "8px" },
-  "/now/": { top: "40%", right: "4px", transform: "rotate(40deg)" },
-  "/sidequests/": { bottom: "90px", right: "14px" },
-  "/support/": { top: "120px", left: "6px", transform: "rotate(-30deg)" },
-  "/support/books/": { bottom: "12px", right: "50%" },
-  "/languages/": { top: "64px", left: "50%", transform: "rotate(160deg)" },
-  "/call/": { bottom: "30px", left: "20px", transform: "rotate(90deg)" },
+  "/": { top: "45%", left: "6px", transform: "rotate(-20deg)" },
+  "/now/": { top: "40%", right: "6px", transform: "rotate(40deg)" },
+  "/sidequests/": { top: "62%", right: "14px" },
+  "/support/": { top: "120px", left: "8px", transform: "rotate(-30deg)" },
+  "/support/books/": { top: "30%", right: "10px", transform: "rotate(15deg)" },
+  "/languages/": { top: "55%", left: "10px", transform: "rotate(160deg)" },
+  "/call/": { top: "35%", left: "10px", transform: "rotate(90deg)" },
 };
 const page = location.pathname.replace(/\/?$/, "/");
 const spot = SPOTS[page];

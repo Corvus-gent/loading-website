@@ -154,5 +154,9 @@
   "rankHelp": "bestätigte hilfe oder vorstellung",
   "rankMission": "abgeschlossene tagesmission",
   "rankRecruit": "bestätigter corvus-rekrut",
-  "rankPidgyRecruit": "einmalige pidgy-testempfehlung"
+  "rankPidgyRecruit": "einmalige pidgy-testempfehlung",
+  "legionAtGate": "{n} am tor. namen erscheinen hier, sobald die mail bestätigt ist.",
+  "legionHidden": "{n} marschiert lieber unsichtbar.",
+  "crowCaw": "krah. das tor ist hier entlang ↓",
+  "crowTap": "die krähe. tipp sie an."
 }

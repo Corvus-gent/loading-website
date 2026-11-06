@@ -154,5 +154,9 @@
   "rankHelp": "ajuda ou apresentação aprovada",
   "rankMission": "missão diária concluída",
   "rankRecruit": "recruta corvus validado",
-  "rankPidgyRecruit": "teste pidgy único recomendado"
+  "rankPidgyRecruit": "teste pidgy único recomendado",
+  "legionAtGate": "{n} à porta. os nomes aparecem aqui depois de confirmarem o email.",
+  "legionHidden": "{n} prefere marchar sem ser visto.",
+  "crowCaw": "crá. o portão é por aqui ↓",
+  "crowTap": "o corvo. toca-lhe."
 }

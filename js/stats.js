@@ -1,4 +1,5 @@
 import {renderCountries, countryPeriod} from './stats-countries.js';
+import {readPreference, savePreference} from './storage.js';
 const $ = id => document.getElementById(id);
 const bar = (n, max, w = 18) => n ? "█".repeat(Math.max(1, Math.round((n / Math.max(1, max)) * w))) : "";
 const names = new Intl.DisplayNames(["en"], { type: "language" });
@@ -7,6 +8,41 @@ const shift = (d, n) => { const x = new Date(d + "T12:00:00Z"); x.setUTCDate(x.g
 const tzToday = () => new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Brussels" }).format(new Date());
 
 const FIRST = "2026-11-02";
+
+// hourly chart: counts are bucketed per brussels hour; shift them into the zone the reader picks.
+// SF and Shanghai first (where gabe is / is going), then the reader's own zone, then every zone.
+const HOME_TZ = "Europe/Brussels";
+const ownTZ = (() => { try { return Intl.DateTimeFormat().resolvedOptions().timeZone || HOME_TZ; } catch { return HOME_TZ; } })();
+const TZ_LABEL = { "America/Los_Angeles": "san francisco", "Asia/Shanghai": "shanghai", "Europe/Brussels": "brussels" };
+const tzName = tz => TZ_LABEL[tz] || tz.split("/").pop().replace(/_/g, " ").toLowerCase();
+const offsetMin = (tz, at) => { const p = Object.fromEntries(new Intl.DateTimeFormat("en-US", { timeZone: tz, hourCycle: "h23", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" }).formatToParts(at).map(x => [x.type, x.value])); return (Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour, +p.minute) - at.getTime()) / 60000; };
+let hoursTZ = readPreference("stats-hours-tz", ownTZ), lastHours = null, lastHoursDay = null;
+function renderHours() {
+  const tz = hoursTZ, local = tz === HOME_TZ;
+  $("hours-title").textContent = `per hour (${tzName(tz)}${local ? "" : " time"})`;
+  if (!lastHours) { $("hours").textContent = "hourly counts unavailable."; return; }
+  const at = new Date((lastHoursDay || TODAY) + "T12:00:00Z");
+  let diff = 0; try { diff = Math.round((offsetMin(tz, at) - offsetMin(HOME_TZ, at)) / 60); } catch { hoursTZ = HOME_TZ; return renderHours(); }
+  const byHour = {};
+  for (const { h, n } of lastHours) { const k = ((h + diff) % 24 + 24) % 24; byHour[k] = (byHour[k] || 0) + n; }
+  const max = Math.max(1, ...Object.values(byHour));
+  const note = local ? "" : `\n(${fmt(lastHoursDay || TODAY)} in brussels, shown in ${tzName(tz)} time)`;
+  $("hours").textContent = Array.from({ length: 24 }, (_, h) => `${String(h).padStart(2, "0")}h ${bar(byHour[h] || 0, max)} ${byHour[h] || ""}`).join("\n") + note;
+}
+(function tzPicker() {
+  const select = $("hours-tz"); if (!select) return;
+  const opt = (tz, label) => new Option(label || tzName(tz), tz);
+  const top = ["America/Los_Angeles", "Asia/Shanghai", HOME_TZ];
+  const group = (label, list) => { const g = document.createElement("optgroup"); g.label = label; g.append(...list); return g; };
+  let all = []; try { all = Intl.supportedValuesOf("timeZone"); } catch {}
+  const quick = top.map(tz => opt(tz));
+  if (!top.includes(ownTZ)) quick.push(opt(ownTZ, `your time · ${tzName(ownTZ)}`));
+  select.append(group("quick", quick));
+  if (all.length) select.append(group("all time zones", all.filter(tz => !top.includes(tz)).map(tz => opt(tz, tz.replace(/_/g, " ").toLowerCase()))));
+  if (![...select.options].some(o => o.value === hoursTZ)) hoursTZ = HOME_TZ;
+  select.value = hoursTZ;
+  select.addEventListener("change", () => { hoursTZ = select.value; savePreference("stats-hours-tz", hoursTZ); renderHours(); });
+})();
 const TODAY = tzToday();
 let day = window.statsPage.selected;
 if (day < FIRST) day = FIRST;
@@ -70,9 +106,7 @@ function render() {
       ? (visitors === 1 ? "visitor today. just the one, so far." : `visitors today. so far, just ${visitors}.`)
       : `visitors on ${fmt(measuredDay)}.`;
     $("total-line").textContent = day === FIRST ? "day one. the crow came back." : `${s.total??'—'} visits since the crow came back (2 nov 2026).`;
-    const max = Math.max(1, ...(s.hours||[]).map(h => h.n));
-    const byHour = Object.fromEntries((s.hours||[]).map(h => [h.h, h.n]));
-    $("hours").textContent = !s.hours ? "hourly counts unavailable." : Array.from({ length: 24 }, (_, h) => `${String(h).padStart(2, "0")}h ${bar(byHour[h] || 0, max)} ${byHour[h] || ""}`).join("\n");
+    lastHours = s.hours; lastHoursDay = measuredDay; renderHours();
     if(s.countries)renderCountries($("countries"),s.countries);else $("countries").textContent="country counts unavailable.";
     rows("sources", s.sources, "s");
     rows("pages", s.pages, "p");

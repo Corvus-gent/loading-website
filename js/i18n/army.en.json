@@ -154,5 +154,9 @@
   "rankHelp": "approved help or intro",
   "rankMission": "completed daily mission",
   "rankRecruit": "qualified corvus recruit",
-  "rankPidgyRecruit": "unique pidgy trial referral"
+  "rankPidgyRecruit": "unique pidgy trial referral",
+  "legionAtGate": "{n} at the gate. names show up here once they confirm their email.",
+  "legionHidden": "{n} chose to march unseen.",
+  "crowCaw": "caw. the gate is this way ↓",
+  "crowTap": "the crow. tap it."
 }

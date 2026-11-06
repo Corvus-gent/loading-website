@@ -154,5 +154,9 @@
   "rankHelp": "已确认的帮助或介绍",
   "rankMission": "完成每日任务",
   "rankRecruit": "有效的corvus新成员",
-  "rankPidgyRecruit": "独立的pidgy试用推荐"
+  "rankPidgyRecruit": "独立的pidgy试用推荐",
+  "legionAtGate": "{n} 人在门口。确认邮件后名字才会出现在这里。",
+  "legionHidden": "{n} 人选择隐身行军。",
+  "crowCaw": "嘎。大门在这边 ↓",
+  "crowTap": "乌鸦。点一下。"
 }

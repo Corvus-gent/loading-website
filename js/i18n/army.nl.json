@@ -154,5 +154,9 @@
   "rankHelp": "bevestigde hulp of intro",
   "rankMission": "voltooide dagelijkse missie",
   "rankRecruit": "geldige corvus-recruit",
-  "rankPidgyRecruit": "unieke pidgy-proefverwijzing"
+  "rankPidgyRecruit": "unieke pidgy-proefverwijzing",
+  "legionAtGate": "{n} aan de poort. namen verschijnen hier zodra ze hun e-mail bevestigen.",
+  "legionHidden": "{n} marcheert liever onzichtbaar.",
+  "crowCaw": "kraa. de poort is deze kant op ↓",
+  "crowTap": "de kraai. tik erop."
 }

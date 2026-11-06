@@ -333,7 +333,7 @@ a:hover { text-decoration-color: var(--fg); border-bottom: 0; }
 .flock-egg.show { opacity: 1; }
 
 /* --- pidgy easter eggs --- */
-.feather { position: fixed; width: 16px; opacity: .35; cursor: pointer; z-index: 4; transition: opacity .2s, transform .2s; }
+.feather { position: fixed; width: 22px; padding: 10px; box-sizing: content-box; opacity: .55; cursor: pointer; z-index: 4; transition: opacity .2s, transform .2s; }
 .feather:hover { opacity: 1; }
 .feather.caught { animation: fly 1s forwards; }
 @keyframes fly { to { transform: translate(40px, -120px) rotate(200deg); opacity: 0; } }
@@ -426,3 +426,6 @@ body:not(.portal) main{padding-top:64px}.lang-switcher{min-height:24px}
 .corner-nav a.nav-army{color:#ffd76a;border-color:#ffd76a88;box-shadow:0 0 14px #ffd76a22}
 
 .portal-what{color:#9f9888;font-size:12px;letter-spacing:.06em;margin:-6px 0 22px}
+
+.tz-pick{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--muted);margin:0 0 10px}.tz-pick select{font:inherit;font-size:12px;background:transparent;color:inherit;border:1px solid var(--faint);padding:4px 6px;max-width:100%}
+.term-hint .term-what{color:var(--faint);font-size:11px;text-decoration:none;margin-left:6px}.term-hint .term-what:is(:hover,:focus-visible){color:var(--muted);text-decoration:underline}
