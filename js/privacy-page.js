@@ -1,4 +1,4 @@
-import {STREAM_PRIVACY} from './privacy-stream.js?v=20261107live1';
+import {STREAM_PRIVACY} from './privacy-stream.js?v=20261107live2';
 import {initI18n, getLang} from './i18n.js?v=20261106-ranks1';
 import {PRIVACY_VERSION,strings} from './privacy-strings.js';
 import {analyticsAllowed,chooseAnalytics,privacySignal,consentChoice} from './analytics-consent.js';

@@ -1,3 +1,4 @@
+import {STREAM_NOTICE} from './privacy-stream.js?v=20261107live2';
 import {clearTrackingURL,sidequestsPage} from './arrival.js';
 import {strings} from './privacy-strings.js';
 import {consentChoice,chooseAnalytics,privacySignal,analyticsAllowed,noticeDismissed} from './analytics-consent.js';
@@ -16,7 +17,7 @@ function labels() {
   const copy=strings[lang()];
   document.querySelectorAll('[data-privacy-link]').forEach(a=>{a.textContent=copy.label;a.href='/privacy/'+(lang()==='en'?'':'?lang='+lang());});
   document.querySelectorAll('[data-spotify-notice]').forEach(p=>{p.textContent=copy.spotify;});
-  if(notice){notice.setAttribute('aria-label',copy.label);notice.querySelector('.privacy-copy').textContent=copy.notice;notice.querySelector('a').textContent=copy.label+' →';notice.querySelector('a').href='/privacy/'+(lang()==='en'?'':'?lang='+lang());notice.querySelector('[data-allow]').textContent=copy.allow;notice.querySelector('[data-deny]').textContent=copy.deny;}
+  if(notice){notice.setAttribute('aria-label',copy.label);notice.querySelector('.privacy-copy').textContent=document.documentElement.dataset.twitchLoaded==='true'?(STREAM_NOTICE[lang()]||STREAM_NOTICE.en):copy.notice;notice.querySelector('a').textContent=copy.label+' →';notice.querySelector('a').href='/privacy/'+(lang()==='en'?'':'?lang='+lang());notice.querySelector('[data-allow]').textContent=copy.allow;notice.querySelector('[data-deny]').textContent=copy.deny;}
 }
 const privatePage=/^\/(?:stats\/)?private(?:\/|$)/.test(location.pathname)||/^\/music\/admin(?:\/|$)/.test(location.pathname);
 // Disabled analytics and pages without an analytics script still get clean URLs.
@@ -41,3 +42,5 @@ if(!dismissed&&!privatePage&&!/^\/402(?:\/|$)/.test(location.pathname)){
   window.addEventListener('analytics-consent-change',()=>{if(noticeDismissed())close();});
 }
 labels();new MutationObserver(labels).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
+
+window.addEventListener('twitch-status-change',labels);

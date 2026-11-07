@@ -172,3 +172,7 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 ## 2026-11-07 — Social launch attribution
 - Add account-specific Instagram/BJJ bio/story links, LinkedIn post links, DM and X/TikTok bio links; retain query parameters and support content overrides.
 - Classify source as explicit UTM, in-app browser hint, referrer or unknown. Only the coarse classification is retained; raw user agents are not stored.
+
+## 2026-11-07 — Homepage live signal
+- Show a direct LIVE RN link to /hack on the portal only when Twitch reports online; enable automatic status checking on the three stream pages.
+- Keep the homepage player invisible, preserve browser privacy signals/opt-outs, add a per-tab disable control and accurate Twitch cookie disclosures.

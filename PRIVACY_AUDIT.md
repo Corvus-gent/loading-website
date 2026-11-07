@@ -691,7 +691,8 @@ Discord is not connected until its token and installed-guild configuration exist
 
 
 ## Twitch embed — 7 November 2026
-- `/hack` and `/hack/2` offer an explicit “check live stream” click before loading `https://embed.twitch.tv/embed/v1.js` or any Twitch iframe. No Twitch request before that click. No remembered viewing permission or additional Corvus cookie/localStorage key.
-- Twitch receives normal network/browser information and the embedding page origin/path, and may use vendor cookies/storage. Purpose: requested stream playback and online/offline status. Basis: the informed activation click. Provider: Twitch/Amazon; vendor retention and controls: https://www.twitch.tv/p/en/legal/privacy-notice/. Corvus does not store Twitch viewing data or call Twitch server-side APIs.
-- Closing removes the iframe; offline collapses the player and badge, with availability updates handled by the loaded SDK. Browsers can remove existing Twitch cookies. The disclosure is on the player and the privacy page in seven languages.
-- Tests: no pre-click SDK request, mocked online/offline/play events in Chromium and WebKit, blocked SDK fallback, reduced motion, 375px layout. Real preview received Twitch’s offline event for gabe_maxxing.
+- Urgent live update: /, /hack and /hack/2 automatically load the Twitch status/player SDK unless GPC, DNT, an explicit counting opt-out or the per-tab Twitch disable preference is present. This replaces the original click-only implementation; automatic third-party requests are now an explicit exception to the site's default.
+- Twitch/Amazon receives IP/browser information and embedding origin/path and may set vendor cookies/storage. This is not cookieless analytics. The page notice says so; https://www.twitch.tv/p/en/legal/privacy-notice/ describes vendor processing and retention. A disclosure alone is not a claim of visitor consent.
+- A disable button removes the iframe and stores only sessionStorage twitch-disabled=1 for this tab. Existing Twitch cookies are vendor-controlled. Corvus stores no viewing history.
+- The homepage never shows a player; its badge links to /hack only after a real online signal. Offline hides badge/player. Browser privacy signals retain click-to-load on the hack pages.
+- Privacy page and notice cover this in seven languages.
