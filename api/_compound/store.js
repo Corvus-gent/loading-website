@@ -41,7 +41,7 @@ export async function feedback(uid,v,data){
  const script=`if not redis.call('SET',KEYS[1],ARGV[1],'EX',ARGV[2],'NX') then return 0 end;redis.call('HINCRBY',KEYS[2],ARGV[3],1);return 1`;
  const added=Number(await redis(['EVAL',script,2,key('done',v,uid,dedupe),key('stats',v),choice,RETENTION,field]));
  if(added){await score(uid,points);const why=clean(data.why,280);if(why)await saveText(uid,v,why,action==='category'?data.category:'vote',0);}
- return{added:!!added};
+ return{added:!!added,choice:added?choice:await redis(['GET',key('done',v,uid,dedupe)])||choice};
 }
 export async function saveText(uid,v,value,category='idea',points=3){
  const text=clean(value,500);if(text.length<(category==='idea'?8:1))throw Error('text');

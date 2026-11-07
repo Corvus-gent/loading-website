@@ -16,7 +16,7 @@ try{
  await assert.rejects(()=>store.publish({...fixture,url:'https://evil.test/compound/a.mp4'}));
  await assert.rejects(()=>store.publish({...fixture,cues:[{t:13,q:'bad',options:['a','b']}]}));
  const first=await call({action:'vote',version:'v1',choice:'up'}),cookie=first.headers['Set-Cookie'].split(';')[0];assert.equal(first.body.added,true);
- const votes=await Promise.all(Array.from({length:8},()=>call({action:'vote',version:'v1',choice:'down'},{cookie})));assert.ok(votes.every(v=>v.body.added===false));
+ const votes=await Promise.all(Array.from({length:8},()=>call({action:'vote',version:'v1',choice:'down'},{cookie})));assert.ok(votes.every(v=>v.body.added===false&&v.body.choice==='up'));
  x=await call({action:'category',version:'v1',category:'Hook',choice:'down',why:'slow'},{cookie});assert.equal(x.body.added,true);assert.equal((await call({action:'category',version:'v1',category:'Hook',choice:'up'},{cookie})).body.added,false);
  await call({action:'profile',handle:'@helper'},{cookie});
  await call({action:'text',version:'v1',text:'<script>alert(1)</script> cut the opening!'},{cookie});assert.equal((await call({action:'text',version:'v1',text:'<script>alert(1)</script> cut the opening!'},{cookie})).body.added,false);

@@ -18,7 +18,7 @@ Values live only in `~/.secrets/corvus-compound.env` (chmod 600) and Vercel. Nev
 - `COMPOUND_STRIPE_MODE` — `test` for Preview, `live` for Production.
 - `COMPOUND_PAYMENT_LINK_TEST` / `COMPOUND_PAYMENT_LINK_LIVE` and corresponding `COMPOUND_PAYMENT_LINK_ID_TEST` / `_LIVE`.
 - `STRIPE_WEBHOOK_SECRET_TEST` / `STRIPE_WEBHOOK_SECRET_LIVE` — secrets from the actual webhook endpoint (or the CLI listener for forwarding tests). Never interchange modes/endpoints.
-- `STRIPE_TEST_API_KEY` / `STRIPE_LIVE_API_KEY` — local setup only. The deployed app does not need the Stripe secret API key.
+- `STRIPE_TEST_API_KEY` / `STRIPE_LIVE_API_KEY` — optional local setup credentials; otherwise the setup script uses the authenticated Stripe CLI session (`--live` for live requests). The deployed app does not need the Stripe secret API key.
 
 `node tools/compound-stripe-setup.mjs` uses Stripe CLI to create the test price/link (custom amount, EUR, min €1), saving returned IDs and secrets locally. Repeat runs reuse saved objects; Stripe requests also use idempotency keys. For an authorised live account:
 
@@ -82,7 +82,7 @@ All links use `utm_medium=social&utm_campaign=compound-prize`:
 
 - Stable preview: https://loading-website-compound-preview-corvus11.vercel.app/compound/ (existing Vercel protection retained).
 - Actual Stripe sandbox Checkout completed for **€1.00 EUR**, payment status `paid`. Signed event reached the real Vercel `/api/compound/stripe` route with HTTP 200; preview fund changed from €0.00 to €1.00 and attribution recorded `x:payments=1`, `x:cents=100`. No real money was charged.
-- A permanent test webhook was verified with a replay returning HTTP 200; duplicate delivery kept the fund at exactly €1.00. It is registered against the stable preview alias with the existing automation-bypass secret kept only in Stripe's endpoint configuration, following Vercel's documented webhook integration. The shared project protection was not disabled. Test sandbox is temporary and expires 14 November; do not mistake it for a live account.
+- A permanent test webhook was verified with a replay returning HTTP 200; duplicate delivery kept the fund at exactly €1.00. It is registered against the stable preview alias with the existing automation-bypass secret kept only in Stripe's endpoint configuration, following Vercel's documented webhook integration. The shared project protection was not disabled. The preview now uses Gabriel’s authenticated Corvus sandbox; the initial temporary sandbox’s payment link and webhook have been retired. Both are test-only, not live accounts.
 - The subsequently authorised user account is **corvus sandbox**, BE, test-only: `charges_enabled=false`, `payouts_enabled=false`, `details_submitted=false`. Switching it to live is refused. Account-holder activation at https://dashboard.stripe.com/account/onboarding is the remaining blocker; no live checkout is enabled or claimed.
 - Real deployed mobile feedback and protected admin/stats checked; `/prize` and `/1000` both return 307 with Location `/compound`. Chromium and WebKit mobile/desktop suites cover empty and video states, cue/live polls, old/new versions, GPC/optional tracking, predictions, expired deadlines and no page errors.
 - The small test clip rendered its next first frame in 55 ms under 6× CPU and 1.6 Mbps/150 ms emulation **after metadata had loaded**. This is a warm-fixture result, not a guarantee for a future real upload or a cold 4G connection.
