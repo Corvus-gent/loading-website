@@ -11,3 +11,6 @@ Static pitch page only: HackTheFeed hero, upstream GitHub button, video slot, fo
 
 ## 2026-11-07 · Oriane pitch hotfix
 Correct host name across page and OG artwork. Add five locally hosted partner logo chips, Oriane socials, Simon Lorenzo shoutout and consent-respecting outbound attribution.
+
+## 2026-11-07 · minimal HackTheFeed engagement
+Aggregate view/GitHub/app counters; signed-cookie project likes and comment upvotes; 280-character comments, three per minute per daily-hashed IP, moderation hidden flag and 90-day retention. Existing stats function rewrite, no new function.
