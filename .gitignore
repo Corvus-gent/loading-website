@@ -26,3 +26,6 @@ playwright-report/
 tests/results/
 **/lighthouse*.json
 **/lighthouse*.html
+
+# Local Vercel link
+.vercel/
