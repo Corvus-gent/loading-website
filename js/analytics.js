@@ -2,9 +2,9 @@
 (async () => {
   const {arrivalSearch,clearTrackingURL,sidequestsPage}=await import('/js/arrival.js');
   const {setXCampaigns,xContext} = await import('./x-attribution.js');
-  const {privacyEvent, sourceCategory, pathCategory, safeURL} = await import('/js/analytics-policy.js');
+  const {privacyEvent, sourceCategory, pathCategory, safeURL} = await import('/js/analytics-policy.js?v=hack-oriane1');
   import('/js/performance.js').catch(()=>{});
-  import('/js/outbound.js').catch(()=>{});
+  import('/js/outbound.js?v=hack-oriane1').catch(()=>{});
   if (/^\/links(?:\/|$)/.test(location.pathname)) {
     const {linkContext} = await import('./link-context.js');
     window.__phProps = linkContext(location.pathname, arrivalSearch);
