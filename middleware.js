@@ -37,7 +37,7 @@ export default function middleware(request) {
   }
   const compoundSlug=url.pathname.replace(/^\/|\/$/g,'');
   if(url.hostname!=='stats.corvus.gent'&&Object.hasOwn(COMPOUND_LINKS,compoundSlug)){
-    const target=new URL('/api/stats',url);target.searchParams.set('compound','1');target.searchParams.set('slug',compoundSlug);
+    const target=new URL('/api/stats',url);target.search=url.search;target.searchParams.set('compound','1');target.searchParams.set('slug',compoundSlug);
     if(url.searchParams.has('c'))target.searchParams.set('c',url.searchParams.get('c').slice(0,64));
     return rewrite(target);
   }

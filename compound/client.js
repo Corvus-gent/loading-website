@@ -1,10 +1,11 @@
 import {analyticsAllowed,privacySignal} from '/js/analytics-consent.js';
+import {inferredSource} from '/js/social-attribution.js?v=20261107social1';
 import {arrivalSearch} from '/js/arrival.js';
 const KEY='compound-journey-v1',CHOICE='compound-journey-choice';
 const storage={get:k=>{try{return localStorage.getItem(k);}catch{return null;}},set:(k,v)=>{try{localStorage.setItem(k,v);}catch{}},remove:k=>{try{localStorage.removeItem(k);}catch{}}};
-const params=new URLSearchParams(arrivalSearch||location.search),source=params.get('utm_source')||'direct';
+const params=new URLSearchParams(arrivalSearch||location.search),inferred=inferredSource({search:arrivalSearch||location.search,userAgent:navigator.userAgent,referrer:document.referrer}),source=inferred.source;
 let referrer='';try{referrer=new URL(document.referrer).hostname;}catch{}
-const first={source,medium:params.get('utm_medium')||'',campaign:params.get('utm_campaign')||'',content:params.get('utm_content')||'',term:params.get('utm_term')||'',referrer,landed:Date.now()};
+const first={source,source_confidence:inferred.source_confidence,medium:params.get('utm_medium')||'',campaign:params.get('utm_campaign')||'',content:params.get('utm_content')||'',term:params.get('utm_term')||'',referrer,landed:Date.now()};
 let journey=null;const sessionId=crypto.randomUUID();
 export const deepAllowed=()=>storage.get(CHOICE)==='yes'&&analyticsAllowed()&&!privacySignal();
 export function setDeep(on){storage.set(CHOICE,on?'yes':'no');if(!on)storage.remove(KEY);journey=null;loadJourney();}

@@ -1,9 +1,10 @@
+import {inferredSource} from '/js/social-attribution.js?v=20261107social1';
 import {arrivalSearch} from '/js/arrival.js';
 import {analyticsAllowed} from '/js/analytics-consent.js';
 import {attributedURL} from '/js/outbound.js?v=hack-app1';
-const query=new URLSearchParams(arrivalSearch||location.search),source=['x','linkedin','instagram','tiktok','corvus','share'].includes(query.get('utm_source'))?query.get('utm_source'):'direct',started=Date.now();
+const query=new URLSearchParams(arrivalSearch||location.search),inferred=inferredSource({search:arrivalSearch||location.search,userAgent:navigator.userAgent,referrer:document.referrer}),source=inferred.source,started=Date.now();
 const e=(tag,text)=>{const n=document.createElement(tag);n.textContent=text;return n;};
-export async function send(action,extra={}){const r=await fetch('/api/hack',{method:'POST',credentials:'same-origin',keepalive:true,headers:{'Content-Type':'application/json'},body:JSON.stringify({action,source,started,...extra}),signal:AbortSignal.timeout(8000)});const d=await r.json();if(!r.ok)throw Error(d.error||'Please try again.');if(analyticsAllowed())window.posthog?.capture('hack_'+action,{source,utm_campaign:'hack',hack_id:1});return d;}
+export async function send(action,extra={}){const r=await fetch('/api/hack',{method:'POST',credentials:'same-origin',keepalive:true,headers:{'Content-Type':'application/json'},body:JSON.stringify({action,source,source_confidence:inferred.source_confidence,started,...extra}),signal:AbortSignal.timeout(8000)});const d=await r.json();if(!r.ok)throw Error(d.error||'Please try again.');if(analyticsAllowed())window.posthog?.capture('hack_'+action,{source,utm_campaign:'hack',hack_id:1});return d;}
 let viewed=false;function view(){if(!viewed&&analyticsAllowed()){viewed=true;send(location.pathname.includes('/the-feed')?'app_open':'view').catch(()=>{});}}view();window.addEventListener('analytics-consent-change',view);
 let visibleComments=5,latestComments=[];
 document.getElementById('comments-more')?.addEventListener('click',()=>{visibleComments+=5;renderComments();});

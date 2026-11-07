@@ -1,4 +1,4 @@
-import {node} from './client.js?v=20261107v1b';
+import {node} from './client.js?v=20261107social1';
 const CATEGORIES=['Hook','Transitions','Music','Pacing','Story','Humor','Visuals','Ending'];
 const globalPollsSeen=new Set();
 const TAGS=['keep','cut','too slow','too fast','confusing','smooth','funny','strong hook'];

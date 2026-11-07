@@ -1,6 +1,6 @@
 import {approvedCampaign,contentSlot} from './x-attribution.js';
 // Shared by browser capture and public stats: never publish free-form labels.
-export const SOURCES = ['direct','corvus','linkedin','instagram','tiktok','facebook','youtube','threads','discord','x','luma','whatsapp','email','qr','buymeacoffee','share','self','google','bing','duckduckgo','other'];
+export const SOURCES = ['dm','direct','corvus','linkedin','instagram','tiktok','facebook','youtube','threads','discord','x','luma','whatsapp','email','qr','buymeacoffee','share','self','google','bing','duckduckgo','other'];
 export const CAMPAIGNS = ['compound-1000','hack','bio','coffee-stats','coffee-bio','corvus_softlaunch','gabe-coffee-bio','gabe-important-call','gabe-corvus-page','gabe-corvus-revival','gabe-sf-trip','hackathon-thread','gabe-hackathon-thread','402','402-post','gabe','gabe-bio','gabe-402','gabe-402-post','gabe-self','gabe-coffee-bio','site','game-babel','game-borders','game-wordle','game-flags','game-combo','game-bangle','game-pingle','game-lantern','other'];
 export const COMMANDS = ['help','whoami','now','sidequests','support','cv','contact','ls','location','diogenes','lantern','pay','pidgy','coo','headache','sudo','exit','clear','cd','lang','unknown'];
 export const GAME_TYPES = ['babel','borders','wordle','flags','combo','bangle','pingle','lantern'];
@@ -95,11 +95,13 @@ export function privacyEvent(event) {
   if(p.utm_campaign==='hack'&&p.utm_content==='squads'){properties.utm_content='squads';if(p.short_slug==='squads')properties.short_slug='squads';}
   if(Number.isInteger(p.hack_id)&&p.hack_id>0&&p.hack_id<=9999)properties.hack_id=p.hack_id;
   if(event.event==='squad_member_click')properties.member=category(p.member,['gabe','siebe','paloma']);
+  if(['utm','user_agent','referrer','unknown'].includes(p.source_confidence))properties.source_confidence=p.source_confidence;
+  if(p.utm_campaign==='compound-1000'){for(const key of ['utm_content','utm_term'])if(typeof p[key]==='string'&&/^[a-zA-Z0-9_.-]{1,64}$/.test(p[key]))properties[key]=p[key];}
   const referrer = referrerCategory(p.$referring_domain);
   properties.$referring_domain = referrer === 'direct' ? '$direct' : referrer;
   for (const key of ['utm_source','links_source','source']) if (p[key]) properties[key] = sourceCategory(p[key]);
   for (const key of ['utm_campaign','links_campaign','campaign']) if (p[key]) properties[key] = campaignCategory(p[key]);
-  for (const key of ['utm_medium','medium']) if (p[key]) properties[key] = category(p[key], ['post','company-page','company-post','bio','links','social','game','qr','email',...ROUTES]);
+  for (const key of ['utm_medium','medium']) if (p[key]) properties[key] = category(p[key], ['direct','story','post','company-page','company-post','bio','links','social','game','qr','email',...ROUTES]);
   if(p.utm_source==='linkedin'&&p.utm_campaign==='gabe-corvus-page'&&['button','website'].includes(p.utm_content))properties.utm_content=p.utm_content;
   Object.assign(properties, sidequestTags(p));
   if (event.event === 'sidequests_cta_click') properties.button = category(p.button,['pidgy','contact','home']);

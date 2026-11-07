@@ -1,5 +1,5 @@
-import {api,beacon,node,deepAllowed,setDeep,handlePreference} from './client.js?v=20261107v1b';
-import {Cut} from './cuts.js?v=20261107v1b';
+import {api,beacon,node,deepAllowed,setDeep,handlePreference} from './client.js?v=20261107social1';
+import {Cut} from './cuts.js?v=20261107social1';
 const $=id=>document.getElementById(id),end=Date.parse('2026-11-09T17:00:00Z'),fundEnd=Date.parse('2026-11-08T07:30:00Z');
 let state=null,active=1,selected='',loading=false,toastTimer,celebrated=false,viewSent=false,lastSlots='',reloading=false;
 const watched=new Map(),battleVotes=new Set();let pickPool='';

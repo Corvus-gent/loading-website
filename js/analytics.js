@@ -1,8 +1,10 @@
 // Default cookieless counting with an explicit payload allowlist; no form/DOM capture.
 (async () => {
   const {arrivalSearch,clearTrackingURL,sidequestsPage}=await import('/js/arrival.js');
+  const {inferredSource}=await import('/js/social-attribution.js?v=20261107social1');
+  const inferred=inferredSource({search:arrivalSearch,userAgent:navigator.userAgent,referrer:document.referrer});
   const {setXCampaigns,xContext} = await import('./x-attribution.js');
-  const {privacyEvent, sourceCategory, pathCategory, safeURL} = await import('/js/analytics-policy.js?v=20261107-team3');
+  const {privacyEvent, sourceCategory, pathCategory, safeURL} = await import('/js/analytics-policy.js?v=20261107social1');
   import('/js/performance.js').catch(()=>{});
   import('/js/outbound.js').catch(()=>{});
   if (/^\/links(?:\/|$)/.test(location.pathname)) {
@@ -78,11 +80,12 @@
       fetch_options:{signal:transport.signal,credentials:'omit',keepalive:sidequestsPage,referrerPolicy:'no-referrer'},
       before_send:event=>analyticsAllowed()?privacyEvent(event):null,
       loaded:ph=>{
-        const props={...attribution,...window.__phProps};
+        const props={utm_source:inferred.source,source_confidence:inferred.source_confidence,...attribution,...window.__phProps};
         const query=new URLSearchParams(arrivalSearch);
         if(query.has('utm_source')) props.utm_source=sourceCategory(query.get('utm_source'));
         if(query.has('utm_campaign')) props.utm_campaign=query.get('utm_campaign');
         if(query.has('utm_content'))props.utm_content=query.get('utm_content');
+        if(query.has('utm_term'))props.utm_term=query.get('utm_term');
         if(x?.content)props.utm_content=x.content;
         if(query.has('utm_medium')) props.utm_medium=query.get('utm_medium');
         if(/^[A-Z]{2}$/.test(geo?.countryCode||'')) props.corvus_country_code=geo.countryCode;

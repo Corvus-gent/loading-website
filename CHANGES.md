@@ -160,3 +160,7 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 - Lead with the countdown, muted autoplay, first verdict and category feedback; keep V2/V3 as dropping-soon cards. Add Compound source link and frame-based social preview.
 - Admin can rename scene/transition labels without changing IDs, timing or votes. Existing donation and recruitment flows remain available.
 - Follow-up verification: keep cut cards visible through their full 1.5-second linger before showing scene cards; mobile flow covers muted autoplay/sound, verdict/category/transition feedback, checkout handoff, army link and LinkedIn attribution.
+
+## 2026-11-07 — Social launch attribution
+- Add account-specific Instagram/BJJ bio/story links, LinkedIn post links, DM and X/TikTok bio links; retain query parameters and support content overrides.
+- Classify source as explicit UTM, in-app browser hint, referrer or unknown. Only the coarse classification is retained; raw user agents are not stored.

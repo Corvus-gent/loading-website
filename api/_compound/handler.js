@@ -11,9 +11,9 @@ export default async function compound(req,res){
  if(req.method==='GET'){
   if(q.session==='1')return res.status(200).json({authorized:authorized(req,q.role==='admin'?'admin':'stats')});
   if(q.slug){
-   const destination=compoundDestination(q.slug,q.c);if(!destination)return res.status(404).json({error:'missing'});
+   const destination=compoundDestination(q.slug,q.c,q);if(!destination)return res.status(404).json({error:'missing'});
    const [source,medium]=COMPOUND_LINKS[q.slug];
-   try{if(await limit(req,'short-links',120))await store.event('link_click',null,{source,medium,campaign:'compound-1000',term:q.slug,content:q.c},null);}catch{}
+   try{if(await limit(req,'short-links',120))await store.event('link_click',null,{source,medium,campaign:'compound-1000',term:q.slug,content:new URL(destination,'https://corvus.gent').searchParams.get('utm_content'),source_confidence:'utm'},null);}catch{}
    res.setHeader('Location',destination);return res.status(302).end();
   }
   if(q.private==='1'){
