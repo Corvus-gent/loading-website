@@ -1,3 +1,7 @@
+## 2026-11-07 — Compound live Stripe setup
+
+- Verified activated Corvus live account; created €1-minimum live payment link and signed webhook, with sensitive Vercel Production configuration. Preview remains sandbox; publication follows daily PR #18. No real payment/payout or main push.
+
 ## 2026-11-07 — codex/compound-prize
 
 - Add /compound: countdowns, versioned Blob video, timestamped feedback, polls, helper scores, predictions and protected control/stats pages.
