@@ -1,6 +1,6 @@
 import {readPreference,savePreference} from './storage.js';
 import {createGamePicker} from './game-picker.js';
-import {initI18n,getLang} from './i18n.js';import {ui,help} from './games-copy.js';
+import {initI18n,getLang} from './i18n.js?v=20261106-ranks1';import {ui,help} from './games-copy.js';
 const $=id=>document.getElementById(id),tr=k=>ui(k,getLang()),event=(name,props={})=>window.posthog?.capture(name,{type:state?.type,day:state?.day,...props});let state,busy=false,timer,cell=0,seen=new Set(),pending=new Set();
 const picker=createGamePicker($('guess-picker'));
 const brusselsDate=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Brussels'});
@@ -26,4 +26,6 @@ async function startFlags(){try{state=await api({action:'start'});render();}catc
 async function guess(value){if(busy||state.done)return;busy=true;picker.close();$('submit').disabled=true;try{const first=!state.history.length;state=await api({value});if(first)event('game_start');event('game_guess',{guesses:state.history.length,solved:state.solved});$('answer').value='';record();render();}catch(e){$('game-status').textContent=e.message;}finally{busy=false;$('submit').disabled=false;}}
 $('guess-form').onsubmit=e=>{e.preventDefault();let v=$('answer').value.trim();if(state.type==='pingle'){const [lat,lng]=v.split(',').map(Number);v={lat,lng};}guess(v);};
 $('share').onclick=async()=>{const text=`corvus.gent/games #${state.n} · ${state.type}\n${grid()}`;const url=`https://corvus.gent/games?utm_source=share&utm_medium=game&utm_campaign=game-${state.type}`;try{if(navigator.share)await navigator.share({text,url});else await navigator.clipboard.writeText(text+'\n'+url);event('game_share');$('game-status').textContent=tr('copied');}catch(e){if(e.name!=='AbortError'){$('game-status').textContent=text+'\n'+url;}}};
+// a tab left open must not offer a fresh board: resync whenever it comes back into view
+document.addEventListener('visibilitychange',async()=>{if(document.hidden||busy||!state)return;try{const fresh=await api();if(fresh.history.length!==state.history.length||!!fresh.done!==!!state.done){state=fresh;record();render();}}catch{}});
 try{state=await api();record();render();let known=false;try{known=!!readPreference(`game-help:${state.type}`);}catch{}if(!known)$('help').click();else if(state.type==='flags'&&!state.deadline)startFlags();}catch(e){$('game-status').textContent=e.message;}

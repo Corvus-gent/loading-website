@@ -1,4 +1,4 @@
-import {initI18n,t} from './i18n.js';
+import {initI18n,t} from './i18n.js?v=20261106-ranks1';
 import {sfLocationKey} from './sf-trip.js';
 import {mountSFNote} from './sf-note.js';
 let city='Gent',noteLabels=()=>{};

@@ -2,10 +2,10 @@ export default {
   "title": "datenschutz, ohne nebel.",
   "intro": [
     "wir wollen deine daten nicht.",
-    "mit deiner erlaubnis werden besuche zu anonymen summen, ohne tracking-cookies.",
+    "besuche werden zu anonymen summen, ohne tracking-cookies.",
     "die wenigen gespeicherten dinge (etwa eine stimme oder ein login-code) stehen hier und laufen ab."
   ],
-  "updated": "aktualisiert am 5. november 2026",
+  "updated": "2026-11-06",
   "sections": [
     [
       "who",
@@ -15,12 +15,12 @@ export default {
     [
       "counts",
       "was gezählt wird",
-      "erst nach deiner erlaubnis für optionale analytics: seitenbesuche, grobe land- und browserkategorien, bekannte linkziele und einfache musik-/spielaktionen. PostHog EU zählt ohne tracking-cookies oder persönliche profile. netzwerk- und browserinformationen werden kurz zu einem täglichen pseudonym verarbeitet; erst die summen sind anonym. keine namen, emails, formularinhalte, suchtexte oder aufnahmen in unseren analytics. öffentliche karte und pingle nutzen nur gerundete stadtdaten mit mindestens zwei gezählten besuchern."
+      "PostHog EU zählt besuche und erlaubte aktionen standardmäßig, ohne cookies, browserspeicher, profile oder aufnahmen. aus netzwerk-/browserdaten entsteht vorübergehend ein tagespseudonym; nur die summen sind anonym. keine namen, emails oder formularinhalte. GPC, DNT oder ‘zähl mich nicht’ verhindern das laden von PostHog: nur ein seiten-/tageszähler steigt, ohne ID, hash oder gespeicherte header. diese aufrufe sind keine eindeutigen personen."
     ],
     [
       "why",
       "warum und auf welcher grundlage",
-      "einwilligung: optionale PostHog-analytics und, getrennt davon, ein klick auf play für Spotify. berechtigtes interesse: missbrauch verhindern und anonyme summen nutzen. erfüllung deiner anfrage: login, stimmen, spiele, zugangsanfragen und buchungen. schließe Spotify oder die seite zum stoppen. wir verkaufen keine daten. do-not-track und global privacy control werden berücksichtigt."
+      "berechtigtes interesse ist die erklärte grundlage für einfache cookielose besuchsstatistik und missbrauchsschutz. Spotify braucht deinen klick. loginmails, stimmen und buchungen erfüllen deine anfrage. du kannst PostHog hier widersprechen; nur ein anonymer aufruf bleibt. wir verkaufen keine daten."
     ],
     [
       "storage",
@@ -40,16 +40,16 @@ export default {
       "browser",
       "in deinem browser",
       "notwendige cookies: sess hält dich angemeldet; vid verhindert doppelte sprachstimmen; mvid merkt sich musikstimmen und täglichen spielfortschritt. sie sind signiert, gesichert und für seitenskripte unzugänglich. sess läuft nach 7 tagen ab, vid und mvid nach einem jahr. sie sind niemals analytics-kennungen.",
-      "deine analytics-wahl und die datenschutzversion bleiben 180 tage in diesem browser, oder bis sich die richtlinie ändert. localStorage merkt sich deine sprachstimme, sprache, eingangspräferenz, federn, ergebnisse und gelesene spielanleitungen bis zu einem jahr nach dem speichern. löschen der websitedaten entfernt einstellungen, keine bereits abgegebenen stimmen.",
-      "wenn du der statistik zustimmst, merkt sich dieser tab die öffentlichen kampagnenangaben eines sidequests-links, bis du ihn schließt oder die statistik abschaltest. so lassen sich besuche, klicks und teilaktionen einem beitrag zuordnen."
+      "ein lokaler privacy-choice-eintrag merkt sich ‘ok’ oder ‘zähl mich nicht’. ‘ok’ zählt einen soldier pro browser/website-origin; nach dem löschen der sitedaten erneut möglich. der eintrag geht nicht an PostHog. analytics und kampagnen bleiben im arbeitsspeicher, ohne browserspeicher."
     ],
     [
       "outside",
       "andere dienste",
       "Spotify erhält erst nach play eine wiedergabeanfrage und kann dann eigene cookies setzen. unser server fragt bei Spotify oder Apple nach, wenn du einen songlink einreichst. CARTO-kartenkacheln kommen über unseren server, ohne deine IP weiterzugeben. Leaflet, Sortable und die PostHog-bibliothek liegen hier.",
-      "Buy Me a Coffee und Pidgy sind links, keine eingebetteten formulare. nach dem anklicken gelten deren regeln. /links, /go und kampagnen-kurzlinks ergänzen nur UTM-kategorien und zählen besuche/klicks; sie erfassen weder formulare noch besucheridentitäten. (analytics nur mit einwilligung).",
+      "Buy Me a Coffee und Pidgy sind links, keine eingebetteten formulare. nach dem anklicken gelten deren regeln. /links, /go und kampagnen-kurzlinks ergänzen nur UTM-kategorien und zählen besuche/klicks; sie erfassen weder formulare noch besucheridentitäten.",
       "Notion enthält mein manuell gepflegtes X-protokoll. öffentliche statistiken zeigen summen, öffentliche kampagnen- und stilnamen und meine eigenen posts; antworttexte und ziel-URLs bleiben hinter dem login. freigegebene kampagnen und regions-stunden begleiten die freiwillige analyse. Corvus-kopien verfallen binnen 24 stunden; quelldaten folgen meiner Notion-aufbewahrung. die region muss noch bestätigt werden; reine EU-speicherung wird nicht versprochen.",
-      "zum zählen der kaffees liest unser server kurz die daten von Buy Me a Coffee. wiederkehrende unterstützer erkennt er, wenn möglich, am konto oder an der e-mail-adresse. nur summen und das datum des letzten kaffees werden 30 minuten gespeichert."
+      "zum zählen der kaffees liest unser server kurz die daten von Buy Me a Coffee. wiederkehrende unterstützer erkennt er, wenn möglich, am konto oder an der e-mail-adresse. nur summen und das datum des letzten kaffees werden 30 minuten gespeichert.",
+      "PostHog EU zählt besuche und erlaubte aktionen standardmäßig, ohne cookies, browserspeicher, profile oder aufnahmen. aus netzwerk-/browserdaten entsteht vorübergehend ein tagespseudonym; nur die summen sind anonym. keine namen, emails oder formularinhalte. GPC, DNT oder ‘zähl mich nicht’ verhindern das laden von PostHog: nur ein seiten-/tageszähler steigt, ohne ID, hash oder gespeicherte header. diese aufrufe sind keine eindeutigen personen."
     ],
     [
       "where",
@@ -80,5 +80,5 @@ export default {
     "buchungen",
     "manuelles x-protokoll"
   ],
-  "consentInfo": "optionale analytics bleibt bis zu deiner erlaubnis aus. ändere deine wahl hier jederzeit. jede website-origin merkt sich die eigene wahl 180 tage. ablehnen schränkt die seite nicht ein; besuchsstatistiken zählen nur zustimmende besucher. ein widerruf stoppt künftige verarbeitung, ohne frühere verarbeitung rückgängig zu machen."
+  "consentInfo": "gezählt wird standardmäßig. ‘ok’ schließt den hinweis und zählt einen soldier; es ist keine analytics-einwilligung. ‘zähl mich nicht’, GPC und DNT wechseln zu anonymen seitenaufrufen. die wahl bleibt bis zur änderung oder zum löschen der daten. ein widerspruch bleibt bei neuen hinweisen gültig."
 };

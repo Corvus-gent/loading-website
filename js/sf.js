@@ -1,4 +1,4 @@
-import {initI18n,t,getLang} from './i18n.js';
+import {initI18n,t,getLang} from './i18n.js?v=20261106-ranks1';
 import {SF_END,SF_DAYS,SF_LETS,tripState} from './sf-trip.js';
 const $=id=>document.getElementById(id),form=$('sf-form'),send=$('sf-send'),status=$('sf-status');
 let busy=false,started=false,complete=false,coolUntil=0,proofRequest=null,requestId=crypto.randomUUID(),statusKey='',stateCopy='',attemptBody='',eventRows=[];

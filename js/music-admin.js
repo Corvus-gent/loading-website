@@ -1,4 +1,4 @@
-import {initI18n,t} from './i18n.js';
+import {initI18n,t} from './i18n.js?v=20261106-ranks1';
 import {$,esc,label,genres,request} from './music-shared.js';
 let state={tracks:[],suggestions:[],revision:null},dirty=false,busy=false,email='',editing=null,sortable=null;
 const msg=text=>{$('notice').textContent=text || '';};

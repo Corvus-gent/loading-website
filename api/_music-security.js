@@ -8,10 +8,11 @@ export function readVoter(req) {
   const expected = sign(match[1]);
   return match[2].length === expected.length && crypto.timingSafeEqual(Buffer.from(match[2]), Buffer.from(expected)) ? match[1] : null;
 }
-export function ensureVoter(req,res) {
+export function ensureVoter(req,res,adopt=null) {
   const existing = readVoter(req);
   if (existing) return existing;
-  const id = crypto.randomBytes(18).toString('base64url');
+  // adopt: an id this device already used today (lost cookie, second tab, private window on the same network)
+  const id = typeof adopt === 'string' && /^[A-Za-z0-9_-]{16,40}$/.test(adopt) ? adopt : crypto.randomBytes(18).toString('base64url');
   res.setHeader('Set-Cookie', `mvid=${id}.${sign(id)}; Path=/api; Max-Age=31536000; HttpOnly; Secure; SameSite=Strict`);
   return id;
 }

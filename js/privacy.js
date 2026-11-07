@@ -1,6 +1,6 @@
 import {clearTrackingURL,sidequestsPage} from './arrival.js';
 import {strings} from './privacy-strings.js';
-import {consentChoice,chooseAnalytics,privacySignal,analyticsAllowed} from './analytics-consent.js';
+import {consentChoice,chooseAnalytics,privacySignal,analyticsAllowed,noticeDismissed} from './analytics-consent.js';
 import {readPreference} from './storage.js';
 const lang=()=>{
   const query=new URLSearchParams(location.search).get('lang');
@@ -8,11 +8,9 @@ const lang=()=>{
 };
 let notice;
 function openNotice(open) {
- const root=document.documentElement,wasOpen=root.classList.contains('privacy-notice-open');
- if(wasOpen===open)return;
- const y=wasOpen?document.body.scrollTop:window.scrollY;
- root.classList.toggle('privacy-notice-open',open);
- if(open)document.body.scrollTop=y;else window.scrollTo(0,y);
+ // the page keeps scrolling on the window; the notice only reserves space at the bottom
+ // (a body scroll container + html overflow:hidden broke iOS after the keyboard closed)
+ document.documentElement.classList.toggle('privacy-notice-open',open);
 }
 function labels() {
   const copy=strings[lang()];
@@ -23,10 +21,10 @@ function labels() {
 const privatePage=/^\/(?:stats\/)?private(?:\/|$)/.test(location.pathname)||/^\/music\/admin(?:\/|$)/.test(location.pathname);
 // Disabled analytics and pages without an analytics script still get clean URLs.
 if(privatePage||(!sidequestsPage && !analyticsAllowed())||!document.querySelector('script[src^="/js/analytics.js"]'))clearTrackingURL();
-const dismissed=consentChoice()||privacySignal();
+const dismissed=noticeDismissed();
 if(!dismissed&&!privatePage&&!/^\/402(?:\/|$)/.test(location.pathname)){
   notice=document.createElement('aside');notice.id='privacy-notice';notice.className='privacy-notice';notice.hidden=true;
-  notice.innerHTML='<span class="privacy-dot" aria-hidden="true"></span><span class="privacy-copy"></span> <span class="privacy-actions"><a href="/privacy/"></a><span aria-hidden="true"> · </span><button type="button" data-deny></button><span aria-hidden="true"> · </span><button type="button" data-allow></button></span>';
+  notice.innerHTML='<span class="privacy-dot" aria-hidden="true"></span><span class="privacy-copy"></span> <span class="privacy-actions"><a href="/privacy/"></a><span aria-hidden="true"> · </span><button type="button" data-allow></button><span aria-hidden="true"> · </span><button type="button" data-deny></button></span>';
   document.body.append(notice);
   const measure=()=>document.documentElement.style.setProperty('--privacy-notice-space',`${notice.hidden?0:notice.getBoundingClientRect().height+20}px`);
   const sync=()=>{const playing=document.body.dataset.gamePlaying==='true';notice.hidden=playing;measure();openNotice(!playing);};
@@ -40,6 +38,6 @@ if(!dismissed&&!privatePage&&!/^\/402(?:\/|$)/.test(location.pathname)){
   };
   notice.querySelector('[data-allow]').onclick=()=>chooseAnalytics('allow');
   notice.querySelector('[data-deny]').onclick=()=>chooseAnalytics('deny');
-  window.addEventListener('analytics-consent-change',()=>{if(consentChoice()||privacySignal())close();});
+  window.addEventListener('analytics-consent-change',()=>{if(noticeDismissed())close();});
 }
 labels();new MutationObserver(labels).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});

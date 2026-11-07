@@ -19,6 +19,11 @@
     },
     "links": [
       {
+        "id": "army",
+        "text": "⚑ join the army",
+        "href": "/join-the-army-now"
+      },
+      {
         "id": "call",
         "text": "📞 book a free 15-min call",
         "href": "/call/"
@@ -114,6 +119,11 @@
       "img": "/logo.png"
     },
     "links": [
+      {
+        "id": "army",
+        "text": "⚑ join the army",
+        "href": "/join-the-army-now"
+      },
       {
         "id": "games",
         "text": "today's puzzle",

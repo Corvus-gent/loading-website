@@ -8,6 +8,7 @@ import { privateTasks } from './private-stats.js';
 import { SF_FUNNEL_SQL } from './_sf.js';
 import xHandler, { xReady } from './x-stats.js';
 import coffeeHandler from './_coffee.js';
+import {visitorCounters,armyHistory} from './_visitor-counts.js';
 
 // Reuse the provider adapters and their existing privacy boundaries/caches.
 async function fromHandler(handler) {
@@ -55,6 +56,7 @@ export function snapshotTasks(page, day) {
   if (page === 'overview') {
     const tasks = {
       ...daily,
+      audience: () => visitorCounters(day),
       counters: () => counters(day),
       outbound: async () => ({ outbound: await sectionTasks('outbound', day).outbound() })
     };
@@ -66,6 +68,7 @@ export function snapshotTasks(page, day) {
     }
     return tasks;
   }
+  if (page === 'army') return {visitors:daily.visitors,audience:()=>visitorCounters(day)};
   if (page === 'hunt')
     return { feathers: daily.feathers, terminal: daily.terminal, counters: () => counters(day) };
   if (page === 'map')
@@ -81,6 +84,7 @@ export function snapshotTasks(page, day) {
   if (page === 'private')
     return {
       ...privateTasks(),
+      army:async()=>({army:await armyHistory(hogql)}),
       funnelSF: async () => ({ funnelSF: Object.fromEntries(await hogql(SF_FUNNEL_SQL)) })
     };
   if (page === 'status')

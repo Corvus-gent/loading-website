@@ -1,0 +1,16 @@
+{
+  "claim.subject": "claim your name.",
+  "claim.body": "your dog tag is waiting. open this link, then confirm. it expires in 30 minutes.\n\n{url}\n\nnot you? ignore this. — the crow",
+  "confirm.subject": "one small yes.",
+  "confirm.body": "you asked for {kind}. confirm here:\n\n{url}\n\nno click, no reminders. expires in 30 minutes. — the crow",
+  "daily.subject": "the lantern has a puzzle.",
+  "daily.body": "mission #{number}: {type}.\none small puzzle. bring your brain.\nstreak: {streak}. rank: {rank}.\n\n{url}\n\nunsubscribe: {unsubscribe}\n— the crow",
+  "weekly.subject": "the weekly drop.",
+  "weekly.body": "soldier of the week: {winner}.\na banger: {song}.\na hint: the quiet corners notice you.\n\n{url}\n\nunsubscribe: {unsubscribe}\n— diogenes",
+  "welcome.subject": "you're in, soldier.",
+  "welcome.body": "gabe opened the gate. bring your curiosity. help someone.\n\n{url}\n\n— the crow",
+  "reject.subject": "not this time.",
+  "reject.body": "thanks for knocking. this time, the gate stays closed. no performance review. just a small army finding its people. your application disappears in 30 days.\n\nmanage or delete it now: {url}\n— the crow",
+  "expiry.subject": "the crow is letting this go.",
+  "expiry.body": "your application has reached its 90-day limit. it will be deleted. you can always knock again.\n\n{url}\n— the crow"
+}

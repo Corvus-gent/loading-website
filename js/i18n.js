@@ -1,8 +1,10 @@
 import {readPreference,savePreference} from './storage.js';
-import "./eggs.js";
+import "./eggs.js?v=20261106-ranks1";
 // Legacy destinations also accept the original keyboard shortcut.
 if (/^\/(?:now|sidequests|support|languages|call|people|gabe|402)(?:\/|$)/.test(location.pathname)) import('./terminal.js');
 import { renderSearch } from "./search.js";
+import {loadFeature,featureText} from './i18n/feature.js?v=20261106-ranks1';
+export {loadFeature,featureText};
 /**
  * Tiny i18n layer: 7 languages, picked from ?lang=, then saved choice, then browser.
  * Elements with data-i18n="key" get their text replaced.
@@ -73,6 +75,7 @@ export function renderSwitcher(onChange) {
       STRINGS = (await import(`./locales/${code}.js`)).default;
       applyI18n(code);
       renderSwitcher(onChange);
+      window.dispatchEvent(new CustomEvent('corvus-language-change',{detail:{lang:code}}));
       if (onChange) onChange(code);
     });
     box.appendChild(a);
@@ -100,6 +103,14 @@ function renderCornerNav() {
   });
   const home = document.createElement("a");
   home.href = location.hostname==="stats.corvus.gent"?"https://corvus.gent/realm/":"/realm/"; home.textContent = "⌂"; home.title = "home"; home.setAttribute("aria-label", t("nav.home"));
+  // recruiting is reachable from every page (feedback: "can't find the recruiting anywhere")
+  const onArmy=/^\/(join-the-army-now|army|legion|soldier)(\/|$)/.test(location.pathname);
+  if (!onArmy) {
+    const army = document.createElement("a");
+    army.href = location.hostname==="stats.corvus.gent"?"https://corvus.gent/join-the-army-now":"/join-the-army-now";
+    army.className = "nav-army"; army.textContent = "⚑"; army.title = "join the army"; army.setAttribute("aria-label", "join the army");
+    nav.append(army);
+  }
   nav.append(back, home);
   document.body.appendChild(nav);
 }

@@ -1,14 +1,14 @@
 import {approvedCampaign,contentSlot} from './x-attribution.js';
 // Shared by browser capture and public stats: never publish free-form labels.
 export const SOURCES = ['direct','corvus','linkedin','instagram','tiktok','facebook','youtube','threads','discord','x','luma','whatsapp','email','qr','buymeacoffee','share','self','google','bing','duckduckgo','other'];
-export const CAMPAIGNS = ['hack','bio','coffee-stats','coffee-bio','corvus_softlaunch','gabe-coffee-bio','gabe-important-call','gabe-corvus-page','gabe-corvus-revival','gabe-sf-trip','402','402-post','gabe','gabe-bio','gabe-402','gabe-402-post','gabe-self','gabe-coffee-bio','site','game-babel','game-borders','game-wordle','game-flags','game-combo','game-bangle','game-pingle','game-lantern','other'];
+export const CAMPAIGNS = ['compound-1000','hack','bio','coffee-stats','coffee-bio','corvus_softlaunch','gabe-coffee-bio','gabe-important-call','gabe-corvus-page','gabe-corvus-revival','gabe-sf-trip','hackathon-thread','gabe-hackathon-thread','402','402-post','gabe','gabe-bio','gabe-402','gabe-402-post','gabe-self','gabe-coffee-bio','site','game-babel','game-borders','game-wordle','game-flags','game-combo','game-bangle','game-pingle','game-lantern','other'];
 export const COMMANDS = ['help','whoami','now','sidequests','support','cv','contact','ls','location','diogenes','lantern','pay','pidgy','coo','headache','sudo','exit','clear','cd','lang','unknown'];
 export const GAME_TYPES = ['babel','borders','wordle','flags','combo','bangle','pingle','lantern'];
 export const GENRES = ['us hip-hop','rap fr','rap nl/be','latin','lusophone','afro','pop 00s','electronic','rock','classics','soundtrack','funk & phonk'];
 export const BROWSERS = ['Chrome','Chrome iOS','Safari','Mobile Safari','Firefox','Microsoft Edge','Edge','Opera','Samsung Internet','Internet Explorer','Android Mobile','Other'];
 const HOSTS = ['corvus.gent','www.corvus.gent','stats.corvus.gent'];
 const EXTERNAL = ['hackthefeed-six.vercel.app','the-feed.corvus.gent','pidgy-ai.com','app.pidgy-ai.com','buymeacoffee.com','www.buymeacoffee.com','open.spotify.com','music.apple.com','bandcamp.com','soundcloud.com','musicbrainz.org','www.linkedin.com','linkedin.com','instagram.com','www.instagram.com','www.tiktok.com','www.facebook.com','www.youtube.com','threads.net','www.threads.net','x.com','luma.com','alkmist.com','posthog.com','github.com'];
-const ROUTES = new Set(['/hack/','/hack/the-feed/','/stats/hack/','/', '/realm/', '/sf/', '/gabe/', '/people/', '/now/', '/sidequests/', '/support/', '/support/books/', '/support/companies/', '/support/people/', '/support/founders/', '/support/sport-people/', '/support/philosophists/', '/languages/', '/402/', '/call/', '/music/', '/games/', '/wiki/', '/wiki/corvus/', '/wiki/pidgy/', '/privacy/', '/cv/', '/pidgy/', '/map/', '/hunt/', '/stats/', '/stats/pidgy/', '/stats/games/', '/stats/map/', '/stats/music/', '/stats/hunt/', '/x/', '/stats/x/', '/coffee/', '/stats/coffee/', '/coffee-with-gabe/']);
+const ROUTES = new Set(['/hackathons/','/hack/','/hack/the-feed/','/stats/hack/','/', '/realm/', '/sf/', '/gabe/', '/people/', '/now/', '/sidequests/', '/support/', '/support/books/', '/support/companies/', '/support/people/', '/support/founders/', '/support/sport-people/', '/support/philosophists/', '/languages/', '/402/', '/call/', '/music/', '/games/', '/wiki/', '/wiki/corvus/', '/wiki/pidgy/', '/privacy/', '/cv/', '/pidgy/', '/map/', '/hunt/', '/stats/', '/stats/pidgy/', '/stats/games/', '/stats/map/', '/stats/music/', '/stats/hunt/', '/x/', '/stats/x/', '/coffee/', '/stats/coffee/', '/army/', '/stats/army/', '/status/', '/stats/status/', '/coffee-with-gabe/']);
 export const category = (value, allowed, fallback = 'other') => allowed.includes(value) ? value : fallback;
 export const sourceCategory = value => category(value, SOURCES);
 export const campaignCategory = value => {
@@ -28,6 +28,8 @@ export function referrerCategory(value) {
 export function pathCategory(path) {
   if (typeof path !== 'string') return '/other/';
   path = path.split(/[?#]/)[0].replace(/\/+$/, '') + '/';
+  if (/^\/hack\/[1-9]\d{0,3}\/(?:the-feed\/)?$/.test(path)) return path;
+  if(path==='/compound/')return path;
   if (path.startsWith('/links/')) {
     const persona = path.split('/')[2];
     return '/links/' + (['corvus','pidgy'].includes(persona) ? persona : 'gabe') + '/';
@@ -60,7 +62,7 @@ export function countryCategory(value) {
   }
   return countryCategory.names.get(value) || '?';
 }
-const EVENTS = new Set(['hack_view','hack_app_open','hack_github_click','hack_like','hack_dislike','hack_comment','hack_feedback','hack_share','sidequests_cta_click','sidequests_share','sf_note_seen','sf_note_open','sf_note_click','sf_form_start','sf_form_submit','$pageview','link_click','outbound_click','short_link_out','links_click','links_qr_open','links_crow_click','music_play','vinyl_play','language_vote','goodreads_locked_click','goodreads_access_request','game_start','game_guess','game_end','game_share','share_click','feather_found','terminal_command','site_search','visitor_guess']);
+export const EVENTS = new Set(['squad_member_click','hack_view','hack_app_open','hack_github_click','hack_like','hack_dislike','hack_comment','hack_feedback','hack_share','notice_ok','sidequests_cta_click','sidequests_share','sf_note_seen','sf_note_open','sf_note_click','sf_form_start','sf_form_submit','$pageview','link_click','outbound_click','short_link_out','links_click','links_qr_open','links_crow_click','music_play','vinyl_play','language_vote','goodreads_locked_click','goodreads_access_request','game_start','game_guess','game_end','game_share','share_click','feather_found','terminal_command','site_search','visitor_guess']);
 // The campaign owner controls these six categories. Drop arbitrary URL text,
 // including email addresses, rather than turning it into a visitor identifier.
 export function sidequestTags(p) {
@@ -86,7 +88,13 @@ export function privacyEvent(event) {
     $browser: category(p.$browser, BROWSERS, 'Other'),
     $device_type: category(p.$device_type, ['Desktop','Mobile','Tablet'], 'Other'),
   };
+  // Cookieless ingestion requires this hash input. Send only the two existing
+  // coarse categories, never the browser's raw user agent, versions or model.
+  properties.$raw_user_agent = `${properties.$browser}/${properties.$device_type}`;
   if (p.corvus_country_code) properties.corvus_country_code = countryCategory(p.corvus_country_code);
+  if(p.utm_campaign==='hack'&&p.utm_content==='squads'){properties.utm_content='squads';if(p.short_slug==='squads')properties.short_slug='squads';}
+  if(Number.isInteger(p.hack_id)&&p.hack_id>0&&p.hack_id<=9999)properties.hack_id=p.hack_id;
+  if(event.event==='squad_member_click')properties.member=category(p.member,['gabe','siebe','paloma']);
   const referrer = referrerCategory(p.$referring_domain);
   properties.$referring_domain = referrer === 'direct' ? '$direct' : referrer;
   for (const key of ['utm_source','links_source','source']) if (p[key]) properties[key] = sourceCategory(p[key]);

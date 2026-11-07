@@ -4,6 +4,16 @@
   ],
   "redirects": [
     {
+      "source": "/prize",
+      "destination": "/compound",
+      "permanent": false
+    },
+    {
+      "source": "/1000",
+      "destination": "/compound",
+      "permanent": false
+    },
+    {
       "source": "/gabe",
       "destination": "/people/?id=gabe",
       "permanent": false
@@ -31,8 +41,48 @@
   ],
   "rewrites": [
     {
+      "source": "/api/compound/stripe",
+      "destination": "/api/discord?compoundStripe=1"
+    },
+    {
+      "source": "/api/compound",
+      "destination": "/api/stats?compound=1"
+    },
+    {
       "source": "/api/hack",
       "destination": "/api/stats?hack=1"
+    },
+    {
+      "source": "/r/:code/games",
+      "destination": "/api/army?ref=:code&to=games"
+    },
+    {
+      "source": "/r/:code",
+      "destination": "/api/army?ref=:code"
+    },
+    {
+      "source": "/soldier/:username/og.png",
+      "destination": "/api/army?profile=:username&image=1"
+    },
+    {
+      "source": "/soldier/:username/poster.png",
+      "destination": "/api/army?profile=:username&image=1&poster=1"
+    },
+    {
+      "source": "/soldier/:username",
+      "destination": "/api/army?profile=:username&html=1"
+    },
+    {
+      "source": "/join-the-army-now/:platform/:campaign",
+      "destination": "/join-the-army-now/index.html"
+    },
+    {
+      "source": "/api/report.md",
+      "destination": "/api/stats?report=1"
+    },
+    {
+      "source": "/api/notice-ok",
+      "destination": "/api/stats?notice=1"
     },
     {
       "source": "/api/health/history",
@@ -103,6 +153,13 @@
     },
     "api/x-stats.js": {
       "maxDuration": 60
+    },
+    "api/army.js": {
+      "includeFiles": "{soldier/index.html,js/i18n/mail.*.json,js/i18n/army.*.json,img/army/fonts/**}",
+      "maxDuration": 60
+    },
+    "api/discord.js": {
+      "includeFiles": "js/i18n/army.*.json"
     }
   },
   "headers": [
@@ -128,6 +185,24 @@
         {
           "key": "Cache-Control",
           "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/js/army/:path*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/js/i18n/:path*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
         }
       ]
     },
@@ -204,6 +279,11 @@
     {
       "path": "/api/stats?snapJob=1",
       "schedule": "12 2 * * *"
+    },
+    {
+      "path": "/api/army?job=1",
+      "schedule": "*/15 * * * *"
     }
-  ]
+  ],
+  "buildCommand": "node tools/build-hackathons.mjs && python3 tools/build-search.py"
 }

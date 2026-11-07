@@ -1,8 +1,8 @@
-// Opt-in cookieless counting with an explicit payload allowlist; no form/DOM capture.
+// Default cookieless counting with an explicit payload allowlist; no form/DOM capture.
 (async () => {
   const {arrivalSearch,clearTrackingURL,sidequestsPage}=await import('/js/arrival.js');
   const {setXCampaigns,xContext} = await import('./x-attribution.js');
-  const {privacyEvent, sourceCategory, pathCategory, safeURL} = await import('/js/analytics-policy.js');
+  const {privacyEvent, sourceCategory, pathCategory, safeURL} = await import('/js/analytics-policy.js?v=20261107-team3');
   import('/js/performance.js').catch(()=>{});
   import('/js/outbound.js').catch(()=>{});
   if (/^\/links(?:\/|$)/.test(location.pathname)) {
@@ -11,8 +11,8 @@
   }
   const {questTags,deferHomeClick,takeHomeClick}=await import('/js/quest-attribution.js');
   const {analyticsAllowed,consentChoice,privacySignal}=await import('/js/analytics-consent.js');
-  let started=false,stopped=false,transport;
-  const privatePage = /^\/(?:stats\/)?private(?:\/|$)/.test(location.pathname) || /^\/music\/admin(?:\/|$)/.test(location.pathname);
+  let started=false,stopped=false,transport,pageviewSent=false,bareSent=false,pendingOK=false;
+  const privatePage = /^\/army\/access(?:\/|$)/.test(location.pathname) || /^\/(?:stats\/)?private(?:\/|$)/.test(location.pathname) || /^\/music\/admin(?:\/|$)/.test(location.pathname);
   if (privatePage) {clearTrackingURL();return;}
   let pendingCleanup, questClient;
   const pendingActions=[];
@@ -22,10 +22,20 @@
     if (questClient) questClient.capture(detail.event,detail.props);
     else if (pendingActions.length<12) pendingActions.push(detail);
   });
+  function bareHit(){
+    if(bareSent||pageviewSent)return;
+    bareSent=true;
+    const day=new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Brussels'}).format(new Date());
+    fetch('/api/hit',{method:'POST',credentials:'omit',referrerPolicy:'no-referrer',keepalive:true,headers:{'Content-Type':'application/json'},body:JSON.stringify({page:pathCategory(location.pathname),day})}).catch(()=>{});
+  }
+  window.addEventListener('notice-ok',()=>{
+    if(!analyticsAllowed())return;
+    if(questClient)questClient.capture('notice_ok');else pendingOK=true;
+  });
   function sync(){
     clearTimeout(pendingCleanup);
     if(!analyticsAllowed()){
-      pendingActions.length=0; questClient=null; questTags();
+      pendingActions.length=0; pendingOK=false; questClient=null; questTags(); bareHit();
       if (sidequestsPage && !consentChoice() && !privacySignal()) pendingCleanup=setTimeout(clearTrackingURL,5500);
       else clearTrackingURL();
       if(started){stopped=true;transport.abort();window.posthog?.set_config?.({before_send:()=>null});window.posthog?.shutdown?.();}
@@ -44,7 +54,7 @@
     .then(r=>r.ok?r.json():null).catch(()=>null);
   const cleanupTimer=setTimeout(clearTrackingURL,5000);
   const s=document.createElement('script');
-  s.onerror=()=>{clearTimeout(cleanupTimer);clearTrackingURL();};
+  s.onerror=()=>{clearTimeout(cleanupTimer);clearTrackingURL();bareHit();};
   s.src='/js/vendor/posthog-1.445.3.min.js'; s.async=true;
   s.onload=async()=>{
     const [geo,allowed]=await Promise.all([country,catalog]);
@@ -64,7 +74,7 @@
       capture_exceptions:false, save_campaign_params:false, save_referrer:false,
       // Always mode ignores SDK opt_out. Gate capture ourselves and abort the
       // fetch transport on withdrawal, including queued retries. No beacon fallback.
-      request_batching:false, api_transport:'fetch', disable_beacon:true,
+      request_batching:false, disable_compression:true, api_transport:'fetch', disable_beacon:true,
       fetch_options:{signal:transport.signal,credentials:'omit',keepalive:sidequestsPage,referrerPolicy:'no-referrer'},
       before_send:event=>analyticsAllowed()?privacyEvent(event):null,
       loaded:ph=>{
@@ -76,9 +86,18 @@
         if(x?.content)props.utm_content=x.content;
         if(query.has('utm_medium')) props.utm_medium=query.get('utm_medium');
         if(/^[A-Z]{2}$/.test(geo?.countryCode||'')) props.corvus_country_code=geo.countryCode;
+        if (/^\/(hack|compound)(?:\/|$)/.test(location.pathname)) {
+          const arrival=new URLSearchParams(arrivalSearch),id=/^\/hack\/([1-9]\d*)(?:\/|$)/.exec(location.pathname)?.[1];
+          props.utm_campaign=arrival.get('utm_campaign')|| (location.pathname.startsWith('/hack')?'hack':'compound-1000');
+          if(arrival.has('utm_source'))props.utm_source=sourceCategory(arrival.get('utm_source'));
+          if(arrival.has('utm_medium'))props.utm_medium=arrival.get('utm_medium');
+          if(id)props.hack_id=Number(id);
+        }
+
         if(sidequestsPage && attribution.utm_source) Object.assign(props,attribution);
         ph.register(props);
-        ph.capture('$pageview');
+        ph.capture('$pageview');pageviewSent=true;
+        if(pendingOK){ph.capture('notice_ok');pendingOK=false;}
         if (location.pathname==='/' && takeHomeClick()) ph.capture('sidequests_cta_click',{
           button:'home',$pathname:'/sidequests/',$current_url:'https://corvus.gent/sidequests',
         });

@@ -2,10 +2,10 @@ export default {
   "title": "privacy, without the fog.",
   "intro": [
     "we don't want your data.",
-    "with your permission, visits become anonymous totals, without tracking cookies.",
+    "visits become anonymous totals, without tracking cookies.",
     "the few things we store (like a vote or a login code) are listed below, and they expire."
   ],
-  "updated": "updated 5 november 2026",
+  "updated": "2026-11-06",
   "sections": [
     [
       "who",
@@ -15,12 +15,12 @@ export default {
     [
       "counts",
       "what gets counted",
-      "only after you allow optional analytics: page visits, broad country/browser categories, known link destinations and simple game/music actions. PostHog EU counts without tracking cookies or personal profiles. it briefly processes your network/browser information into a daily pseudonym; only the resulting counts are anonymous. no names, emails, form contents, searches or recordings go into our analytics. public maps and pingle only use rounded city data with at least two counted visitors."
+      "page visits and allowlisted actions are counted by default through PostHog EU, without cookies, device storage, profiles or recordings. PostHog temporarily derives a daily pseudonym from network/browser information; only the totals are anonymous. names, emails and form contents are excluded. GPC, DNT or ‘don't count me’ prevent PostHog from loading: only a page/day counter is incremented, with no ID, hash or stored headers. those unseen hits cannot identify unique people."
     ],
     [
       "why",
       "why, and on what basis",
-      "consent: optional PostHog analytics and, separately, clicking play to enable Spotify. legitimate interest: preventing abuse and using anonymous totals. performance of your request: login emails, votes, games, access requests and bookings. close the Spotify player/page to stop playback. we do not sell visitor data. we honour browser do-not-track and global privacy control for analytics."
+      "legitimate interest is the stated basis for basic cookieless audience measurement and abuse prevention. Spotify playback requires your click. login emails, votes and bookings fulfil your request. you can object to PostHog counting here; only an anonymous hit remains. we do not sell data."
     ],
     [
       "storage",
@@ -40,16 +40,16 @@ export default {
       "browser",
       "the small things in your browser",
       "necessary cookies: sess keeps you logged in; vid prevents duplicate language votes; mvid remembers music votes and daily-game progress. they are signed, secure and inaccessible to page scripts. sess expires after 7 days; vid and mvid after one year. they are never used to identify you in analytics.",
-      "your analytics choice and privacy version are stored on this browser for 180 days, or until the policy changes. localStorage holds your language-vote choice, your language, realm entry preference, feathers, game results and whether game instructions were read, for up to one year after saving. clearing site data removes these preferences; it does not erase already submitted votes.",
-      "if you allow analytics, this tab remembers the public labels on a sidequests campaign link until you close it or turn analytics off. they group visits, button clicks and shares from a post."
+      "one local privacy-choice flag remembers ‘ok’ or ‘don't count me’. ‘ok’ also adds one soldier acknowledgement per browser/site origin; clearing site data can allow another. this flag is not sent to PostHog. analytics and campaign attribution stay in memory and do not use browser storage."
     ],
     [
       "outside",
       "when another service gets involved",
       "Spotify receives a playback request only after play, and may then set its own cookies. our server looks up song links at Spotify or Apple when you submit one. map tiles come through our server from CARTO, without forwarding your IP. Leaflet, Sortable and the PostHog library are hosted here.",
-      "Buy Me a Coffee and Pidgy booking are links, not embedded forms. their privacy rules apply after you follow them. /links, /go and our campaign shortcuts only add campaign labels (UTMs) and count visits/clicks; they never collect form contents or visitor identities. (analytics only with consent).",
+      "Buy Me a Coffee and Pidgy booking are links, not embedded forms. their privacy rules apply after you follow them. /links, /go and our campaign shortcuts only add campaign labels (UTMs) and count visits/clicks; they never collect form contents or visitor identities.",
       "Notion holds my manually entered X log. public stats show totals, public campaign/voice labels and my own posts; reply text and target URLs stay behind login. approved campaign labels and region-hour slots accompany optional analytics. Corvus copies expire within 24 hours; source records follow my Notion retention. the workspace region still needs confirmation, so EU-only storage is not promised.",
-      "to count coffees, our server briefly reads Buy Me a Coffee records and recognises repeat supporters using account or email fields when available. only totals and the latest coffee date are cached for 30 minutes."
+      "to count coffees, our server briefly reads Buy Me a Coffee records and recognises repeat supporters using account or email fields when available. only totals and the latest coffee date are cached for 30 minutes.",
+      "page visits and allowlisted actions are counted by default through PostHog EU, without cookies, device storage, profiles or recordings. PostHog temporarily derives a daily pseudonym from network/browser information; only the totals are anonymous. names, emails and form contents are excluded. GPC, DNT or ‘don't count me’ prevent PostHog from loading: only a page/day counter is incremented, with no ID, hash or stored headers. those unseen hits cannot identify unique people."
     ],
     [
       "where",
@@ -80,5 +80,5 @@ export default {
     "bookings",
     "manual x log"
   ],
-  "consentInfo": "optional analytics is off until you allow it. change your choice here at any time. each site origin remembers its own choice for 180 days. declining does not limit the site; visit statistics only include people who allow counting. withdrawal stops future analytics and does not undo processing already performed."
+  "consentInfo": "counting starts by default. ‘ok’ dismisses the notice and counts one soldier acknowledgement; it is not analytics consent. ‘don't count me’, GPC and DNT switch to anonymous page-hit totals only. your choice stays until you change it or clear site data. a refusal is kept when this notice changes."
 };

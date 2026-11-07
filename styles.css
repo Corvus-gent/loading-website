@@ -333,7 +333,7 @@ a:hover { text-decoration-color: var(--fg); border-bottom: 0; }
 .flock-egg.show { opacity: 1; }
 
 /* --- pidgy easter eggs --- */
-.feather { position: fixed; width: 16px; opacity: .35; cursor: pointer; z-index: 4; transition: opacity .2s, transform .2s; }
+.feather { position: fixed; width: 22px; padding: 10px; box-sizing: content-box; opacity: .55; cursor: pointer; z-index: 4; transition: opacity .2s, transform .2s; }
 .feather:hover { opacity: 1; }
 .feather.caught { animation: fly 1s forwards; }
 @keyframes fly { to { transform: translate(40px, -120px) rotate(200deg); opacity: 0; } }
@@ -422,3 +422,13 @@ body:not(.portal) main{padding-top:64px}.lang-switcher{min-height:24px}
 /* A night walk on desktop; a clear single-column path on a phone. */
 .realm-places{grid-template-columns:repeat(4,1fr);gap:20px 28px;padding:28px 0;background:url('/img/realm-night.svg') center/100% 100% no-repeat}.realm-places a{border:0;min-height:140px;padding:12px;flex-direction:column;gap:14px;justify-content:center;text-decoration:none;color:#ccc;background:radial-gradient(ellipse at 50% 76%,#ffd76a10,transparent 65%);position:relative}.realm-places a::after{content:'';position:absolute;bottom:16px;width:80%;height:1px;background:linear-gradient(90deg,transparent,#ffd76a44,transparent)}.realm-places a span{display:block;width:56px;height:56px;filter:drop-shadow(0 0 12px #ffd76a40)}.realm-places a svg{display:block;width:100%;height:100%}.realm-places a:nth-child(3n+2){transform:translateY(24px)}.realm-places a:hover,.realm-places a:focus-visible{color:#ffd76a;transform:translateY(-3px)}.realm-places a:last-child{grid-column:1/-1;min-height:50px;flex-direction:row;background:none}.realm-places a:last-child span{width:22px;height:22px}.realm-places a:last-child::after{display:none}@media(max-width:600px){.realm-places{grid-template-columns:1fr;padding:0;background:none;gap:8px}.realm-places a,.realm-places a:nth-child(3n+2){transform:none;min-height:65px;flex-direction:row;justify-content:flex-start;border-bottom:1px solid #ffd76a22}.realm-places a span{width:36px;height:36px}.realm-places a::after{display:none}.realm-places a:last-child{grid-column:auto;justify-content:flex-start}.realm-places b{font-size:15px}}
 #realm-share{background:#111;color:#eee;border:1px solid #ffd76a77;border-radius:16px;padding:28px;min-width:240px}#realm-share::backdrop{background:#000b}#realm-share button{font:inherit;min-height:44px;padding:10px 22px;background:#171717;color:#ffd76a;border:1px solid #555;border-radius:8px;margin:8px}
+
+.corner-nav a.nav-army{color:#ffd76a;border-color:#ffd76a88;box-shadow:0 0 14px #ffd76a22}
+
+.portal-what{color:#9f9888;font-size:12px;letter-spacing:.06em;margin:-6px 0 22px}
+
+.tz-pick{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--muted);margin:0 0 10px}.tz-pick select{font:inherit;font-size:12px;background:transparent;color:inherit;border:1px solid var(--faint);padding:4px 6px;max-width:100%}
+.term-hint .term-what{color:var(--faint);font-size:11px;text-decoration:none;margin-left:6px}.term-hint .term-what:is(:hover,:focus-visible){color:var(--muted);text-decoration:underline}
+
+/* A found feather stays a quiet, keyboard-accessible mark. */
+button.feather,button.feather-caught{border:0;background:none;color:inherit;font:inherit;min-width:44px;min-height:44px}button.feather img{display:block;width:22px;height:auto}.feather-caught{position:fixed;z-index:4;padding:8px;opacity:.4;color:#9c9585!important;font:9px monospace!important;cursor:pointer}.feather-caught:focus-visible,.feather-caught:hover{opacity:.85}.egg-toast{max-width:calc(100vw - 32px);box-sizing:border-box;white-space:normal;text-align:center}

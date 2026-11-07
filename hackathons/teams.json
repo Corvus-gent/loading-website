@@ -1,0 +1,57 @@
+[
+  {
+    "id": "hackthefeed",
+    "name": "#HackTheFeed",
+    "event": "Oriane x Compound hackathon",
+    "location": "San Francisco",
+    "date": "2026-11",
+    "teamSize": 3,
+    "members": [
+      {
+        "id": "gabe",
+        "name": "Gabe",
+        "label": "Gabe",
+        "url": "https://corvus.gent"
+      },
+      {
+        "id": "siebe",
+        "name": "Siebe Baree",
+        "label": "Siebe Baree",
+        "url": "https://github.com/SiebeBaree"
+      },
+      {
+        "id": "paloma",
+        "name": "Paloma Ana Daniele",
+        "label": "Paloma Ana Daniele",
+        "url": "https://www.linkedin.com/in/paloma-ana-daniele/"
+      }
+    ],
+    "build": "/hack/1/",
+    "repo": "https://github.com/SiebeBaree/hackthefeed",
+    "pitch": "Paste your URL. We steal what's going viral in your niche and make it better.",
+    "status": "Not selected. Pitched anyway.",
+    "number": 1
+  },
+  {
+    "id": "solo-run",
+    "number": 2,
+    "name": "solo run",
+    "event": "solo hackathon",
+    "location": "San Francisco",
+    "date": "2026-11",
+    "eventDate": "2026-11-07",
+    "start": "2026-11-07T21:00:00Z",
+    "teamSize": 1,
+    "members": [
+      {
+        "id": "gabe",
+        "name": "Gabe",
+        "label": "Gabe",
+        "url": "https://corvus.gent"
+      }
+    ],
+    "pitch": "One builder. One deadline. Follow the solo run.",
+    "status": "Starts 7 Nov · 13:00 San Francisco",
+    "build": "/hack/2/"
+  }
+]

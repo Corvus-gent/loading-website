@@ -1,5 +1,6 @@
 // - stats.corvus.gent serves the stats pages at clean URLs; corvus.gent/stats redirects there
 // - curl / wget / scripts get counted, and curling the homepage gets a little reply
+import {COMPOUND_LINKS} from "./js/compound-links.js";
 import { rewrite, next, waitUntil } from "@vercel/functions";
 
 export const config = { matcher: ["/((?!api/|js/|img/|cv/|papers/|.*\\.(?:css|js|png|jpg|svg|pdf|json|ico)$).*)"] };
@@ -29,6 +30,17 @@ const CURL_REPLY = `
 
 export default function middleware(request) {
   const url = new URL(request.url);
+  if(url.hostname!=='stats.corvus.gent'&&/^\/squads\/?$/.test(url.pathname)){
+    url.pathname='/hackathons/';
+    for(const [key,value]of Object.entries({utm_source:'share',utm_medium:'links',utm_campaign:'hack',utm_content:'squads'}))if(!url.searchParams.has(key))url.searchParams.set(key,value);
+    return Response.redirect(url,307);
+  }
+  const compoundSlug=url.pathname.replace(/^\/|\/$/g,'');
+  if(url.hostname!=='stats.corvus.gent'&&Object.hasOwn(COMPOUND_LINKS,compoundSlug)){
+    const target=new URL('/api/stats',url);target.searchParams.set('compound','1');target.searchParams.set('slug',compoundSlug);
+    if(url.searchParams.has('c'))target.searchParams.set('c',url.searchParams.get('c').slice(0,64));
+    return rewrite(target);
+  }
   if (url.hostname !== "stats.corvus.gent" && /^\/sidequest\/?$/.test(url.pathname)) {
     url.pathname = "/sidequests";
     return Response.redirect(url, 307);
@@ -58,7 +70,7 @@ export default function middleware(request) {
 
   if (url.hostname === "stats.corvus.gent") {
     if (url.pathname === "/") return rewrite(new URL("/stats/", url));
-    if (/^\/(pidgy|games|map|music|hunt|x|coffee|status|hack)\/?$/.test(url.pathname)) return rewrite(new URL(`/stats/${url.pathname.split("/")[1]}/`, url));
+    if (/^\/(pidgy|games|map|music|hunt|x|coffee|status|hack|army)\/?$/.test(url.pathname)) return rewrite(new URL(`/stats/${url.pathname.split("/")[1]}/`, url));
     if (url.pathname.startsWith("/private")) return rewrite(new URL("/stats/private/", url));
     if (/^\/stats(?:\/|$)/.test(url.pathname)) return Response.redirect(new URL((url.pathname.replace(/^\/stats/, "") || "/") + url.search, url), 308);
     return next();
