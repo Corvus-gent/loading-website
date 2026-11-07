@@ -1,0 +1,9 @@
+export const STREAM_PRIVACY={
+ en:'on /hack and /hack/2, Twitch loads only after you click to check the stream. Twitch receives your IP address and browser information and may set its own cookies. closing the stream stops the player; Twitch controls cookies already set. Corvus stores no Twitch viewing history.',
+ nl:'op /hack en /hack/2 laadt Twitch pas wanneer je klikt om de stream te bekijken. Twitch ontvangt je IP-adres en browserinformatie en kan eigen cookies plaatsen. sluiten stopt de speler; Twitch beheert al geplaatste cookies. Corvus bewaart geen Twitch-kijkgeschiedenis.',
+ fr:'sur /hack et /hack/2, Twitch ne se charge qu’après ton clic pour consulter le direct. Twitch reçoit ton adresse IP et les informations du navigateur et peut déposer ses cookies. fermer arrête le lecteur ; Twitch gère les cookies déjà déposés. Corvus ne garde aucun historique de visionnage Twitch.',
+ de:'auf /hack und /hack/2 wird Twitch erst nach deinem Klick geladen. Twitch erhält deine IP-Adresse und Browserinformationen und kann eigene Cookies setzen. schließen stoppt den Player; bereits gesetzte Cookies verwaltet Twitch. Corvus speichert keinen Twitch-Wiedergabeverlauf.',
+ es:'en /hack y /hack/2, Twitch solo se carga al pulsar para ver el directo. Twitch recibe tu IP y datos del navegador y puede guardar sus cookies. cerrar detiene el reproductor; Twitch controla las cookies ya guardadas. Corvus no conserva tu historial de Twitch.',
+ it:'su /hack e /hack/2, Twitch si carica solo dopo il tuo clic per vedere la diretta. Twitch riceve il tuo indirizzo IP e i dati del browser e può impostare cookie propri. chiudere ferma il lettore; Twitch gestisce i cookie già impostati. Corvus non conserva una cronologia Twitch.',
+ zh:'在 /hack 和 /hack/2，只有点击查看直播后才会加载 Twitch。Twitch 会收到你的 IP 地址和浏览器信息，并可能设置自己的 Cookie。关闭直播会停止播放器；已设置的 Cookie 由 Twitch 管理。Corvus 不保存 Twitch 观看记录。'
+};

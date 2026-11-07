@@ -688,3 +688,10 @@ Discord is not connected until its token and installed-guild configuration exist
 - Eleven short links record aggregate clicks and carry source/medium/campaign plus `utm_term` (slug) and optional `utm_content`. First/last campaign aggregates and pseudonymous watch/engagement dedupe expire after 90 days. No original referring path/query is saved. Referrers remain a known-host allowlist.
 - Stripe checkout attribution also carries the allowed page-visit ID, first/last touch and selected cut, so the signed payment event can complete that journey. Checkout references expire in seven days; the minimal payment/refund record expires in one year. No card, payer identity or email stored by this feature.
 - Revolut is an external payment service; the feature stores only the public payment link and admin-confirmed aggregate euro totals before/after the deadline. The admin may attribute a correction to a campaign without entering payer details. Revolut privacy: https://www.revolut.com/legal/privacy/.
+
+
+## Twitch embed — 7 November 2026
+- `/hack` and `/hack/2` offer an explicit “check live stream” click before loading `https://embed.twitch.tv/embed/v1.js` or any Twitch iframe. No Twitch request before that click. No remembered viewing permission or additional Corvus cookie/localStorage key.
+- Twitch receives normal network/browser information and the embedding page origin/path, and may use vendor cookies/storage. Purpose: requested stream playback and online/offline status. Basis: the informed activation click. Provider: Twitch/Amazon; vendor retention and controls: https://www.twitch.tv/p/en/legal/privacy-notice/. Corvus does not store Twitch viewing data or call Twitch server-side APIs.
+- Closing removes the iframe; offline collapses the player and badge, with availability updates handled by the loaded SDK. Browsers can remove existing Twitch cookies. The disclosure is on the player and the privacy page in seven languages.
+- Tests: no pre-click SDK request, mocked online/offline/play events in Chromium and WebKit, blocked SDK fallback, reduced motion, 375px layout. Real preview received Twitch’s offline event for gabe_maxxing.

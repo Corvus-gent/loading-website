@@ -1,3 +1,7 @@
+## Twitch live badge — 2026-11-07
+- Shared vanilla LiveStream component on /hack and /hack/2, driven by Twitch online/offline/play events; no API keys or backend. Exact preview hostname included in parent allowlist.
+- Offline player collapses fully; online badge jumps to the player. Mobile scaling, keyboard focus, blocked-embed fallback and reduced motion supported.
+
 ## TikTok account links — 2026-11-07
 - /tt, /tt-bjj and /tt-g redirect to Compound with account-specific bio attribution. Queries and ?c= overrides survive; clicks use the existing aggregate logger.
 - Compound’s private source table lists all three accounts separately, including link clicks and zero-count accounts.
