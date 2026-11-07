@@ -7,6 +7,7 @@ const sign=v=>crypto.createHmac('sha256',secret()).update('compound:'+v).digest(
 export function identity(req,res){return sign('voter:'+ensureVoter(req,res));}
 export function sameOrigin(req){
  const origins=['https://corvus.gent','https://www.corvus.gent',...['VERCEL_URL','VERCEL_BRANCH_URL'].map(k=>process.env[k]&&'https://'+process.env[k])];
+ if(process.env.VERCEL_ENV==='preview')origins.push('https://loading-website-compound-preview-corvus11.vercel.app');
  if(process.env.NODE_ENV!=='production')origins.push('http://127.0.0.1:4201');
  return origins.includes(req.headers.origin);
 }
