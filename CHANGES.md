@@ -196,3 +196,6 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 ## Arcade P3 — original fight-night audio and memes
 - Add strike finishes, KO/sub counts, narrated callouts with no immediate repetition, synthesized bell/punch/crowd/bonus sounds and a master mute.
 - Draw original pixel meme panels, add face-off tape, judges cards, championship labels and performance bonuses. Do-Bronx palette edition uses the same engine.
+
+## Arcade P4 — feedback and bugs
+- Add accessible feedback dialogs on the vote and game pages; pause play while writing. Public ideas support one upvote per signed device; bug reports are never included in public results.

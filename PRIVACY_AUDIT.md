@@ -700,3 +700,8 @@ Discord is not connected until its token and installed-guild configuration exist
 ## Arcade title vote
 - localStorage corvus-name-vote-v1 holds a random device ID and chosen title solely to prevent repeat votes; it remains until browser storage is cleared. The existing necessary signed mvid voter cookie adds cross-tab deduplication (365-day max age). No analytics is loaded on the poll.
 - Redis namevote:v1 (preview uses namevote:preview:v1): aggregate title counts contain no identities; HMAC device/cookie dedupe keys expire after 90 days. IP rate keys use a daily rotating hash and expire after 60 seconds. No raw IPs, names or emails are stored.
+
+## Arcade runs, public scores and feedback
+- Anonymous run IDs/HMAC device keys deduplicate starts and expire after 24 hours. Play totals/top score are aggregates. Public leaderboard names are deliberately submitted, limited to 16 characters, and entries expire after 90 days; client scores have rate/plausibility checks, not cheat-proof verification.
+- Ideas are public, bug text is private. Both expire after 90 days; maximum 600 characters and five messages per IP per minute. No raw IPs or contact details. Idea votes use existing signed voter identity with 90-day dedupe; a local preference remembers which buttons were pressed.
+- Story PNGs and generated sound stay in the browser. speechSynthesis uses the browser/OS speech service; voice availability and offline/network processing depend on that provider.
