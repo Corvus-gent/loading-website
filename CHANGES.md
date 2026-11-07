@@ -1,3 +1,7 @@
+## TikTok account links — 2026-11-07
+- /tt, /tt-bjj and /tt-g redirect to Compound with account-specific bio attribution. Queries and ?c= overrides survive; clicks use the existing aggregate logger.
+- Compound’s private source table lists all three accounts separately, including link clicks and zero-count accounts.
+
 ## 2026-11-07 — Compound live Stripe setup
 
 - Verified activated Corvus live account; created €1-minimum live payment link and signed webhook, with sensitive Vercel Production configuration. Preview remains sandbox; publication follows daily PR #18. No real payment/payout or main push.

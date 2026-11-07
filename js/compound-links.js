@@ -4,7 +4,8 @@ export const COMPOUND_LINKS={
  'li-1':['linkedin','post','post-1'],'li-2':['linkedin','post','post-2'],
  ig:['instagram','bio','gabe.maxxing'],'ig-story':['instagram','story','gabe.maxxing'],
  bjj:['instagram','bio','gabinho_bjj'],'bjj-story':['instagram','story','gabinho_bjj'],
- dm:['dm','direct'],tt:['tiktok','post'],'tt-bio':['tiktok','bio'],
+ dm:['dm','direct'],tt:['tiktok','bio','gabe.maxxing'],'tt-bio':['tiktok','bio','gabe.maxxing'],
+ 'tt-bjj':['tiktok','bio','gabinho_bjj'],'tt-g':['tiktok','bio','gabriellvl'],
  dc:['discord','community'],wa:['whatsapp','message'],hostel:['hostel','fundraiser'],
  v:['video','video'],qr:['offline','qr'],simon:['compound','partner']
 };
