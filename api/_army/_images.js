@@ -1,7 +1,10 @@
 import fs from 'node:fs/promises';
+import {fileURLToPath} from 'node:url';
 import {armyCopy} from './_copy.js';
 import {tagSVG,esc} from '../../js/army/art.js';
 export async function serveImage(res,soldier,code,poster=false){
+ // Vercel's runtime has no system fonts. Configure our licensed font before libvips loads.
+ process.env.FONTCONFIG_FILE=fileURLToPath(new URL('../../img/army/fonts/fonts.conf',import.meta.url));
  const {default:sharp}=await import('sharp');
  const png=await sharp(Buffer.from(tagSVG(soldier,code,{poster,labels:await armyCopy('en')}))).png().toBuffer();
  res.setHeader('Content-Type','image/png');res.setHeader('Cache-Control','private, no-store');
