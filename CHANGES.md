@@ -180,3 +180,7 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 ## 2026-11-07 — Arcade title vote
 - Add shared title voting on /hack, /hack/2 and /hack2 with atomic Redis counts, device/cookie dedupe, daily-hashed IP rate limits and live results.
 - Preserve the former hub and solo page at /hackthefeed and /hackthefeed/2. Existing HackTheFeed content and comment data remain intact.
+
+## 2026-11-07 — WHITE BELT playable v1
+- Add self-contained canvas octagon arcade game at /hack/play: buffered swipe/keyboard movement, techniques, four enemies, black-belt power, lives, promotions, local best score and sharing.
+- Link beta from the title vote and redirect /whitebelt. No external game assets or libraries.

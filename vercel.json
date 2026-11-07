@@ -4,6 +4,11 @@
   ],
   "redirects": [
     {
+      "source": "/whitebelt",
+      "destination": "/hack/play",
+      "permanent": false
+    },
+    {
       "source": "/prize",
       "destination": "/compound",
       "permanent": false
