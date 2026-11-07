@@ -48,6 +48,10 @@ try{
  const revised=await store.publish({...fixture,slot:1,cutlist,label:'new opening'});
  let overview=await store.summary();assert.equal(overview.cuts.length,3);assert.equal(overview.cuts[0].history.length,2);assert.equal(overview.cuts[1].current.id,second.id);assert.equal(overview.cuts[2].current.id,third.id);assert.equal(revised.iteration,2);
  await assert.rejects(()=>store.publish({...fixture,slot:4}));await assert.rejects(()=>store.publish({...fixture,cutlist:[{start:0,end:20,label:'too long'}]}));await assert.rejects(()=>store.publish({...fixture,cutlist:[{start:0,end:4,label:'one'},{start:3,end:5,label:'overlap'}]}));
+ const beforeRename=await store.version(second.id);
+ assert.equal((await call({action:'rename_items',version:second.id,labels:[{id:'hook',label:'new hook label'}]})).status,401);
+ const renamed=await call({action:'rename_items',version:second.id,labels:[{id:'hook',label:'new hook label'}]},{cookie:adminCookie});assert.equal(renamed.status,200);assert.equal(renamed.body.version.transitions[0].label,'new hook label');assert.equal(renamed.body.version.transitions[0].start,beforeRename.transitions[0].start);assert.equal(renamed.body.version.url,beforeRename.url);
+ assert.equal((await call({action:'rename_items',version:second.id,labels:[{id:'missing',label:'bad'}]},{cookie:adminCookie})).status,400);
  const globalPoll=await call({action:'live_poll',version:'all',q:'everyone: keep it?',options:['yes','no']},{cookie:adminCookie});assert.equal(globalPoll.status,200);assert.equal((await call({action:'poll',version:second.id,poll:globalPoll.body.poll.id,option:0},{cookie})).body.added,true);assert.equal((await call({action:'poll',version:third.id,poll:globalPoll.body.poll.id,option:1},{cookie})).body.added,false);
  const id=crypto.randomUUID(),visit=crypto.randomUUID(),tags={source:'x',medium:'social',campaign:'compound-1000',term:'x',content:'test',first:{source:'linkedin',term:'li',content:'first-post'},last:{source:'x',term:'x',content:'test'}};
  const send=body=>call({analytics:'session',visitor:id,visit,attribution:tags,version:revised.id,...body},{cookie,headers:{'x-forwarded-for':'198.51.100.99'}});

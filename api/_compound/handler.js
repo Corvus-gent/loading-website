@@ -29,14 +29,15 @@ export default async function compound(req,res){
  const b=typeof req.body==='string'?JSON.parse(req.body):req.body||{};
  if(Array.isArray(b)||JSON.stringify(b).length>20000)return res.status(413).json({error:'too much data'});
  if(!await limit(req,'all',150))return res.status(429).json({error:'take a breath. try again in a minute.'});
- if(!['login','publish','live_poll','hide_text','revolut','event','donate','watched','pick','battle','profile','prediction','transition','transition_tag','transition_text','vote','category','text','reaction','poll'].includes(b.action))throw Error('action');
+ if(!['rename_items','login','publish','live_poll','hide_text','revolut','event','donate','watched','pick','battle','profile','prediction','transition','transition_tag','transition_text','vote','category','text','reaction','poll'].includes(b.action))throw Error('action');
  if(b.website)return res.status(400).json({error:'please leave the hidden field empty'});
  if(b.action==='login'){
   if(!await limit(req,'login',5))return res.status(429).json({error:'try again in a minute'});
   return login(res,b.role==='admin'?'admin':'stats',b.password)?res.status(200).json({ok:true}):res.status(401).json({error:'wrong password'});
  }
- if(b.action==='publish'||b.action==='live_poll'||b.action==='hide_text'||b.action==='revolut'){
+ if(b.action==='rename_items'||b.action==='publish'||b.action==='live_poll'||b.action==='hide_text'||b.action==='revolut'){
   if(!authorized(req,'admin'))return res.status(401).json({error:'admin sign-in required'});
+  if(b.action==='rename_items')return res.status(200).json({version:await store.renameItems(b.version,b.labels)});
   if(b.action==='revolut')return res.status(200).json({revolut:await store.setRevolut(b)});
   if(b.action==='publish')return res.status(200).json({version:await store.publish(b)});
   if(b.action==='hide_text'){if(!/^[a-f0-9-]{36}$/.test(b.id||''))throw Error('text');if(!await store.hideText(b.id))return res.status(404).json({error:'missing'});return res.status(200).json({ok:true});}

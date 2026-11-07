@@ -19,6 +19,14 @@ export async function publish(data){
  const script=`local n=redis.call('INCR',KEYS[1]);local id='v'..n;local v=cjson.decode(ARGV[1]);v.id=id;v.iteration=redis.call('HINCRBY',KEYS[5],tostring(v.slot),1);redis.call('HSET',KEYS[4],tostring(v.slot),id);redis.call('SET',ARGV[2]..id,cjson.encode(v));redis.call('LPUSH',KEYS[2],id);redis.call('SET',KEYS[3],id);return cjson.encode(v)`;
  return normalVersion(JSON.parse(await redis(['EVAL',script,5,key('sequence'),key('versions'),key('current_version'),key('slots'),key('iterations'),JSON.stringify(record),key('version')+':'])));
 }
+// Update only labels: stable transition IDs/times keep existing votes intact.
+export async function renameItems(id,labels){
+ if(!validVersion(id)||!Array.isArray(labels)||!labels.length||labels.length>120)throw Error('label');
+ const v=await version(id);if(!v)throw Error('version');
+ const seen=new Set(),safe=labels.map(item=>{const label=clean(item.label,100);if(!label||seen.has(item.id)||!v.transitions.some(t=>t.id===item.id))throw Error('label');seen.add(item.id);return{id:item.id,label};});
+ const script=`local raw=redis.call('GET',KEYS[1]);if not raw then return nil end;local v=cjson.decode(raw);local labels=cjson.decode(ARGV[1]);for _,t in ipairs(v.transitions) do for _,l in ipairs(labels) do if t.id==l.id then t.label=l.label end end end;redis.call('SET',KEYS[1],cjson.encode(v),'KEEPTTL');return cjson.encode(v)`;
+ return normalVersion(JSON.parse(await redis(['EVAL',script,1,key('version',id),JSON.stringify(safe)])));
+}
 export async function summary(id){
  const [history,current,poll,scoreRows,total,modeTotal,lateLive,lateTest,slots,revolut,standings]=await Promise.all([versions(),redis(['GET',key('current_version')]),get('live-poll'),redis(['ZREVRANGE',key('scores'),0,49,'WITHSCORES']),redis(['GET',key('fund','live')]),redis(['GET',key('fund','test')]),redis(['GET',key('fund-late','live')]),redis(['GET',key('fund-late','test')]),redis(['HGETALL',key('slots')]),get('revolut'),redis(['HGETALL',key('standings')])]);
  const selected=id==='none'?null:history.find(v=>v.id===id)||history.find(v=>v.id===current)||history[0]||null;

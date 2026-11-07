@@ -36,6 +36,6 @@ export function validateCutlist(raw,duration){
  return list.map((item,i)=>{
   const start=Number(item.start??item.t),end=Number(item.end),label=clean(item.label,100),id=clean(item.id||'t'+(i+1),40);
   if(!/^[a-zA-Z0-9_-]+$/.test(id)||seen.has(id)||!label||!Number.isFinite(start)||!Number.isFinite(end)||start<previousEnd||end<=start||end>duration)throw Error('cutlist');
-  seen.add(id);previousEnd=end;return{id,start,end,label};
+  seen.add(id);previousEnd=end;return{id,start,end,label,...(['scene','transition'].includes(item.type)?{type:item.type}:{})};
  });
 }

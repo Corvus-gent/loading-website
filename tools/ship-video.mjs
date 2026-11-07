@@ -22,6 +22,6 @@ try{
  const dims=JSON.parse(spawnSync('ffprobe',['-v','error','-select_streams','v:0','-show_entries','stream=width,height','-of','json',output],{encoding:'utf8'}).stdout).streams[0];
  const filename=`compound/${Date.now()}-${crypto.createHash('sha256').update(bytes).digest('hex').slice(0,12)}.mp4`;
  uploaded=await put(filename,bytes,{access:'public',contentType:'video/mp4',addRandomSuffix:false,cacheControlMaxAge:31536000});
- const {publish}=await import('../api/_compound/store.js');const v=await publish({slot,cutlist,url:uploaded.url,label,changelog:label,duration,width:dims.width,height:dims.height,cues});registered=true;
+ const {publish}=await import('../api/_compound/store.js');const v=await publish({slot,cutlist,url:uploaded.url,label:modern?`V${slot}`:label,changelog:label,duration,width:dims.width,height:dims.height,cues});registered=true;
  console.log(`V${v.slot} / r${v.iteration} (${v.id}) live · ${(bytes.length/1024/1024).toFixed(1)} MB · ${duration.toFixed(1)}s`);console.log(process.env.COMPOUND_PUBLIC_URL||(process.env.COMPOUND_KEY_PREFIX==='compound-preview'?'https://loading-website-compound-preview-corvus11.vercel.app/compound/':'https://corvus.gent/compound'));
 }catch(error){if(uploaded&&!registered)try{await del(uploaded.url);}catch{}console.error('Upload stopped. '+(error.message.includes('://')?'Connection failed; no credentials printed.':error.message));process.exitCode=1;}finally{if(temp)await fs.rm(temp,{recursive:true,force:true});setTimeout(()=>process.exit(process.exitCode||0),20);}

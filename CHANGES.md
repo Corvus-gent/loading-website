@@ -154,3 +154,8 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 ## 2026-11-07 — HackTheFeed squad links
 - Show exactly Gabe, Siebe Baree and Paloma Ana Daniele on the squads archive, HackTheFeed build page and hub. Generate both Squad sections from one roster.
 - Count member-link clicks in aggregate on HackTheFeed stats; preserve GPC/DNT and opt-outs, with allowlisted member IDs and existing abuse limits.
+
+## 2026-11-07 — Compound V1 launch
+- Publish the full first cut as a mobile-optimized 7.3 MB V1 with 17 scene-detected transitions and 18 labelled scenes. Preserve the downloaded 1080p original locally.
+- Lead with the countdown, muted autoplay, first verdict and category feedback; keep V2/V3 as dropping-soon cards. Add Compound source link and frame-based social preview.
+- Admin can rename scene/transition labels without changing IDs, timing or votes. Existing donation and recruitment flows remain available.
