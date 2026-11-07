@@ -41,6 +41,26 @@
   ],
   "rewrites": [
     {
+      "source": "/api/name-vote",
+      "destination": "/api/stats?nameVote=1"
+    },
+    {
+      "source": "/hack/2",
+      "destination": "/hack/index.html"
+    },
+    {
+      "source": "/hack/2/",
+      "destination": "/hack/index.html"
+    },
+    {
+      "source": "/hack2",
+      "destination": "/hack/index.html"
+    },
+    {
+      "source": "/hack2/",
+      "destination": "/hack/index.html"
+    },
+    {
       "source": "/api/compound/stripe",
       "destination": "/api/discord?compoundStripe=1"
     },

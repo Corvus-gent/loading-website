@@ -696,3 +696,7 @@ Discord is not connected until its token and installed-guild configuration exist
 - A disable button removes the iframe and stores only sessionStorage twitch-disabled=1 for this tab. Existing Twitch cookies are vendor-controlled. Corvus stores no viewing history.
 - The homepage never shows a player; its badge links to /hack only after a real online signal. Offline hides badge/player. Browser privacy signals retain click-to-load on the hack pages.
 - Privacy page and notice cover this in seven languages.
+
+## Arcade title vote
+- localStorage corvus-name-vote-v1 holds a random device ID and chosen title solely to prevent repeat votes; it remains until browser storage is cleared. The existing necessary signed mvid voter cookie adds cross-tab deduplication (365-day max age). No analytics is loaded on the poll.
+- Redis namevote:v1 (preview uses namevote:preview:v1): aggregate title counts contain no identities; HMAC device/cookie dedupe keys expire after 90 days. IP rate keys use a daily rotating hash and expire after 60 seconds. No raw IPs, names or emails are stored.
