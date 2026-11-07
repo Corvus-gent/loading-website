@@ -192,3 +192,7 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 ## Arcade P2 — community leaderboard and story cards
 - Add bounded run score submission, public top 10, named callouts and a generated 1080×1920 story card with file sharing/download.
 - Add private bug/public idea storage behind the existing API, ready for the feedback controls. Names are optional and explicitly posted publicly.
+
+## Arcade P3 — original fight-night audio and memes
+- Add strike finishes, KO/sub counts, narrated callouts with no immediate repetition, synthesized bell/punch/crowd/bonus sounds and a master mute.
+- Draw original pixel meme panels, add face-off tape, judges cards, championship labels and performance bonuses. Do-Bronx palette edition uses the same engine.

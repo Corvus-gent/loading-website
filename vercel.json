@@ -46,6 +46,14 @@
   ],
   "rewrites": [
     {
+      "source": "/hack/play/do-bronx",
+      "destination": "/hack/play/index.html"
+    },
+    {
+      "source": "/hack/play/do-bronx/",
+      "destination": "/hack/play/index.html"
+    },
+    {
       "source": "/api/name-vote",
       "destination": "/api/stats?nameVote=1"
     },
