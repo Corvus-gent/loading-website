@@ -164,3 +164,7 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 ## 2026-11-07 — Social launch attribution
 - Add account-specific Instagram/BJJ bio/story links, LinkedIn post links, DM and X/TikTok bio links; retain query parameters and support content overrides.
 - Classify source as explicit UTM, in-app browser hint, referrer or unknown. Only the coarse classification is retained; raw user agents are not stored.
+
+## 2026-11-07 — ig-ready
+- Keep Instagram checkout in the current tab, avoiding in-app popup restrictions.
+- Verify the five launch slugs, source fallback, actual V1 playback and voting in an Instagram iOS browser context. Existing redirect/attribution work is already on daily.
