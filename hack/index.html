@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <title>Hookjack, built live in SF | corvus.gent</title>
+  <link rel="icon" type="image/png" href="/logo.png" />
+  <link rel="stylesheet" href="/styles.css?v=4d681edec0fb" />
+  <link rel="stylesheet" href="/people/styles.css?v=1b7535a5d1d1" />
+  <meta name="description" content="Paste your URL. We steal what's going viral in your niche and make it better. Built live at the Orion x Compound hackathon." />
+  <meta property="og:title" content="Hookjack, built live in SF" />
+  <meta property="og:description" content="Paste your URL. We steal what's going viral in your niche and make it better." />
+  <meta property="og:url" content="https://corvus.gent/hack/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://corvus.gent/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://corvus.gent/og.png" />
+  <link rel="stylesheet" href="/privacy/privacy.css?v=202ae89baeff"><meta name="referrer" content="no-referrer">
+  <style>
+    .hj-live{display:inline-flex;align-items:center;gap:.4em;font-size:.8em;letter-spacing:.08em;text-transform:uppercase}
+    .hj-dot{width:.6em;height:.6em;border-radius:50%;background:#ff3b3b;animation:hjp 1.2s infinite}
+    @keyframes hjp{50%{opacity:.25}}
+    .hj-video{max-width:340px;aspect-ratio:9/16;margin:1.2em 0;border:1px solid currentColor;border-radius:12px;display:flex;align-items:center;justify-content:center;overflow:hidden;opacity:.9}
+    .hj-video video,.hj-video iframe{width:100%;height:100%;border:0}
+    .hj-steps{counter-reset:s;list-style:none;padding:0}
+    .hj-steps li{counter-increment:s;margin:.5em 0}
+    .hj-steps li::before{content:counter(s) ". ";opacity:.6}
+    .hj-slider{display:flex;justify-content:space-between;font-size:.8em;opacity:.8}
+    .hj-slider input{width:100%}
+    .hj-feed{list-style:none;padding:0;border-left:2px solid currentColor;margin-left:.3em}
+    .hj-feed li{padding:.3em 0 .6em 1em}
+    .hj-feed b{opacity:.6;margin-right:.5em}
+    .hj-cta a{display:inline-block;margin:.3em .6em .3em 0}
+  </style>
+</head>
+<body class="people-page">
+  <main>
+    <div class="wrap">
+      <div class="tag"><a href="/">corvus.gent</a> / hack</div>
+      <p class="hj-live"><span class="hj-dot"></span> building live · Orion x Compound hackathon, SF</p>
+
+      <h1>Hookjack</h1>
+      <p class="sub">Paste your URL. We steal what's going viral in your niche and make it better.</p>
+
+      <div class="hj-video" id="hj-video"><span class="sub">video dropping soon</span></div>
+
+      <section class="person-view-wrap">
+        <h2>How it works</h2>
+        <ol class="hj-steps">
+          <li>Finds your competitors on every platform.</li>
+          <li>Decodes their Virality DNA: hook, format, emotion, ragebait trigger. Explainable, not magic.</li>
+          <li>Generates a video built to beat them.</li>
+        </ol>
+
+        <h2>Unhinged slider</h2>
+        <input type="range" min="0" max="100" value="35" aria-label="Unhinged level" id="hj-range" style="width:100%">
+        <div class="hj-slider"><span>LinkedIn-safe</span><span id="hj-lvl">spicy</span><span>Cluely-level</span></div>
+
+        <h2>Follow the build</h2>
+        <ul class="hj-feed" id="hj-feed"><li class="sub">loading…</li></ul>
+
+        <h2>Join</h2>
+        <p class="hj-cta">
+          <a id="hj-x" href="https://x.com/gabe_maxxing" data-outbound>Follow on X →</a>
+          <a id="hj-gh" href="#" hidden data-outbound>GitHub →</a>
+          <a href="/">Join the army →</a>
+        </p>
+      </section>
+
+      <footer>© <span id="y"></span> corvus <a href="/privacy/" data-privacy-link>privacy</a></footer>
+    </div>
+  </main>
+  <script type="module">
+    import { setFooterYear } from "/js/utils.js";
+    setFooterYear();
+    const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+    const range = document.getElementById("hj-range"), lvl = document.getElementById("hj-lvl");
+    const label = v => v < 25 ? "corporate" : v < 50 ? "spicy" : v < 80 ? "ragebait" : "unhinged";
+    range.addEventListener("input", () => lvl.textContent = label(+range.value));
+    function videoEmbed(url) {
+      if (!url) return null;
+      if (/\.(mp4|webm|mov)(\?|$)/i.test(url)) return `<video src="${esc(url)}" controls playsinline loop></video>`;
+      const yt = url.match(/(?:shorts\/|youtu\.be\/|v=)([\w-]{6,})/);
+      if (yt) return `<iframe src="https://www.youtube.com/embed/${yt[1]}" allowfullscreen></iframe>`;
+      const tt = url.match(/tiktok\.com\/.*video\/(\d+)/);
+      if (tt) return `<iframe src="https://www.tiktok.com/embed/v2/${tt[1]}" allowfullscreen></iframe>`;
+      return `<a href="${esc(url)}" data-outbound>Watch the video →</a>`;
+    }
+    async function load() {
+      try {
+        const r = await fetch("/hack/live.json?t=" + Date.now(), { cache: "no-store" });
+        const d = await r.json();
+        const v = videoEmbed(d.video);
+        const box = document.getElementById("hj-video");
+        if (v && box.dataset.src !== d.video) { box.innerHTML = v; box.dataset.src = d.video; }
+        if (d.links?.github) { const g = document.getElementById("hj-gh"); g.href = d.links.github; g.hidden = false; }
+        if (d.links?.x) document.getElementById("hj-x").href = d.links.x;
+        document.getElementById("hj-feed").innerHTML = (d.updates || []).slice().reverse()
+          .map(u => `<li><b>${esc(u.t)}</b>${esc(u.text)}</li>`).join("");
+      } catch {}
+    }
+    load(); setInterval(load, 30000);
+  </script>
+  <script src="/js/analytics.js?v=811c28467bec"></script>
+  <script type="module" src="/js/privacy.js?v=2c0385e220c2"></script>
+</body>
+</html>
