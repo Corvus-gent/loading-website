@@ -148,3 +148,5 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 - Add `/hack/2` with the 7 Nov 21:00 UTC solo-run countdown and an explicit after-start state.
 - Retain the completed Compound implementation from this PR's daily-branch base; add all four routes to the bounded analytics payload and retain LinkedIn attribution/hack IDs before URL cleanup.
 - Mobile browser QA covers the four pages, metadata/images, the countdown boundary, existing comment counts and both donation destinations. Broader restructuring and stats map work remain separate.
+
+- Squad QA: exact HackTheFeed event/pitch/result, corrected `/hack/1` link, solo #2 card, current nav state and dedicated OG image; real-link clicks and mobile/desktop screenshots. Three team names remain unconfirmed.

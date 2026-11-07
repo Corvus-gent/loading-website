@@ -7,3 +7,6 @@
  if(p.get('utm_content')==='squads'){props.utm_content='squads';props.short_slug='squads';}
  window.__phProps={...window.__phProps,...props};
 })();
+
+function updateSquadStatus(){for(const node of document.querySelectorAll('[data-start]'))if(Date.now()>=Date.parse(node.dataset.start))node.textContent='Building solo. Follow the run.';}
+updateSquadStatus();setInterval(()=>{if(!document.hidden)updateSquadStatus();},30000);
