@@ -137,3 +137,9 @@ Use the existing hackthefeed-six.vercel.app app directly, with full-viewport ifr
 The full evidence placeholder, including the arrow, opens the hosted HackTheFeed onboarding in a new tab. Native accessible link, subtle gold hover and 2px arrow movement; reduced-motion respected. If a build film is later configured, its player controls remain usable.
 
 - Compound: three independent cut slots and upload histories, cutlist transition voting, one-tap comparisons, first/last campaign attribution and eleven logged 302 links; manual Revolut plus automatic Stripe hostel totals; full-cut digest and mobile Safari/Chromium regression checks. Daily PR #18 only; no main merge.
+
+## post-ready — 2026-11-07
+- Replace `/hack` with the SF hackathon hub; preserve HackTheFeed at `/hack/1` and its existing comments/counters/app at `/hack/1/the-feed`.
+- Add `/hack/2` with the 7 Nov 21:00 UTC solo-run countdown and an explicit after-start state.
+- Retain the completed Compound implementation from this PR's daily-branch base; add all four routes to the bounded analytics payload and retain LinkedIn attribution/hack IDs before URL cleanup.
+- Mobile browser QA covers the four pages, metadata/images, the countdown boundary, existing comment counts and both donation destinations. Broader restructuring and stats map work remain separate.
