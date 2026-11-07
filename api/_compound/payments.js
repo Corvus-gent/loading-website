@@ -20,7 +20,8 @@ export async function processStripeEvent(e){
   if(!expected||s.payment_link!==expected||s.payment_status!=='paid'||s.currency!=='eur'||!Number.isInteger(s.amount_total)||s.amount_total<100||s.amount_total>1000000||!s.payment_intent)return{ignored:true};
   const tags=JSON.parse(await redis(['GET',key('checkout',s.client_reference_id||'none')])||'{}'),source=tags.source||'direct';
   const fund=Number(e.created)*1000<=Date.parse(FUND_DEADLINE)?key('fund',mode):key('fund-late',mode);
-  const data={amount:s.amount_total,refunded:0,source,fund,tags};
+  const receiptTags={...tags};delete receiptTags.visitor;delete receiptTags.visit;
+  const data={amount:s.amount_total,refunded:0,source,fund,tags:receiptTags};
   const script=`if not redis.call('SET',KEYS[1],ARGV[1],'NX','EX',31536000) then return 0 end;redis.call('INCRBY',KEYS[2],ARGV[2]);redis.call('HINCRBY',KEYS[3],ARGV[3],ARGV[2]);redis.call('HINCRBY',KEYS[3],ARGV[4],1);return 1`;
   const added=await redis(['EVAL',script,3,key('payment',mode,s.payment_intent),fund,key('donation-sources',mode),JSON.stringify(data),s.amount_total,source+':cents',source+':payments']);
   if(added)await event('donation_success',tags.version,tags,tags.visitor,{method:'stripe',amount:s.amount_total,visit:tags.visit});

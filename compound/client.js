@@ -11,11 +11,11 @@ export function setDeep(on){storage.set(CHOICE,on?'yes':'no');if(!on)storage.rem
 function loadJourney(){
  if(!deepAllowed()){storage.remove(KEY);journey=null;return;}
  try{const old=JSON.parse(storage.get(KEY)||'null');if(old&&old.expires>Date.now()&&/^[a-f0-9-]{36}$/.test(old.id))journey=old;}catch{}
- if(!journey)journey={id:crypto.randomUUID(),first,expires:Date.now()+90*86400000};journey.last=first;storage.set(KEY,JSON.stringify(journey));
+ if(!journey)journey={id:sessionId,first,expires:Date.now()+90*86400000};if(!journey.last||params.has('utm_source'))journey.last=first;storage.set(KEY,JSON.stringify(journey));
 }
 loadJourney();window.addEventListener('analytics-consent-change',loadJourney);
 export const handlePreference={get:()=>storage.get('compound-handle')||'',set:value=>value?storage.set('compound-handle',value):storage.remove('compound-handle')};
-export const tags=()=>{const allowed=analyticsAllowed()&&!privacySignal();return{attribution:{...first,first:journey?.first||first,last:journey?.last||first},analytics:allowed?(journey?true:'session'):false,visitor:allowed?(journey?.id||sessionId):undefined,visit:allowed?sessionId:undefined};};
+export const tags=()=>{const allowed=analyticsAllowed()&&!privacySignal();return{attribution:{...(journey?.last||first),first:journey?.first||first,last:journey?.last||first},analytics:allowed?(journey?true:'session'):false,visitor:allowed?(journey?.id||sessionId):undefined,visit:allowed?sessionId:undefined};};
 export async function api(body,query=''){
  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),12000);
  try{const response=await fetch('/api/compound'+query,{method:body?'POST':'GET',credentials:'same-origin',headers:body?{'Content-Type':'application/json'}:undefined,body:body?JSON.stringify({...tags(),...body}):undefined,signal:controller.signal,cache:body||query.includes('private=')?'no-store':'default'});const data=await response.json();if(!response.ok)throw Error(data.error||'the crow lost its connection. try again.');return data;}finally{clearTimeout(timer);}

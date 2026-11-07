@@ -10,7 +10,7 @@ export function sameOrigin(req){
  if(process.env.NODE_ENV!=='production')origins.push('http://127.0.0.1:4201');
  return origins.includes(req.headers.origin);
 }
-export async function limit(req,kind,max=60,seconds=60){return rateLimit('compound:rate:'+kind+':'+dailyIPHash(req,'compound-'+kind),max,seconds);}
+export async function limit(req,kind,max=60,seconds=60){return rateLimit((process.env.COMPOUND_KEY_PREFIX||'compound')+':rate:'+kind+':'+dailyIPHash(req,'compound-'+kind),max,seconds);}
 export function authorized(req,role='stats'){
  const bearer=String(req.headers.authorization||'').replace(/^Bearer /,'');
  if(process.env.COMPOUND_ADMIN_PASSWORD&&equal(bearer,process.env.COMPOUND_ADMIN_PASSWORD))return true;
