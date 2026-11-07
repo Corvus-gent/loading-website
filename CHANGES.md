@@ -202,3 +202,8 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 
 ## Beta play counter visibility
 - Always show the live play-start total alongside the beta link, including fewer than ten plays. Keep it below the link on mobile and refresh every five seconds.
+
+## OSSMAN Plethora submission
+- Converted the offline game to a fullscreen Plethora Bit with SDK surfaces/input/loop, score records, sharing, safe-area layout and cleanup.
+- Saved draft 85764f7c-5061-431d-a35b-7a0dfbd29bf9; receipt and package in submission/plethora. Mobile Chromium/WebKit adapter tests pass; native host playback and publication remain separate/unverified.
+- Live site and original offline bundle unchanged.
