@@ -30,6 +30,11 @@ const CURL_REPLY = `
 
 export default function middleware(request) {
   const url = new URL(request.url);
+  if(url.hostname!=='stats.corvus.gent'&&/^\/squads\/?$/.test(url.pathname)){
+    url.pathname='/hackathons/';
+    for(const [key,value]of Object.entries({utm_source:'share',utm_medium:'links',utm_campaign:'hack',utm_content:'squads'}))if(!url.searchParams.has(key))url.searchParams.set(key,value);
+    return Response.redirect(url,307);
+  }
   const compoundSlug=url.pathname.replace(/^\/|\/$/g,'');
   if(url.hostname!=='stats.corvus.gent'&&Object.hasOwn(COMPOUND_LINKS,compoundSlug)){
     const target=new URL('/api/stats',url);target.searchParams.set('compound','1');target.searchParams.set('slug',compoundSlug);

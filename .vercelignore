@@ -4,6 +4,9 @@ test-results
 playwright-report
 tools/*
 !tools/build-search.py
+!tools/build-hackathons.mjs
+!tools/templates
+!tools/templates/hackathons.html.tmpl
 PLAN.md
 .git
 

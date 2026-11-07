@@ -1,0 +1,16 @@
+[
+  {
+    "id": "hackthefeed",
+    "name": "#HackTheFeed",
+    "event": "Oriane × Compound hackathon",
+    "location": "San Francisco",
+    "date": "2026-11",
+    "teamSize": 5,
+    "members": [
+      { "name": "Gabriel Van Langenhove", "label": "gabe", "url": "/people/?id=gabe" },
+      { "name": "Siebe", "label": "siebe", "url": "https://github.com/SiebeBaree" }
+    ],
+    "build": "/hack/",
+    "repo": "https://github.com/SiebeBaree/hackthefeed"
+  }
+]

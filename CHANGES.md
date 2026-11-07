@@ -137,3 +137,9 @@ Use the existing hackthefeed-six.vercel.app app directly, with full-viewport ifr
 The full evidence placeholder, including the arrow, opens the hosted HackTheFeed onboarding in a new tab. Native accessible link, subtle gold hover and 2px arrow movement; reduced-motion respected. If a build film is later configured, its player controls remain usable.
 
 - Compound: three independent cut slots and upload histories, cutlist transition voting, one-tap comparisons, first/last campaign attribution and eleven logged 302 links; manual Revolut plus automatic Stripe hostel totals; full-cut digest and mobile Safari/Chromium regression checks. Daily PR #18 only; no main merge.
+
+## hackathon squads — 2026-11-07
+- Add `/hackathons/` (ex-hackathon squads), starting with the five-person HackTheFeed team at Oriane × Compound, SF, November 2026. Gabe and Siebe are named; the other three names remain pending confirmation.
+- Link the new page from the realm navigation and Support; keep the build and repository links together in the team card.
+- Add `/squads` (307) with bounded campaign/short-slug attribution in existing analytics and stats. No new database or API function.
+- Generate future team cards from `hackathons/teams.json` during the existing build, before generating search. Existing easter eggs remain hidden and unchanged.

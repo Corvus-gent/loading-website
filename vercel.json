@@ -285,5 +285,5 @@
       "schedule": "*/15 * * * *"
     }
   ],
-  "buildCommand": "python3 tools/build-search.py"
+  "buildCommand": "node tools/build-hackathons.mjs && python3 tools/build-search.py"
 }
