@@ -99,3 +99,38 @@ References: [Vercel protected webhook URLs](https://vercel.com/docs/deployment-p
 - `COMPOUND_PAYMENT_LINK_LIVE`, `COMPOUND_PAYMENT_LINK_ID_LIVE` and `STRIPE_WEBHOOK_SECRET_LIVE` stored as sensitive **Production-only** Vercel variables. Production mode is `live`; preview remains `test`. No live API secret is needed in deployed code.
 - No real payment or payout was initiated. Stripe payout settings were read only: manual, seven-day availability delay. [First payouts can take 7–14 days](https://support.stripe.com/questions/waiting-on-your-first-stripe-payout-what-you-need-to-know?locale=en-GB), so collected support is not immediately spendable from the bank account.
 - `/compound/` on production still returned 404 at this check because PR #18 is not merged. No main push or production deployment was performed. After the authorised merge/deployment, verify the public page, live mode/zero live balance and signed production webhook delivery before describing the public launch as complete. Existing sandbox receipts prove the implementation, not live delivery to the not-yet-published production route.
+
+
+## Three-cut completion (7 November)
+
+- V1/V2/V3 are stable slots, each with immutable iterations, changelogs, cutlists and cue polls. Internal IDs (`v1`, `v2`, …) identify uploads; a new V1 upload does not replace V2/V3. Existing single-stream uploads remain in V1 history.
+- Ship: `npm run ship-video -- --slot 1 ./file.mp4 ./cutlist.json "new hook, faster cut"`. Repeat with slots 2 and 3. `compound/cutlist.example.json` documents the schema. Transition IDs must be unique; intervals are sorted, non-overlapping and within video duration. Poll cues use seconds and 2–4 options.
+- Digest: `npm run feedback-digest > feedback.md` prints all three current cuts, transition/category votes, best/worst moments, watch/exit buckets, polls, ideas and battle standings. `npm run feedback-digest -- v4` still supports an archived upload.
+- `COMPOUND_REVOLUT_URL` is configured in Production and Preview. Admin confirms **cumulative** Revolut euros before and after the deadline separately; Stripe remains automatic. Optional slug/content fields attribute the manual adjustment. No real Revolut payment is made during tests.
+- A random page-visit ID lives only in memory by default. Explicit cross-visit consent persists a UUID plus first/last attribution for 90 days. GPC/DNT/site refusal leave aggregate-only events; no persistent analytics ID is silently created. Campaign rates use linked visits only, with opt-outs excluded from the denominator.
+- `/compound/stats` has separate engagement-sorted short-link and content-code tables, with first/last touch selectors. Average watch is the furthest recorded milestone per visit/cut. Do not sum first and last views together.
+
+### Short links
+All are 302 redirects, logged through the existing stats function, and preserve optional `?c=` as `utm_content`. No new Vercel function is added. `utm_campaign=compound-1000`; `utm_term` contains the slug so story, QR and partner placement stay distinguishable.
+
+| Slug | utm_source | utm_medium |
+| --- | --- | --- |
+| /x | x | social |
+| /li | linkedin | social |
+| /ig | instagram | social |
+| /ig-story | instagram | story |
+| /tt | tiktok | social |
+| /dc | discord | community |
+| /wa | whatsapp | message |
+| /hostel | hostel | fundraiser |
+| /v | video | video |
+| /qr | offline | qr |
+| /simon | compound | partner |
+
+The stats subdomain keeps its existing `/x` page. These slugs are only for the main site / previews.
+
+### Verification
+- Backend regression covers independent slots/history, malformed/overlapping cutlists, transition voting/tagging, two-cut battle eligibility, duplicate votes, all 11 302 redirects, first/last attribution through a signed €1 test webhook, refunds, manual Revolut totals and 90-day TTLs.
+- iPhone 13 Chromium and WebKit tests cover both clocks above the fold, cuts/history, single active transition with 1.5-second tail, timeline jump, cue/live polls, votes/categories/reactions, battles, helpers, free text, predictions, share/army, admin/stats and deadline states.
+- Safari’s Blob beacon body was unreliable in the browser check; events now use JSON fetch with keepalive. Invalid actions are rejected before issuing an anti-abuse cookie.
+- Preview uses clearly labelled test clips. Gabriel has not supplied the real three cuts; production remains unseeded until the upload command is run with real files. The helper payout percentage remains explicitly pending owner wording.

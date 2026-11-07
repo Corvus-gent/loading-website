@@ -1,37 +1,75 @@
 import crypto from 'node:crypto';
 import {redis,pipeline} from '../_redis.js';
-import {RETENTION,CATEGORIES,REACTIONS,clean,source,attribution,validateCues,validVersion,validatePoll,GOAL,DEADLINE,FUND_DEADLINE} from './model.js';
+import {RETENTION,CATEGORIES,REACTIONS,clean,source,attribution,validateCues,validateCutlist,TRANSITION_TAGS,validVersion,validatePoll,GOAL,DEADLINE,FUND_DEADLINE} from './model.js';
 export const key=(...parts)=>(process.env.COMPOUND_KEY_PREFIX||'compound')+':'+parts.join(':');
 const obj=a=>Array.isArray(a)?Object.fromEntries(Array.from({length:a.length/2},(_,i)=>[a[2*i],a[2*i+1]])):a||{};
 const nums=a=>Object.fromEntries(Object.entries(obj(a)).map(([k,v])=>[k,Number(v)]));
 export const get=async k=>{const raw=await redis(['GET',key(k)]);return raw?JSON.parse(raw):null;};
-const normalVersion=v=>v?{...v,cues:Array.isArray(v.cues)?v.cues:[]}:null;
+const normalVersion=v=>v?{...v,slot:v.slot||1,iteration:v.iteration||1,cues:Array.isArray(v.cues)?v.cues:[],transitions:Array.isArray(v.transitions)?v.transitions:[]}:null;
 export async function version(id){if(!validVersion(id))return null;return normalVersion(await get('version:'+id));}
 export async function versions(){const ids=await redis(['LRANGE',key('versions'),0,199])||[];if(!ids.length)return[];return (await redis(['MGET',...ids.map(id=>key('version',id))])).filter(Boolean).map(x=>normalVersion(JSON.parse(x)));}
 export async function publish(data){
  let url;try{url=new URL(data.url);}catch{throw Error('video');}
  if(url.protocol!=='https:'||!url.hostname.endsWith('.public.blob.vercel-storage.com')||!url.pathname.startsWith('/compound/'))throw Error('video');
  if(!Number.isFinite(data.duration)||data.duration<=0||data.duration>600)throw Error('duration');
- const record={url:url.href,label:clean(data.label,100),changelog:clean(data.changelog||data.label,600),duration:data.duration,width:Number(data.width)||720,height:Number(data.height)||1280,uploaded_at:new Date().toISOString(),cues:validateCues(data.cues||[],data.duration)};
+ const slot=Number(data.slot||1);if(![1,2,3].includes(slot))throw Error('slot');
+ const record={slot,transitions:validateCutlist(data.cutlist||data.transitions||[],data.duration),url:url.href,label:clean(data.label,100),changelog:clean(data.changelog||data.label,600),duration:data.duration,width:Number(data.width)||720,height:Number(data.height)||1280,uploaded_at:new Date().toISOString(),cues:validateCues(data.cues||[],data.duration)};
  if(!record.label)throw Error('label');
- const script=`local n=redis.call('INCR',KEYS[1]);local id='v'..n;local v=cjson.decode(ARGV[1]);v.id=id;redis.call('SET',ARGV[2]..id,cjson.encode(v));redis.call('LPUSH',KEYS[2],id);redis.call('SET',KEYS[3],id);return cjson.encode(v)`;
- return normalVersion(JSON.parse(await redis(['EVAL',script,3,key('sequence'),key('versions'),key('current_version'),JSON.stringify(record),key('version')+':'])));
+ if(!Number(await redis(['HEXISTS',key('iterations'),slot]))){const old=(await versions()).filter(v=>v.slot===slot);await redis(['HSETNX',key('iterations'),slot,Math.max(old.length,...old.map(v=>v.iteration),0)]);}
+ const script=`local n=redis.call('INCR',KEYS[1]);local id='v'..n;local v=cjson.decode(ARGV[1]);v.id=id;v.iteration=redis.call('HINCRBY',KEYS[5],tostring(v.slot),1);redis.call('HSET',KEYS[4],tostring(v.slot),id);redis.call('SET',ARGV[2]..id,cjson.encode(v));redis.call('LPUSH',KEYS[2],id);redis.call('SET',KEYS[3],id);return cjson.encode(v)`;
+ return normalVersion(JSON.parse(await redis(['EVAL',script,5,key('sequence'),key('versions'),key('current_version'),key('slots'),key('iterations'),JSON.stringify(record),key('version')+':'])));
 }
 export async function summary(id){
- const [history,current,poll,scoreRows,total,modeTotal,lateLive,lateTest]=await Promise.all([versions(),redis(['GET',key('current_version')]),get('live-poll'),redis(['ZREVRANGE',key('scores'),0,49,'WITHSCORES']),redis(['GET',key('fund','live')]),redis(['GET',key('fund','test')]),redis(['GET',key('fund-late','live')]),redis(['GET',key('fund-late','test')])]);
+ const [history,current,poll,scoreRows,total,modeTotal,lateLive,lateTest,slots,revolut,standings]=await Promise.all([versions(),redis(['GET',key('current_version')]),get('live-poll'),redis(['ZREVRANGE',key('scores'),0,49,'WITHSCORES']),redis(['GET',key('fund','live')]),redis(['GET',key('fund','test')]),redis(['GET',key('fund-late','live')]),redis(['GET',key('fund-late','test')]),redis(['HGETALL',key('slots')]),get('revolut'),redis(['HGETALL',key('standings')])]);
  const selected=id==='none'?null:history.find(v=>v.id===id)||history.find(v=>v.id===current)||history[0]||null;
  const hashes=await pipeline([['HGETALL',key('global')],['HGETALL',key('prediction')],['HGETALL',key('stats',selected?.id||'none')],['HGETALL',key('heat',selected?.id||'none')]]);
  const people=scoreRows?.length?await redis(['MGET',...scoreRows.filter((_,i)=>i%2===0).map(uid=>key('helper',uid))]):[];const leaders=[];for(let i=0;i<people.length;i++){const person=people[i]?JSON.parse(people[i]):null;if(person?.handle&&!person.hidden&&leaders.length<10)leaders.push({handle:person.handle,score:Number(scoreRows[i*2+1])});}
  const mode=process.env.COMPOUND_STRIPE_MODE||(process.env.VERCEL_ENV==='production'?'live':'test');
- return{current_version:current||null,versions:history,selected,global:nums(hashes[0]),prediction:nums(hashes[1]),stats:nums(hashes[2]),heat:nums(hashes[3]),helpers:leaders,livePoll:poll&&poll.expires>Date.now()?poll:null,fund:{total:Number(mode==='live'?total:modeTotal)||0,late:Number(mode==='live'?lateLive:lateTest)||0,goal:GOAL,deadline:FUND_DEADLINE,mode,ready:Boolean(process.env[mode==='live'?'COMPOUND_PAYMENT_LINK_LIVE':'COMPOUND_PAYMENT_LINK_TEST'])},deadline:DEADLINE,updated:new Date().toISOString()};
+ const slotIds=obj(slots);const cuts=[1,2,3].map(slot=>({slot,current:history.find(v=>v.id===slotIds[slot])||history.find(v=>v.slot===slot)||null,history:history.filter(v=>v.slot===slot)}));
+ const rev=revolut?.[mode]||{total:0,late:0};
+ const visible=[...new Set([...cuts.map(c=>c.current?.id),selected?.id].filter(Boolean))],metrics=await pipeline(visible.flatMap(id=>[['HGETALL',key('stats',id)],['HGETALL',key('heat',id)]]));
+ const byVersion=Object.fromEntries(visible.map((id,i)=>[id,{stats:nums(metrics[i*2]),heat:nums(metrics[i*2+1])}]));
+ return{cuts,byVersion,standings:nums(standings),current_version:current||null,versions:history,selected,global:nums(hashes[0]),prediction:nums(hashes[1]),stats:nums(hashes[2]),heat:nums(hashes[3]),helpers:leaders,livePoll:poll&&poll.expires>Date.now()?poll:null,fund:{revolut_url:revolut?.url||process.env.COMPOUND_REVOLUT_URL||null,revolut:rev.total||0,revolutLate:rev.late||0,stripe:Number(mode==='live'?total:modeTotal)||0,total:(Number(mode==='live'?total:modeTotal)||0)+(rev.total||0),late:(Number(mode==='live'?lateLive:lateTest)||0)+(rev.late||0),goal:GOAL,deadline:FUND_DEADLINE,mode,ready:Boolean(process.env[mode==='live'?'COMPOUND_PAYMENT_LINK_LIVE':'COMPOUND_PAYMENT_LINK_TEST'])},deadline:DEADLINE,updated:new Date().toISOString()};
 }
 export async function profile(uid,handle){const cleaned=clean(handle,60);if(cleaned&&!/^@?[a-zA-Z0-9_.\- ]{1,60}$/.test(cleaned))throw Error('handle');await redis(['SET',key('helper',uid),JSON.stringify({handle:cleaned}), 'EX',RETENTION]);const points=Number(await redis(['GET',key('score',uid)])||0);if(cleaned&&points)await redis(['ZADD',key('scores'),points,uid]);else await redis(['ZREM',key('scores'),uid]);return cleaned;}
 async function score(uid,points){if(!uid||!points)return;const value=Number(await redis(['INCRBY',key('score',uid),points]));await redis(['EXPIRE',key('score',uid),RETENTION]);const person=await get('helper:'+uid);if(person?.handle&&!person.hidden)await pipeline([['ZADD',key('scores'),Math.max(0,value),uid],['EXPIRE',key('scores'),RETENTION]]);}
-export async function event(name,versionId,raw,visitor){
+export async function event(name,versionId,raw,visitor,details={}){
  const a=attribution(raw),v=validVersion(versionId)?versionId:'none';
  const commands=[['HINCRBY',key('global'),name,1],['HINCRBY',key('stats',v),name,1],['HINCRBY',key('sources'),a.source+':'+name,1]];
- if(visitor){const day=new Date().toISOString().slice(0,10),bucket=key('events',v,day),expiry=Math.floor(Date.parse(day+'T00:00:00Z')/1000)+RETENTION;commands.push(['LPUSH',bucket,JSON.stringify({event:name,version:v,visitor,...a,at:new Date().toISOString()})],['LTRIM',bucket,0,9999],['EXPIREAT',bucket,expiry]);}
- await pipeline(commands);
+ // Only bounded, validated metadata; never free text, contact details or full URLs.
+ const safe={};if(visitor&&/^[a-f0-9-]{36}$/.test(details.visit||''))safe.visit=details.visit;for(const field of ['choice','category','transition','tag','poll','option','type','t','percent','method','amount','opponent','winner'])if(details[field]!==undefined)safe[field]=typeof details[field]==='number'?details[field]:clean(details[field],60);
+ if(visitor){const day=new Date().toISOString().slice(0,10),bucket=key('events',v,day),expiry=Math.floor(Date.parse(day+'T00:00:00Z')/1000)+RETENTION;commands.push(['LPUSH',bucket,JSON.stringify({event:name,version:v,visitor,...a,...safe,at:new Date().toISOString()})],['LTRIM',bucket,0,9999],['EXPIREAT',bucket,expiry]);}
+ await pipeline(commands);await measure(name,v,a,safe.visit||visitor,safe);
+}
+// One bounded aggregate per first/last source + slug + content. Engagement is a
+// distinct visit with feedback/play/CTA activity, not an event-count percentage.
+async function measure(name,v,a,visitor,details){
+ const engaged=!['view','link_click','donation_success','donation_refund'].includes(name);
+ for(const touch of ['first','last']){
+  const tags=a[touch]||a,group=JSON.stringify([touch,tags.source,tags.term||'',tags.content||'']);
+  const id=crypto.createHash('sha256').update(group).digest('hex').slice(0,24),k=key('campaign',id);
+  const commands=[['HSET',key('campaigns'),id,group],['EXPIRE',key('campaigns'),RETENTION],['EXPIRE',k,RETENTION]];
+  const counts={};if(name==='view'){counts.visits=1;if(visitor)counts.linkedVisits=1;}if(name==='link_click')counts.clicks=1;
+  if(['vote','category','transition','battle','pick','poll','prediction'].includes(name))counts.votes=1;
+  if(name==='army_join')counts.army=1;if(name==='donation_click')counts.donationClicks=1;
+  if(name==='donation_success'){counts.donations=1;counts.cents=details.amount||0;}
+  if(name==='donation_refund')counts.cents=-(details.amount||0);if(name==='donation_adjustment')counts.cents=details.amount||0;
+  for(const [field,n]of Object.entries(counts))commands.unshift(['HINCRBY',k,field,n]);
+  if(visitor){
+   const session=key('engaged',id,visitor);
+   if(engaged)commands.unshift(['EVAL',"if redis.call('SET',KEYS[1],'1','NX','EX',ARGV[1]) then redis.call('HINCRBY',KEYS[2],'engaged',1) end;return 1",2,session,k,RETENTION]);
+   if(name==='play'||name.startsWith('watch:')){
+    const percent=name==='play'?0:Number(name.split(':')[1]);
+    commands.unshift(['EVAL',"local old=redis.call('GET',KEYS[1]);local n=tonumber(ARGV[1]);if not old then redis.call('HINCRBY',KEYS[2],'watchSamples',1) end;if not old or n>tonumber(old) then redis.call('SET',KEYS[1],n,'EX',ARGV[2]);redis.call('HINCRBY',KEYS[2],'watchSum',n-tonumber(old or '0')) end;return 1",2,key('watch',id,visitor,v),k,percent,RETENTION]);
+   }
+  }
+  await pipeline(commands);
+ }
+}
+export async function campaignStats(){
+ const groups=obj(await redis(['HGETALL',key('campaigns')])),ids=Object.keys(groups);
+ const values=await pipeline(ids.map(id=>['HGETALL',key('campaign',id)]));
+ return ids.map((id,i)=>{const [touch,source,slug,content]=JSON.parse(groups[id]),n=nums(values[i]);return{touch,source,slug,content,...n,engagementRate:n.linkedVisits?Math.min(1,(n.engaged||0)/n.linkedVisits):0,avgWatch:n.watchSamples?(n.watchSum||0)/n.watchSamples:null};}).sort((a,b)=>b.engagementRate-a.engagementRate||(b.engaged||0)-(a.engaged||0));
 }
 export async function feedback(uid,v,data){
  const action=data.action;let field,choice,dedupe,points=1;
@@ -76,7 +114,46 @@ export async function privateStats(v){
  const texts=ids.length?(await redis(['MGET',...ids.map(id=>key('text',id))])).filter(Boolean).map(JSON.parse).filter(x=>!x.hidden).map(({uid,...x})=>x):[];
  const pollIds=await redis(['LRANGE',key('polls',v),0,99])||[];const livePolls=pollIds.length?(await redis(['MGET',...pollIds.map(id=>key('poll',id))])).filter(Boolean).map(JSON.parse):[];const polls=[...(history.find(x=>x.id===v)?.cues||[]),...livePolls];
  const stats=await pipeline(history.map(x=>['HGETALL',key('stats',x.id)]));
- return{...await summary(v),polls,perVersion:history.map((x,i)=>({...x,stats:nums(stats[i])})),sources:nums(await redis(['HGETALL',key('sources')])),donations:nums(await redis(['HGETALL',key('donation-sources',process.env.COMPOUND_STRIPE_MODE||(process.env.VERCEL_ENV==='production'?'live':'test'))])),texts};
+ return{...await summary(v),campaigns:await campaignStats(),polls,perVersion:history.map((x,i)=>({...x,stats:nums(stats[i])})),sources:nums(await redis(['HGETALL',key('sources')])),donations:nums(await redis(['HGETALL',key('donation-sources',process.env.COMPOUND_STRIPE_MODE||(process.env.VERCEL_ENV==='production'?'live':'test'))])),texts};
 }
 
 export async function hideText(id){const item=await get('text:'+id);if(!item)return false;if(!item.hidden){item.hidden=true;await redis(['SET',key('text',id),JSON.stringify(item),'KEEPTTL']);if(item.points)await score(item.uid,-item.points);}return true;}
+
+export async function setRevolut(data){
+ const mode=process.env.COMPOUND_STRIPE_MODE||(process.env.VERCEL_ENV==='production'?'live':'test');
+ const total=Number(data.total),late=Number(data.late||0);
+ if(!Number.isInteger(total)||total<0||total>10000000||!Number.isInteger(late)||late<0||late>10000000)throw Error('amount');
+ let url='';if(data.url){try{const u=new URL(data.url);if(u.protocol!=='https:'||!['revolut.me','www.revolut.me'].includes(u.hostname)||u.username||u.password||u.pathname==='/')throw Error();url=u.href;}catch{throw Error('revolut link');}}
+ const old=await get('revolut')||{},next={...old,url:url||old.url||process.env.COMPOUND_REVOLUT_URL||null,[mode]:{total,late,updated:new Date().toISOString()}};
+ const before=JSON.parse(await redis(['EVAL',"local old=redis.call('GET',KEYS[1]);redis.call('SET',KEYS[1],ARGV[1]);return old or '{}'",1,key('revolut'),JSON.stringify(next)]));const delta=total+late-(before[mode]?.total||0)-(before[mode]?.late||0);if(delta)await event('donation_adjustment','none',data.attribution||{source:'other',content:'manual-revolut'},null,{method:'revolut',amount:delta});return next[mode];
+}
+export async function watched(uid,v){
+ await pipeline([['SADD',key('watched',uid),v],['EXPIRE',key('watched',uid),RETENTION]]);
+ return{watched:await redis(['SMEMBERS',key('watched',uid)])};
+}
+export async function duel(uid,data){
+ const watchedIds=await redis(['SMEMBERS',key('watched',uid)])||[];
+ const winner=await version(data.winner),other=data.action==='battle'?await version(data.opponent):null;
+ const watchedCuts=await Promise.all(watchedIds.map(version));
+ if(!winner||new Set(watchedCuts.filter(Boolean).map(v=>v.slot)).size<2||!watchedIds.includes(winner.id))throw Error('watch two cuts first');
+ if(data.action==='battle'&&(!other||other.slot===winner.slot||!watchedIds.includes(other.id)))throw Error('battle');
+ const pool=data.action==='battle'?[winner.id,other.id].sort().join('-'):(await summary()).cuts.map(c=>c.current?.id||'none').join('-');
+ const field=data.action+':'+winner.id;
+ const script="if not redis.call('SET',KEYS[1],ARGV[1],'NX','EX',ARGV[2]) then return 0 end;redis.call('HINCRBY',KEYS[2],ARGV[3],1);return 1";
+ const added=Number(await redis(['EVAL',script,2,key('duel',data.action,uid,pool),key('standings'),winner.id,RETENTION,field]));
+ if(added)await score(uid,1);return{added:!!added,winner:added?winner.id:await redis(['GET',key('duel',data.action,uid,pool)])};
+}
+export async function transition(uid,v,data){
+ const item=v.transitions.find(t=>t.id===data.transition);if(!item)throw Error('transition');
+ if(data.action==='transition'){
+  if(!['up','down'].includes(data.choice))throw Error('vote');
+  const k=key('transition-once',v.id,uid,item.id);
+  const added=Number(await redis(['EVAL',"if not redis.call('SET',KEYS[1],ARGV[1],'EX',ARGV[2],'NX') then return 0 end;redis.call('HINCRBY',KEYS[2],ARGV[3],1);return 1",2,k,key('stats',v.id),data.choice,RETENTION,'transition:'+item.id+':'+data.choice]));
+  if(added)await score(uid,1);return{added:!!added,choice:added?data.choice:await redis(['GET',k])};
+ }
+ if(data.action==='transition_tag'){
+  if(!TRANSITION_TAGS.includes(data.tag))throw Error('tag');
+  return{added:!!Number(await redis(['EVAL',"if not redis.call('SET',KEYS[1],'1','EX',ARGV[1],'NX') then return 0 end;redis.call('HINCRBY',KEYS[2],ARGV[2],1);return 1",2,key('transition-tag',v.id,uid,item.id,data.tag),key('stats',v.id),RETENTION,'transition:'+item.id+':tag:'+data.tag]))};
+ }
+ if(clean(data.text,280).length<8)throw Error('text');return saveText(uid,v.id,data.text,'transition:'+item.id,3);
+}

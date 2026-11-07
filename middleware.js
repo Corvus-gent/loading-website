@@ -1,5 +1,6 @@
 // - stats.corvus.gent serves the stats pages at clean URLs; corvus.gent/stats redirects there
 // - curl / wget / scripts get counted, and curling the homepage gets a little reply
+import {COMPOUND_LINKS} from "./js/compound-links.js";
 import { rewrite, next, waitUntil } from "@vercel/functions";
 
 export const config = { matcher: ["/((?!api/|js/|img/|cv/|papers/|.*\\.(?:css|js|png|jpg|svg|pdf|json|ico)$).*)"] };
@@ -29,6 +30,12 @@ const CURL_REPLY = `
 
 export default function middleware(request) {
   const url = new URL(request.url);
+  const compoundSlug=url.pathname.replace(/^\/|\/$/g,'');
+  if(url.hostname!=='stats.corvus.gent'&&Object.hasOwn(COMPOUND_LINKS,compoundSlug)){
+    const target=new URL('/api/stats',url);target.searchParams.set('compound','1');target.searchParams.set('slug',compoundSlug);
+    if(url.searchParams.has('c'))target.searchParams.set('c',url.searchParams.get('c').slice(0,64));
+    return rewrite(target);
+  }
   if (url.hostname !== "stats.corvus.gent" && /^\/sidequest\/?$/.test(url.pathname)) {
     url.pathname = "/sidequests";
     return Response.redirect(url, 307);

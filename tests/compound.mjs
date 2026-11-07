@@ -6,7 +6,7 @@ assert.equal(process.env.REDIS_URL,'redis://127.0.0.1:16380/11','isolated dispos
 Object.assign(process.env,{COMPOUND_ADMIN_PASSWORD:'admin-test-only',COMPOUND_STATS_PASSWORD:'stats-test-only',COMPOUND_AUTH_SECRET:'auth-test-only',COMPOUND_STRIPE_MODE:'test',COMPOUND_PAYMENT_LINK_TEST:'https://buy.stripe.com/test_compound',COMPOUND_PAYMENT_LINK_ID_TEST:'plink_test',STRIPE_WEBHOOK_SECRET_TEST:'whsec_test'});
 const r=createClient({url:process.env.REDIS_URL}).on('error',()=>{});await r.connect();await r.flushDb();
 const {default:handler}=await import('../api/_compound/handler.js');const store=await import('../api/_compound/store.js');const {stripeWebhook,processStripeEvent,donationLink}=await import('../api/_compound/payments.js');
-async function call(body,opts={}){const result={headers:{}};const res={setHeader:(k,v)=>result.headers[k]=v,status:n=>{result.status=n;return res;},json:body=>{result.body=body;return result;}};await handler({method:body?'POST':'GET',body,query:opts.query||{},headers:{origin:'https://corvus.gent','content-type':'application/json','x-forwarded-for':'198.51.100.44',cookie:opts.cookie||'',...opts.headers}},res);return result;}
+async function call(body,opts={}){const result={headers:{}};const res={setHeader:(k,v)=>result.headers[k]=v,status:n=>{result.status=n;return res;},json:body=>{result.body=body;return result;},end:()=>result};await handler({method:body?'POST':'GET',body,query:opts.query||{},headers:{origin:'https://corvus.gent','content-type':'application/json','x-forwarded-for':'198.51.100.44',cookie:opts.cookie||'',...opts.headers}},res);return result;}
 const fixture={url:'https://test.public.blob.vercel-storage.com/compound/test.mp4',duration:12,width:360,height:640,label:'test cut',cues:[{t:2,q:'keep this?',options:['keep','kill']}]};
 try{
  let x=await call();assert.equal(x.status,200);assert.equal(x.body.current_version,null);assert.equal(x.headers['Set-Cookie'],undefined);assert.equal((await call(null,{query:{private:'1'}})).status,401);
@@ -41,5 +41,34 @@ try{
  const refund={type:'charge.refunded',livemode:false,data:{object:{payment_intent:'pi_test',amount_refunded:50}}};assert.equal((await processStripeEvent(refund)).refunded,true);assert.equal((await processStripeEvent(refund)).refunded,false);assert.equal(await r.get('compound:fund:test'),'50');
  for(const key of await r.keys('compound:*'))if(/:(done|text|text-once|text-credit|reaction-once|poll-once|helper|rate|payment|checkout|events):/.test(key))assert.ok(await r.ttl(key)>0,key+' has TTL');
  assert.equal((await call({action:'text',text:'An idea before a video exists'},{headers:{'x-forwarded-for':'198.51.100.45'}})).status,200);
- console.log('PASS: compound auth, versions, votes/concurrency/dedupe, categories, text, reactions, cues/live polls, prediction, XSS-safe JSON, GPC, TTLs, signed Stripe €1 webhook, duplicate delivery, late payments and refunds.');
+
+ // Three independent cuts keep archived iterations and cutlists intact.
+ const cutlist={transitions:[{id:'hook',start:0,end:3,label:'opening hook'},{id:'reveal',start:3,end:8,label:'the reveal'}]};
+ const second=await store.publish({...fixture,slot:2,cutlist}),third=await store.publish({...fixture,slot:3,cutlist});
+ const revised=await store.publish({...fixture,slot:1,cutlist,label:'new opening'});
+ let overview=await store.summary();assert.equal(overview.cuts.length,3);assert.equal(overview.cuts[0].history.length,2);assert.equal(overview.cuts[1].current.id,second.id);assert.equal(overview.cuts[2].current.id,third.id);assert.equal(revised.iteration,2);
+ await assert.rejects(()=>store.publish({...fixture,slot:4}));await assert.rejects(()=>store.publish({...fixture,cutlist:[{start:0,end:20,label:'too long'}]}));await assert.rejects(()=>store.publish({...fixture,cutlist:[{start:0,end:4,label:'one'},{start:3,end:5,label:'overlap'}]}));
+ const id=crypto.randomUUID(),visit=crypto.randomUUID(),tags={source:'x',medium:'social',campaign:'compound-1000',term:'x',content:'test',first:{source:'linkedin',term:'li',content:'first-post'},last:{source:'x',term:'x',content:'test'}};
+ const send=body=>call({analytics:'session',visitor:id,visit,attribution:tags,version:revised.id,...body},{cookie,headers:{'x-forwarded-for':'198.51.100.99'}});
+ await send({action:'event',event:'view'});await send({action:'event',event:'play'});await send({action:'event',event:'watch',percent:50});await send({action:'event',event:'watch',percent:75});
+ assert.equal((await send({action:'transition',transition:'hook',choice:'up',t:1})).body.added,true);assert.equal((await send({action:'transition',transition:'hook',choice:'down'})).body.choice,'up');
+ assert.equal((await send({action:'transition_tag',transition:'hook',tag:'smooth'})).body.added,true);assert.equal((await send({action:'transition_tag',transition:'hook',tag:'fake'})).status,400);
+ assert.equal((await send({action:'transition_text',transition:'hook',text:'keep the first second'})).body.added,true);
+ assert.equal((await send({action:'battle',winner:revised.id,opponent:second.id})).status,400);
+ await send({action:'watched',percent:25});await send({action:'watched',version:second.id,percent:25});
+ assert.equal((await send({action:'pick',winner:revised.id})).body.added,true);assert.equal((await send({action:'pick',winner:second.id})).body.added,false);
+ assert.equal((await send({action:'battle',winner:revised.id,opponent:second.id})).body.added,true);assert.equal((await send({action:'battle',winner:second.id,opponent:revised.id})).body.added,false);
+ const checkout=await send({action:'donate',method:'stripe'}),reference=new URL(checkout.body.url).searchParams.get('client_reference_id');
+ await processStripeEvent({...event,data:{object:{...event.data.object,payment_intent:'pi_journey',client_reference_id:reference}}});
+ await send({action:'event',event:'army_join'});await send({action:'event',event:'share'});
+ const rows=await store.campaignStats(),row=rows.find(r=>r.touch==='last'&&r.content==='test');assert.equal(row.engagementRate,1);assert.equal(row.cents,100);assert.equal(row.army,1);assert.equal(row.avgWatch,75);assert.equal(row.donationClicks,1);assert.equal(rows.find(r=>r.touch==='first'&&r.content==='first-post').cents,100);
+ const records=(await r.lRange('compound:events:'+revised.id+':'+new Date().toISOString().slice(0,10),0,-1)).map(JSON.parse).filter(e=>e.visitor===id);assert.ok(records.some(e=>e.event==='donation_success'&&e.amount===100));assert.ok(records.every(e=>e.first.content==='first-post'&&e.last.content==='test'));assert.ok(records.some(e=>e.event==='transition'&&e.transition==='hook'));
+ const {COMPOUND_LINKS}=await import('../js/compound-links.js');for(const slug of Object.keys(COMPOUND_LINKS)){const redirect=await call(null,{query:{slug,c:'test'}});assert.equal(redirect.status,302);const u=new URL(redirect.headers.Location,'https://corvus.gent');assert.equal(u.pathname,'/compound');assert.equal(u.searchParams.get('utm_content'),'test');assert.equal(u.searchParams.get('utm_term'),slug);}
+ assert.equal((await call({action:'revolut',total:100},{cookie:statsCookie})).status,401);
+ assert.equal((await call({action:'revolut',total:250,late:100,url:'https://revolut.me/francisgabriel'},{cookie:adminCookie})).status,200);
+ assert.equal((await store.summary()).fund.total,400);assert.equal((await store.summary()).fund.revolutLate,100);
+ assert.equal((await send({action:'donate',method:'revolut'})).body.url,'https://revolut.me/francisgabriel');
+ assert.equal((await call({action:'revolut',total:-1},{cookie:adminCookie})).status,400);
+ for(const k of await r.keys('compound:*'))if(/:(transition-once|transition-tag|duel|watched|watch|engaged|campaign):/.test(k))assert.ok(await r.ttl(k)>0,k+' expires');
+ console.log('PASS: three slots/iterations/cutlists, transitions, head-to-head, all 11 redirects, first/last attribution + donation chain, Revolut admin totals, compound auth, versions, votes/concurrency/dedupe, categories, text, reactions, cues/live polls, prediction, XSS-safe JSON, GPC, TTLs, signed Stripe €1 webhook, duplicate delivery, late payments and refunds.');
 }finally{await r.flushDb();await r.disconnect();}process.exit(0);

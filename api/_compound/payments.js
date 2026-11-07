@@ -4,12 +4,12 @@ import {redis,pipeline} from '../_redis.js';
 import {key,event} from './store.js';
 import {attribution,FUND_DEADLINE} from './model.js';
 export const paymentMode=()=>process.env.COMPOUND_STRIPE_MODE||(process.env.VERCEL_ENV==='production'?'live':'test');
-export async function donationLink(raw){
+export async function donationLink(raw,journey={}){
  const mode=paymentMode(),url=process.env[mode==='live'?'COMPOUND_PAYMENT_LINK_LIVE':'COMPOUND_PAYMENT_LINK_TEST'];
  if(!url)throw Error('payments not connected yet');
  const link=new URL(url);if(link.protocol!=='https:'||link.hostname!=='buy.stripe.com')throw Error('payment configuration');
  const ref='compound_'+crypto.randomBytes(16).toString('hex'),tags=attribution(raw);
- await redis(['SET',key('checkout',ref),JSON.stringify(tags),'EX',7*86400]);
+ await redis(['SET',key('checkout',ref),JSON.stringify({...tags,visitor:journey.visitor||null,visit:journey.visit||null,version:journey.version||null}),'EX',7*86400]);
  link.searchParams.set('client_reference_id',ref);return{url:link.href,test:mode==='test'};
 }
 export async function processStripeEvent(e){
@@ -20,15 +20,15 @@ export async function processStripeEvent(e){
   if(!expected||s.payment_link!==expected||s.payment_status!=='paid'||s.currency!=='eur'||!Number.isInteger(s.amount_total)||s.amount_total<100||s.amount_total>1000000||!s.payment_intent)return{ignored:true};
   const tags=JSON.parse(await redis(['GET',key('checkout',s.client_reference_id||'none')])||'{}'),source=tags.source||'direct';
   const fund=Number(e.created)*1000<=Date.parse(FUND_DEADLINE)?key('fund',mode):key('fund-late',mode);
-  const data={amount:s.amount_total,refunded:0,source,fund};
+  const data={amount:s.amount_total,refunded:0,source,fund,tags};
   const script=`if not redis.call('SET',KEYS[1],ARGV[1],'NX','EX',31536000) then return 0 end;redis.call('INCRBY',KEYS[2],ARGV[2]);redis.call('HINCRBY',KEYS[3],ARGV[3],ARGV[2]);redis.call('HINCRBY',KEYS[3],ARGV[4],1);return 1`;
   const added=await redis(['EVAL',script,3,key('payment',mode,s.payment_intent),fund,key('donation-sources',mode),JSON.stringify(data),s.amount_total,source+':cents',source+':payments']);
-  if(added)await event('donation_success','none',tags,null);
+  if(added)await event('donation_success',tags.version,tags,tags.visitor,{method:'stripe',amount:s.amount_total,visit:tags.visit});
   return{added:!!added};
  }
  if(e.type==='charge.refunded'&&s.payment_intent&&Number.isInteger(s.amount_refunded)){
-  const script=`local raw=redis.call('GET',KEYS[1]);if not raw then return 0 end;local r=cjson.decode(raw);local target=math.min(r.amount,tonumber(ARGV[1]));local diff=target-r.refunded;if diff<=0 then return 0 end;r.refunded=target;redis.call('SET',KEYS[1],cjson.encode(r),'KEEPTTL');redis.call('DECRBY',r.fund,diff);redis.call('HINCRBY',KEYS[2],r.source..':cents',-diff);return 1`;
-  return{refunded:!!await redis(['EVAL',script,2,key('payment',mode,s.payment_intent),key('donation-sources',mode),s.amount_refunded])};
+  const script=`local raw=redis.call('GET',KEYS[1]);if not raw then return 0 end;local r=cjson.decode(raw);local target=math.min(r.amount,tonumber(ARGV[1]));local diff=target-r.refunded;if diff<=0 then return 0 end;r.refunded=target;redis.call('SET',KEYS[1],cjson.encode(r),'KEEPTTL');redis.call('DECRBY',r.fund,diff);redis.call('HINCRBY',KEYS[2],r.source..':cents',-diff);return cjson.encode({amount=diff,tags=r.tags})`;
+  const raw=await redis(['EVAL',script,2,key('payment',mode,s.payment_intent),key('donation-sources',mode),s.amount_refunded]);if(raw){const refund=JSON.parse(raw);await event('donation_refund',refund.tags?.version,refund.tags,refund.tags?.visitor,{method:'stripe',amount:refund.amount,visit:refund.tags?.visit});}return{refunded:!!raw};
  }
  return{ignored:true};
 }

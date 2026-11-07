@@ -135,3 +135,5 @@ Use the existing hackthefeed-six.vercel.app app directly, with full-viewport ifr
 
 ## 2026-11-07 · evidence demo link
 The full evidence placeholder, including the arrow, opens the hosted HackTheFeed onboarding in a new tab. Native accessible link, subtle gold hover and 2px arrow movement; reduced-motion respected. If a build film is later configured, its player controls remain usable.
+
+- Compound: three independent cut slots and upload histories, cutlist transition voting, one-tap comparisons, first/last campaign attribution and eleven logged 302 links; manual Revolut plus automatic Stripe hostel totals; full-cut digest and mobile Safari/Chromium regression checks. Daily PR #18 only; no main merge.

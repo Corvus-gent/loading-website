@@ -1,6 +1,9 @@
-import {api,node} from './client.js?v=1';
+import {COMPOUND_LINKS} from '/js/compound-links.js?v=3';
+import {api,node} from './client.js?v=3';
 const $=id=>document.getElementById(id);
-async function load(){try{const data=await api(null,'?private=1&role=admin');$('login').hidden=true;$('private').hidden=false;$('version').replaceChildren(...data.versions.map(v=>{const o=node('option',v.id+' · '+v.label);o.value=v.id;return o;}));$('poll-form').querySelector('button').disabled=!data.versions.length;}catch(e){$('status').textContent=e.message;}}
+async function load(){try{const data=await api(null,'?private=1&role=admin');$('revolut-url').value=data.fund.revolut_url||'';$('revolut-total').value=(data.fund.revolut/100).toFixed(2);$('revolut-late').value=((data.fund.revolutLate||0)/100).toFixed(2);$('login').hidden=true;$('private').hidden=false;$('version').replaceChildren(...data.versions.map(v=>{const o=node('option','V'+v.slot+' / r'+v.iteration+' · '+v.label);o.value=v.id;return o;}));$('poll-form').querySelector('button').disabled=!data.versions.length;}catch(e){$('status').textContent=e.message;}}
 $('login').onsubmit=async e=>{e.preventDefault();try{await api({action:'login',role:'admin',password:new FormData(e.target).get('password')});e.target.reset();$('status').textContent='unlocked.';await load();}catch(error){$('status').textContent=error.message;}};
 $('poll-form').onsubmit=async e=>{e.preventDefault();const f=new FormData(e.target);try{const result=await api({action:'live_poll',version:f.get('version'),q:f.get('q'),options:f.get('options').split('\n').map(s=>s.trim()).filter(Boolean)});$('status').textContent='live now: '+result.poll.q;}catch(error){$('status').textContent=error.message;}};
 load();
+
+$('revolut-form').onsubmit=async e=>{e.preventDefault();const f=new FormData(e.target),b=e.submitter;b.disabled=true;try{await api({action:'revolut',url:f.get('url'),total:Math.round(Number(f.get('total'))*100),late:Math.round(Number(f.get('late'))*100),attribution:{source:COMPOUND_LINKS[f.get('slug')]?.[0]||'other',term:f.get('slug')||'',campaign:'compound-1000',content:f.get('content')||'manual-revolut'}});$('status').textContent='revolut total updated. the public bar refreshes within 30s.';}catch(error){$('status').textContent=error.message;}finally{b.disabled=false;}};
