@@ -1,4 +1,4 @@
-import {api,node} from './client.js?v=20261107v1';
+import {api,node} from './client.js?v=20261107v1b';
 const $=id=>document.getElementById(id);let selected='',last=null;
 function table(target,heads,rows){const t=node('table'),head=node('tr');heads.forEach(h=>head.append(node('th',h)));const thead=node('thead');thead.append(head);t.append(thead);const body=node('tbody');rows.forEach(row=>{const tr=node('tr');row.forEach(v=>tr.append(node('td',v)));body.append(tr);});t.append(body);$(target).replaceChildren(t);}
 const count=(s,k)=>s[k]||0;

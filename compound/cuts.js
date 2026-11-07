@@ -1,4 +1,4 @@
-import {node} from './client.js?v=20261107v1';
+import {node} from './client.js?v=20261107v1b';
 const CATEGORIES=['Hook','Transitions','Music','Pacing','Story','Humor','Visuals','Ending'];
 const globalPollsSeen=new Set();
 const TAGS=['keep','cut','too slow','too fast','confusing','smooth','funny','strong hook'];
@@ -47,7 +47,9 @@ export class Cut {
   if(!this.current)return;const t=this.video.currentTime,items=this.current.transitions||[];
   if(!this.video.paused)this.pinned=null;
   const finished=this.video.ended&&this.endedAt&&Date.now()-this.endedAt>=1500;
-  const item=this.hooks.active()===this.slot?(this.pinned||(!finished&&[...items].reverse().find(i=>t>=i.start&&t<i.end+1.5))):null;
+  const visible=[...items].reverse().filter(i=>t>=i.start&&t<i.end+1.5);
+  const current=visible.find(i=>i.type==='transition')||visible[0];
+  const item=this.hooks.active()===this.slot?(this.pinned||(!finished&&current)):null;
   const card=this.q('.transition-card');card.hidden=!item;this.q('.transition-empty').hidden=!!item;if(!item){this.activeTransition=null;return;}
   const key=this.current.id+':'+item.id,changed=this.activeTransition?.id!==item.id;this.activeTransition=item;
   this.q('.transition-top strong').textContent='🎬 NOW: '+item.label;
@@ -56,7 +58,7 @@ export class Cut {
    this.q('.transition-comment input').value='';
   }
   this.q('.transition-follow').hidden=!this.transitions.has(key);
-  const choice=this.transitions.get(key);for(const [i,b]of [...this.el.querySelectorAll('.transition-votes button')].entries()){b.disabled=!!choice;b.classList.toggle('selected',choice===(i?'down':'up'));}
+  const choice=this.transitions.get(key);for(const [i,b]of [...this.el.querySelectorAll('.transition-votes button')].entries()){b.setAttribute('aria-label',item.label+' '+(i?'down':'up'));b.disabled=!!choice;b.classList.toggle('selected',choice===(i?'down':'up'));}
  }
  renderTimeline(){this.q('.transition-timeline').replaceChildren(...(this.current?.transitions||[]).map(item=>{const up=this.stats?.['transition:'+item.id+':up']||0,down=this.stats?.['transition:'+item.id+':down']||0,b=node('button',item.label);b.style.flexGrow=item.end-item.start;b.className=up+down?(up>=down?'good':'bad'):'';b.title=`${stamp(item.start)}–${stamp(item.end)} · ${up} 👍 / ${down} 👎`;b.setAttribute('aria-label',item.label+' · jump and vote · '+b.title);b.onclick=()=>{this.hooks.activate(this.slot);this.video.currentTime=item.start;this.pinned=item;this.transitionAt();};return b;}));}
  renderHeat(data){const bins=24,values=Array.from({length:bins},()=>({total:0,bad:0}));for(const [key,n]of Object.entries(data||{})){const [time,type]=key.split(':'),b=values[Math.min(bins-1,Math.floor(Number(time)/(this.current?.duration||1)*bins))];b.total+=n;if(['neutral','cut','skull'].includes(type))b.bad+=n;}const max=Math.max(1,...values.map(b=>b.total));this.q('.heat').replaceChildren(...values.map((v,i)=>{const t=i/bins*(this.current?.duration||0),b=node('button');b.style.height=8+v.total/max*28+'px';b.className=v.total?(v.bad>v.total/2?'cut':'hot'):'';b.disabled=!this.current;b.title=`${stamp(t)} · ${v.total} reactions`;b.setAttribute('aria-label',b.title);b.onclick=()=>{this.video.currentTime=t;this.video.focus();};return b;}));}

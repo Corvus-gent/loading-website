@@ -1,5 +1,5 @@
-import {COMPOUND_LINKS} from '/js/compound-links.js?v=20261107v1';
-import {api,node} from './client.js?v=20261107v1';
+import {COMPOUND_LINKS} from '/js/compound-links.js?v=20261107v1b';
+import {api,node} from './client.js?v=20261107v1b';
 const $=id=>document.getElementById(id);let versions=[];
 function labelFields(){const v=versions.find(v=>v.id===$('label-version').value);$('item-labels').replaceChildren(...(v?.transitions||[]).map(t=>{const row=node('label',`${t.start.toFixed(1)}s · ${t.id}`),input=node('input');input.dataset.item=t.id;input.value=t.label;input.maxLength=100;input.required=true;row.append(input);return row;}));}
 $('label-version').onchange=labelFields;
