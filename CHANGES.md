@@ -184,3 +184,7 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 ## 2026-11-07 — WHITE BELT playable v1
 - Add self-contained canvas octagon arcade game at /hack/play: buffered swipe/keyboard movement, techniques, four enemies, black-belt power, lives, promotions, local best score and sharing.
 - Link beta from the title vote and redirect /whitebelt. No external game assets or libraries.
+
+## Arcade P1 — live stats and reveal
+- Count idempotent game starts and bounded run scores in Redis. Show live plays/votes/top score and the 23:15 UTC reveal; atomically reject late votes.
+- Update the game title from the winner. Show animated beta social proof only from 10 plays.
