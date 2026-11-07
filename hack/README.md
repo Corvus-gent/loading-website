@@ -14,6 +14,5 @@ Static HTML, the site's shared monospace/style tokens, a scoped CSS file and one
 
 Provider references: [TikTok](https://developers.tiktok.com/docs/en/embed-player), [YouTube embedding](https://developers.google.com/youtube/player_parameters), [YouTube referrer requirement](https://developers.google.com/youtube/terms/required-minimum-functionality#embedded-player-api-client-identity), [X posts with video](https://help.x.com/en/using-x/how-to-embed-a-post).
 
-## Live controls
-`video:` changes live.json.video; `update:` appends a build update; `github:` changes live.json.links.github. The main source CTA always points to the upstream onboarding branch. `key:` configures GMI_API_KEY on the separate hackthefeed Vercel project; `cap:` configures HACK_DAILY_CAP there (requires redeploy).
-Comments and feedback API: /api/hack, public aggregates plus public comment text; feedback only with Gabriel's existing session at ?private=1. Moderation hide key: hack:hidden:<id>. Individual records expire after 90 days. Counts respect current analytics consent and are not unique-person counts.
+## Pitch scope
+Static HackTheFeed page: hero, upstream GitHub CTA, video adapters/placeholder, four-step product explanation, OG image, slider and live.json feed. No backend, app iframe, comments or stats in this version. Larger launch work is preserved at commit 9dfb69e and paused until “pitch done”.

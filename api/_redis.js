@@ -17,35 +17,9 @@ export function secureEndpoint(raw, rest = false) {
   return raw;
 }
 
-export function plaintextExceptionUntil(raw = REDIS_URL, now = Date.now()) {
-  if (USE_REST || !raw) return null;
-  const until = process.env.REDIS_PLAINTEXT_UNTIL;
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(until || '')) return null;
-  const deadline = Date.parse(until + 'T00:00:00.000Z');
-  if (!Number.isFinite(deadline) || new Date(deadline).toISOString().slice(0, 10) !== until || now >= deadline)
-    return null;
-  try {
-    const url = new URL(raw);
-    return url.protocol === 'redis:' && url.hostname === process.env.REDIS_PLAINTEXT_HOST ? until : null;
-  } catch { return null; }
-}
-
-let plaintextWarningLogged = false;
-export function connectionEndpoint(raw = REDIS_URL) {
-  const until = plaintextExceptionUntil(raw);
-  if (!until) return secureEndpoint(raw);
-  if (!plaintextWarningLogged) {
-    console.warn('redis plaintext exception active until ' + until);
-    plaintextWarningLogged = true;
-  }
-  return raw;
-}
-
 let client, connecting;
 async function connection(){
-  // Recheck the deadline on every operation, including an already-open connection.
-  const url = connectionEndpoint();
-  if(!client){client=createClient({url});client.on("error",()=>{});connecting=client.connect().catch(error=>{client=null;connecting=null;throw error;});}
+  if(!client){client=createClient({url:secureEndpoint(REDIS_URL)});client.on("error",()=>{});connecting=client.connect().catch(error=>{client=null;connecting=null;throw error;});}
   await connecting;return client;
 }
 

@@ -31,10 +31,6 @@
   ],
   "rewrites": [
     {
-      "source": "/api/hack",
-      "destination": "/api/stats?hack=1"
-    },
-    {
       "source": "/api/health/history",
       "destination": "/api/stats?healthHistory=1"
     },
