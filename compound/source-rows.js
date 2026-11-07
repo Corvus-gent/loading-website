@@ -6,6 +6,6 @@ export function sourceRows(d){
  const accounts=TIKTOK_ACCOUNTS.map(([name,slugs])=>{const n={};for(const r of campaigns.filter(r=>slugs.includes(r.slug)))for(const k of fields)n[k]=(n[k]||0)+(r[k]||0);for(const k of fields)known[k]=(known[k]||0)+(n[k]||0);return values('tiktok · '+name,n);});
  const rows=[];for(const source of new Set([...Object.keys(sources),...Object.keys(donations)].map(k=>k.split(':')[0]))){
  const n={clicks:sources[source+':link_click']||0,visits:sources[source+':view']||0,engaged:Object.entries(sources).filter(([k])=>k.startsWith(source+':')&&!['view','link_click','donation_click','donation_success'].includes(k.split(':')[1])).reduce((sum,[,n])=>sum+n,0),donationClicks:sources[source+':donation_click']||0,donations:donations[source+':payments']||0,cents:donations[source+':cents']||0};
- if(source==='tiktok'){for(const k of fields)n[k]=Math.max(0,n[k]-(known[k]||0));if(fields.some(k=>n[k]))rows.push(values('tiktok · other / older links',n));}else rows.push(values(source,n));
+ if(source==='tiktok'){for(const k of fields)n[k]=Math.max(0,n[k]-(known[k]||0));n.engaged='—';if(fields.filter(k=>k!=='engaged').some(k=>n[k]))rows.push(values('tiktok · other / older links',n));}else rows.push(values(source,n));
  }return[...rows,...accounts];
 }
