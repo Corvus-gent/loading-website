@@ -19,3 +19,6 @@ node_modules
 
 test-results/
 playwright-report/
+
+# Local Vercel link
+.vercel/
