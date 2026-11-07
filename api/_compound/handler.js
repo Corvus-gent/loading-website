@@ -29,7 +29,7 @@ export default async function compound(req,res){
  if(b.action==='publish'||b.action==='live_poll'||b.action==='hide_text'){
   if(!authorized(req,'admin'))return res.status(401).json({error:'admin sign-in required'});
   if(b.action==='publish')return res.status(200).json({version:await store.publish(b)});
-  if(b.action==='hide_text'){const item=await store.get('text:'+clean(b.id,50));if(!item)return res.status(404).json({error:'missing'});item.hidden=true;await redis(['SET',store.key('text',b.id),JSON.stringify(item),'KEEPTTL']);return res.status(200).json({ok:true});}
+  if(b.action==='hide_text'){if(!/^[a-f0-9-]{36}$/.test(b.id||''))throw Error('text');if(!await store.hideText(b.id))return res.status(404).json({error:'missing'});return res.status(200).json({ok:true});}
   if(!await store.version(b.version))throw Error('version');return res.status(200).json({poll:await store.pushPoll(b.version,b)});
  }
  const tags=attribution(b.attribution),consented=b.analytics===true&&req.headers['sec-gpc']!=='1'&&req.headers.dnt!=='1';

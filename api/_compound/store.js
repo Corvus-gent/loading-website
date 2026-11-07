@@ -18,15 +18,15 @@ export async function publish(data){
  return normalVersion(JSON.parse(await redis(['EVAL',script,3,key('sequence'),key('versions'),key('current_version'),JSON.stringify(record),key('version')+':'])));
 }
 export async function summary(id){
- const [history,current,poll,scoreRows,total,modeTotal]=await Promise.all([versions(),redis(['GET',key('current_version')]),get('live-poll'),redis(['ZREVRANGE',key('scores'),0,49,'WITHSCORES']),redis(['GET',key('fund','live')]),redis(['GET',key('fund','test')])]);
+ const [history,current,poll,scoreRows,total,modeTotal,lateLive,lateTest]=await Promise.all([versions(),redis(['GET',key('current_version')]),get('live-poll'),redis(['ZREVRANGE',key('scores'),0,49,'WITHSCORES']),redis(['GET',key('fund','live')]),redis(['GET',key('fund','test')]),redis(['GET',key('fund-late','live')]),redis(['GET',key('fund-late','test')])]);
  const selected=id==='none'?null:history.find(v=>v.id===id)||history.find(v=>v.id===current)||history[0]||null;
  const hashes=await pipeline([['HGETALL',key('global')],['HGETALL',key('prediction')],['HGETALL',key('stats',selected?.id||'none')],['HGETALL',key('heat',selected?.id||'none')]]);
  const people=scoreRows?.length?await redis(['MGET',...scoreRows.filter((_,i)=>i%2===0).map(uid=>key('helper',uid))]):[];const leaders=[];for(let i=0;i<people.length;i++){const person=people[i]?JSON.parse(people[i]):null;if(person?.handle&&!person.hidden&&leaders.length<10)leaders.push({handle:person.handle,score:Number(scoreRows[i*2+1])});}
  const mode=process.env.COMPOUND_STRIPE_MODE||(process.env.VERCEL_ENV==='production'?'live':'test');
- return{current_version:current||null,versions:history,selected,global:nums(hashes[0]),prediction:nums(hashes[1]),stats:nums(hashes[2]),heat:nums(hashes[3]),helpers:leaders,livePoll:poll&&poll.expires>Date.now()?poll:null,fund:{total:Number(mode==='live'?total:modeTotal)||0,goal:GOAL,deadline:FUND_DEADLINE,mode,ready:Boolean(process.env[mode==='live'?'COMPOUND_PAYMENT_LINK_LIVE':'COMPOUND_PAYMENT_LINK_TEST'])},deadline:DEADLINE,updated:new Date().toISOString()};
+ return{current_version:current||null,versions:history,selected,global:nums(hashes[0]),prediction:nums(hashes[1]),stats:nums(hashes[2]),heat:nums(hashes[3]),helpers:leaders,livePoll:poll&&poll.expires>Date.now()?poll:null,fund:{total:Number(mode==='live'?total:modeTotal)||0,late:Number(mode==='live'?lateLive:lateTest)||0,goal:GOAL,deadline:FUND_DEADLINE,mode,ready:Boolean(process.env[mode==='live'?'COMPOUND_PAYMENT_LINK_LIVE':'COMPOUND_PAYMENT_LINK_TEST'])},deadline:DEADLINE,updated:new Date().toISOString()};
 }
-export async function profile(uid,handle){const cleaned=clean(handle,60);if(cleaned&&!/^@?[a-zA-Z0-9_.\- ]{1,60}$/.test(cleaned))throw Error('handle');await redis(['SET',key('helper',uid),JSON.stringify({handle:cleaned}), 'EX',RETENTION]);return cleaned;}
-async function score(uid,points){if(!uid||!points)return;await pipeline([['ZINCRBY',key('scores'),points,uid],['EXPIRE',key('scores'),RETENTION]]);}
+export async function profile(uid,handle){const cleaned=clean(handle,60);if(cleaned&&!/^@?[a-zA-Z0-9_.\- ]{1,60}$/.test(cleaned))throw Error('handle');await redis(['SET',key('helper',uid),JSON.stringify({handle:cleaned}), 'EX',RETENTION]);const points=Number(await redis(['GET',key('score',uid)])||0);if(cleaned&&points)await redis(['ZADD',key('scores'),points,uid]);else await redis(['ZREM',key('scores'),uid]);return cleaned;}
+async function score(uid,points){if(!uid||!points)return;const value=Number(await redis(['INCRBY',key('score',uid),points]));await redis(['EXPIRE',key('score',uid),RETENTION]);const person=await get('helper:'+uid);if(person?.handle&&!person.hidden)await pipeline([['ZADD',key('scores'),Math.max(0,value),uid],['EXPIRE',key('scores'),RETENTION]]);}
 export async function event(name,versionId,raw,visitor){
  const a=attribution(raw),v=validVersion(versionId)?versionId:'none';
  const commands=[['HINCRBY',key('global'),name,1],['HINCRBY',key('stats',v),name,1],['HINCRBY',key('sources'),a.source+':'+name,1]];
@@ -49,7 +49,7 @@ export async function saveText(uid,v,value,category='idea',points=3){
  if(!await redis(['SET',key('text-once',v,uid,digest),'1','EX',RETENTION,'NX']))return{added:false};
  const id=crypto.randomUUID(),p=await get('helper:'+uid),entry={id,version:v,text,category,handle:p?.handle||'anon',uid,at:new Date().toISOString(),hidden:false};
  await pipeline([['SET',key('text',id),JSON.stringify(entry),'EX',RETENTION],['LPUSH',key('texts',v),id],['LTRIM',key('texts',v),0,499],['EXPIRE',key('texts',v),RETENTION],['HINCRBY',key('stats',v),'texts',1]]);
- const eligible=points&&await redis(['SET',key('text-credit',v,uid),'1','EX',RETENTION,'NX']);if(eligible)await score(uid,points);
+ const eligible=points&&await redis(['SET',key('text-credit',v,uid),'1','EX',RETENTION,'NX']);if(eligible){await score(uid,points);entry.points=points;await redis(['SET',key('text',id),JSON.stringify(entry),'KEEPTTL']);}
  return{added:true,id};
 }
 export async function reaction(uid,v,type,t){
@@ -78,3 +78,5 @@ export async function privateStats(v){
  const stats=await pipeline(history.map(x=>['HGETALL',key('stats',x.id)]));
  return{...await summary(v),polls,perVersion:history.map((x,i)=>({...x,stats:nums(stats[i])})),sources:nums(await redis(['HGETALL',key('sources')])),donations:nums(await redis(['HGETALL',key('donation-sources',process.env.COMPOUND_STRIPE_MODE||(process.env.VERCEL_ENV==='production'?'live':'test'))])),texts};
 }
+
+export async function hideText(id){const item=await get('text:'+id);if(!item)return false;if(!item.hidden){item.hidden=true;await redis(['SET',key('text',id),JSON.stringify(item),'KEEPTTL']);if(item.points)await score(item.uid,-item.points);}return true;}
