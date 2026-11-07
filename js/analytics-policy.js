@@ -1,7 +1,7 @@
 import {approvedCampaign,contentSlot} from './x-attribution.js';
 // Shared by browser capture and public stats: never publish free-form labels.
 export const SOURCES = ['direct','corvus','linkedin','instagram','tiktok','facebook','youtube','threads','discord','x','luma','whatsapp','email','qr','buymeacoffee','share','self','google','bing','duckduckgo','other'];
-export const CAMPAIGNS = ['hack','bio','coffee-stats','coffee-bio','corvus_softlaunch','gabe-coffee-bio','gabe-important-call','gabe-corvus-page','gabe-corvus-revival','gabe-sf-trip','hackathon-thread','gabe-hackathon-thread','402','402-post','gabe','gabe-bio','gabe-402','gabe-402-post','gabe-self','gabe-coffee-bio','site','game-babel','game-borders','game-wordle','game-flags','game-combo','game-bangle','game-pingle','game-lantern','other'];
+export const CAMPAIGNS = ['compound-1000','hack','bio','coffee-stats','coffee-bio','corvus_softlaunch','gabe-coffee-bio','gabe-important-call','gabe-corvus-page','gabe-corvus-revival','gabe-sf-trip','hackathon-thread','gabe-hackathon-thread','402','402-post','gabe','gabe-bio','gabe-402','gabe-402-post','gabe-self','gabe-coffee-bio','site','game-babel','game-borders','game-wordle','game-flags','game-combo','game-bangle','game-pingle','game-lantern','other'];
 export const COMMANDS = ['help','whoami','now','sidequests','support','cv','contact','ls','location','diogenes','lantern','pay','pidgy','coo','headache','sudo','exit','clear','cd','lang','unknown'];
 export const GAME_TYPES = ['babel','borders','wordle','flags','combo','bangle','pingle','lantern'];
 export const GENRES = ['us hip-hop','rap fr','rap nl/be','latin','lusophone','afro','pop 00s','electronic','rock','classics','soundtrack','funk & phonk'];
@@ -28,6 +28,8 @@ export function referrerCategory(value) {
 export function pathCategory(path) {
   if (typeof path !== 'string') return '/other/';
   path = path.split(/[?#]/)[0].replace(/\/+$/, '') + '/';
+  if (/^\/hack\/[1-9]\d{0,3}\/(?:the-feed\/)?$/.test(path)) return path;
+  if(path==='/compound/')return path;
   if (path.startsWith('/links/')) {
     const persona = path.split('/')[2];
     return '/links/' + (['corvus','pidgy'].includes(persona) ? persona : 'gabe') + '/';
@@ -91,6 +93,7 @@ export function privacyEvent(event) {
   properties.$raw_user_agent = `${properties.$browser}/${properties.$device_type}`;
   if (p.corvus_country_code) properties.corvus_country_code = countryCategory(p.corvus_country_code);
   if(p.utm_campaign==='hack'&&p.utm_content==='squads'){properties.utm_content='squads';if(p.short_slug==='squads')properties.short_slug='squads';}
+  if(Number.isInteger(p.hack_id)&&p.hack_id>0&&p.hack_id<=9999)properties.hack_id=p.hack_id;
   const referrer = referrerCategory(p.$referring_domain);
   properties.$referring_domain = referrer === 'direct' ? '$direct' : referrer;
   for (const key of ['utm_source','links_source','source']) if (p[key]) properties[key] = sourceCategory(p[key]);

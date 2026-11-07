@@ -2,7 +2,7 @@
 (async () => {
   const {arrivalSearch,clearTrackingURL,sidequestsPage}=await import('/js/arrival.js');
   const {setXCampaigns,xContext} = await import('./x-attribution.js');
-  const {privacyEvent, sourceCategory, pathCategory, safeURL} = await import('/js/analytics-policy.js?v=20261107-squads1');
+  const {privacyEvent, sourceCategory, pathCategory, safeURL} = await import('/js/analytics-policy.js?v=20261107-squads2');
   import('/js/performance.js').catch(()=>{});
   import('/js/outbound.js').catch(()=>{});
   if (/^\/links(?:\/|$)/.test(location.pathname)) {
@@ -86,6 +86,14 @@
         if(x?.content)props.utm_content=x.content;
         if(query.has('utm_medium')) props.utm_medium=query.get('utm_medium');
         if(/^[A-Z]{2}$/.test(geo?.countryCode||'')) props.corvus_country_code=geo.countryCode;
+        if (/^\/(hack|compound)(?:\/|$)/.test(location.pathname)) {
+          const arrival=new URLSearchParams(arrivalSearch),id=/^\/hack\/([1-9]\d*)(?:\/|$)/.exec(location.pathname)?.[1];
+          props.utm_campaign=arrival.get('utm_campaign')|| (location.pathname.startsWith('/hack')?'hack':'compound-1000');
+          if(arrival.has('utm_source'))props.utm_source=sourceCategory(arrival.get('utm_source'));
+          if(arrival.has('utm_medium'))props.utm_medium=arrival.get('utm_medium');
+          if(id)props.hack_id=Number(id);
+        }
+
         if(sidequestsPage && attribution.utm_source) Object.assign(props,attribution);
         ph.register(props);
         ph.capture('$pageview');pageviewSent=true;

@@ -143,3 +143,8 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 - Link the new page from the realm navigation and Support; keep the build and repository links together in the team card.
 - Add `/squads` (307) with bounded campaign/short-slug attribution in existing analytics and stats. No new database or API function.
 - Generate future team cards from `hackathons/teams.json` during the existing build, before generating search. Existing easter eggs remain hidden and unchanged.
+## post-ready — 2026-11-07
+- Replace `/hack` with the SF hackathon hub; preserve HackTheFeed at `/hack/1` and its existing comments/counters/app at `/hack/1/the-feed`.
+- Add `/hack/2` with the 7 Nov 21:00 UTC solo-run countdown and an explicit after-start state.
+- Retain the completed Compound implementation from this PR's daily-branch base; add all four routes to the bounded analytics payload and retain LinkedIn attribution/hack IDs before URL cleanup.
+- Mobile browser QA covers the four pages, metadata/images, the countdown boundary, existing comment counts and both donation destinations. Broader restructuring and stats map work remain separate.
