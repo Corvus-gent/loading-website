@@ -5,17 +5,25 @@
     "event": "Oriane x Compound hackathon",
     "location": "San Francisco",
     "date": "2026-11",
-    "teamSize": 5,
+    "teamSize": 3,
     "members": [
       {
-        "name": "Gabriel Van Langenhove",
-        "label": "gabe",
-        "url": "/people/?id=gabe"
+        "id": "gabe",
+        "name": "Gabe",
+        "label": "Gabe",
+        "url": "https://corvus.gent"
       },
       {
-        "name": "Siebe",
-        "label": "siebe",
+        "id": "siebe",
+        "name": "Siebe Baree",
+        "label": "Siebe Baree",
         "url": "https://github.com/SiebeBaree"
+      },
+      {
+        "id": "paloma",
+        "name": "Paloma Ana Daniele",
+        "label": "Paloma Ana Daniele",
+        "url": "https://www.linkedin.com/in/paloma-ana-daniele/"
       }
     ],
     "build": "/hack/1/",
@@ -36,9 +44,10 @@
     "teamSize": 1,
     "members": [
       {
-        "name": "Gabriel Van Langenhove",
-        "label": "gabe",
-        "url": "/people/?id=gabe"
+        "id": "gabe",
+        "name": "Gabe",
+        "label": "Gabe",
+        "url": "https://corvus.gent"
       }
     ],
     "pitch": "One builder. One deadline. Follow the solo run.",

@@ -34,7 +34,7 @@ try{
  assert.equal(await card.locator('.squad-event').innerText(),'Oriane x Compound hackathon, San Francisco, Nov 2026');
  assert.equal(await card.locator('.squad-pitch').innerText(),"Paste your URL. We steal what's going viral in your niche and make it better.");
  assert.equal(await card.locator('.squad-status').innerText(),'Not selected. Pitched anyway.');
- assert.equal(await page.getByRole('link',{name:'Siebe',exact:true}).getAttribute('href'),'https://github.com/SiebeBaree');
+ assert.equal(await page.getByRole('link',{name:'Siebe Baree',exact:true}).getAttribute('href'),'https://github.com/SiebeBaree');
  assert(!/lorem|placeholder|names coming soon/i.test(await page.locator('main').innerText()));
  assert.equal(await page.locator('.squad-nav [aria-current="page"]').getAttribute('href'),'/hackathons/');
  assert.equal(await page.evaluate(()=>posthog.get_property('utm_source')),'linkedin');assert.equal(await page.evaluate(()=>posthog.get_property('utm_campaign')),'hack');

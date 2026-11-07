@@ -2,7 +2,7 @@
 (async () => {
   const {arrivalSearch,clearTrackingURL,sidequestsPage}=await import('/js/arrival.js');
   const {setXCampaigns,xContext} = await import('./x-attribution.js');
-  const {privacyEvent, sourceCategory, pathCategory, safeURL} = await import('/js/analytics-policy.js?v=20261107-squads2');
+  const {privacyEvent, sourceCategory, pathCategory, safeURL} = await import('/js/analytics-policy.js?v=20261107-team3');
   import('/js/performance.js').catch(()=>{});
   import('/js/outbound.js').catch(()=>{});
   if (/^\/links(?:\/|$)/.test(location.pathname)) {

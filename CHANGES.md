@@ -139,7 +139,7 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 - Compound: three independent cut slots and upload histories, cutlist transition voting, one-tap comparisons, first/last campaign attribution and eleven logged 302 links; manual Revolut plus automatic Stripe hostel totals; full-cut digest and mobile Safari/Chromium regression checks. Daily PR #18 only; no main merge.
 
 ## hackathon squads — 2026-11-07
-- Add `/hackathons/` (ex-hackathon squads), starting with the five-person HackTheFeed team at Oriane × Compound, SF, November 2026. Gabe and Siebe are named; the other three names remain pending confirmation.
+- Add `/hackathons/` (ex-hackathon squads), starting with HackTheFeed at Oriane × Compound, SF, November 2026.
 - Link the new page from the realm navigation and Support; keep the build and repository links together in the team card.
 - Add `/squads` (307) with bounded campaign/short-slug attribution in existing analytics and stats. No new database or API function.
 - Generate future team cards from `hackathons/teams.json` during the existing build, before generating search. Existing easter eggs remain hidden and unchanged.
@@ -150,3 +150,7 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 - Mobile browser QA covers the four pages, metadata/images, the countdown boundary, existing comment counts and both donation destinations. Broader restructuring and stats map work remain separate.
 
 - Squad QA: exact HackTheFeed event/pitch/result, corrected `/hack/1` link, solo #2 card, current nav state and dedicated OG image; real-link clicks and mobile/desktop screenshots. Three team names remain unconfirmed.
+
+## 2026-11-07 — HackTheFeed squad links
+- Show exactly Gabe, Siebe Baree and Paloma Ana Daniele on the squads archive, HackTheFeed build page and hub. Generate both Squad sections from one roster.
+- Count member-link clicks in aggregate on HackTheFeed stats; preserve GPC/DNT and opt-outs, with allowlisted member IDs and existing abuse limits.

@@ -2,7 +2,7 @@ import crypto from 'node:crypto';
 import {redis,pipeline} from './_redis.js';
 import {dailyIPHash,rateLimit} from './_privacy.js';
 import {getSession} from './_session.js';
-const LIFE=90*86400, events=['view','app_open','github_click','like','dislike','comment','feedback','share'];
+const LIFE=90*86400, events=['view','app_open','github_click','like','dislike','comment','feedback','share','squad_member'];
 const sources=['x','linkedin','instagram','tiktok','corvus','share','direct','other'];
 const clean=(v,n)=>String(v||'').replace(/[\u0000-\u001f\u007f<>]/g,'').trim().slice(0,n);
 const obj=a=>Object.fromEntries(Array.isArray(a)?Array.from({length:a.length/2},(_,i)=>[a[i*2],Number(a[i*2+1])]):Object.entries(a||{}).map(([k,v])=>[k,Number(v)]));
@@ -14,8 +14,8 @@ export default async function handler(req,res){
   const privateView=req.query.private==='1';let authorized=false;
   if(privateView){authorized=(await getSession(req))?.email==='gabriel@corvus.gent';if(!authorized)return res.status(401).json({error:'Log in to see private feedback.'});}
   res.setHeader('Cache-Control',privateView?'private, no-store':'public, s-maxage=15, stale-while-revalidate=60');
-  const [all,bySource,comments,feedback]=await Promise.all([redis(['HGETALL','hack:totals']),redis(['HGETALL','hack:sources']),records('comments'),authorized?records('feedback'):[]]);
-  return res.status(200).json({totals:obj(all),sources:obj(bySource),comments,feedback,private:authorized});
+  const [all,bySource,comments,feedback,members]=await Promise.all([redis(['HGETALL','hack:totals']),redis(['HGETALL','hack:sources']),records('comments'),authorized?records('feedback'):[],redis(['HGETALL','hack:members'])]);
+  return res.status(200).json({totals:obj(all),sources:obj(bySource),comments,feedback,members:obj(members),private:authorized});
  }
  if(req.method!=='POST')return res.status(405).json({error:'Method not allowed.'});
  res.setHeader('Cache-Control','no-store');
@@ -26,6 +26,7 @@ export default async function handler(req,res){
  if(JSON.stringify(body).length>5000)return res.status(413).json({error:'That message is too long.'});
  const action=body.action,hash=dailyIPHash(req,'hack');
  if(!events.includes(action)&&action!=='comment_like')return res.status(400).json({error:'Unknown action.'});
+ if(action==='squad_member'&&!((body.hack_id===1&&['gabe','siebe','paloma'].includes(body.member))||(body.hack_id===2&&body.member==='gabe')))return res.status(400).json({error:'Unknown squad member.'});
  if(!await rateLimit('hack:rate:'+hash,60,60))return res.status(429).json({error:'Take a breath. Try again in a minute.'});
  if(body.website)return res.status(400).json({error:'Please leave the hidden field empty.'});
  const source=sources.includes(body.source)?body.source:'other';
@@ -43,7 +44,7 @@ export default async function handler(req,res){
   return res.status(200).json({ok:true});
  }
  if(['like','dislike'].includes(action)&&!await redis(['SET','hack:vote:'+hash,'1','EX',86400,'NX']))return res.status(200).json({ok:true,already:true});
- await pipeline([['HINCRBY','hack:totals',action,1],['HINCRBY','hack:sources',source+':'+action,1]]);
+ await pipeline([['HINCRBY','hack:totals',action,1],['HINCRBY','hack:sources',source+':'+action,1],...(action==='squad_member'?[['HINCRBY','hack:members',body.hack_id+':'+body.member,1]]:[])]);
  return res.status(200).json({ok:true});
  }catch{return res.status(503).json({error:'The crow lost its connection. Try again shortly.'});}
 }

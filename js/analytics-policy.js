@@ -62,7 +62,7 @@ export function countryCategory(value) {
   }
   return countryCategory.names.get(value) || '?';
 }
-export const EVENTS = new Set(['hack_view','hack_app_open','hack_github_click','hack_like','hack_dislike','hack_comment','hack_feedback','hack_share','notice_ok','sidequests_cta_click','sidequests_share','sf_note_seen','sf_note_open','sf_note_click','sf_form_start','sf_form_submit','$pageview','link_click','outbound_click','short_link_out','links_click','links_qr_open','links_crow_click','music_play','vinyl_play','language_vote','goodreads_locked_click','goodreads_access_request','game_start','game_guess','game_end','game_share','share_click','feather_found','terminal_command','site_search','visitor_guess']);
+export const EVENTS = new Set(['squad_member_click','hack_view','hack_app_open','hack_github_click','hack_like','hack_dislike','hack_comment','hack_feedback','hack_share','notice_ok','sidequests_cta_click','sidequests_share','sf_note_seen','sf_note_open','sf_note_click','sf_form_start','sf_form_submit','$pageview','link_click','outbound_click','short_link_out','links_click','links_qr_open','links_crow_click','music_play','vinyl_play','language_vote','goodreads_locked_click','goodreads_access_request','game_start','game_guess','game_end','game_share','share_click','feather_found','terminal_command','site_search','visitor_guess']);
 // The campaign owner controls these six categories. Drop arbitrary URL text,
 // including email addresses, rather than turning it into a visitor identifier.
 export function sidequestTags(p) {
@@ -94,6 +94,7 @@ export function privacyEvent(event) {
   if (p.corvus_country_code) properties.corvus_country_code = countryCategory(p.corvus_country_code);
   if(p.utm_campaign==='hack'&&p.utm_content==='squads'){properties.utm_content='squads';if(p.short_slug==='squads')properties.short_slug='squads';}
   if(Number.isInteger(p.hack_id)&&p.hack_id>0&&p.hack_id<=9999)properties.hack_id=p.hack_id;
+  if(event.event==='squad_member_click')properties.member=category(p.member,['gabe','siebe','paloma']);
   const referrer = referrerCategory(p.$referring_domain);
   properties.$referring_domain = referrer === 'direct' ? '$direct' : referrer;
   for (const key of ['utm_source','links_source','source']) if (p[key]) properties[key] = sourceCategory(p[key]);
