@@ -8,3 +8,6 @@ Merged Claude commit `7a1ac15` without losing its live.json, 30-second feed poll
 
 ## 2026-11-07 · HackTheFeed launch
 Renamed Hookjack; retained design, OG art, video adapters and Claude's live.json polling. Added beta app frame, comments/reactions, private feedback, consent-aware aggregate source/funnel stats. Fork hosting keeps upstream feat/onboarding as an exact mirror and isolated default-branch build guards. Generation fails closed without a key/budget; no production change to corvus.gent.
+
+## 2026-11-07 · hosted HackTheFeed iframe
+Use the existing hackthefeed-six.vercel.app app directly, with full-viewport iframe, feedback bar and five-second fallback. Attribute app links and keep navigation click tracking alive. No hosting or clone.
