@@ -8,3 +8,6 @@ Merged Claude commit `7a1ac15` without losing its live.json, 30-second feed poll
 
 ## 2026-11-07 · HackTheFeed pitch
 Static pitch page only: HackTheFeed hero, upstream GitHub button, video slot, four-step explanation, original OG, slider and live build feed. Hosting, sync, feedback and stats are paused and excluded from this PR until after the pitch.
+
+## 2026-11-07 · Oriane pitch hotfix
+Correct host name across page and OG artwork. Add five locally hosted partner logo chips, Oriane socials, Simon Lorenzo shoutout and consent-respecting outbound attribution.
