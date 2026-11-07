@@ -33,15 +33,15 @@ export function mountVideo(value=HACK_VIDEO_URL){
  if(!value){root.replaceChildren(...emptyVideo.map(n=>n.cloneNode(true)));note.textContent='The build film is on its way.';original.hidden=true;return;}
  const source=videoSource(value);if(!source){note.textContent='The film link is not ready yet. Check back soon.';return;}
  original.href=source.original||source.url;original.hidden=false;
- const button=node('button');button.type='button';button.className='video-placeholder video-play';button.setAttribute('aria-label','Play the Hookjack build film via '+source.name);
+ const button=node('button');button.type='button';button.className='video-placeholder video-play';button.setAttribute('aria-label','Play the HackTheFeed build film via '+source.name);
  const mark=node('span','▷');mark.className='signal-cross';mark.setAttribute('aria-hidden','true');const label=node('strong','watch the build');button.append(mark,label);root.replaceChildren(button);
  note.textContent='Play loads '+source.name+' content, which may set cookies. You can also watch the original.';
  button.addEventListener('click',()=>{
   root.replaceChildren();
   if(source.provider==='video'){
-   const video=node('video');video.controls=true;video.playsInline=true;video.preload='none';video.src=source.url;video.setAttribute('aria-label','Hookjack build film');video.addEventListener('error',()=>{note.textContent='The film could not load here. Try the original link.';});root.append(video);video.play().catch(()=>{});
+   const video=node('video');video.controls=true;video.playsInline=true;video.preload='none';video.src=source.url;video.setAttribute('aria-label','HackTheFeed build film');video.addEventListener('error',()=>{note.textContent='The film could not load here. Try the original link.';});root.append(video);video.play().catch(()=>{});
   }else if(source.provider==='iframe'){
-   const frame=node('iframe');frame.title='Hookjack build film — '+source.name;frame.referrerPolicy='strict-origin-when-cross-origin';frame.allow='autoplay; fullscreen; encrypted-media; picture-in-picture';frame.allowFullscreen=true;frame.src=source.url;root.append(frame);
+   const frame=node('iframe');frame.title='HackTheFeed build film — '+source.name;frame.referrerPolicy='strict-origin-when-cross-origin';frame.allow='autoplay; fullscreen; encrypted-media; picture-in-picture';frame.allowFullscreen=true;frame.src=source.url;root.append(frame);
   }else{
    root.classList.add('is-x');const quote=node('blockquote');quote.className='twitter-tweet';quote.dataset.theme='dark';quote.dataset.dnt='true';quote.dataset.conversation='none';const link=node('a','Watch the build on X ↗');link.href=source.url;link.target='_blank';link.rel='noopener noreferrer';quote.append(link);root.append(quote);
    const script=node('script');script.src='https://platform.twitter.com/widgets.js';script.async=true;script.onerror=()=>{note.textContent='X is blocked or unavailable here. The original link still works.';};script.onload=()=>window.twttr?.widgets?.load(root);document.head.append(script);
