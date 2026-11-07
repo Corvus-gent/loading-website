@@ -89,3 +89,5 @@ All links use `utm_medium=social&utm_campaign=compound-prize`:
 - Runtime dependency audit: zero advisories. The Discord regression suite passes. Screenshots and receipts remain local/ignored; secrets and customer details are not in Git.
 
 References: [Vercel protected webhook URLs](https://vercel.com/docs/deployment-protection/methods-to-bypass-deployment-protection/protection-bypass-automation), [Stripe live-account activation](https://docs.stripe.com/get-started/account/set-up).
+
+- Final owned-sandbox check: a fresh €1.00 Checkout on Gabriel’s Corvus sandbox delivered through the permanent webhook without the local forwarding process. The preview automatically rose €2.00 → €3.00 (all synthetic test money; initial temporary-sandbox receipt plus two owned-sandbox checks). Account activation for real charges remains outstanding.
