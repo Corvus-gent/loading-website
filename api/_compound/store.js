@@ -30,7 +30,7 @@ async function score(uid,points){if(!uid||!points)return;const value=Number(awai
 export async function event(name,versionId,raw,visitor){
  const a=attribution(raw),v=validVersion(versionId)?versionId:'none';
  const commands=[['HINCRBY',key('global'),name,1],['HINCRBY',key('stats',v),name,1],['HINCRBY',key('sources'),a.source+':'+name,1]];
- if(visitor){commands.push(['LPUSH',key('events',v),JSON.stringify({event:name,version:v,visitor,...a,at:new Date().toISOString()})],['LTRIM',key('events',v),0,9999],['EXPIRE',key('events',v),RETENTION]);}
+ if(visitor){const day=new Date().toISOString().slice(0,10),bucket=key('events',v,day),expiry=Math.floor(Date.parse(day+'T00:00:00Z')/1000)+RETENTION;commands.push(['LPUSH',bucket,JSON.stringify({event:name,version:v,visitor,...a,at:new Date().toISOString()})],['LTRIM',bucket,0,9999],['EXPIREAT',bucket,expiry]);}
  await pipeline(commands);
 }
 export async function feedback(uid,v,data){
