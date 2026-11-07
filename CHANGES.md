@@ -188,3 +188,7 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 ## Arcade P1 — live stats and reveal
 - Count idempotent game starts and bounded run scores in Redis. Show live plays/votes/top score and the 23:15 UTC reveal; atomically reject late votes.
 - Update the game title from the winner. Show animated beta social proof only from 10 plays.
+
+## Arcade P2 — community leaderboard and story cards
+- Add bounded run score submission, public top 10, named callouts and a generated 1080×1920 story card with file sharing/download.
+- Add private bug/public idea storage behind the existing API, ready for the feedback controls. Names are optional and explicitly posted publicly.
