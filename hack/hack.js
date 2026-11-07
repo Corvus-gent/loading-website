@@ -27,11 +27,10 @@ export function videoSource(value,base='https://corvus.gent'){
  return null;
 }
 const node=(tag,text)=>{const el=document.createElement(tag);if(text)el.textContent=text;return el;};
-let emptyVideo;
 export function mountVideo(value=HACK_VIDEO_URL){
- const root=document.getElementById('hack-video'),note=document.getElementById('video-note'),original=document.getElementById('video-original');if(!root)return;emptyVideo||=[...root.childNodes].map(n=>n.cloneNode(true));root.classList.remove('is-x');
- if(!value){root.replaceChildren(...emptyVideo.map(n=>n.cloneNode(true)));note.textContent='The build film is on its way.';original.hidden=true;return;}
- const source=videoSource(value);if(!source){note.textContent='The film link is not ready yet. Check back soon.';return;}
+ const root=document.getElementById('hack-video'),note=document.getElementById('video-note'),original=document.getElementById('video-original'),section=document.getElementById('demo'),launch=document.getElementById('demo-launch');if(!root)return;root.classList.remove('is-x');
+ const source=videoSource(value);if(section)section.hidden=!source;if(launch)launch.hidden=Boolean(source);
+ if(!source){root.replaceChildren();note.textContent='';original.hidden=true;return;}
  original.href=source.original||source.url;original.hidden=false;
  const button=node('button');button.type='button';button.className='video-placeholder video-play';button.setAttribute('aria-label','Play the HackTheFeed build film via '+source.name);
  const mark=node('span','▷');mark.className='signal-cross';mark.setAttribute('aria-hidden','true');const label=node('strong','watch the build');button.append(mark,label);root.replaceChildren(button);
