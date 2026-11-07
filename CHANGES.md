@@ -199,3 +199,6 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 
 ## Arcade P4 — feedback and bugs
 - Add accessible feedback dialogs on the vote and game pages; pause play while writing. Public ideas support one upvote per signed device; bug reports are never included in public results.
+
+## Beta play counter visibility
+- Always show the live play-start total alongside the beta link, including fewer than ten plays. Keep it below the link on mobile and refresh every five seconds.
