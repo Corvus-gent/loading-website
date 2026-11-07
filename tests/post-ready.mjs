@@ -33,6 +33,6 @@ try{
   await page.screenshot({path:'test-results/post-ready/'+(path.replaceAll('/','')||'hub')+'-'+(process.env.BROWSER||'chromium')+'.png',fullPage:false});
   report.push({path,status:response.status(),...props,og:!!og});
  }
- await page.goto(base+'/hack/1/the-feed/');assert.match(await page.locator('#hack-app').getAttribute('src'),/^https:\/\/hackthefeed-six\.vercel\.app\/onboarding/);
+ const appPage=await context.newPage();await appPage.goto(base+'/hack/1/the-feed/');assert.match(await appPage.locator('#hack-app').getAttribute('src'),/^https:\/\/hackthefeed-six\.vercel\.app\/onboarding/);
  assert.deepEqual(errors,[]);console.log(JSON.stringify({checks:report,iframe:true,errors},null,2));
 }finally{await browser.close();}
