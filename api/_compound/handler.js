@@ -9,6 +9,7 @@ export default async function compound(req,res){
  const q=req.query||{};
  try{
  if(req.method==='GET'){
+  if(q.session==='1')return res.status(200).json({authorized:authorized(req,q.role==='admin'?'admin':'stats')});
   if(q.slug){
    const destination=compoundDestination(q.slug,q.c);if(!destination)return res.status(404).json({error:'missing'});
    const [source,medium]=COMPOUND_LINKS[q.slug];
@@ -39,7 +40,7 @@ export default async function compound(req,res){
   if(b.action==='revolut')return res.status(200).json({revolut:await store.setRevolut(b)});
   if(b.action==='publish')return res.status(200).json({version:await store.publish(b)});
   if(b.action==='hide_text'){if(!/^[a-f0-9-]{36}$/.test(b.id||''))throw Error('text');if(!await store.hideText(b.id))return res.status(404).json({error:'missing'});return res.status(200).json({ok:true});}
-  if(!await store.version(b.version))throw Error('version');return res.status(200).json({poll:await store.pushPoll(b.version,b)});
+  if(b.version!=='all'&&!await store.version(b.version))throw Error('version');return res.status(200).json({poll:await store.pushPoll(b.version,b)});
  }
  if(!/^[a-f0-9-]{36}$/.test(b.visit||''))delete b.visit;
  const tags=attribution(b.attribution),consented=(b.analytics===true||b.analytics==='session')&&req.headers['sec-gpc']!=='1'&&req.headers.dnt!=='1';

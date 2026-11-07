@@ -1,5 +1,6 @@
-import {node} from './client.js?v=3';
+import {node} from './client.js?v=20261107c';
 const CATEGORIES=['Hook','Transitions','Music','Pacing','Story','Humor','Visuals','Ending'];
+const globalPollsSeen=new Set();
 const TAGS=['keep','cut','too slow','too fast','confusing','smooth','funny','strong hook'];
 export const stamp=t=>`${Math.floor(t/60)}:${String(Math.floor(t%60)).padStart(2,'0')}`;
 export class Cut {
@@ -12,10 +13,10 @@ export class Cut {
   for(const b of this.el.querySelectorAll('[data-choice]'))b.onclick=()=>this.submit(b,{action:'vote',choice:b.dataset.choice},r=>{this.choices.set(this.current.id,r.choice);q('.categories').hidden=false;});
   for(const category of CATEGORIES){const row=node('div',undefined,'category-row');row.append(node('span',category));for(const choice of ['up','down']){const b=node('button',choice==='up'?'👍':'👎');b.dataset.category=category;b.dataset.choice=choice;b.setAttribute('aria-label',category+' '+(choice==='up'?'worked':'needs work'));b.onclick=()=>this.submit(b,{action:'category',category,choice,why:q('.category-why').value},r=>{this.categories.set(this.current.id+':'+category,r.choice);q('.category-why').value='';});row.append(b);}q('.category-list').append(row);}
   q('.poll-top button').onclick=()=>this.hidePoll();
-  this.video.addEventListener('play',()=>{this.hooks.activate(this.slot);if(!this.played){this.played=true;this.event('play');}this.reactionsEnabled(true);});
+  this.video.addEventListener('play',()=>{this.endedAt=0;this.hooks.activate(this.slot);if(!this.played){this.played=true;this.event('play');}this.reactionsEnabled(true);});
   this.video.addEventListener('pause',()=>{this.dropoff();this.reactionsEnabled(false);});
   this.video.addEventListener('timeupdate',()=>this.time());this.video.addEventListener('seeking',()=>this.time());
-  this.video.addEventListener('ended',()=>{this.watch(100);this.transitionAt();});
+  this.video.addEventListener('ended',()=>{this.endedAt=Date.now();this.watch(100);this.transitionAt();setTimeout(()=>this.transitionAt(),1510);});
   this.video.addEventListener('error',()=>this.hooks.toast('V'+this.slot+' could not load. try another cut.'));
   q('.transition-comment').onsubmit=async e=>{e.preventDefault();const input=e.target.querySelector('input'),id=this.activeTransition?.id;if(!id||!input.value.trim())return;const b=e.submitter;await this.submit(b,{action:'transition_text',transition:id,text:input.value},()=>{input.value='';});};
  }
@@ -42,7 +43,8 @@ export class Cut {
  transitionAt(){
   if(!this.current)return;const t=this.video.currentTime,items=this.current.transitions||[];
   if(!this.video.paused)this.pinned=null;
-  const item=this.hooks.active()===this.slot?(this.pinned||[...items].reverse().find(i=>t>=i.start&&t<i.end+1.5)):null;
+  const finished=this.video.ended&&this.endedAt&&Date.now()-this.endedAt>=1500;
+  const item=this.hooks.active()===this.slot?(this.pinned||(!finished&&[...items].reverse().find(i=>t>=i.start&&t<i.end+1.5))):null;
   const card=this.q('.transition-card');card.hidden=!item;this.q('.transition-empty').hidden=!!item;if(!item){this.activeTransition=null;return;}
   const key=this.current.id+':'+item.id,changed=this.activeTransition?.id!==item.id;this.activeTransition=item;
   this.q('.transition-top strong').textContent='🎬 NOW: '+item.label;
@@ -56,5 +58,5 @@ export class Cut {
  renderTimeline(){this.q('.transition-timeline').replaceChildren(...(this.current?.transitions||[]).map(item=>{const up=this.stats?.['transition:'+item.id+':up']||0,down=this.stats?.['transition:'+item.id+':down']||0,b=node('button',item.label);b.style.flexGrow=item.end-item.start;b.className=up+down?(up>=down?'good':'bad'):'';b.title=`${stamp(item.start)}–${stamp(item.end)} · ${up} 👍 / ${down} 👎`;b.setAttribute('aria-label',item.label+' · jump and vote · '+b.title);b.onclick=()=>{this.hooks.activate(this.slot);this.video.currentTime=item.start;this.pinned=item;this.transitionAt();};return b;}));}
  renderHeat(data){const bins=24,values=Array.from({length:bins},()=>({total:0,bad:0}));for(const [key,n]of Object.entries(data||{})){const [time,type]=key.split(':'),b=values[Math.min(bins-1,Math.floor(Number(time)/(this.current?.duration||1)*bins))];b.total+=n;if(['neutral','cut','skull'].includes(type))b.bad+=n;}const max=Math.max(1,...values.map(b=>b.total));this.q('.heat').replaceChildren(...values.map((v,i)=>{const t=i/bins*(this.current?.duration||0),b=node('button');b.style.height=8+v.total/max*28+'px';b.className=v.total?(v.bad>v.total/2?'cut':'hot'):'';b.disabled=!this.current;b.title=`${stamp(t)} · ${v.total} reactions`;b.setAttribute('aria-label',b.title);b.onclick=()=>{this.video.currentTime=t;this.video.focus();};return b;}));}
  hidePoll(){clearInterval(this.pollTimer);this.q('.poll').hidden=true;}
- showPoll(p,seconds=5){if(!this.current||this.hooks.active()!==this.slot||p.version&&p.version!==this.current.id||this.seenPolls.has(this.current.id+':'+p.id)||seconds<=0)return;this.seenPolls.add(this.current.id+':'+p.id);this.hidePoll();const until=Date.now()+Math.min(seconds,p.id.startsWith('live-')?120:5)*1000;this.q('.poll-question').textContent=p.q;this.q('.poll-options').replaceChildren(...p.options.map((option,i)=>{const b=node('button',option);b.onclick=()=>this.submit(b,{action:'poll',poll:p.id,option:i},()=>this.hidePoll());return b;}));this.q('.poll').hidden=false;const tick=()=>{const n=Math.ceil((until-Date.now())/1000);if(n<=0)this.hidePoll();else this.q('.poll-timer').textContent=n+'s to answer';};tick();this.pollTimer=setInterval(tick,250);}
+ showPoll(p,seconds=5){if(!this.current||this.hooks.active()!==this.slot||p.version&&p.version!=='all'&&p.version!==this.current.id||p.version==='all'&&globalPollsSeen.has(p.id)||this.seenPolls.has(this.current.id+':'+p.id)||seconds<=0)return;this.seenPolls.add(this.current.id+':'+p.id);if(p.version==='all')globalPollsSeen.add(p.id);this.hidePoll();const until=Date.now()+Math.min(seconds,p.id.startsWith('live-')?120:5)*1000;this.q('.poll-question').textContent=p.q;this.q('.poll-options').replaceChildren(...p.options.map((option,i)=>{const b=node('button',option);b.onclick=()=>this.submit(b,{action:'poll',poll:p.id,option:i},()=>this.hidePoll());return b;}));this.q('.poll').hidden=false;const tick=()=>{const n=Math.ceil((until-Date.now())/1000);if(n<=0)this.hidePoll();else this.q('.poll-timer').textContent=n+'s to answer';};tick();this.pollTimer=setInterval(tick,250);}
 }

@@ -97,11 +97,11 @@ export async function reaction(uid,v,type,t){
 }
 export async function pushPoll(v,data){const poll={id:'live-'+crypto.randomUUID(),version:v,...validatePoll(data),created:Date.now(),expires:Date.now()+120000};await redis(['SET',key('live-poll'),JSON.stringify(poll),'EX',120]);await pipeline([['SET',key('poll',poll.id),JSON.stringify(poll),'EX',RETENTION],['LPUSH',key('polls',v),poll.id],['LTRIM',key('polls',v),0,99],['EXPIRE',key('polls',v),RETENTION]]);return poll;}
 export async function answer(uid,v,id,option){
- const record=await version(v);let poll=record?.cues?.find(c=>c.id===id);if(id.startsWith('live-')){poll=await get('poll:'+id);if(poll?.version!==v||poll.expires<Date.now())throw Error('poll expired');}
+ const record=await version(v);let poll=record?.cues?.find(c=>c.id===id);if(id.startsWith('live-')){poll=await get('poll:'+id);if((poll?.version!==v&&poll?.version!=='all')||poll.expires<Date.now())throw Error('poll expired');}
  if(!poll||!Number.isInteger(option)||option<0||option>=poll.options.length)throw Error('poll');
  const field='poll:'+id+':'+option;
  const script="if not redis.call('SET',KEYS[1],ARGV[1],'EX',ARGV[2],'NX') then return 0 end;redis.call('HINCRBY',KEYS[2],ARGV[3],1);return 1";
- return{added:!!Number(await redis(['EVAL',script,2,key('poll-once',v,id,uid),key('stats',v),option,RETENTION,field]))};
+ return{added:!!Number(await redis(['EVAL',script,2,key('poll-once',poll.version==='all'?'all':v,id,uid),key('stats',v),option,RETENTION,field]))};
 }
 export async function predict(uid,data){
  if(!['yes','no'].includes(data.win)||!Number.isInteger(data.final)||data.final<1||data.final>999)throw Error('prediction');
@@ -112,7 +112,7 @@ export async function predict(uid,data){
 export async function privateStats(v){
  const history=await versions();v=v||await redis(['GET',key('current_version')])||'none';const ids=await redis(['LRANGE',key('texts',v),0,199])||[];
  const texts=ids.length?(await redis(['MGET',...ids.map(id=>key('text',id))])).filter(Boolean).map(JSON.parse).filter(x=>!x.hidden).map(({uid,...x})=>x):[];
- const pollIds=await redis(['LRANGE',key('polls',v),0,99])||[];const livePolls=pollIds.length?(await redis(['MGET',...pollIds.map(id=>key('poll',id))])).filter(Boolean).map(JSON.parse):[];const polls=[...(history.find(x=>x.id===v)?.cues||[]),...livePolls];
+ const pollLists=await pipeline([['LRANGE',key('polls',v),0,99],['LRANGE',key('polls','all'),0,99]]),pollIds=[...new Set(pollLists.flat().filter(Boolean))];const livePolls=pollIds.length?(await redis(['MGET',...pollIds.map(id=>key('poll',id))])).filter(Boolean).map(JSON.parse):[];const polls=[...(history.find(x=>x.id===v)?.cues||[]),...livePolls];
  const stats=await pipeline(history.map(x=>['HGETALL',key('stats',x.id)]));
  return{...await summary(v),campaigns:await campaignStats(),polls,perVersion:history.map((x,i)=>({...x,stats:nums(stats[i])})),sources:nums(await redis(['HGETALL',key('sources')])),donations:nums(await redis(['HGETALL',key('donation-sources',process.env.COMPOUND_STRIPE_MODE||(process.env.VERCEL_ENV==='production'?'live':'test'))])),texts};
 }
