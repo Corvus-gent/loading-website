@@ -16,4 +16,5 @@ export function interactionHandler({store=armyStore(),publicKey=()=>process.env.
   return json({type:5,data:{flags:64}});
  };
 }
-export const POST=interactionHandler();
+const discordPost=interactionHandler();
+export async function POST(request){if(new URL(request.url).searchParams.get('compoundStripe')==='1')return (await import('./_compound/payments.js')).stripeWebhook(request);return discordPost(request);}

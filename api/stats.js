@@ -7,6 +7,7 @@ const FIRST = "2026-11-02";
 const tzDay = (d = new Date()) => new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Brussels" }).format(d);
 
 async function handler(req, res) {
+  if(req.query.compound === "1") return (await import("./_compound/handler.js")).default(req,res);
   if(req.query.hack === "1") return (await import("./_hack.js")).default(req,res);
   if(req.query.report==='1')return (await import('./_report.js')).default(req,res);
   if(req.query.notice==='1')return (await import('./_visitor-counts.js')).noticeOK(req,res);

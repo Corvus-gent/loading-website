@@ -1,3 +1,8 @@
+## 2026-11-07 — codex/compound-prize
+
+- Add /compound: countdowns, versioned Blob video, timestamped feedback, polls, helper scores, predictions and protected control/stats pages.
+- Add custom-amount Stripe support with signed, idempotent payment/refund handling, separate preview data, upload/digest CLIs, and mobile/backend checks.
+
 # Changes
 
 ## 2026-11-06 — earned ranks and phone audit

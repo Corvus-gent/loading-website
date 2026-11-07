@@ -4,6 +4,16 @@
   ],
   "redirects": [
     {
+      "source": "/prize",
+      "destination": "/compound",
+      "permanent": false
+    },
+    {
+      "source": "/1000",
+      "destination": "/compound",
+      "permanent": false
+    },
+    {
       "source": "/gabe",
       "destination": "/people/?id=gabe",
       "permanent": false
@@ -30,6 +40,14 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/api/compound/stripe",
+      "destination": "/api/discord?compoundStripe=1"
+    },
+    {
+      "source": "/api/compound",
+      "destination": "/api/stats?compound=1"
+    },
     {
       "source": "/api/hack",
       "destination": "/api/stats?hack=1"
