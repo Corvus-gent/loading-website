@@ -123,3 +123,6 @@ Renamed Hookjack; retained design, OG art, video adapters and Claude's live.json
 
 ## 2026-11-07 · hosted HackTheFeed iframe
 Use the existing hackthefeed-six.vercel.app app directly, with full-viewport iframe, feedback bar and five-second fallback. Attribute app links and keep navigation click tracking alive. No hosting or clone.
+
+## 2026-11-07 · evidence demo link
+The full evidence placeholder, including the arrow, opens the hosted HackTheFeed onboarding in a new tab. Native accessible link, subtle gold hover and 2px arrow movement; reduced-motion respected. If a build film is later configured, its player controls remain usable.

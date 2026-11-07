@@ -29,7 +29,7 @@ export function videoSource(value,base='https://corvus.gent'){
 const node=(tag,text)=>{const el=document.createElement(tag);if(text)el.textContent=text;return el;};
 let emptyVideo;
 export function mountVideo(value=HACK_VIDEO_URL){
- const root=document.getElementById('hack-video'),note=document.getElementById('video-note'),original=document.getElementById('video-original');if(!root)return;emptyVideo||=[...root.childNodes].map(n=>n.cloneNode(true));root.classList.remove('is-x');
+ const root=document.getElementById('hack-video'),note=document.getElementById('video-note'),original=document.getElementById('video-original');if(!root)return;const demoLink=document.getElementById('evidence-link');if(demoLink)demoLink.hidden=Boolean(videoSource(value));emptyVideo||=[...root.childNodes].map(n=>n.cloneNode(true));root.classList.remove('is-x');
  if(!value){root.replaceChildren(...emptyVideo.map(n=>n.cloneNode(true)));note.textContent='The build film is on its way.';original.hidden=true;return;}
  const source=videoSource(value);if(!source){note.textContent='The film link is not ready yet. Check back soon.';return;}
  original.href=source.original||source.url;original.hidden=false;
