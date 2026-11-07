@@ -18,7 +18,7 @@ export const handlePreference={get:()=>storage.get('compound-handle')||'',set:va
 export const tags=()=>({attribution:journey?.first||first,analytics:!!journey,visitor:journey?.id||undefined});
 export async function api(body,query=''){
  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),12000);
- try{const response=await fetch('/api/compound'+query,{method:body?'POST':'GET',credentials:'same-origin',headers:body?{'Content-Type':'application/json'}:undefined,body:body?JSON.stringify({...tags(),...body}):undefined,signal:controller.signal,cache:'no-store'});const data=await response.json();if(!response.ok)throw Error(data.error||'the crow lost its connection. try again.');return data;}finally{clearTimeout(timer);}
+ try{const response=await fetch('/api/compound'+query,{method:body?'POST':'GET',credentials:'same-origin',headers:body?{'Content-Type':'application/json'}:undefined,body:body?JSON.stringify({...tags(),...body}):undefined,signal:controller.signal,cache:body||query.includes('private=')?'no-store':'default'});const data=await response.json();if(!response.ok)throw Error(data.error||'the crow lost its connection. try again.');return data;}finally{clearTimeout(timer);}
 }
 export function beacon(body){const value=JSON.stringify({...tags(),...body});try{if(navigator.sendBeacon?.('/api/compound',new Blob([value],{type:'application/json'})))return;}catch{}fetch('/api/compound',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:value,keepalive:true}).catch(()=>{});}
 export const node=(tag,text,className)=>{const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(className)e.className=className;return e;};
