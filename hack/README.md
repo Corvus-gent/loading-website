@@ -1,7 +1,8 @@
 # Hookjack /hack
 
-Static HTML, the site's shared monospace/style tokens, a scoped CSS file and one small JS module. No new API, database, dependency, analytics tracker or form.
+Static HTML, the site's shared monospace/style tokens, a scoped CSS file and one small JS module. No new API, database, dependency or form; existing analytics are retained.
 
+- Live updates are now owned on `codex/hack-page`: edit `hack/live.json` (`video`, `links.x`, `links.github`, `updates: [{t,text}]`); the browser refreshes it every 30 seconds without resetting an unchanged player. Existing analytics/privacy scripts are retained.
 - Set `HACK_VIDEO_URL` at the top of `hack/hack.js`. Leave it empty for the “dropping soon” card.
 - Supported: canonical TikTok `/@name/video/<id>`, X/Twitter `/name/status/<id>`, YouTube Shorts/watch/youtu.be, HTTPS `.mp4` (query strings allowed), or a same-site `/path.mp4`. TikTok shortened share URLs must first be expanded to their full video URL.
 - Player requests begin only after a click. YouTube uses its privacy-enhanced host and origin-only referrer policy; TikTok uses its embed player. X uses its official embedded-post widget, including any attached video. Each has an original-link fallback for blocked/deleted/private media. A real film URL has not been supplied, so provider integrations are tested with mocks.
