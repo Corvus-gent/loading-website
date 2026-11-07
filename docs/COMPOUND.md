@@ -72,8 +72,20 @@ All links use `utm_medium=social&utm_campaign=compound-prize`:
 
 ## Limits / remaining decisions
 
-- A video file is needed before the production player has a real cut. The labelled preview fixture is not the hackathon entry.
+- Gabriel confirmed the production video may remain empty for now; the page has a usable placeholder. The labelled preview fixture is not the hackathon entry.
 - The exact helper payout percentage and recipient/payout terms are not invented; `/compound/rules` discloses they remain unset. Support purchases never buy points or prediction odds.
 - One signed browser cookie + daily IP limits deter duplicate/spam contributions, but cannot prove a unique human. Leaderboard points are not a payout entitlement. Admin can hide text spam.
 - Actual first-frame time depends on the supplied video, device/network and Blob CDN warmth. The upload encoding addresses the controllable parts; measurements must state their fixture/network.
 - Existing Redis's scoped plaintext exception expires 2026-11-20. Its separately planned TLS migration remains necessary; no migration or old-data deletion is part of this feature.
+
+## Verified preview (7 November 2026)
+
+- Stable preview: https://loading-website-compound-preview-corvus11.vercel.app/compound/ (existing Vercel protection retained).
+- Actual Stripe sandbox Checkout completed for **€1.00 EUR**, payment status `paid`. Signed event reached the real Vercel `/api/compound/stripe` route with HTTP 200; preview fund changed from €0.00 to €1.00 and attribution recorded `x:payments=1`, `x:cents=100`. No real money was charged.
+- A permanent test webhook was verified with a replay returning HTTP 200; duplicate delivery kept the fund at exactly €1.00. It is registered against the stable preview alias with the existing automation-bypass secret kept only in Stripe's endpoint configuration, following Vercel's documented webhook integration. The shared project protection was not disabled. Test sandbox is temporary and expires 14 November; do not mistake it for a live account.
+- The subsequently authorised user account is **corvus sandbox**, BE, test-only: `charges_enabled=false`, `payouts_enabled=false`, `details_submitted=false`. Switching it to live is refused. Account-holder activation at https://dashboard.stripe.com/account/onboarding is the remaining blocker; no live checkout is enabled or claimed.
+- Real deployed mobile feedback and protected admin/stats checked; `/prize` and `/1000` both return 307 with Location `/compound`. Chromium and WebKit mobile/desktop suites cover empty and video states, cue/live polls, old/new versions, GPC/optional tracking, predictions, expired deadlines and no page errors.
+- The small test clip rendered its next first frame in 55 ms under 6× CPU and 1.6 Mbps/150 ms emulation **after metadata had loaded**. This is a warm-fixture result, not a guarantee for a future real upload or a cold 4G connection.
+- Runtime dependency audit: zero advisories. The Discord regression suite passes. Screenshots and receipts remain local/ignored; secrets and customer details are not in Git.
+
+References: [Vercel protected webhook URLs](https://vercel.com/docs/deployment-protection/methods-to-bypass-deployment-protection/protection-bypass-automation), [Stripe live-account activation](https://docs.stripe.com/get-started/account/set-up).
