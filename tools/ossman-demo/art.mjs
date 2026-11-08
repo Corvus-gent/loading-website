@@ -13,5 +13,6 @@ for(const [name,h] of [['9x16',1920],['1x1',1080]]){const tall=h>1080;
  const caps=[["YOU'RE A WHITE BELT."],["COLLECT TECHNIQUES."],["GRAB THE BLACK BELT."],["SUBMIT THE MEME FIGHTERS",'💀'],['GET PROMOTED.'],['THE INTERNET NAMED IT.']];
  for(let i=0;i<caps.length;i++){const y=tall?390:972,scale=i===3?6:7;await save(name+'-cap'+i,h,`<rect x="48" y="${y-26}" width="984" height="${i===3?116:100}" rx="4" fill="#050810" fill-opacity=".95"/><rect x="48" y="${y-26}" width="7" height="${i===3?116:100}" fill="#d1ff48"/>`+pixel(caps[i][0],y,scale,'#fff',true)+(i===3?sub('💀',y+90,40,'#fff'):''));}
 }
+for(const [name,h] of [['9x16',1920],['1x1',1080]]){const tall=h>1080;for(const [i,tech] of ['TRIANGLE','KIMURA','RNC'].entries()){const y=tall?1610:760;await save(name+'-finish'+i,h,`<rect x="85" y="${y-35}" width="910" height="185" fill="#070b14" fill-opacity=".95" stroke="#d1ff48" stroke-width="5"/>`+pixel(tech+"'D",y,14,'#d1ff48',true)+sub('SUBMISSION 0'+(i+1)+' · ZERO EXCUSES',y+135,27,'#fff'));}}
 await fs.copyFile(out+'/9x16-title.png','submission/videos/ossman-cover.png');
 console.log('Title/end cards + caption overlays rendered.');
