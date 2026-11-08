@@ -217,3 +217,8 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 - Update the battle disclaimer and existing Stripe product descriptions verbatim; keep payment links, $3 prices, videos and votes unchanged.
 - The next supplied Compound video will replace the current cut with the old file preserved as compound-v1.mp4; no replacement file supplied yet.
 - Export a 20-second 1080×1080 LinkedIn face-off with neutral contender labels, contender 2 audio, a two-second frozen voting CTA and first-frame cover. Uses the current Compound cut pending a new supplied file.
+
+## 2026-11-08 — new Compound cut
+- Replace the main Compound contender with ufc-03-dagestan-dc, encoded H.264/AAC at 720×1280, CRF 28, veryfast; generate a new poster.
+- Preserve the previous video and poster as compound-v1.mp4 / compound-v1.jpg. No voting code, keys, counts or existing bonus clips changed.
+- Re-export the square neutral-label LinkedIn face-off and first-frame cover using the new main video. The supplied 60-40-A-dagestan cut remains an alternate source, not an extra voting contender.
