@@ -298,3 +298,8 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 - One public `live.config.js` switch: true/on, false/off, optional auto/Twitch. Reuse the Plethora banner pattern across site pages; independent per-day/per-stream dismissal, reduced motion, full-height game layout protection.
 - Server-only, 60-second Twitch status/token caching when configured; no embedded player or third-party browser request. Missing credentials/provider errors fall back off in auto mode.
 - Tracked fail-open Twitch/Instagram/X redirects and the hidden terminal's `live` command. All affected shared-module/army cache versions updated together.
+
+## Live landing / robotics hackathon 003
+- Mobile /live with one-tap attributed social links, config-driven live status, private interview requests and social preview image; /livenow redirects with query preserved.
+- /hack/3 interview grid reads its own editable JSON; no public submission data is exposed.
+- /compound/v2 temporarily redirects to the working Compound editor because there was no V2 route in the repository.

@@ -4,6 +4,26 @@
   ],
   "redirects": [
     {
+      "source": "/livenow",
+      "destination": "/live",
+      "permanent": false
+    },
+    {
+      "source": "/livenow/",
+      "destination": "/live",
+      "permanent": false
+    },
+    {
+      "source": "/compound/v2",
+      "destination": "/compound",
+      "permanent": false
+    },
+    {
+      "source": "/compound/v2/",
+      "destination": "/compound",
+      "permanent": false
+    },
+    {
       "source": "/whitebelt",
       "destination": "/hack/play",
       "permanent": false

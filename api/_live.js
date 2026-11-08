@@ -1,3 +1,4 @@
+import { SOCIALS } from '../live/socials.js';
 import { LIVE, STREAM_ID } from '../live.config.js';
 import { waitUntil } from '@vercel/functions';
 import { redis } from './_redis.js';
@@ -38,12 +39,14 @@ export function createStatusReader({ env=process.env, fetcher=fetch, now=Date.no
   };
 }
 const readStatus=createStatusReader();
+const readLandingTwitch=createStatusReader({mode:'auto'});
 async function countClick(req,slug){
   if(req.method!=='GET'||/bot|crawler|spider|preview|headless|curl|wget/i.test(req.headers?.['user-agent']||'')||/prefetch/i.test(req.headers?.purpose||req.headers?.['sec-purpose']||''))return;
   const prefix=process.env.VERCEL_ENV==='production'?'live:clicks':'live:preview:clicks',day=new Date().toISOString().slice(0,10),hash=dailyIPHash(req,'live-'+slug);
   await redis(['EVAL',"if redis.call('SET',KEYS[1],'1','NX','EX',1800) then redis.call('HINCRBY',KEYS[2],ARGV[1],1);redis.call('HINCRBY',KEYS[3],ARGV[1],1) end;return 1",3,prefix+':dedupe:'+slug+':'+hash,prefix+':all',prefix+':'+day,slug]);
 }
 export default async function handler(req,res){
+  if(req.query.form==='interview'||req.query.interviews==='1')return (await import('./_live-interviews.js')).default(req,res);
   res.setHeader('Cache-Control','no-store');
   if(!['GET','HEAD'].includes(req.method)){res.setHeader('Allow','GET, HEAD');return res.status(405).json({error:'Use GET.'});}
   if(req.query.slug){
@@ -52,5 +55,11 @@ export default async function handler(req,res){
     res.setHeader('Location',STREAM_LINKS[req.query.slug]);return res.status(302).end();
   }
   res.setHeader('Cache-Control','public, max-age=0, s-maxage=60');
+  if(req.query.landing==='1'){
+    const platforms=Object.fromEntries(SOCIALS.filter(s=>s.primary).map(s=>[s.platform,s.isLive]));
+    const twitch=await readLandingTwitch();
+    if(twitch.source==='twitch')platforms.twitch=twitch.live;
+    return res.status(200).json({platforms,live:Object.values(platforms).some(Boolean)});
+  }
   return res.status(200).json(await readStatus());
 }
