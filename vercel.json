@@ -46,6 +46,10 @@
   ],
   "rewrites": [
     {
+      "source": "/api/live",
+      "destination": "/api/stats?live=1"
+    },
+    {
       "source": "/api/build",
       "has": [
         {
@@ -335,6 +339,15 @@
         {
           "key": "Cache-Control",
           "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/live.config.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
         }
       ]
     }

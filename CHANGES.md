@@ -293,3 +293,8 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 ## Map colour + Corvus hotspots — 2026-11-08
 - Colour major-city reference points and mark San Francisco/Hong Kong as editorial Corvus hotspots, with tap-to-focus controls and a visible legend.
 - Keep recorded visitors gold; no simulated visits, redistributed totals or changes to collection/aggregation. Reference highlights are labelled separately and remain visible even before new city data arrives.
+
+## Shared live announcement — 2026-11-08
+- One public `live.config.js` switch: true/on, false/off, optional auto/Twitch. Reuse the Plethora banner pattern across site pages; independent per-day/per-stream dismissal, reduced motion, full-height game layout protection.
+- Server-only, 60-second Twitch status/token caching when configured; no embedded player or third-party browser request. Missing credentials/provider errors fall back off in auto mode.
+- Tracked fail-open Twitch/Instagram/X redirects and the hidden terminal's `live` command. All affected shared-module/army cache versions updated together.

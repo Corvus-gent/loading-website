@@ -36,6 +36,8 @@ jobs:
         run: |
           node tools/plethora/verify-routes.mjs
           REDIS_URL=redis://127.0.0.1:16380/7 node tools/plethora/check.mjs
+      - name: Live banner state and safe redirects
+        run: node tests/live-banner-api.mjs
       - name: Map totals and city privacy
         run: npm run test:geo && npm run test:stats
       - name: Build ledger snapshot and webhook contracts
@@ -51,6 +53,7 @@ jobs:
           for test in store bmc mail discord pidgy-ui earned-ranks tier-rank; do node "tests/army/$test.mjs" || exit 1; done
           REDIS_URL=redis://127.0.0.1:16380/5 node tests/army/pidgy.mjs
       - run: npx playwright install --with-deps chromium
+      - run: node tests/live-banner-browser.mjs
       - run: node tests/smoke-ci.mjs
       - run: python3 tools/check-links.py
       - name: Generate search index from sources

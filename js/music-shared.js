@@ -1,4 +1,4 @@
-import { t } from './i18n.js?v=20261108-entry1';
+import { t } from './i18n.js?v=20261108live1';
 export const genres = ['us hip-hop','rap fr','rap nl/be','latin','lusophone','afro','pop 00s','electronic','rock','classics','soundtrack','funk & phonk'];
 export const $ = id => document.getElementById(id);
 export const esc = value => String(value ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));

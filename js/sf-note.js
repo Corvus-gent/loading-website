@@ -1,4 +1,4 @@
-import {t,getLang} from './i18n.js?v=20261108-entry1';
+import {t,getLang} from './i18n.js?v=20261108live1';
 import {SF_END} from './sf-trip.js';
 const KEY='sf-note:2026-11';
 export function mountSFNote(){

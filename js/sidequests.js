@@ -1,4 +1,4 @@
-import {initI18n,t} from './i18n.js?v=20261108-entry1';
+import {initI18n,t} from './i18n.js?v=20261108live1';
 import {clearTrackingURL} from './arrival.js';
 initI18n();
 const clean = document.querySelector('link[rel=canonical]').href;

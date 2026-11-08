@@ -132,7 +132,7 @@ function dash(snap) {
   whenVisible('x-log', async (root) => (await import('./private-x.js')).mountXLog(root));
   if (snap.viewer.toLowerCase() === 'gabriel@corvus.gent')
     whenVisible('sf-leads', async (root) =>
-      (await import('./private-sf.js')).mountSFLeads(root, s.funnelSF)
+      (await import('./private-sf.js?v=20261108live1')).mountSFLeads(root, s.funnelSF)
     );
   else $('sf-leads').hidden = true;
 }

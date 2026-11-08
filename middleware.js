@@ -30,6 +30,8 @@ const CURL_REPLY = `
 
 export default function middleware(request) {
   const url = new URL(request.url);
+  const liveSlug=/^\/go\/(twitch|instagram|twitter)\/?$/.exec(url.pathname);
+  if(liveSlug){const target=new URL('/api/stats',url);target.searchParams.set('live','1');target.searchParams.set('slug',liveSlug[1]);return rewrite(target);}
   const supportSlug=/^\/go\/((?:call|bmc|dinner|roll)-(?:li|x))\/?$/.exec(url.pathname);
   if(supportSlug){const target=new URL('/api/stats',url);target.search=url.search;target.searchParams.set('support','1');target.searchParams.set('slug',supportSlug[1]);return rewrite(target);}
   const plethoraSlug=/^\/go\/(plethora-[a-z0-9-]+)\/?$/.exec(url.pathname);

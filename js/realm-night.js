@@ -1,5 +1,5 @@
-import {collectRealmFeather} from './eggs.js?v=20261108-entry1';
-import {openTerminal} from './terminal.js';
+import {collectRealmFeather} from './eggs.js?v=20261108live1';
+import {openTerminal} from './terminal.js?v=20261108live1';
 
 const scene = document.querySelector('.night-scene');
 const nav = scene.querySelector('nav');
