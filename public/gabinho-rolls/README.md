@@ -2,12 +2,13 @@
 
 ## Still required
 
-- `profile.jpg`: Gabriel's surf photo. Used for the circular hero portrait, video poster and Open Graph/Twitter image. **The social preview image cannot load until this file is supplied.**
 - `gi-medal.jpg`: Gabriel's Grappling Industries bronze-medal photo, in the about section.
 
 Add the originals at these exact paths and run the normal Vercel build/redeploy. `tools/build-gabinho-rolls.mjs` includes available photos automatically; missing photos never render broken image boxes. No replacement portraits have been generated.
 
 ## Included
+
+- `profile.jpg`: the supplied surf photo, copied unchanged from `D6647DB6-D598-42F7-B849-DEE038516A69_4_5005_c.jpeg`. Used as circular hero portrait, video poster and OG/Twitter image.
 
 - `monferno.png`: the user's first supplied PNG, copied unchanged from `pasted-618e1c0d15ea9e5a941e33cbc89cd8722fa2e40ad8a96c924dc97ea90a42fa23.png`. Used at the top and as this page's favicon. The other two reference images are not used.
 - `brand-partner.mp4`: the user's 40.02-second clip from https://compound.mov/v/1ECAgHYbaGpGjZGsimJRiQ, downloaded from its `og:video` URL and compressed to H.264/AAC, 720×1280, 30 fps, faststart, 3,807,255 bytes. The Compound page sends `frame-ancestors 'none'`, so an iframe cannot work.
