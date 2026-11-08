@@ -11,3 +11,7 @@ PLAN.md
 .git
 
 games/data
+
+!tools/build-battle.mjs
+
+!tools/build-plethora.mjs

@@ -4,9 +4,9 @@
 
 ## Add a team
 
-Append an object to `hackathons/teams.json`: unique `id`, `name`, `event`, `location`, `date` (`YYYY-MM`), `teamSize`, `members` (`id`, `name`, `label`, `url`), `build`, optional `repo`, `pitch`, `status`, and a numeric `number`. Confirm membership before adding names. Cards are sorted newest first. An optional ISO `start` switches the status to “Building solo” after the start time. Run `node tools/build-hackathons.mjs`; Vercel also runs this before generating the search index. The static HTML works without JavaScript.
+Append an object to `hackathons/teams.json`: unique `id`, `name`, `event`, `location`, `date` (`YYYY-MM`), `teamSize`, `members` (`id`, `name`, `label`, optional `url`), `build`, optional `repo`, `pitch`, `status`, and a numeric `number`. Confirm membership before adding names. Cards are sorted newest first. An optional ISO `start` switches the status to “Building solo” after the start time. Run `node tools/build-hackathons.mjs`; Vercel also runs this before generating the search index. The static HTML works without JavaScript.
 
-HackTheFeed lists exactly Gabe, Siebe Baree and Paloma Ana Daniele. The same source also generates the Squad section on `/hack/1/`.
+HackTheFeed lists exactly Gabe, Siebe Baree and XX. Members without a URL render as neutral, non-clickable placeholders. The same source also generates the Squad section on `/hack/1/`.
 
 ## Short link and stats
 

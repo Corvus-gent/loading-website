@@ -8,16 +8,17 @@ people = json.load(open("people/people.json", encoding="utf-8"))["members"][0]
 
 TITLES = {"/": "home", "/gabe": "gabe · about me"}
 # Explicit publication boundary: never crawl reports, traces or new internal dirs.
-PUBLIC_ROOTS = {"hackathons","index.html", "call", "games", "languages", "links", "music", "now", "people", "privacy", "sf", "realm", "sidequests", "stats", "support", "wiki"}
+PUBLIC_ROOTS = {"plethora","hackathons","index.html", "call", "games", "languages", "links", "music", "now", "people", "privacy", "sf", "realm", "sidequests", "stats", "support", "wiki"}
 pages = []
 for f in sorted(glob.glob("**/index.html", recursive=True)):
     if f.split("/", 1)[0] not in PUBLIC_ROOTS: continue
-    if f.startswith(("clients/", "go/", "gabe/", "node_modules/", "music/admin/", "402/", "stats/private/", "stats/hunt/")): continue
+    if f.startswith(("clients/", "go/", "gabe/", "node_modules/", "music/admin/", "plethora/admin/", "402/", "stats/private/", "stats/hunt/")): continue
     url = "/" + f[:-len("index.html")]
     if url == "/people/": url_title = "army · join the people"
     src = open(f, encoding="utf-8").read()
     body = src.split("<body", 1)[-1]
     body = re.sub(r"<!-- secret-start -->.*?<!-- secret-end -->", "", body, flags=re.S)
+    body = re.sub(r"<!-- PLETHORA_[A-Z]+ -->.*?<!-- /PLETHORA_[A-Z]+ -->", "", body, flags=re.S)
     keys = re.findall(r'data-i18n="([\w.]+)"', body)
     body = re.sub(r"<script.*?</script>|<style.*?</style>", " ", body, flags=re.S)
     text = html.unescape(re.sub(r"<[^>]+>", " ", body))

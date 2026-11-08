@@ -665,7 +665,7 @@ Discord is not connected until its token and installed-guild configuration exist
 - No payment, tier, feather, streak or old weekly-win field influences rank or admission order. The application queue is chronological. Legacy records are retained; earned rank is recomputed on read.
 
 ## HackTheFeed beta (7 November 2026)
-- Squad member links: aggregate counters in `hack:members` keyed only by the public hackathon/member IDs, without retention of individual clicks or visitor IDs. PostHog `squad_member_click` allows only Gabe/Siebe/Paloma IDs and a bounded hackathon number; existing GPC/DNT/refusal applies. The shared daily-salted abuse bucket expires after 60 seconds.
+- Squad member links: aggregate counters in `hack:members` keyed only by the public hackathon/member IDs, without retention of individual clicks or visitor IDs. PostHog `squad_member_click` allows only Gabe/Siebe IDs and a bounded hackathon number; existing GPC/DNT/refusal applies. Historical counts for hidden roster members are returned as XX. The shared daily-salted abuse bucket expires after 60 seconds.
 - `/api/hack`: aggregate consent-allowed views/source/app/GitHub/share events; explicit reactions and submissions work without analytics consent. No fingerprints or user-level funnel. PostHog only runs under the existing consent policy; event metadata is allowlisted, never comment text or contact details.
 - Public comments: name/text/date, 90-day individual TTL; text-only rendering. Feedback: text and optional email, private to Gabriel's authenticated dashboard session, 90-day TTL. Honeypot, same-origin JSON, bounded input, daily-salted rate-limit hashes (60 seconds), reaction dedup hashes (24 hours). Anonymous aggregate totals have no personal data. Hide a comment with `SET hack:hidden:<id> 1 EX 7776000`.
 - App iframe loads the Corvus-operated the-feed.corvus.gent host. API-generated clips remain disabled without GMI_API_KEY. Generation and retry share an atomic Redis clip budget: default 20/day, six/day per daily-salted IP, keys expire after two days. Generation fails closed if storage is unavailable. API inputs can be sent to GMI only when generation is requested; Oriane discovery requires its own key. No raw IP retained.
@@ -696,3 +696,21 @@ Discord is not connected until its token and installed-guild configuration exist
 - A disable button removes the iframe and stores only sessionStorage twitch-disabled=1 for this tab. Existing Twitch cookies are vendor-controlled. Corvus stores no viewing history.
 - The homepage never shows a player; its badge links to /hack only after a real online signal. Offline hides badge/player. Browser privacy signals retain click-to-load on the hack pages.
 - Privacy page and notice cover this in seven languages.
+
+## Arcade title vote
+- localStorage corvus-name-vote-v1 holds a random device ID and chosen title solely to prevent repeat votes; it remains until browser storage is cleared. The existing necessary signed mvid voter cookie adds cross-tab deduplication (365-day max age). No analytics is loaded on the poll.
+- Redis namevote:v1 (preview uses namevote:preview:v1): aggregate title counts contain no identities; HMAC device/cookie dedupe keys expire after 90 days. IP rate keys use a daily rotating hash and expire after 60 seconds. No raw IPs, names or emails are stored.
+
+## Arcade runs, public scores and feedback
+- Anonymous run IDs/HMAC device keys deduplicate starts and expire after 24 hours. Play totals/top score are aggregates. Public leaderboard names are deliberately submitted, limited to 16 characters, and entries expire after 90 days; client scores have rate/plausibility checks, not cheat-proof verification.
+- Ideas are public, bug text is private. Both expire after 90 days; maximum 600 characters and five messages per IP per minute. No raw IPs or contact details. Idea votes use existing signed voter identity with 90-day dedupe; a local preference remembers which buttons were pressed.
+- Story PNGs and generated sound stay in the browser. speechSynthesis uses the browser/OS speech service; voice availability and offline/network processing depend on that provider.
+
+## Plethora referrals (8 November 2026)
+
+- `/go/plethora-<placement>` counts a click, then sends iPhones to the App Store and other devices to the local QR page. The App Store receives a placement campaign (`ct=corvus-<placement>`), optional public affiliate `pt` and referral `ref` code only after navigation. No Apple/Plethora SDK or third-party request loads merely to show a promotion.
+- Redis `plethora:v1:clicks` contains aggregate counts by the fixed placement allowlist; no identity, no expiry required. Preview counts use a separate `plethora:preview:v1` namespace.
+- `plethora:*:dedupe:<placement>:d1:<hash>` is a daily-salted HMAC of the in-memory network address, scoped to this placement, with a 30-minute TTL. Raw IPs, UAs, referrers and emails are not stored. The previous day's salt is checked for the 30-minute midnight overlap; hashes cannot be linked across days.
+- `plethora:*:recent:<placement>` contains only random non-identifying click sample keys and times for the rolling 24-hour sum. Records older than 24h are pruned on write; the whole set expires after 25h. No visitor-level details are exposed in the report.
+- Browser preference `plethora.home.dismissed=1` remembers only a deliberate banner dismissal until cleared; it does not identify a visitor or count views. `plethora.admin` is a private access key kept in sessionStorage for the admin tab, never sent to Apple/Plethora. The admin page immediately removes `?key=` and sets `Referrer-Policy: no-referrer`; counts require the dedicated key or Gabriel's authenticated session.
+- Referral codes and App Store provider IDs are public configuration. `PLETHORA_ADMIN_KEY` is a sensitive server secret, never part of the public API or committed source. The public API returns only aggregate total clicks and public referral configuration.

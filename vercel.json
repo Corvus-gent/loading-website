@@ -4,6 +4,11 @@
   ],
   "redirects": [
     {
+      "source": "/whitebelt",
+      "destination": "/hack/play",
+      "permanent": false
+    },
+    {
       "source": "/prize",
       "destination": "/compound",
       "permanent": false
@@ -40,6 +45,42 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/api/plethora",
+      "destination": "/api/stats?plethora=1"
+    },
+    {
+      "source": "/api/battle",
+      "destination": "/api/stats?battle=1"
+    },
+    {
+      "source": "/hack/play/do-bronx",
+      "destination": "/hack/play/index.html"
+    },
+    {
+      "source": "/hack/play/do-bronx/",
+      "destination": "/hack/play/index.html"
+    },
+    {
+      "source": "/api/name-vote",
+      "destination": "/api/stats?nameVote=1"
+    },
+    {
+      "source": "/hack/2",
+      "destination": "/hack/index.html"
+    },
+    {
+      "source": "/hack/2/",
+      "destination": "/hack/index.html"
+    },
+    {
+      "source": "/hack2",
+      "destination": "/hack/index.html"
+    },
+    {
+      "source": "/hack2/",
+      "destination": "/hack/index.html"
+    },
     {
       "source": "/api/compound/stripe",
       "destination": "/api/discord?compoundStripe=1"
@@ -148,7 +189,7 @@
       "includeFiles": "music.json"
     },
     "api/stats.js": {
-      "includeFiles": "music.json",
+      "includeFiles": "{music.json,battle/config.json,battle/media.json}",
       "maxDuration": 60
     },
     "api/x-stats.js": {
@@ -285,5 +326,5 @@
       "schedule": "*/15 * * * *"
     }
   ],
-  "buildCommand": "node tools/build-hackathons.mjs && python3 tools/build-search.py"
+  "buildCommand": "node tools/build-battle.mjs && node tools/build-hackathons.mjs && node tools/build-plethora.mjs && python3 tools/build-search.py"
 }

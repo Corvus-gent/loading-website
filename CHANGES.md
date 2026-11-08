@@ -160,7 +160,7 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 - Squad QA: exact HackTheFeed event/pitch/result, corrected `/hack/1` link, solo #2 card, current nav state and dedicated OG image; real-link clicks and mobile/desktop screenshots. Three team names remain unconfirmed.
 
 ## 2026-11-07 — HackTheFeed squad links
-- Show exactly Gabe, Siebe Baree and Paloma Ana Daniele on the squads archive, HackTheFeed build page and hub. Generate both Squad sections from one roster.
+- Show exactly Gabe, Siebe Baree and XX on the squads archive, HackTheFeed build page and hub. Generate both Squad sections from one roster.
 - Count member-link clicks in aggregate on HackTheFeed stats; preserve GPC/DNT and opt-outs, with allowlisted member IDs and existing abuse limits.
 
 ## 2026-11-07 — Compound V1 launch
@@ -176,3 +176,61 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 ## 2026-11-07 — Homepage live signal
 - Show a direct LIVE RN link to /hack on the portal only when Twitch reports online; enable automatic status checking on the three stream pages.
 - Keep the homepage player invisible, preserve browser privacy signals/opt-outs, add a per-tab disable control and accurate Twitch cookie disclosures.
+
+## 2026-11-07 — Arcade title vote
+- Add shared title voting on /hack, /hack/2 and /hack2 with atomic Redis counts, device/cookie dedupe, daily-hashed IP rate limits and live results.
+- Preserve the former hub and solo page at /hackthefeed and /hackthefeed/2. Existing HackTheFeed content and comment data remain intact.
+
+## 2026-11-07 — WHITE BELT playable v1
+- Add self-contained canvas octagon arcade game at /hack/play: buffered swipe/keyboard movement, techniques, four enemies, black-belt power, lives, promotions, local best score and sharing.
+- Link beta from the title vote and redirect /whitebelt. No external game assets or libraries.
+
+## Arcade P1 — live stats and reveal
+- Count idempotent game starts and bounded run scores in Redis. Show live plays/votes/top score and the 23:15 UTC reveal; atomically reject late votes.
+- Update the game title from the winner. Show animated beta social proof only from 10 plays.
+
+## Arcade P2 — community leaderboard and story cards
+- Add bounded run score submission, public top 10, named callouts and a generated 1080×1920 story card with file sharing/download.
+- Add private bug/public idea storage behind the existing API, ready for the feedback controls. Names are optional and explicitly posted publicly.
+
+## Arcade P3 — original fight-night audio and memes
+- Add strike finishes, KO/sub counts, narrated callouts with no immediate repetition, synthesized bell/punch/crowd/bonus sounds and a master mute.
+- Draw original pixel meme panels, add face-off tape, judges cards, championship labels and performance bonuses. Do-Bronx palette edition uses the same engine.
+
+## Arcade P4 — feedback and bugs
+- Add accessible feedback dialogs on the vote and game pages; pause play while writing. Public ideas support one upvote per signed device; bug reports are never included in public results.
+
+## Beta play counter visibility
+- Always show the live play-start total alongside the beta link, including fewer than ten plays. Keep it below the link on mobile and refresh every five seconds.
+
+## OSSMAN Plethora submission
+- Converted the offline game to a fullscreen Plethora Bit with SDK surfaces/input/loop, score records, sharing, safe-area layout and cleanup.
+- Saved draft 85764f7c-5061-431d-a35b-7a0dfbd29bf9; receipt and package in submission/plethora. Mobile Chromium/WebKit adapter tests pass; native host playback and publication remain separate/unverified.
+- Live site and original offline bundle unchanged.
+
+## 2026-11-08 — codex/battle
+- Add Codex vs Compound blind A/B battle, reveal, live scorecard, private admin and 12 deduplicated campaign redirects.
+- Add four compressed self-hosted videos, posters, original social art and two live $3 support links; preserve exact donation disclaimer.
+- Reuse the stats API and Redis; isolate preview data, enforce atomic vote/close checks, and leave `/hack` voting and game behavior unchanged.
+
+## 2026-11-08 — battle backing copy
+- Update the battle disclaimer and existing Stripe product descriptions verbatim; keep payment links, $3 prices, videos and votes unchanged.
+- The next supplied Compound video will replace the current cut with the old file preserved as compound-v1.mp4; no replacement file supplied yet.
+- Export a 20-second 1080×1080 LinkedIn face-off with neutral contender labels, contender 2 audio, a two-second frozen voting CTA and first-frame cover. Uses the current Compound cut pending a new supplied file.
+
+## 2026-11-08 — new Compound cut
+- Replace the main Compound contender with ufc-03-dagestan-dc, encoded H.264/AAC at 720×1280, CRF 28, veryfast; generate a new poster.
+- Preserve the previous video and poster as compound-v1.mp4 / compound-v1.jpg. No voting code, keys, counts or existing bonus clips changed.
+- Re-export the square neutral-label LinkedIn face-off and first-frame cover using the new main video. The supplied 60-40-A-dagestan cut remains an alternate source, not an extra voting contender.
+
+## 2026-11-08 — hackathon roster privacy
+- Replace the private teammate with XX, remove the profile link and identifying initial, regenerate team pages/search, and anonymize historical team-click identifiers in public stats.
+
+- Add the requested lime PLAY OSSMAN button above the battle hero, with tracked destination and original pixel lettering; normal document flow prevents covering videos or votes.
+
+## 2026-11-08 — battle verdict sharing
+- Replace the single native share button with Post on X, WhatsApp and Copy. All use one shared sentence ending in exactly one full tracked URL; copy shows “Copied ✅” and supports browsers without clipboard access.
+
+## 2026-11-08 · Plethora everywhere
+- Added a dedicated iPhone/QR landing page, games catalog, 27 tracked placement IDs, private placement leaderboard, and a rolling 24h column. Tracking uses the existing Redis/API function with 30-minute network deduplication; no new external SDK.
+- Added in-flow promotions across daily puzzles, OSSMAN menus, battle, legion, home, 404 and site footers. Every third catalog tile is Plethora. All eight puzzle result cards and game share flows carry their placement link. Home dismissal is remembered; no promotion covers active gameplay.
