@@ -9,4 +9,6 @@ download.href='/go/plethora-'+placement+'?store=1';download.dataset.plethora=pla
 const qr=qrcode(0,'M');qr.addData('https://corvus.gent/go/plethora-'+placement+'?store=1');qr.make();
 document.getElementById('plethora-qr').innerHTML=qr.createSvgTag({cellSize:6,margin:24,scalable:true,alt:'Scan to get Plethora on your iPhone'});
 const svg=document.querySelector('#plethora-qr svg');svg.setAttribute('role','img');svg.setAttribute('aria-label','Scan to get Plethora on your iPhone');
-configReady.then(config=>{decorate(document,config);if(config.ready)document.getElementById('plethora-total').textContent='🔥 '+Number(config.total).toLocaleString()+' referral clicks sent to Plethora by the army';});
+function showCount(config){decorate(document,config);if(config.ready)document.getElementById('plethora-total').textContent='🔥 '+Number(config.total).toLocaleString()+' referral clicks sent to Plethora by the army';}
+configReady.then(showCount);
+setInterval(()=>{if(!document.hidden)fetch('/api/plethora',{signal:AbortSignal.timeout(6000)}).then(r=>r.ok?r.json():{}).then(showCount).catch(()=>{});},30000);

@@ -9,3 +9,5 @@ async function refresh(){
  const rows=data.rows.map(row=>{const tr=document.createElement('tr'),label=document.createElement('td'),name=document.createElement('span'),link=document.createElement('a'),small=document.createElement('small');name.textContent=row.label;link.href='/go/'+row.id;link.textContent='/go/'+row.id;small.append(link);label.append(name,small);tr.append(label);for(const value of [row.total,row.last24h]){const td=document.createElement('td');td.textContent=value.toLocaleString();tr.append(td);}return tr;});$('placement-rows').replaceChildren(...rows);$('admin-status').textContent='';
  }catch(e){$('admin-status').textContent=e.message;$('admin-login').hidden=false;}finally{$('refresh').disabled=false;}}
 $('admin-login').onsubmit=e=>{e.preventDefault();key=$('access-key').value.trim();try{sessionStorage.setItem('plethora.admin',key);}catch{}$('access-key').value='';refresh();};$('refresh').onclick=refresh;refresh();
+
+setInterval(()=>{if(!document.hidden&&!$('admin-report').hidden&&!$('refresh').disabled)refresh();},60000);

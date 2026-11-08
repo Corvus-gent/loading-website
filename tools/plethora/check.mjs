@@ -19,6 +19,7 @@ try{
  await redis(['ZADD',prefix+':recent:home',Date.now()-86400001,'old']);assert.equal((await report()).rows.find(x=>x.id==='plethora-home').last24h,1);
  const keys=await redis(['KEYS',prefix+':*']);for(const key of keys.filter(k=>k.includes(':dedupe:')))assert.ok(Number(await redis(['TTL',key]))>0&&Number(await redis(['TTL',key]))<=1800);for(const key of keys.filter(k=>k.includes(':recent:')))assert.ok(Number(await redis(['TTL',key]))>0);
  delete process.env.PLETHORA_REFERRAL_CODE;delete process.env.PLETHORA_PT;r=await run(request('footer'));assert.ok(!r.headers.Location.includes('ref=')&&!r.headers.Location.includes('pt='));
+ process.env.REDIS_MAINTENANCE='1';r=await run(request('home'));assert.equal(r.status,302);r=await run(request(null));assert.equal(r.data.ready,false);delete process.env.REDIS_MAINTENANCE;
  console.log(`${Object.keys(PLETHORA_PLACEMENTS).length} placements PASS: iOS/iPad/Android/desktop, 302, attribution, dedupe + midnight, exact 24h, TTLs, auth, bots/HEAD, optional config`);
 }finally{const keys=await redis(['KEYS',prefix+':*']);if(keys.length)await redis(['DEL',...keys]);}
 process.exit(0);

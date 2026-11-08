@@ -5,8 +5,9 @@ const version='20261108p1',escape=s=>s.replaceAll('&','&amp;').replaceAll('<','&
 const link=(id,text=PLETHORA_COPY.cta,cls='plethora-cta')=>`<a class="${cls}" href="/go/plethora-${id}" data-plethora="${id}">${escape(text)}</a>`;
 const card=(id,title=PLETHORA_COPY.hero)=>`<aside class="plethora-card" data-plethora-card="${id}"><p class="plethora-kicker">CORVUS × PLETHORA / NEXT GAME FOUND</p><h2>${escape(title)}</h2>${link(id)}<p>${escape(PLETHORA_COPY.sub)}</p></aside>`;
 const footer=`<div class="plethora-footer" data-plethora-footer>${link('footer','Games discovered on Plethora 📲','')}</div>`;
-const files=[];async function walk(dir='.') {for(const entry of await fs.readdir(dir,{withFileTypes:true})){if(entry.name.startsWith('.')||['node_modules','submission','public','tests','test-results','playwright-report','clients','tools'].includes(entry.name))continue;const file=path.join(dir,entry.name);if(entry.isDirectory())await walk(file);else if(entry.name==='index.html'||file==='404.html')files.push(file);}}
+const files=[];async function walk(dir='.') {for(const entry of await fs.readdir(dir,{withFileTypes:true})){if(entry.name.startsWith('.')||['node_modules','submission','public','tests','test-results','playwright-report','tools'].includes(entry.name))continue;const file=path.join(dir,entry.name);if(entry.isDirectory())await walk(file);else if(entry.name==='index.html'||file==='404.html')files.push(file);}}
 await walk();
+files.push("submission/index.html");
 const catalog=(await fs.readFile("games/hub/index.html","utf8")).match(/<section class="plethora-catalog"[\s\S]*?<\/section>/)?.[0];
 if(!catalog)throw Error("Missing game catalog");
 for(const file of files){let s=await fs.readFile(file,'utf8');

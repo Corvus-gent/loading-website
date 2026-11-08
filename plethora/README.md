@@ -13,7 +13,7 @@ All placements live in `js/plethora-config.js`. Every ID is automatically includ
 
 On iPhone/iPad, tracked links return 302 directly to Apple with `ct=corvus-<placement>`. Desktop/Android get `/plethora/?placement=<placement>#get`. The QR preserves the original placement. The landing page's deliberate App Store action uses `?store=1` to avoid a desktop redirect loop. `?ios=1` handles iPadOS desktop user agents detected by the browser. These flags only change destination; both use the same tracker and dedupe.
 
-The footer/banner build is idempotent: `node tools/build-plethora.mjs`. It adds marked slots to published site HTML after the existing generators. Offline submission bundles, client deliverables, tests, recordings and assets are excluded. OSSMAN's footer stays inside its existing menu, hidden during gameplay. The shared stylesheet also puts the existing home Twitch status in normal flow so it cannot cover the dismiss control.
+The footer/banner build is idempotent: `node tools/build-plethora.mjs`. It adds marked slots to published site HTML after the existing generators. Offline submission bundles, tests, recordings and assets are excluded. The public submission download page and client demo pages also receive a footer. OSSMAN's footer stays inside its existing menu, hidden during gameplay. The shared stylesheet also puts the existing home Twitch status in normal flow so it cannot cover the dismiss control.
 
 ## Validation
 

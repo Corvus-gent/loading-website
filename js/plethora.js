@@ -8,7 +8,7 @@ export function decorate(root=document,config){
   if(location.hostname==='stats.corvus.gent'&&url.pathname.startsWith('/go/plethora-')){url.hostname='corvus.gent';url.protocol='https:';link.href=url.href;}
   // iPadOS can report a Mac desktop UA. This is platform routing, not tracking.
   if(ios&&url.pathname.startsWith('/go/plethora-')){url.searchParams.set('ios','1');link.href=location.hostname==='stats.corvus.gent'?url.href:url.pathname+url.search;}
-  if(config?.referralCode){let code=link.nextElementSibling;if(!code?.classList.contains('plethora-ref')){code=document.createElement('small');code.className='plethora-ref';link.after(code);}code.textContent='Use my code: '+config.referralCode;code.hidden=false;}
+  if(config?.referralCode){let code=link.nextElementSibling;if(!code?.classList.contains('plethora-ref')){code=document.createElement('small');code.className='plethora-ref';link.after(code);}code.textContent='Use my code: '+config.referralCode;code.hidden=false;}else if(config&&link.nextElementSibling?.classList.contains('plethora-ref'))link.nextElementSibling.hidden=true;
  }
 }
 decorate();
