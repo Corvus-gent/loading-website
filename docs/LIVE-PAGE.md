@@ -8,7 +8,7 @@ Edit **live/socials.js**: `url`, `handle`, `label`, `isLive`. Set `isLive: true`
 
 Twitch can additionally be detected with `TWITCH_CLIENT_ID` and `TWITCH_CLIENT_SECRET`: the server uses the existing cached Helix client, with manual `isLive` fallback on missing credentials/errors. No tokens or players load in the browser. Instagram/X live flags are manual. The global site banner remains separately controlled by `live.config.js`; this feature does not turn it on.
 
-Known handles were reused from personas.json and the existing BJJ/attribution pages. TODO: YouTube, Instagram account 3 and 4, X account 2. The requested public/gabe.jpg was absent; add it and regenerate to replace the initial placeholder (no unrelated photo substituted).
+Known handles were reused from personas.json and the existing BJJ/attribution pages. TODO: YouTube, Instagram account 3 and 4, X account 2. The supplied portrait is `public/gabe.jpg`; the supplied surf photo is `public/live/gabe-surf.jpg`. Both are resized/compressed, stripped of embedded metadata and shown as circular profile photos. Regenerate the page after replacing either asset.
 
 ## Interview clips
 
