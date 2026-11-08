@@ -46,6 +46,25 @@
   ],
   "rewrites": [
     {
+      "source": "/api/build",
+      "has": [
+        {
+          "type": "query",
+          "key": "deployment",
+          "value": "1"
+        }
+      ],
+      "destination": "/api/bmc-webhook?buildDeployment=1"
+    },
+    {
+      "source": "/api/build",
+      "destination": "/api/stats?build=1"
+    },
+    {
+      "source": "/api/build/og.png",
+      "destination": "/api/stats?build=1&image=1"
+    },
+    {
       "source": "/api/support",
       "destination": "/api/stats?support=1"
     },
@@ -336,6 +355,10 @@
     {
       "path": "/api/stats?plethora=1&action=snapshot",
       "schedule": "0 7,8 * * *"
+    },
+    {
+      "path": "/api/build?tick=1",
+      "schedule": "19 * * * *"
     }
   ],
   "buildCommand": "node tools/plethora/verify-routes.mjs && node tools/build-gabinho-rolls.mjs && node tools/build-battle.mjs && node tools/build-hackathons.mjs && node tools/build-plethora.mjs && python3 tools/build-search.py"
