@@ -19,7 +19,7 @@ assert.equal(geoRows([['US','','',null,null,1]]).cities[0].visitors,1);
 assert.equal(geoRows([['US','CA','Invalid',100,200,2]]).cities[0].unknown,true);
 assert.match(geoQuery('2026-11-08'),/Europe\/Brussels/);assert.match(geoQuery('all'),/GROUP BY country, distinct_id/);
 assert(!geoQuery('all').includes('latitude IS NOT NULL GROUP'));assert.throws(()=>geoQuery("' OR 1"));
-assert.deepEqual(await geoData('2026-11-08',async()=>[['US','','',null,null,92]]),geoRows([['US','','',null,null,92]]));
+assert.deepEqual(await geoData('2026-11-08',async sql=>sql.startsWith('SELECT country')?[['US','','',null,null,92]]:[['US',92]]),{...geoRows([['US','','',null,null,92]]),cityUnavailable:false});
 async function call(headers={},query={country:'1'},method='GET'){const res={setHeader(){},status(s){this.code=s;return this;},json(d){this.data=d;return this;}};await handler({method,query,headers},res);return res;}
 let r=await call({'x-vercel-ip-country':'US','x-vercel-ip-city':'San%20Francisco','x-vercel-ip-country-region':'CA','x-vercel-ip-latitude':'37.7749','x-vercel-ip-longitude':'-122.4194','x-forwarded-for':'1.2.3.4'});
 assert.deepEqual(r.data,{countryCode:'US',city:'San Francisco',region:'CA',lat:37.8,lng:-122.4});

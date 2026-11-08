@@ -49,4 +49,21 @@ export function geoRows(rows) {
   for(const c of list){const plotted=cities.filter(p=>p.countryCode===c.c).reduce((n,p)=>n+p.visitors,0);if(c.c!=='?'&&centroids.has(c.c)&&plotted!==c.n)console.warn('geo count mismatch',c.c,c.n,plotted);}
   return {geoVersion:3,countries:list,cities,total,mapped,unlocated};
 }
-export async function geoData(day, query=hogql){return geoRows(await query(geoQuery(day)));}
+export async function geoData(day, query=hogql){
+  const detailed=geoQuery(day); // validates before SQL interpolation
+  const scope=day==='all'?'':` AND toDate(toTimeZone(timestamp,'Europe/Brussels'))=toDate('${day}')`;
+  const [counts,locations]=await Promise.allSettled([
+    query(`SELECT ${COUNTRY_SQL} c, count(DISTINCT distinct_id) n FROM events WHERE event='$pageview' AND ${REAL}${scope} GROUP BY c ORDER BY n DESC, c ASC LIMIT 300`),
+    query(detailed)
+  ]);
+  if(counts.status!=='fulfilled')throw Error('country source unavailable');
+  const base=geoRows(counts.value.map(([c,n])=>[c,'','',null,null,n]));
+  if(locations.status!=='fulfilled')return {...base,cityUnavailable:true};
+  const located=geoRows(locations.value), cities=[];
+  for(const {c,n} of base.countries){
+    const points=located.cities.filter(p=>p.countryCode===c), sum=points.reduce((v,p)=>v+p.visitors,0);
+    if(sum===n)cities.push(...points);
+    else { if(c!=='?')console.warn('geo count mismatch',day,c,n,sum);cities.push(...base.cities.filter(p=>p.countryCode===c)); }
+  }
+  return {...base,cities,mapped:cities.reduce((n,c)=>n+c.visitors,0),cityUnavailable:false};
+}

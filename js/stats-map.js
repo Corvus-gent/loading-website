@@ -80,7 +80,7 @@ async function initMap(snapshot) {
     if(!fitted&&cities.length){map.fitBounds(cities.map(c=>[c.lat,c.lng]),{padding:[25,25],maxZoom:3,animate:false});fitted=true;}
     draw();
     const note=document.querySelector('#visitor-map-coverage');
-    if(note)note.textContent=`${(data.mapped||0).toLocaleString('en')} visitors mapped${data.unlocated ? ` · ${data.unlocated} with no usable country location` : ''}. dashed lights = unknown city or privacy-grouped city.`;
+    if(note)note.textContent=`${(data.mapped||0).toLocaleString('en')} visitors mapped${data.unlocated ? ` · ${data.unlocated} with no usable country location` : ''}. dashed lights = unknown city or privacy-grouped city.${data.cityUnavailable ? " city details temporarily unavailable; all country totals are included." : ""}`;
     status.textContent = cities.length ? '' : 'no lanterns yet.';
     status.hidden = cities.length > 0;
   };
