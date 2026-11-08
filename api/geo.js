@@ -19,6 +19,7 @@ export default async function handler(req, res) {
     const location = {};
     const text = (key) => { try { const v=decodeURIComponent(req.headers?.[key]||''); return /^[\p{L}\p{N} .’'-]{1,100}$/u.test(v) ? v : ''; } catch { return ''; } };
     const city=text('x-vercel-ip-city'), region=text('x-vercel-ip-country-region');
+    if(countryCode && region)location.region=region;
     const lat=Number(req.headers?.['x-vercel-ip-latitude']), lng=Number(req.headers?.['x-vercel-ip-longitude']);
     if(countryCode && city && Number.isFinite(lat)&&Math.abs(lat)<=90&&Number.isFinite(lng)&&Math.abs(lng)<=180){Object.assign(location,{city,region,lat:Math.round(lat*10)/10,lng:Math.round(lng*10)/10});}
     return res.status(200).json({ countryCode, ...location });
@@ -28,9 +29,9 @@ export default async function handler(req, res) {
     const day = req.query?.day || 'all';
     if (typeof day !== 'string' || (day !== 'all' && !/^\d{4}-\d{2}-\d{2}$/.test(day))) return res.status(400).json({error:'invalid day'});
     let cached;
-    const cacheKey = 'geo:v4:' + day;
+    const cacheKey = 'geo:v6:' + day;
     if (connected()) { try { cached=JSON.parse(await redis(['GET',cacheKey])); } catch {} }
-    const data = cached?.geoVersion===4 ? cached : await geoData(day);
+    const data = cached?.geoVersion===6 ? cached : await geoData(day);
     if (!cached && connected()) { try { await redis(['SET',cacheKey,JSON.stringify(data),'EX','900']); } catch {} }
     res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=900');
     return res.status(200).json(data);

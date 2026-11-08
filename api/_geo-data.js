@@ -1,5 +1,6 @@
 // Country/city aggregates share a scope and count each visitor once per country.
 import { hogql, REAL } from './_posthog.js';
+import { cityArea, regionFor, AREA_POLICY } from './_geo-areas.js';
 import { countryCategory } from '../js/analytics-policy.js';
 // Country label points: Natural Earth 1:110m countries (public domain), rounded to 0.1°.
 // https://www.naturalearthdata.com/about/terms-of-use/
@@ -19,36 +20,43 @@ export function geoQuery(day) {
   const lng = "toString(coalesce(properties.corvus_longitude, properties.$geoip_longitude, ''))";
   return `SELECT country, tupleElement(place,1), tupleElement(place,2), tupleElement(place,3), tupleElement(place,4), count()
 FROM (SELECT toString(${COUNTRY_SQL}) country, distinct_id,
-argMax(tuple(${region},${city},${lat},${lng}), tuple(if(${city} != '' AND ${lat} != '' AND ${lng} != '', 1, 0), timestamp)) place
+argMax(tuple(${region},${city},${lat},${lng}), tuple(multiIf(${city} != '' AND ${lat} != '' AND ${lng} != '', 2, ${region} != '', 1, 0), timestamp)) place
 FROM events WHERE event = '$pageview' AND ${REAL}${scope} GROUP BY country, distinct_id)
 GROUP BY country, place LIMIT 10000`;
 }
 const clean = value => typeof value === 'string' && !/[@<>\r\n]/.test(value) ? value.trim().slice(0,100) : '';
 export function geoRows(rows) {
   if(rows.length>=10000)throw Error('geo result limit reached');
-  const countries = new Map(), groups = new Map();
-  for (const [rawCountry,rawRegion,rawCity,rawLat,rawLng,count] of rows) {
-    const n=Number(count); if(!Number.isSafeInteger(n)||n<1) continue;
-    const code=countryCategory(rawCountry), region=clean(rawRegion), city=clean(rawCity);
-    const lat=rawLat==null||rawLat===''?NaN:Number(rawLat), lng=rawLng==null||rawLng===''?NaN:Number(rawLng);
-    const known=city && Number.isFinite(lat)&&Math.abs(lat)<=90&&Number.isFinite(lng)&&Math.abs(lng)<=180;
+  const countries=new Map(),groups=new Map(),unknown=new Map();
+  const addUnknown=(code,n)=>unknown.set(code,(unknown.get(code)||0)+n);
+  const add=(point,n)=>{const key=JSON.stringify([point.countryCode,point.precision,point.region,point.city]);const g=groups.get(key)||{...point,visitors:0};g.visitors+=n;groups.set(key,g);};
+  for(const [rawCountry,rawRegion,rawCity,rawLat,rawLng,count] of rows){
+    const n=Number(count);if(!Number.isSafeInteger(n)||n<1)continue;
+    const code=countryCategory(rawCountry),region=clean(rawRegion),city=clean(rawCity);
+    const lat=rawLat==null||rawLat===''?NaN:Number(rawLat),lng=rawLng==null||rawLng===''?NaN:Number(rawLng);
     countries.set(code,(countries.get(code)||0)+n);
-    const key=JSON.stringify([code,known?region:'',known?city:'']);
-    const g=groups.get(key)||{countryCode:code,country:code==='?'?'unknown location':regions.of(code),region:known?region:'',city:known?city:'',visitors:0,lat:0,lng:0,unknown:!known};
-    g.visitors+=n; if(known){g.lat+=lat*n;g.lng+=lng*n;} groups.set(key,g);
+    const shared={countryCode:code,country:code==='?'?'unknown location':regions.of(code),unknown:false};
+    const area=cityArea(code,region,city,lat,lng),state=regionFor(code,region);
+    if(area)add({...shared,...area},n);
+    else if(city&&Number.isFinite(lat)&&Math.abs(lat)<=90&&Number.isFinite(lng)&&Math.abs(lng)<=180)add({...shared,region:state?.region||region,city,lat:Math.round(lat*10)/10,lng:Math.round(lng*10)/10,precision:'city'},n);
+    else if(state)add({...shared,...state,city:'',precision:'region',approximate:true},n);
+    else addUnknown(code,n);
   }
-  const cities=[], unknown=new Map();
-  for(const g of groups.values()) {
-    // City privacy threshold stays >=2. Suppressed cities remain in country totals.
-    if(g.unknown||g.visitors<2){unknown.set(g.countryCode,(unknown.get(g.countryCode)||0)+g.visitors);continue;}
-    cities.push({...g,lat:Math.round(g.lat/g.visitors*10)/10,lng:Math.round(g.lng/g.visitors*10)/10});
+  const cities=[],regional=new Map();
+  for(const g of groups.values()){
+    if(g.precision!=='region'&&g.visitors>=AREA_POLICY.minVisitors){cities.push(g);continue;}
+    const state=regionFor(g.countryCode,g.region);
+    if(!state){addUnknown(g.countryCode,g.visitors);continue;}
+    const key=g.countryCode+':'+state.region;
+    const r=regional.get(key)||{...g,...state,city:'',visitors:0,precision:'region',approximate:true};r.visitors+=g.visitors;regional.set(key,r);
   }
+  for(const g of regional.values())if(g.visitors>=AREA_POLICY.minVisitors)cities.push(g);else addUnknown(g.countryCode,g.visitors);
   let unlocated=0;
-  for(const [code,n] of unknown){const coords=centroids.get(code);if(!coords){unlocated+=n;continue;}cities.push({countryCode:code,country:regions.of(code),region:'',city:'',lat:coords[0],lng:coords[1],visitors:n,unknown:true});}
+  for(const [code,n]of unknown){const coords=centroids.get(code);if(!coords){unlocated+=n;continue;}cities.push({countryCode:code,country:regions.of(code),region:'',city:'',lat:coords[0],lng:coords[1],visitors:n,unknown:true,precision:'country'});}
   const list=[...countries].map(([c,n])=>({c,n})).sort((a,b)=>b.n-a.n||a.c.localeCompare(b.c));
   const total=list.reduce((n,c)=>n+c.n,0),mapped=cities.reduce((n,c)=>n+c.visitors,0);
   for(const c of list){const plotted=cities.filter(p=>p.countryCode===c.c).reduce((n,p)=>n+p.visitors,0);if(c.c!=='?'&&plotted!==c.n)console.warn('geo count mismatch',c.c,c.n,plotted);}
-  return {geoVersion:4,countries:list,cities,total,mapped,unlocated};
+  return {geoVersion:6,countries:list,cities,total,mapped,unlocated,located:cities.filter(c=>!c.unknown).reduce((n,c)=>n+c.visitors,0)};
 }
 export async function geoData(day, query=hogql){
   const detailed=geoQuery(day); // validates before SQL interpolation
@@ -66,5 +74,5 @@ export async function geoData(day, query=hogql){
     if(sum===n)cities.push(...points);
     else { if(c!=='?')console.warn('geo count mismatch',day,c,n,sum);cities.push(...base.cities.filter(p=>p.countryCode===c)); }
   }
-  return {...base,cities,mapped:cities.reduce((n,c)=>n+c.visitors,0),cityUnavailable:false};
+  return {...base,cities,mapped:cities.reduce((n,c)=>n+c.visitors,0),located:cities.filter(c=>!c.unknown).reduce((n,c)=>n+c.visitors,0),cityUnavailable:false};
 }
