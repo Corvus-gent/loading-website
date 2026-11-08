@@ -1,4 +1,4 @@
-import {t} from './i18n.js?v=20261108-entry1';
+import {t} from './i18n.js?v=20261108live1';
 import {SF_LETS} from './sf-trip.js';
 const el=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;};
 const translated=(tag,key)=>{const n=el(tag,t(key));n.dataset.i18n=key;return n;};

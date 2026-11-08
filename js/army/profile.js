@@ -1,5 +1,5 @@
-import {init,t} from './copy.js?v=20261108-entry1';
-import {$,api,tag,recruitURL,copy,share,saveArt,errorText,rankBadges} from './client.js?v=20261108-entry1';
+import {init,t} from './copy.js?v=20261108live1';
+import {$,api,tag,recruitURL,copy,share,saveArt,errorText,rankBadges} from './client.js?v=20261108live1';
 const username=location.pathname.split('/').filter(Boolean)[1];let soldier,code;
 async function render(){
  if(!soldier)return;$('soldier-name').textContent=soldier.username;rankBadges($('soldier-ranks'),soldier);

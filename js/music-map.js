@@ -1,4 +1,4 @@
-import {esc} from './music-shared.js';
+import {esc} from './music-shared.js?v=20261108live1';
 // Editorial listening connections, not a historical family tree or audio analysis.
 const nodes=[
  ['us hip-hop',280,230,'#b9f56a','Breaks, bars & samples','Rap puts rhythm into words. Listen for looping samples, drum breaks and the space an MC leaves between syllables.','Rap zet ritme om in woorden. Luister naar herhaalde samples, drumbreaks en de ruimte tussen de woorden.'],

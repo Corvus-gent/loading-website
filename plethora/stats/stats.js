@@ -1,4 +1,4 @@
-import {configReady,refreshConfig} from '/js/plethora.js?v=20261108p4';
+import {configReady,refreshConfig} from '/js/plethora.js?v=20261108live1';
 const $=id=>document.getElementById(id),node=(tag,text,cls)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(cls)el.className=cls;return el;};
 const ns='http://www.w3.org/2000/svg';
 function svgNode(tag,attrs,text){const el=document.createElementNS(ns,tag);for(const[k,v]of Object.entries(attrs))el.setAttribute(k,v);if(text!==undefined)el.textContent=text;return el;}

@@ -1,5 +1,5 @@
 import {tripState,SF_START,SF_END} from './sf-trip.js';
-import {initI18n,t} from './i18n.js?v=20261108-entry1';initI18n();
+import {initI18n,t} from './i18n.js?v=20261108live1';initI18n();
 const dialog=document.getElementById('realm-share'),message=document.getElementById('realm-share-message');
 document.querySelector('[href="#realm-share"]').addEventListener('click',e=>{e.preventDefault();dialog.showModal();});
 let redirect;
@@ -9,4 +9,4 @@ const sf=document.getElementById('sf-realm');let sfTimer;
 function sfLink(){clearTimeout(sfTimer);const state=tripState();sf.hidden=state.phase!=='during';const boundary=state.phase==='before'?SF_START:state.phase==='during'?SF_END:0;if(boundary)sfTimer=setTimeout(sfLink,Math.min(2147483647,Math.max(0,boundary-Date.now())));}
 sfLink();document.addEventListener('visibilitychange',sfLink);
 
-import './realm-night.js?v=20261106-tour';
+import './realm-night.js?v=20261108live1';

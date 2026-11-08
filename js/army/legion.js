@@ -1,5 +1,5 @@
-import {init,t,getLang} from './copy.js?v=20261108-entry1';
-import {$,api,errorText,rankBadges} from './client.js?v=20261108-entry1';
+import {init,t,getLang} from './copy.js?v=20261108live1';
+import {$,api,errorText,rankBadges} from './client.js?v=20261108live1';
 let members=[],extra={atGate:0,hidden:0};
 function flag(code){return code?.match(/^[A-Z]{2}$/)?String.fromCodePoint(...[...code].map(c=>127397+c.charCodeAt(0))):'';}
 function render(){

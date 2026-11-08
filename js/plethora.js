@@ -25,3 +25,6 @@ decorate();export const configReady=refreshConfig();
 // Only pages displaying live counts poll; gameplay and other pages stay quiet.
 if(isStats||document.querySelector('[data-plethora-live]'))setInterval(()=>{if(!document.hidden&&(!banner||!banner.hidden))refreshConfig();},30000);
 window.addEventListener('plethora-result',()=>configReady.then(config=>decorate(document,config)));
+
+// Shared live announcement replaces only the home promo, never game placements.
+import('./live-banner.js?v=20261108live1');

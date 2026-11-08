@@ -1,6 +1,6 @@
-import {initI18n,t} from './i18n.js?v=20261108-entry1';
+import {initI18n,t} from './i18n.js?v=20261108live1';
 import {sfLocationKey} from './sf-trip.js';
-import {mountSFNote} from './sf-note.js';
+import {mountSFNote} from './sf-note.js?v=20261108live1';
 let city='Gent',noteLabels=()=>{};
 function labels(){const key=sfLocationKey();document.querySelector('#loc [data-i18n]').hidden=!!key;document.getElementById('city').textContent=key?t(key):city;noteLabels();}
 initI18n(labels);noteLabels=mountSFNote();labels();

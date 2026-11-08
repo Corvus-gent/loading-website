@@ -1,4 +1,4 @@
-import {configReady,decorate} from '/js/plethora.js?v=20261108p4';
+import {configReady,decorate} from '/js/plethora.js?v=20261108live1';
 configReady.then(config=>decorate(document,config));
 const mobile=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
 const wrap=document.querySelector('.qr-wrap');wrap.hidden=mobile;

@@ -1,4 +1,4 @@
-import { t } from "./i18n.js?v=20261108-entry1";
+import { t } from "./i18n.js?v=20261108live1";
 /**
  * Reusable DOM rendering components
  */
