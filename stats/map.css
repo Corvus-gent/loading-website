@@ -25,3 +25,11 @@
 #visitor-map .reference-city{background:none;border:0;box-shadow:none;color:#92958c;font:10px monospace;padding:0;opacity:.7}#visitor-map .reference-city:before{display:none}.map-unknown-toggle{display:flex;align-items:center;gap:8px;min-height:44px;margin-top:12px;color:#aaa;font:11px monospace}.map-unknown-toggle input{width:18px;height:18px;accent-color:#ffd76a}#visitor-map-status{white-space:normal;text-align:center;max-width:85%}
 
 .map-focus-label{display:flex;align-items:center;flex-wrap:wrap;gap:10px;font:12px monospace;color:#aaa}.map-focus-label select{min-height:44px;max-width:100%;background:#080808;color:#ffd76a;border:1px solid #665531;font:inherit;padding:8px}
+
+/* Colour is editorial context; only the gold layer represents visitors. */
+#visitor-map{background:radial-gradient(ellipse at 15% 40%,#0e2028,transparent 55%),radial-gradient(ellipse at 85% 40%,#21142a,transparent 55%),#080b10}
+.reference-city-dot{filter:drop-shadow(0 0 3px currentColor)}
+#visitor-map .reference-city{color:#b9bace;opacity:.85;text-shadow:0 1px 3px #000}
+.corvus-hotspot{background:none;border:0}.corvus-hotspot-light{position:absolute;inset:15px;background:var(--hotspot);border:1px solid #fff9;transform:rotate(45deg);box-shadow:0 0 16px 7px color-mix(in srgb,var(--hotspot) 45%,transparent),0 0 35px 13px color-mix(in srgb,var(--hotspot) 20%,transparent);pointer-events:none}
+#visitor-map .corvus-hotspot-label{color:#f2d9ff;background:#110f1ce8;border-color:#81718d;font-size:10px;max-width:150px;text-align:center}
+.map-hotspots,.map-legend{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;font:11px/1.6 monospace;margin:12px 0}.map-hotspots>span{color:#aaa}.map-hotspots button{min-height:44px;padding:8px 12px;border:1px solid #326365;background:#0d191c;color:#75eeee;font:inherit;cursor:pointer}.map-hotspots button[data-map-hotspot=hk]{border-color:#685077;background:#1c1223;color:#edb2ff}.map-hotspots button:hover{filter:brightness(1.2)}.map-hotspots button:focus-visible,.corvus-hotspot:focus-visible{outline:2px solid #fff;outline-offset:3px}.legend-visitors{color:#ffd76a}.legend-reference{color:#a9c7ff}.legend-hotspot{color:#e7b0ff}
