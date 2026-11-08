@@ -32,6 +32,10 @@ jobs:
         run: |
           git ls-files -z '*.js' '*.mjs' | xargs -0 -n1 node --check
           node tools/check-locales.mjs
+      - name: Official Plethora redirects and durable counters
+        run: |
+          node tools/plethora/verify-routes.mjs
+          REDIS_URL=redis://127.0.0.1:16380/7 node tools/plethora/check.mjs
       - name: Account, perk and earned-rank contracts
         env:
           REDIS_URL: redis://127.0.0.1:16380/6

@@ -257,3 +257,8 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 ## 2026-11-08 · Plethora everywhere
 - Added a dedicated iPhone/QR landing page, games catalog, 27 tracked placement IDs, private placement leaderboard, and a rolling 24h column. Tracking uses the existing Redis/API function with 30-minute network deduplication; no new external SDK.
 - Added in-flow promotions across daily puzzles, OSSMAN menus, battle, legion, home, 404 and site footers. Every third catalog tile is Plethora. All eight puzzle result cards and game share flows carry their placement link. Home dismissal is remembered; no promotion covers active gameplay.
+
+## Plethora official links · 2026-11-08
+- Device-independent official download/OSSMAN redirects, fixed GABE attribution, raw + deduped counts, country/device/destination aggregates.
+- Midnight-Pacific permanent snapshots, legacy preservation and public CSV; landing CTAs/QR and public stats updated.
+- 108-route build guard plus Redis retention/dedupe/history tests and mobile/desktop preview QA.

@@ -11,3 +11,8 @@ export const canonicalPlacement=value=>{const id=String(value||'').replace(/^ple
 export const PLETHORA_CATEGORIES={Games:['daily','hub','babel','borders','wordle','flags','combo','bangle','pingle','lantern'],OSSMAN:['start','gameover','promo','pause','celtix','game'],Site:['battle','legion','home','404','footer','compound','hack'],Campaigns:['share','x','li','ig','tt','wa','qr','twitch','story','bio-x','bio-ig','bio-tt']};
 export const PLETHORA_COPY={hero:"Do you like mobile games??? Then you'll love this one 👀 My game that won me a hackathon is even on there. Check it!!",cta:'GET PLETHORA 📲',sub:'Find games worth keeping. No more download → delete → repeat.'};
 export const PLETHORA_SHARE=' · more games: corvus.gent/go/plethora-share';
+export const PLETHORA_URLS={download:'https://plethora.studio/download?utm_source=gabe',ossman:'https://share.plethora.studio/retro/ossman?code=GABE'};
+// `game` deliberately opens OSSMAN, as does the landing page's play button.
+export const PLETHORA_OSSMAN=['start','gameover','promo','pause','battle','hack','celtix','compound','game'];
+export const destinationKind=id=>PLETHORA_OSSMAN.includes(canonicalPlacement(id))?'ossman':'download';
+export function officialURL(id){const placement=canonicalPlacement(id);if(!placement)throw Error('Unknown Plethora placement');return PLETHORA_URLS[destinationKind(placement)]+'&utm_medium=corvus&utm_content='+placement;}

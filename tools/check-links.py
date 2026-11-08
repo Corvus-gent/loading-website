@@ -10,7 +10,7 @@ def route_exists(path):
  if path.startswith(('/api/','/go/','/r/','/soldier/')):return True
  if path.rstrip('/') in ['/enter','/the-crow','/revived','/important-call-gabe-maxxer','/coffee-with-gabe','/cv','/gabe','/gabriel','/self','/sidequest']:return True
  for source in patterns:
-  regex=re.sub(r':[A-Za-z_]+\*?',lambda m:'.*' if m[0].endswith('*') else '[^/]+',source)
+  regex=re.sub(r':[A-Za-z_]+[*+]?',lambda m:'.*' if m[0].endswith('*') else '.+' if m[0].endswith('+') else '[^/]+',source)
   if re.fullmatch(regex+'/?',path):return True
  return False
 class Links(HTMLParser):

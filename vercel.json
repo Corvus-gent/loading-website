@@ -46,6 +46,10 @@
   ],
   "rewrites": [
     {
+      "source": "/plethora/stats.csv",
+      "destination": "/api/stats?plethora=1&action=csv"
+    },
+    {
       "source": "/api/plethora",
       "destination": "/api/stats?plethora=1"
     },
@@ -324,7 +328,11 @@
     {
       "path": "/api/army?job=1",
       "schedule": "*/15 * * * *"
+    },
+    {
+      "path": "/api/stats?plethora=1&action=snapshot",
+      "schedule": "0 7,8 * * *"
     }
   ],
-  "buildCommand": "node tools/build-gabinho-rolls.mjs && node tools/build-battle.mjs && node tools/build-hackathons.mjs && node tools/build-plethora.mjs && python3 tools/build-search.py"
+  "buildCommand": "node tools/plethora/verify-routes.mjs && node tools/build-gabinho-rolls.mjs && node tools/build-battle.mjs && node tools/build-hackathons.mjs && node tools/build-plethora.mjs && python3 tools/build-search.py"
 }
