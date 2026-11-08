@@ -303,3 +303,6 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 - Mobile /live with one-tap attributed social links, config-driven live status, private interview requests and social preview image; /livenow redirects with query preserved.
 - /hack/3 interview grid reads its own editable JSON; no public submission data is exposed.
 - /compound/v2 temporarily redirects to the working Compound editor because there was no V2 route in the repository.
+
+## Live profile photos
+- Replace the /live profile placeholder with Gabe’s supplied portrait and surf photo. Optimized JPEGs, circular CSS framing, fixed dimensions, lazy loading and descriptive alt text.
