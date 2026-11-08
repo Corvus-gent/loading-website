@@ -17,3 +17,8 @@
 
 /* Paired identities remain readable in compact lists and on phones. */
 .rank-badge{box-sizing:border-box;min-width:0;overflow-wrap:anywhere;flex:1 1 150px}.war-board li{flex-wrap:wrap}.war-board .rank-badges{width:100%;margin:0}.war-board .rank-badge{max-width:none;padding:8px 12px}.war-board .rank-badge span{text-align:left;align-self:start}.war-board .rank-badge b{font-size:16px}.army-rank-toast{position:fixed;bottom:max(20px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);z-index:40;background:#090909;border:1px solid #6c592d;padding:16px;width:min(460px,calc(100vw - 32px));box-sizing:border-box;max-height:75vh;overflow:auto}.army-rank-toast>svg{vertical-align:middle;margin-right:10px}.rank-ladder{flex-wrap:wrap}.rank-ladder span{white-space:normal}
+
+/* Clear entry pricing; existing higher supporter tiers and earned ranks stay separate. */
+.legion-entry{margin:24px 0 36px;padding:24px;border:1px solid #ffd76a55;border-radius:12px}.legion-entry h2{margin:0 0 18px;font-size:clamp(1.3rem,5vw,1.8rem)}.legion-entry-options{display:flex;flex-wrap:wrap;gap:12px 32px}.legion-entry-options p{margin:0;color:#ffd76a;font-size:1.15rem}.legion-entry .army-button{margin-top:10px}
+
+.legion-entry-options a{display:inline-flex;align-items:center;min-height:44px;color:inherit;text-underline-offset:4px}

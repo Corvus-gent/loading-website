@@ -1,7 +1,7 @@
-import {renderNextBenefit} from './benefits.js?v=20261106-ranks1';
-import {init,t,getLang} from './copy.js?v=20261106-ranks1';
-import {$,api,wireForm,errorText,tag,copy,share,saveArt,recruitURL,countryOptions,submit,rankBadges} from './client.js?v=20261106-ranks1';
-import {RANKS,WEIGHTS} from './domain.js?v=20261106-ranks1';
+import {renderNextBenefit} from './benefits.js?v=20261108-entry1';
+import {init,t,getLang} from './copy.js?v=20261108-entry1';
+import {$,api,wireForm,errorText,tag,copy,share,saveArt,recruitURL,countryOptions,submit,rankBadges} from './client.js?v=20261108-entry1';
+import {RANKS,WEIGHTS} from './domain.js?v=20261108-entry1';
 let self=null;const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 function renderGateLinks(){
  const enlisted=!$('ceremony').hidden;
@@ -17,7 +17,7 @@ function renderIdentity(){
  for(const id of ['ceremony-ranks','toll-ranks','stripes-ranks']){const node=$(id);if(!node)continue;node.hidden=!self;if(self)rankBadges(node,self);}
 }
 init(()=>{renderIdentity();if(self&&!$('ceremony').hidden)tag($('dog-tag'),self,self.code);renderGateLinks();renderRanks();renderNextBenefit($('toll-next-rank'),self?.tier);if($('enlist-country'))countryOptions($('enlist-country'),$('enlist-country').value);});renderRanks();
-const country=document.createElement('div');country.innerHTML='<label for="enlist-country" data-army="country"></label><select id="enlist-country" name="country"></select><small data-army="countryNote"></small>';$('enlist-form').insertBefore(country,$('enlist-why').previousElementSibling);import('./copy.js?v=20261106-ranks1').then(({translate})=>translate(country));countryOptions($('enlist-country'));
+const country=document.createElement('div');country.innerHTML='<label for="enlist-country" data-army="country"></label><select id="enlist-country" name="country"></select><small data-army="countryNote"></small>';$('enlist-form').insertBefore(country,$('enlist-why').previousElementSibling);import('./copy.js?v=20261108-entry1').then(({translate})=>translate(country));countryOptions($('enlist-country'));
 $('enlist-why').addEventListener('input',()=>{$('why-count').textContent=[...$('enlist-why').value].length+'/280';});
 // iOS: hiding the focused field while the keyboard is up left the page shifted into empty black space.
 // close the keyboard first, wait for the viewport to settle, then jump (no smooth scroll) to the dog tag.

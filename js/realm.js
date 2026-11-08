@@ -1,5 +1,5 @@
 import {tripState,SF_START,SF_END} from './sf-trip.js';
-import {initI18n,t} from './i18n.js?v=20261106-ranks1';initI18n();
+import {initI18n,t} from './i18n.js?v=20261108-entry1';initI18n();
 const dialog=document.getElementById('realm-share'),message=document.getElementById('realm-share-message');
 document.querySelector('[href="#realm-share"]').addEventListener('click',e=>{e.preventDefault();dialog.showModal();});
 let redirect;

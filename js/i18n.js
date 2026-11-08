@@ -1,9 +1,9 @@
 import {readPreference,savePreference} from './storage.js';
-import "./eggs.js?v=20261106-ranks1";
+import "./eggs.js?v=20261108-entry1";
 // Legacy destinations also accept the original keyboard shortcut.
 if (/^\/(?:now|sidequests|support|languages|call|people|gabe|402)(?:\/|$)/.test(location.pathname)) import('./terminal.js');
 import { renderSearch } from "./search.js";
-import {loadFeature,featureText} from './i18n/feature.js?v=20261106-ranks1';
+import {loadFeature,featureText} from './i18n/feature.js?v=20261108-entry1';
 export {loadFeature,featureText};
 /**
  * Tiny i18n layer: 7 languages, picked from ?lang=, then saved choice, then browser.

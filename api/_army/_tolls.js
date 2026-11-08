@@ -41,6 +41,8 @@ export function bmcPayments(store){
    // Irreversible payment/subscription identifier needed for out-of-order events.
    object:d.id!=null?digest(type.split('.')[0]+':'+String(d.id)):null,
    coffees:type.startsWith('donation.')?Math.max(0,Math.min(10000,Math.floor(Number(d.coffee_count)||1))):0};
+  // Tiro entry is a one-off shop purchase. Monthly tiers and gifts keep their expiry.
+  if(type.startsWith('extra_purchase.')&&amount>=1&&currency==='USD'&&Array.isArray(d.extras)&&d.extras.some(e=>tierName(e.title)==='tiro')){record.level='tiro';record.interval='once';}
   // Senator is never inferred from an arbitrary $1000 gift: only an explicitly
   // named senator product or level qualifies; everything ambiguous is reviewed.
   if(!subscription&&state==='active'&&amount>=1000&&currency==='USD'&&Array.isArray(d.extras)&&d.extras.some(e=>tierName(e.title)==='senator'))record.level='senator';
@@ -77,10 +79,10 @@ redis.call('SET',KEYS[1],'1','EX',ARGV[3]);redis.call('SET',KEYS[2],cjson.encode
      p.uid=current.id;p.username=current.username;
      const last=current.payment;
      if(!last||p.date>=last.date){current.paid=p.state!=='refunded';current.payment={date:p.date,amount:p.amount,currency:p.currency};}
-     const previous=current.membership,level=p.level||(previous?.object===p.object&&p.type.startsWith('membership.')?previous.tier:null);
+     const previous=current.membership,level=p.level||(previous?.object===p.object&&(p.type.startsWith('membership.')||(previous?.tier==='tiro'&&previous?.interval==='once'))?previous.tier:null);
      const order={active:0,paused:1,cancelled:2,refunded:3};
      if(level&&(!previous||p.date>previous.updated||p.date===previous.updated&&order[p.state]>=order[previous.state])){
-      current.membership={tier:level,state:p.state,until:p.until||previous?.until||null,interval:p.interval,amount:p.amount,currency:p.currency,updated:p.date,object:p.object};
+      current.membership={tier:level,state:p.state,until:p.until||previous?.until||null,interval:level==='tiro'&&previous?.object===p.object&&previous?.interval==='once'?'once':p.interval,amount:p.amount,currency:p.currency,updated:p.date,object:p.object};
       current.expires=new Date(Math.max(Date.parse(current.expires),store.now()+365*DAY*1000)).toISOString();
      }
      await store.persist(current);await store.own(current.id,'bmc:event:'+eventID,p,365*DAY);

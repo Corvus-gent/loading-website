@@ -175,5 +175,8 @@
   "warApproved": "approved",
   "discordRoleNote": "discord roles control access and supporter perks. your earned rank lives on your corvus profile.",
   "statsArmyNote": "unseen visitors are anonymous page hits, not unique people. the total combines them with PostHog daily visitor estimates. saying ok is a browser acknowledgement, not an enlisted account, earned rank or supporter tier.",
-  "discordLinked": "linked. your place in the legion is ready."
+  "discordLinked": "linked. your place in the legion is ready.",
+  "legionEntryTitle": "your first step.",
+  "legionTiroPrice": "tiro: $1 once",
+  "legionMilesPrice": "miles: $1/month"
 }

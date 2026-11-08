@@ -1,4 +1,4 @@
-import { t } from "./i18n.js?v=20261106-ranks1";
+import { t } from "./i18n.js?v=20261108-entry1";
 /**
  * Reusable DOM rendering components
  */

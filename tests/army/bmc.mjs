@@ -16,6 +16,14 @@ try{
  assert.deepEqual(await bmc.accept({...donation,live_mode:false}),{test:true});count++;
  const cancel={event_id:400,type:'membership.cancelled',live_mode:true,created:now+100,data:{id:1,membership_level_name:'centurio',amount:10,currency:'USD',supporter_email:'test@example.test',current_period_end:now+200,status:'canceled'}};
  await bmc.accept(cancel);await bmc.process('400');await bmc.accept({...cancel,event_id:401,type:'membership.started',data:{...cancel.data,status:'active'}});await bmc.process('401');assert.equal((await store.getUser(u.id)).membership.state,'cancelled');count++;
+ // One-off tiro: explicit shop item, survives expiry, no rank points, refund revokes it.
+ const entry=await store.create();await store.register(entry.id,{username:'entry_test',email:'entry@example.test',country:'BE'});await store.verify(entry.id);
+ const buy={event_id:450,type:'extra_purchase.created',live_mode:true,created:now+200,data:{id:450,amount:1,currency:'USD',supporter_email:'entry@example.test',extras:[{title:'tiro'}]}};
+ await bmc.accept({...buy,event_id:449,data:{...buy.data,extras:[{title:'unrelated'}]}});await bmc.process('449');assert.equal(activeTier(await store.getUser(entry.id)),null);
+ await bmc.accept(buy);await bmc.process('450');const enrolled=await store.getUser(entry.id);assert.equal(activeTier(enrolled,Date.now()+5*365*86400000),'tiro');assert.equal(points(enrolled),0);assert.equal(rank(enrolled),'tiro');
+ assert.equal(activeTier({membership:{tier:'tiro',state:'gift',until:new Date(Date.now()-1000).toISOString()}}),null);
+ const refund={...buy,event_id:451,type:'extra_purchase.refunded',created:now+201,data:{...buy.data,extras:[]}};await bmc.accept(refund);await bmc.process('451');assert.equal(activeTier(await store.getUser(entry.id)),null);await bmc.process('450');assert.equal(activeTier(await store.getUser(entry.id)),null);
+ await store.remove(entry.id);count+=7;
  // Erasure between durable acceptance and the background processor must remove the pending personal record too.
  await bmc.accept({...donation,event_id:402});
 

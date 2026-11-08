@@ -175,5 +175,8 @@
   "warApproved": "goedgekeurd",
   "discordRoleNote": "discordrollen regelen toegang en supporterperks. je verdiende rang staat op je corvus-profiel.",
   "statsArmyNote": "onzichtbare bezoekers zijn anonieme paginahits, geen unieke mensen. het totaal telt ze bij de dagelijkse bezoekersschatting van PostHog. ok zeggen is een browserbevestiging, geen ingeschreven account, verdiende rang of supportertier.",
-  "discordLinked": "gekoppeld. je plek in het legioen is klaar."
+  "discordLinked": "gekoppeld. je plek in het legioen is klaar.",
+  "legionEntryTitle": "je eerste stap.",
+  "legionTiroPrice": "tiro: $1 eenmalig",
+  "legionMilesPrice": "miles: $1/maand"
 }

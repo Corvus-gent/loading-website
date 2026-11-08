@@ -175,5 +175,8 @@
   "warApproved": "aprovados",
   "discordRoleNote": "os cargos do discord dão acesso e benefícios de apoio. a tua patente conquistada está no teu perfil corvus.",
   "statsArmyNote": "os visitantes invisíveis são visitas anónimas a páginas, não pessoas únicas. o total soma-as às estimativas diárias do PostHog. dizer ok é uma confirmação do navegador, não uma conta alistada, uma patente conquistada ou um nível de apoio.",
-  "discordLinked": "ligado. o teu lugar na legião está pronto."
+  "discordLinked": "ligado. o teu lugar na legião está pronto.",
+  "legionEntryTitle": "o teu primeiro passo.",
+  "legionTiroPrice": "tiro: 1 $ uma só vez",
+  "legionMilesPrice": "miles: 1 $/mês"
 }

@@ -1,4 +1,4 @@
-import {init,t} from './army/copy.js?v=20261106-ranks1';
+import {init,t} from './army/copy.js?v=20261108-entry1';
 let snapshot;
 const root=document.getElementById('section-output');
 const el=(tag,text)=>{const n=document.createElement(tag);n.textContent=text;return n;};

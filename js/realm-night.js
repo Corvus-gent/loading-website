@@ -1,4 +1,4 @@
-import {collectRealmFeather} from './eggs.js?v=20261106-ranks1';
+import {collectRealmFeather} from './eggs.js?v=20261108-entry1';
 import {openTerminal} from './terminal.js';
 
 const scene = document.querySelector('.night-scene');
