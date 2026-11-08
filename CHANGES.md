@@ -227,3 +227,6 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 - Replace the private teammate with XX, remove the profile link and identifying initial, regenerate team pages/search, and anonymize historical team-click identifiers in public stats.
 
 - Add the requested lime PLAY OSSMAN button above the battle hero, with tracked destination and original pixel lettering; normal document flow prevents covering videos or votes.
+
+## 2026-11-08 — battle verdict sharing
+- Replace the single native share button with Post on X, WhatsApp and Copy. All use one shared sentence ending in exactly one full tracked URL; copy shows “Copied ✅” and supports browsers without clipboard access.
