@@ -36,6 +36,8 @@ jobs:
         run: |
           node tools/plethora/verify-routes.mjs
           REDIS_URL=redis://127.0.0.1:16380/7 node tools/plethora/check.mjs
+      - name: Build ledger snapshot and webhook contracts
+        run: REDIS_URL=redis://127.0.0.1:16380/12 node tests/build-stats/api.mjs
       - name: Support booking and privacy contracts
         run: REDIS_URL=redis://127.0.0.1:16380/8 node tools/support/check.mjs
       - name: Account, perk and earned-rank contracts

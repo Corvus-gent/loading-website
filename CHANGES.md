@@ -277,3 +277,4 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 - `/build`: classical black/gold public source-growth dashboard, ranges, chart, heatmap, shipped PRs, public activity and share/OG card. Footer and legion links.
 - First-parent Git source-only backfill, GitHub/Vercel server-side collection, durable Redis snapshots and seed fallback; no credentials in public JSON.
 - Verified current source total against Git blobs and a 24-hour sample against `git log --shortstat`; 390px/1440px browser smoke passed.
+- Follow-up: full-history surge default, 7-day multiplier from actual Git sizes; hourly authenticated Redis snapshots, GitHub read-only collection/verification workflow, and signed Vercel deployment events with replay protection. No broad GitHub/Vercel access token stored by the site.
