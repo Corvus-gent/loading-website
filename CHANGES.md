@@ -225,3 +225,5 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 
 ## 2026-11-08 — hackathon roster privacy
 - Replace the private teammate with XX, remove the profile link and identifying initial, regenerate team pages/search, and anonymize historical team-click identifiers in public stats.
+
+- Add the requested lime PLAY OSSMAN button above the battle hero, with tracked destination and original pixel lettering; normal document flow prevents covering videos or votes.
