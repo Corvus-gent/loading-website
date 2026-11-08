@@ -106,7 +106,7 @@ async function initMap(snapshot) {
         element?.addEventListener('focus', () => marker.openTooltip());
         element?.addEventListener('blur', () => marker.closeTooltip());
       });
-      const shown=cities.some(c=>!c.unknown||countryToggle?.checked);status.hidden=shown;
+      status.hidden=cities.length>0;
     }
   map.on('zoomend moveend',draw);
   const update=data=>{
@@ -122,7 +122,7 @@ async function initMap(snapshot) {
     const coarseLabel=document.querySelector('#map-country-only-count');if(coarseLabel)coarseLabel.textContent=coarse.toLocaleString('en');
     if(note)note.textContent=`${precise.toLocaleString('en')} located to a city area or region · ${coarse.toLocaleString('en')} country only${data.unlocated ? ` · ${data.unlocated} country unknown` : ''}. gold = recorded visitors; coloured cities and SF/HK hotspots = reference highlights, not visitor counts.${data.cityUnavailable ? ' city details temporarily unavailable.' : ''}`;
     status.textContent = precise || countryToggle?.checked ? '' : 'city-level pings appear here as they arrive.';
-    status.hidden = !!precise || !!countryToggle?.checked;
+    status.hidden = cities.length>0;
   };
   update(snapshot);return update;
 }
