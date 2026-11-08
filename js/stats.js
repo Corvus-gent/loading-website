@@ -1,3 +1,4 @@
+import {renderSupport} from './stats-support.js?v=20261108s1';
 import {renderCountries, countryPeriod} from './stats-countries.js';
 import {readPreference, savePreference} from './storage.js';
 const $ = id => document.getElementById(id);
@@ -101,6 +102,7 @@ function render() {
     document.dispatchEvent(new CustomEvent('overview-coffee',{detail:s.coffee}));
     document.querySelector('[data-coffee]').hidden=day!==TODAY;
     const uptime=document.querySelector('[data-uptime]');uptime.textContent='uptime 30d: '+(s.uptime==null?'—':s.uptime.toFixed(1)+'%');
+    renderSupport(s.support);
     const outbound=$("outbound");outbound.replaceChildren();
     if(s.outbound)rows("outbound",s.outbound.hosts.map(([label,n])=>({label,n})),"label");else outbound.textContent='outbound counts unavailable.';
     const visitors=s.visitors==null?null:s.visitors+(s.unseen?.day||0);
