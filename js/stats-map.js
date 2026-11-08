@@ -54,7 +54,7 @@ async function initMap(snapshot) {
     function draw() {
       markers.clearLayers();
       mergeLocations(cities, map.getZoom()).forEach((group, index) => {
-        const radius = dotRadius(group.visitors), size = radius * 2;
+        const radius = dotRadius(group.visitors), size = radius * 2, hit = Math.max(44,size);
         const dot = document.createElement('span');
         dot.className = 'visitor-flame' + (group.unknown ? ' visitor-unknown' : '');
         dot.style.cssText = `width:${size}px;height:${size}px;animation-delay:-${index % 9}s`;
@@ -62,9 +62,9 @@ async function initMap(snapshot) {
         const tooltip = document.createElement('span');
         tooltip.textContent = label; // Never interpret location names as HTML.
         const marker = L.marker([group.lat, group.lng], {
-          icon: L.divIcon({ className: 'visitor-dot', html: dot, iconSize: [size, size], iconAnchor: [radius, radius] }),
+          icon: L.divIcon({ className: 'visitor-dot', html: dot, iconSize: [hit, hit], iconAnchor: [hit / 2, hit / 2] }),
           title: label, alt: label, keyboard: true, riseOnHover: true
-        }).bindTooltip(tooltip, { direction: 'top', offset: [0, -radius], className: 'visitor-tooltip' }).addTo(markers);
+        }).bindTooltip(tooltip, { direction: 'auto', offset: [0, 0], className: 'visitor-tooltip' }).addTo(markers);
         marker.on('click', () => marker.openTooltip());
         marker.on('add', () => { const element = marker.getElement(); element?.addEventListener('focus', () => marker.openTooltip()); element?.addEventListener('blur', () => marker.closeTooltip()); });
         const element = marker.getElement();
