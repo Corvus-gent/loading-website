@@ -1,0 +1,12 @@
+import fs from 'node:fs/promises';
+const directory='public/gabinho-rolls',page='gabinho-rolls/index.html';
+const exists=async name=>{try{return (await fs.stat(directory+'/'+name)).isFile();}catch{return false;}};
+const profile=await exists('profile.jpg'),medal=await exists('gi-medal.jpg');
+let html=await fs.readFile(page,'utf8');
+const slot=(name,value)=>{const re=new RegExp(`<!-- GABINHO_${name} -->[\\s\\S]*?<!-- /GABINHO_${name} -->`);if(!re.test(html))throw Error('Missing Gabinho slot '+name);html=html.replace(re,`<!-- GABINHO_${name} -->${value}<!-- /GABINHO_${name} -->`);};
+slot('PROFILE',profile?'<figure class="profile-photo"><img src="/public/gabinho-rolls/profile.jpg" width="240" height="240" alt="Gabinho surfing" fetchpriority="high"><figcaption>on the mats. in the water. on the road.</figcaption></figure>':'<p class="competitor-note">Chasing mat time.<br>Across the world.</p>');
+slot('MEDAL',medal?'<figure class="medal-photo"><img src="/public/gabinho-rolls/gi-medal.jpg" width="480" height="600" alt="Gabinho with his Grappling Industries bronze medal" loading="lazy"><figcaption>Grappling Industries · bronze</figcaption></figure>':'');
+slot('VIDEO',`<video id="brand-partner" width="720" height="1280" controls autoplay muted loop playsinline preload="metadata"${profile?' poster="/public/gabinho-rolls/profile.jpg"':''} aria-label="Gabinho training and competition highlights"><source src="/public/gabinho-rolls/brand-partner.mp4" type="video/mp4"></video>`);
+await fs.writeFile(page,html);
+const missing=[...(!profile?['profile.jpg']:[]),...(!medal?['gi-medal.jpg']:[])];
+console.log(missing.length?'Gabinho photo files pending: '+missing.map(f=>directory+'/'+f).join(', '):'Gabinho photos and video poster ready.');

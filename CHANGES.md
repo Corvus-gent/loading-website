@@ -1,3 +1,8 @@
+## 2026-11-07 — codex/gabinho-rolls-v2
+
+- Reposition Gabinho as a traveling BJJ competitor, replace belt artwork with the supplied unchanged Monferno logo/favicon, add registered competition cards, and preserve the five paybacks/contact CTAs.
+- Host the 40-second Compound highlight at 3.81 MB (the source blocks iframes); add an opt-in official TikTok creator profile with recovery links. The supplied surf photo is the circular profile, poster and OG image. The medal-photo slot activates during build once gi-medal.jpg is supplied.
+
 ## 2026-11-07 — codex/gabinho-rolls-page
 
 - Add /gabinho-rolls, a short English pitch for one free BJJ class, with five concrete ways Gabriel gives back and direct Instagram/email contact links.

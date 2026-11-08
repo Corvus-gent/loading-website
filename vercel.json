@@ -326,5 +326,5 @@
       "schedule": "*/15 * * * *"
     }
   ],
-  "buildCommand": "node tools/build-battle.mjs && node tools/build-hackathons.mjs && node tools/build-plethora.mjs && python3 tools/build-search.py"
+  "buildCommand": "node tools/build-gabinho-rolls.mjs && node tools/build-battle.mjs && node tools/build-hackathons.mjs && node tools/build-plethora.mjs && python3 tools/build-search.py"
 }

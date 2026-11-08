@@ -215,7 +215,7 @@ counts attributed to Corvus from a separate project; never return Pidgy identiti
 | Webflow `cdn.prod.website-files.com` | Link-hub Pidgy image exposes browser IP/UA/referrer. | Replace with local asset. |
 | Buy Me a Coffee | Ordinary outbound links, no widget/iframe/API before click. UTM categories accompany intentional visit. | Request; destination controls payment/account data and retention. Corvus does not receive form/payment details. |
 | Pidgy / `pidgy-ai.com`, `app.pidgy-ai.com` | Ordinary link to trial or booking; fixed invite/UTM/ref parameters. No booking iframe or form capture. | Request; booking info is collected by Pidgy on its own site under its policy. |
-| Other external links (LinkedIn, Instagram, TikTok, X, Luma, Discord, Bandcamp, SoundCloud, MusicBrainz, articles) | Navigation after deliberate click, no embedded trackers. | Requested navigation; external policy applies. Strip identifying query data from Corvus event copies, not legitimate destination functionality. |
+| Other external links (LinkedIn, Instagram, TikTok, X, Luma, Discord, Bandcamp, SoundCloud, MusicBrainz, articles) | Navigation after deliberate click; TikTok also has the separate click-loaded creator embed documented below. | Requested navigation; external policy applies. Strip identifying query data from Corvus event copies, not legitimate destination functionality. |
 
 Tracking links `/links`, `/go`, `/important-call-gabe-maxxer` and
 `/coffee-with-gabe` add fixed/category UTM labels; optional views/clicks are counted only with analytics consent. Anonymous CLI counters are server-only aggregate increments. They do not
@@ -714,3 +714,10 @@ Discord is not connected until its token and installed-guild configuration exist
 - `plethora:*:recent:<placement>` contains only random non-identifying click sample keys and times for the rolling 24-hour sum. Records older than 24h are pruned on write; the whole set expires after 25h. No visitor-level details are exposed in the report.
 - Browser preference `plethora.home.dismissed=1` remembers only a deliberate banner dismissal until cleared; it does not identify a visitor or count views. `plethora.admin` is a private access key kept in sessionStorage for the admin tab, never sent to Apple/Plethora. The admin page immediately removes `?key=` and sets `Referrer-Policy: no-referrer`; counts require the dedicated key or Gabriel's authenticated session.
 - Referral codes and App Store provider IDs are public configuration. `PLETHORA_ADMIN_KEY` is a sensitive server secret, never part of the public API or committed source. The public API returns only aggregate total clicks and public referral configuration.
+
+
+## Gabinho Rolls v2 — TikTok creator profile (7 November 2026)
+
+- `/gabinho-rolls` serves the supplied logo and compressed highlight from Corvus/Vercel. The profile/medal photos will be static assets when supplied; no external player or image service is contacted for them.
+- The optional official TikTok creator-profile embed contacts `www.tiktok.com` and TikTok-selected hosts **only after “Load TikTok edits” is clicked**, with a visible cookie/privacy disclosure and direct profile fallback. TikTok receives the browser connection information and controls its cookies/storage and retention. Corvus uses no additional visitor ID or local preference for this player. Initial page load makes no TikTok request.
+- Existing site analytics and privacy controls are reused. There is no new API, account flow, form, email or stored personal data. Missing optional photos are omitted from the rendered page, not replaced with invented portraits.

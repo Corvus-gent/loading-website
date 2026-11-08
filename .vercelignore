@@ -15,3 +15,5 @@ games/data
 !tools/build-battle.mjs
 
 !tools/build-plethora.mjs
+
+!tools/build-gabinho-rolls.mjs
