@@ -46,6 +46,10 @@
   ],
   "rewrites": [
     {
+      "source": "/api/battle",
+      "destination": "/api/stats?battle=1"
+    },
+    {
       "source": "/hack/play/do-bronx",
       "destination": "/hack/play/index.html"
     },
@@ -181,7 +185,7 @@
       "includeFiles": "music.json"
     },
     "api/stats.js": {
-      "includeFiles": "music.json",
+      "includeFiles": "{music.json,battle/config.json,battle/media.json}",
       "maxDuration": 60
     },
     "api/x-stats.js": {
@@ -318,5 +322,5 @@
       "schedule": "*/15 * * * *"
     }
   ],
-  "buildCommand": "node tools/build-hackathons.mjs && python3 tools/build-search.py"
+  "buildCommand": "node tools/build-battle.mjs && node tools/build-hackathons.mjs && python3 tools/build-search.py"
 }

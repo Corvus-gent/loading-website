@@ -11,3 +11,5 @@ PLAN.md
 .git
 
 games/data
+
+!tools/build-battle.mjs

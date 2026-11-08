@@ -207,3 +207,8 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 - Converted the offline game to a fullscreen Plethora Bit with SDK surfaces/input/loop, score records, sharing, safe-area layout and cleanup.
 - Saved draft 85764f7c-5061-431d-a35b-7a0dfbd29bf9; receipt and package in submission/plethora. Mobile Chromium/WebKit adapter tests pass; native host playback and publication remain separate/unverified.
 - Live site and original offline bundle unchanged.
+
+## 2026-11-08 — codex/battle
+- Add Codex vs Compound blind A/B battle, reveal, live scorecard, private admin and 12 deduplicated campaign redirects.
+- Add four compressed self-hosted videos, posters, original social art and two live $3 support links; preserve exact donation disclaimer.
+- Reuse the stats API and Redis; isolate preview data, enforce atomic vote/close checks, and leave `/hack` voting and game behavior unchanged.
