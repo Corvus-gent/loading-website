@@ -1,0 +1,14 @@
+{
+  "repo": "Corvus-gent/loading-website",
+  "user": "Gabriellvl",
+  "ref": "daily/2026-11-06-redis-restore",
+  "timezone": "America/Los_Angeles",
+  "sfArrival": "2026-11-06T00:00:00-08:00",
+  "linesPerPage": 50,
+  "milestones": [
+    {"match": "legion", "label": "Legion opened", "url": "/legion/"},
+    {"match": "whitebelt", "label": "OSSMAN shipped", "url": "/hack/play"},
+    {"match": "battle", "label": "battle live", "url": "/battle/"}
+  ],
+  "livePages": {"legion":"/legion/","support":"/call/","plethora":"/plethora/","compound":"/compound/","battle":"/battle/","whitebelt":"/hack/play","ossman":"/hack/play","hack":"/hack/","gabinho":"/gabinho-rolls/","music":"/music/","stats":"https://stats.corvus.gent/","sf ":"/sf/"}
+}

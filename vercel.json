@@ -46,6 +46,14 @@
   ],
   "rewrites": [
     {
+      "source": "/api/build",
+      "destination": "/api/stats?build=1"
+    },
+    {
+      "source": "/api/build/og.png",
+      "destination": "/api/stats?build=1&image=1"
+    },
+    {
       "source": "/api/support",
       "destination": "/api/stats?support=1"
     },

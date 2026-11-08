@@ -272,3 +272,8 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 - Explicit one-time BMC tiro Shop purchases now survive monthly expiry; refunds revoke them and gifts retain their original expiry.
 - Bumped shared army/i18n module versions together. BMC checkout configuration remains a manual provider step, documented in `docs/LEGION-ENTRY-PRICING.md`.
 - Checked one-time purchase/refund/replay behavior, existing BMC contracts, locale parity, and mobile/desktop layout. Carousel exports remain local artifacts, outside this code change.
+
+## 2026-11-08 — live build ledger
+- `/build`: classical black/gold public source-growth dashboard, ranges, chart, heatmap, shipped PRs, public activity and share/OG card. Footer and legion links.
+- First-parent Git source-only backfill, GitHub/Vercel server-side collection, durable Redis snapshots and seed fallback; no credentials in public JSON.
+- Verified current source total against Git blobs and a 24-hour sample against `git log --shortstat`; 390px/1440px browser smoke passed.
