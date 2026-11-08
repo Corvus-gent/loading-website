@@ -6,7 +6,7 @@ function mount(){
   if(!visible||started||!data)return;
   started=true;
   const css=document.createElement('link');css.rel='stylesheet';css.href='/js/vendor/leaflet/leaflet.css';document.head.append(css);
-  import('./stats-map.js?v=20261108cities1').then(async({initMap})=>{const initial=data;update=await initMap(initial);if(initial!==data)update?.(data);}).catch(()=>{document.querySelector('#visitor-map-status').textContent='the lantern is out.';});
+  import('./stats-map.js?v=20261108color1').then(async({initMap})=>{const initial=data;update=await initMap(initial);if(initial!==data)update?.(data);}).catch(()=>{document.querySelector('#visitor-map-status').textContent='the lantern is out.';});
 }
 const observer=new IntersectionObserver(entries=>{if(entries[0].isIntersecting){visible=true;observer.disconnect();mount();}});observer.observe(container);
 function show(payload,day){

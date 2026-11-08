@@ -30,6 +30,9 @@ export function referenceCities(zoom,bounds){
   }
   return result;
 }
+const referencePalette = ['#64c7ed','#b5a0ff','#ee98d4','#71d9c0'];
+const referenceColor = code => referencePalette[[...code].reduce((n,c)=>n+c.charCodeAt(0),0)%referencePalette.length];
+const hotspots = [{id:'sf',name:'san francisco',lat:37.8,lng:-122.4,color:'#57e1df'},{id:'hk',name:'hong kong',lat:22.3,lng:114.2,color:'#ed9aff'}];
 export const dotRadius = visitors => Math.max(4, Math.min(24, Math.sqrt(visitors)));
 
 async function initMap(snapshot) {
@@ -52,6 +55,16 @@ async function initMap(snapshot) {
   if(enabled&&!tiles)tiles=L.tileLayer('/api/geo?tiles=1&z={z}&x={x}&y={y}',{maxZoom:12}).on('tileerror',()=>{document.querySelector('#visitor-map-background').hidden=false;}).addTo(map);
   document.querySelector('#visitor-map-background').hidden=!!enabled;
   }
+  map.createPane('corvusHotspots').style.zIndex=450;
+  for(const hotspot of hotspots){
+    const icon=document.createElement('span');icon.className='corvus-hotspot-light';icon.style.setProperty('--hotspot',hotspot.color);
+    const label=document.createElement('span');label.textContent=hotspot.name+' · corvus hotspot';
+    const marker=L.marker([hotspot.lat,hotspot.lng],{pane:'corvusHotspots',icon:L.divIcon({className:'corvus-hotspot',html:icon,iconSize:[44,44],iconAnchor:[22,22]}),title:hotspot.name+' · corvus hotspot (highlight, not visitor count)',keyboard:true}).addTo(map);
+    marker.bindTooltip(label,{permanent:true,direction:'top',offset:[0,-12],className:'corvus-hotspot-label'});
+    const focusHotspot=()=>map.setView([hotspot.lat,hotspot.lng],6,{animate:!reduced});
+    marker.on('click',focusHotspot);
+    document.querySelector('[data-map-hotspot="'+hotspot.id+'"]')?.addEventListener('click',focusHotspot);
+  }
   const references=L.layerGroup().addTo(map);
   const markers = L.layerGroup().addTo(map);
   const countryToggle=document.querySelector('#map-country-only');
@@ -71,7 +84,8 @@ async function initMap(snapshot) {
       markers.clearLayers();references.clearLayers();
       const zoom=map.getZoom();
       referenceCities(zoom,map.getBounds()).forEach((city,index)=>{
-        const dot=L.circleMarker([city.lat,city.lng],{radius:2,color:'#8e958e',weight:1,fillColor:'#8e958e',fillOpacity:.6,interactive:false}).addTo(references);
+        const color=referenceColor(city.country);
+        const dot=L.circleMarker([city.lat,city.lng],{radius:3,color,weight:1,fillColor:color,fillOpacity:.5,className:'reference-city-dot',interactive:false}).addTo(references);
         if((zoom>=3&&index<35)||(zoom>=2&&index<8)){const label=document.createElement('span');label.textContent=city.city.toLowerCase();dot.bindTooltip(label,{permanent:true,direction:'top',className:'reference-city',offset:[0,-2]});}
       });
       mergeLocations(cities.filter(c=>!c.unknown||countryToggle?.checked), zoom).forEach((group, index) => {
@@ -106,7 +120,7 @@ async function initMap(snapshot) {
     const note=document.querySelector('#visitor-map-coverage');
     const precise=cities.filter(c=>!c.unknown).reduce((n,c)=>n+c.visitors,0),coarse=cities.filter(c=>c.unknown).reduce((n,c)=>n+c.visitors,0);
     const coarseLabel=document.querySelector('#map-country-only-count');if(coarseLabel)coarseLabel.textContent=coarse.toLocaleString('en');
-    if(note)note.textContent=`${precise.toLocaleString('en')} located to a city area or region · ${coarse.toLocaleString('en')} country only${data.unlocated ? ` · ${data.unlocated} country unknown` : ''}. gold = recorded visitors; grey = reference cities, not visits.${data.cityUnavailable ? ' city details temporarily unavailable.' : ''}`;
+    if(note)note.textContent=`${precise.toLocaleString('en')} located to a city area or region · ${coarse.toLocaleString('en')} country only${data.unlocated ? ` · ${data.unlocated} country unknown` : ''}. gold = recorded visitors; coloured cities and SF/HK hotspots = reference highlights, not visitor counts.${data.cityUnavailable ? ' city details temporarily unavailable.' : ''}`;
     status.textContent = precise || countryToggle?.checked ? '' : 'city-level pings appear here as they arrive.';
     status.hidden = !!precise || !!countryToggle?.checked;
   };
