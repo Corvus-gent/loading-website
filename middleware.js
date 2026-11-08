@@ -30,6 +30,10 @@ const CURL_REPLY = `
 
 export default function middleware(request) {
   const url = new URL(request.url);
+  const videoSlug=/^\/v\/([^/]+)\/?$/.exec(url.pathname);
+  if(videoSlug&&url.hostname!=='stats.corvus.gent'){
+    const target=new URL('/api/stats',url);target.search=url.search;target.searchParams.set('compoundV2','1');target.searchParams.set('short','1');target.searchParams.set('slug',videoSlug[1]);return rewrite(target);
+  }
   const liveSlug=/^\/go\/(twitch|instagram|twitter)\/?$/.exec(url.pathname);
   if(liveSlug){const target=new URL('/api/stats',url);target.searchParams.set('live','1');target.searchParams.set('slug',liveSlug[1]);return rewrite(target);}
   const supportSlug=/^\/go\/((?:call|bmc|dinner|roll)-(?:li|x))\/?$/.exec(url.pathname);

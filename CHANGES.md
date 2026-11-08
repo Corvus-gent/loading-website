@@ -306,3 +306,8 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 
 ## Live profile photos
 - Replace the /live profile placeholder with Gabe’s supplied portrait and surf photo. Optimized JPEGs, circular CSS framing, fixed dimensions, lazy loading and descriptive alt text.
+
+## Compound v2 — 24-hour video tracking
+- Add an isolated video registry, filtered hub, language/hook/cut pages, attributed /v/{slug} redirects, cookie-deduped voting and private feedback.
+- Owner stats support adding posts, inline metric edits, sorted rollups and local QR/share tools. Clearly marked examples never inflate totals. Original Compound remains intact.
+- Reuse existing Redis and admin password; document consent, TTLs, counters and optional Oriane configuration.
