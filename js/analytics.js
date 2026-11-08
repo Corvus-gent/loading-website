@@ -4,7 +4,7 @@
   const {inferredSource}=await import('/js/social-attribution.js?v=20261107social1');
   const inferred=inferredSource({search:arrivalSearch,userAgent:navigator.userAgent,referrer:document.referrer});
   const {setXCampaigns,xContext} = await import('./x-attribution.js');
-  const {privacyEvent, sourceCategory, pathCategory, safeURL} = await import('/js/analytics-policy.js?v=20261108support1');
+  const {privacyEvent, sourceCategory, pathCategory, safeURL} = await import('/js/analytics-policy.js?v=20261108geo3');
   import('/js/performance.js').catch(()=>{});
   import('/js/outbound.js').catch(()=>{});
   if (/^\/links(?:\/|$)/.test(location.pathname)) {
@@ -89,6 +89,7 @@
         if(x?.content)props.utm_content=x.content;
         if(query.has('utm_medium')) props.utm_medium=query.get('utm_medium');
         if(/^[A-Z]{2}$/.test(geo?.countryCode||'')) props.corvus_country_code=geo.countryCode;
+        if(geo?.city){props.corvus_city=geo.city;props.corvus_region=geo.region;props.corvus_latitude=geo.lat;props.corvus_longitude=geo.lng;}
         if (/^\/(hack|compound)(?:\/|$)/.test(location.pathname)) {
           const arrival=new URLSearchParams(arrivalSearch),id=/^\/hack\/([1-9]\d*)(?:\/|$)/.exec(location.pathname)?.[1];
           props.utm_campaign=arrival.get('utm_campaign')|| (location.pathname.startsWith('/hack')?'hack':'compound-1000');

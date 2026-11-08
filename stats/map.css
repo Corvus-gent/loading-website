@@ -14,3 +14,5 @@
 #visitor-map .visitor-dot:focus-visible { outline:1px solid #ffd76a; outline-offset:6px; border-radius:50%; }
 @media(max-width:600px) { #visitor-map { height:300px; } }
 @media(prefers-reduced-motion:reduce) { .visitor-flame { animation:none; } }
+
+.visitor-unknown{background:#ffd76a33;border:2px dashed #ffd76a;box-sizing:border-box;}

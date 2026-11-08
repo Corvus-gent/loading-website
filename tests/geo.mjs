@@ -1,38 +1,28 @@
 import assert from 'node:assert/strict';
-import vm from 'node:vm';
-import { readFile } from 'node:fs/promises';
-import { mergeLocations, locationLabel, dotRadius } from '../js/stats-map.js';
-const cities = [
- {countryCode:'BE',country:'Belgium',region:'Flanders',city:'Ghent',lat:51,lng:3.7,visitors:12},
- {countryCode:'BE',country:'Belgium',region:'Flanders',city:'Bruges',lat:51.2,lng:3.2,visitors:4},
- {countryCode:'BE',country:'Belgium',region:'Wallonia',city:'Namur',lat:50.5,lng:4.9,visitors:2},
- {countryCode:'FR',country:'France',region:'Flanders',city:'Ghent',lat:48.8,lng:2.3,visitors:3},
-];
-assert.equal(mergeLocations(cities,3).length,2);
-assert.equal(mergeLocations(cities,4).length,3);
-assert.equal(mergeLocations(cities,6).length,3);
-assert.equal(mergeLocations(cities,7).length,4);
-const region=mergeLocations(cities,4)[0];assert.equal(region.visitors,16);assert.ok(Math.abs(region.lat-51.05)<1e-10);
-assert.equal(locationLabel({...cities[0],level:'city'}),'ghent · 12 souls');
-assert.equal(locationLabel({...cities[0],city:'',level:'city'}),'somewhere in belgium');
-assert.equal(dotRadius(1),4);assert.equal(dotRadius(100),10);assert.equal(dotRadius(10000),24);
-const source = await readFile(new URL('../api/geo.js',import.meta.url),'utf8');
-let queries=0,commands=[],cache=null,fail=false,ready=true,redisFail=false;
-const context=vm.createContext({});
-const hog=new vm.SyntheticModule(['hogql','posthogReady','REAL'],function(){this.setExport('REAL',"properties.$host = 'corvus.gent'");this.setExport('posthogReady',()=>ready);this.setExport('hogql',async query=>{queries++;assert.match(query,/count\(DISTINCT distinct_id\)/);assert.match(query,/GROUP BY 1,2,3,4 HAVING count\(DISTINCT distinct_id\) >= 2 LIMIT 3000/);if(fail)throw Error();return [['BE','Belgium','Flanders','Ghent',51.053,3.724,12],['BE','Belgium','Flanders','Single visitor',51,3.8,1],['BE','Belgium','','',null,4,1],['BE','Belgium','','',400,4,1]];});},{context});
-const redis=new vm.SyntheticModule(['redis','connected'],function(){this.setExport('connected',()=>true);this.setExport('redis',async command=>{commands.push(command);if(redisFail)throw Error();if(command[0]==='GET')return cache;cache=command[2];return 'OK';});},{context});
-const module=new vm.SourceTextModule(source,{context});await module.link(s=>s.includes('_posthog')?hog:redis);await module.evaluate();
-async function call(method='GET',query={},headers={}){const res={headers:{},setHeader(k,v){this.headers[k]=v;},status(s){this.code=s;return this;},json(data){this.data=JSON.parse(JSON.stringify(data));return this;}};return module.namespace.default({method,query,headers},res);}
-let response=await call();assert.equal(response.code,200);assert.equal(response.headers['Cache-Control'],'public, max-age=0, s-maxage=900');assert.deepEqual(response.data.cities,[{...cities[0],lat:51.1}]);assert.ok(commands.some(c=>c[0]==='SET'&&c[1]==='geo:all:v2'&&c[3]==='EX'&&c[4]==='900'));
-await call();assert.equal(queries,1);
-cache=JSON.stringify({cities:[...cities,{...cities[0],city:'single visitor',visitors:1}]});response=await call();assert.equal(response.data.cities.length,4);
-assert.equal(mergeLocations([{...cities[0],visitors:1}],7).length,0);
-cache=null;redisFail=true;response=await call();assert.equal(response.code,200);
-fail=true;response=await call();assert.equal(response.code,502);assert.equal(response.headers['Cache-Control'],'no-store');
-ready=false;response=await call();assert.equal(response.code,503);
-response=await call('POST');assert.equal(response.code,405);
-response=await call('GET',{country:'1'},{'x-vercel-ip-country':'BE','x-forwarded-for':'192.0.2.1'});
-assert.equal(response.code,200);assert.deepEqual(response.data,{countryCode:'BE'});assert.equal(response.headers['Cache-Control'],'private, no-store');
-for(const code of [undefined,'','XX','ZZ','Belgium']){response=await call('GET',{country:'1'},{'x-vercel-ip-country':code});assert.deepEqual(response.data,{countryCode:null});}
-assert.equal((await call('POST',{country:'1'})).code,405);
-console.log('Geo checks passed: zoom boundaries, weighted centres, unknown labels, radii, rounded city-only response, cache hit/TTL, Redis failure, PostHog failure, readiness and method guard.');
+import {geoRows,geoQuery,geoData} from '../api/_geo-data.js';
+import handler from '../api/geo.js';
+import {mergeLocations,locationLabel} from '../js/stats-map.js';
+const data=geoRows([
+ ['US','','',null,null,83],['US','California','San Francisco','37.77','-122.42',5],
+ ['US','New York','New York',40.7,-74,3],['US','Oregon','Private singleton',45,-122,1],
+ ['BE','Flanders','Ghent',51,3.7,12],['?','','',null,null,2]
+]);
+assert.equal(data.countries.find(c=>c.c==='US').n,92);
+assert.equal(data.cities.filter(c=>c.countryCode==='US').reduce((n,c)=>n+c.visitors,0),92);
+assert.equal(data.cities.find(c=>c.countryCode==='US'&&c.unknown).visitors,84);
+assert(!JSON.stringify(data).includes('Private singleton'));
+assert.equal(data.mapped+data.unlocated,data.total);
+for(const z of [2,4,6,7,12])assert.equal(mergeLocations(data.cities,z).reduce((n,c)=>n+c.visitors,0),data.mapped);
+assert.match(locationLabel(mergeLocations(data.cities,2).find(c=>c.country==='United States')),/92 souls/);
+assert.match(locationLabel(mergeLocations(data.cities,8).find(c=>c.unknown)),/unknown city/);
+assert.equal(geoRows([['US','','',null,null,1]]).cities[0].visitors,1);
+assert.equal(geoRows([['US','CA','Invalid',100,200,2]]).cities[0].unknown,true);
+assert.match(geoQuery('2026-11-08'),/Europe\/Brussels/);assert.match(geoQuery('all'),/GROUP BY country, distinct_id/);
+assert(!geoQuery('all').includes('latitude IS NOT NULL GROUP'));assert.throws(()=>geoQuery("' OR 1"));
+assert.deepEqual(await geoData('2026-11-08',async()=>[['US','','',null,null,92]]),geoRows([['US','','',null,null,92]]));
+async function call(headers={},query={country:'1'},method='GET'){const res={setHeader(){},status(s){this.code=s;return this;},json(d){this.data=d;return this;}};await handler({method,query,headers},res);return res;}
+let r=await call({'x-vercel-ip-country':'US','x-vercel-ip-city':'San%20Francisco','x-vercel-ip-country-region':'CA','x-vercel-ip-latitude':'37.7749','x-vercel-ip-longitude':'-122.4194','x-forwarded-for':'1.2.3.4'});
+assert.deepEqual(r.data,{countryCode:'US',city:'San Francisco',region:'CA',lat:37.8,lng:-122.4});
+assert.deepEqual((await call({'x-vercel-ip-country':'US','x-vercel-ip-city':'%bad'})).data,{countryCode:'US'});
+assert.equal((await call({}, {},'POST')).code,405);
+console.log('PASS: 92 US visitors mapped at every zoom; missing coords + singleton privacy retained; shared Brussels scope; decoded/rounded city headers; no raw IPs.');

@@ -92,6 +92,14 @@ export function privacyEvent(event) {
   // coarse categories, never the browser's raw user agent, versions or model.
   properties.$raw_user_agent = `${properties.$browser}/${properties.$device_type}`;
   if (p.corvus_country_code) properties.corvus_country_code = countryCategory(p.corvus_country_code);
+  if(event.event==='$pageview' && typeof p.corvus_city==='string' && /^[\p{L}\p{N} .’'-]{1,100}$/u.test(p.corvus_city)) {
+    const lat=p.corvus_latitude,lng=p.corvus_longitude;
+    if(typeof lat==='number'&&Number.isFinite(lat)&&Math.abs(lat)<=90&&typeof lng==='number'&&Number.isFinite(lng)&&Math.abs(lng)<=180){
+      properties.corvus_city=p.corvus_city;
+      if(typeof p.corvus_region==='string'&&/^[\p{L}\p{N} .’'-]{0,100}$/u.test(p.corvus_region))properties.corvus_region=p.corvus_region;
+      properties.corvus_latitude=Math.round(lat*10)/10;properties.corvus_longitude=Math.round(lng*10)/10;
+    }
+  }
   if(p.utm_campaign==='hack'&&p.utm_content==='squads'){properties.utm_content='squads';if(p.short_slug==='squads')properties.short_slug='squads';}
   if(Number.isInteger(p.hack_id)&&p.hack_id>0&&p.hack_id<=9999)properties.hack_id=p.hack_id;
   if(event.event==='squad_member_click')properties.member=category(p.member,['gabe','siebe']);

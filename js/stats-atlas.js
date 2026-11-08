@@ -15,7 +15,7 @@ function mount() {
   css.rel = 'stylesheet';
   css.href = '/js/vendor/leaflet/leaflet.css';
   document.head.append(css);
-  import('./stats-map.js')
+  import('./stats-map.js?v=20261108geo3')
     .then(async ({ initMap }) => {
       const initial = data;
       update = await initMap(initial);
@@ -33,7 +33,7 @@ const observer = new IntersectionObserver((entries) => {
   }
 });
 observer.observe(container);
-window.statsPage.watch('map', window.statsPage.today, (s) => {
+window.statsPage.watch('map', window.statsPage.selected || window.statsPage.today, (s) => {
   data = s.data;
   const list = document.querySelector('#countries');
   document.querySelector('#countries-period').textContent = countryPeriod(
@@ -41,7 +41,7 @@ window.statsPage.watch('map', window.statsPage.today, (s) => {
   );
   if (data?.countries) {
     const count=data.countries.filter(row=>row.c&&row.c!=='?').length;
-    document.querySelector('#map-count').textContent=count+' '+(count===1?'country':'countries')+' on '+(s.day||window.statsPage.today)+' · city-level lights, all time.';
+    document.querySelector('#map-count').textContent=count+' '+(count===1?'country':'countries')+' on '+(s.day||window.statsPage.today)+' · map and list show the same visitors.';
     renderCountries(list, data.countries);
   }
   else list.textContent = 'country counts are unavailable. try again shortly.';
