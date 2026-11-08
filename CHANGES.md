@@ -1,3 +1,8 @@
+## 2026-11-07 — codex/gabinho-rolls-page
+
+- Add /gabinho-rolls, a short English pitch for one free BJJ class, with five concrete ways Gabriel gives back and direct Instagram/email contact links.
+- Match the site's monospace, black and lantern-yellow styling; add an original white-belt illustration, dedicated social preview, existing privacy/analytics/footer integration and generated search entry. No dependencies or backend changes.
+
 ## 2026-11-08 — codex/plethora · tracker v2
 
 - Preserve originating placement through the landing page and suppress its second store-button count. Add Android/explicit-store routing, desktop-only tracked QR, bio aliases and six new placements without resetting old counts.
