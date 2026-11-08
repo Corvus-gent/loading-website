@@ -2,7 +2,11 @@ import {chromium,webkit,devices} from 'playwright';import assert from 'node:asse
 const base=process.env.PLETHORA_TEST_URL||'http://127.0.0.1:4394',folder='tests/results/plethora-official';fs.mkdirSync(folder,{recursive:true});
 const cookies=process.env.PLETHORA_TEST_COOKIES?fs.readFileSync(process.env.PLETHORA_TEST_COOKIES,'utf8').split('\n').filter(l=>l.includes('\t')).map(l=>{const[d,,path,secure,expires,name,value]=l.replace(/^#HttpOnly_/,'').split('\t');return{domain:d,path,secure:secure==='TRUE',expires:Number(expires),name,value,httpOnly:true};}):[];
 for(const[name,engine,opts]of [['desktop',chromium,{viewport:{width:1440,height:1000}}],['iphone',webkit,{...devices['iPhone 13'],viewport:{width:390,height:844}}],['android',chromium,devices['Pixel 7']]]){
- const b=await engine.launch(),c=await b.newContext({...opts,reducedMotion:'reduce'});await c.addCookies(cookies);const p=await c.newPage(),errors=[];p.on('pageerror',e=>errors.push(e.message));
+ if(process.env.PLETHORA_PROFILE&&process.env.PLETHORA_PROFILE!==name)continue;
+ const b=await engine.launch(),c=await b.newContext({...opts,reducedMotion:'reduce'});await c.addCookies(cookies);
+ // Vercel's injected review toolbar has a WebKit CORS error on protected previews;
+ // it is not site code and does not run in production. Test the app without it.
+ await c.route('https://vercel.live/**',r=>r.fulfill({contentType:'text/javascript',body:''}));const p=await c.newPage(),errors=[];p.on('pageerror',e=>{errors.push(e.message);console.error('PAGE ERROR',e.stack);});
  try{
   await p.goto(base+'/plethora/?from=compound',{waitUntil:'networkidle'});await p.locator('#plethora-total').filter({hasText:'people sent'}).waitFor();assert.equal(await p.locator('h1').innerText(),'Find games worth keeping.');
   assert.equal(await p.locator('#plethora-download').getAttribute('href'),'/go/plethora-bio-x');assert.equal(await p.locator('.ossman-card a[data-plethora]').getAttribute('href'),'/go/plethora-game');assert.equal(await p.locator('.ossman-card .plethora-ref').innerText(),'Code: GABE');
