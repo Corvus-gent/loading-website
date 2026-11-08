@@ -24,7 +24,7 @@ for(const button of document.querySelectorAll('[data-map-period]'))button.addEve
   const next=button.dataset.mapPeriod;
   if(next==='all'){
     button.disabled=true;
-    try{const r=await fetch('/api/geo?day=all&v=6',{signal:AbortSignal.timeout(15000)});if(!r.ok)throw Error();const d=await r.json();show(d,'all');mode=next;}
+    try{const r=await fetch('/api/geo?day=all&v=6tiles',{signal:AbortSignal.timeout(15000)});if(!r.ok)throw Error();const d=await r.json();show(d,'all');mode=next;}
     catch{document.querySelector('#map-count').textContent='all-time data is unavailable. keeping the current map; try again.';}
     finally{button.disabled=false;}
   }else{mode=next;show(daily?.data,daily?.day||window.statsPage.today);}

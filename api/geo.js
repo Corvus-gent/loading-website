@@ -34,7 +34,7 @@ export default async function handler(req, res) {
     const data = cached?.geoVersion===6 ? cached : await geoData(day);
     if (!cached && connected()) { try { await redis(['SET',cacheKey,JSON.stringify(data),'EX','900']); } catch {} }
     res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=900');
-    return res.status(200).json(data);
+    return res.status(200).json({ ...data, tiles: Boolean(process.env.CARTO_BASEMAPS_KEY) });
   } catch {
     return res.status(502).json({ error: 'the lantern is out.' });
   }
