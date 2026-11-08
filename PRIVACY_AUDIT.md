@@ -735,3 +735,9 @@ Discord is not connected until its token and installed-guild configuration exist
 - Analytics-enabled browsers receive Vercel's decoded city/region and coordinates rounded to 0.1° from the existing private, uncached geo response. The allowlist sends these on pageviews only. Opt-out/GPC/DNT bare counters still have no location enrichment.
 - `geo:v4:<day|all>` contains only public aggregates (15-minute TTL); `stats:snap:map:<day>` contains daily aggregates. Historical raw data with no city cannot be backfilled to a real city.
 - Reference: https://vercel.com/docs/headers/request-headers ; https://posthog.com/docs/sql/aggregations
+
+### 8 Nov — major-city area aggregation
+- City coordinates already available in pageviews are grouped to selected nearby major-city hubs (within 200 km, same known subdivision). Labels say “area”; these are geographic grouping centres, not inferred exact cities. Suburbs within one selected area can satisfy the >=2 visitor privacy threshold together.
+- State/province-only data stays at that subdivision's centre (>=2); it is never spread across selected cities. Country-only history is retained separately and the country-only map layer is off by default. No country-only observations are redistributed to reference cities.
+- Reference geography: Natural Earth populated places and admin-1 regions, public domain, https://www.naturalearthdata.com/about/terms-of-use/. Grey points are explicitly reference cities, with no visits attributed. Generated offline; no geocoding requests or visitor data sent to a new provider.
+- `geo:v6:<day|all>` remains aggregate-only, 15-minute TTL. Existing daily aggregate snapshots keep the source totals, located totals, and country-only totals separately.

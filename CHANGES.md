@@ -284,3 +284,8 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 - Shared country/city aggregation, privacy-preserving country-centroid fallback, versioned map cache, Brussels historical day support, decoded coarse Vercel city enrichment for future pageviews.
 - Verified 92-visitor regression fixture at every zoom; country list tests remain green.
 - Follow-up: complete Natural Earth country positions, daily/all-time selector, explicit typed HogQL grouping, successful production totals (107 US on both surfaces), and city-provider outage fallback.
+
+## Major-city visitor areas — 2026-11-08
+- Global, public-domain city references selected by country size; 152 US hubs with state coverage. Nearby suburbs share a clearly labelled city-area cohort; known states remain states when the city is unavailable.
+- Spatial zoom clusters replace the single-country dot. Country-only totals stay in the country list and are an optional map layer, never randomly assigned to cities. Grey reference cities carry no visitor counts.
+- Country exploration control, two-visitor minimum after area grouping, region-only Vercel capture, and cache migration.

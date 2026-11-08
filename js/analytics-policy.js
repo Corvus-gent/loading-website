@@ -92,6 +92,7 @@ export function privacyEvent(event) {
   // coarse categories, never the browser's raw user agent, versions or model.
   properties.$raw_user_agent = `${properties.$browser}/${properties.$device_type}`;
   if (p.corvus_country_code) properties.corvus_country_code = countryCategory(p.corvus_country_code);
+  if(event.event==='$pageview'&&p.corvus_country_code&&typeof p.corvus_region==='string'&&/^[\p{L}\p{N} .’'-]{1,100}$/u.test(p.corvus_region))properties.corvus_region=p.corvus_region;
   if(event.event==='$pageview' && typeof p.corvus_city==='string' && /^[\p{L}\p{N} .’'-]{1,100}$/u.test(p.corvus_city)) {
     const lat=p.corvus_latitude,lng=p.corvus_longitude;
     if(typeof lat==='number'&&Number.isFinite(lat)&&Math.abs(lat)<=90&&typeof lng==='number'&&Number.isFinite(lng)&&Math.abs(lng)<=180){

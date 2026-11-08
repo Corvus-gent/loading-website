@@ -21,3 +21,7 @@
 
 .visitor-dot .visitor-flame{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
 #visitor-map .leaflet-tooltip{width:max-content;max-width:210px;white-space:normal;overflow-wrap:anywhere}
+
+#visitor-map .reference-city{background:none;border:0;box-shadow:none;color:#92958c;font:10px monospace;padding:0;opacity:.7}#visitor-map .reference-city:before{display:none}.map-unknown-toggle{display:flex;align-items:center;gap:8px;min-height:44px;margin-top:12px;color:#aaa;font:11px monospace}.map-unknown-toggle input{width:18px;height:18px;accent-color:#ffd76a}#visitor-map-status{white-space:normal;text-align:center;max-width:85%}
+
+.map-focus-label{display:flex;align-items:center;flex-wrap:wrap;gap:10px;font:12px monospace;color:#aaa}.map-focus-label select{min-height:44px;max-width:100%;background:#080808;color:#ffd76a;border:1px solid #665531;font:inherit;padding:8px}

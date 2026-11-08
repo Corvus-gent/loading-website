@@ -20,7 +20,7 @@
     pending = new Map(),
     listeners = new Map();
   const limit = (name) => ({ coffee: 1800, x: 900 })[name] || 60;
-  const storageKey = (name, day) => 'stats:snap:' + (name === 'map' ? 'v4:' : 'v1:') + name + ':' + day;
+  const storageKey = (name, day) => 'stats:snap:' + (name === 'map' ? 'v6:' : 'v1:') + name + ':' + day;
   function saved(name, day) {
     const key = storageKey(name, day);
     if (name === 'private') return null;
@@ -50,7 +50,7 @@
       return Promise.resolve(old);
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 8000);
-    const promise = fetch('/api/stats?' + new URLSearchParams({ page: name, day, ...(name === 'map' ? {geo:'4'} : {}) }), {
+    const promise = fetch('/api/stats?' + new URLSearchParams({ page: name, day, ...(name === 'map' ? {geo:'6'} : {}) }), {
       credentials: name === 'private' ? 'same-origin' : 'omit',
       ...(name === 'private' ? { cache: 'no-store' } : {}),
       signal: controller.signal
