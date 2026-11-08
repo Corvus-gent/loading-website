@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import {PLETHORA_COPY} from '../js/plethora-config.js';
-const version='20261108p2',escape=s=>s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;');
+const version='20261108p3',escape=s=>s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;');
 const link=(id,text=PLETHORA_COPY.cta,cls='plethora-cta')=>`<a class="${cls}" href="/go/plethora-${id}" data-plethora="${id}">${escape(text)}</a>`;
 const card=(id,title=PLETHORA_COPY.hero)=>`<aside class="plethora-card" data-plethora-card="${id}"><p class="plethora-kicker">CORVUS × PLETHORA / NEXT GAME FOUND</p><h2>${escape(title)}</h2>${link(id)}<p>${escape(PLETHORA_COPY.sub)}</p></aside>`;
 const footer=`<div class="plethora-footer" data-plethora-footer>${link('footer','Games discovered on Plethora 📲','')}</div>`;
@@ -20,10 +20,11 @@ for(const file of files){let s=await fs.readFile(file,'utf8');
   // Footer lives in the existing menu; it cannot cover the mat or controls.
   insert('FOOTER',footer,'<div id="faceoff"></div>');
  }else insert('FOOTER',footer,'</body>',true);
- if(file==='index.html')insert('HOME',`<aside class="plethora-banner" data-plethora-banner>${link('home','🎮 My hackathon-winning game is on Plethora → check it','')}<button type="button" aria-label="Dismiss Plethora banner">×</button></aside>`,'<body class="portal">');
+ if(file==='index.html')insert('HOME',`<aside class="plethora-banner" data-plethora-banner><div>${link('home','🎮 My hackathon-winning game is on Plethora → check it','')}<small data-plethora-live>The army is finding its next game.</small></div><button type="button" aria-label="Dismiss Plethora banner">×</button></aside>`,'<body class="portal">');
  if(file==='games/index.html'){insert('DAILY',card('daily')+'<p><a href="#board">play today’s puzzle ↓</a> · <a href="/games/hub/">all games →</a></p>','<div class="wrap games">');insert('CATALOG','<h2>more from the arcade</h2><p>Eight puzzles in rotation. One daily challenge.</p>'+catalog,'</dialog>');}
  if(file==='games/hub/index.html')insert('HUB',card('hub'),'<!-- HUB_INTRO_END -->');
- if(['hack/index.html','hack/2/index.html'].includes(file))insert('HUB',card('hub')+'<p><a href="/games/hub/">daily puzzles + all games →</a></p>','</nav>');
+ if(['hack/index.html','hack/2/index.html'].includes(file))insert('HUB',card('hack')+'<p><a href="/games/hub/">daily puzzles + all games →</a></p>','</nav>');
+ if(file==='compound/index.html')insert('COMPOUND',card('compound','The army edits videos. It plays good games too.'),'<section class="privacy-note">',true);
  if(file==='battle/index.html')insert('BATTLE',card('battle',"Want more games like OSSMAN? It’s on Plethora 👀"),'<section id="reveal"',true);
  if(file==='legion/index.html')insert('LEGION',card('legion','Recruit perk: the army plays on Plethora'),'<div class="legion-filters',true);
  if(file==='404.html')insert('LOST',card('404','Lost? Find a good game instead → Plethora'),'<h1>404</h1>');

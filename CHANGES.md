@@ -1,3 +1,9 @@
+## 2026-11-08 — codex/plethora · tracker v2
+
+- Preserve originating placement through the landing page and suppress its second store-button count. Add Android/explicit-store routing, desktop-only tracked QR, bio aliases and six new placements without resetting old counts.
+- Add public aggregate stats by placement/category/platform with rolling 24h and seven UTC days; show historical platform/history gaps honestly. Add live homepage/landing counters and a dedicated original pixel-art OG image.
+- Keep Play Store URL, App Store provider ID and referral code empty until supplied. Missing Android URL has an honest landing fallback, never a guessed app link.
+
 ## 2026-11-08 — codex/compound
 
 - Put the video, one-tap quick feedback and latest-five public wall first. Remove the prediction UI and both client/server watch gates; retain deduplicated cut votes and existing editing tools in a disclosure.
