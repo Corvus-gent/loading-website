@@ -1,5 +1,5 @@
 import qrcode from './qrcode.mjs';
-import {configReady,decorate} from '/js/plethora.js?v=20261108p1';
+import {configReady,decorate} from '/js/plethora.js?v=20261108p2';
 import {PLETHORA_PLACEMENTS} from '/js/plethora-config.js';
 const requested=new URLSearchParams(location.search).get('placement');
 const placement=Object.hasOwn(PLETHORA_PLACEMENTS,requested)?requested:'bio';

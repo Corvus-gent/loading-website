@@ -33,3 +33,4 @@ a[data-plethora]:focus-visible,.plethora-banner button:focus-visible{outline:3px
 /* Keep Twitch's existing home status beneath the new banner, in normal flow. */
 .portal>live-stream[badge-only]{position:relative;top:auto;left:auto;transform:none;margin:8px auto;z-index:1}
 .portal>live-stream[badge-only][data-state=offline],.portal>live-stream[badge-only][data-state=closed]{margin:0 auto}
+.plethora-game-link[data-plethora-slot=pause] a{padding:10px 16px;background:#d4ff45;color:#101508;border:2px solid #e9ffb2;font-weight:800;text-decoration:none;min-height:46px}
