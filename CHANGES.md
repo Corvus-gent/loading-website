@@ -160,7 +160,7 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 - Squad QA: exact HackTheFeed event/pitch/result, corrected `/hack/1` link, solo #2 card, current nav state and dedicated OG image; real-link clicks and mobile/desktop screenshots. Three team names remain unconfirmed.
 
 ## 2026-11-07 — HackTheFeed squad links
-- Show exactly Gabe, Siebe Baree and Paloma Ana Daniele on the squads archive, HackTheFeed build page and hub. Generate both Squad sections from one roster.
+- Show exactly Gabe, Siebe Baree and XX on the squads archive, HackTheFeed build page and hub. Generate both Squad sections from one roster.
 - Count member-link clicks in aggregate on HackTheFeed stats; preserve GPC/DNT and opt-outs, with allowlisted member IDs and existing abuse limits.
 
 ## 2026-11-07 — Compound V1 launch
@@ -222,3 +222,6 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 - Replace the main Compound contender with ufc-03-dagestan-dc, encoded H.264/AAC at 720×1280, CRF 28, veryfast; generate a new poster.
 - Preserve the previous video and poster as compound-v1.mp4 / compound-v1.jpg. No voting code, keys, counts or existing bonus clips changed.
 - Re-export the square neutral-label LinkedIn face-off and first-frame cover using the new main video. The supplied 60-40-A-dagestan cut remains an alternate source, not an extra voting contender.
+
+## 2026-11-08 — hackathon roster privacy
+- Replace the private teammate with XX, remove the profile link and identifying initial, regenerate team pages/search, and anonymize historical team-click identifiers in public stats.

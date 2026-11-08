@@ -94,7 +94,7 @@ export function privacyEvent(event) {
   if (p.corvus_country_code) properties.corvus_country_code = countryCategory(p.corvus_country_code);
   if(p.utm_campaign==='hack'&&p.utm_content==='squads'){properties.utm_content='squads';if(p.short_slug==='squads')properties.short_slug='squads';}
   if(Number.isInteger(p.hack_id)&&p.hack_id>0&&p.hack_id<=9999)properties.hack_id=p.hack_id;
-  if(event.event==='squad_member_click')properties.member=category(p.member,['gabe','siebe','paloma']);
+  if(event.event==='squad_member_click')properties.member=category(p.member,['gabe','siebe']);
   if(['utm','user_agent','referrer','unknown'].includes(p.source_confidence))properties.source_confidence=p.source_confidence;
   if(p.utm_campaign==='compound-1000'){for(const key of ['utm_content','utm_term'])if(typeof p[key]==='string'&&/^[a-zA-Z0-9_.-]{1,64}$/.test(p[key]))properties[key]=p[key];}
   const referrer = referrerCategory(p.$referring_domain);

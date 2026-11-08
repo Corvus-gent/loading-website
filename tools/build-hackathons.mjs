@@ -3,7 +3,7 @@ import {pathToFileURL} from 'node:url';
 const escape=v=>String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const href=value=>{const u=new URL(value,'https://corvus.gent');if(u.protocol!=='https:'||u.username||u.password)throw Error('Invalid squad link');return escape(value);};
 export function renderMembers(team){
- return team.members.map(member=>`<li><a href="${href(member.url)}"${member.url.startsWith('/')||member.url==='https://corvus.gent'?'':' target="_blank" rel="noopener noreferrer"'}${member.id?` data-squad-member="${escape(member.id)}" data-hack-id="${escape(team.number)}"`:''} aria-label="${escape(member.name)}"><span class="squad-initial" aria-hidden="true">${escape(member.label.slice(0,1))}</span><span>${escape(member.label)}</span><span aria-hidden="true">↗</span></a></li>`).join('');
+ return team.members.map(member=>!member.url?`<li><span class="squad-anonymous" aria-label="${escape(member.name)}"><span class="squad-initial" aria-hidden="true">×</span><span>${escape(member.label)}</span></span></li>`:`<li><a href="${href(member.url)}"${member.url.startsWith('/')||member.url==='https://corvus.gent'?'':' target="_blank" rel="noopener noreferrer"'}${member.id?` data-squad-member="${escape(member.id)}" data-hack-id="${escape(team.number)}"`:''} aria-label="${escape(member.name)}"><span class="squad-initial" aria-hidden="true">${escape(member.label.slice(0,1))}</span><span>${escape(member.label)}</span><span aria-hidden="true">↗</span></a></li>`).join('');
 }
 export function renderTeams(teams){
  if(!Array.isArray(teams))throw Error('Squads must be an array');

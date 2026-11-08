@@ -20,13 +20,14 @@ try{
   const section=page.locator(path==='/hackathons/'?'#hackthefeed':'.hack-squad');
   assert.deepEqual(await section.locator('[data-squad-member]').evaluateAll(ns=>ns.map(n=>({id:n.dataset.squadMember,name:n.getAttribute('aria-label'),url:n.getAttribute('href')}))),[
    {id:'gabe',name:'Gabe',url:'https://corvus.gent'},
-   {id:'siebe',name:'Siebe Baree',url:'https://github.com/SiebeBaree'},
-   {id:'paloma',name:'Paloma Ana Daniele',url:'https://www.linkedin.com/in/paloma-ana-daniele/'}
+   {id:'siebe',name:'Siebe Baree',url:'https://github.com/SiebeBaree'}
   ]);
   assert(!/teammates|5-person|TODO/i.test(await section.innerText()));
+  assert.deepEqual(await section.locator('.squad-anonymous > span').allTextContents(),['×','XX']);
+  assert.equal(await section.locator('.squad-anonymous a').count(),0);
   // Preserve actual touch/click dispatch and hrefs; prevent leaving the test page.
   await page.evaluate(()=>document.addEventListener('click',e=>{if(e.target.closest('[data-squad-member]'))e.preventDefault();}));
-  for(const member of ['gabe','siebe','paloma']){
+  for(const member of ['gabe','siebe']){
    const wait=page.waitForRequest(r=>r.url().endsWith('/api/hack')&&r.method()==='POST'&&r.postDataJSON()?.member===member);
    await section.locator('[data-squad-member="'+member+'"]').tap();const req=await wait;assert.equal(req.postDataJSON().hack_id,1);assert.equal(req.postDataJSON().source,'linkedin');
   }
@@ -36,10 +37,10 @@ try{
  }
  const count=posted.filter(d=>d.action==='squad_member').length;
  await page.evaluate(()=>Object.defineProperty(navigator,'globalPrivacyControl',{get:()=>true,configurable:true}));
- await page.locator('.hack-squad [data-squad-member="paloma"]').tap();await page.waitForTimeout(250);assert.equal(posted.filter(d=>d.action==='squad_member').length,count);
+ await page.locator('.hack-squad [data-squad-member="gabe"]').tap();await page.waitForTimeout(250);assert.equal(posted.filter(d=>d.action==='squad_member').length,count);
  await page.evaluate(()=>{Object.defineProperty(navigator,'globalPrivacyControl',{get:()=>false,configurable:true});localStorage.setItem('privacy-choice',JSON.stringify({choice:'deny'}));});
  await page.locator('.hack-squad [data-squad-member="siebe"]').tap();await page.waitForTimeout(250);assert.equal(posted.filter(d=>d.action==='squad_member').length,count);
  await page.getByRole('link',{name:'see all squads →'}).click();await page.waitForURL('**/hackathons/');
- await page.goto(base+'/hackathons/');await page.setContent((await fs.readFile('stats/hack/index.html','utf8')).replace(/<script[\s\S]*?<\/script>/g,''));await page.addScriptTag({type:'module',url:base+'/hack/stats.js?v=20261107-team3'});await page.getByRole('heading',{name:'squad link clicks'}).waitFor();for(const name of ['Gabe','Siebe Baree','Paloma Ana Daniele'])assert((await page.locator('#hack-stats').innerText()).includes(name+' · 2'));
+ await page.goto(base+'/hackathons/');await page.setContent((await fs.readFile('stats/hack/index.html','utf8')).replace(/<script[\s\S]*?<\/script>/g,''));await page.addScriptTag({type:'module',url:base+'/hack/stats.js?v=20261108-roster'});await page.getByRole('heading',{name:'squad link clicks'}).waitFor();for(const name of ['Gabe','Siebe Baree'])assert((await page.locator('#hack-stats').innerText()).includes(name+' · 2'));
  assert.deepEqual(errors,[]);console.log(JSON.stringify({mobile:true,desktop:true,memberClicks:count,optOut:true,gpc:true,statsCounts:members,errors}));
 }finally{await browser.close();}

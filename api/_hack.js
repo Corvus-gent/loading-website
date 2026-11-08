@@ -6,6 +6,8 @@ const LIFE=90*86400, events=['view','app_open','github_click','like','dislike','
 const sources=['dm','facebook','x','linkedin','instagram','tiktok','corvus','share','direct','other'];
 const clean=(v,n)=>String(v||'').replace(/[\u0000-\u001f\u007f<>]/g,'').trim().slice(0,n);
 const obj=a=>Object.fromEntries(Array.isArray(a)?Array.from({length:a.length/2},(_,i)=>[a[i*2],Number(a[i*2+1])]):Object.entries(a||{}).map(([k,v])=>[k,Number(v)]));
+// Do not publish historical identifiers for members whose profiles are hidden.
+function publicMembers(raw){const result={};for(const[id,count]of Object.entries(obj(raw))){const[team,member,...rest]=id.split(':');if(!['1','2'].includes(team)||rest.length)continue;const key=member==='gabe'||(team==='1'&&member==='siebe')?id:team+':xx';result[key]=(result[key]||0)+count;}return result;}
 async function records(kind){const ids=await redis(['ZREVRANGE','hack:'+kind,'0','49'])||[];if(!ids.length)return[];const vals=await pipeline(ids.flatMap(id=>[['GET','hack:'+kind+':'+id],['GET','hack:hidden:'+id],['GET','hack:likes:'+id]]));return ids.flatMap((id,i)=>{try{const item=JSON.parse(vals[i*3]);return item&&!vals[i*3+1]?[{...item,id,likes:Number(vals[i*3+2]||0)}]:[];}catch{return[];}});}
 export default async function handler(req,res){
  res.setHeader('Content-Type','application/json');
@@ -15,7 +17,7 @@ export default async function handler(req,res){
   if(privateView){authorized=(await getSession(req))?.email==='gabriel@corvus.gent';if(!authorized)return res.status(401).json({error:'Log in to see private feedback.'});}
   res.setHeader('Cache-Control',privateView?'private, no-store':'public, s-maxage=15, stale-while-revalidate=60');
   const [all,bySource,comments,feedback,members]=await Promise.all([redis(['HGETALL','hack:totals']),redis(['HGETALL','hack:sources']),records('comments'),authorized?records('feedback'):[],redis(['HGETALL','hack:members'])]);
-  return res.status(200).json({totals:obj(all),sources:obj(bySource),comments,feedback,members:obj(members),private:authorized});
+  return res.status(200).json({totals:obj(all),sources:obj(bySource),comments,feedback,members:publicMembers(members),private:authorized});
  }
  if(req.method!=='POST')return res.status(405).json({error:'Method not allowed.'});
  res.setHeader('Cache-Control','no-store');
@@ -26,7 +28,7 @@ export default async function handler(req,res){
  if(JSON.stringify(body).length>5000)return res.status(413).json({error:'That message is too long.'});
  const action=body.action,hash=dailyIPHash(req,'hack');
  if(!events.includes(action)&&action!=='comment_like')return res.status(400).json({error:'Unknown action.'});
- if(action==='squad_member'&&!((body.hack_id===1&&['gabe','siebe','paloma'].includes(body.member))||(body.hack_id===2&&body.member==='gabe')))return res.status(400).json({error:'Unknown squad member.'});
+ if(action==='squad_member'&&!((body.hack_id===1&&['gabe','siebe'].includes(body.member))||(body.hack_id===2&&body.member==='gabe')))return res.status(400).json({error:'Unknown squad member.'});
  if(!await rateLimit('hack:rate:'+hash,60,60))return res.status(429).json({error:'Take a breath. Try again in a minute.'});
  if(body.website)return res.status(400).json({error:'Please leave the hidden field empty.'});
  const source=sources.includes(body.source)?body.source:'other';

@@ -3,7 +3,7 @@ import fs from 'node:fs/promises';
 import vm from 'node:vm';
 import {privacyEvent} from '../js/analytics-policy.js';
 
-const hashes=new Map([['hack:totals',new Map([['view',37]])]]),commands=[];
+const hashes=new Map([['hack:totals',new Map([['view',37]])],['hack:members',new Map([['1:private-member',7]])]]),commands=[];
 async function redis(c){
  commands.push(c);
  if(c[0]==='HGETALL')return [...(hashes.get(c[1])||new Map()).entries()].flat();
@@ -25,13 +25,14 @@ async function request(body,method='POST',origin='https://corvus.gent'){
  const result={headers:{},setHeader(k,v){this.headers[k]=v;},status(n){this.code=n;return this;},json(v){this.body=v;return this;}};
  await handler.namespace.default({method,query:{},headers:{origin,'content-type':'application/json'},body},result);return result;
 }
-for(const member of ['gabe','siebe','paloma'])assert.equal((await request({action:'squad_member',member,hack_id:1,source:'linkedin'})).code,200);
-let r=await request(null,'GET');assert.equal(r.body.totals.view,37);assert.equal(r.body.members['1:gabe'],1);assert.equal(r.body.members['1:siebe'],1);assert.equal(r.body.members['1:paloma'],1);assert.equal(r.body.sources['linkedin:squad_member'],3);
-for(const body of [{member:'private@example.test',hack_id:1},{member:'paloma',hack_id:2},{member:'gabe',hack_id:99999}])assert.equal((await request({action:'squad_member',...body})).code,400);
+for(const member of ['gabe','siebe'])assert.equal((await request({action:'squad_member',member,hack_id:1,source:'linkedin'})).code,200);
+let r=await request(null,'GET');assert.equal(r.body.totals.view,37);assert.equal(r.body.members['1:gabe'],1);assert.equal(r.body.members['1:siebe'],1);assert.equal(r.body.members['1:xx'],7);assert(!JSON.stringify(r.body.members).includes('private-member'));assert.equal(r.body.sources['linkedin:squad_member'],2);
+for(const body of [{member:'private@example.test',hack_id:1},{member:'xx',hack_id:1},{member:'gabe',hack_id:99999}])assert.equal((await request({action:'squad_member',...body})).code,400);
 assert.equal((await request({action:'squad_member',member:'gabe',hack_id:1},'POST','https://untrusted.example')).code,403);
 allowed=false;assert.equal((await request({action:'squad_member',member:'gabe',hack_id:1})).code,429);
 assert.equal(hashes.get('hack:members').get('1:gabe'),1);
-const event=privacyEvent({event:'squad_member_click',properties:{$cookieless_mode:true,member:'paloma',hack_id:1,email:'secret@example.test'}});
-assert.equal(event.properties.member,'paloma');assert.equal(event.properties.hack_id,1);assert.equal(event.properties.email,undefined);
+const event=privacyEvent({event:'squad_member_click',properties:{$cookieless_mode:true,member:'gabe',hack_id:1,email:'secret@example.test'}});
+assert.equal(event.properties.member,'gabe');assert.equal(event.properties.hack_id,1);assert.equal(event.properties.email,undefined);
 assert(!JSON.stringify(commands).includes('private@example.test'));
+assert.equal(privacyEvent({event:'squad_member_click',properties:{$cookieless_mode:true,member:'private-member',hack_id:1}}).properties.member,'other');
 console.log('Member clicks: aggregate increments, existing counts preserved, origin/member/rate validation and privacy allowlist passed.');
