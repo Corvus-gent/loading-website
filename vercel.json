@@ -46,6 +46,10 @@
   ],
   "rewrites": [
     {
+      "source": "/api/plethora",
+      "destination": "/api/stats?plethora=1"
+    },
+    {
       "source": "/api/battle",
       "destination": "/api/stats?battle=1"
     },
@@ -322,5 +326,5 @@
       "schedule": "*/15 * * * *"
     }
   ],
-  "buildCommand": "node tools/build-battle.mjs && node tools/build-hackathons.mjs && python3 tools/build-search.py"
+  "buildCommand": "node tools/build-battle.mjs && node tools/build-hackathons.mjs && node tools/build-plethora.mjs && python3 tools/build-search.py"
 }

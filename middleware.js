@@ -30,6 +30,10 @@ const CURL_REPLY = `
 
 export default function middleware(request) {
   const url = new URL(request.url);
+  const plethoraSlug=/^\/go\/(plethora-[a-z0-9-]+)\/?$/.exec(url.pathname);
+  if(plethoraSlug){
+    const target=new URL('/api/stats',url);target.search=url.search;target.searchParams.set('plethora','1');target.searchParams.set('slug',plethoraSlug[1]);return rewrite(target);
+  }
   const battleSlug=/^\/go\/((?:cx|cp|bio)-(?:tt|ig|x|li))\/?$/.exec(url.pathname);
   if(battleSlug&&url.hostname!=='stats.corvus.gent'){
     const target=new URL('/api/stats',url);target.search=url.search;target.searchParams.set('battle','1');target.searchParams.set('slug',battleSlug[1]);return rewrite(target);

@@ -230,3 +230,7 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 
 ## 2026-11-08 — battle verdict sharing
 - Replace the single native share button with Post on X, WhatsApp and Copy. All use one shared sentence ending in exactly one full tracked URL; copy shows “Copied ✅” and supports browsers without clipboard access.
+
+## 2026-11-08 · Plethora everywhere
+- Added a dedicated iPhone/QR landing page, games catalog, 27 tracked placement IDs, private placement leaderboard, and a rolling 24h column. Tracking uses the existing Redis/API function with 30-minute network deduplication; no new external SDK.
+- Added in-flow promotions across daily puzzles, OSSMAN menus, battle, legion, home, 404 and site footers. Every third catalog tile is Plethora. All eight puzzle result cards and game share flows carry their placement link. Home dismissal is remembered; no promotion covers active gameplay.
