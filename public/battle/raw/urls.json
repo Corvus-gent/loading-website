@@ -1,0 +1,51 @@
+[
+  {
+    "file": "raw-fighters.mp4",
+    "url": "https://r0nc5pohibox5fn2.public.blob.vercel-storage.com/battle/raw/raw-fighters-GVYfQOeX5WVQfXPjIcgtJwN1kACowu.mp4",
+    "downloadUrl": "https://r0nc5pohibox5fn2.public.blob.vercel-storage.com/battle/raw/raw-fighters-GVYfQOeX5WVQfXPjIcgtJwN1kACowu.mp4?download=1",
+    "bytes": 206859,
+    "status": 200
+  },
+  {
+    "file": "raw-code.mp4",
+    "url": "https://r0nc5pohibox5fn2.public.blob.vercel-storage.com/battle/raw/raw-code-XRo5buH4VWlbPr4AC6hkyShDdC8VVV.mp4",
+    "downloadUrl": "https://r0nc5pohibox5fn2.public.blob.vercel-storage.com/battle/raw/raw-code-XRo5buH4VWlbPr4AC6hkyShDdC8VVV.mp4?download=1",
+    "bytes": 1485030,
+    "status": 200
+  },
+  {
+    "file": "raw-all.zip",
+    "url": "https://r0nc5pohibox5fn2.public.blob.vercel-storage.com/battle/raw/raw-all-kbhfjXDw4tTG8ao3YUfE5M7I9aaTl5.zip",
+    "downloadUrl": "https://r0nc5pohibox5fn2.public.blob.vercel-storage.com/battle/raw/raw-all-kbhfjXDw4tTG8ao3YUfE5M7I9aaTl5.zip?download=1",
+    "bytes": 4735354,
+    "status": 200
+  },
+  {
+    "file": "raw-gameover.mp4",
+    "url": "https://r0nc5pohibox5fn2.public.blob.vercel-storage.com/battle/raw/raw-gameover-jdYNs9otEZD5H877Rfclnsyxt7bxqZ.mp4",
+    "downloadUrl": "https://r0nc5pohibox5fn2.public.blob.vercel-storage.com/battle/raw/raw-gameover-jdYNs9otEZD5H877Rfclnsyxt7bxqZ.mp4?download=1",
+    "bytes": 264368,
+    "status": 200
+  },
+  {
+    "file": "raw-finishes.mp4",
+    "url": "https://r0nc5pohibox5fn2.public.blob.vercel-storage.com/battle/raw/raw-finishes-lsdVD2Hlt5vMIu4kU0UB8Ls7q4Qw7m.mp4",
+    "downloadUrl": "https://r0nc5pohibox5fn2.public.blob.vercel-storage.com/battle/raw/raw-finishes-lsdVD2Hlt5vMIu4kU0UB8Ls7q4Qw7m.mp4?download=1",
+    "bytes": 692074,
+    "status": 200
+  },
+  {
+    "file": "raw-gameplay-full.mp4",
+    "url": "https://r0nc5pohibox5fn2.public.blob.vercel-storage.com/battle/raw/raw-gameplay-full-M0Ldjw7075L5NL9T0wL9tlpJ7tMhpj.mp4",
+    "downloadUrl": "https://r0nc5pohibox5fn2.public.blob.vercel-storage.com/battle/raw/raw-gameplay-full-M0Ldjw7075L5NL9T0wL9tlpJ7tMhpj.mp4?download=1",
+    "bytes": 1512025,
+    "status": 200
+  },
+  {
+    "file": "raw-vote.mp4",
+    "url": "https://r0nc5pohibox5fn2.public.blob.vercel-storage.com/battle/raw/raw-vote-OcpbRFg2DukxdoH5D99iOGNNFhQxNX.mp4",
+    "downloadUrl": "https://r0nc5pohibox5fn2.public.blob.vercel-storage.com/battle/raw/raw-vote-OcpbRFg2DukxdoH5D99iOGNNFhQxNX.mp4?download=1",
+    "bytes": 637396,
+    "status": 200
+  }
+]
