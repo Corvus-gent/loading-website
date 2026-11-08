@@ -212,3 +212,8 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 - Add Codex vs Compound blind A/B battle, reveal, live scorecard, private admin and 12 deduplicated campaign redirects.
 - Add four compressed self-hosted videos, posters, original social art and two live $3 support links; preserve exact donation disclaimer.
 - Reuse the stats API and Redis; isolate preview data, enforce atomic vote/close checks, and leave `/hack` voting and game behavior unchanged.
+
+## 2026-11-08 — battle backing copy
+- Update the battle disclaimer and existing Stripe product descriptions verbatim; keep payment links, $3 prices, videos and votes unchanged.
+- The next supplied Compound video will replace the current cut with the old file preserved as compound-v1.mp4; no replacement file supplied yet.
+- Export a 20-second 1080×1080 LinkedIn face-off with neutral contender labels, contender 2 audio, a two-second frozen voting CTA and first-frame cover. Uses the current Compound cut pending a new supplied file.
