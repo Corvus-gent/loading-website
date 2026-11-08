@@ -54,6 +54,7 @@ jobs:
           REDIS_URL=redis://127.0.0.1:16380/5 node tests/army/pidgy.mjs
       - run: npx playwright install --with-deps chromium
       - run: node tests/live-banner-browser.mjs
+      - run: node tests/live-page.mjs
       - run: node tests/smoke-ci.mjs
       - run: python3 tools/check-links.py
       - name: Generate search index from sources
