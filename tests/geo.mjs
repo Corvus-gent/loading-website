@@ -26,3 +26,10 @@ assert.deepEqual(r.data,{countryCode:'US',city:'San Francisco',region:'CA',lat:3
 assert.deepEqual((await call({'x-vercel-ip-country':'US','x-vercel-ip-city':'%bad'})).data,{countryCode:'US'});
 assert.equal((await call({}, {},'POST')).code,405);
 console.log('PASS: 92 US visitors mapped at every zoom; missing coords + singleton privacy retained; shared Brussels scope; decoded/rounded city headers; no raw IPs.');
+const failDetail=await geoData('2026-11-08',async sql=>{if(sql.startsWith('SELECT country'))throw Error('timeout');return [['US',92],['MY',1],['PK',1]];});
+assert.equal(failDetail.cityUnavailable,true);assert.equal(failDetail.unlocated,0);assert.equal(failDetail.mapped,94);
+const same=geoRows([['US','CA','San Francisco',37.7,-122.4,1],['US','CA','San Francisco',37.8,-122.4,1]]);
+assert.equal(same.cities[0].visitors,2);assert.equal(same.cities[0].unknown,false);
+const drift=await geoData('2026-11-08',async sql=>sql.startsWith('SELECT country')?[['US','CA','San Francisco',37.8,-122.4,5]]:[['US',6]]);
+assert.equal(drift.cities.reduce((n,p)=>n+p.visitors,0),6);assert.equal(drift.cities[0].unknown,true);
+console.log('PASS: provider outage retains totals; all countries in the incident have fallback positions; repeated cities dedupe; source drift cannot inflate map totals.');

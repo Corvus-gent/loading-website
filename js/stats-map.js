@@ -3,7 +3,7 @@ export function mergeLocations(cities, zoom) {
   const level = zoom < 4 ? 'country' : zoom < 7 ? 'region' : 'city';
   const groups = new Map();
   for (const city of cities) {
-    if (!Number.isFinite(city.lat) || !Number.isFinite(city.lng) || Math.abs(city.lat) > 90 || Math.abs(city.lng) > 180 || !Number.isSafeInteger(city.visitors) || city.visitors < 1) continue;
+    if (!Number.isFinite(city.lat) || !Number.isFinite(city.lng) || Math.abs(city.lat) > 90 || Math.abs(city.lng) > 180 || !Number.isSafeInteger(city.visitors) || city.visitors < (city.unknown ? 1 : 2)) continue;
     const countryKey = city.countryCode || city.country || '';
     const key = JSON.stringify([countryKey, level !== 'country' && city.unknown ? 'unknown' : '', level !== 'country' ? city.region || '' : '', level === 'city' ? city.city || '' : '']);
     let group = groups.get(key);

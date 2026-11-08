@@ -733,5 +733,5 @@ Discord is not connected until its token and installed-guild configuration exist
 - Map and country list now share one PostHog aggregation and the selected Brussels day. One last known city per visitor/country prevents double counting when a visitor moves; IDs never leave the query.
 - Missing/invalid coordinates and city groups below two visitors are retained as country-centroid aggregates, marked “unknown city”. No raw IPs are read or stored. Visitors with no usable country are shown separately, not assigned invented coordinates.
 - Analytics-enabled browsers receive Vercel's decoded city/region and coordinates rounded to 0.1° from the existing private, uncached geo response. The allowlist sends these on pageviews only. Opt-out/GPC/DNT bare counters still have no location enrichment.
-- `geo:v3:<day|all>` contains only public aggregates (15-minute TTL); `stats:snap:map:<day>` contains daily aggregates. Historical raw data with no city cannot be backfilled to a real city.
+- `geo:v4:<day|all>` contains only public aggregates (15-minute TTL); `stats:snap:map:<day>` contains daily aggregates. Historical raw data with no city cannot be backfilled to a real city.
 - Reference: https://vercel.com/docs/headers/request-headers ; https://posthog.com/docs/sql/aggregations

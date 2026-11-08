@@ -283,3 +283,4 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 - Fix country-only visits disappearing from the map, all-time/today mismatch, and small-city privacy suppression losing country totals.
 - Shared country/city aggregation, privacy-preserving country-centroid fallback, versioned map cache, Brussels historical day support, decoded coarse Vercel city enrichment for future pageviews.
 - Verified 92-visitor regression fixture at every zoom; country list tests remain green.
+- Follow-up: complete Natural Earth country positions, daily/all-time selector, explicit typed HogQL grouping, successful production totals (107 US on both surfaces), and city-provider outage fallback.

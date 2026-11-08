@@ -28,9 +28,9 @@ export default async function handler(req, res) {
     const day = req.query?.day || 'all';
     if (typeof day !== 'string' || (day !== 'all' && !/^\d{4}-\d{2}-\d{2}$/.test(day))) return res.status(400).json({error:'invalid day'});
     let cached;
-    const cacheKey = 'geo:v3:' + day;
+    const cacheKey = 'geo:v4:' + day;
     if (connected()) { try { cached=JSON.parse(await redis(['GET',cacheKey])); } catch {} }
-    const data = cached?.geoVersion===3 ? cached : await geoData(day);
+    const data = cached?.geoVersion===4 ? cached : await geoData(day);
     if (!cached && connected()) { try { await redis(['SET',cacheKey,JSON.stringify(data),'EX','900']); } catch {} }
     res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=900');
     return res.status(200).json(data);
