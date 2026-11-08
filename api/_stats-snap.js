@@ -69,11 +69,11 @@ export async function build(
   if (!(await store(['SET', lock, token, 'NX', 'EX', '55']))) return;
   try {
     const previous = JSON.parse(await store(['GET', k]));
-    if (!force && (previous?.final || fresh(previous, page, day))) return;
+    if (!force && fresh(previous, page, day)) return;
     const tasks = (makeTasks || (await import('./_stats-build.js')).snapshotTasks)(page, day);
-    const data = { ...previous?.data },
-      dates = { ...previous?.dates },
-      timings = { ...previous?.timings },
+    const data = { ...(page === 'map' && previous?.data?.geoVersion !== 4 ? {} : previous?.data) },
+      dates = { ...(page === 'map' && previous?.data?.geoVersion !== 4 ? {} : previous?.dates) },
+      timings = { ...(page === 'map' && previous?.data?.geoVersion !== 4 ? {} : previous?.timings) },
       missing = new Set(Object.keys(tasks));
     const now = timestamp();
     let successes = 0;
@@ -174,7 +174,7 @@ export async function build(
   }
 }
 export function fresh(s, page, day) {
-  if (!s || s.day !== day) return false;
+  if (!s || s.day !== day || (page === 'map' && s.data?.geoVersion !== 4)) return false;
   if (day < brusselsDay() && !s.final)
     return s.missing?.length && Date.now() - Date.parse(s.checked) < 15000;
   return s.final || Date.now() - Date.parse(s.checked) < (s.missing?.length ? 15 : ttl(page)) * 1000;
@@ -234,7 +234,8 @@ export async function serve(
     )
       snap = last;
   }
-  const historicalBuild = !past || ['overview', 'hunt'].includes(page);
+  if (page === 'map' && snap?.data?.geoVersion !== 4) snap = null;
+  const historicalBuild = !past || ['overview', 'hunt', 'map'].includes(page);
   // As-of snapshots for cumulative pages cannot be reconstructed retroactively.
   const sealed = past && snap?.day === day && snap.state === 'ready' && !historicalBuild;
   const stale = !sealed && !fresh(snap, page, day);

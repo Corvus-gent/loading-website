@@ -728,3 +728,10 @@ Discord is not connected until its token and installed-guild configuration exist
 - Daily-salted IP hashes only for abuse controls: cooldown 60 seconds, hourly quota 3600 seconds, challenge quota 600 seconds. Stateless signed challenge expires after 30 minutes. Retry key: HMAC of a per-submission UUID (memory only), 600 seconds.
 - Support link aggregates are anonymous, persistent; per-placement hash dedupe expires after 1800 seconds. Eight source links and allowlisted contact actions are counted. Raw IPs are never stored.
 - Private admin key: sessionStorage call.admin until tab closes; no analytics on the admin page. Booking keys only via server environment or existing Gabriel login. BMC receives a request only after following the link; paid coffee confirmation is an honor system. The abandoned Stripe call links and webhook were deactivated.
+
+### 8 Nov — visitor map reconciliation
+- Map and country list now share one PostHog aggregation and the selected Brussels day. One last known city per visitor/country prevents double counting when a visitor moves; IDs never leave the query.
+- Missing/invalid coordinates and city groups below two visitors are retained as country-centroid aggregates, marked “unknown city”. No raw IPs are read or stored. Visitors with no usable country are shown separately, not assigned invented coordinates.
+- Analytics-enabled browsers receive Vercel's decoded city/region and coordinates rounded to 0.1° from the existing private, uncached geo response. The allowlist sends these on pageviews only. Opt-out/GPC/DNT bare counters still have no location enrichment.
+- `geo:v4:<day|all>` contains only public aggregates (15-minute TTL); `stats:snap:map:<day>` contains daily aggregates. Historical raw data with no city cannot be backfilled to a real city.
+- Reference: https://vercel.com/docs/headers/request-headers ; https://posthog.com/docs/sql/aggregations

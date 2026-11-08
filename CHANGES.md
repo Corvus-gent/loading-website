@@ -278,3 +278,9 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 - First-parent Git source-only backfill, GitHub/Vercel server-side collection, durable Redis snapshots and seed fallback; no credentials in public JSON.
 - Verified current source total against Git blobs and a 24-hour sample against `git log --shortstat`; 390px/1440px browser smoke passed.
 - Follow-up: full-history surge default, 7-day multiplier from actual Git sizes; hourly authenticated Redis snapshots, GitHub read-only collection/verification workflow, and signed Vercel deployment events with replay protection. No broad GitHub/Vercel access token stored by the site.
+
+## Visitor map count repair — 2026-11-08
+- Fix country-only visits disappearing from the map, all-time/today mismatch, and small-city privacy suppression losing country totals.
+- Shared country/city aggregation, privacy-preserving country-centroid fallback, versioned map cache, Brussels historical day support, decoded coarse Vercel city enrichment for future pageviews.
+- Verified 92-visitor regression fixture at every zoom; country list tests remain green.
+- Follow-up: complete Natural Earth country positions, daily/all-time selector, explicit typed HogQL grouping, successful production totals (107 US on both surfaces), and city-provider outage fallback.

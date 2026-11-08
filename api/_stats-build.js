@@ -2,7 +2,7 @@ import { dailyTasks, counters, brusselsDay } from './_stats-daily.js';
 import { sectionTasks } from './_stats-sections.js';
 import { redis } from './_redis.js';
 import { hogql } from './_posthog.js';
-import { GEO_QUERY, cityRows } from './geo.js';
+import { geoData } from './_geo-data.js';
 import { loadTracks, suggestions } from './_music-store.js';
 import { privateTasks } from './private-stats.js';
 import { SF_FUNNEL_SQL } from './_sf.js';
@@ -75,8 +75,7 @@ export function snapshotTasks(page, day) {
     return { feathers: daily.feathers, terminal: daily.terminal, counters: () => counters(day) };
   if (page === 'map')
     return {
-      countries: daily.countries,
-      cities: async () => ({ cities: cityRows(await hogql(GEO_QUERY)) }),
+      geography: () => geoData(day),
       tiles: () => ({ tiles: !!process.env.CARTO_BASEMAPS_KEY })
     };
   if (page === 'music') return { ...sectionTasks('music', day), songs: topMusic };
