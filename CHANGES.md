@@ -266,3 +266,9 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 ## codex/support — 2026-11-08
 - Replace call pricing with 5 min free / 15 min coffee / SF coffee, PARACETAMAIL and a native booking form. Redis retention, email notification and private status management.
 - Add dinner, support invitation on Gabinho Rolls, eight tracked Diogenes short links and overview statistics. Existing BMC URL preserved. Retire only the newly created Stripe call links.
+
+## 2026-11-08 — clear legion entry pricing
+- `/legion`: tiro $1 once / miles $1 monthly in seven languages; higher tiers and earned ranks unchanged.
+- Explicit one-time BMC tiro Shop purchases now survive monthly expiry; refunds revoke them and gifts retain their original expiry.
+- Bumped shared army/i18n module versions together. BMC checkout configuration remains a manual provider step, documented in `docs/LEGION-ENTRY-PRICING.md`.
+- Checked one-time purchase/refund/replay behavior, existing BMC contracts, locale parity, and mobile/desktop layout. Carousel exports remain local artifacts, outside this code change.

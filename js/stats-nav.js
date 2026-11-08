@@ -1,4 +1,4 @@
-import { initI18n, getLang } from './i18n.js?v=20261106-ranks1';
+import { initI18n, getLang } from './i18n.js?v=20261108-entry1';
 initI18n();
 const page = document.body.dataset.statPage || 'overview';
 for (const a of document.querySelectorAll('[data-stat]')) {

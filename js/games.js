@@ -1,6 +1,6 @@
 import {readPreference,savePreference} from './storage.js';
 import {createGamePicker} from './game-picker.js';
-import {initI18n,getLang} from './i18n.js?v=20261106-ranks1';import {ui,help} from './games-copy.js';
+import {initI18n,getLang} from './i18n.js?v=20261108-entry1';import {ui,help} from './games-copy.js';
 const $=id=>document.getElementById(id),tr=k=>ui(k,getLang()),event=(name,props={})=>window.posthog?.capture(name,{type:state?.type,day:state?.day,...props});let state,busy=false,timer,cell=0,seen=new Set(),pending=new Set();
 const picker=createGamePicker($('guess-picker'));
 const brusselsDate=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Brussels'});

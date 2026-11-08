@@ -175,5 +175,8 @@
   "warApproved": "zugelassen",
   "discordRoleNote": "discord-rollen regeln zugang und unterstützervorteile. dein verdienter rang steht auf deinem corvus-profil.",
   "statsArmyNote": "unsichtbare besucher sind anonyme seitenaufrufe, keine einzelnen personen. die summe zählt sie zu den täglichen besucherschätzungen von PostHog. ok ist eine browserbestätigung, kein eingeschriebenes konto, verdienter rang oder unterstützerstatus.",
-  "discordLinked": "verknüpft. dein platz in der legion ist bereit."
+  "discordLinked": "verknüpft. dein platz in der legion ist bereit.",
+  "legionEntryTitle": "dein erster schritt.",
+  "legionTiroPrice": "tiro: einmalig 1 $",
+  "legionMilesPrice": "miles: 1 $/monat"
 }

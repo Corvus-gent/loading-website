@@ -175,5 +175,8 @@
   "warApproved": "approuvés",
   "discordRoleNote": "les rôles discord donnent accès aux espaces et aux avantages de soutien. ton grade gagné est sur ton profil corvus.",
   "statsArmyNote": "les visiteurs invisibles sont des vues anonymes, pas des personnes uniques. le total les ajoute aux estimations quotidiennes de PostHog. dire ok est une confirmation du navigateur, pas un compte enrôlé, un grade gagné ou un niveau de soutien.",
-  "discordLinked": "lié. ta place dans la légion est prête."
+  "discordLinked": "lié. ta place dans la légion est prête.",
+  "legionEntryTitle": "ton premier pas.",
+  "legionTiroPrice": "tiro : 1 $ une seule fois",
+  "legionMilesPrice": "miles : 1 $/mois"
 }

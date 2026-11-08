@@ -175,5 +175,8 @@
   "warApproved": "aprobados",
   "discordRoleNote": "los roles de discord dan acceso y beneficios de apoyo. tu rango ganado está en tu perfil de corvus.",
   "statsArmyNote": "los visitantes invisibles son visitas anónimas a páginas, no personas únicas. el total las suma a las estimaciones diarias de PostHog. decir ok es una confirmación del navegador, no una cuenta alistada, un rango ganado ni un nivel de apoyo.",
-  "discordLinked": "vinculado. tu sitio en la legión está listo."
+  "discordLinked": "vinculado. tu sitio en la legión está listo.",
+  "legionEntryTitle": "tu primer paso.",
+  "legionTiroPrice": "tiro: 1 $ una sola vez",
+  "legionMilesPrice": "miles: 1 $/mes"
 }

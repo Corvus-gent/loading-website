@@ -66,7 +66,7 @@ export const CONSUL_SEATS=2;
 export function activeTier(s,now=Date.now()){
   if(s.general&&s.verifiedAt)return 'imperator';
   const p=s.membership;
-  return p&&TIERS.includes(p.tier)&&p.tier!=='imperator'&&p.state!=='refunded'&&(LIFETIME.includes(p.tier)||Date.parse(p.until)>now)?p.tier:null;
+  return p&&TIERS.includes(p.tier)&&p.tier!=='imperator'&&p.state!=='refunded'&&(LIFETIME.includes(p.tier)||(p.tier==='tiro'&&p.interval==='once')||Date.parse(p.until)>now)?p.tier:null;
 }
 export function dailyMission(day, type) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(day) || !['babel','borders','wordle','flags','combo','bangle','pingle','lantern'].includes(type)) throw Error('mission');

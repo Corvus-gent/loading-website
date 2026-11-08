@@ -1,5 +1,5 @@
-import {t,getLang} from './copy.js?v=20261106-ranks1';
-import {RANKS} from './domain.js?v=20261106-ranks1';
+import {t,getLang} from './copy.js?v=20261108-entry1';
+import {RANKS} from './domain.js?v=20261108-entry1';
 export const $=id=>document.getElementById(id);
 export async function api(data,query=''){
  const response=await fetch('/api/army'+query,{credentials:'same-origin',cache:'no-store',signal:AbortSignal.timeout(18000),...(data?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}:{})});
@@ -35,14 +35,14 @@ export async function share(code,status){const url=recruitURL(code);try{if(navig
 export async function copy(code,status){try{await navigator.clipboard.writeText(recruitURL(code));status.textContent=t('copied');}catch{status.textContent=recruitURL(code);}}
 export function saveBlob(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
 const artLabels=()=>Object.fromEntries(['rankLabel','tierLabel','supporterLifetime'].map(key=>[key,t(key)]));
-export async function tag(container,s,code){const {tagSVG}=await import('./art.js?v=20261106-ranks1');container.innerHTML=tagSVG(s,code,{labels:artLabels()});}
-export async function saveArt(s,code,poster,status){try{const {downloadArt}=await import('./art.js?v=20261106-ranks1');saveBlob(await downloadArt(s,code,poster,artLabels()),poster?'corvus-recruit-poster.png':'corvus-dog-tag.png');}catch{status.textContent=t('resting');}}
+export async function tag(container,s,code){const {tagSVG}=await import('./art.js?v=20261108-entry1');container.innerHTML=tagSVG(s,code,{labels:artLabels()});}
+export async function saveArt(s,code,poster,status){try{const {downloadArt}=await import('./art.js?v=20261108-entry1');saveBlob(await downloadArt(s,code,poster,artLabels()),poster?'corvus-recruit-poster.png':'corvus-dog-tag.png');}catch{status.textContent=t('resting');}}
 export function countryOptions(select,value=''){
- import('./countries.js?v=20261106-ranks1').then(({CURRENCIES})=>{const names=new Intl.DisplayNames([getLang()],{type:'region'});select.replaceChildren(new Option(t('notGiven'),''),...Object.keys(CURRENCIES).map(code=>({code,name:names.of(code)})).sort((a,b)=>a.name.localeCompare(b.name,getLang())).map(({code,name})=>new Option(name,code)));select.value=value;});
+ import('./countries.js?v=20261108-entry1').then(({CURRENCIES})=>{const names=new Intl.DisplayNames([getLang()],{type:'region'});select.replaceChildren(new Option(t('notGiven'),''),...Object.keys(CURRENCIES).map(code=>({code,name:names.of(code)})).sort((a,b)=>a.name.localeCompare(b.name,getLang())).map(({code,name})=>new Option(name,code)));select.value=value;});
 }
 export async function rankMoment(previous,s){
  if(!previous||previous===s.rank)return;
- const {insignia}=await import('./art.js?v=20261106-ranks1'),box=document.createElement('aside');box.className='army-rank-toast';box.setAttribute('role','status');box.innerHTML=insignia(s.rank);const text=document.createElement('span');text.textContent=t('rankUp');const badges=document.createElement('div');rankBadges(badges,s);box.append(text,badges);document.body.append(box);setTimeout(()=>box.remove(),6000);
+ const {insignia}=await import('./art.js?v=20261108-entry1'),box=document.createElement('aside');box.className='army-rank-toast';box.setAttribute('role','status');box.innerHTML=insignia(s.rank);const text=document.createElement('span');text.textContent=t('rankUp');const badges=document.createElement('div');rankBadges(badges,s);box.append(text,badges);document.body.append(box);setTimeout(()=>box.remove(),6000);
 }
 
 // rank and supporter tier are two different ladders; show them as two labelled badges so nobody mixes them up.

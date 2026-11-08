@@ -175,5 +175,8 @@
   "warApproved": "已获批准",
   "discordRoleNote": "discord 身份组控制访问权限和支持者权益。挣来的军衔显示在你的 corvus 个人页。",
   "statsArmyNote": "隐身访客数是匿名页面访问次数，不是独立人数。总数将其与 PostHog 的每日访客估算相加。点击 ok 只是浏览器确认，不代表已入伍账号、挣来的军衔或支持者等级。",
-  "discordLinked": "已关联。你在军团中的位置准备好了。"
+  "discordLinked": "已关联。你在军团中的位置准备好了。",
+  "legionEntryTitle": "你的第一步。",
+  "legionTiroPrice": "tiro：一次性 1 美元",
+  "legionMilesPrice": "miles：每月 1 美元"
 }
