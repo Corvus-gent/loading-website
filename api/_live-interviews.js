@@ -7,7 +7,7 @@ const prefix=process.env.LIVE_INTERVIEW_TEST_PREFIX||(process.env.VERCEL_ENV==='
 const mac=value=>crypto.createHmac('sha256',serverSecret()).update('live-interview:'+value).digest('hex');
 export function challenge(now=Date.now()) {const value=now+'.'+crypto.randomBytes(12).toString('hex');return {token:value+'.'+mac(value),notBefore:now+3000};}
 export function validChallenge(token,now=Date.now()) {
-  if(typeof token!=='string'||token.length>120)return false;
+  if(typeof token!=='string'||token.length>120||token.split('.').length!==3)return false;
   const [at,nonce,sig]=token.split('.'),age=now-Number(at);
   return /^\d{13}$/.test(at||'')&&/^[a-f0-9]{24}$/.test(nonce||'')&&age>=3000&&age<1800000&&safeEqual(sig,mac(at+'.'+nonce));
 }
