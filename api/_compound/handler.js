@@ -18,8 +18,9 @@ export default async function compound(req,res){
   }
   if(q.private==='1'){
    if(!authorized(req,q.role==='admin'?'admin':'stats'))return res.status(401).json({error:'sign in first'});
-   return res.status(200).json({...await store.privateStats(q.version),admin:authorized(req,'admin')});
+   return res.status(200).json({...await store.privateStats(q.version),feedback:await store.feedbackFeed(100),admin:authorized(req,'admin')});
   }
+  if(q.feed==='1'){res.setHeader('Cache-Control','no-store');return res.status(200).json({feedback:await store.feedbackFeed()});}
   if(q.live==='1'){res.setHeader('Cache-Control','public, s-maxage=1');return res.status(200).json({poll:await store.get('live-poll')});}
   res.setHeader('Cache-Control','public, s-maxage=3, stale-while-revalidate=10');return res.status(200).json(await store.summary(q.version));
  }
@@ -29,7 +30,7 @@ export default async function compound(req,res){
  const b=typeof req.body==='string'?JSON.parse(req.body):req.body||{};
  if(Array.isArray(b)||JSON.stringify(b).length>20000)return res.status(413).json({error:'too much data'});
  if(!await limit(req,'all',150))return res.status(429).json({error:'take a breath. try again in a minute.'});
- if(!['rename_items','login','publish','live_poll','hide_text','revolut','event','donate','watched','pick','battle','profile','prediction','transition','transition_tag','transition_text','vote','category','text','reaction','poll'].includes(b.action))throw Error('action');
+ if(!['rename_items','login','publish','live_poll','hide_text','revolut','event','donate','watched','pick','battle','profile','prediction','transition','transition_tag','transition_text','vote','category','text','reaction','poll','quick','note_text'].includes(b.action))throw Error('action');
  if(b.website)return res.status(400).json({error:'please leave the hidden field empty'});
  if(b.action==='login'){
   if(!await limit(req,'login',5))return res.status(429).json({error:'try again in a minute'});
@@ -64,7 +65,10 @@ export default async function compound(req,res){
  if(b.action==='prediction'){const result=await store.predict(uid,b);if(result.added)await store.event('prediction',v?.id,tags,visitor,{choice:b.win});return res.status(200).json(result);}
  if(!v&&b.action!=='text')throw Error('version');
  let result;
- if(['transition','transition_tag','transition_text'].includes(b.action)){if(b.action==='transition_text'&&!await limit(req,'text',3))return res.status(429).json({error:'three ideas per minute'});result=await store.transition(uid,v,b);}
+ if(b.action==='quick'||b.action==='note_text'){
+  if(!await limit(req,'quick',15))return res.status(429).json({error:'give the editor a moment. try again in a minute.'});
+  result=b.action==='quick'?await store.quickNote(uid,v.id,b):await store.noteText(uid,v.id,b.id,b.text);
+ }else if(['transition','transition_tag','transition_text'].includes(b.action)){if(b.action==='transition_text'&&!await limit(req,'text',3))return res.status(429).json({error:'three ideas per minute'});result=await store.transition(uid,v,b);}
  else if(['vote','category'].includes(b.action))result=await store.feedback(uid,v.id,b);
  else if(b.action==='text'){
   if(!await limit(req,'text',3))return res.status(429).json({error:'three ideas per minute. make them count.'});result=await store.saveText(uid,v?.id||'none',b.text);
@@ -74,5 +78,5 @@ export default async function compound(req,res){
  else throw Error('action');
  if(result.added)await store.event(b.action,v?.id,tags,visitor,b);
  return res.status(200).json(result);
- }catch(error){const safe=['version','vote','category','timestamp','reaction','poll','poll expired','prediction','text','event','watch','handle','label','video','duration','cues','action','payments not connected yet','revolut not connected yet','revolut link','amount','slot','cutlist','transition','tag','battle','watch two cuts first'];return res.status(safe.includes(error.message)?400:503).json({error:safe.includes(error.message)?error.message:'the crow lost its connection. please try again.'});}
+ }catch(error){const safe=['chip','version','vote','category','timestamp','reaction','poll','poll expired','prediction','text','event','watch','handle','label','video','duration','cues','action','payments not connected yet','revolut not connected yet','revolut link','amount','slot','cutlist','transition','tag','battle','watch two cuts first'];return res.status(safe.includes(error.message)?400:503).json({error:safe.includes(error.message)?error.message:'the crow lost its connection. please try again.'});}
 }

@@ -1,6 +1,6 @@
 import crypto from 'node:crypto';
 import {redis,pipeline} from '../_redis.js';
-import {RETENTION,CATEGORIES,REACTIONS,clean,source,attribution,validateCues,validateCutlist,TRANSITION_TAGS,validVersion,validatePoll,GOAL,DEADLINE,FUND_DEADLINE} from './model.js';
+import {RETENTION,CATEGORIES,REACTIONS,QUICK_CHIPS,clean,source,attribution,validateCues,validateCutlist,TRANSITION_TAGS,validVersion,validatePoll,GOAL,DEADLINE,FUND_DEADLINE} from './model.js';
 export const key=(...parts)=>(process.env.COMPOUND_KEY_PREFIX||'compound')+':'+parts.join(':');
 const obj=a=>Array.isArray(a)?Object.fromEntries(Array.from({length:a.length/2},(_,i)=>[a[2*i],a[2*i+1]])):a||{};
 const nums=a=>Object.fromEntries(Object.entries(obj(a)).map(([k,v])=>[k,Number(v)]));
@@ -45,7 +45,7 @@ export async function event(name,versionId,raw,visitor,details={}){
  const a=attribution(raw),v=validVersion(versionId)?versionId:'none';
  const commands=[['HINCRBY',key('global'),name,1],['HINCRBY',key('stats',v),name,1],['HINCRBY',key('sources'),a.source+':'+name,1]];
  // Only bounded, validated metadata; never free text, contact details or full URLs.
- const safe={};if(visitor&&/^[a-f0-9-]{36}$/.test(details.visit||''))safe.visit=details.visit;for(const field of ['choice','category','transition','tag','poll','option','type','t','percent','method','amount','opponent','winner'])if(details[field]!==undefined)safe[field]=typeof details[field]==='number'?details[field]:clean(details[field],60);
+ const safe={};if(visitor&&/^[a-f0-9-]{36}$/.test(details.visit||''))safe.visit=details.visit;for(const field of ['chip','choice','category','transition','tag','poll','option','type','t','percent','method','amount','opponent','winner'])if(details[field]!==undefined)safe[field]=typeof details[field]==='number'?details[field]:clean(details[field],60);
  if(visitor){const day=new Date().toISOString().slice(0,10),bucket=key('events',v,day),expiry=Math.floor(Date.parse(day+'T00:00:00Z')/1000)+RETENTION;commands.push(['LPUSH',bucket,JSON.stringify({event:name,version:v,visitor,...a,...safe,at:new Date().toISOString()})],['LTRIM',bucket,0,9999],['EXPIREAT',bucket,expiry]);}
  await pipeline(commands);await measure(name,v,a,safe.visit||visitor,safe);
 }
@@ -58,7 +58,7 @@ async function measure(name,v,a,visitor,details){
   const id=crypto.createHash('sha256').update(group).digest('hex').slice(0,24),k=key('campaign',id);
   const commands=[['HSET',key('campaigns'),id,group],['EXPIRE',key('campaigns'),RETENTION],['EXPIRE',k,RETENTION]];
   const counts={};if(name==='view'){counts.visits=1;if(visitor)counts.linkedVisits=1;}if(name==='link_click')counts.clicks=1;
-  if(['vote','category','transition','battle','pick','poll','prediction'].includes(name))counts.votes=1;
+  if(['vote','category','transition','battle','pick','poll','prediction','quick'].includes(name))counts.votes=1;
   if(name==='army_join')counts.army=1;if(name==='donation_click')counts.donationClicks=1;
   if(name==='donation_success'){counts.donations=1;counts.cents=details.amount||0;}
   if(name==='donation_refund')counts.cents=-(details.amount||0);if(name==='donation_adjustment')counts.cents=details.amount||0;
@@ -140,11 +140,9 @@ export async function watched(uid,v){
  return{watched:await redis(['SMEMBERS',key('watched',uid)])};
 }
 export async function duel(uid,data){
- const watchedIds=await redis(['SMEMBERS',key('watched',uid)])||[];
  const winner=await version(data.winner),other=data.action==='battle'?await version(data.opponent):null;
- const watchedCuts=await Promise.all(watchedIds.map(version));
- if(!winner||new Set(watchedCuts.filter(Boolean).map(v=>v.slot)).size<2||!watchedIds.includes(winner.id))throw Error('watch two cuts first');
- if(data.action==='battle'&&(!other||other.slot===winner.slot||!watchedIds.includes(other.id)))throw Error('battle');
+ if(!winner)throw Error('version');
+ if(data.action==='battle'&&(!other||other.slot===winner.slot))throw Error('battle');
  const pool=data.action==='battle'?[winner.id,other.id].sort().join('-'):(await summary()).cuts.map(c=>c.current?.id||'none').join('-');
  const field=data.action+':'+winner.id;
  const script="if not redis.call('SET',KEYS[1],ARGV[1],'NX','EX',ARGV[2]) then return 0 end;redis.call('HINCRBY',KEYS[2],ARGV[3],1);return 1";
@@ -164,4 +162,39 @@ export async function transition(uid,v,data){
   return{added:!!Number(await redis(['EVAL',"if not redis.call('SET',KEYS[1],'1','EX',ARGV[1],'NX') then return 0 end;redis.call('HINCRBY',KEYS[2],ARGV[2],1);return 1",2,key('transition-tag',v.id,uid,item.id,data.tag),key('stats',v.id),RETENTION,'transition:'+item.id+':tag:'+data.tag]))};
  }
  if(clean(data.text,280).length<8)throw Error('text');return saveText(uid,v.id,data.text,'transition:'+item.id,3);
+}
+
+// Public notes are explicitly submitted to the wall. Historical private ideas stay private.
+export async function quickNote(uid,v,data){
+ const chip=data.chip||'note',text=clean(data.text,500);
+ if(!QUICK_CHIPS.includes(chip))throw Error('chip');
+ if(chip==='note'&&text.length<3)throw Error('text');
+ const id=crypto.randomUUID(),entry={id,version:v,chip,category:'quick:'+chip,text,uid,points:1,at:new Date().toISOString(),hidden:false};
+ const once=chip==='note'?crypto.createHash('sha256').update(text.toLowerCase()).digest('hex'):chip;
+ const script="local old=redis.call('GET',KEYS[1]);if old then return old end;redis.call('SET',KEYS[1],ARGV[1],'EX',ARGV[3]);redis.call('SET',KEYS[2],ARGV[2],'EX',ARGV[3]);for i=3,4 do redis.call('LPUSH',KEYS[i],ARGV[1]);redis.call('LTRIM',KEYS[i],0,499);redis.call('EXPIRE',KEYS[i],ARGV[3]) end;redis.call('HINCRBY',KEYS[5],ARGV[4],1);return ARGV[1]";
+ const saved=await redis(['EVAL',script,5,key('quick-once',v,uid,once),key('text',id),key('feedback'),key('texts',v),key('stats',v),id,JSON.stringify(entry),RETENTION,'quick:'+chip]);
+ if(saved===id)await score(uid,1);
+ return{added:saved===id,id:saved};
+}
+export async function noteText(uid,v,id,value){
+ if(!/^[a-f0-9-]{36}$/.test(id||''))throw Error('text');
+ const text=clean(value,500);if(text.length<3)throw Error('text');
+ const script="local raw=redis.call('GET',KEYS[1]);if not raw then return 0 end;local n=cjson.decode(raw);if n.uid~=ARGV[1] or n.version~=ARGV[2] or n.hidden or not n.chip then return 0 end;n.text=ARGV[3];redis.call('SET',KEYS[1],cjson.encode(n),'KEEPTTL');return 1";
+ const added=Number(await redis(['EVAL',script,1,key('text',id),uid,v,text]));
+ if(!added)throw Error('text');
+ if(await redis(['SET',key('text-credit',v,uid),'1','EX',RETENTION,'NX'])){
+  const credited=Number(await redis(['EVAL',"local raw=redis.call('GET',KEYS[1]);if not raw then return 0 end;local n=cjson.decode(raw);if n.hidden then return 0 end;n.points=(n.points or 0)+3;redis.call('SET',KEYS[1],cjson.encode(n),'KEEPTTL');return 1",1,key('text',id)]));if(credited)await score(uid,3);
+ }
+ return{added:true,id};
+}
+export async function feedbackFeed(limit=5){
+ const rows=[];
+ for(let offset=0;offset<500&&rows.length<limit;offset+=20){
+  const ids=await redis(['LRANGE',key('feedback'),offset,offset+19])||[];if(!ids.length)break;
+  const batch=(await redis(['MGET',...ids.map(id=>key('text',id))])).filter(Boolean).map(JSON.parse).filter(n=>!n.hidden);
+  rows.push(...batch.slice(0,limit-rows.length));if(ids.length<20)break;
+ }
+ if(!rows.length)return[];
+ const people=await redis(['MGET',...rows.map(n=>key('helper',n.uid))]);
+ return rows.map((n,i)=>{const p=people[i]?JSON.parse(people[i]):null;return{id:n.id,version:n.version,chip:n.chip,text:n.text,at:n.at,handle:p?.hidden?'anonymous soldier':p?.handle||'anonymous soldier'};});
 }

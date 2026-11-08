@@ -2,7 +2,7 @@ export const DEADLINE='2026-11-09T17:00:00Z';
 export const FUND_DEADLINE='2026-11-08T07:30:00Z';
 export const GOAL=4000,RETENTION=90*86400;
 export const CATEGORIES=['Hook','Transitions','Music','Pacing','Story','Humor','Visuals','Ending'];
-export const REACTIONS=['fire','laugh','neutral','skull','cut'];
+export const REACTIONS=['fire','laugh','neutral','skull','cut','bored'];
 export const SOURCES=['dm','facebook','x','linkedin','instagram','tiktok','discord','whatsapp','share','corvus','direct','hostel','video','offline','compound','other'];
 export const EVENTS=['view','play','watch','dropoff','donation_click','army_join','share'];
 export const clean=(value,max=280)=>String(value??'').replace(/[\u0000-\u001f\u007f]/g,'').trim().slice(0,max);
@@ -39,3 +39,5 @@ export function validateCutlist(raw,duration){
   seen.add(id);previousEnd=end;return{id,start,end,label,...(['scene','transition'].includes(item.type)?{type:item.type}:{})};
  });
 }
+
+export const QUICK_CHIPS=['hook','memes','music','length','fire','note'];
