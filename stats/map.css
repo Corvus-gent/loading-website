@@ -20,4 +20,4 @@
 .map-period{display:flex;gap:8px;margin:18px 0}.map-period button{min-height:44px;padding:8px 14px;border:1px solid #665531;background:#080808;color:#ccc;font:inherit;cursor:pointer}.map-period button[aria-pressed=true]{color:#ffd76a;border-color:#ffd76a}.map-period button:disabled{opacity:.5}
 
 .visitor-dot .visitor-flame{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
-#visitor-map .leaflet-tooltip{max-width:210px;white-space:normal;overflow-wrap:anywhere}
+#visitor-map .leaflet-tooltip{width:max-content;max-width:210px;white-space:normal;overflow-wrap:anywhere}
