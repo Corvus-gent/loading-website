@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import {PLETHORA_COPY} from '../js/plethora-config.js';
-const version='20261108p3',escape=s=>s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;');
+const version='20261108p4',escape=s=>s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;');
 const link=(id,text=PLETHORA_COPY.cta,cls='plethora-cta')=>`<a class="${cls}" href="/go/plethora-${id}" data-plethora="${id}">${escape(text)}</a>`;
 const card=(id,title=PLETHORA_COPY.hero)=>`<aside class="plethora-card" data-plethora-card="${id}"><p class="plethora-kicker">CORVUS × PLETHORA / NEXT GAME FOUND</p><h2>${escape(title)}</h2>${link(id)}<p>${escape(PLETHORA_COPY.sub)}</p></aside>`;
 const footer=`<div class="plethora-footer" data-plethora-footer>${link('footer','Games discovered on Plethora 📲','')}</div>`;

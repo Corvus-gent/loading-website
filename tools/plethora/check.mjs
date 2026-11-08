@@ -1,36 +1,33 @@
-import assert from 'node:assert/strict';import {createClient} from 'redis';
+import assert from 'node:assert/strict';
 if(process.env.REDIS_URL!=='redis://127.0.0.1:16380/7')throw Error('Only isolated local test Redis');
-process.env.PLETHORA_TEST_PREFIX='plethora:test:'+Date.now();process.env.SESSION_SECRET='test-only-secret';process.env.PLETHORA_ADMIN_KEY='test-only-key';process.env.PLETHORA_REFERRAL_CODE='GABE-TEST';process.env.PLETHORA_PT='123';process.env.PLETHORA_PLAY_URL='https://play.google.com/store/apps/details?id=studio.test.plethora';
-const {default:handler,track,report}=await import('../../api/_plethora.js');const{PLETHORA_PLACEMENTS}=await import('../../js/plethora-config.js');const {redis}=await import('../../api/_redis.js');const prefix=process.env.PLETHORA_TEST_PREFIX;
-const request=(placement,ua='Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X)',extra={})=>({method:'GET',query:placement?{slug:'plethora-'+placement}:{},headers:{'user-agent':ua,'x-forwarded-for':'198.51.100.2'},...extra});
-async function run(req){const result={status:200,headers:{}};const res={setHeader:(k,v)=>result.headers[k]=v,status:n=>{result.status=n;return res;},json:data=>{result.data=data;return result;},end:()=>result};await handler(req,res);return result;}
+process.env.PLETHORA_TEST_PREFIX='plethora:test:'+Date.now();process.env.SESSION_SECRET='test-only-secret';process.env.PLETHORA_ADMIN_KEY='test-only-key';process.env.CRON_SECRET='test-cron';
+const {default:handler,track,report,snapshot,csv,ptDay}=await import('../../api/_plethora.js');
+const{PLETHORA_PLACEMENTS}=await import('../../js/plethora-config.js');const{redis}=await import('../../api/_redis.js');const p=process.env.PLETHORA_TEST_PREFIX,n=Object.keys(PLETHORA_PLACEMENTS).length,day=new Date().toISOString().slice(0,10),now=Date.parse(day+'T20:00:00Z'),snapAt=Date.parse(day+'T00:00:00Z')+86400000+8*3600000;
+const request=(ua='Mozilla iPhone',ip='198.51.100.2')=>({method:'GET',query:{},headers:{'user-agent':ua,'x-forwarded-for':ip,'x-vercel-ip-country':'BE'}});
+async function run(req){const r={headers:{}};const res={setHeader:(k,v)=>r.headers[k]=v,status:n=>(r.status=n,res),json:data=>r.data=data,end:body=>r.body=body};await handler(req,res);return r;}
 try{
- let r=await run(request(null));assert.equal(r.data.referralCode,'GABE-TEST');
- for(const placement of Object.keys(PLETHORA_PLACEMENTS)){r=await run(request(placement));assert.equal(r.status,302);const u=new URL(r.headers.Location);assert.equal(u.hostname,'apps.apple.com');assert.equal(u.searchParams.get('ct'),'corvus-'+placement);assert.equal(u.searchParams.get('pt'),'123');assert.equal(u.searchParams.get('ref'),'GABE-TEST');assert.equal(r.headers['Cache-Control'],'no-store');await run(request(placement));}
- let data=await report();assert.equal(data.total,Object.keys(PLETHORA_PLACEMENTS).length);assert.equal(data.last24h,data.total);
- r=await run(request('home','Mozilla/5.0 (Macintosh; Intel Mac OS X)'));assert.equal(r.headers.Location,'/plethora?from=home');
- r=await run(request('home','Mozilla/5.0 (Linux; Android 15)'));const play=new URL(r.headers.Location);assert.equal(play.hostname,'play.google.com');assert.equal(play.searchParams.get('referrer'),'utm_source=corvus&utm_campaign=home');
- r=await run({...request('home','Macintosh'),query:{slug:'plethora-home',ios:'1'}});assert.match(r.headers.Location,/apps.apple.com/);
- r=await run({...request('home','Macintosh'),query:{slug:'plethora-home',store:'1'}});assert.match(r.headers.Location,/apps.apple.com/);
- // Landing CTA is not counted again, even after the dedupe window / network changes.
- const noCount={...request('home'),query:{slug:'plethora-home',store:'1',noCount:'1'},headers:{'user-agent':'iPhone','x-forwarded-for':'198.51.100.7'}};
- await run(noCount);assert.equal((await report()).total,data.total);
- await run(request('bio'));assert.equal((await report()).total,data.total); // aliases bio-x, same identity
- const pub=await run({...request(null),query:{action:'stats'}});assert.equal(pub.status,200);assert.equal(pub.data.rows.length,35);assert.equal(pub.data.platforms.ios,35);assert.equal(pub.data.categories.reduce((n,c)=>n+c.total,0),35);assert.equal(pub.data.history.length,7);assert.ok(pub.data.history.slice(0,6).every(d=>d.total===null));
- assert.equal(pub.data.rows.filter(r=>r.id==='plethora-bio').length,0);
- await redis(['HINCRBY',prefix+':clicks','bio',7]);assert.equal((await report()).rows.find(r=>r.id==='plethora-bio-x').total,8);assert.equal((await report()).platforms.unknown,7);await redis(['HINCRBY',prefix+':clicks','bio',-7]);
- for(const [ua,p]of [['Mozilla Android','android'],['Mozilla Mac','desktop']]){await track({...request('qr',ua),headers:{'user-agent':ua,'x-forwarded-for':'198.51.100.'+(p==='android'?80:81)}},'qr');assert.equal((await report()).platforms[p],1);}
- data=await report();
- delete process.env.PLETHORA_PLAY_URL;r=await run(request('home','Android'));assert.equal(r.headers.Location,'/plethora?from=home&platform=android');process.env.PLETHORA_PLAY_URL='https://evil.test/';r=await run(request('home','Android'));assert.equal(r.headers.Location,'/plethora?from=home&platform=android');delete process.env.PLETHORA_PLAY_URL;
- const count=data.total;await run({...request('home'),method:'HEAD',headers:{'user-agent':'iPhone','x-forwarded-for':'198.51.100.3'}});for(const ua of ['Twitterbot','facebookexternalhit','WhatsApp/2','Googlebot'])await run({...request('home',ua),headers:{'user-agent':ua,'x-forwarded-for':'198.51.100.3'}});assert.equal((await report()).total,count);
- assert.equal((await run(request('invalid'))).status,404);assert.equal((await run({...request('home'),method:'POST'})).status,405);
- assert.equal((await run({...request(null),query:{action:'admin'}})).status,401);
- r=await run({...request(null),query:{action:'admin'},headers:{authorization:'Bearer test-only-key'}});assert.equal(r.status,200);assert.equal(r.data.rows.length,Object.keys(PLETHORA_PLACEMENTS).length);assert.ok(!JSON.stringify(r.data).includes('198.51'));
- const crossMidnight=Date.parse('2026-11-08T00:00:00Z'),testReq={...request('game'),headers:{'user-agent':'iPhone','x-forwarded-for':'198.51.100.55'}};assert.equal(await track(testReq,'game',crossMidnight-100),true);assert.equal(await track(testReq,'game',crossMidnight+100),false);
- await redis(['ZADD',prefix+':recent:home',Date.now()-86400001,'old']);assert.equal((await report()).rows.find(x=>x.id==='plethora-home').last24h,1);
- const keys=await redis(['KEYS',prefix+':*']);for(const key of keys.filter(k=>k.includes(':dedupe:')))assert.ok(Number(await redis(['TTL',key]))>0&&Number(await redis(['TTL',key]))<=1800);for(const key of keys.filter(k=>k.includes(':recent:')))assert.ok(Number(await redis(['TTL',key]))>0);
- delete process.env.PLETHORA_REFERRAL_CODE;delete process.env.PLETHORA_PT;r=await run(request('footer'));assert.ok(!r.headers.Location.includes('ref=')&&!r.headers.Location.includes('pt='));
- process.env.REDIS_MAINTENANCE='1';r=await run(request('home'));assert.equal(r.status,302);r=await run(request(null));assert.equal(r.data.ready,false);delete process.env.REDIS_MAINTENANCE;
- console.log(`${Object.keys(PLETHORA_PLACEMENTS).length} placements PASS: iOS/iPad/Android/desktop, 302, attribution, dedupe + midnight, exact 24h, TTLs, auth, bots/HEAD, optional config`);
-}finally{const keys=await redis(['KEYS',prefix+':*']);if(keys.length)await redis(['DEL',...keys]);}
+ await redis(['HSET',p+':clicks','bio',7]);await redis(['HSET',p+':day:'+day,'bio',3]);
+ for(const id of Object.keys(PLETHORA_PLACEMENTS)){assert.equal(await track(request(),id,now),true);assert.equal(await track(request(),id,now+1),false);}
+ let d=await report(now+10);assert.equal(d.total,n+7);assert.equal(d.raw,n*2);assert.equal(d.last24h,n);assert.equal(d.rows.length,n);assert.equal(d.destinations.ossman,9);assert.equal(d.destinations.download,n-9);assert.equal(d.destinations.unknown,7);assert.equal(d.platforms.ios,n);assert.equal(d.platforms.unknown,7);assert.equal(d.history.at(-1).total,n);assert.equal(d.categories.reduce((s,c)=>s+c.total,0),n+7);
+ assert.equal(await track(request(),'bio',now+2),false);assert.equal((await report(now+10)).raw,n*2+1);assert.equal((await report(now+10)).rows.find(r=>r.id==='plethora-bio-x').total,8);
+ const parallel=await Promise.all(Array.from({length:20},()=>track(request('Mozilla Android','198.51.100.3'),'home',now+3)));assert.equal(parallel.filter(Boolean).length,1);assert.equal((await report(now+10)).raw,n*2+21);
+ const noCount=request('Mozilla Desktop','198.51.100.4');noCount.query.noCount='1';assert.equal(await track(noCount,'qr',now+5),true); // obsolete bypass cannot discard real clicks
+ let event=(await redis(['ZRANGE',p+':events:'+day,0,-1])).map(JSON.parse).find(e=>e.device==='desktop');assert.equal(event.country,'BE');assert.equal(event.device,'desktop');assert.equal(event.destination,'download');assert.ok(!JSON.stringify(event).includes('198.51')&&!Object.hasOwn(event,'ip'));
+ for(const ua of ['Googlebot','Twitterbot','facebookexternalhit','WhatsApp','curl'])assert.equal(await track(request(ua),'home',now),false);
+ assert.equal(await track({...request(),method:'HEAD'},'home',now),false);
+ assert.equal(ptDay(Date.parse('2026-11-08T07:59:59Z')),'2026-11-07');assert.equal(ptDay(Date.parse('2026-11-08T08:00:00Z')),'2026-11-08');assert.equal(ptDay(Date.parse('2026-07-08T07:00:00Z')),'2026-07-08');
+ assert.equal((await snapshot(Date.parse('2026-11-09T07:00:00Z'))).skipped,true);assert.equal((await snapshot(Date.parse('2026-07-08T08:00:00Z'))).skipped,true);
+ const snap=await snapshot(snapAt,true);assert.equal(snap.saved,1);let saved=JSON.parse(await redis(['GET',p+':snapshot:'+day]));assert.equal(saved.total,n+2);assert.equal(saved.raw,n*2+22);assert.equal(await redis(['TTL',p+':snapshot:'+day]),-1);assert.equal(await redis(['TTL',p+':ptday:'+day]),-1);assert.ok(await redis(['GET',p+':snapshot:legacy-utc:'+day]));
+ await snapshot(snapAt+60000,true);assert.equal(JSON.parse(await redis(['GET',p+':snapshot:'+day])).total,saved.total);
+ // A late write to yesterday is picked up by a later catch-up, with no reset.
+ assert.equal(await track(request('Mozilla Desktop','198.51.100.99'),'game',now+50),true);await snapshot(snapAt+120000,true);assert.equal(JSON.parse(await redis(['GET',p+':snapshot:'+day])).total,saved.total+1);
+ const exportText=await csv(),exportRows=exportText.trim().split('\r\n').slice(1).map(r=>r.split(','));assert.equal(exportRows.reduce((s,r)=>s+Number(r[5]),0),(await report(now+100)).total);assert.equal(exportRows.reduce((s,r)=>s+Number(r[6]),0),(await report(now+100)).raw);assert.ok(!exportText.includes('198.51')&&!exportText.includes('nonce'));
+ for(const key of await redis(['KEYS',p+':dedupe:*']))assert.ok(Number(await redis(['TTL',key]))>0&&Number(await redis(['TTL',key]))<=1800);
+ assert.equal((await run({...request(),query:{action:'snapshot'}})).status,401);assert.equal((await run({...request(),query:{action:'admin'}})).status,401);
+ let r=await run({...request(),query:{action:'admin'},headers:{authorization:'Bearer test-only-key'}});assert.equal(r.status,200);assert.ok(!JSON.stringify(r.data).includes('198.51'));
+ r=await run({...request(),query:{action:'csv'}});assert.equal(r.status,200);assert.match(r.headers['Content-Type'],/text\/csv/);
+ const midnight=Date.parse(day+'T00:00:00Z')+86400000;assert.equal(await track(request('Mozilla','198.51.100.50'),'pause',midnight-10),true);assert.equal(await track(request('Mozilla','198.51.100.50'),'pause',midnight+10),false);
+ process.env.REDIS_MAINTENANCE='1';r=await run({...request(),query:{slug:'plethora-home'}});assert.equal(r.status,302);assert.match(r.headers.Location,/^https:\/\/plethora.studio\/download\?utm_source=gabe&/);r=await run({...request(),query:{action:'stats'}});assert.equal(r.data.ready,false);delete process.env.REDIS_MAINTENANCE;
+ console.log('PASS: legacy totals preserved; raw + atomic 30min dedupe; country/device/destination; bots; TTLs; DST midnight; durable/catch-up snapshots; CSV reconciliation; private auth; Redis outage redirect.');
+}finally{delete process.env.REDIS_MAINTENANCE;const keys=await redis(['KEYS',p+':*']);if(keys.length)await redis(['DEL',...keys]);}
 process.exit(0);

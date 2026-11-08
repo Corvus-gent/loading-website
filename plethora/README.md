@@ -1,46 +1,48 @@
-# Corvus → Plethora
+# Corvus → Plethora: official referral links
 
-`/plethora` is the public landing page. `/plethora/stats` exposes aggregate referral statistics without a key; `/plethora/admin` retains the private access flow. The existing stats function handles `/api/plethora`, and middleware routes `/go/plethora-<id>`.
+All 35 placements (plus `bio → bio-x`) use the two official URLs from Aditya. Every device gets the same 302. Only `utm_medium=corvus` and `utm_content=<canonical placement>` are appended.
 
-## Configuration (empty until supplied)
+- Download: `https://plethora.studio/download?utm_source=gabe`
+- OSSMAN: `https://share.plethora.studio/retro/ossman?code=GABE`
+- OSSMAN placements: start, gameover, promo, pause, battle, hack, celtix, compound, **game**. The explicit landing-page requirement for `game` takes precedence over the earlier download list.
+- All other placements download. Legacy `store`, `noCount`, `platform`, `ios`, `from` query arguments cannot change or bypass the official route/counting.
+- `/plethora`: download CTA uses bio-x; OSSMAN CTA uses game and shows Code: GABE. Desktop QR, generated locally, uses qr.
 
-- `PLETHORA_PT`: optional numeric App Store provider ID; omitted until supplied.
-- `PLETHORA_PLAY_URL`: official `https://play.google.com/store/apps/details?id=…` URL. No package ID is guessed. Until supplied, Android visitors land on `/plethora?from=<id>&platform=android`, and the Play button clearly says the direct link is coming soon. Once set, Android redirects directly to Google Play with an encoded `referrer=utm_source=corvus&utm_campaign=<id>` payload.
-- `PLETHORA_REFERRAL_CODE`: public code displayed beside CTAs once supplied. The provisional `ref` parameter remains pending Plethora's confirmation of its redemption format.
-- `PLETHORA_ADMIN_KEY`: existing sensitive Production + Preview value, outside Git. Gabriel's signed session also grants admin access. The private access link remains in `~/.secrets/corvus-plethora-admin.md`.
+## Configuration
 
-Redeploy after configuring values. The same-origin public response is CDN-cached for 15 seconds; visible counters and the stats page refresh every 30 seconds.
+No App Store provider ID or Google Play configuration is needed. The obsolete store env variables are removed from the implementation; neither existed in Vercel at upgrade time. The supplied `GABE` code is fixed public configuration, not a secret.
 
-## Attribution and counting
+`PLETHORA_ADMIN_KEY` and `CRON_SECRET` already exist in Production + Preview. No dashboard work is required. The admin also accepts Gabriel's authenticated session. Public stats and CSV require no key.
 
-`js/plethora-config.js` defines 35 canonical placements, their four categories and the legacy `bio → bio-x` alias. Historical `bio` totals and last-24h samples are combined into the bio-x row, without rewriting or dropping records. Both aliases use the same dedupe identity, including pre-upgrade keys.
+## Counting, retention and migration
 
-- iOS → Apple with `ct=corvus-<placement>` and optional `pt`.
-- Android → configured Google Play URL with encoded campaign referrer.
-- Desktop → `/plethora?from=<placement>`.
-- Landing-page store CTAs preserve the placement and use `?store=1&noCount=1`. The initial redirect is the only counted click, even if the later store click occurs after 30 minutes or on a different network. Explicit `platform=ios|android` selects a store on desktop.
-- Direct landing-page visitors, without a valid `from` or legacy `placement`, use bio-x and count their first store CTA normally.
-- The desktop-only, self-hosted QR points to `https://corvus.gent/go/plethora-qr?store=1`. A scan is a separate mobile entry, attributed to qr.
-- `ios=1` supports iPadOS desktop user agents. No analytics identifier or raw IP is sent to either store.
+`api/_plethora.js` retains all v1 aggregate keys and combines legacy bio counts into bio-x. One Lua operation records raw clicks on every human GET, and deduped clicks once per network + placement per 30 minutes. HEAD, bots and prefetches do not count. These are clicks, not unique people or installs.
 
-The headline uses Gabe's requested “people sent” copy; the measure is **referral clicks, not unique people or installs**. Dedupe is network + placement for 30 minutes, so shared networks can undercount. Daily salted hashes expire after 30 minutes; rolling anonymous samples expire after 25 hours. HEAD, bots/link previews and prefetches do not increment counters. `noCount=1` intentionally suppresses counting; these are informational, not billing metrics.
+The transient IP is HMAC-hashed with a daily rotating salt; only dedupe keys carry hashes and expire in 30 minutes. Individual records contain placement, destination, device, Vercel country and timestamp (plus a random per-click nonce). UTC raw-log buckets expire at the end of their seven-day window. Rolling deduped samples expire after 25 hours. No raw IP, persistent visitor ID or user-agent string is stored.
 
-## Public statistics
+Daily Pacific aggregates and snapshots have no TTL. The first official-link write atomically preserves the old totals as a legacy baseline. Historical destinations/raw counts cannot be reconstructed and are explicitly unknown; no numbers are invented. The first snapshot job archives any surviving old UTC history before its former TTL expires. UTC history is not presented as Pacific data.
 
-The public JSON only contains aggregates, static labels, public store configuration and the update time. It exposes no network hash, IP, sample identifier, email or session. Lifetime counts are retained in the v1 keys. Platform totals and UTC daily aggregates begin with v2; earlier clicks appear as “no platform recorded” and earlier chart days remain grey/no-data. History is never invented. Daily aggregate keys expire after nine days, covering the displayed seven days. Last 24h remains an exact rolling window, independent of midnight/DST.
+## Midnight Pacific snapshots
 
-The homepage live counter pauses when hidden/dismissed. Other pages still make only the existing initial config request; gameplay gets no polling overlay. Generated placement/footer slots are rebuilt idempotently by `node tools/build-plethora.mjs`; offline game packages remain untouched. `tools/plethora/og.mjs` generates the original 1200×630 pixel-art PNG without external assets or services.
+Vercel schedules `/api/stats?plethora=1&action=snapshot` at **07:00 and 08:00 UTC**. The handler only runs at **00:00 America/Los_Angeles**, choosing the correct one in summer/winter. It authenticates using CRON_SECRET. It saves `stats:plethora:YYYY-MM-DD` (preview has a separate namespace), catches up missed days from permanent daily hashes and includes late-arriving writes on the next run. Zero-click yesterday also gets a snapshot once tracking has started. This adds no function.
 
-## Validation
+Admin-authorized `GET /api/plethora?action=snapshot&catchup=1` runs a catch-up outside midnight. Scheduler execution is production-only on Vercel; preview QA exercises this manually and does not pretend the next midnight already happened.
+
+## Public reporting
+
+`/plethora/stats` shows deduped totals + rolling 24h, raw clicks since this upgrade, destination/device splits, sorted category subtotals and a 7-day Pacific chart. Unknown history remains grey. Refresh: 30s; CDN: 15s + SWR.
+
+`/plethora/stats.csv` exports daily aggregate rows: day_pt, placement, destination, device, country, deduped_clicks, raw_clicks. Pre-upgrade totals are `legacy` with unknown dimensions and blank raw counts. CSV contains no individual click timestamps, hashes or nonces. Permanent daily hashes and snapshots allow rebuilding exports without raw logs.
+
+## Checks
 
 ```
+node tools/plethora/verify-routes.mjs
 REDIS_URL=redis://127.0.0.1:16380/7 node tools/plethora/check.mjs
-REDIS_URL=redis://127.0.0.1:16380/7 PLETHORA_TEST_PREFIX=plethora:v2-browser SESSION_SECRET=local-test PLETHORA_ADMIN_KEY=local-plethora-key node tools/plethora/server.mjs
+REDIS_URL=redis://127.0.0.1:16380/7 PLETHORA_TEST_PREFIX=plethora:official-browser SESSION_SECRET=local-test PLETHORA_ADMIN_KEY=local-plethora-key node tools/plethora/server.mjs
 node tools/plethora/v2-browser.mjs
-node tools/plethora/browser.mjs
-node tools/plethora/admin-check.mjs
 ```
 
-For protected previews, set `PLETHORA_TEST_URL` and `PLETHORA_TEST_COOKIES` (a private Netscape cookie jar). Screenshots remain in ignored `tests/results/plethora-v2/`. The real redirect checker only writes test clicks when the hostname is a Vercel preview; production checks use HEAD.
+The first check is also the Vercel build guard: all 36 routes × 3 devices must produce exactly their official allowlisted URL. Browser QA supports PLETHORA_TEST_URL and PLETHORA_TEST_COOKIES for protected previews. Screenshots stay in ignored tests/results.
 
-Self-hosted QR encoder: qrcode-generator 2.0.4 by Kazuhiko Arase, MIT; attribution retained in qrcode.mjs. No third-party QR service receives links.
+QR encoder: qrcode-generator 2.0.4 by Kazuhiko Arase, MIT, self-hosted.

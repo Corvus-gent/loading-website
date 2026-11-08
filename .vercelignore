@@ -17,3 +17,7 @@ games/data
 !tools/build-plethora.mjs
 
 !tools/build-gabinho-rolls.mjs
+
+!tools/plethora
+tools/plethora/*
+!tools/plethora/verify-routes.mjs

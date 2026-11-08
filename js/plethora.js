@@ -1,5 +1,5 @@
 // Shared same-origin configuration and aggregate counter. No tracking SDK/cookie.
-const ios=/iPhone|iPad|iPod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+import {destinationKind} from './plethora-config.js?v=20261108p4';
 const edition=location.pathname.includes('/do-bronx')||new URLSearchParams(location.search).get('edition')==='do-bronx';
 const banner=document.querySelector('[data-plethora-banner]');
 if(banner){try{banner.hidden=localStorage.getItem('plethora.home.dismissed')==='1';}catch{}banner.querySelector('button').onclick=()=>{banner.hidden=true;try{localStorage.setItem('plethora.home.dismissed','1');}catch{}};}
@@ -8,8 +8,7 @@ export function decorate(root=document,config){
   if(edition&&link.dataset.plethora==='gameover'){link.dataset.plethora='celtix';link.href='/go/plethora-celtix';}
   const url=new URL(link.getAttribute('href'),location.href);
   if(location.hostname==='stats.corvus.gent'&&url.pathname.startsWith('/go/plethora-')){url.hostname='corvus.gent';url.protocol='https:';link.href=url.href;}
-  if(ios&&url.pathname.startsWith('/go/plethora-')){url.searchParams.set('ios','1');link.href=location.hostname==='stats.corvus.gent'?url.href:url.pathname+url.search;}
-  if(config?.referralCode){let code=link.nextElementSibling;if(!code?.classList.contains('plethora-ref')){code=document.createElement('small');code.className='plethora-ref';link.after(code);}code.textContent='Use my code: '+config.referralCode;code.hidden=false;}else if(config&&link.nextElementSibling?.classList.contains('plethora-ref'))link.nextElementSibling.hidden=true;
+  if(config?.referralCode&&destinationKind(link.dataset.plethora)==='ossman'){let code=link.nextElementSibling;if(!code?.classList.contains('plethora-ref')){code=document.createElement('small');code.className='plethora-ref';link.after(code);}code.textContent='Code: '+config.referralCode;code.hidden=false;}else if(config&&link.nextElementSibling?.classList.contains('plethora-ref'))link.nextElementSibling.hidden=true;
  }
 }
 export function tickCounter(el,total){
