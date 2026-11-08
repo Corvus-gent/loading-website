@@ -1,3 +1,10 @@
+## 2026-11-08 — codex/compound
+
+- Put the video, one-tap quick feedback and latest-five public wall first. Remove the prediction UI and both client/server watch gates; retain deduplicated cut votes and existing editing tools in a disclosure.
+- Save per-version chips and boredom timestamps using the signed voter identity; allow owned text follow-ups, optional credit handles and private spam removal. Keep historical private feedback off the new public wall.
+- Run the fixed-deadline clock separately from modules/data, show recovery controls on loading failure, and keep an explicit expired-deadline result. Update helper rewards to final-video credits.
+- Validate Redis persistence/deduplication/auth/TTL, mobile Safari/Chrome and desktop flows, module-failure recovery, and preview with an isolated Compound data prefix. No production feedback writes or main push.
+
 ## Twitch live badge — 2026-11-07
 - Shared vanilla LiveStream component on /hack and /hack/2, driven by Twitch online/offline/play events; no API keys or backend. Exact preview hostname included in parent allowlist.
 - Offline player collapses fully; online badge jumps to the player. Mobile scaling, keyboard focus, blocked-embed fallback and reduced motion supported.

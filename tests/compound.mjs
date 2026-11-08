@@ -59,7 +59,7 @@ try{
  assert.equal((await send({action:'transition',transition:'hook',choice:'up',t:1})).body.added,true);assert.equal((await send({action:'transition',transition:'hook',choice:'down'})).body.choice,'up');
  assert.equal((await send({action:'transition_tag',transition:'hook',tag:'smooth'})).body.added,true);assert.equal((await send({action:'transition_tag',transition:'hook',tag:'fake'})).status,400);
  assert.equal((await send({action:'transition_text',transition:'hook',text:'keep the first second'})).body.added,true);
- assert.equal((await send({action:'battle',winner:revised.id,opponent:second.id})).status,400);
+ assert.equal((await send({action:'battle',winner:revised.id,opponent:third.id})).status,200); // No watch gate.
  await send({action:'watched',percent:25});await send({action:'watched',version:second.id,percent:25});
  assert.equal((await send({action:'pick',winner:revised.id})).body.added,true);assert.equal((await send({action:'pick',winner:second.id})).body.added,false);
  assert.equal((await send({action:'battle',winner:revised.id,opponent:second.id})).body.added,true);assert.equal((await send({action:'battle',winner:second.id,opponent:revised.id})).body.added,false);
@@ -75,5 +75,32 @@ try{
  assert.equal((await send({action:'donate',method:'revolut'})).body.url,'https://revolut.me/francisgabriel');
  assert.equal((await call({action:'revolut',total:-1},{cookie:adminCookie})).status,400);
  for(const k of await r.keys('compound:*'))if(/:(transition-once|transition-tag|duel|watched|watch|engaged|campaign):/.test(k))assert.ok(await r.ttl(k)>0,k+' expires');
+
+ // Feedback wall: saved first tap, stable identity, owned edits, no watch gate,
+ // public field allowlist, moderation and timestamp deduplication.
+ const quick=body=>call({version:second.id,...body},{cookie,headers:{'x-forwarded-for':'198.51.100.109'}});
+ const firstTap=await quick({action:'quick',chip:'hook'});assert.equal(firstTap.status,200);assert.equal(firstTap.body.added,true);
+ const repeated=await quick({action:'quick',chip:'hook'});assert.equal(repeated.body.id,firstTap.body.id);assert.equal(repeated.body.added,false);
+ assert.equal((await quick({action:'note_text',id:firstTap.body.id,text:'Cut the repeated intro shot.'})).status,200);
+ assert.equal((await call({action:'note_text',version:second.id,id:firstTap.body.id,text:'stolen edit'},{headers:{'x-forwarded-for':'198.51.100.110'}})).status,400);
+ assert.equal((await quick({action:'quick',chip:'invented'})).status,400);
+ assert.equal((await quick({action:'reaction',type:'bored',t:3.9})).body.added,true);
+ assert.equal((await quick({action:'reaction',type:'bored',t:3.1})).body.added,false);
+ assert.equal((await store.summary(second.id)).byVersion[second.id].heat['3:bored'],1);
+ assert.equal((await quick({action:'reaction',type:'bored',t:-1})).status,400);
+ await store.profile((await store.get('text:'+firstTap.body.id)).uid,'@credited');
+ let feed=(await call(null,{query:{feed:'1'}})).body.feedback;
+ assert.equal(feed[0].handle,'@credited');assert.equal(feed[0].text,'Cut the repeated intro shot.');
+ assert.ok(feed.every(n=>!('uid'in n)&&!('visitor'in n)&&!('points'in n)));
+ assert.equal((await call({action:'hide_text',id:firstTap.body.id})).status,401);
+ assert.equal((await call({action:'hide_text',id:firstTap.body.id},{cookie:adminCookie})).status,200);
+ assert.ok(!(await store.feedbackFeed()).some(n=>n.id===firstTap.body.id));
+ assert.equal((await quick({action:'note_text',id:firstTap.body.id,text:'revive deleted spam'})).status,400);
+ for(let i=0;i<7;i++)await store.quickNote('local-person-'+i,second.id,{chip:'note',text:'feedback item '+i});
+ feed=await store.feedbackFeed();assert.equal(feed.length,5);assert.equal(feed[0].text,'feedback item 6');
+ assert.ok(feed.every(n=>n.handle==='anonymous soldier'));
+ assert.ok(await r.ttl(store.key('feedback'))>0);
+ assert.equal((await quick({action:'pick',winner:third.id})).status,200);
+ console.log('PASS: instant chips, no-watch voting, owned note edits, public field allowlist, latest-five feed, late handle attribution, moderation, boredom timestamp/dedupe and TTLs.');
  console.log('PASS: three slots/iterations/cutlists, transitions, head-to-head, all 11 redirects, first/last attribution + donation chain, Revolut admin totals, compound auth, versions, votes/concurrency/dedupe, categories, text, reactions, cues/live polls, prediction, XSS-safe JSON, GPC, TTLs, signed Stripe €1 webhook, duplicate delivery, late payments and refunds.');
 }finally{await r.flushDb();await r.disconnect();}process.exit(0);
