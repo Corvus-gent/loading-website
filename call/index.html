@@ -4,13 +4,13 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="color-scheme" content="dark" />
-  <title>Call | corvus.gent</title>
+  <title>Calls, coffee & PARACETAMAIL | corvus.gent</title>
   <link rel="icon" type="image/png" href="/logo.png" />
   <link rel="stylesheet" href="/styles.css?v=c5cabf3f1a64" />
   <link rel="stylesheet" href="/people/styles.css?v=1b7535a5d1d1" />
-  <meta name="description" content="Book a free 15-min call with Gabriel." />
-  <meta property="og:title" content="Call | corvus.gent" />
-  <meta property="og:description" content="Book a free 15-min call with Gabriel." />
+  <meta name="description" content="5 minutes free, 15 minutes for one coffee, or meet Gabe in SF. You sort the coffee, he brings the painkillers." />
+  <meta property="og:title" content="Calls, coffee & PARACETAMAIL | corvus.gent" />
+  <meta property="og:description" content="5 minutes free, 15 minutes for one coffee, or meet Gabe in SF. You sort the coffee, he brings the painkillers." />
   <meta property="og:url" content="https://corvus.gent/call/" />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://corvus.gent/og.png" />
@@ -18,8 +18,9 @@
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://corvus.gent/og.png" />
+  <link rel="stylesheet" href="/support/campaign/style.css?v=20261108s2">
   <style>
-    .call-wrap { max-width: 520px; }
+    .call-wrap { max-width: 680px; }
     .card { border: 1px solid #2a2a2a; border-radius: 14px; padding: 22px 22px 20px; margin: 22px 0 0; background: linear-gradient(180deg, #0d0d0d, #070707); }
     .card h2 { font-size: 20px; margin: 0 0 6px; letter-spacing: -.01em; }
     .card p { margin: 0 0 16px; color: #9a9a9a; font-size: 14px; line-height: 1.5; }
@@ -40,8 +41,24 @@
     <div class="wrap call-wrap">
       <div class="lang-switcher" id="lang-switcher"></div>
       <div class="tag"><a href="/">corvus.gent</a> / call</div>
-      <h1 data-i18n="call.title">Call</h1>
-      <p class="sub" data-i18n="call.who">competitive baby GTM entrepreneur, upcoming business philosopher and social media engineer maxxer. always looking for opportunities.</p>
+      <h1>what hurts?</h1><p class="sub">quick question, big headache, or coffee in SF. pick your dose 💊</p><p class="support-spots" data-support-spots>5/5 spots this week</p>
+      <div class="call-tiers" aria-label="Choose your call">
+        <section class="call-tier"><h2>⚡ 5 MIN · FREE</h2><p>quick question, quick answer.</p><button type="button" data-call-tier="quick">quick question →</button></section>
+        <section class="call-tier"><h2>☕ 15 MIN · 1 COFFEE ($5)</h2><p>you sort the coffee, I'll bring the painkillers 💊</p><button type="button" data-call-tier="coffee">sort my headache →</button></section>
+        <section class="call-tier"><h2>🤝 MEET IN SF · 1 COFFEE</h2><p>or we just grab the coffee IRL. I'm in SF this week.</p><button type="button" data-call-tier="meet">meet in SF →</button></section>
+      </div>
+      <section class="paracetamail"><h2>the deal 💊</h2><p>Every paid call comes with 1 PARACETAMAIL 💊: one email from me, after the call, that kills your biggest headache (growth, launch, distribution, whatever hurts). You sort the coffee, I bring the painkillers.</p></section>
+      <section class="call-booking" id="booking"><h2>leave me the headache.</h2>        <div id="call-coffee-step" class="coffee-honor" hidden><p>Did you sort the coffee? ☕</p><a class="support-button" data-support-step="call-coffee" href="/api/support?action=out&amp;step=call-coffee" target="_blank" rel="noopener noreferrer">Buy me a coffee ↗</a><label class="check-label"><input type="checkbox" name="coffeePaid" form="call-request">I bought the coffee</label><small>honor system. one coffee, one headache.</small></div><form id="call-request">
+        <label>your name<input name="name" required maxlength="80" autocomplete="name"></label>
+        <label>email or handle<input name="contact" required maxlength="160" autocomplete="email" placeholder="you@email.com or @yourhandle"></label>
+        <label>your dose<select name="tier"><option value="quick">5 min · free</option><option value="coffee">15 min · 1 coffee ($5)</option><option value="meet">meet in SF · 1 coffee</option></select></label>
+
+        <label>what hurts?<textarea name="pain" required maxlength="600" rows="3" placeholder="1–2 sentences. Growth, launch, distribution…"></textarea></label>
+        <label>preferred times<input name="times" required maxlength="250" placeholder="today after 3pm PT"></label>
+        <label class="call-honeypot" aria-hidden="true">leave this empty<input name="website" tabindex="-1" autocomplete="off"></label>
+        <p class="support-note">Only Gabe sees this. Deleted from the site after 60 days. <a href="/privacy/">privacy →</a></p>
+        <button class="support-button call-submit" type="submit">send the headache →</button><p id="call-form-status" role="status" aria-live="polite"></p>
+      </form><div id="call-success" hidden><h3>Got it 💊</h3><p>I'll reply within a few hours to lock a time.</p></div><noscript><p><a href="mailto:gabriel@corvus.gent?subject=Call%20request">Email Gabe your name, tier, headache and preferred times →</a></p></noscript></section>
 
       <div class="deck" id="deck">
         <button class="vinyl" id="vinyl" aria-label="play / pause Hotline Bling" aria-pressed="false">
@@ -54,19 +71,7 @@
 
       <a class="lt-lantern music-note" href="/music/"><span class="term-lantern" aria-hidden="true"></span><span data-i18n="call.diogenes">tired of life? come listen to some bangers →</span></a>
 
-      <section class="card">
-        <h2 data-i18n="call.pitch">15 minutes. free. no slides.</h2>
-        <p data-i18n="call.pitchsub">growth, GTM, AI agents, or whatever's keeping you up at night.</p>
-        <a id="book-link" class="btn btn-main" href="#" target="_blank" rel="noreferrer" data-i18n="call.cta">book your slot →</a>
-      </section>
-
-      <div class="or" data-i18n="call.or">or</div>
-
-      <section class="card alt">
-        <h2 data-i18n="call.longer">want a longer call?</h2>
-        <p data-i18n="call.longsub">60+ min deep dive. pay what it's worth, in coffee.</p>
-        <a id="coffee-link" class="btn btn-ghost" href="#" target="_blank" rel="noreferrer">☕ <span data-i18n="call.coffee">buy me a coffee</span></a>
-      </section>
+      <section class="card alt"><h2>just want to buy a coffee?</h2><p>same coffee jar. no call needed.</p><a id="coffee-link" class="btn btn-ghost" href="https://buymeacoffee.com/gabe.maxxing" target="_blank" rel="noopener noreferrer">☕ buy me a coffee</a></section>
 
       <p class="puzzle-note"><a href="/games/">🕯 today’s puzzle is waiting →</a></p><footer>© <span id="y"></span> corvus <a href="/privacy/" data-privacy-link>privacy</a></footer>
     </div>
@@ -76,10 +81,6 @@
     import { setFooterYear } from "/js/utils.js";
     setFooterYear();
     initI18n();
-    fetch("/site.json", { cache: "no-store" }).then(r => r.json()).then(c => {
-      if (c.booking15) document.getElementById("book-link").href = c.booking15;
-      if (c.booking60) document.getElementById("coffee-link").href = c.booking60;
-    }).catch(() => {});
   </script>
   <script>
     // Hotline Bling: official Spotify embed (no audio hosted here). Still by default, click = spin + play, click again = stop.
@@ -116,7 +117,8 @@
 
     })();
   </script>
-  <script src="/js/analytics.js?v=f2643794512b"></script>
+  <script type="module" src="/js/support.js?v=20261108s2"></script>
+  <script src="/js/analytics.js?v=20261108support1"></script>
 <script type="module" src="/js/privacy.js?v=d02abbbb55c5"></script>
 <script type="module" src="/js/eggs.js?v=20261106-ranks1"></script><!-- PLETHORA_SCRIPT --><script type="module" src="/js/plethora.js?v=20261108p4"></script><!-- /PLETHORA_SCRIPT --><!-- PLETHORA_FOOTER --><div class="plethora-footer" data-plethora-footer><a class="" href="/go/plethora-footer" data-plethora="footer">Games discovered on Plethora 📲</a></div><!-- /PLETHORA_FOOTER --></body>
 </html>

@@ -8,6 +8,7 @@ import { privateTasks } from './private-stats.js';
 import { SF_FUNNEL_SQL } from './_sf.js';
 import xHandler, { xReady } from './x-stats.js';
 import coffeeHandler from './_coffee.js';
+import {supportReport} from './_support.js';
 import {visitorCounters,armyHistory} from './_visitor-counts.js';
 
 // Reuse the provider adapters and their existing privacy boundaries/caches.
@@ -56,6 +57,7 @@ export function snapshotTasks(page, day) {
   if (page === 'overview') {
     const tasks = {
       ...daily,
+      support: async () => ({support:await supportReport(day)}),
       audience: () => visitorCounters(day),
       counters: () => counters(day),
       outbound: async () => ({ outbound: await sectionTasks('outbound', day).outbound() })

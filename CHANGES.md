@@ -262,3 +262,7 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 - Device-independent official download/OSSMAN redirects, fixed GABE attribution, raw + deduped counts, country/device/destination aggregates.
 - Midnight-Pacific permanent snapshots, legacy preservation and public CSV; landing CTAs/QR and public stats updated.
 - 108-route build guard plus Redis retention/dedupe/history tests and mobile/desktop preview QA.
+
+## codex/support — 2026-11-08
+- Replace call pricing with 5 min free / 15 min coffee / SF coffee, PARACETAMAIL and a native booking form. Redis retention, email notification and private status management.
+- Add dinner, support invitation on Gabinho Rolls, eight tracked Diogenes short links and overview statistics. Existing BMC URL preserved. Retire only the newly created Stripe call links.

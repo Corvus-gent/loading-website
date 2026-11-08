@@ -12,7 +12,7 @@ PUBLIC_ROOTS = {"gabinho-rolls","plethora","hackathons","index.html", "call", "g
 pages = []
 for f in sorted(glob.glob("**/index.html", recursive=True)):
     if f.split("/", 1)[0] not in PUBLIC_ROOTS: continue
-    if f.startswith(("clients/", "go/", "gabe/", "node_modules/", "music/admin/", "plethora/admin/", "402/", "stats/private/", "stats/hunt/")): continue
+    if f.startswith(("clients/", "go/", "gabe/", "node_modules/", "music/admin/", "call/admin/", "plethora/admin/", "402/", "stats/private/", "stats/hunt/")): continue
     url = "/" + f[:-len("index.html")]
     if url == "/people/": url_title = "army · join the people"
     src = open(f, encoding="utf-8").read()

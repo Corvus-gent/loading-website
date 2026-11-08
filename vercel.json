@@ -46,6 +46,10 @@
   ],
   "rewrites": [
     {
+      "source": "/api/support",
+      "destination": "/api/stats?support=1"
+    },
+    {
       "source": "/plethora/stats.csv",
       "destination": "/api/stats?plethora=1&action=csv"
     },
