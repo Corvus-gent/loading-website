@@ -1,3 +1,5 @@
+import {markPosted} from './uploads.js';
+import {uploadQueue} from '../../compound/v2/upload-queue.js';
 import {waitUntil} from '@vercel/functions';
 import {authorized,login,logout,sameOrigin,limit,identity,analytics} from './security.js';
 import {parseSlug,destination,attribution,EVENTS} from './model.js';
@@ -21,7 +23,7 @@ export default async function handler(req,res){
    if(q.private==='1'){
     if(!authorized(req))return res.status(401).json({error:'Sign in first.'});
     if(configured())waitUntil(syncIfDue().catch(()=>{}));
-    return res.status(200).json({...await store.report(),feedback:await store.privateFeedback(),sync:await syncStatus()});
+    const report=await store.report({privateData:true});return res.status(200).json({...report,upload_queue:uploadQueue(report.videos),feedback:await store.privateFeedback(),sync:await syncStatus()});
    }
    if(configured())waitUntil(syncIfDue().catch(()=>{}));
    res.setHeader('Cache-Control','public, max-age=0, s-maxage=15, stale-while-revalidate=120');
@@ -36,14 +38,14 @@ export default async function handler(req,res){
   if(!await limit(req,'all',150))return res.status(429).json({error:'Take a breath. Try again in a minute.'});
   if(b.action==='login'){if(!await limit(req,'login',5,300))return res.status(429).json({error:'Too many attempts. Try again in five minutes.'});return login(res,b.password)?res.status(200).json({ok:true}):res.status(401).json({error:'Wrong password.'});}
   if(b.action==='logout'){logout(res);return res.status(200).json({ok:true});}
-  if(['add','edit','hide_feedback'].includes(b.action)){
+  if(['add','edit','hide_feedback','mark_posted'].includes(b.action)){
    if(!authorized(req))return res.status(401).json({error:'Owner sign-in required.'});
    if(b.action==='hide_feedback'){await store.hideFeedback(b.id);return res.status(200).json({ok:true});}
-   let row;try{row=await store.save(b.video,b.action==='edit');}catch(e){return res.status(400).json({error:e.message});}return res.status(200).json({video:row});
+   let row;try{row=b.action==='mark_posted'?await markPosted(b.slug,b.post_url):await store.save(b.video,b.action==='edit');}catch(e){return res.status(400).json({error:e.message});}return res.status(200).json({video:row});
   }
   if(b.website)return res.status(400).json({error:'Please leave the hidden field empty.'});
   if(b.action==='code'){
-   const code=parseCode(b.code);if(!code)return res.status(400).json({error:'Try a code like NL-A1 or NL-MOM1.'});
+   const code=parseCode(b.code);if(!code)return res.status(400).json({error:'Try a code like NL-A-1 or NL-MOM-1.'});
    const matches=(await store.videos()).filter(v=>v.lang===code.lang&&v.hook===code.hook&&v.n===code.n);
    if(!matches.length)return res.status(404).json({error:'No video with that code yet.'});
    const policy=analytics(b,req);
@@ -58,7 +60,7 @@ export default async function handler(req,res){
   if(b.action==='event'){
    if(!['pageview','share_click','outbound_click','code_entered'].includes(b.type))return res.status(400).json({error:'Invalid event.'});
    if(!human(req))return res.status(200).json({ok:true,skipped:true});
-   if(b.type==='code_entered'&&/^[A-Z]{2}-[A-Z]+[1-9]\d{0,3}$/.test(b.code||''))detail.code=b.code;
+   if(b.type==='code_entered'&&parseCode(b.code))detail.code=parseCode(b.code).code;
    await store.event(b.type,b.slug,detail);return res.status(200).json({ok:true});
   }
   if(b.action==='vote'){

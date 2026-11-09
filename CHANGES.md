@@ -335,3 +335,8 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 - Added per-video X, X reply, LinkedIn and WhatsApp drafts with localized hook copy and platform-specific attribution.
 - All wording lives in compound/v2/share-config.js; added one-click export of every current campaign X draft, dated in San Francisco.
 - Existing private authentication, QR tools and stats editing remain unchanged.
+
+## Compound v2 upload queue
+- Owner-only per-account queue with exact export captions/filenames, language alternation and TikTok/Instagram 60-minute / X 45-minute posting plans.
+- Quick authenticated mark-posted action, canonical LANG-HOOK-N codes with legacy case-insensitive input, idempotent private export importer and backups; existing votes/metrics retained.
+- Ready-batch import requires source confirmation: current release manifest is empty and audio repairs are pending.

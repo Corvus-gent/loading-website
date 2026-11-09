@@ -1,4 +1,4 @@
-import {parseSlug,SOURCES,videoPath,SEED_VIDEOS} from '../../compound/v2/config.js';
+import {parseSlug,SOURCES,videoPath,SEED_VIDEOS,voteCode} from '../../compound/v2/config.js';
 export {parseSlug,SEED_VIDEOS};
 export const RETENTION=90*86400;
 export const METRICS=['views','likes','comments','shares'];
@@ -19,6 +19,10 @@ export function video(raw,{allowPending=false}={}){
  if(!result.post_url&&METRICS.some(k=>result[k]))throw Error('add the post URL before recording social metrics');
  if(result.is_example&&METRICS.some(k=>result[k]))throw Error('examples must have zero metrics');
  if(raw.posted_at&&!Number.isFinite(Date.parse(raw.posted_at)))throw Error('invalid date');
+ if(raw.vote_code!==undefined&&raw.vote_code!==voteCode(parsed))throw Error('vote code must match the export: '+voteCode(parsed));
+ if(raw.status!==undefined&&!['pending','ready','posted'].includes(raw.status))throw Error('invalid video status');
+ if(raw.status==='posted'&&!result.post_url)throw Error('posted videos need a post URL');
+ result.vote_code=voteCode(parsed);result.status=result.post_url?'posted':raw.status||'pending';
  result.posted_at=raw.posted_at?new Date(raw.posted_at).toISOString():null;result.updated_at=new Date().toISOString();result.awaiting_url=!result.post_url;result.metric_source=result.is_example?'example':result.awaiting_url?'pending':'manual';return result;
 }
 export function destination(slug,query={}){
@@ -35,3 +39,6 @@ export function attribution(raw={}){
  let referrer='';try{const h=new URL(raw.referrer.includes('://')?raw.referrer:'https://'+raw.referrer).hostname.toLowerCase();referrer=['instagram.com','l.instagram.com','tiktok.com','x.com','t.co','linkedin.com','lnkd.in','twitch.tv','corvus.gent','web.whatsapp.com'].includes(h.replace(/^www\./,''))?h:'other';}catch{}
  return{...output,referrer};
 }
+
+const fields=['slug','platform','account','lang','hook','n','vote_code','hook_line','post_url','compound_url','is_example','views','likes','comments','shares','posted_at','updated_at','status','awaiting_url','metric_source','synced_at','interview_n','interview_clip_url'];
+export function publicVideo(row){const v=Object.fromEntries(fields.filter(k=>row[k]!==undefined).map(k=>[k,row[k]]));return{...v,vote_code:voteCode(row),status:row.post_url?'posted':row.status||'pending'};}
