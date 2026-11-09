@@ -4,7 +4,7 @@
 
 Started 9 November 2026 at 13:41 UTC. Phase 1 deployed to production at about 14:50 UTC, after all 12 protected-contest smoke checks passed. Feature branch: `codex/site-legion-refresh`; integrated into `daily/2026-11-06-redis-restore`, daily PR #18. Main was not pushed or merged.
 
-Phase 2 adds the fixes found during the route/flow audit. Its final deployment and post-deploy checks are recorded below once complete.
+Phase 2 deployed successfully at approximately 15:26 UTC. The post-deploy contest smoke passed all 12 routes; the complete production crawl passed 136 checks. Production owner authentication, mobile admin, invalid-invite recovery, both-host legacy redirects, PDF delivery, iframe controls and game controls also passed. Runtime release commit: `b7cd024`. Completed within about two hours, under the five-hour limit.
 
 ## What changed
 
@@ -81,6 +81,15 @@ The contest routes, /v and /c redirects, video registry, votes and campaign data
 - Seven unused production test invites, one per rank: `~/.secrets/corvus-legion-test-invites.md`. One use each, 30-day expiry. These are bearer invitations: share only with the intended claimant.
 - Daily PR: #18. Review branch: `codex/site-legion-refresh`.
 - Screenshots and reports: `test-results/site-flows/`, `test-results/site-homepage/`, `test-results/site-routes/`, `test-results/site-contest/`.
+
+## Production evidence
+
+- `test-results/site-contest/production-smoke.json`: 12/12, served pages + expected elements.
+- `test-results/site-routes/results.json`: 136/136, mobile and desktop; CV checked as PDF.
+- `test-results/site-flows/production-admin-mobile.png`: authenticated owner layout at 390px.
+- `test-results/site-flows/production-invalid-invite.png`: friendly recovery without exposing a token or account.
+- `test-results/site-flows/iframe-fixed-{390,1440}.png` and `game-fixed-{390,1440}.png`: controls remain usable on production.
+- The seven handoff invitations remain unused. No synthetic members were added to production.
 
 ## Deliberately not activated
 

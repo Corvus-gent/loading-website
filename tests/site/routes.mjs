@@ -25,3 +25,6 @@ for(const viewport of [{width:390,height:844},{width:1440,height:900}]){
  await context.close();
 }
 await browser.close();
+const failures=results.filter(r=>r.status!==200||r.error||(r.type==='pdf'?!r.contentType?.includes('application/pdf'):!r.nav||r.scrollWidth>r.width+1||r.errors?.length||r.images?.length));
+if(failures.length)throw Error(failures.length+' route checks failed; see '+output+'/results.json');
+console.log('PASS: '+results.length+' served-route and viewport checks.');

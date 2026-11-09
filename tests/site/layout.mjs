@@ -1,5 +1,5 @@
 import {chromium} from 'playwright';import assert from 'node:assert/strict';
-const browser=await chromium.launch(),root='http://127.0.0.1:4460';
+const browser=await chromium.launch(),root=process.env.SITE_TEST_ORIGIN||'http://127.0.0.1:4460';
 for(const viewport of [{width:390,height:844},{width:1440,height:900}]){
  const context=await browser.newContext({viewport,isMobile:viewport.width<700,hasTouch:viewport.width<700}),page=await context.newPage();
  for(const path of ['/hack/1/the-feed/','/hack/the-feed/']){
