@@ -1,3 +1,7 @@
+## 2026-11-09 — codex/corvus-hotspots
+
+- Add Brussel and Gent to the Corvus map highlights with distinct colours and city zoom buttons. Keep the highlights separate from measured visitors.
+
 ## 2026-11-09 — codex/stats-section-order
 
 - Put visitors by country directly below the overview totals and move Support (Diogenes post) to the last statistics section, preserving the other sections’ order. Hide support rows with zero all-time clicks by default behind an accessible show all / show less toggle.

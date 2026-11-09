@@ -32,7 +32,12 @@ export function referenceCities(zoom,bounds){
 }
 const referencePalette = ['#64c7ed','#b5a0ff','#ee98d4','#71d9c0'];
 const referenceColor = code => referencePalette[[...code].reduce((n,c)=>n+c.charCodeAt(0),0)%referencePalette.length];
-const hotspots = [{id:'sf',name:'san francisco',lat:37.8,lng:-122.4,color:'#57e1df'},{id:'hk',name:'hong kong',lat:22.3,lng:114.2,color:'#ed9aff'}];
+const hotspots = [
+  {id:'sf',name:'san francisco',lat:37.8,lng:-122.4,color:'#57e1df'},
+  {id:'hk',name:'hong kong',lat:22.3,lng:114.2,color:'#ed9aff'},
+  {id:'brussels',name:'brussel',lat:50.8503,lng:4.3517,color:'#ffab83',zoom:10,labelDirection:'bottom'},
+  {id:'ghent',name:'gent',lat:51.0543,lng:3.7174,color:'#a2ed98',zoom:10}
+];
 export const dotRadius = visitors => Math.max(4, Math.min(24, Math.sqrt(visitors)));
 
 async function initMap(snapshot) {
@@ -60,8 +65,8 @@ async function initMap(snapshot) {
     const icon=document.createElement('span');icon.className='corvus-hotspot-light';icon.style.setProperty('--hotspot',hotspot.color);
     const label=document.createElement('span');label.textContent=hotspot.name+' · corvus hotspot';
     const marker=L.marker([hotspot.lat,hotspot.lng],{pane:'corvusHotspots',icon:L.divIcon({className:'corvus-hotspot',html:icon,iconSize:[44,44],iconAnchor:[22,22]}),title:hotspot.name+' · corvus hotspot (highlight, not visitor count)',keyboard:true}).addTo(map);
-    marker.bindTooltip(label,{permanent:true,direction:'top',offset:[0,-12],className:'corvus-hotspot-label'});
-    const focusHotspot=()=>map.setView([hotspot.lat,hotspot.lng],6,{animate:!reduced});
+    marker.bindTooltip(label,{permanent:true,direction:hotspot.labelDirection||'top',offset:[0,hotspot.labelDirection==='bottom'?12:-12],className:'corvus-hotspot-label'});
+    const focusHotspot=()=>map.setView([hotspot.lat,hotspot.lng],hotspot.zoom||6,{animate:!reduced});
     marker.on('click',focusHotspot);
     document.querySelector('[data-map-hotspot="'+hotspot.id+'"]')?.addEventListener('click',focusHotspot);
   }
@@ -120,7 +125,7 @@ async function initMap(snapshot) {
     const note=document.querySelector('#visitor-map-coverage');
     const precise=cities.filter(c=>!c.unknown).reduce((n,c)=>n+c.visitors,0),coarse=cities.filter(c=>c.unknown).reduce((n,c)=>n+c.visitors,0);
     const coarseLabel=document.querySelector('#map-country-only-count');if(coarseLabel)coarseLabel.textContent=coarse.toLocaleString('en');
-    if(note)note.textContent=`${precise.toLocaleString('en')} located to a city area or region · ${coarse.toLocaleString('en')} country only${data.unlocated ? ` · ${data.unlocated} country unknown` : ''}. gold = recorded visitors; coloured cities and SF/HK hotspots = reference highlights, not visitor counts.${data.cityUnavailable ? ' city details temporarily unavailable.' : ''}`;
+    if(note)note.textContent=`${precise.toLocaleString('en')} located to a city area or region · ${coarse.toLocaleString('en')} country only${data.unlocated ? ` · ${data.unlocated} country unknown` : ''}. gold = recorded visitors; coloured cities and corvus hotspots = reference highlights, not visitor counts.${data.cityUnavailable ? ' city details temporarily unavailable.' : ''}`;
     status.textContent = precise || countryToggle?.checked ? '' : 'city-level pings appear here as they arrive.';
     status.hidden = cities.length>0;
   };
