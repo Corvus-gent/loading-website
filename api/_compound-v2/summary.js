@@ -1,6 +1,6 @@
 import {report,latestVotes} from './store.js';
-import {DEADLINE,parseSlug} from '../../compound/v2/config.js';
-const code=v=>(v.lang+'-'+v.hook+v.n).toUpperCase();
+import {DEADLINE,parseSlug,voteCode} from '../../compound/v2/config.js';
+const code=voteCode;
 export function summarize(report,events,now=Date.now()){
  const videos=report.videos.filter(v=>!v.is_example),known=new Set(videos.map(v=>v.slug));
  // Same ordering as the public v2 hub: reported social views, then votes.

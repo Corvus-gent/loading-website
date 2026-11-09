@@ -1,13 +1,14 @@
 import crypto from 'node:crypto';
+
 import {redis,pipeline} from '../_redis.js';
 import {prefix} from './security.js';
-import {SEED_VIDEOS,RETENTION,video as validate,METRICS} from './model.js';
+import {SEED_VIDEOS,RETENTION,video as validate,METRICS,publicVideo} from './model.js';
 export const key=(part)=>prefix+':'+part;
 const object=x=>Array.isArray(x)?Object.fromEntries(Array.from({length:x.length/2},(_,i)=>[x[i*2],x[i*2+1]])):x||{};
 export async function videos(){const rows=(await redis(['HVALS',key('videos')])).map(JSON.parse);const used=new Set(rows.map(v=>v.slug));return [...rows,...SEED_VIDEOS.filter(v=>!used.has(v.slug))];}
 export async function get(slug){const raw=await redis(['HGET',key('videos'),slug]);return raw?JSON.parse(raw):SEED_VIDEOS.find(v=>v.slug===slug)||null;}
 export async function save(raw,update=false){
- const existing=update?await get(raw?.slug):null;const row=validate(raw,{allowPending:!!existing?.interview_n}),exists=await redis(['HEXISTS',key('videos'),row.slug]);if(existing?.interview_n){row.interview_n=existing.interview_n;row.interview_clip_url=existing.interview_clip_url||'';}
+ const existing=update?await get(raw?.slug):null;const row=validate({...existing,...raw},{allowPending:!!existing?.interview_n||existing?.status==='ready'}),exists=await redis(['HEXISTS',key('videos'),row.slug]);if(existing?.interview_n){row.interview_n=existing.interview_n;row.interview_clip_url=existing.interview_clip_url||'';}
  if(!update&&Number(exists))throw Error('slug already exists');
  const fields=JSON.stringify(row);
  const result=await redis(['EVAL',`if ARGV[3]=='create' and redis.call('HEXISTS',KEYS[1],ARGV[1])==1 then return 0 end
@@ -15,9 +16,10 @@ export async function save(raw,update=false){
 +redis.call('HSET',KEYS[1],ARGV[1],ARGV[2]);redis.call('LPUSH',KEYS[2],ARGV[2]);redis.call('LTRIM',KEYS[2],0,199);redis.call('EXPIRE',KEYS[2],ARGV[4]);return 1`.replaceAll('\n+','\n'),2,key('videos'),key('metrics-history:'+row.slug),row.slug,fields,update?'update':'create',RETENTION]);
  if(Number(result)<=0)throw Error('slug exists or registry is full');return row;
 }
-export async function report(){
+export async function report({privateData=false}={}){
  const rows=await videos(),counts=rows.length?await pipeline(rows.map(v=>['HGETALL',key('counts:'+v.slug)])):[];
- const all=rows.map((v,i)=>{const c=object(counts[i]);const stats=Object.fromEntries(['pageview','up','down','feedback','share_click','outbound_click','code_entered','redirect'].map(k=>[k,Number(c[k]||0)]));return{...v,stats,votes:stats.up+stats.down,site_visits:stats.pageview,feedback_count:stats.feedback,ctr:v.views?stats.pageview/v.views:null};});
+ const assets=privateData?object(await redis(['HGETALL',key('export-assets')])):{};
+ const all=rows.map((v,i)=>{const c=object(counts[i]);const stats=Object.fromEntries(['pageview','up','down','feedback','share_click','outbound_click','code_entered','redirect'].map(k=>[k,Number(c[k]||0)]));return{...publicVideo(v),...(privateData&&assets[v.slug]?JSON.parse(assets[v.slug]):{}),stats,votes:stats.up+stats.down,site_visits:stats.pageview,feedback_count:stats.feedback,ctr:v.views?stats.pageview/v.views:null};});
  const real=all.filter(v=>!v.is_example),totals={videos:real.length,views:0,likes:0,comments:0,shares:0,site_visits:0,votes:0,feedback_count:0};for(const v of real)for(const k of Object.keys(totals))if(k!=='videos')totals[k]+=v[k]||0;
  return{videos:all,totals,updated_at:new Date().toISOString(),metric_note:'Social views are reported per post; they are not unique people. Site visits are page opens. Examples are excluded from totals.'};
 }

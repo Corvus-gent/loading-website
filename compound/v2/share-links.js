@@ -1,8 +1,8 @@
-import {SHARE_CONFIG} from './share-config.js?v=20261109share1';
-import {parseSlug} from './config.js?v=20261108v2b';
+import {SHARE_CONFIG} from './share-config.js?v=20261109queue1';
+import {parseSlug,voteCode} from './config.js?v=20261109queue1';
 export function shareCopy(video){
  const v=parseSlug(video?.slug);if(!v)throw Error('Invalid video slug.');
- const locale=SHARE_CONFIG.languages[v.lang],code=(v.lang+'-'+v.hook+v.n).toUpperCase();
+ const locale=SHARE_CONFIG.languages[v.lang],code=voteCode(v);
  if(!locale?.hooks[v.hook])throw Error('Missing share template.');
  return locale.template.replaceAll('{hook}',locale.hooks[v.hook]).replaceAll('{code}',code);
 }

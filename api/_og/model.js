@@ -13,7 +13,7 @@ export async function resolve(q){
  if(q.kind!=='compound')throw new NotFound();
  const lang=q.lang||'en',hook=q.hook||'',n=q.n||'';if(!Object.hasOwn(LANGUAGES,lang)||(hook&&!Object.hasOwn(HOOKS,hook))||(n&&(!hook||!/^[1-9]\d{0,3}$/.test(n))))throw new NotFound();
  const candidate=parseSlug(q.video);let video=null;if(n){try{video=candidate&&candidate.lang===lang&&candidate.hook===hook&&candidate.n===Number(n)?await bounded(videos.get(candidate.slug)):(await bounded(videos.videos())).find(v=>v.lang===lang&&v.hook===hook&&v.n===Number(n));}catch{}}
- const code=n?(lang+'-'+hook+n).toUpperCase():hook?(lang+'-'+hook).toUpperCase():q.lang?lang.toUpperCase():'$1,000';
+ const code=n?(lang+'-'+hook+'-'+n).toUpperCase():hook?(lang+'-'+hook).toUpperCase():q.lang?lang.toUpperCase():'$1,000';
  const url=new URL('/compound/v2'+(q.lang?'/'+lang:'')+(hook?'/'+hook:'')+(n?'/'+n:''),root);if(candidate&&video?.slug===candidate.slug)url.searchParams.set('video',candidate.slug);
  const line=video?.hook_line||LANGUAGES[lang][1];return{kind:'compound',code,title:code,metaTitle:code+' · vote the next cut · Corvus',kicker:'ONE-MAN ARMY. MANY EDITORS.',line,description:line+' Vote the next cut. $1,000 on the line. Deadline: Mon 9 Nov 2026, 09:00 PT.',lang,url:url.href,updated:video?.updated_at,video:video?.slug||'',isHub:!q.lang,deadline:DEADLINE};
 }
