@@ -763,3 +763,10 @@ Redis `compound:v2:interviews:record:N` records and the index have 90-day TTLs; 
 
 ### Live overlay — 9 November update
 compound:v2:public-votes (preview uses its own prefix) stores only {type:vote, slug, choice, at} for the last 50 successful votes. No visitor IDs, IPs, hashes, handles or text. TTL 24 hours; public rendering additionally excludes entries older than 24 hours. Purpose: anonymous livestream activity, using the existing vote action and abuse checks. /api/compound/summary publishes aggregate social views, the leading code and the latest three anonymous votes. Existing private feedback is never used by this endpoint. The overlay adds no cookies, browser storage, analytics or third-party requests. Redis/Vercel processors remain as documented above.
+
+## 2026-11-09 · Legion / transmissions / Cardneto
+- Member email private; public name/handle/rank only. Invitation tokens are 32 random bytes, only SHA-256 stored, max-use claims atomic. Existing accounts require their signed session to claim an invite.
+- Essential admin session: opaque token, hash in Redis, httpOnly Secure SameSite=Strict, eight hours; password rotation invalidates sessions. Admin writes require same origin. CSV cells are escaped against spreadsheet formulas.
+- Explicit, separate double opt-in: pending subscription/confirmation 48h, confirmed subscription one year, unsubscribe removes it. Only confirmation mail is active; marketing drafts are not scheduled or sent.
+- Applications: owner-only, 90-day records, notification via Resend. Invite audit retained 90 days after expiry. Cardneto click totals and generic short-link totals contain no raw IPs; daily salted hashes dedupe for 30 minutes. Existing partner tracker retention remains unchanged.
+- Stripe holds card details. The app checks signed webhooks, expected payment-link ID, currency, exact $1 amount, paid state and mode; receipt dedupe prevents duplicate admission.

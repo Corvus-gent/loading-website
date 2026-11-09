@@ -29,6 +29,7 @@ export default async function handler(req,res){
   if(!sameOrigin(req)||!String(req.headers['content-type']||'').startsWith('application/json'))throw Error('forbidden');
   let b;try{b=typeof req.body==='string'?JSON.parse(req.body):req.body;}catch{}if(!b||Array.isArray(b)||JSON.stringify(b).length>6000)throw Error('fields');if(b.website)throw Error('fields');
   if(!await limited(req,'all',90))throw Error('rate');
+  if(b.action==='short_click')return res.status(200).json(await partners.countShort(req,b.path));
   if(b.action==='login')return res.status(200).json(await login(req,res,b.password));
   if(b.action==='logout')return res.status(200).json(await logout(req,res));
   if(['create_invite','revoke_invite','rank','decide'].includes(b.action)){
