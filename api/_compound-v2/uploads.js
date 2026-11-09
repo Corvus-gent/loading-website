@@ -1,7 +1,7 @@
 import {redis} from '../_redis.js';
 import {key,get} from './store.js';
 import {video,parseSlug,safePostURL} from './model.js';
-import {voteCode} from '../../compound/v2/config.js';
+import {voteCode,pinnedComment} from '../../compound/v2/config.js';
 function text(value,name,max){if(typeof value!=='string'||value.length>max||/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/.test(value))throw Error('invalid '+name);return value;}
 export function validateExport(raw){
  const p=parseSlug(raw?.slug);if(!p)throw Error('invalid export slug');
@@ -12,7 +12,7 @@ export function validateExport(raw){
  const local_path=text(raw.local_path,'local path',2000);if(!local_path.startsWith('/')||!local_path.toLowerCase().endsWith('.mp4'))throw Error('export needs an absolute MP4 path');
  const caption=text(raw.caption,'caption',10000);if(!caption.trim())throw Error('export needs a caption');
  if(!Number.isSafeInteger(raw.export_order)||raw.export_order<0)throw Error('invalid export order');
- return{...p,vote_code:raw.vote_code,share_url,download_url,local_path,filename:local_path.split('/').at(-1),caption,export_order:raw.export_order,round:['R03','R04','R05'].includes(raw.round)?raw.round:''};
+ return{...p,pinned_comment:pinnedComment(p),vote_code:raw.vote_code,share_url,download_url,local_path,filename:local_path.split('/').at(-1),caption,export_order:raw.export_order,round:['R03','R04','R05'].includes(raw.round)?raw.round:''};
 }
 // Compare-and-set preserves metrics, votes and edits even when an import races a refresh.
 async function mutate(slug,change){

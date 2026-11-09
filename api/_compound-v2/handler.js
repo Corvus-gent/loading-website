@@ -1,3 +1,4 @@
+import {resolveCode} from './codes.js';
 import {markPosted} from './uploads.js';
 import {uploadQueue} from '../../compound/v2/upload-queue.js';
 import {waitUntil} from '@vercel/functions';
@@ -12,6 +13,11 @@ export default async function handler(req,res){
  const q=req.query||{};
  if(q.interviews==='1'||q.interviewAdmin==='1'||q.interviewPage||q.interviewCard)return (await import('../_interviews/handler.js')).default(req,res);
  try{
+  if(q.codeLink==='1'&&['GET','HEAD'].includes(req.method)){
+   const result=resolveCode(q.code,await store.videos(),q,'url');
+   if(req.method==='GET'&&human(req)){if(!await limit(req,'code',120))return res.status(429).json({error:'Please retry in a minute.'});await store.event('code_entered','code:'+result.code,{code:result.code,source:'url',lang:result.parsed?.lang||''});}
+   res.setHeader('Location',result.destination);return res.status(302).end();
+  }
   if(q.short==='1'&&['GET','HEAD'].includes(req.method)){
    const target=destination(q.slug,q);if(!target)return res.status(404).json({error:'That video code is not valid.'});
    // Valid links keep redirecting even during a storage outage. Registration is checked on the landing page.
@@ -45,16 +51,12 @@ export default async function handler(req,res){
   }
   if(b.website)return res.status(400).json({error:'Please leave the hidden field empty.'});
   if(b.action==='code'){
-   const code=parseCode(b.code);if(!code)return res.status(400).json({error:'Try a code like NL-A-1 or NL-MOM-1.'});
-   const matches=(await store.videos()).filter(v=>v.lang===code.lang&&v.hook===code.hook&&v.n===code.n);
-   if(!matches.length)return res.status(404).json({error:'No video with that code yet.'});
-   const policy=analytics(b,req);
-   await store.event('code_entered','code:'+code.code,{tags:policy.enabled?{...attribution(b.attribution),utm_source:'code',utm_content:code.code}:{},visitor:policy.visitor,code:code.code,lang:code.lang});
-   const path=matches.length===1?videoPath(matches[0]):'/compound/v2/'+code.lang+'/'+code.hook;
-   const params=new URLSearchParams({c:code.code,utm_source:'code',utm_medium:'post',utm_campaign:'compound-v2',utm_content:matches.length===1?matches[0].slug:code.code});
-   if(matches.length===1)params.set('video',matches[0].slug);
-   return res.status(200).json({destination:path+'?'+params,matches:matches.length});
+   const source=b.source==='url'?'url':'typed',result=resolveCode(b.code,await store.videos(),b.query||{},source),policy=analytics(b,req);
+   await store.event('code_entered','code:'+result.code,{tags:policy.enabled?attribution(b.attribution):{},visitor:policy.visitor,code:result.code,source,lang:result.parsed?.lang||''});
+   if(!result.parsed)return res.status(400).json({error:'Code not found yet, pick a version below'});
+   return res.status(200).json({destination:result.destination,matches:result.matches});
   }
+
   if(!parseSlug(b.slug)||!await store.get(b.slug))return res.status(404).json({error:'This video is not registered yet.'});
   const policy=analytics(b,req),tags=policy.enabled?attribution(b.attribution):{},detail={tags,visitor:policy.visitor};
   if(b.action==='event'){

@@ -6,3 +6,5 @@ header{flex-wrap:wrap;min-height:70px}header nav{display:flex;gap:18px;font-size
 
 /* Owner-only upload desk: captions and local export names never enter public JSON. */
 .upload-queue{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:16px;margin:20px 0 40px}.queue-card{min-width:0}.queue-card h3{margin-top:0}.queue-time{color:var(--gold,#ffd76a)}.queue-card strong,.queue-file{display:block;overflow-wrap:anywhere}.queue-file{font-size:12px;margin:12px 0;color:#aaa}.queue-card textarea{width:100%;resize:vertical;min-height:150px;box-sizing:border-box}.queue-card details{margin-top:16px}.queue-card summary{cursor:pointer;min-height:44px;padding:10px 0}.queue-card li{margin-bottom:10px;font-size:12px}.queue-card .draft-actions{margin-top:12px}.queue-card button,.queue-card .button,#mark-posted input{min-height:44px}
+
+.video-card.code-highlight{border:2px solid #ffd76a;box-shadow:0 0 22px #ffd76a40}#code-visits{overflow-x:auto;margin:2rem 0}#code-visits th,#code-visits td{padding:.65rem;text-align:left}

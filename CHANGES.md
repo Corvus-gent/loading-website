@@ -345,3 +345,5 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 - Owner-only per-account queue with exact export captions/filenames, language alternation and TikTok/Instagram 60-minute / X 45-minute posting plans.
 - Quick authenticated mark-posted action, canonical LANG-HOOK-N codes with legacy case-insensitive input, idempotent private export importer and backups; existing votes/metrics retained.
 - Ready-batch import requires source confirmation: current release manifest is empty and audio repairs are pending.
+
+- 2026-11-09: Direct vote-code links (/c/CODE and ?code=), compact/case-insensitive lookup, preserved UTMs, grouped matches, short pinned comments and private per-code visit totals.
