@@ -1,8 +1,16 @@
-import assert from 'node:assert/strict';import fs from 'node:fs/promises';import path from 'node:path';import http from 'node:http';import {createClient} from 'redis';import {chromium,expect} from '@playwright/test';
+import os from 'node:os';import {execFileSync} from 'node:child_process';import assert from 'node:assert/strict';import fs from 'node:fs/promises';import path from 'node:path';import http from 'node:http';import {createClient} from 'redis';import {chromium,expect} from '@playwright/test';
 Object.assign(process.env,{REDIS_URL:'redis://127.0.0.1:16380/3',SESSION_SECRET:'overlay-test-only',COMPOUND_V2_PREFIX:'test:overlay:'+Date.now()});
 const store=await import('../api/_compound-v2/store.js'),{summarize,default:handler}=await import('../api/_compound-v2/summary.js');
 const db=createClient({url:process.env.REDIS_URL}).on('error',()=>{});await db.connect();let browser,server;const root=process.cwd();let requests=0,fail=false;const fixture={ready:true,totals:{views:384260,votes:97},leader:{code:'NL-MOM1',views:12000,votes:40},latest:['NL-MOM1','EN-BJJ1','PT-COMM1'].map(code=>({type:'vote',code,choice:'up',at:new Date().toISOString()})),updated_at:new Date().toISOString()};
 try{
+ const build=await fs.mkdtemp(path.join(os.tmpdir(),'corvus-overlay-build-'));
+ try{for(const dir of ['live/overlay','games/hub','submission'])await fs.mkdir(path.join(build,dir),{recursive:true});
+ const source=await fs.readFile('live/overlay/index.html','utf8');await fs.writeFile(path.join(build,'live/overlay/index.html'),source);
+ await fs.writeFile(path.join(build,'games/hub/index.html'),'<html><head></head><body><!-- HUB_INTRO_END --><section class="plethora-catalog"></section></body></html>');
+ await fs.writeFile(path.join(build,'submission/index.html'),'<html><head></head><body></body></html>');
+ execFileSync(process.execPath,[path.join(root,'tools/build-plethora.mjs')],{cwd:build,stdio:'pipe'});
+ assert.equal(await fs.readFile(path.join(build,'live/overlay/index.html'),'utf8'),source,'production build must not inject website banners or footers into overlay');
+ }finally{await fs.rm(build,{recursive:true});}
  await store.vote('secret-person-1','tt-gl-nl-mom1','up');await store.vote('secret-person-1','tt-gl-nl-mom1','down');await store.vote('secret-person-2','tt-gm-en-b1','down');
  const feed=await store.latestVotes();assert.equal(feed.length,2);assert(feed.every(e=>Object.keys(e).sort().join(',')==='at,choice,slug,type'));assert((await db.ttl(store.key('public-votes')))>0);
  await store.feedback('secret-person-1','tt-gl-nl-mom1','do not publish private feedback','private@example.com');

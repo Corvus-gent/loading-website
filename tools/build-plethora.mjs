@@ -10,7 +10,10 @@ await walk();
 files.push("submission/index.html");
 const catalog=(await fs.readFile("games/hub/index.html","utf8")).match(/<section class="plethora-catalog"[\s\S]*?<\/section>/)?.[0];
 if(!catalog)throw Error("Missing game catalog");
-for(const file of files){let s=await fs.readFile(file,'utf8');
+for(const file of files){
+ // Broadcast overlays must keep alpha and contain no website chrome.
+ if(file==='live/overlay/index.html')continue;
+ let s=await fs.readFile(file,'utf8');
  // Rebuild only our own marked slots, preserving hand-written page content.
  s=s.replace(/<!-- PLETHORA_[A-Z]+ -->[\s\S]*?<!-- \/PLETHORA_[A-Z]+ -->/g,'');
  const insert=(label,html,anchor,before=false)=>{const wrapped=`<!-- PLETHORA_${label} -->${html}<!-- /PLETHORA_${label} -->`;if(!s.includes(anchor))throw Error('Missing Plethora slot: '+file+' '+anchor);s=s.replace(anchor,before?wrapped+anchor:anchor+wrapped);};
