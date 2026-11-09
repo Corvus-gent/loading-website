@@ -1,13 +1,21 @@
 # Compound impact
 
-Public scorecard: `/compound/impact/`. Owner editor: `/compound/v2/stats/#impact-admin`, using the existing Compound v2 password/session. Paste one post URL or up to 25 bulk rows, e.g. `https://x.com/gabe_maxxing/status/2116903246925005017 — 5052 views, 54 likes`. Blank fields mean unknown. Only posts marked made with Compound enter the headline/platform/growth totals. The existing v2 registry remains canonical; impact edits update linked metrics without changing votes or private export fields.
+Public: `/compound/impact/`. Owner controls: `/admin/#impact-admin` and `/compound/v2/stats/#impact-admin`, using the existing respective sign-in. Media and post type are visible in both editors. Unknown metrics stay unknown.
 
-`compound/impact/config.js` defines weights and platform labels. Score = views + 3×likes + 8×comments + 10×shares + 5×saves. X shares include reposts and quotes. Velocity uses an actual metric reading within the first 24 hours; it is unavailable without that evidence. Snapshots start when deployed, with no invented historical growth. The five supplied seed readings retain the supplied measurement date, not a fabricated time.
+## The only inclusion rule
 
-The existing Vercel Pro project runs `/api/compound-v2?impact=1&job=1` at minutes 12 and 42, authenticated with `CRON_SECRET`. Oriane TikTok/Instagram adapters use `ORIANE_API_KEY`; X uses `X_BEARER_TOKEN`. Missing keys use manual mode. LinkedIn/YouTube always use manual entry. Errors preserve prior measurements. Snapshot totals retain 90 days at half-hour frequency; per-post measurements retain up to 2,000 samples for one year.
+The author is Gabe, `post_type` is `original`, and the post's own `media_type` is `video`. Replies (including self-thread replies), reposts, quote posts, images, GIFs, text and unverified media are excluded. There is no date, slug, approval or exclusion-flag gate. `made_with_compound`, public totals and scores are derived from that classification, not an editable yes/no flag. Old snapshots are separated by rule version (currently 3).
 
-All Compound anchor links use `/go/compound-{placement}`; optional `to` preserves a specific video URL. Only HTTPS compound.mov/www.compound.mov destinations are permitted. `COMPOUND_REF_CODE` is optional; `COMPOUND_REF_PARAM` defaults to `ref`. No raw IPs are stored: dedupe uses the existing salted hash per placement for 30 minutes. HEAD, bots and prefetches do not count. Raw and deduped totals are separate. The page and the main admin Partners view show attributed counts.
+X API sync requests `author_id`, `attachments.media_keys`, `referenced_tweets`, and expanded media/users. Only the current post's attachments are inspected; a quoted video's media never qualifies the enclosing post. Confirmed X accounts live in `compound/impact/config.js`. Without an API key, inspect each official embedded post in a browser and record the author, own video and reference evidence; unknown evidence stays excluded. The current ten X posts were checked this way, with five former reply seeds and a text quote as negative controls. Their evidence is stored privately in Redis `compound:v2:impact:classification-evidence`. No inferred view counts: X's public embed video counter does not establish post impressions.
 
-Run `node tests/compound-impact.mjs` with the disposable local Redis instance on port 16380. Production seeding is an owner-authenticated POST `{ "action": "seed" }` to `/api/compound-v2?impact=1`; it never replaces an existing seed record.
+TikTok video URLs identify video media, but the author must still be Gabe. Instagram requires a Reel/video, never a carousel/image. LinkedIn and YouTube use explicit owner media/author classifications. Manual edits always work without external keys. Optional Oriane metrics use `ORIANE_API_KEY`, X uses `X_BEARER_TOKEN`; missing fields never replace previous reported metrics with fabricated zeros.
 
-Photo/logo credits: `compound/impact/assets/SOURCES.md`.
+## Metrics and operation
+
+`compound/impact/config.js` defines score weights: views + 3×likes + 8×comments + 10×shares + 5×saves. Shares include repost/quote counts on the original post; that does not make a quote post itself eligible. Velocity needs a real reading during the first 24 hours. Missing metrics are identified publicly; totals sum only reported metrics on eligible posts.
+
+The Vercel scheduler checks `/api/compound-v2?impact=1&job=1` at minutes 12 and 42 with `CRON_SECRET`. Snapshots keep 90 days of half-hour measurements; per-post history keeps up to 2,000 samples for one year. No private export fields appear publicly. Existing votes are unchanged.
+
+All Compound outbound links use `/go/compound-{placement}`; optional `to` is restricted to HTTPS compound.mov destinations. Optional `COMPOUND_REF_CODE` uses `COMPOUND_REF_PARAM` (default `ref`). Clicks use a salted IP hash for 30-minute deduplication; no raw IPs are stored. Bots, HEAD and prefetch do not count.
+
+Test with `node tests/compound-impact.mjs` and disposable Redis on port 16380. Never re-add the five deleted reply seeds. Photo/logo credits: `compound/impact/assets/SOURCES.md`.

@@ -1,4 +1,5 @@
 export const IMPACT_CONFIG = {
+ xAccounts:['gabe_maxxing'],
  weights:{views:1,likes:3,comments:8,shares:10,saves:5},
  platforms:{tt:'TikTok',ig:'Instagram',x:'X',li:'LinkedIn',yt:'YouTube'},
  refreshSeconds:60,syncSeconds:1800,

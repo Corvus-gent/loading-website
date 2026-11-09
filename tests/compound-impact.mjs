@@ -4,6 +4,14 @@ const {eligibility}=await import('../api/_compound-v2/impact/eligibility.js');co
 const good={original_by_gabe:true,native_video:true,media_type:'video',post_type:'original',posted_at:'2026-11-09T00:00:00Z',registry_match:true};
 const url='https://x.com/gabe_maxxing/status/2119723523795276255';
 try{
+ const {classifyX,default:xAdapter}=await import('../api/_compound-v2/impact/adapters/x.js');
+ const tweet={id:'1',author_id:'gabe',attachments:{media_keys:['own']}},includes={users:[{id:'gabe',username:'gabe_maxxing'}],media:[{media_key:'own',type:'video'},{media_key:'quoted',type:'video'}]};
+ assert.equal(eligibility(classifyX(tweet,includes)).eligible,true);
+ for(const type of ['replied_to','retweeted','quoted'])assert.equal(eligibility(classifyX({...tweet,referenced_tweets:[{type,id:'other'}]},includes)).eligible,false,type);
+ assert.equal(eligibility(classifyX({...tweet,attachments:{media_keys:[]}},includes)).eligible,false,'Never inherit quoted video');
+ assert.equal(eligibility(classifyX(tweet,{...includes,media:[{media_key:'own',type:'animated_gif'}]})).eligible,false);
+ assert.equal(eligibility(classifyX(tweet,{...includes,users:[{id:'gabe',username:'someone_else'}]})).eligible,false);
+ process.env.X_BEARER_TOKEN='test-only';let requested;const adapted=await xAdapter([{post_url:'https://x.com/gabe_maxxing/status/1'}],{fetcher:async url=>{requested=url;return {ok:true,json:async()=>({data:[{...tweet,public_metrics:{impression_count:7,like_count:2}}],includes})}}});delete process.env.X_BEARER_TOKEN;assert.ok(requested.searchParams.get('expansions').includes('attachments.media_keys'));assert.equal(adapted.updates[0].patch.views,7);assert.equal(adapted.updates[0].patch.post_type,'original');
  for(const [label,patch]of [['reply',{post_type:'reply'}],['repost',{post_type:'repost'}],['image',{media_type:'image'}],['GIF',{media_type:'gif'}],['carousel',{media_type:'carousel'}],['quote',{post_type:'quote'}],['not Gabe',{original_by_gabe:false}]])assert.equal(eligibility({...good,...patch}).eligible,false,label);
  assert.equal(eligibility(good).eligible,true);assert.equal(eligibility({...good,registry_match:false,manual_approved:false,posted_at:'2020-01-01',compound_excluded:true}).eligible,true,'Only author + original + video matter');
  await store.seed();assert.equal((await store.report()).posts.length,0,'Invalid seeds cannot return');

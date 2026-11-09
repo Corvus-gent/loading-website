@@ -42,7 +42,7 @@ export async function seed(){for(const row of SEEDS)if(!Number(await redis(['HEX
 export async function clickReport(){const [all,day]=await pipeline([['HGETALL',ikey('clicks')],['HGETALL',ikey('clicks:'+new Date().toISOString().slice(0,10))]]);const today=obj(day),rows=Object.entries(obj(all)).map(([id,total])=>({id,label:id,total:Number(total),today:Number(today[id]||0),timeZone:'UTC'})).sort((a,b)=>b.total-a.total);return{total:rows.reduce((n,v)=>n+v.total,0),rows};}
 export async function report({privateData=false}={}){
  const [all,clicks,history,status]=await Promise.all([records(),clickReport(),redis(['LRANGE',ikey('snapshots'),0,4319]),redis(['GET',ikey('sync-status')])]);
- const posts=all.filter(p=>privateData||p.made_with_compound).map(p=>({...publicPost(p),...(privateData?{eligibility:eligibility(p)}:{})})).sort((a,b)=>b.score-a.score),counted=posts.filter(p=>p.made_with_compound),totals={views:0,engagements:0,score:0,videos:counted.length};
+ const posts=all.filter(p=>privateData||p.made_with_compound).map(p=>({...publicPost(p),...(privateData?{eligibility:eligibility(p)}:{})})).sort((a,b)=>(b.score??-1)-(a.score??-1)||a.id.localeCompare(b.id)),counted=posts.filter(p=>p.made_with_compound),totals={views:0,engagements:0,score:0,videos:counted.length};
  for(const p of counted)for(const k of ['views','engagements','score'])totals[k]+=Number(p[k]||0);
  return{posts,totals,clicks,history:history.map(parse).filter(s=>s?.rule_version===RULE_VERSION).reverse(),sync:parse(status),updated_at:new Date().toISOString()};
 }
