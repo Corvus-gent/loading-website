@@ -390,3 +390,7 @@ Verified 67 public destinations and all seven requested flows on mobile and desk
 - 2026-11-09: Show Simon’s full portrait at its natural proportions with breathing room; avoid the enlarged desktop crop.
 
 - 2026-11-09: Restrict Compound impact to verified original native videos from 7 Nov onward, with a registry match or owner approval; remove invalid reply seeds and mixed leaderboard filters.
+
+## 2026-11-09 — honorary Senate spotlights
+- Single-use honorary Senator invites with custom titles, claim-activated spotlights and separate hashed edit tokens. Simon’s title is Parisian Philosopher.
+- Private own-profile editor, safe text/HTTPS links, re-encoded photo uploads, publish preview, save history, owner revert/lock/revoke and aggregate spotlight counters.
