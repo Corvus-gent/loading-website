@@ -1,3 +1,4 @@
+- Compound v2: register the 15 supplied clips with zero views; case-insensitive on-screen codes route ambiguous matches to the hook page.
 ## 2026-11-07 — codex/gabinho-rolls-v2
 
 - Reposition Gabinho as a traveling BJJ competitor, replace belt artwork with the supplied unchanged Monferno logo/favicon, add registered competition cards, and preserve the five paybacks/contact CTAs.

@@ -2,7 +2,7 @@ import {waitUntil} from '@vercel/functions';
 import {authorized,login,logout,sameOrigin,limit,identity,analytics} from './security.js';
 import {parseSlug,destination,attribution,EVENTS} from './model.js';
 import * as store from './store.js';
-import {DEADLINE} from '../../compound/v2/config.js';
+import {DEADLINE,parseCode,videoPath} from '../../compound/v2/config.js';
 const human=req=>!(/bot|crawler|spider|preview|curl|wget|headless|facebookexternalhit|slack|discord/i.test(req.headers['user-agent']||'')||/prefetch/i.test(req.headers.purpose||req.headers['sec-purpose']||''));
 export default async function handler(req,res){
  res.setHeader('Cache-Control','no-store');res.setHeader('X-Content-Type-Options','nosniff');
@@ -38,6 +38,17 @@ export default async function handler(req,res){
    let row;try{row=await store.save(b.video,b.action==='edit');}catch(e){return res.status(400).json({error:e.message});}return res.status(200).json({video:row});
   }
   if(b.website)return res.status(400).json({error:'Please leave the hidden field empty.'});
+  if(b.action==='code'){
+   const code=parseCode(b.code);if(!code)return res.status(400).json({error:'Try a code like NL-A1 or NL-MOM1.'});
+   const matches=(await store.videos()).filter(v=>v.lang===code.lang&&v.hook===code.hook&&v.n===code.n);
+   if(!matches.length)return res.status(404).json({error:'No video with that code yet.'});
+   const policy=analytics(b,req);
+   await store.event('code_entered','code:'+code.code,{tags:policy.enabled?{...attribution(b.attribution),utm_source:'code',utm_content:code.code}:{},visitor:policy.visitor,code:code.code,lang:code.lang});
+   const path=matches.length===1?videoPath(matches[0]):'/compound/v2/'+code.lang+'/'+code.hook;
+   const params=new URLSearchParams({c:code.code,utm_source:'code',utm_medium:'post',utm_campaign:'compound-v2',utm_content:matches.length===1?matches[0].slug:code.code});
+   if(matches.length===1)params.set('video',matches[0].slug);
+   return res.status(200).json({destination:path+'?'+params,matches:matches.length});
+  }
   if(!parseSlug(b.slug)||!await store.get(b.slug))return res.status(404).json({error:'This video is not registered yet.'});
   const policy=analytics(b,req),tags=policy.enabled?attribution(b.attribution):{},detail={tags,visitor:policy.visitor};
   if(b.action==='event'){

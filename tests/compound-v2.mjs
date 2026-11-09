@@ -5,8 +5,12 @@ const db=createClient({url:process.env.REDIS_URL}).on('error',()=>{});await db.c
 async function call(body,{query={},cookie='',headers={},method=body?'POST':'GET'}={}){const out={headers:{}};const res={setHeader(k,v){out.headers[k]=v;},status(n){out.status=n;return this;},json(b){out.body=b;return out;},end(){return out;}};await handler({method,query,body,headers:{origin:'https://corvus.gent','content-type':'application/json','user-agent':'Mozilla/5.0 TestBrowser','x-forwarded-for':'198.51.100.72',cookie,...headers}},res);return out;}
 const fixture={slug:'tt-gm-en-a7',post_url:'https://www.tiktok.com/@gabe.maxing/video/123456789',compound_url:'',posted_at:'2026-11-08T12:00:00Z',views:100,likes:10,comments:5,shares:2,is_example:false};
 try{
- let r=await call();assert.equal(r.status,200);assert.equal(r.body.videos.length,3);assert.equal(r.body.totals.views,0);assert(r.body.videos.every(v=>v.is_example));assert(!r.headers['Set-Cookie']);
- assert.equal((await call(null,{query:{private:'1'}})).status,401);assert.equal((await call({action:'add',video:fixture})).status,401);
+ let r=await call();assert.equal(r.status,200);assert.equal(r.body.videos.length,15);assert.equal(r.body.totals.views,0);assert(r.body.videos.every(v=>!v.is_example&&v.awaiting_url));assert(!r.headers['Set-Cookie']);
+ assert.equal((await call(null,{query:{private:'1'}})).status,401);
+ const single=await call({action:'code',code:'nl-mOm1'});assert.equal(single.body.matches,1);assert.match(single.body.destination,/^\/compound\/v2\/nl\/mom\/1\?/);
+ const multiple=await call({action:'code',code:' nL-a1 '});assert.equal(multiple.body.matches,2);assert.match(multiple.body.destination,/^\/compound\/v2\/nl\/a\?/);
+ assert.equal((await call({action:'code',code:'NL-ZZ0'})).status,400);
+assert.equal((await call({action:'add',video:fixture})).status,401);
  const login=await call({action:'login',password:process.env.COMPOUND_ADMIN_PASSWORD});assert.equal(login.status,200);assert.match(login.headers['Set-Cookie'],/HttpOnly; Secure; SameSite=Strict/);const admin=login.headers['Set-Cookie'].split(';')[0];
  assert.equal((await call({action:'add',video:fixture},{cookie:admin})).status,200);assert.equal((await call({action:'add',video:fixture},{cookie:admin})).status,400);
  assert.equal((await call({action:'edit',video:{...fixture,views:200}},{cookie:admin})).status,200);assert.equal((await call({action:'edit',video:{...fixture,views:-1}},{cookie:admin})).status,400);assert.equal((await call({action:'edit',video:{...fixture,post_url:'javascript:alert(1)'}},{cookie:admin})).status,400);

@@ -1,11 +1,11 @@
 import crypto from 'node:crypto';
 import {redis,pipeline} from '../_redis.js';
 import {prefix} from './security.js';
-import {EXAMPLES,RETENTION,video as validate,METRICS} from './model.js';
+import {SEED_VIDEOS,RETENTION,video as validate,METRICS} from './model.js';
 export const key=(part)=>prefix+':'+part;
 const object=x=>Array.isArray(x)?Object.fromEntries(Array.from({length:x.length/2},(_,i)=>[x[i*2],x[i*2+1]])):x||{};
-export async function videos(){const rows=(await redis(['HVALS',key('videos')])).map(JSON.parse);const used=new Set(rows.map(v=>v.slug));return [...rows,...EXAMPLES.filter(v=>!used.has(v.slug))];}
-export async function get(slug){const raw=await redis(['HGET',key('videos'),slug]);return raw?JSON.parse(raw):EXAMPLES.find(v=>v.slug===slug)||null;}
+export async function videos(){const rows=(await redis(['HVALS',key('videos')])).map(JSON.parse);const used=new Set(rows.map(v=>v.slug));return [...rows,...SEED_VIDEOS.filter(v=>!used.has(v.slug))];}
+export async function get(slug){const raw=await redis(['HGET',key('videos'),slug]);return raw?JSON.parse(raw):SEED_VIDEOS.find(v=>v.slug===slug)||null;}
 export async function save(raw,update=false){
  const row=validate(raw),exists=await redis(['HEXISTS',key('videos'),row.slug]);
  if(!update&&Number(exists))throw Error('slug already exists');
@@ -22,8 +22,8 @@ export async function report(){
  return{videos:all,totals,updated_at:new Date().toISOString(),metric_note:'Social views are reported per post; they are not unique people. Site visits are page opens. Examples are excluded from totals.'};
 }
 // Detailed events contain no text, handle, raw IP, cookie ID or full referrer URL.
-export async function event(type,slug,{tags={},visitor=null,code=''}={}){
- const at=new Date().toISOString(),record={type,slug,...tags,lang:slug.split('-')[2]||'',visitor,timestamp:at};if(code)record.code=code;
+export async function event(type,slug,{tags={},visitor=null,code='',lang=''}={}){
+ const at=new Date().toISOString(),record={type,slug,...tags,lang:lang||slug.split('-')[2]||'',visitor,timestamp:at};if(code)record.code=code;
  await redis(['EVAL',`redis.call('HINCRBY',KEYS[1],ARGV[1],1)
 +if ARGV[3]=='1' then redis.call('LPUSH',KEYS[2],ARGV[2]);redis.call('LTRIM',KEYS[2],0,9999);redis.call('EXPIRE',KEYS[2],ARGV[4]) end;return 1`.replaceAll('\n+','\n'),2,key('counts:'+slug),key('events:'+at.slice(0,10)),type,JSON.stringify(record),visitor?'1':'0',RETENTION]);
 }

@@ -6,7 +6,7 @@ The site is static HTML / vanilla JavaScript with Vercel functions, not Next.js.
 
 - `/compound/v2`: countdown to **2026-11-09 17:00 UTC = Monday 09:00 America/Los_Angeles**, social view totals, filters and code lookup.
 - `/compound/v2/{lang}` and `/{lang}/{hook}`: filtered leaderboards. Arabic and Persian use RTL. All 20 language headlines live in `compound/v2/config.js`.
-- `/compound/v2/{lang}/{hook}/{n}`: the cut across platform/account variants. `?video={slug}` selects the specific post; voting and attribution are per slug, not inadvertently merged across variants. An on-screen code such as NL-MOM1 opens the matching cut, then offers its other platform variants.
+- `/compound/v2/{lang}/{hook}/{n}`: the cut across platform/account variants. `?video={slug}` selects the specific post; voting and attribution are per slug, not inadvertently merged across variants. On-screen codes are case-insensitive: `NL-MOM1` opens its one matching video, while `NL-A1` opens `/compound/v2/nl/a` because multiple platforms share that cut. Code entries are logged even when ambiguous.
 - `/v/{slug}`: server-side **302**, default platform source, `post` medium (`live` for Twitch), campaign `compound-v2`, content = slug. Any incoming `utm_*` attribution is preserved as a set, not mixed with defaults. The `video` selector survives analytics URL cleaning. Redirect counts are separate from site visits, so following a short link does not double-count a landing.
 - `/compound/v2/stats`: password login, add video, inline metrics/post URL edits, sort, rollups, private feedback with deletion.
 - `/compound/v2/links`: same login, short/full links, medium chooser, share text, client-generated QR copy/download. No external QR service.
@@ -20,7 +20,7 @@ Existing **COMPOUND_ADMIN_PASSWORD** works. Optionally set **COMPOUND_V2_ADMIN_P
 
 Open `/compound/v2/stats`, sign in, and fill in platform, account, language, hook, number, post URL and optional Compound URL/date. Slug is built automatically. Use the posted clip URL, not just the profile. Social view/like/comment/share counts are manually reported; no unauthenticated scraping is performed.
 
-Three example records render the UI before real data arrives. They have zero social metrics, are clearly marked, and are excluded from totals and rollups. Edit their post URL, untick `example only`, then save to turn one into a real entry. Otherwise add new slugs. Examples are read-only defaults until edited, so public GETs never seed or mutate storage. Limit: 1,000 registered posts.
+The 15 supplied real slugs are registered with zero metrics and no post URLs. They show “post link coming soon”; enter each URL in stats when it is published. They are not demo traffic. Social metrics cannot be entered until the post URL exists. Defaults remain read-only until edited, so public GETs never seed or mutate storage. Limit: 1,000 registered posts.
 
 Naming is exact: platform `tt|ig|x|li|tw`, account `gl|bjj|gm|collab`, configured language/hook, integer `n` from 1–9999. Registry account names are the requested labels, not guesses at social profile URLs.
 

@@ -19,4 +19,5 @@ export function fullURL(v,medium='post'){
  for(const[k,val]of Object.entries({utm_source:SOURCES[v.platform],utm_medium:MEDIUMS.includes(medium)?medium:'post',utm_campaign:'compound-v2',utm_content:v.slug}))u.searchParams.set(k,val);
  return u.href;
 }
-export const EXAMPLES=['tt-gm-en-a1','ig-collab-nl-mom1','x-gm-en-int3'].map(slug=>({...parseSlug(slug),post_url:'',compound_url:'',posted_at:null,views:0,likes:0,comments:0,shares:0,updated_at:null,is_example:true,metric_source:'example'}));
+export const SEED_VIDEOS=['tt-gl-nl-mom1','tt-gl-nl-a1','tt-bjj-pt-bjj1','tt-bjj-en-comm1','tt-bjj-es-a1','tt-gm-en-b1','tt-gm-en-startup1','tt-gm-ru-a1','ig-collab-en-mom1','ig-collab-nl-a1','ig-gl-fr-comm1','x-gm-en-b1','x-gm-en-f1','li-gl-en-startup1','li-gl-nl-c1'].map(slug=>({...parseSlug(slug),post_url:'',compound_url:'',posted_at:null,views:0,likes:0,comments:0,shares:0,updated_at:null,is_example:false,metric_source:'pending',awaiting_url:true}));
+export function parseCode(value){const m=/^([a-z]{2})-([a-z]+)([1-9]\d{0,3})$/i.exec(String(value||'').trim());return m&&Object.hasOwn(LANGUAGES,m[1].toLowerCase())&&Object.hasOwn(HOOKS,m[2].toLowerCase())?{code:(m[1]+'-'+m[2]+m[3]).toUpperCase(),lang:m[1].toLowerCase(),hook:m[2].toLowerCase(),n:Number(m[3])}:null;}

@@ -1,5 +1,5 @@
-import {parseSlug,SOURCES,videoPath,EXAMPLES} from '../../compound/v2/config.js';
-export {parseSlug,EXAMPLES};
+import {parseSlug,SOURCES,videoPath,SEED_VIDEOS} from '../../compound/v2/config.js';
+export {parseSlug,SEED_VIDEOS};
 export const RETENTION=90*86400;
 export const METRICS=['views','likes','comments','shares'];
 export const EVENTS=['pageview','vote','feedback','share_click','outbound_click','code_entered'];
@@ -13,11 +13,12 @@ export function safePostURL(value,compound=false){
 export function video(raw){
  const parsed=parseSlug(raw?.slug);if(!parsed)throw Error('invalid slug');
  const result={...parsed,post_url:safePostURL(raw.post_url),compound_url:safePostURL(raw.compound_url,true),is_example:raw.is_example===true};
- if(!result.is_example&&!result.post_url)throw Error('a real video needs a post URL');
+ if(!result.is_example&&!result.post_url&&!SEED_VIDEOS.some(v=>v.slug===result.slug))throw Error('a real video needs a post URL');
  for(const key of METRICS){const n=Number(raw[key]??0);if(!Number.isSafeInteger(n)||n<0||n>1e12)throw Error('metrics must be non-negative whole numbers');result[key]=n;}
+ if(!result.post_url&&METRICS.some(k=>result[k]))throw Error('add the post URL before recording social metrics');
  if(result.is_example&&METRICS.some(k=>result[k]))throw Error('examples must have zero metrics');
  if(raw.posted_at&&!Number.isFinite(Date.parse(raw.posted_at)))throw Error('invalid date');
- result.posted_at=raw.posted_at?new Date(raw.posted_at).toISOString():null;result.updated_at=new Date().toISOString();result.metric_source=result.is_example?'example':'manual';return result;
+ result.posted_at=raw.posted_at?new Date(raw.posted_at).toISOString():null;result.updated_at=new Date().toISOString();result.awaiting_url=!result.post_url;result.metric_source=result.is_example?'example':result.awaiting_url?'pending':'manual';return result;
 }
 export function destination(slug,query={}){
  const v=parseSlug(slug);if(!v)return null;const u=new URL(videoPath(v),'https://corvus.gent');u.searchParams.set('video',slug);
