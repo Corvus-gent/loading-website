@@ -3,8 +3,8 @@ export default async function handler(req,res){
  res.setHeader('Cache-Control','no-store');res.setHeader('X-Content-Type-Options','nosniff');
  try{
   const q=req.query||{};
-  if(req.method==='GET'&&(q.interviewPage||q.interviewCard))return (await import('./share.js')).default(req,res);
-  if(req.method==='GET'){
+  if(['GET','HEAD'].includes(req.method)&&(q.interviewPage||q.interviewCard))return await (await import('./share.js')).default(req,res);
+  if(['GET','HEAD'].includes(req.method)){
    if(q.interviewAdmin==='1'){if(!authorized(req))return res.status(401).json({error:'Sign in first.'});return res.status(200).json({interviews:await list(),photos:!!process.env.BLOB_READ_WRITE_TOKEN});}
    const legacy=JSON.parse(await readFile(new URL('../../hack/3/interviews.json',import.meta.url),'utf8'));
    res.setHeader('Cache-Control','public, max-age=0, s-maxage=5, stale-while-revalidate=10');waitUntil(cleanupPhotos().catch(()=>{}));
