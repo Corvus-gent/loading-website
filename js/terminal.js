@@ -125,7 +125,7 @@ function close() {
 
 document.addEventListener("keydown", e => {
   if (e.defaultPrevented || e.isComposing || e.repeat || document.querySelector("dialog[open]")) return;
-  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  if (e.defaultPrevented || e.key === "/" || e.metaKey || e.ctrlKey || e.altKey) return;
   if (e.target.closest && e.target.closest("input,textarea,select,[contenteditable]:not([contenteditable=false]),[role=textbox]")) return;
   if (e.key === " " && e.target.closest?.("a,button,summary,[role=button]")) return;
   if (e.key.length === 1) { e.preventDefault(); openTerminal(e.key); }

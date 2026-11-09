@@ -1,0 +1,5 @@
+export async function api(body,query=''){
+ const r=await fetch('/api/legion'+query,{credentials:'same-origin',cache:'no-store',signal:AbortSignal.timeout(15000),...(body?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}:{})});let d;try{d=await r.json();}catch{throw Error('The crow lost its connection. Please retry.');}if(!r.ok)throw Object.assign(Error(d.error||'Please retry.'),{status:r.status});return d;
+}
+export function el(tag,text,cls){const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;}
+export async function copy(value,button){try{await navigator.clipboard.writeText(value);const before=button.textContent;button.textContent='Copied ✓';setTimeout(()=>button.textContent=before,2000);}catch{const t=document.createElement('textarea');t.value=value;t.style.position='fixed';t.style.top='10px';document.body.append(t);t.focus();t.select();if(document.execCommand('copy')){t.remove();button.textContent='Copied ✓';}else button.textContent='Select and copy the text above.';}}

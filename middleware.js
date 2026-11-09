@@ -31,6 +31,11 @@ const CURL_REPLY = `
 
 export default function middleware(request) {
   const url = new URL(request.url);
+  if(url.hostname!=='stats.corvus.gent'&&/^\/(?:enlist|join-the-army-now)(?:\/.*)?$/.test(url.pathname)){
+    url.pathname='/legion/';return Response.redirect(url,301);
+  }
+  const cardneto=/^\/go\/(cardneto-(?:demo|li|app|egg))\/?$/.exec(url.pathname);
+  if(cardneto){const target=new URL('/api/stats',url);target.searchParams.set('legion','1');target.searchParams.set('partner',cardneto[1]);return rewrite(target);}
   const codeAlias=/^\/c\/([^/]+)\/?$/.exec(url.pathname);
   if(url.hostname!=='stats.corvus.gent'&&(codeAlias||(/^\/compound\/v2\/?$/.test(url.pathname)&&url.searchParams.has('code')&&!url.searchParams.has('code_missing')))){
     const target=new URL('/api/stats',url);target.search=url.search;target.searchParams.set('compoundV2','1');target.searchParams.set('codeLink','1');if(codeAlias)target.searchParams.set('code',decodeURIComponent(codeAlias[1]));return rewrite(target);

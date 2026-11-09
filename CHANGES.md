@@ -361,3 +361,9 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 - Vercel Pro cron computes the Compound briefing at :07 / :37 hourly; private stats show the last successful report first.
 - Actual timestamped samples, honest unavailable rates, seven days of half-hour reports plus 90-day daily archives.
 - Optional local launch agent mirrors the private report to ignored report.md every 30 minutes; cloud reporting runs even while the Mac sleeps.
+
+## 2026-11-09 — five doors, one Legion
+- Added Quests, Daily and Gabe hubs; shared section navigation, a route directory and `/` search.
+- Consolidated enlist links at Legion; $1 one-time Tiro checkout, invitation-only grants and reviewable applications.
+- Added hashed single-use invitations, password/session protected admin, double opt-in transmissions and Cardneto spotlight/counters.
+- Validation in progress: local Redis integration passes auth, concurrent claims, payments, unsubscribe and privacy checks; production deploy is gated on contest-route smoke tests.

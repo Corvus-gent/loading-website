@@ -2,7 +2,7 @@ import {STREAM_PRIVACY} from './privacy-stream.js?v=20261107live2';
 import {initI18n, getLang} from './i18n.js?v=20261108live1';
 import {PRIVACY_VERSION,strings} from './privacy-strings.js';
 import {analyticsAllowed,chooseAnalytics,privacySignal,consentChoice} from './analytics-consent.js';
-import {ARMY_PRIVACY} from './army/privacy-copy.js?v=20261108live1';
+import {ARMY_PRIVACY} from './army/privacy-copy.js?v=20261109ia1';
 function choiceLabels(){
  const copy=strings[getLang()];
  document.getElementById('analytics-choice-title').textContent=copy.change;

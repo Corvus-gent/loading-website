@@ -29,11 +29,6 @@
       "permanent": false
     },
     {
-      "source": "/gabe",
-      "destination": "/people/?id=gabe",
-      "permanent": false
-    },
-    {
       "source": "/gabriel",
       "destination": "/people/?id=gabe",
       "permanent": true
@@ -55,6 +50,18 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/api/legion",
+      "destination": "/api/stats?legion=1"
+    },
+    {
+      "source": "/api/legion/stripe",
+      "destination": "/api/bmc-webhook?legionStripe=1"
+    },
+    {
+      "source": "/legion/join/:token",
+      "destination": "/legion/join/index.html"
+    },
     {
       "source": "/api/compound/summary",
       "destination": "/api/stats?compoundSummary=1"
@@ -396,6 +403,19 @@
           "value": "public, max-age=0, must-revalidate"
         }
       ]
+    },
+    {
+      "source": "/admin/:path*",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "private, no-store"
+        }
+      ]
     }
   ],
   "crons": [
@@ -424,5 +444,5 @@
       "schedule": "7,37 * * * *"
     }
   ],
-  "buildCommand": "node tools/plethora/verify-routes.mjs && node tools/build-gabinho-rolls.mjs && node tools/build-battle.mjs && node tools/build-hackathons.mjs && node tools/build-plethora.mjs && python3 tools/build-search.py"
+  "buildCommand": "node tools/plethora/verify-routes.mjs && node tools/build-gabinho-rolls.mjs && node tools/build-battle.mjs && node tools/build-hackathons.mjs && node tools/build-plethora.mjs && python3 tools/build-search.py && node tools/site/build.mjs"
 }

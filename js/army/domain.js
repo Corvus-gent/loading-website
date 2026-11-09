@@ -51,11 +51,12 @@ export function points(s) {
 }
 export function rank(s) {
   if (s.verifiedAt && s.general === true) return 'imperator';
+  if(s.legion&&['tiro','miles','centurio','legatus','senator','consul','imperator'].includes(s.legion.rank))return s.legion.rank;
   const value = points(s); return [...RANKS].reverse().find(([, minimum]) => value >= minimum)[0];
 }
 export function publicSoldier(s, {link = true} = {}) {
-  const named = !!s.verifiedAt && !!s.username;
-  return {username: named ? s.username : null, serial: s.serial || null, rank: rank(s), points: points(s),
+  const named = !!(s.verifiedAt || s.legion) && !!s.username;
+  return {username: named ? s.username : null, serial: s.serial || null, rank: rank(s), points: points(s), rankGranted:!!s.legion,
     created: s.created.slice(0, 10), streak: s.streak || 0, best: s.best || 0, feathers: (s.feathers || []).length,
     recruits: s.recruits || 0, approved: s.status === 'approved', tier:activeTier(s),country:s.country||null,hidden:!!s.hidden,
     ...(link && named ? {link: s.link || ''} : {})};

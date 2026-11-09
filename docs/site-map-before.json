@@ -1,0 +1,2968 @@
+{
+  "schemaVersion": 1,
+  "phase": "before",
+  "baselineCommit": "5eda7e462a935af0ecbe7a7ed24ee12cc3e22fcc",
+  "generatedAt": "2026-11-09T13:48:06.897288+00:00",
+  "method": "Read every tracked HTML file and route configuration from immutable git HEAD. Traverse anchor hrefs, meta refreshes, registered exact aliases, dynamic templates, and both first-party hosts. Do not execute client JavaScript, contact APIs, or treat noindex as access control. Hidden links are counted as source links. Queries/fragments collapse for page connectivity.",
+  "summary": {
+    "htmlDocuments": 85,
+    "publicHtmlDocuments": 64,
+    "staticReachableHtmlDocuments": 63,
+    "publicHtmlDocumentsUnreachable": 8,
+    "unresolvedLocalAnchorReferences": 0,
+    "unresolvedLocalAssetReferences": 0,
+    "publicPrimaryRoutesUnreachable": 6
+  },
+  "htmlRoutes": [
+    {
+      "file": "402/index.html",
+      "url": "https://corvus.gent/402",
+      "title": "402 Payment Required",
+      "section": "Daily",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 1,
+      "contentSha256": "79eb5c28b69bb0955b681382340945c9c8b98b83b5c054fb2000ef9056ac8a7b",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [],
+      "navigationRecommendation": "include under Daily"
+    },
+    {
+      "file": "404.html",
+      "url": "https://corvus.gent/404.html",
+      "title": "404 | corvus.gent",
+      "section": "Gabe",
+      "audience": "system-template-or-redirect",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 6,
+      "contentSha256": "f369119680e5bf9fdb6ecc72245691c93b1185579c5423d0931f4f31bfc31c34",
+      "reachableFromHomepageStaticGraph": false,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/build",
+        "https://corvus.gent/links",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "retain URL; exclude from public directory"
+    },
+    {
+      "file": "airbnb-call-me-pls/index.html",
+      "url": "https://corvus.gent/airbnb-call-me-pls",
+      "title": "Gabriel \u2013 call me pls",
+      "section": "Gabe",
+      "audience": "personal-unlisted",
+      "robots": "noindex, nofollow",
+      "declaredCanonical": null,
+      "staticAnchorCount": 3,
+      "contentSha256": "7b6ad8fb3fe72137aaec9a0bd27d7cf3de97f7fd5dddcb66b135966d964ee3d4",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/airbnb-filter"
+      ],
+      "navigationRecommendation": "retain URL; exclude from public directory"
+    },
+    {
+      "file": "airbnb-filter/index.html",
+      "url": "https://corvus.gent/airbnb-filter",
+      "title": "Me vs. the Airbnb filter | corvus.gent",
+      "section": "Gabe",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 5,
+      "contentSha256": "f207b431cda79df862b3d3727c0246ac1563f15163814d3b856ea800909bf6df",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/airbnb-call-me-pls",
+        "https://corvus.gent/links",
+        "https://corvus.gent/sidequests"
+      ],
+      "navigationRecommendation": "include under Gabe"
+    },
+    {
+      "file": "airbnb/index.html",
+      "url": "https://corvus.gent/airbnb",
+      "title": "Gabriel \u2013 even bellen?",
+      "section": "Gabe",
+      "audience": "personal-unlisted",
+      "robots": "noindex, nofollow",
+      "declaredCanonical": null,
+      "staticAnchorCount": 3,
+      "contentSha256": "ae2ca9612adfe7b8d027f01ab0bd0b52df59ba8f0726e0d08c8c2b11d5cd7532",
+      "reachableFromHomepageStaticGraph": false,
+      "staticPageLinks": [
+        "https://corvus.gent/"
+      ],
+      "navigationRecommendation": "retain URL; exclude from public directory"
+    },
+    {
+      "file": "army/access/index.html",
+      "url": "https://corvus.gent/army/access",
+      "title": "your account | corvus",
+      "section": "Legion",
+      "audience": "private-admin-account-or-operator",
+      "robots": "noindex,nofollow",
+      "declaredCanonical": null,
+      "staticAnchorCount": 8,
+      "contentSha256": "55b03c525e774bb16bfdafd30239d6415df6e3f88769434404ed61dc44cff3bf",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/army",
+        "https://corvus.gent/army/access",
+        "https://corvus.gent/build",
+        "https://corvus.gent/join-the-army-now",
+        "https://corvus.gent/legion",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "retain URL; exclude from public directory"
+    },
+    {
+      "file": "army/index.html",
+      "url": "https://corvus.gent/army",
+      "title": "the war room | corvus",
+      "section": "Legion",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": "https://corvus.gent/army",
+      "staticAnchorCount": 9,
+      "contentSha256": "a90aab1c9bf0490fdc5472ca41c4f87728b086a7eb24cc87731a4413754ca0a4",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/army",
+        "https://corvus.gent/army/access",
+        "https://corvus.gent/build",
+        "https://corvus.gent/join-the-army-now",
+        "https://corvus.gent/legion",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "include under Legion"
+    },
+    {
+      "file": "battle/admin/index.html",
+      "url": "https://corvus.gent/battle/admin",
+      "title": "Battle \u00b7 corner crew",
+      "section": "Quests",
+      "audience": "private-admin-account-or-operator",
+      "robots": "noindex,nofollow",
+      "declaredCanonical": null,
+      "staticAnchorCount": 2,
+      "contentSha256": "03c8d6f2ab69fc05f4ae9a9b8087dfe80ee913ed5742d8cf1c8868980138c75b",
+      "reachableFromHomepageStaticGraph": false,
+      "staticPageLinks": [
+        "https://corvus.gent/battle"
+      ],
+      "navigationRecommendation": "retain URL; exclude from public directory"
+    },
+    {
+      "file": "battle/index.html",
+      "url": "https://corvus.gent/battle",
+      "title": "CODEX vs COMPOUND \ud83e\udd4a Submission only round",
+      "section": "Quests",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": "https://corvus.gent/battle",
+      "staticAnchorCount": 10,
+      "contentSha256": "d0ecc6abc29f2735ffd9cc726d44c2be1d586448f9a5492d043d0f95073bee34",
+      "reachableFromHomepageStaticGraph": false,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/build",
+        "https://corvus.gent/hack/play",
+        "https://corvus.gent/join-the-army-now",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "include under Quests"
+    },
+    {
+      "file": "build/index.html",
+      "url": "https://corvus.gent/build",
+      "title": "One man. One army. \u2014 Corvus builds in public",
+      "section": "Live",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": "https://corvus.gent/build",
+      "staticAnchorCount": 6,
+      "contentSha256": "894c1ccfd6bc67b503497c0a68c7cbddee378fea893f1c30cfd1c3a4a0488289",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/build",
+        "https://corvus.gent/legion",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "include under Live"
+    },
+    {
+      "file": "call/admin/index.html",
+      "url": "https://corvus.gent/call/admin",
+      "title": "Call requests \u00b7 private | corvus",
+      "section": "Gabe",
+      "audience": "private-admin-account-or-operator",
+      "robots": "noindex,nofollow",
+      "declaredCanonical": null,
+      "staticAnchorCount": 4,
+      "contentSha256": "4d02a3bf3a7044444a9a31463a68e9a0f3bd81430df1e98f01dde492e185a576",
+      "reachableFromHomepageStaticGraph": false,
+      "staticPageLinks": [
+        "https://corvus.gent/build",
+        "https://corvus.gent/call",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "retain URL; exclude from public directory"
+    },
+    {
+      "file": "call/index.html",
+      "url": "https://corvus.gent/call",
+      "title": "Calls, coffee & PARACETAMAIL | corvus.gent",
+      "section": "Gabe",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 10,
+      "contentSha256": "cddb12965e0eb1fcc967cb427fcfa9fb1ecafa48437acaf7c84579ce2557dc60",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/build",
+        "https://corvus.gent/games",
+        "https://corvus.gent/music",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "include under Gabe"
+    },
+    {
+      "file": "clients/aurus/v0/index.html",
+      "url": "https://corvus.gent/clients/aurus/v0",
+      "title": "Aurus Syndicus | Professioneel Vastgoedbeheer & Syndicusdiensten",
+      "section": "Quests",
+      "audience": "client-preview",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 23,
+      "contentSha256": "d4c946d6d608ed1b68a6ee4b4c3de870ce8dc867bbfe5bfbda60e9852598ff95",
+      "reachableFromHomepageStaticGraph": false,
+      "staticPageLinks": [
+        "https://corvus.gent/clients/aurus/v0",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "retain URL; exclude from public directory"
+    },
+    {
+      "file": "clients/aurus/v1.0-more-okergeel-grijs/index.html",
+      "url": "https://corvus.gent/clients/aurus/v1.0-more-okergeel-grijs",
+      "title": "Aurus Syndicus | Professioneel Vastgoedbeheer & Syndicusdiensten",
+      "section": "Quests",
+      "audience": "client-preview",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 23,
+      "contentSha256": "82a4bcf6ccf61b99e999158aabea2c15c1ef3b3067427d9d8bd979dba9706c1a",
+      "reachableFromHomepageStaticGraph": false,
+      "staticPageLinks": [
+        "https://corvus.gent/clients/aurus/v1.0-more-okergeel-grijs",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "retain URL; exclude from public directory"
+    },
+    {
+      "file": "clients/aurus/v1.1-diff-colorpallete/index.html",
+      "url": "https://corvus.gent/clients/aurus/v1.1-diff-colorpallete",
+      "title": "Aurus Syndicus | Professioneel Vastgoedbeheer & Syndicusdiensten",
+      "section": "Quests",
+      "audience": "client-preview",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 23,
+      "contentSha256": "82a4bcf6ccf61b99e999158aabea2c15c1ef3b3067427d9d8bd979dba9706c1a",
+      "reachableFromHomepageStaticGraph": false,
+      "staticPageLinks": [
+        "https://corvus.gent/clients/aurus/v1.1-diff-colorpallete",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "retain URL; exclude from public directory"
+    },
+    {
+      "file": "compound/admin/index.html",
+      "url": "https://corvus.gent/compound/admin",
+      "title": "Compound control room \u2014 Corvus",
+      "section": "Quests",
+      "audience": "private-admin-account-or-operator",
+      "robots": "noindex,nofollow",
+      "declaredCanonical": null,
+      "staticAnchorCount": 4,
+      "contentSha256": "cb42a99fc4505fc11ece2e8aa6f0b65702e269e339372e747bc46359b7496e31",
+      "reachableFromHomepageStaticGraph": false,
+      "staticPageLinks": [
+        "https://corvus.gent/compound",
+        "https://corvus.gent/compound/stats"
+      ],
+      "navigationRecommendation": "retain URL; exclude from public directory"
+    },
+    {
+      "file": "compound/index.html",
+      "url": "https://corvus.gent/compound",
+      "title": "\u20ac1000. three cuts. you decide.",
+      "section": "Quests",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": "https://corvus.gent/compound",
+      "staticAnchorCount": 12,
+      "contentSha256": "d788ae1f32a04bd4d3ecfebfdbeeaaccfbe7a9768973c85bce95e7ee29c91cec",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/build",
+        "https://corvus.gent/compound",
+        "https://corvus.gent/compound/rules",
+        "https://corvus.gent/compound/v2",
+        "https://corvus.gent/hack",
+        "https://corvus.gent/join-the-army-now",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "include under Quests"
+    },
+    {
+      "file": "compound/rules/index.html",
+      "url": "https://corvus.gent/compound/rules",
+      "title": "The useful chaos: rules \u2014 Corvus",
+      "section": "Quests",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 9,
+      "contentSha256": "d62deb40390a55ad6ebd7438d3e45719f9d96d674cfcdbab7fef7ea92abebc9f",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/compound",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "include under Quests"
+    },
+    {
+      "file": "compound/stats/index.html",
+      "url": "https://corvus.gent/compound/stats",
+      "title": "Compound feedback stats \u2014 Corvus",
+      "section": "Quests",
+      "audience": "private-admin-account-or-operator",
+      "robots": "noindex,nofollow",
+      "declaredCanonical": null,
+      "staticAnchorCount": 3,
+      "contentSha256": "4352671eb7852c35ccd83f7cc3e32e5267c9fa678d3ed5240fd202d66aa5ec95",
+      "reachableFromHomepageStaticGraph": false,
+      "staticPageLinks": [
+        "https://corvus.gent/compound",
+        "https://corvus.gent/compound/admin"
+      ],
+      "navigationRecommendation": "retain URL; exclude from public directory"
+    },
+    {
+      "file": "compound/v2/index.html",
+      "url": "https://corvus.gent/compound/v2",
+      "title": "Compound v2 \u00b7 $1,000. One-man army. Many editors.",
+      "section": "Quests",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": "https://corvus.gent/compound/v2",
+      "staticAnchorCount": 13,
+      "contentSha256": "de575d8d2eef3162f18bef29aab37c1facb9141082bec9c44a5d3757cdad408c",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/compound",
+        "https://corvus.gent/compound/v2",
+        "https://corvus.gent/compound/v2/links",
+        "https://corvus.gent/compound/v2/stats",
+        "https://corvus.gent/hack/3",
+        "https://corvus.gent/live",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "include under Quests"
+    },
+    {
+      "file": "compound/v2/links/index.html",
+      "url": "https://corvus.gent/compound/v2/links",
+      "title": "Compound v2 \u00b7 links and QR codes",
+      "section": "Quests",
+      "audience": "private-admin-account-or-operator",
+      "robots": "noindex,nofollow",
+      "declaredCanonical": "https://corvus.gent/compound/v2/links",
+      "staticAnchorCount": 10,
+      "contentSha256": "7ffb48b8c6e57f9420f70c0301820fc904f6446af1c30b9cf99b4f1334ee0271",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/compound",
+        "https://corvus.gent/compound/v2",
+        "https://corvus.gent/compound/v2/links",
+        "https://corvus.gent/compound/v2/stats",
+        "https://corvus.gent/hack/3",
+        "https://corvus.gent/live",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "retain URL; exclude from public directory"
+    },
+    {
+      "file": "compound/v2/stats/index.html",
+      "url": "https://corvus.gent/compound/v2/stats",
+      "title": "Compound v2 \u00b7 private stats",
+      "section": "Quests",
+      "audience": "private-admin-account-or-operator",
+      "robots": "noindex,nofollow",
+      "declaredCanonical": "https://corvus.gent/compound/v2/stats",
+      "staticAnchorCount": 11,
+      "contentSha256": "959635143a30cb70d14f5db1df31a818ba446279c59ac431aa21ab083912b6ce",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/compound",
+        "https://corvus.gent/compound/v2",
+        "https://corvus.gent/compound/v2/links",
+        "https://corvus.gent/compound/v2/stats",
+        "https://corvus.gent/hack/3",
+        "https://corvus.gent/live",
+        "https://corvus.gent/privacy",
+        "https://corvus.gent/push"
+      ],
+      "navigationRecommendation": "retain URL; exclude from public directory"
+    },
+    {
+      "file": "dinner/index.html",
+      "url": "https://corvus.gent/dinner",
+      "title": "Buy me dinner in SF \ud83c\udf5c | corvus",
+      "section": "Gabe",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": "https://corvus.gent/dinner/",
+      "staticAnchorCount": 10,
+      "contentSha256": "ed5faca1231b44e719212efaec6621f82bca992e20e4708cbc58cbdcd8d72d86",
+      "reachableFromHomepageStaticGraph": false,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/build",
+        "https://corvus.gent/call",
+        "https://corvus.gent/gabinho-rolls",
+        "https://corvus.gent/join-the-army-now",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "include under Gabe"
+    },
+    {
+      "file": "gabe/index.html",
+      "url": "https://corvus.gent/gabe",
+      "title": "Gabe | corvus.gent",
+      "section": "Gabe",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": "/people/?id=gabe",
+      "staticAnchorCount": 3,
+      "contentSha256": "109b56a837ce372b5f380fe0600fe598ea3baa3867a58bf5b363468e0d511ecc",
+      "metaRefresh": "0; url=/people/?id=gabe",
+      "reachableFromHomepageStaticGraph": false,
+      "staticPageLinks": [
+        "https://corvus.gent/build",
+        "https://corvus.gent/people",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "link to the Gabe profile; retain redirect",
+      "routeAliasTarget": "https://corvus.gent/people?id=gabe"
+    },
+    {
+      "file": "gabinho-rolls/index.html",
+      "url": "https://corvus.gent/gabinho-rolls",
+      "title": "Gabinho Rolls \u00b7 competitor on the road | corvus",
+      "section": "Gabe",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": "https://corvus.gent/gabinho-rolls",
+      "staticAnchorCount": 21,
+      "contentSha256": "79883a57f8f9267ae997d9fa687d470f03a36b71fac1a8a4fde495187673db3a",
+      "reachableFromHomepageStaticGraph": false,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/build",
+        "https://corvus.gent/gabinho-rolls",
+        "https://corvus.gent/join-the-army-now",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "include under Gabe"
+    },
+    {
+      "file": "games/hub/index.html",
+      "url": "https://corvus.gent/games/hub",
+      "title": "games worth your time | corvus",
+      "section": "Daily",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": "https://corvus.gent/games/hub",
+      "staticAnchorCount": 17,
+      "contentSha256": "d0496aa75919e052e098c1da6713df4f50e8053e8f2b891520f2e3cd340a9618",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/games",
+        "https://corvus.gent/hack/play",
+        "https://corvus.gent/realm"
+      ],
+      "navigationRecommendation": "include under Daily"
+    },
+    {
+      "file": "games/index.html",
+      "url": "https://corvus.gent/games",
+      "title": "daily games | corvus.gent",
+      "section": "Daily",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 21,
+      "contentSha256": "f590101e0c9d6713d6e590f7d4fe9c09414d8e0c0fb6723b7d46a526f874e5cd",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/build",
+        "https://corvus.gent/games",
+        "https://corvus.gent/games/hub",
+        "https://corvus.gent/hack/play",
+        "https://corvus.gent/privacy",
+        "https://corvus.gent/realm"
+      ],
+      "navigationRecommendation": "include under Daily"
+    },
+    {
+      "file": "go/index.html",
+      "url": "https://corvus.gent/go",
+      "title": "corvus.gent",
+      "section": "Gabe",
+      "audience": "system-template-or-redirect",
+      "robots": "noindex",
+      "declaredCanonical": null,
+      "staticAnchorCount": 3,
+      "contentSha256": "cf965efd232f1cbe760b076763768872d926cb200f8797d0e37ab4bd963937ba",
+      "reachableFromHomepageStaticGraph": false,
+      "staticPageLinks": [
+        "https://corvus.gent/build",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "retain URL; exclude from public directory"
+    },
+    {
+      "file": "hack/1/index.html",
+      "url": "https://corvus.gent/hack/1",
+      "title": "HackTheFeed, built in 3h in SF",
+      "section": "Quests",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": "https://corvus.gent/hack/1",
+      "staticAnchorCount": 16,
+      "contentSha256": "ea62c0e7dc1d8890c7dc1c0e6ae5b2a087e1cd83c948b4957588e0affc04b9e7",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/build",
+        "https://corvus.gent/hack",
+        "https://corvus.gent/hack/1",
+        "https://corvus.gent/hack/1/the-feed",
+        "https://corvus.gent/hackathons",
+        "https://corvus.gent/join-the-army-now",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "include under Quests"
+    },
+    {
+      "file": "hack/1/the-feed/index.html",
+      "url": "https://corvus.gent/hack/1/the-feed",
+      "title": "Try HackTheFeed \u00b7 early beta",
+      "section": "Quests",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 4,
+      "contentSha256": "0a34f31cb8fbfa4b0be95f5b67ae66154ad573ff35a3d7f686644fd7c29c00e6",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/hack/1",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "include under Quests"
+    },
+    {
+      "file": "hack/2/index.html",
+      "url": "https://corvus.gent/hack/2",
+      "title": "Vote: name the new MMA arcade game",
+      "section": "Quests",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": "https://corvus.gent/hack",
+      "staticAnchorCount": 8,
+      "contentSha256": "2b77790c919b76295ea27ed9174ae2eca3a1f7d2d6e4df1d76572150364ba12e",
+      "reachableFromHomepageStaticGraph": false,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/build",
+        "https://corvus.gent/games/hub",
+        "https://corvus.gent/hack",
+        "https://corvus.gent/hack/play",
+        "https://corvus.gent/hackthefeed",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "retain legacy alias; link the active hack page",
+      "routeAliasTarget": "https://corvus.gent/hack"
+    },
+    {
+      "file": "hack/3/add/index.html",
+      "url": "https://corvus.gent/hack/3/add",
+      "title": "Add a robot interview \u00b7 Corvus",
+      "section": "Quests",
+      "audience": "private-admin-account-or-operator",
+      "robots": "noindex,nofollow",
+      "declaredCanonical": null,
+      "staticAnchorCount": 3,
+      "contentSha256": "2289300498927713f9272f505691edc63b1022ccb430a947014e9465c3145dff",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/compound/v2/stats",
+        "https://corvus.gent/hack/3",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "retain URL; exclude from public directory"
+    },
+    {
+      "file": "hack/3/index.html",
+      "url": "https://corvus.gent/hack/3",
+      "title": "Hack #3: Robotics hackathon, SF \u00b7 Corvus",
+      "section": "Quests",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": "https://corvus.gent/hack/3",
+      "staticAnchorCount": 12,
+      "contentSha256": "31f5c16a6f399cd4cf13b33d901d067d5acfa1b16c951202cbb79aac979e7066",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/compound/v2",
+        "https://corvus.gent/hack",
+        "https://corvus.gent/hack/1",
+        "https://corvus.gent/hack/3/add",
+        "https://corvus.gent/live",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "include under Quests"
+    },
+    {
+      "file": "hack/index.html",
+      "url": "https://corvus.gent/hack",
+      "title": "Vote: name the new MMA arcade game",
+      "section": "Quests",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": "https://corvus.gent/hack",
+      "staticAnchorCount": 21,
+      "contentSha256": "0c86ecf99ad90cd6ae1694ee523bafb21beb3a7870cc527aadfba559626edf2b",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/build",
+        "https://corvus.gent/compound/v2",
+        "https://corvus.gent/games/hub",
+        "https://corvus.gent/hack",
+        "https://corvus.gent/hack/1",
+        "https://corvus.gent/hack/3",
+        "https://corvus.gent/hack/play",
+        "https://corvus.gent/hackthefeed",
+        "https://corvus.gent/live",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "include under Quests"
+    },
+    {
+      "file": "hack/play/index.html",
+      "url": "https://corvus.gent/hack/play",
+      "title": "WHITE BELT \u00b7 Corvus Arcade",
+      "section": "Quests",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 6,
+      "contentSha256": "9118eecbf81c15a1482120609885b2dcfd346d9263038739e5fe307c44796b94",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/build"
+      ],
+      "navigationRecommendation": "include under Quests"
+    },
+    {
+      "file": "hack/the-feed/index.html",
+      "url": "https://corvus.gent/hack/the-feed",
+      "title": "Try HackTheFeed \u00b7 early beta",
+      "section": "Quests",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 4,
+      "contentSha256": "9b4c347dc0355994365ac5a450045bff5ef0a8f3d5f63d706051d046428fd5bb",
+      "reachableFromHomepageStaticGraph": false,
+      "staticPageLinks": [
+        "https://corvus.gent/hack",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "include under Quests"
+    },
+    {
+      "file": "hackathons/index.html",
+      "url": "https://corvus.gent/hackathons",
+      "title": "Ex-hackathon squads | corvus.gent",
+      "section": "Quests",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": "https://corvus.gent/hackathons/",
+      "staticAnchorCount": 14,
+      "contentSha256": "0110aa6f44c36b85f660a37f48e00affad6d442ca042f71b6bdf6dc1b0bd7f35",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/build",
+        "https://corvus.gent/hack",
+        "https://corvus.gent/hack/1",
+        "https://corvus.gent/hackathons",
+        "https://corvus.gent/privacy",
+        "https://corvus.gent/realm",
+        "https://corvus.gent/support"
+      ],
+      "navigationRecommendation": "include under Quests"
+    },
+    {
+      "file": "hackthefeed/2/index.html",
+      "url": "https://corvus.gent/hackthefeed/2",
+      "title": "Solo run, be ready \u00b7 hackathon #2",
+      "section": "Quests",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": "https://corvus.gent/hack/2",
+      "staticAnchorCount": 8,
+      "contentSha256": "c8e3329226348816f7cbc80ca5cf55fb57fc549558485dbe7d23789aa643216e",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/build",
+        "https://corvus.gent/hack",
+        "https://corvus.gent/hack/1",
+        "https://corvus.gent/join-the-army-now",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "include under Quests"
+    },
+    {
+      "file": "hackthefeed/index.html",
+      "url": "https://corvus.gent/hackthefeed",
+      "title": "Gabe's hackathon run, SF 2026",
+      "section": "Quests",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": "https://corvus.gent/hackthefeed",
+      "staticAnchorCount": 9,
+      "contentSha256": "5e1a6a641d6bae0b4e2cc2f06b014e8aeeaf2e7e5cc414da2f22045cc9cceda0",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/build",
+        "https://corvus.gent/compound",
+        "https://corvus.gent/hack/1",
+        "https://corvus.gent/hackthefeed/2",
+        "https://corvus.gent/join-the-army-now",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "include under Quests"
+    },
+    {
+      "file": "index.html",
+      "url": "https://corvus.gent/",
+      "title": "corvus.gent",
+      "section": "Gabe",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 8,
+      "contentSha256": "abd2454fca7325eb5ce22bb0f4fad9bea9dd9eeeed4e6214a46e01d60f9129c6",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/build",
+        "https://corvus.gent/join-the-army-now",
+        "https://corvus.gent/privacy",
+        "https://corvus.gent/realm"
+      ],
+      "navigationRecommendation": "include under Gabe"
+    },
+    {
+      "file": "join-the-army-now/index.html",
+      "url": "https://corvus.gent/join-the-army-now",
+      "title": "the army is recruiting. | corvus",
+      "section": "Legion",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": "https://corvus.gent/join-the-army-now",
+      "staticAnchorCount": 17,
+      "contentSha256": "c22d0a30665a309e21f22d120e4fcac6bb8cf9a00e58d056c78a48d29d2ad2b7",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/army",
+        "https://corvus.gent/army/access",
+        "https://corvus.gent/build",
+        "https://corvus.gent/join-the-army-now",
+        "https://corvus.gent/legion",
+        "https://corvus.gent/links",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "include under Legion"
+    },
+    {
+      "file": "languages/index.html",
+      "url": "https://corvus.gent/languages",
+      "title": "Languages | corvus.gent",
+      "section": "Daily",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 4,
+      "contentSha256": "1fcb73ed1bba09aabc4e575de8e1130291e18b7e14ed60bf3148cdb79ba248ec",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/build",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "include under Daily"
+    },
+    {
+      "file": "legion/index.html",
+      "url": "https://corvus.gent/legion",
+      "title": "the legion | corvus",
+      "section": "Legion",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": "https://corvus.gent/legion",
+      "staticAnchorCount": 13,
+      "contentSha256": "6d068bebb9141e7f250aedf3d70aece842a1ba6aafb028724f764d7829f2f8e6",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/army",
+        "https://corvus.gent/army/access",
+        "https://corvus.gent/build",
+        "https://corvus.gent/join-the-army-now",
+        "https://corvus.gent/legion",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "include under Legion"
+    },
+    {
+      "file": "links/corvus/index.html",
+      "url": "https://corvus.gent/links/corvus",
+      "title": "Corvus | corvus.gent",
+      "section": "Gabe",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 5,
+      "contentSha256": "998ad6fbe44f807fd35a7ccac031cefeaf6671150ffd21ac9fe4f68387dda61a",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/build",
+        "https://corvus.gent/join-the-army-now",
+        "https://corvus.gent/privacy",
+        "https://corvus.gent/realm"
+      ],
+      "navigationRecommendation": "include under Gabe"
+    },
+    {
+      "file": "links/index.html",
+      "url": "https://corvus.gent/links",
+      "title": "Gabe | corvus.gent",
+      "section": "Gabe",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 5,
+      "contentSha256": "710c6852da0155c38bf25021b82f1e36ae28f8bb8713ddc6d1983cd3b066cf52",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/build",
+        "https://corvus.gent/join-the-army-now",
+        "https://corvus.gent/privacy",
+        "https://corvus.gent/realm"
+      ],
+      "navigationRecommendation": "include under Gabe"
+    },
+    {
+      "file": "links/pidgy/index.html",
+      "url": "https://corvus.gent/links/pidgy",
+      "title": "Pidgy | corvus.gent",
+      "section": "Gabe",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 5,
+      "contentSha256": "183ea3cf3546259286018ac02839820d486957c53149b1573665fb7fb17e5965",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/build",
+        "https://corvus.gent/join-the-army-now",
+        "https://corvus.gent/privacy",
+        "https://corvus.gent/realm"
+      ],
+      "navigationRecommendation": "include under Gabe"
+    },
+    {
+      "file": "live/index.html",
+      "url": "https://corvus.gent/live",
+      "title": "Live from SF \u00b7 Gabe \u00d7 Corvus",
+      "section": "Live",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": "https://corvus.gent/live",
+      "staticAnchorCount": 22,
+      "contentSha256": "3330fedb82b95e021b004210eb104f51b5ceba5ca07af99a3151f0dda6f571de",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/compound/v2",
+        "https://corvus.gent/hack/3",
+        "https://corvus.gent/live",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "include under Live"
+    },
+    {
+      "file": "live/overlay/index.html",
+      "url": "https://corvus.gent/live/overlay",
+      "title": "Corvus \u00b7 live stream overlay",
+      "section": "Live",
+      "audience": "private-admin-account-or-operator",
+      "robots": "noindex,nofollow",
+      "declaredCanonical": null,
+      "staticAnchorCount": 1,
+      "contentSha256": "da82c1d07fe96f86d6f01b0e71e31ae08da22199d5aeca28db0dd61e682ff8f4",
+      "reachableFromHomepageStaticGraph": false,
+      "staticPageLinks": [
+        "https://corvus.gent/live"
+      ],
+      "navigationRecommendation": "retain URL; exclude from public directory"
+    },
+    {
+      "file": "music/admin/index.html",
+      "url": "https://corvus.gent/music/admin",
+      "title": "Manage music | corvus.gent",
+      "section": "Daily",
+      "audience": "private-admin-account-or-operator",
+      "robots": "noindex",
+      "declaredCanonical": null,
+      "staticAnchorCount": 5,
+      "contentSha256": "3d1b8d473e50cee2802051e06aea5e222fd7557e496e94ad068ddae35eaaa1da",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/build",
+        "https://corvus.gent/music",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "retain URL; exclude from public directory"
+    },
+    {
+      "file": "music/index.html",
+      "url": "https://corvus.gent/music",
+      "title": "Music \u00b7 Gabe\u2019s collection | corvus.gent",
+      "section": "Daily",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 8,
+      "contentSha256": "9a8bd1ae1345af6f2fa2486620b916c9234e43221c2590193f69f76563f1f505",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/build",
+        "https://corvus.gent/games",
+        "https://corvus.gent/music",
+        "https://corvus.gent/music/admin",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "include under Daily"
+    },
+    {
+      "file": "now/index.html",
+      "url": "https://corvus.gent/now",
+      "title": "Now | corvus.gent",
+      "section": "Gabe",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 4,
+      "contentSha256": "c3f246789347fd8bca9556e731fa15bb45448b16dabd846154d5289841432658",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/build",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "include under Gabe"
+    },
+    {
+      "file": "people/index.html",
+      "url": "https://corvus.gent/people",
+      "title": "People | corvus.gent",
+      "section": "Gabe",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 10,
+      "contentSha256": "fd95b80fa9ca41047249671cd042f0103381880a8e0d23edd35a59f491d3b8aa",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/build",
+        "https://corvus.gent/languages",
+        "https://corvus.gent/people",
+        "https://corvus.gent/privacy",
+        "https://corvus.gent/support",
+        "https://corvus.gent/wiki/corvus",
+        "https://corvus.gent/wiki/pidgy"
+      ],
+      "navigationRecommendation": "include under Gabe"
+    },
+    {
+      "file": "plethora/admin/index.html",
+      "url": "https://corvus.gent/plethora/admin",
+      "title": "Plethora \u00b7 placement report",
+      "section": "Daily",
+      "audience": "private-admin-account-or-operator",
+      "robots": "noindex,nofollow",
+      "declaredCanonical": null,
+      "staticAnchorCount": 3,
+      "contentSha256": "b3b92d65668e21432d84f3aa560e03eebbfadd0166d6d319b10228232c6ddf4a",
+      "reachableFromHomepageStaticGraph": false,
+      "staticPageLinks": [
+        "https://corvus.gent/plethora",
+        "https://stats.corvus.gent/private"
+      ],
+      "navigationRecommendation": "retain URL; exclude from public directory"
+    },
+    {
+      "file": "plethora/index.html",
+      "url": "https://corvus.gent/plethora",
+      "title": "Get Plethora \u00b7 games worth keeping | corvus",
+      "section": "Daily",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": "https://corvus.gent/plethora",
+      "staticAnchorCount": 12,
+      "contentSha256": "ff315007e8c63394baaf18507d990cc279cef738ab356b623716ffcd20d4641e",
+      "reachableFromHomepageStaticGraph": false,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/build",
+        "https://corvus.gent/games/hub",
+        "https://corvus.gent/hack/play",
+        "https://corvus.gent/plethora/stats",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "include under Daily"
+    },
+    {
+      "file": "plethora/stats/index.html",
+      "url": "https://corvus.gent/plethora/stats",
+      "title": "Corvus \u00d7 Plethora \u00b7 live referral stats",
+      "section": "Daily",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": "https://corvus.gent/plethora/stats",
+      "staticAnchorCount": 7,
+      "contentSha256": "b9dec2e46ad0882f125ad5d60ffc9a5c7ead2fa6b595f6e8e58e76767d6b77d9",
+      "reachableFromHomepageStaticGraph": false,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/build",
+        "https://corvus.gent/plethora",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "include under Daily"
+    },
+    {
+      "file": "privacy/index.html",
+      "url": "https://corvus.gent/privacy",
+      "title": "privacy, without the fog. | corvus.gent",
+      "section": "Gabe",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": "/privacy/",
+      "staticAnchorCount": 21,
+      "contentSha256": "86a92834588b3f59756ac57037bf74e12c3a75018618bf736ffa450cedad531a",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/build",
+        "https://corvus.gent/privacy",
+        "https://corvus.gent/realm"
+      ],
+      "navigationRecommendation": "include under Gabe"
+    },
+    {
+      "file": "push/index.html",
+      "url": "https://corvus.gent/push",
+      "title": "One video. One army. \u00b7 Corvus",
+      "section": "Quests",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": "https://corvus.gent/push",
+      "staticAnchorCount": 5,
+      "contentSha256": "2960d3721a45aac818fcefd280a08bdd0abd18508a3a01f187caf4d345b8661e",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/compound/v2",
+        "https://corvus.gent/join-the-army-now",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "include under Quests"
+    },
+    {
+      "file": "realm/index.html",
+      "url": "https://corvus.gent/realm",
+      "title": "the realm | corvus.gent",
+      "section": "Legion",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 19,
+      "contentSha256": "4670ce2edfea63cbc069cdf269ad35ce110e16737fdbec8ab2bd7bd642c0159e",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/build",
+        "https://corvus.gent/call",
+        "https://corvus.gent/games",
+        "https://corvus.gent/hackathons",
+        "https://corvus.gent/join-the-army-now",
+        "https://corvus.gent/music",
+        "https://corvus.gent/now",
+        "https://corvus.gent/people",
+        "https://corvus.gent/privacy",
+        "https://corvus.gent/realm",
+        "https://corvus.gent/sf",
+        "https://corvus.gent/sidequests",
+        "https://corvus.gent/support",
+        "https://corvus.gent/wiki",
+        "https://stats.corvus.gent/"
+      ],
+      "navigationRecommendation": "include under Legion"
+    },
+    {
+      "file": "sf/index.html",
+      "url": "https://corvus.gent/sf",
+      "title": "in sf? let's meet | corvus",
+      "section": "Gabe",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 7,
+      "contentSha256": "b5c53cf7d5d8c8ce2abfadfbc8bc2245ae4002db1b758d9a3fa43625d03d77fb",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/build",
+        "https://corvus.gent/call",
+        "https://corvus.gent/privacy",
+        "https://corvus.gent/realm"
+      ],
+      "navigationRecommendation": "include under Gabe"
+    },
+    {
+      "file": "sidequests/index.html",
+      "url": "https://corvus.gent/sidequests",
+      "title": "Sidequests \u2014 Gabriel",
+      "section": "Quests",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": "https://corvus.gent/sidequests",
+      "staticAnchorCount": 9,
+      "contentSha256": "431efa0e47b126b8fb1563a67dbea8d9d86157b28f6dc76d41adc6e4b6193f53",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/airbnb-filter",
+        "https://corvus.gent/build",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "include under Quests"
+    },
+    {
+      "file": "soldier/index.html",
+      "url": "https://corvus.gent/soldier",
+      "title": "%%TITLE%%",
+      "section": "Legion",
+      "audience": "system-template-or-redirect",
+      "robots": "",
+      "declaredCanonical": "%%URL%%",
+      "staticAnchorCount": 8,
+      "contentSha256": "d86fc017dcdb5557a75737d170b6b3f909504a2e03e4f856099134571d2aa6e4",
+      "reachableFromHomepageStaticGraph": false,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/army",
+        "https://corvus.gent/army/access",
+        "https://corvus.gent/build",
+        "https://corvus.gent/join-the-army-now",
+        "https://corvus.gent/legion",
+        "https://corvus.gent/privacy"
+      ],
+      "navigationRecommendation": "retain URL; exclude from public directory"
+    },
+    {
+      "file": "stats/army/index.html",
+      "url": "https://stats.corvus.gent/army",
+      "title": "the army, counted | corvus stats",
+      "section": "Live",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 15,
+      "contentSha256": "c22ea1dc20175f553de685952803c636e42e0617a9b8006e834255106d98e173",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/build",
+        "https://corvus.gent/privacy",
+        "https://corvus.gent/realm",
+        "https://stats.corvus.gent/",
+        "https://stats.corvus.gent/army",
+        "https://stats.corvus.gent/coffee",
+        "https://stats.corvus.gent/games",
+        "https://stats.corvus.gent/hack",
+        "https://stats.corvus.gent/hunt",
+        "https://stats.corvus.gent/map",
+        "https://stats.corvus.gent/music",
+        "https://stats.corvus.gent/pidgy",
+        "https://stats.corvus.gent/status",
+        "https://stats.corvus.gent/x"
+      ],
+      "navigationRecommendation": "include under Live"
+    },
+    {
+      "file": "stats/coffee/index.html",
+      "url": "https://stats.corvus.gent/coffee",
+      "title": "coffees bought for gabe | corvus stats",
+      "section": "Live",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 16,
+      "contentSha256": "8bede6557c2ef0bb91f273bd21e21dd845ae0e3ca222da4cd1c9335a6e98cfbb",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/build",
+        "https://corvus.gent/privacy",
+        "https://corvus.gent/realm",
+        "https://stats.corvus.gent/",
+        "https://stats.corvus.gent/army",
+        "https://stats.corvus.gent/coffee",
+        "https://stats.corvus.gent/games",
+        "https://stats.corvus.gent/hack",
+        "https://stats.corvus.gent/hunt",
+        "https://stats.corvus.gent/map",
+        "https://stats.corvus.gent/music",
+        "https://stats.corvus.gent/pidgy",
+        "https://stats.corvus.gent/status",
+        "https://stats.corvus.gent/x"
+      ],
+      "navigationRecommendation": "include under Live"
+    },
+    {
+      "file": "stats/games/index.html",
+      "url": "https://stats.corvus.gent/games",
+      "title": "daily games | corvus stats",
+      "section": "Live",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 15,
+      "contentSha256": "86544c43a88d0f1bc994c0d2e075569b681ad444927c342a7d2fbee6fcbbb40e",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/build",
+        "https://corvus.gent/privacy",
+        "https://corvus.gent/realm",
+        "https://stats.corvus.gent/",
+        "https://stats.corvus.gent/army",
+        "https://stats.corvus.gent/coffee",
+        "https://stats.corvus.gent/games",
+        "https://stats.corvus.gent/hack",
+        "https://stats.corvus.gent/hunt",
+        "https://stats.corvus.gent/map",
+        "https://stats.corvus.gent/music",
+        "https://stats.corvus.gent/pidgy",
+        "https://stats.corvus.gent/status",
+        "https://stats.corvus.gent/x"
+      ],
+      "navigationRecommendation": "include under Live"
+    },
+    {
+      "file": "stats/hack/index.html",
+      "url": "https://stats.corvus.gent/hack",
+      "title": "HackTheFeed \u00b7 corvus stats",
+      "section": "Live",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 5,
+      "contentSha256": "2fb787580e9978626bdc15cd4886aa6eb0fbedcb0fb7ab7aa4d4fc40e0a25271",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/build",
+        "https://corvus.gent/privacy",
+        "https://stats.corvus.gent/",
+        "https://stats.corvus.gent/private"
+      ],
+      "navigationRecommendation": "include under Live"
+    },
+    {
+      "file": "stats/hunt/index.html",
+      "url": "https://stats.corvus.gent/hunt",
+      "title": "curiosity, counted | corvus stats",
+      "section": "Live",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 15,
+      "contentSha256": "252c1106169aecf7a87472af79dbb13f674c3de034b6baf6c151d13f5669c4a7",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/build",
+        "https://corvus.gent/privacy",
+        "https://corvus.gent/realm",
+        "https://stats.corvus.gent/",
+        "https://stats.corvus.gent/army",
+        "https://stats.corvus.gent/coffee",
+        "https://stats.corvus.gent/games",
+        "https://stats.corvus.gent/hack",
+        "https://stats.corvus.gent/hunt",
+        "https://stats.corvus.gent/map",
+        "https://stats.corvus.gent/music",
+        "https://stats.corvus.gent/pidgy",
+        "https://stats.corvus.gent/status",
+        "https://stats.corvus.gent/x"
+      ],
+      "navigationRecommendation": "include under Live"
+    },
+    {
+      "file": "stats/index.html",
+      "url": "https://stats.corvus.gent/",
+      "title": "Stats | corvus.gent",
+      "section": "Live",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 24,
+      "contentSha256": "c401efc7c29b499bb96f21fac0eddbde8bfc0d1bdedecd24ead3277b2bd842b6",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/build",
+        "https://corvus.gent/privacy",
+        "https://stats.corvus.gent/",
+        "https://stats.corvus.gent/army",
+        "https://stats.corvus.gent/coffee",
+        "https://stats.corvus.gent/games",
+        "https://stats.corvus.gent/hack",
+        "https://stats.corvus.gent/hunt",
+        "https://stats.corvus.gent/map",
+        "https://stats.corvus.gent/music",
+        "https://stats.corvus.gent/pidgy",
+        "https://stats.corvus.gent/private",
+        "https://stats.corvus.gent/status",
+        "https://stats.corvus.gent/x"
+      ],
+      "navigationRecommendation": "include under Live"
+    },
+    {
+      "file": "stats/map/index.html",
+      "url": "https://stats.corvus.gent/map",
+      "title": "every ping, ever | corvus stats",
+      "section": "Live",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 15,
+      "contentSha256": "c66c66ddb843488860f3b5fb58061e5d270d12181a799091ae1c28c80e1a492b",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/build",
+        "https://corvus.gent/privacy",
+        "https://corvus.gent/realm",
+        "https://stats.corvus.gent/",
+        "https://stats.corvus.gent/army",
+        "https://stats.corvus.gent/coffee",
+        "https://stats.corvus.gent/games",
+        "https://stats.corvus.gent/hack",
+        "https://stats.corvus.gent/hunt",
+        "https://stats.corvus.gent/map",
+        "https://stats.corvus.gent/music",
+        "https://stats.corvus.gent/pidgy",
+        "https://stats.corvus.gent/status",
+        "https://stats.corvus.gent/x"
+      ],
+      "navigationRecommendation": "include under Live"
+    },
+    {
+      "file": "stats/music/index.html",
+      "url": "https://stats.corvus.gent/music",
+      "title": "the rotation in numbers | corvus stats",
+      "section": "Live",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 15,
+      "contentSha256": "d7f0d5d4161033b5bd791e6019da71f806f1b460beddec16cb0f2c1f3b3de39f",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/build",
+        "https://corvus.gent/privacy",
+        "https://corvus.gent/realm",
+        "https://stats.corvus.gent/",
+        "https://stats.corvus.gent/army",
+        "https://stats.corvus.gent/coffee",
+        "https://stats.corvus.gent/games",
+        "https://stats.corvus.gent/hack",
+        "https://stats.corvus.gent/hunt",
+        "https://stats.corvus.gent/map",
+        "https://stats.corvus.gent/music",
+        "https://stats.corvus.gent/pidgy",
+        "https://stats.corvus.gent/status",
+        "https://stats.corvus.gent/x"
+      ],
+      "navigationRecommendation": "include under Live"
+    },
+    {
+      "file": "stats/pidgy/index.html",
+      "url": "https://stats.corvus.gent/pidgy",
+      "title": "corvus \u2192 pidgy | corvus stats",
+      "section": "Live",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 15,
+      "contentSha256": "7cf0a1feebc52dea99ea50d32bb37c3b49dca69fc3d98b70b03d830719813e14",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/build",
+        "https://corvus.gent/privacy",
+        "https://corvus.gent/realm",
+        "https://stats.corvus.gent/",
+        "https://stats.corvus.gent/army",
+        "https://stats.corvus.gent/coffee",
+        "https://stats.corvus.gent/games",
+        "https://stats.corvus.gent/hack",
+        "https://stats.corvus.gent/hunt",
+        "https://stats.corvus.gent/map",
+        "https://stats.corvus.gent/music",
+        "https://stats.corvus.gent/pidgy",
+        "https://stats.corvus.gent/status",
+        "https://stats.corvus.gent/x"
+      ],
+      "navigationRecommendation": "include under Live"
+    },
+    {
+      "file": "stats/private/index.html",
+      "url": "https://stats.corvus.gent/private",
+      "title": "Private | corvus.gent",
+      "section": "Live",
+      "audience": "private-admin-account-or-operator",
+      "robots": "noindex",
+      "declaredCanonical": null,
+      "staticAnchorCount": 6,
+      "contentSha256": "0ab65b804fe822b88c5f48f2b6e3b4351cbd8068f59af3f3d659b39b59c3e030",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/build",
+        "https://corvus.gent/privacy",
+        "https://stats.corvus.gent/",
+        "https://stats.corvus.gent/private"
+      ],
+      "navigationRecommendation": "retain URL; exclude from public directory"
+    },
+    {
+      "file": "stats/status/index.html",
+      "url": "https://stats.corvus.gent/status",
+      "title": "service status | corvus",
+      "section": "Live",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 16,
+      "contentSha256": "b1946b2419f66e4cd415de7a50974649a7982a0278a0ae08143fca9b819fc6d5",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/build",
+        "https://corvus.gent/privacy",
+        "https://corvus.gent/realm",
+        "https://stats.corvus.gent/",
+        "https://stats.corvus.gent/army",
+        "https://stats.corvus.gent/coffee",
+        "https://stats.corvus.gent/games",
+        "https://stats.corvus.gent/hack",
+        "https://stats.corvus.gent/hunt",
+        "https://stats.corvus.gent/map",
+        "https://stats.corvus.gent/music",
+        "https://stats.corvus.gent/pidgy",
+        "https://stats.corvus.gent/status",
+        "https://stats.corvus.gent/x"
+      ],
+      "navigationRecommendation": "include under Live"
+    },
+    {
+      "file": "stats/x/index.html",
+      "url": "https://stats.corvus.gent/x",
+      "title": "the x log | corvus stats",
+      "section": "Live",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 15,
+      "contentSha256": "463bccdd294bca126476dfe3830afd41654610af1d990e61f60d91f4f60bd809",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/build",
+        "https://corvus.gent/privacy",
+        "https://corvus.gent/realm",
+        "https://stats.corvus.gent/",
+        "https://stats.corvus.gent/army",
+        "https://stats.corvus.gent/coffee",
+        "https://stats.corvus.gent/games",
+        "https://stats.corvus.gent/hack",
+        "https://stats.corvus.gent/hunt",
+        "https://stats.corvus.gent/map",
+        "https://stats.corvus.gent/music",
+        "https://stats.corvus.gent/pidgy",
+        "https://stats.corvus.gent/status",
+        "https://stats.corvus.gent/x"
+      ],
+      "navigationRecommendation": "include under Live"
+    },
+    {
+      "file": "submission/index.html",
+      "url": "https://corvus.gent/submission",
+      "title": "OSSMAN \u00b7 Corvus Arcade",
+      "section": "Quests",
+      "audience": "submission-build",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 2,
+      "contentSha256": "0987c06bf527e3349d281cfd452eaac5386e91fc83cb73ec0fb0175cd1ad0ce5",
+      "reachableFromHomepageStaticGraph": false,
+      "staticPageLinks": [
+        "https://corvus.gent/build"
+      ],
+      "navigationRecommendation": "retain URL; exclude from public directory"
+    },
+    {
+      "file": "support/books/index.html",
+      "url": "https://corvus.gent/support/books",
+      "title": "Books | corvus.gent",
+      "section": "Gabe",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 6,
+      "contentSha256": "ff0081907d5310f23c36094a0006f0516fa77a40365eaa2df50bf36cd0bcae4c",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/build",
+        "https://corvus.gent/privacy",
+        "https://corvus.gent/support",
+        "https://corvus.gent/support/books"
+      ],
+      "navigationRecommendation": "include under Gabe"
+    },
+    {
+      "file": "support/companies/index.html",
+      "url": "https://corvus.gent/support/companies",
+      "title": "Companies | corvus.gent",
+      "section": "Gabe",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 13,
+      "contentSha256": "c2a9a66b023ff5e80f1b83191983b48383f2262005c2580658601b77badaee11",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/build",
+        "https://corvus.gent/privacy",
+        "https://corvus.gent/support"
+      ],
+      "navigationRecommendation": "include under Gabe"
+    },
+    {
+      "file": "support/founders/index.html",
+      "url": "https://corvus.gent/support/founders",
+      "title": "Founders | corvus.gent",
+      "section": "Gabe",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 10,
+      "contentSha256": "f64a04510641069e022c3d19c4662e627092ec3ca36347412c22b55d81017e2d",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/build",
+        "https://corvus.gent/privacy",
+        "https://corvus.gent/support"
+      ],
+      "navigationRecommendation": "include under Gabe"
+    },
+    {
+      "file": "support/index.html",
+      "url": "https://corvus.gent/support",
+      "title": "Support | corvus.gent",
+      "section": "Gabe",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 11,
+      "contentSha256": "577b2c727d70344c1b35de350d9e5165e3a4b07ca4ddb06ac2f799dd61f318c6",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/build",
+        "https://corvus.gent/hackathons",
+        "https://corvus.gent/privacy",
+        "https://corvus.gent/support/books",
+        "https://corvus.gent/support/companies",
+        "https://corvus.gent/support/founders",
+        "https://corvus.gent/support/people",
+        "https://corvus.gent/support/philosophists",
+        "https://corvus.gent/support/sport-people"
+      ],
+      "navigationRecommendation": "include under Gabe"
+    },
+    {
+      "file": "support/people/index.html",
+      "url": "https://corvus.gent/support/people",
+      "title": "People | corvus.gent",
+      "section": "Gabe",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 10,
+      "contentSha256": "219dddba9503bd1e2f820568aa56c960ce641177203d7327fa6127bff439623f",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/build",
+        "https://corvus.gent/privacy",
+        "https://corvus.gent/support"
+      ],
+      "navigationRecommendation": "include under Gabe"
+    },
+    {
+      "file": "support/philosophists/index.html",
+      "url": "https://corvus.gent/support/philosophists",
+      "title": "Philosophists | corvus.gent",
+      "section": "Gabe",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 6,
+      "contentSha256": "0b168ad2b17686c1928ad7578ca3a3f051bbe00d15416e89d2f694b0e0ba0e57",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/build",
+        "https://corvus.gent/privacy",
+        "https://corvus.gent/support"
+      ],
+      "navigationRecommendation": "include under Gabe"
+    },
+    {
+      "file": "support/sport-people/index.html",
+      "url": "https://corvus.gent/support/sport-people",
+      "title": "Sport people | corvus.gent",
+      "section": "Gabe",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 9,
+      "contentSha256": "3bc888442e7a5b26a0cbdd0c0f8d9615fc1db1a7d3c528799b909c3a20ee7f28",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/build",
+        "https://corvus.gent/privacy",
+        "https://corvus.gent/support"
+      ],
+      "navigationRecommendation": "include under Gabe"
+    },
+    {
+      "file": "wiki/corvus/index.html",
+      "url": "https://corvus.gent/wiki/corvus",
+      "title": "Corvus | Corvuspedia",
+      "section": "Legion",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 8,
+      "contentSha256": "ab0e268dc11fc6d25478cbbff9042803d22e04c8645efe5130f17ff11ba95ddb",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/build",
+        "https://corvus.gent/links/corvus",
+        "https://corvus.gent/privacy",
+        "https://corvus.gent/realm",
+        "https://corvus.gent/wiki",
+        "https://corvus.gent/wiki/corvus/namesakes",
+        "https://corvus.gent/wiki/pidgy"
+      ],
+      "navigationRecommendation": "include under Legion"
+    },
+    {
+      "file": "wiki/corvus/namesakes/index.html",
+      "url": "https://corvus.gent/wiki/corvus/namesakes",
+      "title": "The many meanings of Corvus | Corvuspedia",
+      "section": "Legion",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 59,
+      "contentSha256": "843e79ed777a62e2d3f9c6ac39fe710554fa9e5bc3f0531f19444fef3cbd39ca",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/",
+        "https://corvus.gent/402",
+        "https://corvus.gent/build",
+        "https://corvus.gent/people",
+        "https://corvus.gent/privacy",
+        "https://corvus.gent/support/philosophists",
+        "https://corvus.gent/wiki/corvus",
+        "https://corvus.gent/wiki/corvus/namesakes",
+        "https://corvus.gent/wiki/pidgy"
+      ],
+      "navigationRecommendation": "include under Legion"
+    },
+    {
+      "file": "wiki/index.html",
+      "url": "https://corvus.gent/wiki",
+      "title": "Main page | Corvuspedia",
+      "section": "Legion",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 5,
+      "contentSha256": "f956e2af90ac4ee29830da36474383a0e771c223b8565c0a69a72db82d84409f",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/build",
+        "https://corvus.gent/privacy",
+        "https://corvus.gent/wiki/corvus",
+        "https://corvus.gent/wiki/pidgy"
+      ],
+      "navigationRecommendation": "include under Legion"
+    },
+    {
+      "file": "wiki/pidgy/index.html",
+      "url": "https://corvus.gent/wiki/pidgy",
+      "title": "Pidgy | Corvuspedia",
+      "section": "Legion",
+      "audience": "public",
+      "robots": "",
+      "declaredCanonical": null,
+      "staticAnchorCount": 7,
+      "contentSha256": "520461dcf099144ff0a4fdab04922954031cf7d0126142f3d6ffd307d90359c3",
+      "reachableFromHomepageStaticGraph": true,
+      "staticPageLinks": [
+        "https://corvus.gent/build",
+        "https://corvus.gent/links/pidgy",
+        "https://corvus.gent/privacy",
+        "https://corvus.gent/wiki",
+        "https://corvus.gent/wiki/corvus"
+      ],
+      "navigationRecommendation": "include under Legion"
+    }
+  ],
+  "vercelRedirects": [
+    {
+      "source": "/livenow",
+      "destination": "/live",
+      "permanent": false
+    },
+    {
+      "source": "/livenow/",
+      "destination": "/live",
+      "permanent": false
+    },
+    {
+      "source": "/whitebelt",
+      "destination": "/hack/play",
+      "permanent": false
+    },
+    {
+      "source": "/prize",
+      "destination": "/compound",
+      "permanent": false
+    },
+    {
+      "source": "/1000",
+      "destination": "/compound",
+      "permanent": false
+    },
+    {
+      "source": "/gabe",
+      "destination": "/people/?id=gabe",
+      "permanent": false
+    },
+    {
+      "source": "/gabriel",
+      "destination": "/people/?id=gabe",
+      "permanent": true
+    },
+    {
+      "source": "/links",
+      "destination": "/links/gabe",
+      "permanent": false
+    },
+    {
+      "source": "/cv/gabriel.pdf",
+      "destination": "/cv",
+      "permanent": true
+    },
+    {
+      "source": "/self",
+      "destination": "/?utm_source=self&utm_medium=share&utm_campaign=home-share",
+      "permanent": false
+    }
+  ],
+  "vercelRewrites": [
+    {
+      "source": "/api/compound/summary",
+      "destination": "/api/stats?compoundSummary=1"
+    },
+    {
+      "source": "/api/og",
+      "destination": "/api/stats?og=1"
+    },
+    {
+      "source": "/api/compound-v2",
+      "destination": "/api/stats?compoundV2=1"
+    },
+    {
+      "source": "/compound/v2/:lang(nl|en|fr|pt|es|de|it|ca|eu|tl|zh|tr|ar|ru|ce|pl|fa|ln|ay|qu)",
+      "destination": "/compound/v2/index.html"
+    },
+    {
+      "source": "/compound/v2/:lang(nl|en|fr|pt|es|de|it|ca|eu|tl|zh|tr|ar|ru|ce|pl|fa|ln|ay|qu)/",
+      "destination": "/compound/v2/index.html"
+    },
+    {
+      "source": "/compound/v2/:lang(nl|en|fr|pt|es|de|it|ca|eu|tl|zh|tr|ar|ru|ce|pl|fa|ln|ay|qu)/:hook(a|b|c|d|f|mom|bjj|startup|side|comm|int)",
+      "destination": "/compound/v2/index.html"
+    },
+    {
+      "source": "/compound/v2/:lang(nl|en|fr|pt|es|de|it|ca|eu|tl|zh|tr|ar|ru|ce|pl|fa|ln|ay|qu)/:hook(a|b|c|d|f|mom|bjj|startup|side|comm|int)/",
+      "destination": "/compound/v2/index.html"
+    },
+    {
+      "source": "/compound/v2/:lang(nl|en|fr|pt|es|de|it|ca|eu|tl|zh|tr|ar|ru|ce|pl|fa|ln|ay|qu)/:hook(a|b|c|d|f|mom|bjj|startup|side|comm|int)/:n([1-9][0-9]{0,3})",
+      "destination": "/compound/v2/index.html"
+    },
+    {
+      "source": "/compound/v2/:lang(nl|en|fr|pt|es|de|it|ca|eu|tl|zh|tr|ar|ru|ce|pl|fa|ln|ay|qu)/:hook(a|b|c|d|f|mom|bjj|startup|side|comm|int)/:n([1-9][0-9]{0,3})/",
+      "destination": "/compound/v2/index.html"
+    },
+    {
+      "source": "/api/live",
+      "destination": "/api/stats?live=1"
+    },
+    {
+      "source": "/api/build",
+      "has": [
+        {
+          "type": "query",
+          "key": "deployment",
+          "value": "1"
+        }
+      ],
+      "destination": "/api/bmc-webhook?buildDeployment=1"
+    },
+    {
+      "source": "/api/build",
+      "destination": "/api/stats?build=1"
+    },
+    {
+      "source": "/api/build/og.png",
+      "destination": "/api/stats?build=1&image=1"
+    },
+    {
+      "source": "/api/support",
+      "destination": "/api/stats?support=1"
+    },
+    {
+      "source": "/plethora/stats.csv",
+      "destination": "/api/stats?plethora=1&action=csv"
+    },
+    {
+      "source": "/api/plethora",
+      "destination": "/api/stats?plethora=1"
+    },
+    {
+      "source": "/api/battle",
+      "destination": "/api/stats?battle=1"
+    },
+    {
+      "source": "/hack/play/do-bronx",
+      "destination": "/hack/play/index.html"
+    },
+    {
+      "source": "/hack/play/do-bronx/",
+      "destination": "/hack/play/index.html"
+    },
+    {
+      "source": "/api/name-vote",
+      "destination": "/api/stats?nameVote=1"
+    },
+    {
+      "source": "/hack/2",
+      "destination": "/hack/index.html"
+    },
+    {
+      "source": "/hack/2/",
+      "destination": "/hack/index.html"
+    },
+    {
+      "source": "/hack2",
+      "destination": "/hack/index.html"
+    },
+    {
+      "source": "/hack2/",
+      "destination": "/hack/index.html"
+    },
+    {
+      "source": "/api/compound/stripe",
+      "destination": "/api/discord?compoundStripe=1"
+    },
+    {
+      "source": "/api/compound",
+      "destination": "/api/stats?compound=1"
+    },
+    {
+      "source": "/api/hack",
+      "destination": "/api/stats?hack=1"
+    },
+    {
+      "source": "/r/:code/games",
+      "destination": "/api/army?ref=:code&to=games"
+    },
+    {
+      "source": "/r/:code",
+      "destination": "/api/army?ref=:code"
+    },
+    {
+      "source": "/soldier/:username/og.png",
+      "destination": "/api/army?profile=:username&image=1"
+    },
+    {
+      "source": "/soldier/:username/poster.png",
+      "destination": "/api/army?profile=:username&image=1&poster=1"
+    },
+    {
+      "source": "/soldier/:username",
+      "destination": "/api/army?profile=:username&html=1"
+    },
+    {
+      "source": "/join-the-army-now/:platform/:campaign",
+      "destination": "/join-the-army-now/index.html"
+    },
+    {
+      "source": "/api/report.md",
+      "destination": "/api/stats?report=1"
+    },
+    {
+      "source": "/api/notice-ok",
+      "destination": "/api/stats?notice=1"
+    },
+    {
+      "source": "/api/health/history",
+      "destination": "/api/stats?healthHistory=1"
+    },
+    {
+      "source": "/api/health",
+      "destination": "/api/stats?health=1"
+    },
+    {
+      "source": "/api/sf",
+      "destination": "/api/stats?sf=1"
+    },
+    {
+      "source": "/api/hit",
+      "destination": "/api/stats?hit=1"
+    },
+    {
+      "source": "/games/data/:path*",
+      "destination": "/404.html"
+    },
+    {
+      "source": "/api/game/:path*",
+      "destination": "/api/stats?game=1"
+    },
+    {
+      "source": "/api/game",
+      "destination": "/api/stats?game=1"
+    },
+    {
+      "source": "/cv",
+      "destination": "/api/cv"
+    },
+    {
+      "source": "/cv/download",
+      "destination": "/api/cv?dl=1"
+    },
+    {
+      "source": "/go/:path*",
+      "destination": "/go/index.html"
+    },
+    {
+      "source": "/links/corvus/:path*",
+      "destination": "/links/corvus/index.html"
+    },
+    {
+      "source": "/links/pidgy/:path*",
+      "destination": "/links/pidgy/index.html"
+    },
+    {
+      "source": "/links/:path+",
+      "destination": "/links/index.html"
+    }
+  ],
+  "middlewareRedirects": [
+    {
+      "source": "https://corvus.gent/squads",
+      "destination": "https://corvus.gent/hackathons"
+    },
+    {
+      "source": "https://corvus.gent/sidequest",
+      "destination": "https://corvus.gent/sidequests"
+    },
+    {
+      "source": "https://corvus.gent/enter",
+      "destination": "https://corvus.gent/"
+    },
+    {
+      "source": "https://corvus.gent/the-crow",
+      "destination": "https://corvus.gent/"
+    },
+    {
+      "source": "https://corvus.gent/revived",
+      "destination": "https://corvus.gent/"
+    },
+    {
+      "source": "https://corvus.gent/important-call-gabe-maxxer",
+      "destination": "https://corvus.gent/call"
+    },
+    {
+      "source": "https://corvus.gent/coffee-with-gabe",
+      "destination": "https://corvus.gent/links/gabe/bmc/coffee-bio"
+    },
+    {
+      "source": "https://stats.corvus.gent/coffee-with-gabe",
+      "destination": "https://corvus.gent/go/corvus/coffee/coffee-stats"
+    },
+    {
+      "source": "https://corvus.gent/x",
+      "destination": "https://corvus.gent/compound"
+    },
+    {
+      "source": "https://corvus.gent/x-bio",
+      "destination": "https://corvus.gent/compound"
+    },
+    {
+      "source": "https://corvus.gent/li",
+      "destination": "https://corvus.gent/compound"
+    },
+    {
+      "source": "https://corvus.gent/li-1",
+      "destination": "https://corvus.gent/compound"
+    },
+    {
+      "source": "https://corvus.gent/li-2",
+      "destination": "https://corvus.gent/compound"
+    },
+    {
+      "source": "https://corvus.gent/ig",
+      "destination": "https://corvus.gent/compound"
+    },
+    {
+      "source": "https://corvus.gent/ig-story",
+      "destination": "https://corvus.gent/compound"
+    },
+    {
+      "source": "https://corvus.gent/bjj",
+      "destination": "https://corvus.gent/compound"
+    },
+    {
+      "source": "https://corvus.gent/bjj-story",
+      "destination": "https://corvus.gent/compound"
+    },
+    {
+      "source": "https://corvus.gent/dm",
+      "destination": "https://corvus.gent/compound"
+    },
+    {
+      "source": "https://corvus.gent/tt",
+      "destination": "https://corvus.gent/compound"
+    },
+    {
+      "source": "https://corvus.gent/tt-bio",
+      "destination": "https://corvus.gent/compound"
+    },
+    {
+      "source": "https://corvus.gent/tt-bjj",
+      "destination": "https://corvus.gent/compound"
+    },
+    {
+      "source": "https://corvus.gent/tt-g",
+      "destination": "https://corvus.gent/compound"
+    },
+    {
+      "source": "https://corvus.gent/dc",
+      "destination": "https://corvus.gent/compound"
+    },
+    {
+      "source": "https://corvus.gent/wa",
+      "destination": "https://corvus.gent/compound"
+    },
+    {
+      "source": "https://corvus.gent/hostel",
+      "destination": "https://corvus.gent/compound"
+    },
+    {
+      "source": "https://corvus.gent/v",
+      "destination": "https://corvus.gent/compound"
+    },
+    {
+      "source": "https://corvus.gent/qr",
+      "destination": "https://corvus.gent/compound"
+    },
+    {
+      "source": "https://corvus.gent/simon",
+      "destination": "https://corvus.gent/compound"
+    }
+  ],
+  "dynamicRouteFamilies": [
+    {
+      "pattern": "/games/",
+      "kind": "daily game state",
+      "variants": [
+        "babel",
+        "borders",
+        "wordle",
+        "flags",
+        "combo",
+        "bangle",
+        "pingle",
+        "lantern"
+      ],
+      "note": "Eight server-selected daily modes share one page; no /games/<name> routes are registered."
+    },
+    {
+      "pattern": "/people/?id=:person",
+      "kind": "profile state",
+      "note": "Gabe and other people render within the people page."
+    },
+    {
+      "pattern": "/music/#track=:id",
+      "kind": "client fragment state"
+    },
+    {
+      "pattern": "/hack/3?interview=:n",
+      "kind": "server-rendered social metadata and client interview state"
+    },
+    {
+      "pattern": "/live",
+      "kind": "middleware HTML metadata rewrite",
+      "destination": "/api/stats?ogPage=1&kind=live"
+    },
+    {
+      "pattern": "/compound/v2[/:lang[/:hook[/:n]]]",
+      "kind": "middleware HTML metadata rewrite",
+      "note": "Language/hook allowlists in compound/v2/config.js and vercel.json; n=1..9999."
+    },
+    {
+      "pattern": "/compound/v2?code=:code; /c/:code",
+      "kind": "compound code redirect"
+    },
+    {
+      "pattern": "/v/:slug",
+      "kind": "compound video redirect"
+    },
+    {
+      "pattern": "/go/(twitch|instagram|twitter)",
+      "kind": "server live social redirect"
+    },
+    {
+      "pattern": "/go/(call|bmc|dinner|roll)-(li|x)",
+      "kind": "server support campaign redirect"
+    },
+    {
+      "pattern": "/go/plethora-:placement",
+      "kind": "server Plethora redirect",
+      "note": "Placements and aliases defined in js/plethora-config.js; build guard verifies expected destinations."
+    },
+    {
+      "pattern": "/go/(cx|cp|bio)-(tt|ig|x|li)",
+      "kind": "server battle redirect"
+    },
+    {
+      "pattern": "/go/:platform[/:target[/:campaign]]",
+      "kind": "client redirect",
+      "note": "Catch-all rewrite remains required. TARGETS/EXTERNAL/site.json define destinations; unknown target falls back to Gabe."
+    },
+    {
+      "pattern": "/links/:persona[/:source[/:campaign]]",
+      "kind": "persona template",
+      "note": "Corvus/Pidgy have separate templates; other paths use Gabe template."
+    },
+    {
+      "pattern": "/r/:code[/games]",
+      "kind": "army referral redirect"
+    },
+    {
+      "pattern": "/soldier/:username",
+      "kind": "public generated profile"
+    },
+    {
+      "pattern": "/soldier/:username/(og|poster).png",
+      "kind": "generated profile image"
+    },
+    {
+      "pattern": "/join-the-army-now/:platform/:campaign",
+      "kind": "campaign landing template"
+    },
+    {
+      "pattern": "/hack/play/do-bronx",
+      "kind": "alternate game state"
+    },
+    {
+      "pattern": "stats.corvus.gent/(pidgy|games|map|music|hunt|x|coffee|status|hack|army)",
+      "kind": "host-specific stats pages"
+    },
+    {
+      "pattern": "stats.corvus.gent/private*",
+      "kind": "private stats shell",
+      "note": "Exclude from public navigation; backend authorization remains required."
+    }
+  ],
+  "publicApiEntrypoints": [
+    {
+      "route": "/api/access",
+      "file": "api/access.js"
+    },
+    {
+      "route": "/api/army",
+      "file": "api/army.js"
+    },
+    {
+      "route": "/api/auth",
+      "file": "api/auth.js"
+    },
+    {
+      "route": "/api/bmc-webhook",
+      "file": "api/bmc-webhook.js"
+    },
+    {
+      "route": "/api/cv",
+      "file": "api/cv.js"
+    },
+    {
+      "route": "/api/discord",
+      "file": "api/discord.js"
+    },
+    {
+      "route": "/api/geo",
+      "file": "api/geo.js"
+    },
+    {
+      "route": "/api/guess",
+      "file": "api/guess.js"
+    },
+    {
+      "route": "/api/music-admin",
+      "file": "api/music-admin.js"
+    },
+    {
+      "route": "/api/music",
+      "file": "api/music.js"
+    },
+    {
+      "route": "/api/pidgy-trial",
+      "file": "api/pidgy-trial.js"
+    },
+    {
+      "route": "/api/private-stats",
+      "file": "api/private-stats.js"
+    },
+    {
+      "route": "/api/stats",
+      "file": "api/stats.js"
+    },
+    {
+      "route": "/api/vote",
+      "file": "api/vote.js"
+    },
+    {
+      "route": "/api/x-stats",
+      "file": "api/x-stats.js"
+    }
+  ],
+  "observedDynamicLinks": [
+    {
+      "from": "https://corvus.gent/402",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/404.html",
+      "href": "/go/plethora-404",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/404.html",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/airbnb-call-me-pls",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/airbnb-filter",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/airbnb",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/army/access",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/army",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/battle/admin",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/battle",
+      "href": "/go/plethora-battle",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/battle",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/call/admin",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/call",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/clients/aurus/v0",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/clients/aurus/v1.0-more-okergeel-grijs",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/clients/aurus/v1.1-diff-colorpallete",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/compound/admin",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/compound",
+      "href": "/go/plethora-compound",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/compound",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/compound/rules",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/compound/stats",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/dinner",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/gabe",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/gabinho-rolls",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/games/hub",
+      "href": "/go/plethora-hub",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/games/hub",
+      "href": "/go/plethora-hub",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/games/hub",
+      "href": "/go/plethora-hub",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/games/hub",
+      "href": "/go/plethora-hub",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/games/hub",
+      "href": "/go/plethora-hub",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/games/hub",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/games",
+      "href": "/go/plethora-daily",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/games",
+      "href": "/go/plethora-daily",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/games",
+      "href": "/go/plethora-hub",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/games",
+      "href": "/go/plethora-hub",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/games",
+      "href": "/go/plethora-hub",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/games",
+      "href": "/go/plethora-hub",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/games",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/go",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/hack/1",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/hack/1/the-feed",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/hack/2",
+      "href": "/go/plethora-hack",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/hack/2",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/hack",
+      "href": "/go/plethora-hack",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/hack",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/hack/play",
+      "href": "/go/plethora-gameover",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/hack/play",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/hack/play",
+      "href": "/go/plethora-start",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/hack/play",
+      "href": "/go/plethora-promo",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/hack/play",
+      "href": "/go/plethora-pause",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/hack/the-feed",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/hackathons",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/hackthefeed/2",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/hackthefeed",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/",
+      "href": "/go/plethora-home",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/join-the-army-now",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/languages",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/legion",
+      "href": "/go/plethora-legion",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/legion",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/links/corvus",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/links",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/links/pidgy",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/music/admin",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/music",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/now",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/people",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/plethora/admin",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/plethora",
+      "href": "/go/plethora-bio-x",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/plethora",
+      "href": "/go/plethora-game",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/plethora",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/plethora/stats",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/privacy",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/realm",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/sf",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/sidequests",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/soldier",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://stats.corvus.gent/army",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://stats.corvus.gent/coffee",
+      "href": "https://stats.corvus.gent/coffee-with-gabe",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://stats.corvus.gent/coffee",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://stats.corvus.gent/games",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://stats.corvus.gent/hack",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://stats.corvus.gent/hunt",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://stats.corvus.gent/",
+      "href": "https://stats.corvus.gent/coffee-with-gabe",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://stats.corvus.gent/",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://stats.corvus.gent/map",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://stats.corvus.gent/music",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://stats.corvus.gent/pidgy",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://stats.corvus.gent/private",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://stats.corvus.gent/status",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://stats.corvus.gent/x",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/submission",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/support/books",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/support/companies",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/support/founders",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/support",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/support/people",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/support/philosophists",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/support/sport-people",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/wiki/corvus",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/wiki/corvus/namesakes",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/wiki",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    },
+    {
+      "from": "https://corvus.gent/wiki/pidgy",
+      "href": "/go/plethora-footer",
+      "kind": "dynamic-redirect"
+    }
+  ],
+  "unresolvedLocalAnchors": [],
+  "unresolvedLocalAssets": [],
+  "fragmentReferencesWithoutStaticIds": [
+    {
+      "file": "sf/index.html",
+      "href": "/privacy/#sf",
+      "targetFile": "privacy/index.html",
+      "note": "May be added or interpreted by JavaScript."
+    }
+  ],
+  "byteIdenticalHtmlGroups": [
+    [
+      "clients/aurus/v1.0-more-okergeel-grijs/index.html",
+      "clients/aurus/v1.1-diff-colorpallete/index.html"
+    ]
+  ],
+  "sameTitleHtmlGroups": [
+    [
+      "clients/aurus/v0/index.html",
+      "clients/aurus/v1.0-more-okergeel-grijs/index.html",
+      "clients/aurus/v1.1-diff-colorpallete/index.html"
+    ],
+    [
+      "gabe/index.html",
+      "links/index.html"
+    ],
+    [
+      "go/index.html",
+      "index.html"
+    ],
+    [
+      "hack/1/the-feed/index.html",
+      "hack/the-feed/index.html"
+    ],
+    [
+      "hack/2/index.html",
+      "hack/index.html"
+    ],
+    [
+      "people/index.html",
+      "support/people/index.html"
+    ]
+  ],
+  "build": {
+    "command": "node tools/plethora/verify-routes.mjs && node tools/build-gabinho-rolls.mjs && node tools/build-battle.mjs && node tools/build-hackathons.mjs && node tools/build-plethora.mjs && python3 tools/build-search.py",
+    "scripts": [
+      "tools/plethora/verify-routes.mjs",
+      "tools/build-gabinho-rolls.mjs",
+      "tools/build-battle.mjs",
+      "tools/build-hackathons.mjs",
+      "tools/build-plethora.mjs",
+      "tools/build-search.py"
+    ],
+    "manualPersonaGenerator": "tools/build-persona-pages.mjs",
+    "deploymentExclusions": [
+      "node_modules",
+      "tests",
+      "test-results",
+      "playwright-report",
+      "tools/*",
+      "!tools/build-search.py",
+      "!tools/build-hackathons.mjs",
+      "!tools/templates",
+      "!tools/templates/hackathons.html.tmpl",
+      "PLAN.md",
+      ".git",
+      "",
+      "games/data",
+      "",
+      "!tools/build-battle.mjs",
+      "",
+      "!tools/build-plethora.mjs",
+      "",
+      "!tools/build-gabinho-rolls.mjs",
+      "",
+      "!tools/plethora",
+      "tools/plethora/*",
+      "!tools/plethora/verify-routes.mjs"
+    ],
+    "mutationTargets": {
+      "tools/build-gabinho-rolls.mjs": [
+        "gabinho-rolls/index.html named photo/video slots"
+      ],
+      "tools/build-battle.mjs": [
+        "battle/media.json"
+      ],
+      "tools/build-hackathons.mjs": [
+        "hackathons/index.html from template",
+        "hack/1/index.html squad block"
+      ],
+      "tools/build-plethora.mjs": [
+        "HTML promo slots across tracked site pages, excluding live overlay"
+      ],
+      "tools/build-search.py": [
+        "search-index.json"
+      ]
+    },
+    "fragileInsertionAnchors": {
+      "index.html": "<body class=\"portal\">",
+      "games/index.html": "<div class=\"wrap games\">",
+      "games/hub/index.html": "<!-- HUB_INTRO_END -->",
+      "legion/index.html": "<div class=\"legion-filters"
+    }
+  },
+  "caveats": [
+    "Root /map does not exist at baseline. stats.corvus.gent/map is the visitor map and must retain its host-specific meaning.",
+    "Static unreachable does not prove a page is inaccessible: JavaScript, search, authenticated controls, campaign links, and direct visits can expose it.",
+    "Canonical tags do not redirect a browser; multiple legacy pages remain live despite declaring other canonical URLs.",
+    "The local tools/serve.mjs server does not implement all deployment middleware and redirects.",
+    "All tracked HTML pages are inventoried, including private/admin/operator shells; noindex is not access control.",
+    "Ignore unrelated untracked public/brand and public/support artifacts.",
+    "The 8 unreachable public HTML source routes include 2 aliases (/gabe and /hack/2) whose current destination is reachable; 6 primary public pages are outside the static graph."
+  ],
+  "semanticDuplicateRoutes": [
+    {
+      "routes": [
+        "/hack/the-feed",
+        "/hack/1/the-feed"
+      ],
+      "note": "Near-duplicate embedded HackTheFeed pages. Legacy /hack/the-feed links back to /hack (now MMA arcade) and omits data-hack-id=1."
+    },
+    {
+      "routes": [
+        "/hack",
+        "/hack/2",
+        "/hack2"
+      ],
+      "note": "/hack/2 and /hack2 rewrite to /hack/index.html; separate hack/2 HTML remains tracked."
+    },
+    {
+      "routes": [
+        "/gabe",
+        "/people/?id=gabe",
+        "/gabriel"
+      ],
+      "note": "Gabe and Gabriel aliases reach the people profile."
+    }
+  ]
+}

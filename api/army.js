@@ -31,7 +31,7 @@ export function createArmyHandler({service=armyService(),ready=connected,ownerSe
    }
    if(q.profile!==undefined){
     const user=await service.store.byName(cleanUsername(q.profile));
-    if(!user?.verifiedAt||user.status==='deleting')return res.status(404).json({error:'missing'});
+    if(!(user?.verifiedAt||user?.legion)||user.status==='deleting')return res.status(404).json({error:'missing'});
     if(q.image==='1')return (await import('./_army/_images.js')).serveImage(res,publicSoldier(user),user.code,q.poster==='1');
     if(q.html==='1')return (await import('./_army/_images.js')).serveProfile(res,publicSoldier(user));
     return res.status(200).json({soldier:publicSoldier(user),code:user.code});

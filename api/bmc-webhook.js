@@ -23,6 +23,7 @@ export function createBMCHandler({store=armyStore(),secret=()=>process.env.BMC_W
 // Web-standard entry point deliberately bypasses Node request-body helpers.
 // Re-serialising a parsed object would invalidate the provider's HMAC.
 export async function POST(request){
+ if(new URL(request.url).searchParams.get("legionStripe")==="1")return (await import("./_legion/payments.js")).webhook(request);
  if(new URL(request.url).searchParams.get('buildDeployment')==='1'||(new URL(request.url).pathname==='/api/build'&&new URL(request.url).searchParams.get('deployment')==='1'))return (await import('./_build-stats.js')).deploymentWebhook(request);
  const reader=request.body?.getReader(),chunks=[];let size=0;
  if(reader)for(;;){const {done,value}=await reader.read();if(done)break;size+=value.length;if(size>128*1024){await reader.cancel();return Response.json({error:'size'},{status:413});}chunks.push(Buffer.from(value));}

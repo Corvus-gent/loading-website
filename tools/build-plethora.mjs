@@ -12,8 +12,9 @@ const catalog=(await fs.readFile("games/hub/index.html","utf8")).match(/<section
 if(!catalog)throw Error("Missing game catalog");
 for(const file of files){
  // Broadcast overlays must keep alpha and contain no website chrome.
- if(file==='live/overlay/index.html')continue;
+ if(file.startsWith('clients/')||file==='submission/index.html'||file==='live/overlay/index.html'||file==='admin/index.html'||file.startsWith('legion/join/')||file.startsWith('letters/'))continue;
  let s=await fs.readFile(file,'utf8');
+ s=s.replace(/<!-- SITE_(HEAD|NAV|NEXT) -->[\s\S]*?<!-- \/SITE_\1 -->/g,'');
  // Rebuild only our own marked slots, preserving hand-written page content.
  s=s.replace(/<!-- PLETHORA_[A-Z]+ -->[\s\S]*?<!-- \/PLETHORA_[A-Z]+ -->/g,'');
  const insert=(label,html,anchor,before=false)=>{const wrapped=`<!-- PLETHORA_${label} -->${html}<!-- /PLETHORA_${label} -->`;if(!s.includes(anchor))throw Error('Missing Plethora slot: '+file+' '+anchor);s=s.replace(anchor,before?wrapped+anchor:anchor+wrapped);};
@@ -23,7 +24,7 @@ for(const file of files){
   // Footer lives in the existing menu; it cannot cover the mat or controls.
   insert('FOOTER',footer,'<div id="faceoff"></div>');
  }else insert('FOOTER',footer,'</body>',true);
- if(file==='index.html')insert('HOME',`<aside class="plethora-banner" data-plethora-banner><div>${link('home','🎮 My hackathon-winning game is on Plethora → check it','')}<small data-plethora-live>The army is finding its next game.</small></div><button type="button" aria-label="Dismiss Plethora banner">×</button></aside>`,'<body class="portal">');
+ if(file==='index.html')insert('HOME',`<aside class="plethora-banner" data-plethora-banner><div>${link('home','🎮 My hackathon-winning game is on Plethora → check it','')}<small data-plethora-live>The army is finding its next game.</small></div><button type="button" aria-label="Dismiss Plethora banner">×</button></aside>`,s.match(/<body[^>]*class="[^"]*\bportal\b[^"]*"[^>]*>/)?.[0]||'<body class="portal">');
  if(file==='games/index.html'){insert('DAILY',card('daily')+'<p><a href="#board">play today’s puzzle ↓</a> · <a href="/games/hub/">all games →</a></p>','<div class="wrap games">');insert('CATALOG','<h2>more from the arcade</h2><p>Eight puzzles in rotation. One daily challenge.</p>'+catalog,'</dialog>');}
  if(file==='games/hub/index.html')insert('HUB',card('hub'),'<!-- HUB_INTRO_END -->');
  if(['hack/index.html','hack/2/index.html'].includes(file))insert('HUB',card('hack')+'<p><a href="/games/hub/">daily puzzles + all games →</a></p>','</nav>');
