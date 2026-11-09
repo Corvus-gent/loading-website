@@ -30,3 +30,8 @@ export const SHARE_CONFIG = {
 // R05 uses e for the original sidequest clips and live for the verified live hook.
 const liveHooks={"en":"I'm live right now.","nl":"Ik ben nu live.","fr":"Je suis en direct.","pt":"Estou ao vivo agora.","es":"Estoy en directo.","de":"Ich bin gerade live.","it":"Sono in diretta.","ca":"Estic en directe.","eu":"Zuzenean nago.","tl":"Live ako ngayon.","zh":"我正在直播。","tr":"Şu an canlı yayındayım.","ar":"أنا مباشر الآن.","ru":"Я сейчас в прямом эфире.","ce":"Со хӀинца эфирехь ву.","pl":"Jestem teraz na żywo.","fa":"الان زنده هستم.","ln":"Nazali sikoyo na direct.","ay":"Jichhax live ukankasktwa.","qu":"Kunan live kachkani."};
 for(const [lang,locale] of Object.entries(SHARE_CONFIG.languages)){locale.hooks.e=locale.hooks.side;locale.hooks.live=liveHooks[lang];}
+
+// Product demos use the seven recorded languages; other locales retain their
+// existing, neutral "fresh cut" phrasing until a demo-specific line is supplied.
+const demoHooks={en:'See the product in action.',nl:'Zie het product in actie.',fr:'Le produit en action.',pt:'Vê o produto em ação.',es:'Mira el producto en acción.',de:'Das Produkt in Aktion.',it:'Guarda il prodotto in azione.'};
+for(const [lang,locale] of Object.entries(SHARE_CONFIG.languages))locale.hooks.demo=demoHooks[lang]||locale.hooks.f;

@@ -1,3 +1,8 @@
+## 2026-11-09 — codex/compound-v2-share-fix
+
+- Restore the private links/QR page for the full imported registry: product-demo hooks now have share copy, and a missing hook phrase falls back to the localized code/CTA instead of blanking every draft. Preserve all posts, metrics, votes and feedback; refresh the versioned admin imports.
+- Verified all routes, private access, live mobile layout and end-to-end voting/editor flows; added demo rows and missing-phrase regression coverage.
+
 ## 2026-11-08 — codex/compound-r05
 
 - Accept YouTube Shorts slugs and post links, preserve YouTube attribution, add original sidequest/live hook codes, and import R05 exports into the private upload queue without resetting posted status or metrics.

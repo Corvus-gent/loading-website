@@ -1,11 +1,13 @@
-import {SHARE_CONFIG} from './share-config.js?v=20261109code1';
+import {SHARE_CONFIG} from './share-config.js?v=20261109share3';
 import {parseSlug,voteCode,codeURL} from './config.js?v=20261109code1';
 export function shareCopy(video){
  const v=parseSlug(video?.slug);if(!v)throw Error('Invalid video slug.');
  const locale=SHARE_CONFIG.languages[v.lang],code=voteCode(v);
- const hook=locale?.hooks[v.hook];
- if(!hook)throw Error('Missing share template.');
- return locale.template.replaceAll('{hook}',hook).replaceAll('{code}',code);
+ if(!locale)throw Error('Missing language template.');
+ // New registered hook families can still share their code and localized CTA.
+ // One missing phrase must not prevent every other draft from rendering.
+ const hook=locale.hooks[v.hook]||'';
+ return locale.template.replaceAll('{hook}',hook).replaceAll('{code}',code).trim();
 }
 export function trackedShort(video,source,medium='post'){
  const v=parseSlug(video?.slug);if(!v||!['x','linkedin','whatsapp'].includes(source)||!['post','comment','dm'].includes(medium))throw Error('Invalid share link.');
