@@ -26,3 +26,7 @@ export const SHARE_CONFIG = {
   qu:{template:'{hook} {code}. Kay videota qhaway, yuyayniykita willay.',hooks:{a:'Musuq qallariy.',b:'Huk qallariy.',c:'Musuq yuyay.',d:'Yapay rurasun.',f:'Musuq video.',mom:'Mamaypa tapukuyninkuna.',bjj:'Jiu-jitsu.',startup:'Musuq llamk’ay.',side:'Huk ruway.',comm:'Kuska rurasqa.',int:'Ruraqta riqsiy.'}}
  }
 };
+
+// R05 uses e for the original sidequest clips and live for the verified live hook.
+const liveHooks={"en":"I'm live right now.","nl":"Ik ben nu live.","fr":"Je suis en direct.","pt":"Estou ao vivo agora.","es":"Estoy en directo.","de":"Ich bin gerade live.","it":"Sono in diretta.","ca":"Estic en directe.","eu":"Zuzenean nago.","tl":"Live ako ngayon.","zh":"我正在直播。","tr":"Şu an canlı yayındayım.","ar":"أنا مباشر الآن.","ru":"Я сейчас в прямом эфире.","ce":"Со хӀинца эфирехь ву.","pl":"Jestem teraz na żywo.","fa":"الان زنده هستم.","ln":"Nazali sikoyo na direct.","ay":"Jichhax live ukankasktwa.","qu":"Kunan live kachkani."};
+for(const [lang,locale] of Object.entries(SHARE_CONFIG.languages)){locale.hooks.e=locale.hooks.side;locale.hooks.live=liveHooks[lang];}

@@ -1,5 +1,5 @@
 // Cadence is per destination account, not shared across different platforms.
-export const POST_INTERVAL_MS={tt:60*60*1000,ig:60*60*1000,x:45*60*1000,li:0,tw:0};
+export const POST_INTERVAL_MS={tt:60*60*1000,ig:60*60*1000,x:45*60*1000,li:0,tw:0,yt:60*60*1000};
 export function uploadQueue(videos,now=Date.now()){
  const groups=new Map();
  for(const v of videos){if(v.is_example)continue;const id=v.platform+'-'+v.account;if(!groups.has(id))groups.set(id,{id,platform:v.platform,account:v.account,rows:[]});groups.get(id).rows.push(v);}

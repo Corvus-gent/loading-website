@@ -1,10 +1,11 @@
-import {SHARE_CONFIG} from './share-config.js?v=20261109queue1';
-import {parseSlug,voteCode} from './config.js?v=20261109queue1';
+import {SHARE_CONFIG} from './share-config.js?v=20261109r05';
+import {parseSlug,voteCode} from './config.js?v=20261109r05';
 export function shareCopy(video){
  const v=parseSlug(video?.slug);if(!v)throw Error('Invalid video slug.');
  const locale=SHARE_CONFIG.languages[v.lang],code=voteCode(v);
- if(!locale?.hooks[v.hook])throw Error('Missing share template.');
- return locale.template.replaceAll('{hook}',locale.hooks[v.hook]).replaceAll('{code}',code);
+ const hook=locale?.hooks[v.hook];
+ if(!hook)throw Error('Missing share template.');
+ return locale.template.replaceAll('{hook}',hook).replaceAll('{code}',code);
 }
 export function trackedShort(video,source,medium='post'){
  const v=parseSlug(video?.slug);if(!v||!['x','linkedin','whatsapp'].includes(source)||!['post','comment','dm'].includes(medium))throw Error('Invalid share link.');

@@ -12,7 +12,7 @@ export function validateExport(raw){
  const local_path=text(raw.local_path,'local path',2000);if(!local_path.startsWith('/')||!local_path.toLowerCase().endsWith('.mp4'))throw Error('export needs an absolute MP4 path');
  const caption=text(raw.caption,'caption',10000);if(!caption.trim())throw Error('export needs a caption');
  if(!Number.isSafeInteger(raw.export_order)||raw.export_order<0)throw Error('invalid export order');
- return{...p,vote_code:raw.vote_code,share_url,download_url,local_path,filename:local_path.split('/').at(-1),caption,export_order:raw.export_order,round:['R03','R04'].includes(raw.round)?raw.round:''};
+ return{...p,vote_code:raw.vote_code,share_url,download_url,local_path,filename:local_path.split('/').at(-1),caption,export_order:raw.export_order,round:['R03','R04','R05'].includes(raw.round)?raw.round:''};
 }
 // Compare-and-set preserves metrics, votes and edits even when an import races a refresh.
 async function mutate(slug,change){
@@ -33,7 +33,7 @@ export async function importExport(raw){const asset=validateExport(raw);return m
 });}
 export async function markPosted(slug,url,now=new Date()){
  const p=parseSlug(slug);if(!p)throw Error('Choose a registered slug.');const post_url=safePostURL(url);if(!post_url)throw Error('Paste the published post URL.');
- const host=new URL(post_url).hostname.replace(/^www\./,'');const hosts={tt:['tiktok.com','vm.tiktok.com','vt.tiktok.com','m.tiktok.com'],ig:['instagram.com'],x:['x.com','twitter.com'],li:['linkedin.com','lnkd.in'],tw:['twitch.tv']};
+ const host=new URL(post_url).hostname.replace(/^www\./,'');const hosts={tt:['tiktok.com','vm.tiktok.com','vt.tiktok.com','m.tiktok.com'],ig:['instagram.com'],x:['x.com','twitter.com'],li:['linkedin.com','lnkd.in'],tw:['twitch.tv'],yt:['youtube.com','m.youtube.com','youtu.be']};
  if(!hosts[p.platform].includes(host))throw Error('The post URL must match this slug’s platform.');
  return mutate(slug,existing=>{if(!existing)throw Error('This slug is not registered.');if(existing.post_url&&existing.post_url!==post_url)throw Error('Already posted at another URL. Use the full editor to correct it.');
  const row={...existing,...video({...existing,post_url,status:'posted',posted_at:existing.posted_at||now.toISOString()},{allowPending:true})};return{row};

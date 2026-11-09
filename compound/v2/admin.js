@@ -1,5 +1,5 @@
-import {shareCopy,trackedShort,shareDraft,replyPostID,todayDrafts} from './share-links.js?v=20261109queue1';
-import {PLATFORMS,ACCOUNTS,LANGUAGES,HOOKS,MEDIUMS,shortURL,fullURL} from './config.js?v=20261109queue1';
+import {shareCopy,trackedShort,shareDraft,replyPostID,todayDrafts} from './share-links.js?v=20261109r05';
+import {PLATFORMS,ACCOUNTS,LANGUAGES,HOOKS,MEDIUMS,shortURL,fullURL} from './config.js?v=20261109r05';
 import {$,node,api,options,copy,format,toast} from './client.js?v=20261108v2b';
 const linksPage=!!$('link-list'),replyTargets=new Map();let data,loading=false,qrObserver;
 function message(text){$('admin-status').textContent=text;}

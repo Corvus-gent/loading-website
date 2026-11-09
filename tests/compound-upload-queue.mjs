@@ -7,6 +7,10 @@ async function call(body,auth=false){const out={},res={setHeader(){},status(n){o
 try{
  for(const code of ['NL-MOM-1','nl-mom-1','nl-MoM1'])assert.equal(parseCode(code).code,'NL-MOM-1');assert.equal(parseCode('NL-MOM-0'),null);
  const rows=['tt-gm-en-b1','tt-gm-en-a1','tt-gm-fr-a1','tt-gm-nl-a1','x-gm-en-b1','x-gm-fr-a1','ig-gl-nl-a1','ig-gl-en-a1'].map(fixture);
+ const yt={...fixture('yt-gm-nl-mom1'),round:'R05'};assert.equal(validateExport(yt).round,'R05');
+ assert.equal(parseCode('en-live-1').code,'EN-LIVE-1');assert.equal(parseCode('es-e-1').code,'ES-E-1');
+ await importExport(yt);const ytPosted=await markPosted(yt.slug,'https://www.youtube.com/shorts/testClip',new Date(now));assert.equal(ytPosted.status,'posted');
+ await assert.rejects(markPosted(yt.slug,'https://youtube.com.evil.invalid/shorts/test'),/URL/);
  rows.forEach(validateExport);assert.throws(()=>validateExport({...rows[0],vote_code:'EN-B1'}));assert.throws(()=>validateExport({...rows[0],download_url:'javascript:alert(1)'}));
  for(const r of rows)await importExport(r);
  await store.vote('test-voter','x-gm-en-b1','up');await store.event('pageview','x-gm-en-b1');
