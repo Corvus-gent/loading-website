@@ -57,6 +57,7 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: node tests/live-banner-browser.mjs
       - run: node tests/live-page.mjs
+      - run: node tests/hack-live-mode.mjs
       - run: node tests/compound-v2-browser.mjs
       - run: node tests/smoke-ci.mjs
       - run: python3 tools/check-links.py

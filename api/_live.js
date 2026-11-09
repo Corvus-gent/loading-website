@@ -1,3 +1,4 @@
+import {hackLiveMode} from '../hack/live-mode-config.js';
 import { SOCIALS } from '../live/socials.js';
 import { LIVE, STREAM_ID } from '../live.config.js';
 import { waitUntil } from '@vercel/functions';
@@ -59,7 +60,7 @@ export default async function handler(req,res){
     const platforms=Object.fromEntries(SOCIALS.filter(s=>s.primary).map(s=>[s.platform,s.isLive]));
     const twitch=await readLandingTwitch();
     if(twitch.source==='twitch')platforms.twitch=twitch.live;
-    return res.status(200).json({platforms,live:Object.values(platforms).some(Boolean)});
+    return res.status(200).json({platforms,live:Object.values(platforms).some(Boolean),hackMode:hackLiveMode(process.env.HACK_LIVE_MODE)});
   }
   return res.status(200).json(await readStatus());
 }

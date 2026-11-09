@@ -14,10 +14,10 @@ export const SOCIALS = [
   {platform:'tiktok',handle:'gabinho_bjj',url:'https://www.tiktok.com/@gabinho_bjj',label:'TikTok · jiu-jitsu',isLive:false},
   {platform:'x',handle:'',url:'',label:'X · account 2',todo:'TODO: handle',isLive:false}
 ];
-export function liveURL(account) {
+export function liveURL(account,medium='live_page') {
   if(!account.url)return null;
   const url=new URL(account.url);
-  for(const [key,value] of Object.entries({utm_source:'corvus',utm_medium:'live_page',utm_campaign:'hack3',utm_content:account.platform}))url.searchParams.set(key,value);
+  for(const [key,value] of Object.entries({utm_source:'corvus',utm_medium:medium,utm_campaign:'hack3',utm_content:account.platform}))url.searchParams.set(key,value);
   return url.href;
 }
 export const IG_DM=liveURL({platform:'instagram',url:'https://ig.me/m/gabe.maxxing'});
