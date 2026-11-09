@@ -1,4 +1,4 @@
-import {renderSupport} from './stats-support.js?v=20261108s1';
+import {renderSupport} from './stats-support.js?v=20261109order1';
 import {renderCountries, countryPeriod} from './stats-countries.js';
 import {readPreference, savePreference} from './storage.js';
 const $ = id => document.getElementById(id);

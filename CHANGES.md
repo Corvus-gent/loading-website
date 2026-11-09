@@ -1,3 +1,7 @@
+## 2026-11-09 — codex/stats-section-order
+
+- Put visitors by country directly below the overview totals and move Support (Diogenes post) to the last statistics section, preserving the other sections’ order. Hide support rows with zero all-time clicks by default behind an accessible show all / show less toggle.
+
 ## 2026-11-09 — codex/compound-v2-share-fix
 
 - Restore the private links/QR page for the full imported registry: product-demo hooks now have share copy, and a missing hook phrase falls back to the localized code/CTA instead of blanking every draft. Preserve all posts, metrics, votes and feedback; refresh the versioned admin imports.
