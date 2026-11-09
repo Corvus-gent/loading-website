@@ -1,3 +1,4 @@
+import {accountStatus,settings} from './accounts.js';
 import {eligibility,classification,RULE_VERSION} from './eligibility.js';
 import {voteCode} from '../../../compound/v2/config.js';
 import {redis,pipeline} from '../../_redis.js';
@@ -42,8 +43,9 @@ export async function seed(){for(const row of SEEDS)if(!Number(await redis(['HEX
 export async function clickReport(){const [all,day]=await pipeline([['HGETALL',ikey('clicks')],['HGETALL',ikey('clicks:'+new Date().toISOString().slice(0,10))]]);const today=obj(day),rows=Object.entries(obj(all)).map(([id,total])=>({id,label:id,total:Number(total),today:Number(today[id]||0),timeZone:'UTC'})).sort((a,b)=>b.total-a.total);return{total:rows.reduce((n,v)=>n+v.total,0),rows};}
 export async function report({privateData=false}={}){
  const [all,clicks,history,status]=await Promise.all([records(),clickReport(),redis(['LRANGE',ikey('snapshots'),0,4319]),redis(['GET',ikey('sync-status')])]);
- const posts=all.filter(p=>privateData||p.made_with_compound).map(p=>({...publicPost(p),...(privateData?{eligibility:eligibility(p)}:{})})).sort((a,b)=>(b.score??-1)-(a.score??-1)||a.id.localeCompare(b.id)),counted=posts.filter(p=>p.made_with_compound),totals={views:0,engagements:0,score:0,videos:counted.length};
+ const prefs=await settings(),visible=all.filter(p=>prefs.include_twitch_archives||p.video_kind!=='archive');
+ const posts=visible.filter(p=>privateData||p.made_with_compound).map(p=>({...publicPost(p),...(privateData?{eligibility:eligibility(p)}:{})})).sort((a,b)=>(b.score??-1)-(a.score??-1)||a.id.localeCompare(b.id)),counted=posts.filter(p=>p.made_with_compound),totals={views:0,engagements:0,score:0,videos:counted.length};
  for(const p of counted)for(const k of ['views','engagements','score'])totals[k]+=Number(p[k]||0);
- return{posts,totals,clicks,history:history.map(parse).filter(s=>s?.rule_version===RULE_VERSION).reverse(),sync:parse(status),updated_at:new Date().toISOString()};
+ return{posts,totals,clicks,...(privateData?{accounts:await accountStatus(all),settings:await settings()}:{}),history:history.map(parse).filter(s=>s?.rule_version===RULE_VERSION).reverse(),sync:parse(status),updated_at:new Date().toISOString()};
 }
 export async function snapshot(){const r=await report(),s={at:new Date().toISOString(),rule_version:RULE_VERSION,...r.totals};await redis(['EVAL',"redis.call('LPUSH',KEYS[1],ARGV[1]);redis.call('LTRIM',KEYS[1],0,4319);return 1",1,ikey('snapshots'),JSON.stringify(s)]);return s;}

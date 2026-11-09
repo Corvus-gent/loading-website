@@ -1,9 +1,13 @@
+import {ACCOUNTS} from '../../../compound/impact/accounts.js';
+import {redis} from '../../_redis.js';
+import {ikey} from './store.js';
+import {saveStatus} from './accounts.js';
 import {waitUntil} from '@vercel/functions';
 import {authorized,sameOrigin,limit} from '../security.js';
 import {authorized as ownerAdmin,sameOrigin as ownerOrigin} from '../../_legion/security.js';
 import {equal} from '../../_compound/security.js';
 import {report,save,seed,snapshot} from './store.js';
-import {bulkRows,validate} from './model.js';
+import {bulkRows,validate,linkedinBulk} from './model.js';
 import {targetURL,countClick} from './links.js';
 import {sync} from './sync.js';
 export default async function handler(req,res){
@@ -24,8 +28,10 @@ export default async function handler(req,res){
  try{
  if(b.action==='save'){validate(b.post);const post=await save(b.post);await snapshot();return res.status(200).json({post});}
  if(b.action==='bulk'){const rows=bulkRows(b.text,b.made_with_compound!==false),saved=[];for(const row of rows)saved.push((await save(row)).id);await snapshot();return res.status(200).json({saved});}
+ if(b.action==='linkedin-bulk'){const rows=linkedinBulk(b.text,b),saved=[];for(const row of rows)saved.push((await save(row)).id);await saveStatus('li',b.account,{mode:'manual',found:rows.length,note:'Owner-supplied metrics and video confirmation.',error:null});await snapshot();return res.status(200).json({saved});}
+ if(b.action==='settings'){if(typeof b.include_twitch_archives!=='boolean')throw Error('Invalid archive setting.');await redis(['SET',ikey('settings'),JSON.stringify({include_twitch_archives:b.include_twitch_archives})]);return res.status(200).json({ok:true});}
  if(b.action==='seed'){await seed();await snapshot();return res.status(200).json({ok:true});}
- if(b.action==='sync')return res.status(200).json(await sync({force:true}));
+ if(b.action==='sync')return res.status(200).json(await sync({force:true,platform:b.platform}));
  return res.status(400).json({error:'Unknown action.'});
  }catch(e){return res.status(400).json({error:e.message});}
  }catch{return res.status(503).json({error:'The metrics are temporarily unavailable. Try again shortly.'});}

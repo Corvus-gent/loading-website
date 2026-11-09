@@ -1,7 +1,8 @@
+import {ACCOUNTS} from './accounts.js';
 export const IMPACT_CONFIG = {
- xAccounts:['gabe_maxxing'],
+ xAccounts:ACCOUNTS.x.handles.filter(Boolean),
  weights:{views:1,likes:3,comments:8,shares:10,saves:5},
- platforms:{tt:'TikTok',ig:'Instagram',x:'X',li:'LinkedIn',yt:'YouTube'},
+ platforms:Object.fromEntries(Object.entries(ACCOUNTS).map(([id,v])=>[id,v.name])),
  refreshSeconds:60,syncSeconds:1800,
  referralParam:'ref',
 };
