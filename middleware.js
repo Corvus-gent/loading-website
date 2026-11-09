@@ -30,6 +30,9 @@ const CURL_REPLY = `
 
 export default function middleware(request) {
   const url = new URL(request.url);
+  if(url.hostname!=='stats.corvus.gent'&&/^\/hack\/3\/?$/.test(url.pathname)&&/^[1-9]\d{0,3}$/.test(url.searchParams.get('interview')||'')){
+    const target=new URL('/api/stats',url);target.search=url.search;target.searchParams.set('compoundV2','1');target.searchParams.set('interviewPage',url.searchParams.get('interview'));return rewrite(target);
+  }
   const videoSlug=/^\/v\/([^/]+)\/?$/.exec(url.pathname);
   if(videoSlug&&url.hostname!=='stats.corvus.gent'){
     const target=new URL('/api/stats',url);target.search=url.search;target.searchParams.set('compoundV2','1');target.searchParams.set('short','1');target.searchParams.set('slug',videoSlug[1]);return rewrite(target);

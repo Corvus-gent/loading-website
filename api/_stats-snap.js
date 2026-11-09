@@ -325,6 +325,8 @@ export async function job(req, res) {
   const today = brusselsDay(),
     yesterday = new Date(Date.parse(today) - 86400000).toISOString().slice(0, 10);
   const work = async () => {
+    // Expire editorial interview photos even on days without public page visits.
+    await (await import('./_interviews/photos.js')).cleanupPhotos().catch(() => {});
     const shared = new Map(),
       cursor = (await redis(['GET', 'stats:backfill'])) || firstDay;
     await Promise.all(pages.map((page) => build(page, today, { shared, force: true })));

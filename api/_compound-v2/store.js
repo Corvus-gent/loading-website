@@ -7,7 +7,7 @@ const object=x=>Array.isArray(x)?Object.fromEntries(Array.from({length:x.length/
 export async function videos(){const rows=(await redis(['HVALS',key('videos')])).map(JSON.parse);const used=new Set(rows.map(v=>v.slug));return [...rows,...SEED_VIDEOS.filter(v=>!used.has(v.slug))];}
 export async function get(slug){const raw=await redis(['HGET',key('videos'),slug]);return raw?JSON.parse(raw):SEED_VIDEOS.find(v=>v.slug===slug)||null;}
 export async function save(raw,update=false){
- const row=validate(raw),exists=await redis(['HEXISTS',key('videos'),row.slug]);
+ const existing=update?await get(raw?.slug):null;const row=validate(raw,{allowPending:!!existing?.interview_n}),exists=await redis(['HEXISTS',key('videos'),row.slug]);if(existing?.interview_n){row.interview_n=existing.interview_n;row.interview_clip_url=existing.interview_clip_url||'';}
  if(!update&&Number(exists))throw Error('slug already exists');
  const fields=JSON.stringify(row);
  const result=await redis(['EVAL',`if ARGV[3]=='create' and redis.call('HEXISTS',KEYS[1],ARGV[1])==1 then return 0 end

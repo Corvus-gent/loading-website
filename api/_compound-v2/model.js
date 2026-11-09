@@ -10,10 +10,10 @@ export function safePostURL(value,compound=false){
  if(u.protocol!=='https:'||u.username||u.password||!hosts.includes(h))throw Error('invalid post URL');
  u.hash='';return u.href;
 }
-export function video(raw){
+export function video(raw,{allowPending=false}={}){
  const parsed=parseSlug(raw?.slug);if(!parsed)throw Error('invalid slug');
  const result={...parsed,post_url:safePostURL(raw.post_url),compound_url:safePostURL(raw.compound_url,true),is_example:raw.is_example===true};
- if(!result.is_example&&!result.post_url&&!SEED_VIDEOS.some(v=>v.slug===result.slug))throw Error('a real video needs a post URL');
+ if(!allowPending&&!result.is_example&&!result.post_url&&!SEED_VIDEOS.some(v=>v.slug===result.slug))throw Error('a real video needs a post URL');
  for(const key of METRICS){const n=Number(raw[key]??0);if(!Number.isSafeInteger(n)||n<0||n>1e12)throw Error('metrics must be non-negative whole numbers');result[key]=n;}
  if(!result.post_url&&METRICS.some(k=>result[k]))throw Error('add the post URL before recording social metrics');
  if(result.is_example&&METRICS.some(k=>result[k]))throw Error('examples must have zero metrics');
