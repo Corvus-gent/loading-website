@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Builds search-index.json: every page's visible text (English), so any phrase is searchable.
 Run after content changes:  python3 tools/build-search.py"""
-import glob, html, json, re
+import glob, html, json, re, subprocess
 
 EN = json.loads(open("js/locales/en.js", encoding="utf-8").read().removeprefix("export default ").rstrip(";\n"))
 people = json.load(open("people/people.json", encoding="utf-8"))["members"][0]
@@ -9,14 +9,16 @@ people = json.load(open("people/people.json", encoding="utf-8"))["members"][0]
 TITLES = {"/": "home", "/gabe": "gabe · about me"}
 # Explicit publication boundary: never crawl reports, traces or new internal dirs.
 PUBLIC_ROOTS = {"gabinho-rolls","plethora","hackathons","index.html", "call", "games", "languages", "links", "music", "now", "people", "privacy", "sf", "realm", "sidequests", "stats", "support", "wiki"}
+PUBLIC_FILES = set(json.loads(subprocess.check_output(['node', '--input-type=module', '-e', "import {ROUTES} from './js/site/routes.js'; console.log(JSON.stringify(ROUTES.filter(r=>r.public!==false&&r.file).map(r=>r.file)))"], text=True)))
 pages = []
 for f in sorted(glob.glob("**/index.html", recursive=True)):
-    if f.split("/", 1)[0] not in PUBLIC_ROOTS: continue
-    if f.startswith(("clients/", "go/", "gabe/", "node_modules/", "music/admin/", "call/admin/", "plethora/admin/", "402/", "stats/private/", "stats/hunt/")): continue
+    if f.split("/", 1)[0] not in PUBLIC_ROOTS and f not in PUBLIC_FILES: continue
+    if f.startswith(("clients/", "go/", "node_modules/", "music/admin/", "call/admin/", "plethora/admin/", "402/", "stats/private/", "stats/hunt/")): continue
     url = "/" + f[:-len("index.html")]
     if url == "/people/": url_title = "army · join the people"
     src = open(f, encoding="utf-8").read()
     body = src.split("<body", 1)[-1]
+    body = re.sub(r"<!-- SITE_(HEAD|NAV|NEXT) -->.*?<!-- /SITE_\1 -->", " ", body, flags=re.S)
     body = re.sub(r"<!-- secret-start -->.*?<!-- secret-end -->", "", body, flags=re.S)
     body = re.sub(r"<!-- PLETHORA_[A-Z]+ -->.*?<!-- /PLETHORA_[A-Z]+ -->", "", body, flags=re.S)
     keys = re.findall(r'data-i18n="([\w.]+)"', body)

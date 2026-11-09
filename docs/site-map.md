@@ -208,62 +208,62 @@ Source of truth: `js/site/routes.js`. The generated map and command palette expo
 | `/legion/` | legion | legion | open |
 | `/daily/` | daily | daily | open |
 | `/quests/` | quests | quests | open |
-| `/airbnb-filter` | gabe | Me vs. the Airbnb filter | open |
+| `/airbnb-filter` | gabe | me vs the Airbnb filter | experiment |
 | `/army` | legion | war room | members |
 | `/battle` | quests | Codex vs Compound | vote |
 | `/build` | quests | one man. one army. | live stats |
 | `/call` | gabe | book a call | open |
 | `/compound` | quests | the $1,000 cut | open |
-| `/compound/rules` | quests | The useful chaos: rules — Corvus | open |
+| `/compound/rules` | quests | feedback, with ground rules | rules |
 | `/compound/v2` | quests | 100 videos. one deadline. | contest |
 | `/dinner` | gabe | dinner in SF | open |
 | `/gabinho-rolls` | gabe | roll or surf | open |
 | `/games/hub` | daily | the arcade | playable |
 | `/games` | daily | play today | daily |
 | `/hack/1` | quests | 01 / HackTheFeed | pitched |
-| `/hack/1/the-feed` | quests | Try HackTheFeed · early beta | open |
+| `/hack/1/the-feed` | quests | try HackTheFeed | beta |
 | `/hack/3` | quests | 03 / robotics | live project |
 | `/hack` | quests | hackathons | ongoing |
 | `/hack/play` | daily | OSSMAN | playable |
 | `/hackathons` | quests | the squads | archive |
-| `/hackthefeed` | quests | Gabe's hackathon run, SF 2026 | open |
-| `/languages` | daily | Languages | open |
-| `/links/corvus` | gabe | Corvus | open |
-| `/links/pidgy` | gabe | Pidgy | open |
+| `/hackthefeed` | quests | the original hackathon log | archive |
+| `/languages` | daily | pick the next language | vote |
+| `/links/corvus` | gabe | Corvus links | connect |
+| `/links/pidgy` | gabe | Pidgy links | connect |
 | `/music` | daily | music | community |
 | `/now` | daily | right now | journal |
 | `/people` | gabe | people | directory |
 | `/plethora` | daily | Plethora | friend |
-| `/plethora/stats` | daily | Corvus × Plethora · live referral stats | open |
+| `/plethora/stats` | daily | Plethora referrals | live stats |
 | `/privacy` | gabe | privacy | plain English |
-| `/push` | quests | One video. One army. · Corvus | open |
+| `/push` | quests | one video. one army. | support |
 | `/realm` | gabe | the old realm | wander |
 | `/sf` | gabe | meet in San Francisco | in SF |
-| `/sidequests` | quests | Sidequests — Gabriel | open |
-| `https://stats.corvus.gent/army` | live | the army, counted | open |
-| `https://stats.corvus.gent/coffee` | live | coffees bought for gabe | open |
-| `https://stats.corvus.gent/games` | live | daily games | open |
-| `https://stats.corvus.gent/hack` | live | HackTheFeed · corvus stats | open |
-| `https://stats.corvus.gent/hunt` | live | curiosity, counted | open |
-| `https://stats.corvus.gent/` | live | Stats | open |
-| `https://stats.corvus.gent/map` | live | every ping, ever | open |
-| `https://stats.corvus.gent/music` | live | the rotation in numbers | open |
-| `https://stats.corvus.gent/pidgy` | live | corvus → pidgy | open |
-| `https://stats.corvus.gent/status` | live | service status | open |
-| `https://stats.corvus.gent/x` | live | the x log | open |
-| `/support/books` | gabe | Books | open |
-| `/support/companies` | gabe | Companies | open |
-| `/support/founders` | gabe | Founders | open |
-| `/support` | gabe | Support | open |
-| `/support/people` | gabe | People | open |
-| `/support/philosophists` | gabe | Philosophists | open |
-| `/support/sport-people` | gabe | Sport people | open |
-| `/wiki/corvus` | legion | Corvus | open |
-| `/wiki/corvus/namesakes` | legion | The many meanings of Corvus | open |
-| `/wiki` | legion | Main page | open |
-| `/wiki/pidgy` | legion | Pidgy | open |
+| `/sidequests` | quests | the sidequests | wander |
+| `https://stats.corvus.gent/army` | live | the army, counted | live stats |
+| `https://stats.corvus.gent/coffee` | live | coffee for the army | live stats |
+| `https://stats.corvus.gent/games` | live | the daily games, counted | live stats |
+| `https://stats.corvus.gent/hack` | live | HackTheFeed, counted | live stats |
+| `https://stats.corvus.gent/hunt` | live | curiosity, counted | live stats |
+| `https://stats.corvus.gent/` | live | the public numbers | live stats |
+| `https://stats.corvus.gent/map` | live | where the army is | live stats |
+| `https://stats.corvus.gent/music` | live | the rotation in numbers | live stats |
+| `https://stats.corvus.gent/pidgy` | live | Corvus → Pidgy | live stats |
+| `https://stats.corvus.gent/status` | live | is everything awake? | live status |
+| `https://stats.corvus.gent/x` | live | the X log | live stats |
+| `/support/books` | gabe | books worth keeping | shelf |
+| `/support/companies` | gabe | companies worth watching | directory |
+| `/support/founders` | gabe | founders worth following | directory |
+| `/support` | gabe | back the people building | directory |
+| `/support/people` | gabe | people worth knowing | directory |
+| `/support/philosophists` | gabe | old ideas. new questions. | reading |
+| `/support/sport-people` | gabe | people who put in the rounds | directory |
+| `/wiki/corvus` | legion | what is Corvus? | read |
+| `/wiki/corvus/namesakes` | legion | why the crow? | read |
+| `/wiki` | legion | the field notes | read |
+| `/wiki/pidgy` | legion | what is Pidgy? | read |
 | `/hack/2` | quests | 02 / OSSMAN | shipped |
-| `/cv/` | gabe | the CV | read |
+| `/cv` | gabe | the CV | read |
 | `/links/gabe` | gabe | Gabe’s links | connect |
 | `/402/` | gabe | 402 · the crow’s other door | secret |
 | `/hack/the-feed/` | quests | HackTheFeed · original demo door | archive |
@@ -276,3 +276,11 @@ Source of truth: `js/site/routes.js`. The generated map and command palette expo
 - Root `/map` is the public directory; `stats.corvus.gent/map` remains the visitor map. Search from the stats host explicitly targets the main host for ordinary site routes.
 - Contest routes, short-code redirects, voting data, old HackTheFeed archives and public soldier profiles remain intact.
 - The Plethora generator removes/rebuilds only its own slots before the shared chrome generator runs; both are idempotent.
+
+- `/cv` serves the existing PDF; `/cv/` now resolves to the same handler instead of 404. The directory uses the canonical `/cv`.
+
+### Served-page verification
+
+All 67 directory destinations plus home were opened at 390×844 and 1440×900: 136 checks. The audit found one dead variant (`/cv/`) and repaired it. Public HTML pages have the shared navigation, section context, a call route, no horizontal document overflow, and no broken image elements. Private admin was tested after authentication separately. The game and embedded demo reserve space for controls; their own bottom actions replace an extra page footer. PDFs, offline submissions, client previews and the transparent broadcast overlay remain standalone.
+
+Screenshots and machine-readable checks are local in `test-results/site-routes/`; they are not committed or exposed publicly.

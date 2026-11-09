@@ -102,9 +102,9 @@ export const ROUTES = [
     "path": "/airbnb-filter",
     "file": "airbnb-filter/index.html",
     "section": "gabe",
-    "title": "Me vs. the Airbnb filter",
-    "description": "A corner of Corvus. Follow your curiosity.",
-    "status": "open"
+    "title": "me vs the Airbnb filter",
+    "description": "A tiny experiment in saying what booking sites will not.",
+    "status": "experiment"
   },
   {
     "path": "/army",
@@ -150,9 +150,9 @@ export const ROUTES = [
     "path": "/compound/rules",
     "file": "compound/rules/index.html",
     "section": "quests",
-    "title": "The useful chaos: rules \u2014 Corvus",
-    "description": "A corner of Corvus. Follow your curiosity.",
-    "status": "open"
+    "title": "feedback, with ground rules",
+    "description": "How the video experiment works, and what your help means.",
+    "status": "rules"
   },
   {
     "path": "/compound/v2",
@@ -206,9 +206,9 @@ export const ROUTES = [
     "path": "/hack/1/the-feed",
     "file": "hack/1/the-feed/index.html",
     "section": "quests",
-    "title": "Try HackTheFeed \u00b7 early beta",
-    "description": "A corner of Corvus. Follow your curiosity.",
-    "status": "open"
+    "title": "try HackTheFeed",
+    "description": "Paste a company site. Find a new angle for your next video.",
+    "status": "beta"
   },
   {
     "path": "/hack/3",
@@ -246,33 +246,33 @@ export const ROUTES = [
     "path": "/hackthefeed",
     "file": "hackthefeed/index.html",
     "section": "quests",
-    "title": "Gabe's hackathon run, SF 2026",
-    "description": "A corner of Corvus. Follow your curiosity.",
-    "status": "open"
+    "title": "the original hackathon log",
+    "description": "An archived doorway to the builds that started this week.",
+    "status": "archive"
   },
   {
     "path": "/languages",
     "file": "languages/index.html",
     "section": "daily",
-    "title": "Languages",
-    "description": "A corner of Corvus. Follow your curiosity.",
-    "status": "open"
+    "title": "pick the next language",
+    "description": "A small vote in how this corner of the internet speaks.",
+    "status": "vote"
   },
   {
     "path": "/links/corvus",
     "file": "links/corvus/index.html",
     "section": "gabe",
-    "title": "Corvus",
-    "description": "A corner of Corvus. Follow your curiosity.",
-    "status": "open"
+    "title": "Corvus links",
+    "description": "The community, its channels and its next open door.",
+    "status": "connect"
   },
   {
     "path": "/links/pidgy",
     "file": "links/pidgy/index.html",
     "section": "gabe",
-    "title": "Pidgy",
-    "description": "A corner of Corvus. Follow your curiosity.",
-    "status": "open"
+    "title": "Pidgy links",
+    "description": "The product and the people building it.",
+    "status": "connect"
   },
   {
     "path": "/music",
@@ -310,9 +310,9 @@ export const ROUTES = [
     "path": "/plethora/stats",
     "file": "plethora/stats/index.html",
     "section": "daily",
-    "title": "Corvus \u00d7 Plethora \u00b7 live referral stats",
-    "description": "A corner of Corvus. Follow your curiosity.",
-    "status": "open"
+    "title": "Plethora referrals",
+    "description": "How many clicks the army sent, and from which doorway.",
+    "status": "live stats"
   },
   {
     "path": "/privacy",
@@ -326,9 +326,9 @@ export const ROUTES = [
     "path": "/push",
     "file": "push/index.html",
     "section": "quests",
-    "title": "One video. One army. \u00b7 Corvus",
-    "description": "A corner of Corvus. Follow your curiosity.",
-    "status": "open"
+    "title": "one video. one army.",
+    "description": "Give the chosen video a minute and an honest comment.",
+    "status": "support"
   },
   {
     "path": "/realm",
@@ -350,185 +350,185 @@ export const ROUTES = [
     "path": "/sidequests",
     "file": "sidequests/index.html",
     "section": "quests",
-    "title": "Sidequests \u2014 Gabriel",
-    "description": "A corner of Corvus. Follow your curiosity.",
-    "status": "open"
+    "title": "the sidequests",
+    "description": "Experiments beyond the main mission.",
+    "status": "wander"
   },
   {
     "path": "https://stats.corvus.gent/army",
     "file": "stats/army/index.html",
     "section": "live",
     "title": "the army, counted",
-    "description": "A corner of Corvus. Follow your curiosity.",
-    "status": "open"
+    "description": "Visits, enlistments and people who said yes.",
+    "status": "live stats"
   },
   {
     "path": "https://stats.corvus.gent/coffee",
     "file": "stats/coffee/index.html",
     "section": "live",
-    "title": "coffees bought for gabe",
-    "description": "A corner of Corvus. Follow your curiosity.",
-    "status": "open"
+    "title": "coffee for the army",
+    "description": "The coffees that keep the builds moving.",
+    "status": "live stats"
   },
   {
     "path": "https://stats.corvus.gent/games",
     "file": "stats/games/index.html",
     "section": "live",
-    "title": "daily games",
-    "description": "A corner of Corvus. Follow your curiosity.",
-    "status": "open"
+    "title": "the daily games, counted",
+    "description": "Puzzles played and streaks kept.",
+    "status": "live stats"
   },
   {
     "path": "https://stats.corvus.gent/hack",
     "file": "stats/hack/index.html",
     "section": "live",
-    "title": "HackTheFeed \u00b7 corvus stats",
-    "description": "A corner of Corvus. Follow your curiosity.",
-    "status": "open"
+    "title": "HackTheFeed, counted",
+    "description": "Visits, app opens and feedback for the first hack.",
+    "status": "live stats"
   },
   {
     "path": "https://stats.corvus.gent/hunt",
     "file": "stats/hunt/index.html",
     "section": "live",
     "title": "curiosity, counted",
-    "description": "A corner of Corvus. Follow your curiosity.",
-    "status": "open"
+    "description": "The secrets people found while wandering.",
+    "status": "live stats"
   },
   {
     "path": "https://stats.corvus.gent/",
     "file": "stats/index.html",
     "section": "live",
-    "title": "Stats",
-    "description": "A corner of Corvus. Follow your curiosity.",
-    "status": "open"
+    "title": "the public numbers",
+    "description": "Visits, clicks and the shape of the army.",
+    "status": "live stats"
   },
   {
     "path": "https://stats.corvus.gent/map",
     "file": "stats/map/index.html",
     "section": "live",
-    "title": "every ping, ever",
-    "description": "A corner of Corvus. Follow your curiosity.",
-    "status": "open"
+    "title": "where the army is",
+    "description": "A map of the visits we can place.",
+    "status": "live stats"
   },
   {
     "path": "https://stats.corvus.gent/music",
     "file": "stats/music/index.html",
     "section": "live",
     "title": "the rotation in numbers",
-    "description": "A corner of Corvus. Follow your curiosity.",
-    "status": "open"
+    "description": "What people listen to and vote for.",
+    "status": "live stats"
   },
   {
     "path": "https://stats.corvus.gent/pidgy",
     "file": "stats/pidgy/index.html",
     "section": "live",
-    "title": "corvus \u2192 pidgy",
-    "description": "A corner of Corvus. Follow your curiosity.",
-    "status": "open"
+    "title": "Corvus → Pidgy",
+    "description": "The people sent from here to Pidgy.",
+    "status": "live stats"
   },
   {
     "path": "https://stats.corvus.gent/status",
     "file": "stats/status/index.html",
     "section": "live",
-    "title": "service status",
-    "description": "A corner of Corvus. Follow your curiosity.",
-    "status": "open"
+    "title": "is everything awake?",
+    "description": "Service checks, history and honest failures.",
+    "status": "live status"
   },
   {
     "path": "https://stats.corvus.gent/x",
     "file": "stats/x/index.html",
     "section": "live",
-    "title": "the x log",
-    "description": "A corner of Corvus. Follow your curiosity.",
-    "status": "open"
+    "title": "the X log",
+    "description": "Posts, clicks and the record of building out loud.",
+    "status": "live stats"
   },
   {
     "path": "/support/books",
     "file": "support/books/index.html",
     "section": "gabe",
-    "title": "Books",
-    "description": "A corner of Corvus. Follow your curiosity.",
-    "status": "open"
+    "title": "books worth keeping",
+    "description": "The books Gabe comes back to.",
+    "status": "shelf"
   },
   {
     "path": "/support/companies",
     "file": "support/companies/index.html",
     "section": "gabe",
-    "title": "Companies",
-    "description": "A corner of Corvus. Follow your curiosity.",
-    "status": "open"
+    "title": "companies worth watching",
+    "description": "Builders and products on Gabe’s radar.",
+    "status": "directory"
   },
   {
     "path": "/support/founders",
     "file": "support/founders/index.html",
     "section": "gabe",
-    "title": "Founders",
-    "description": "A corner of Corvus. Follow your curiosity.",
-    "status": "open"
+    "title": "founders worth following",
+    "description": "People making things happen.",
+    "status": "directory"
   },
   {
     "path": "/support",
     "file": "support/index.html",
     "section": "gabe",
-    "title": "Support",
-    "description": "A corner of Corvus. Follow your curiosity.",
-    "status": "open"
+    "title": "back the people building",
+    "description": "A directory of people, projects and ways to help.",
+    "status": "directory"
   },
   {
     "path": "/support/people",
     "file": "support/people/index.html",
     "section": "gabe",
-    "title": "People",
-    "description": "A corner of Corvus. Follow your curiosity.",
-    "status": "open"
+    "title": "people worth knowing",
+    "description": "Good people from different corners of the world.",
+    "status": "directory"
   },
   {
     "path": "/support/philosophists",
     "file": "support/philosophists/index.html",
     "section": "gabe",
-    "title": "Philosophists",
-    "description": "A corner of Corvus. Follow your curiosity.",
-    "status": "open"
+    "title": "old ideas. new questions.",
+    "description": "Thinkers who still interrupt the conversation.",
+    "status": "reading"
   },
   {
     "path": "/support/sport-people",
     "file": "support/sport-people/index.html",
     "section": "gabe",
-    "title": "Sport people",
-    "description": "A corner of Corvus. Follow your curiosity.",
-    "status": "open"
+    "title": "people who put in the rounds",
+    "description": "Athletes, fighters and the work behind them.",
+    "status": "directory"
   },
   {
     "path": "/wiki/corvus",
     "file": "wiki/corvus/index.html",
     "section": "legion",
-    "title": "Corvus",
-    "description": "A corner of Corvus. Follow your curiosity.",
-    "status": "open"
+    "title": "what is Corvus?",
+    "description": "The story, the principles and the people behind the crow.",
+    "status": "read"
   },
   {
     "path": "/wiki/corvus/namesakes",
     "file": "wiki/corvus/namesakes/index.html",
     "section": "legion",
-    "title": "The many meanings of Corvus",
-    "description": "A corner of Corvus. Follow your curiosity.",
-    "status": "open"
+    "title": "why the crow?",
+    "description": "The many meanings carried by the name Corvus.",
+    "status": "read"
   },
   {
     "path": "/wiki",
     "file": "wiki/index.html",
     "section": "legion",
-    "title": "Main page",
-    "description": "A corner of Corvus. Follow your curiosity.",
-    "status": "open"
+    "title": "the field notes",
+    "description": "People, ideas and stories that shaped this place.",
+    "status": "read"
   },
   {
     "path": "/wiki/pidgy",
     "file": "wiki/pidgy/index.html",
     "section": "legion",
-    "title": "Pidgy",
-    "description": "A corner of Corvus. Follow your curiosity.",
-    "status": "open"
+    "title": "what is Pidgy?",
+    "description": "A closer look at the product.",
+    "status": "read"
   },
   {
     "path": "/hack/2",
@@ -539,16 +539,44 @@ export const ROUTES = [
     "status": "shipped"
   },
   {
-    "path": "/cv/",
+    "path": "/cv",
     "file": null,
     "section": "gabe",
     "title": "the CV",
     "description": "The short version. Work, builds, education.",
-    "status": "read"
+    "status": "read",
+    "type": "pdf"
+  },
+  {
+    "path": "/links/gabe",
+    "file": "links/index.html",
+    "section": "gabe",
+    "title": "Gabe’s links",
+    "description": "Every place to find Gabe.",
+    "status": "connect"
+  },
+  {
+    "path": "/402/",
+    "file": "402/index.html",
+    "section": "gabe",
+    "title": "402 · the crow’s other door",
+    "description": "An old corner worth finding.",
+    "status": "secret"
+  },
+  {
+    "path": "/hack/the-feed/",
+    "file": "hack/the-feed/index.html",
+    "section": "quests",
+    "title": "HackTheFeed · original demo door",
+    "description": "The original try-page, kept intact.",
+    "status": "archive"
+  },
+  {
+    "path": "/hackthefeed/2/",
+    "file": "hackthefeed/2/index.html",
+    "section": "quests",
+    "title": "Hack #2 · original countdown",
+    "description": "The page before the cage opened.",
+    "status": "archive"
   }
-,
- {"path":"/links/gabe","file":"links/index.html","section":"gabe","title":"Gabe’s links","description":"Every place to find Gabe.","status":"connect"},
- {"path":"/402/","file":"402/index.html","section":"gabe","title":"402 · the crow’s other door","description":"An old corner worth finding.","status":"secret"},
- {"path":"/hack/the-feed/","file":"hack/the-feed/index.html","section":"quests","title":"HackTheFeed · original demo door","description":"The original try-page, kept intact.","status":"archive"},
- {"path":"/hackthefeed/2/","file":"hackthefeed/2/index.html","section":"quests","title":"Hack #2 · original countdown","description":"The page before the cage opened.","status":"archive"}
 ];

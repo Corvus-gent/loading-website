@@ -238,6 +238,10 @@
       "destination": "/api/stats?game=1"
     },
     {
+      "source": "/cv/",
+      "destination": "/api/cv"
+    },
+    {
       "source": "/cv",
       "destination": "/api/cv"
     },
