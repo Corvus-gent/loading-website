@@ -8,6 +8,7 @@ const human=req=>!(/bot|crawler|spider|preview|curl|wget|headless|facebookextern
 export default async function handler(req,res){
  res.setHeader('Cache-Control','no-store');res.setHeader('X-Content-Type-Options','nosniff');
  const q=req.query||{};
+ if(q.interviews==='1'||q.interviewAdmin==='1'||q.interviewPage||q.interviewCard)return (await import('../_interviews/handler.js')).default(req,res);
  try{
   if(q.short==='1'&&['GET','HEAD'].includes(req.method)){
    const target=destination(q.slug,q);if(!target)return res.status(404).json({error:'That video code is not valid.'});

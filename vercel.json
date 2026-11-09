@@ -258,7 +258,7 @@
       "includeFiles": "music.json"
     },
     "api/stats.js": {
-      "includeFiles": "{music.json,battle/config.json,battle/media.json}",
+      "includeFiles": "{music.json,battle/config.json,battle/media.json,hack/3/index.html,hack/3/interviews.json}",
       "maxDuration": 60
     },
     "api/x-stats.js": {

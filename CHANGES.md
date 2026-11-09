@@ -314,3 +314,9 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 - Add an isolated video registry, filtered hub, language/hook/cut pages, attributed /v/{slug} redirects, cookie-deduped voting and private feedback.
 - Owner stats support adding posts, inline metric edits, sorted rollups and local QR/share tools. Clearly marked examples never inflate totals. Original Compound remains intact.
 - Reuse existing Redis and admin password; document consent, TTLs, counters and optional Oriane configuration.
+
+## Interview quick-add — 2026-11-08
+- Added mobile `/hack/3/add` using the Compound v2 password/session, required filming consent, optional compressed photo/clip, and edit/delete controls.
+- Atomically publish interviews plus collision-safe `x-gm-en-intN` tracker rows; keep metrics on edits and prevent duplicate saves. Both public robotics lists refresh from the same store.
+- Added per-interview share drafts, anchor links and dynamic Open Graph cards; existing game/live pages remain intact.
+- Validation: Redis-backed mobile/desktop integration, auth/origin/consent, numbering/idempotency, preserved counts, photo encoding/cleanup, OG, Compound v2 and live-mode regression checks.
