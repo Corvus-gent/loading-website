@@ -36,7 +36,7 @@ Action counts exclude typing, scrolling, field focus and operating-system/paymen
 | Hidden NFC card → digital card → admin click count | pass | pass | 1 to reveal; 2 to an outbound CTA | `site-flows/*card-secret.png`; protected-preview dedupe/count check |
 | Find Battle via / | pass | pass | 1 result selection | `site-flows/*battle-search.png`, `*battle.png` |
 
-The real Stripe checkout used a **test-mode** $1 price and test card, then the real signed webhook on a Vercel preview. No real card was charged. Production uses the separately verified live payment link and live webhook. The public wall refreshes without CDN delay immediately after payment.
+The real Stripe checkout used a **test-mode** $1 price and test card, then the real signed webhook on a Vercel preview. No real card was charged. A later attempt to repeat checkout at both viewport sizes was stopped because the Stripe CLI OAuth login expired; that does not disable the already-created live Payment Link or signed webhook. The successful phase-1 test is retained as payment evidence; do not read the desktop layout check as a second real payment. Production uses the separately verified live payment link and live webhook. The public wall refreshes without CDN delay immediately after payment.
 
 ## Route and layout audit
 
