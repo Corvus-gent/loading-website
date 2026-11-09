@@ -1,3 +1,4 @@
+import {eligibility,classification} from './eligibility.js';
 import crypto from 'node:crypto';
 import {METRICS,score,engagements} from '../../../compound/impact/config.js';
 export {METRICS,score,engagements};
@@ -22,7 +23,8 @@ export function validate(raw,previous={}){
  const info=postInfo(raw?.post_url||previous.post_url),out={...previous,...info};
  for(const k of METRICS){if(raw[k]===undefined)continue;if(raw[k]===null||raw[k]===''){out[k]=null;continue;}const n=Number(raw[k]);if(!Number.isSafeInteger(n)||n<0||n>1e12)throw Error(k+' must be a non-negative whole number.');out[k]=n;}
  for(const k of ['original_by_gabe','native_video'])if(raw[k]!==undefined){if(typeof raw[k]!=='boolean')throw Error('Confirm '+k);out[k]=raw[k];}
- for(const [k,values]of Object.entries({post_kind:['original','self_thread','reply','repost','quote','unknown'],media_type:['video','image','gif','carousel','unknown']}))if(raw[k]!==undefined){if(!values.includes(raw[k]))throw Error('Invalid '+k);out[k]=raw[k];}
+ for(const [k,values]of Object.entries({post_type:['original','reply','repost','quote','unknown'],media_type:['video','image','gif','carousel','text','link','unknown']}))if(raw[k]!==undefined){if(!values.includes(raw[k]))throw Error('Invalid '+k);out[k]=raw[k];}
+ if(raw.post_type===undefined&&raw.post_kind!==undefined)out.post_type=classification(raw).post_type;
  if(raw.made_with_compound!==undefined){if(typeof raw.made_with_compound!=='boolean')throw Error('Choose Compound yes or no.');out.made_with_compound=raw.made_with_compound;}
  for(const k of ['account','label'])if(raw[k]!==undefined)out[k]=clean(raw[k],k==='account'?80:160);
  if(!out.account)out.account=info.account||previous.account||'';
@@ -42,4 +44,4 @@ export function velocity(row,now=Date.now()){
  const hours=(observed-posted)/3600000;if(hours<=24)return score(row)/Math.max(hours,1/60);
  return Number.isFinite(row.first24_velocity)?row.first24_velocity:null;
 }
-export function publicPost(row){const out={};for(const k of ['id','post_url','platform','account','label','slug','posted_at','thumbnail_url','made_with_compound','metric_source','metrics_at','measured_date','vote_code','original_by_gabe','native_video','post_kind','media_type','manual_approved','registry_match',...METRICS])out[k]=row[k]??null;return {...out,score:score(row),engagements:engagements(row),velocity:velocity(row),missing_metrics:METRICS.filter(k=>row[k]==null)};}
+export function publicPost(row){const out={};for(const k of ['id','post_url','platform','account','label','slug','posted_at','thumbnail_url','made_with_compound','metric_source','metrics_at','measured_date','vote_code','original_by_gabe','native_video','post_kind','post_type','media_type','manual_approved','registry_match',...METRICS])out[k]=row[k]??null;return {...out,...classification(row),score:eligibility(row).eligible?score(row):null,engagements:eligibility(row).eligible?engagements(row):null,velocity:eligibility(row).eligible?velocity(row):null,missing_metrics:METRICS.filter(k=>row[k]==null)};}

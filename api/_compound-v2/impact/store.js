@@ -1,4 +1,4 @@
-import {eligibility,RULE_VERSION} from './eligibility.js';
+import {eligibility,classification,RULE_VERSION} from './eligibility.js';
 import {voteCode} from '../../../compound/v2/config.js';
 import {redis,pipeline} from '../../_redis.js';
 import {key,videos} from '../store.js';
@@ -17,12 +17,11 @@ export async function records(){
  const previous=byID.get(info.id);if(!previous||Date.parse(row.metrics_at||0)>Date.parse(previous.metrics_at||0))byID.set(info.id,row);
  }
  for(const row of overrides.values())if(!byID.has(row.id))byID.set(row.id,row);
- return [...byID.values()].map(row=>{const linked=registry.find(v=>!v.is_example&&v.slug===row.slug&&v.post_url&&(()=>{try{return postInfo(v.post_url).id===row.id;}catch{return false;}})());row.registry_match=!!linked;row.vote_code=linked?voteCode(linked):row.vote_code||null;row.made_with_compound=eligibility(row).eligible;return row;});
+ return [...byID.values()].map(row=>{const linked=registry.find(v=>!v.is_example&&v.slug===row.slug&&v.post_url&&(()=>{try{return postInfo(v.post_url).id===row.id;}catch{return false;}})());row.registry_match=!!linked;row.vote_code=linked?voteCode(linked):row.vote_code||null;Object.assign(row,classification(row));row.made_with_compound=eligibility(row).eligible;return row;});
 }
 export async function save(raw,{source='manual',expected,seed=false}={}){
  const info=postInfo(raw.post_url),old=await redis(['HGET',ikey('posts'),postInfo(raw.post_url).id]),existing=(await records()).find(p=>p.id===info.id)||{},next=validate(raw,existing);
- if(source==='manual'&&raw.made_with_compound!==undefined){next.manual_approved=raw.made_with_compound;next.compound_excluded=!raw.made_with_compound;}
- const rule=eligibility(next);if(raw.made_with_compound===true&&!rule.eligible)throw Error(rule.reasons.join(' '));next.made_with_compound=rule.eligible;
+ Object.assign(next,classification(next));next.made_with_compound=eligibility(next).eligible;
  const now=new Date().toISOString();if(METRICS.some(k=>raw[k]!=null&&raw[k]!=='')){next.metric_source=source;next.metrics_at=now;}else{next.metric_source??='unreported';next.metrics_at??=null;}
  if(seed){next.measured_date=raw.measured_date;next.metrics_at=null;}
  else delete next.measured_date;
