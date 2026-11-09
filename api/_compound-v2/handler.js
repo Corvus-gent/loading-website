@@ -1,3 +1,4 @@
+import {winner,selectWinner} from './push.js';
 import {resolveCode} from './codes.js';
 import {markPosted} from './uploads.js';
 import {uploadQueue} from '../../compound/v2/upload-queue.js';
@@ -25,11 +26,12 @@ export default async function handler(req,res){
    res.setHeader('Location',target);return res.status(302).end();
   }
   if(req.method==='GET'){
+   if(q.push==='1'){res.setHeader('Cache-Control','public, max-age=0, s-maxage=15, stale-while-revalidate=60');return res.status(200).json(await winner());}
    if(q.session==='1')return res.status(200).json({authorized:authorized(req)});
    if(q.private==='1'){
     if(!authorized(req))return res.status(401).json({error:'Sign in first.'});
     if(configured())waitUntil(syncIfDue().catch(()=>{}));
-    const report=await store.report({privateData:true});return res.status(200).json({...report,upload_queue:uploadQueue(report.videos),feedback:await store.privateFeedback(),sync:await syncStatus()});
+    const report=await store.report({privateData:true});return res.status(200).json({...report,upload_queue:uploadQueue(report.videos),feedback:await store.privateFeedback(),sync:await syncStatus(),push:await winner()});
    }
    if(configured())waitUntil(syncIfDue().catch(()=>{}));
    res.setHeader('Cache-Control','public, max-age=0, s-maxage=15, stale-while-revalidate=120');
@@ -44,12 +46,19 @@ export default async function handler(req,res){
   if(!await limit(req,'all',150))return res.status(429).json({error:'Take a breath. Try again in a minute.'});
   if(b.action==='login'){if(!await limit(req,'login',5,300))return res.status(429).json({error:'Too many attempts. Try again in five minutes.'});return login(res,b.password)?res.status(200).json({ok:true}):res.status(401).json({error:'Wrong password.'});}
   if(b.action==='logout'){logout(res);return res.status(200).json({ok:true});}
-  if(['add','edit','hide_feedback','mark_posted'].includes(b.action)){
+  if(['add','edit','hide_feedback','mark_posted','set_winner'].includes(b.action)){
    if(!authorized(req))return res.status(401).json({error:'Owner sign-in required.'});
+   if(b.action==='set_winner'){try{return res.status(200).json(await selectWinner(b.slug));}catch(e){return res.status(400).json({error:e.message});}}
    if(b.action==='hide_feedback'){await store.hideFeedback(b.id);return res.status(200).json({ok:true});}
    let row;try{row=b.action==='mark_posted'?await markPosted(b.slug,b.post_url):await store.save(b.video,b.action==='edit');}catch(e){return res.status(400).json({error:e.message});}return res.status(200).json({video:row});
   }
   if(b.website)return res.status(400).json({error:'Please leave the hidden field empty.'});
+  if(b.action==='push_event'){
+   if(!['view','watch','comment','share'].includes(b.type))return res.status(400).json({error:'Invalid action.'});
+   if(!human(req))return res.status(200).json({ok:true,skipped:true});
+   const picked=(await winner()).winner;if(!picked||picked.slug!==b.slug)return res.status(409).json({error:'The selected post changed. Refresh the page.'});
+   const policy=analytics(b,req);await store.event('push_'+b.type,picked.slug||'push',{tags:policy.enabled?{...attribution(b.attribution),utm_content:'push'}:{},visitor:policy.visitor});return res.status(200).json({ok:true});
+  }
   if(b.action==='code'){
    const source=b.source==='url'?'url':'typed',result=resolveCode(b.code,await store.videos(),b.query||{},source),policy=analytics(b,req);
    await store.event('code_entered','code:'+result.code,{tags:policy.enabled?attribution(b.attribution):{},visitor:policy.visitor,code:result.code,source,lang:result.parsed?.lang||''});

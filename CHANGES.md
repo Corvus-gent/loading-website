@@ -347,3 +347,7 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 - Ready-batch import requires source confirmation: current release manifest is empty and audio repairs are pending.
 
 - 2026-11-09: Direct vote-code links (/c/CODE and ?code=), compact/case-insensitive lookup, preserved UTMs, grouped matches, short pinned comments and private per-code visit totals.
+
+## 2026-11-09 — codex/compound-push
+- One-post /push page with owner-selected focus, honest reported views, seven editable comment languages, user-controlled sharing and optional social embeds.
+- Reuse Compound v2 owner auth and consent-aware aggregate tracking; preserve product-demo hook registration.
