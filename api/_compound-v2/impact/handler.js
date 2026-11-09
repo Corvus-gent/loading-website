@@ -14,7 +14,7 @@ export default async function handler(req,res){
  if(q.job==='1'){if(!cron&&!authorized(req)&&!await ownerAdmin(req))return res.status(401).json({error:'Owner or scheduler access required.'});if(req.method!=='GET')return res.status(405).end();return res.status(200).json(await sync());}
  if(req.method==='GET'){
  if(q.private==='1'&&!authorized(req)&&!await ownerAdmin(req))return res.status(401).json({error:'Sign in first.'});
- if(q.private!=='1')res.setHeader('Cache-Control','public, max-age=0, s-maxage=30, stale-while-revalidate=300');return res.status(200).json(await report());}
+ if(q.private!=='1')res.setHeader('Cache-Control','public, max-age=0, s-maxage=30, stale-while-revalidate=300');return res.status(200).json(await report({privateData:q.private==='1'}));}
  if(req.method!=='POST')return res.status(405).end();
  const admin=authorized(req)||await ownerAdmin(req);if(!admin)return res.status(401).json({error:'Owner sign-in required.'});
  if((!sameOrigin(req)&&!ownerOrigin(req)&&!String(req.headers.authorization||'').startsWith('Bearer '))||!String(req.headers['content-type']||'').startsWith('application/json'))return res.status(403).json({error:'Use the owner form.'});
