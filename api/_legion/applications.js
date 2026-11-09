@@ -14,7 +14,11 @@ export async function apply(b){
  return {ok:true,notified:notified.ok,message:'Received. Gabe reads these himself.'};
 }
 export async function applications(){const ids=await redis(['ZREVRANGE',key('applications'),0,499]);const rows=ids.length?await pipeline(ids.map(id=>['GET',key('application:'+id)])):[];return rows.filter(Boolean).map(JSON.parse);}
-export async function decide(id,decision){if(!['approve','decline'].includes(decision))throw Error('fields');const row=await get('application:'+id);if(!row)throw Error('missing');if(row.status!=='new')return {ok:true};
+export async function decide(id,decision){
+ if(!['approve','decline'].includes(decision)||!/^[A-Za-z0-9_-]{43}$/.test(id||''))throw Error('fields');
+ const lock=key('review:'+id),owner=token();if(!await redis(['SET',lock,owner,'NX','EX',30]))throw Error('busy');
+ try{const row=await get('application:'+id);if(!row)throw Error('missing');if(row.status!=='new')return {ok:true};
  if(decision==='approve'){const s=army(),u=await s.byEmail(row.email);if(u)await setRank(u.id,row.rank,row.source);else await admit({email:row.email,name:row.who.replace(row.email,'').trim(),rank:row.rank,source:row.source,receipt:'application:'+id});}
  row.status=decision==='approve'?'approved':'declined';row.reviewed_at=now();await put('application:'+id,row,90*86400);return {ok:true};
+ }finally{await redis(['EVAL',"if redis.call('GET',KEYS[1])==ARGV[1] then return redis.call('DEL',KEYS[1]) else return 0 end",1,lock,owner]);}
 }

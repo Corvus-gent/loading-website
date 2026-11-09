@@ -9,14 +9,14 @@ export const army=()=>armyStore();
 export const get=async k=>{const r=await redis(['GET',key(k)]);return r?JSON.parse(r):null;};
 export const put=(k,value,seconds)=>redis(['SET',key(k),JSON.stringify(value),...(seconds?['EX',seconds]:[])]);
 export const now=()=>new Date().toISOString();
-export const memberRank=u=>u.legion?.rank||(u.general&&u.verifiedAt?'imperator':earnedRank(u));
+export const memberRank=u=>earnedRank(u);
 export const isMember=u=>!!u.legion||u.status==='approved'||!!u.verifiedAt&&!!u.membership&&u.membership.state!=='refunded';
 export async function members(){const all=await army().all();return all.filter(u=>u.status!=='deleting'&&isMember(u)).map(u=>({id:u.id,name:u.legion?.name||u.username||'anonymous soldier',handle:u.username||'',email:u.email||'',rank:memberRank(u),source:u.legion?.source||(u.membership?'paid':'application'),joined_at:u.legion?.joined_at||u.approvedAt||u.verifiedAt||u.created,hidden:!!u.hidden,legacy:!u.legion}));}
-export async function createInvite(b){
+export async function createInvite(b,origin='https://corvus.gent'){
  if(!LEGION_RANKS.includes(b.rank))throw Error('rank');
  const max=Number(b.max_uses??1),days=Number(b.days??30);if(!Number.isInteger(max)||max<1||max>100||!Number.isInteger(days)||days<1||days>90)throw Error('fields');
  const raw=token(),hash=sha(raw),entry={id:hash,rank:b.rank,name:clean(b.name,80),note:clean(b.note,600),max_uses:max,uses:0,expires_at:new Date(Date.now()+days*86400000).toISOString(),created_at:now(),opened_at:null,claimed_at:null,revoked_at:null};
- await put('invite:'+hash,entry,days*86400+90*86400);await redis(['ZADD',key('invites'),Date.now(),hash]);return {...entry,link:'https://corvus.gent/legion/join/'+raw};
+ await put('invite:'+hash,entry,days*86400+90*86400);await redis(['ZADD',key('invites'),Date.now(),hash]);return {...entry,link:origin+'/legion/join/'+raw};
 }
 export async function invite(raw,{open=false}={}){
  if(!validToken(raw))throw Error('invite');const hash=sha(raw),entry=await get('invite:'+hash);

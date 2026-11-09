@@ -34,7 +34,7 @@ export default async function handler(req,res){
   if(b.action==='logout')return res.status(200).json(await logout(req,res));
   if(['create_invite','revoke_invite','rank','decide'].includes(b.action)){
    if(!await authorized(req))throw Error('unauthorized');
-   if(b.action==='create_invite')return res.status(200).json(await store.createInvite(b));
+   if(b.action==='create_invite')return res.status(200).json(await store.createInvite(b,process.env.VERCEL_ENV==='production'?'https://corvus.gent':req.headers.origin));
    if(b.action==='revoke_invite')return res.status(200).json({ok:!!await store.revoke(b.id)});
    if(b.action==='rank')return res.status(200).json(await store.setRank(b.id,b.rank));
    return res.status(200).json(await applications.decide(b.id,b.decision));
@@ -43,7 +43,7 @@ export default async function handler(req,res){
   if(b.action==='checkout'){if(!await limited(req,'checkout',8,600))throw Error('rate');return res.status(200).json(await checkout(b));}
   if(b.action==='apply'){if(!await limited(req,'apply',3,600))throw Error('rate');return res.status(200).json(await applications.apply(b));}
   if(b.action==='puzzle'){if(!await limited(req,'puzzle',10,600))throw Error('rate');return res.status(200).json(await applications.puzzle(b.answer));}
-  if(b.action==='subscribe'){if(b.consent!==true)throw Error('consent');if(!await limited(req,'subscribe',3,600))throw Error('rate');return res.status(200).json(await newsletter.subscribe(b.email));}
+  if(b.action==='subscribe'){if(b.consent!==true)throw Error('consent');if(!await limited(req,'subscribe',3,600))throw Error('rate');return res.status(200).json(await newsletter.subscribe(b.email,process.env.VERCEL_ENV==='production'?'https://corvus.gent':req.headers.origin));}
   if(b.action==='confirm')return res.status(200).json(await newsletter.confirm(b.token));
   if(b.action==='unsubscribe')return res.status(200).json(await newsletter.unsubscribe(b.token));
   throw Error('fields');

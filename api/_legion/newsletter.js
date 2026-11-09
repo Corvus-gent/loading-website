@@ -3,13 +3,13 @@ import {normalizeEmail} from '../../js/army/domain.js';
 import {key,sha,token,validToken} from './security.js';
 import {get,put,now} from './store.js';
 import {sendMail} from './mail.js';
-export async function subscribe(email){
+export async function subscribe(email,origin='https://corvus.gent'){
  email=normalizeEmail(email);const hash=sha(email),existing=await get('subscriber:'+hash);if(existing?.status==='confirmed')return {ok:true,message:'Check your inbox. If needed, the crow sent a confirmation.'};
  const allowed=await redis(['SET',key('subscribe-cooldown:'+hash),'1','NX','EX',3600]);if(!allowed)return {ok:true,message:'Check your inbox. If needed, the crow sent a confirmation.'};
  const raw=token(),unsubscribe=token();
  await put('subscriber:'+hash,{email,status:'pending',created_at:existing?.created_at||now(),confirmation:sha(raw),unsubscribe:sha(unsubscribe)},172800);
  await redis(['SET',key('confirm:'+sha(raw)),hash,'EX',172800]);await redis(['SET',key('unsubscribe:'+sha(unsubscribe)),hash,'EX',366*86400]);await redis(['ZADD',key('subscribers'),Date.now(),hash]);
- const sent=await sendMail({to:email,subject:'one small signal from the crow',text:'You asked for occasional Corvus transmissions. Confirm here:\n\nhttps://corvus.gent/letters/confirm/?token='+raw+'\n\nNo confirmation, no transmissions. This link expires in 48 hours.\n\nChanged your mind? https://corvus.gent/letters/unsubscribe/?token='+unsubscribe+'\n\nCorvus · gabriel@corvus.gent'},'confirm-'+sha(raw));
+ const sent=await sendMail({to:email,subject:'one small signal from the crow',text:'You asked for occasional Corvus transmissions. Confirm here:\n\n'+origin+'/letters/confirm/?token='+raw+'\n\nNo confirmation, no transmissions. This link expires in 48 hours.\n\nChanged your mind? '+origin+'/letters/unsubscribe/?token='+unsubscribe+'\n\nCorvus · gabriel@corvus.gent'},'confirm-'+sha(raw));
  if(!sent.ok){await redis(['DEL',key('subscribe-cooldown:'+hash)]);throw Error('mail');}
  return {ok:true,message:'Check your inbox. Confirm once to hear from the crow.'};
 }

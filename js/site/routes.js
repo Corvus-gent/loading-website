@@ -546,4 +546,9 @@ export const ROUTES = [
     "description": "The short version. Work, builds, education.",
     "status": "read"
   }
+,
+ {"path":"/links/gabe","file":"links/index.html","section":"gabe","title":"Gabe’s links","description":"Every place to find Gabe.","status":"connect"},
+ {"path":"/402/","file":"402/index.html","section":"gabe","title":"402 · the crow’s other door","description":"An old corner worth finding.","status":"secret"},
+ {"path":"/hack/the-feed/","file":"hack/the-feed/index.html","section":"quests","title":"HackTheFeed · original demo door","description":"The original try-page, kept intact.","status":"archive"},
+ {"path":"/hackthefeed/2/","file":"hackthefeed/2/index.html","section":"quests","title":"Hack #2 · original countdown","description":"The page before the cage opened.","status":"archive"}
 ];

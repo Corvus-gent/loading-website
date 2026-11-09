@@ -194,3 +194,85 @@ The Plethora generator relies on exact HTML insertion anchors including `<body c
 - Ignore unrelated untracked public/brand and public/support artifacts.
 
 - The 8 unreachable public HTML source routes include 2 aliases (`/gabe` and `/hack/2`) whose active destinations are reachable. There are 6 primary public pages outside the baseline static graph: `/battle`, `/dinner`, `/gabinho-rolls`, `/hack/the-feed`, `/plethora`, and `/plethora/stats`.
+
+## After: one public directory, five doors
+
+Source of truth: `js/site/routes.js`. The generated map and command palette expose 67 entries, including the formerly unreachable public pages. Runtime member/video/interview routes remain data-driven; their hubs are listed. Admin, account, confirmation and single-use invitation pages are intentionally excluded from discovery. Offline submissions, client demos and the transparent stream overlay keep their standalone layout.
+
+| Public route | Section | Label | Status |
+| --- | --- | --- | --- |
+| `/friends/cardneto/` | quests | Cardneto | open |
+| `/map/` | gabe | the whole map | open |
+| `/gabe/` | gabe | gabe | open |
+| `/live/` | live | live | open |
+| `/legion/` | legion | legion | open |
+| `/daily/` | daily | daily | open |
+| `/quests/` | quests | quests | open |
+| `/airbnb-filter` | gabe | Me vs. the Airbnb filter | open |
+| `/army` | legion | war room | members |
+| `/battle` | quests | Codex vs Compound | vote |
+| `/build` | quests | one man. one army. | live stats |
+| `/call` | gabe | book a call | open |
+| `/compound` | quests | the $1,000 cut | open |
+| `/compound/rules` | quests | The useful chaos: rules — Corvus | open |
+| `/compound/v2` | quests | 100 videos. one deadline. | contest |
+| `/dinner` | gabe | dinner in SF | open |
+| `/gabinho-rolls` | gabe | roll or surf | open |
+| `/games/hub` | daily | the arcade | playable |
+| `/games` | daily | play today | daily |
+| `/hack/1` | quests | 01 / HackTheFeed | pitched |
+| `/hack/1/the-feed` | quests | Try HackTheFeed · early beta | open |
+| `/hack/3` | quests | 03 / robotics | live project |
+| `/hack` | quests | hackathons | ongoing |
+| `/hack/play` | daily | OSSMAN | playable |
+| `/hackathons` | quests | the squads | archive |
+| `/hackthefeed` | quests | Gabe's hackathon run, SF 2026 | open |
+| `/languages` | daily | Languages | open |
+| `/links/corvus` | gabe | Corvus | open |
+| `/links/pidgy` | gabe | Pidgy | open |
+| `/music` | daily | music | community |
+| `/now` | daily | right now | journal |
+| `/people` | gabe | people | directory |
+| `/plethora` | daily | Plethora | friend |
+| `/plethora/stats` | daily | Corvus × Plethora · live referral stats | open |
+| `/privacy` | gabe | privacy | plain English |
+| `/push` | quests | One video. One army. · Corvus | open |
+| `/realm` | gabe | the old realm | wander |
+| `/sf` | gabe | meet in San Francisco | in SF |
+| `/sidequests` | quests | Sidequests — Gabriel | open |
+| `https://stats.corvus.gent/army` | live | the army, counted | open |
+| `https://stats.corvus.gent/coffee` | live | coffees bought for gabe | open |
+| `https://stats.corvus.gent/games` | live | daily games | open |
+| `https://stats.corvus.gent/hack` | live | HackTheFeed · corvus stats | open |
+| `https://stats.corvus.gent/hunt` | live | curiosity, counted | open |
+| `https://stats.corvus.gent/` | live | Stats | open |
+| `https://stats.corvus.gent/map` | live | every ping, ever | open |
+| `https://stats.corvus.gent/music` | live | the rotation in numbers | open |
+| `https://stats.corvus.gent/pidgy` | live | corvus → pidgy | open |
+| `https://stats.corvus.gent/status` | live | service status | open |
+| `https://stats.corvus.gent/x` | live | the x log | open |
+| `/support/books` | gabe | Books | open |
+| `/support/companies` | gabe | Companies | open |
+| `/support/founders` | gabe | Founders | open |
+| `/support` | gabe | Support | open |
+| `/support/people` | gabe | People | open |
+| `/support/philosophists` | gabe | Philosophists | open |
+| `/support/sport-people` | gabe | Sport people | open |
+| `/wiki/corvus` | legion | Corvus | open |
+| `/wiki/corvus/namesakes` | legion | The many meanings of Corvus | open |
+| `/wiki` | legion | Main page | open |
+| `/wiki/pidgy` | legion | Pidgy | open |
+| `/hack/2` | quests | 02 / OSSMAN | shipped |
+| `/cv/` | gabe | the CV | read |
+| `/links/gabe` | gabe | Gabe’s links | connect |
+| `/402/` | gabe | 402 · the crow’s other door | secret |
+| `/hack/the-feed/` | quests | HackTheFeed · original demo door | archive |
+| `/hackthefeed/2/` | quests | Hack #2 · original countdown | archive |
+
+### Redirects and preserved host behavior
+
+- `/enlist` and `/join-the-army-now` (including trailing/nested paths) → HTTP 301 `/legion/`, query retained. The stats host redirects these paths to the canonical main host too.
+- `/gabe` is now the five-section Gabe hub; the former about profile remains at `/people/?id=gabe`.
+- Root `/map` is the public directory; `stats.corvus.gent/map` remains the visitor map. Search from the stats host explicitly targets the main host for ordinary site routes.
+- Contest routes, short-code redirects, voting data, old HackTheFeed archives and public soldier profiles remain intact.
+- The Plethora generator removes/rebuilds only its own slots before the shared chrome generator runs; both are idempotent.

@@ -31,8 +31,8 @@ const CURL_REPLY = `
 
 export default function middleware(request) {
   const url = new URL(request.url);
-  if(url.hostname!=='stats.corvus.gent'&&/^\/(?:enlist|join-the-army-now)(?:\/.*)?$/.test(url.pathname)){
-    url.pathname='/legion/';return Response.redirect(url,301);
+  if(/^\/(?:enlist|join-the-army-now)(?:\/.*)?$/.test(url.pathname)){
+    if(url.hostname==='stats.corvus.gent')url.hostname='corvus.gent';url.pathname='/legion/';return Response.redirect(url,301);
   }
   const cardneto=/^\/go\/(cardneto-(?:demo|li|app|egg))\/?$/.exec(url.pathname);
   if(cardneto){const target=new URL('/api/stats',url);target.searchParams.set('legion','1');target.searchParams.set('partner',cardneto[1]);return rewrite(target);}

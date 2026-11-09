@@ -1,6 +1,6 @@
 import {arrivalSearch} from './arrival.js';
 import {campaignSlug,contentSlot} from './x-attribution.js';
-import {sourceCategory, campaignCategory} from './analytics-policy.js';
+import {sourceCategory, campaignCategory} from './analytics-policy.js?v=20261109ia1';
 /**
  * Short links: /go/<platform>/<target>/<campaign>
  *   /go/ig            -> profile, from instagram bio
