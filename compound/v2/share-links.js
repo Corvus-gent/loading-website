@@ -1,5 +1,5 @@
 import {SHARE_CONFIG} from './share-config.js?v=20261109code1';
-import {parseSlug,voteCode} from './config.js?v=20261109code1';
+import {parseSlug,voteCode,codeURL} from './config.js?v=20261109code1';
 export function shareCopy(video){
  const v=parseSlug(video?.slug);if(!v)throw Error('Invalid video slug.');
  const locale=SHARE_CONFIG.languages[v.lang],code=voteCode(v);
@@ -9,7 +9,7 @@ export function shareCopy(video){
 }
 export function trackedShort(video,source,medium='post'){
  const v=parseSlug(video?.slug);if(!v||!['x','linkedin','whatsapp'].includes(source)||!['post','comment','dm'].includes(medium))throw Error('Invalid share link.');
- const u=new URL('/v/'+v.slug,'https://corvus.gent');
+ const u=new URL(codeURL(v));
  for(const[k,value]of Object.entries({utm_source:source,utm_medium:medium,utm_campaign:SHARE_CONFIG.campaign,utm_content:v.slug}))u.searchParams.set(k,value);
  return u.href;
 }
