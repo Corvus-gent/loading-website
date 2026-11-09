@@ -320,3 +320,8 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 - Atomically publish interviews plus collision-safe `x-gm-en-intN` tracker rows; keep metrics on edits and prevent duplicate saves. Both public robotics lists refresh from the same store.
 - Added per-interview share drafts, anchor links and dynamic Open Graph cards; existing game/live pages remain intact.
 - Validation: Redis-backed mobile/desktop integration, auth/origin/consent, numbering/idempotency, preserved counts, photo encoding/cleanup, OG, Compound v2 and live-mode regression checks.
+
+## Dynamic Open Graph — 2026-11-08
+- ImageResponse cards for live, robotics/interviews and Compound v2 language/hook/video links, with initial server-rendered OG/Twitter metadata and unchanged short-link attribution.
+- Local multilingual fonts, safe photo composition, cached PNGs, localized editable hook text and an expiry-aware deadline snapshot.
+- Crawler-format/redirect/image tests for X, LinkedIn, Discord and WhatsApp; existing voting and interview flows retained.

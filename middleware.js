@@ -1,5 +1,6 @@
 // - stats.corvus.gent serves the stats pages at clean URLs; corvus.gent/stats redirects there
 // - curl / wget / scripts get counted, and curling the homepage gets a little reply
+import {ogRoute} from "./js/og-routes.js";
 import {COMPOUND_LINKS} from "./js/compound-links.js";
 import { rewrite, next, waitUntil } from "@vercel/functions";
 
@@ -30,9 +31,8 @@ const CURL_REPLY = `
 
 export default function middleware(request) {
   const url = new URL(request.url);
-  if(url.hostname!=='stats.corvus.gent'&&/^\/hack\/3\/?$/.test(url.pathname)&&/^[1-9]\d{0,3}$/.test(url.searchParams.get('interview')||'')){
-    const target=new URL('/api/stats',url);target.search=url.search;target.searchParams.set('compoundV2','1');target.searchParams.set('interviewPage',url.searchParams.get('interview'));return rewrite(target);
-  }
+  const og=url.hostname!=='stats.corvus.gent'&&ogRoute(url.pathname,url.searchParams);
+  if(og){const target=new URL('/api/stats',url);target.searchParams.set('ogPage','1');for(const[k,v]of Object.entries(og))target.searchParams.set(k,v);return rewrite(target);}
   const videoSlug=/^\/v\/([^/]+)\/?$/.exec(url.pathname);
   if(videoSlug&&url.hostname!=='stats.corvus.gent'){
     const target=new URL('/api/stats',url);target.search=url.search;target.searchParams.set('compoundV2','1');target.searchParams.set('short','1');target.searchParams.set('slug',videoSlug[1]);return rewrite(target);

@@ -12,7 +12,8 @@ export function safePostURL(value,compound=false){
 }
 export function video(raw,{allowPending=false}={}){
  const parsed=parseSlug(raw?.slug);if(!parsed)throw Error('invalid slug');
- const result={...parsed,post_url:safePostURL(raw.post_url),compound_url:safePostURL(raw.compound_url,true),is_example:raw.is_example===true};
+ if(raw.hook_line!==undefined&&(typeof raw.hook_line!=='string'||raw.hook_line.length>180))throw Error('hook line must be at most 180 characters');
+ const result={hook_line:String(raw.hook_line||'').trim().replace(/[\u0000-\u001f\u007f]/g,' '),...parsed,post_url:safePostURL(raw.post_url),compound_url:safePostURL(raw.compound_url,true),is_example:raw.is_example===true};
  if(!allowPending&&!result.is_example&&!result.post_url&&!SEED_VIDEOS.some(v=>v.slug===result.slug))throw Error('a real video needs a post URL');
  for(const key of METRICS){const n=Number(raw[key]??0);if(!Number.isSafeInteger(n)||n<0||n>1e12)throw Error('metrics must be non-negative whole numbers');result[key]=n;}
  if(!result.post_url&&METRICS.some(k=>result[k]))throw Error('add the post URL before recording social metrics');

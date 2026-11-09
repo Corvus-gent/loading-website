@@ -56,6 +56,10 @@
   ],
   "rewrites": [
     {
+      "source": "/api/og",
+      "destination": "/api/stats?og=1"
+    },
+    {
       "source": "/api/compound-v2",
       "destination": "/api/stats?compoundV2=1"
     },
@@ -258,7 +262,7 @@
       "includeFiles": "music.json"
     },
     "api/stats.js": {
-      "includeFiles": "{music.json,battle/config.json,battle/media.json,hack/3/index.html,hack/3/interviews.json}",
+      "includeFiles": "{music.json,battle/config.json,battle/media.json,hack/3/index.html,hack/3/interviews.json,live/index.html,compound/v2/index.html,public/gabe.jpg,img/army/fonts/DejaVuSansMono.ttf,api/_og/fonts/**}",
       "maxDuration": 60
     },
     "api/x-stats.js": {
