@@ -386,3 +386,5 @@ Verified 67 public destinations and all seven requested flows on mobile and desk
 - Reused the video registry and owner authentication for manual/bulk metrics, optional Oriane/X sync and a half-hour cron; missing metrics remain visibly unknown.
 - Added official Compound/Simon assets with source credits, blue gem styling, and links from Compound, Quests and shared footers.
 - Verified owner saves/auth, dedupe, destination restrictions, provider mapping, mobile/desktop and the complete static build.
+
+- 2026-11-09: Show Simon’s full portrait at its natural proportions with breathing room; avoid the enlarged desktop crop.
