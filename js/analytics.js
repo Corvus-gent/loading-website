@@ -4,7 +4,7 @@
   const {inferredSource}=await import('/js/social-attribution.js?v=20261107social1');
   const inferred=inferredSource({search:arrivalSearch,userAgent:navigator.userAgent,referrer:document.referrer});
   const {setXCampaigns,xContext} = await import('./x-attribution.js');
-  const {privacyEvent, sourceCategory, pathCategory, safeURL} = await import('/js/analytics-policy.js?v=20261108cities1');
+  const {privacyEvent, sourceCategory, pathCategory, safeURL} = await import('/js/analytics-policy.js?v=20261108hacklive1');
   import('/js/performance.js').catch(()=>{});
   import('/js/outbound.js').catch(()=>{});
   if (/^\/links(?:\/|$)/.test(location.pathname)) {
@@ -23,6 +23,11 @@
     if (detail.leavingForHome && deferHomeClick()) return;
     if (questClient) questClient.capture(detail.event,detail.props);
     else if (pendingActions.length<12) pendingActions.push(detail);
+  });
+  window.addEventListener('hack-action',({detail})=>{
+    if(!analyticsAllowed()||!['hack_live_click','hack_robots_click','hack_compound_click'].includes(detail?.event))return;
+    if(questClient)questClient.capture(detail.event,detail.props);
+    else if(pendingActions.length<12)pendingActions.push(detail);
   });
   function bareHit(){
     if(bareSent||pageviewSent)return;

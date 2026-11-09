@@ -1,4 +1,4 @@
-import {SOCIALS} from './socials.js?v=20261108page1';
+import {SOCIALS} from './socials.js?v=20261108hacklive1';
 const form=document.querySelector('#interview-form'),button=document.querySelector('#interview-send'),result=document.querySelector('#interview-result');
 async function json(url,options={}){const r=await fetch(url,{...options,signal:AbortSignal.timeout(10000)});const d=await r.json();if(!r.ok)throw Error(d.error||'Please try again.');return d;}
 function renderStatus(platforms){const live=Object.values(platforms).some(Boolean);document.querySelectorAll('[data-stream-status]').forEach(el=>{el.classList.toggle('is-live',live);el.querySelector('[data-status-text]').textContent=live?'live now':'next stream soon';});document.querySelectorAll('[data-platform-live]').forEach(el=>el.hidden=!platforms[el.dataset.platformLive]);}
@@ -19,3 +19,5 @@ if(form){
   }catch(error){result.classList.add('error');result.textContent=error.name==='TimeoutError'?'Taking too long. Please retry or DM Gabe above.':error.message;button.disabled=false;ticket=null;}
  });
 }
+
+document.addEventListener('click',e=>{const a=e.target.closest?.('[data-hack-track]');if(a)window.dispatchEvent(new CustomEvent('hack-action',{detail:{event:a.dataset.hackTrack,props:{hack_id:3,placement:a.dataset.placement||'plan'}}}));});
