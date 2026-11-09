@@ -1,3 +1,5 @@
+import {latestReport,runReport} from './reports.js';
+import {equal} from '../_compound/security.js';
 import {winner,selectWinner} from './push.js';
 import {resolveCode} from './codes.js';
 import {markPosted} from './uploads.js';
@@ -14,6 +16,8 @@ export default async function handler(req,res){
  const q=req.query||{};
  if(q.interviews==='1'||q.interviewAdmin==='1'||q.interviewPage||q.interviewCard)return (await import('../_interviews/handler.js')).default(req,res);
  try{
+  if(q.reportJob==='1'&&req.method==='GET'){const owner=authorized(req),cron=!!process.env.CRON_SECRET&&equal(String(req.headers.authorization||''),'Bearer '+process.env.CRON_SECRET);if(!owner&&!cron)return res.status(401).json({error:'Owner or scheduler access required.'});return res.status(200).json(await runReport({force:owner&&q.force==='1',trigger:owner?'owner':'cron'}));}
+  if(q.report==='1'&&req.method==='GET'){if(!authorized(req))return res.status(401).json({error:'Sign in first.'});return res.status(200).json(await latestReport());}
   if(q.codeLink==='1'&&['GET','HEAD'].includes(req.method)){
    const result=resolveCode(q.code,await store.videos(),q,'url');
    if(req.method==='GET'&&human(req)){if(!await limit(req,'code',120))return res.status(429).json({error:'Please retry in a minute.'});await store.event('code_entered','code:'+result.code,{code:result.code,source:'url',lang:result.parsed?.lang||''});}
@@ -31,7 +35,7 @@ export default async function handler(req,res){
    if(q.private==='1'){
     if(!authorized(req))return res.status(401).json({error:'Sign in first.'});
     if(configured())waitUntil(syncIfDue().catch(()=>{}));
-    const report=await store.report({privateData:true});return res.status(200).json({...report,upload_queue:uploadQueue(report.videos),feedback:await store.privateFeedback(),sync:await syncStatus(),push:await winner()});
+    const report=await store.report({privateData:true});return res.status(200).json({...report,upload_queue:uploadQueue(report.videos),feedback:await store.privateFeedback(),sync:await syncStatus(),push:await winner(),briefing:await latestReport()});
    }
    if(configured())waitUntil(syncIfDue().catch(()=>{}));
    res.setHeader('Cache-Control','public, max-age=0, s-maxage=15, stale-while-revalidate=120');

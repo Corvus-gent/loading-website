@@ -351,3 +351,8 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 ## 2026-11-09 — codex/compound-push
 - One-post /push page with owner-selected focus, honest reported views, seven editable comment languages, user-controlled sharing and optional social embeds.
 - Reuse Compound v2 owner auth and consent-aware aggregate tracking; preserve product-demo hook registration.
+
+## 2026-11-09 — codex/compound-reports
+- Vercel Pro cron computes the Compound briefing at :07 / :37 hourly; private stats show the last successful report first.
+- Actual timestamped samples, honest unavailable rates, seven days of half-hour reports plus 90-day daily archives.
+- Optional local launch agent mirrors the private report to ignored report.md every 30 minutes; cloud reporting runs even while the Mac sleeps.

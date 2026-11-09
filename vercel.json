@@ -418,6 +418,10 @@
     {
       "path": "/api/build?tick=1",
       "schedule": "19 * * * *"
+    },
+    {
+      "path": "/api/compound-v2?reportJob=1",
+      "schedule": "7,37 * * * *"
     }
   ],
   "buildCommand": "node tools/plethora/verify-routes.mjs && node tools/build-gabinho-rolls.mjs && node tools/build-battle.mjs && node tools/build-hackathons.mjs && node tools/build-plethora.mjs && python3 tools/build-search.py"
