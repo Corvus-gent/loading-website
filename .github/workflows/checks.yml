@@ -62,6 +62,7 @@ jobs:
       - run: node tests/interview-quick-add.mjs
       - run: node tests/dynamic-og.mjs
       - run: node tests/live-overlay.mjs
+      - run: node tests/video-share-drafts.mjs
       - run: node tests/smoke-ci.mjs
       - run: python3 tools/check-links.py
       - name: Generate search index from sources

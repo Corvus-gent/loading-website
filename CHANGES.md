@@ -330,3 +330,8 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 - Added /live/overlay: transparent 1920×1080 composition, local tracked QR, challenge countdown, live views/leader/anonymous-vote ticker; green-screen and compact options.
 - Added the read-only cached /api/compound/summary; private feedback stays private.
 - Tests cover vote dedupe/privacy/TTL, 15-second refresh, stale data, countdown, transparency and both layout variants.
+
+## Compound v2 share drafts
+- Added per-video X, X reply, LinkedIn and WhatsApp drafts with localized hook copy and platform-specific attribution.
+- All wording lives in compound/v2/share-config.js; added one-click export of every current campaign X draft, dated in San Francisco.
+- Existing private authentication, QR tools and stats editing remain unchanged.
