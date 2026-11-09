@@ -19,7 +19,7 @@ export async function sync({force=false,platform}={}){
  if(['tt','ig'].includes(p)){
  await redis(['SADD',ikey('browser-queue'),p+':'+account]);
  const previous=await redis(['HGET',ikey('account-sync'),p+':'+account]);
- if(previous){const prior=JSON.parse(previous);await saveStatus(p,account,{...prior,provider_error:process.env.ORIANE_API_KEY?result.error:'ORIANE_API_KEY not configured.',queued_at:state.at});}
+ if(previous){const prior=JSON.parse(previous);await redis(['HSET',ikey('account-sync'),p+':'+account,JSON.stringify({...prior,provider_error:process.env.ORIANE_API_KEY?result.error:'ORIANE_API_KEY not configured.',queued_at:state.at})]);}
  else await saveStatus(p,account,{...result,mode:'queued',provider_error:process.env.ORIANE_API_KEY?result.error:'ORIANE_API_KEY not configured.',note:'Public-profile browser check queued; no posts have been declared missing.',queued_at:state.at});
  }else await saveStatus(p,account,result);
  state.platforms[p]={mode:result.mode,note:result.note||result.error,updated:(state.platforms[p]?.updated||0)+result.updated};
