@@ -1,3 +1,5 @@
+- Compound v2: optional ORIANE_API_KEY sync runs in the background at most every 15 minutes; missing key silently skips, provider failures retain known counts, and owner edits win.
+- Compound v2: register the 15 supplied clips with zero views; case-insensitive on-screen codes route ambiguous matches to the hook page.
 ## 2026-11-07 — codex/gabinho-rolls-v2
 
 - Reposition Gabinho as a traveling BJJ competitor, replace belt artwork with the supplied unchanged Monferno logo/favicon, add registered competition cards, and preserve the five paybacks/contact CTAs.
@@ -306,3 +308,8 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 
 ## Live profile photos
 - Replace the /live profile placeholder with Gabe’s supplied portrait and surf photo. Optimized JPEGs, circular CSS framing, fixed dimensions, lazy loading and descriptive alt text.
+
+## Compound v2 — 24-hour video tracking
+- Add an isolated video registry, filtered hub, language/hook/cut pages, attributed /v/{slug} redirects, cookie-deduped voting and private feedback.
+- Owner stats support adding posts, inline metric edits, sorted rollups and local QR/share tools. Clearly marked examples never inflate totals. Original Compound remains intact.
+- Reuse existing Redis and admin password; document consent, TTLs, counters and optional Oriane configuration.

@@ -14,16 +14,6 @@
       "permanent": false
     },
     {
-      "source": "/compound/v2",
-      "destination": "/compound",
-      "permanent": false
-    },
-    {
-      "source": "/compound/v2/",
-      "destination": "/compound",
-      "permanent": false
-    },
-    {
       "source": "/whitebelt",
       "destination": "/hack/play",
       "permanent": false
@@ -65,6 +55,34 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/api/compound-v2",
+      "destination": "/api/stats?compoundV2=1"
+    },
+    {
+      "source": "/compound/v2/:lang(nl|en|fr|pt|es|de|it|ca|eu|tl|zh|tr|ar|ru|ce|pl|fa|ln|ay|qu)",
+      "destination": "/compound/v2/index.html"
+    },
+    {
+      "source": "/compound/v2/:lang(nl|en|fr|pt|es|de|it|ca|eu|tl|zh|tr|ar|ru|ce|pl|fa|ln|ay|qu)/",
+      "destination": "/compound/v2/index.html"
+    },
+    {
+      "source": "/compound/v2/:lang(nl|en|fr|pt|es|de|it|ca|eu|tl|zh|tr|ar|ru|ce|pl|fa|ln|ay|qu)/:hook(a|b|c|d|f|mom|bjj|startup|side|comm|int)",
+      "destination": "/compound/v2/index.html"
+    },
+    {
+      "source": "/compound/v2/:lang(nl|en|fr|pt|es|de|it|ca|eu|tl|zh|tr|ar|ru|ce|pl|fa|ln|ay|qu)/:hook(a|b|c|d|f|mom|bjj|startup|side|comm|int)/",
+      "destination": "/compound/v2/index.html"
+    },
+    {
+      "source": "/compound/v2/:lang(nl|en|fr|pt|es|de|it|ca|eu|tl|zh|tr|ar|ru|ce|pl|fa|ln|ay|qu)/:hook(a|b|c|d|f|mom|bjj|startup|side|comm|int)/:n([1-9][0-9]{0,3})",
+      "destination": "/compound/v2/index.html"
+    },
+    {
+      "source": "/compound/v2/:lang(nl|en|fr|pt|es|de|it|ca|eu|tl|zh|tr|ar|ru|ce|pl|fa|ln|ay|qu)/:hook(a|b|c|d|f|mom|bjj|startup|side|comm|int)/:n([1-9][0-9]{0,3})/",
+      "destination": "/compound/v2/index.html"
+    },
     {
       "source": "/api/live",
       "destination": "/api/stats?live=1"
