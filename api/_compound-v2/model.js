@@ -6,7 +6,7 @@ export const EVENTS=['pageview','vote','feedback','share_click','outbound_click'
 export function safePostURL(value,compound=false){
  if(!value)return '';if(typeof value!=='string'||value.length>1500)throw Error('invalid post URL');
  const u=new URL(value),h=u.hostname.toLowerCase().replace(/^www\./,'');
- const hosts=compound?['compound.mov']:['tiktok.com','vm.tiktok.com','vt.tiktok.com','instagram.com','x.com','twitter.com','linkedin.com','lnkd.in','twitch.tv','m.tiktok.com'];
+ const hosts=compound?['compound.mov']:['tiktok.com','vm.tiktok.com','vt.tiktok.com','instagram.com','x.com','twitter.com','linkedin.com','lnkd.in','twitch.tv','m.tiktok.com','youtube.com','m.youtube.com','youtu.be'];
  if(u.protocol!=='https:'||u.username||u.password||!hosts.includes(h))throw Error('invalid post URL');
  u.hash='';return u.href;
 }
@@ -36,7 +36,7 @@ export function destination(slug,query={}){
 export function attribution(raw={}){
  if(!raw||typeof raw!=='object')raw={};const output={};
  for(const key of ['utm_source','utm_medium','utm_campaign','utm_content']){const v=raw[key]??raw[key.slice(4)];if(typeof v==='string'&&/^[a-zA-Z0-9_.-]{1,100}$/.test(v))output[key]=v;}
- let referrer='';try{const h=new URL(raw.referrer.includes('://')?raw.referrer:'https://'+raw.referrer).hostname.toLowerCase();referrer=['instagram.com','l.instagram.com','tiktok.com','x.com','t.co','linkedin.com','lnkd.in','twitch.tv','corvus.gent','web.whatsapp.com'].includes(h.replace(/^www\./,''))?h:'other';}catch{}
+ let referrer='';try{const h=new URL(raw.referrer.includes('://')?raw.referrer:'https://'+raw.referrer).hostname.toLowerCase();referrer=['instagram.com','l.instagram.com','tiktok.com','x.com','t.co','linkedin.com','lnkd.in','twitch.tv','corvus.gent','web.whatsapp.com','youtube.com','youtu.be'].includes(h.replace(/^www\./,''))?h:'other';}catch{}
  return{...output,referrer};
 }
 

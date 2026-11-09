@@ -1,4 +1,4 @@
-import {voteCode,DEADLINE,PLATFORMS,ACCOUNTS,LANGUAGES,HOOKS,videoPath,shortURL} from './config.js?v=20261109queue1';
+import {voteCode,DEADLINE,PLATFORMS,ACCOUNTS,LANGUAGES,HOOKS,videoPath,shortURL} from './config.js?v=20261109r05';
 import {$,node,api,event,copy,toast,options,format} from './client.js?v=20261108v2b';
 const route=location.pathname.replace(/\/$/,'').split('/').slice(3),lang=route[0]||'',hook=route[1]||'',n=Number(route[2]||0);
 const initialQuery=new URLSearchParams(location.search);let data,selected,clockOffset=0,loading=false;const seen=new Set();

@@ -1,3 +1,8 @@
+## 2026-11-08 — codex/compound-r05
+
+- Accept YouTube Shorts slugs and post links, preserve YouTube attribution, add original sidequest/live hook codes, and import R05 exports into the private upload queue without resetting posted status or metrics.
+- R05 media remains in the local Compound project; only validated, uploaded exports are registered as ready. RU/TR/AR/ZH/PL remain absent when no verified recording exists.
+
 - /hack leads with the robotics stream until 9 Nov 2026 09:00 PT, with HACK_LIVE_MODE=on/off/auto override; original game returns automatically. Shared live status, interview feed, social CTAs and consent-aware click tracking.
 - Compound v2: optional ORIANE_API_KEY sync runs in the background at most every 15 minutes; missing key silently skips, provider failures retain known counts, and owner edits win.
 - Compound v2: register the 15 supplied clips with zero views; case-insensitive on-screen codes route ambiguous matches to the hook page.
