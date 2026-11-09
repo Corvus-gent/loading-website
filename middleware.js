@@ -34,6 +34,8 @@ export default function middleware(request) {
   if(/^\/(?:enlist|join-the-army-now)(?:\/.*)?$/.test(url.pathname)){
     if(url.hostname==='stats.corvus.gent')url.hostname='corvus.gent';url.pathname='/legion/';return Response.redirect(url,301);
   }
+  const compoundPartner=/^\/go\/compound-([a-z0-9-]{1,48})\/?$/.exec(url.pathname);
+  if(compoundPartner){const target=new URL('/api/stats',url);target.search=url.search;target.searchParams.set('compoundV2','1');target.searchParams.set('impact','1');target.searchParams.set('go',compoundPartner[1]);return rewrite(target);}
   const cardneto=/^\/go\/(cardneto-(?:demo|li|app|egg))\/?$/.exec(url.pathname);
   if(cardneto){const target=new URL('/api/stats',url);target.searchParams.set('legion','1');target.searchParams.set('partner',cardneto[1]);return rewrite(target);}
   const codeAlias=/^\/c\/([^/]+)\/?$/.exec(url.pathname);

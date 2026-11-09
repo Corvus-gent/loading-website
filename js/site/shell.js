@@ -1,4 +1,5 @@
-import {ROUTES,SECTIONS} from './routes.js?v=20261109ia2';
+import './compound-links.js?v=20261109impact1';
+import {ROUTES,SECTIONS} from './routes.js?v=20261109impact1';
 import {readPreference,savePreference} from '../storage.js';
 const dialog=document.createElement('dialog');dialog.className='site-search';dialog.setAttribute('aria-label','Jump to a page');dialog.innerHTML='<header><input type="search" placeholder="where do you want to go?" aria-label="Find a page"><button type="button" aria-label="Close search">esc</button></header><ul class="site-search-results"></ul><div class="site-search-foot">/ to open · esc to leave · enter to go</div>';document.body.append(dialog);
 const input=dialog.querySelector('input'),list=dialog.querySelector('ul');

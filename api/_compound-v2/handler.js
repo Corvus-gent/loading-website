@@ -14,6 +14,7 @@ const human=req=>!(/bot|crawler|spider|preview|curl|wget|headless|facebookextern
 export default async function handler(req,res){
  res.setHeader('Cache-Control','no-store');res.setHeader('X-Content-Type-Options','nosniff');
  const q=req.query||{};
+ if(q.impact==='1')return (await import('./impact/handler.js')).default(req,res);
  if(q.interviews==='1'||q.interviewAdmin==='1'||q.interviewPage||q.interviewCard)return (await import('../_interviews/handler.js')).default(req,res);
  try{
   if(q.reportJob==='1'&&req.method==='GET'){const owner=authorized(req),cron=!!process.env.CRON_SECRET&&equal(String(req.headers.authorization||''),'Bearer '+process.env.CRON_SECRET);if(!owner&&!cron)return res.status(401).json({error:'Owner or scheduler access required.'});return res.status(200).json(await runReport({force:owner&&q.force==='1',trigger:owner?'owner':'cron'}));}

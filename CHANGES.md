@@ -379,3 +379,10 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 ## 2026-11-09 · Five-door IA phase 2
 
 Verified 67 public destinations and all seven requested flows on mobile and desktop. Fixed the trailing-slash CV, authenticated admin overflow, iframe feedback/nav overlap, self-reloading next actions and legacy-stat day labels. Kept the portal after comparing both homepage layouts. Added route/layout, payment-signature and protected-preview regression checks; marketing remains off.
+
+
+## 2026-11-09 — codex/compound-impact
+- Public Compound impact scorecard with transparent weighted scores, first-day velocity, platform totals, real snapshot charts and attributed outbound clicks.
+- Reused the video registry and owner authentication for manual/bulk metrics, optional Oriane/X sync and a half-hour cron; missing metrics remain visibly unknown.
+- Added official Compound/Simon assets with source credits, blue gem styling, and links from Compound, Quests and shared footers.
+- Verified owner saves/auth, dedupe, destination restrictions, provider mapping, mobile/desktop and the complete static build.

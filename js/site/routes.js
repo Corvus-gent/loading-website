@@ -42,6 +42,7 @@ export const SECTIONS = [
   }
 ];
 export const ROUTES = [
+  {"path":"/compound/impact/","file":"compound/impact/index.html","title":"Compound impact 💎","description":"The videos, the numbers and the clicks sent back. Gabe’s public scorecard.","section":"quests","status":"live","public":true},
   {
     "path": "/friends/cardneto/",
     "file": "friends/cardneto/index.html",
