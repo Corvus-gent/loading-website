@@ -56,6 +56,10 @@
   ],
   "rewrites": [
     {
+      "source": "/api/compound/summary",
+      "destination": "/api/stats?compoundSummary=1"
+    },
+    {
       "source": "/api/og",
       "destination": "/api/stats?og=1"
     },

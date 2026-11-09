@@ -29,7 +29,7 @@ export async function event(type,slug,{tags={},visitor=null,code='',lang=''}={})
 }
 export async function vote(uid,slug,choice){
  const result=await redis(['EVAL',`local old=redis.call('GET',KEYS[1]);if old then return {0,old} end
-+redis.call('SET',KEYS[1],ARGV[1],'EX',ARGV[2]);redis.call('HINCRBY',KEYS[2],ARGV[1],1);return {1,ARGV[1]}`.replaceAll('\n+','\n'),2,key('vote:'+slug+':'+uid),key('counts:'+slug),choice,RETENTION]);return{added:Number(result[0])===1,choice:result[1]};
++redis.call('SET',KEYS[1],ARGV[1],'EX',ARGV[2]);redis.call('HINCRBY',KEYS[2],ARGV[1],1);redis.call('LPUSH',KEYS[3],ARGV[3]);redis.call('LTRIM',KEYS[3],0,49);redis.call('EXPIRE',KEYS[3],86400);return {1,ARGV[1]}`.replaceAll('\n+','\n'),3,key('vote:'+slug+':'+uid),key('counts:'+slug),key('public-votes'),choice,RETENTION,JSON.stringify({type:'vote',slug,choice,at:new Date().toISOString()})]);return{added:Number(result[0])===1,choice:result[1]};
 }
 export async function feedback(uid,slug,text,handle){
  const id=crypto.randomUUID(),fingerprint=crypto.createHash('sha256').update(text).digest('hex');
@@ -47,3 +47,6 @@ export async function applySyncedMetrics(previous,metrics){
  const updated=await redis(['EVAL',`if redis.call('HGET',KEYS[1],ARGV[1])~=ARGV[2] then return 0 end
 redis.call('HSET',KEYS[1],ARGV[1],ARGV[3]);redis.call('LPUSH',KEYS[2],ARGV[3]);redis.call('LTRIM',KEYS[2],0,199);redis.call('EXPIRE',KEYS[2],ARGV[4]);return 1`,2,key('videos'),key('metrics-history:'+row.slug),row.slug,old,JSON.stringify(row),RETENTION]);return Number(updated)===1;
 }
+
+// Public broadcast feed is anonymous, bounded and expires after 24h. Never read private feedback here.
+export async function latestVotes(){return(await redis(['LRANGE',key('public-votes'),0,49])).flatMap(raw=>{try{return[JSON.parse(raw)];}catch{return[];}});}

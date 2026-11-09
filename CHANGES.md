@@ -325,3 +325,8 @@ The full evidence placeholder, including the arrow, opens the hosted HackTheFeed
 - ImageResponse cards for live, robotics/interviews and Compound v2 language/hook/video links, with initial server-rendered OG/Twitter metadata and unchanged short-link attribution.
 - Local multilingual fonts, safe photo composition, cached PNGs, localized editable hook text and an expiry-aware deadline snapshot.
 - Crawler-format/redirect/image tests for X, LinkedIn, Discord and WhatsApp; existing voting and interview flows retained.
+
+## Live broadcast overlay
+- Added /live/overlay: transparent 1920×1080 composition, local tracked QR, challenge countdown, live views/leader/anonymous-vote ticker; green-screen and compact options.
+- Added the read-only cached /api/compound/summary; private feedback stays private.
+- Tests cover vote dedupe/privacy/TTL, 15-second refresh, stale data, countdown, transparency and both layout variants.

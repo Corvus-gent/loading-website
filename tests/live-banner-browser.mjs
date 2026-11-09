@@ -1,7 +1,8 @@
 import {chromium,expect} from '@playwright/test';
 import http from 'node:http';import fs from 'node:fs/promises';import path from 'node:path';import assert from 'node:assert/strict';import {execFileSync} from 'node:child_process';
 let status={live:false,source:'manual',session:'test-one'};const root=process.cwd();
-const files=execFileSync('git',['ls-files','*.html'],{encoding:'utf8'}).trim().split('\n').filter(f=>!f.startsWith('submission/'));
+// OBS composition intentionally has no website banners, footer or analytics.
+const files=execFileSync('git',['ls-files','*.html'],{encoding:'utf8'}).trim().split('\n').filter(f=>!f.startsWith('submission/')&&f!=='live/overlay/index.html');
 for(const f of files)assert(/js\/(?:plethora|live-banner)\.js/.test(await fs.readFile(f,'utf8')),f+' gets shared banner');
 const server=http.createServer(async(req,res)=>{try{const u=new URL(req.url,'http://localhost');if(u.pathname.startsWith('/api/')){res.setHeader('Content-Type','application/json');return res.end(JSON.stringify(u.pathname==='/api/live'?status:u.pathname==='/api/plethora'?{ready:true,total:12}:{}));}let f=path.join(root,decodeURIComponent(u.pathname));if((await fs.stat(f)).isDirectory())f=path.join(f,'index.html');res.setHeader('Content-Type',({'.html':'text/html','.js':'application/javascript','.css':'text/css','.json':'application/json','.svg':'image/svg+xml'})[path.extname(f)]||'application/octet-stream');res.end(await fs.readFile(f));}catch{res.writeHead(404).end();}});await new Promise(r=>server.listen(0,'127.0.0.1',r));const base='http://127.0.0.1:'+server.address().port;
 const browser=await chromium.launch();const refresh=p=>p.evaluate(()=>document.dispatchEvent(new Event('visibilitychange')));
