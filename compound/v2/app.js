@@ -1,5 +1,5 @@
-import {DEADLINE,PLATFORMS,ACCOUNTS,LANGUAGES,HOOKS,videoPath,shortURL} from './config.js?v=20261108v2a';
-import {$,node,api,event,copy,toast,options,format} from './client.js?v=20261108v2a';
+import {DEADLINE,PLATFORMS,ACCOUNTS,LANGUAGES,HOOKS,videoPath,shortURL} from './config.js?v=20261108v2b';
+import {$,node,api,event,copy,toast,options,format} from './client.js?v=20261108v2b';
 const route=location.pathname.replace(/\/$/,'').split('/').slice(3),lang=route[0]||'',hook=route[1]||'',n=Number(route[2]||0);
 const initialQuery=new URLSearchParams(location.search);let data,selected,clockOffset=0,loading=false;const seen=new Set();
 const validRoute=route.length<=3&&(!lang||Object.hasOwn(LANGUAGES,lang))&&(!hook||Object.hasOwn(HOOKS,hook))&&(!route[2]||/^[1-9]\d{0,3}$/.test(route[2]));
@@ -22,7 +22,7 @@ function renderDetail(){const matches=data.videos.filter(v=>v.lang===lang&&v.hoo
  if(!seen.has(selected.slug)){seen.add(selected.slug);event('pageview',selected.slug);}
  document.title=(lang+'-'+hook+n).toUpperCase()+' · vote the next cut · Corvus';
 }
-async function load(){if(loading)return;loading=true;try{data=await api();if(data.server_time)clockOffset=Date.parse(data.server_time)-Date.now();$('total-views').textContent=format(data.totals.views);$('total-videos').textContent=format(data.totals.videos);$('total-votes').textContent=format(data.totals.votes);status('updated '+new Date().toLocaleTimeString()+' · social views entered by Gabe');renderGrid();if(n)renderDetail();}catch(e){status((data?'Showing the last loaded numbers. ':'')+e.message,true);}finally{loading=false;}}
+async function load(){if(loading)return;loading=true;try{data=await api();if(data.server_time)clockOffset=Date.parse(data.server_time)-Date.now();$('total-views').textContent=format(data.totals.views);$('total-videos').textContent=format(data.totals.videos);$('total-votes').textContent=format(data.totals.votes);status('updated '+new Date().toLocaleTimeString()+' · reported social views');renderGrid();if(n)renderDetail();}catch(e){status((data?'Showing the last loaded numbers. ':'')+e.message,true);}finally{loading=false;}}
 if(!validRoute){$('grid-empty').hidden=false;$('grid-empty').textContent='That language or video code does not exist.';status('Choose a language below.');}else load();setInterval(()=>{if(!document.hidden&&validRoute)load();},30000);
 $('languages').replaceChildren(...Object.entries(LANGUAGES).map(([id,entry])=>{const a=node('a',entry[0]);a.href='/compound/v2/'+id;if(id===lang)a.setAttribute('aria-current','page');return a;}));
 $('hook-links').replaceChildren(...Object.entries(HOOKS).map(([id,label])=>{const a=node('a',label);a.href='/compound/v2/'+(lang||'en')+'/'+id;if(id===hook)a.setAttribute('aria-current','page');return a;}));

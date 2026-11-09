@@ -39,3 +39,11 @@ export async function feedback(uid,slug,text,handle){
 }
 export async function privateFeedback(){const ids=await redis(['ZREVRANGEBYSCORE',key('feedback-index'),'+inf',Date.now()-RETENTION*1000,'LIMIT',0,200]);return ids.length?(await pipeline(ids.map(id=>['GET',key('feedback:'+id)]))).filter(Boolean).map(JSON.parse):[];}
 export async function hideFeedback(id){if(!/^[a-f0-9-]{36}$/.test(id))throw Error('invalid feedback');await pipeline([['DEL',key('feedback:'+id)],['ZREM',key('feedback-index'),id]]);}
+// A provider refresh must never overwrite an owner edit made while it was in flight.
+export async function applySyncedMetrics(previous,metrics){
+ const old=await redis(['HGET',key('videos'),previous.slug]);if(!old)return false;
+ if(old!==JSON.stringify(previous))return false;const current=JSON.parse(old);
+ const row={...validate({...current,...metrics}),metric_source:'oriane',synced_at:new Date().toISOString()};
+ const updated=await redis(['EVAL',`if redis.call('HGET',KEYS[1],ARGV[1])~=ARGV[2] then return 0 end
+redis.call('HSET',KEYS[1],ARGV[1],ARGV[3]);redis.call('LPUSH',KEYS[2],ARGV[3]);redis.call('LTRIM',KEYS[2],0,199);redis.call('EXPIRE',KEYS[2],ARGV[4]);return 1`,2,key('videos'),key('metrics-history:'+row.slug),row.slug,old,JSON.stringify(row),RETENTION]);return Number(updated)===1;
+}

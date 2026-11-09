@@ -2,6 +2,7 @@ import {waitUntil} from '@vercel/functions';
 import {authorized,login,logout,sameOrigin,limit,identity,analytics} from './security.js';
 import {parseSlug,destination,attribution,EVENTS} from './model.js';
 import * as store from './store.js';
+import {configured,syncIfDue,syncStatus} from './sync.js';
 import {DEADLINE,parseCode,videoPath} from '../../compound/v2/config.js';
 const human=req=>!(/bot|crawler|spider|preview|curl|wget|headless|facebookexternalhit|slack|discord/i.test(req.headers['user-agent']||'')||/prefetch/i.test(req.headers.purpose||req.headers['sec-purpose']||''));
 export default async function handler(req,res){
@@ -18,8 +19,10 @@ export default async function handler(req,res){
    if(q.session==='1')return res.status(200).json({authorized:authorized(req)});
    if(q.private==='1'){
     if(!authorized(req))return res.status(401).json({error:'Sign in first.'});
-    return res.status(200).json({...await store.report(),feedback:await store.privateFeedback(),sync:{enabled:false,mode:'manual',note:'Oriane is not connected. Enter metrics from your own posts.'}});
+    if(configured())waitUntil(syncIfDue().catch(()=>{}));
+    return res.status(200).json({...await store.report(),feedback:await store.privateFeedback(),sync:await syncStatus()});
    }
+   if(configured())waitUntil(syncIfDue().catch(()=>{}));
    res.setHeader('Cache-Control','public, max-age=0, s-maxage=15, stale-while-revalidate=120');
    return res.status(200).json({...await store.report(),deadline:DEADLINE,server_time:new Date().toISOString()});
   }

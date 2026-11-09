@@ -1,5 +1,5 @@
-import {PLATFORMS,ACCOUNTS,LANGUAGES,HOOKS,MEDIUMS,shortURL,fullURL} from './config.js?v=20261108v2a';
-import {$,node,api,options,copy,format,toast} from './client.js?v=20261108v2a';
+import {PLATFORMS,ACCOUNTS,LANGUAGES,HOOKS,MEDIUMS,shortURL,fullURL} from './config.js?v=20261108v2b';
+import {$,node,api,options,copy,format,toast} from './client.js?v=20261108v2b';
 const linksPage=!!$('link-list');let data,loading=false,qrObserver;
 function message(text){$('admin-status').textContent=text;}
 function summary(){const metrics=data.totals;$('admin-totals')?.replaceChildren(...[['views','social views'],['site_visits','site visits'],['votes','votes'],['feedback_count','feedback']].map(([k,label])=>{const el=node('div');el.append(node('b',format(metrics[k])),node('small',label));return el;}));}
@@ -7,7 +7,7 @@ function metricInput(v,key){const input=node('input');input.type='number';input.
 function statsTable(){
  const sort=$('sort').value,rows=[...data.videos].sort((a,b)=>sort==='slug'?a.slug.localeCompare(b.slug):(b[sort]||0)-(a[sort]||0));const table=node('table'),thead=node('thead'),head=node('tr');
  for(const label of ['slug / post','platform','account','language','hook','views','likes','comments','shares','site visits','votes','feedback','CTR','save'])head.append(node('th',label));thead.append(head);table.append(thead);const tbody=node('tbody');
- for(const v of rows){const tr=node('tr'),post=node('td',undefined,'post-cell');const title=node('a',v.slug);title.href='/v/'+v.slug;title.target='_blank';title.rel='noopener noreferrer';post.append(title,node('small',v.updated_at?'\n'+new Date(v.updated_at).toLocaleString():'\nnot posted yet'));const url=node('input');url.type='url';url.value=v.post_url;url.placeholder='post URL';url.setAttribute('aria-label',v.slug+' post URL');post.append(url);const example=node('input');example.type='checkbox';example.checked=v.is_example;const el=node('label',undefined,'checkbox');el.append(example,node('span','example only'));post.append(el);tr.append(post);
+ for(const v of rows){const tr=node('tr'),post=node('td',undefined,'post-cell');const title=node('a',v.slug);title.href='/v/'+v.slug;title.target='_blank';title.rel='noopener noreferrer';post.append(title,node('small',v.updated_at?'\n'+new Date(v.updated_at).toLocaleString():'\nnot posted yet'));const url=node('input');url.type='url';url.value=v.post_url;url.placeholder='post URL';url.setAttribute('aria-label',v.slug+' post URL');post.append(url,node('small',v.metric_source==='oriane'?'Oriane · '+new Date(v.synced_at).toLocaleString():v.awaiting_url?'awaiting post URL':'manually entered'));const example=node('input');example.type='checkbox';example.checked=v.is_example;const el=node('label',undefined,'checkbox');el.append(example,node('span','example only'));post.append(el);tr.append(post);
   for(const value of [PLATFORMS[v.platform],ACCOUNTS[v.account],LANGUAGES[v.lang][0],HOOKS[v.hook]])tr.append(node('td',value));const inputs={};
   for(const key of ['views','likes','comments','shares']){const td=node('td'),input=metricInput(v,key);inputs[key]=input;td.append(input);tr.append(td);}
   for(const value of [format(v.site_visits),format(v.votes),format(v.feedback_count),v.ctr===null?'—':(v.ctr*100).toFixed(2)+'%'])tr.append(node('td',value));

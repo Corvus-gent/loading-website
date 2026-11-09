@@ -37,7 +37,7 @@ jobs:
           node tools/plethora/verify-routes.mjs
           REDIS_URL=redis://127.0.0.1:16380/7 node tools/plethora/check.mjs
       - name: Compound v2 storage and privacy contracts
-        run: node tests/compound-v2.mjs
+        run: node tests/compound-v2.mjs && node tests/compound-v2-sync.mjs
       - name: Live banner state and safe redirects
         run: node tests/live-banner-api.mjs
       - name: Map totals and city privacy

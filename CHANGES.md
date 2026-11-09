@@ -1,3 +1,4 @@
+- Compound v2: optional ORIANE_API_KEY sync runs in the background at most every 15 minutes; missing key silently skips, provider failures retain known counts, and owner edits win.
 - Compound v2: register the 15 supplied clips with zero views; case-insensitive on-screen codes route ambiguous matches to the hook page.
 ## 2026-11-07 — codex/gabinho-rolls-v2
 

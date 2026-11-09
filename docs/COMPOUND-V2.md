@@ -37,10 +37,15 @@ Naming is exact: platform `tt|ig|x|li|tw`, account `gl|bjj|gm|collab`, configure
 
 ## Optional Oriane
 
-No ORIANE key is configured. Metrics entry is fully functional without it. Automatic Oriane synchronization is not enabled; provider access/confirmed metrics endpoints are needed first. Do not mark manually entered numbers as synced. The current Vercel Hobby cron setup cannot schedule a 15-minute cron; any later integration needs an eligible scheduler or a cached/on-demand refresh with that limitation stated.
+The adapter reads **ORIANE_API_KEY** server-side. Missing key is a silent no-op: no provider call, Redis sync write, warning, or user prompt. Manual entry remains available. With a key, public/private API visits schedule a background refresh via `waitUntil`, locked to at most one check per 15 minutes. This is visit-triggered, not a guaranteed clock schedule; no extra paid scheduler was created.
+
+Only exact registered TikTok video IDs and Instagram media IDs (decoded from the permalink shortcode) are queried, in batches of 100 through `POST https://connect.oriane.xyz/rest/contents/search?limit=100&projection=basic`. Contract: [official Oriane docs](https://connect.oriane.xyz/rest/docs); Bearer authentication matches the existing HackTheFeed integration. Shortened TikTok URLs need the full `/video/<id>` URL. An unindexed post is kept at its previous values. Null/malformed metrics never zero known counts. Provider failure never blocks the page. Only exact-ID matches update the registry; owner edits made during a refresh win. Snapshot histories expire after 90 days, and the private table shows manual versus Oriane sources.
+
+No key or published post URLs are available yet, so live authenticated provider synchronization cannot be verified. The adapter is tested with provider-response fixtures, failures and concurrent owner edits; do not present that as a successful real provider sync.
 
 ## Validation
 
 - `node tests/compound-v2.mjs`: isolated local Redis on 16380 DB 3, unique prefix, no flush; auth/CSRF/URLs, edits, cookie dedupe, privacy signals, attribution, TTLs, all 220 language/hook combinations and short-link fail-open behavior. Cleans its own keys.
+- `node tests/compound-v2-sync.mjs`: missing-key no-op, provider-ID matching, 15-minute lock, partial/failure retention and concurrent owner edits.
 - `node tests/compound-v2-browser.mjs`: actual local API/Redis, 390px + desktop, owner flow, inline edit, code, vote/reload, feedback XSS escaping, RTL, local QR generation. Screenshots are in ignored `test-results/compound-v2`.
 - `node tools/build-compound-v2.mjs`: regenerate static shells and OG image after changing template markup. Runtime registry remains in Redis.
