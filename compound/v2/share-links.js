@@ -1,5 +1,5 @@
-import {SHARE_CONFIG} from './share-config.js?v=20261109r05';
-import {parseSlug,voteCode} from './config.js?v=20261109r05';
+import {SHARE_CONFIG} from './share-config.js?v=20261109code1';
+import {parseSlug,voteCode} from './config.js?v=20261109code1';
 export function shareCopy(video){
  const v=parseSlug(video?.slug);if(!v)throw Error('Invalid video slug.');
  const locale=SHARE_CONFIG.languages[v.lang],code=voteCode(v);

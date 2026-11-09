@@ -10,6 +10,10 @@ try{
  const single=await call({action:'code',code:'nl-mOm1'});assert.equal(single.body.matches,1);assert.match(single.body.destination,/^\/compound\/v2\/nl\/mom\/1\?/);
  const multiple=await call({action:'code',code:' nL-a1 '});assert.equal(multiple.body.matches,2);assert.match(multiple.body.destination,/^\/compound\/v2\/nl\/a\?/);
  assert.equal((await call({action:'code',code:'NL-ZZ0'})).status,400);
+ for(const code of ['PT-BJJ-1','pt-bjj-1','PTBJJ1']){const r=await call(null,{query:{codeLink:'1',code}});assert.equal(r.status,302);const u=new URL(r.headers.Location,'https://corvus.gent');assert.equal(u.pathname,'/compound/v2/pt/bjj/1');assert.equal(u.searchParams.get('utm_medium'),'pinned_comment');assert.equal(u.searchParams.get('utm_content'),'tt-bjj-pt-bjj1');}
+ const preserved=await call(null,{query:{codeLink:'1',code:'NLA1',utm_source:'instagram',utm_term:'hello world'}});const pu=new URL(preserved.headers.Location,'https://corvus.gent');assert.equal(pu.pathname,'/compound/v2/nl/a');assert.equal(pu.searchParams.get('utm_source'),'instagram');assert.equal(pu.searchParams.get('utm_term'),'hello world');assert(!pu.searchParams.has('utm_medium'));
+ const missing=await call(null,{query:{codeLink:'1',code:'PTBJJ999'}});assert.match(missing.headers.Location,/code_missing=1/);assert.equal(await db.hGet(store.key('codes:url'),'PT-BJJ-1'),'3');assert.equal(await db.hGet(store.key('codes:typed'),'NL-MOM-1'),'1');
+
 assert.equal((await call({action:'add',video:fixture})).status,401);
  const login=await call({action:'login',password:process.env.COMPOUND_ADMIN_PASSWORD});assert.equal(login.status,200);assert.match(login.headers['Set-Cookie'],/HttpOnly; Secure; SameSite=Strict/);const admin=login.headers['Set-Cookie'].split(';')[0];
  assert.equal((await call({action:'add',video:fixture},{cookie:admin})).status,200);assert.equal((await call({action:'add',video:fixture},{cookie:admin})).status,400);

@@ -31,6 +31,10 @@ const CURL_REPLY = `
 
 export default function middleware(request) {
   const url = new URL(request.url);
+  const codeAlias=/^\/c\/([^/]+)\/?$/.exec(url.pathname);
+  if(url.hostname!=='stats.corvus.gent'&&(codeAlias||(/^\/compound\/v2\/?$/.test(url.pathname)&&url.searchParams.has('code')&&!url.searchParams.has('code_missing')))){
+    const target=new URL('/api/stats',url);target.search=url.search;target.searchParams.set('compoundV2','1');target.searchParams.set('codeLink','1');if(codeAlias)target.searchParams.set('code',decodeURIComponent(codeAlias[1]));return rewrite(target);
+  }
   const og=url.hostname!=='stats.corvus.gent'&&ogRoute(url.pathname,url.searchParams);
   if(og){const target=new URL('/api/stats',url);target.searchParams.set('ogPage','1');for(const[k,v]of Object.entries(og))target.searchParams.set(k,v);return rewrite(target);}
   const videoSlug=/^\/v\/([^/]+)\/?$/.exec(url.pathname);

@@ -3,6 +3,7 @@ import crypto from 'node:crypto';
 import {redis,pipeline} from '../_redis.js';
 import {prefix} from './security.js';
 import {SEED_VIDEOS,RETENTION,video as validate,METRICS,publicVideo} from './model.js';
+import {pinnedComment} from '../../compound/v2/config.js';
 export const key=(part)=>prefix+':'+part;
 const object=x=>Array.isArray(x)?Object.fromEntries(Array.from({length:x.length/2},(_,i)=>[x[i*2],x[i*2+1]])):x||{};
 export async function videos(){const rows=(await redis(['HVALS',key('videos')])).map(JSON.parse);const used=new Set(rows.map(v=>v.slug));return [...rows,...SEED_VIDEOS.filter(v=>!used.has(v.slug))];}
@@ -19,15 +20,18 @@ export async function save(raw,update=false){
 export async function report({privateData=false}={}){
  const rows=await videos(),counts=rows.length?await pipeline(rows.map(v=>['HGETALL',key('counts:'+v.slug)])):[];
  const assets=privateData?object(await redis(['HGETALL',key('export-assets')])):{};
- const all=rows.map((v,i)=>{const c=object(counts[i]);const stats=Object.fromEntries(['pageview','up','down','feedback','share_click','outbound_click','code_entered','redirect'].map(k=>[k,Number(c[k]||0)]));return{...publicVideo(v),...(privateData&&assets[v.slug]?JSON.parse(assets[v.slug]):{}),stats,votes:stats.up+stats.down,site_visits:stats.pageview,feedback_count:stats.feedback,ctr:v.views?stats.pageview/v.views:null};});
+ const all=rows.map((v,i)=>{const c=object(counts[i]);const stats=Object.fromEntries(['pageview','up','down','feedback','share_click','outbound_click','code_entered','redirect'].map(k=>[k,Number(c[k]||0)]));return{...publicVideo(v),...(privateData&&assets[v.slug]?JSON.parse(assets[v.slug]):{}),...(privateData?{pinned_comment:pinnedComment(v)}:{}),stats,votes:stats.up+stats.down,site_visits:stats.pageview,feedback_count:stats.feedback,ctr:v.views?stats.pageview/v.views:null};});
  const real=all.filter(v=>!v.is_example),totals={videos:real.length,views:0,likes:0,comments:0,shares:0,site_visits:0,votes:0,feedback_count:0};for(const v of real)for(const k of Object.keys(totals))if(k!=='videos')totals[k]+=v[k]||0;
- return{videos:all,totals,updated_at:new Date().toISOString(),metric_note:'Social views are reported per post; they are not unique people. Site visits are page opens. Examples are excluded from totals.'};
+ const codeVisits=privateData?await pipeline(['url','typed'].map(source=>['HGETALL',key('codes:'+source)])):[];
+ const codeMaps=codeVisits.map(object);const codes=privateData?[...new Set(codeMaps.flatMap(m=>Object.keys(m)))].map(code=>({code,url:Number(codeMaps[0][code]||0),typed:Number(codeMaps[1][code]||0)})).sort((a,b)=>b.url-a.url):undefined;
+ return{videos:all,totals,...(privateData?{code_visits:codes}:{}),updated_at:new Date().toISOString(),metric_note:'Social views are reported per post; they are not unique people. Site visits are page opens. Examples are excluded from totals.'};
 }
 // Detailed events contain no text, handle, raw IP, cookie ID or full referrer URL.
-export async function event(type,slug,{tags={},visitor=null,code='',lang=''}={}){
- const at=new Date().toISOString(),record={type,slug,...tags,lang:lang||slug.split('-')[2]||'',visitor,timestamp:at};if(code)record.code=code;
+export async function event(type,slug,{tags={},visitor=null,code='',lang='',source=''}={}){
+ const at=new Date().toISOString(),record={type,slug,...tags,lang:lang||slug.split('-')[2]||'',visitor,timestamp:at};if(code)record.code=code;if(source)record.source=source;
  await redis(['EVAL',`redis.call('HINCRBY',KEYS[1],ARGV[1],1)
 +if ARGV[3]=='1' then redis.call('LPUSH',KEYS[2],ARGV[2]);redis.call('LTRIM',KEYS[2],0,9999);redis.call('EXPIRE',KEYS[2],ARGV[4]) end;return 1`.replaceAll('\n+','\n'),2,key('counts:'+slug),key('events:'+at.slice(0,10)),type,JSON.stringify(record),visitor?'1':'0',RETENTION]);
+ if(type==='code_entered'&&code&&['url','typed'].includes(source))await redis(['EVAL',"redis.call('HINCRBY',KEYS[1],ARGV[1],1);redis.call('EXPIRE',KEYS[1],ARGV[2]);return 1",1,key('codes:'+source),code,RETENTION]);
 }
 export async function vote(uid,slug,choice){
  const result=await redis(['EVAL',`local old=redis.call('GET',KEYS[1]);if old then return {0,old} end

@@ -1,4 +1,4 @@
-import {parseSlug,SOURCES,videoPath,SEED_VIDEOS,voteCode} from '../../compound/v2/config.js';
+import {parseSlug,SOURCES,videoPath,SEED_VIDEOS,voteCode,pinnedComment} from '../../compound/v2/config.js';
 export {parseSlug,SEED_VIDEOS};
 export const RETENTION=90*86400;
 export const METRICS=['views','likes','comments','shares'];
@@ -22,7 +22,7 @@ export function video(raw,{allowPending=false}={}){
  if(raw.vote_code!==undefined&&raw.vote_code!==voteCode(parsed))throw Error('vote code must match the export: '+voteCode(parsed));
  if(raw.status!==undefined&&!['pending','ready','posted'].includes(raw.status))throw Error('invalid video status');
  if(raw.status==='posted'&&!result.post_url)throw Error('posted videos need a post URL');
- result.vote_code=voteCode(parsed);result.status=result.post_url?'posted':raw.status||'pending';
+ result.vote_code=voteCode(parsed);result.pinned_comment=pinnedComment(parsed);result.status=result.post_url?'posted':raw.status||'pending';
  result.posted_at=raw.posted_at?new Date(raw.posted_at).toISOString():null;result.updated_at=new Date().toISOString();result.awaiting_url=!result.post_url;result.metric_source=result.is_example?'example':result.awaiting_url?'pending':'manual';return result;
 }
 export function destination(slug,query={}){
