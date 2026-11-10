@@ -213,5 +213,6 @@
       "path": "/api/stats?snapJob=1",
       "schedule": "12 2 * * *"
     }
-  ]
+  ],
+  "buildCommand": "npm run build"
 }

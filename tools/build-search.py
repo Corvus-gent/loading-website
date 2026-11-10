@@ -8,7 +8,7 @@ people = json.load(open("people/people.json", encoding="utf-8"))["members"][0]
 
 TITLES = {"/": "home", "/gabe": "gabe · about me"}
 # Explicit publication boundary: never crawl reports, traces or new internal dirs.
-PUBLIC_ROOTS = {"index.html", "call", "games", "languages", "links", "music", "now", "people", "privacy", "sf", "realm", "sidequests", "stats", "support", "wiki"}
+PUBLIC_ROOTS = {"index.html", "hack", "nest", "legion", "explore", "call", "games", "languages", "links", "music", "now", "people", "privacy", "realm", "sidequests", "stats", "support", "wiki"}
 pages = []
 for f in sorted(glob.glob("**/index.html", recursive=True)):
     if f.split("/", 1)[0] not in PUBLIC_ROOTS: continue
