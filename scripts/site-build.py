@@ -78,7 +78,7 @@ for stem,alt in [('floor','Gabe asleep on the floor after the Meta Muse hackatho
  else:
   labels={'floor':('The floor photo','Me, finally finding a platform that would support me.'),'slide':('The last-minute slide','The tiny Ember that made it through the deadline.'),'setup':('The terminal setup','More terminal windows than completed features.')}
   label,caption=labels[stem]
-  body=f'<div class="photo-placeholder"><strong>{label}</strong><p>Photo still to come. {caption}</p></div>'
+  body=f'<div class="photo-placeholder"><strong>{label}</strong><p>Photo still to come.</p></div>'
  s=re.sub(rf'(?s)(<!-- photo:{stem}:start -->).*?(<!-- photo:{stem}:end -->)',lambda m:m[1]+body+m[2],s)
 p.write_text(s)
 
