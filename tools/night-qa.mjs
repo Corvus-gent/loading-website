@@ -34,7 +34,7 @@ try{
    const item={route,device,viewport,screenshot:`${folder}/${slug}-${device}.png`,fullScreenshot:`${folder}/${slug}-${device}-full.png`,errors,failed};
    try{
     item.status=(await page.goto(base+route,{waitUntil:'domcontentloaded',timeout:20000}))?.status();
-    await page.waitForTimeout(500);
+    await page.waitForTimeout(1850);
     await page.evaluate(()=>Promise.race([document.fonts.ready,new Promise(r=>setTimeout(r,2000))]));
     item.dom=await page.evaluate(()=>({title:document.title,description:document.querySelector('meta[name="description"]')?.content||null,width:innerWidth,scrollWidth:document.documentElement.scrollWidth,overflow:[...document.querySelectorAll('body *')].filter(e=>{const r=e.getBoundingClientRect();return r.width>0&&(r.right>innerWidth+2||r.left< -2)&&getComputedStyle(e).position!=='fixed';}).slice(0,15).map(e=>({tag:e.tagName,id:e.id,class:e.className,box:{left:e.getBoundingClientRect().left,right:e.getBoundingClientRect().right}})),brokenImages:[...document.images].filter(e=>e.complete&&!e.naturalWidth).map(e=>e.getAttribute('src'))}));
     await page.screenshot({path:item.screenshot,animations:'disabled'});

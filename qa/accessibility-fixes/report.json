@@ -1,0 +1,970 @@
+[
+  {
+    "route": "/clients/aurus/v1.1-diff-colorpallete/",
+    "device": "mobile",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "screenshot": "qa/accessibility-fixes/clients--aurus--v1-1-diff-colorpallete-mobile.png",
+    "fullScreenshot": "qa/accessibility-fixes/clients--aurus--v1-1-diff-colorpallete-mobile-full.png",
+    "errors": [],
+    "failed": [],
+    "status": 200,
+    "dom": {
+      "title": "Aurus Syndicus | Professioneel Vastgoedbeheer & Syndicusdiensten",
+      "description": "Aurus Syndicus biedt transparante en betrouwbare syndicusdiensten. Technisch, administratief en financieel beheer van appartementsgebouwen. Altijd bereikbaar.",
+      "width": 390,
+      "scrollWidth": 390,
+      "overflow": [],
+      "brokenImages": []
+    },
+    "axe": [
+      {
+        "id": "heading-order",
+        "impact": "moderate",
+        "description": "Ensure the order of headings is semantically correct",
+        "help": "Heading levels should only increase by one",
+        "nodes": [
+          {
+            "target": [
+              ".contact-info-item:nth-child(1) > h4"
+            ],
+            "html": "<h4>Telefoon</h4>",
+            "summary": "Fix any of the following:\n  Heading order invalid"
+          }
+        ]
+      },
+      {
+        "id": "region",
+        "impact": "moderate",
+        "description": "Ensure all page content is contained by landmarks",
+        "help": "All page content should be contained by landmarks",
+        "nodes": [
+          {
+            "target": [
+              ".hero-bg"
+            ],
+            "html": "<div class=\"hero-bg\">\n          <img src=\"resources/Hero.png\" alt=\"Modern building architecture\">\n        </div>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "h1"
+            ],
+            "html": "<h1>Uw vertrouwde partner in <em>vastgoedbeheer</em></h1>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              ".hero-subtitle"
+            ],
+            "html": "<p class=\"hero-subtitle\">\n            Transparant, professioneel en persoonlijk. Aurus biedt moderne\n            syndicusdiensten die verder gaan dan administratie - wij zijn uw\n            partner in het beheer en onderhoud van uw eigendom.\n          </p>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              ".about-left > h2"
+            ],
+            "html": "<h2>Wie Zijn <em>Wij?</em></h2>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              ".about-right"
+            ],
+            "html": "<div class=\"about-right\">",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              ".quote-banner"
+            ],
+            "html": "<section class=\"quote-banner\">\n      <div class=\"quote-bg\">\n        <img src=\"resources/2nd.png\" alt=\"Modern architecture detail\">\n      </div>\n      <div class=\"quote-content\">\n        <h2>De details zijn voor ons. De rust is voor u.</h2>\n      </div>\n    </section>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              ".principles"
+            ],
+            "html": "<section class=\"principles\">",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              ".services-title"
+            ],
+            "html": "<h2 class=\"services-title\">Onze Diensten.</h2>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "div[data-card-index=\"0\"] > .service-image"
+            ],
+            "html": "<div class=\"service-image\">\n            <img src=\"resources/4th.png\" alt=\"Modern building exterior\">\n          </div>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "div[data-card-index=\"0\"] > .service-content > h3"
+            ],
+            "html": "<h3>Technisch Beheer</h3>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "div[data-card-index=\"0\"] > .service-content > p"
+            ],
+            "html": "<p>\n              Van routineonderhoud tot grote renovaties—wij coördineren alle\n              technische aspecten van uw gebouw met zorg en expertise. U bent\n              zeker van wettelijke correctheid, duidelijke communicatie en een\n              gebouw dat zijn waarde behoudt.\n            </p>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "div[data-card-index=\"0\"] > .service-content > .service-footer > .service-number"
+            ],
+            "html": "<span class=\"service-number\">1/3</span>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "div[data-card-index=\"1\"] > .service-image"
+            ],
+            "html": "<div class=\"service-image\">\n            <img src=\"resources/5th.png\" alt=\"Building facade\">\n          </div>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "div[data-card-index=\"1\"] > .service-content > h3"
+            ],
+            "html": "<h3>Administratief Beheer</h3>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "div[data-card-index=\"1\"] > .service-content > p"
+            ],
+            "html": "<p>\n              Opstellen en beheren van begrotingen, jaarrekeningen en financiële\n              verslaggeving, verzekeringen en juridisch advies, algemene\n              vergaderingen en besluitvorming. Wij nemen de administratieve last\n              van u over.\n            </p>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "div[data-card-index=\"1\"] > .service-content > .service-footer > .service-number"
+            ],
+            "html": "<span class=\"service-number\">2/3</span>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "div[data-card-index=\"2\"] > .service-image"
+            ],
+            "html": "<div class=\"service-image\">\n            <img src=\"resources/6th.png\" alt=\"Interior design\">\n          </div>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "div[data-card-index=\"2\"] > .service-content > h3"
+            ],
+            "html": "<h3>Financieel Beheer</h3>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "div[data-card-index=\"2\"] > .service-content > p"
+            ],
+            "html": "<p>\n              Transparant beheer van uw middelen met gedetailleerde rapportages en\n              overzichtelijke financiële planning. Wij beheren uw vastgoed alsof\n              het ons eigen patrimonium is.\n            </p>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "div[data-card-index=\"2\"] > .service-content > .service-footer > .service-number"
+            ],
+            "html": "<span class=\"service-number\">3/3</span>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              ".faq-title"
+            ],
+            "html": "<h2 class=\"faq-title\">Veelgestelde Vragen</h2>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "div[data-faq-id=\"1\"] > .faq-answer"
+            ],
+            "html": "<div class=\"faq-answer\">\n                    <p>Wij behandelen alle vragen zo snel mogelijk. Dringende zaken behandelen wij met voorrang.</p>\n                </div>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "div[data-faq-id=\"2\"] > .faq-answer"
+            ],
+            "html": "<div class=\"faq-answer\">\n                    <p>Wij plannen de vergadering, verzenden uitnodigingen, bereiden de agenda voor en stellen het verslag op. U hoeft enkel aanwezig te zijn.</p>\n                </div>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "div[data-faq-id=\"3\"] > .faq-answer"
+            ],
+            "html": "<div class=\"faq-answer\">",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "div[data-faq-id=\"4\"] > .faq-answer"
+            ],
+            "html": "<div class=\"faq-answer\">\n                    <p>Onze diensten zijn bedoeld voor eigenaars van mede-eigendommen, private vastgoedeigenaars, en iedereen die professioneel beheer van hun vastgoed wenst in Oost- en West-Vlaanderen.</p>\n                </div>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "div[data-faq-id=\"5\"] > .faq-answer"
+            ],
+            "html": "<div class=\"faq-answer\">\n                    <p>Wij bieden volledige transparantie via duidelijke rapportages, online toegang tot documenten, en regelmatige updates over alle financiële en administratieve zaken van uw eigendom.</p>\n                </div>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "div[data-faq-id=\"6\"] > .faq-answer"
+            ],
+            "html": "<div class=\"faq-answer\">\n                    <p>Ja, naast volledig beheer bieden wij ook flexibele dienstverlening voor specifieke opdrachten. Contacteer ons om uw situatie te bespreken en een oplossing op maat te vinden.</p>\n                </div>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "#location"
+            ],
+            "html": "<section id=\"location\" class=\"location\">",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              ".contact-container > h2"
+            ],
+            "html": "<h2>Contacteer Ons</h2>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              ".contact-subtitle"
+            ],
+            "html": "<p class=\"contact-subtitle\">",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "#contact-form > .form-group:nth-child(1)"
+            ],
+            "html": "<div class=\"form-group\">\n            <label for=\"name\">NAAM:</label>\n            <input type=\"text\" id=\"name\" name=\"name\" required=\"\" style=\"\">\n          </div>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "#contact-form > .form-group:nth-child(2)"
+            ],
+            "html": "<div class=\"form-group\">\n            <label for=\"email\">E-MAIL:</label>\n            <input type=\"email\" id=\"email\" name=\"email\" required=\"\" style=\"\">\n          </div>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "#contact-form > .form-group:nth-child(3)"
+            ],
+            "html": "<div class=\"form-group\">\n            <label for=\"phone\">TELEFOON:</label>\n            <input type=\"tel\" id=\"phone\" name=\"phone\" style=\"\">\n          </div>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "#contact-form > .form-group:nth-child(4)"
+            ],
+            "html": "<div class=\"form-group\">",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "#contact-form > .form-group:nth-child(5)"
+            ],
+            "html": "<div class=\"form-group\">\n            <label for=\"message\">BERICHT:</label>\n            <textarea id=\"message\" name=\"message\" rows=\"3\" required=\"\" style=\"\"></textarea>\n          </div>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              ".contact-info-row"
+            ],
+            "html": "<div class=\"contact-info-row\">",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              ".emergency-note"
+            ],
+            "html": "<div class=\"emergency-note\">\n          <p>\n            <strong>Communicatie verloopt bij voorkeur via e-mail.</strong>\n            Voor noodgevallen is er een noodnummer beschikbaar.\n          </p>\n        </div>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "route": "/hack/the-feed/",
+    "device": "mobile",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "screenshot": "qa/accessibility-fixes/hack--the-feed-mobile.png",
+    "fullScreenshot": "qa/accessibility-fixes/hack--the-feed-mobile-full.png",
+    "errors": [],
+    "failed": [],
+    "status": 200,
+    "dom": {
+      "title": "Try HackTheFeed · early beta",
+      "description": null,
+      "width": 390,
+      "scrollWidth": 390,
+      "overflow": [],
+      "brokenImages": []
+    },
+    "axe": [
+      {
+        "id": "landmark-one-main",
+        "impact": "moderate",
+        "description": "Ensure the document has a main landmark",
+        "help": "Document should have one main landmark",
+        "nodes": [
+          {
+            "target": [
+              "html"
+            ],
+            "html": "<html lang=\"en\">",
+            "summary": "Fix all of the following:\n  Document does not have a main landmark"
+          }
+        ]
+      },
+      {
+        "id": "region",
+        "impact": "moderate",
+        "description": "Ensure all page content is contained by landmarks",
+        "help": "All page content should be contained by landmarks",
+        "nodes": [
+          {
+            "target": [
+              ".eyebrow"
+            ],
+            "html": "<p class=\"eyebrow\">THE ORIGINAL HACKATHON APP</p>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "h1"
+            ],
+            "html": "<h1>Try HackTheFeed.</h1>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "p:nth-child(3)"
+            ],
+            "html": "<p>Find your angle. Explore what works. Build your next post.</p>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "#app-launch > p:nth-child(4)"
+            ],
+            "html": "<p>Launch opens the external HackTheFeed app here. Its own storage and privacy settings apply.</p>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "a[href=\"/hack/1/\"]"
+            ],
+            "html": "<a href=\"/hack/1/\">Read the field note first →</a>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "route": "/wiki/",
+    "device": "mobile",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "screenshot": "qa/accessibility-fixes/wiki-mobile.png",
+    "fullScreenshot": "qa/accessibility-fixes/wiki-mobile-full.png",
+    "errors": [],
+    "failed": [],
+    "status": 200,
+    "dom": {
+      "title": "Main page | Corvuspedia",
+      "description": null,
+      "width": 390,
+      "scrollWidth": 390,
+      "overflow": [],
+      "brokenImages": []
+    },
+    "axe": []
+  },
+  {
+    "route": "/wiki/corvus/namesakes/",
+    "device": "mobile",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "screenshot": "qa/accessibility-fixes/wiki--corvus--namesakes-mobile.png",
+    "fullScreenshot": "qa/accessibility-fixes/wiki--corvus--namesakes-mobile-full.png",
+    "errors": [],
+    "failed": [],
+    "status": 200,
+    "dom": {
+      "title": "The many meanings of Corvus | Corvuspedia",
+      "description": "A crow, a Roman boarding bridge, a constellation and a suspiciously persistent bird from Ghent. The many lives of Corvus, with sources.",
+      "width": 390,
+      "scrollWidth": 390,
+      "overflow": [],
+      "brokenImages": []
+    },
+    "axe": []
+  },
+  {
+    "route": "/",
+    "device": "mobile",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "screenshot": "qa/accessibility-fixes/home-mobile.png",
+    "fullScreenshot": "qa/accessibility-fixes/home-mobile-full.png",
+    "errors": [],
+    "failed": [],
+    "status": 200,
+    "dom": {
+      "title": "corvus.gent",
+      "description": "The crow died. The domain didn't.",
+      "width": 390,
+      "scrollWidth": 390,
+      "overflow": [],
+      "brokenImages": []
+    },
+    "axe": []
+  },
+  {
+    "route": "/clients/aurus/v1.1-diff-colorpallete/",
+    "device": "desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "screenshot": "qa/accessibility-fixes/clients--aurus--v1-1-diff-colorpallete-desktop.png",
+    "fullScreenshot": "qa/accessibility-fixes/clients--aurus--v1-1-diff-colorpallete-desktop-full.png",
+    "errors": [],
+    "failed": [],
+    "status": 200,
+    "dom": {
+      "title": "Aurus Syndicus | Professioneel Vastgoedbeheer & Syndicusdiensten",
+      "description": "Aurus Syndicus biedt transparante en betrouwbare syndicusdiensten. Technisch, administratief en financieel beheer van appartementsgebouwen. Altijd bereikbaar.",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "overflow": [
+        {
+          "tag": "DIV",
+          "id": "",
+          "class": "dropdown-menu",
+          "box": {
+            "left": 809.84375,
+            "right": 1459.84375
+          }
+        },
+        {
+          "tag": "DIV",
+          "id": "",
+          "class": "dropdown-inner",
+          "box": {
+            "left": 809.84375,
+            "right": 1459.84375
+          }
+        },
+        {
+          "tag": "DIV",
+          "id": "",
+          "class": "dropdown-links",
+          "box": {
+            "left": 1049.84375,
+            "right": 1468.96875
+          }
+        },
+        {
+          "tag": "DIV",
+          "id": "",
+          "class": "dropdown-column",
+          "box": {
+            "left": 1304.109375,
+            "right": 1468.96875
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "class": "dropdown-link",
+          "box": {
+            "left": 1329.109375,
+            "right": 1443.96875
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "class": "dropdown-link",
+          "box": {
+            "left": 1329.109375,
+            "right": 1443.96875
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "class": "dropdown-link",
+          "box": {
+            "left": 1329.109375,
+            "right": 1443.96875
+          }
+        }
+      ],
+      "brokenImages": []
+    },
+    "axe": [
+      {
+        "id": "heading-order",
+        "impact": "moderate",
+        "description": "Ensure the order of headings is semantically correct",
+        "help": "Heading levels should only increase by one",
+        "nodes": [
+          {
+            "target": [
+              ".contact-info-item:nth-child(1) > h4"
+            ],
+            "html": "<h4>Telefoon</h4>",
+            "summary": "Fix any of the following:\n  Heading order invalid"
+          }
+        ]
+      },
+      {
+        "id": "region",
+        "impact": "moderate",
+        "description": "Ensure all page content is contained by landmarks",
+        "help": "All page content should be contained by landmarks",
+        "nodes": [
+          {
+            "target": [
+              ".hero-bg"
+            ],
+            "html": "<div class=\"hero-bg\">\n          <img src=\"resources/Hero.png\" alt=\"Modern building architecture\">\n        </div>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "h1"
+            ],
+            "html": "<h1>Uw vertrouwde partner in <em>vastgoedbeheer</em></h1>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              ".hero-subtitle"
+            ],
+            "html": "<p class=\"hero-subtitle\">\n            Transparant, professioneel en persoonlijk. Aurus biedt moderne\n            syndicusdiensten die verder gaan dan administratie - wij zijn uw\n            partner in het beheer en onderhoud van uw eigendom.\n          </p>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              ".about-left > h2"
+            ],
+            "html": "<h2>Wie Zijn <em>Wij?</em></h2>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              ".about-right"
+            ],
+            "html": "<div class=\"about-right\">",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              ".quote-banner"
+            ],
+            "html": "<section class=\"quote-banner\">\n      <div class=\"quote-bg\">\n        <img src=\"resources/2nd.png\" alt=\"Modern architecture detail\">\n      </div>\n      <div class=\"quote-content\">\n        <h2>De details zijn voor ons. De rust is voor u.</h2>\n      </div>\n    </section>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              ".principles"
+            ],
+            "html": "<section class=\"principles\">",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              ".services-title"
+            ],
+            "html": "<h2 class=\"services-title\">Onze Diensten.</h2>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "div[data-card-index=\"0\"] > .service-image"
+            ],
+            "html": "<div class=\"service-image\">\n            <img src=\"resources/4th.png\" alt=\"Modern building exterior\">\n          </div>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "div[data-card-index=\"0\"] > .service-content > h3"
+            ],
+            "html": "<h3>Technisch Beheer</h3>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "div[data-card-index=\"0\"] > .service-content > p"
+            ],
+            "html": "<p>\n              Van routineonderhoud tot grote renovaties—wij coördineren alle\n              technische aspecten van uw gebouw met zorg en expertise. U bent\n              zeker van wettelijke correctheid, duidelijke communicatie en een\n              gebouw dat zijn waarde behoudt.\n            </p>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "div[data-card-index=\"0\"] > .service-content > .service-footer > .service-number"
+            ],
+            "html": "<span class=\"service-number\">1/3</span>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "div[data-card-index=\"1\"] > .service-image"
+            ],
+            "html": "<div class=\"service-image\">\n            <img src=\"resources/5th.png\" alt=\"Building facade\">\n          </div>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "div[data-card-index=\"1\"] > .service-content > h3"
+            ],
+            "html": "<h3>Administratief Beheer</h3>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "div[data-card-index=\"1\"] > .service-content > p"
+            ],
+            "html": "<p>\n              Opstellen en beheren van begrotingen, jaarrekeningen en financiële\n              verslaggeving, verzekeringen en juridisch advies, algemene\n              vergaderingen en besluitvorming. Wij nemen de administratieve last\n              van u over.\n            </p>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "div[data-card-index=\"1\"] > .service-content > .service-footer > .service-number"
+            ],
+            "html": "<span class=\"service-number\">2/3</span>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "div[data-card-index=\"2\"] > .service-image"
+            ],
+            "html": "<div class=\"service-image\">\n            <img src=\"resources/6th.png\" alt=\"Interior design\">\n          </div>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "div[data-card-index=\"2\"] > .service-content > h3"
+            ],
+            "html": "<h3>Financieel Beheer</h3>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "div[data-card-index=\"2\"] > .service-content > p"
+            ],
+            "html": "<p>\n              Transparant beheer van uw middelen met gedetailleerde rapportages en\n              overzichtelijke financiële planning. Wij beheren uw vastgoed alsof\n              het ons eigen patrimonium is.\n            </p>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "div[data-card-index=\"2\"] > .service-content > .service-footer > .service-number"
+            ],
+            "html": "<span class=\"service-number\">3/3</span>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              ".faq-title"
+            ],
+            "html": "<h2 class=\"faq-title\">Veelgestelde Vragen</h2>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "div[data-faq-id=\"1\"] > .faq-answer"
+            ],
+            "html": "<div class=\"faq-answer\">\n                    <p>Wij behandelen alle vragen zo snel mogelijk. Dringende zaken behandelen wij met voorrang.</p>\n                </div>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "div[data-faq-id=\"2\"] > .faq-answer"
+            ],
+            "html": "<div class=\"faq-answer\">\n                    <p>Wij plannen de vergadering, verzenden uitnodigingen, bereiden de agenda voor en stellen het verslag op. U hoeft enkel aanwezig te zijn.</p>\n                </div>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "div[data-faq-id=\"3\"] > .faq-answer"
+            ],
+            "html": "<div class=\"faq-answer\">",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "div[data-faq-id=\"4\"] > .faq-answer"
+            ],
+            "html": "<div class=\"faq-answer\">\n                    <p>Onze diensten zijn bedoeld voor eigenaars van mede-eigendommen, private vastgoedeigenaars, en iedereen die professioneel beheer van hun vastgoed wenst in Oost- en West-Vlaanderen.</p>\n                </div>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "div[data-faq-id=\"5\"] > .faq-answer"
+            ],
+            "html": "<div class=\"faq-answer\">\n                    <p>Wij bieden volledige transparantie via duidelijke rapportages, online toegang tot documenten, en regelmatige updates over alle financiële en administratieve zaken van uw eigendom.</p>\n                </div>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "div[data-faq-id=\"6\"] > .faq-answer"
+            ],
+            "html": "<div class=\"faq-answer\">\n                    <p>Ja, naast volledig beheer bieden wij ook flexibele dienstverlening voor specifieke opdrachten. Contacteer ons om uw situatie te bespreken en een oplossing op maat te vinden.</p>\n                </div>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "#location"
+            ],
+            "html": "<section id=\"location\" class=\"location\">",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              ".contact-container > h2"
+            ],
+            "html": "<h2>Contacteer Ons</h2>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              ".contact-subtitle"
+            ],
+            "html": "<p class=\"contact-subtitle\">",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "#contact-form > .form-group:nth-child(1)"
+            ],
+            "html": "<div class=\"form-group\">\n            <label for=\"name\">NAAM:</label>\n            <input type=\"text\" id=\"name\" name=\"name\" required=\"\" style=\"\">\n          </div>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "#contact-form > .form-group:nth-child(2)"
+            ],
+            "html": "<div class=\"form-group\">\n            <label for=\"email\">E-MAIL:</label>\n            <input type=\"email\" id=\"email\" name=\"email\" required=\"\" style=\"\">\n          </div>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "#contact-form > .form-group:nth-child(3)"
+            ],
+            "html": "<div class=\"form-group\">\n            <label for=\"phone\">TELEFOON:</label>\n            <input type=\"tel\" id=\"phone\" name=\"phone\" style=\"\">\n          </div>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "#contact-form > .form-group:nth-child(4)"
+            ],
+            "html": "<div class=\"form-group\">",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "#contact-form > .form-group:nth-child(5)"
+            ],
+            "html": "<div class=\"form-group\">\n            <label for=\"message\">BERICHT:</label>\n            <textarea id=\"message\" name=\"message\" rows=\"3\" required=\"\" style=\"\"></textarea>\n          </div>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              ".contact-info-row"
+            ],
+            "html": "<div class=\"contact-info-row\">",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              ".emergency-note"
+            ],
+            "html": "<div class=\"emergency-note\">\n          <p>\n            <strong>Communicatie verloopt bij voorkeur via e-mail.</strong>\n            Voor noodgevallen is er een noodnummer beschikbaar.\n          </p>\n        </div>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "route": "/hack/the-feed/",
+    "device": "desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "screenshot": "qa/accessibility-fixes/hack--the-feed-desktop.png",
+    "fullScreenshot": "qa/accessibility-fixes/hack--the-feed-desktop-full.png",
+    "errors": [],
+    "failed": [],
+    "status": 200,
+    "dom": {
+      "title": "Try HackTheFeed · early beta",
+      "description": null,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "overflow": [],
+      "brokenImages": []
+    },
+    "axe": [
+      {
+        "id": "landmark-one-main",
+        "impact": "moderate",
+        "description": "Ensure the document has a main landmark",
+        "help": "Document should have one main landmark",
+        "nodes": [
+          {
+            "target": [
+              "html"
+            ],
+            "html": "<html lang=\"en\">",
+            "summary": "Fix all of the following:\n  Document does not have a main landmark"
+          }
+        ]
+      },
+      {
+        "id": "region",
+        "impact": "moderate",
+        "description": "Ensure all page content is contained by landmarks",
+        "help": "All page content should be contained by landmarks",
+        "nodes": [
+          {
+            "target": [
+              ".eyebrow"
+            ],
+            "html": "<p class=\"eyebrow\">THE ORIGINAL HACKATHON APP</p>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "h1"
+            ],
+            "html": "<h1>Try HackTheFeed.</h1>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "p:nth-child(3)"
+            ],
+            "html": "<p>Find your angle. Explore what works. Build your next post.</p>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "#app-launch > p:nth-child(4)"
+            ],
+            "html": "<p>Launch opens the external HackTheFeed app here. Its own storage and privacy settings apply.</p>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          },
+          {
+            "target": [
+              "a[href=\"/hack/1/\"]"
+            ],
+            "html": "<a href=\"/hack/1/\">Read the field note first →</a>",
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "route": "/wiki/",
+    "device": "desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "screenshot": "qa/accessibility-fixes/wiki-desktop.png",
+    "fullScreenshot": "qa/accessibility-fixes/wiki-desktop-full.png",
+    "errors": [],
+    "failed": [],
+    "status": 200,
+    "dom": {
+      "title": "Main page | Corvuspedia",
+      "description": null,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "overflow": [],
+      "brokenImages": []
+    },
+    "axe": []
+  },
+  {
+    "route": "/wiki/corvus/namesakes/",
+    "device": "desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "screenshot": "qa/accessibility-fixes/wiki--corvus--namesakes-desktop.png",
+    "fullScreenshot": "qa/accessibility-fixes/wiki--corvus--namesakes-desktop-full.png",
+    "errors": [],
+    "failed": [],
+    "status": 200,
+    "dom": {
+      "title": "The many meanings of Corvus | Corvuspedia",
+      "description": "A crow, a Roman boarding bridge, a constellation and a suspiciously persistent bird from Ghent. The many lives of Corvus, with sources.",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "overflow": [],
+      "brokenImages": []
+    },
+    "axe": []
+  },
+  {
+    "route": "/",
+    "device": "desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "screenshot": "qa/accessibility-fixes/home-desktop.png",
+    "fullScreenshot": "qa/accessibility-fixes/home-desktop-full.png",
+    "errors": [],
+    "failed": [],
+    "status": 200,
+    "dom": {
+      "title": "corvus.gent",
+      "description": "The crow died. The domain didn't.",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "overflow": [],
+      "brokenImages": []
+    },
+    "axe": []
+  }
+]
