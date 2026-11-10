@@ -31,6 +31,12 @@ const CURL_REPLY = `
 
 export default function middleware(request) {
   const url = new URL(request.url);
+  const cleanPath=url.pathname.replace(/\/index\.html$/,'').replace(/\/$/,'')||'/';
+  const canonicalPage={'/hack2':'/hack/2','/hack/the-feed':'/hack/1/the-feed','/submission':'/hack/play','/soldier':'/legion/#wall'}[cleanPath];
+  if(canonicalPage){const target=new URL(canonicalPage,'https://'+url.host);target.search=url.search;return Response.redirect(target,301);}
+  // Stats lives on its own host. Other site pages must not become broken clones there.
+  if(url.hostname==='stats.corvus.gent'&&!/^\/(?:$|(?:pidgy|games|map|music|hunt|x|coffee|status|hack|army)\/?$|(?:private|stats)(?:\/|$)|(?:api|js|css|img|public|vendor)\/)/.test(url.pathname)&&!(/\.[a-z0-9]+$/i.test(url.pathname))){url.hostname='corvus.gent';return Response.redirect(url,301);}
+
   if(/^\/(?:enlist|join-the-army-now)(?:\/.*)?$/.test(url.pathname)){
     if(url.hostname==='stats.corvus.gent')url.hostname='corvus.gent';url.pathname='/legion/';return Response.redirect(url,301);
   }

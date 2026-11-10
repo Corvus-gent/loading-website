@@ -18,7 +18,7 @@ for f in sorted(glob.glob("**/index.html", recursive=True)):
     if url == "/people/": url_title = "army · join the people"
     src = open(f, encoding="utf-8").read()
     body = src.split("<body", 1)[-1]
-    body = re.sub(r"<!-- SITE_(HEAD|NAV|NEXT) -->.*?<!-- /SITE_\1 -->", " ", body, flags=re.S)
+    body = re.sub(r"<!-- SITE_(HEAD|NAV|NEXT|GEMS|DIRECTORY) -->.*?<!-- /SITE_\1 -->", " ", body, flags=re.S)
     body = re.sub(r"<!-- secret-start -->.*?<!-- secret-end -->", "", body, flags=re.S)
     body = re.sub(r"<!-- PLETHORA_[A-Z]+ -->.*?<!-- /PLETHORA_[A-Z]+ -->", "", body, flags=re.S)
     keys = re.findall(r'data-i18n="([\w.]+)"', body)
