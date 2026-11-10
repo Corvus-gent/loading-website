@@ -1,3 +1,59 @@
+# MORNING SUMMARY — four-hour run
+
+- START: **2026-11-10 01:58:31 PST**. Requested END: **2026-11-10 05:58:31 PST**.
+- Clock watcher observed END at **06:00:12 PST**. Final verification continued afterward.
+- Summary updated: **2026-11-10 06:30:29 PST**. Elapsed since START: **4h 31m** (clock duration, including deployment/test waits).
+- Preview: https://loading-website-git-muse-hack-corvus11.vercel.app/
+- Real Muse build: https://loading-website-git-muse-hack-corvus11.vercel.app/nest/2fea5be57f4d135641da3d8103ffef0b
+- PR: https://github.com/Corvus-gent/loading-website/pull/66 — branch `muse-hack`, not merged. Main was not pushed. No social posts sent. No spending limits raised.
+- **The full backlog is NOT complete.** Items 8, 9, 11, 12 and 13 still have work; see the table. The earlier recap and I Don't Pay work were preserved.
+
+## Results by backlog item
+
+| Item | Delivered / remaining |
+| --- | --- |
+| 1 · Visual QA | Baseline: 59 routes × 2 sizes, all viewport screenshots manually reviewed. Final: 63 routes × 2 sizes, 126 screenshots plus full-page companions in `qa/final/`. Changed Legion/Nest surfaces manually inspected. Final entire screenshot set captured; not claiming a second manual inspection of every image. |
+| 2 · Links | Final local crawl: **268 targets, 0 broken**. Initial 10 crawl failures were missing local host/redirect emulation, not ten confirmed production dead links. Dynamic privacy fragment checked. Backend routes tested separately. |
+| 3 · Accessibility | **452 → 0 serious/critical node occurrences**, final 126 route/device runs. Eight baseline issues were inside an external app, now click-to-load; that third-party app itself was not repaired. Generated static iframe content is isolated and excluded from the parent axe injection; fixtures visually checked. |
+| 4 · Performance | Final mobile Lighthouse P/A/SEO: **/ 100/100/100; /hack/ 93/100/100; /nest/ 100/100/100; /dontpay/ 100/100/100**. All ≥90. Local lab measurements, not live field metrics. |
+| 5 · Sharing | **47** unique black/gold raven OG images, public metadata and canonical links. X/LinkedIn platform unfurls remain unverified behind preview login protection. |
+| 6 · Legion | Existing account schema reused; reviewed email applications, test-mode $1 checkout readiness, atomic invitations, private ADMIN_KEY-compatible dashboard. Redis race/payment validation and browser flows passed. No actual card charge was made. Live Stripe callback configuration still needs verification before production use. |
+| 7 · Live Nest | Ember capped at 6,000 tokens; provider price ceiling; atomic $3 cumulative default fund; IP/day cap; 402 pauses; strict static sandbox; 90-day saved URLs. Real local build **$0.0013214**, real preview build **$0.001182**. Combined verified model cost **$0.0025034**. Original Muse v0 preserved at `/nest/v0/`. |
+| 8 · New games | **Unfinished.** Draft server logic preserved in `api/_nest/games.js`, deliberately unwired. No new game frontends or Hacker-win claim flow are represented as shipped. Existing Raven Rush and daily games preserved. |
+| 9 · Hack archive | Existing cards, sequence links and honest Muse story preserved. New filters and “how I do hackathons” expansion not completed. |
+| 10 · I Don't Pay | Existing overview, honest empty episode grid, template, private Redis suggestions/local fallback, hours config and scripts preserved. Regression tests pass. No filmed episode or invented hours added. |
+| 11 · Analytics | Existing PostHog/stats preserved. New feature-event tracking and a “visitors sent to Muse” counter **not completed**. |
+| 12 · Tests | Added real-Redis tests for budget/rate races, 402 behavior, private member data, invitation races and duplicate payment receipts; two browser flows for Legion and mocked Nest. Full five-flow requested suite and game voting tests remain. |
+| 13 · Posts | Existing 10 X/LinkedIn drafts and intent links preserved/validated. New feature-by-feature expansion remains. |
+| 14 · Docs | README now covers setup, architecture, environment, safety and tests; CONTRIBUTING added; ROUTES regenerated. Unfinished work explicitly documented. |
+
+## What changed visually / cleanup
+
+Fixed shared muted-text contrast, mobile hunt overflow, header collisions, narrow-container navigation, search keyboard behavior and 44px controls. External HackTheFeed now requires an explicit launch. Build output is stable and asset URLs versioned. Runtime dependency audit has zero known vulnerabilities; dev-tool audit findings remain. No unrelated code or work in progress was discarded.
+
+## Decisions and owner TODOs
+
+1. Preview authentication is unchanged. Decide whether/how to share it publicly; platform sharing-card previews cannot be verified through the login gate.
+2. Review the unfinished game backend before wiring it. Keep the budget enforcement and signed/atomic reward checks.
+3. Verify the Stripe test webhook points to `/api/legion-payment`, then run the full test checkout/return flow. Production payment settings were not changed.
+4. Upload `public/hack/4/floor.jpg`, `slide.jpg`, `setup.jpg`; provide real hours in `dontpay/config.json`; film episode 1 with permission.
+5. Publish drafts yourself and add the resulting X/LinkedIn post links. No social activity was performed by this run.
+6. The account credits endpoint says $0 while inference succeeds and the key has remaining allowance. That discrepancy is unresolved; no funding limit was changed.
+
+## Three draft links to review first
+
+- [The night I lost to my own API key](https://x.com/intent/post?text=I%20went%20to%20the%20Meta%20Muse%20x%20OpenRouter%20hackathon%20in%20San%20Francisco%20with%20an%20extremely%20reasonable%20plan%3A%0A%0ABuild%20a%20blind%20AI%20arena.%20Muse%20vs%20Claude%20vs%20Codex.%0ALet%20visitors%20make%20a%20wish%20and%20have%20the%20Nest%20build%20itself.%0AAdd%20games.%20Add%20Legion%20rewards.%0AApparently%20also%20solve%20time%20management.%0A%0AThere%20was%20no%20assignment%2C%20so%20I%20kept%20building%20Corvus.%20Then%20I%20lost%20most%20of%20the%20night%20to%20402%20Payment%20Required.%0A%0AI%20thought%20I%20had%20%2420.%20The%20account%20endpoint%20showed%20%240%20in%20credits.%20I%20still%20don%27t%20have%20a%20verified%20explanation%20for%20that%20mismatch.%20A%20key%20limit%20isn%27t%20the%20same%20thing%20as%20an%20account%20balance.%0A%0ACodex%20was%20asking%20for%20up%20to%20131%2C072%20output%20tokens.%20OpenRouter%20checked%20the%20worst-case%20bill.%20My%20budget%20had%20other%20ideas.%0A%0ASo%3A%20scripts%2C%20a%20local%20token-cap%20proxy%2C%20more%20scripts.%20I%20became%20very%20good%20at%20reading%20error%20messages.%0A%0AThen%20I%20fell%20asleep%20on%20the%20floor.%20At%20least%20the%20floor%20had%20no%20rate%20limit.%0A%0AIn%20the%20very%20last%20minute%2C%20Muse%20Ember%20built%20THE%20NEST%20BUILDS%20ITSELF%20in%20the%20OpenRouter%20playground.%20My%20readout%3A%201%2C755%20tokens.%20%240.001.%0A%0AI%20lost%20the%20hackathon.%20I%20still%20want%20to%20build%20the%20thing.%0A%0A%40alexandr_wang%20%40alexatallah%20%E2%80%94%20I%20really%20want%20to%20build%20with%20Muse.%20Please%2C%20credits.%0A%0AI%27ll%20use%20them%20for%20the%20blind%20arena%2C%20the%20self-building%20Nest%20and%20games%20people%20can%20actually%20play.%20I%27ll%20show%20the%20work%2C%20the%20costs%20and%20the%20failures%20in%20public.%20Corvus%20is%20where%20I%27m%20building%20that%20community.%0A%0AOne%20tiny%20Ember%20made%20it%20through.%20Let%27s%20give%20it%20a%20second%20evening.%0A%0A%23MuseEmberOR)
+- [I DON'T PAY — the first counter](https://x.com/intent/post?text=I%27m%20starting%20a%20series%20called%20I%20DON%27T%20PAY.%0A%0AThe%20opening%20line%3A%20%E2%80%9CI%20don%27t%20pay%20for%20my%20food.%20Watch.%E2%80%9D%0A%0AThe%20actual%20plan%3A%20walk%20into%20a%20local%20food%20spot%2C%20ask%20the%20owner%20whether%20they%27d%20like%20a%20short%20promo%20video%20in%20their%20language%2C%20and%20agree%20on%20a%20meal%20in%20exchange.%0A%0AI%20speak%20seven%20languages.%20It%27s%20time%20to%20put%20more%20of%20them%20to%20work%20outside%20a%20language%20settings%20menu.%0A%0AFirst%20target%3A%20a%20Turkish%20bakery%20or%20lahmacun%20place.%20B%C3%B6rek%20has%20a%20strong%20argument%20for%20being%20my%20first%20business%20expense.%0A%0AThe%20owner%20decides.%20The%20meal%20and%20deliverable%20are%20agreed%20before%20I%20start.%20No%20pressure%2C%20no%20secret%20camera%2C%20no%20recognizable%20customers%20without%20consent.%20If%20the%20answer%20is%20no%2C%20I%20pay%20normally%20or%20leave%20without%20ordering.%0A%0AThe%20shop%20gets%20a%20useful%20standalone%20clip.%20I%20get%20lunch%2C%20feedback%20and%20another%20rep%20at%20making%20something%20for%20a%20real%20person.%0A%0AEvery%20episode%3A%20the%20ask%2C%20the%20work%2C%20the%20food%2C%20my%20honest%20score%20and%20whether%20the%20deal%20actually%20happened.%0A%0AEpisode%201%20isn%27t%20filmed%20yet.%20No%20imaginary%20free%20meals%20in%20the%20trailer.%0A%0AStudents%20optimize%20for%20grades.%20I%20optimize%20for%20reps.%0A%0AWhich%20Turkish%20bakery%20or%20lahmacun%20spot%20in%20San%20Francisco%20should%20I%20ask%20first%3F%20Owners%20who%20might%20enjoy%20the%20idea%20especially%20welcome.)
+- [Students vs reps](https://x.com/intent/post?text=Students%20optimize%20for%20grades.%20I%20optimize%20for%20reps.%0A%0AThat%27s%20the%20experiment%20I%27m%20running%20with%20Corvus.%0A%0AA%20rep%20is%20a%20conversation%20I%20actually%20have.%0AA%20video%20I%20actually%20finish.%0AA%20pitch%20someone%20can%20actually%20reject.%0AA%20hackathon%20where%20I%20find%20out%20what%20I%20can%20ship%20before%20the%20deadline.%0A%0ALast%20night%2C%20my%20rep%20was%20spending%20far%20too%20long%20fighting%20an%20API%20key%2C%20falling%20asleep%20on%20the%20floor%2C%20and%20finally%20getting%20a%20tiny%20Muse%20Ember%20page%20out%20in%20the%20last%20minute.%0A%0ANot%20a%20clean%20story.%20A%20very%20informative%20one.%0A%0AThe%20next%20experiment%20is%20I%20DON%27T%20PAY%3A%20offer%20a%20local%20shop%20a%20useful%20promo%20video%20in%20its%20preferred%20language%2C%20agree%20on%20a%20meal%20in%20exchange%2C%20and%20show%20the%20whole%20process.%20The%20owner%20can%20say%20no.%20That%20still%20counts%20as%20a%20rep%20at%20asking%20respectfully.%0A%0AI%20want%20to%20keep%20a%20public%20log%20of%20hours%20spent%20at%20hackathons%2C%20streaming%20and%20making%20videos.%20The%20first%20rule%20is%20that%20the%20numbers%20must%20be%20real.%20If%20I%20haven%27t%20logged%20an%20hour%2C%20it%20doesn%27t%20magically%20appear%20because%20a%20dashboard%20needs%20to%20look%20impressive.%0A%0AWhat%20I%27m%20trying%20to%20improve%20is%20the%20gap%20between%20an%20idea%20and%20something%20another%20human%20can%20use.%0A%0AMore%20reps.%20Better%20feedback.%20A%20smaller%20gap.%0A%0AWhat%27s%20a%20rep%20you%20keep%20postponing%20because%20you%27re%20waiting%20to%20feel%20ready%3F)
+
+## Evidence and references
+
+Reports: `qa/final/summary.json`, `qa/links-final.json`, `qa/lighthouse-final.json`, `qa/muse-smoke/receipt.json`. Local screenshots are excluded from Git/deploy uploads.
+
+Provider ceilings follow [OpenRouter routing documentation](https://openrouter.ai/docs/guides/routing/provider-selection); Ember pricing checked on its [official listing](https://openrouter.ai/meta/muse-ember). Payment verification uses [Stripe signed raw-body guidance](https://docs.stripe.com/events/manage-webhook-endpoints#signature-errors).
+
+---
+
 # ACTIVE FOUR-HOUR RUN
 
 START: **2026-11-10 01:58:31 PST**
@@ -104,3 +160,5 @@ Review the wording, then choose Post yourself. The drafts are self-contained and
 - **2026-11-10 06:00:12 PST — Four-hour clock reached.** Final verification and handoff may now proceed.
 
 - **Final deployment verification:** Fixed Vercel's CommonJS/ESM sanitizer loading failure by bundling the maintained library at build time. The real preview then generated `/nest/2fea5be57f4d135641da3d8103ffef0b` with Muse Ember for $0.001182. Switched the iframe to sanitized `srcdoc` delivered through the authenticated parent fetch: protected preview cookies must not be required by the opaque-origin frame. Sandbox restrictions remain unchanged.
+
+- **2026-11-10 06:31:54 PST — Final browser proof:** The saved live Ember page now visibly renders “The flock builds together” and all three cards inside its sandbox on the actual Vercel preview. Reported build cost $0.001182. No further paid generation was required for the rendering fix. Final route audit: 126 screenshots, zero overflow/broken images/serious axe findings; local crawl 268 targets, zero broken.
