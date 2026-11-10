@@ -477,5 +477,5 @@
       "schedule": "12,42 * * * *"
     }
   ],
-  "buildCommand": "node tools/plethora/verify-routes.mjs && node tools/build-gabinho-rolls.mjs && node tools/build-battle.mjs && node tools/build-hackathons.mjs && node tools/build-plethora.mjs && node tools/site/generate-directory.mjs && python3 tools/build-search.py && node tools/site/build.mjs"
+  "buildCommand": "node tools/site/build-all.mjs"
 }
