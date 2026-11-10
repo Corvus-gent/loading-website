@@ -1,4 +1,4 @@
-import {mountImpact} from '/compound/impact/admin.js?v=20261109accounts1';
+import {mountImpact} from '/compound/impact/admin.js?v=20261110linkedin1';
 import {shareCopy,trackedShort,shareDraft,replyPostID,todayDrafts} from './share-links.js?v=20261109share3';
 import {PLATFORMS,ACCOUNTS,LANGUAGES,HOOKS,MEDIUMS,shortURL,fullURL,codeURL,pinnedComment} from './config.js?v=20261109code1';
 import {$,node,api,options,copy,format,toast} from './client.js?v=20261109code1';

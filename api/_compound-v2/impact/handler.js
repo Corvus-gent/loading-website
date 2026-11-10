@@ -7,7 +7,7 @@ import {authorized,sameOrigin,limit} from '../security.js';
 import {authorized as ownerAdmin,sameOrigin as ownerOrigin} from '../../_legion/security.js';
 import {equal} from '../../_compound/security.js';
 import {report,save,seed,snapshot} from './store.js';
-import {bulkRows,validate,linkedinBulk} from './model.js';
+import {bulkRows,validate,linkedinBulk,linkedinPost} from './model.js';
 import {targetURL,countClick} from './links.js';
 import {sync} from './sync.js';
 export default async function handler(req,res){
@@ -26,9 +26,10 @@ export default async function handler(req,res){
  if(typeof req.body==='string'&&Buffer.byteLength(req.body)>22000)return res.status(413).json({error:'Please use a smaller batch.'});let b;try{b=typeof req.body==='string'?JSON.parse(req.body):req.body;}catch{return res.status(400).json({error:'Invalid request.'});}
  if(!b||Array.isArray(b)||JSON.stringify(b).length>22000)return res.status(400).json({error:'Invalid request.'});
  try{
+ if(b.action==='linkedin-save'){const row=linkedinPost(b.post),post=await save(row);await saveStatus('li',row.account,{mode:'manual',found:1,note:'Self-reported import. Original native video confirmed by owner.',error:null});await snapshot();return res.status(200).json({post});}
  if(b.action==='save'){validate(b.post);const post=await save(b.post);await snapshot();return res.status(200).json({post});}
  if(b.action==='bulk'){const rows=bulkRows(b.text,b.made_with_compound!==false),saved=[];for(const row of rows)saved.push((await save(row)).id);await snapshot();return res.status(200).json({saved});}
- if(b.action==='linkedin-bulk'){const rows=linkedinBulk(b.text,b),saved=[];for(const row of rows)saved.push((await save(row)).id);await saveStatus('li',b.account,{mode:'manual',found:rows.length,note:'Owner-supplied metrics and video confirmation.',error:null});await snapshot();return res.status(200).json({saved});}
+ if(b.action==='linkedin-bulk'){const rows=linkedinBulk(b.text,b),saved=[];for(const row of rows)saved.push((await save(row)).id);await saveStatus('li',rows[0].account,{mode:'manual',found:rows.length,note:'Self-reported import. Media confirmed by owner.',error:null});await snapshot();return res.status(200).json({saved});}
  if(b.action==='settings'){if(typeof b.include_twitch_archives!=='boolean')throw Error('Invalid archive setting.');await redis(['SET',ikey('settings'),JSON.stringify({include_twitch_archives:b.include_twitch_archives})]);return res.status(200).json({ok:true});}
  if(b.action==='seed'){await seed();await snapshot();return res.status(200).json({ok:true});}
  if(b.action==='sync')return res.status(200).json(await sync({force:true,platform:b.platform}));

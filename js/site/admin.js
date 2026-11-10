@@ -1,4 +1,4 @@
-import {mountImpact} from '/compound/impact/admin.js?v=20261109accounts1';
+import {mountImpact} from '/compound/impact/admin.js?v=20261110linkedin1';
 import {renderSenate} from './senate-admin.js?v=20261109senate1';
 import {api,el,copy} from './api.js?v=20261109ia2';
 import {LEGION_RANKS} from './legion-config.js?v=20261109ia2';
