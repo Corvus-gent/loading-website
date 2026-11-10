@@ -25,3 +25,6 @@ tools/plethora/*
 !tools/site
 tools/site/*
 !tools/site/build.mjs
+!tools/site/build-all.mjs
+!tools/site/generate-directory.mjs
+!tools/site/link-inventory.mjs
