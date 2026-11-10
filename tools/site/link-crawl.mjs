@@ -1,5 +1,5 @@
 import fs from 'node:fs/promises';import {chromium} from 'playwright';import {canonical,PRIVATE} from './link-inventory.mjs';
-const mode=process.argv[2]||'before',inventory=JSON.parse(await fs.readFile('test-results/link-audit/inventory.json','utf8')),browser=await chromium.launch({headless:true}),origin=process.env.LINK_AUDIT_ORIGIN||'https://corvus.gent';
+const mode=process.argv[2]||'before',inventory=JSON.parse(await fs.readFile('test-results/link-audit/'+mode+'-inventory.json','utf8')),browser=await chromium.launch({headless:true}),origin=process.env.LINK_AUDIT_ORIGIN||'https://corvus.gent';
 const queued=new Set(),queue=[],results=new Map(),errors=[];
 const isPage=p=>p&&(!p.startsWith('https://stats.')||inventory.routes.some(r=>r.path===p))&&!PRIVATE.test((p.startsWith('https://stats.')?'/stats':'')+new URL(p,'https://corvus.gent').pathname)&&!/^\/(?:go|v|c|r)\//.test(p)&&!/[?&](?:key|token|email|password)=/i.test(p)&&!(/\.[a-z0-9]{2,7}(?:\?|$)/i.test(p)&&!p.endsWith('.html'))&&!/^\/(?:404\.html|soldier|go)\/?$/.test(p);
 const add=p=>{p=canonical(p);if(isPage(p)&&!queued.has(p)&&queued.size<1500){queued.add(p);queue.push(p)}};add('/');for(const r of inventory.routes)add(r.path);
@@ -11,7 +11,7 @@ async function worker(){const p=await context.newPage();p.on('pageerror',e=>erro
  if(mode!=='before'&&path!=='/live/overlay')await p.waitForFunction(()=>window.corvusDiscoveryReady===true,null,{timeout:8000}).catch(()=>{});
  const content=await p.evaluate(()=>({title:document.title,h1:document.querySelector('h1')?.textContent?.trim(),links:[...document.querySelectorAll('a[href]')].filter(a=>!a.closest('.site-search')&&!a.closest('[hidden]')&&(!a.closest('.site-next')||getComputedStyle(a.closest('.site-next')).display!=='none')).map(a=>a.href),palette:!!document.querySelector('[data-site-search]'),error:document.title.startsWith('404')}));item={...item,...content};item.links=[...new Set(content.links.map(l=>canonical(l)).filter(isPage))];for(const l of item.links)add(l);
  }else item.links=[];
- }catch(e){item.error=e.message.slice(0,180);item.links=[];}
+ }catch(e){item.error=e.message.slice(0,180);item.links=[];if(/^\/cv(?:\/download)?$/.test(path)){try{const r=await fetch(url,{method:'HEAD',headers:{'User-Agent':'Mozilla/5.0 CorvusLinkAuditBot'}});item={path,final:path,status:r.status,type:r.headers.get('content-type'),title:'Gabriel · CV (PDF download)',links:[]};}catch{}}}
  results.set(path,item);if(results.size%40===0){console.log(mode,results.size,'/',queued.size,'pages');await fs.writeFile('test-results/link-audit/'+mode+'-crawl.json',JSON.stringify({at:new Date().toISOString(),results:[...results.values()],errors:[...new Set(errors)]}));}
  }await p.close()}
 await Promise.all(Array.from({length:8},worker));await browser.close();const data={at:new Date().toISOString(),results:[...results.values()],errors:[...new Set(errors)]};await fs.writeFile('test-results/link-audit/'+mode+'-crawl.json',JSON.stringify(data));console.log('Crawl complete',mode,results.size,'pages',results.size-queued.size,'delta');
