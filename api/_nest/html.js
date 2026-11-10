@@ -1,4 +1,4 @@
-import sanitize from 'sanitize-html';
+import sanitize from './sanitize-bundle.cjs';
 export const FRAME_CSP="default-src 'none'; script-src 'none'; style-src 'unsafe-inline'; img-src data:; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; sandbox";
 export function safePage(raw){
  raw=raw.trim().replace(/^```(?:html)?\s*/i,'').replace(/\s*```$/,'');
