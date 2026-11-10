@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="description" content="corvus.gent — a community of builders helping each other, run in public by Gabe in San Francisco.">
+<title>corvus.gent — Builders helping builders.</title>
+<style>
+  :root{
+    --bg:#070709;
+    --panel:#121214;
+    --panel2:#18181b;
+    --gold:#d6b45e;
+    --gold2:#f0d78a;
+    --gold3:#8c722e;
+    --text:#f5f2e8;
+    --muted:#b8b2a0;
+    --line:rgba(214,180,94,.18);
+    --ring:rgba(240,215,138,.45);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family: ui-sans-system, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.5;
+    overflow-x:hidden;
+  }
+  a{color:var(--gold2)}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--ring); outline-offset:3px; border-radius:6px}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 20px}
+  /* header */
+  header{
+    position:sticky; top:0; z-index:20;
+    backdrop-filter: blur(10px);
+    background:rgba(7,7,9,.78);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    height:64px; gap:16px;
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    letter-spacing:.12em; font-weight:800; font-size:.95rem;
+    color:var(--gold2); text-decoration:none;
+  }
+  .brand i{width:28px; height:28px; display:grid; place-items:center;
+    border:1px solid var(--line); border-radius:999px; background:linear-gradient(180deg,#1a1a1d,#0c0c0e)}
+  .links{display:flex; gap:18px; align-items:center}
+  .links a{color:var(--muted); text-decoration:none; font-size:.9rem; letter-spacing:.04em}
+  .links a:hover{color:var(--text)}
+  .cta{
+    background:linear-gradient(180deg,var(--gold2),var(--gold));
+    color:#121007; border:none; padding:10px 16px; border-radius:999px;
+    font-weight:800; letter-spacing:.06em; font-size:.85rem; cursor:pointer;
+    box-shadow:0 6px 20px rgba(214,180,94,.25);
+  }
+  .cta:hover{filter:brightness(1.05)}
+  /* hero */
+  .hero{
+    position:relative; padding:56px 0 28px;
+    border-bottom:1px solid var(--line);
+    background:
+      radial-gradient(900px 500px at 70% -10%, rgba(214,180,94,.18), transparent 60%),
+      radial-gradient(700px 400px at 10% 0%, rgba(214,180,94,.08), transparent 60%),
+      linear-gradient(180deg,#0b0b0d 0%, #070709 100%);
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid; grid-template-columns:1.15fr .85fr; gap:32px; align-items:center;
+  }
+  .kicker{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--gold2);
+    border:1px solid var(--line); background:rgba(255,255,255,.02);
+    padding:6px 10px; border-radius:999px;
+  }
+  .kicker b{width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold)}
+  h1{
+    margin:14px 0 10px; font-size:clamp(2.2rem, 5vw, 4.2rem); line-height:.95;
+    letter-spacing:-.04em; font-weight:900;
+  }
+  h1 span{display:block; color:var(--gold2); font-weight:900;
+    background:linear-gradient(180deg,var(--gold2),var(--gold)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+  }
+  .sub{color:var(--muted); font-size:clamp(1rem,2vw,1.15rem); max-width:52ch}
+  .hero-actions{display:flex; gap:12px; flex-wrap:wrap; margin-top:22px}
+  .ghost{
+    background:transparent; color:var(--text); border:1px solid var(--line);
+    padding:10px 16px; border-radius:999px; font-weight:700; cursor:pointer;
+  }
+  .ghost:hover{border-color:rgba(214,180,94,.4); background:rgba(214,180,94,.06)}
+  .meta-row{display:flex; gap:18px; flex-wrap:wrap; margin-top:18px; color:var(--muted); font-size:.85rem}
+  .meta-row strong{color:var(--text)}
+  /* raven card */
+  .raven-card{
+    position:relative; background:linear-gradient(180deg,#151518,#0d0d0f);
+    border:1px solid var(--line); border-radius:24px; padding:22px;
+    box-shadow:0 20px 60px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.04);
+    overflow:hidden;
+    min-height:420px;
+  }
+  .raven-card::before{
+    content:""; position:absolute; inset:-1px; border-radius:24px;
+    background:radial-gradient(500px 300px at 50% 0%, rgba(240,215,138,.15), transparent 70%);
+    pointer-events:none;
+  }
+  .perch-head{
+    display:flex; justify-content:space-between; align-items:center;
+    font-size:.7rem; letter-spacing:.16em; text-transform:uppercase; color:var(--muted)
+  }
+  .perch-head em{font-style:normal; color:var(--gold2); border:1px solid var(--line); padding:4px 8px; border-radius:999px; background:rgba(214,180,94,.08)}
+  .raven-stage{
+    display:grid; place-items:center; padding:10px 0 6px; position:relative;
+  }
+  .raven-svg{width:min(320px, 86%); height:auto; filter:drop-shadow(0 12px 24px rgba(0,0,0,.6))}
+  .eye{transition:transform .08s linear}
+  .wisdom{
+    background:var(--panel2); border:1px solid var(--line); border-radius:16px;
+    padding:14px 14px; min-height:84px; display:grid; align-content:center;
+  }
+  .wisdom p{margin:0; color:var(--text); font-weight:600}
+  .wisdom small{color:var(--muted); margin-top:4px; display:block}
+  .raven-controls{display:flex; gap:10px; margin-top:14px; flex-wrap:wrap}
+  .raven-controls button{flex:1}
+  .hint{font-size:.78rem; color:var(--muted); text-align:center; margin-top:8px}
+  /* sections */
+  section{padding:28px 0}
+  .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+  .card{
+    background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0));
+    border:1px solid var(--line); border-radius:18px; padding:18px;
+  }
+  .card h3{margin:6px 0 6px; font-size:1.05rem; letter-spacing:-.02em}
+  .card p{margin:0; color:var(--muted); font-size:.92rem}
+  .icon{width:36px;height:36px;display:grid;place-items:center;border-radius:10px;
+    background:rgba(214,180,94,.1); border:1px solid var(--line); color:var(--gold2)}
+  .manifesto{
+    display:grid; grid-template-columns:1fr 1fr; gap:18px; align-items:stretch;
+  }
+  .manifesto .big{
+    background:linear-gradient(180deg,#1a1914,#0f0f0e);
+    border:1px solid rgba(214,180,94,.22); border-radius:18px; padding:22px;
+  }
+  .quote{font-size:1.15rem; font-weight:700; line-height:1.35}
+  .list{list-style:none; padding:0; margin:12px 0 0; display:grid; gap:10px}
+  .list li{display:flex; gap:10px; align-items:flex-start; color:var(--muted); font-size:.92rem}
+  .list li i{color:var(--gold2); margin-top:2px}
+  .public-log{
+    background:var(--panel); border:1px solid var(--line); border-radius:18px; padding:18px;
+    display:grid; gap:10px;
+  }
+  .log-head{display:flex; justify-content:space-between; align-items:center}
+  .log-head strong{letter-spacing:.08em; font-size:.75rem; text-transform:uppercase; color:var(--gold2)}
+  .log-item{
+    display:flex; gap:12px; padding:12px; border:1px solid var(--line); border-radius:12px;
+    background:rgba(255,255,255,.015)
+  }
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);margin-top:8px; flex:0 0 8px; box-shadow:0 0 8px var(--gold)}
+  .log-item b{color:var(--text); font-size:.92rem}
+  .log-item span{color:var(--muted); font-size:.86rem}
+  /* join */
+  .join{
+    background:linear-gradient(180deg, rgba(214,180,94,.08), transparent);
+    border:1px solid var(--line); border-radius:22px; padding:22px;
+    display:grid; grid-template-columns:1.2fr .8fr; gap:18px; align-items:center;
+  }
+  .field{
+    display:flex; gap:10px; background:var(--panel2); border:1px solid var(--line);
+    padding:6px; border-radius:999px; max-width:520px;
+  }
+  .field input{
+    flex:1; background:transparent; border:none; color:var(--text); padding:10px 14px;
+    font-size:.95rem; outline:none;
+  }
+  .field input::placeholder{color:#8e8878}
+  .fine{color:var(--muted); font-size:.78rem; margin-top:8px}
+  footer{
+    padding:28px 0; border-top:1px solid var(--line); color:var(--muted); font-size:.85rem;
+    display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap;
+  }
+  /* feathers */
+  .feather{
+    position:fixed; top:-20px; pointer-events:none; z-index:50;
+    font-size:18px; animation:fall linear forwards;
+    filter:drop-shadow(0 4px 6px rgba(0,0,0,.5));
+  }
+  @keyframes fall{
+    0%{transform:translateY(-20px) translateX(0) rotate(0deg); opacity:1}
+    100%{transform:translateY(110vh) translateX(var(--drift)) rotate(720deg); opacity:.95}
+  }
+  /* mobile */
+  @media (max-width:880px){
+    .hero-grid{grid-template-columns:1fr; gap:20px}
+    .raven-card{min-height:auto}
+    .grid3{grid-template-columns:1fr}
+    .manifesto{grid-template-columns:1fr}
+    .join{grid-template-columns:1fr}
+    .links a.hide-m{display:none}
+    .nav{height:60px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none !important; transition:none !important; scroll-behavior:auto !important}
+  }
+</style>
+</head>
+<body><div style="padding:12px;text-align:center;background:#d9b857;color:#111;font:14px system-ui">AI-generated concept demo. Community numbers, testimonials and updates below are fictional examples. No signup data is sent.</div>
+<a href="#main" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden">Skip to content</a>
+<header>
+  <div class="wrap nav" role="navigation" aria-label="Primary">
+    <a class="brand" href="#" aria-label="corvus.gent home">
+      <i aria-hidden="true">✦</i> CORVUS.GENT
+    </a>
+    <div class="links">
+      <a class="hide-m" href="#manifesto">Manifesto</a>
+      <a class="hide-m" href="#build">Build in public</a>
+      <a class="hide-m" href="#join">Join</a>
+      <button class="cta" id="summonBtn" type="button" aria-label="Summon the raven">SUMMON RAVEN →</button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="kicker"><b aria-hidden="true"></b> Est. San Francisco — Run in public by Gabe</div>
+        <h1>Builders helping <span>builders.</span></h1>
+        <p class="sub">corvus.gent is a small, sharp community for people shipping real things. No gurus. No pitch theater. Just generous builders trading notes, reviews, and momentum — in the open.</p>
+        <div class="hero-actions">
+          <button class="cta" type="button" onclick="document.getElementById('join').scrollIntoView({behavior:'smooth'})" aria-label="Request invite">REQUEST INVITE</button>
+          <button class="ghost" type="button" onclick="document.getElementById('manifesto').scrollIntoView({behavior:'smooth'})" aria-label="See how it works">See how it works</button>
+        </div>
+        <div class="meta-row" aria-label="Community stats">
+          <span><strong>240+</strong> builders</span>
+          <span><strong>Weekly</strong> teardown + office hours</span>
+          <span><strong>100%</strong> in public</span>
+        </div>
+      </div>
+
+      <div class="raven-card" aria-labelledby="perchTitle">
+        <div class="perch-head">
+          <span id="perchTitle">The Raven on Watch</span>
+          <em>● Live perch</em>
+        </div>
+        <div class="raven-stage" id="ravenStage">
+          <!-- Inline raven SVG -->
+          <svg class="raven-svg" viewBox="0 0 320 220" role="img" aria-label="Golden raven icon">
+            <defs>
+              <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#f0d78a"/><stop offset="100%" stop-color="#d6b45e"/>
+              </linearGradient>
+            </defs>
+            <!-- body -->
+            <path d="M40 160 C 60 90, 110 55, 170 68 C 210 76, 250 98, 270 145 L 260 155 C 220 125, 180 115, 150 125 C 120 135, 95 165, 40 160Z" fill="#0e0e10" stroke="url(#g1)" stroke-width="2"/>
+            <!-- wing detail -->
+            <path d="M110 95 C 135 88, 170 88, 205 110 C 185 108, 155 108, 120 120Z" fill="none" stroke="#d6b45e" stroke-width="1.6" opacity=".9"/>
+            <path d="M125 118 C 145 112, 175 112, 195 128" fill="none" stroke="#d6b45e" stroke-width="1.2" opacity=".55"/>
+            <!-- head/beak -->
+            <path d="M210 88 C 235 60, 270 62, 285 78 L 255 102 C 240 92, 225 88, 210 88Z" fill="#0e0e10" stroke="url(#g1)" stroke-width="2"/>
+            <path d="M268 68 C 275 70, 283 74, 285 78 L 255 102 L 248 96 Z" fill="url(#g1)"/>
+            <!-- eye -->
+            <g id="eyeGroup">
+              <circle cx="235" cy="84" r="10" fill="#1a1a1e" stroke="#f0d78a" stroke-width="1.5"/>
+              <circle class="eye" id="eye" cx="235" cy="84" r="4.2" fill="#f0d78a"/>
+              <circle cx="233" cy="82" r="1.4" fill="#fff" opacity=".9"/>
+            </g>
+            <!-- perch line -->
+            <rect x="18" y="168" width="284" height="2" rx="1" fill="rgba(214,180,94,.35)"/>
+            <text x="160" y="205" text-anchor="middle" font-size="11" letter-spacing="3" fill="#b8b2a0" font-family="monospace">— OBSERVE • SHARE • SHIP —</text>
+          </svg>
+        </div>
+        <div class="wisdom" aria-live="polite" aria-atomic="true">
+          <p id="wisdomText">Click the raven. It has notes on your build.</p>
+          <small id="wisdomTag">— Corvus whispers • Press F to feed, R for random</small>
+        </div>
+        <div class="raven-controls">
+          <button class="cta" id="feedBtn" type="button" aria-label="Feed the raven for wisdom">FEED RAVEN ✦</button>
+          <button class="ghost" id="cawBtn" type="button" aria-label="Make raven caw and scatter feathers">CAW!</button>
+        </div>
+        <div class="hint">Accessible: Tab to buttons, press Enter/Space. Try hovering to move its eye.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" id="build">
+    <div class="grid3">
+      <div class="card">
+        <div class="icon" aria-hidden="true">◈</div>
+        <h3>Teardowns, not talks</h3>
+        <p>Bring your landing, pricing, onboarding. Get 3 sharp fixes in 15 minutes from people who've shipped it.</p>
+      </div>
+      <div class="card">
+        <div class="icon" aria-hidden="true">⬢</div>
+        <h3>Build in public</h3>
+        <p>Weekly logs, revenue, lessons. Gabe posts everything — wins and wobbles — so we all learn faster.</p>
+      </div>
+      <div class="card">
+        <div class="icon" aria-hidden="true">⟡</div>
+        <h3>Generous by default</h3>
+        <p>Ask for help. Give help. The rule is simple: leave someone’s build better than you found it.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap manifesto" id="manifesto">
+    <div class="big">
+      <div style="letter-spacing:.16em; text-transform:uppercase; font-size:.72rem; color:var(--gold2)">The Corvus Code</div>
+      <p class="quote">We believe small groups, high trust, and public work beat big audiences and private anxiety.</p>
+      <ul class="list">
+        <li><i aria-hidden="true">—</i> <span><b style="color:var(--text)">Ship weekly.</b> Momentum is the product.</span></li>
+        <li><i aria-hidden="true">—</i> <span><b style="color:var(--text)">Share numbers.</b> Truth creates useful advice.</span></li>
+        <li><i aria-hidden="true">—</i> <span><b style="color:var(--text)">Review with care.</b> Be direct, be kind, be specific.</span></li>
+      </ul>
+      <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap">
+        <span style="border:1px solid var(--line); padding:6px 10px; border-radius:999px; font-size:.8rem; color:var(--muted)">San Francisco • Remote friendly</span>
+        <span style="border:1px solid var(--line); padding:6px 10px; border-radius:999px; font-size:.8rem; color:var(--muted)">Craft &gt; Hacks</span>
+      </div>
+    </div>
+    <div class="public-log" aria-labelledby="logTitle">
+      <div class="log-head">
+        <strong id="logTitle">Run in public — by Gabe</strong>
+        <span style="font-size:.8rem; color:var(--muted)">Week 47</span>
+      </div>
+      <div class="log-item">
+        <div class="dot" aria-hidden="true"></div>
+        <div>
+          <b>Shipped: Office hours board + async critiques</b><br>
+          <span>12 reviews, avg. response &lt; 14h. Next: pricing experiments.</span>
+        </div>
+      </div>
+      <div class="log-item">
+        <div class="dot" style="background:#b8b2a0; box-shadow:none" aria-hidden="true"></div>
+        <div>
+          <b>Lesson: Distribution is a design problem</b><br>
+          <span>Rewrote onboarding as a shareable artifact. +22% invites.</span>
+        </div>
+      </div>
+      <div class="log-item">
+        <div class="dot" style="background:var(--gold2)" aria-hidden="true"></div>
+        <div>
+          <b>Now: Small cohort for Q1 launches</b><br>
+          <span>8 spots. Builders with a prototype and a deadline.</span>
+        </div>
+      </div>
+      <button class="ghost" type="button" onclick="document.getElementById('join').scrollIntoView({behavior:'smooth'})" aria-label="Jump to invite form">Follow the log →</button>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="join" id="join">
+      <div>
+        <h2 style="margin:0 0 6px; font-size:1.8rem; letter-spacing:-.03em">Join corvus.gent</h2>
+        <p style="margin:0; color:var(--muted)">A calm, high-signal home for builders. No spam, no funnels. Just an invite and a warm intro.</p>
+        <form class="field" onsubmit="return handleJoin(event)" aria-label="Invite request form">
+          <label for="email" style="position:absolute;left:-9999px">Email address</label>
+          <input id="email" name="email" type="email" placeholder="you@domain.com" required autocomplete="email" aria-required="true">
+          <button class="cta" type="submit" aria-label="Request invite">REQUEST INVITE</button>
+        </form>
+        <div class="fine">By joining you agree to be helpful. Unsubscribe anytime. <span id="formMsg" role="status" aria-live="polite" style="color:var(--gold2)"></span></div>
+      </div>
+      <div style="display:grid; gap:10px">
+        <div style="display:flex; justify-content:space-between; color:var(--muted); font-size:.8rem; letter-spacing:.08em; text-transform:uppercase"><span>Trust signals</span><span style="color:var(--gold2)">High signal</span></div>
+        <div style="border:1px solid var(--line); border-radius:14px; padding:14px; background:var(--panel2); color:var(--muted); font-size:.9rem">
+          “Got my first 10 users from a single teardown. People actually read your work here.” <br><b style="color:var(--text)">— Maya, tools for researchers</b>
+        </div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap">
+          <span style="padding:6px 10px; border:1px solid var(--line); border-radius:999px; font-size:.78rem; background:rgba(255,255,255,.02)">Office hours Thu 5pm PT</span>
+          <span style="padding:6px 10px; border:1px solid var(--line); border-radius:999px; font-size:.78rem; background:rgba(255,255,255,.02)">Async reviews daily</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>© <span id="year"></span> corvus.gent — A community of builders, run in public by Gabe in San Francisco. Be kind. Ship often.</span>
+    <span style="display:flex; gap:14px">
+      <a href="#manifesto" style="color:var(--muted); text-decoration:none">Manifesto</a>
+      <a href="#" onclick="event.preventDefault(); alert('Write Gabe: gabe@corvus.gent')" style="color:var(--muted); text-decoration:none">Contact</a>
+      <a href="#" onclick="event.preventDefault(); window.scrollTo({top:0,behavior:'smooth'})" style="color:var(--muted); text-decoration:none">Back to top ↑</a>
+    </span>
+  </footer>
+</div>
+
+<script>
+  const wisdom = [
+    ["Ship the ugly version.", "Momentum beats polish. You can’t iterate on vapor."],
+    ["Make the value obvious in 5 seconds.", "If a stranger can’t explain it, they won’t share it."],
+    ["Charge earlier than comfortable.", "Price is feedback. Free is fog."],
+    ["Build a distribution artifact.", "Turn onboarding into something people want to post."],
+    ["One promise, proven.", "A landing page is one bet, not your biography."],
+    ["Teach what you just learned.", "Generosity is the fastest growth loop."],
+    ["Constraints create taste.", "Small group. High bar. Kind critique."],
+    ["Log it in public.", "What gets witnessed, gets finished."]
+  ];
+  const wisdomText = document.getElementById('wisdomText');
+  const wisdomTag = document.getElementById('wisdomTag');
+  const eye = document.getElementById('eye');
+  const ravenStage = document.getElementById('ravenStage');
+  const feedBtn = document.getElementById('feedBtn');
+  const cawBtn = document.getElementById('cawBtn');
+  const summonBtn = document.getElementById('summonBtn');
+
+  function randomWisdom(){
+    const [a,b] = wisdom[Math.floor(Math.random()*wisdom.length)];
+    wisdomText.textContent = a;
+    wisdomTag.textContent = "— " + b + "  •  (Corvus wisdom #" + (Math.floor(Math.random()*89)+11) + ")";
+    pulse();
+  }
+  function pulse(){
+    wisdomText.animate([{transform:'scale(1)'},{transform:'scale(1.02)'},{transform:'scale(1)'}],{duration:280, easing:'ease-out'});
+  }
+  function feathers(n=12){
+    for(let i=0;i<n;i++){
+      const f=document.createElement('div');
+      f.className='feather';
+      f.textContent = Math.random()>.5 ? '🪶' : '✦';
+      f.style.left = (Math.random()*100)+'vw';
+      f.style.setProperty('--drift', (Math.random()*120-60)+'px');
+      f.style.animationDuration = (1.2 + Math.random()*1.1)+'s';
+      f.style.animationDelay = (Math.random()*.2)+'s';
+      f.style.opacity = .9;
+      document.body.appendChild(f);
+      setTimeout(()=>f.remove(), 2600);
+    }
+  }
+  function caw(){
+    cawBtn.textContent = 'CAW—CAW!';
+    wisdomText.textContent = 'The raven approves your persistence.';
+    wisdomTag.textContent = '— loud, affirming, slightly dramatic';
+    feathers(14);
+    ravenStage.animate([{transform:'translateY(0) rotate(0deg)'},{transform:'translateY(-6px) rotate(-1deg)'},{transform:'translateY(0) rotate(0deg)'}],{duration:420, easing:'ease-out'});
+    setTimeout(()=>cawBtn.textContent='CAW!', 900);
+  }
+
+  feedBtn.addEventListener('click', ()=>{ randomWisdom(); feathers(8); });
+  cawBtn.addEventListener('click', caw);
+  summonBtn.addEventListener('click', ()=>{ document.getElementById('join').scrollIntoView({behavior:'smooth'}); feathers(10); randomWisdom(); });
+  ravenStage.addEventListener('click', ()=>{ randomWisdom(); feathers(6); });
+  ravenStage.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); randomWisdom(); }});
+  ravenStage.tabIndex = 0;
+  ravenStage.setAttribute('role','button');
+  ravenStage.setAttribute('aria-label','Raven perch, click for wisdom');
+
+  // eye follow
+  document.addEventListener('mousemove', (e)=>{
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const r = ravenStage.getBoundingClientRect();
+    const cx = r.left + r.width*0.62;
+    const cy = r.top + r.height*0.42;
+    const dx = (e.clientX - cx)/180;
+    const dy = (e.clientY - cy)/180;
+    eye.setAttribute('transform', `translate(${Math.max(-3,Math.min(3,dx*3))} ${Math.max(-2,Math.min(2,dy*2))})`);
+  });
+  // keyboard shortcuts
+  document.addEventListener('keydown', (e)=>{
+    if(e.key.toLowerCase()==='f'){ randomWisdom(); feathers(5); }
+    if(e.key.toLowerCase()==='r'){ randomWisdom(); }
+    if(e.key.toLowerCase()==='c'){ caw(); }
+  });
+
+  function handleJoin(e){
+    e.preventDefault();
+    const email = document.getElementById('email').value.trim();
+    const msg = document.getElementById('formMsg');
+    if(!email || !email.includes('@')){ msg.textContent=' Please enter a valid email.'; return false; }
+    msg.textContent = ' — Demo only: nothing was sent or saved.';
+    document.getElementById('email').value='';
+    feathers(16);
+    return false;
+  }
+  document.getElementById('year').textContent = new Date().getFullYear();
+  // initial
+  setTimeout(randomWisdom, 600);
+</script>
+</body>
+</html>
