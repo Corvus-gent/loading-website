@@ -1,20 +1,20 @@
 # Corvus public link audit
 
-Verified on production: 2026-11-10T00:41:06.059Z. Branch: `codex/link-discovery`; included in daily PR #18. Production: https://corvus.gent/ · directory: https://corvus.gent/map/
+Verified on production: 2026-11-10T00:55:20.589Z. Branch: `codex/link-discovery`; included in daily PR #18. Production: https://corvus.gent/ · directory: https://corvus.gent/map/
 
 ## Results
 
 | Measure | Before | After |
 |---|---:|---:|
-| Live public pages / content views | 877 | 876 |
-| Orphans (zero incoming page links) | 4 | 0 |
-| Fewer than three incoming links | 23 | 0 |
-| Unreachable from home | 4 | 0 |
-| Minimum distinct incoming pages | 0 | 8 |
+| Live public pages / content views | 878 | 877 |
+| Orphans (zero incoming page links) | 5 | 0 |
+| Fewer than three incoming links | 24 | 0 |
+| Unreachable from home | 5 | 0 |
+| Minimum distinct incoming pages | 0 | 5 |
 | Maximum navigations from home | unreachable; 3 among reachable pages | 2 |
 | Dead public pages | 0 | 0 |
 
-The final catalogue includes 74 general pages (including one PDF), 20 language collections, 280 hook collections and 502 registered video variants. Aliases are not counted twice. Empty language/hook collections remain accessible because these are real existing public routes, not invented video exports. The count changes because duplicate pages were consolidated and the public Senate directory was added.
+The final catalogue includes 74 general pages (including one PDF), 20 language collections, 280 hook collections, 502 registered video variants and one opted-in public soldier profile. Aliases are not counted twice. Empty language/hook collections remain accessible because these are real existing public routes, not invented video exports. The count changes because duplicate pages were consolidated and the public Senate directory was added.
 
 ## What changed
 
@@ -28,11 +28,11 @@ The final catalogue includes 74 general pages (including one PDF), 20 language c
 
 ## Scope, privacy and method
 
-Rendered Chromium crawl, 1440px viewport, 878 production URLs checked after deployment. Every generated public route was also checked directly so an orphan could not disappear from the audit. A distinct referring canonical page counts once. Navigation distance is breadth-first from home; scrolling and opening a disclosure do not change the page. The complete map is always one page navigation from home, making all listed pages at most two navigations away. Hidden command-palette links do **not** contribute to inbound counts. Content identity queries (video, id, interview, game) distinguish views; tracking queries and fragments do not. Stats-domain accidental clones do not inflate counts. Download responses were separately confirmed by HEAD rather than treated as browser navigation failures.
+Rendered Chromium crawl, 1440px viewport, 879 production URLs checked after deployment. Every generated public route was also checked directly so an orphan could not disappear from the audit. A distinct referring canonical page counts once. Navigation distance is breadth-first from home; scrolling and opening a disclosure do not change the page. The complete map is always one page navigation from home, making all listed pages at most two navigations away. Hidden command-palette links do **not** contribute to inbound counts. Content identity queries (video, id, interview, game) distinguish views; tracking queries and fragments do not. Stats-domain accidental clones do not inflate counts. Download responses were separately confirmed by HEAD rather than treated as browser navigation failures.
 
 Private account workflows, owner tools, interview submission, member access, invites, edit links and private stats are excluded from discovery. No tokens or private records are included in this report. The original scan found 25 excluded files/workflows; their private paths are intentionally omitted here.
 
-The initial crawl also found accidental stats-domain copies. The finite page audit uses the real site's canonical pages, not those duplicates. Short-link patterns are listed separately below; arbitrary future slugs are not asserted to exist.
+The legacy public soldier profile was added during the final inventory cross-check. Its 200 response was checked on production; its baseline outgoing links were reconstructed from the pre-change template in commit e56a1c7. It had no incoming page links before this change. Hidden members were not enumerated. The initial crawl also found accidental stats-domain copies. The finite page audit uses the real site's canonical pages, not those duplicates. Short-link patterns are listed separately below; arbitrary future slugs are not asserted to exist.
 
 ## Verification
 
@@ -54,16 +54,16 @@ Screenshots: `test-results/link-audit/home-strip-390.png` and `home-strip-1440.p
 
 | Route | What it is | Inbound before → after | Home clicks before → after | Status |
 |---|---|---:|---:|---|
-| / | corvus.gent | 873 → 873 | 0 → 0 | live |
-| /402 | 402 · the crow’s other door | 2 → 16 | 2 → 1 | live |
-| /airbnb | Gabriel – even bellen? | 0 → 17 | — → 1 | live |
-| /airbnb-call-me-pls | Gabriel – call me pls | 1 → 16 | 3 → 1 | live |
-| /airbnb-filter | me vs the Airbnb filter | 3 → 10 | 2 → 2 | live |
-| /battle | Codex vs Compound | 2 → 24 | 2 → 2 | live |
-| /build | one man. one army. | 51 → 67 | 1 → 1 | live |
-| /call | book a call | 869 → 870 | 1 → 1 | live |
-| /compound | the $1,000 cut | 808 → 811 | 2 → 2 | live |
-| /compound/impact | Compound impact 💎 | 869 → 870 | 1 → 1 | live |
+| / | corvus.gent | 874 → 874 | 0 → 0 | live |
+| /402 | 402 · the crow’s other door | 2 → 21 | 2 → 1 | live |
+| /airbnb | Gabriel – even bellen? | 0 → 20 | — → 1 | live |
+| /airbnb-call-me-pls | Gabriel – call me pls | 1 → 21 | 3 → 1 | live |
+| /airbnb-filter | me vs the Airbnb filter | 3 → 18 | 2 → 2 | live |
+| /battle | Codex vs Compound | 2 → 21 | 2 → 1 | live |
+| /build | one man. one army. | 52 → 72 | 1 → 1 | live |
+| /call | book a call | 870 → 871 | 1 → 1 | live |
+| /compound | the $1,000 cut | 808 → 810 | 2 → 2 | live |
+| /compound/impact | Compound impact 💎 | 870 → 871 | 1 → 1 | live |
 | /compound/rules | feedback, with ground rules | 2 → 18 | 2 → 2 | live |
 | /compound/v2 | 100 videos. one deadline. | 809 → 811 | 2 → 2 | live |
 | /compound/v2/ar | العربية · vote the next cut | 802 → 804 | 3 → 2 | live |
@@ -869,70 +869,71 @@ Screenshots: `test-results/link-audit/home-strip-390.png` and `home-strip-1440.p
 | /compound/v2/zh/side | 中文 · Sidequest | 14 → 16 | 4 → 2 | live |
 | /compound/v2/zh/startup | 中文 · Startup | 14 → 16 | 4 → 2 | live |
 | /cv | the CV | 4 → 20 | 2 → 2 | live |
-| /daily | daily | 873 → 873 | 1 → 1 | live |
-| /dinner | dinner in SF | 2 → 16 | 2 → 2 | live |
-| /friends/cardneto | Cardneto | 869 → 870 | 1 → 1 | live |
-| /gabe | gabe | 873 → 873 | 1 → 1 | live |
-| /gabinho-rolls | roll or surf | 3 → 16 | 2 → 2 | live |
-| /games | play today | 11 → 24 | 2 → 2 | live |
+| /daily | daily | 874 → 874 | 1 → 1 | live |
+| /dinner | dinner in SF | 2 → 24 | 2 → 2 | live |
+| /friends/cardneto | Cardneto | 870 → 871 | 1 → 1 | live |
+| /gabe | gabe | 874 → 874 | 1 → 1 | live |
+| /gabinho-rolls | roll or surf | 3 → 10 | 2 → 2 | live |
+| /games | play today | 11 → 25 | 2 → 2 | live |
 | /games/hub | the arcade | 6 → 19 | 2 → 2 | live |
-| /hack | hackathons | 6 → 17 | 2 → 2 | live |
-| /hack/1 | 01 / HackTheFeed | 9 → 18 | 2 → 2 | live |
-| /hack/1/the-feed | try HackTheFeed | 2 → 16 | 2 → 1 | live |
-| /hack/2 | 02 / OSSMAN | 5 → 19 | 2 → 2 | live |
+| /hack | hackathons | 6 → 25 | 2 → 2 | live |
+| /hack/1 | 01 / HackTheFeed | 9 → 13 | 2 → 2 | live |
+| /hack/1/the-feed | try HackTheFeed | 2 → 25 | 2 → 1 | live |
+| /hack/2 | 02 / OSSMAN | 5 → 16 | 2 → 2 | live |
 | /hack/3 | 03 / robotics | 820 → 821 | 2 → 2 | live |
-| /hack/play | OSSMAN | 8 → 22 | 2 → 2 | live |
-| /hack/play/do-bronx | OSSMAN · do-Bronx edition | 0 → 21 | — → 1 | live |
-| /hack/the-feed | HackTheFeed · original demo door | 1 → 16 | 2 → 1 | redirect → /hack/1/the-feed |
+| /hack/play | OSSMAN | 8 → 18 | 2 → 2 | live |
+| /hack/play/do-bronx | OSSMAN · do-Bronx edition | 0 → 17 | — → 2 | live |
+| /hack/the-feed | HackTheFeed · original demo door | 1 → 25 | 2 → 1 | redirect → /hack/1/the-feed |
 | /hackathons | the squads | 5 → 15 | 2 → 2 | live |
-| /hackthefeed | the original hackathon log | 3 → 12 | 2 → 2 | live |
-| /hackthefeed/2 | Hack #2 · original countdown | 2 → 11 | 2 → 2 | live |
-| /join-the-army-now | the army is recruiting. | 873 → 873 | 1 → 1 | redirect → /legion |
-| /languages | pick the next language | 23 → 35 | 2 → 2 | live |
-| /legion | legion | 873 → 873 | 1 → 1 | live |
-| /legion/lantern | follow the lantern. | 1 → 19 | 2 → 2 | live |
-| /legion/senate | The Senate | — → 21 | — → 2 | live |
-| /links/corvus | Corvus links | 2 → 17 | 2 → 2 | live |
-| /links/gabe | Gabe’s links | 7 → 15 | 2 → 2 | live |
-| /links/pidgy | Pidgy links | 2 → 25 | 2 → 1 | live |
-| /live | live | 874 → 874 | 1 → 1 | live |
-| /live/overlay | Corvus · live stream overlay | 0 → 14 | — → 2 | live |
-| /map | the whole map | 869 → 870 | 1 → 1 | live |
-| /music | music | 5 → 17 | 2 → 2 | live |
-| /now | right now | 4 → 10 | 2 → 2 | live |
-| /people | people | 3 → 16 | 2 → 2 | live |
-| /people?id=gabe | Gabe · the full story | 4 → 17 | 2 → 2 | live |
-| /plethora | Plethora | 869 → 870 | 1 → 1 | live |
-| /plethora/stats | Plethora referrals | 2 → 21 | 2 → 2 | live |
-| /privacy | privacy | 869 → 870 | 1 → 1 | live |
-| /push | one video. one army. | 1 → 809 | 2 → 2 | live |
-| /quests | quests | 873 → 873 | 1 → 1 | live |
-| /realm | the old realm | 38 → 47 | 1 → 1 | live |
-| /sf | meet in San Francisco | 3 → 22 | 2 → 2 | live |
-| /sidequests | the sidequests | 4 → 16 | 2 → 2 | live |
-| /submission | OSSMAN | 0 → 22 | — → 2 | redirect → /hack/play |
-| /support | back the people building | 12 → 26 | 2 → 2 | live |
-| /support/books | books worth keeping | 2 → 15 | 2 → 2 | live |
-| /support/companies | companies worth watching | 2 → 15 | 2 → 1 | live |
-| /support/founders | founders worth following | 2 → 18 | 2 → 1 | live |
-| /support/people | people worth knowing | 2 → 18 | 2 → 1 | live |
+| /hackthefeed | the original hackathon log | 3 → 16 | 2 → 2 | live |
+| /hackthefeed/2 | Hack #2 · original countdown | 2 → 13 | 2 → 2 | live |
+| /join-the-army-now | the army is recruiting. | 874 → 874 | 1 → 1 | redirect → /legion |
+| /languages | pick the next language | 23 → 38 | 2 → 1 | live |
+| /legion | legion | 874 → 874 | 1 → 1 | live |
+| /legion/lantern | follow the lantern. | 1 → 16 | 2 → 2 | live |
+| /legion/senate | The Senate | — → 19 | — → 2 | live |
+| /links/corvus | Corvus links | 2 → 10 | 2 → 2 | live |
+| /links/gabe | Gabe’s links | 7 → 16 | 2 → 2 | live |
+| /links/pidgy | Pidgy links | 2 → 13 | 2 → 2 | live |
+| /live | live | 875 → 875 | 1 → 1 | live |
+| /live/overlay | Corvus · live stream overlay | 0 → 22 | — → 2 | live |
+| /map | the whole map | 870 → 871 | 1 → 1 | live |
+| /music | music | 5 → 15 | 2 → 2 | live |
+| /now | right now | 4 → 22 | 2 → 2 | live |
+| /people | people | 3 → 10 | 2 → 2 | live |
+| /people?id=gabe | Gabe · the full story | 4 → 16 | 2 → 2 | live |
+| /plethora | Plethora | 870 → 871 | 1 → 1 | live |
+| /plethora/stats | Plethora referrals | 2 → 14 | 2 → 1 | live |
+| /privacy | privacy | 870 → 871 | 1 → 1 | live |
+| /push | one video. one army. | 1 → 809 | 2 → 1 | live |
+| /quests | quests | 874 → 874 | 1 → 1 | live |
+| /realm | the old realm | 38 → 44 | 1 → 1 | live |
+| /sf | meet in San Francisco | 3 → 14 | 2 → 2 | live |
+| /sidequests | the sidequests | 4 → 20 | 2 → 2 | live |
+| /soldier/santobjj | santobjj · public soldier profile | 0 → 5 | — → 2 | live |
+| /submission | OSSMAN | 0 → 18 | — → 2 | redirect → /hack/play |
+| /support | back the people building | 12 → 25 | 2 → 2 | live |
+| /support/books | books worth keeping | 2 → 18 | 2 → 2 | live |
+| /support/companies | companies worth watching | 2 → 16 | 2 → 2 | live |
+| /support/founders | founders worth following | 2 → 20 | 2 → 2 | live |
+| /support/people | people worth knowing | 2 → 21 | 2 → 1 | live |
 | /support/philosophists | old ideas. new questions. | 3 → 17 | 2 → 2 | live |
-| /support/sport-people | people who put in the rounds | 2 → 25 | 2 → 2 | live |
-| /wiki | the field notes | 5 → 19 | 2 → 2 | live |
-| /wiki/corvus | what is Corvus? | 6 → 25 | 2 → 2 | live |
-| /wiki/corvus/namesakes | why the crow? | 2 → 17 | 2 → 2 | live |
-| /wiki/pidgy | what is Pidgy? | 6 → 18 | 2 → 2 | live |
-| https://stats.corvus.gent/ | the public numbers | 13 → 26 | 2 → 2 | live |
-| https://stats.corvus.gent/army | the army, counted | 9 → 27 | 3 → 2 | live |
-| https://stats.corvus.gent/coffee | coffee for the army | 10 → 24 | 2 → 2 | live |
-| https://stats.corvus.gent/games | the daily games, counted | 10 → 19 | 2 → 2 | live |
-| https://stats.corvus.gent/hack | HackTheFeed, counted | 11 → 31 | 2 → 2 | live |
-| https://stats.corvus.gent/hunt | curiosity, counted | 10 → 20 | 2 → 2 | live |
-| https://stats.corvus.gent/map | where the army is | 10 → 27 | 2 → 2 | live |
-| https://stats.corvus.gent/music | the rotation in numbers | 10 → 20 | 2 → 2 | live |
-| https://stats.corvus.gent/pidgy | Corvus → Pidgy | 10 → 24 | 2 → 2 | live |
-| https://stats.corvus.gent/status | is everything awake? | 10 → 19 | 2 → 1 | live |
-| https://stats.corvus.gent/x | the X log | 10 → 20 | 2 → 2 | live |
+| /support/sport-people | people who put in the rounds | 2 → 19 | 2 → 2 | live |
+| /wiki | the field notes | 5 → 24 | 2 → 2 | live |
+| /wiki/corvus | what is Corvus? | 6 → 17 | 2 → 2 | live |
+| /wiki/corvus/namesakes | why the crow? | 2 → 14 | 2 → 2 | live |
+| /wiki/pidgy | what is Pidgy? | 6 → 19 | 2 → 2 | live |
+| https://stats.corvus.gent/ | the public numbers | 13 → 21 | 2 → 2 | live |
+| https://stats.corvus.gent/army | the army, counted | 9 → 28 | 3 → 2 | live |
+| https://stats.corvus.gent/coffee | coffee for the army | 10 → 29 | 2 → 2 | live |
+| https://stats.corvus.gent/games | the daily games, counted | 10 → 23 | 2 → 2 | live |
+| https://stats.corvus.gent/hack | HackTheFeed, counted | 11 → 28 | 2 → 2 | live |
+| https://stats.corvus.gent/hunt | curiosity, counted | 10 → 25 | 2 → 2 | live |
+| https://stats.corvus.gent/map | where the army is | 10 → 19 | 2 → 2 | live |
+| https://stats.corvus.gent/music | the rotation in numbers | 10 → 21 | 2 → 2 | live |
+| https://stats.corvus.gent/pidgy | Corvus → Pidgy | 10 → 26 | 2 → 2 | live |
+| https://stats.corvus.gent/status | is everything awake? | 10 → 19 | 2 → 2 | live |
+| https://stats.corvus.gent/x | the X log | 10 → 17 | 2 → 2 | live |
 
 ## Short links, old URLs and redirect inventory
 
