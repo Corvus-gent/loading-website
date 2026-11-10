@@ -1,5 +1,6 @@
 // One tiny helper: run a Redis command, via REST (Upstash) or REDIS_URL (TCP).
 import { createClient } from "redis";
+import { isIP } from "node:net";
 
 const envEnding = end => Object.entries(process.env).find(([k, v]) => k.endsWith(end) && !k.includes("READ_ONLY") && v)?.[1];
 const REST_URL = envEnding("_REST_API_URL") || envEnding("_REDIS_REST_URL");
@@ -9,11 +10,12 @@ const REDIS_URL = process.env.REDIS_URL || envEnding("_REDIS_URL") || envEnding(
 // the previous REST preference when only an inferred/legacy TCP variable exists.
 const USE_REST = !process.env.REDIS_URL && Boolean(REST_URL && REST_TOKEN);
 
-// Personal records must not travel in clear text to a remote storage service.
+const isLocal = hostname => ['localhost', '127.0.0.1', '[::1]'].includes(hostname);
+
+// Also used by the migration tool, which validates its URLs before copying.
 export function secureEndpoint(raw, rest = false) {
   const url = new URL(raw);
-  const local = ['localhost', '127.0.0.1', '[::1]'].includes(url.hostname);
-  if (rest ? url.protocol !== 'https:' : url.protocol !== 'rediss:' && !(local && url.protocol === 'redis:')) throw new Error('Redis requires encrypted transport');
+  if (rest ? url.protocol !== 'https:' : url.protocol !== 'rediss:' && !(isLocal(url.hostname) && url.protocol === 'redis:')) throw new Error('Redis requires encrypted transport');
   return raw;
 }
 
@@ -42,11 +44,24 @@ export function connectionEndpoint(raw = REDIS_URL) {
 }
 
 let client, connecting;
-async function connection(){
-  // Recheck the deadline on every operation, including an already-open connection.
-  const url = connectionEndpoint();
-  if(!client){client=createClient({url});client.on("error",()=>{});connecting=client.connect().catch(error=>{client=null;connecting=null;throw error;});}
-  await connecting;return client;
+async function connection() {
+  // Preserve the existing time-bounded legacy exception and recheck it per call.
+  const endpoint = new URL(REDIS_URL);
+  if (!process.env.REDIS_PLAINTEXT_UNTIL && endpoint.protocol === 'redis:' && !isLocal(endpoint.hostname)) endpoint.protocol = 'rediss:';
+  const url = connectionEndpoint(endpoint.href);
+  if (!client) {
+    const socket = { connectTimeout: 3000, reconnectStrategy: false };
+    if (endpoint.protocol === 'rediss:') {
+      socket.rejectUnauthorized = true;
+      if (!isIP(endpoint.hostname.replace(/^\[|\]$/g, ''))) socket.servername = endpoint.hostname;
+    }
+    client = createClient({ url, socket });
+    client.on('error', () => {});
+    connecting = client.connect().catch(error => { client = null; connecting = null; throw error; });
+  }
+  await connecting;
+  return client;
+
 }
 
 export const maintenance = () => process.env.REDIS_MAINTENANCE === '1';
