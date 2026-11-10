@@ -22,3 +22,7 @@ playwright-report/
 
 # Local Vercel link
 .vercel/
+
+# Python build/test caches
+__pycache__/
+*.pyc

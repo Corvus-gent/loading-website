@@ -31,6 +31,10 @@
   ],
   "rewrites": [
     {
+      "source": "/api/dontpay",
+      "destination": "/api/stats?dontpay=1"
+    },
+    {
       "source": "/arena",
       "destination": "/public/arena/index.html"
     },

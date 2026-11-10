@@ -26,3 +26,7 @@ npm run build generates navigation, photos, route/search indexes, audits every l
 - Optional public/hack/2/floor.jpg, slide.jpg, setup.jpg; absent files show placeholders.
 - Merge requires owner approval. Separate existing PRs still need their own review.
 - Preview authentication is controlled by the existing Vercel project; no protection settings changed.
+
+## Overnight continuation
+
+Muse recap moved from the provisional `/hack/2/` to `/hack/4/` to preserve the already-live Plethora and robotics nights. Current photo slots: `public/hack/4/`. See NIGHT_LOG.md for the new series, verification and handoff. Earlier entries above record the original integration work.

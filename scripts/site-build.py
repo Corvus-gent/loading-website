@@ -6,14 +6,14 @@ from pathlib import Path
 from html.parser import HTMLParser
 from html import escape, unescape
 from urllib.parse import urlsplit, urljoin, unquote
-import json,re,subprocess,sys
+import json,re,sys
 ROOT=Path(__file__).resolve().parents[1]
 import os
 os.chdir(ROOT)
 EXCLUDED_PREFIXES=('clients/','music/admin/','stats/private/','stats/hunt/','sf/','airbnb/','airbnb-call-me-pls/','402/')
 SPECIAL=('go/index.html','gabe/index.html','404.html')
 NO_HEADER=('public/arena/game.html','public/arena/nest-b.html','hack/the-feed/index.html')
-NAV=[('/','Home'),('/hack/','Hack'),('/legion/','Legion'),('/nest/','Nest'),('/games/','Games'),('/explore/','Explore')]
+NAV=[('/','Home'),('/hack/','Hack'),('/legion/','Legion'),('/nest/','Nest'),('/dontpay/',"I Don't Pay"),('/games/','Games'),('/explore/','Explore')]
 
 def all_files():
  result=[]
@@ -57,22 +57,22 @@ for f in files:
  p=Path(f);s=p.read_text()
  if not public(f) and f!='404.html':continue
  if f not in NO_HEADER:
-  s=re.sub(r'<!-- site-nav:start -->.*?<!-- site-nav:end -->\n*','',s,flags=re.S)
+  s=re.sub(r'\n*<!-- site-nav:start -->.*?<!-- site-nav:end -->\n*','',s,flags=re.S)
   s=re.sub(r'(<body\b[^>]*>)',lambda m:m.group(1)+'\n'+nav_markup(route(f)),s,count=1,flags=re.I)
  if '/js/site-nav.css' not in s:s=s.replace('</head>','<link rel="stylesheet" href="/js/site-nav.css">\n</head>')
  # Preserve the game/app's existing back links and full-viewport behavior.
  if f not in NO_HEADER:
-  s=re.sub(r'<!-- site-next:start -->.*?<!-- site-next:end -->\n*','',s,flags=re.S)
-  footer='<!-- site-next:start --><nav class="site-next" aria-label="Keep exploring"><a href="/legion/">Join the Legion →</a><a href="/hack/">Read a field note →</a><a href="/games/">Play a game →</a><a href="/explore/">All public pages →</a></nav><!-- site-next:end -->'
+  s=re.sub(r'\n*<!-- site-next:start -->.*?<!-- site-next:end -->\n*','',s,flags=re.S)
+  footer='<!-- site-next:start --><nav class="site-next" aria-label="Keep exploring"><a href="/legion/">Join the Legion →</a><a href="/hack/">Read a field note →</a><a href="/dontpay/">Follow I Don’t Pay →</a><a href="/games/">Play a game →</a><a href="/explore/">All public pages →</a></nav><!-- site-next:end -->'
   s=s.replace('</body>',footer+'\n</body>')
  if f.startswith('stats/'):
   s=re.sub(r'<!-- site-(?:nav|next):start -->.*?<!-- site-(?:nav|next):end -->',lambda m: m.group(0).replace('href="/', 'href="https://corvus.gent/'),s,flags=re.S)
  p.write_text(re.sub(r"[ \t]+\n", "\n", s))
 
 # Photos are optional inputs, never broken image requests or invented photographs.
-p=Path('hack/2/index.html');s=p.read_text()
+p=Path('hack/4/index.html');s=p.read_text()
 for stem,alt in [('floor','Gabe asleep on the floor after the Meta Muse hackathon'),('slide','The last-minute Muse Ember playground demo'),('setup','The terminal and OpenRouter setup at the hackathon')]:
- image=Path('public/hack/2')/(stem+'.jpg')
+ image=Path('public/hack/4')/(stem+'.jpg')
  if image.exists():
   body=f'<img src="/{image.as_posix()}" alt="{alt}" loading="lazy" width="960" height="720">'
  else:
@@ -95,7 +95,7 @@ parsed={f:parser(f) for f in files}
 config=json.loads(Path('vercel.json').read_text())
 # Explicit non-file routes served by middleware or existing production flow.
 DYNAMIC=('/enter','/the-crow','/revived','/sidequest','/important-call-gabe-maxxer','/coffee-with-gabe')
-PRODUCTION_ONLY={'/join-the-army-now','/join-the-army-now/'}
+PRODUCTION_ONLY={'/join-the-army-now','/join-the-army-now/','/hack/2','/hack/2/','/hack/3','/hack/3/'}
 def resolve(path,depth=0):
  path=unquote(path) or '/'
  if depth>4:return None
@@ -139,13 +139,15 @@ for f in sorted(files,key=route):
  visibility='Home → Explore → '+group(f) if public(f) else 'Unlisted/private or utility; existing direct/authorized flow only'
  if f=='index.html':visibility='Entry point; main navigation'
  elif f.startswith('hack/'):visibility='Home → Hack → numbered field note / existing app'
- elif f=='nest/index.html':visibility='Home → Nest; Hack 002 → last-minute demo'
+ elif f=='nest/index.html':visibility='Home → Nest; Hack 004 → last-minute demo'
+ elif f.startswith('dontpay/'):visibility='Home → I Don’t Pay → episode or clearly labelled format preview'
  elif f=='legion/index.html':visibility='Home → Legion → people / production recruitment gate'
  rows.append(f'| `{route(f)}` | {title(f).replace("|","/")} | {visibility} |')
 for r in config.get('redirects',[])+config.get('rewrites',[]):rows.append(f'| `{r["source"]}` | Routes to `{r["destination"]}` | Alias/API routing; not a separate public page |')
 for f in all_files():
  if f.startswith('api/') and f.endswith('.js') and not Path(f).name.startswith('_'):rows.append(f'| `/{f[:-3]}` | Server endpoint | Called by its feature; not public navigation |')
-rows+=['','## Host and dynamic routes','', '- `stats.corvus.gent/` maps to `/stats/`; its named sections map to the corresponding stats pages. Main-host `/stats/*` redirects to that subdomain.','- `/people/?id=<member>` selects a member; `/links/<persona>` and `/go/<persona>/<platform>/<context>` resolve dynamic profile/outbound links.','- `/join-the-army-now` remains a production-only recruitment flow owned by open PR #18; this preview links explicitly to the production host. No duplicate account system was created.','- `/sf/`, `/stats/private/`, `/stats/hunt/`, `/music/admin/`, client concepts, and noindex Airbnb contact pages remain unlisted. Existing access checks are unchanged.','- Photo sources: `public/hack/2/floor.jpg`, `slide.jpg`, `setup.jpg`; absent photos render placeholders.','',f'## Audit\n\n{len(files)} HTML files; {sum(len(p.links) for p in parsed.values())} anchors checked; {len(orphans)} orphan public pages.']
+rows += ['| `/dontpay/<slug>/` | Published episode generated from dontpay/config.json | Home → I Don’t Pay → episode grid; no fictional published episodes |','| `/api/dontpay?private=1` | Owner-only suggestion review | Existing signed-in owner session required; never public navigation |','| `https://corvus.gent/hack/2/` | Existing Plethora story on production | Hack archive / next from field note 001 |','| `https://corvus.gent/hack/3/` | Existing robotics story on production | Hack archive / previous from Muse 004 |']
+rows+=['','## Host and dynamic routes','', '- `stats.corvus.gent/` maps to `/stats/`; its named sections map to the corresponding stats pages. Main-host `/stats/*` redirects to that subdomain.','- `/people/?id=<member>` selects a member; `/links/<persona>` and `/go/<persona>/<platform>/<context>` resolve dynamic profile/outbound links.','- `/join-the-army-now` remains a production-only recruitment flow owned by open PR #18; this preview links explicitly to the production host. No duplicate account system was created.','- `/sf/`, `/stats/private/`, `/stats/hunt/`, `/music/admin/`, client concepts, and noindex Airbnb contact pages remain unlisted. Existing access checks are unchanged.','- Photo sources: `public/hack/4/floor.jpg`, `slide.jpg`, `setup.jpg`; absent photos render placeholders.','',f'## Audit\n\n{len(files)} HTML files; {sum(len(p.links) for p in parsed.values())} anchors checked; {len(orphans)} orphan public pages.']
 Path('ROUTES.md').write_text('\n'.join(rows)+'\n')
 if errors:
  print('Link audit failed:\n'+'\n'.join(sorted(set(errors))));sys.exit(1)

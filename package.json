@@ -28,7 +28,8 @@
     "test:sf": "REDIS_URL=redis://127.0.0.1:16380/9 SESSION_SECRET=sf-local-test node tests/sf-data.mjs",
     "test:sf:browser": "SESSION_SECRET=sf-local-test playwright test tests/sf.spec.mjs",
     "build:persona-pages": "node tools/build-persona-pages.mjs",
-    "build": "python3 scripts/site-build.py && python3 tools/build-search.py && node scripts/check-syntax.mjs",
-    "test:muse": "node tests/muse.mjs"
+    "build": "python3 scripts/build-dontpay.py && python3 scripts/site-build.py && python3 tools/build-search.py && node scripts/check-syntax.mjs",
+    "test:muse": "node tests/muse.mjs",
+    "test:dontpay": "node tests/dontpay.mjs && python3 tests/dontpay-build.py"
   }
 }

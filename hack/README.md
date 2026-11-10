@@ -1,8 +1,8 @@
 # Hack archive
 
-- `/hack/`: archive. `/hack/1/`: preserved HackTheFeed note. `/hack/2/`: Meta Muse recap.
+- `/hack/`: archive. `/hack/1/`: preserved HackTheFeed note. `/hack/4/`: Meta Muse recap.
 - `/nest/`: Muse-generated local prototype; provenance in ARENA_LOG.md.
-- Social post URLs: `hack/posts.js`. Photos: `public/hack/2/{floor,slide,setup}.jpg`.
+- Social post URLs: `hack/posts.js`. Photos: `public/hack/4/{floor,slide,setup}.jpg`.
 - `npm run build` regenerates optional photos, shared navigation, route inventory and search.
 
 ## HackTheFeed /hack/1
