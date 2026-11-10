@@ -1,3 +1,4 @@
+import {tiktokDiscovery} from './tiktok-discovery.mjs';
 import {refreshMs} from '../../compound/impact/metrics.js';
 import {refreshFallbacks} from './refresh-fallback.mjs';
 // Public profiles only. No login, private endpoints, captcha bypass or invented metrics.
@@ -15,7 +16,9 @@ try{
  for(const id of queue){const [platform,account]=id.split(':');if(!configuredAccounts().some(a=>a.platform===platform&&a.account===account))continue;
  const cache=ikey('profile-check:'+id);const owned=rows.filter(r=>r.platform===platform&&r.account===account&&r.made_with_compound),interval=owned.length&&owned.every(r=>refreshMs(r)===86400000)?86400:3600;
  if(!await redis(['SET',cache,'1','NX','EX',interval])){await redis(['SREM',ikey('browser-queue'),id]);continue;}
- const result=await scrapeProfile(browser,platform,account,owned);let saved=0;for(const post of result.posts){try{if(await save(post,{source:'public-browser'}))saved++}catch(e){result.error='Post save failed: '+e.message;}}
+ const result=await scrapeProfile(browser,platform,account,owned);
+ if(platform==='tt'&&!result.posts.length&&!/429/.test(result.error||'')){try{const posts=await tiktokDiscovery(account,{redis,ikey});if(posts.length)Object.assign(result,{posts,mode:'yt-dlp',error:null,note:'Public, author-matched native TikTok videos; photo and repost entries excluded.'});}catch(e){result.error=(result.error||'Public profile unavailable')+'; TikTok extractor: '+(/429/.test(e.stderr||'')?'rate limited':'no usable profile response');}}
+ let saved=0;for(const post of result.posts){try{if(await save(post,{source:result.mode==='yt-dlp'?'yt-dlp':'public-browser'}))saved++}catch(e){result.error='Post save failed: '+e.message;}}
  await saveStatus(platform,account,{mode:result.mode,found:result.posts.length,updated:saved,note:result.note,error:result.error,provider_error:JSON.parse(await redis(['HGET',ikey('account-sync'),id])||'{}').provider_error||null});await redis(['SREM',ikey('browser-queue'),id]);console.log(JSON.stringify({at:new Date().toISOString(),account,platform,found:result.posts.length,saved,error:result.error}));
  await new Promise(r=>setTimeout(r,2000));
  }

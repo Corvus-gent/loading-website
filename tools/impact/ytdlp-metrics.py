@@ -8,6 +8,33 @@ from yt_dlp import YoutubeDL
 from yt_dlp.extractor.twitter import TwitterIE
 options = {'quiet': True, 'no_warnings': True, 'socket_timeout': 8, 'retries': 0,
            'extractor_retries': 0, 'noplaylist': True, 'skip_download': True, 'cachedir': False}
+if platform == 'tt-profile':
+    from yt_dlp.extractor.tiktok import TikTokUserIE
+    handle = urlsplit(url).path.removeprefix('/@').lower()
+    if not re.fullmatch(r'[a-z0-9_.]{1,32}', handle):
+        raise ValueError('Invalid handle')
+    verified = {}
+    class Profile(TikTokUserIE):
+        def _parse_aweme_video_web(self, aweme_detail, webpage_url, video_id, extract_flat=False):
+            item = super()._parse_aweme_video_web(aweme_detail, webpage_url, video_id, extract_flat)
+            v = aweme_detail or {}
+            video = v.get('video') or {}
+            if (item.get('uploader','').lower() == handle and str(v.get('id')) == str(video_id)
+                    and not any(v.get(k) for k in ['imagePost','image_post_info','isRepost','is_repost','repostInfo','repost_info'])
+                    and video.get('duration') and (video.get('playAddr') or video.get('downloadAddr') or (video.get('width') and video.get('height')))):
+                verified[str(video_id)] = {'id':str(video_id),'handle':handle,'channel_id':item.get('channel_id'),'timestamp':item.get('timestamp'),'title':(item.get('title') or '')[:160],
+                    'stats':{**(v.get('stats') or {}),**(v.get('statsV2') or {})}}
+            return item
+    with YoutubeDL({**options,'extract_flat':True,'playlistend':30,'noplaylist':False}) as dl:
+        ie=Profile(dl);ie.initialize()
+        sec_uid=sys.argv[4] if len(sys.argv)>4 else None
+        if sec_uid and re.fullmatch(r'MS4wLjABAAAA[\w-]{64}',sec_uid):
+            playlist={'entries':ie._entries(sec_uid,handle)}
+        else: playlist=ie._real_extract(url)
+        import itertools
+        list(itertools.islice(playlist.get('entries') or [],30))
+    print(json.dumps(list(verified.values())[:30]))
+    sys.exit(0)
 with YoutubeDL(options) as dl:
     if platform == 'x':
         # The normal --dump-json projection omits bookmarks and quote counts from the same response.
