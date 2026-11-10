@@ -5,7 +5,8 @@
   "dependencies": {
     "@vercel/functions": "^2.0.0",
     "redis": "^4.7.0",
-    "sharp": "^0.35.5"
+    "sharp": "^0.35.5",
+    "stripe": "^23.1.0"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",

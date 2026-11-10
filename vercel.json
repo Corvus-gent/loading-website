@@ -31,6 +31,14 @@
   ],
   "rewrites": [
     {
+      "source": "/api/legion",
+      "destination": "/api/stats?legion=1"
+    },
+    {
+      "source": "/legion/join/:token",
+      "destination": "/legion/join/index.html"
+    },
+    {
       "source": "/api/dontpay",
       "destination": "/api/stats?dontpay=1"
     },

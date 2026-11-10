@@ -4,7 +4,7 @@ from pathlib import Path
 from html import escape,unescape
 import re,json,os
 ROOT=Path(__file__).resolve().parents[1];os.chdir(ROOT)
-SKIP=('clients/','music/admin/','stats/private/','stats/hunt/','sf/','airbnb/','airbnb-call-me-pls/','402/','go/','gabe/')
+SKIP=('admin/','legion/join/','clients/','music/admin/','stats/private/','stats/hunt/','sf/','airbnb/','airbnb-call-me-pls/','402/','go/','gabe/')
 OVERRIDES={
  '/':('Corvus — build, play, show up','A community of builders, a few ravens, and work shared in public. Explore Gabe’s hackathons, games, experiments and the Legion.'),
  '/nest/':('The Nest Builds Itself','Make a wish for a tiny website. Explore the Muse Ember-built Nest, its honest hackathon origins, and the next experiments from Corvus.'),
