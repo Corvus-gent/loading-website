@@ -31,7 +31,7 @@ try{
  const single={post_url:singleUrl,account:'gl',original:true,has_video:true};
  assert.equal((await callOwner({action:'linkedin-save',post:{...single,has_video:false}})).status,400);
  const unmeasured=await callOwner({action:'linkedin-save',post:single});assert.equal(unmeasured.status,200);assert.equal(unmeasured.payload.post.account,'francisco-gabriel-van-langenhove');
- let li=(await store.report()).posts.find(p=>p.post_url===singleUrl);assert.ok(li);assert.equal(li.views,null);assert.equal(li.score,0);assert.equal(li.metric_source,'unreported');
+ let li=(await store.report()).posts.find(p=>p.post_url===singleUrl);assert.ok(li);assert.equal(li.views,null);assert.equal(li.score,null);assert.equal(li.metric_source,'unreported');
  const update=await callOwner({action:'linkedin-save',post:{...single,views:'100',likes:'4',comments:'2',shares:'1',view_metric:'impressions'}});assert.equal(update.status,200);
  li=(await store.report()).posts.find(p=>p.post_url===singleUrl);assert.equal(li.score,138);assert.equal(li.metric_source,'manual');assert.equal(li.view_metric,'impressions');
  await callOwner({action:'linkedin-save',post:{...single,views:'',view_metric:'views',likes:'0',comments:'',shares:''}});

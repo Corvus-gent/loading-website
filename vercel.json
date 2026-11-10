@@ -474,7 +474,7 @@
     },
     {
       "path": "/api/compound-v2?impact=1&job=1",
-      "schedule": "12,42 * * * *"
+      "schedule": "12 * * * *"
     }
   ],
   "buildCommand": "node tools/site/build-all.mjs"

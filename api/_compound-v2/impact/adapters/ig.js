@@ -1,2 +1,2 @@
-import {oriane} from './oriane.js';
-export default (rows,options)=>oriane(rows,'ig',options);
+import {instagram} from './owner.js';import {withFallback} from './with-fallback.js';
+export default withFallback('ig',instagram);

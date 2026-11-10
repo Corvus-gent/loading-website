@@ -1,3 +1,4 @@
+import {coverage,firstDaySample} from '../../../compound/impact/metrics.js';
 import {eligibility,classification} from './eligibility.js';
 import crypto from 'node:crypto';
 import {ACCOUNTS,isConfigured,accountHandle} from '../../../compound/impact/accounts.js';
@@ -46,11 +47,9 @@ export function bulkRows(text,made=true,{allowUnmeasured=false}={}){
  }catch(e){throw Error('Line '+(i+1)+': '+e.message);}});
 }
 export function velocity(row,now=Date.now()){
- const posted=Date.parse(row.posted_at),observed=Date.parse(row.metrics_at);if(!Number.isFinite(posted)||!Number.isFinite(observed)||observed<=posted)return null;
- const hours=(observed-posted)/3600000;if(hours<=24)return score(row)/Math.max(hours,1/60);
- return Number.isFinite(row.first24_velocity)?row.first24_velocity:null;
+ const sample=row.first24_sample||firstDaySample(row);return sample?.velocity??(Number.isFinite(row.first24_velocity)?row.first24_velocity:null);
 }
-export function publicPost(row){const out={};for(const k of ['id','post_url','platform','account','label','slug','posted_at','thumbnail_url','made_with_compound','metric_source','metrics_at','measured_date','view_metric','vote_code','original_by_gabe','native_video','video_kind','post_kind','post_type','media_type','manual_approved','registry_match',...METRICS])out[k]=row[k]??null;return {...out,...classification(row),score:eligibility(row).eligible?score(row):null,engagements:eligibility(row).eligible?engagements(row):null,velocity:eligibility(row).eligible?velocity(row):null,missing_metrics:METRICS.filter(k=>row[k]==null)};}
+export function publicPost(row){const out={};for(const k of ['id','post_url','platform','account','label','slug','posted_at','thumbnail_url','made_with_compound','metric_source','metrics_at','measured_date','field_sources','field_observed','first24_sample','view_metric','vote_code','original_by_gabe','native_video','video_kind','post_kind','post_type','media_type','manual_approved','registry_match',...METRICS])out[k]=row[k]??null;return {...out,...classification(row),score:eligibility(row).eligible?score(row):null,engagements:eligibility(row).eligible?engagements(row):null,velocity:eligibility(row).eligible?velocity(row):null,coverage:coverage(row),missing_metrics:coverage(row).missing};}
 
 export function linkedinBulk(text,{account=ACCOUNTS.li.handles[0],has_video,original}={}){account=accountHandle('li',account);if(!isConfigured('li',account))throw Error('Choose the configured LinkedIn account.');if(typeof has_video!=='boolean'||original!==true)throw Error('Confirm that these are original posts by Gabe.');return bulkRows(text,true,{allowUnmeasured:true}).map(row=>{if(row.platform!=='li')throw Error('LinkedIn bulk import accepts LinkedIn URLs only.');return {...row,account,original_by_gabe:true,post_type:'original',media_type:has_video?'video':'text',native_video:has_video};});}
 export function linkedinPost(raw){

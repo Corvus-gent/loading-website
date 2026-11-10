@@ -1,1 +1,1 @@
-export default async()=>({mode:'manual',updates:[],note:'YouTube · entered by Gabe.'});
+export {youtube as default} from './owner.js';

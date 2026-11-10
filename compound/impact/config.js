@@ -1,12 +1,12 @@
 import {ACCOUNTS} from './accounts.js';
+import {WEIGHTS,FIELDS} from './metrics.js';
+export {score,engagements} from './metrics.js';
 export const IMPACT_CONFIG = {
  xAccounts:ACCOUNTS.x.handles.filter(Boolean),
- weights:{views:1,likes:3,comments:8,shares:10,saves:5},
+ weights:WEIGHTS,
  platforms:Object.fromEntries(Object.entries(ACCOUNTS).map(([id,v])=>[id,v.name])),
- refreshSeconds:60,syncSeconds:1800,
+ refreshSeconds:60,syncSeconds:3600,
  referralParam:'ref',
 };
-export const METRICS=['views','likes','comments','shares','saves'];
-export const score=p=>METRICS.reduce((sum,k)=>sum+(Number(p[k])||0)*IMPACT_CONFIG.weights[k],0);
-export const engagements=p=>['likes','comments','shares','saves'].reduce((sum,k)=>sum+(Number(p[k])||0),0);
+export const METRICS=FIELDS;
 export const SEEDS=[]; // Legacy reply seeds were removed; never restore them.

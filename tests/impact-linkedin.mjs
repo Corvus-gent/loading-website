@@ -9,7 +9,7 @@ const confirmation={account:ACCOUNTS.li.handles[0],original:true,has_video:true}
 const [unmeasured]=linkedinBulk(url,confirmation);
 assert.equal(eligibility(unmeasured).eligible,true);
 assert.equal(publicPost(unmeasured).views,null);
-assert.equal(publicPost(unmeasured).score,0);
+assert.equal(publicPost(unmeasured).score,null);
 assert.ok(publicPost(unmeasured).missing_metrics.includes('views'));
 const [measured]=linkedinBulk(url+' — 100 impressions, 4 reactions, 2 comments, 1 repost',confirmation);
 assert.equal(score(measured),138);
