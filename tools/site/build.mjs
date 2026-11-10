@@ -1,3 +1,4 @@
+import {applyPartnerBrand} from './partner-brands.mjs';
 import fs from 'node:fs/promises';import path from 'node:path';
 import {SECTIONS,ROUTES as EXISTING_ROUTES} from '../../js/site/routes.js';
 import {generate} from './generate-directory.mjs';
@@ -37,7 +38,7 @@ async function build(){
   const chrome=shell(file);s=s.replace('</head>',`<!-- SITE_HEAD -->${chrome.head}<!-- /SITE_HEAD --></head>`);
   s=s.replace(/<body([^>]*)>/,(_,attrs)=>{let a=attrs;if(/class=/.test(a))a=a.replace(/class="([^"]*)"/,(_,c)=>`class="${[...new Set((c+' site-shell'+(file==='hack/play/index.html'?' site-shell-game':'')).split(/\s+/))].join(' ')}"`);else a+=' class="site-shell'+(file==='hack/play/index.html'?' site-shell-game':'')+'"';return '<body'+a+'><!-- SITE_NAV -->'+chrome.nav+'<!-- /SITE_NAV -->';});
   s=s.replace('</body>',`<!-- SITE_NEXT -->${chrome.next}<!-- /SITE_NEXT --></body>`);
-  await fs.writeFile(file,s);
+  await fs.writeFile(file,applyPartnerBrand(s,file));
  }
  console.log(`Site navigation: ${files.length} pages; ${ROUTES.length} directory entries.`);
 }

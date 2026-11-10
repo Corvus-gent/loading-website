@@ -1,0 +1,15 @@
+<section class="cardneto-hero">
+ <div><span class="cardneto-pill">FRIENDS OF THE LEGION / 001</span>
+ <h1>300 events.<br>One app he<br><em>kept missing.</em></h1>
+ <p class="site-lead">Meet the right people. Make time for a conversation. Keep the connection when the event is over.</p>
+ <div class="site-actions"><a class="site-button" href="/go/cardneto-demo" target="_blank" rel="noopener noreferrer">Book a demo ↗</a><a class="site-button secondary" href="/go/cardneto-app" target="_blank" rel="noopener noreferrer">Get Cardneto ↗</a></div>
+ <p id="cardneto-count" class="site-status">Every tap opens a conversation.</p></div>
+ <figure><img src="/friends/cardneto/assets/product.webp" width="1000" height="1000" alt="Cardneto app: attendee profiles and event connections"><figcaption>The Cardneto product, in its own words and pixels.<br>Featured by Gabe. Built by Dorian and his team.</figcaption></figure>
+</section>
+<div class="cardneto-feature-grid">
+ <article class="cardneto-feature"><span class="feature-number">01 / FIND YOUR PEOPLE</span><h2>A room full of people.<br>A relevant introduction.</h2><p>Attendee matchmaking helps you find people worth meeting before you miss each other in the crowd.</p></article>
+ <article class="cardneto-feature"><span class="feature-number">02 / MAKE THE TIME</span><h2>“We should talk.”<br>Put it in the calendar.</h2><p>Book a one-to-one meeting. Turn the introduction into a conversation that actually happens.</p></article>
+ <article class="cardneto-feature"><span class="feature-number">03 / STAY CONNECTED</span><h2>The event ends.<br>The connection stays.</h2><p>Exchange details with QR and NFC. Fewer lost contacts, with an organizer dashboard behind it all.</p></article>
+</div>
+<section class="cardneto-founder"><div><p class="site-eyebrow">THE BUILDER BEHIND IT</p><h2>Built from<br>being there.</h2><a class="site-button secondary" href="/go/cardneto-li" target="_blank" rel="noopener noreferrer">Meet Dorian ↗</a></div><div><p class="site-lead">Dorian Lesnic, founder &amp; CEO of Cardneto, spent three years at 300+ conferences, meetups and events across Europe and the UAE. Then he built the networking app he wanted to use.</p><p class="site-fine">Year one, as reported by Dorian: 50 events · 10 cities · 6,000 registrations · $45k revenue. Bootstrapped.</p><p class="site-lead">In SF until 13 November 2026. Raising an angel round.</p><p class="site-fine">Product image and design reference: <a href="https://cardneto.com/en" target="_blank" rel="noopener noreferrer">Cardneto</a>. Founder figures: <a href="https://www.linkedin.com/in/dorian-lesnic/" target="_blank" rel="noopener noreferrer">Dorian’s public updates</a>. This is Gabe’s feature on Corvus.</p></div></section>
+<script type="module" src="/js/site/cardneto.js?v=20261109ia2"></script>
