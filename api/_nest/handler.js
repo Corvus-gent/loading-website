@@ -10,7 +10,7 @@ export function createNestHandler({command=redis,ready=connected,apiKey=()=>proc
  try{
   const q=req.query||{};
   if(req.method==='GET'){
-   if(q.id){if(!/^[a-f0-9]{32}$/.test(q.id))return res.status(404).json({error:'Nest not found.'});const raw=await command(['GET',key('page:'+q.id)]);if(!raw)return res.status(404).json({error:'This nest has flown away. Builds are kept for 90 days.'});const page=JSON.parse(raw);if(q.frame==='1'){res.setHeader('Content-Security-Policy',FRAME_CSP+'; frame-ancestors \'self\'');res.setHeader('Content-Type','text/html; charset=utf-8');res.setHeader('X-Robots-Tag','noindex,nofollow');return res.status(200).send(page.html);}const {html,...publicPage}=page;return res.status(200).json(publicPage);}
+   if(q.id){if(!/^[a-f0-9]{32}$/.test(q.id))return res.status(404).json({error:'Nest not found.'});const raw=await command(['GET',key('page:'+q.id)]);if(!raw)return res.status(404).json({error:'This nest has flown away. Builds are kept for 90 days.'});const page=JSON.parse(raw);if(q.frame==='1'){res.setHeader('Content-Security-Policy',FRAME_CSP+'; frame-ancestors \'self\'');res.setHeader('Content-Type','text/html; charset=utf-8');res.setHeader('X-Robots-Tag','noindex,nofollow');return res.status(200).send(page.html);}const {html,...publicPage}=page;return res.status(200).json(q.render==='1'?{...publicPage,html}:publicPage);}
    if(!ready())return res.status(200).json({ready:false,model:MODEL});const budget=await budgetStatus(command);return res.status(200).json({ready:!!apiKey()&&!budget.paused&&budget.reserved_or_spent_usd<budget.budget_usd,model:MODEL,...(isAdmin(req)?budget:{})});
   }
   if(req.method!=='POST')return res.status(405).json({error:'Use GET or POST.'});
@@ -21,7 +21,7 @@ export function createNestHandler({command=redis,ready=connected,apiKey=()=>proc
   const wish=b.wish.trim(),messages=[{role:'system',content:SYSTEM},{role:'user',content:wish}],ticket=await reserve(req,worstUnits(messages),'build',command);
   const result=await complete(messages,{ticket,command,fetcher,apiKey:apiKey()}),html=safePage(result.content),id=crypto.randomBytes(16).toString('hex');
   const page={id,wish,html,model:result.model,cost_usd:result.cost_usd,tokens:result.tokens,created_at:new Date().toISOString()};await command(['SET',key('page:'+id),JSON.stringify(page),'EX',90*86400]);
-  return res.status(201).json({id,url:'/nest/'+id,model:page.model,cost_usd:page.cost_usd});
+  return res.status(201).json({id,url:'/nest/'+id,model:page.model,cost_usd:page.cost_usd,html:page.html});
  }catch(e){const messages={daily:'One live build per day. Come back tomorrow, or explore the games.',budget:'The ravens are resting. The community build fund is resting too.',paused:'The ravens are resting. The model connection needs a little time.',credits:'The ravens are resting. OpenRouter needs credits; your wish was not built.',resting:'The ravens are resting. Try the original v0 or come back soon.',incomplete:'The raven ran out of room before finishing. No broken page was published.',fields:'Write a wish of 8–800 characters and agree to its public preview.'};return res.status(e.message==='fields'?400:e.message==='daily'?429:503).json({error:messages[e.message]||messages.resting,code:Object.hasOwn(messages,e.message)?e.message:'resting'});}
 };}
 export default createNestHandler();

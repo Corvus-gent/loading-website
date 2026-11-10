@@ -102,3 +102,5 @@ Review the wording, then choose Post yourself. The drafts are self-contained and
 - **2026-11-10 05:36:33 PST — 30-minute checkpoint:** Done: Legion deployed and locally tested; real Ember Nest smoke succeeds for $0.0013214. Current/next: Deploy live Nest and verify preview, then three games with shared cost protection. Commits: No new commit in this interval; work in progress.
 
 - **2026-11-10 06:00:12 PST — Four-hour clock reached.** Final verification and handoff may now proceed.
+
+- **Final deployment verification:** Fixed Vercel's CommonJS/ESM sanitizer loading failure by bundling the maintained library at build time. The real preview then generated `/nest/2fea5be57f4d135641da3d8103ffef0b` with Muse Ember for $0.001182. Switched the iframe to sanitized `srcdoc` delivered through the authenticated parent fetch: protected preview cookies must not be required by the opaque-origin frame. Sandbox restrictions remain unchanged.

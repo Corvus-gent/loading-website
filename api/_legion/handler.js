@@ -8,6 +8,7 @@ export default async function handler(req,res){
  try{
   const q=req.query||{};
   if(req.method==='GET'){
+   if(q.action==='session')return res.status(200).json({authorized:!!await authorized(req)});
    if(q.action==='invite')return res.status(200).json(await store.invite(q.token));
    if(q.action==='admin'){
     if(!await authorized(req))throw Error('unauthorized');

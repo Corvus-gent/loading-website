@@ -130,6 +130,7 @@ http
         if(middleware[p]){res.writeHead(307,{Location:middleware[p]});return res.end();}
       }
       if (p.startsWith('/api/')) {
+        if(process.env.QA_ALL_ROUTES&&['/api/nest','/api/legion'].includes(p)){res.setHeader('Content-Type','application/json');return res.end(JSON.stringify(p==='/api/nest'?{ready:false,model:'meta/muse-ember'}:{ready:true,members:[],authorized:false,payment_ready:false}));}
         if(process.env.QA_ALL_ROUTES&&p==='/api/game'){
           process.env.SESSION_SECRET='local-qa-only';
           const {puzzle,publicPuzzle}=await import('../api/_game.js');

@@ -9,7 +9,7 @@ assert.ok(Array.isArray(index));
 for (const row of index) assert.ok(!/\/(sf|admin|private|hunt)\//.test(row.url),`private page in search: ${row.url}`);
 const explore=fs.readFileSync('explore/index.html','utf8');
 for(const url of ['/music/admin/','/stats/private/','/stats/hunt/','/sf/'])assert.ok(!explore.includes(`href="${url}"`));
-const nest=fs.readFileSync('nest/index.html','utf8');
+const nest=fs.readFileSync('nest/v0/index.html','utf8');
 assert.ok(nest.includes('cardWish.textContent=currentWish'));
 assert.ok(!/\bfetch\(|localStorage|sessionStorage|\.innerHTML\s*=/.test(nest));
 assert.ok(nest.includes('original playground output is not archived'));
