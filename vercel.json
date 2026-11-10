@@ -31,6 +31,14 @@
   ],
   "rewrites": [
     {
+      "source": "/arena",
+      "destination": "/public/arena/index.html"
+    },
+    {
+      "source": "/arena/:path*",
+      "destination": "/public/arena/:path*"
+    },
+    {
       "source": "/api/sf",
       "destination": "/api/stats?sf=1"
     },
