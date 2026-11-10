@@ -1,0 +1,44 @@
+{
+ "reveal": {
+  "a": "Claude",
+  "b": "Codex",
+  "c": "Muse"
+ },
+ "results": [
+  {
+   "name": "Arena shell (Muse)",
+   "model": "meta/muse-spark-open",
+   "file": "index.html",
+   "ok": false,
+   "err": "HTTPError: 402"
+  },
+  {
+   "name": "Raven Rush game (Muse)",
+   "model": "meta/muse-spark-open",
+   "file": "game.html",
+   "ok": false,
+   "err": "HTTPError: 402"
+  },
+  {
+   "name": "Nest A (Claude)",
+   "model": "anthropic/claude-sonnet-5.5",
+   "file": "nest-a.html",
+   "ok": false,
+   "err": "HTTPError: 402"
+  },
+  {
+   "name": "Nest B (Codex)",
+   "model": "openai/gpt-5.3-codex",
+   "file": "nest-b.html",
+   "ok": false,
+   "err": "HTTPError: 402"
+  },
+  {
+   "name": "Nest C (Muse)",
+   "model": "meta/muse-spark-open",
+   "file": "nest-c.html",
+   "ok": false,
+   "err": "HTTPError: 402"
+  }
+ ]
+}
