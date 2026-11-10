@@ -1,0 +1,370 @@
+[
+  {
+    "route": "/",
+    "title": "Corvus — build, play, show up",
+    "description": "A community of builders, a few ravens, and work shared in public. Explore Gabe’s hackathons, games, experiments and the Legion.",
+    "canonical": "https://corvus.gent/",
+    "image": "/og/pages/home.png",
+    "file": "index.html"
+  },
+  {
+    "route": "/airbnb-filter/",
+    "title": "Me vs. the Airbnb filter",
+    "description": "Airbnb wouldn't let me send my phone number. So I shipped a website instead.",
+    "canonical": "https://corvus.gent/airbnb-filter/",
+    "image": "/og/pages/airbnb-filter.png",
+    "file": "airbnb-filter/index.html"
+  },
+  {
+    "route": "/arena/",
+    "title": "Blind Nest — the Muse arena",
+    "description": "Explore the Muse-built arena prototype and Raven Rush. One real contender, transparent model provenance, and local preview votes.",
+    "canonical": "https://corvus.gent/arena/",
+    "image": "/og/pages/arena.png",
+    "file": "public/arena/index.html"
+  },
+  {
+    "route": "/arena/game.html",
+    "title": "Raven Rush — one tap, one more run",
+    "description": "Tap to flap through a neon night, collect coins and dodge the towers. Raven Rush is a playable Meta Muse-built experiment on Corvus.",
+    "canonical": "https://corvus.gent/arena/game.html",
+    "image": "/og/pages/arena-game.png",
+    "file": "public/arena/game.html"
+  },
+  {
+    "route": "/arena/nest-b.html",
+    "title": "A Muse-built vision of Corvus",
+    "description": "A clearly labelled AI-generated concept for a builder community. Explore Muse’s design and return to the honest arena preview.",
+    "canonical": "https://corvus.gent/arena/nest-b.html",
+    "image": "/og/pages/arena-nest-b.png",
+    "file": "public/arena/nest-b.html"
+  },
+  {
+    "route": "/call/",
+    "title": "Call",
+    "description": "Book a free 15-min call with Gabriel.",
+    "canonical": "https://corvus.gent/call/",
+    "image": "/og/pages/call.png",
+    "file": "call/index.html"
+  },
+  {
+    "route": "/dontpay/",
+    "title": "I DON’T PAY — a video for a meal",
+    "description": "Gabe trades a useful promo video, made in the shop’s language, for a meal agreed with the owner. Suggest the first spot and follow the real episodes.",
+    "canonical": "https://corvus.gent/dontpay/",
+    "image": "/og/pages/dontpay.png",
+    "file": "dontpay/index.html"
+  },
+  {
+    "route": "/dontpay/episode-template/",
+    "title": "The first deal · I DON'T PAY",
+    "description": "One shop, one video, one proposed trade.",
+    "canonical": "https://corvus.gent/dontpay/episode-template/",
+    "image": "/og/pages/dontpay-episode-template.png",
+    "file": "dontpay/episode-template/index.html"
+  },
+  {
+    "route": "/explore/",
+    "title": "Explore Corvus — choose your next stop",
+    "description": "Find every public corner of Corvus: hackathon field notes, the Nest, I Don’t Pay, games, people, music and community stats.",
+    "canonical": "https://corvus.gent/explore/",
+    "image": "/og/pages/explore.png",
+    "file": "explore/index.html"
+  },
+  {
+    "route": "/games/",
+    "title": "Daily games — light the next lantern",
+    "description": "A new daily puzzle on Corvus: languages, borders, flags, words, music and more. Play, learn, and share your result.",
+    "canonical": "https://corvus.gent/games/",
+    "image": "/og/pages/games.png",
+    "file": "games/index.html"
+  },
+  {
+    "route": "/hack/",
+    "title": "Hackathons, honestly",
+    "description": "San Francisco hackathon field notes. The builds, the mistakes, and the things that actually shipped.",
+    "canonical": "https://corvus.gent/hack/",
+    "image": "/og/pages/hack.png",
+    "file": "hack/index.html"
+  },
+  {
+    "route": "/hack/1/",
+    "title": "HackTheFeed, built in 3h in SF",
+    "description": "Paste your URL. We steal what's going viral in your niche and make it better. Built in 3 hours at the Oriane x Compound hackathon, San Francisco.",
+    "canonical": "https://corvus.gent/hack/1/",
+    "image": "/og/pages/hack-1.png",
+    "file": "hack/1/index.html"
+  },
+  {
+    "route": "/hack/4/",
+    "title": "The night I lost to my own API key",
+    "description": "Meta Muse x OpenRouter, San Francisco, Nov 9 2026. A 402, a floor nap, and a $0.001 Ember at the deadline.",
+    "canonical": "https://corvus.gent/hack/4/",
+    "image": "/og/pages/hack-4.png",
+    "file": "hack/4/index.html"
+  },
+  {
+    "route": "/hack/the-feed/",
+    "title": "Try HackTheFeed — the original hackathon app",
+    "description": "Launch the HackTheFeed early beta, explore the project, or read the honest field note from the San Francisco hackathon.",
+    "canonical": "https://corvus.gent/hack/the-feed/",
+    "image": "/og/pages/hack-the-feed.png",
+    "file": "hack/the-feed/index.html"
+  },
+  {
+    "route": "/languages/",
+    "title": "Languages",
+    "description": "Seven languages. Honest scores.",
+    "canonical": "https://corvus.gent/languages/",
+    "image": "/og/pages/languages.png",
+    "file": "languages/index.html"
+  },
+  {
+    "route": "/legion/",
+    "title": "The Legion — find your flock",
+    "description": "Join the Corvus community of builders. Show up, share what you know, and leave somebody’s work better than you found it.",
+    "canonical": "https://corvus.gent/legion/",
+    "image": "/og/pages/legion.png",
+    "file": "legion/index.html"
+  },
+  {
+    "route": "/links/",
+    "title": "Gabe",
+    "description": "Gabe’s links, writing, sidequests and free Pidgy trial.",
+    "canonical": "https://corvus.gent/links/",
+    "image": "/og/pages/links.png",
+    "file": "links/index.html"
+  },
+  {
+    "route": "/links/corvus/",
+    "title": "Corvus — links from the flock",
+    "description": "The official Corvus links: enter the realm, play today’s game, explore community stats and find the people building it.",
+    "canonical": "https://corvus.gent/links/corvus/",
+    "image": "/og/pages/links-corvus.png",
+    "file": "links/corvus/index.html"
+  },
+  {
+    "route": "/links/pidgy/",
+    "title": "Pidgy — find the right link",
+    "description": "Try Pidgy, the AI inbox agent for Outlook and Gmail. Find its official product, maker and community links.",
+    "canonical": "https://corvus.gent/links/pidgy/",
+    "image": "/og/pages/links-pidgy.png",
+    "file": "links/pidgy/index.html"
+  },
+  {
+    "route": "/music/",
+    "title": "Music · Gabe’s collection",
+    "description": "Gabe’s ranked music collection. Find a favourite, leave a like, share a song or suggest your next obsession.",
+    "canonical": "https://corvus.gent/music/",
+    "image": "/og/pages/music.png",
+    "file": "music/index.html"
+  },
+  {
+    "route": "/nest/",
+    "title": "The Nest Builds Itself",
+    "description": "Make a wish for a tiny website. Explore the Muse Ember-built Nest, its honest hackathon origins, and the next experiments from Corvus.",
+    "canonical": "https://corvus.gent/nest/",
+    "image": "/og/pages/nest.png",
+    "file": "nest/index.html"
+  },
+  {
+    "route": "/now/",
+    "title": "Now",
+    "description": "Five points. Every week.",
+    "canonical": "https://corvus.gent/now/",
+    "image": "/og/pages/now.png",
+    "file": "now/index.html"
+  },
+  {
+    "route": "/people/",
+    "title": "People of Corvus",
+    "description": "Meet the people behind Corvus, discover what they build and find a useful way to connect.",
+    "canonical": "https://corvus.gent/people/",
+    "image": "/og/pages/people.png",
+    "file": "people/index.html"
+  },
+  {
+    "route": "/privacy/",
+    "title": "privacy, without the fog.",
+    "description": "what corvus counts, what expires, and how to ask for your data.",
+    "canonical": "https://corvus.gent/privacy/",
+    "image": "/og/pages/privacy.png",
+    "file": "privacy/index.html"
+  },
+  {
+    "route": "/realm/",
+    "title": "the realm",
+    "description": "The crow died. The domain didn't.",
+    "canonical": "https://corvus.gent/realm/",
+    "image": "/og/pages/realm.png",
+    "file": "realm/index.html"
+  },
+  {
+    "route": "/sidequests/",
+    "title": "Sidequests — Gabriel",
+    "description": "Built this site in 2 days. Here's what else is running in the background.",
+    "canonical": "https://corvus.gent/sidequests/",
+    "image": "/og/pages/sidequests.png",
+    "file": "sidequests/index.html"
+  },
+  {
+    "route": "/stats/",
+    "title": "Stats",
+    "description": "Live, honest numbers from corvus.gent.",
+    "canonical": "https://stats.corvus.gent/",
+    "image": "/og/pages/stats.png",
+    "file": "stats/index.html"
+  },
+  {
+    "route": "/stats/coffee/",
+    "title": "coffees bought for gabe",
+    "description": "coffees bought for gabe.",
+    "canonical": "https://stats.corvus.gent/coffee",
+    "image": "/og/pages/stats-coffee.png",
+    "file": "stats/coffee/index.html"
+  },
+  {
+    "route": "/stats/games/",
+    "title": "daily games",
+    "description": "played, solved and the longest streak.",
+    "canonical": "https://stats.corvus.gent/games",
+    "image": "/og/pages/stats-games.png",
+    "file": "stats/games/index.html"
+  },
+  {
+    "route": "/stats/hack/",
+    "title": "HackTheFeed · corvus stats",
+    "description": "HackTheFeed · corvus stats: a field note, experiment or useful corner of Corvus, the community Gabe is building in public.",
+    "canonical": "https://stats.corvus.gent/hack",
+    "image": "/og/pages/stats-hack.png",
+    "file": "stats/hack/index.html"
+  },
+  {
+    "route": "/stats/map/",
+    "title": "every ping, ever",
+    "description": "city-level visitor lights, all time.",
+    "canonical": "https://stats.corvus.gent/map",
+    "image": "/og/pages/stats-map.png",
+    "file": "stats/map/index.html"
+  },
+  {
+    "route": "/stats/music/",
+    "title": "the rotation in numbers",
+    "description": "most loved tracks, suggestions and plays.",
+    "canonical": "https://stats.corvus.gent/music",
+    "image": "/og/pages/stats-music.png",
+    "file": "stats/music/index.html"
+  },
+  {
+    "route": "/stats/pidgy/",
+    "title": "corvus → pidgy",
+    "description": "a bird trail of visitors and clicks.",
+    "canonical": "https://stats.corvus.gent/pidgy",
+    "image": "/og/pages/stats-pidgy.png",
+    "file": "stats/pidgy/index.html"
+  },
+  {
+    "route": "/stats/status/",
+    "title": "service status | corvus",
+    "description": "live service checks, response times and incidents for corvus.gent.",
+    "canonical": "https://stats.corvus.gent/status",
+    "image": "/og/pages/stats-status.png",
+    "file": "stats/status/index.html"
+  },
+  {
+    "route": "/stats/x/",
+    "title": "the x log",
+    "description": "replies, posts, and where the links lead.",
+    "canonical": "https://stats.corvus.gent/x",
+    "image": "/og/pages/stats-x.png",
+    "file": "stats/x/index.html"
+  },
+  {
+    "route": "/support/",
+    "title": "Support — people and ideas worth your time",
+    "description": "Explore Gabe’s personal recommendations: builders, founders, companies, books, thinkers and athletes connected to Corvus.",
+    "canonical": "https://corvus.gent/support/",
+    "image": "/og/pages/support.png",
+    "file": "support/index.html"
+  },
+  {
+    "route": "/support/books/",
+    "title": "Books on Gabe’s shelf",
+    "description": "A growing reading list from Gabe: books worth returning to, with honest notes on what is still a work in progress.",
+    "canonical": "https://corvus.gent/support/books/",
+    "image": "/og/pages/support-books.png",
+    "file": "support/books/index.html"
+  },
+  {
+    "route": "/support/companies/",
+    "title": "Companies Gabe recommends",
+    "description": "A personal list of companies and tools Gabe knows through building, GTM and the Corvus community.",
+    "canonical": "https://corvus.gent/support/companies/",
+    "image": "/og/pages/support-companies.png",
+    "file": "support/companies/index.html"
+  },
+  {
+    "route": "/support/founders/",
+    "title": "Founders Gabe recommends",
+    "description": "Meet founders Gabe has learned from and worked around, from Ghent builders to the wider startup community.",
+    "canonical": "https://corvus.gent/support/founders/",
+    "image": "/og/pages/support-founders.png",
+    "file": "support/founders/index.html"
+  },
+  {
+    "route": "/support/people/",
+    "title": "People Gabe recommends",
+    "description": "Builders, friends and collaborators Gabe would vouch for. Personal recommendations from the Corvus flock.",
+    "canonical": "https://corvus.gent/support/people/",
+    "image": "/og/pages/support-people.png",
+    "file": "support/people/index.html"
+  },
+  {
+    "route": "/support/philosophists/",
+    "title": "Thinkers — a little room for Diogenes",
+    "description": "Diogenes, his lantern and the questions behind Corvus. Gabe’s very personal corner for philosophy.",
+    "canonical": "https://corvus.gent/support/philosophists/",
+    "image": "/og/pages/support-philosophists.png",
+    "file": "support/philosophists/index.html"
+  },
+  {
+    "route": "/support/sport-people/",
+    "title": "Athletes and people from the mats",
+    "description": "Brazilian jiu-jitsu practitioners and athletes Gabe follows and learns from, collected in a personal Corvus list.",
+    "canonical": "https://corvus.gent/support/sport-people/",
+    "image": "/og/pages/support-sport-people.png",
+    "file": "support/sport-people/index.html"
+  },
+  {
+    "route": "/wiki/",
+    "title": "Main page",
+    "description": "Main page: a field note, experiment or useful corner of Corvus, the community Gabe is building in public.",
+    "canonical": "https://corvus.gent/wiki/",
+    "image": "/og/pages/wiki.png",
+    "file": "wiki/index.html"
+  },
+  {
+    "route": "/wiki/corvus/",
+    "title": "Corvus — the story of the crow",
+    "description": "The crow, the lantern, the Ghent studio and the revived community. Read the story behind Corvus on Corvuspedia.",
+    "canonical": "https://corvus.gent/wiki/corvus/",
+    "image": "/og/pages/wiki-corvus.png",
+    "file": "wiki/corvus/index.html"
+  },
+  {
+    "route": "/wiki/corvus/namesakes/",
+    "title": "The many meanings of Corvus",
+    "description": "A crow, a Roman boarding bridge, a constellation and a suspiciously persistent bird from Ghent. The many lives of Corvus, with sources.",
+    "canonical": "https://corvus.gent/wiki/corvus/namesakes/",
+    "image": "/og/pages/wiki-corvus-namesakes.png",
+    "file": "wiki/corvus/namesakes/index.html"
+  },
+  {
+    "route": "/wiki/pidgy/",
+    "title": "Pidgy — the pigeon behind the inbox",
+    "description": "Meet Pidgy: the AI inbox agent built by Alkmist in Ghent, and the pigeon that lives beside the Corvus crow.",
+    "canonical": "https://corvus.gent/wiki/pidgy/",
+    "image": "/og/pages/wiki-pidgy.png",
+    "file": "wiki/pidgy/index.html"
+  }
+]

@@ -12,6 +12,7 @@ class Assets(HTMLParser):
  def handle_starttag(self,tag,attrs):
   d=dict(attrs)
   if d.get('id'):self.ids.add(d['id'])
+  if tag=='meta' and (d.get('property')=='og:image' or d.get('name')=='twitter:image') and d.get('content'):self.refs.append((d['content'],'asset'))
   for attr in ('href','src','poster'):
    if d.get(attr):self.refs.append((d[attr], 'link' if tag=='a' else 'asset'))
   if d.get('srcset'):

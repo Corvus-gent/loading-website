@@ -1,0 +1,10 @@
+{
+  "publicPages": 46,
+  "uniqueTitles": 46,
+  "uniqueDescriptions": 46,
+  "uniqueImages": 46,
+  "imageSize": "1200x630 PNG",
+  "missingImages": 0,
+  "duplicateTags": 0,
+  "platformNote": "X and LinkedIn metadata and artwork verified locally. Actual platform unfurls require a publicly fetchable deployment; Vercel preview protection is retained."
+}
