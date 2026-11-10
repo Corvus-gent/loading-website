@@ -31,6 +31,14 @@
   ],
   "rewrites": [
     {
+      "source": "/api/nest",
+      "destination": "/api/stats?nest=1"
+    },
+    {
+      "source": "/nest/:id([a-f0-9]{32})",
+      "destination": "/nest/view/index.html"
+    },
+    {
       "source": "/api/legion",
       "destination": "/api/stats?legion=1"
     },

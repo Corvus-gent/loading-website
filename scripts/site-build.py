@@ -10,7 +10,7 @@ import json,re,sys
 ROOT=Path(__file__).resolve().parents[1]
 import os
 os.chdir(ROOT)
-EXCLUDED_PREFIXES=('admin/','legion/join/','clients/','music/admin/','stats/private/','stats/hunt/','sf/','airbnb/','airbnb-call-me-pls/','402/')
+EXCLUDED_PREFIXES=('nest/view/','admin/','legion/join/','clients/','music/admin/','stats/private/','stats/hunt/','sf/','airbnb/','airbnb-call-me-pls/','402/')
 SPECIAL=('go/index.html','gabe/index.html','404.html')
 NO_HEADER=('public/arena/game.html','public/arena/nest-b.html','hack/the-feed/index.html')
 NAV=[('/','Home'),('/hack/','Hack'),('/legion/','Legion'),('/nest/','Nest'),('/dontpay/',"I Don't Pay"),('/games/','Games'),('/explore/','Explore')]
@@ -18,7 +18,7 @@ NAV=[('/','Home'),('/hack/','Hack'),('/legion/','Legion'),('/nest/','Nest'),('/d
 def all_files():
  result=[]
  for base,dirs,names in os.walk(ROOT):
-  dirs[:]=[d for d in dirs if d not in ('.git','node_modules','.venv','test-results','playwright-report','.vercel','__pycache__')]
+  dirs[:]=[d for d in dirs if d not in ('.git','qa','node_modules','.venv','test-results','playwright-report','.vercel','__pycache__')]
   result.extend(str((Path(base)/n).relative_to(ROOT)) for n in names)
  return sorted(result)
 def route(file):

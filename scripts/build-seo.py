@@ -4,9 +4,10 @@ from pathlib import Path
 from html import escape,unescape
 import re,json,os
 ROOT=Path(__file__).resolve().parents[1];os.chdir(ROOT)
-SKIP=('admin/','legion/join/','clients/','music/admin/','stats/private/','stats/hunt/','sf/','airbnb/','airbnb-call-me-pls/','402/','go/','gabe/')
+SKIP=('nest/view/','admin/','legion/join/','clients/','music/admin/','stats/private/','stats/hunt/','sf/','airbnb/','airbnb-call-me-pls/','402/','go/','gabe/')
 OVERRIDES={
  '/':('Corvus — build, play, show up','A community of builders, a few ravens, and work shared in public. Explore Gabe’s hackathons, games, experiments and the Legion.'),
+ '/nest/v0/':('The original Nest — Muse Ember v0','The preserved Muse-built wish-and-raven demo. Local-only interaction, with no live AI calls.'),
  '/nest/':('The Nest Builds Itself','Make a wish for a tiny website. Explore the Muse Ember-built Nest, its honest hackathon origins, and the next experiments from Corvus.'),
  '/arena/':('Blind Nest — the Muse arena','Explore the Muse-built arena prototype and Raven Rush. One real contender, transparent model provenance, and local preview votes.'),
  '/arena/game.html':('Raven Rush — one tap, one more run','Tap to flap through a neon night, collect coins and dodge the towers. Raven Rush is a playable Meta Muse-built experiment on Corvus.'),

@@ -30,3 +30,5 @@ __pycache__/
 # Full-resolution route screenshots stay local; reports are committed.
 qa/**/*.png
 qa/current-work.json
+.vercel
+.env*

@@ -168,6 +168,14 @@
     "file": "nest/index.html"
   },
   {
+    "route": "/nest/v0/",
+    "title": "The original Nest — Muse Ember v0",
+    "description": "The preserved Muse-built wish-and-raven demo. Local-only interaction, with no live AI calls.",
+    "canonical": "https://corvus.gent/nest/v0/",
+    "image": "/og/pages/nest-v0.png",
+    "file": "nest/v0/index.html"
+  },
+  {
     "route": "/now/",
     "title": "Now",
     "description": "Five points. Every week.",
