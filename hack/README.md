@@ -1,4 +1,11 @@
-# HackTheFeed /hack
+# Hack archive
+
+- `/hack/`: archive. `/hack/1/`: preserved HackTheFeed note. `/hack/4/`: Meta Muse recap.
+- `/nest/`: Muse-generated local prototype; provenance in ARENA_LOG.md.
+- Social post URLs: `hack/posts.js`. Photos: `public/hack/4/{floor,slide,setup}.jpg`.
+- `npm run build` regenerates optional photos, shared navigation, route inventory and search.
+
+## HackTheFeed /hack/1
 
 Static HTML, the site's shared monospace/style tokens, a scoped CSS file and one small JS module. No new API, database, dependency or form; existing analytics are retained.
 
@@ -8,7 +15,7 @@ Static HTML, the site's shared monospace/style tokens, a scoped CSS file and one
 - Player requests begin only after a click. YouTube uses its privacy-enhanced host and origin-only referrer policy; TikTok uses its embed player. X uses its official embedded-post widget, including any attached video. Each has an original-link fallback for blocked/deleted/private media. A real film URL has not been supplied, so provider integrations are tested with mocks.
 - Replace the four starter timestamps/captions in `HACK_TIMELINE` with actual build moments. Static HTML contains matching initial fallback content for no-JS visitors.
 - The range input is a keyboard-accessible visual teaser; it generates nothing and sends nothing.
-- Social image: original SVG composition, rendered into a 1200×630 PNG with `node tools/build-hack-og.mjs`. Production canonical/OG URLs point to `https://corvus.gent/hack`.
+- Social image: original SVG composition, rendered into a 1200×630 PNG with `node tools/build-hack-og.mjs`. The original note canonical/OG URLs now point to `https://corvus.gent/hack/1/`.
 - Join the army links to the existing live gate at `https://corvus.gent/join-the-army-now`, also from previews. The gate is in daily PR #18 rather than this older main base. This branch contains only /hack work; merge the daily work before a main production deploy if those live fixes must be retained.
 - No environment variables. Run `PORT=4196 node tools/serve.mjs`, then `node tests/hack.mjs`. Screenshots go to ignored `test-results/hack/`.
 

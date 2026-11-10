@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Raven Rush — one tap, one more run | corvus.gent</title>
+<style>
+*{box-sizing:border-box;margin:0}body{font-family:system-ui,Segoe UI,Roboto,Arial;background:#060814;color:#eaf0ff;display:flex;flex-direction:column;align-items:center;min-height:100vh}
+a{color:#8ab4ff;text-decoration:none;font-weight:700}
+header{width:min(960px,92vw);display:flex;justify-content:space-between;align-items:center;padding:14px 0}
+.logo{letter-spacing:.14em;font-weight:900;font-size:18px}.logo span{color:#ffcc33}
+.wrap{width:min(420px,92vw);background:#0d1125;border:1px solid #1e264d;border-radius:18px;overflow:hidden;box-shadow:0 18px 50px #0008}
+.hud{display:flex;justify-content:space-between;padding:10px 12px;background:#0b0f24;border-bottom:1px solid #1d2750;font-weight:800;font-size:14px}
+.hud b{color:#ffd23d}
+.canvasBox{position:relative;width:100%;aspect-ratio:420/700;background:#080c1f}
+canvas{width:100%;height:100%;display:block;touch-action:none}
+.overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:18px;background:linear-gradient(180deg,#070a1ecc 10%,#070a1e99)}
+.card{background:#11183aee;border:1px solid #2a356e;border-radius:16px;padding:16px 14px;width:92%;backdrop-filter:blur(4px)}
+h1{font-size:28px;letter-spacing:.12em;line-height:1}
+h1 i{color:#ffd23d;font-style:normal}
+p{opacity:.85;font-size:13px;line-height:1.4;margin:8px 0}
+.btn{appearance:none;border:0;border-radius:999px;padding:11px 18px;font-weight:900;letter-spacing:.06em;cursor:pointer;background:#ffd23d;color:#1a1300;box-shadow:0 6px 18px #0005}
+.btn.alt{background:#1f294f;color:#fff;border:1px solid #34407a}
+.row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-block;background:#ffffff14;border:1px solid #ffffff22;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:700}
+.scoreBig{font-size:36px;font-weight:900;color:#ffd23d}
+footer{padding:14px;opacity:.7;font-size:12px}
+.hidden{display:none!important}
+</style>
+<link rel="stylesheet" href="/js/site-nav.css?v=2aa91017f9b3">
+
+<meta name="description" content="Tap to flap through a neon night, collect coins and dodge the towers. Raven Rush is a playable Meta Muse-built experiment on Corvus.">
+<meta property="og:title" content="Raven Rush — one tap, one more run">
+<meta property="og:description" content="Tap to flap through a neon night, collect coins and dodge the towers. Raven Rush is a playable Meta Muse-built experiment on Corvus.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://corvus.gent/arena/game.html">
+<meta property="og:image" content="https://corvus.gent/og/pages/arena-game.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Raven Rush — one tap, one more run — Corvus, black and gold raven artwork">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Raven Rush — one tap, one more run">
+<meta name="twitter:description" content="Tap to flap through a neon night, collect coins and dodge the towers. Raven Rush is a playable Meta Muse-built experiment on Corvus.">
+<meta name="twitter:image" content="https://corvus.gent/og/pages/arena-game.png">
+<meta name="twitter:image:alt" content="Raven Rush — one tap, one more run — Corvus">
+<link rel="canonical" href="https://corvus.gent/arena/game.html">
+</head>
+<body>
+<header>
+<a href="/arena/index.html">← Arena</a>
+<div class="logo">RAVEN <span>RUSH</span></div>
+<div style="font-size:12px;opacity:.7">SPACE / TAP to flap</div>
+</header>
+<div class="wrap">
+<div class="hud"><div>Score <b id="sc">0</b></div><div>Best <b id="bs">0</b></div></div>
+<div class="canvasBox">
+<canvas id="c" width="420" height="700"></canvas>
+<div id="menu" class="overlay">
+<div class="card">
+<h1>RAVEN <i>RUSH</i></h1>
+<p>Dark city flight — snatch <b style="color:#ffd23d">gold coins</b>, dodge towers. One tap = flap.</p>
+<div class="badge">🌙 Night City • 60fps</div>
+<div class="row"><button id="startBtn" class="btn">START FLIGHT ▶</button></div>
+<p style="font-size:11px;opacity:.6">Tip: stay in the gap, collect coins for +10</p>
+</div>
+</div>
+<div id="over" class="overlay hidden">
+<div class="card">
+<div style="font-weight:900;letter-spacing:.15em">GAME OVER</div>
+<div class="scoreBig" id="final">0</div>
+<div id="bestMsg" style="font-size:13px;opacity:.9">Best: 0</div>
+<div class="row">
+<button id="restartBtn" class="btn">RESTART ↺</button>
+<button id="shareBtn" class="btn alt">Share on X</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer>Built by Meta Muse</footer>
+<script>
+const cv=document.getElementById('c'),ctx=cv.getContext('2d'),W=420,H=700;
+const scEl=document.getElementById('sc'),bsEl=document.getElementById('bs'),menu=document.getElementById('menu'),over=document.getElementById('over'),finalEl=document.getElementById('final'),bestMsg=document.getElementById('bestMsg');
+let best=0,score=0,state='menu',frame=0,speed=3.1,bird,pipes,coins,parts;
+function loadBest(){try{best=+localStorage.getItem('ravenBest')||0}catch(e){} bsEl.textContent=best}
+function saveBest(){try{if(score>best){best=score;localStorage.setItem('ravenBest',best)}bsEl.textContent=best}catch(e){}}
+loadBest();
+function reset(){
+ bird={x:78,y:H/2,vy:0,w:34,h:22,r:0};
+ pipes=[];coins=[];parts=[];score=0;frame=0;speed=3.1;scEl.textContent=0;
+}
+reset();
+function flap(){if(state!=='playing')return;bird.vy=-7.9}
+function handleAction(){
+ if(state==='menu'){state='playing';menu.classList.add('hidden');reset()}
+ else if(state==='playing'){flap()}
+}
+addEventListener('keydown',e=>{
+ if(e.code==='Space'||e.code==='ArrowUp'){e.preventDefault();if(state==='over')return;handleAction()}
+ if(e.code==='KeyR'&&state==='over')doRestart();
+});
+cv.addEventListener('pointerdown',e=>{e.preventDefault();if(state==='over')return;handleAction()},{passive:false});
+document.getElementById('startBtn').onclick=()=>{state='playing';menu.classList.add('hidden');reset()};
+function doRestart(){over.classList.add('hidden');state='menu';menu.classList.remove('hidden');}
+document.getElementById('restartBtn').onclick=doRestart;
+document.getElementById('shareBtn').onclick=()=>{
+ const t=`I scored ${score} in RAVEN RUSH 🐦‍⬛🌃 Can you beat me?`;
+ open('https://twitter.com/intent/tweet?text='+encodeURIComponent(t),'_blank')
+};
+function collide(ax,ay,aw,ah,bx,by,bw,bh){return ax<bx+bw&&ax+aw>bx&&ay<by+bh&&ay+ah>by}
+function spawnPipe(){
+ const gap=165, margin=90, cy=margin+Math.random()*(H-margin*2-gap);
+ pipes.push({x:W+20,y:0,w:56,h:cy,top:true});
+ pipes.push({x:W+20,y:cy+gap,w:56,h:H-(cy+gap)-26,top:false});
+ if(Math.random()<.85) coins.push({x:W+40,y:cy+gap/2+(Math.random()*60-30),r:10,taken:false})
+}
+function update(){
+ if(state!=='playing')return;
+ frame++;
+ if(frame%108===0)spawnPipe();
+ if(frame>600&&frame%400===0)speed=Math.min(5,speed+.2);
+ // bird physics
+ bird.vy+=0.42;bird.y+=bird.vy;bird.r=Math.max(-0.6,Math.min(0.9,bird.vy*0.08));
+ if(bird.y<0){bird.y=0;bird.vy=0}
+ if(bird.y+H/70>H-26-bird.h){gameOver()}
+ // move world
+ for(let p of pipes)p.x-=speed;
+ for(let c of coins)c.x-=speed;
+ // cull
+ pipes=pipes.filter(p=>p.x+p.w>-20);
+ coins=coins.filter(c=>!c.taken&&c.x>-20);
+ // collisions pipes
+ for(let p of pipes){
+  if(collide(bird.x+6,bird.y+4,bird.w-12,bird.h-8,p.x,p.y,p.w,p.h))gameOver();
+ }
+ // coins
+ for(let c of coins){
+  let dx=(bird.x+bird.w/2)-(c.x),dy=(bird.y+bird.h/2)-c.y;
+  if(Math.hypot(dx,dy)<22){c.taken=true;score+=10;scEl.textContent=score;burst(c.x,c.y);saveBest()}
+ }
+ // passed bonus
+ for(let i=0;i<pipes.length;i+=2){
+  let p=pipes[i];
+  if(!p.passed&&p.x+ p.w < bird.x){p.passed=true;score+=1;scEl.textContent=score;saveBest()}
+ }
+ parts.forEach(pt=>{pt.x+=pt.vx;pt.y+=pt.vy;pt.vy+=0.2;pt.a-=0.03});
+ parts=parts.filter(pt=>pt.a>0);
+}
+function burst(x,y){
+ for(let i=0;i<8;i++)parts.push({x,y,vx:(Math.random()*6-3),vy:(Math.random()*-4-1),a:1,col:Math.random()<.5?'#ffd23d':'#ffe9a0'})
+}
+function gameOver(){
+ if(state==='over')return;
+ state='over';saveBest();finalEl.textContent=score;bestMsg.textContent='Best: '+best;over.classList.remove('hidden')
+}
+function drawCity(){
+ // sky
+ let g=ctx.createLinearGradient(0,0,0,H);
+ g.addColorStop(0,'#070a1e');g.addColorStop(1,'#121a3d');
+ ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+ // moon
+ ctx.fillStyle='#fff6cc';ctx.beginPath();ctx.arc(340,90,28,0,Math.PI*2);ctx.fill();
+ ctx.fillStyle='#070a1e';ctx.beginPath();ctx.arc(350,82,10,0,Math.PI*2);ctx.fill();
+ // far buildings
+ ctx.fillStyle='#0b1030';
+ for(let i=0;i<7;i++){let x=i*72-10,hx=120+Math.sin(i*1.3)*30;ctx.fillRect(x,H-160,hx%64+48,160)}
+ ctx.fillStyle='#141d4a';
+ for(let i=0;i<8;i++){let x=i*66-18;ctx.fillRect(x,H-110,44,110);for(let wy=H-100;wy<H-16;wy+=12){for(let wx=0;wx<2;wx++){ctx.fillStyle=Math.random()<.12?'#ffd23d':'#1b2450';ctx.fillRect(x+8+wx*18,wy,10,6)}ctx.fillStyle='#141d4a'}}
+ // ground
+ ctx.fillStyle='#0a0e26';ctx.fillRect(0,H-26,W,26);
+ ctx.fillStyle='#1e2a62';ctx.fillRect(0,H-26,W,3);
+}
+function drawPipes(){
+ ctx.fillStyle='#1a2450';ctx.strokeStyle='#2e3b7a';ctx.lineWidth=2;
+ for(let p of pipes){
+  ctx.fillRect(p.x,p.y,p.w,p.h);
+  ctx.strokeRect(p.x,p.y,p.w,p.h);
+  // cap
+  ctx.fillStyle='#25326e';ctx.fillRect(p.x-6,p.top?p.h-10:p.y,p.w+12,10);ctx.fillStyle='#1a2450';
+ }
+}
+function drawCoins(){
+ for(let c of coins){
+  ctx.save();ctx.translate(c.x,c.y);ctx.rotate(frame*0.08);
+  ctx.fillStyle='#ffd23d';ctx.strokeStyle='#b78f00';ctx.lineWidth=2;
+  ctx.beginPath();ctx.arc(0,0,c.r,0,Math.PI*2);ctx.fill();ctx.stroke();
+  ctx.fillStyle='#7a5d00';ctx.font='bold 11px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('$',0,1);
+  ctx.restore();
+ }
+}
+function drawBird(){
+ ctx.save();ctx.translate(bird.x+bird.w/2,bird.y+bird.h/2);ctx.rotate(bird.r);
+ // shadow
+ ctx.fillStyle='#0006';ctx.beginPath();ctx.ellipse(2,6,16,7,0,0,Math.PI*2);ctx.fill();
+ // body
+ ctx.fillStyle='#101010';ctx.beginPath();ctx.ellipse(0,0,16,10,0,0,Math.PI*2);ctx.fill();
+ // wing
+ let flap=Math.sin(frame*0.6)*0.35;
+ ctx.save();ctx.rotate(flap);ctx.fillStyle='#2b2b2b';ctx.beginPath();ctx.ellipse(-2,2,11,7,0,0,Math.PI*2);ctx.fill();ctx.restore();
+ // head/beak
+ ctx.fillStyle='#0d0d0e';ctx.beginPath();ctx.arc(10,-3,7,0,Math.PI*2);ctx.fill();
+ ctx.fillStyle='#ffd23d';ctx.beginPath();ctx.moveTo(17,-3);ctx.lineTo(24,-1);ctx.lineTo(17,2);ctx.closePath();ctx.fill();
+ // eye
+ ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(12,-5,3,0,Math.PI*2);ctx.fill();ctx.fillStyle='#000';ctx.beginPath();ctx.arc(13,-5,1.4,0,Math.PI*2);ctx.fill();
+ ctx.restore();
+ // particles
+ for(let pt of parts){ctx.globalAlpha=pt.a;ctx.fillStyle=pt.col;ctx.beginPath();ctx.arc(pt.x,pt.y,3,0,Math.PI*2);ctx.fill()}ctx.globalAlpha=1;
+}
+function loop(){
+ update();
+ drawCity();drawPipes();drawCoins();drawBird();
+ // score flash
+ if(state==='playing'){ctx.fillStyle='#fff';ctx.font='900 22px system-ui';ctx.textAlign='center';ctx.fillText(score,W/2,36)}
+ requestAnimationFrame(loop)
+}
+loop();
+</script>
+</body>
+</html>

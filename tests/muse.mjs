@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {validPostURL} from '../hack/posts.js';
+assert.equal(validPostURL('https://x.com/gabe/status/123','x'),'https://x.com/gabe/status/123');
+assert.ok(validPostURL('https://www.linkedin.com/feed/update/urn:li:activity:123/','linkedin'));
+for(const value of ['javascript:alert(1)','http://x.com/gabe/status/1','https://x.com.evil.test/gabe/status/1','https://name:secret@x.com/gabe/status/1','https://x.com/gabe',null]) assert.equal(validPostURL(value,'x'),null);
+const index=JSON.parse(fs.readFileSync('search-index.json','utf8'));
+assert.ok(Array.isArray(index));
+for (const row of index) assert.ok(!/\/(sf|admin|private|hunt)\//.test(row.url),`private page in search: ${row.url}`);
+const explore=fs.readFileSync('explore/index.html','utf8');
+for(const url of ['/music/admin/','/stats/private/','/stats/hunt/','/sf/'])assert.ok(!explore.includes(`href="${url}"`));
+const nest=fs.readFileSync('nest/v0/index.html','utf8');
+assert.ok(nest.includes('cardWish.textContent=currentWish'));
+assert.ok(!/\bfetch\(|localStorage|sessionStorage|\.innerHTML\s*=/.test(nest));
+assert.ok(nest.includes('original playground output is not archived'));
+console.log('Muse checks passed: post URL safety, private search/nav exclusion, local-only wish rendering and provenance.');

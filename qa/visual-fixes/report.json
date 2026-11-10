@@ -1,0 +1,254 @@
+[
+  {
+    "route": "/",
+    "device": "mobile",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "screenshot": "qa/visual-fixes/home-mobile.png",
+    "fullScreenshot": "qa/visual-fixes/home-mobile-full.png",
+    "errors": [],
+    "failed": [],
+    "status": 200,
+    "dom": {
+      "title": "corvus.gent",
+      "description": "The crow died. The domain didn't.",
+      "width": 390,
+      "scrollWidth": 390,
+      "overflow": [],
+      "brokenImages": []
+    }
+  },
+  {
+    "route": "/airbnb-filter/",
+    "device": "mobile",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "screenshot": "qa/visual-fixes/airbnb-filter-mobile.png",
+    "fullScreenshot": "qa/visual-fixes/airbnb-filter-mobile-full.png",
+    "errors": [],
+    "failed": [],
+    "status": 200,
+    "dom": {
+      "title": "Me vs. the Airbnb filter | corvus.gent",
+      "description": "Airbnb wouldn't let me send my phone number. So I shipped a website instead.",
+      "width": 390,
+      "scrollWidth": 390,
+      "overflow": [],
+      "brokenImages": []
+    }
+  },
+  {
+    "route": "/call/",
+    "device": "mobile",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "screenshot": "qa/visual-fixes/call-mobile.png",
+    "fullScreenshot": "qa/visual-fixes/call-mobile-full.png",
+    "errors": [],
+    "failed": [],
+    "status": 200,
+    "dom": {
+      "title": "Call | corvus.gent",
+      "description": "Book a free 15-min call with Gabriel.",
+      "width": 390,
+      "scrollWidth": 390,
+      "overflow": [],
+      "brokenImages": []
+    }
+  },
+  {
+    "route": "/stats/hunt/",
+    "device": "mobile",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "screenshot": "qa/visual-fixes/stats--hunt-mobile.png",
+    "fullScreenshot": "qa/visual-fixes/stats--hunt-mobile-full.png",
+    "errors": [],
+    "failed": [],
+    "status": 200,
+    "dom": {
+      "title": "curiosity, counted | corvus stats",
+      "description": "aggregate discoveries and activity.",
+      "width": 390,
+      "scrollWidth": 390,
+      "overflow": [],
+      "brokenImages": []
+    }
+  },
+  {
+    "route": "/games/",
+    "device": "mobile",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "screenshot": "qa/visual-fixes/games-mobile.png",
+    "fullScreenshot": "qa/visual-fixes/games-mobile-full.png",
+    "errors": [],
+    "failed": [],
+    "status": 200,
+    "dom": {
+      "title": "daily games | corvus.gent",
+      "description": "one lantern. one daily puzzle. eight ways to find the answer.",
+      "width": 390,
+      "scrollWidth": 390,
+      "overflow": [],
+      "brokenImages": []
+    }
+  },
+  {
+    "route": "/music/admin/",
+    "device": "mobile",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "screenshot": "qa/visual-fixes/music--admin-mobile.png",
+    "fullScreenshot": "qa/visual-fixes/music--admin-mobile-full.png",
+    "errors": [],
+    "failed": [],
+    "status": 200,
+    "dom": {
+      "title": "Manage music | corvus.gent",
+      "description": null,
+      "width": 390,
+      "scrollWidth": 390,
+      "overflow": [],
+      "brokenImages": []
+    }
+  },
+  {
+    "route": "/",
+    "device": "desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "screenshot": "qa/visual-fixes/home-desktop.png",
+    "fullScreenshot": "qa/visual-fixes/home-desktop-full.png",
+    "errors": [],
+    "failed": [],
+    "status": 200,
+    "dom": {
+      "title": "corvus.gent",
+      "description": "The crow died. The domain didn't.",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "overflow": [],
+      "brokenImages": []
+    }
+  },
+  {
+    "route": "/airbnb-filter/",
+    "device": "desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "screenshot": "qa/visual-fixes/airbnb-filter-desktop.png",
+    "fullScreenshot": "qa/visual-fixes/airbnb-filter-desktop-full.png",
+    "errors": [],
+    "failed": [],
+    "status": 200,
+    "dom": {
+      "title": "Me vs. the Airbnb filter | corvus.gent",
+      "description": "Airbnb wouldn't let me send my phone number. So I shipped a website instead.",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "overflow": [],
+      "brokenImages": []
+    }
+  },
+  {
+    "route": "/call/",
+    "device": "desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "screenshot": "qa/visual-fixes/call-desktop.png",
+    "fullScreenshot": "qa/visual-fixes/call-desktop-full.png",
+    "errors": [],
+    "failed": [],
+    "status": 200,
+    "dom": {
+      "title": "Call | corvus.gent",
+      "description": "Book a free 15-min call with Gabriel.",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "overflow": [],
+      "brokenImages": []
+    }
+  },
+  {
+    "route": "/stats/hunt/",
+    "device": "desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "screenshot": "qa/visual-fixes/stats--hunt-desktop.png",
+    "fullScreenshot": "qa/visual-fixes/stats--hunt-desktop-full.png",
+    "errors": [],
+    "failed": [],
+    "status": 200,
+    "dom": {
+      "title": "curiosity, counted | corvus stats",
+      "description": "aggregate discoveries and activity.",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "overflow": [],
+      "brokenImages": []
+    }
+  },
+  {
+    "route": "/games/",
+    "device": "desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "screenshot": "qa/visual-fixes/games-desktop.png",
+    "fullScreenshot": "qa/visual-fixes/games-desktop-full.png",
+    "errors": [],
+    "failed": [],
+    "status": 200,
+    "dom": {
+      "title": "daily games | corvus.gent",
+      "description": "one lantern. one daily puzzle. eight ways to find the answer.",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "overflow": [],
+      "brokenImages": []
+    }
+  },
+  {
+    "route": "/music/admin/",
+    "device": "desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "screenshot": "qa/visual-fixes/music--admin-desktop.png",
+    "fullScreenshot": "qa/visual-fixes/music--admin-desktop-full.png",
+    "errors": [],
+    "failed": [],
+    "status": 200,
+    "dom": {
+      "title": "Manage music | corvus.gent",
+      "description": null,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "overflow": [],
+      "brokenImages": []
+    }
+  }
+]

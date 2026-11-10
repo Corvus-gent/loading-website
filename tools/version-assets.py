@@ -3,7 +3,7 @@
 from pathlib import Path
 import re,hashlib
 for p in Path('.').rglob('*.html'):
- if any(x in p.parts for x in ['node_modules','test-results','playwright-report']):continue
+ if any(x in p.parts for x in ['node_modules','test-results','playwright-report','.git','qa']):continue
  def version(m):
   path=m[2];f=Path(path.lstrip('/'))
   if not f.is_file():return m[0]

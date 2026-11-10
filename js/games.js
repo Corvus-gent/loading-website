@@ -5,7 +5,7 @@ const $=id=>document.getElementById(id),tr=k=>ui(k,getLang()),event=(name,props=
 const picker=createGamePicker($('guess-picker'));
 const brusselsDate=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Brussels'});
 const read=()=>readPreference('daily-games',{})||{};
-const api=async(body)=>{const r=await fetch(body?'/api/game/guess':'/api/game',{method:body?'POST':'GET',headers:{'Content-Type':'application/json'},...(body?{body:JSON.stringify({...body,day:state.day,index:state.history.length})}:{})});const d=await r.json();if(!r.ok)throw Error(d.error||'try again');return d;};
+const api=async(body)=>{const r=await fetch(body?'/api/game/guess':'/api/game',{method:body?'POST':'GET',headers:{'Content-Type':'application/json'},...(body?{body:JSON.stringify({...body,day:state.day,index:state.history.length})}:{})});const d=await r.json();if(!r.ok)throw Error(d.error||'try again');if(!d||!Array.isArray(d.rotation)||!Array.isArray(d.history)||!d.type)throw Error('The puzzle is resting. Try again shortly.');return d;};
 function labels(){picker.setLabels({toggle:tr('choices'),list:tr('choiceList'),empty:tr('noChoices')});[['help','help'],['submit','submit'],['guess-label','guess'],['share','share'],['stats-label','stats'],['help-close','close']].forEach(([id,k])=>$(id).textContent=tr(k));if(state){$('help-copy').textContent=help(state.type,getLang());render();}}
 initI18n(labels);labels();
 $('help').onclick=()=>{if(state){$('help-title').textContent=state.type;$('help-copy').textContent=help(state.type,getLang());$('instructions').showModal();}};

@@ -2,11 +2,28 @@
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark">
 <title>Music · Gabe’s collection | corvus.gent</title>
+
+<link rel="icon" href="/logo.png"><link rel="stylesheet" href="/styles.css?v=0c6f34b2a7b9"><link rel="stylesheet" href="/music/music.css?v=ead446ffb7f8">
+<link rel="stylesheet" href="/privacy/privacy.css?v=297f7bfdcaa8"><meta name="referrer" content="no-referrer">
+<link rel="stylesheet" href="/js/site-nav.css?v=2aa91017f9b3">
+
 <meta name="description" content="Gabe’s ranked music collection. Find a favourite, leave a like, share a song or suggest your next obsession.">
-<meta property="og:title" content="Gabe’s collection · corvus.gent"><meta property="og:description" content="Your next favourite is probably in here."><meta property="og:url" content="https://corvus.gent/music/"><meta property="og:image" content="https://corvus.gent/og.png">
-<link rel="icon" href="/logo.png"><link rel="stylesheet" href="/styles.css?v=4d681edec0fb"><link rel="stylesheet" href="/music/music.css?v=181ca39c23d3">
-<link rel="stylesheet" href="/privacy/privacy.css?v=202ae89baeff"><meta name="referrer" content="no-referrer">
-</head><body class="music-page"><main class="music-shell">
+<meta property="og:title" content="Music · Gabe’s collection">
+<meta property="og:description" content="Gabe’s ranked music collection. Find a favourite, leave a like, share a song or suggest your next obsession.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://corvus.gent/music/">
+<meta property="og:image" content="https://corvus.gent/og/pages/music.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Music · Gabe’s collection — Corvus, black and gold raven artwork">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Music · Gabe’s collection">
+<meta name="twitter:description" content="Gabe’s ranked music collection. Find a favourite, leave a like, share a song or suggest your next obsession.">
+<meta name="twitter:image" content="https://corvus.gent/og/pages/music.png">
+<meta name="twitter:image:alt" content="Music · Gabe’s collection — Corvus">
+<link rel="canonical" href="https://corvus.gent/music/">
+</head><body class="music-page">
+<!-- site-nav:start --><nav class="site-nav" aria-label="Main navigation"><a class="site-brand" href="/">corvus ↟</a><div class="site-desktop"><a href="/">Home</a><a href="/hack/">Hack</a><a href="/legion/">Legion</a><a href="/nest/">Nest</a><a href="/dontpay/">I Don't Pay</a><a href="/games/">Games</a><a href="/explore/">Explore</a></div><details class="site-mobile"><summary aria-label="Open navigation menu">☰ Menu</summary><div class="site-menu"><a href="/">Home</a><a href="/hack/">Hack</a><a href="/legion/">Legion</a><a href="/nest/">Nest</a><a href="/dontpay/">I Don't Pay</a><a href="/games/">Games</a><a href="/explore/">Explore</a></div></details></nav><!-- site-nav:end --><main class="music-shell">
 <header class="music-top"><a href="/">corvus.gent</a><div id="lang-switcher" class="lang-switcher"></div><a href="/music/admin/" class="admin-link" data-i18n="m.manage">manage collection</a></header>
 <section class="collection-hero"><div class="hero-record" aria-hidden="true"><div>g.</div></div><div><p class="eyebrow">GABE’S ROTATION / 001</p><h1 data-i18n="music.title">bangers</h1><p class="muted" data-i18n="m.subtitle">gabe’s collection. your favourites. no gatekeeping.</p><p class="collection-meta"><span class="status-dot"></span> <span id="total">…</span> <span data-i18n="m.tracks">tracks</span> <span class="separator">/</span> <span>curated by gabe</span></p></div></section>
 <aside id="device-tip" class="device-tip" hidden role="status"><span aria-hidden="true">🪶</span><p data-i18n="m.deviceTip">This device may find the full collection and map heavy. Take it easy here, or explore on a laptop.</p><button id="dismiss-device-tip" type="button" aria-label="Close">×</button></aside>
@@ -23,5 +40,5 @@
 <section class="suggestion-panel" id="suggest-a-banger" tabindex="-1"><div class="suggest-egg" aria-hidden="true">🥚</div><div><p class="eyebrow">PASS THE AUX</p><h2 data-i18n="music.suggest">suggest a banger</h2><p class="muted" data-i18n="m.suggestHint">paste a Spotify or Apple Music song link. one suggestion per minute, five per day.</p></div><form id="suggest" class="suggest-form"><label class="sr-only" for="song-url" data-i18n="m.link">song link</label><input id="song-url" type="url" required placeholder="https://music.apple.com/… / https://open.spotify.com/…"><div class="honey" aria-hidden="true"><label>website<input name="website" tabindex="-1" autocomplete="off"></label></div><button type="submit" id="suggest-button" data-i18n="music.send">suggest</button><output id="countdown" aria-live="off"></output></form><h3 data-i18n="m.suggestions">your suggestions</h3><ol id="suggestions" class="track-list suggestion-list"></ol><button id="load-suggestions" type="button" hidden data-i18n="m.moreSuggestions">more suggestions</button></section>
 <p class="puzzle-note"><a href="/games/">🕯 today’s puzzle is waiting →</a></p><footer><a href="/">© corvus</a><p data-i18n="m.linkHint">search links are labelled; they may return several versions.</p><p data-i18n="m.playerLimits">playback depends on the service, your region and subscription.</p> <a href="/privacy/" data-privacy-link>privacy</a></footer>
 </main><aside class="now-playing" aria-label="player"><div class="now-meta"><span class="mini-record" aria-hidden="true">♪</span><div><strong id="now-title" data-i18n="m.choose">pick a song</strong><small id="now-artist" data-i18n="m.playerHint">verified links play here. other versions open through search.</small></div><button id="close-player" type="button" aria-label="close" hidden>×</button></div><p class="spotify-privacy" data-spotify-notice>plays via spotify, which may set cookies.</p><div id="embed"></div><div id="player-links"></div></aside>
-<script type="module" src="/js/music.js?v=ba65fdc581eb"></script><script src="/js/analytics.js?v=811c28467bec"></script><script type="module" src="/js/privacy.js?v=2c0385e220c2"></script>
+<script type="module" src="/js/music.js?v=ba65fdc581eb"></script><script src="/js/analytics.js?v=811c28467bec"></script><script type="module" src="/js/privacy.js?v=2c0385e220c2"></script><!-- site-next:start --><nav class="site-next" aria-label="Keep exploring"><a href="/legion/">Join the Legion →</a><a href="/hack/">Read a field note →</a><a href="/dontpay/">Follow I Don’t Pay →</a><a href="/games/">Play a game →</a><a href="/explore/">All public pages →</a></nav><!-- site-next:end -->
 </body></html>

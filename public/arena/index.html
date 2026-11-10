@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Blind Nest — the Muse arena | corvus.gent</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#080705;color:#f5e6a6;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;line-height:1.4}
+a{color:#facc15}
+header{border-bottom:1px solid #3a2f0a;background:linear-gradient(180deg,#14120a,#080705);padding:18px 16px;position:sticky;top:0;z-index:5}
+.top{max-width:1020px;margin:0 auto;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.12em}
+.logo i{width:36px;height:36px;display:grid;place-items:center;background:linear-gradient(135deg,#facc15,#a67c00);color:#111;border-radius:9px}
+nav a.btn{padding:10px 16px;background:linear-gradient(135deg,#facc15,#d4a017);color:#111;border-radius:999px;font-weight:800;text-decoration:none;box-shadow:0 4px 16px rgba(250,204,21,.35)}
+.wrap{max-width:1020px;margin:0 auto;padding:20px 16px}
+.hero{border:1px solid #3a2f0a;background:linear-gradient(180deg,#1a170c,#0e0c06);border-radius:18px;padding:18px;display:grid;gap:12px}
+.badge{display:inline-flex;gap:8px;align-items:center;border:1px solid #5a4a15;background:#201c07;color:#fde68a;border-radius:999px;padding:6px 10px;font-size:12px;letter-spacing:.08em;font-weight:700}
+h1{font-size:30px;line-height:1;letter-spacing:.04em}
+h1 span{color:#facc15}
+.hero p{color:#d6c99a;max-width:70ch;font-size:14px}
+.small{font-size:12px;color:#b8a978}
+.grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:16px}
+@media(min-width:860px){.grid{grid-template-columns:1fr}}
+.card{border:1px solid #3a2f0a;background:#11100a;border-radius:16px;overflow:hidden}
+.cardHead{padding:12px 14px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(90deg,#1a170c,#11100a);border-bottom:1px solid #2a2410}
+.cardHead h2{font-size:14px;letter-spacing:.14em}
+ pill{font-size:11px;border:1px solid #4a3d14;color:#fde68a;background:#211e0a;border-radius:999px;padding:4px 8px}
+.iframeWrap{background:#000}
+iframe{width:100%;height:520px;border:0;background:#fff;display:block}
+@media(max-width:600px){iframe{height:560px}}
+.cardFoot{padding:14px;display:grid;gap:10px}
+.footRow{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.btnG{appearance:none;border:0;cursor:pointer;padding:10px 14px;border-radius:10px;font-weight:800}
+.btnGold{background:linear-gradient(135deg,#facc15,#c99700);color:#111}
+.btnGhost{background:#1c1a0f;color:#facc15;border:1px solid #4a3d14}
+.identity{border:1px dashed #5a4a15;background:#1a170c;border-radius:12px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:48px}
+.identity strong{color:#facc15}
+.hiddenId{filter:blur(8px);user-select:none;opacity:.6}
+.revealed{animation:wingIn .7s ease}
+.wings{display:inline-block;animation:flap .7s ease}
+@keyframes flap{0%{transform:scaleX(.2) rotate(-12deg);opacity:0}50%{transform:scaleX(1.2) rotate(6deg);opacity:1}100%{transform:scaleX(1) rotate(0);opacity:1}}
+@keyframes wingIn{from{transform:translateY(6px);opacity:0}to{transform:none;opacity:1}}
+.panels{display:grid;gap:16px;margin-top:16px}
+@media(min-width:860px){.panels{grid-template-columns:1fr 1fr}}
+.panel{border:1px solid #3a2f0a;background:#11100a;border-radius:16px;padding:14px;display:grid;gap:10px}
+.panel h3{font-size:14px;letter-spacing:.08em;color:#fde68a}
+.poll label{display:flex;gap:8px;align-items:center;padding:8px;border:1px solid #2a2410;border-radius:10px;background:#14120a;cursor:pointer;font-size:14px}
+.poll input[type="text"]{width:100%;padding:9px 10px;border-radius:10px;border:1px solid #4a3d14;background:#0e0c06;color:#facc15}
+.share{display:flex;gap:10px;flex-wrap:wrap}
+.share a{padding:9px 12px;border:1px solid #4a3d14;background:#1a170c;border-radius:10px;text-decoration:none;font-weight:700;font-size:13px}
+footer{text-align:center;padding:20px;color:#b8a978;font-size:12px;border-top:1px solid #2a2410;margin-top:16px}
+</style>
+<link rel="stylesheet" href="/js/site-nav.css?v=2aa91017f9b3">
+
+<meta name="description" content="Explore the Muse-built arena prototype and Raven Rush. One real contender, transparent model provenance, and local preview votes.">
+<meta property="og:title" content="Blind Nest — the Muse arena">
+<meta property="og:description" content="Explore the Muse-built arena prototype and Raven Rush. One real contender, transparent model provenance, and local preview votes.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://corvus.gent/arena/">
+<meta property="og:image" content="https://corvus.gent/og/pages/arena.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Blind Nest — the Muse arena — Corvus, black and gold raven artwork">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Blind Nest — the Muse arena">
+<meta name="twitter:description" content="Explore the Muse-built arena prototype and Raven Rush. One real contender, transparent model provenance, and local preview votes.">
+<meta name="twitter:image" content="https://corvus.gent/og/pages/arena.png">
+<meta name="twitter:image:alt" content="Blind Nest — the Muse arena — Corvus">
+<link rel="canonical" href="https://corvus.gent/arena/">
+</head>
+<body>
+<!-- site-nav:start --><nav class="site-nav" aria-label="Main navigation"><a class="site-brand" href="/">corvus ↟</a><div class="site-desktop"><a href="/">Home</a><a href="/hack/">Hack</a><a href="/legion/">Legion</a><a href="/nest/">Nest</a><a href="/dontpay/">I Don't Pay</a><a href="/games/">Games</a><a href="/explore/">Explore</a></div><details class="site-mobile"><summary aria-label="Open navigation menu">☰ Menu</summary><div class="site-menu"><a href="/">Home</a><a href="/hack/">Hack</a><a href="/legion/">Legion</a><a href="/nest/">Nest</a><a href="/dontpay/">I Don't Pay</a><a href="/games/">Games</a><a href="/explore/">Explore</a></div></details></nav><!-- site-nav:end --><header>
+<div class="top">
+<div class="logo"><i>◈</i><div>BLIND NEST<br><span style="font-size:11px;letter-spacing:.18em;color:#d6c99a;font-weight:600">BLACK &amp; GOLD ARENA</span></div></div>
+<a class="btn" href="/arena/game.html">▶ Play Raven Rush</a>
+</div>
+</header>
+<main class="wrap">
+<section class="hero">
+<div class="badge">◆ SINGLE CONTENDER PREVIEW — votes local only</div>
+<h1>BLIND NEST <span>ARENA</span></h1>
+<p>Preview the generated nest below. Identities are hidden until you vote. <b>Votes are local to this browser, not global</b> and do not affect other visitors. This is a <b>Single contender preview</b> — not a multi-model contest.</p>
+<p class="small">Play the featured game: <a href="/arena/game.html"><b>Raven Rush</b> → /arena/game.html</a> — fast, raven-themed dash.</p>
+</section>
+
+<section class="grid" id="arenaGrid">
+<article class="card" data-file="nest-b.html" data-title="Nest B">
+<div class="cardHead"><h2>NEST B</h2><pill>contestant 1 / 1</pill></div>
+<div class="iframeWrap"><iframe src="/arena/nest-b.html" sandbox="allow-scripts" title="Nest B preview" loading="lazy"></iframe></div>
+<div class="cardFoot">
+<div class="footRow">
+<button class="btnG voteBtn">★ Best one</button>
+<span class="small">Vote stored locally. Reveals model.</span>
+</div>
+<div class="identity" aria-live="polite">
+<span class="label small">Identity:</span>
+<strong class="hiddenId" data-role="name">•••• hidden — vote to reveal</strong>
+<span class="wings" aria-hidden="true" style="display:none">🪽</span>
+</div>
+</div>
+</article>
+</section>
+
+<div class="panels">
+<section class="panel">
+<h3>WHY MUSE?</h3>
+<p class="small" style="color:#e8dbb0">Built with Meta Muse — nimble models for builders. <b>Ember</b> is fast for snappy experiences. <b>Spark Open</b> is open for coding. Explore:</p>
+<p><a href="https://openrouter.ai/meta/muse-spark-open" style="font-weight:800;word-break:break-all">openrouter.ai/meta/muse-spark-open</a></p>
+<p class="small">No pricing or benchmark claims — check provider pages for current details.</p>
+</section>
+
+<section class="panel poll" id="pollPanel">
+<h3>NAME THIS BATTLE — POLL</h3>
+<p class="small">Pick a name. Saved only in this browser.</p>
+<label><input type="radio" name="battle" value="Raven Royale"> Raven Royale</label>
+<label><input type="radio" name="battle" value="The Blind Nest"> The Blind Nest</label>
+<label><input type="radio" name="battle" value="Model Mortal Kombat"> Model Mortal Kombat</label>
+<label><input type="radio" name="battle" value="custom"> Custom: <input type="text" id="customName" placeholder="Your title"></label>
+<button class="btnG" id="savePoll" style="width:max-content">Save choice</button>
+<p class="small" id="pollStatus">No choice saved yet.</p>
+</section>
+</div>
+
+<section class="panel" style="margin-top:16px">
+<h3>SHARE THIS ARENA</h3>
+<div class="share">
+<a id="shareX" href="#" target="_blank" rel="noopener">Share on X</a>
+<a id="shareLi" href="#" target="_blank" rel="noopener">Share on LinkedIn</a>
+<a href="/arena/game.html">Play Raven Rush</a>
+</div>
+<p class="small">Links use current page URL.</p>
+</section>
+
+<footer>Arena built by Meta Muse</footer>
+</main>
+<script>
+const mapping={"nest-b.html":"Muse"};
+const voteKey="blindNest_vote";
+const pollKey="blindNest_poll";
+function updateShare(){
+  try{
+    var url=location.href;
+    var enc=encodeURIComponent(url);
+    var text=encodeURIComponent("Blind Nest Arena — black & gold raven showdown");
+    document.getElementById("shareX").href="https://twitter.com/intent/tweet?url="+enc+"&text="+text;
+    document.getElementById("shareLi").href="https://www.linkedin.com/sharing/share-offsite/?url="+enc;
+  }catch(e){}
+}
+function revealCard(card, name){
+  var el=card.querySelector("[data-role='name']");
+  var wing=card.querySelector(".wings");
+  el.textContent=name;
+  el.classList.remove("hiddenId");
+  el.classList.add("revealed");
+  wing.style.display="inline-block";
+  wing.textContent="🪽";
+  wing.classList.add("wings");
+  card.querySelector(".voteBtn").textContent="✓ Voted — "+name;
+  card.querySelector(".voteBtn").disabled=true;
+  card.querySelector(".voteBtn").style.opacity=.7;
+  // raven wing animation pulse
+  el.animate([{transform:"scaleX(0.6)",opacity:0},{transform:"scaleX(1.05)",opacity:1},{transform:"scaleX(1)",opacity:1}],{duration:650,easing:"ease-out"});
+}
+function loadVote(){
+  try{
+    var v=localStorage.getItem(voteKey);
+    if(v){
+      var obj=JSON.parse(v);
+      if(obj && obj.file && mapping[obj.file]){
+        var card=document.querySelector('[data-file="'+obj.file+'"]');
+        if(card) revealCard(card, mapping[obj.file]);
+      }
+    }
+  }catch(e){}
+}
+document.addEventListener("click",function(e){
+  if(e.target.classList.contains("voteBtn")){
+    var card=e.target.closest(".card");
+    var file=card.getAttribute("data-file");
+    var name=mapping[file]||"Muse";
+    try{localStorage.setItem(voteKey, JSON.stringify({file:file,name:name,ts:Date.now()}));}catch(err){}
+    revealCard(card,name);
+  }
+});
+function loadPoll(){
+  try{
+    var saved=localStorage.getItem(pollKey);
+    if(saved){
+      var o=JSON.parse(saved);
+      document.getElementById("pollStatus").textContent="Saved: "+o.value;
+      var radios=document.querySelectorAll('input[name="battle"]');
+      radios.forEach(function(r){ if(r.value===o.choice) r.checked=true; });
+      if(o.choice==="custom") document.getElementById("customName").value=o.value;
+    }
+  }catch(e){}
+}
+document.getElementById("savePoll").addEventListener("click",function(){
+  var choice=document.querySelector('input[name="battle"]:checked');
+  if(!choice){document.getElementById("pollStatus").textContent="Pick one first.";return;}
+  var val=choice.value;
+  if(val==="custom"){
+    val=document.getElementById("customName").value.trim();
+    if(!val){document.getElementById("pollStatus").textContent="Enter custom text.";return;}
+  }
+  try{
+    localStorage.setItem(pollKey, JSON.stringify({choice:choice.value,value:val}));
+    document.getElementById("pollStatus").textContent="Saved: "+val+" ✓ (local only)";
+  }catch(e){
+    document.getElementById("pollStatus").textContent="Saved: "+val+" (local save failed, but kept this session)";
+  }
+});
+updateShare();
+loadVote();
+loadPoll();
+</script><!-- site-next:start --><nav class="site-next" aria-label="Keep exploring"><a href="/legion/">Join the Legion →</a><a href="/hack/">Read a field note →</a><a href="/dontpay/">Follow I Don’t Pay →</a><a href="/games/">Play a game →</a><a href="/explore/">All public pages →</a></nav><!-- site-next:end -->
+</body>
+</html>

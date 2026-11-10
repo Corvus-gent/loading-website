@@ -1,0 +1,20 @@
+{
+  "checked": 268,
+  "broken": [],
+  "backendRoutes": [
+    "http://127.0.0.1:8793/cv",
+    "http://127.0.0.1:8793/cv/download",
+    "http://127.0.0.1:8793/cv/gabriel.pdf"
+  ],
+  "productionOwnedRoutes": [
+    "https://corvus.gent/hack/2/",
+    "https://corvus.gent/hack/3/",
+    "https://corvus.gent/join-the-army-now"
+  ],
+  "fragmentReview": [
+    {
+      "url": "/privacy/#sf",
+      "from": "/sf/"
+    }
+  ]
+}

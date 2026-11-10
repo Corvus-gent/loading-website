@@ -5,10 +5,14 @@
   "dependencies": {
     "@vercel/functions": "^2.0.0",
     "redis": "^4.7.0",
-    "sharp": "^0.35.5"
+    "sanitize-html": "^2.17.5",
+    "sharp": "^0.35.5",
+    "stripe": "^23.1.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
     "@playwright/test": "^1.64.1",
+    "esbuild": "^0.28.2",
     "lighthouse": "^12.8.2"
   },
   "scripts": {
@@ -27,6 +31,12 @@
     "test:vanity": "node tests/vanity-links.mjs",
     "test:sf": "REDIS_URL=redis://127.0.0.1:16380/9 SESSION_SECRET=sf-local-test node tests/sf-data.mjs",
     "test:sf:browser": "SESSION_SECRET=sf-local-test playwright test tests/sf.spec.mjs",
-    "build:persona-pages": "node tools/build-persona-pages.mjs"
+    "build:persona-pages": "node tools/build-persona-pages.mjs",
+    "build": "node scripts/build-sanitizer.mjs && python3 scripts/build-dontpay.py && python3 scripts/site-build.py && python3 scripts/build-seo.py && node scripts/build-og.mjs && python3 tools/version-assets.py && python3 tools/build-search.py && node scripts/check-syntax.mjs",
+    "test:muse": "node tests/muse.mjs",
+    "test:dontpay": "node tests/dontpay.mjs && python3 tests/dontpay-build.py",
+    "qa:routes": "QA_AXE=1 node tools/night-qa.mjs",
+    "qa:links": "python3 tools/night-links.py",
+    "qa:lighthouse": "node tools/night-lighthouse.mjs"
   }
 }

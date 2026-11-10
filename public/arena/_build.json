@@ -1,0 +1,43 @@
+{
+  "selected_model": "meta/muse-spark-open",
+  "cap": 8000,
+  "results": [
+    {
+      "name": "Raven Rush",
+      "model": "meta/muse-spark-open",
+      "file": "game.html",
+      "ok": true,
+      "cost": 0.0211913
+    },
+    {
+      "name": "Codex",
+      "model": "openai/gpt-5.3-codex",
+      "file": "nest-a.html",
+      "ok": false,
+      "error": "402: This request requires more credits, or fewer max_tokens. You requested up to 8000 tokens, but can only afford 2851. To increase, visit [OpenRouter key settings] and adjust the key's total limit"
+    },
+    {
+      "name": "Muse",
+      "model": "meta/muse-spark-open",
+      "file": "nest-b.html",
+      "ok": true,
+      "cost": 0.03406545
+    },
+    {
+      "name": "Claude",
+      "model": "anthropic/claude-sonnet-5.5",
+      "file": "nest-c.html",
+      "ok": false,
+      "error": "402: This request requires more credits, or fewer max_tokens. You requested up to 8000 tokens, but can only afford 3992. To increase, visit [OpenRouter key settings] and adjust the key's total limit"
+    },
+    {
+      "name": "Arena",
+      "model": "meta/muse-spark-open",
+      "file": "index.html",
+      "ok": true,
+      "cost": 0.02031545
+    }
+  ],
+  "cost_usd": 0.0766869,
+  "cost_complete": true
+}

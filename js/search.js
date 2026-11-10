@@ -59,6 +59,8 @@ export function renderSearch(container) {
     <ul class="search-list"></ul>`;
   const btn = box.querySelector("button"), input = box.querySelector("input"), list = box.querySelector("ul");
 
+  input.hidden=true;list.hidden=true;btn.setAttribute("aria-expanded","false");
+  const closeSearch=()=>{box.classList.remove("open");input.hidden=true;list.hidden=true;btn.setAttribute("aria-expanded","false");};
   const show = () => { loadIndex();
     list.innerHTML = "";
     const results = match(input.value);
@@ -72,15 +74,15 @@ export function renderSearch(container) {
     });
   };
   btn.addEventListener("click", () => {
-    box.classList.toggle("open");
-    if (box.classList.contains("open")) { input.focus(); show(); }
+    if(box.classList.contains("open")){closeSearch();return;}
+    box.classList.add("open");input.hidden=false;list.hidden=false;btn.setAttribute("aria-expanded","true");input.focus();show();
   });
   input.addEventListener("input", show);
   input.addEventListener("keydown", e => {
     if (e.key === "Enter") { const first = match(input.value)[0]; if (first) location.href = first.url; }
-    if (e.key === "Escape") box.classList.remove("open");
+    if (e.key === "Escape") {closeSearch();btn.focus();}
     if (e.key === "Enter" && window.posthog?.capture) window.posthog.capture("site_search");
   });
-  document.addEventListener("click", e => { if (!box.contains(e.target)) box.classList.remove("open"); });
+  document.addEventListener("click", e => { if (!box.contains(e.target)) closeSearch(); });
   container.prepend(box);
 }

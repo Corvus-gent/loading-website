@@ -1,0 +1,2204 @@
+[
+  {
+    "route": "/",
+    "performance": 100,
+    "accessibility": 100,
+    "seo": 100,
+    "lcp": 1257.6344,
+    "cls": 0,
+    "tbt": 2,
+    "issues": [
+      {
+        "id": "uses-long-cache-ttl",
+        "title": "Serve static assets with an efficient cache policy",
+        "score": 0.5,
+        "displayValue": "27 resources found",
+        "details": {
+          "type": "table",
+          "headings": [
+            {
+              "key": "url",
+              "valueType": "url",
+              "label": "URL"
+            },
+            {
+              "key": "cacheLifetimeMs",
+              "valueType": "ms",
+              "label": "Cache TTL",
+              "displayUnit": "duration"
+            },
+            {
+              "key": "totalBytes",
+              "valueType": "bytes",
+              "label": "Transfer Size",
+              "displayUnit": "kb",
+              "granularity": 1
+            }
+          ],
+          "items": [
+            {
+              "url": "http://127.0.0.1:8793/styles.css?v=0c6f34b2a7b9",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 6250,
+              "wastedBytes": 5000
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/locales/en.js",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 6121,
+              "wastedBytes": 4896.8
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/analytics-policy.js",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 4296,
+              "wastedBytes": 3436.8
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/analytics-policy.js?v=hack-app1",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 4296,
+              "wastedBytes": 3436.8
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/terminal.js?v=ed421a80d2fc",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 2571,
+              "wastedBytes": 2056.8
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/analytics.js?v=811c28467bec",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 2522,
+              "wastedBytes": 2017.6000000000001
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/search.js",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 2413,
+              "wastedBytes": 1930.4
+            },
+            {
+              "url": "http://127.0.0.1:8793/img/feather.png",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 2321,
+              "wastedBytes": 1856.8000000000002
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/i18n.js",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 1921,
+              "wastedBytes": 1536.8000000000002
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/privacy.js?v=2c0385e220c2",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 1686,
+              "wastedBytes": 1348.8000000000002
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/eggs.js",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 1608,
+              "wastedBytes": 1286.4
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/sf-note.js",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 1554,
+              "wastedBytes": 1243.2
+            },
+            {
+              "url": "http://127.0.0.1:8793/privacy/privacy.css?v=297f7bfdcaa8",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 1413,
+              "wastedBytes": 1130.4
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/privacy-strings.js",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 1339,
+              "wastedBytes": 1071.2
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/site-nav.css?v=2aa91017f9b3",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 1244,
+              "wastedBytes": 995.2
+            },
+            {
+              "url": "http://127.0.0.1:8793/sf/note.css?v=ed9d5f6d5d7f",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 1040,
+              "wastedBytes": 832
+            },
+            {
+              "url": "http://127.0.0.1:8793/img/diogenes.svg",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 1004,
+              "wastedBytes": 803.2
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/analytics-consent.js",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 925,
+              "wastedBytes": 740
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/outbound.js",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 915,
+              "wastedBytes": 732
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/quest-attribution.js",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 903,
+              "wastedBytes": 722.4000000000001
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/x-attribution.js",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 827,
+              "wastedBytes": 661.6
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/arrival.js",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 773,
+              "wastedBytes": 618.4000000000001
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/sf-trip.js",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 742,
+              "wastedBytes": 593.6
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/storage.js",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 696,
+              "wastedBytes": 556.8000000000001
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/home.js?v=baad844cb5b6",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 662,
+              "wastedBytes": 529.6
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/portal.js?v=56fa6aa5d4ce",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 559,
+              "wastedBytes": 447.20000000000005
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/performance.js",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 522,
+              "wastedBytes": 417.6
+            }
+          ],
+          "summary": {
+            "wastedBytes": 40898.40000000001
+          },
+          "sortedBy": [
+            "totalBytes"
+          ],
+          "skipSumming": [
+            "cacheLifetimeMs"
+          ]
+        }
+      },
+      {
+        "id": "render-blocking-resources",
+        "title": "Eliminate render-blocking resources",
+        "score": 0,
+        "displayValue": "Est savings of 100 ms",
+        "details": {
+          "type": "opportunity",
+          "headings": [
+            {
+              "key": "url",
+              "valueType": "url",
+              "label": "URL"
+            },
+            {
+              "key": "totalBytes",
+              "valueType": "bytes",
+              "label": "Transfer Size"
+            },
+            {
+              "key": "wastedMs",
+              "valueType": "timespanMs",
+              "label": "Duration"
+            }
+          ],
+          "items": [
+            {
+              "url": "http://127.0.0.1:8793/js/site-nav.css?v=2aa91017f9b3",
+              "totalBytes": 1244,
+              "wastedMs": 314
+            },
+            {
+              "url": "http://127.0.0.1:8793/sf/note.css?v=ed9d5f6d5d7f",
+              "totalBytes": 1040,
+              "wastedMs": 314
+            },
+            {
+              "url": "http://127.0.0.1:8793/privacy/privacy.css?v=297f7bfdcaa8",
+              "totalBytes": 1413,
+              "wastedMs": 314
+            },
+            {
+              "url": "http://127.0.0.1:8793/styles.css?v=0c6f34b2a7b9",
+              "totalBytes": 6250,
+              "wastedMs": 164
+            }
+          ],
+          "overallSavingsMs": 104
+        }
+      },
+      {
+        "id": "cache-insight",
+        "title": "Use efficient cache lifetimes",
+        "score": 0.5,
+        "displayValue": "Est savings of 40 KiB",
+        "details": {
+          "type": "table",
+          "headings": [
+            {
+              "key": "url",
+              "valueType": "url",
+              "label": "Request"
+            },
+            {
+              "key": "cacheLifetimeMs",
+              "valueType": "ms",
+              "label": "Cache TTL",
+              "displayUnit": "duration"
+            },
+            {
+              "key": "totalBytes",
+              "valueType": "bytes",
+              "label": "Transfer Size",
+              "displayUnit": "kb",
+              "granularity": 1
+            }
+          ],
+          "items": [
+            {
+              "url": "http://127.0.0.1:8793/styles.css?v=0c6f34b2a7b9",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 6250,
+              "wastedBytes": 5000
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/locales/en.js",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 6121,
+              "wastedBytes": 4896.8
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/analytics-policy.js",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 4296,
+              "wastedBytes": 3436.8
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/analytics-policy.js?v=hack-app1",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 4296,
+              "wastedBytes": 3436.8
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/terminal.js?v=ed421a80d2fc",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 2571,
+              "wastedBytes": 2056.8
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/analytics.js?v=811c28467bec",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 2522,
+              "wastedBytes": 2017.6000000000001
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/search.js",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 2413,
+              "wastedBytes": 1930.4
+            },
+            {
+              "url": "http://127.0.0.1:8793/img/feather.png",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 2321,
+              "wastedBytes": 1856.8000000000002
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/i18n.js",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 1921,
+              "wastedBytes": 1536.8000000000002
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/privacy.js?v=2c0385e220c2",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 1686,
+              "wastedBytes": 1348.8000000000002
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/eggs.js",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 1608,
+              "wastedBytes": 1286.4
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/sf-note.js",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 1554,
+              "wastedBytes": 1243.2
+            },
+            {
+              "url": "http://127.0.0.1:8793/privacy/privacy.css?v=297f7bfdcaa8",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 1413,
+              "wastedBytes": 1130.4
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/privacy-strings.js",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 1339,
+              "wastedBytes": 1071.2
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/site-nav.css?v=2aa91017f9b3",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 1244,
+              "wastedBytes": 995.2
+            },
+            {
+              "url": "http://127.0.0.1:8793/sf/note.css?v=ed9d5f6d5d7f",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 1040,
+              "wastedBytes": 832
+            },
+            {
+              "url": "http://127.0.0.1:8793/img/diogenes.svg",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 1004,
+              "wastedBytes": 803.2
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/analytics-consent.js",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 925,
+              "wastedBytes": 740
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/outbound.js",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 915,
+              "wastedBytes": 732
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/quest-attribution.js",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 903,
+              "wastedBytes": 722.4000000000001
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/x-attribution.js",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 827,
+              "wastedBytes": 661.6
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/arrival.js",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 773,
+              "wastedBytes": 618.4000000000001
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/sf-trip.js",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 742,
+              "wastedBytes": 593.6
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/storage.js",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 696,
+              "wastedBytes": 556.8000000000001
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/home.js?v=baad844cb5b6",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 662,
+              "wastedBytes": 529.6
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/portal.js?v=56fa6aa5d4ce",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 559,
+              "wastedBytes": 447.20000000000005
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/performance.js",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 522,
+              "wastedBytes": 417.6
+            }
+          ],
+          "sortedBy": [
+            "wastedBytes"
+          ],
+          "skipSumming": [
+            "cacheLifetimeMs"
+          ],
+          "debugData": {
+            "type": "debugdata",
+            "wastedBytes": 40898.40000000001
+          }
+        }
+      },
+      {
+        "id": "lcp-discovery-insight",
+        "title": "LCP request discovery",
+        "score": 0,
+        "details": {
+          "type": "list",
+          "items": [
+            {
+              "type": "checklist",
+              "items": {
+                "priorityHinted": {
+                  "label": "fetchpriority=high should be applied",
+                  "value": false
+                },
+                "requestDiscoverable": {
+                  "label": "Request is discoverable in initial document",
+                  "value": true
+                },
+                "eagerlyLoaded": {
+                  "label": "lazy load not applied",
+                  "value": true
+                }
+              }
+            },
+            {
+              "type": "node",
+              "lhId": "page-0-IMG",
+              "path": "1,HTML,1,BODY,3,MAIN,0,DIV,0,IMG",
+              "selector": "body.portal > main > div.wrap > img#hero",
+              "boundingRect": {
+                "top": 289,
+                "bottom": 482,
+                "left": 24,
+                "right": 366,
+                "width": 342,
+                "height": 194
+              },
+              "snippet": "<img class=\"hero\" id=\"hero\" width=\"600\" height=\"340\" src=\"/img/diogenes.svg\" alt=\"A crow flying towards Diogenes in his barrel, lantern in hand\">",
+              "nodeLabel": "A crow flying towards Diogenes in his barrel, lantern in hand"
+            }
+          ]
+        }
+      },
+      {
+        "id": "network-dependency-tree-insight",
+        "title": "Network dependency tree",
+        "score": 0,
+        "details": {
+          "type": "list",
+          "items": [
+            {
+              "type": "list-section",
+              "value": {
+                "type": "network-tree",
+                "chains": {
+                  "8B79FCBD1F9EA2F85674F2788C3EDC29": {
+                    "url": "http://127.0.0.1:8793/",
+                    "navStartToEndTime": 73,
+                    "transferSize": 1634,
+                    "isLongest": true,
+                    "children": {
+                      "79587.10": {
+                        "url": "http://127.0.0.1:8793/js/analytics.js?v=811c28467bec",
+                        "navStartToEndTime": 164,
+                        "transferSize": 2522,
+                        "isLongest": true,
+                        "children": {
+                          "79587.37": {
+                            "url": "http://127.0.0.1:8793/js/outbound.js",
+                            "navStartToEndTime": 259,
+                            "transferSize": 915,
+                            "isLongest": true,
+                            "children": {
+                              "79587.40": {
+                                "url": "http://127.0.0.1:8793/js/analytics-policy.js?v=hack-app1",
+                                "navStartToEndTime": 279,
+                                "transferSize": 4296,
+                                "isLongest": true,
+                                "children": {}
+                              }
+                            }
+                          },
+                          "79587.36": {
+                            "url": "http://127.0.0.1:8793/js/performance.js",
+                            "navStartToEndTime": 259,
+                            "transferSize": 522,
+                            "children": {}
+                          },
+                          "79587.38": {
+                            "url": "http://127.0.0.1:8793/js/quest-attribution.js",
+                            "navStartToEndTime": 259,
+                            "transferSize": 903,
+                            "children": {}
+                          },
+                          "79587.32": {
+                            "url": "http://127.0.0.1:8793/js/analytics-policy.js",
+                            "navStartToEndTime": 235,
+                            "transferSize": 4296,
+                            "children": {}
+                          },
+                          "79587.29": {
+                            "url": "http://127.0.0.1:8793/js/x-attribution.js",
+                            "navStartToEndTime": 226,
+                            "transferSize": 827,
+                            "children": {}
+                          },
+                          "79587.21": {
+                            "url": "http://127.0.0.1:8793/js/arrival.js",
+                            "navStartToEndTime": 208,
+                            "transferSize": 773,
+                            "children": {}
+                          }
+                        }
+                      },
+                      "79587.7": {
+                        "url": "http://127.0.0.1:8793/js/home.js?v=baad844cb5b6",
+                        "navStartToEndTime": 163,
+                        "transferSize": 662,
+                        "children": {
+                          "79587.24": {
+                            "url": "http://127.0.0.1:8793/js/sf-note.js",
+                            "navStartToEndTime": 210,
+                            "transferSize": 1554,
+                            "children": {
+                              "79587.35": {
+                                "url": "http://127.0.0.1:8793/location.json",
+                                "navStartToEndTime": 256,
+                                "transferSize": 289,
+                                "children": {}
+                              }
+                            }
+                          },
+                          "79587.22": {
+                            "url": "http://127.0.0.1:8793/js/i18n.js",
+                            "navStartToEndTime": 210,
+                            "transferSize": 1921,
+                            "children": {
+                              "79587.30": {
+                                "url": "http://127.0.0.1:8793/js/eggs.js",
+                                "navStartToEndTime": 229,
+                                "transferSize": 1608,
+                                "children": {
+                                  "79587.33": {
+                                    "url": "http://127.0.0.1:8793/js/locales/en.js",
+                                    "navStartToEndTime": 238,
+                                    "transferSize": 6121,
+                                    "children": {}
+                                  }
+                                }
+                              },
+                              "79587.31": {
+                                "url": "http://127.0.0.1:8793/js/search.js",
+                                "navStartToEndTime": 227,
+                                "transferSize": 2413,
+                                "children": {}
+                              }
+                            }
+                          },
+                          "79587.23": {
+                            "url": "http://127.0.0.1:8793/js/sf-trip.js",
+                            "navStartToEndTime": 212,
+                            "transferSize": 742,
+                            "children": {}
+                          }
+                        }
+                      },
+                      "79587.11": {
+                        "url": "http://127.0.0.1:8793/js/privacy.js?v=2c0385e220c2",
+                        "navStartToEndTime": 167,
+                        "transferSize": 1686,
+                        "children": {
+                          "79587.28": {
+                            "url": "http://127.0.0.1:8793/js/analytics-consent.js",
+                            "navStartToEndTime": 221,
+                            "transferSize": 925,
+                            "children": {}
+                          },
+                          "79587.27": {
+                            "url": "http://127.0.0.1:8793/js/privacy-strings.js",
+                            "navStartToEndTime": 212,
+                            "transferSize": 1339,
+                            "children": {}
+                          }
+                        }
+                      },
+                      "79587.8": {
+                        "url": "http://127.0.0.1:8793/js/portal.js?v=56fa6aa5d4ce",
+                        "navStartToEndTime": 164,
+                        "transferSize": 559,
+                        "children": {
+                          "79587.25": {
+                            "url": "http://127.0.0.1:8793/js/storage.js",
+                            "navStartToEndTime": 210,
+                            "transferSize": 696,
+                            "children": {}
+                          }
+                        }
+                      },
+                      "79587.9": {
+                        "url": "http://127.0.0.1:8793/js/terminal.js?v=ed421a80d2fc",
+                        "navStartToEndTime": 164,
+                        "transferSize": 2571,
+                        "children": {}
+                      },
+                      "79587.5": {
+                        "url": "http://127.0.0.1:8793/js/site-nav.css?v=2aa91017f9b3",
+                        "navStartToEndTime": 79,
+                        "transferSize": 1244,
+                        "children": {}
+                      },
+                      "79587.4": {
+                        "url": "http://127.0.0.1:8793/sf/note.css?v=ed9d5f6d5d7f",
+                        "navStartToEndTime": 78,
+                        "transferSize": 1040,
+                        "children": {}
+                      },
+                      "79587.3": {
+                        "url": "http://127.0.0.1:8793/privacy/privacy.css?v=297f7bfdcaa8",
+                        "navStartToEndTime": 78,
+                        "transferSize": 1413,
+                        "children": {}
+                      },
+                      "79587.2": {
+                        "url": "http://127.0.0.1:8793/styles.css?v=0c6f34b2a7b9",
+                        "navStartToEndTime": 77,
+                        "transferSize": 6250,
+                        "children": {}
+                      }
+                    }
+                  }
+                },
+                "longestChain": {
+                  "duration": 279
+                }
+              }
+            },
+            {
+              "type": "list-section",
+              "title": "Preconnected origins",
+              "description": "[preconnect](https://developer.chrome.com/docs/lighthouse/performance/uses-rel-preconnect/) hints help the browser establish a connection earlier in the page load, saving time when the first request for that origin is made. The following are the origins that the page preconnected to.",
+              "value": {
+                "type": "text",
+                "value": "no origins were preconnected"
+              }
+            },
+            {
+              "type": "list-section",
+              "title": "Preconnect candidates",
+              "description": "Add [preconnect](https://developer.chrome.com/docs/lighthouse/performance/uses-rel-preconnect/) hints to your most important origins, but try to use no more than 4.",
+              "value": {
+                "type": "text",
+                "value": "No additional origins are good candidates for preconnecting"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "render-blocking-insight",
+        "title": "Render blocking requests",
+        "score": 0,
+        "displayValue": "Est savings of 100 ms",
+        "details": {
+          "type": "table",
+          "headings": [
+            {
+              "key": "url",
+              "valueType": "url",
+              "label": "URL"
+            },
+            {
+              "key": "totalBytes",
+              "valueType": "bytes",
+              "label": "Transfer Size"
+            },
+            {
+              "key": "wastedMs",
+              "valueType": "timespanMs",
+              "label": "Duration"
+            }
+          ],
+          "items": [
+            {
+              "url": "http://127.0.0.1:8793/js/site-nav.css?v=2aa91017f9b3",
+              "totalBytes": 1244,
+              "wastedMs": 314
+            },
+            {
+              "url": "http://127.0.0.1:8793/sf/note.css?v=ed9d5f6d5d7f",
+              "totalBytes": 1040,
+              "wastedMs": 314
+            },
+            {
+              "url": "http://127.0.0.1:8793/privacy/privacy.css?v=297f7bfdcaa8",
+              "totalBytes": 1413,
+              "wastedMs": 314
+            },
+            {
+              "url": "http://127.0.0.1:8793/styles.css?v=0c6f34b2a7b9",
+              "totalBytes": 6250,
+              "wastedMs": 164
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "route": "/hack/",
+    "performance": 93,
+    "accessibility": 100,
+    "seo": 100,
+    "lcp": 3165.0215,
+    "cls": 0,
+    "tbt": 0,
+    "issues": [
+      {
+        "id": "largest-contentful-paint",
+        "title": "Largest Contentful Paint",
+        "score": 0.73,
+        "displayValue": "3.2 s"
+      },
+      {
+        "id": "mainthread-work-breakdown",
+        "title": "Minimize main-thread work",
+        "score": 0.5,
+        "displayValue": "4.5 s",
+        "details": {
+          "type": "table",
+          "headings": [
+            {
+              "key": "groupLabel",
+              "valueType": "text",
+              "label": "Category"
+            },
+            {
+              "key": "duration",
+              "valueType": "ms",
+              "granularity": 1,
+              "label": "Time Spent"
+            }
+          ],
+          "items": [
+            {
+              "group": "scriptEvaluation",
+              "groupLabel": "Script Evaluation",
+              "duration": 3861.3359999999598
+            },
+            {
+              "group": "other",
+              "groupLabel": "Other",
+              "duration": 271.384000000001
+            },
+            {
+              "group": "garbageCollection",
+              "groupLabel": "Garbage Collection",
+              "duration": 208.8399999999988
+            },
+            {
+              "group": "styleLayout",
+              "groupLabel": "Style & Layout",
+              "duration": 116.312
+            },
+            {
+              "group": "paintCompositeRender",
+              "groupLabel": "Rendering",
+              "duration": 19.443999999999996
+            },
+            {
+              "group": "parseHTML",
+              "groupLabel": "Parse HTML & CSS",
+              "duration": 10.34
+            },
+            {
+              "group": "scriptParseCompile",
+              "groupLabel": "Script Parsing & Compilation",
+              "duration": 2.3080000000000003
+            }
+          ],
+          "sortedBy": [
+            "duration"
+          ]
+        }
+      },
+      {
+        "id": "bootup-time",
+        "title": "Reduce JavaScript execution time",
+        "score": 0.5,
+        "displayValue": "3.9 s",
+        "details": {
+          "type": "table",
+          "headings": [
+            {
+              "key": "url",
+              "valueType": "url",
+              "label": "URL"
+            },
+            {
+              "key": "total",
+              "granularity": 1,
+              "valueType": "ms",
+              "label": "Total CPU Time"
+            },
+            {
+              "key": "scripting",
+              "granularity": 1,
+              "valueType": "ms",
+              "label": "Script Evaluation"
+            },
+            {
+              "key": "scriptParseCompile",
+              "granularity": 1,
+              "valueType": "ms",
+              "label": "Script Parse"
+            }
+          ],
+          "items": [
+            {
+              "url": "http://127.0.0.1:8793/hack/",
+              "total": 4207.839999999957,
+              "scripting": 3817.863999999959,
+              "scriptParseCompile": 2.3080000000000003
+            },
+            {
+              "url": "Unattributable",
+              "total": 272.65600000000086,
+              "scripting": 41.152,
+              "scriptParseCompile": 0
+            }
+          ],
+          "summary": {
+            "wastedMs": 3861.323999999959
+          },
+          "sortedBy": [
+            "total"
+          ]
+        }
+      },
+      {
+        "id": "largest-contentful-paint-element",
+        "title": "Largest Contentful Paint element",
+        "score": 0,
+        "displayValue": "3,170 ms",
+        "details": {
+          "type": "list",
+          "items": [
+            {
+              "type": "table",
+              "headings": [
+                {
+                  "key": "node",
+                  "valueType": "node",
+                  "label": "Element"
+                }
+              ],
+              "items": [
+                {
+                  "node": {
+                    "type": "node",
+                    "lhId": "page-0-H1",
+                    "path": "1,HTML,1,BODY,4,MAIN,0,SECTION,0,DIV,1,H1",
+                    "selector": "main#main > section.recap-hero > div > h1",
+                    "boundingRect": {
+                      "top": 158,
+                      "bottom": 249,
+                      "left": 20,
+                      "right": 364,
+                      "width": 344,
+                      "height": 91
+                    },
+                    "snippet": "<h1>",
+                    "nodeLabel": "Ship. Lose.\nShow up again."
+                  }
+                }
+              ]
+            },
+            {
+              "type": "table",
+              "headings": [
+                {
+                  "key": "phase",
+                  "valueType": "text",
+                  "label": "Phase"
+                },
+                {
+                  "key": "percent",
+                  "valueType": "text",
+                  "label": "% of LCP"
+                },
+                {
+                  "key": "timing",
+                  "valueType": "ms",
+                  "label": "Timing"
+                }
+              ],
+              "items": [
+                {
+                  "phase": "TTFB",
+                  "timing": 457.51075,
+                  "percent": "14%"
+                },
+                {
+                  "phase": "Load Delay",
+                  "timing": 0,
+                  "percent": "0%"
+                },
+                {
+                  "phase": "Load Time",
+                  "timing": 0,
+                  "percent": "0%"
+                },
+                {
+                  "phase": "Render Delay",
+                  "timing": 2707.51075,
+                  "percent": "86%"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "uses-long-cache-ttl",
+        "title": "Serve static assets with an efficient cache policy",
+        "score": 0.5,
+        "displayValue": "4 resources found",
+        "details": {
+          "type": "table",
+          "headings": [
+            {
+              "key": "url",
+              "valueType": "url",
+              "label": "URL"
+            },
+            {
+              "key": "cacheLifetimeMs",
+              "valueType": "ms",
+              "label": "Cache TTL",
+              "displayUnit": "duration"
+            },
+            {
+              "key": "totalBytes",
+              "valueType": "bytes",
+              "label": "Transfer Size",
+              "displayUnit": "kb",
+              "granularity": 1
+            }
+          ],
+          "items": [
+            {
+              "url": "http://127.0.0.1:8793/styles.css?v=0c6f34b2a7b9",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 6250,
+              "wastedBytes": 5000
+            },
+            {
+              "url": "http://127.0.0.1:8793/hack/hack.css?v=bac75b47d839",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 3963,
+              "wastedBytes": 3170.4
+            },
+            {
+              "url": "http://127.0.0.1:8793/hack/archive.css?v=e2e28aaee9af",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 1465,
+              "wastedBytes": 1172
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/site-nav.css?v=2aa91017f9b3",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 1244,
+              "wastedBytes": 995.2
+            }
+          ],
+          "summary": {
+            "wastedBytes": 10337.6
+          },
+          "sortedBy": [
+            "totalBytes"
+          ],
+          "skipSumming": [
+            "cacheLifetimeMs"
+          ]
+        }
+      },
+      {
+        "id": "render-blocking-resources",
+        "title": "Eliminate render-blocking resources",
+        "score": 0,
+        "displayValue": "Est savings of 250 ms",
+        "details": {
+          "type": "opportunity",
+          "headings": [
+            {
+              "key": "url",
+              "valueType": "url",
+              "label": "URL"
+            },
+            {
+              "key": "totalBytes",
+              "valueType": "bytes",
+              "label": "Transfer Size"
+            },
+            {
+              "key": "wastedMs",
+              "valueType": "timespanMs",
+              "label": "Duration"
+            }
+          ],
+          "items": [
+            {
+              "url": "http://127.0.0.1:8793/styles.css?v=0c6f34b2a7b9",
+              "totalBytes": 6250,
+              "wastedMs": 158
+            },
+            {
+              "url": "http://127.0.0.1:8793/hack/archive.css?v=e2e28aaee9af",
+              "totalBytes": 1465,
+              "wastedMs": 308
+            },
+            {
+              "url": "http://127.0.0.1:8793/hack/hack.css?v=bac75b47d839",
+              "totalBytes": 3963,
+              "wastedMs": 308
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/site-nav.css?v=2aa91017f9b3",
+              "totalBytes": 1244,
+              "wastedMs": 308
+            }
+          ],
+          "overallSavingsMs": 250
+        }
+      },
+      {
+        "id": "cache-insight",
+        "title": "Use efficient cache lifetimes",
+        "score": 0.5,
+        "displayValue": "Est savings of 10 KiB",
+        "details": {
+          "type": "table",
+          "headings": [
+            {
+              "key": "url",
+              "valueType": "url",
+              "label": "Request"
+            },
+            {
+              "key": "cacheLifetimeMs",
+              "valueType": "ms",
+              "label": "Cache TTL",
+              "displayUnit": "duration"
+            },
+            {
+              "key": "totalBytes",
+              "valueType": "bytes",
+              "label": "Transfer Size",
+              "displayUnit": "kb",
+              "granularity": 1
+            }
+          ],
+          "items": [
+            {
+              "url": "http://127.0.0.1:8793/styles.css?v=0c6f34b2a7b9",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 6250,
+              "wastedBytes": 5000
+            },
+            {
+              "url": "http://127.0.0.1:8793/hack/hack.css?v=bac75b47d839",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 3963,
+              "wastedBytes": 3170.4
+            },
+            {
+              "url": "http://127.0.0.1:8793/hack/archive.css?v=e2e28aaee9af",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 1465,
+              "wastedBytes": 1172
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/site-nav.css?v=2aa91017f9b3",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 1244,
+              "wastedBytes": 995.2
+            }
+          ],
+          "sortedBy": [
+            "wastedBytes"
+          ],
+          "skipSumming": [
+            "cacheLifetimeMs"
+          ],
+          "debugData": {
+            "type": "debugdata",
+            "wastedBytes": 10337.6
+          }
+        }
+      },
+      {
+        "id": "network-dependency-tree-insight",
+        "title": "Network dependency tree",
+        "score": 0,
+        "details": {
+          "type": "list",
+          "items": [
+            {
+              "type": "list-section",
+              "value": {
+                "type": "network-tree",
+                "chains": {
+                  "11639207032CA6459BDA799BDD36E6C4": {
+                    "url": "http://127.0.0.1:8793/hack/",
+                    "navStartToEndTime": 16,
+                    "transferSize": 2175,
+                    "isLongest": true,
+                    "children": {
+                      "79597.4": {
+                        "url": "http://127.0.0.1:8793/hack/archive.css?v=e2e28aaee9af",
+                        "navStartToEndTime": 24,
+                        "transferSize": 1465,
+                        "isLongest": true,
+                        "children": {}
+                      },
+                      "79597.2": {
+                        "url": "http://127.0.0.1:8793/styles.css?v=0c6f34b2a7b9",
+                        "navStartToEndTime": 23,
+                        "transferSize": 6250,
+                        "children": {}
+                      },
+                      "79597.3": {
+                        "url": "http://127.0.0.1:8793/hack/hack.css?v=bac75b47d839",
+                        "navStartToEndTime": 21,
+                        "transferSize": 3963,
+                        "children": {}
+                      },
+                      "79597.5": {
+                        "url": "http://127.0.0.1:8793/js/site-nav.css?v=2aa91017f9b3",
+                        "navStartToEndTime": 21,
+                        "transferSize": 1244,
+                        "children": {}
+                      }
+                    }
+                  }
+                },
+                "longestChain": {
+                  "duration": 24
+                }
+              }
+            },
+            {
+              "type": "list-section",
+              "title": "Preconnected origins",
+              "description": "[preconnect](https://developer.chrome.com/docs/lighthouse/performance/uses-rel-preconnect/) hints help the browser establish a connection earlier in the page load, saving time when the first request for that origin is made. The following are the origins that the page preconnected to.",
+              "value": {
+                "type": "text",
+                "value": "no origins were preconnected"
+              }
+            },
+            {
+              "type": "list-section",
+              "title": "Preconnect candidates",
+              "description": "Add [preconnect](https://developer.chrome.com/docs/lighthouse/performance/uses-rel-preconnect/) hints to your most important origins, but try to use no more than 4.",
+              "value": {
+                "type": "text",
+                "value": "No additional origins are good candidates for preconnecting"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "render-blocking-insight",
+        "title": "Render blocking requests",
+        "score": 0,
+        "displayValue": "Est savings of 220 ms",
+        "details": {
+          "type": "table",
+          "headings": [
+            {
+              "key": "url",
+              "valueType": "url",
+              "label": "URL"
+            },
+            {
+              "key": "totalBytes",
+              "valueType": "bytes",
+              "label": "Transfer Size"
+            },
+            {
+              "key": "wastedMs",
+              "valueType": "timespanMs",
+              "label": "Duration"
+            }
+          ],
+          "items": [
+            {
+              "url": "http://127.0.0.1:8793/styles.css?v=0c6f34b2a7b9",
+              "totalBytes": 6250,
+              "wastedMs": 158
+            },
+            {
+              "url": "http://127.0.0.1:8793/hack/archive.css?v=e2e28aaee9af",
+              "totalBytes": 1465,
+              "wastedMs": 308
+            },
+            {
+              "url": "http://127.0.0.1:8793/hack/hack.css?v=bac75b47d839",
+              "totalBytes": 3963,
+              "wastedMs": 308
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/site-nav.css?v=2aa91017f9b3",
+              "totalBytes": 1244,
+              "wastedMs": 308
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "route": "/nest/",
+    "performance": 100,
+    "accessibility": 100,
+    "seo": 100,
+    "lcp": 1246.6675999999998,
+    "cls": 0,
+    "tbt": 0,
+    "issues": [
+      {
+        "id": "uses-long-cache-ttl",
+        "title": "Serve static assets with an efficient cache policy",
+        "score": 0.5,
+        "displayValue": "7 resources found",
+        "details": {
+          "type": "table",
+          "headings": [
+            {
+              "key": "url",
+              "valueType": "url",
+              "label": "URL"
+            },
+            {
+              "key": "cacheLifetimeMs",
+              "valueType": "ms",
+              "label": "Cache TTL",
+              "displayUnit": "duration"
+            },
+            {
+              "key": "totalBytes",
+              "valueType": "bytes",
+              "label": "Transfer Size",
+              "displayUnit": "kb",
+              "granularity": 1
+            }
+          ],
+          "items": [
+            {
+              "url": "http://127.0.0.1:8793/styles.css?v=0c6f34b2a7b9",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 6250,
+              "wastedBytes": 5000
+            },
+            {
+              "url": "http://127.0.0.1:8793/hack/hack.css?v=bac75b47d839",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 3963,
+              "wastedBytes": 3170.4
+            },
+            {
+              "url": "http://127.0.0.1:8793/nest/nest.js?v=2e6c5fd39c40",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 1513,
+              "wastedBytes": 1210.4
+            },
+            {
+              "url": "http://127.0.0.1:8793/hack/archive.css?v=e2e28aaee9af",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 1465,
+              "wastedBytes": 1172
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/site-nav.css?v=2aa91017f9b3",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 1244,
+              "wastedBytes": 995.2
+            },
+            {
+              "url": "http://127.0.0.1:8793/nest/nest.css?v=937d2e316b05",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 990,
+              "wastedBytes": 792
+            },
+            {
+              "url": "http://127.0.0.1:8793/img/link-crow.svg",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 519,
+              "wastedBytes": 415.20000000000005
+            }
+          ],
+          "summary": {
+            "wastedBytes": 12755.2
+          },
+          "sortedBy": [
+            "totalBytes"
+          ],
+          "skipSumming": [
+            "cacheLifetimeMs"
+          ]
+        }
+      },
+      {
+        "id": "render-blocking-resources",
+        "title": "Eliminate render-blocking resources",
+        "score": 0,
+        "displayValue": "Est savings of 150 ms",
+        "details": {
+          "type": "opportunity",
+          "headings": [
+            {
+              "key": "url",
+              "valueType": "url",
+              "label": "URL"
+            },
+            {
+              "key": "totalBytes",
+              "valueType": "bytes",
+              "label": "Transfer Size"
+            },
+            {
+              "key": "wastedMs",
+              "valueType": "timespanMs",
+              "label": "Duration"
+            }
+          ],
+          "items": [
+            {
+              "url": "http://127.0.0.1:8793/hack/archive.css?v=e2e28aaee9af",
+              "totalBytes": 1465,
+              "wastedMs": 312
+            },
+            {
+              "url": "http://127.0.0.1:8793/styles.css?v=0c6f34b2a7b9",
+              "totalBytes": 6250,
+              "wastedMs": 312
+            },
+            {
+              "url": "http://127.0.0.1:8793/nest/nest.css?v=937d2e316b05",
+              "totalBytes": 990,
+              "wastedMs": 312
+            },
+            {
+              "url": "http://127.0.0.1:8793/hack/hack.css?v=bac75b47d839",
+              "totalBytes": 3963,
+              "wastedMs": 312
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/site-nav.css?v=2aa91017f9b3",
+              "totalBytes": 1244,
+              "wastedMs": 312
+            }
+          ],
+          "overallSavingsMs": 150
+        }
+      },
+      {
+        "id": "cache-insight",
+        "title": "Use efficient cache lifetimes",
+        "score": 0,
+        "displayValue": "Est savings of 12 KiB",
+        "details": {
+          "type": "table",
+          "headings": [
+            {
+              "key": "url",
+              "valueType": "url",
+              "label": "Request"
+            },
+            {
+              "key": "cacheLifetimeMs",
+              "valueType": "ms",
+              "label": "Cache TTL",
+              "displayUnit": "duration"
+            },
+            {
+              "key": "totalBytes",
+              "valueType": "bytes",
+              "label": "Transfer Size",
+              "displayUnit": "kb",
+              "granularity": 1
+            }
+          ],
+          "items": [
+            {
+              "url": "http://127.0.0.1:8793/styles.css?v=0c6f34b2a7b9",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 6250,
+              "wastedBytes": 5000
+            },
+            {
+              "url": "http://127.0.0.1:8793/hack/hack.css?v=bac75b47d839",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 3963,
+              "wastedBytes": 3170.4
+            },
+            {
+              "url": "http://127.0.0.1:8793/nest/nest.js?v=2e6c5fd39c40",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 1513,
+              "wastedBytes": 1210.4
+            },
+            {
+              "url": "http://127.0.0.1:8793/hack/archive.css?v=e2e28aaee9af",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 1465,
+              "wastedBytes": 1172
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/site-nav.css?v=2aa91017f9b3",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 1244,
+              "wastedBytes": 995.2
+            },
+            {
+              "url": "http://127.0.0.1:8793/nest/nest.css?v=937d2e316b05",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 990,
+              "wastedBytes": 792
+            },
+            {
+              "url": "http://127.0.0.1:8793/img/link-crow.svg",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 519,
+              "wastedBytes": 415.20000000000005
+            }
+          ],
+          "sortedBy": [
+            "wastedBytes"
+          ],
+          "skipSumming": [
+            "cacheLifetimeMs"
+          ],
+          "debugData": {
+            "type": "debugdata",
+            "wastedBytes": 12755.2
+          }
+        }
+      },
+      {
+        "id": "network-dependency-tree-insight",
+        "title": "Network dependency tree",
+        "score": 0,
+        "details": {
+          "type": "list",
+          "items": [
+            {
+              "type": "list-section",
+              "value": {
+                "type": "network-tree",
+                "chains": {
+                  "8A9BC06EA1B7D684733352F7B6E8DFDD": {
+                    "url": "http://127.0.0.1:8793/nest/",
+                    "navStartToEndTime": 21,
+                    "transferSize": 2716,
+                    "isLongest": true,
+                    "children": {
+                      "79601.8": {
+                        "url": "http://127.0.0.1:8793/nest/nest.js?v=2e6c5fd39c40",
+                        "navStartToEndTime": 87,
+                        "transferSize": 1513,
+                        "isLongest": true,
+                        "children": {
+                          "79601.16": {
+                            "url": "http://127.0.0.1:8793/api/nest",
+                            "navStartToEndTime": 92,
+                            "transferSize": 228,
+                            "isLongest": true,
+                            "children": {}
+                          }
+                        }
+                      },
+                      "79601.4": {
+                        "url": "http://127.0.0.1:8793/hack/archive.css?v=e2e28aaee9af",
+                        "navStartToEndTime": 63,
+                        "transferSize": 1465,
+                        "children": {}
+                      },
+                      "79601.5": {
+                        "url": "http://127.0.0.1:8793/nest/nest.css?v=937d2e316b05",
+                        "navStartToEndTime": 63,
+                        "transferSize": 990,
+                        "children": {}
+                      },
+                      "79601.6": {
+                        "url": "http://127.0.0.1:8793/js/site-nav.css?v=2aa91017f9b3",
+                        "navStartToEndTime": 62,
+                        "transferSize": 1244,
+                        "children": {}
+                      },
+                      "79601.3": {
+                        "url": "http://127.0.0.1:8793/hack/hack.css?v=bac75b47d839",
+                        "navStartToEndTime": 62,
+                        "transferSize": 3963,
+                        "children": {}
+                      },
+                      "79601.2": {
+                        "url": "http://127.0.0.1:8793/styles.css?v=0c6f34b2a7b9",
+                        "navStartToEndTime": 62,
+                        "transferSize": 6250,
+                        "children": {}
+                      }
+                    }
+                  }
+                },
+                "longestChain": {
+                  "duration": 92
+                }
+              }
+            },
+            {
+              "type": "list-section",
+              "title": "Preconnected origins",
+              "description": "[preconnect](https://developer.chrome.com/docs/lighthouse/performance/uses-rel-preconnect/) hints help the browser establish a connection earlier in the page load, saving time when the first request for that origin is made. The following are the origins that the page preconnected to.",
+              "value": {
+                "type": "text",
+                "value": "no origins were preconnected"
+              }
+            },
+            {
+              "type": "list-section",
+              "title": "Preconnect candidates",
+              "description": "Add [preconnect](https://developer.chrome.com/docs/lighthouse/performance/uses-rel-preconnect/) hints to your most important origins, but try to use no more than 4.",
+              "value": {
+                "type": "text",
+                "value": "No additional origins are good candidates for preconnecting"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "render-blocking-insight",
+        "title": "Render blocking requests",
+        "score": 0,
+        "displayValue": "Est savings of 150 ms",
+        "details": {
+          "type": "table",
+          "headings": [
+            {
+              "key": "url",
+              "valueType": "url",
+              "label": "URL"
+            },
+            {
+              "key": "totalBytes",
+              "valueType": "bytes",
+              "label": "Transfer Size"
+            },
+            {
+              "key": "wastedMs",
+              "valueType": "timespanMs",
+              "label": "Duration"
+            }
+          ],
+          "items": [
+            {
+              "url": "http://127.0.0.1:8793/hack/archive.css?v=e2e28aaee9af",
+              "totalBytes": 1465,
+              "wastedMs": 312
+            },
+            {
+              "url": "http://127.0.0.1:8793/styles.css?v=0c6f34b2a7b9",
+              "totalBytes": 6250,
+              "wastedMs": 312
+            },
+            {
+              "url": "http://127.0.0.1:8793/nest/nest.css?v=937d2e316b05",
+              "totalBytes": 990,
+              "wastedMs": 312
+            },
+            {
+              "url": "http://127.0.0.1:8793/hack/hack.css?v=bac75b47d839",
+              "totalBytes": 3963,
+              "wastedMs": 312
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/site-nav.css?v=2aa91017f9b3",
+              "totalBytes": 1244,
+              "wastedMs": 312
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "route": "/dontpay/",
+    "performance": 100,
+    "accessibility": 100,
+    "seo": 100,
+    "lcp": 1237.3658999999998,
+    "cls": 0,
+    "tbt": 0,
+    "issues": [
+      {
+        "id": "uses-long-cache-ttl",
+        "title": "Serve static assets with an efficient cache policy",
+        "score": 0.5,
+        "displayValue": "4 resources found",
+        "details": {
+          "type": "table",
+          "headings": [
+            {
+              "key": "url",
+              "valueType": "url",
+              "label": "URL"
+            },
+            {
+              "key": "cacheLifetimeMs",
+              "valueType": "ms",
+              "label": "Cache TTL",
+              "displayUnit": "duration"
+            },
+            {
+              "key": "totalBytes",
+              "valueType": "bytes",
+              "label": "Transfer Size",
+              "displayUnit": "kb",
+              "granularity": 1
+            }
+          ],
+          "items": [
+            {
+              "url": "http://127.0.0.1:8793/dontpay/dontpay.css?v=c924ba8787a4",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 2519,
+              "wastedBytes": 2015.2
+            },
+            {
+              "url": "http://127.0.0.1:8793/dontpay/dontpay.js?v=544746b76e9a",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 2331,
+              "wastedBytes": 1864.8000000000002
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/site-nav.css?v=2aa91017f9b3",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 1244,
+              "wastedBytes": 995.2
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/dontpay-shared.js",
+              "debugData": {
+                "type": "debugdata",
+                "public": true,
+                "max-age": 3600
+              },
+              "cacheLifetimeMs": 3600000,
+              "cacheHitProbability": 0.2,
+              "totalBytes": 982,
+              "wastedBytes": 785.6
+            }
+          ],
+          "summary": {
+            "wastedBytes": 5660.800000000001
+          },
+          "sortedBy": [
+            "totalBytes"
+          ],
+          "skipSumming": [
+            "cacheLifetimeMs"
+          ]
+        }
+      },
+      {
+        "id": "render-blocking-resources",
+        "title": "Eliminate render-blocking resources",
+        "score": 0,
+        "displayValue": "Est savings of 150 ms",
+        "details": {
+          "type": "opportunity",
+          "headings": [
+            {
+              "key": "url",
+              "valueType": "url",
+              "label": "URL"
+            },
+            {
+              "key": "totalBytes",
+              "valueType": "bytes",
+              "label": "Transfer Size"
+            },
+            {
+              "key": "wastedMs",
+              "valueType": "timespanMs",
+              "label": "Duration"
+            }
+          ],
+          "items": [
+            {
+              "url": "http://127.0.0.1:8793/dontpay/dontpay.css?v=c924ba8787a4",
+              "totalBytes": 2519,
+              "wastedMs": 162
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/site-nav.css?v=2aa91017f9b3",
+              "totalBytes": 1244,
+              "wastedMs": 312
+            }
+          ],
+          "overallSavingsMs": 150
+        }
+      },
+      {
+        "id": "cache-insight",
+        "title": "Use efficient cache lifetimes",
+        "score": 0.5,
+        "displayValue": "Est savings of 6 KiB",
+        "details": {
+          "type": "table",
+          "headings": [
+            {
+              "key": "url",
+              "valueType": "url",
+              "label": "Request"
+            },
+            {
+              "key": "cacheLifetimeMs",
+              "valueType": "ms",
+              "label": "Cache TTL",
+              "displayUnit": "duration"
+            },
+            {
+              "key": "totalBytes",
+              "valueType": "bytes",
+              "label": "Transfer Size",
+              "displayUnit": "kb",
+              "granularity": 1
+            }
+          ],
+          "items": [
+            {
+              "url": "http://127.0.0.1:8793/dontpay/dontpay.css?v=c924ba8787a4",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 2519,
+              "wastedBytes": 2015.2
+            },
+            {
+              "url": "http://127.0.0.1:8793/dontpay/dontpay.js?v=544746b76e9a",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 2331,
+              "wastedBytes": 1864.8000000000002
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/site-nav.css?v=2aa91017f9b3",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 1244,
+              "wastedBytes": 995.2
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/dontpay-shared.js",
+              "cacheLifetimeMs": 3600000,
+              "totalBytes": 982,
+              "wastedBytes": 785.6
+            }
+          ],
+          "sortedBy": [
+            "wastedBytes"
+          ],
+          "skipSumming": [
+            "cacheLifetimeMs"
+          ],
+          "debugData": {
+            "type": "debugdata",
+            "wastedBytes": 5660.800000000001
+          }
+        }
+      },
+      {
+        "id": "network-dependency-tree-insight",
+        "title": "Network dependency tree",
+        "score": 0,
+        "details": {
+          "type": "list",
+          "items": [
+            {
+              "type": "list-section",
+              "value": {
+                "type": "network-tree",
+                "chains": {
+                  "B267108A1D74F06B9063C761019C349F": {
+                    "url": "http://127.0.0.1:8793/dontpay/",
+                    "navStartToEndTime": 20,
+                    "transferSize": 3551,
+                    "isLongest": true,
+                    "children": {
+                      "79603.4": {
+                        "url": "http://127.0.0.1:8793/dontpay/dontpay.js?v=544746b76e9a",
+                        "navStartToEndTime": 74,
+                        "transferSize": 2331,
+                        "isLongest": true,
+                        "children": {
+                          "79603.8": {
+                            "url": "http://127.0.0.1:8793/js/dontpay-shared.js",
+                            "navStartToEndTime": 83,
+                            "transferSize": 982,
+                            "isLongest": true,
+                            "children": {}
+                          }
+                        }
+                      },
+                      "79603.2": {
+                        "url": "http://127.0.0.1:8793/dontpay/dontpay.css?v=c924ba8787a4",
+                        "navStartToEndTime": 30,
+                        "transferSize": 2519,
+                        "children": {}
+                      },
+                      "79603.3": {
+                        "url": "http://127.0.0.1:8793/js/site-nav.css?v=2aa91017f9b3",
+                        "navStartToEndTime": 29,
+                        "transferSize": 1244,
+                        "children": {}
+                      }
+                    }
+                  }
+                },
+                "longestChain": {
+                  "duration": 83
+                }
+              }
+            },
+            {
+              "type": "list-section",
+              "title": "Preconnected origins",
+              "description": "[preconnect](https://developer.chrome.com/docs/lighthouse/performance/uses-rel-preconnect/) hints help the browser establish a connection earlier in the page load, saving time when the first request for that origin is made. The following are the origins that the page preconnected to.",
+              "value": {
+                "type": "text",
+                "value": "no origins were preconnected"
+              }
+            },
+            {
+              "type": "list-section",
+              "title": "Preconnect candidates",
+              "description": "Add [preconnect](https://developer.chrome.com/docs/lighthouse/performance/uses-rel-preconnect/) hints to your most important origins, but try to use no more than 4.",
+              "value": {
+                "type": "text",
+                "value": "No additional origins are good candidates for preconnecting"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "render-blocking-insight",
+        "title": "Render blocking requests",
+        "score": 0,
+        "displayValue": "Est savings of 150 ms",
+        "details": {
+          "type": "table",
+          "headings": [
+            {
+              "key": "url",
+              "valueType": "url",
+              "label": "URL"
+            },
+            {
+              "key": "totalBytes",
+              "valueType": "bytes",
+              "label": "Transfer Size"
+            },
+            {
+              "key": "wastedMs",
+              "valueType": "timespanMs",
+              "label": "Duration"
+            }
+          ],
+          "items": [
+            {
+              "url": "http://127.0.0.1:8793/dontpay/dontpay.css?v=c924ba8787a4",
+              "totalBytes": 2519,
+              "wastedMs": 162
+            },
+            {
+              "url": "http://127.0.0.1:8793/js/site-nav.css?v=2aa91017f9b3",
+              "totalBytes": 1244,
+              "wastedMs": 312
+            }
+          ]
+        }
+      }
+    ]
+  }
+]

@@ -2,8 +2,20 @@ node_modules
 tests
 test-results
 playwright-report
-tools
+tools/*
+!tools/build-search.py
 PLAN.md
 .git
 
 games/data
+
+ROUTES.md
+ARENA_LOG.md
+public/hack/*/README.md
+
+NIGHT_LOG.md
+content
+dontpay/README.md
+
+qa
+!tools/version-assets.py

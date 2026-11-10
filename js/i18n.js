@@ -86,7 +86,8 @@ export function renderSwitcher(onChange) {
 
 function renderCornerNav() {
   if (document.getElementById("corner-nav")) return;
-  const nav = document.createElement("div");
+  const nav = document.createElement("nav");
+  nav.setAttribute("aria-label","Quick navigation");
   nav.id = "corner-nav";
   nav.className = "corner-nav";
   if (location.pathname !== "/") renderSearch(nav);
