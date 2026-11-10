@@ -16,3 +16,6 @@ public/hack/*/README.md
 NIGHT_LOG.md
 content
 dontpay/README.md
+
+qa
+!tools/version-assets.py

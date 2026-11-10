@@ -1,3 +1,16 @@
+# ACTIVE FOUR-HOUR RUN
+
+START: **2026-11-10 01:58:31 PST**
+END: **2026-11-10 05:58:31 PST**
+
+No final handoff before END. Progress checkpoints every 30 minutes.
+
+## Current run log
+
+- 01:58:31 PST — Clean working tree on muse-hack; preserving all previous work. Beginning route-by-route visual baseline.
+
+---
+
 # MORNING SUMMARY
 
 **Preview:** [Open the overnight build](https://loading-website-git-muse-hack-corvus11.vercel.app/dontpay/) · [Muse story](https://loading-website-git-muse-hack-corvus11.vercel.app/hack/4/) · [PR #66](https://github.com/Corvus-gent/loading-website/pull/66)
@@ -59,3 +72,5 @@ Review the wording, then choose Post yourself. The drafts are self-contained and
 - **2026-11-09 23:25 PST** — Full build and Muse regression checks passed. HTTP checked all 59 local HTML routes: zero 404s. All declared dependencies still have consumers; retained them. No first-party debug console.log calls found in public app/API code; vendor and useful build/test diagnostics retained. Removed an unused Python import and added Python cache ignores.
 
 - **2026-11-09 23:32 PST** — Pushed two focused commits to `muse-hack`; Vercel deployed successfully. Verified the series on the actual preview and the read-only suggestion readiness endpoint. Kept preview authentication unchanged. Mobile menu opens and links to the series; repeated builds no longer accumulate whitespace.
+
+- **02:10:13 PST — Backlog 1:** Captured and visually reviewed 118 viewport screenshots (59 routes × mobile/desktop), with full-page companions saved under qa/before. Fixed the mobile hunt-heading overflow, header/corner-control overlap, narrow-container menu layout and collapsed game language selector. Malformed game responses now show a friendly resting message. Six affected routes rechecked on both viewports: zero overflow, broken images or console errors. Screenshots stay local and out of deployment; JSON evidence is committed. Baseline axe: 452 serious/critical node occurrences (449 contrast, 2 ARIA, 1 focus); queued for item 3.

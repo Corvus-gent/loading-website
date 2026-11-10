@@ -26,3 +26,7 @@ playwright-report/
 # Python build/test caches
 __pycache__/
 *.pyc
+
+# Full-resolution route screenshots stay local; reports are committed.
+qa/**/*.png
+qa/current-work.json

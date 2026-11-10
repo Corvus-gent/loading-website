@@ -33,3 +33,6 @@
 .stats-actions button{color:#ffd76a;border:1px solid #665632;background:transparent;border-radius:4px;font:inherit;padding:.4rem .65rem;cursor:pointer}
 .stats-actions a{color:#aaa}
 @media(prefers-reduced-motion:reduce){.stats-track i{animation:none;width:100%;background:repeating-linear-gradient(90deg,#a48a46 0 6px,transparent 6px 10px)}}
+
+/* Long field-note headings must fit narrow phones. */
+.st h1{font-size:clamp(2rem,9vw,4.5rem);overflow-wrap:anywhere}

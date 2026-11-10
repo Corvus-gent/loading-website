@@ -118,10 +118,18 @@ if (process.env.STATS_FIXTURE_REDIS) {
 http
   .createServer(async (req, res) => {
     try {
+      if(process.env.QA_ALL_ROUTES)res.setHeader('Access-Control-Allow-Origin','*');
       const u = new URL(req.url, 'http://localhost'),
         p = u.pathname,
         q = u.searchParams;
       if (p.startsWith('/api/')) {
+        if(process.env.QA_ALL_ROUTES&&p==='/api/game'){
+          process.env.SESSION_SECRET='local-qa-only';
+          const {puzzle,publicPuzzle}=await import('../api/_game.js');
+          const value=publicPuzzle(await puzzle('2026-11-04'),{history:[],cells:[],started:Date.now()});
+          res.setHeader('Content-Type','application/json');return res.end(JSON.stringify(value));
+        }
+        if(process.env.QA_ALL_ROUTES&&p==='/api/music-admin'){res.setHeader('Content-Type','application/json');return res.end(JSON.stringify({tracks,suggestions:[]}));}
         if (p === '/api/health/history') {
           const {statusFixture}=await import('../tests/status-fixture.mjs');
           res.setHeader('Content-Type','application/json');
@@ -182,10 +190,15 @@ http
         return;
       }
       let target = p;
-      if (p === '/' || /^\/(pidgy|games|map|music|hunt|x|coffee|private|status)\/?$/.test(p))
+      if (!process.env.QA_ALL_ROUTES && (p === '/' || /^\/(pidgy|games|map|music|hunt|x|coffee|private|status)\/?$/.test(p)))
         target = '/stats/' + p.slice(1).replace(/\/$/, '');
+      if(process.env.QA_ALL_ROUTES){
+        if(target.startsWith('/arena/'))target='/public'+target;
+        if(target==='/arena')target='/public/arena/';
+        if(target.startsWith('/links/')){const persona=target.split('/')[2];target=['corvus','pidgy'].includes(persona)?'/links/'+persona+'/':'/links/';}
+      }
       let file = path.resolve(root, '.' + target);
-      if (!file.startsWith(root + path.sep)) throw Error();
+      if (file!==root&&!file.startsWith(root + path.sep)) throw Error();
       if ((await fs.stat(file)).isDirectory()) file = path.join(file, 'index.html');
       const body = await fs.readFile(file);
       res.setHeader(
@@ -196,7 +209,7 @@ http
           '.css': 'text/css',
           '.svg': 'image/svg+xml',
           '.json': 'application/json',
-          '.png': 'image/png'
+          '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg':'image/jpeg', '.webp':'image/webp', '.woff2':'font/woff2', '.ico':'image/x-icon'
         }[path.extname(file)] || 'application/octet-stream'
       );
       res.setHeader('Cache-Control', p.includes('.') ? 'public,max-age=3600' : 'no-cache');
