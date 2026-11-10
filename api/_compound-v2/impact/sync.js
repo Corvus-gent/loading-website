@@ -15,11 +15,11 @@ export async function sync({force=false,platform}={}){
  const accountRows=all.filter(r=>r.platform===p&&normalizedHandle(r.account)===normalizedHandle(account));const now=Date.now(),cadence=r=>Math.floor(now/refreshMs(r,now)),rows=[];
  const backoff=ikey('provider-backoff:'+p+':'+account);if(await redis(['EXISTS',backoff]))continue;
  for(const row of accountRows)if(force||String(await redis(['HGET',ikey('refresh:'+p),row.id]))!==String(cadence(row)))rows.push(row);
- if(accountRows.length&&!rows.length&&p!=='tw')continue;let result;
- try{result=p==='tw'?await twitch(account,{includeArchives:config.include_twitch_archives}):await adapter(rows,{account});let updated=0;
+ if(accountRows.length&&!rows.length&&!['tt','ig','tw'].includes(p))continue;let result;
+ try{result=p==='tw'?await twitch(account,{includeArchives:config.include_twitch_archives}):await adapter(rows,{account,registered:accountRows});let updated=0;
  for(const {row,patch}of result.updates||[])if(await save({post_url:row.post_url,...patch},{source:result.mode,expected:row}))updated++;
- for(const post of result.posts||[])if(await save(post,{source:result.mode}))updated++;
- for(const row of rows)await redis(['HSET',ikey('refresh:'+p),row.id,cadence(row)]);state.updated+=updated;result={mode:result.mode,updated,found:result.posts?.length??result.updates?.length??0,note:result.note,error:result.error||null};
+ for(const post of result.posts||[]){const existing=accountRows.find(r=>r.post_url===post.post_url);if(existing&&!rows.some(r=>r.id===existing.id))continue;if(await save(post,{source:result.mode}))updated++;}
+ for(const row of rows)await redis(['HSET',ikey('refresh:'+p),row.id,cadence(row)]);state.updated+=updated;result={mode:result.mode,updated,found:(result.posts?.length||0)+(result.updates?.length||0),note:result.note,error:result.error||null};
  }catch(e){if(e.status===429||/429/.test(e.message))await redis(['SET',backoff,'1','EX',Math.min(86400,Math.max(3600,Math.ceil(e.retryAfter||0)))]);result={mode:'error',error:String(e.message).slice(0,400),found:0,note:'Existing posts and metrics kept.'};}
  if(['tt','ig'].includes(p)){
  await redis(['SADD',ikey('browser-queue'),p+':'+account]);

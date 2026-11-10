@@ -11,28 +11,28 @@ export async function json(fetcher,url,opts={},permission=''){
 }
 const auth=t=>({Authorization:'Bearer '+t});
 const pending=error=>({mode:'not_configured',updates:[],error,note:error});
-export async function instagram(rows,{account,fetcher=fetch,token=process.env[envFor('IG_ACCESS_TOKEN',account)],userId=process.env[envFor('IG_USER_ID',account)]}={}){
+export async function instagram(rows,{account,registered=rows,fetcher=fetch,token=process.env[envFor('IG_ACCESS_TOKEN',account)],userId=process.env[envFor('IG_USER_ID',account)]}={}){
  const permission='Professional Instagram account linked to a Facebook Page; Facebook Login token with instagram_basic, instagram_manage_insights and pages_read_engagement.';
  if(!token||!/^\d+$/.test(userId||''))return pending(envFor('IG_ACCESS_TOKEN',account)+' and '+envFor('IG_USER_ID',account)+' required. '+permission);
  const base='https://graph.facebook.com/v24.0/',get=(path,params)=>json(fetcher,base+path+'?'+new URLSearchParams(params),{headers:auth(token)},permission);
  const owner=await get(userId,{fields:'id,username'});if(normalizedHandle(owner.username)!==normalizedHandle(account))throw Error('Instagram token/account mismatch for @'+account);
- const wanted=new Map(rows.map(r=>[new URL(r.post_url).pathname.split('/')[2],r]));const updates=[];let after,warning;
- for(let page=0;page<8&&wanted.size;page++){
- const data=await get(userId+'/media',{fields:'id,permalink,media_type,like_count,comments_count,timestamp',limit:'100',...(after?{after}:{})});
+ const wanted=new Map(rows.map(r=>[new URL(r.post_url).pathname.split('/')[2],r]));const seen=new Set(registered.map(r=>new URL(r.post_url).pathname.split('/')[2])),updates=[],posts=[];let after,warning;
+ for(let page=0;page<8&&(page===0||wanted.size);page++){
+ const data=await get(userId+'/media',{fields:'id,permalink,media_type,username,like_count,comments_count,timestamp',limit:'100',...(after?{after}:{})});
  if(!Array.isArray(data.data))throw Error('Invalid Instagram media response.');
- for(const media of data.data){const match=/^https:\/\/(?:www\.)?instagram\.com\/(?:reel|p|tv)\/([\w-]+)/.exec(media.permalink||'');const row=match&&wanted.get(match[1]);if(!row||media.media_type!=='VIDEO'||!/^\d+$/.test(media.id))continue;wanted.delete(match[1]);
+ for(const media of data.data){const match=/^https:\/\/(?:www\.)?instagram\.com\/(?:reel|p|tv)\/([\w-]+)/.exec(media.permalink||'');const row=match&&wanted.get(match[1]);if(!match||(!row&&(page>0||seen.has(match[1])||posts.length>=30||normalizedHandle(media.username)!==normalizedHandle(account)))||media.media_type!=='VIDEO'||!/^\d+$/.test(media.id))continue;wanted.delete(match[1]);
  let ins;if(!warning)try{ins=await get(media.id+'/insights',{metric:'views,shares,saved'});}catch(e){if(e.status===429)throw e;warning=e.message;}
- const patch=normalize('ig',{...media,insights:ins?.data});if(Object.keys(patch).length)updates.push({row,patch});}
+ const patch=normalize('ig',{...media,insights:ins?.data});if(row){if(Object.keys(patch).length)updates.push({row,patch});}else{seen.add(match[1]);posts.push({post_url:media.permalink,account,posted_at:media.timestamp,original_by_gabe:true,post_type:'original',media_type:'video',native_video:true,...patch});}}
  after=data.paging?.next&&data.paging?.cursors?.after;if(!after)break;}
- return{mode:'instagram-insights',updates,error:warning||null,note:warning||updates.length+' original media IDs matched to registered posts; unavailable insights are retained.'};
+ return{mode:'instagram-insights',updates,posts,error:warning||null,note:warning||updates.length+' original media IDs matched to registered posts; unavailable insights are retained.'};
 }
-export async function tiktok(rows,{account,fetcher=fetch,token=process.env[envFor('TIKTOK_ACCESS_TOKEN',account)]}={}){
+export async function tiktok(rows,{account,registered=rows,fetcher=fetch,token=process.env[envFor('TIKTOK_ACCESS_TOKEN',account)]}={}){
  const permission='Owner OAuth access token with video.list for @'+account;if(!token)return pending(envFor('TIKTOK_ACCESS_TOKEN',account)+' required: '+permission);
  const fields='id,share_url,create_time,title,cover_image_url,duration,view_count,like_count,comment_count,share_count';
  const get=async(path,body)=>{const d=await json(fetcher,'https://open.tiktokapis.com/v2/video/'+path+'/?fields='+fields,{method:'POST',headers:{...auth(token),'Content-Type':'application/json'},body:JSON.stringify(body)},permission);if(d.error?.code&&d.error.code!=='ok')throw apiError('TikTok '+d.error.code+'. '+permission,d.error.code==='rate_limit_exceeded'?429:0);return d.data?.videos||[];};
  const known=new Map(rows.map(r=>[new URL(r.post_url).pathname.split('/').filter(Boolean).at(-1),r])),updates=[],posts=[];
  for(let i=0;i<known.size;i+=20)for(const v of await get('query',{filters:{video_ids:[...known.keys()].slice(i,i+20)}})){const row=known.get(v.id);if(row)updates.push({row,patch:normalize('tt',v)});}
- if(!rows.length)for(const v of await get('list',{max_count:20})){let u;try{u=new URL(v.share_url)}catch{continue}const m=/^\/@([^/]+)\/video\/(\d+)\/?$/.exec(u.pathname);if(u.hostname!=='www.tiktok.com'||!m||normalizedHandle(m[1])!==normalizedHandle(account)||m[2]!==v.id||!(v.duration>0))continue;
+ const registeredIds=new Set(registered.map(r=>new URL(r.post_url).pathname.split('/').filter(Boolean).at(-1)));for(const v of await get('list',{max_count:20})){let u;try{u=new URL(v.share_url)}catch{continue}const m=/^\/@([^/]+)\/video\/(\d+)\/?$/.exec(u.pathname);if(registeredIds.has(v.id)||u.hostname!=='www.tiktok.com'||!m||normalizedHandle(m[1])!==normalizedHandle(account)||m[2]!==v.id||!(v.duration>0))continue;
  posts.push({post_url:u.origin+u.pathname,account,label:v.title,posted_at:new Date(v.create_time*1000).toISOString(),media_type:'video',post_type:'original',original_by_gabe:true,native_video:true,thumbnail_url:v.cover_image_url,...normalize('tt',v)});}
  return{mode:'tiktok-display',updates,posts,note:'Owner video.list: views, likes, comments and shares. This API does not return saves.'};
 }
