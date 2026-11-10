@@ -1,0 +1,81 @@
+{
+  "checked": 216,
+  "broken": [
+    {
+      "url": "/gabriel",
+      "from": "inventory",
+      "kind": "link",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "url": "/self",
+      "from": "inventory",
+      "kind": "link",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "url": "/private",
+      "from": "/stats/",
+      "kind": "link",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "url": "/pidgy",
+      "from": "/stats/",
+      "kind": "link",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "url": "/map",
+      "from": "/stats/",
+      "kind": "link",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "url": "/hunt",
+      "from": "/stats/",
+      "kind": "link",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "url": "/x",
+      "from": "/stats/",
+      "kind": "link",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "url": "/coffee",
+      "from": "/stats/",
+      "kind": "link",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "url": "/status",
+      "from": "/stats/",
+      "kind": "link",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "url": "/coffee-with-gabe",
+      "from": "/stats/",
+      "kind": "link",
+      "error": "HTTP Error 404: Not Found"
+    }
+  ],
+  "backendRoutes": [
+    "http://127.0.0.1:8793/cv",
+    "http://127.0.0.1:8793/cv/download",
+    "http://127.0.0.1:8793/cv/gabriel.pdf"
+  ],
+  "productionOwnedRoutes": [
+    "https://corvus.gent/hack/2/",
+    "https://corvus.gent/hack/3/",
+    "https://corvus.gent/join-the-army-now"
+  ],
+  "fragmentReview": [
+    {
+      "url": "/privacy/#sf",
+      "from": "/sf/"
+    }
+  ]
+}

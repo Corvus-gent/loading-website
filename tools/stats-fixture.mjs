@@ -122,6 +122,13 @@ http
       const u = new URL(req.url, 'http://localhost'),
         p = u.pathname,
         q = u.searchParams;
+      if(process.env.QA_ALL_ROUTES){
+        const config=JSON.parse(await fs.readFile(path.join(root,'vercel.json'),'utf8'));
+        const redirect=config.redirects?.find(r=>r.source===p);
+        if(redirect){res.writeHead(307,{Location:redirect.destination});return res.end();}
+        const middleware={'/enter':'/','/the-crow':'/','/revived':'/','/sidequest':'/sidequests/','/important-call-gabe-maxxer':'/call/','/coffee-with-gabe':'/go/corvus/coffee/coffee-stats'};
+        if(middleware[p]){res.writeHead(307,{Location:middleware[p]});return res.end();}
+      }
       if (p.startsWith('/api/')) {
         if(process.env.QA_ALL_ROUTES&&p==='/api/game'){
           process.env.SESSION_SECRET='local-qa-only';
@@ -195,6 +202,7 @@ http
       if(process.env.QA_ALL_ROUTES){
         if(target.startsWith('/arena/'))target='/public'+target;
         if(target==='/arena')target='/public/arena/';
+        if(target.startsWith('/go/'))target='/go/';
         if(target.startsWith('/links/')){const persona=target.split('/')[2];target=['corvus','pidgy'].includes(persona)?'/links/'+persona+'/':'/links/';}
       }
       let file = path.resolve(root, '.' + target);
