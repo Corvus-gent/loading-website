@@ -1,0 +1,13 @@
+/* Corvuspedia's paper and serif type, with a 640px reading column. */
+.encyclopedia main.generals-page{width:100%;max-width:748px}
+.generals-page h1{font-size:clamp(32px,6vw,48px)}
+.generals-page h3{font:500 20px/1.35 Georgia,serif;margin:24px 0 8px}
+.generals-page .generals-note,.generals-page .generals-placeholder{padding:16px;border:1px solid var(--rule);background:var(--tint);font-size:15px}
+.generals-page .generals-list{padding-left:22px}
+.generals-page .generals-list li{margin:14px 0}
+.generals-page .generals-list small{display:block;color:#595b53;font-size:14px}
+.generals-page blockquote{border-left:2px solid var(--rule);margin:24px 0;padding:4px 0 4px 16px}
+.generals-page .cta{display:flex;gap:16px;flex-wrap:wrap;margin-top:24px}
+.generals-page .fine{font-size:13px;color:#595b53}
+body[data-article=generals] .site-section>a,body[data-article=generals] .site-quiet-footer a,body[data-article=generals] .site-paths a{color:#245682}
+@media(max-width:700px){body[data-article=generals]>#lang-switcher[data-site-languages]{--fg:#242621;--muted:#595b53}}
