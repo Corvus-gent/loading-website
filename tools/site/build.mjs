@@ -12,6 +12,26 @@ function directory(section){return `<div class="site-directory" data-directory-s
 export const newsletter=()=>`<section id="signup" class="site-newsletter"><h2>Leave your email. The crow writes when you forget us.</h2><form class="site-form" data-newsletter><div class="inline"><input name="email" type="email" autocomplete="email" maxlength="254" placeholder="you@somewhere.com" aria-label="Email address" required><button type="submit" class="site-button">Send a signal →</button></div><label class="check"><input name="consent" type="checkbox" required><span>Occasional Corvus transmissions. Confirm by email; leave whenever you want. <a href="/privacy/">Privacy</a>.</span></label><label class="site-honey" aria-hidden="true">Leave empty<input name="website" tabindex="-1" autocomplete="off"></label><p role="status" class="site-status"></p></form></section>`;
 export function page(title,description,content,{scripts='',robots=false}={}){return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><meta name="referrer" content="no-referrer"><title>${escape(title)} | corvus</title><meta name="description" content="${escape(description)}"><meta property="og:title" content="${escape(title)}"><meta property="og:description" content="${escape(description)}"><meta property="og:image" content="https://corvus.gent/og.png"><meta name="twitter:card" content="summary_large_image">${robots?'<meta name="robots" content="noindex,nofollow">':''}<link rel="icon" href="/logo.png"><link rel="stylesheet" href="/styles.css?v=c5cabf3f1a64"><link rel="stylesheet" href="/privacy/privacy.css?v=158032e36fdb"></head><body><main class="site-page">${content}</main>${scripts}${robots?'':'<script defer src="/js/analytics.js?v=20261109ia1"></script><script type="module" src="/js/privacy.js?v=20261107live2"></script>'}</body></html>`;}
 export async function write(file,html){await fs.mkdir(path.dirname(file),{recursive:true});await fs.writeFile(file,html);}
+function gabeSections(choices){
+ const groups=[
+  ['Meet in person',false,['/gabinho-rolls','/sf','/dinner']],
+  ['Work & people',true,['/people','/cv','/wiki']],
+  ['Connect & support',true,['/call','/links/gabe','/support','/support/companies']]
+ ];
+ const links=rows=>`<ul class="gabe-links">${rows.map(r=>`<li><a href="${escape(r.path)}">${escape(r.title)}</a>${r.description?`<p>${escape(r.description)}</p>`:''}</li>`).join('')}</ul>`;
+ const sections=groups.map(([title,folded,paths])=>{
+  const rows=paths.map(p=>choices.find(r=>local(r.path)===p)).filter(Boolean);
+  return folded?`<details class="gabe-group"><summary>${escape(title)}</summary>${links(rows)}</details>`:`<section class="gabe-group" aria-labelledby="gabe-meet"><h2 id="gabe-meet">${escape(title)}</h2>${links(rows)}</section>`;
+ }).join('');
+ const references=[
+  {path:'/people/?id=gabe',title:'the full story'},
+  {path:'/links/gabe',title:'all my links'},
+  {path:'/cv',title:'CV'},
+  {path:'/realm/',title:'wander the old realm'},
+  {path:'/sf/larp/',title:'SF LARPing'}
+ ];
+ return sections+`<details class="gabe-group"><summary>Quick references</summary>${links(references)}</details>`;
+}
 async function build(){
  const photos=JSON.parse(await fs.readFile('sf/larp/photos.json','utf8'));
  await write('sf/larp/index.html',page('SF LARPing','Gabe out in San Francisco.',`<p class="site-eyebrow">gabe / san francisco</p><h1>SF LARPing</h1><div class="site-grid sf-photos">${photos.map(p=>`<figure><img${p.focus==='right'?' class="sf-focus-right"':''} src="/sf/larp/${escape(p.photo)}" alt="${escape(p.alt)}" loading="lazy"><figcaption><strong>${escape(p.place)}</strong><time datetime="${escape(p.date)}">${escape(p.date)}</time><p>${escape(p.line)}</p></figcaption></figure>`).join('')}</div>`));
@@ -23,6 +43,12 @@ async function build(){
  const titles={quests:['quests.','A running record of things built, tried and learned.'],daily:['come back curious.','Play a puzzle. Pick a track. Find something you missed.'],gabe:['hi. i’m gabe.','Belgian builder in SF. BJJ, startups, sidequests.']};
  for(const id of ['quests','daily','gabe']){
   const [title,description]=titles[id];const choices=picks[id].map(p=>ROUTES.find(r=>local(r.path)===local(p))).filter(Boolean);
+  if(id==='gabe'){
+   const content=`<p class="site-eyebrow">corvus / gabe</p><h1>${title}</h1><p class="site-lead">${description}</p><a class="site-button" href="/call/">Book a call →</a>${gabeSections(choices)}`;
+   const html=page(title,description,content).replace('<main class="site-page">','<main class="site-page gabe-page">');
+   await write('gabe/index.html',html);
+   continue;
+  }
   const lead=id==='gabe'?'<a class="site-button" href="/call/">Book a call →</a>':id==='daily'?'<a class="site-button" href="/games/">Play today →</a>':'<a class="site-button" href="/hack/3/">Meet the robots →</a>';
   const aside=id==='daily'?'<figure class="site-daily-photo"><img src="/public/live/gabe-surf.jpg" alt="Gabe with his surfboard beside the ocean" width="360" height="480" loading="lazy"><figcaption>between builds, there is an ocean.</figcaption></figure><section><p class="site-eyebrow">one line from gabe</p><p>one-man army. many editors. leave something better than you found it.</p><p class="site-fine">Your daily-game streak lives with today’s puzzle.</p></section>'+newsletter():id==='gabe'?'<p class="site-fine"><a href="/people/?id=gabe">the full story</a> · <a href="/links/gabe">all my links</a> · <a href="/cv">CV</a> · <a href="/realm/">wander the old realm</a> · <a href="/sf/larp/">SF LARPing</a></p>':'';
   await write(id+'/index.html',page(title,description,`<p class="site-eyebrow">corvus / ${id}</p><h1>${title}</h1><p class="site-lead">${description}</p>${lead}<div class="site-grid">${choices.map(card).join('')}</div>${aside}`));
@@ -35,8 +61,10 @@ async function build(){
   const partner=file.startsWith('compound/')?2:file.startsWith('friends/cardneto/')?3:file.startsWith('plethora/')?4:(file.startsWith('links/pidgy/')||file.startsWith('wiki/pidgy/'))?1:0;
   if(partner)s=s.replace(/<body([^>]*)>/,(_,attrs)=>`<body${attrs}><!-- SITE_CRUMB --><p class="site-company-crumb"><a href="/support/companies/">supported company #${partner}</a></p><!-- /SITE_CRUMB -->`);
   const sectionHub=SECTIONS.find(x=>x.path.replace(/^\//,'')+'index.html'===file);
-  if(sectionHub)s=s.replace('</main>',`<!-- SITE_DIRECTORY --><section class="site-hub-directory"><h2>more ${sectionHub.label.toLowerCase()}, fewer dead ends.</h2><p class="site-fine">Every public page in this corner. <a href="/map/">See the whole map →</a></p><details><summary>browse all ${ROUTES.filter(r=>r.section===sectionHub.id).length} doors →</summary>${directory(sectionHub.id)}</details></section><!-- /SITE_DIRECTORY --></main>`);
+  if(sectionHub?.id==='gabe')s=s.replace('</main>',`<!-- SITE_DIRECTORY --><details class="gabe-group gabe-catalogue"><summary>All Gabe pages</summary><p class="site-fine">Every public page in this corner. <a href="/map/">See the whole map →</a></p>${directory('gabe')}</details><!-- /SITE_DIRECTORY --></main>`);
+  else if(sectionHub)s=s.replace('</main>',`<!-- SITE_DIRECTORY --><section class="site-hub-directory"><h2>more ${sectionHub.label.toLowerCase()}, fewer dead ends.</h2><p class="site-fine">Every public page in this corner. <a href="/map/">See the whole map →</a></p><details><summary>browse all ${ROUTES.filter(r=>r.section===sectionHub.id).length} doors →</summary>${directory(sectionHub.id)}</details></section><!-- /SITE_DIRECTORY --></main>`);
   const chrome=shell(file);s=s.replace('</head>',`<!-- SITE_HEAD -->${chrome.head}<!-- /SITE_HEAD --></head>`);
+  if(file==='gabe/index.html')s=s.replace('</head>','<link rel="stylesheet" href="/css/site/gabe.css?v=20261112gabe1"></head>');
   s=s.replace(/<body([^>]*)>/,(_,attrs)=>{let a=attrs;if(/class=/.test(a))a=a.replace(/class="([^"]*)"/,(_,c)=>`class="${[...new Set((c+' site-shell'+(file==='hack/play/index.html'?' site-shell-game':'')).split(/\s+/))].join(' ')}"`);else a+=' class="site-shell'+(file==='hack/play/index.html'?' site-shell-game':'')+'"';return '<body'+a+'><!-- SITE_NAV -->'+chrome.nav+'<!-- /SITE_NAV -->';});
   const footer=`<!-- SITE_NEXT -->${chrome.next}<!-- /SITE_NEXT -->`;
   if(file==='hack/play/index.html')s=s.replace('<div id="faceoff"></div>', '<div id="faceoff"></div>'+footer);
