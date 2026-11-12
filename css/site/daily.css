@@ -1,0 +1,33 @@
+/* Daily only: 640px of content inside the existing page gutters. */
+.site-page.daily-page{max-width:688px}
+.daily-page h1{font-size:clamp(34px,6vw,52px)}
+.daily-page .daily-group{
+  margin:28px 0 0;
+  padding:24px 0 0;
+  border-top:1px solid var(--corvus-line);
+}
+.daily-page details.daily-group{padding-top:0}
+.daily-page .daily-group>summary{
+  min-height:48px;
+  padding:14px 0;
+  cursor:pointer;
+  font:15px/1.5 ui-monospace,monospace;
+  color:var(--corvus-ink);
+}
+.daily-page .daily-links{list-style:none;margin:0;padding:0}
+.daily-page .daily-links li{padding:12px 0}
+.daily-page .daily-links a{
+  color:var(--corvus-ink);
+  text-underline-offset:4px;
+  overflow-wrap:anywhere;
+}
+.daily-page .daily-links p{margin:5px 0 0;font-size:13px;color:#999}
+.daily-page .daily-note{display:flow-root}
+.daily-page .site-daily-photo{
+  float:right;
+  width:min(36%,180px);
+  margin:0 0 16px 20px;
+}
+.daily-page .site-daily-photo figcaption{font-size:11px;line-height:1.6}
+.daily-page .site-daily-photo img{height:auto}
+.daily-page .daily-group>.site-newsletter{border:0;margin:0;padding:12px 0}
