@@ -40,7 +40,7 @@ export function memberTier(user) {
   if (!user || user.status === 'deleting') return 'visitor';
   if (isMember(user)) {
     const rank = memberRank(user);
-    if (['legatus','senator','consul','imperator'].includes(rank)) return 'call';
+    if (['legatus','praetor','senator','consul','imperator'].includes(rank)) return 'call';
     if (rank === 'centurio') return 'hacker';
     return 'soldier';
   }
