@@ -32,6 +32,22 @@ function gabeSections(choices){
  ];
  return sections+`<details class="gabe-group"><summary>Quick references</summary>${links(references)}</details>`;
 }
+function legionContent(html){
+ if(html.includes('class="site-page legion-page"'))return html;
+ html=html.replace('<main class="site-page">','<main class="site-page legion-page">');
+ if(!html.includes('<strong>praetor</strong>'))html=html.replace(/(<div><strong>legatus<\/strong>[\s\S]*?<\/div>)/,'$1<div><strong>praetor</strong><p>meet Gabe in person, anywhere in the world. Gabe confirms the rank.</p><a href="mailto:gabriel@corvus.gent?subject=Meet%20in%20person">Arrange a meetup →</a></div>');
+ for(const [id,title] of [['apply','Apply or claim a conversation'],['wall','Meet the Legion']]){
+  html=html.replace(new RegExp(`<section id="${id}">([\\s\\S]*?)</section>`),`<details id="${id}" class="legion-group"><summary>${title}</summary>$1</details>`);
+ }
+ html=html.replace(/(<section class="site-newsletter">[\s\S]*?<\/section>)/,'<details class="legion-group"><summary>Letters from the crow</summary>$1</details>');
+ const buildLink='<p><a href="/build/">see the army at work →</a></p>';
+ if(html.includes('<h2>Inside the Legion</h2>')){
+  html=html.replace(buildLink,'');
+  html=html.replace(/<section><h2>Inside the Legion<\/h2>([\s\S]*?)<\/section>/,`<details class="legion-group"><summary>Inside the Legion</summary>$1${buildLink}</details>`);
+ }
+ html=html.replace(/(<button\b[^>]*\bclass=")site-button(")/g,'$1site-button secondary$2');
+ return html.replace(/src="\/js\/site\/legion\.js\?v=[^"]+"/,'src="/js/site/legion.js?v=20261112legion1"');
+}
 async function build(){
  const photos=JSON.parse(await fs.readFile('sf/larp/photos.json','utf8'));
  await write('sf/larp/index.html',page('SF LARPing','Gabe out in San Francisco.',`<p class="site-eyebrow">gabe / san francisco</p><h1>SF LARPing</h1><div class="site-grid sf-photos">${photos.map(p=>`<figure><img${p.focus==='right'?' class="sf-focus-right"':''} src="/sf/larp/${escape(p.photo)}" alt="${escape(p.alt)}" loading="lazy"><figcaption><strong>${escape(p.place)}</strong><time datetime="${escape(p.date)}">${escape(p.date)}</time><p>${escape(p.line)}</p></figcaption></figure>`).join('')}</div>`));
@@ -58,12 +74,17 @@ async function build(){
  for(const file of files){if(file==='live/overlay/index.html'||file.startsWith('clients/'))continue;
   let s=await fs.readFile(file,'utf8');if(/http-equiv=["']refresh/i.test(s))continue;
   s=s.replace(/<!-- SITE_(HEAD|NAV|NEXT|GEMS|DIRECTORY|CRUMB) -->[\s\S]*?<!-- \/SITE_\1 -->/g,'');
+  if(file==='legion/index.html')s=legionContent(s);
+  if(file==='admin/index.html'&&!s.includes('<option value="praetor">'))s=s.replace('<option value="legatus">legatus</option>','<option value="legatus">legatus</option><option value="praetor">praetor</option>');
   const partner=file.startsWith('compound/')?2:file.startsWith('friends/cardneto/')?3:file.startsWith('plethora/')?4:(file.startsWith('links/pidgy/')||file.startsWith('wiki/pidgy/'))?1:0;
   if(partner)s=s.replace(/<body([^>]*)>/,(_,attrs)=>`<body${attrs}><!-- SITE_CRUMB --><p class="site-company-crumb"><a href="/support/companies/">supported company #${partner}</a></p><!-- /SITE_CRUMB -->`);
   const sectionHub=SECTIONS.find(x=>x.path.replace(/^\//,'')+'index.html'===file);
   if(sectionHub?.id==='gabe')s=s.replace('</main>',`<!-- SITE_DIRECTORY --><details class="gabe-group gabe-catalogue"><summary>All Gabe pages</summary><p class="site-fine">Every public page in this corner. <a href="/map/">See the whole map →</a></p>${directory('gabe')}</details><!-- /SITE_DIRECTORY --></main>`);
+  else if(sectionHub?.id==='legion')s=s.replace('</main>',`<!-- SITE_DIRECTORY --><details class="legion-group"><summary>All Legion pages</summary><p class="site-fine">Every public page in this corner. <a href="/map/">See the whole map →</a></p>${directory('legion')}</details><!-- /SITE_DIRECTORY --></main>`);
   else if(sectionHub)s=s.replace('</main>',`<!-- SITE_DIRECTORY --><section class="site-hub-directory"><h2>more ${sectionHub.label.toLowerCase()}, fewer dead ends.</h2><p class="site-fine">Every public page in this corner. <a href="/map/">See the whole map →</a></p><details><summary>browse all ${ROUTES.filter(r=>r.section===sectionHub.id).length} doors →</summary>${directory(sectionHub.id)}</details></section><!-- /SITE_DIRECTORY --></main>`);
-  const chrome=shell(file);s=s.replace('</head>',`<!-- SITE_HEAD -->${chrome.head}<!-- /SITE_HEAD --></head>`);
+  const chrome=shell(file);
+  if(file==='legion/index.html')chrome.head+='<link rel="stylesheet" href="/css/site/legion.css?v=20261112legion1">';
+  s=s.replace('</head>',`<!-- SITE_HEAD -->${chrome.head}<!-- /SITE_HEAD --></head>`);
   if(file==='gabe/index.html')s=s.replace('</head>','<link rel="stylesheet" href="/css/site/gabe.css?v=20261112gabe1"></head>');
   s=s.replace(/<body([^>]*)>/,(_,attrs)=>{let a=attrs;if(/class=/.test(a))a=a.replace(/class="([^"]*)"/,(_,c)=>`class="${[...new Set((c+' site-shell'+(file==='hack/play/index.html'?' site-shell-game':'')).split(/\s+/))].join(' ')}"`);else a+=' class="site-shell'+(file==='hack/play/index.html'?' site-shell-game':'')+'"';return '<body'+a+'><!-- SITE_NAV -->'+chrome.nav+'<!-- /SITE_NAV -->';});
   const footer=`<!-- SITE_NEXT -->${chrome.next}<!-- /SITE_NEXT -->`;
