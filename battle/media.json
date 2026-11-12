@@ -1,0 +1,8 @@
+{
+  "codex": true,
+  "compound": true,
+  "bonuses": [
+    "compound-bonus-1",
+    "compound-bonus-2"
+  ]
+}

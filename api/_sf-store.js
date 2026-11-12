@@ -8,14 +8,14 @@ const clean=(value,max,required=false,multiline=false)=>{
  const result=value.trim();if(required&&!result)throw Error('invalid_fields');return result;
 };
 export function validateLead(body){
- const name=clean(body.name,80,true),contact=clean(body.contact,300,true),what=clean(body.what??'',140),where=clean(body.where??'',60),message=clean(body.message??'',500,false,true);
+ const name=clean(body.name,80,true),contact=clean(body.contact,300,true),thing=clean(body.thing??'',60),what=clean(body.what??'',140),where=clean(body.where??'',60),message=clean(body.message??'',500,false,true);
  let validContact=isEmail(contact)||/^@[a-z0-9_]{1,15}$/i.test(contact);
  if(!validContact)try{const u=new URL(contact);validContact=u.protocol==='https:'&&['linkedin.com','www.linkedin.com'].includes(u.hostname)&&/^\/in\/[^/]+\/?$/.test(u.pathname)&&!u.username&&!u.password&&!u.port;}catch{}
  if(!validContact)throw Error('invalid_contact');
  const list=(value,allowed)=>{if(!Array.isArray(value)||!value.length||value.length>allowed.length||value.some(x=>!allowed.includes(x)))throw Error('invalid_fields');return [...new Set(value)];};
  const lets=list(body.lets,SF_LETS),when=list(body.when,[...SF_DAYS,'anytime']);
  if(when.includes('anytime')&&when.length!==1)throw Error('invalid_fields');
- return {name,contact,what,lets,when,where,message};
+ return {name,contact,thing,what,lets,when,where,message};
 }
 // The index has no contact details. Individual records expire at creation + 60d;
 // later submissions or a done toggle never extend an older person's retention.
@@ -47,7 +47,7 @@ export function sfStore({redis=defaultRedis,now=Date.now,fetcher=fetch,mailKey=(
    if(!raw){await redis(['ZREM','sf:outbox',id]);return false;}
    if(await redis(['GET',`sf:mail:${id}`])==='sent'){await redis(['ZREM','sf:outbox',id]);return true;}
    if(!mailKey())return false;
-   const lead=JSON.parse(raw),activities=lead.lets.map(x=>({bjj:'bjj open mat',intro:'intro to someone'})[x]||x).join(', '),body={from:'corvus <login@corvus.gent>',to:['gabriel@corvus.gent'],subject:`🐦 sf: ${lead.name} wants to ${activities}`,text:`name: ${lead.name}\ncontact: ${lead.contact}\nwhat: ${lead.what}\nlet's: ${activities}\nwhen: ${lead.when.join(', ')}\nwhere: ${lead.where}\nmessage: ${lead.message}\ndate: ${lead.date}\n\nprivate dashboard: https://stats.corvus.gent/private\nform record expires after 60 days. delete this notification on the same schedule.`};
+   const lead=JSON.parse(raw),activities=lead.lets.map(x=>({bjj:'open mat (bjj/mma)',studio:'studio session / cypher',thrift:'thrift & fashion',intro:'intro to someone'})[x]||x).join(', '),body={from:'corvus <login@corvus.gent>',to:['gabriel@corvus.gent'],subject:`🐦 sf: ${lead.name}${lead.thing?` (${lead.thing})`:''} wants to ${activities}`,text:`name: ${lead.name}\ncontact: ${lead.contact}\nyour thing: ${lead.thing||''}\nwhat: ${lead.what}\nlet's: ${activities}\nwhen: ${lead.when.join(', ')}\nwhere: ${lead.where}\nmessage: ${lead.message}\ndate: ${lead.date}\n\nprivate dashboard: https://stats.corvus.gent/private\nform record expires after 60 days. delete this notification on the same schedule.`};
    if(isEmail(lead.contact))body.reply_to=lead.contact;
    const r=await fetcher('https://api.resend.com/emails',{method:'POST',redirect:'error',signal:AbortSignal.timeout(8000),headers:{Authorization:`Bearer ${mailKey()}`,'Content-Type':'application/json','Idempotency-Key':`sf/${id}`},body:JSON.stringify(body)});
    if(!r.ok)throw Error('mail_failed');
@@ -56,11 +56,28 @@ export function sfStore({redis=defaultRedis,now=Date.now,fetcher=fetch,mailKey=(
   finally{await redis(['EVAL',"if redis.call('GET',KEYS[1])==ARGV[1] then return redis.call('DEL',KEYS[1]) end return 0",'1',lock,token]);}
  }
  async function flush(limit=5){const ids=await redis(['ZRANGE','sf:outbox','0',String(limit-1)])||[];let sent=0;for(const id of ids)if(await notify(id))sent++;return sent;}
- async function list(page=1){
+ async function list(page=1,{activity='',thing=''}={}){
   await redis(['ZREMRANGEBYSCORE','sf:leads','-inf',String(now()-SF_RETENTION*1000)]);
-  const total=Number(await redis(['ZCARD','sf:leads'])),pages=Math.max(1,Math.ceil(total/50));page=Math.max(1,Math.min(pages,Math.floor(Number(page)||1)));
-  const ids=await redis(['ZREVRANGE','sf:leads',String((page-1)*50),String(page*50-1)])||[];
-  const rows=(await Promise.all(ids.map(async id=>{const raw=await redis(['GET',`sf:lead:${id}`]);return raw?{id,...JSON.parse(raw),notified:await redis(['GET',`sf:mail:${id}`])==='sent'}:null;}))).filter(Boolean);
+  const read=async ids=>{
+   if(!ids.length)return [];
+   const values=await redis(['MGET',...ids.map(id=>`sf:lead:${id}`)]);
+   return values.flatMap((raw,i)=>raw?[{id:ids[i],...JSON.parse(raw)}]:[]);
+  };
+  let total=Number(await redis(['ZCARD','sf:leads'])),matches;
+  if(activity||thing){
+   // Search the full retained index (capped at 5,000 on save), not just page 1.
+   // Bounded MGET batches avoid one Redis round-trip for every lead.
+   matches=[];const needle=thing.trim().toLowerCase();
+   for(let start=0;start<total;start+=200){
+    const ids=await redis(['ZREVRANGE','sf:leads',String(start),String(start+199)])||[];
+    matches.push(...(await read(ids)).filter(row=>(!activity||row.lets.includes(activity))&&(!needle||(row.thing||'').toLowerCase().includes(needle))));
+   }
+   total=matches.length;
+  }
+  const pages=Math.max(1,Math.ceil(total/50));page=Math.max(1,Math.min(pages,Math.floor(Number(page)||1)));
+  const rows=matches?matches.slice((page-1)*50,page*50):await read(await redis(['ZREVRANGE','sf:leads',String((page-1)*50),String(page*50-1)])||[]);
+  const sent=rows.length?await redis(['MGET',...rows.map(row=>`sf:mail:${row.id}`)]):[];
+  rows.forEach((row,i)=>row.notified=sent[i]==='sent');
   return {rows,page,pages,total};
  }
  return {save,notify,flush,list,mark:async(id,done)=>Number(await redis(['EVAL',UPDATE,'1',`sf:lead:${id}`,done?'1':'0']))===1};

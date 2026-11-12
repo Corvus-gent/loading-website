@@ -1,0 +1,39 @@
+name: Build ledger snapshots
+on:
+  push:
+    branches: [main, 'daily/**', 'codex/build-stats']
+  schedule:
+    - cron: '23 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+  pull-requests: read
+concurrency:
+  group: build-ledger-snapshots
+  cancel-in-progress: false
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Resolve the public tracked branch
+        run: |
+          ref=$(node -p 'JSON.parse(require("fs").readFileSync("build/config.json")).ref')
+          git fetch origin "$ref"
+          echo "BUILD_GIT_REF=FETCH_HEAD" >> "$GITHUB_ENV"
+      - name: Collect, verify and publish source snapshot
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          BUILD_INGEST_TOKEN: ${{ secrets.BUILD_INGEST_TOKEN }}
+          BUILD_INGEST_URL: https://corvus.gent/api/build
+        run: |
+          BUILD_NO_PUBLISH=1 node tools/build-stats/snapshot.mjs
+          node tests/build-stats/verify.mjs
+          node tools/build-stats/publish.mjs

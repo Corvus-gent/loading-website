@@ -1,5 +1,20 @@
 # Privacy audit — 4 November 2026
 
+## Current counting policy — 6 November 2026 update
+
+This section supersedes the opt-in analytics/180-day-choice descriptions in the original audit below. Gabriel explicitly requested default cookieless measurement and the production rollout on 6 November.
+
+- Default: self-hosted PostHog SDK, EU ingestion, `cookieless_mode: always`, memory-only persistence, no autocapture, profiles, recordings, heatmaps, raw inputs or full URLs. Only allowlisted events/properties leave the browser. Campaign labels now stay in page memory; analytics writes no cookies, localStorage or sessionStorage.
+- Cookieless protocol repair: `$raw_user_agent` is synthesized from the existing browser/device categories (for example `Chrome/Desktop`), never copied from the raw user agent. PostHog requires this hash input and drops events when it is absent; raw IP and user-agent hash inputs are removed by its cookieless ingestion pipeline. Project mode 2 and discard-client-IP were confirmed; no provider setting was changed. Coarse categories can merge people sharing a network/browser type.
+- PostHog still derives a daily pseudonym from transport IP/browser information. Only aggregate results are anonymous. `ip:false` does not eliminate that transient provider processing. The stated GDPR basis is legitimate interest for limited audience measurement, not the `ok` click. This is the owner's requested basis, **not a legal conclusion that cookieless hashing is exempt from Belgian ePrivacy consent rules**. The existing DPA and PostHog sources below remain relevant; a documented legitimate-interest assessment and ePrivacy review remain necessary.
+- GPC, DNT, an existing unexpired refusal, or `don't count me`: no PostHog script/request. One first-party `POST /api/hit` per page load increments only a Brussels-day total and an allowlisted page category. No per-hit record, identifier, hash, IP or headers are stored by this handler. Hosting-layer request logs remain subject to Vercel's settings; the app cannot promise those do not exist.
+- These unseen hits are pageviews, **not unique people**. The displayed visitor estimate adds PostHog daily visitor estimates and unseen hits and discloses that limitation. Mid-page opt-out does not add a second count for an already captured pageview. No retroactive recovery of missing visitors is possible.
+- `privacy-choice` is the only new local flag: choice, notice version and whether this browser/site origin already acknowledged. Written only after an explicit `ok`/refusal; retained until changed or site data is cleared. Needed to remember that requested preference, not an analytics identifier. Previous consent/dismissal keys are removed when choosing. `ok` adds a `notice_ok` event only when PostHog is allowed and an anonymous soldier counter independently. Acknowledgements are best-effort once per browser/site origin; clearing storage or using another origin/browser can count again. They are not verified people. GPC/DNT always override `ok` for PostHog.
+- Redis: `unseen:hits:<day>`, `unseen:pages:<day>`, `soldiers:ok:<day>` contain anonymous aggregates only, retained 400 days. `unseen:hits:all` and `soldiers:ok:all` are indefinite aggregate totals. `counting:limit:<minute>` is a global abuse budget, expires in 120 seconds, no IP hash. Count endpoints use origin/schema validation and no cookies; they cannot deduplicate bots/persons without identifiers.
+- `report:markdown:v1`: aggregate health/report text, 60-second TTL; token-authenticated, HTTP no-store. `REPORT_TOKEN` is sensitive in Vercel; an `x-report-token` header is preferred to a query token, which can appear in hosting/browser logs. `report:errors`: last 10 sanitized application error codes/timestamps, max seven days, no messages, request inputs, emails, IDs or stack traces. This is instrumentation from this release onward, not an export of every historic Vercel runtime log.
+- Snapshot health now reads stored ages and queues refresh through waitUntil. TTL is a refresh target; health fails missing/partial snapshots or ages above max(15 minutes, twice that page's TTL). Per-task build timings identify the slow source without holding health open for the build.
+
+
 Scope: corvus.gent, www.corvus.gent, stats.corvus.gent, music, games, redirects,
 private dashboard and the published client demos. Baseline: `2a13612`.
 This inventory was written **before implementing changes**. Status is updated as
@@ -200,7 +215,7 @@ counts attributed to Corvus from a separate project; never return Pidgy identiti
 | Webflow `cdn.prod.website-files.com` | Link-hub Pidgy image exposes browser IP/UA/referrer. | Replace with local asset. |
 | Buy Me a Coffee | Ordinary outbound links, no widget/iframe/API before click. UTM categories accompany intentional visit. | Request; destination controls payment/account data and retention. Corvus does not receive form/payment details. |
 | Pidgy / `pidgy-ai.com`, `app.pidgy-ai.com` | Ordinary link to trial or booking; fixed invite/UTM/ref parameters. No booking iframe or form capture. | Request; booking info is collected by Pidgy on its own site under its policy. |
-| Other external links (LinkedIn, Instagram, TikTok, X, Luma, Discord, Bandcamp, SoundCloud, MusicBrainz, articles) | Navigation after deliberate click, no embedded trackers. | Requested navigation; external policy applies. Strip identifying query data from Corvus event copies, not legitimate destination functionality. |
+| Other external links (LinkedIn, Instagram, TikTok, X, Luma, Discord, Bandcamp, SoundCloud, MusicBrainz, articles) | Navigation after deliberate click; TikTok also has the separate click-loaded creator embed documented below. | Requested navigation; external policy applies. Strip identifying query data from Corvus event copies, not legitimate destination functionality. |
 
 Tracking links `/links`, `/go`, `/important-call-gabe-maxxer` and
 `/coffee-with-gabe` add fixed/category UTM labels; optional views/clicks are counted only with analytics consent. Anonymous CLI counters are server-only aggregate increments. They do not
@@ -612,7 +627,146 @@ browser call to Resend/Redis. Static `sf.json` is owner-curated public event dat
 - Health probes use fixed service URLs. Public results contain component states, elapsed times and timestamps. Redis keeps five-minute samples for 48 hours, hourly summaries for 30 days and Brussels-day summaries and bounded incident history for 120 days. Public history responses are cached for one hour. Alert state expires after 30 days. Write probes expire after 15 seconds. Sampling leases expire after 30 seconds for visitors and four minutes for the five-minute monitor. Rate-limit buckets use the existing daily-salted address hash and expire after a minute.
 - Gabriel can receive a service name and status change via Resend. The external uptime monitor reads the same public status as a visitor. No visitor details are sent in an alert. Processing serves availability and abuse prevention.
 
+## Legion/accounts/BMC/Discord — 6 November 2026
+
+The new handlers use the existing Frankfurt Redis connection. The temporary
+plaintext exception still applies to OLD; NEW TLS was re-tested and is refused.
+No migration or weakening of secureEndpoint is included in this feature.
+
+| Data / key family | Purpose / basis | Retention / recipients |
+| --- | --- | --- |
+| Signed HttpOnly Secure army_id, army_session, army_ref cookies | Requested account continuity, authentication, referral attribution | 90 / 7 / 30 days; Corvus only |
+| army:*:u, name, code, email-HMAC, owned, game-owner | Requested account, public handle/link/optional country, progress; private email and application reason | Anonymous 90d; unconfirmed 7d; waiting 90d from application; rejected 30d; member 365d renewed on confirmed login or active entitlement; Redis/Vercel |
+| token/session/challenge/unsubscribe records | Necessary authentication, independent opt-in and unsubscribe | 30min / 7d / 5min / up to account expiry (365d); Redis |
+| Daily salted rate/referral IP keys | Legitimate-interest abuse prevention; no raw IP stored | Max 24h; Redis |
+| Referral receipts / weekly leaderboard | Earned recruitment progress, deduplication | Receipts max367d; weekly 9d; owned records erased on deletion |
+| mail jobs, outbox, encrypted payload | Requested login/invitation; reminders only after separate confirmation | Ordinary jobs2d, claim token30min, invitation until account expiry; Resend is the documented US-storage exception |
+| BMC event records | Fulfil requested payment, match verified account, expire paid tier | Unmatched30d; matched max365d clamped to account; removed on account deletion; BMC/Redis/Vercel |
+| BMC receipt/payment-object HMAC | Prevent duplicate delivery/refund counting | 400d; no payer name/email/message; anonymous total remains |
+| Discord user ID, owner mapping, one-use code, encrypted invite | Link approved account and grant/revoke role | Code10min; invite7d single use; mapping follows account max365d; Discord/Redis |
+| Discord config/audit | Server routing and permission safety | Config persistent role/channel/approved owner IDs; audit2d; alert debounce1d |
+
+BMC supporter email is used in memory only for a hashed lookup against an
+existing verified account, then discarded. Unknown payer email, payer name and
+free-form message are not stored. Only a handle is extracted from the message.
+Public legion JSON contains username, tier, earned rank, country, link and join
+date; no email or account IDs. Hide removes it from lists; the shared profile
+remains available until deletion. Export excludes credentials and other users.
+The account page removes mail tokens from the fragment before app code and does
+not load analytics. No geolocation request is implemented in this base; country
+is explicitly chosen. QR code generation is self-hosted and sends no request.
+Discord is not connected until its token and installed-guild configuration exist.
+
+## Earned contribution records — 6 November 2026
+
+- Owner-confirmed help/intro: private reference, kind and approval date in `help-report:<uid>:<hash>`; at most 90 days, clamped to account expiry. Necessary requested account progress; only the owner dashboard and the account export can read the reference.
+- `help-credit:<uid>:<hash>` prevents repeat awards until account expiry; only a digest and boolean. Counts remain on the account. Both keys join its deletion registry and carry TTLs.
+- Pidgy trial email hashes expire after 400 days and now join the referring account’s deletion registry. Raw email is never stored. The signed trial/deduplication/rank count commit together; retries after contention cannot burn a credit.
+- No payment, tier, feather, streak or old weekly-win field influences rank or admission order. The application queue is chronological. Legacy records are retained; earned rank is recomputed on read.
+
 ## HackTheFeed beta (7 November 2026)
+- Squad member links: aggregate counters in `hack:members` keyed only by the public hackathon/member IDs, without retention of individual clicks or visitor IDs. PostHog `squad_member_click` allows only Gabe/Siebe IDs and a bounded hackathon number; existing GPC/DNT/refusal applies. Historical counts for hidden roster members are returned as XX. The shared daily-salted abuse bucket expires after 60 seconds.
 - `/api/hack`: aggregate consent-allowed views/source/app/GitHub/share events; explicit reactions and submissions work without analytics consent. No fingerprints or user-level funnel. PostHog only runs under the existing consent policy; event metadata is allowlisted, never comment text or contact details.
 - Public comments: name/text/date, 90-day individual TTL; text-only rendering. Feedback: text and optional email, private to Gabriel's authenticated dashboard session, 90-day TTL. Honeypot, same-origin JSON, bounded input, daily-salted rate-limit hashes (60 seconds), reaction dedup hashes (24 hours). Anonymous aggregate totals have no personal data. Hide a comment with `SET hack:hidden:<id> 1 EX 7776000`.
 - App iframe loads the Corvus-operated the-feed.corvus.gent host. API-generated clips remain disabled without GMI_API_KEY. Generation and retry share an atomic Redis clip budget: default 20/day, six/day per daily-salted IP, keys expire after two days. Generation fails closed if storage is unavailable. API inputs can be sent to GMI only when generation is requested; Oriane discovery requires its own key. No raw IP retained.
+
+
+## Compound experiment — 7 November 2026
+
+- Public route `/compound`, redirects `/prize` and `/1000`. Aggregate view/play/watch/reaction/vote/poll/prediction/source counters have no user record and may remain. These are events, not verified unique people.
+- Persistent cross-visit journey measurement is **off by default**. A fresh random page-visit ID is held only in JavaScript memory by default and links events for that visit; it is not device storage and resets on reload. GPC/DNT/site refusal disable it and leave aggregate-only measurement. Session-linked events expire by day within 90 days. `compound-journey-choice` stores the explicit preference; `compound-journey-v1` stores a random UUID, first and last allowlisted campaign fields, coarse known referrer hostname, landing time and expiry, for up to 90 days. GPC/DNT/site refusal override it. Opt-out removes the local ID. This is pseudonymous and uses consent, not a claim that localStorage analytics is anonymous. The main site’s cookieless policy remains as documented above.
+- `compound-handle` is an optional user-requested functional preference. Handle is public in the top-helper list; written feedback is private to the admin/stats dashboard, not automatically public. No email field is collected.
+- Necessary signed `vid` cookie is issued only on contribution/profile/prediction actions (existing shared one-year cookie). Feature-specific HMAC duplicate records, helper profile/score, text, poll and reaction dedupe keys use 90-day TTLs. Daily-salted IP rate-limit hashes expire at 60 seconds or one day; raw IPs are not stored by this feature. Public GETs create no cookie.
+- `compound_auth` is a signed, HttpOnly, Secure, SameSite=Strict cookie, path `/api/compound`, four-hour expiry; separate admin/stats passwords are sensitive environment variables. Passwords never enter analytics. Private JSON is no-store and server-authenticated.
+- Videos/version metadata are intentionally public. Vercel Blob store `corvus-compound-videos` is in Frankfurt, files delivered through Vercel CDN. Metadata has no personal fields and is retained as the edit history. Upload tool strips embedded file metadata.
+- Stripe is contacted only after an explicit support click. Stripe processes payment/card/contact data under its privacy policy; the Corvus webhook stores only payment reference, gross euro cents, refund state and coarse source for one year. Checkout attribution lookup expires in seven days. No webhook body, card data or payer email is logged/stored here. Support is optional personal support, not a charitable/tax-deductible claim.
+- Preview uses `compound-preview:*`, production `compound:*`, with test and live payment ledgers separated again. Existing Redis transport configuration is inherited, including its temporary exact-host plaintext exception; this change does not claim that Redis transport is already encrypted.
+- Browser details/rights/retention appear in `/compound/rules/#privacy`. Stripe: https://stripe.com/privacy. Vercel: https://vercel.com/legal/privacy-policy. Existing processor terms and hosting log controls still apply.
+
+### Compound three-cut extension
+- Three independent video slots retain their upload histories/cutlists in public metadata; no personal data in video records. Transition votes/tags, watched-cut eligibility and battle/pick deduplication use the existing necessary voter cookie. Feature keys expire after 90 days.
+- Eleven short links record aggregate clicks and carry source/medium/campaign plus `utm_term` (slug) and optional `utm_content`. First/last campaign aggregates and pseudonymous watch/engagement dedupe expire after 90 days. No original referring path/query is saved. Referrers remain a known-host allowlist.
+- Stripe checkout attribution also carries the allowed page-visit ID, first/last touch and selected cut, so the signed payment event can complete that journey. Checkout references expire in seven days; the minimal payment/refund record expires in one year. No card, payer identity or email stored by this feature.
+- Revolut is an external payment service; the feature stores only the public payment link and admin-confirmed aggregate euro totals before/after the deadline. The admin may attribute a correction to a campaign without entering payer details. Revolut privacy: https://www.revolut.com/legal/privacy/.
+
+
+## Twitch embed — 7 November 2026
+- Urgent live update: /, /hack and /hack/2 automatically load the Twitch status/player SDK unless GPC, DNT, an explicit counting opt-out or the per-tab Twitch disable preference is present. This replaces the original click-only implementation; automatic third-party requests are now an explicit exception to the site's default.
+- Twitch/Amazon receives IP/browser information and embedding origin/path and may set vendor cookies/storage. This is not cookieless analytics. The page notice says so; https://www.twitch.tv/p/en/legal/privacy-notice/ describes vendor processing and retention. A disclosure alone is not a claim of visitor consent.
+- A disable button removes the iframe and stores only sessionStorage twitch-disabled=1 for this tab. Existing Twitch cookies are vendor-controlled. Corvus stores no viewing history.
+- The homepage never shows a player; its badge links to /hack only after a real online signal. Offline hides badge/player. Browser privacy signals retain click-to-load on the hack pages.
+- Privacy page and notice cover this in seven languages.
+
+## Arcade title vote
+- localStorage corvus-name-vote-v1 holds a random device ID and chosen title solely to prevent repeat votes; it remains until browser storage is cleared. The existing necessary signed mvid voter cookie adds cross-tab deduplication (365-day max age). No analytics is loaded on the poll.
+- Redis namevote:v1 (preview uses namevote:preview:v1): aggregate title counts contain no identities; HMAC device/cookie dedupe keys expire after 90 days. IP rate keys use a daily rotating hash and expire after 60 seconds. No raw IPs, names or emails are stored.
+
+## Arcade runs, public scores and feedback
+- Anonymous run IDs/HMAC device keys deduplicate starts and expire after 24 hours. Play totals/top score are aggregates. Public leaderboard names are deliberately submitted, limited to 16 characters, and entries expire after 90 days; client scores have rate/plausibility checks, not cheat-proof verification.
+- Ideas are public, bug text is private. Both expire after 90 days; maximum 600 characters and five messages per IP per minute. No raw IPs or contact details. Idea votes use existing signed voter identity with 90-day dedupe; a local preference remembers which buttons were pressed.
+- Story PNGs and generated sound stay in the browser. speechSynthesis uses the browser/OS speech service; voice availability and offline/network processing depend on that provider.
+
+## Plethora referrals (8 November 2026, official links)
+
+- Every `/go/plethora-<placement>` redirects to either `https://plethora.studio/download?utm_source=gabe` or `https://share.plethora.studio/retro/ossman?code=GABE`, with only `utm_medium=corvus` and the fixed placement in `utm_content` added. Device detection only informs aggregate stats. No direct store links, SDK, pixels or remote QR services load on Corvus.
+- Redis `plethora:v1:clicks`, `raw`, `platforms`, `destinations`, `legacy:clicks` contain aggregate counts; no expiry. Preview uses `plethora:preview:v1` and separate snapshots. Existing totals remain intact; unknown historical destinations are labelled unknown.
+- Dedupe keys use a daily-salted HMAC of the transient network address, scoped to placement, expiring after 30 minutes. Current and previous daily salts cover midnight. Raw IPs, full user agents, referrers, emails and visitor IDs are never written to this tracker. Purpose: legitimate-interest referral measurement and abuse prevention.
+- Raw click records contain placement, destination, device class, country from Vercel, timestamp and a random per-click nonce (not a visitor ID). Daily UTC log buckets expire at the end of their seven-day window. Deduped rolling-24h records use the same fields, prune on write and expire after 25 hours. No raw records or nonces are returned publicly.
+- Pacific-time daily aggregates `plethora:v1:ptday:<date>` and `stats:plethora:YYYY-MM-DD` snapshots are permanent non-identifying counts. Surviving old UTC aggregates are archived separately, never relabelled as Pacific. CSV and public stats contain only aggregated counts, including country/device categories; no hashes or click timestamps.
+- Browser preference `plethora.home.dismissed=1` remembers a deliberate banner dismissal until cleared. `plethora.admin` is a private key in sessionStorage for the admin tab, never sent externally. Admin access requires that key or Gabriel's session. The only public referral code is `GABE`; the admin and cron secrets remain server-only.
+
+
+## Gabinho Rolls v2 — TikTok creator profile (7 November 2026)
+
+- `/gabinho-rolls` serves the supplied logo and compressed highlight from Corvus/Vercel. The profile/medal photos will be static assets when supplied; no external player or image service is contacted for them.
+- The optional official TikTok creator-profile embed contacts `www.tiktok.com` and TikTok-selected hosts **only after “Load TikTok edits” is clicked**, with a visible cookie/privacy disclosure and direct profile fallback. TikTok receives the browser connection information and controls its cookies/storage and retention. Corvus uses no additional visitor ID or local preference for this player. Initial page load makes no TikTok request.
+- Existing site analytics and privacy controls are reused. There is no new API, account flow, form, email or stored personal data. Missing optional photos are omitted from the rendered page, not replaced with invented portraits.
+
+## Support / call requests (8 November 2026)
+
+- Requested call/SF booking: name, contact, tier, headache, preferred times, honor-system coffee confirmation, public source label. Private Redis record and index, 60 days; each record has its own TTL and status edits preserve it. Resend receives these details to notify Gabriel; mailbox/provider copies follow their separate retention. Basis: fulfilling the visitor’s request. No form contents in public analytics.
+- Daily-salted IP hashes only for abuse controls: cooldown 60 seconds, hourly quota 3600 seconds, challenge quota 600 seconds. Stateless signed challenge expires after 30 minutes. Retry key: HMAC of a per-submission UUID (memory only), 600 seconds.
+- Support link aggregates are anonymous, persistent; per-placement hash dedupe expires after 1800 seconds. Eight source links and allowlisted contact actions are counted. Raw IPs are never stored.
+- Private admin key: sessionStorage call.admin until tab closes; no analytics on the admin page. Booking keys only via server environment or existing Gabriel login. BMC receives a request only after following the link; paid coffee confirmation is an honor system. The abandoned Stripe call links and webhook were deactivated.
+
+### 8 Nov — visitor map reconciliation
+- Map and country list now share one PostHog aggregation and the selected Brussels day. One last known city per visitor/country prevents double counting when a visitor moves; IDs never leave the query.
+- Missing/invalid coordinates and city groups below two visitors are retained as country-centroid aggregates, marked “unknown city”. No raw IPs are read or stored. Visitors with no usable country are shown separately, not assigned invented coordinates.
+- Analytics-enabled browsers receive Vercel's decoded city/region and coordinates rounded to 0.1° from the existing private, uncached geo response. The allowlist sends these on pageviews only. Opt-out/GPC/DNT bare counters still have no location enrichment.
+- `geo:v4:<day|all>` contains only public aggregates (15-minute TTL); `stats:snap:map:<day>` contains daily aggregates. Historical raw data with no city cannot be backfilled to a real city.
+- Reference: https://vercel.com/docs/headers/request-headers ; https://posthog.com/docs/sql/aggregations
+
+### 8 Nov — major-city area aggregation
+- City coordinates already available in pageviews are grouped to selected nearby major-city hubs (within 200 km, same known subdivision). Labels say “area”; these are geographic grouping centres, not inferred exact cities. Suburbs within one selected area can satisfy the >=2 visitor privacy threshold together.
+- State/province-only data stays at that subdivision's centre (>=2); it is never spread across selected cities. Country-only history is retained separately and the country-only map layer is off by default. No country-only observations are redistributed to reference cities.
+- Reference geography: Natural Earth populated places and admin-1 regions, public domain, https://www.naturalearthdata.com/about/terms-of-use/. Grey points are explicitly reference cities, with no visits attributed. Generated offline; no geocoding requests or visitor data sent to a new provider.
+- `geo:v6:<day|all>` remains aggregate-only, 15-minute TTL. Existing daily aggregate snapshots keep the source totals, located totals, and country-only totals separately.
+
+### Live announcement (2026-11-08)
+`corvus.live.dismissed:<Pacific date>:<stream>` is a local-only display preference; the previous live-dismissal key is removed on the next dismissal. It contains no visitor ID and is never sent to the server. Plethora's preference remains separate. `/api/live` returns only public broadcaster status; optional Twitch credentials/tokens stay server-side in function memory. Live-link click totals are aggregate-only; the daily-salted dedupe keys have a 30-minute TTL, and no IP is stored. No Twitch/Instagram/X browser request is made until following a link (existing opt-in player unaffected).
+
+## Live interview requests — 8 November 2026
+
+`POST /api/live?form=interview` stores only the submitted name, project, handle, a random request ID and submission time. Purpose: arrange the requested hackathon interview; basis: steps at the visitor's request. Individual Redis `live:interviews:record:*` records expire after 60 days. The private index contains IDs/times only and also expires; reads omit expired records. Owner access uses the existing session for gabriel@corvus.gent. No email is sent and requests are never published as interview clips. Daily salted IP hashes are used only for rate limits (60 seconds / 1 hour); signed-challenge dedupe expires after 30 minutes. Preview uses a separate prefix. The form adds no browser storage or cookies. External social sites are contacted only after a link click. Twitch app credentials, if configured, stay server-side.
+
+## Compound v2 — 8 November 2026
+
+Registry/aggregate counters are isolated under `compound:v2` (preview: `compound:v2:preview`). Video URLs/metrics are owner-supplied public content and remain until removed. Feedback text and optional handle are private and expire per record after 90 days; purpose: respond to the visitor's requested editing feedback, not marketing. Signed `vid` is reused only for necessary vote abuse prevention. Daily-salted rate hashes expire. Detailed events contain only the allowlisted type, slug, campaign labels, allowlisted referrer hostname, language, permitted anonymous page-session UUID and timestamp; 90-day TTL, max 10,000/day. Existing Compound journey opt-in controls persistent analytics identity. GPC/DNT/refusal suppress detailed records/attribution; bare aggregate counters remain. No additional analytics storage or third-party embeds are introduced. The admin cookie is HttpOnly/Secure/SameSite=Strict, four hours, necessary login only. Password rotation invalidates it. Public responses contain no feedback, handles, cookie identities or event IDs. Metric histories: latest 200 per slug, 90 days. Origin checks, length limits, honeypot and rate limits guard submissions.
+
+Compound v2 optional Oriane: when ORIANE_API_KEY is present, registered public TikTok/Instagram post IDs are sent server-side to Oriane to retrieve aggregate metrics (owner request). No visitor IDs, votes, feedback or cookies are sent. Sync status and per-post metric history expire after 90 days; missing credentials skip silently.
+
+### Robotics interview quick-add (2026-11-08)
+
+`/hack/3/add` is protected by the existing Compound v2 admin session and contains no analytics scripts. Only the owner submits entries, with a required affirmative confirmation that the builder agreed to filming and publication. Builder name, project, short description, optional public X/Instagram handle, clip link and photograph are published on `/hack/3` and its teaser. Consent timestamps and edit metadata remain private. These are intentionally public editorial content, unlike private v2 editing feedback.
+
+Redis `compound:v2:interviews:record:N` records and the index have 90-day TTLs; preview uses the existing preview namespace. Idempotency hashes expire in 24 hours, daily-salted edit rate limits in 60 seconds. Sequence/aggregate tracker counters contain no identity; corresponding owner-supplied video metadata follows the registry retention above. Photos go to the existing Vercel Blob store, stripped of EXIF and resized. Photo expiry/deletion jobs run from the daily snapshot job plus public reads, with retry scheduling for failed deletions; photo expiry queue remains until deletion succeeds. Replaced/deleted photos are queued immediately. No raw IP is stored, no OAuth/social API calls occur on this admin form, and share actions open drafts only after the owner's click.
+
+### Live overlay — 9 November update
+compound:v2:public-votes (preview uses its own prefix) stores only {type:vote, slug, choice, at} for the last 50 successful votes. No visitor IDs, IPs, hashes, handles or text. TTL 24 hours; public rendering additionally excludes entries older than 24 hours. Purpose: anonymous livestream activity, using the existing vote action and abuse checks. /api/compound/summary publishes aggregate social views, the leading code and the latest three anonymous votes. Existing private feedback is never used by this endpoint. The overlay adds no cookies, browser storage, analytics or third-party requests. Redis/Vercel processors remain as documented above.
+
+## 2026-11-09 · Legion / transmissions / Cardneto
+- Member email private; public name/handle/rank only. Invitation tokens are 32 random bytes, only SHA-256 stored, max-use claims atomic. Existing accounts require their signed session to claim an invite.
+- Essential admin session: opaque token, hash in Redis, httpOnly Secure SameSite=Strict, eight hours; password rotation invalidates sessions. Admin writes require same origin. CSV cells are escaped against spreadsheet formulas.
+- Explicit, separate double opt-in: pending subscription/confirmation 48h, confirmed subscription one year, unsubscribe removes it. Only confirmation mail is active; marketing drafts are not scheduled or sent.
+- Applications: owner-only, 90-day records, notification via Resend. Invite audit retained 90 days after expiry. Cardneto click totals and generic short-link totals contain no raw IPs; daily salted hashes dedupe for 30 minutes. Existing partner tracker retention remains unchanged.
+- Stripe holds card details. The app checks signed webhooks, expected payment-link ID, currency, exact $1 amount, paid state and mode; receipt dedupe prevents duplicate admission.

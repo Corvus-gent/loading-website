@@ -1,0 +1,37 @@
+/* Namespaced, in-flow promotions: no fixed banners or gameplay overlays. */
+.plethora-card,.plethora-banner,.plethora-tile{box-sizing:border-box;color:#f4f3e7;background:#10111a;border:1px solid #515c38;font:14px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace;text-align:left;letter-spacing:0;overflow-wrap:anywhere}
+.plethora-card{padding:clamp(18px,3vw,30px);margin:22px 0;border-left:5px solid #d4ff45;position:relative}
+.plethora-card .plethora-kicker{margin:0 0 12px;font-size:11px;letter-spacing:2px;color:#d4ff45;text-transform:uppercase}
+.plethora-card h2{font:900 clamp(19px,3vw,28px)/1.3 ui-monospace,monospace;letter-spacing:-.5px;margin:0 0 14px;color:#fff;max-width:850px}
+.plethora-card p{margin:12px 0;color:#c4c6bd;font:inherit}
+.plethora-card a.plethora-cta,.plethora-tile a.plethora-cta{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 18px;background:#d4ff45;color:#111508;border:2px solid #e9ffb2;font:800 14px/1.4 ui-monospace,monospace;text-decoration:none;box-shadow:3px 3px 0 #627d19;touch-action:manipulation}
+.plethora-card a:hover,.plethora-tile a:hover{filter:brightness(1.12)}
+.plethora-ref{display:block;font:12px/1.6 ui-monospace,monospace;margin:6px 0;color:inherit;overflow-wrap:anywhere}
+.plethora-ref[hidden],[data-plethora-banner][hidden]{display:none!important}
+.plethora-footer{display:block!important;position:static!important;float:none!important;text-align:center!important;margin:18px auto!important;padding:12px 16px!important;max-width:100%;font:12px/1.7 ui-monospace,monospace!important;letter-spacing:0!important;color:#afbc9c!important;clear:both}
+.plethora-footer a{display:inline-block;min-height:44px;padding:10px 0;color:inherit;text-decoration:underline;text-underline-offset:4px;touch-action:manipulation}
+.plethora-banner{display:flex;align-items:center;justify-content:center;gap:12px;padding:8px 16px;border-width:0 0 1px;position:relative;z-index:2}
+.plethora-banner a{color:#d4ff45;text-decoration:none;display:inline-block;padding:8px 0;min-height:44px;font-size:12px}
+.plethora-banner button{flex-shrink:0;min-width:44px;min-height:44px;background:transparent;border:1px solid #546431;color:#d4ff45;font:24px monospace;cursor:pointer;touch-action:manipulation}
+.plethora-banner .plethora-ref{font-size:11px}
+.plethora-game-link{display:block;margin:8px 0;padding:4px 8px;font:11px/1.5 ui-monospace,monospace;color:#d4ff45;touch-action:manipulation}
+.plethora-game-link a{color:inherit;display:inline-block;min-height:44px;padding:8px 0}
+#plethora-gameover{margin:10px 0;padding:12px;border-left-width:3px}#plethora-gameover p{font-size:12px;margin:0 0 8px}
+#plethora-gameover .plethora-cta{font-size:12px;padding:8px 12px;min-height:44px}
+#overlay .plethora-footer{font-size:10px!important;margin:4px 0!important;padding:0!important}
+#overlay .plethora-footer a{min-height:30px;padding:5px 0}
+html.demo [data-plethora-slot],html.demo .plethora-footer{display:none!important}
+.plethora-catalog{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:24px 0}
+.plethora-catalog>article{min-width:0;padding:20px;border:1px solid #3b4151;background:#0d1019;font:14px/1.6 ui-monospace,monospace}
+.plethora-catalog h2{font-size:20px;letter-spacing:0}.plethora-catalog small{color:#a7afbf}.plethora-catalog a{color:#d4ff45;min-height:44px;display:inline-flex;align-items:center}.plethora-catalog .plethora-tile{border-color:#a5bf46;background:#171d0e}.plethora-catalog p{font-size:13px}
+.plethora-catalog .plethora-tile h2{color:#d4ff45}
+a[data-plethora]:focus-visible,.plethora-banner button:focus-visible{outline:3px solid #ff8cdd;outline-offset:4px}
+@media(max-width:700px){.plethora-catalog{grid-template-columns:repeat(2,minmax(0,1fr))}.plethora-catalog>article{padding:15px}.plethora-catalog .plethora-tile{grid-column:1/-1}.plethora-card h2{font-size:19px}.plethora-card{padding:18px}.plethora-banner{padding:4px 10px;gap:6px}.plethora-banner a{font-size:11px}.plethora-banner button{border:0}}
+@media(prefers-reduced-motion:reduce){.plethora-card,.plethora-banner,.plethora-tile{animation:none;transition:none}}
+
+[data-plethora-slot][hidden]{display:none!important}
+/* Keep Twitch's existing home status beneath the new banner, in normal flow. */
+.portal>live-stream[badge-only]{position:relative;top:auto;left:auto;transform:none;margin:8px auto;z-index:1}
+.portal>live-stream[badge-only][data-state=offline],.portal>live-stream[badge-only][data-state=closed]{margin:0 auto}
+.plethora-game-link[data-plethora-slot=pause] a{padding:10px 16px;background:#d4ff45;color:#101508;border:2px solid #e9ffb2;font-weight:800;text-decoration:none;min-height:46px}
+.plethora-banner>div{min-width:0}.plethora-banner [data-plethora-live]{display:block;margin-top:5px;font-size:11px;color:#c1cdb6;font-variant-numeric:tabular-nums}.plethora-banner>button{flex-shrink:0}

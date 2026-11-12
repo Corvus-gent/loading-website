@@ -10,7 +10,7 @@ const PAGES = {
 const COMMANDS = {
   help: () => [
     "available commands:",
-    "  whoami · now · sidequests · support · location · cv · contact",
+    "  whoami · now · sidequests · support · location · cv · contact · live",
     "  ls · cd <page> · lang <en|nl|fr|es|pt|de|zh> · clear · exit",
     "  (there might be more. sudo is watching.)",
   ],
@@ -23,6 +23,7 @@ const COMMANDS = {
   support: () => ["opening /support ..."].concat(go("/support/")),
   cv: () => ["opening cv ..."].concat(go("/cv")),
   contact: () => ["gabriel@corvus.gent"].concat(go("mailto:gabriel@corvus.gent")),
+  live: () => ["twitch → https://corvus.gent/go/twitch", "instagram → https://corvus.gent/go/instagram", "x → https://corvus.gent/go/twitter"],
   ls: () => [Object.keys(PAGES).join("  ")],
   location: async () => {
     try {
@@ -124,7 +125,7 @@ function close() {
 
 document.addEventListener("keydown", e => {
   if (e.defaultPrevented || e.isComposing || e.repeat || document.querySelector("dialog[open]")) return;
-  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  if (e.defaultPrevented || e.key === "/" || e.metaKey || e.ctrlKey || e.altKey) return;
   if (e.target.closest && e.target.closest("input,textarea,select,[contenteditable]:not([contenteditable=false]),[role=textbox]")) return;
   if (e.key === " " && e.target.closest?.("a,button,summary,[role=button]")) return;
   if (e.key.length === 1) { e.preventDefault(); openTerminal(e.key); }

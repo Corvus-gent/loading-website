@@ -1,25 +1,8 @@
 // Public city aggregates only. Never return identities, IPs or individual events.
-import { hogql, posthogReady, REAL } from './_posthog.js';
+import { posthogReady } from './_posthog.js';
 import { redis, connected } from './_redis.js';
 
-export const GEO_QUERY = `SELECT properties.$geoip_country_code, properties.$geoip_country_name,
-  properties.$geoip_subdivision_1_name, properties.$geoip_city_name,
-  round(avg(toFloat(properties.$geoip_latitude)), 1),
-  round(avg(toFloat(properties.$geoip_longitude)), 1),
-  count(DISTINCT distinct_id)
-FROM events WHERE event = '$pageview' AND ${REAL} AND properties.$geoip_latitude IS NOT NULL
-GROUP BY 1,2,3,4 HAVING count(DISTINCT distinct_id) >= 2 LIMIT 3000`;
-
-export function cityRows(rows) {
-  const name = value => typeof value === 'string' ? value.trim().slice(0, 160) : '';
-  return rows.slice(0, 3000).flatMap(row => {
-    const [code, country, region, city, rawLat, rawLng, rawVisitors] = row;
-    if (rawLat == null || rawLng == null || rawLat === '' || rawLng === '') return [];
-    const lat = Number(rawLat), lng = Number(rawLng), visitors = Number(rawVisitors);
-    if (!Number.isFinite(lat) || Math.abs(lat) > 90 || !Number.isFinite(lng) || Math.abs(lng) > 180 || !Number.isSafeInteger(visitors) || visitors < 2) return [];
-    return [{ countryCode: name(code), country: name(country), region: name(region), city: name(city), lat: Math.round(lat * 10) / 10, lng: Math.round(lng * 10) / 10, visitors }];
-  });
-}
+import { geoData } from './_geo-data.js';
 
 export default async function handler(req, res) {
   if (req.query?.tiles === '1') return tilesHandler(req, res);
@@ -33,21 +16,25 @@ export default async function handler(req, res) {
     res.setHeader('Cache-Control', 'private, no-store');
     const code = req.headers?.['x-vercel-ip-country'];
     const countryCode = typeof code === 'string' && /^[A-Z]{2}$/.test(code) && !['XX', 'ZZ'].includes(code) ? code : null;
-    return res.status(200).json({ countryCode });
+    const location = {};
+    const text = (key) => { try { const v=decodeURIComponent(req.headers?.[key]||''); return /^[\p{L}\p{N} .’'-]{1,100}$/u.test(v) ? v : ''; } catch { return ''; } };
+    const city=text('x-vercel-ip-city'), region=text('x-vercel-ip-country-region');
+    if(countryCode && region)location.region=region;
+    const lat=Number(req.headers?.['x-vercel-ip-latitude']), lng=Number(req.headers?.['x-vercel-ip-longitude']);
+    if(countryCode && city && Number.isFinite(lat)&&Math.abs(lat)<=90&&Number.isFinite(lng)&&Math.abs(lng)<=180){Object.assign(location,{city,region,lat:Math.round(lat*10)/10,lng:Math.round(lng*10)/10});}
+    return res.status(200).json({ countryCode, ...location });
   }
   if (!posthogReady()) return res.status(503).json({ error: 'the lantern is out.' });
   try {
+    const day = req.query?.day || 'all';
+    if (typeof day !== 'string' || (day !== 'all' && !/^\d{4}-\d{2}-\d{2}$/.test(day))) return res.status(400).json({error:'invalid day'});
     let cached;
-    if (connected()) {
-      try { cached = JSON.parse(await redis(['GET', 'geo:all:v2'])); } catch { /* Query PostHog if the cache is unavailable. */ }
-    }
-    const validCache = cached && Array.isArray(cached.cities);
-    const data = { cities: validCache ? cityRows(cached.cities.map(c => [c.countryCode, c.country, c.region, c.city, c.lat, c.lng, c.visitors])) : cityRows(await hogql(GEO_QUERY)) };
-    if (!validCache && connected()) {
-      try { await redis(['SET', 'geo:all:v2', JSON.stringify(data), 'EX', '900']); } catch { /* A cache outage must not hide the map. */ }
-    }
+    const cacheKey = 'geo:v6:' + day;
+    if (connected()) { try { cached=JSON.parse(await redis(['GET',cacheKey])); } catch {} }
+    const data = cached?.geoVersion===6 ? cached : await geoData(day);
+    if (!cached && connected()) { try { await redis(['SET',cacheKey,JSON.stringify(data),'EX','900']); } catch {} }
     res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=900');
-    return res.status(200).json(data);
+    return res.status(200).json({ ...data, tiles: Boolean(process.env.CARTO_BASEMAPS_KEY) });
   } catch {
     return res.status(502).json({ error: 'the lantern is out.' });
   }

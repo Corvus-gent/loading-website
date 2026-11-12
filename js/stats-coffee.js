@@ -1,4 +1,4 @@
-import {getLang, t} from './i18n.js';
+import {getLang, t} from './i18n.js?v=20261108live1';
 const panel = document.querySelector('[data-coffee]');
 const state = panel.querySelector('[role=status]');
 const details = panel.querySelector('[data-counts]');

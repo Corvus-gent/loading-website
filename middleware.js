@@ -1,5 +1,8 @@
 // - stats.corvus.gent serves the stats pages at clean URLs; corvus.gent/stats redirects there
 // - curl / wget / scripts get counted, and curling the homepage gets a little reply
+import {tierPath} from './js/site/page-tiers.js';
+import {ogRoute} from "./js/og-routes.js";
+import {COMPOUND_LINKS} from "./js/compound-links.js";
 import { rewrite, next, waitUntil } from "@vercel/functions";
 
 export const config = { matcher: ["/((?!api/|js/|img/|cv/|papers/|.*\\.(?:css|js|png|jpg|svg|pdf|json|ico)$).*)"] };
@@ -29,6 +32,63 @@ const CURL_REPLY = `
 
 export default function middleware(request) {
   const url = new URL(request.url);
+  const cleanPath=url.pathname.replace(/\/index\.html$/,'').replace(/\/$/,'')||'/';
+  const canonicalPage={'/hack2':'/hack/2','/hack/the-feed':'/hack/1/the-feed','/submission':'/hack/play','/soldier':'/legion/#wall'}[cleanPath];
+  if(canonicalPage){const target=new URL(canonicalPage,'https://'+url.host);target.search=url.search;return Response.redirect(target,301);}
+  // These dynamic rewrites accept the slashless path on Vercel.
+  if (url.hostname !== 'stats.corvus.gent' && /^\/(?:links\/gabe|soldier\/[a-zA-Z0-9_-]+)\/$/.test(url.pathname)) {
+    url.pathname = url.pathname.slice(0, -1);
+    return Response.redirect(url, 308);
+  }
+  // Stats lives on its own host. Other site pages must not become broken clones there.
+  if(url.hostname==='stats.corvus.gent'&&!/^\/(?:$|(?:pidgy|games|map|music|hunt|x|coffee|status|hack|army)\/?$|(?:private|stats)(?:\/|$)|(?:api|js|css|img|public|vendor)\/)/.test(url.pathname)&&!(/\.[a-z0-9]+$/i.test(url.pathname))){url.hostname='corvus.gent';return Response.redirect(url,301);}
+
+  if(/^\/(?:enlist|join-the-army-now)(?:\/.*)?$/.test(url.pathname)){
+    if(url.hostname==='stats.corvus.gent')url.hostname='corvus.gent';url.pathname='/legion/';return Response.redirect(url,301);
+  }
+  const compoundPartner=/^\/go\/compound-([a-z0-9-]{1,48})\/?$/.exec(url.pathname);
+  if(compoundPartner){const target=new URL('/api/stats',url);target.search=url.search;target.searchParams.set('compoundV2','1');target.searchParams.set('impact','1');target.searchParams.set('go',compoundPartner[1]);return rewrite(target);}
+  const cardneto=/^\/go\/(cardneto-(?:demo|li|app|egg))\/?$/.exec(url.pathname);
+  if(cardneto){const target=new URL('/api/stats',url);target.searchParams.set('legion','1');target.searchParams.set('partner',cardneto[1]);return rewrite(target);}
+  const codeAlias=/^\/c\/([^/]+)\/?$/.exec(url.pathname);
+  if(url.hostname!=='stats.corvus.gent'&&(codeAlias||(/^\/compound\/v2\/?$/.test(url.pathname)&&url.searchParams.has('code')&&!url.searchParams.has('code_missing')))){
+    const target=new URL('/api/stats',url);target.search=url.search;target.searchParams.set('compoundV2','1');target.searchParams.set('codeLink','1');if(codeAlias)target.searchParams.set('code',decodeURIComponent(codeAlias[1]));return rewrite(target);
+  }
+  const protectedPath = tierPath(url.pathname);
+  if (protectedPath && url.hostname !== 'stats.corvus.gent') {
+    const target = new URL('/api/stats', url);
+    target.search = new URLSearchParams({legion:'1',action:'layer_page',path:protectedPath,zone:url.searchParams.get('layer_zone')||''});
+    return rewrite(target, {headers:{'Cache-Control':'private, no-store','Vary':'Cookie'}});
+  }
+  const og=url.hostname!=='stats.corvus.gent'&&ogRoute(url.pathname,url.searchParams);
+  if(og){const target=new URL('/api/stats',url);target.searchParams.set('ogPage','1');for(const[k,v]of Object.entries(og))target.searchParams.set(k,v);return rewrite(target);}
+  const videoSlug=/^\/v\/([^/]+)\/?$/.exec(url.pathname);
+  if(videoSlug&&url.hostname!=='stats.corvus.gent'){
+    const target=new URL('/api/stats',url);target.search=url.search;target.searchParams.set('compoundV2','1');target.searchParams.set('short','1');target.searchParams.set('slug',videoSlug[1]);return rewrite(target);
+  }
+  const liveSlug=/^\/go\/(twitch|instagram|twitter)\/?$/.exec(url.pathname);
+  if(liveSlug){const target=new URL('/api/stats',url);target.searchParams.set('live','1');target.searchParams.set('slug',liveSlug[1]);return rewrite(target);}
+  const supportSlug=/^\/go\/((?:call|bmc|dinner|roll)-(?:li|x))\/?$/.exec(url.pathname);
+  if(supportSlug){const target=new URL('/api/stats',url);target.search=url.search;target.searchParams.set('support','1');target.searchParams.set('slug',supportSlug[1]);return rewrite(target);}
+  const plethoraSlug=/^\/go\/(plethora-[a-z0-9-]+)\/?$/.exec(url.pathname);
+  if(plethoraSlug){
+    const target=new URL('/api/stats',url);target.search=url.search;target.searchParams.set('plethora','1');target.searchParams.set('slug',plethoraSlug[1]);return rewrite(target);
+  }
+  const battleSlug=/^\/go\/((?:cx|cp|bio)-(?:tt|ig|x|li))\/?$/.exec(url.pathname);
+  if(battleSlug&&url.hostname!=='stats.corvus.gent'){
+    const target=new URL('/api/stats',url);target.search=url.search;target.searchParams.set('battle','1');target.searchParams.set('slug',battleSlug[1]);return rewrite(target);
+  }
+  if(url.hostname!=='stats.corvus.gent'&&/^\/squads\/?$/.test(url.pathname)){
+    url.pathname='/hackathons/';
+    for(const [key,value]of Object.entries({utm_source:'share',utm_medium:'links',utm_campaign:'hack',utm_content:'squads'}))if(!url.searchParams.has(key))url.searchParams.set(key,value);
+    return Response.redirect(url,307);
+  }
+  const compoundSlug=url.pathname.replace(/^\/|\/$/g,'');
+  if(url.hostname!=='stats.corvus.gent'&&Object.hasOwn(COMPOUND_LINKS,compoundSlug)){
+    const target=new URL('/api/stats',url);target.search=url.search;target.searchParams.set('compound','1');target.searchParams.set('slug',compoundSlug);
+    if(url.searchParams.has('c'))target.searchParams.set('c',url.searchParams.get('c').slice(0,64));
+    return rewrite(target);
+  }
   if (url.hostname !== "stats.corvus.gent" && /^\/sidequest\/?$/.test(url.pathname)) {
     url.pathname = "/sidequests";
     return Response.redirect(url, 307);
@@ -58,7 +118,7 @@ export default function middleware(request) {
 
   if (url.hostname === "stats.corvus.gent") {
     if (url.pathname === "/") return rewrite(new URL("/stats/", url));
-    if (/^\/(pidgy|games|map|music|hunt|x|coffee|status|hack)\/?$/.test(url.pathname)) return rewrite(new URL(`/stats/${url.pathname.split("/")[1]}/`, url));
+    if (/^\/(pidgy|games|map|music|hunt|x|coffee|status|hack|army)\/?$/.test(url.pathname)) return rewrite(new URL(`/stats/${url.pathname.split("/")[1]}/`, url));
     if (url.pathname.startsWith("/private")) return rewrite(new URL("/stats/private/", url));
     if (/^\/stats(?:\/|$)/.test(url.pathname)) return Response.redirect(new URL((url.pathname.replace(/^\/stats/, "") || "/") + url.search, url), 308);
     return next();
@@ -66,6 +126,13 @@ export default function middleware(request) {
   if (/^\/stats(?:\/|$)/.test(url.pathname)) {
     const rest = url.pathname.replace(/^\/stats\/?/, "");
     return Response.redirect(`https://stats.corvus.gent/${rest}${url.search}`, 308);
+  }
+  if (cleanPath === '/' && ['GET', 'HEAD'].includes(request.method)) {
+    const headers = {'Cache-Control': 'private, no-store', 'Vary': 'Cookie, User-Agent'};
+    const entered = (request.headers.get('cookie') || '').split(';').some(value => value.trim() === 'corvus_realm=1');
+    if (entered) return next({headers});
+    url.pathname = '/public/realm-entry.html';
+    return rewrite(url, {headers});
   }
   return next();
 }

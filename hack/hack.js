@@ -29,7 +29,7 @@ export function videoSource(value,base='https://corvus.gent'){
 const node=(tag,text)=>{const el=document.createElement(tag);if(text)el.textContent=text;return el;};
 let emptyVideo;
 export function mountVideo(value=HACK_VIDEO_URL){
- const root=document.getElementById('hack-video'),note=document.getElementById('video-note'),original=document.getElementById('video-original');if(!root)return;emptyVideo||=[...root.childNodes].map(n=>n.cloneNode(true));root.classList.remove('is-x');
+ const root=document.getElementById('hack-video'),note=document.getElementById('video-note'),original=document.getElementById('video-original');if(!root)return;const demoLink=document.getElementById('evidence-link');if(demoLink)demoLink.hidden=Boolean(videoSource(value));emptyVideo||=[...root.childNodes].map(n=>n.cloneNode(true));root.classList.remove('is-x');
  if(!value){root.replaceChildren(...emptyVideo.map(n=>n.cloneNode(true)));note.textContent='The build film is on its way.';original.hidden=true;return;}
  const source=videoSource(value);if(!source){note.textContent='The film link is not ready yet. Check back soon.';return;}
  original.href=source.original||source.url;original.hidden=false;
@@ -57,7 +57,7 @@ if(typeof document!=='undefined'){
  async function loadLive(){
   if(loading)return;loading=true;
   try{
-   const response=await fetch('/hack/live.json?t='+Date.now(),{cache:'no-store',signal:AbortSignal.timeout(8000)});if(!response.ok)throw Error('live');const data=await response.json();
+   const response=await fetch((document.body.dataset.hackId==='1'?'/hack/1/live.json':'/hack/live.json')+'?t='+Date.now(),{cache:'no-store',signal:AbortSignal.timeout(8000)});if(!response.ok)throw Error('live');const data=await response.json();
    const video=typeof data.video==='string'?data.video:HACK_VIDEO_URL;if(video!==lastVideo){mountVideo(video);lastVideo=video;}
    for(const key of ['x','github']){const link=document.getElementById(key==='x'?'hj-x':'hj-gh'),url=safeLink(data.links?.[key]);if(url){link.href=url;link.hidden=false;}else if(key==='github')link.hidden=true;}
    const updates=Array.isArray(data.updates)?data.updates:[],signature=JSON.stringify(updates);

@@ -1,9 +1,0 @@
-{
-  "path": "/realm/",
-  "score": 0.98,
-  "lcp": 1576.9168,
-  "cls": 0,
-  "tbt": 142,
-  "lcpElement": "body > main > div.wrap > p",
-  "note": "Diagnostic repeat without code changes after the full-run outlier; preserve both results."
-}

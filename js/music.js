@@ -1,6 +1,6 @@
 import {limitedDevice,INITIAL_TRACKS,TRACK_BATCH} from './music-performance.js';
-import {initI18n,t} from './i18n.js';
-import {$,esc,label,norm,genres,providers,linksHTML,copyLink,request} from './music-shared.js';
+import {initI18n,t} from './i18n.js?v=20261108live1';
+import {$,esc,label,norm,genres,providers,linksHTML,copyLink,request} from './music-shared.js?v=20261108live1';
 let state={tracks:[],suggestions:[],votes:{},mine:[],poll:{spotify:0,apple:0},storage:false};
 let genre='',onlyLiked=false,current=null,shuffle=false,queue=[],busy=false,deadline=0,controller=null,spotifyAPI=null,spotifyReady=false,playbackEnded=false;
 let mapView=false,atlas=null,atlasLoading=null,trackLimit=INITIAL_TRACKS,suggestionLimit=INITIAL_TRACKS;
@@ -13,7 +13,7 @@ async function setView(map){
   $('view-map').setAttribute('aria-pressed',String(map));$('view-list').setAttribute('aria-pressed',String(!map));
   if(map&&!atlas){
     try {
-      atlasLoading ||= import('./music-map.js');
+      atlasLoading ||= import('./music-map.js?v=20261108live1');
       const {createMusicMap}=await atlasLoading;
       if(!mapView)return;
       atlas ||= createMusicMap($('genre-atlas'),{chooseGenre(value,showList){genre=value;trackLimit=INITIAL_TRACKS;if(showList)setView(false);render();},playTrack:play});

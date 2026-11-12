@@ -1,0 +1,84 @@
+name: Feature checks
+on:
+  pull_request:
+  push:
+    branches: ['codex/**', 'claude/**', 'daily/**']
+permissions:
+  contents: read
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      redis:
+        image: redis:7-alpine
+        ports: ['16380:6379']
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - name: Syntax and locale contracts
+        run: |
+          git ls-files -z '*.js' '*.mjs' | xargs -0 -n1 node --check
+          node tools/check-locales.mjs
+          node tests/realm-ritual.mjs
+      - name: Official Plethora redirects and durable counters
+        run: |
+          node tools/plethora/verify-routes.mjs
+          REDIS_URL=redis://127.0.0.1:16380/7 node tools/plethora/check.mjs
+      - name: Compound v2 storage and privacy contracts
+        run: node tests/compound-v2.mjs && node tests/compound-v2-sync.mjs && node tests/compound-upload-queue.mjs
+      - name: Live banner state and safe redirects
+        run: node tests/live-banner-api.mjs
+      - name: Map totals and city privacy
+        run: npm run test:geo && npm run test:stats
+      - name: Build ledger snapshot and webhook contracts
+        run: REDIS_URL=redis://127.0.0.1:16380/12 node tests/build-stats/api.mjs
+      - name: Support booking and privacy contracts
+        run: REDIS_URL=redis://127.0.0.1:16380/8 node tools/support/check.mjs
+      - name: Account, perk and earned-rank contracts
+        env:
+          REDIS_URL: redis://127.0.0.1:16380/6
+          ARMY_SECRET: local-army-tests-only
+          SESSION_SECRET: local-test-only
+        run: |
+          for test in store bmc mail discord pidgy-ui earned-ranks tier-rank; do node "tests/army/$test.mjs" || exit 1; done
+          REDIS_URL=redis://127.0.0.1:16380/5 node tests/army/pidgy.mjs
+      - run: npx playwright install --with-deps chromium
+      - run: node tests/live-banner-browser.mjs
+      - run: node tests/live-page.mjs
+      - run: node tests/hack-live-mode.mjs
+      - name: Legion reading layers and five-door homepage
+        env:
+          REDIS_URL: redis://127.0.0.1:16380/4
+          SITE_TEST_PORT: 4477
+        run: |
+          node tools/site/server.mjs &
+          server=$!
+          trap 'kill "$server"' EXIT
+          curl --retry 8 --retry-delay 1 --retry-connrefused -fsS http://127.0.0.1:4477/ -o /dev/null
+          node tests/site/layers.mjs
+      - run: node tests/compound-v2-browser.mjs
+      - run: node tests/interview-quick-add.mjs
+      - run: node tests/dynamic-og.mjs
+      - run: node tests/live-overlay.mjs
+      - run: node tests/video-share-drafts.mjs
+      - run: node tests/smoke-ci.mjs
+      - run: python3 tools/check-links.py
+      - name: Generate search index from sources
+        run: python3 tools/build-search.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: generated-search-index
+          path: search-index.json

@@ -1,0 +1,32 @@
+import assert from 'node:assert/strict';
+import {linkedinBulk,validate,publicPost,score} from '../api/_compound-v2/impact/model.js';
+import {eligibility} from '../api/_compound-v2/impact/eligibility.js';
+import {ACCOUNTS,platformID,filteredPosts} from '../compound/impact/accounts.js';
+
+const url='https://www.linkedin.com/posts/francisco-gabriel-van-langenhove_activity-123456789-ABCD';
+const confirmation={account:ACCOUNTS.li.handles[0],original:true,has_video:true};
+// A published, owner-confirmed video must not disappear just because analytics are unavailable.
+const [unmeasured]=linkedinBulk(url,confirmation);
+assert.equal(eligibility(unmeasured).eligible,true);
+assert.equal(publicPost(unmeasured).views,null);
+assert.equal(publicPost(unmeasured).score,null);
+assert.ok(publicPost(unmeasured).missing_metrics.includes('views'));
+const [measured]=linkedinBulk(url+' — 100 impressions, 4 reactions, 2 comments, 1 repost',confirmation);
+assert.equal(score(measured),138);
+assert.equal(measured.view_metric,'impressions');
+assert.equal(publicPost(measured).view_metric,'impressions');
+assert.equal(linkedinBulk(url+' — 7 views',confirmation)[0].view_metric,'views');
+assert.throws(()=>linkedinBulk(url,{...confirmation,original:false}));
+assert.equal(eligibility(linkedinBulk(url,{...confirmation,has_video:false})[0]).eligible,false);
+assert.throws(()=>linkedinBulk(url+' — -5 reactions',confirmation));
+assert.throws(()=>linkedinBulk(url+' — 2.5 reactions',confirmation));
+assert.throws(()=>linkedinBulk('https://x.com/gabe_maxxing/status/123',confirmation));
+const aliased=validate({...unmeasured,account:'gl'});
+assert.equal(aliased.account,ACCOUNTS.li.handles[0]);
+for(const name of ['li','linkedin','LinkedIn','LI']) assert.equal(platformID(name),'li');
+const published={...aliased,made_with_compound:true};
+assert.deepEqual(filteredPosts([published],'linkedin',''),[published]);
+assert.deepEqual(filteredPosts([published],'li',ACCOUNTS.li.handles[0]),[published]);
+const other={platform:'x',account:'gabe_maxxing',made_with_compound:true};
+assert.deepEqual(filteredPosts([published,other],'x',''),[other]);
+console.log('PASS: LinkedIn URL-only import, honest missing metrics, impressions/reactions/reposts maths, confirmation, aliases and all-account filtering.');

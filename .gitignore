@@ -19,6 +19,17 @@ node_modules
 
 test-results/
 playwright-report/
+.vercel
+.env*
+
+# Local-only test evidence: never commit screenshots or Lighthouse output.
+tests/results/
+**/lighthouse*.json
+**/lighthouse*.html
 
 # Local Vercel link
 .vercel/
+
+# Owner-only generated report mirrored locally; served behind owner auth.
+/report.md
+/report.md.tmp

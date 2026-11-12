@@ -116,7 +116,7 @@ async function render() {
   if (person.lantern) renderLantern(person.lantern);
   const socials = publicSocials(person);
   if (id !== 'gabe') follow(socials);
-  for (const [where, links, cls] of [['links', person.links, 'lt-btn'], ['socials', socials, 'lt-small'], ['extra', person.extra, 'lt-small']]) {
+  for (const [where, links, cls] of [['links', person.links, 'lt-btn'], ['socials', id === 'gabe' ? socials : [], 'lt-small'], ['extra', person.extra, 'lt-small']]) {
     $(where).replaceChildren(...links.map(link => anchor(link, cls)));
   }
 }

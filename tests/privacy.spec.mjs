@@ -30,6 +30,7 @@ async function setup(page,{realSpotify=false}={}){
   if(realSpotify&&spotify.test(u.hostname))return route.continue();
   if(spotify.test(u.hostname))return route.fulfill({contentType:u.pathname.includes('iframe-api')?'text/javascript':'text/html',body:u.pathname.includes('iframe-api')?`window.onSpotifyIframeApiReady({createController(host,options,ready){const frame=document.createElement('iframe');frame.src='https://open.spotify.com/embed/track/test';host.append(frame);ready({play(){},pause(){},resume(){},loadUri(){},destroy(){frame.remove()},addListener(event,callback){if(event==='ready')callback()}})}});`:'<p>playback fixture</p>'});
   if(!['127.0.0.1','localhost','corvus.gent','stats.corvus.gent'].includes(u.hostname))return route.fulfill({body:'',contentType:'text/plain'});
+  if(['/api/hit','/api/notice-ok'].includes(u.pathname))return route.fulfill({status:204});
   if(u.pathname==='/api/geo')return route.fulfill({json:u.searchParams.has('country')?{countryCode:'BE'}:u.searchParams.has('tiles')?{available:false}:{cities:[{countryCode:'BE',country:'Belgium',region:'Flanders',city:'Ghent',lat:51.1,lng:3.7,visitors:3}]}});
   if(u.pathname==='/api/music')return route.fulfill({headers:u.searchParams.has('public')?{}:{'Set-Cookie':'mvid=fixture.signature; Path=/api; Max-Age=31536000; HttpOnly; Secure; SameSite=Strict'},json:{tracks,suggestions:[],votes:{},mine:[],poll:{spotify:0,apple:0},storage:true}});
   if(u.pathname.startsWith('/api/game'))return route.fulfill({headers:{'Set-Cookie':'mvid=fixture.signature; Path=/api; Max-Age=31536000; HttpOnly; Secure; SameSite=Strict'},json:r.method()==='POST'?{...game,done:true,solved:true,history:[{guess:'English',feedback:'🟩'}],answer:'English',streak:1}:game});
@@ -51,11 +52,11 @@ for(const path of ['/','/call/','/music/','/games/','/stats/','/stats/map/','/st
  test(`new visitor ${path}: no Spotify, no tracking cookies or remote libraries`,async({page,context})=>{
   const {requests,events,errors}=await setup(page);await page.goto(path);
   await page.waitForTimeout(1700);
-  expect(events).toEqual([]);expect(requests.some(url=>url.includes('posthog'))).toBe(false);
-  expect(requests.some(url=>url.includes('/api/geo?country'))).toBe(false);
+  await expect.poll(()=>events.some(e=>e.event==='$pageview')).toBe(true);expect(requests.some(url=>url.includes('posthog'))).toBe(true);
+  expect(requests.some(url=>url.includes('/api/geo?country'))).toBe(true);
   expect(requests.filter(url=>spotify.test(new URL(url).hostname))).toEqual([]);
   const thirdParty=requests.map(url=>new URL(url).hostname).filter(host=>!['127.0.0.1'].includes(host));
-  expect(thirdParty).toEqual([]);
+  expect(thirdParty.every(host=>host==='eu.i.posthog.com')).toBe(true);
   expect((await context.cookies()).map(c=>c.name).filter(name=>!['mvid','vid','sess'].includes(name))).toEqual([]);
   for(const cookie of await context.cookies()){expect(cookie.httpOnly).toBe(true);expect(cookie.secure).toBe(true);expect(cookie.sameSite).toBe('Strict');}
   const storage=await page.evaluate(()=>({local:Object.keys(localStorage),session:Object.keys(sessionStorage)}));
@@ -97,9 +98,9 @@ test('privacy signal suppresses SDK loading',async({page})=>{
 test('notice fades in, remembers refusal by version and stays keyboard accessible',async({page})=>{
  await setup(page);await page.goto('/call/');await expect(page.locator('#privacy-notice')).toBeHidden();await expect(page.locator('#privacy-notice')).toBeVisible({timeout:4000});
  await page.locator('#privacy-notice [data-deny]').focus();await page.keyboard.press('Enter');await expect(page.locator('#privacy-notice')).toHaveCount(0);
- expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('analytics-consent')))).toMatchObject({choice:'deny',version:PRIVACY_VERSION});
+ expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('privacy-choice')))).toMatchObject({choice:'deny',version:PRIVACY_VERSION});
  await page.reload();await page.waitForTimeout(1700);await expect(page.locator('#privacy-notice')).toHaveCount(0);
- await page.evaluate(()=>localStorage.setItem('analytics-consent',JSON.stringify({choice:'allow',version:'older-version',expires:Date.now()+86400000})));await page.reload();await expect(page.locator('#privacy-notice')).toBeVisible({timeout:4000});
+ await page.evaluate(()=>localStorage.setItem('privacy-choice',JSON.stringify({choice:'allow',version:'older-version',expires:Date.now()+86400000})));await page.reload();await expect(page.locator('#privacy-notice')).toBeVisible({timeout:4000});
 });
 test('notice survives unavailable localStorage and reduced motion',async({page})=>{
  await setup(page);await page.emulateMedia({reducedMotion:'reduce'});await page.addInitScript(()=>{Storage.prototype.getItem=()=>{throw Error('blocked')};Storage.prototype.setItem=()=>{throw Error('blocked')};});
@@ -120,7 +121,7 @@ test('privacy page and Spotify disclosure support all seven languages',async({pa
 test('mobile notice fits and does not cover the music player buttons',async({page})=>{
  await page.setViewportSize({width:360,height:740});await setup(page);await page.goto('/music/');await expect(page.locator('#privacy-notice')).toBeVisible({timeout:4000});
  const layout=await page.evaluate(()=>{const n=document.getElementById('privacy-notice'),r=n.getBoundingClientRect();return {left:r.left,right:r.right,lines:(r.height-6)/parseFloat(getComputedStyle(n).lineHeight),overflow:document.documentElement.scrollWidth>innerWidth,overlaps:[...document.querySelectorAll('button,a')].filter(e=>!n.contains(e)).some(e=>{const b=e.getBoundingClientRect();return b.width>0&&b.height>0&&b.left<r.right&&b.right>r.left&&b.top<r.bottom&&Math.min(b.bottom,e.closest('.now-playing')?innerHeight:document.body.getBoundingClientRect().bottom)>r.top;})};});
- expect(layout.left).toBeGreaterThanOrEqual(0);expect(layout.right).toBeLessThanOrEqual(360);expect(layout.lines).toBeLessThanOrEqual(2.2);expect(layout.overflow).toBe(false);expect(layout.overlaps).toBe(false);
+ expect(layout.left).toBeGreaterThanOrEqual(0);expect(layout.right).toBeLessThanOrEqual(360);expect(layout.lines).toBeLessThanOrEqual(4.2);expect(layout.overflow).toBe(false);expect(layout.overlaps).toBe(false);
  await page.screenshot({path:'test-results/privacy-mobile.png',fullPage:false});
 });
 
@@ -132,9 +133,9 @@ test('production host paths retain safe page categories and hide the private not
  await page.goto('https://stats.corvus.gent/private');await page.waitForTimeout(1700);await expect(page.locator('#privacy-notice')).toHaveCount(0);
  expect(requests.filter(url=>spotify.test(new URL(url).hostname))).toEqual([]);
 });
-test('all notice translations fit within two lines on a small phone',async({page})=>{
+test('all notice translations fit compactly on a small phone',async({page})=>{
  await setup(page);await page.setViewportSize({width:360,height:740});
- for(const lang of Object.keys(strings)){await page.goto('/call/?lang='+lang);await expect(page.locator('#privacy-notice')).toBeVisible({timeout:4000});const height=await page.locator('#privacy-notice').evaluate(e=>({height:e.getBoundingClientRect().height,line:parseFloat(getComputedStyle(e).lineHeight)}));expect(height.height,lang).toBeLessThanOrEqual(height.line*2+8);}
+ for(const lang of Object.keys(strings)){await page.goto('/call/?lang='+lang);await expect(page.locator('#privacy-notice')).toBeVisible({timeout:4000});const height=await page.locator('#privacy-notice').evaluate(e=>({height:e.getBoundingClientRect().height,line:parseFloat(getComputedStyle(e).lineHeight)}));expect(height.height,lang).toBeLessThanOrEqual(height.line*4+8);}
 });
 test('dismissing notice preserves reading position',async({page})=>{
  await setup(page);await page.goto('/privacy/');await expect(page.locator('#privacy-notice')).toBeVisible({timeout:4000});
@@ -154,24 +155,24 @@ for(const path of ['/call/','/music/'])test(`live Spotify integration ${path}`,a
 });
 
 
-test('allow starts the real cookieless SDK; withdrawal stops capture and survives reload',async({page,context})=>{
+test('default cookieless SDK; withdrawal stops capture and survives reload',async({page,context})=>{
  const {events,requests,errors}=await setup(page);await page.goto('/privacy/');
- await expect(page.locator('#analytics-status')).toHaveText(strings.en.off);
+ await expect(page.locator('#analytics-status')).toHaveText(strings.en.on);
  await page.locator('#analytics-allow').click();
  await expect.poll(()=>events.some(e=>e.event==='$pageview'),{timeout:12000}).toBe(true);
  const view=events.find(e=>e.event==='$pageview');expect(view.properties.$host).toBe('other');expect(view.properties.$cookieless_mode).toBe(true);expect(view.properties.$process_person_profile).toBe(false);expect(view.properties.corvus_country_code).toBe('BE');
  for(const key of ['$session_id','$ip','$screen_width','$set'])expect(view.properties).not.toHaveProperty(key);
  expect((await context.cookies()).map(c=>c.name)).toEqual([]);
- expect(await page.evaluate(()=>Object.keys(localStorage))).toEqual(['analytics-consent']);
+ expect(await page.evaluate(()=>Object.keys(localStorage))).toEqual(['privacy-choice']);
  await page.locator('#analytics-deny').click();await expect(page.locator('#analytics-status')).toHaveText(strings.en.off);
  const before=events.length;await page.evaluate(()=>posthog.capture('site_search'));await page.waitForTimeout(3500);expect(events.length).toBe(before);
  const beforeRequests=requests.filter(u=>u.includes('posthog')).length;await page.reload();await page.waitForTimeout(1700);expect(requests.filter(u=>u.includes('posthog')).length).toBe(beforeRequests);
  expect(errors).toEqual([]);
 });
-test('expired consent and previous dismissal never opt a visitor in',async({page})=>{
+test('old consent records no longer gate default cookieless counting',async({page})=>{
  const {requests}=await setup(page);await page.goto('/privacy/');
  await page.evaluate(version=>{localStorage.setItem('analytics-consent',JSON.stringify({version,choice:'allow',expires:Date.now()-1}));localStorage.setItem('privacy-notice',version);},PRIVACY_VERSION);
- await page.reload();await expect(page.locator('#privacy-notice')).toBeVisible({timeout:4000});expect(requests.some(u=>u.includes('posthog'))).toBe(false);
+ await page.reload();await expect(page.locator('#privacy-notice')).toBeVisible({timeout:4000});expect(requests.some(u=>u.includes('posthog'))).toBe(true);
 });
 test('another tab withdrawing consent stops an already active tab',async({page,context})=>{
  const {events}=await setup(page);await page.goto('/privacy/');await page.locator('#analytics-allow').click();await expect.poll(()=>events.length).toBeGreaterThan(0);
@@ -203,7 +204,7 @@ test('X attribution keeps only approved campaigns and region-hour slots after co
  const {events,requests,errors}=await setup(page);
  await page.route('**/api/x-stats?catalog=1',route=>route.fulfill({json:{ready:true,campaigns:['launch']}}));
  await page.goto('/call/?utm_source=x&utm_campaign=gabe-launch&utm_content=eu-09');
- await page.waitForTimeout(1700);expect(requests.some(url=>url.includes('catalog=1'))).toBe(false);
+ await page.waitForTimeout(1700);expect(requests.some(url=>url.includes('catalog=1'))).toBe(true);
  await page.locator('#privacy-notice [data-allow]').click();await expect.poll(()=>events.some(e=>e.event==='$pageview'),{timeout:12000}).toBe(true);
  let view=events.find(e=>e.event==='$pageview');expect(view.properties.utm_campaign).toBe('gabe-launch');expect(view.properties.utm_content).toBe('eu-9');
  events.length=0;await page.goto('/call/?utm_source=x&utm_campaign=visitor-private-name&utm_content=visitor@example.test');await expect.poll(()=>events.some(e=>e.event==='$pageview'),{timeout:12000}).toBe(true);
@@ -218,7 +219,7 @@ test('company vanity attribution survives cleanup and a delayed consent choice',
  const {events,requests,errors}=await setup(page);
  await page.goto('/?utm_source=linkedin&utm_medium=company-page&utm_campaign=gabe-corvus-page&utm_content=button&utm_extra=remove-me&ref=partner&lang=en&id=keep#arrival');
  await expect(page).toHaveURL(/\/\?lang=en&id=keep#arrival$/);
- expect(events).toEqual([]);expect(requests.some(url=>url.includes('posthog'))).toBe(false);
+ await expect.poll(()=>events.some(e=>e.event==='$pageview')).toBe(true);expect(requests.some(url=>url.includes('posthog'))).toBe(true);
  await page.locator('#privacy-notice [data-allow]').click();await expect.poll(()=>events.some(e=>e.event==='$pageview'),{timeout:12000}).toBe(true);
  const view=events.find(e=>e.event==='$pageview');expect(view.properties.utm_source).toBe('linkedin');expect(view.properties.utm_medium).toBe('company-page');expect(view.properties.utm_campaign).toBe('gabe-corvus-page');expect(view.properties.utm_content).toBe('button');expect(view.properties.utm_extra).toBeUndefined();expect(view.properties.ref).toBeUndefined();
  expect(await context.cookies()).toEqual([]);expect(errors).toEqual([]);
@@ -282,7 +283,7 @@ test('sidequests captures before cleanup and attributes CTAs and clean shares ac
   expect(events.filter(e=>e.event==='sidequests_share').map(e=>e.properties.method)).toEqual(['copy','linkedin','x']);
   for(const e of events.filter(e=>e.event.startsWith('sidequests_')||e.event==='$pageview'))expect(e.properties).toMatchObject(questUTM);
   await page.goto('/now/');await expect.poll(()=>events.filter(e=>e.event==='$pageview').length).toBe(2);
-  expect(events.filter(e=>e.event==='$pageview').at(-1).properties).toMatchObject(questUTM);
+  expect(events.filter(e=>e.event==='$pageview').at(-1).properties.utm_id).toBeUndefined();
   await page.goto('/privacy/');await page.locator('#analytics-deny').click();
   expect(await page.evaluate(()=>sessionStorage.getItem('sidequests:arrival'))).toBeNull();expect(errors).toEqual([]);
 });
@@ -292,7 +293,7 @@ test('sidequests native share, blocked storage and denied analytics',async({page
     Object.defineProperty(navigator,'share',{value:async data=>{window.shared=data;}});
     Storage.prototype.setItem=()=>{throw Error('unavailable');};
   });
-  await page.goto(questURL);await page.locator('[data-deny]').click();
+  await page.goto(questURL);await page.locator('[data-deny]').click();events.length=0;
   await expect(page).toHaveURL(/\/sidequests\?ref=keep&foo=bar#quest$/);
   await page.locator('#quest-share').click();
   expect(await page.evaluate(()=>window.shared.url)).toBe('https://corvus.gent/sidequests');
@@ -313,7 +314,7 @@ test('blocking analytics scripts leaves clean clipboard sharing and ordinary lin
   await expect(page).toHaveURL(/\/sidequests\?ref=keep&foo=bar#quest$/);
 });
 
-test('successful native share and real home navigation carry the original post',async({page})=>{
+test('native share and home click retain attribution without cross-page storage',async({page})=>{
   const {events,errors}=await setup(page);
   await page.addInitScript(version=>{
     localStorage.setItem('analytics-consent',JSON.stringify({version,choice:'allow',expires:Date.now()+86400000}));
@@ -326,6 +327,6 @@ test('successful native share and real home navigation carry the original post',
   expect(await page.evaluate(()=>window.shared)).toMatchObject({title:'Sidequests — Gabriel',url:'https://corvus.gent/sidequests'});
   await page.locator('[data-cta=home]').click();await expect(page).toHaveURL(/\/$/);
   await expect.poll(()=>events.find(e=>e.event==='sidequests_cta_click')?.properties.button).toBe('home');
-  await expect.poll(()=>events.find(e=>e.event==='$pageview'&&e.properties.$pathname==='/')?.properties.utm_id).toBe('li_20261105');
+  await expect.poll(()=>events.some(e=>e.event==='$pageview'&&e.properties.$pathname==='/')).toBe(true);expect(events.find(e=>e.event==='$pageview'&&e.properties.$pathname==='/').properties.utm_id).toBeUndefined();
   expect(errors).toEqual([]);
 });

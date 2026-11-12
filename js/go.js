@@ -1,6 +1,6 @@
 import {arrivalSearch} from './arrival.js';
 import {campaignSlug,contentSlot} from './x-attribution.js';
-import {sourceCategory, campaignCategory} from './analytics-policy.js';
+import {sourceCategory, campaignCategory} from './analytics-policy.js?v=20261109ia1';
 /**
  * Short links: /go/<platform>/<target>/<campaign>
  *   /go/ig            -> profile, from instagram bio
@@ -15,7 +15,7 @@ const TARGETS = {
   support: "/support/", "402": "/402/", cv: "/cv",
 };
 
-const EXTERNAL = { pidgy: "https://pidgy-ai.com/" };
+const EXTERNAL = { pidgy: "https://pidgy-ai.com/", x: "https://x.com/gabe_maxxing" };
 
 async function siteConfig() {
   try { return await fetch("/site.json", { cache: "no-store" }).then(r => r.json()); }
@@ -52,6 +52,8 @@ export async function resolve(pathname, search=arrivalSearch) {
 
 export async function go() {
   const r = await resolve(location.pathname);
+  // Aggregate short-link counts. No visitor ID or form content is sent.
+  await Promise.race([fetch('/api/legion',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'short_click',path:location.pathname}),keepalive:true}).catch(()=>{}),new Promise(resolve=>setTimeout(resolve,200))]);
   // External links: log the click here, internal ones are logged by the landing page
   if (r.external) {
     const start = Date.now();

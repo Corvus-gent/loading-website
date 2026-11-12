@@ -4,8 +4,28 @@
   ],
   "redirects": [
     {
-      "source": "/gabe",
-      "destination": "/people/?id=gabe",
+      "source": "/livenow",
+      "destination": "/live",
+      "permanent": false
+    },
+    {
+      "source": "/livenow/",
+      "destination": "/live",
+      "permanent": false
+    },
+    {
+      "source": "/whitebelt",
+      "destination": "/hack/play",
+      "permanent": false
+    },
+    {
+      "source": "/prize",
+      "destination": "/compound",
+      "permanent": false
+    },
+    {
+      "source": "/1000",
+      "destination": "/compound",
       "permanent": false
     },
     {
@@ -31,8 +51,171 @@
   ],
   "rewrites": [
     {
+      "source": "/legion/edit/:token",
+      "destination": "/legion/edit/index.html"
+    },
+    {
+      "source": "/legion/senate/:slug",
+      "destination": "/legion/senate/index.html"
+    },
+    {
+      "source": "/api/legion",
+      "destination": "/api/stats?legion=1"
+    },
+    {
+      "source": "/api/legion/stripe",
+      "destination": "/api/bmc-webhook?legionStripe=1"
+    },
+    {
+      "source": "/legion/join/:token",
+      "destination": "/legion/join/index.html"
+    },
+    {
+      "source": "/api/compound/summary",
+      "destination": "/api/stats?compoundSummary=1"
+    },
+    {
+      "source": "/api/og",
+      "destination": "/api/stats?og=1"
+    },
+    {
+      "source": "/api/compound-v2",
+      "destination": "/api/stats?compoundV2=1"
+    },
+    {
+      "source": "/compound/v2/:lang(nl|en|fr|pt|es|de|it|ca|eu|tl|zh|tr|ar|ru|ce|pl|fa|ln|ay|qu)",
+      "destination": "/compound/v2/index.html"
+    },
+    {
+      "source": "/compound/v2/:lang(nl|en|fr|pt|es|de|it|ca|eu|tl|zh|tr|ar|ru|ce|pl|fa|ln|ay|qu)/",
+      "destination": "/compound/v2/index.html"
+    },
+    {
+      "source": "/compound/v2/:lang(nl|en|fr|pt|es|de|it|ca|eu|tl|zh|tr|ar|ru|ce|pl|fa|ln|ay|qu)/:hook(a|b|c|d|f|mom|bjj|startup|side|comm|int)",
+      "destination": "/compound/v2/index.html"
+    },
+    {
+      "source": "/compound/v2/:lang(nl|en|fr|pt|es|de|it|ca|eu|tl|zh|tr|ar|ru|ce|pl|fa|ln|ay|qu)/:hook(a|b|c|d|f|mom|bjj|startup|side|comm|int)/",
+      "destination": "/compound/v2/index.html"
+    },
+    {
+      "source": "/compound/v2/:lang(nl|en|fr|pt|es|de|it|ca|eu|tl|zh|tr|ar|ru|ce|pl|fa|ln|ay|qu)/:hook(a|b|c|d|f|mom|bjj|startup|side|comm|int)/:n([1-9][0-9]{0,3})",
+      "destination": "/compound/v2/index.html"
+    },
+    {
+      "source": "/compound/v2/:lang(nl|en|fr|pt|es|de|it|ca|eu|tl|zh|tr|ar|ru|ce|pl|fa|ln|ay|qu)/:hook(a|b|c|d|f|mom|bjj|startup|side|comm|int)/:n([1-9][0-9]{0,3})/",
+      "destination": "/compound/v2/index.html"
+    },
+    {
+      "source": "/api/live",
+      "destination": "/api/stats?live=1"
+    },
+    {
+      "source": "/api/build",
+      "has": [
+        {
+          "type": "query",
+          "key": "deployment",
+          "value": "1"
+        }
+      ],
+      "destination": "/api/bmc-webhook?buildDeployment=1"
+    },
+    {
+      "source": "/api/build",
+      "destination": "/api/stats?build=1"
+    },
+    {
+      "source": "/api/build/og.png",
+      "destination": "/api/stats?build=1&image=1"
+    },
+    {
+      "source": "/api/support",
+      "destination": "/api/stats?support=1"
+    },
+    {
+      "source": "/plethora/stats.csv",
+      "destination": "/api/stats?plethora=1&action=csv"
+    },
+    {
+      "source": "/api/plethora",
+      "destination": "/api/stats?plethora=1"
+    },
+    {
+      "source": "/api/battle",
+      "destination": "/api/stats?battle=1"
+    },
+    {
+      "source": "/hack/play/do-bronx",
+      "destination": "/hack/play/index.html"
+    },
+    {
+      "source": "/hack/play/do-bronx/",
+      "destination": "/hack/play/index.html"
+    },
+    {
+      "source": "/api/name-vote",
+      "destination": "/api/stats?nameVote=1"
+    },
+    {
+      "source": "/hack/2",
+      "destination": "/hack/index.html"
+    },
+    {
+      "source": "/hack/2/",
+      "destination": "/hack/index.html"
+    },
+    {
+      "source": "/hack2",
+      "destination": "/hack/index.html"
+    },
+    {
+      "source": "/hack2/",
+      "destination": "/hack/index.html"
+    },
+    {
+      "source": "/api/compound/stripe",
+      "destination": "/api/discord?compoundStripe=1"
+    },
+    {
+      "source": "/api/compound",
+      "destination": "/api/stats?compound=1"
+    },
+    {
       "source": "/api/hack",
       "destination": "/api/stats?hack=1"
+    },
+    {
+      "source": "/r/:code/games",
+      "destination": "/api/army?ref=:code&to=games"
+    },
+    {
+      "source": "/r/:code",
+      "destination": "/api/army?ref=:code"
+    },
+    {
+      "source": "/soldier/:username/og.png",
+      "destination": "/api/army?profile=:username&image=1"
+    },
+    {
+      "source": "/soldier/:username/poster.png",
+      "destination": "/api/army?profile=:username&image=1&poster=1"
+    },
+    {
+      "source": "/soldier/:username",
+      "destination": "/api/army?profile=:username&html=1"
+    },
+    {
+      "source": "/join-the-army-now/:platform/:campaign",
+      "destination": "/join-the-army-now/index.html"
+    },
+    {
+      "source": "/api/report.md",
+      "destination": "/api/stats?report=1"
+    },
+    {
+      "source": "/api/notice-ok",
+      "destination": "/api/stats?notice=1"
     },
     {
       "source": "/api/health/history",
@@ -61,6 +244,10 @@
     {
       "source": "/api/game",
       "destination": "/api/stats?game=1"
+    },
+    {
+      "source": "/cv/",
+      "destination": "/api/cv"
     },
     {
       "source": "/cv",
@@ -98,11 +285,18 @@
       "includeFiles": "music.json"
     },
     "api/stats.js": {
-      "includeFiles": "music.json",
+      "includeFiles": "{**/index.html,music.json,battle/config.json,battle/media.json,hack/3/interviews.json,public/gabe.jpg,img/army/fonts/DejaVuSansMono.ttf,api/_og/fonts/**}",
       "maxDuration": 60
     },
     "api/x-stats.js": {
       "maxDuration": 60
+    },
+    "api/army.js": {
+      "includeFiles": "{soldier/index.html,js/i18n/mail.*.json,js/i18n/army.*.json,img/army/fonts/**}",
+      "maxDuration": 60
+    },
+    "api/discord.js": {
+      "includeFiles": "js/i18n/army.*.json"
     }
   },
   "headers": [
@@ -128,6 +322,24 @@
         {
           "key": "Cache-Control",
           "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/js/army/:path*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/js/i18n/:path*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
         }
       ]
     },
@@ -194,6 +406,45 @@
           "value": "public, max-age=31536000, immutable"
         }
       ]
+    },
+    {
+      "source": "/live.config.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/admin/:path*",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "private, no-store"
+        }
+      ]
+    },
+    {
+      "source": "/legion/edit/:path*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "private, no-store"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "no-referrer"
+        },
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
     }
   ],
   "crons": [
@@ -204,6 +455,27 @@
     {
       "path": "/api/stats?snapJob=1",
       "schedule": "12 2 * * *"
+    },
+    {
+      "path": "/api/army?job=1",
+      "schedule": "*/15 * * * *"
+    },
+    {
+      "path": "/api/stats?plethora=1&action=snapshot",
+      "schedule": "0 7,8 * * *"
+    },
+    {
+      "path": "/api/build?tick=1",
+      "schedule": "19 * * * *"
+    },
+    {
+      "path": "/api/compound-v2?reportJob=1",
+      "schedule": "7,37 * * * *"
+    },
+    {
+      "path": "/api/compound-v2?impact=1&job=1",
+      "schedule": "12 * * * *"
     }
-  ]
+  ],
+  "buildCommand": "node tools/site/build-all.mjs"
 }

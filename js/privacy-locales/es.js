@@ -2,10 +2,10 @@ export default {
   "title": "privacidad, sin niebla.",
   "intro": [
     "no queremos tus datos.",
-    "con tu permiso, las visitas se convierten en totales anónimos, sin cookies de rastreo.",
+    "las visitas se convierten en totales anónimos, sin cookies de seguimiento.",
     "lo poco que guardamos (un voto o código de acceso) aparece aquí y caduca."
   ],
-  "updated": "actualizado el 5 de noviembre de 2026",
+  "updated": "2026-11-06",
   "sections": [
     [
       "who",
@@ -15,12 +15,12 @@ export default {
     [
       "counts",
       "qué contamos",
-      "solo tras permitir analytics opcional: visitas, categorías generales de país y navegador, destinos conocidos y acciones sencillas de música y juegos. PostHog EU cuenta sin cookies de rastreo ni perfiles personales. procesa brevemente información de red y navegador para obtener un seudónimo diario; solo los totales resultantes son anónimos. no enviamos nombres, emails, formularios, búsquedas ni grabaciones a analytics. el mapa público y pingle solo usan ciudades con coordenadas redondeadas y al menos dos visitantes contados."
+      "PostHog EU cuenta visitas y acciones permitidas por defecto, sin cookies, almacenamiento del navegador, perfiles ni grabaciones. crea temporalmente un seudónimo diario con información de red/navegador; solo los totales son anónimos. no recibe nombres, emails ni formularios. GPC, DNT o ‘no me cuentes’ impiden cargar PostHog: solo aumenta un contador página/día, sin ID, hash ni cabeceras guardadas. esos accesos no son personas únicas."
     ],
     [
       "why",
       "por qué y con qué base",
-      "consentimiento: analytics opcional de PostHog y, por separado, pulsar reproducir para Spotify. interés legítimo: prevenir abusos y usar totales anónimos. ejecución de tu solicitud: acceso, votos, juegos, solicitudes y reservas. cierra Spotify o la página para detener la reproducción. no vendemos tus datos. respetamos do-not-track y global privacy control."
+      "el interés legítimo es la base declarada del conteo básico sin cookies y la prevención de abusos. Spotify requiere tu clic. emails de acceso, votos y reservas cumplen tu petición. puedes rechazar PostHog aquí; solo queda un acceso anónimo. no vendemos datos."
     ],
     [
       "storage",
@@ -40,16 +40,16 @@ export default {
       "browser",
       "en tu navegador",
       "cookies necesarias: sess mantiene la sesión; vid evita votos de idioma duplicados; mvid recuerda votos musicales y progreso diario. están firmadas, protegidas y no son accesibles a scripts. sess caduca en 7 días; vid y mvid en un año. nunca las usamos para identificarte en analytics.",
-      "tu elección de analytics y la versión de privacidad se guardan en este navegador durante 180 días o hasta que cambie la política. localStorage guarda tu voto de idioma, idioma, preferencia de entrada, plumas, resultados e instrucciones leídas hasta un año después de guardarlos. borrar datos del sitio elimina preferencias, no votos ya enviados.",
-      "si permites las estadísticas, esta pestaña recuerda las etiquetas públicas de la campaña de sidequests hasta que la cierres o desactives las estadísticas. agrupan las visitas, clics y veces que se comparte desde una publicación."
+      "una sola marca local privacy-choice recuerda ‘ok’ o ‘no me cuentes’. ‘ok’ añade un soldier por navegador/origen del sitio; borrar los datos puede permitir otro. no se envía esa marca a PostHog. analytics y campañas quedan en memoria, sin almacenamiento del navegador."
     ],
     [
       "outside",
       "otros servicios",
       "Spotify recibe la solicitud de reproducción solo tras tu clic y puede entonces guardar sus cookies. nuestro servidor consulta Spotify o Apple cuando envías el enlace de una canción. los mapas CARTO pasan por nuestro servidor sin enviar tu IP. Leaflet, Sortable y la biblioteca PostHog se alojan aquí.",
-      "Buy Me a Coffee y Pidgy son enlaces, no formularios integrados. sus políticas se aplican al visitarlos. /links, /go y nuestros atajos de campaña solo añaden etiquetas UTM y cuentan visitas/clics, sin captar formularios ni identidades. (analytics solo con consentimiento).",
+      "Buy Me a Coffee y Pidgy son enlaces, no formularios integrados. sus políticas se aplican al visitarlos. /links, /go y nuestros atajos de campaña solo añaden etiquetas UTM y cuentan visitas/clics, sin captar formularios ni identidades.",
       "Notion guarda mi registro manual de X. las estadísticas públicas muestran totales, etiquetas públicas de campañas y voces, y mis propios posts; los textos de respuestas y las URL de destino quedan tras el acceso privado. las campañas aprobadas y franjas región-hora acompañan la analítica opcional. las copias de Corvus caducan en 24 horas; el origen sigue mi retención en Notion. la región está pendiente de confirmar, sin promesa de almacenamiento solo en la UE.",
-      "para contar cafés, el servidor lee brevemente los registros de Buy Me a Coffee y reconoce a quienes repiten por su cuenta o correo si está disponible. solo guarda los totales y la fecha del último café durante 30 minutos."
+      "para contar cafés, el servidor lee brevemente los registros de Buy Me a Coffee y reconoce a quienes repiten por su cuenta o correo si está disponible. solo guarda los totales y la fecha del último café durante 30 minutos.",
+      "PostHog EU cuenta visitas y acciones permitidas por defecto, sin cookies, almacenamiento del navegador, perfiles ni grabaciones. crea temporalmente un seudónimo diario con información de red/navegador; solo los totales son anónimos. no recibe nombres, emails ni formularios. GPC, DNT o ‘no me cuentes’ impiden cargar PostHog: solo aumenta un contador página/día, sin ID, hash ni cabeceras guardadas. esos accesos no son personas únicas."
     ],
     [
       "where",
@@ -80,5 +80,5 @@ export default {
     "reservas",
     "registro manual de x"
   ],
-  "consentInfo": "analytics opcional permanece desactivado hasta que lo permitas. cambia tu elección aquí cuando quieras. cada origen del sitio recuerda su propia elección 180 días. rechazar no limita el sitio; solo se cuentan visitantes que aceptan. retirar el permiso detiene el tratamiento futuro, sin anular el ya realizado."
+  "consentInfo": "se cuenta por defecto. ‘ok’ cierra el aviso y cuenta un soldier; no es consentimiento para analytics. ‘no me cuentes’, GPC y DNT pasan a totales anónimos de páginas. tu elección queda hasta cambiarla o borrar datos. un rechazo se conserva si cambia el aviso."
 };

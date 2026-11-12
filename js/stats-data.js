@@ -2,7 +2,7 @@
 (() => {
   const page = document.currentScript.dataset.page;
   const today = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Brussels' }).format(new Date());
-  const input = page === 'overview' && new URLSearchParams(location.search).get('day');
+  const input = ['overview','map'].includes(page) && new URLSearchParams(location.search).get('day');
   const valid =
     typeof input === 'string' &&
     /^\d{4}-\d{2}-\d{2}$/.test(input) &&
@@ -16,10 +16,11 @@
         : input
     : today;
   const cache = new Map(),
+    checkedThisVisit = new Set(),
     pending = new Map(),
     listeners = new Map();
   const limit = (name) => ({ coffee: 1800, x: 900 })[name] || 60;
-  const storageKey = (name, day) => 'stats:snap:v1:' + name + ':' + day;
+  const storageKey = (name, day) => 'stats:snap:' + (name === 'map' ? 'v6:' : 'v1:') + name + ':' + day;
   function saved(name, day) {
     const key = storageKey(name, day);
     if (name === 'private') return null;
@@ -44,12 +45,12 @@
       old &&
       !old.stale &&
       old.state === 'ready' &&
-      (old.final || Date.now() - Date.parse(old.checked || old.updated) < limit(name) * 1000)
+      (old.final ? checkedThisVisit.has(k) : Date.now() - Date.parse(old.checked || old.updated) < limit(name) * 1000)
     )
       return Promise.resolve(old);
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 8000);
-    const promise = fetch('/api/stats?' + new URLSearchParams({ page: name, day }), {
+    const promise = fetch('/api/stats?' + new URLSearchParams({ page: name, day, ...(name === 'map' ? {geo:'6'} : {}) }), {
       credentials: name === 'private' ? 'same-origin' : 'omit',
       ...(name === 'private' ? { cache: 'no-store' } : {}),
       signal: controller.signal
@@ -65,6 +66,7 @@
         }
         if (name !== 'private') {
           cache.set(k, s);
+          checkedThisVisit.add(k);
           try {
             sessionStorage.setItem(k, JSON.stringify(s));
           } catch {}

@@ -1,3 +1,4 @@
+import { showStorageWarning } from './storage-warning.js';
 import {
   labels,
   states,
@@ -109,6 +110,7 @@ function checked() {
 function paint(body) {
   const start = performance.now();
   data = body;
+  showStorageWarning(body.storage_plaintext_until);
   const status = body.status || 'unknown';
   $('#health-title').textContent = titles[status] || titles.unknown;
   $('.beacon').dataset.state = String(['unknown', 'ok', 'degraded', 'down'].indexOf(status));
@@ -184,7 +186,8 @@ async function load() {
       data?.built_at !== body.built_at ||
       data.range !== range ||
       data.checked_at !== body.checked_at ||
-      body.historyUnavailable !== data.historyUnavailable
+      body.historyUnavailable !== data.historyUnavailable ||
+      body.storage_plaintext_until !== data.storage_plaintext_until
     )
       paint(body);
     else $('#checked').textContent = checked();

@@ -6,8 +6,21 @@ import { hogql, posthogReady, REAL } from "./_posthog.js";
 const FIRST = "2026-11-02";
 const tzDay = (d = new Date()) => new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Brussels" }).format(d);
 
-export default async function handler(req, res) {
+async function handler(req, res) {
+  if(req.query.legion === "1") return (await import("./_legion/handler.js")).default(req,res);
+  if(req.query.compoundSummary === "1") return (await import("./_compound-v2/summary.js")).default(req,res);
+  if(req.query.og === "1" || req.query.ogPage === "1") return (await import("./_og/handler.js")).default(req,res);
+  if(req.query.compoundV2 === "1") return (await import("./_compound-v2/handler.js")).default(req,res);
+  if(req.query.live === "1") return (await import("./_live.js")).default(req,res);
+  if(req.query.build === "1") return (await import("./_build-stats.js")).default(req,res);
+  if(req.query.support === "1") return (await import("./_support.js")).default(req,res);
+  if(req.query.plethora === "1") return (await import("./_plethora.js")).default(req,res);
+  if(req.query.battle === "1") return (await import("./_battle.js")).default(req,res);
+  if(req.query.nameVote === "1") return (await import("./_name-vote.js")).default(req,res);
+  if(req.query.compound === "1") return (await import("./_compound/handler.js")).default(req,res);
   if(req.query.hack === "1") return (await import("./_hack.js")).default(req,res);
+  if(req.query.report==='1')return (await import('./_report.js')).default(req,res);
+  if(req.query.notice==='1')return (await import('./_visitor-counts.js')).noticeOK(req,res);
   if(req.query.healthHistory==="1")return (await import('./_health-history.js')).default(req,res);
   if(req.query.health==="1")return (await import('./_health.js')).default(req,res);
   if(req.query.snapJob==="1")return (await import('./_stats-snap.js')).job(req,res);
@@ -37,3 +50,5 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "stats error" });
   }
 }
+
+export default async function guarded(req,res){try{return await handler(req,res);}catch{await (await import('./_function-errors.js')).recordError('stats','unhandled');return res.status(503).json({error:'service unavailable'});}}

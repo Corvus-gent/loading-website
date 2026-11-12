@@ -1,0 +1,36 @@
+import os from 'node:os';import {execFileSync} from 'node:child_process';import assert from 'node:assert/strict';import fs from 'node:fs/promises';import path from 'node:path';import http from 'node:http';import {createClient} from 'redis';import {chromium,expect} from '@playwright/test';
+Object.assign(process.env,{REDIS_URL:'redis://127.0.0.1:16380/3',SESSION_SECRET:'overlay-test-only',COMPOUND_V2_PREFIX:'test:overlay:'+Date.now()});
+const store=await import('../api/_compound-v2/store.js'),{summarize,default:handler}=await import('../api/_compound-v2/summary.js');
+const db=createClient({url:process.env.REDIS_URL}).on('error',()=>{});await db.connect();let browser,server;const root=process.cwd();let requests=0,fail=false;const fixture={ready:true,totals:{views:384260,votes:97},leader:{code:'NL-MOM-1',views:12000,votes:40},latest:['NL-MOM-1','EN-BJJ-1','PT-COMM-1'].map(code=>({type:'vote',code,choice:'up',at:new Date().toISOString()})),updated_at:new Date().toISOString()};
+try{
+ const build=await fs.mkdtemp(path.join(os.tmpdir(),'corvus-overlay-build-'));
+ try{for(const dir of ['live/overlay','games/hub','submission'])await fs.mkdir(path.join(build,dir),{recursive:true});
+ await fs.copyFile('games/index.html',path.join(build,'games/index.html'));
+ const source=await fs.readFile('live/overlay/index.html','utf8');await fs.writeFile(path.join(build,'live/overlay/index.html'),source);
+ await fs.writeFile(path.join(build,'games/hub/index.html'),'<html><head></head><body><!-- HUB_INTRO_END --><section class="plethora-catalog"></section></body></html>');
+ await fs.writeFile(path.join(build,'submission/index.html'),'<html><head></head><body></body></html>');
+ execFileSync(process.execPath,[path.join(root,'tools/build-plethora.mjs')],{cwd:build,stdio:'pipe'});
+ assert.equal(await fs.readFile(path.join(build,'live/overlay/index.html'),'utf8'),source,'production build must not inject website banners or footers into overlay');
+ }finally{await fs.rm(build,{recursive:true});}
+ await store.vote('secret-person-1','tt-gl-nl-mom1','up');await store.vote('secret-person-1','tt-gl-nl-mom1','down');await store.vote('secret-person-2','tt-gm-en-b1','down');
+ const feed=await store.latestVotes();assert.equal(feed.length,2);assert(feed.every(e=>Object.keys(e).sort().join(',')==='at,choice,slug,type'));assert((await db.ttl(store.key('public-votes')))>0);
+ await store.feedback('secret-person-1','tt-gl-nl-mom1','do not publish private feedback','private@example.com');
+ const summary=summarize(await store.report(),feed);assert.equal(summary.totals.votes,2);assert.equal(summary.latest.length,2);const serialized=JSON.stringify(summary);for(const secret of ['secret-person','private@example','do not publish','visitor','handle','referrer'])assert(!serialized.includes(secret));
+ assert.equal(summarize({videos:[],totals:{views:0,votes:0}},[]).leader,null);
+ assert.equal(summarize({videos:[{slug:'tt-gl-nl-mom1',lang:'nl',hook:'mom',n:1,views:5,votes:1},{slug:'tt-gm-en-b1',lang:'en',hook:'b',n:1,views:9,votes:0}],totals:{views:14,votes:1}},[]).leader.code,'EN-B-1');
+ const out={headers:{}};const res={setHeader(k,v){out.headers[k]=v},status(n){out.status=n;return this},json(b){out.body=b;return this},end(){return this}};await handler({method:'GET'},res);assert.equal(out.status,200);assert.equal(out.body.latest.length,2);assert.match(out.headers['Cache-Control'],/s-maxage=15/);assert(!out.headers['Set-Cookie']);await handler({method:'POST'},res);assert.equal(out.status,405);
+ const config=JSON.parse(await fs.readFile('vercel.json'));assert(config.rewrites.some(r=>r.source==='/api/compound/summary'&&r.destination==='/api/stats?compoundSummary=1'));
+ server=http.createServer(async(req,res)=>{try{const u=new URL(req.url,'http://localhost');if(u.pathname==='/api/compound/summary'){requests++;res.writeHead(fail?503:200,{'Content-Type':'application/json'});return res.end(JSON.stringify(fail?{ready:false}:fixture));}let file=path.join(root,u.pathname);if((await fs.stat(file)).isDirectory())file=path.join(file,'index.html');res.setHeader('Content-Type',({'.html':'text/html','.js':'text/javascript','.mjs':'text/javascript','.css':'text/css','.ttf':'font/ttf'})[path.extname(file)]||'application/octet-stream');res.end(await fs.readFile(file));}catch{res.writeHead(404).end();}});await new Promise(r=>server.listen(0,'127.0.0.1',r));const base='http://127.0.0.1:'+server.address().port;
+ browser=await chromium.launch();await fs.mkdir('test-results/overlay',{recursive:true});
+ for(const [query,name]of [['','transparent'],['?bg=green','green'],['?compact=1','compact'],['?bg=green&compact=1','green-compact']]){
+ const p=await browser.newPage({viewport:{width:1920,height:1080},reducedMotion:'reduce'}),errors=[],external=[];p.on('pageerror',e=>errors.push(e.message));p.on('request',r=>{if(!r.url().startsWith(base))external.push(r.url());});await p.clock.install({time:new Date('2026-11-09T16:59:00Z')});await p.goto(base+'/live/overlay/'+query);await expect(p.locator('#views')).toHaveText('384,260');await expect(p.locator('#leader')).toHaveText('Leading: NL-MOM-1');assert.equal(await p.locator('#events p').count(),3);assert.equal(await p.locator('#qr svg').count(),1);assert.equal(await p.locator('.join').getAttribute('href'),'https://corvus.gent/live?utm_source=stream&utm_medium=qr');
+ assert.equal(await p.evaluate(()=>getComputedStyle(document.body).backgroundColor),query.includes('green')?'rgb(0, 255, 0)':'rgba(0, 0, 0, 0)');assert.equal(await p.evaluate(()=>getComputedStyle(document.querySelector('.dot')).animationName),'none');
+ await expect(p.locator('#countdown')).toHaveText('00:00:01:00');await p.screenshot({path:'test-results/overlay/'+name+'.png',omitBackground:true});
+ const before=requests;await p.clock.runFor(15001);await expect.poll(()=>requests).toBeGreaterThan(before);await expect(p.locator('#countdown')).toHaveText('00:00:00:45');
+ fail=true;await p.clock.runFor(15000);await expect(p.locator('#connection')).toHaveClass(/stale/);await expect(p.locator('#views')).toHaveText('384,260');fail=false;
+ await p.clock.runFor(30000);await expect(p.locator('#countdown')).toHaveText('challenge ended');
+ assert.deepEqual(errors,[]);assert.deepEqual(external,[]);assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth||document.documentElement.scrollHeight>innerHeight),false);await p.close();
+ }
+ const small=await browser.newPage({viewport:{width:1280,height:720}});await small.goto(base+'/live/overlay/');await expect(small.locator('#views')).toHaveText('384,260');const box=await small.locator('#stage').boundingBox();assert.equal(Math.round(box.width),1280);assert.equal(Math.round(box.height),720);await small.close();
+ console.log('PASS: anonymous atomic vote feed/dedupe/TTL, no private feedback/IDs; small cached GET; leader ordering; 1920×1080 transparent/green/compact; 1280×720 scaling; tracked local QR; 15s refresh; ticking deadline/ended; failed refresh retains totals; no external requests, banners, overflow or JS errors.');
+}catch(e){console.error(e);process.exitCode=1;}finally{await browser?.close();server?.close();const keys=await db.keys(process.env.COMPOUND_V2_PREFIX+':*');if(keys.length)await db.del(keys);await db.quit();process.exit(process.exitCode||0);}

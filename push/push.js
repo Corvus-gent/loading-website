@@ -1,0 +1,22 @@
+import {$,node,api,copy,toast,format} from '/compound/v2/client.js?v=20261109code1';
+import {tags} from '/compound/client.js?v=20261107social1';
+import {COMMENTS,NAMES,shareText} from './config.js?v=20261109push1';
+let selected,deadline='2026-11-09T17:00:00Z',loadedURL='',seenURL='',loading=false;
+function track(action){if(!selected)return;const t=tags();fetch('/api/compound-v2',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify({...t,action:'push_event',type:action,slug:selected.slug,attribution:{...t.attribution,utm_content:'push'}}),keepalive:true}).catch(()=>{});}
+function tick(){const s=Math.max(0,Math.floor((Date.parse(deadline)-Date.now())/1000));$('clock').textContent=s?`${Math.floor(s/3600)}h ${String(Math.floor(s/60)%60).padStart(2,'0')}m ${String(s%60).padStart(2,'0')}s left · $1,000 on the line`:'the challenge has ended. the video lives on.';$('clock').classList.toggle('ended',!s);}tick();setInterval(tick,1000);
+function draft(){return selected?shareText(selected.url):'';}
+function comments(){const lang=$('language').value;const choices=COMMENTS[lang]||COMMENTS.en;$('suggestions').replaceChildren(...choices.map(text=>{const b=node('button',text,'button');b.type='button';b.onclick=()=>{$('comment').value=text;};return b;}));$('comment').value=choices[0];}
+for(const [id,label]of Object.entries(NAMES)){const o=node('option',label);o.value=id;$('language').append(o);}$('language').value=COMMENTS[navigator.language.slice(0,2)]?navigator.language.slice(0,2):'en';$('language').onchange=comments;comments();
+async function load(){if(loading)return;loading=true;try{const data=await api(null,'?push=1');deadline=data.deadline;tick();if(!data.winner){$('post').hidden=true;$('load-status').textContent='The army’s pick is coming. Explore all the cuts while Gabe chooses the post.';$('retry').hidden=false;return;}selected=data.winner;$('post').hidden=false;$('load-status').textContent='the army’s pick · '+({tt:'TikTok',ig:'Instagram',x:'X'}[selected.platform]);$('load-status').classList.remove('error');$('retry').hidden=true;
+ $('views').textContent=selected.views===null?'not updated yet':format(selected.views);$('view-label').textContent=selected.views===null?'':'reported views';$('metric-note').textContent=selected.updated_at?`${selected.metric_source==='oriane'?'synced':'entered by Gabe'} · ${new Date(selected.updated_at).toLocaleString()}`:'Social views have not been entered yet.';
+ $('watch').href=$('open-comments').href=selected.url;$('whatsapp').href='https://wa.me/?text='+encodeURIComponent(draft());
+ if(loadedURL&&loadedURL!==selected.url){$('player').querySelector('iframe')?.remove();$('player').classList.remove('loaded');$('load-player').hidden=$('player-note').hidden=false;loadedURL='';}
+ if(seenURL!==selected.url){seenURL=selected.url;track('view');}
+ }catch(e){$('load-status').textContent=(selected?'Showing the last loaded post. ':'')+e.message;$('load-status').classList.add('error');$('retry').hidden=false;}finally{loading=false;}}
+$('retry').onclick=load;$('watch').onclick=$('open-comments').onclick=()=>track('watch');
+$('load-player').onclick=()=>{if(!selected)return;const frame=node('iframe');frame.title='The army’s selected post';frame.allow='fullscreen; encrypted-media';frame.allowFullscreen=true;frame.referrerPolicy='strict-origin-when-cross-origin';frame.src=selected.platform==='tt'?`https://www.tiktok.com/player/v1/${selected.id}`:selected.platform==='ig'?selected.url.replace(/\/?$/,'/embed/'):`https://platform.twitter.com/embed/Tweet.html?id=${selected.id}&theme=dark`;frame.onload=()=>{$('load-player').hidden=$('player-note').hidden=true;};$('player').append(frame);$('player').classList.add('loaded');loadedURL=selected.url;track('watch');};
+$('comment-action').onclick=()=>{$('comments').hidden=false;$('comments').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'center'});};
+$('copy-comment').onclick=async()=>{if(!$('comment').value.trim())return;await copy($('comment').value.trim());track('comment');};
+$('share').onclick=async()=>{try{if(navigator.share)await navigator.share({text:draft()});else await copy(draft());track('share');}catch(e){if(e.name!=='AbortError'){await copy(draft());track('share');}}};
+for(const id of ['discord','copy-share'])$(id).onclick=async()=>{await copy(draft());track('share');};$('whatsapp').onclick=()=>track('share');
+load();setInterval(()=>{if(!document.hidden)load();},30000);

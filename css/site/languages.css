@@ -1,0 +1,55 @@
+/* The original polyglot bar, also on pages that do not load styles.css. */
+#lang-switcher[data-site-languages] {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex: none;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0 10px;
+  width: 100%;
+  margin: 0;
+  padding: 4px 8px;
+  box-sizing: border-box;
+  font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: .2px;
+}
+#lang-switcher[data-site-languages] a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  color: var(--muted, #999);
+  text-decoration: none;
+}
+#lang-switcher[data-site-languages] a.active,
+#lang-switcher[data-site-languages] a:hover { color: var(--fg, #eee); }
+#lang-switcher[data-site-languages] a:focus-visible { outline: 1px solid currentColor; }
+
+@media (min-width: 701px) {
+  /* Keep both rows reachable even on legacy pages with a global nav margin. */
+  body.site-shell:has(> [data-site-languages]) {
+    --language-row: 36px;
+    padding-top: calc(var(--site-nav-height, 58px) + var(--language-row)) !important;
+  }
+  body.site-shell > #lang-switcher[data-site-languages] {
+    position: fixed;
+    inset: 0 0 auto;
+    height: var(--language-row);
+    z-index: 41;
+    background: #080808;
+  }
+  body.site-shell:has(> [data-site-languages]) > .site-nav {
+    top: var(--language-row);
+    margin-top: 0;
+  }
+}
+
+/* The standalone client previews have a fixed header of their own. */
+body > #lang-switcher[data-site-languages]:has(~ header.header) {
+  position: sticky;
+  top: 0;
+  z-index: 1001;
+  background: #080808;
+}
+body > [data-site-languages] ~ header.header { top: 36px; }

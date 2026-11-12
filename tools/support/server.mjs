@@ -1,0 +1,7 @@
+import http from 'node:http';import fs from 'node:fs/promises';import path from 'node:path';
+if(process.env.REDIS_URL!=='redis://127.0.0.1:16380/8')throw Error('Local Redis DB 8 only');
+const {default:handler}=await import('../../api/_support.js');const root=process.cwd(),types={'.html':'text/html','.js':'text/javascript','.mjs':'text/javascript','.css':'text/css','.json':'application/json','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.mp4':'video/mp4'};
+http.createServer(async(req,res)=>{const u=new URL(req.url,'http://127.0.0.1:4395');try{
+ if(u.pathname==='/api/support'||/^\/go\/(call|bmc|dinner|roll)-(li|x)\/?$/.test(u.pathname)){const query=Object.fromEntries(u.searchParams);if(u.pathname.startsWith('/go/'))query.slug=u.pathname.split('/')[2];const chunks=[];for await(const chunk of req)chunks.push(chunk);const adapter={setHeader:(k,v)=>res.setHeader(k,v),status:n=>(res.statusCode=n,adapter),json:b=>{res.setHeader('Content-Type','application/json');res.end(JSON.stringify(b));},end:b=>res.end(b)};return await handler({method:req.method,query,headers:req.headers,body:Buffer.concat(chunks).toString()},adapter);}
+ let f=path.resolve(root,'.'+decodeURIComponent(u.pathname));if(!f.startsWith(root+path.sep)&&f!==root)throw Error();if((await fs.stat(f)).isDirectory())f=path.join(f,'index.html');res.setHeader('Content-Type',types[path.extname(f)]||'application/octet-stream');res.end(await fs.readFile(f));
+ }catch{res.statusCode=404;res.end('not found');}}).listen(4395,'127.0.0.1',()=>console.log('Support QA server :4395'));

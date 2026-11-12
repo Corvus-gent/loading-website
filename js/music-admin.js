@@ -1,5 +1,5 @@
-import {initI18n,t} from './i18n.js';
-import {$,esc,label,genres,request} from './music-shared.js';
+import {initI18n,t} from './i18n.js?v=20261108live1';
+import {$,esc,label,genres,request} from './music-shared.js?v=20261108live1';
 let state={tracks:[],suggestions:[],revision:null},dirty=false,busy=false,email='',editing=null,sortable=null;
 const msg=text=>{$('notice').textContent=text || '';};
 const options=chosen=>genres.map(genre=>`<option value="${esc(genre)}" ${chosen===genre?'selected':''}>${esc(genre)}</option>`).join('');

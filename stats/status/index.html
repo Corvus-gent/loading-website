@@ -13,12 +13,12 @@
     <meta property="og:url" content="https://stats.corvus.gent/status" />
     <meta name="referrer" content="no-referrer" />
     <link rel="icon" href="/img/link-crow.svg" />
-    <link rel="stylesheet" href="/styles.css?v=4d681edec0fb" />
-    <link rel="stylesheet" href="/privacy/privacy.css?v=202ae89baeff" />
+    <link rel="stylesheet" href="/styles.css?v=c5cabf3f1a64" />
+    <link rel="stylesheet" href="/privacy/privacy.css?v=158032e36fdb" />
     <link rel="stylesheet" href="/stats/status/status.css?v=a67b7aa111fa" />
-    <script type="module" src="/js/stats-status.js?v=27860c5896cf"></script>
-  </head>
-  <body class="status-page" data-stat-page="status">
+    <script type="module" src="/js/stats-status.js?v=5c3a431be724"></script>
+  <!-- SITE_HEAD --><script type="module" src="/js/live-banner.js?v=20261108live1"></script><link rel="stylesheet" href="/plethora/promo.css?v=20261108live1"><link rel="stylesheet" href="/css/site/shell.css?v=20261111layers1"><script type="module" src="/js/site/shell.js?v=20261111layers1"></script><!-- /SITE_HEAD --></head>
+  <body class="status-page site-shell" data-stat-page="status"><!-- SITE_NAV --><nav class="site-nav" aria-label="Corvus sections" data-site-shell><a class="site-mark" href="/" aria-label="Corvus home">corvus ↟</a><a href="/quests/">Quests</a><a href="/daily/">Daily</a><a href="/legion/">Legion</a><a href="/live/" aria-current="page">Live</a><a href="/gabe/">Gabe</a><button class="site-search-button" data-site-search aria-label="Find a page">/ search</button></nav><div class="site-section" data-site-shell><a href="/live/">corvus / live</a><button class="site-search-button" data-site-search aria-label="Find a page">/ find a page</button></div><!-- /SITE_NAV -->
     <main>
       <header class="mast">
         <a class="brand" href="https://corvus.gent/realm/"
@@ -33,7 +33,7 @@
         ><a href="/music" data-stat="music" data-i18n="nav.music">music</a
         ><a href="/hunt" data-stat="hunt" data-i18n="stats.hunt">hunt</a><a href="/x" data-stat="x">x</a
         ><a href="/coffee" data-stat="coffee" data-i18n="coffee.nav">coffee</a
-        ><a href="/status" data-stat="status">status</a>
+        ><a href="/army" data-stat="army">army</a><a href="/status" data-stat="status">status</a>
       <a href="https://stats.corvus.gent/hack" data-stat="hack">hackthefeed</a></nav>
       <section class="beacon" data-state="0">
         <div>
@@ -59,6 +59,7 @@
           </g>
         </svg>
       </section>
+      <p id="storage-warning" hidden role="status" style="color:#d1a54d;font-size:.75rem">storage link not encrypted</p>
       <dl class="metrics">
         <div>
           <dt>uptime · 24h</dt>
@@ -123,14 +124,13 @@
         </header>
         <ol id="incidents"></ol>
       </section>
-      <footer>
-        <button class="stat-copy" type="button">copy status link ↗</button
-        ><a href="/privacy/" data-privacy-link>privacy</a>
+      <footer><button class="stat-copy" type="button">copy status link ↗</button
+        >
         <div id="lang-switcher" class="lang-switcher"></div>
       </footer>
     </main>
-    <script defer src="/js/analytics.js?v=811c28467bec"></script>
-    <script type="module" src="/js/privacy.js?v=2c0385e220c2"></script>
-    <script type="module" src="/js/stats-nav.js?v=7a7db1987334"></script>
-  </body>
+    <script defer src="/js/analytics.js?v=20261109ia1"></script>
+    <script type="module" src="/js/privacy.js?v=d02abbbb55c5"></script>
+    <script type="module" src="/js/stats-nav.js?v=20261108live1"></script>
+  <!-- SITE_NEXT --><footer class="site-next site-quiet-footer" data-site-shell><a href="/" aria-label="Corvus home"><img src="/logo.png" width="28" height="28" alt="Corvus"></a><a href="/map/">map</a><a href="#lang-switcher">language</a><a href="/privacy/">privacy</a></footer><!-- /SITE_NEXT --></body>
 </html>

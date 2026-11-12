@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { safeEqual } from './_session.js';
-import { redis, pipeline } from './_redis.js';
+import { redis, pipeline, plaintextExceptionUntil } from './_redis.js';
 import { dailyIPHash, rateLimit } from './_privacy.js';
 import { hogql } from './_posthog.js';
 import { brusselsDay } from './_stats-daily.js';
@@ -29,7 +29,8 @@ export function checks({
   batch = pipeline,
   query = hogql,
   now = Date.now,
-  refresh = (page) => build(page, brusselsDay())
+  refresh = (page) => build(page, brusselsDay()),
+  enqueue = waitUntil
 } = {}) {
   const optional = (enabled, run) => (enabled ? run : null);
   async function get(url, options = {}, statuses = [200]) {
@@ -81,23 +82,18 @@ export function checks({
       ),
     snapshots: async () => {
       const day = brusselsDay(new Date(now()));
-      const stalePages = async () => {
-        const rows = await store(['MGET', ...pages.map((p) => 'stats:snap:' + p + ':' + day)]);
-        return pages.filter((page, i) => {
-          const s = JSON.parse(rows[i]);
-          return !s || s.state !== 'ready' || now() - Date.parse(s.updated) > ttl(page) * 1000;
-        });
-      };
-      const stale = await stalePages();
-      if (stale.length) {
-        // A quiet page can be stale by design. Give its background refresh a chance
-        // inside the probe's deadline. A visitor never awaits this check.
-        const work = Promise.allSettled(stale.map(refresh));
-        waitUntil(work);
-        await work;
-        const remaining = await stalePages();
-        if (remaining.length) throw new CheckError('stale or missing: ' + remaining.join(', '));
-      }
+      const rows=await store(['MGET',...pages.map(p=>'stats:snap:'+p+':'+day)]);
+      const stale=[],broken=[];
+      pages.forEach((page,i)=>{
+        let s;try{s=JSON.parse(rows[i]||'null');}catch{}
+        const age=s?now()-Date.parse(s.updated):Infinity;
+        if(!s||s.state!=='ready'||age>ttl(page)*1000)stale.push(page);
+        // TTL is a refresh target, not a 60-second outage alarm for quiet pages.
+        // A missing/failed snapshot or >15 min stale data still fails honestly.
+        if(!s||s.state!=='ready'||!Number.isFinite(age)||age>Math.max(900,ttl(page)*2)*1000)broken.push(page);
+      });
+      if(stale.length)enqueue(Promise.allSettled(stale.map(refresh)));
+      if(broken.length)throw new CheckError('stale or missing: '+broken.join(', '));
     },
     redis: async () => {
       const id = randomUUID(),
@@ -202,7 +198,8 @@ export function publicResult(sample) {
         { ok, ms, ...(skipped ? { skipped: true } : {}) }
       ])
     ),
-    checked_at: sample.checked_at
+    checked_at: sample.checked_at,
+    storage_plaintext_until: plaintextExceptionUntil()
   };
 }
 // Transition and reserve a delivery atomically. Unacknowledged delivery is retried

@@ -1,4 +1,4 @@
-import {sourceCategory} from './analytics-policy.js';
+import {sourceCategory} from './analytics-policy.js?v=20261109ia1';
 import {campaignSlug, contentSlot} from './x-attribution.js';
 
 const platforms = {li:'linkedin',ig:'instagram',tt:'tiktok',dc:'discord',bmc:'buymeacoffee',yt:'youtube',fb:'facebook'};

@@ -1,0 +1,13 @@
+import {isConfigured} from '../../../../compound/impact/accounts.js';
+let cached;
+export default async function twitch(account,{includeArchives=false,fetcher=fetch}={}){
+ if(!process.env.TWITCH_CLIENT_ID||!process.env.TWITCH_CLIENT_SECRET)return{mode:'not_configured',posts:[],note:'Helix requires app credentials.',error:'TWITCH_CLIENT_ID / TWITCH_CLIENT_SECRET not configured.'};
+ async function json(url,options={}){const r=await fetcher(url,{...options,signal:AbortSignal.timeout(8000)});if(!r.ok)throw Error('Twitch HTTP '+r.status+': '+(await r.text()).replace(/access_token[^,}]+/g,'access_token [redacted]').slice(0,250));return r.json();}
+ if(!cached||cached.until<Date.now()){const auth=await json('https://id.twitch.tv/oauth2/token',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({client_id:process.env.TWITCH_CLIENT_ID,client_secret:process.env.TWITCH_CLIENT_SECRET,grant_type:'client_credentials'})});if(!auth.access_token)throw Error('Twitch returned no app token.');cached={token:auth.access_token,until:Date.now()+(auth.expires_in-60)*1000};}
+ const get=(endpoint,params)=>json('https://api.twitch.tv/helix/'+endpoint+'?'+new URLSearchParams(params),{headers:{Authorization:'Bearer '+cached.token,'Client-Id':process.env.TWITCH_CLIENT_ID}});
+ const user=(await get('users',{login:account})).data?.[0];if(!user)throw Error('Twitch account not found: '+account);
+ const posts=[],clips=(await get('clips',{broadcaster_id:user.id,first:'30',started_at:new Date(Date.now()-30*86400000).toISOString()})).data||[];
+ for(const c of clips){if(c.broadcaster_id!==user.id)continue;posts.push({post_url:c.url,account,label:c.title,posted_at:c.created_at,views:c.view_count,thumbnail_url:c.thumbnail_url,original_by_gabe:isConfigured('tw',account),post_type:'original',media_type:'video',native_video:true,video_kind:'clip'});}
+ for(const type of ['highlight','upload',...(includeArchives?['archive']:[])]){const data=(await get('videos',{user_id:user.id,type,first:'30',sort:'time'})).data||[];for(const v of data)if(v.user_id===user.id&&v.type===type)posts.push({post_url:v.url,account,label:v.title,posted_at:v.created_at,views:v.view_count,thumbnail_url:v.thumbnail_url?.replace('%{width}','640').replace('%{height}','360'),original_by_gabe:isConfigured('tw',account),post_type:'original',media_type:'video',native_video:true,video_kind:type});}
+ return{mode:'twitch-helix',posts:posts.sort((a,b)=>Date.parse(b.posted_at)-Date.parse(a.posted_at)).slice(0,30),error:null,note:'Clips (last 30 days), highlights and uploads'+(includeArchives?', including archived broadcasts.':'; raw past broadcasts excluded.')};
+}

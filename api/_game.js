@@ -47,7 +47,12 @@ export function applyGuess(p,s,value,now=Date.now()){if(s.done)return;const text
  return valid;}
 async function save(key,s){await redis(['SET',key,JSON.stringify(s),'EX','172800']);}
 export default async function game(req,res){res.setHeader('Cache-Control','no-store');if(!connected()||!secret())return res.status(503).json({error:'the puzzle is resting. try again soon.'});const day=dateKey();if(req.query.day&&req.query.day!==day)return res.status(404).json({error:'only today is open'});if(!['GET','POST'].includes(req.method))return res.status(405).end();let lock;
- try {if(!await rateLimit(`game:rate:${ipHash(req)}`,120,60))return res.status(429).json({error:'slow down a little'});if(req.method==='POST'&&(!req.headers.origin||new URL(req.headers.origin).host!==req.headers.host))return res.status(403).end();const vid=req.method==='POST'?readVoter(req):ensureVoter(req,res);if(!vid)return res.status(401).json({error:'open today’s puzzle first'});const key=`game:state:${day}:${vid}`;lock=`${key}:lock`;const token=crypto.randomBytes(12).toString('hex');if(!await redis(['SET',lock,token,'NX','EX','15']))return res.status(409).json({error:'a guess is already being checked'});lock={key:lock,token};const p=await puzzle(day);let s=JSON.parse(await redis(['GET',key])||'null')||{history:[],cells:[],started:Date.now(),deadline:null};
+ try {if(!await rateLimit(`game:rate:${ipHash(req)}`,120,60))return res.status(429).json({error:'slow down a little'});if(req.method==='POST'&&(!req.headers.origin||new URL(req.headers.origin).host!==req.headers.host))return res.status(403).end();let vid=readVoter(req);
+ // one game per device per day: losing the cookie must not hand out a fresh board (that made brute-forcing trivial).
+ // device = daily-salted ip hash + user agent; kept 2 days, never the raw ip.
+ const device=`game:device:${day}:${ipHash(req,'game')}:${crypto.createHash('sha256').update(String(req.headers['user-agent']||'')).digest('base64url').slice(0,16)}`;
+ if(req.method==='GET'){if(!vid)vid=ensureVoter(req,res,await redis(['GET',device]));await redis(['SET',device,vid,'NX','EX','172800']);}
+ if(!vid)return res.status(401).json({error:'open today’s puzzle first'});const key=`game:state:${day}:${vid}`;lock=`${key}:lock`;const token=crypto.randomBytes(12).toString('hex');if(!await redis(['SET',lock,token,'NX','EX','15']))return res.status(409).json({error:'a guess is already being checked'});lock={key:lock,token};const p=await puzzle(day);let s=JSON.parse(await redis(['GET',key])||'null')||{history:[],cells:[],started:Date.now(),deadline:null};
  if(req.method==='POST'){const body=typeof req.body==='string'?JSON.parse(req.body):req.body;if(!body||body.day!==day)return res.status(409).json({error:'a new day has begun. reload the puzzle.'});
  if(body.action==='start'){if(p.type!=='flags')return res.status(400).end();if(!s.deadline){s.started=Date.now();s.deadline=Date.now()+10000;await save(key,s);}return res.json(publicPuzzle(p,s));}
  if(body.action==='reveal'){if(p.type!=='lantern'||s.done)return res.status(400).end();const cell=Number(body.cell);if(!Number.isInteger(cell)||cell<0||cell>=100)return res.status(400).end();if(!s.cells.includes(cell))s.cells.push(cell);await save(key,s);const x=cell%10*40,y=Math.floor(cell/10)*24;const text=fold(p.answer);const img=await sharp(Buffer.from(`<svg width="400" height="240" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="240" fill="#090909"/><text x="35" y="130" font-size="52" font-family="monospace" fill="#ffd76a">${text}</text></svg>`)).png().extract({left:x,top:y,width:40,height:24}).toBuffer();res.setHeader('Content-Type','image/png');return res.send(img);}
@@ -74,5 +79,12 @@ export default async function game(req,res){res.setHeader('Cache-Control','no-st
  const committed=await redis(['EVAL',transaction,'6',key,`games:day:${day}`,'games:all',`games:type:${p.type}`,`game:streak:${vid}`,'games:best',JSON.stringify(s),String(previous),s.done?'1':'0',s.solved?'1':'0',String(s.history.length),JSON.stringify({day,streak:s.streak||0}),String(s.streak||0)]);
  if(!Number(committed))return res.status(409).json({error:'refresh to restore your latest guess'});
  }
- await save(key,s);const result=publicPuzzle(p,s);if(s.map)result.map=s.map;return res.json(result);
+ await save(key,s);const result=publicPuzzle(p,s);if(s.map)result.map=s.map;
+ // Army is optional: an invitation/account opts this browser in. A failure here
+ // must never take the existing daily game or its counters down.
+ if(/(?:^|;\s*)army_(?:id|ref|session)=/.test(req.headers.cookie||''))try{
+  const {armyService}=await import('./_army/_service.js'),{rateHash}=await import('./_army/_security.js');const army=armyService(),user=await army.identity(req,res,{create:true});
+  if(user){const updated=s.done&&s.finishedAt-s.started>=3000?await army.store.complete(user.id,{day,type:p.type,streak:s.streak,solved:s.solved},rateHash(req,'referral',Date.now())):user;result.army=await army.self(updated);}
+ }catch{}
+ return res.json(result);
  }catch(e){return res.status(/choose|enter|pick/.test(e.message)?400:503).json({error:/choose|enter|pick/.test(e.message)?e.message:'the lantern needs a moment. try again.'});}finally{if(lock?.token)await redis(['EVAL',"if redis.call('GET',KEYS[1])==ARGV[1] then return redis.call('DEL',KEYS[1]) end return 0",'1',lock.key,lock.token]).catch(()=>{});}}

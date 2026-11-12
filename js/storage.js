@@ -18,3 +18,19 @@ export function readPreference(key, fallback = null) {
     return item;
   } catch { return fallback; }
 }
+
+export function readLanguagePreference() {
+  try {
+    const cookie = document.cookie.split(';').map(part => part.trim()).find(part => part.startsWith('corvus_lang='));
+    if (cookie) return cookie.slice('corvus_lang='.length);
+  } catch { /* An embedded page may not have cookie access. */ }
+  return readPreference('lang');
+}
+
+export function saveLanguagePreference(code) {
+  savePreference('lang', code);
+  try {
+    const domain = /(?:^|\.)corvus\.gent$/.test(location.hostname) ? '; Domain=corvus.gent' : '';
+    document.cookie = `corvus_lang=${code}; Max-Age=31536000; Path=/; SameSite=Lax; Secure${domain}`;
+  } catch { /* The language still works through ?lang=. */ }
+}

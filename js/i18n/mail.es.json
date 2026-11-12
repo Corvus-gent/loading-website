@@ -1,0 +1,16 @@
+{
+  "claim.subject": "reclama tu nombre.",
+  "claim.body": "tu placa espera. abre el enlace y confirma. caduca en 30 minutos.\n\n{url}\n\n¿no fuiste tú? ignóralo. — el cuervo",
+  "confirm.subject": "un pequeño sí.",
+  "confirm.body": "pediste {kind}. confirma aquí:\n\n{url}\n\nsin clic, sin recordatorios. caduca en 30 minutos. — el cuervo",
+  "daily.subject": "la linterna trae un acertijo.",
+  "daily.body": "misión #{number}: {type}.\nun pequeño reto. trae tu cabeza.\nracha: {streak}. rango: {rank}.\n\n{url}\n\ndarse de baja: {unsubscribe}\n— el cuervo",
+  "weekly.subject": "la entrega semanal.",
+  "weekly.body": "soldado de la semana: {winner}.\nun temazo: {song}.\nuna pista: los rincones tranquilos te ven.\n\n{url}\n\ndarse de baja: {unsubscribe}\n— diógenes",
+  "welcome.subject": "estás dentro, soldado.",
+  "welcome.body": "gabe abrió la puerta. trae curiosidad. ayuda a alguien.\n\n{url}\n\n— el cuervo",
+  "reject.subject": "esta vez no.",
+  "reject.body": "gracias por llamar. esta vez la puerta sigue cerrada. un pequeño ejército busca a su gente. tu solicitud se elimina en 30 días.\n\ngestionarla o borrarla ahora: {url}\n— el cuervo",
+  "expiry.subject": "el cuervo lo deja ir.",
+  "expiry.body": "tu solicitud llegó al límite de 90 días y será eliminada. siempre puedes volver a llamar.\n\n{url}\n— el cuervo"
+}

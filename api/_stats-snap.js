@@ -1,11 +1,12 @@
 import { randomUUID } from 'node:crypto';
 import { waitUntil } from '@vercel/functions';
-import { redis } from './_redis.js';
+import { redis, plaintextExceptionUntil } from './_redis.js';
 import { brusselsDay } from './_stats-daily.js';
 import { getSession, safeEqual } from './_session.js';
 
 export const pages = [
   'overview',
+  'army',
   'pidgy',
   'games',
   'map',
@@ -19,6 +20,7 @@ export const pages = [
 // The first screen has its own small payload. Detail tables are projected only
 // after a fresh session check, when the dashboard scrolls to that section.
 const dashboardTables = [
+  'army',
   'outbound',
   'funnel',
   'links',
@@ -67,10 +69,11 @@ export async function build(
   if (!(await store(['SET', lock, token, 'NX', 'EX', '55']))) return;
   try {
     const previous = JSON.parse(await store(['GET', k]));
-    if (previous?.final || (!force && fresh(previous, page, day))) return;
+    if (!force && fresh(previous, page, day)) return;
     const tasks = (makeTasks || (await import('./_stats-build.js')).snapshotTasks)(page, day);
-    const data = { ...previous?.data },
-      dates = { ...previous?.dates },
+    const data = { ...(page === 'map' && previous?.data?.geoVersion !== 6 ? {} : previous?.data) },
+      dates = { ...(page === 'map' && previous?.data?.geoVersion !== 6 ? {} : previous?.dates) },
+      timings = { ...(page === 'map' && previous?.data?.geoVersion !== 6 ? {} : previous?.timings) },
       missing = new Set(Object.keys(tasks));
     const now = timestamp();
     let successes = 0;
@@ -87,6 +90,7 @@ export async function build(
         day,
         data: { ...data },
         dates: { ...dates },
+        timings: {...timings},
         missing: [...missing],
         updated: Object.values(dates).sort()[0] || now,
         checked: now,
@@ -115,6 +119,7 @@ export async function build(
     }
     const work = Promise.all(
       Object.entries(tasks).map(async ([name, run]) => {
+        const taskStart=performance.now();
         // Reuse identical day-level source queries across pages during a cron run.
         const sharedName =
           ['countries', 'feathers', 'terminal', 'counters'].includes(name) && page !== 'private'
@@ -131,7 +136,10 @@ export async function build(
           missing.delete(name);
           successes++;
         } catch {
+          await (await import('./_function-errors.js')).recordError('snapshot',page+':'+name);
           /* Retain the previous value and its timestamp. */
+        } finally {
+          timings[name]=Math.round(performance.now()-taskStart);
         }
       })
     );
@@ -166,7 +174,7 @@ export async function build(
   }
 }
 export function fresh(s, page, day) {
-  if (!s || s.day !== day) return false;
+  if (!s || s.day !== day || (page === 'map' && s.data?.geoVersion !== 6)) return false;
   if (day < brusselsDay() && !s.final)
     return s.missing?.length && Date.now() - Date.parse(s.checked) < 15000;
   return s.final || Date.now() - Date.parse(s.checked) < (s.missing?.length ? 15 : ttl(page)) * 1000;
@@ -191,15 +199,16 @@ export async function serve(
   )
     return res.status(400).json({ error: 'invalid page or day' });
   const priv = page === 'private';
+  const transport = priv ? { storage_plaintext_until: plaintextExceptionUntil() } : {};
   let user;
   if (priv) {
     res.setHeader('Vary', 'Cookie');
     try {
       user = await bounded(session(req), 800);
     } catch {
-      return res.status(200).json({ page, day, state: 'unavailable', reason: 'storage', data: null });
+      return res.status(200).json({ page, day, state: 'unavailable', reason: 'storage', data: null, ...transport });
     }
-    if (!user) return res.status(200).json({ page, day, state: 'login', data: null });
+    if (!user) return res.status(200).json({ page, day, state: 'login', data: null, ...transport });
   }
   const past = day < today;
   let snap,
@@ -225,7 +234,8 @@ export async function serve(
     )
       snap = last;
   }
-  const historicalBuild = !past || ['overview', 'hunt'].includes(page);
+  if (page === 'map' && snap?.data?.geoVersion !== 6) snap = null;
+  const historicalBuild = !past || ['overview', 'hunt', 'map'].includes(page);
   // As-of snapshots for cumulative pages cannot be reconstructed retroactively.
   const sealed = past && snap?.day === day && snap.state === 'ready' && !historicalBuild;
   const stale = !sealed && !fresh(snap, page, day);
@@ -253,6 +263,7 @@ export async function serve(
             : 'history',
       data: null,
       updated: null,
+      ...transport,
       ...(priv ? { viewer: user.email } : {})
     });
   if (!priv && snap.state !== 'partial')
@@ -287,6 +298,7 @@ export async function serve(
         : snap.state === 'partial'
           ? { reason: lock ? 'building' : 'source', working: !!lock && lock !== 'retry' }
           : {}),
+      ...transport,
       ...(priv ? { viewer: user.email } : {})
     });
 }
@@ -299,9 +311,22 @@ export async function job(req, res) {
     !safeEqual(req.headers.authorization || '', 'Bearer ' + process.env.CRON_SECRET)
   )
     return res.status(401).json({ error: 'unauthorized' });
+  if(req.query?.posthogConfig!==undefined){
+    if(req.method!=='POST'||req.query.posthogConfig!=='inspect')return res.status(405).json({error:'invalid maintenance action'});
+    try{return res.status(200).json(await (await import('./_posthog-config.js')).configureCookieless());}
+    catch{return res.status(503).json({error:'project configuration unavailable'});}
+  }
+  if (req.query?.day !== undefined) {
+    if (req.method !== 'POST') return res.status(405).json({ error: 'use POST for a dated rebuild' });
+    const { rebuildDay } = await import('./_stats-rebuild.js');
+    try { return res.status(200).json(await rebuildDay(req.query.day)); }
+    catch (error) { return res.status(error.message === 'invalid day' ? 400 : 503).json({ error: error.message === 'invalid day' ? 'invalid day' : 'rebuild unavailable' }); }
+  }
   const today = brusselsDay(),
     yesterday = new Date(Date.parse(today) - 86400000).toISOString().slice(0, 10);
   const work = async () => {
+    // Expire editorial interview photos even on days without public page visits.
+    await (await import('./_interviews/photos.js')).cleanupPhotos().catch(() => {});
     const shared = new Map(),
       cursor = (await redis(['GET', 'stats:backfill'])) || firstDay;
     await Promise.all(pages.map((page) => build(page, today, { shared, force: true })));

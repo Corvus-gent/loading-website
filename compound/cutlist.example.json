@@ -1,0 +1,8 @@
+{
+  "transitions": [
+    {"id":"hook","start":0,"end":3,"label":"the hook"},
+    {"id":"reveal","start":3,"end":7,"label":"hard cut + reveal"},
+    {"id":"ending","start":7,"end":12,"label":"the payoff"}
+  ],
+  "cues": [{"t":6,"q":"this reveal: keep or kill?","options":["keep","kill"]}]
+}

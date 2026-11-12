@@ -1,0 +1,16 @@
+{
+  "claim.subject": "claim je naam.",
+  "claim.body": "je dog tag ligt klaar. open de link en bevestig. hij vervalt over 30 minuten.\n\n{url}\n\nniet jij? negeer dit. — de kraai",
+  "confirm.subject": "één kleine ja.",
+  "confirm.body": "je vroeg om {kind}. bevestig hier:\n\n{url}\n\ngeen klik, geen mails. vervalt over 30 minuten. — de kraai",
+  "daily.subject": "de lantaarn heeft een puzzel.",
+  "daily.body": "missie #{number}: {type}.\neen kleine puzzel. breng je hersenen mee.\nreeks: {streak}. rang: {rank}.\n\n{url}\n\nuitschrijven: {unsubscribe}\n— de kraai",
+  "weekly.subject": "de wekelijkse drop.",
+  "weekly.body": "soldaat van de week: {winner}.\neen banger: {song}.\neen hint: stille hoekjes zien je wel.\n\n{url}\n\nuitschrijven: {unsubscribe}\n— diogenes",
+  "welcome.subject": "je bent binnen, soldaat.",
+  "welcome.body": "gabe heeft de poort geopend. wees nieuwsgierig. help iemand.\n\n{url}\n\n— de kraai",
+  "reject.subject": "deze keer niet.",
+  "reject.body": "bedankt om aan te kloppen. deze keer blijft de poort dicht. geen beoordeling. een klein leger zoekt gewoon zijn mensen. je aanvraag verdwijnt over 30 dagen.\n\nbeheer of verwijder ze nu: {url}\n— de kraai",
+  "expiry.subject": "de kraai laat dit los.",
+  "expiry.body": "je aanvraag is 90 dagen oud en wordt verwijderd. je mag altijd opnieuw aankloppen.\n\n{url}\n— de kraai"
+}

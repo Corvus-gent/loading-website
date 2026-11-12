@@ -1,10 +1,12 @@
 // Logs non-browser visits (curl, wget, scripts) reported by the middleware.
 import { redis, connected } from "./_redis.js";
+import {bareHit} from './_visitor-counts.js';
 
 const TOOLS = ["curl", "wget", "httpie", "python", "go", "node", "postman", "insomnia", "powershell", "other"];
 const tzDay = () => new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Brussels" }).format(new Date());
 
 export default async function handler(req, res) {
+  if(req.body?.page!==undefined||req.body?.day!==undefined)return bareHit(req,res);
   if (req.method !== "POST" || !connected()) return res.status(204).end();
   const tool = TOOLS.includes((req.body || {}).tool) ? req.body.tool : "other";
   const day = tzDay();

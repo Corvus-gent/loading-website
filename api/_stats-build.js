@@ -2,12 +2,14 @@ import { dailyTasks, counters, brusselsDay } from './_stats-daily.js';
 import { sectionTasks } from './_stats-sections.js';
 import { redis } from './_redis.js';
 import { hogql } from './_posthog.js';
-import { GEO_QUERY, cityRows } from './geo.js';
+import { geoData } from './_geo-data.js';
 import { loadTracks, suggestions } from './_music-store.js';
 import { privateTasks } from './private-stats.js';
 import { SF_FUNNEL_SQL } from './_sf.js';
 import xHandler, { xReady } from './x-stats.js';
 import coffeeHandler from './_coffee.js';
+import {supportReport} from './_support.js';
+import {visitorCounters,armyHistory} from './_visitor-counts.js';
 
 // Reuse the provider adapters and their existing privacy boundaries/caches.
 async function fromHandler(handler) {
@@ -55,6 +57,8 @@ export function snapshotTasks(page, day) {
   if (page === 'overview') {
     const tasks = {
       ...daily,
+      support: async () => ({support:await supportReport(day)}),
+      audience: () => visitorCounters(day),
       counters: () => counters(day),
       outbound: async () => ({ outbound: await sectionTasks('outbound', day).outbound() })
     };
@@ -66,12 +70,12 @@ export function snapshotTasks(page, day) {
     }
     return tasks;
   }
+  if (page === 'army') return {visitors:daily.visitors,audience:()=>visitorCounters(day)};
   if (page === 'hunt')
     return { feathers: daily.feathers, terminal: daily.terminal, counters: () => counters(day) };
   if (page === 'map')
     return {
-      countries: daily.countries,
-      cities: async () => ({ cities: cityRows(await hogql(GEO_QUERY)) }),
+      geography: () => geoData(day),
       tiles: () => ({ tiles: !!process.env.CARTO_BASEMAPS_KEY })
     };
   if (page === 'music') return { ...sectionTasks('music', day), songs: topMusic };
@@ -81,6 +85,7 @@ export function snapshotTasks(page, day) {
   if (page === 'private')
     return {
       ...privateTasks(),
+      army:async()=>({army:await armyHistory(hogql)}),
       funnelSF: async () => ({ funnelSF: Object.fromEntries(await hogql(SF_FUNNEL_SQL)) })
     };
   if (page === 'status')

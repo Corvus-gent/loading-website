@@ -1,3 +1,4 @@
+import { showStorageWarning } from './storage-warning.js';
 const $ = (id) => document.getElementById(id);
 const post = (body) =>
   fetch('/api/auth', {
@@ -9,6 +10,7 @@ const post = (body) =>
 let email = '';
 
 const TITLES = {
+  army: ['soldiers per day (visitor estimates include unseen page hits)', ['day','visitors','said ok','ok rate']],
   outbound: ['outbound links', ['page', 'host', 'link', 'clicks']],
   funnel: ['per platform & post', ['source', 'post', 'views', 'clicks', 'pidgy', 'trial', 'qr']],
   links: ['clicks per link', ['link', 'clicks']],
@@ -77,6 +79,7 @@ function dash(snap) {
   }
   $('login').style.display = 'none';
   $('dash').style.display = 'block';
+  showStorageWarning(snap.storage_plaintext_until);
   $('who').textContent = snap.viewer;
   const s = snap.data || {};
   const output = $('out');
@@ -125,10 +128,11 @@ function dash(snap) {
       table('logins', ['email', 'at'], records.logins || [])
     );
   });
+  if(snap.viewer.toLowerCase()==='gabriel@corvus.gent')whenVisible('army-admin',async root=>(await import('./private-army.js')).mountArmy(root));
   whenVisible('x-log', async (root) => (await import('./private-x.js')).mountXLog(root));
   if (snap.viewer.toLowerCase() === 'gabriel@corvus.gent')
     whenVisible('sf-leads', async (root) =>
-      (await import('./private-sf.js')).mountSFLeads(root, s.funnelSF)
+      (await import('./private-sf.js?v=20261108live1')).mountSFLeads(root, s.funnelSF)
     );
   else $('sf-leads').hidden = true;
 }
