@@ -34,6 +34,7 @@ jobs:
           node tools/check-locales.mjs
           node tests/realm-ritual.mjs
           node tests/routes.mjs
+          node tests/site/payment-url.mjs
       - name: Official Plethora redirects and durable counters
         run: |
           node tools/plethora/verify-routes.mjs
