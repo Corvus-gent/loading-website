@@ -32,3 +32,18 @@ body.site-shell:has(.site-grid[aria-label="Five doors"]){padding-top:0}
 .site-shell-game .site-next.site-quiet-footer{display:flex;margin:.5rem auto;padding:.25rem;gap:1rem}
 .app-page.site-shell .site-next.site-quiet-footer{display:flex;flex:0 0 auto;order:5;margin:0;padding:.1rem;gap:1rem}
 .sf-photos .sf-focus-right{object-position:right center}
+
+/* The retired recruitment gate's artwork, quietly beside the Legion intro. */
+.site-page:has(> #enlist.legion-join)::before{
+  content:"";
+  float:right;
+  width:clamp(112px,24vw,200px);
+  aspect-ratio:850/1000;
+  margin:0 0 20px clamp(12px,3vw,28px);
+  background-image:url('/img/army/napoleon-crow.svg'),url('/img/army/napoleon-480.webp');
+  background-size:100% 100%;
+  background-repeat:no-repeat;
+  mask-image:linear-gradient(#000 80%,transparent);
+  pointer-events:none;
+}
+.site-page:has(> #enlist.legion-join)>.legion-rules{clear:both}
