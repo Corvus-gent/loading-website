@@ -1,5 +1,5 @@
 """Check local page/assets paths, without visiting third parties or API writers."""
-import json,re,sys
+import json,re,subprocess,sys
 from pathlib import Path
 from html.parser import HTMLParser
 from urllib.parse import urlsplit,unquote
@@ -33,7 +33,14 @@ for file in ROOT.rglob('*.html'):
    alternate=ROOT/'stats'/pathname.lstrip('/')
    if alternate.exists():p=alternate
   checked+=1
-  if not (p.is_file() or (p/'index.html').is_file()):errors.append(str(file.relative_to(ROOT))+': '+value)
+  if not (p.is_file() or (p/'index.html').is_file()):
+   errors.append((str(file.relative_to(ROOT))+': '+value,pathname))
+# Use the application's actual dynamic route matcher for pages without a file.
+if errors:
+ paths=list({path for _,path in errors})
+ script="import {ogRoute} from './js/og-routes.js';import {readFileSync} from 'node:fs';console.log(JSON.stringify(JSON.parse(readFileSync(0,'utf8')).filter(path=>ogRoute(path))))"
+ matched=set(json.loads(subprocess.check_output(['node','--input-type=module','-e',script],input=json.dumps(paths),text=True)))
+ errors=[error for error,path in errors if path not in matched]
 if errors:
  print('\n'.join(errors[:40]));raise SystemExit(str(len(errors))+' unresolved local links')
 print(str(checked)+' local links/assets checked; dynamic routes accounted for.')
