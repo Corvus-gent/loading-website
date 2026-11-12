@@ -1,13 +1,22 @@
 import { renderCountries, countryPeriod } from './stats-countries.js';
 const container=document.querySelector('#visitor-map');
-let visible=false,started=false,data,update,mode='day',daily;
+let visible=false,started=false,data,update,mode='day',daily,pendingHotspot;
 function mount(){
   if(update){update(data);return;}
   if(!visible||started||!data)return;
   started=true;
   const css=document.createElement('link');css.rel='stylesheet';css.href='/js/vendor/leaflet/leaflet.css';document.head.append(css);
-  import('./stats-map.js?v=20261109be1').then(async({initMap})=>{const initial=data;update=await initMap(initial);if(initial!==data)update?.(data);}).catch(()=>{document.querySelector('#visitor-map-status').textContent='the lantern is out.';});
+  import('./stats-map.js?v=20261109be1').then(async({initMap})=>{const initial=data;update=await initMap(initial);if(!update)throw Error('map unavailable');if(initial!==data)update(data);const target=pendingHotspot;pendingHotspot=null;target?.click();}).catch(()=>{started=false;const status=document.querySelector('#visitor-map-status');status.hidden=false;status.textContent='map unavailable. choose a city to retry.';});
 }
+// A city click is an instruction even while the lazy map is still loading.
+for(const button of document.querySelectorAll('[data-map-hotspot]'))button.addEventListener('click',event=>{
+  if(update)return;
+  event.stopImmediatePropagation();
+  pendingHotspot=button;
+  visible=true;
+  container.scrollIntoView({block:'center',behavior:'instant'});
+  mount();
+},true);
 const observer=new IntersectionObserver(entries=>{if(entries[0].isIntersecting){visible=true;observer.disconnect();mount();}});observer.observe(container);
 function show(payload,day){
   data=payload;
