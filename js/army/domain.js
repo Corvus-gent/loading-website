@@ -51,7 +51,7 @@ export function points(s) {
 }
 export function rank(s) {
   if (s.verifiedAt && s.general === true) return 'imperator';
-  if(s.legion&&['tiro','miles','centurio','legatus','senator','consul','imperator'].includes(s.legion.rank))return s.legion.rank;
+  if(s.legion&&['tiro','miles','centurio','legatus','praetor','senator','consul','imperator'].includes(s.legion.rank))return s.legion.rank;
   const value = points(s); return [...RANKS].reverse().find(([, minimum]) => value >= minimum)[0];
 }
 export function publicSoldier(s, {link = true} = {}) {
