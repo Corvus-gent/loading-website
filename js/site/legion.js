@@ -7,6 +7,10 @@ function revealSection(hash){
 for(const link of document.querySelectorAll('a[href^="#"]'))link.addEventListener('click',()=>revealSection(link.hash));
 window.addEventListener('hashchange',()=>revealSection(location.hash));
 revealSection(location.hash);
+const inside=document.querySelector('a[href="/legion/hacker-room/"]')?.parentElement;
+if(inside&&!inside.querySelector('a[href="/wiki/generals/"]')){
+ const link=el('a','Generals wiki');link.href='/wiki/generals/';inside.append(' · ',link);
+}
 let members=[],claim='';
 const search=document.getElementById('member-search'),wall=document.getElementById('member-wall'),status=document.getElementById('member-status');
 function render(){if(!wall)return;const q=search.value.toLowerCase().trim(),rows=members.filter(m=>(m.name+' '+m.handle+' '+m.rank).toLowerCase().includes(q));wall.replaceChildren(...rows.map(m=>{const card=el('article',undefined,'site-card member-card');card.append(el('b',m.name),el('small',m.rank+(m.title?' · '+m.title:''),'site-tag'),el('p','since '+m.joined_at.slice(0,10),'site-fine'));if(m.spotlight_slug){const link=el('a','meet '+m.name+' →');link.href='/legion/senate/'+m.spotlight_slug;card.append(link);}return card;}));status.textContent=members.length?(rows.length+' soldiers. Different worlds.'): 'The wall is waiting for its next name.';}

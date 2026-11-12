@@ -4,6 +4,21 @@
   ],
   "redirects": [
     {
+      "source": "/genghis-gabe",
+      "destination": "/wiki/generals/genghis-gabe/",
+      "permanent": true
+    },
+    {
+      "source": "/genghis-gabe/",
+      "destination": "/wiki/generals/genghis-gabe/",
+      "permanent": true
+    },
+    {
+      "source": "/genghis-gabe/index.html",
+      "destination": "/wiki/generals/genghis-gabe/",
+      "permanent": true
+    },
+    {
       "source": "/livenow",
       "destination": "/live",
       "permanent": false
