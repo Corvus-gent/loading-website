@@ -1,0 +1,1 @@
+- claude/docs-and-cv: docs/LINKS.md, docs/FEATURES_FOR_GROK.md, docs/CV-CONTENT.md, new cv/gabe.pdf (CEO & General rebrand, one A4 page)
