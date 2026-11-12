@@ -33,6 +33,11 @@ const CURL_REPLY = `
 export default function middleware(request) {
   const url = new URL(request.url);
   const cleanPath=url.pathname.replace(/\/index\.html$/,'').replace(/\/$/,'')||'/';
+  // File-form stats links must reach the same clean routes as directory links.
+  if (url.hostname === 'stats.corvus.gent' && /^\/(?:stats\/)?(?:(?:pidgy|games|map|music|hunt|x|coffee|status|hack|army|private)\/)?index\.html$/.test(url.pathname)) {
+    url.pathname = url.pathname.replace(/index\.html$/, '');
+    return Response.redirect(url, 308);
+  }
   const canonicalPage={'/hack2':'/hack/2','/hack/the-feed':'/hack/1/the-feed','/submission':'/hack/play','/soldier':'/legion/#wall'}[cleanPath];
   if(canonicalPage){const target=new URL(canonicalPage,'https://'+url.host);target.search=url.search;return Response.redirect(target,301);}
   // These dynamic rewrites accept the slashless path on Vercel.
