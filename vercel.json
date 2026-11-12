@@ -275,6 +275,9 @@
     }
   ],
   "functions": {
+    "api/re-engage.js": {
+      "maxDuration": 60
+    },
     "api/cv.js": {
       "includeFiles": "cv/**"
     },
@@ -448,6 +451,10 @@
     }
   ],
   "crons": [
+    {
+      "path": "/api/re-engage",
+      "schedule": "23 16 * * *"
+    },
     {
       "path": "/api/x-stats?cron=1",
       "schedule": "17 3 * * *"
