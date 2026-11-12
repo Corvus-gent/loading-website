@@ -5,6 +5,7 @@ const db=createClient({url:process.env.REDIS_URL}).on('error',()=>{});await db.c
 try{
  const build=await fs.mkdtemp(path.join(os.tmpdir(),'corvus-overlay-build-'));
  try{for(const dir of ['live/overlay','games/hub','submission'])await fs.mkdir(path.join(build,dir),{recursive:true});
+ await fs.copyFile('games/index.html',path.join(build,'games/index.html'));
  const source=await fs.readFile('live/overlay/index.html','utf8');await fs.writeFile(path.join(build,'live/overlay/index.html'),source);
  await fs.writeFile(path.join(build,'games/hub/index.html'),'<html><head></head><body><!-- HUB_INTRO_END --><section class="plethora-catalog"></section></body></html>');
  await fs.writeFile(path.join(build,'submission/index.html'),'<html><head></head><body></body></html>');
