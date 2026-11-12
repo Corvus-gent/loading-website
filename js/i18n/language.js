@@ -1,3 +1,4 @@
+import {siteStrings} from './site-copy.js?v=20261112i18n2';
 import {readLanguagePreference, saveLanguagePreference} from '../storage.js';
 
 /**
@@ -11,7 +12,9 @@ export const LANGS = [
 ];
 
 const callbacks = new Set();
-const load = code => import(`../locales/${code}.js`).then(module => module.default);
+const load = code => import(`../locales/${code}.js`).then(module => ({...module.default, ...siteStrings(code)}));
+const requested = new URLSearchParams(location.search).get('lang');
+if (LANGS.some(([code]) => code === requested)) saveLanguagePreference(requested);
 const english = await load('en');
 let strings = await load(getLang()).catch(() => english);
 
@@ -35,7 +38,50 @@ export function pick(value, lang = getLang()) {
   return value;
 }
 
+// Bind only plain-text leaves; preserve links, icons, forms and their listeners.
+function bindSiteCopy() {
+  const mark = (selector, key, root = document) => root.querySelectorAll(selector).forEach(el => {
+    if (!el.dataset.i18n && el.textContent.trim() === english[key]?.trim()) el.dataset.i18n = key;
+  });
+  const prefix = (selector, key) => {
+    const el = document.querySelector(selector), text = el?.firstChild;
+    if (text?.nodeType !== 3 || text.textContent.trim() !== english[key]?.trim()) return;
+    const span = document.createElement('span'); span.dataset.i18n = key; text.replaceWith(span);
+  };
+  for (const id of ['quests','daily','legion','live']) {
+    mark('.site-nav a[href="/' + id + '/"]', 'chrome.' + id);
+    const card = document.querySelector('.portal-sections > a[href="/' + id + '/"]');
+    if (card) { mark('strong', 'chrome.' + id, card); mark('p', 'portal.' + id, card); mark('small', id === 'legion' ? 'portal.join' : 'portal.explore', card); }
+  }
+  const gabe = document.querySelector('.portal-sections > a[href="/gabe/"]');
+  if (gabe) { mark('p','portal.gabe',gabe); mark('small','portal.explore',gabe); }
+  mark('.site-nav [data-site-search]', 'chrome.search');
+  mark('.site-section [data-site-search]', 'chrome.find');
+  for (const [href, key] of [['/map/','map'],['#lang-switcher','language'],['/privacy/','privacy']]) {
+    mark('.site-quiet-footer a[href="' + href + '"], .portal-foot a[href="' + href + '"]', 'chrome.' + key);
+  }
+  if (document.querySelector('.portal-sections')) {
+    mark('main > h1','portal.title'); mark('main > .site-lead','portal.lead');
+    mark('.site-newsletter h2','portal.signupTitle'); mark('[data-newsletter] button[type=submit]','portal.signal');
+    prefix('.site-newsletter .check > span','portal.consent'); mark('.site-newsletter a[href="/privacy/"]','portal.privacy');
+  }
+  mark('.realm-what','realm.what'); mark('.realm-recruit-eyebrow','realm.recruiting');
+  mark('.realm-recruit strong','realm.join'); mark('.realm-recruit small','realm.review');
+  mark('.realm-recruit strong','realm.enlistTiro'); mark('.realm-recruit small','realm.ranksEarned');
+  prefix('.realm-more','realm.more');
+  for (const [href, key] of [['/sidequests/','nav.sidequests'],['/now/','nav.now'],['/support/','nav.support'],['/hackathons/','realm.hackathons']]) mark('.realm-more a[href="' + href + '"]',key);
+  if (/^\/support\/?$/.test(location.pathname)) {
+    for (const [slug, key, note] of [['people','support.people','people'],['founders','support.founders','founders'],['companies','support.companies','companies'],['books','support.books','books'],['philosophists','support.philosophists','philosophists'],['sport-people',null,'sport']]) {
+      const link = document.querySelector('.sx a[href="/support/' + slug + '/"]');
+      if (link) { if (key) mark('.t',key,link); mark('.d','support.' + note + 'Note',link); }
+    }
+    const hack = document.querySelector('.sx a[href="/hackathons/"]');
+    if (hack) { mark('.t','support.hackSquads',hack); mark('.d','support.hackNote',hack); }
+  }
+}
+
 export function applyI18n(lang = getLang()) {
+  bindSiteCopy();
   document.documentElement.lang = lang;
   document.querySelectorAll('a[href^="https://stats.corvus.gent"]').forEach(a=>{const url=new URL(a.href);url.searchParams.set("lang",lang);a.href=url.href;});
   document.querySelectorAll("#corner-nav a").forEach(a=>{const key=a.textContent==="⌂"?"nav.home":"nav.back";a.title=t(key);a.setAttribute("aria-label",t(key));});
