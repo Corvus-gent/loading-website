@@ -17,7 +17,7 @@ for (const [time,zone,day] of [
  ['2026-03-08T11:02:00Z','America/Los_Angeles','2026-03-08'],['2026-10-25T03:01:59Z','Europe/Brussels','2026-10-24']
 ]) assert.equal(localDay(new Date(time),zone),day);
 assert.equal(memberTier({status:'pending',verifiedAt:'yes'}),'email');
-for(const [rank,tier] of [['tiro','soldier'],['centurio','hacker'],['legatus','call']]) assert.equal(memberTier({legion:{rank}}),tier);
+for(const [rank,tier] of [['tiro','soldier'],['centurio','hacker'],['legatus','call'],['praetor','call']]) assert.equal(memberTier({legion:{rank}}),tier);
 const id=randomUUID(), start=new Date('2026-11-09T12:00:00Z').getTime();
 for(const [at,tab,op,expected] of [[0,'a','read',242000],[3000,'b','read',239000],[5000,'a','pause',237000],[8000,'b','pause',234000],[99000,'c','read',234000],[120000,'c','read',242000]])
  assert.equal(Number(await meter(id,'America/Los_Angeles',tab,op,start+at)),expected);
@@ -66,7 +66,7 @@ try{
  assert.equal((await req.get(origin+'/wiki/corvus/namesakes/')).status(),403);
  assert.equal((await post({action:'login',password:'site-admin-test'})).status(),200);
  let member;
- for (const rank of ['tiro','centurio','legatus']) {
+ for (const rank of ['tiro','centurio','legatus','praetor']) {
   if(!member) {
    const invite=await (await post({action:'create_invite',rank,name:'Layer QA',max_uses:1})).json();
    const claimed=await post({action:'claim',token:new URL(invite.link).pathname.split('/').pop(),email});
@@ -77,7 +77,7 @@ try{
   const article=await req.get(origin+'/wiki/corvus/');
   assert.equal(article.status(),200);assert(!(await article.text()).includes('class="layer-clock"'));
   assert.equal((await req.get(origin+'/legion/hacker-room/')).status(),rank==='tiro'?403:200);
-  assert.equal((await req.get(origin+'/legion/call-room/')).status(),rank==='legatus'?200:403);
+  assert.equal((await req.get(origin+'/legion/call-room/')).status(),['legatus','praetor'].includes(rank)?200:403);
  }
  await ctx.close();
  console.log('PASS: five doors, forms, photos, two viewports, signed tiers, shared active-tab budget, localStorage reset, real HTTP 402, local 04:02 and DST.');
