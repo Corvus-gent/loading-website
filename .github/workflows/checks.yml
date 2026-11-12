@@ -32,6 +32,7 @@ jobs:
         run: |
           git ls-files -z '*.js' '*.mjs' | xargs -0 -n1 node --check
           node tools/check-locales.mjs
+          node tests/realm-ritual.mjs
       - name: Official Plethora redirects and durable counters
         run: |
           node tools/plethora/verify-routes.mjs

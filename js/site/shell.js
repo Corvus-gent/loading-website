@@ -1,3 +1,4 @@
+import '../i18n/bar.js';
 import './compound-links.js?v=20261109impact1';
 import {loadRoutes,freshPublicEntries} from './discovery.js?v=20261109wander1';
 let ROUTES=[];loadRoutes().then(rows=>{ROUTES=rows;if(dialog.open)results();});window.addEventListener('corvus-directory-ready',e=>{ROUTES=e.detail;if(dialog.open)results();});

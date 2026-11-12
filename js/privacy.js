@@ -2,10 +2,10 @@ import {STREAM_NOTICE} from './privacy-stream.js?v=20261107live2';
 import {clearTrackingURL,sidequestsPage} from './arrival.js';
 import {strings} from './privacy-strings.js';
 import {consentChoice,chooseAnalytics,privacySignal,analyticsAllowed,noticeDismissed} from './analytics-consent.js';
-import {readPreference} from './storage.js';
+import {readLanguagePreference} from './storage.js';
 const lang=()=>{
   const query=new URLSearchParams(location.search).get('lang');
-  return [query,readPreference('lang'),document.documentElement.lang,navigator.language?.slice(0,2)].find(x=>Object.hasOwn(strings,x)) || 'en';
+  return [query,readLanguagePreference(),document.documentElement.lang,navigator.language?.slice(0,2)].find(x=>Object.hasOwn(strings,x)) || 'en';
 };
 let notice;
 function openNotice(open) {
