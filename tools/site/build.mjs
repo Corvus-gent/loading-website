@@ -32,6 +32,14 @@ function gabeSections(choices){
  ];
  return sections+`<details class="gabe-group"><summary>Quick references</summary>${links(references)}</details>`;
 }
+function dailySections(choices){
+ const links=paths=>`<ul class="daily-links">${paths.map(p=>choices.find(r=>local(r.path)===p)).filter(Boolean).map(r=>`<li><a href="${escape(r.path)}">${escape(r.title)}</a><p>${escape(r.description)}</p></li>`).join('')}</ul>`;
+ const letters=newsletter().replace('class="site-button"','class="site-button secondary"');
+ return `<section class="daily-group" aria-labelledby="daily-catch-up"><h2 id="daily-catch-up">Listen &amp; catch up</h2>${links(['/music','/now'])}</section>
+<details class="daily-group"><summary>More to play</summary>${links(['/games','/hack/play','/games/hub'])}</details>
+<section class="daily-group daily-note" aria-label="Between builds"><figure class="site-daily-photo"><img src="/public/live/gabe-surf.jpg" alt="Gabe with his surfboard beside the ocean" width="360" height="480" loading="lazy"><figcaption>between builds, there is an ocean.</figcaption></figure><p class="site-eyebrow">one line from gabe</p><p>one-man army. many editors. leave something better than you found it.</p><p class="site-fine">Your daily-game streak lives with today’s puzzle.</p></section>
+<details class="daily-group"><summary>Letters from the crow</summary>${letters}</details>`;
+}
 function legionContent(html){
  if(html.includes('class="site-page legion-page"'))return html;
  html=html.replace('<main class="site-page">','<main class="site-page legion-page">');
@@ -65,6 +73,12 @@ async function build(){
    await write('gabe/index.html',html);
    continue;
   }
+  if(id==='daily'){
+   const content=`<p class="site-eyebrow">corvus / daily</p><h1>${title}</h1><p class="site-lead">${description}</p><a class="site-button" href="/games/">Play today →</a>${dailySections(choices)}`;
+   const html=page(title,description,content,{scripts:'<script type="module" src="/js/site/daily.js?v=20261112daily1"></script>'}).replace('<main class="site-page">','<main class="site-page daily-page">');
+   await write('daily/index.html',html);
+   continue;
+  }
   const lead=id==='gabe'?'<a class="site-button" href="/call/">Book a call →</a>':id==='daily'?'<a class="site-button" href="/games/">Play today →</a>':'<a class="site-button" href="/hack/3/">Meet the robots →</a>';
   const aside=id==='daily'?'<figure class="site-daily-photo"><img src="/public/live/gabe-surf.jpg" alt="Gabe with his surfboard beside the ocean" width="360" height="480" loading="lazy"><figcaption>between builds, there is an ocean.</figcaption></figure><section><p class="site-eyebrow">one line from gabe</p><p>one-man army. many editors. leave something better than you found it.</p><p class="site-fine">Your daily-game streak lives with today’s puzzle.</p></section>'+newsletter():id==='gabe'?'<p class="site-fine"><a href="/people/?id=gabe">the full story</a> · <a href="/links/gabe">all my links</a> · <a href="/cv">CV</a> · <a href="/realm/">wander the old realm</a> · <a href="/sf/larp/">SF LARPing</a></p>':'';
   await write(id+'/index.html',page(title,description,`<p class="site-eyebrow">corvus / ${id}</p><h1>${title}</h1><p class="site-lead">${description}</p>${lead}<div class="site-grid">${choices.map(card).join('')}</div>${aside}`));
@@ -81,9 +95,11 @@ async function build(){
   const sectionHub=SECTIONS.find(x=>x.path.replace(/^\//,'')+'index.html'===file);
   if(sectionHub?.id==='gabe')s=s.replace('</main>',`<!-- SITE_DIRECTORY --><details class="gabe-group gabe-catalogue"><summary>All Gabe pages</summary><p class="site-fine">Every public page in this corner. <a href="/map/">See the whole map →</a></p>${directory('gabe')}</details><!-- /SITE_DIRECTORY --></main>`);
   else if(sectionHub?.id==='legion')s=s.replace('</main>',`<!-- SITE_DIRECTORY --><details class="legion-group"><summary>All Legion pages</summary><p class="site-fine">Every public page in this corner. <a href="/map/">See the whole map →</a></p>${directory('legion')}</details><!-- /SITE_DIRECTORY --></main>`);
+  else if(sectionHub?.id==='daily')s=s.replace('</main>',`<!-- SITE_DIRECTORY --><details class="daily-group"><summary>All Daily pages</summary><p class="site-fine">Every public page in this corner. <a href="/map/">See the whole map →</a></p>${directory('daily')}</details><!-- /SITE_DIRECTORY --></main>`);
   else if(sectionHub)s=s.replace('</main>',`<!-- SITE_DIRECTORY --><section class="site-hub-directory"><h2>more ${sectionHub.label.toLowerCase()}, fewer dead ends.</h2><p class="site-fine">Every public page in this corner. <a href="/map/">See the whole map →</a></p><details><summary>browse all ${ROUTES.filter(r=>r.section===sectionHub.id).length} doors →</summary>${directory(sectionHub.id)}</details></section><!-- /SITE_DIRECTORY --></main>`);
   const chrome=shell(file);
   if(file==='legion/index.html')chrome.head+='<link rel="stylesheet" href="/css/site/legion.css?v=20261112legion1">';
+  if(file==='daily/index.html')chrome.head+='<link rel="stylesheet" href="/css/site/daily.css?v=20261112daily1">';
   s=s.replace('</head>',`<!-- SITE_HEAD -->${chrome.head}<!-- /SITE_HEAD --></head>`);
   if(file==='gabe/index.html')s=s.replace('</head>','<link rel="stylesheet" href="/css/site/gabe.css?v=20261112gabe1"></head>');
   s=s.replace(/<body([^>]*)>/,(_,attrs)=>{let a=attrs;if(/class=/.test(a))a=a.replace(/class="([^"]*)"/,(_,c)=>`class="${[...new Set((c+' site-shell'+(file==='hack/play/index.html'?' site-shell-game':'')).split(/\s+/))].join(' ')}"`);else a+=' class="site-shell'+(file==='hack/play/index.html'?' site-shell-game':'')+'"';return '<body'+a+'><!-- SITE_NAV -->'+chrome.nav+'<!-- /SITE_NAV -->';});
