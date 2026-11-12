@@ -117,7 +117,8 @@ export async function layer(req, res, args, page = false) {
     }
     const tab = page ? randomUUID() : args.tab;
     if (!/^[0-9a-f-]{36}$/.test(tab || '')) return res.status(400).json({error:'Invalid tab.'});
-    const remaining = Number(await meter(session.id,session.zone,tab,args.operation==='pause'?'pause':'read'));
+    const operation = !page && args.operation === 'pause' ? 'pause' : 'read';
+    const remaining = Number(await meter(session.id,session.zone,tab,operation));
     writeSession(res,session);
     if (!page) return res.status(remaining ? 200 : 402).json({remaining});
     if (!remaining) return screen(res,402,'402 · payment required','<p>come back tomorrow or become a soldier</p><p>Your daily taste returns at 04:02 local time.</p><a href="/legion/">Become a soldier →</a>');
