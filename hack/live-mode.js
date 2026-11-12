@@ -3,15 +3,12 @@ import {SOCIALS,liveURL} from '../live/socials.js?v=20261108hacklive1';
 const home=/^\/hack\/?$/.test(location.pathname),third=/^\/hack\/3\/?$/.test(location.pathname);
 const bar=document.querySelector('#hack-stream-bar'),front=document.querySelector('#hack-live-front');
 let override='auto',offset=0,active=false,streamLive=SOCIALS.some(s=>s.primary&&s.isLive),pending=false;
-const game=document.querySelector('#game-section'),promo=document.querySelector('[data-plethora-card="hack"]'),promoNext=promo?.nextElementSibling,promoPlace=promo?document.createComment('original Plethora position'):null;
-if(home&&promo)promo.before(promoPlace);
 const topLabel=home?document.querySelector('main>nav>a'):null,originalTopLabel=topLabel?.textContent;
 const originalTitle=document.title,originalMeta=[...document.querySelectorAll('meta[property="og:title"],meta[property="og:description"],meta[property="og:image"],meta[name="description"]')].map(el=>[el,el.content]);
 function renderStream(){if(!bar)return;bar.classList.toggle('is-live',streamLive);bar.querySelector('[data-hack-stream-text]').textContent=streamLive?'LIVE from a robotics hackathon in SF → watch now':'next stream soon · robotics hackathon in SF → watch now';const badge=document.querySelector('.hack-run-badge');if(badge)badge.textContent=streamLive?'● LIVE NOW':'NEXT STREAM SOON';}
 function apply(){
  const enabled=home&&hackLiveMode(override,Date.now()+offset).enabled;
  if(home&&active!==enabled){active=enabled;if(topLabel)topLabel.textContent=active?'CORVUS / LIVE':originalTopLabel;document.body.classList.toggle('hack-live-mode',active);document.querySelectorAll('[data-hack-live-only]').forEach(el=>el.hidden=!active);
-  if(promo&&game){if(active){game.append(promo);if(promoNext)game.append(promoNext);}else{promoPlace.after(promo);if(promoNext)promo.after(promoNext);}}
   if(active){document.title='Live at a robotics hackathon in SF · Corvus';for(const [el]of originalMeta)el.content=el.matches('[property="og:image"]')?'https://corvus.gent/live/og.png':el.matches('[property="og:title"]')?'Live at a robotics hackathon in SF · Corvus':'One-man army. Many editors. Livestream, robot interviews, 100+ videos in 10+ languages.';}else{document.title=originalTitle;for(const[el,value]of originalMeta)el.content=value;}
  }
  if(bar)bar.hidden=home?!enabled:!third;renderStream();

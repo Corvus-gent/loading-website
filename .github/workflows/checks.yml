@@ -59,6 +59,16 @@ jobs:
       - run: node tests/live-banner-browser.mjs
       - run: node tests/live-page.mjs
       - run: node tests/hack-live-mode.mjs
+      - name: Legion reading layers and five-door homepage
+        env:
+          REDIS_URL: redis://127.0.0.1:16380/4
+          SITE_TEST_PORT: 4477
+        run: |
+          node tools/site/server.mjs &
+          server=$!
+          trap 'kill "$server"' EXIT
+          curl --retry 8 --retry-delay 1 --retry-connrefused -fsS http://127.0.0.1:4477/ -o /dev/null
+          node tests/site/layers.mjs
       - run: node tests/compound-v2-browser.mjs
       - run: node tests/interview-quick-add.mjs
       - run: node tests/dynamic-og.mjs

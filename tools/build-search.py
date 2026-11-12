@@ -10,9 +10,11 @@ TITLES = {"/": "home", "/gabe": "gabe · about me"}
 # Explicit publication boundary: never crawl reports, traces or new internal dirs.
 PUBLIC_ROOTS = {"gabinho-rolls","plethora","hackathons","index.html", "call", "games", "languages", "links", "music", "now", "people", "privacy", "sf", "realm", "sidequests", "stats", "support", "wiki"}
 PUBLIC_FILES = set(json.loads(subprocess.check_output(['node', '--input-type=module', '-e', "import {ROUTES} from './js/site/routes.js'; console.log(JSON.stringify(ROUTES.filter(r=>r.public!==false&&r.file).map(r=>r.file)))"], text=True)))
+TIER_FILES = set(json.loads(subprocess.check_output(['node','--input-type=module','-e',"import {pageTier} from './js/site/page-tiers.js';console.log(JSON.stringify(Object.keys(pageTier).map(p=>p.slice(1)+'/index.html')))"],text=True)))
 pages = []
 for f in sorted(glob.glob("**/index.html", recursive=True)):
     if f.split("/", 1)[0] not in PUBLIC_ROOTS and f not in PUBLIC_FILES: continue
+    if f == "sf/larp/index.html": continue
     if f.startswith(("clients/", "go/", "node_modules/", "music/admin/", "call/admin/", "plethora/admin/", "402/", "stats/private/", "stats/hunt/")): continue
     url = "/" + f[:-len("index.html")]
     if url == "/people/": url_title = "army · join the people"
@@ -31,7 +33,7 @@ for f in sorted(glob.glob("**/index.html", recursive=True)):
     if url == "/people/":
         pages.append({"title": "gabe · about me", "url": "/gabe", "text": re.sub(r"<[^>]+>", " ", people["about"]["en"]) + " " + " ".join(EN.get(k, "") for k in ["profile.languages"]) + " " + " ".join(r["text"] for r in people.get("research", []))})
         title = "army · join the people"
-    pages.append({"title": TITLES.get(url, title), "url": url, "text": text})
+    pages.append({"title": TITLES.get(url, title), "url": url, "text": title if f in TIER_FILES else text})
 for track in json.load(open("music.json", encoding="utf-8"))["tracks"]:
     pages.append({"title": track["title"] + " · " + track.get("artist", ""), "url": "/music/#track=" + track["id"], "text": " ".join([track["title"], track.get("artist", ""), track.get("genre", ""), track.get("note", "")])})
 for p in pages:

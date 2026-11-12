@@ -1,5 +1,6 @@
 // - stats.corvus.gent serves the stats pages at clean URLs; corvus.gent/stats redirects there
 // - curl / wget / scripts get counted, and curling the homepage gets a little reply
+import {tierPath} from './js/site/page-tiers.js';
 import {ogRoute} from "./js/og-routes.js";
 import {COMPOUND_LINKS} from "./js/compound-links.js";
 import { rewrite, next, waitUntil } from "@vercel/functions";
@@ -52,6 +53,12 @@ export default function middleware(request) {
   const codeAlias=/^\/c\/([^/]+)\/?$/.exec(url.pathname);
   if(url.hostname!=='stats.corvus.gent'&&(codeAlias||(/^\/compound\/v2\/?$/.test(url.pathname)&&url.searchParams.has('code')&&!url.searchParams.has('code_missing')))){
     const target=new URL('/api/stats',url);target.search=url.search;target.searchParams.set('compoundV2','1');target.searchParams.set('codeLink','1');if(codeAlias)target.searchParams.set('code',decodeURIComponent(codeAlias[1]));return rewrite(target);
+  }
+  const protectedPath = tierPath(url.pathname);
+  if (protectedPath && url.hostname !== 'stats.corvus.gent') {
+    const target = new URL('/api/stats', url);
+    target.search = new URLSearchParams({legion:'1',action:'layer_page',path:protectedPath,zone:url.searchParams.get('layer_zone')||''});
+    return rewrite(target, {headers:{'Cache-Control':'private, no-store','Vary':'Cookie'}});
   }
   const og=url.hostname!=='stats.corvus.gent'&&ogRoute(url.pathname,url.searchParams);
   if(og){const target=new URL('/api/stats',url);target.searchParams.set('ogPage','1');for(const[k,v]of Object.entries(og))target.searchParams.set(k,v);return rewrite(target);}

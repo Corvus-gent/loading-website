@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';import {inventory,canonical} from './link-inventory.mjs';
 // Canonical public content only. Alias routes keep working, but never clutter the map.
 export const ALIASES={'/hack2':'/hack/2','/hack/the-feed':'/hack/1/the-feed','/submission':'/hack/play','/join-the-army-now':'/legion'};
-export async function generate(){const data=await inventory(),routes=data.routes.filter(r=>!ALIASES[r.path]&&!['/army','/army/access'].includes(r.path));
+export async function generate(){const data=await inventory(),routes=data.routes.filter(r=>!ALIASES[r.path]&&!['/army','/army/access','/sf/larp'].includes(r.path));
  const extra={path:'/legion/senate',file:'legion/senate/index.html',title:'The Senate',description:'Meet the friends of the Legion. A seat, a story, a shared standard.',section:'legion',status:'open'};if(!routes.some(r=>r.path===extra.path))routes.push(extra);
  // All groups expose real content links from their hub. Three neighbouring pages also link back,
  // independently of the global search palette. Group by topic, then keep video families together.

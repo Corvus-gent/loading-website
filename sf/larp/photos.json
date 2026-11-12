@@ -1,0 +1,24 @@
+[
+  {
+    "photo": "photos/golden-gate.webp",
+    "place": "Golden Gate Bridge",
+    "date": "2026-11-09",
+    "line": "Golden Gabe Bridge. Brought a little Belgian inbox relief to the waterfront.",
+    "alt": "Gabe holds a box beside the bay, with the Golden Gate Bridge behind him."
+  },
+  {
+    "photo": "photos/marina-cybertruck.webp",
+    "focus": "right",
+    "place": "Marina District",
+    "date": "2026-11-09",
+    "line": "Spotted a Tesla Cybertruck. Naturally, I pitched it Paracetamail.",
+    "alt": "Gabe holds up a Paracetamail box for a selfie beside a silver Tesla Cybertruck."
+  },
+  {
+    "photo": "photos/amplitude.webp",
+    "place": "Amplitude HQ",
+    "date": "2026-11-06",
+    "line": "Straight from the airport to Hack the Feed. Still wearing the travel scarf.",
+    "alt": "Gabe stands onstage holding his laptop, with the Hack the Feed screen behind him."
+  }
+]

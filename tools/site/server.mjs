@@ -1,6 +1,9 @@
 import http from 'node:http';import fs from 'node:fs/promises';import path from 'node:path';
 if(process.env.REDIS_URL!=='redis://127.0.0.1:16380/4')throw Error('Use disposable local Redis DB 4 only.');
 Object.assign(process.env,{SESSION_SECRET:'site-local-tests-only',ARMY_NAMESPACE:'site:test:army:',LEGION_NAMESPACE:'site:test:legion:',ADMIN_PASSWORD:'site-admin-test',LEGION_TEST_MAIL:'1',LEGION_TEST_UPLOAD:'1',LEGION_TEST_ORIGIN:'http://127.0.0.1:4460',LEGION_PAYMENT_LINK_TEST:'https://buy.stripe.com/test_fixture',LEGION_PAYMENT_LINK_ID_TEST:'plink_fixture',LEGION_STRIPE_MODE:'TEST',COMPOUND_V2_PREFIX:'site:test:compound-v2',COMPOUND_KEY_PREFIX:'site:test:compound',COMPOUND_V2_ADMIN_PASSWORD:'site-v2-test',COMPOUND_ADMIN_PASSWORD:'site-v2-test',VERCEL_ENV:'preview'});
+const port=Number(process.env.SITE_TEST_PORT||4460);
+process.env.LEGION_TEST_ORIGIN='http://127.0.0.1:'+port;
+const {tierPath}=await import('../../js/site/page-tiers.js');
 const {default:legion}=await import('../../api/_legion/handler.js'),{default:v2}=await import('../../api/_compound-v2/handler.js'),{default:army}=await import('../../api/army.js');
 const root=process.cwd(),types={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.webp':'image/webp','.mp4':'video/mp4','.ico':'image/x-icon'};
 const server=http.createServer(async(req,res)=>{const u=new URL(req.url,'http://127.0.0.1:4460');try{
@@ -9,6 +12,8 @@ const server=http.createServer(async(req,res)=>{const u=new URL(req.url,'http://
  const query=Object.fromEntries(u.searchParams);let bytes='';if(req.method==='POST'){for await(const chunk of req){bytes+=chunk;if(bytes.length>4100000)throw Error('large');}}
  const headers={...req.headers,'x-forwarded-for':req.headers['x-test-ip']||'198.51.100.20'};
  const go=/^\/go\/(cardneto-[a-z]+)\/?$/.exec(u.pathname);
+ const layerPath=tierPath(u.pathname);
+ if(layerPath)return await legion({method:req.method,headers,query:{action:'layer_page',path:layerPath,zone:u.searchParams.get('layer_zone')}},adapter);
  if(u.pathname==='/api/legion'||go){if(go)query.partner=go[1];return await legion({method:req.method,query,headers,body:bytes},adapter);}
  if(u.pathname==='/api/army'){if(headers.origin==='http://127.0.0.1:4460')headers.origin='https://corvus.gent';return await army({method:req.method,query,headers,body:bytes?JSON.parse(bytes):{}},adapter);}
  if(u.pathname==='/api/compound-v2'){if(headers.origin==='http://127.0.0.1:4460')headers.origin='https://corvus.gent';return await v2({method:req.method,query,headers,body:bytes},adapter);}
@@ -22,4 +27,4 @@ const server=http.createServer(async(req,res)=>{const u=new URL(req.url,'http://
  if(/^\/compound\/v2\/(nl|en|fr|pt|es|de|it)\//.test(u.pathname))u.pathname='/compound/v2/';
  let file=path.resolve(root,'.'+decodeURIComponent(u.pathname));if(!file.startsWith(root+path.sep)&&file!==root)throw Error('path');const st=await fs.stat(file);if(st.isDirectory())file=path.join(file,'index.html');const data=await fs.readFile(file);res.setHeader('Content-Type',types[path.extname(file)]||'application/octet-stream');res.setHeader('Cache-Control','no-store');res.end(data);
  }catch(e){res.statusCode=e.code==='ENOENT'?404:500;res.end('local request failed');console.error('local failure:',e.code||e.message);}});
-server.listen(4460,'127.0.0.1',()=>console.log('Site preview ready on port 4460; test database and mocked mail.'));
+server.listen(port,'127.0.0.1',()=>console.log('Site preview ready on port 4460; test database and mocked mail.'));

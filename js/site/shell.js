@@ -1,6 +1,6 @@
 import '../i18n/bar.js';
-import './compound-links.js?v=20261109impact1';
-import {loadRoutes,freshPublicEntries} from './discovery.js?v=20261109wander1';
+import './compound-links.js?v=20261111layers1';
+import {loadRoutes,freshPublicEntries} from './discovery.js?v=20261111layers1';
 let ROUTES=[];loadRoutes().then(rows=>{ROUTES=rows;if(dialog.open)results();});window.addEventListener('corvus-directory-ready',e=>{ROUTES=e.detail;if(dialog.open)results();});
 import {readPreference,savePreference} from '../storage.js';
 const dialog=document.createElement('dialog');dialog.className='site-search';dialog.setAttribute('aria-label','Jump to a page');dialog.innerHTML='<header><input type="search" placeholder="where do you want to go?" aria-label="Find a page"><button type="button" aria-label="Close search">esc</button></header><ul class="site-search-results"></ul><div class="site-search-foot">/ to open · esc to leave · enter to go</div>';document.body.append(dialog);

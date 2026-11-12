@@ -285,7 +285,7 @@
       "includeFiles": "music.json"
     },
     "api/stats.js": {
-      "includeFiles": "{music.json,battle/config.json,battle/media.json,hack/3/index.html,hack/3/interviews.json,live/index.html,compound/v2/index.html,public/gabe.jpg,img/army/fonts/DejaVuSansMono.ttf,api/_og/fonts/**}",
+      "includeFiles": "{**/index.html,music.json,battle/config.json,battle/media.json,hack/3/interviews.json,public/gabe.jpg,img/army/fonts/DejaVuSansMono.ttf,api/_og/fonts/**}",
       "maxDuration": 60
     },
     "api/x-stats.js": {

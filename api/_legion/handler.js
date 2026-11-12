@@ -10,6 +10,8 @@ export default async function handler(req,res){
  res.setHeader('Cache-Control','private, no-store');res.setHeader('Referrer-Policy','no-referrer');res.setHeader('X-Content-Type-Options','nosniff');res.setHeader('X-Robots-Tag','noindex, nofollow');
  const q=req.query||{};if(q.senate==='1')return (await import('./senate-handler.js')).default(req,res);
  try{
+  if(q.action==='layer_page' && ['GET','HEAD'].includes(req.method))
+    return await (await import('./layers.js')).layer(req,res,q,true);
   if(q.partner&&['GET','HEAD'].includes(req.method)){const target=PARTNERS[q.partner];if(!target)return res.status(404).json({error:'Unknown card.'});try{await partners.count(req,q.partner);}catch{}res.setHeader('Location',target.url);return res.status(302).end();}
   if(req.method==='GET'){
    if(q.action==='session')return res.status(200).json({authorized:!!await authorized(req)});
@@ -28,6 +30,7 @@ export default async function handler(req,res){
   if(req.method!=='POST')return res.status(405).json({error:'Use the page.'});
   if(!sameOrigin(req)||!String(req.headers['content-type']||'').startsWith('application/json'))throw Error('forbidden');
   let b;try{b=typeof req.body==='string'?JSON.parse(req.body):req.body;}catch{}if(!b||Array.isArray(b)||JSON.stringify(b).length>6000)throw Error('fields');if(b.website)throw Error('fields');
+  if(b.action==='layer_tick')return await (await import('./layers.js')).layer(req,res,b);
   if(!await limited(req,'all',90))throw Error('rate');
   if(b.action==='short_click')return res.status(200).json(await partners.countShort(req,b.path));
   if(b.action==='login')return res.status(200).json(await login(req,res,b.password));
@@ -44,7 +47,7 @@ export default async function handler(req,res){
   if(b.action==='apply'){if(!await limited(req,'apply',3,600))throw Error('rate');return res.status(200).json(await applications.apply(b));}
   if(b.action==='puzzle'){if(!await limited(req,'puzzle',10,600))throw Error('rate');return res.status(200).json(await applications.puzzle(b.answer));}
   if(b.action==='subscribe'){if(b.consent!==true)throw Error('consent');if(!await limited(req,'subscribe',3,600))throw Error('rate');return res.status(200).json(await newsletter.subscribe(b.email,process.env.VERCEL_ENV==='production'?'https://corvus.gent':req.headers.origin));}
-  if(b.action==='confirm')return res.status(200).json(await newsletter.confirm(b.token));
+  if(b.action==='confirm')return res.status(200).json(await newsletter.confirm(b.token,(await import('./layers.js')).confirmEmail.bind(null,req,res)));
   if(b.action==='unsubscribe')return res.status(200).json(await newsletter.unsubscribe(b.token));
   throw Error('fields');
  }catch(e){const messages={spotlight_exists:'A spotlight with that address already exists. Edit its existing invitation.',slug:'Use a unique page slug with lowercase letters and dashes.',title:'Add an honorary title (up to 80 characters).',name:'Add a name.',plain_text:'Use plain text within the limits.',unauthorized:'Sign in first.',forbidden:'Please use this page.',rate:'A little too fast. Try again in a few minutes.',invite:'This invitation has expired, was used, or is no longer available.',account_login:'That email already has an account. Sign in to your dog tag, then open this invitation again.',handle:'Use 3–24 letters, numbers or underscores for your handle, starting with a letter.',email:'Please enter a valid email.',fields:'Check the fields and try again.',rank:'Choose an existing rank.',missing:'That entry was not found.',answer:'Not quite. Follow the lantern and try again.',consent:'Please agree to receive the confirmation email.',expired:'This confirmation has expired or was already used.',mail:'The confirmation email could not be sent. Please retry shortly.',payment_unavailable:'The checkout is reconnecting. Please retry shortly.'};const status=e.message==='unauthorized'?401:e.message==='forbidden'?403:e.message==='rate'?429:e.message==='invite'?410:e.message==='account_login'?409:messages[e.message]?400:503;if(status===429)res.setHeader('Retry-After','600');return res.status(status).json({error:messages[e.message]||'The crow lost its connection. Please retry.'});}
