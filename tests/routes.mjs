@@ -13,6 +13,11 @@ for(const page of ['', 'pidgy', 'games', 'map', 'music', 'hunt', 'x', 'coffee', 
 }
 assert.equal(request('https://corvus.gent/statstore').headers.get('x-middleware-next'),'1');
 assert.equal(request('https://stats.corvus.gent/stats/games?lang=fr').headers.get('location'),'https://stats.corvus.gent/games?lang=fr');
+for (const path of ['', 'pidgy/', 'games/', 'map/', 'music/', 'hunt/', 'x/', 'coffee/', 'status/', 'hack/', 'army/', 'private/', 'stats/', 'stats/coffee/']) {
+  const response = request('https://stats.corvus.gent/' + path + 'index.html?lang=fr');
+  assert.equal(response.status, 308);
+  assert.equal(response.headers.get('location'), 'https://stats.corvus.gent/' + path + '?lang=fr');
+}
 for(const name of ['countries','languages','words','artists'])assert.deepEqual(bank[name],JSON.parse(fs.readFileSync(`games/data/${name}.json`)));
 assert.match(fs.readFileSync('.vercelignore','utf8'),/^games\/data$/m);
 console.log('Passed: all stats routes, private route, French redirects, server-only game bank consistency.');
