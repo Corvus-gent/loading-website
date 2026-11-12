@@ -1,0 +1,28 @@
+/* Only pages opted in by accessibility.js. Existing light-theme repairs stay in PR 72. */
+body.site-accessible:not(.wk):not(.encyclopedia){--faint:#999}
+body.site-accessible:is(.wk,.encyclopedia){--a11y-focus:#245682}
+body.site-accessible :focus-visible{outline:3px solid var(--a11y-focus,#ffd76a)!important;outline-offset:3px}
+body.site-accessible main{scroll-margin-top:16px}
+body.site-accessible .site-form :is(input:not([type=checkbox]),textarea,select){border-color:#777}
+body.site-accessible .site-skip-link{
+  position:fixed;top:8px;left:8px;z-index:10000;
+  padding:12px 16px;background:#080808;color:#fff;border:2px solid #ffd76a;
+  font:14px/1.5 ui-monospace,monospace;transform:translateY(-200%);
+}
+body.site-accessible .site-skip-link:focus{transform:none}
+@media(max-width:700px){
+  body.site-accessible #lang-switcher[data-site-languages]{gap:0 2px}
+  body.site-accessible #lang-switcher[data-site-languages] a{
+    min-width:44px;min-height:44px;justify-content:center;
+  }
+  body.site-accessible :is(
+    .site-quiet-footer a,.portal-foot a,.site-section a,.site-section button,
+    .realm-origin,.realm-more a,.term-hint a,.gabe-links a,.daily-links a,
+    .legion-rules a,.site-newsletter .check a,.tag a,.music-note a,.btn
+  ){
+    display:inline-flex;align-items:center;justify-content:center;
+    min-width:44px;min-height:44px;vertical-align:middle;
+  }
+  body.site-accessible .site-newsletter .check{min-height:44px;align-items:center}
+  body.site-accessible.wk main li>a{display:inline-flex;align-items:center;min-width:44px;min-height:44px}
+}
