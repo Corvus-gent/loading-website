@@ -1,0 +1,30 @@
+/* Legion only: 640px of content, with the existing Napoleon portrait. */
+.site-page.legion-page{max-width:688px}
+.legion-page h1{font-size:clamp(34px,6vw,52px)}
+.legion-page .legion-group,.legion-page #apply,.legion-page #wall{
+  margin:28px 0 0;
+  padding:0;
+  border-top:1px solid var(--corvus-line);
+}
+.legion-page .legion-group>summary{
+  min-height:48px;
+  padding:14px 0;
+  cursor:pointer;
+  font:15px/1.5 ui-monospace,monospace;
+  color:var(--corvus-ink);
+}
+.legion-page .legion-group>.site-newsletter{
+  border:0;
+  margin:0;
+  padding:12px 0;
+}
+.legion-page .legion-rules>div{
+  grid-template-columns:90px minmax(0,1fr) auto;
+  gap:10px;
+}
+.legion-page .legion-rules a{overflow-wrap:anywhere}
+.legion-page #member-wall{grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr))}
+@media(max-width:700px){
+  .legion-page .legion-rules>div{grid-template-columns:80px minmax(0,1fr)}
+  .legion-page .legion-rules a{grid-column:2}
+}
