@@ -51,6 +51,18 @@
   ],
   "rewrites": [
     {
+      "source": "/curiositycraft",
+      "destination": "/worldcraft/index.html"
+    },
+    {
+      "source": "/curiositycraft/play",
+      "destination": "/curiosity/index.html"
+    },
+    {
+      "source": "/curiositycraft/qr",
+      "destination": "/worldcraft/qr/index.html"
+    },
+    {
       "source": "/api/worldcraft/creature",
       "destination": "/api/stats?creature=1"
     },
