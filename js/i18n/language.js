@@ -5,7 +5,7 @@ import {readLanguagePreference, saveLanguagePreference} from '../storage.js';
  * Elements with data-i18n="key" get their text replaced.
  */
 
-const curiosityLanguages = /^\/(?:worldcraft(?:\/|$)|curiosity(?:\/|$)|quests(?:\/|$)|hack(?:\/?$|\/4(?:\/|$)))/.test(location.pathname);
+const curiosityLanguages = /^\/(?:curiositycraft(?:\/|$)|worldcraft(?:\/|$)|curiosity(?:\/|$)|quests(?:\/|$)|hack(?:\/?$|\/4(?:\/|$)))/.test(location.pathname);
 export const LANGS = curiosityLanguages ? [["en","EN"],["es","ES"],["zh","中文"],["fr","FR"],["pt","PT"],["nl","NL"],["hi","हिन्दी"],["ta","தமிழ்"]] : [
   ["en", "EN"], ["nl", "NL"], ["es", "ES"], ["fr", "FR"],
   ["pt", "PT"], ["de", "DE"], ["zh", "中文"],

@@ -56,3 +56,7 @@ Redis atomically reserves one provider attempt per visitor and at most 200 attem
 Creature ownership, numbering and rate limits persist in Redis; names/images in the public gallery are deliberately public. After a creature is awarded, the share copy includes its number, and the next reward reveals an existing SF LARP photo. No messages or posts are sent automatically.
 
 Tests: `tests/curious-creature.mjs` uses real local Redis and a mocked provider to check the contract, sanitization, concurrency, caching, cap, gallery and download. `tests/curious-creature-ui.mjs` checks the 390×844 card/download/share/second-reward/reload flow with mocked generated images and real comment/share Redis actions. The normal chat test also passes without a Recraft key. No real paid Recraft generation was performed in this session.
+
+## Canonical product URLs
+
+Feedback: `/curiositycraft`; game: `/curiositycraft/play`; projector: `/curiositycraft/qr`. The three source HTML files now live under `curiositycraft/`. Exact legacy page URLs (`/worldcraft`, `/worldcraft/qr`, `/curiosity`, including their trailing-slash/index variants) permanently redirect with query strings preserved. Old `/worldcraft/*.html` experiments, assets, API endpoints, admin URL, Redis namespaces, cookie path, visitor ID storage and credentials remain unchanged. No data migration or reset is performed. Both distributed QR SVGs and default client-generated projector codes encode `https://corvus.gent/curiositycraft`.

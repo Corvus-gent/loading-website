@@ -4,6 +4,66 @@
   ],
   "redirects": [
     {
+      "source": "/worldcraft",
+      "destination": "/curiositycraft",
+      "permanent": true
+    },
+    {
+      "source": "/worldcraft/",
+      "destination": "/curiositycraft",
+      "permanent": true
+    },
+    {
+      "source": "/worldcraft/index.html",
+      "destination": "/curiositycraft",
+      "permanent": true
+    },
+    {
+      "source": "/worldcraft/qr",
+      "destination": "/curiositycraft/qr",
+      "permanent": true
+    },
+    {
+      "source": "/worldcraft/qr/",
+      "destination": "/curiositycraft/qr",
+      "permanent": true
+    },
+    {
+      "source": "/worldcraft/qr/index.html",
+      "destination": "/curiositycraft/qr",
+      "permanent": true
+    },
+    {
+      "source": "/curiosity",
+      "destination": "/curiositycraft/play",
+      "permanent": true
+    },
+    {
+      "source": "/curiosity/",
+      "destination": "/curiositycraft/play",
+      "permanent": true
+    },
+    {
+      "source": "/curiosity/index.html",
+      "destination": "/curiositycraft/play",
+      "permanent": true
+    },
+    {
+      "source": "/curiositycraft/",
+      "destination": "/curiositycraft",
+      "permanent": true
+    },
+    {
+      "source": "/curiositycraft/play/",
+      "destination": "/curiositycraft/play",
+      "permanent": true
+    },
+    {
+      "source": "/curiositycraft/qr/",
+      "destination": "/curiositycraft/qr",
+      "permanent": true
+    },
+    {
       "source": "/livenow",
       "destination": "/live",
       "permanent": false
@@ -52,15 +112,15 @@
   "rewrites": [
     {
       "source": "/curiositycraft",
-      "destination": "/worldcraft/index.html"
+      "destination": "/curiositycraft/index.html"
     },
     {
       "source": "/curiositycraft/play",
-      "destination": "/curiosity/index.html"
+      "destination": "/curiositycraft/play/index.html"
     },
     {
       "source": "/curiositycraft/qr",
-      "destination": "/worldcraft/qr/index.html"
+      "destination": "/curiositycraft/qr/index.html"
     },
     {
       "source": "/api/worldcraft/creature",
@@ -530,6 +590,45 @@
     },
     {
       "source": "/curiosity/index.html",
+      "headers": [
+        {
+          "key": "Permissions-Policy",
+          "value": "microphone=(self \"https://curiositycraft.fly.dev\"), camera=(self \"https://curiositycraft.fly.dev\"), gamepad=(self \"https://curiositycraft.fly.dev\"), fullscreen=(self \"https://curiositycraft.fly.dev\"), autoplay=(self \"https://curiositycraft.fly.dev\"), clipboard-write=(self \"https://curiositycraft.fly.dev\")"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/curiositycraft/play",
+      "headers": [
+        {
+          "key": "Permissions-Policy",
+          "value": "microphone=(self \"https://curiositycraft.fly.dev\"), camera=(self \"https://curiositycraft.fly.dev\"), gamepad=(self \"https://curiositycraft.fly.dev\"), fullscreen=(self \"https://curiositycraft.fly.dev\"), autoplay=(self \"https://curiositycraft.fly.dev\"), clipboard-write=(self \"https://curiositycraft.fly.dev\")"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/curiositycraft/play/",
+      "headers": [
+        {
+          "key": "Permissions-Policy",
+          "value": "microphone=(self \"https://curiositycraft.fly.dev\"), camera=(self \"https://curiositycraft.fly.dev\"), gamepad=(self \"https://curiositycraft.fly.dev\"), fullscreen=(self \"https://curiositycraft.fly.dev\"), autoplay=(self \"https://curiositycraft.fly.dev\"), clipboard-write=(self \"https://curiositycraft.fly.dev\")"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/curiositycraft/play/index.html",
       "headers": [
         {
           "key": "Permissions-Policy",

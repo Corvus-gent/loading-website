@@ -1,5 +1,5 @@
 import qrcode from './vendor/qrcode.js';
-const base='https://corvus.gent',fallback=base+'/worldcraft';let target=fallback;
+const base='https://corvus.gent',fallback=base+'/curiositycraft';let target=fallback;
 try{const raw=new URLSearchParams(location.search).get('to');if(raw&&raw.length<=2048){const url=new URL(raw,base);if(['https:','http:'].includes(url.protocol)&&!url.username&&!url.password)target=url.href;}}catch{}
 function make(url){const qr=qrcode(0,'M');qr.addData(url,'Byte');qr.make();return qr.createSvgTag({cellSize:8,margin:32,scalable:true});}
 try{document.querySelector('#qr').innerHTML=make(target);}catch{target=fallback;document.querySelector('#qr').innerHTML=make(target);}
