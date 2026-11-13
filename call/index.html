@@ -35,15 +35,15 @@
     .or::before, .or::after { content: ""; flex: 1; height: 1px; background: #222; }
   </style>
 <link rel="stylesheet" href="/privacy/privacy.css?v=158032e36fdb"><meta name="referrer" content="no-referrer">
-<!-- SITE_HEAD --><script type="module" src="/js/live-banner.js?v=20261108live1"></script><link rel="stylesheet" href="/plethora/promo.css?v=20261108live1"><link rel="stylesheet" href="/css/site/shell.css?v=20261111layers1"><script type="module" src="/js/site/shell.js?v=20261111layers1"></script><!-- /SITE_HEAD --></head>
-<body class="people-page site-shell"><!-- SITE_NAV --><nav class="site-nav" aria-label="Corvus sections" data-site-shell><a class="site-mark" href="/" aria-label="Corvus home">corvus ↟</a><a href="/quests/">Quests</a><a href="/daily/">Daily</a><a href="/legion/">Legion</a><a href="/live/">Live</a><a href="/gabe/" aria-current="page">Gabe</a><button class="site-search-button" data-site-search aria-label="Find a page">/ search</button></nav><div class="site-section" data-site-shell><a href="/gabe/">corvus / gabe</a><button class="site-search-button" data-site-search aria-label="Find a page">/ find a page</button></div><!-- /SITE_NAV -->
+<!-- SITE_HEAD --><script type="module" src="/js/live-banner.js?v=20261108live1"></script><link rel="stylesheet" href="/plethora/promo.css?v=20261108live1"><link rel="stylesheet" href="/css/site/shell.css?v=20261111layers1"><script type="module" src="/js/site/shell.js?v=20261111layers1"></script><link rel="stylesheet" href="/css/site/actions.css?v=20261112paths1"><!-- /SITE_HEAD --></head>
+<body class="people-page site-shell"><!-- SITE_NAV --><nav class="site-nav" aria-label="Corvus sections" data-site-shell><a class="site-mark" href="/" aria-label="Corvus home">corvus ↟</a><a href="/quests/">Quests</a><a href="/daily/">Daily</a><a href="/legion/">Legion</a><a href="/live/">Live</a><a href="/gabe/" aria-current="page">Gabe</a><button class="site-search-button" data-site-search aria-label="Find a page">/ search</button></nav><div class="site-section" data-site-shell><a href="/gabe/">corvus / gabe</a><button class="site-search-button" data-site-search aria-label="Find a page">/ find a page</button></div><nav class="site-paths" aria-label="Next steps"><a data-join-tiro href="/legion/#enlist">Enlist · $1 once</a><a data-book-call href="/call/">Book a call</a></nav><!-- /SITE_NAV -->
   <main>
     <div class="wrap call-wrap">
       <div class="lang-switcher" id="lang-switcher"></div>
       <div class="tag"><a href="/">corvus.gent</a> / call</div>
-      <h1>what hurts?</h1><p class="sub">quick question, big headache, or coffee in SF. pick your dose 💊</p><p class="support-spots" data-support-spots>5/5 spots this week</p>
+      <h1>book a call.</h1><p class="sub">Choose a free 5-minute call or a coffee option. Suggest two times and your time zone; Gabe replies to confirm.</p><p class="support-spots" data-support-spots>5/5 spots this week</p>
       <div class="call-tiers" aria-label="Choose your call">
-        <section class="call-tier"><h2>⚡ 5 MIN · FREE</h2><p>quick question, quick answer.</p><button type="button" data-call-tier="quick">quick question →</button></section>
+        <section class="call-tier"><h2>⚡ 5 MIN · FREE</h2><p>quick question, quick answer.</p><button type="button" data-call-tier="quick">Choose a free call →</button></section>
         <section class="call-tier"><h2>☕ 15 MIN · 1 COFFEE ($5)</h2><p>you sort the coffee, I'll bring the painkillers 💊</p><button type="button" data-call-tier="coffee">sort my headache →</button></section>
         <section class="call-tier"><h2>🤝 MEET IN SF · 1 COFFEE</h2><p>or we just grab the coffee IRL. I'm in SF this week.</p><button type="button" data-call-tier="meet">meet in SF →</button></section>
       </div>
@@ -54,11 +54,11 @@
         <label>your dose<select name="tier"><option value="quick">5 min · free</option><option value="coffee">15 min · 1 coffee ($5)</option><option value="meet">meet in SF · 1 coffee</option></select></label>
 
         <label>what hurts?<textarea name="pain" required maxlength="600" rows="3" placeholder="1–2 sentences. Growth, launch, distribution…"></textarea></label>
-        <label>preferred times<input name="times" required maxlength="250" placeholder="today after 3pm PT"></label>
+        <label>preferred times<input name="times" required maxlength="250" placeholder="Two options + your time zone"></label>
         <label class="call-honeypot" aria-hidden="true">leave this empty<input name="website" tabindex="-1" autocomplete="off"></label>
         <p class="support-note">Only Gabe sees this. Deleted from the site after 60 days. <a href="/privacy/">privacy →</a></p>
-        <button class="support-button call-submit" type="submit">send the headache →</button><p id="call-form-status" role="status" aria-live="polite"></p>
-      </form><div id="call-success" hidden><h3>Got it 💊</h3><p>I'll reply within a few hours to lock a time.</p></div><noscript><p><a href="mailto:gabriel@corvus.gent?subject=Call%20request">Email Gabe your name, tier, headache and preferred times →</a></p></noscript></section>
+        <button class="support-button call-submit" type="submit">Send call request →</button><p id="call-form-status" role="status" aria-live="polite"></p>
+      </form><div id="call-success" hidden><h3>Request received.</h3><p>Gabe will reply to your email or handle within a few hours to confirm a time. Your call is booked once he confirms.</p><a href="/daily/">Play while you wait →</a></div><noscript><p><a href="mailto:gabriel@corvus.gent?subject=Call%20request">Email Gabe your name, tier, headache and preferred times →</a></p></noscript></section>
 
       <div class="deck" id="deck">
         <button class="vinyl" id="vinyl" aria-label="play / pause Hotline Bling" aria-pressed="false">
