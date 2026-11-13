@@ -1,4 +1,4 @@
-import {siteStrings} from './site-copy.js?v=20261113integration4';
+import {siteStrings} from './site-copy.js?v=20261113retention1';
 import {bindPageCopy} from './page-copy.js?v=20261113integration4';
 import {readLanguagePreference, saveLanguagePreference} from '../storage.js';
 
