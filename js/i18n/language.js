@@ -1,5 +1,5 @@
-import {siteStrings} from './site-copy.js?v=20261113i18n3';
-import {bindPageCopy} from './page-copy.js?v=20261113i18n3';
+import {siteStrings} from './site-copy.js?v=20261113integration4';
+import {bindPageCopy} from './page-copy.js?v=20261113integration4';
 import {readLanguagePreference, saveLanguagePreference} from '../storage.js';
 
 /**
@@ -66,6 +66,7 @@ function bindSiteCopy() {
     mark('.site-newsletter h2','portal.signupTitle'); mark('[data-newsletter] button[type=submit]','portal.signal');
     prefix('.site-newsletter .check > span','portal.consent'); mark('.site-newsletter a[href="/privacy/"]','portal.privacy');
   }
+  mark('[data-read-note]','actions.readNote');
   mark('.realm-what','realm.what'); mark('.realm-recruit-eyebrow','realm.recruiting');
   mark('.realm-recruit strong','realm.join'); mark('.realm-recruit small','realm.review');
   mark('.realm-recruit strong','realm.enlistTiro'); mark('.realm-recruit small','realm.ranksEarned');

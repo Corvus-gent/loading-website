@@ -205,6 +205,12 @@ export const rows = {
   "crumb.books": ["/ support / books", "/ steun / boeken", "/ apoyo / libros", "/ soutien / livres", "/ apoio / livros", "/ Unterstützung / Bücher", "/ 支持 / 书籍"],
   "crumb.thinkers": ["/ support / philosophists", "/ steun / filosofen", "/ apoyo / filósofos", "/ soutien / philosophes", "/ apoio / filósofos", "/ Unterstützung / Philosophen", "/ 支持 / 思想家"],
   "crumb.sport": ["/ support / people / bjj", "/ steun / mensen / bjj", "/ apoyo / personas / bjj", "/ soutien / personnes / bjj", "/ apoio / pessoas / bjj", "/ Unterstützung / Menschen / bjj", "/ 支持 / 人物 / bjj"],
+  "actions.next": ["Next steps", "Volgende stappen", "Siguientes pasos", "La suite", "Próximos passos", "Nächste Schritte", "接下来"],
+  "actions.enlist": ["Enlist · $1 once", "Sluit je aan · eenmalig $1", "Únete · $1 una vez", "Rejoins-nous · 1 $ une seule fois", "Junta-te · $1 uma só vez", "Mach mit · einmalig 1 $", "加入 · 一次付费 1 美元"],
+  "actions.call": ["Book a call", "Boek een gesprek", "Reserva una llamada", "Réserve un appel", "Marca uma chamada", "Gespräch buchen", "预约通话"],
+  "actions.readNote": ["Read the latest note →", "Lees het nieuwste bericht →", "Lee la última nota →", "Lis la dernière note →", "Lê a última nota →", "Lies die neueste Notiz →", "读读最新随笔 →"],
+  "actions.checkout": ["Checkout opens in Stripe. Your Tiro entry is confirmed after payment is verified. Trouble checking out?", "Betalen doe je via Stripe. Je Tiro-toegang wordt bevestigd zodra je betaling is gecontroleerd. Lukt het niet?", "El pago se abre en Stripe. Tu acceso como Tiro se confirma al verificar el pago. ¿No consigues pagar?", "Le paiement s’ouvre dans Stripe. Ton accès Tiro est confirmé après vérification du paiement. Un souci pour payer ?", "O pagamento abre no Stripe. O teu acesso como Tiro é confirmado após a verificação do pagamento. Não consegues pagar?", "Die Zahlung öffnet sich in Stripe. Dein Tiro-Zugang wird nach Prüfung der Zahlung bestätigt. Klappt die Zahlung nicht?", "通过 Stripe 付款。付款核实后，你的 Tiro 入团资格就会确认。付款遇到问题？"],
+  "actions.email": ["Email Gabe →", "Mail Gabe →", "Escribe a Gabe →", "Écris à Gabe →", "Escreve ao Gabe →", "Schreib Gabe →", "给 Gabe 发邮件 →"],
 };
 export function siteStrings(lang) {
   const column = Math.max(0, languages.indexOf(lang));

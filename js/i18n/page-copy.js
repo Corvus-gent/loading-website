@@ -2,7 +2,7 @@
 // Exact text matches only: never replace HTML, URLs, names or tier contents.
 let observer;
 export function bindPageCopy(english, refresh, current) {
-  if (!/^\/(?:legion|daily|gabe|support|flyer|books)(?:\/|$)/.test(location.pathname)) return false;
+  if (!/^\/(?:legion|daily|gabe|support|flyer|books|now)(?:\/|$)/.test(location.pathname)) return false;
   const roots = [...document.querySelectorAll('main, .site-section, #corvus-flyer .masthead, #corvus-flyer .colophon, #corvus-flyer .skip')];
   const keys = new Map(Object.entries(english).filter(([,text])=>typeof text==='string' && text.trim().length>1).map(([key,text])=>[text.trim(),key]));
   let changed = false;
