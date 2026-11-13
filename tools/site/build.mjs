@@ -57,6 +57,7 @@ function legionContent(html){
  return html.replace(/src="\/js\/site\/legion\.js\?v=[^"]+"/,'src="/js/site/legion.js?v=20261112legion1"');
 }
 async function build(){
+ const curiosityHero=await fs.readFile('public/worldcraft/hero.html','utf8');
  const photos=JSON.parse(await fs.readFile('sf/larp/photos.json','utf8'));
  await write('sf/larp/index.html',page('SF LARPing','Gabe out in San Francisco.',`<p class="site-eyebrow">gabe / san francisco</p><h1>SF LARPing</h1><div class="site-grid sf-photos">${photos.map(p=>`<figure><img${p.focus==='right'?' class="sf-focus-right"':''} src="/sf/larp/${escape(p.photo)}" alt="${escape(p.alt)}" loading="lazy"><figcaption><strong>${escape(p.place)}</strong><time datetime="${escape(p.date)}">${escape(p.date)}</time><p>${escape(p.line)}</p></figcaption></figure>`).join('')}</div>`));
  await write('legion/hacker-room/index.html',page('The hacker room','Inside the Corvus builds.',`<p class="site-eyebrow">legion / hacker</p><h1>the hacker room.</h1><p>Pick one shipped build. Find the smallest change you would make. Bring the before, the after and the thing that surprised you.</p><p><a href="/build/">Read the build log →</a> · <a href="/hack/3/">Open the robotics field notes →</a></p>`));
@@ -67,6 +68,11 @@ async function build(){
  const titles={quests:['quests.','A running record of things built, tried and learned.'],daily:['come back curious.','Play a puzzle. Pick a track. Find something you missed.'],gabe:['hi. i’m gabe.','Belgian builder in SF. BJJ, startups, sidequests.']};
  for(const id of ['quests','daily','gabe']){
   const [title,description]=titles[id];const choices=picks[id].map(p=>ROUTES.find(r=>local(r.path)===local(p))).filter(Boolean);
+  if(id==='quests'){
+   const content=curiosityHero+`<h2 class="quests-small-title">quests.</h2><p class="site-lead">${description}</p><h2 data-wc="qRun">SF / THE HACKATHON RUN</h2><div class="site-grid quest-hack-run"><a class="site-card quest-newest" href="/hack/4" data-lang-link><strong data-wc="qNewest">004 / NEWEST: Curiosity Craft</strong><p data-wc="qSubShort">Kids level up by asking why. Fail freely.</p><span class="arrow">→</span></a><a class="site-card" href="/hack/3"><strong data-wc="qRobotics">003 / Robotics</strong><p data-wc="qRoboticsDesc">Robots, interviews and a 24-hour content streak.</p></a><a class="site-card" href="/hack/2"><small>002 / OSSMAN</small><strong data-wc="qOssman">THE CAGE HAS A NAME. OSSMAN.</strong><p data-wc="qArchived">Name reveal, votes, leaderboard and feedback · open the card</p></a><a class="site-card" href="/hack/1"><small>001 / HACKTHEFEED</small><strong>Oriane × Compound</strong><p>Built in 3h. Pitched anyway. →</p></a></div><p><a href="/hack/3/">Meet the robots →</a> · <a href="/hack/">The hackathon archive →</a></p><div class="site-grid">${choices.filter(r=>!['/hack/1','/hack/2','/hack/3'].includes(local(r.path))).map(card).join('')}</div>`;
+   const html=page(title,description,content,{scripts:'<script type="module" src="/public/worldcraft/hero.js"></script>'}).replace('<body>','<body class="curiosity-priority">').replace('</head>','<link rel="stylesheet" href="/public/worldcraft/hero.css"></head>');
+   await write('quests/index.html',html);continue;
+  }
   if(id==='gabe'){
    const content=`<p class="site-eyebrow">corvus / gabe</p><h1>${title}</h1><p class="site-lead">${description}</p><a class="site-button" href="/call/">Book a call →</a>${gabeSections(choices)}`;
    const html=page(title,description,content).replace('<main class="site-page">','<main class="site-page gabe-page">');
