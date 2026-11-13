@@ -4,6 +4,7 @@ export const languages={en:'🇬🇧 English',es:'🇪🇸 Español',zh:'🇨�
 let strings={},lang=getLang(),currentStats=null;
 let visitor;try{visitor=localStorage.getItem('worldcraft-visitor');if(!visitor){visitor=crypto.randomUUID();localStorage.setItem('worldcraft-visitor',visitor);}}catch{visitor=crypto.randomUUID();}
 export const currentLang=()=>lang;
+export const visitorId=()=>visitor;
 export function t(key,values={}){return String(strings[key]||key).replace(/\{(\w+)\}/g,(_,k)=>String(values[k]??''));}
 export function track(event,props={}){const detail={event,props:{experience:'curiositycraft',...props}};if(window.__worldcraftAnalyticsReady)window.dispatchEvent(new CustomEvent('worldcraft-action',{detail}));else{const queue=window.__worldcraftAnalyticsQueue||(window.__worldcraftAnalyticsQueue=[]);if(queue.length<64)queue.push(detail);}}
 export async function request(body){const r=await fetch('/api/worldcraft',{method:body?'POST':'GET',credentials:'same-origin',headers:body?{'Content-Type':'application/json'}:{'X-Worldcraft-Visitor':visitor},body:body?JSON.stringify({visitor,lang,...body}):undefined,signal:AbortSignal.timeout(12000)});const d=await r.json();if(!r.ok)throw Error(d.error||t('error'));if(body)(d.events||[]).forEach(e=>track(e,{feature_id:body.feature,platform:body.platform,reward_kind:d.newReward?.kind}));window.dispatchEvent(new CustomEvent('worldcraft-snapshot',{detail:d}));return d;}
