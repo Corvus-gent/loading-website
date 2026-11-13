@@ -5,13 +5,14 @@ import {readLanguagePreference, saveLanguagePreference} from '../storage.js';
  * Elements with data-i18n="key" get their text replaced.
  */
 
-export const LANGS = [
+const curiosityLanguages = /^\/(?:worldcraft(?:\/|$)|curiosity(?:\/|$)|hack\/4(?:\/|$))/.test(location.pathname);
+export const LANGS = curiosityLanguages ? [["en","EN"],["es","ES"],["zh","中文"],["fr","FR"],["pt","PT"],["nl","NL"],["hi","हिन्दी"],["ta","தமிழ்"]] : [
   ["en", "EN"], ["nl", "NL"], ["es", "ES"], ["fr", "FR"],
   ["pt", "PT"], ["de", "DE"], ["zh", "中文"],
 ];
 
 const callbacks = new Set();
-const load = code => import(`../locales/${code}.js`).then(module => module.default);
+const load = code => import(`../locales/${["hi","ta"].includes(code)?"en":code}.js`).then(module => module.default);
 const english = await load('en');
 let strings = await load(getLang()).catch(() => english);
 

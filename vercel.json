@@ -485,6 +485,45 @@
           "value": "noindex, nofollow"
         }
       ]
+    },
+    {
+      "source": "/curiosity",
+      "headers": [
+        {
+          "key": "Permissions-Policy",
+          "value": "microphone=(self \"https://curiositycraft.fly.dev\"), camera=(self \"https://curiositycraft.fly.dev\"), gamepad=(self \"https://curiositycraft.fly.dev\"), fullscreen=(self \"https://curiositycraft.fly.dev\"), autoplay=(self \"https://curiositycraft.fly.dev\"), clipboard-write=(self \"https://curiositycraft.fly.dev\")"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/curiosity/",
+      "headers": [
+        {
+          "key": "Permissions-Policy",
+          "value": "microphone=(self \"https://curiositycraft.fly.dev\"), camera=(self \"https://curiositycraft.fly.dev\"), gamepad=(self \"https://curiositycraft.fly.dev\"), fullscreen=(self \"https://curiositycraft.fly.dev\"), autoplay=(self \"https://curiositycraft.fly.dev\"), clipboard-write=(self \"https://curiositycraft.fly.dev\")"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/curiosity/index.html",
+      "headers": [
+        {
+          "key": "Permissions-Policy",
+          "value": "microphone=(self \"https://curiositycraft.fly.dev\"), camera=(self \"https://curiositycraft.fly.dev\"), gamepad=(self \"https://curiositycraft.fly.dev\"), fullscreen=(self \"https://curiositycraft.fly.dev\"), autoplay=(self \"https://curiositycraft.fly.dev\"), clipboard-write=(self \"https://curiositycraft.fly.dev\")"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
     }
   ],
   "crons": [

@@ -24,6 +24,12 @@
     if (questClient) questClient.capture(detail.event,detail.props);
     else if (pendingActions.length<12) pendingActions.push(detail);
   });
+  const worldcraftAction=({detail})=>{
+    if(!analyticsAllowed()||!['visit','play','vote','comment','like','share','reward_revealed'].includes(detail?.event))return;
+    if(questClient)questClient.capture(detail.event,detail.props);else if(pendingActions.length<64)pendingActions.push(detail);
+  };
+  window.addEventListener('worldcraft-action',worldcraftAction);window.__worldcraftAnalyticsReady=true;
+  for(const detail of window.__worldcraftAnalyticsQueue||[])worldcraftAction({detail});window.__worldcraftAnalyticsQueue=[];
   window.addEventListener('hack-action',({detail})=>{
     if(!analyticsAllowed()||!['hack_live_click','hack_robots_click','hack_compound_click'].includes(detail?.event))return;
     if(questClient)questClient.capture(detail.event,detail.props);

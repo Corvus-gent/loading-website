@@ -8,7 +8,7 @@ export const GENRES = ['us hip-hop','rap fr','rap nl/be','latin','lusophone','af
 export const BROWSERS = ['Chrome','Chrome iOS','Safari','Mobile Safari','Firefox','Microsoft Edge','Edge','Opera','Samsung Internet','Internet Explorer','Android Mobile','Other'];
 const HOSTS = ['corvus.gent','www.corvus.gent','stats.corvus.gent'];
 const EXTERNAL = ['hackthefeed-six.vercel.app','the-feed.corvus.gent','pidgy-ai.com','app.pidgy-ai.com','buymeacoffee.com','www.buymeacoffee.com','open.spotify.com','music.apple.com','bandcamp.com','soundcloud.com','musicbrainz.org','www.linkedin.com','linkedin.com','instagram.com','www.instagram.com','www.tiktok.com','www.facebook.com','www.youtube.com','threads.net','www.threads.net','x.com','luma.com','alkmist.com','posthog.com','github.com'];
-const ROUTES = new Set(['/quests/','/daily/','/legion/','/friends/cardneto/','/live/','/compound/v2/','/dinner/','/gabinho-rolls/','/hackathons/','/hack/','/hack/the-feed/','/stats/hack/','/', '/realm/', '/sf/', '/gabe/', '/people/', '/now/', '/sidequests/', '/support/', '/support/books/', '/support/companies/', '/support/people/', '/support/founders/', '/support/sport-people/', '/support/philosophists/', '/languages/', '/402/', '/call/', '/music/', '/games/', '/wiki/', '/wiki/corvus/', '/wiki/pidgy/', '/privacy/', '/cv/', '/pidgy/', '/map/', '/hunt/', '/stats/', '/stats/pidgy/', '/stats/games/', '/stats/map/', '/stats/music/', '/stats/hunt/', '/x/', '/stats/x/', '/coffee/', '/stats/coffee/', '/army/', '/stats/army/', '/status/', '/stats/status/', '/coffee-with-gabe/']);
+const ROUTES = new Set(['/worldcraft/','/curiosity/','/quests/','/daily/','/legion/','/friends/cardneto/','/live/','/compound/v2/','/dinner/','/gabinho-rolls/','/hackathons/','/hack/','/hack/the-feed/','/stats/hack/','/', '/realm/', '/sf/', '/gabe/', '/people/', '/now/', '/sidequests/', '/support/', '/support/books/', '/support/companies/', '/support/people/', '/support/founders/', '/support/sport-people/', '/support/philosophists/', '/languages/', '/402/', '/call/', '/music/', '/games/', '/wiki/', '/wiki/corvus/', '/wiki/pidgy/', '/privacy/', '/cv/', '/pidgy/', '/map/', '/hunt/', '/stats/', '/stats/pidgy/', '/stats/games/', '/stats/map/', '/stats/music/', '/stats/hunt/', '/x/', '/stats/x/', '/coffee/', '/stats/coffee/', '/army/', '/stats/army/', '/status/', '/stats/status/', '/coffee-with-gabe/']);
 export const category = (value, allowed, fallback = 'other') => allowed.includes(value) ? value : fallback;
 export const sourceCategory = value => category(value, SOURCES);
 export const campaignCategory = value => {
@@ -62,7 +62,7 @@ export function countryCategory(value) {
   }
   return countryCategory.names.get(value) || '?';
 }
-export const EVENTS = new Set(['hack_live_click','hack_robots_click','hack_compound_click','squad_member_click','hack_view','hack_app_open','hack_github_click','hack_like','hack_dislike','hack_comment','hack_feedback','hack_share','notice_ok','sidequests_cta_click','sidequests_share','sf_note_seen','sf_note_open','sf_note_click','sf_form_start','sf_form_submit','$pageview','link_click','outbound_click','short_link_out','links_click','links_qr_open','links_crow_click','music_play','vinyl_play','language_vote','goodreads_locked_click','goodreads_access_request','game_start','game_guess','game_end','game_share','share_click','feather_found','terminal_command','site_search','visitor_guess']);
+export const EVENTS = new Set(['visit','play','vote','comment','like','share','reward_revealed','hack_live_click','hack_robots_click','hack_compound_click','squad_member_click','hack_view','hack_app_open','hack_github_click','hack_like','hack_dislike','hack_comment','hack_feedback','hack_share','notice_ok','sidequests_cta_click','sidequests_share','sf_note_seen','sf_note_open','sf_note_click','sf_form_start','sf_form_submit','$pageview','link_click','outbound_click','short_link_out','links_click','links_qr_open','links_crow_click','music_play','vinyl_play','language_vote','goodreads_locked_click','goodreads_access_request','game_start','game_guess','game_end','game_share','share_click','feather_found','terminal_command','site_search','visitor_guess']);
 // The campaign owner controls these six categories. Drop arbitrary URL text,
 // including email addresses, rather than turning it into a visitor identifier.
 export function sidequestTags(p) {
@@ -100,6 +100,12 @@ export function privacyEvent(event) {
       if(typeof p.corvus_region==='string'&&/^[\p{L}\p{N} .’'-]{0,100}$/u.test(p.corvus_region))properties.corvus_region=p.corvus_region;
       properties.corvus_latitude=Math.round(lat*10)/10;properties.corvus_longitude=Math.round(lng*10)/10;
     }
+  }
+  if(['visit','play','vote','comment','like','share','reward_revealed'].includes(event.event)){
+    properties.experience='curiositycraft';
+    if(['spawn-worlds','ai-drawings','character-voices','build-challenges','multiplayer','parent-report','teacher-mode','why-monster'].includes(p.feature_id))properties.feature_id=p.feature_id;
+    if(['x','linkedin','whatsapp','copy'].includes(p.platform))properties.platform=p.platform;
+    if(['photo','fact','badge','easter-egg','entry'].includes(p.reward_kind))properties.reward_kind=p.reward_kind;
   }
   if(p.utm_campaign==='hack'&&p.utm_content==='squads'){properties.utm_content='squads';if(p.short_slug==='squads')properties.short_slug='squads';}
   if(Number.isInteger(p.hack_id)&&p.hack_id>0&&p.hack_id<=9999)properties.hack_id=p.hack_id;

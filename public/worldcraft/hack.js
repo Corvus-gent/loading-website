@@ -1,0 +1,1 @@
+import {ready,request,polyglot,t} from './client.js';await ready;async function refresh(action){try{polyglot(await request(action?{action}:undefined));}catch{}}document.title=t('hackTitle');window.addEventListener('worldcraft-language-ready',()=>document.title=t('hackTitle'));await refresh('visit');setInterval(()=>{if(!document.hidden)refresh();},10000);
