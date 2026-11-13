@@ -51,6 +51,30 @@
   ],
   "rewrites": [
     {
+      "source": "/api/worldcraft",
+      "destination": "/api/stats?worldcraft=1"
+    },
+    {
+      "source": "/worldcraft/custom",
+      "destination": "/public/worldcraft/custom.html"
+    },
+    {
+      "source": "/worldcraft/engine.js",
+      "destination": "/public/worldcraft/engine.js"
+    },
+    {
+      "source": "/worldcraft/engine.css",
+      "destination": "/public/worldcraft/engine.css"
+    },
+    {
+      "source": "/worldcraft/:demo(teach-the-village|bloom-quest|leaf-commander|storyrealm|fraction-kingdom|space-station|reef-rescue|boss-battle|teach-the-robot|memory-palace)",
+      "destination": "/public/worldcraft/:demo.html"
+    },
+    {
+      "source": "/worldcraft/:demo(teach-the-village|bloom-quest|leaf-commander|storyrealm|fraction-kingdom|space-station|reef-rescue|boss-battle|teach-the-robot|memory-palace).html",
+      "destination": "/public/worldcraft/:demo.html"
+    },
+    {
       "source": "/legion/edit/:token",
       "destination": "/legion/edit/index.html"
     },
