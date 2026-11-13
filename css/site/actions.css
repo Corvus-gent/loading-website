@@ -3,14 +3,14 @@ nav.site-paths{
   flex:none;
   justify-content:center;
   flex-wrap:wrap;
-  gap:24px;
+  gap:4px 24px;
   max-width:688px;
   margin:0 auto;
   padding:4px 18px;
   box-sizing:border-box;
   font:12px/1.5 ui-monospace,monospace;
 }
-nav.site-paths a{display:inline-flex;align-items:center;min-height:40px;color:#aaa;text-underline-offset:4px}
+nav.site-paths a{display:inline-flex;align-items:center;min-height:44px;color:#aaa;text-underline-offset:4px}
 nav.site-paths a:hover,nav.site-paths a:focus-visible{color:#ffd76a}
 .site-reading-signup{max-width:640px;margin:32px auto 0;text-align:left}
 .realm-read a{color:#ffd76a}
