@@ -1,4 +1,5 @@
-import {siteStrings} from './site-copy.js?v=20261112i18n2';
+import {siteStrings} from './site-copy.js?v=20261113i18n3';
+import {bindPageCopy} from './page-copy.js?v=20261113i18n3';
 import {readLanguagePreference, saveLanguagePreference} from '../storage.js';
 
 /**
@@ -82,17 +83,25 @@ function bindSiteCopy() {
 
 export function applyI18n(lang = getLang()) {
   bindSiteCopy();
+  bindPageCopy(english, () => applyI18n(), () => strings);
   document.documentElement.lang = lang;
   document.querySelectorAll('a[href^="https://stats.corvus.gent"]').forEach(a=>{const url=new URL(a.href);url.searchParams.set("lang",lang);a.href=url.href;});
   document.querySelectorAll("#corner-nav a").forEach(a=>{const key=a.textContent==="⌂"?"nav.home":"nav.back";a.title=t(key);a.setAttribute("aria-label",t(key));});
   const search=document.querySelector(".search-btn");if(search)search.setAttribute("aria-label",t("nav.search"));
   document.querySelectorAll("[data-i18n]").forEach(el => {
     const value = strings[el.dataset.i18n] ?? english[el.dataset.i18n];
-    if (value !== undefined) el.textContent = value;
+    if (value !== undefined) {
+      const copy = value.replace(/\{(\w+)\}/g, (token,name) => el.getAttribute('data-i18n-'+name) ?? token);
+      if (el.textContent !== copy) el.textContent = copy;
+    }
+  });
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const value = strings[el.dataset.i18nAriaLabel] ?? english[el.dataset.i18nAriaLabel];
+    if (value !== undefined && el.getAttribute('aria-label') !== value) el.setAttribute('aria-label', value);
   });
   document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
     const value = strings[el.dataset.i18nPlaceholder] ?? english[el.dataset.i18nPlaceholder];
-    if (value !== undefined) el.placeholder = value;
+    if (value !== undefined && el.placeholder !== value) el.placeholder = value;
   });
 }
 
