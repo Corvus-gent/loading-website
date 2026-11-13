@@ -49,21 +49,6 @@
       "permanent": true
     },
     {
-      "source": "/curiositycraft/",
-      "destination": "/curiositycraft",
-      "permanent": true
-    },
-    {
-      "source": "/curiositycraft/play/",
-      "destination": "/curiositycraft/play",
-      "permanent": true
-    },
-    {
-      "source": "/curiositycraft/qr/",
-      "destination": "/curiositycraft/qr",
-      "permanent": true
-    },
-    {
       "source": "/livenow",
       "destination": "/live",
       "permanent": false
