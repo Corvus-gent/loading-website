@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>The Corvus Flyer · Vol. 1</title>
+  <meta name="description" content="Good people. Peculiar projects. One dollar to start. A field guide to Corvus, its community and the Legion.">
+  <link rel="canonical" href="https://corvus.gent/flyer/">
+  <link rel="icon" href="/logo.png">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.gstatic.com/s/fraunces/v38/6NUu8FyLNQOQZAnv9bYEvDiIdE9Ea92uemAk_WBq8U_9v0c2Wa0K7iN7hzFUPJH58nib14c7qv8oRcTn.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/flyer/flyer.css?v=20261112flyer1">
+</head>
+<body id="corvus-flyer">
+  <a class="skip" href="#dispatch">Skip to the dispatch</a>
+  <svg class="svg-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <filter id="flyer-wobble" x="-10%" y="-10%" width="120%" height="120%">
+        <feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="7" result="noise"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <symbol id="crow" viewBox="0 0 120 120">
+        <path d="M21 83Q11 56 31 44Q42 36 63 49Q57 25 77 26Q91 27 91 40L108 48L89 53Q83 79 64 86L25 96L36 82Z" fill="currentColor" stroke="currentColor"/>
+        <path d="M38 54Q49 66 65 67M48 87L45 104M63 86L68 104M38 105L52 105M61 105L76 105"/>
+        <circle cx="81" cy="37" r="2.5" fill="var(--paper)" stroke="none"/>
+        <path d="M11 30L17 35M26 20L29 28M44 21L41 29"/>
+      </symbol>
+      <symbol id="feather" viewBox="0 0 120 120">
+        <path d="M22 107L85 20M34 87Q11 45 87 13Q110 65 45 91M37 86L34 61M49 69L48 43M60 54L77 52M45 78L68 73M72 37L86 34"/>
+      </symbol>
+      <symbol id="lantern" viewBox="0 0 120 120">
+        <path d="M45 29V22Q60 4 75 22V29M39 34L81 34L90 99L30 99ZM40 85L80 85M41 34L49 85M79 34L71 85M28 105L92 105M35 28L85 28"/>
+        <path d="M60 78Q43 68 60 49Q78 69 60 78Z" fill="currentColor"/>
+        <path d="M16 47L5 42M103 46L115 39M60 113V118"/>
+      </symbol>
+      <symbol id="laptop" viewBox="0 0 120 120">
+        <path d="M22 24L96 27L92 80L19 77ZM12 83L100 86L112 99L6 96ZM49 87L68 88M44 42L33 51L44 60M71 43L82 52L70 61M64 37L54 67"/>
+      </symbol>
+      <symbol id="belt" viewBox="0 0 120 120">
+        <path d="M9 45Q54 30 108 43L106 59Q54 47 11 63ZM49 43L67 60L51 72L40 56ZM52 70L39 105L24 98L41 62M65 59L92 87L79 102L56 73M30 87L45 93M72 81L85 91"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <div class="paper">
+    <header class="masthead">
+      <div class="edition"><span>Vol. 1</span><time datetime="2026-11-12">12 November 2026</time><span>No. 1</span></div>
+      <p class="overline">An irregular dispatch for people who give a damn</p>
+      <h1>CORVUS<span>THE FLYER</span></h1>
+      <div class="strap"><span>Good people. Peculiar projects.</span><a href="/">corvus.gent →</a></div>
+    </header>
+
+    <main id="dispatch">
+      <section class="lead spread" aria-labelledby="lead-title">
+        <div>
+          <p class="eyebrow">Fresh from the field</p>
+          <h2 id="lead-title">A little less lurking.<br>A lot more making.</h2>
+          <p class="dropcap">Corvus is a community for driven people, in any field. Gabe builds in public; the rest of us bring different skills, strange questions and something worth sharing.</p>
+          <p>Code, cameras, companies, combat sports. The common thread isn’t a job title. It’s doing the work, showing the work, and helping someone else get going.</p>
+          <a class="stamp primary" href="/legion/#enlist">Enlist · $1 once <span aria-hidden="true">→</span></a>
+          <p class="fine">Start as Tiro. No subscription. Higher ranks are earned.</p>
+        </div>
+        <aside class="margin-note" aria-label="A note from the crow">
+          <span class="sticker">Small flock.<br>Big intentions.</span>
+          <svg class="doodle hero-crow" aria-hidden="true"><use href="#crow"/></svg>
+          <p class="hand">Bring a peculiar project.<br>Leave the perfect pitch at home.</p>
+        </aside>
+      </section>
+
+      <div class="dingbat" aria-hidden="true">✦ &nbsp; ↟ &nbsp; ✦</div>
+
+      <section class="columns" aria-label="Life in the flock">
+        <article>
+          <svg class="doodle" aria-hidden="true"><use href="#laptop"/></svg>
+          <p class="eyebrow">The community</p>
+          <h2>Many minds.<br>One noisy notebook.</h2>
+          <p>Corvus calls its people an army. Think builders backing builders: sharing what they know, opening doors and giving useful feedback. Less marching. More making.</p>
+          <p>Follow a build, try a game, read a rabbit hole. You can look around before putting your name on anything.</p>
+          <a class="text-link" href="/realm/">Take a wander through the realm →</a>
+        </article>
+        <article>
+          <svg class="doodle belt" aria-hidden="true"><use href="#belt"/></svg>
+          <p class="eyebrow">Why bother?</p>
+          <h2>Good friction.<br>Better questions.</h2>
+          <p>Because a half-built idea benefits from another pair of eyes. Because curiosity crosses disciplines. Because sometimes the person who spots the problem doesn’t write the code.</p>
+          <p>Gabe builds things and trains BJJ. Both are excellent ways to discover that your first plan needs work.</p>
+          <p class="hand">No guaranteed glory.<br>Room to roll up your sleeves.</p>
+        </article>
+      </section>
+
+      <section class="ranks" aria-labelledby="rank-title">
+        <div class="section-heading">
+          <div><p class="eyebrow">The Legion field guide</p><h2 id="rank-title">A rank is a receipt.</h2></div>
+          <svg class="doodle" aria-hidden="true"><use href="#lantern"/></svg>
+        </div>
+        <p>For showing up, making contact or finding your own way in. One dollar starts the story; it doesn’t buy the whole ladder.</p>
+        <ol class="rank-list">
+          <li><h3>Tiro <span>$1 once</span></h3><p>You’re in. Put your name on the wall.</p></li>
+          <li><h3>Miles <span>The introduction</span></h3><p>Tell Gabe who you are, what you build and why.</p></li>
+          <li><h3>Centurio <span>The lantern</span></h3><p>A little curiosity goes a long way. Find the hidden way in.</p></li>
+          <li><h3>Legatus <span>The call</span></h3><p>Hop on a call with Gabe. Make it a good one.</p></li>
+          <li><h3>Praetor <span>In person</span></h3><p>Meet Gabe face to face, anywhere in the world. Arrange it together; Gabe confirms the rank.</p></li>
+          <li class="invitation"><h3>Senator → Consul → Imperator</h3><p>By invitation. Some doors open through what you do next.</p></li>
+        </ol>
+        <p class="rank-foot"><a class="text-link" href="/legion/">Read the full Legion rules →</a><span class="hand">Rank ≠ résumé.</span></p>
+      </section>
+
+      <div class="dingbat" aria-hidden="true">❦ &nbsp; ✦ &nbsp; ❦</div>
+
+      <section class="join" aria-labelledby="join-title">
+        <svg class="doodle feather" aria-hidden="true"><use href="#feather"/></svg>
+        <p class="eyebrow">Three ways to turn the page</p>
+        <h2 id="join-title">Pick your first perch.</h2>
+        <div class="join-grid">
+          <article><h3>Join the Legion</h3><p>A dollar. A name on the wall. A small, deliberate beginning.</p><a class="stamp primary" href="/legion/#enlist">Enlist · $1 once →</a></article>
+          <article><h3>Make conversation</h3><p>Have a question, a project or a good reason to talk? Start here.</p><a class="stamp" href="/call/">Book a call →</a></article>
+          <article><h3>Keep a feather in it</h3><p>Leave your email for occasional Corvus letters. Confirm by email; leave whenever you like.</p><a class="stamp" href="/daily/#signup">Leave your email →</a></article>
+        </div>
+        <p class="hand closing-note">No need to do all three. Even crows start with one hop.</p>
+      </section>
+    </main>
+
+    <footer class="colophon">
+      <p><strong>The Corvus Flyer</strong> · Vol. 1 · No. 1<br>Original words &amp; drawings. Printed in pixels. Pass it on.</p>
+      <nav aria-label="Beyond the flyer"><a href="/gabe/">Meet Gabe</a><a href="/legion/">The Legion</a><a href="/privacy/">Privacy</a></nav>
+      <p class="print-address">Read, wander, enlist: corvus.gent/flyer/</p>
+      <nav id="lang-switcher" aria-label="language" style="--muted:var(--ink);--fg:var(--accent)"></nav>
+    </footer>
+  </div>
+  <script type="module">
+    import "/js/i18n/bar.js";
+    document.querySelector(".colophon").append(document.getElementById("lang-switcher"));
+  </script>
+</body>
+</html>
