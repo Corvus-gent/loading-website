@@ -34,3 +34,13 @@ All demos share the engine; they are small experiments, not full RTS or commerci
 Votes use random localStorage IDs plus an HttpOnly cookie and Redis atomic deduplication. This is one vote per browser visitor, not identity verification; clearing browser data or switching browsers can bypass it. Public comments reject common contact details/URLs and use textContent to prevent script injection. Optional email entry requires adult/parent consent; no marketing signup. Raffle fulfilment is manual and any visit requires mutual agreement.
 
 The reveal reuses `/sf/larp/photos/giant-duck.webp`, not a placeholder; it links to `/sf/larp`. The image is already public and the reveal is an incentive interaction, not an access-control system.
+
+## Curiosity Craft pivot
+
+`public/worldcraft/curiosity.html` and `curiosity.js` provide the blocky beach, a real 30-second free-roam timer, skippable Wonder Board (B), six topic starters, drawing canvas, typed/voice why chains, material float tests, local journal and parent report. The first hub card links to `/worldcraft/curiosity`; `/worldcraft/curiosity.html` is also supported. Curiosity is an additional valid vote ID; existing votes are preserved.
+
+All explanations are in the small built-in fact sheet in `curiosity.js`. After the fact sheet ends, Sam explicitly says so and asks about experiments rather than inventing deeper explanations. Journal/report data stays in the current tab; it resets on reload. Speech recognition is an optional browser feature.
+
+Optional drawing classification uses `/api/worldcraft/curiosity-vision`, routed through the existing Vercel stats function to `api/_curiosity-vision.js`. Set `OPENAI_API_KEY` to enable it; optional `CURIOSITY_VISION_MODEL` defaults to `gpt-4o-mini`. Only a drawing PNG is sent on explicit button press; no open-web tools or free-form science generation are used. Classification is constrained to beach topics, and three hand-authored questions are returned. Existing Redis rate-limits requests; missing key, Redis outage, unknown drawing, or provider error leaves the typed/starter fallback usable. The API key stays server-side. The repo is static HTML + Vercel Functions, so no Next.js migration or build dependency was added.
+
+Typing/mobile integration: `node tests/curiosity.mjs` (server port 4181 by default; override `CURIOSITY_TEST_BASE`). Optional vision contract: `node --experimental-vm-modules tests/curiosity-vision.mjs` (model mocked; no real API call). Tests cover the actual 30-second timer, B reopening, typed why chain, stone failure, wood/foam success, journal/report metrics, drawing fallback and mobile fit.

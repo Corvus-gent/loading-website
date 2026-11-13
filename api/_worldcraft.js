@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import {redis} from './_redis.js';
 import {rateLimit,dailyIPHash} from './_privacy.js';
-const ids=['teach-the-village','bloom-quest','leaf-commander','storyrealm','fraction-kingdom','space-station','reef-rescue','boss-battle','teach-the-robot','memory-palace'];
+const ids=['curiosity','teach-the-village','bloom-quest','leaf-commander','storyrealm','fraction-kingdom','space-station','reef-rescue','boss-battle','teach-the-robot','memory-palace'];
 const prefix=process.env.VERCEL_ENV==='preview'?'worldcraft:preview:v1':'worldcraft:v1';
 const hash=s=>crypto.createHash('sha256').update(s).digest('hex');
 const obj=x=>Array.isArray(x)?Object.fromEntries(Array.from({length:x.length/2},(_,i)=>[x[i*2],Number(x[i*2+1])])):x||{};

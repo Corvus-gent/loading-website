@@ -51,6 +51,22 @@
   ],
   "rewrites": [
     {
+      "source": "/api/worldcraft/curiosity-vision",
+      "destination": "/api/stats?curiosityVision=1"
+    },
+    {
+      "source": "/worldcraft/curiosity",
+      "destination": "/public/worldcraft/curiosity.html"
+    },
+    {
+      "source": "/worldcraft/curiosity.html",
+      "destination": "/public/worldcraft/curiosity.html"
+    },
+    {
+      "source": "/worldcraft/curiosity.js",
+      "destination": "/public/worldcraft/curiosity.js"
+    },
+    {
       "source": "/api/worldcraft",
       "destination": "/api/stats?worldcraft=1"
     },
