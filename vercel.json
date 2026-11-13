@@ -51,6 +51,10 @@
   ],
   "rewrites": [
     {
+      "source": "/api/worldcraft/creature",
+      "destination": "/api/stats?creature=1"
+    },
+    {
       "source": "/api/worldcraft/curiosity-vision",
       "destination": "/api/stats?curiosityVision=1"
     },

@@ -7,6 +7,7 @@ const FIRST = "2026-11-02";
 const tzDay = (d = new Date()) => new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Brussels" }).format(d);
 
 async function handler(req, res) {
+  if(req.query.creature === "1") return (await import("./_curious-creature.js")).default(req,res);
   if(req.query.curiosityVision === "1") return (await import("./_curiosity-vision.js")).default(req,res);
   if(req.query.worldcraft === "1") return (await import("./_worldcraft.js")).default(req,res);
   if(req.query.legion === "1") return (await import("./_legion/handler.js")).default(req,res);

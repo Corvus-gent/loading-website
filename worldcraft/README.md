@@ -44,3 +44,15 @@ node tools/site/build-all.mjs
 The test uses Chromium and checks actual Redis deduplication, language stats, original-language comments, nonrepeating rewards, private email exclusion/admin, likes/ranking, shares, active players, mobile layout, all eight language choices and saved preference, plus the real Fly app loading within the iframe. Original PoC typing tests and original ten config-driven demos remain in `tests/curiosity.mjs` and `tests/worldcraft.mjs`.
 
 The older PoC's optional drawing classifier (`api/_curiosity-vision.js`) still works with `OPENAI_API_KEY`; it does not change KV's live app. No Next.js migration or new production dependencies were introduced: this repo is static HTML and Vercel Functions.
+
+## Curious Creature drops
+
+Production environment variable: **RECRAFT_API_KEY**. Add it to the existing Vercel project and redeploy; the key is read only inside `api/_curious-creature.js`. No other new credentials are needed. Official API reference consulted: https://www.recraft.ai/docs/api-reference/endpoints and https://www.recraft.ai/docs/api-reference/image-inputs-and-results.
+
+The existing stats function routes `/api/worldcraft/creature` to the server-side helper. Comments create an atomic, private generation seed only after the comment is accepted. The browser sends only its existing visitor ID to the creature route. The prompt includes an allowlisted feature and a maximum-120-character summary assembled entirely from fixed concept labels; no raw comment words, contact details, names, links, or arbitrary instructions are sent to Recraft. Recraft V3 is called for one raster PNG with digital-illustration style, the Curiosity palette, no-text controls and a negative prompt excluding people/human likenesses.
+
+Redis atomically reserves one provider attempt per visitor and at most 200 attempts per rolling hour. Successful images keep a stable number, a generated funny name and the provider's image URL. Failed provider attempts are cached too, avoiding repeated billing after errors. Missing key / exhausted hourly budget does not consume a provider attempt, and the UI quietly uses the existing reward. Gallery shows the last twelve successful images and no visitor identifiers or comments. A same-origin download endpoint returns an attachment. Recraft CDN URLs are stored as returned, not mirrored into object storage.
+
+Creature ownership, numbering and rate limits persist in Redis; names/images in the public gallery are deliberately public. After a creature is awarded, the share copy includes its number, and the next reward reveals an existing SF LARP photo. No messages or posts are sent automatically.
+
+Tests: `tests/curious-creature.mjs` uses real local Redis and a mocked provider to check the contract, sanitization, concurrency, caching, cap, gallery and download. `tests/curious-creature-ui.mjs` checks the 390×844 card/download/share/second-reward/reload flow with mocked generated images and real comment/share Redis actions. The normal chat test also passes without a Recraft key. No real paid Recraft generation was performed in this session.
