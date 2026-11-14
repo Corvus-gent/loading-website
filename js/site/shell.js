@@ -3,6 +3,7 @@ import './compound-links.js?v=20261111layers1';
 import {loadRoutes,freshPublicEntries} from './discovery.js?v=20261111layers1';
 let ROUTES=[];loadRoutes().then(rows=>{ROUTES=rows;if(dialog.open)results();});window.addEventListener('corvus-directory-ready',e=>{ROUTES=e.detail;if(dialog.open)results();});
 import {readPreference,savePreference} from '../storage.js';
+import './accessibility.js?v=20261112a11y1';
 const dialog=document.createElement('dialog');dialog.className='site-search';dialog.setAttribute('aria-label','Jump to a page');dialog.innerHTML='<header><input type="search" placeholder="where do you want to go?" aria-label="Find a page"><button type="button" aria-label="Close search">esc</button></header><ul class="site-search-results"></ul><div class="site-search-foot">/ to open · esc to leave · enter to go</div>';document.body.append(dialog);
 const input=dialog.querySelector('input'),list=dialog.querySelector('ul');
 function results(){const q=input.value.trim().toLowerCase();list.replaceChildren(...ROUTES.filter(r=>r.public!==false&&(!q||(r.title+' '+r.description+' '+r.path).toLowerCase().includes(q))).map(r=>{const li=document.createElement('li'),a=document.createElement('a'),small=document.createElement('small');a.href=location.hostname==='stats.corvus.gent'&&r.path.startsWith('/')?'https://corvus.gent'+r.path:r.path;a.append(document.createTextNode(r.title));small.textContent=r.section;a.append(small);li.append(a);return li;}));}
