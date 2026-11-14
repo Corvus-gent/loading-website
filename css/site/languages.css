@@ -53,3 +53,24 @@ body > #lang-switcher[data-site-languages]:has(~ header.header) {
   background: #080808;
 }
 body > [data-site-languages] ~ header.header { top: 36px; }
+
+/* Shared chrome also sits on Corvuspedia's light paper. */
+body:is(.wk,.encyclopedia) .site-section,
+body:is(.wk,.encyclopedia) .site-next {
+  --corvus-gold: #66501c;
+  --corvus-line: #cac9bd;
+  color: #505854;
+}
+body:is(.wk,.encyclopedia) .site-section .site-search-button {
+  color: #505854;
+  border-color: #777;
+}
+@media (max-width: 700px) {
+  body:is(.wk,.encyclopedia) > #lang-switcher[data-site-languages] a {
+    color: #505854;
+  }
+  body:is(.wk,.encyclopedia) > #lang-switcher[data-site-languages] a.active,
+  body:is(.wk,.encyclopedia) > #lang-switcher[data-site-languages] a:hover {
+    color: #242621;
+  }
+}
