@@ -135,16 +135,29 @@ function render() {
 $("prev").addEventListener("click", () => { day = shift(day, -1); render(); });
 $("next").addEventListener("click", () => { day = shift(day, 1); render(); });
 document.addEventListener("keydown", e => {
-  if (e.target.closest("input, #visitor-map")) return;
+  if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey || e.target.closest("input, select, textarea, button, a, [contenteditable], [role=slider], #visitor-map")) return;
   if (e.key === "ArrowLeft" && !$("prev").disabled) $("prev").click();
   if (e.key === "ArrowRight" && !$("next").disabled) $("next").click();
 });
 $("guess").addEventListener("submit", async e => {
   e.preventDefault();
-  const f = e.target;
-  const r = await fetch("/api/guess", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ guess: f.guess.value, email: f.email.value }) });
-  const d = await r.json().catch(() => ({}));
-  $("guess-msg").textContent = r.ok ? "locked in. if you're exactly right, you'll hear from the crow." : (d.error || "try again later.");
-  if (r.ok) { f.style.display = "none"; if (window.posthog?.capture) window.posthog.capture("visitor_guess", { day }); }
+  const f = e.target, button = f.querySelector('button');
+  if (button.disabled) return;
+  button.disabled = true;
+  f.setAttribute("aria-busy", "true");
+  $("guess-msg").textContent = "sending your guess…";
+  try {
+    const r = await fetch("/api/guess", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ guess: f.guess.value, email: f.email.value }), signal: AbortSignal.timeout(10000) });
+    const d = await r.json();
+    if (!r.ok || d.ok !== true) throw new Error(d.error || "try again later.");
+    $("guess-msg").textContent = "locked in. if you're exactly right, you'll hear from the crow.";
+    f.style.display = "none";
+    if (window.posthog?.capture) window.posthog.capture("visitor_guess", { day });
+  } catch (error) {
+    $("guess-msg").textContent = error instanceof TypeError || error.name === 'TimeoutError' || error instanceof SyntaxError ? "the guess did not reach the crow. please try again." : error.message;
+  } finally {
+    button.disabled = false;
+    f.removeAttribute("aria-busy");
+  }
 });
 render();
