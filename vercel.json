@@ -639,6 +639,15 @@
           "value": "no-store"
         }
       ]
+    },
+    {
+      "source": "/cv/social-media.pdf",
+      "headers": [
+        {
+          "key": "Content-Disposition",
+          "value": "inline; filename=\"gabe - social media.pdf\""
+        }
+      ]
     }
   ],
   "crons": [
