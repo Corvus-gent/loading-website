@@ -26,7 +26,11 @@
     .tech-logos img { box-sizing: border-box; padding: 3px; border-radius: 4px; background: #eee; }
     .trudy summary { cursor: pointer; width: fit-content; padding: .4rem .8rem; border: 1px solid #888; border-radius: .3rem; }
     .trudy img { display: block; width: min(100%, 28rem); height: auto; margin-top: .75rem; border-radius: .3rem; }
-    #release-countdown { display: block; font-variant-numeric: tabular-nums; font-weight: 600; }
+    .socials { display: flex; flex-wrap: wrap; align-items: flex-start; gap: .5rem; }
+    .socials details { padding: .4rem .65rem; border: 1px solid #777; border-radius: .35rem; }
+    .socials summary { cursor: pointer; }
+    .socials ul { list-style: none; padding: 0; }
+    #blog-countdown, #release-countdown { display: block; font-variant-numeric: tabular-nums; font-weight: 600; }
     .secret-code { text-align: right; font: .8rem ui-monospace, monospace; letter-spacing: .15em; color: #d6ad60; }
     .secret summary {
       display: list-item;
@@ -68,7 +72,13 @@
         <p class="contact">Email me to request my number. If I approve, I’ll reply with it.</p>
         <p class="contact"><a href="mailto:gabriel@corvus.gent?subject=Request%20access%20to%20your%20phone%20number&amp;body=Hi%20Gabriel%2C%0A%0AI%27d%20like%20to%20request%20your%20phone%20number.%0A%0AMy%20name%3A%20%0AReason%20for%20my%20request%3A%20">Open email app</a> · <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=gabriel%40corvus.gent&amp;su=Request%20access%20to%20your%20phone%20number" target="_blank" rel="noopener noreferrer">Use Gmail</a> · Email directly: <a href="mailto:gabriel@corvus.gent">gabriel@corvus.gent</a></p>
       </dialog>
-      <p class="contact"><a href="https://www.linkedin.com/in/francisco-gabriel-van-langenhove">LinkedIn</a> · <a href="https://corvus.gent">corvus.gent</a> · <a href="https://github.com/gabriellvl">GitHub @gabriellvl</a> · X / Instagram / TikTok / Twitch: @gabe_maxxing / @gabe.maxxing</p>
+      <p class="contact"><a href="https://www.linkedin.com/in/francisco-gabriel-van-langenhove">LinkedIn</a> · <a href="https://corvus.gent">corvus.gent</a> · <a href="https://github.com/gabriellvl">GitHub @gabriellvl</a></p>
+      <nav class="socials" aria-label="Social profiles">
+        <details name="profiles"><summary>X</summary><ul><li><a href="https://x.com/gabe_maxxing">@gabe_maxxing</a></li></ul></details>
+        <details name="profiles"><summary>Instagram</summary><ul><li><a href="https://www.instagram.com/gabriellvl_">@gabriellvl_</a></li><li><a href="https://www.instagram.com/gabe.maxxing">@gabe.maxxing</a></li><li><a href="https://www.instagram.com/gabinho_bjj">@gabinho_bjj</a></li></ul></details>
+        <details name="profiles"><summary>TikTok</summary><ul><li><a href="https://www.tiktok.com/@gabriel_vl">@gabriel_vl</a></li><li><a href="https://www.tiktok.com/@gabe.maxxing">@gabe.maxxing</a></li><li><a href="https://www.tiktok.com/@gabinho_bjj">@gabinho_bjj</a></li></ul></details>
+        <details name="profiles"><summary>YouTube</summary><ul><li><a href="https://www.youtube.com/@gabe.maxxing">@gabe.maxxing</a></li></ul></details>
+      </nav>
       <a class="download" href="/cv/social-media.pdf" download>Download PDF</a>
     </header>
     <section>
@@ -94,7 +104,8 @@
       </ul>
       <h3>GTM Internship, Pidgy (via Alkmist) <span>— Ghent · Oct 2026</span></h3>
       <ul>
-        <li>Analysed distribution, growth and Product Hunt launches. Worked like a mad dawg.</li>
+        <li>Analysed distribution, growth and <a href="https://www.producthunt.com/">Product Hunt</a> launches. Worked like a mad dawg.</li>
+        <li>Blog coming soon. I dug into launches that took off and launches that flopped. I’ll share what worked, what went wrong, and what I’d try next. <time id="blog-countdown" role="timer" aria-label="Blog countdown" datetime="2026-11-23T16:49:22.784Z">November 23, 2026</time></li>
       </ul>
       <h3 id="tutoring">Tutoring Business Owner &amp; Tutor <span>— Ghent, Aalst, Brussels and Leuven · Mostly online</span></h3>
       <ul>
@@ -163,7 +174,7 @@
       const rect = phoneDialog.getBoundingClientRect();
       if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) phoneDialog.close();
     });
-    const countdown = document.getElementById("release-countdown");
+    function startCountdown(countdown) {
     const deadline = Date.parse(countdown.dateTime);
     function updateCountdown() {
       const secondsLeft = Math.max(0, Math.ceil((deadline - Date.now()) / 1000));
@@ -177,6 +188,8 @@
       if (secondsLeft) setTimeout(updateCountdown, 1000);
     }
     updateCountdown();
+    }
+    document.querySelectorAll('#release-countdown, #blog-countdown').forEach(startCountdown);
 
     const secretCode = document.querySelector(".secret-code");
     const codes = ["512", "520", "1314"];
