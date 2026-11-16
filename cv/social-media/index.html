@@ -18,7 +18,7 @@
     a:hover { color: white; }
     a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
     .phone-mask { white-space: nowrap; }
-    .phone-request { display: inline-block; padding: .25rem .7rem; border: 1px solid #888; border-radius: .3rem; text-decoration: none; }
+    .phone-request { cursor: pointer; display: list-item; width: fit-content; padding: .25rem .7rem; border: 1px solid #888; border-radius: .3rem; text-decoration: none; }
     .download { display: inline-block; padding: .75rem 1.25rem; margin-top: 1rem; background: #eee; color: #111; border-radius: .3rem; font-weight: 700; text-decoration: none; }
     .download:hover { background: white; color: black; }
     .download:focus-visible { outline-color: white; }
@@ -55,7 +55,12 @@
     <header>
       <h1>F. Gabriel Van Langenhove</h1>
       <p><strong>Social Media &amp; Content · Founder of Corvus · AI-native creator</strong></p>
-      <p class="contact">San Francisco, CA · Ghent, BE · <a href="mailto:gabriel@corvus.gent">gabriel@corvus.gent</a> · <span class="phone-mask">+32 4 78 XX XX XX</span> <a class="phone-request" href="mailto:gabriel@corvus.gent?subject=Request%20access%20to%20your%20phone%20number&amp;body=Hi%20Gabriel%2C%0A%0AI%27d%20like%20to%20request%20your%20phone%20number.%0A%0AMy%20name%3A%20%0AReason%20for%20my%20request%3A%20" aria-label="Reveal phone number: request access by email" title="Request access by email">Reveal</a></p>
+      <p class="contact">San Francisco, CA · Ghent, BE · <a href="mailto:gabriel@corvus.gent">gabriel@corvus.gent</a></p>
+      <details id="phone-access">
+        <summary class="phone-request"><span class="phone-mask">+32 4 78 XX XX XX</span> · Reveal</summary>
+        <p class="contact">Email me to request my number. If I approve, I’ll reply with it.</p>
+        <p class="contact"><a href="mailto:gabriel@corvus.gent?subject=Request%20access%20to%20your%20phone%20number&amp;body=Hi%20Gabriel%2C%0A%0AI%27d%20like%20to%20request%20your%20phone%20number.%0A%0AMy%20name%3A%20%0AReason%20for%20my%20request%3A%20">Open email app</a> · <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=gabriel%40corvus.gent&amp;su=Request%20access%20to%20your%20phone%20number" target="_blank" rel="noopener noreferrer">Use Gmail</a> · Email directly: gabriel@corvus.gent</p>
+      </details>
       <p class="contact"><a href="https://www.linkedin.com/in/francisco-gabriel-van-langenhove">LinkedIn</a> · <a href="https://corvus.gent">corvus.gent</a> · <a href="https://github.com/gabriellvl">GitHub @gabriellvl</a> · X / Instagram / TikTok / Twitch: @gabe_maxxing / @gabe.maxxing</p>
       <a class="download" href="/cv/social-media.pdf" download>Download PDF</a>
     </header>
@@ -80,7 +85,7 @@
         <li>Filmed team interviews at an SF robotics hackathon. Short clips coming soon. Stay tuned.</li>
         <li>I run 10+ social accounts across platforms. Gabriel is my main account, Gabinho is for BJJ, Gabe Maxxing is for startups, and Corvus is for the builder community.</li>
       </ul>
-      <h3>Unpaid GTM Intern, Pidgy (via Alkmist) <span>— Ghent · Oct 2026</span></h3>
+      <h3>GTM Internship, Pidgy (via Alkmist) <span>— Ghent · Oct 2026</span></h3>
       <ul>
         <li>Analysed distribution, growth and Product Hunt launches. Worked like a mad dawg.</li>
       </ul>
@@ -129,8 +134,8 @@
         <li>Left the <strong>MSc in Computer Science Engineering</strong> in 2026 to build full-time. <a href="/cv/transcripts/master.pdf">master (PDF)</a></li>
       </ul>
       <p>I used to be scared to share my grades. Now they’re right here. #BuildInPublic</p>
-      <p><strong>Courses:</strong> Robotics, Machine Learning, AI Research Seminar, and Parallel and Distributed Software Systems.</p>
-      <p>I never took studying too seriously. Too many side quests.</p>
+      <p><strong>Relevant</strong> courses: Robotics, Machine Learning, AI Research Seminar, and Parallel and Distributed Software Systems.</p>
+      <p>I never took studying too seriously. <a href="/sidequests">Too many side quests.</a></p>
     </section>
     <section>
       <h2 id="beyond-work">Beyond work</h2>
