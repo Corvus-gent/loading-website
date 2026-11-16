@@ -10,6 +10,18 @@ await page.route('http://local.test/**',async route=>{
  const url=new URL(route.request().url());let f=url.pathname.slice(1);if(!f||f.endsWith('/'))f+='index.html';
  try{await route.fulfill({body:await fs.readFile(path.resolve(f)),contentType:({html:'text/html',css:'text/css',js:'text/javascript',svg:'image/svg+xml',png:'image/png',zip:'application/zip'})[path.extname(f).slice(1)]||'text/plain'})}catch{await route.fulfill({status:404,body:''})}
 });
+const swatches={prompt:'#102823',legio:'#382334',flyer:'#f6e8c8',sigil:'#16293d',arcade:'#302751'};
+for(const stage of ['00-initial','01-optical','02-character']){
+  const panels=Object.entries(swatches).map(([slug,ground])=>{
+    const image=stage==='02-character'?'/public/logo-lab/'+slug+'/mark.svg':'/design/logo-lab/rounds/'+stage+'/'+slug+'.svg';
+    const sizes=[16,24,32,48,104].map(px=>'<img src="'+image+'" width="'+px+'" height="'+px+'">').join('');
+    return '<section><strong>'+slug.toUpperCase()+'</strong><div style="background:'+ground+'">'+sizes+'</div></section>';
+  });
+  await page.goto('http://local.test/lab/logo/');
+  await page.setContent('<style>body{font:18px monospace;padding:20px;background:#eeede6}main{display:grid;grid-template-columns:1fr 1fr;gap:20px}section div{display:flex;align-items:center;justify-content:space-evenly;height:140px}strong{display:block;margin:10px 0}</style><main>'+panels.join('')+'</main>');
+  await page.locator('img').evaluateAll(images=>Promise.all(images.map(im=>im.decode())));
+  await page.locator('main').screenshot({path:'design/logo-lab/rounds/'+stage+'/size-review.png'});
+}
 await page.goto('http://local.test/lab/logo/');
 for(const n of ['prompt','legio','flyer','sigil','arcade']){
  await page.selectOption('#edition',n);await page.locator('#contexts img, #squint img, #hero').evaluateAll(imgs=>Promise.all(imgs.map(i=>i.decode())));
