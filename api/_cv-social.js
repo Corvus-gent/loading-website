@@ -1,7 +1,7 @@
 import {redis,connected} from './_redis.js';
 import {hogql,posthogReady} from './_posthog.js';
 const PREFIX='cv:social:v1';
-export const names={'instagram.com':'Instagram','tiktok.com':'TikTok','youtube.com':'YouTube','x.com':'X','linkedin.com':'LinkedIn','github.com':'GitHub','pidgy-ai.com':'Pidgy','alkmist.com':'Alkmist','compound.mov':'Compound','arcade.software':'Arcade','corgicafe.com':'Corgi Cafe','united.com':'United','starlink.com':'Starlink','producthunt.com':'Product Hunt','mail.google.com':'Gmail'};
+export const names={'ibjjf.com':'IBJJF','chipotle.com':'Chipotle','instagram.com':'Instagram','tiktok.com':'TikTok','youtube.com':'YouTube','x.com':'X','linkedin.com':'LinkedIn','github.com':'GitHub','pidgy-ai.com':'Pidgy','alkmist.com':'Alkmist','compound.mov':'Compound','arcade.software':'Arcade','corgicafe.com':'Corgi Cafe','united.com':'United','starlink.com':'Starlink','producthunt.com':'Product Hunt','mail.google.com':'Gmail'};
 export function domain(raw){try{const u=new URL(raw,'https://corvus.gent');if(!['https:','http:'].includes(u.protocol))return null;let h=u.hostname.replace(/^www\./,'');if(h==='corvus.gent'){return u.pathname.replace(/\/$/,'')==='/go/compound-impact'?'compound.mov':null;}return Object.hasOwn(names,h)?h:null;}catch{return null;}}
 const record=`
 if redis.call('SET',KEYS[1],1,'NX','EX',86400)==false then return 0 end
