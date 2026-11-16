@@ -4,6 +4,21 @@
   ],
   "redirects": [
     {
+      "source": "/social",
+      "destination": "/cv/social-media/",
+      "permanent": true
+    },
+    {
+      "source": "/socials",
+      "destination": "/cv/social-media/",
+      "permanent": true
+    },
+    {
+      "source": "/social-media",
+      "destination": "/cv/social-media/",
+      "permanent": true
+    },
+    {
       "source": "/worldcraft",
       "destination": "/curiositycraft",
       "permanent": true
