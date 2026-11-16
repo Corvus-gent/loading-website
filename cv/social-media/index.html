@@ -17,6 +17,8 @@
     a { color: inherit; text-underline-offset: .2em; }
     a:hover { color: white; }
     a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+    .phone-mask { white-space: nowrap; }
+    .phone-request { display: inline-block; padding: .25rem .7rem; border: 1px solid #888; border-radius: .3rem; text-decoration: none; }
     .download { display: inline-block; padding: .75rem 1.25rem; margin-top: 1rem; background: #eee; color: #111; border-radius: .3rem; font-weight: 700; text-decoration: none; }
     .download:hover { background: white; color: black; }
     .download:focus-visible { outline-color: white; }
@@ -47,7 +49,7 @@
     <header>
       <h1>F. Gabriel Van Langenhove</h1>
       <p><strong>Social Media &amp; Content · Founder of Corvus · AI-native creator</strong></p>
-      <p class="contact">San Francisco, CA · Ghent, BE · <a href="mailto:gabriel@corvus.gent">gabriel@corvus.gent</a> · <a href="tel:+32478741911">+32 478 74 19 11</a></p>
+      <p class="contact">San Francisco, CA · Ghent, BE · <a href="mailto:gabriel@corvus.gent">gabriel@corvus.gent</a> · <span class="phone-mask">+32 4 78 XX XX XX</span> <a class="phone-request" href="mailto:gabriel@corvus.gent?subject=Request%20access%20to%20your%20phone%20number&amp;body=Hi%20Gabriel%2C%0A%0AI%27d%20like%20to%20request%20your%20phone%20number.%0A%0AMy%20name%3A%20%0AReason%20for%20my%20request%3A%20" aria-label="Reveal phone number: request access by email" title="Request access by email">Reveal</a></p>
       <p class="contact"><a href="https://www.linkedin.com/in/francisco-gabriel-van-langenhove">LinkedIn</a> · <a href="https://corvus.gent">corvus.gent</a> · <a href="https://github.com/gabriellvl">GitHub @gabriellvl</a> · X / Instagram / TikTok / Twitch: @gabe_maxxing / @gabe.maxxing</p>
       <a class="download" href="/cv/social-media.pdf" download>Download PDF</a>
     </header>
