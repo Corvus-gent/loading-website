@@ -10,8 +10,8 @@
     :root { color-scheme: dark; background: #090909; color: #eee; font: 100%/1.65 system-ui, sans-serif; }
     body { margin: 0; }
     main { max-width: 46rem; margin: auto; padding: clamp(1.25rem, 5vw, 4rem) 1.25rem 4rem; overflow-wrap: break-word; }
-    header, h2, h3, .download { font-family: ui-monospace, Menlo, Consolas, monospace; }
-    h1 { font-size: clamp(2rem, 6vw, 3.25rem); letter-spacing: -.05em; line-height: 1.08; margin: 0 0 1rem; }
+    h2, h3 { font-family: ui-monospace, Menlo, Consolas, monospace; }
+    h1 { max-width: 42rem; font-size: clamp(2rem, 5.5vw, 2.85rem); font-weight: 650; letter-spacing: -.045em; line-height: 1.12; margin: 0 0 .8rem; }
     header p { margin: .55rem 0; }
     .contact { color: #bbb; font-size: .9rem; }
     a { color: inherit; text-underline-offset: .2em; }
@@ -26,10 +26,35 @@
     .tech-logos img { box-sizing: border-box; padding: 3px; border-radius: 4px; background: #eee; }
     .trudy summary { cursor: pointer; width: fit-content; padding: .4rem .8rem; border: 1px solid #888; border-radius: .3rem; }
     .trudy img { display: block; width: min(100%, 28rem); height: auto; margin-top: .75rem; border-radius: .3rem; }
-    .socials { display: flex; flex-wrap: wrap; align-items: flex-start; gap: .5rem; }
-    .socials details { padding: .4rem .65rem; border: 1px solid #777; border-radius: .35rem; }
-    .socials summary { cursor: pointer; }
-    .socials ul { list-style: none; padding: 0; }
+    header { padding-bottom: .25rem; }
+    header .visits { margin: 0 0 1.5rem; color: #858585; font-size: .75rem; letter-spacing: .02em; }
+    #page-visits { color: #bbb; font-variant-numeric: tabular-nums; }
+    header .role { max-width: 34rem; margin: 0 0 1rem; color: #c8c8c8; font-size: 1rem; line-height: 1.6; }
+    header .location { color: #909090; font-size: .85rem; margin: 0 0 .4rem; }
+    .contact-actions, .profile-links { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem 1.25rem; font-size: .85rem; }
+    header .contact-actions { margin: 0 0 1.2rem; }
+    .contact-actions a, .profile-links a { text-decoration-color: #555; }
+    .phone-request { padding: .2rem 0; border: 0; border-radius: 0; color: #aaa; font-size: .85rem; text-decoration: underline; text-decoration-color: #555; text-underline-offset: .2em; min-height: 2rem; }
+    header .profile-links { margin: 0 0 1.4rem; }
+    .header-actions { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.25rem; padding-top: 1.25rem; border-top: 1px solid #282828; }
+    .socials { display: flex; flex-wrap: wrap; align-items: flex-start; gap: .4rem; }
+    .socials details { position: relative; border: 1px solid #333; border-radius: .4rem; background: #111; font-size: .8rem; }
+    .socials summary { display: flex; align-items: center; gap: .65rem; padding: .55rem .7rem; cursor: pointer; list-style: none; color: #c2c2c2; }
+    .socials summary::-webkit-details-marker { display: none; }
+    .socials summary::after { content: '⌄'; color: #777; }
+    .socials details[open] summary::after { content: '⌃'; }
+    .socials details[open] { border-color: #666; }
+    .socials ul { position: absolute; z-index: 2; top: 100%; left: -1px; min-width: max-content; max-width: calc(100vw - 3rem); margin: .4rem 0 0; padding: .4rem; list-style: none; border: 1px solid #393939; border-radius: .4rem; background: #161616; box-shadow: 0 12px 30px #0008; }
+    .socials li + li { margin: 0; }
+    .socials ul a { display: block; padding: .5rem .65rem; text-decoration: none; border-radius: .2rem; }
+    .socials ul a:hover { background: #252525; }
+    .download { margin: 0; padding: .65rem 1rem; border-radius: .4rem; font-family: inherit; font-size: .8rem; font-weight: 600; white-space: nowrap; }
+    @media (max-width: 480px) {
+      .header-actions { align-items: flex-start; }
+      .socials { width: 100%; }
+      .socials details:last-child ul { left: auto; right: -1px; }
+      header .role { font-size: .95rem; }
+    }
     #blog-countdown, #release-countdown { display: block; font-variant-numeric: tabular-nums; font-weight: 600; }
     .secret-code { text-align: right; font: .8rem ui-monospace, monospace; letter-spacing: .15em; color: #d6ad60; }
     .secret summary {
@@ -62,25 +87,28 @@
 <body>
   <main>
     <header>
-      <p class="contact">Page visits · <span id="page-visits" aria-live="polite">…</span></p>
+      <p class="visits">Page visits · <span id="page-visits" aria-live="polite">…</span></p>
       <h1>F. Gabriel Van Langenhove</h1>
-      <p><strong>Social Media &amp; Content · Founder of Corvus · AI-native creator</strong></p>
-      <p class="contact">San Francisco, CA · Ghent, BE · <a href="mailto:gabriel@corvus.gent">gabriel@corvus.gent</a></p>
-      <button type="button" class="phone-request" aria-haspopup="dialog" aria-controls="phone-access"><span class="phone-mask">+32 4 78 XX XX XX</span> · Reveal</button>
+      <p class="role">Social Media &amp; Content · Founder of Corvus<br>AI-native creator</p>
+      <p class="location">San Francisco, CA · Ghent, BE</p>
+      <div class="contact-actions"><a href="mailto:gabriel@corvus.gent">gabriel@corvus.gent</a>
+      <button type="button" class="phone-request" aria-haspopup="dialog" aria-controls="phone-access">Request my number</button></div>
       <dialog id="phone-access" aria-labelledby="phone-title">
         <h2 id="phone-title">Request my number</h2>
         <button type="button" id="phone-close" aria-label="Close" autofocus>×</button>
         <p class="contact">Email me to request my number. If I approve, I’ll reply with it.</p>
         <p class="contact"><a href="mailto:gabriel@corvus.gent?subject=Request%20access%20to%20your%20phone%20number&amp;body=Hi%20Gabriel%2C%0A%0AI%27d%20like%20to%20request%20your%20phone%20number.%0A%0AMy%20name%3A%20%0AReason%20for%20my%20request%3A%20">Open email app</a> · <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=gabriel%40corvus.gent&amp;su=Request%20access%20to%20your%20phone%20number" target="_blank" rel="noopener noreferrer">Use Gmail</a> · Email directly: <a href="mailto:gabriel@corvus.gent">gabriel@corvus.gent</a></p>
       </dialog>
-      <p class="contact"><a href="https://www.linkedin.com/in/francisco-gabriel-van-langenhove">LinkedIn</a> · <a href="https://corvus.gent">corvus.gent</a> · <a href="https://github.com/gabriellvl">GitHub @gabriellvl</a></p>
+      <nav class="profile-links" aria-label="Professional links"><a href="https://www.linkedin.com/in/francisco-gabriel-van-langenhove">LinkedIn ↗</a><a href="https://corvus.gent">corvus.gent ↗</a><a href="https://github.com/gabriellvl">GitHub ↗</a></nav>
+      <div class="header-actions">
       <nav class="socials" aria-label="Social profiles">
         <details name="profiles"><summary>X</summary><ul><li><a href="https://x.com/gabe_maxxing">@gabe_maxxing</a></li></ul></details>
         <details name="profiles"><summary>Instagram</summary><ul><li><a href="https://www.instagram.com/gabriellvl_">@gabriellvl_</a></li><li><a href="https://www.instagram.com/gabe.maxxing">@gabe.maxxing</a></li><li><a href="https://www.instagram.com/gabinho_bjj">@gabinho_bjj</a></li></ul></details>
         <details name="profiles"><summary>TikTok</summary><ul><li><a href="https://www.tiktok.com/@gabriel_vl">@gabriel_vl</a></li><li><a href="https://www.tiktok.com/@gabe.maxxing">@gabe.maxxing</a></li><li><a href="https://www.tiktok.com/@gabinho_bjj">@gabinho_bjj</a></li></ul></details>
         <details name="profiles"><summary>YouTube</summary><ul><li><a href="https://www.youtube.com/@gabe.maxxing">@gabe.maxxing</a></li></ul></details>
       </nav>
-      <a class="download" href="/cv/social-media.pdf" download>Download PDF</a>
+      <a class="download" href="/cv/social-media.pdf" download>Download CV ↓</a>
+      </div>
     </header>
     <section>
       <h2>Profile</h2>
