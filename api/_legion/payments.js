@@ -1,11 +1,13 @@
 import Stripe from 'stripe';
+import {PAYMENT_URL} from '../../js/site/action-config.js';
 import {redis} from '../_redis.js';
 import {normalizeEmail,cleanUsername,validUsername} from '../../js/army/domain.js';
 import {key,token,sha,clean} from './security.js';
 import {put,get,admit} from './store.js';
 export const mode=()=>process.env.LEGION_STRIPE_MODE||(process.env.VERCEL_ENV==='production'?'LIVE':'TEST');
+export const paymentURL=(configured=PAYMENT_URL)=>mode()==='LIVE'&&configured||process.env['LEGION_PAYMENT_LINK_'+mode()]||'';
 export async function checkout(b){
- const email=normalizeEmail(b.email),name=clean(b.handle,40),url=process.env['LEGION_PAYMENT_LINK_'+mode()];if(!url)throw Error('payment_unavailable');
+ const email=normalizeEmail(b.email),name=clean(b.handle,40),url=paymentURL();if(!url)throw Error('payment_unavailable');
  if(name&&!validUsername(cleanUsername(name)))throw Error('handle');
  const ref='legion_'+token();await put('checkout:'+sha(ref),{email,name,created_at:new Date().toISOString()},7*86400);const u=new URL(url);if(u.protocol!=='https:'||u.hostname!=='buy.stripe.com')throw Error('payment_unavailable');u.searchParams.set('client_reference_id',ref);u.searchParams.set('prefilled_email',email);return {url:u.href};
 }

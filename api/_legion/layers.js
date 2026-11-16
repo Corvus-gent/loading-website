@@ -6,6 +6,7 @@ import {redis} from '../_redis.js';
 import {armyAuth} from '../_army/_auth.js';
 import {army, get, isMember, memberRank} from './store.js';
 import {key} from './security.js';
+import {ACTION_LINKS,ACTION_STYLES} from '../../js/site/action-config.js';
 
 const age = 90 * 86400;
 const cookieName = 'corvus_layer';
@@ -86,7 +87,7 @@ export function meter(id, zone, tab, operation, now = Date.now()) {
 }
 function screen(res, status, text, body) {
   res.setHeader('Content-Type','text/html; charset=utf-8');
-  return res.status(status).send('<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+text+' | Corvus</title><link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/css/site/shell.css"><body><main class="site-page"><p class="site-eyebrow">corvus / legion</p><h1>'+text+'</h1>'+body+'</main><footer class="site-next site-quiet-footer"><a href="/"><img src="/logo.png" width="28" height="28" alt="Corvus home"></a><a href="/map/">map</a><a href="#lang-switcher">language</a><a href="/privacy/">privacy</a></footer><script type="module" src="/js/i18n/bar.js"></script></body></html>');
+  return res.status(status).send('<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+text+' | Corvus</title><link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/css/site/shell.css">'+ACTION_STYLES+'<body>'+ACTION_LINKS+'<main class="site-page"><p class="site-eyebrow">corvus / legion</p><h1>'+text+'</h1>'+body+'</main><footer class="site-next site-quiet-footer"><a href="/"><img src="/logo.png" width="28" height="28" alt="Corvus home"></a><a href="/map/">map</a><a href="#lang-switcher">language</a><a href="/privacy/">privacy</a></footer><script type="module" src="/js/i18n/bar.js"></script></body></html>');
 }
 export async function layer(req, res, args, page = false) {
   res.setHeader('Cache-Control','private, no-store, max-age=0');

@@ -5,7 +5,7 @@ import * as store from './store.js';
 import * as newsletter from './newsletter.js';
 import * as applications from './applications.js';
 import * as partners from './partners.js';
-import {checkout} from './payments.js';
+import {checkout,paymentURL} from './payments.js';
 export default async function handler(req,res){
  res.setHeader('Cache-Control','private, no-store');res.setHeader('Referrer-Policy','no-referrer');res.setHeader('X-Content-Type-Options','nosniff');res.setHeader('X-Robots-Tag','noindex, nofollow');
  const q=req.query||{};if(q.senate==='1')return (await import('./senate-handler.js')).default(req,res);
@@ -25,7 +25,7 @@ export default async function handler(req,res){
     const today=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Los_Angeles'}).format(new Date());
     return res.status(200).json({members,invites,applications:apps,partners:links,summary:{total:members.length,by_rank:Object.fromEntries([...new Set([...LEGION_RANKS,...members.map(m=>m.rank)])].map(r=>[r,members.filter(m=>m.rank===r).length])),new_today:members.filter(m=>new Intl.DateTimeFormat('en-CA',{timeZone:'America/Los_Angeles'}).format(new Date(m.joined_at))===today).length,emails_collected:emails.length,emails_confirmed:emails.filter(e=>e.status==='confirmed').length,invites_created:invites.length,invites_opened:invites.filter(i=>i.opened_at).length,invites_claimed:invites.reduce((n,i)=>n+i.uses,0)}});
    }
-   res.setHeader('Cache-Control',q.action==='wall'?'private, no-store':'public, s-maxage=15, stale-while-revalidate=60');return res.status(200).json({members:(await store.members()).filter(u=>!u.hidden).map(({name,handle,rank,joined_at,honorary,title,spotlight_slug})=>({name,handle,rank,joined_at,honorary,title,spotlight_slug})),payment_ready:!!process.env['LEGION_PAYMENT_LINK_'+(process.env.LEGION_STRIPE_MODE||(process.env.VERCEL_ENV==='production'?'LIVE':'TEST'))]});
+   res.setHeader('Cache-Control',q.action==='wall'?'private, no-store':'public, s-maxage=15, stale-while-revalidate=60');return res.status(200).json({members:(await store.members()).filter(u=>!u.hidden).map(({name,handle,rank,joined_at,honorary,title,spotlight_slug})=>({name,handle,rank,joined_at,honorary,title,spotlight_slug})),payment_ready:!!paymentURL()});
   }
   if(req.method!=='POST')return res.status(405).json({error:'Use the page.'});
   if(!sameOrigin(req)||!String(req.headers['content-type']||'').startsWith('application/json'))throw Error('forbidden');

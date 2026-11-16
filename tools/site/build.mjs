@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises';import path from 'node:path';
 import {SECTIONS,ROUTES as EXISTING_ROUTES} from '../../js/site/routes.js';
 import {generate} from './generate-directory.mjs';
+import {ACTION_LINKS,ACTION_STYLES} from '../../js/site/action-config.js';
 let ROUTES=EXISTING_ROUTES;
 export const VERSION='20261111layers1';
 export const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -95,6 +96,13 @@ async function build(){
   let s=await fs.readFile(file,'utf8');if(/http-equiv=["']refresh/i.test(s))continue;
   s=s.replace(/<!-- SITE_(HEAD|NAV|NEXT|GEMS|DIRECTORY|CRUMB) -->[\s\S]*?<!-- \/SITE_\1 -->/g,'');
   if(file==='legion/index.html')s=legionContent(s);
+  if(file==='legion/index.html'&&!s.includes('data-checkout-next'))s=s.replace(/(<form id="tiro-form"[\s\S]*?<\/form>)/,'$1<p class="site-fine" data-checkout-next>Checkout opens in Stripe. Your Tiro entry is confirmed after payment is verified. Trouble checking out? <a href="mailto:gabriel@corvus.gent?subject=Legion%20checkout">Email Gabe →</a></p>');
+  if(file==='now/index.html'&&!s.includes('data-newsletter'))s=s.replace(/(\s*<\/div>\s*<\/main>)/,`<div class="site-reading-signup">${newsletter()}</div>$1`);
+  if(file==='realm/index.html'){
+   if(!s.includes('data-read-note'))s=s.replace('<a class="realm-recruit"','<p class="realm-read"><a data-read-note href="/now/">Read the latest note →</a></p><a class="realm-recruit"');
+   s=s.replace('class="realm-recruit" href="/join-the-army-now"','class="realm-recruit" href="/legion/#enlist"').replace('<strong>join the army →</strong>','<strong>Enlist as Tiro · $1 once →</strong>').replace('<small>gabe reads every application.</small>','<small>Start as Tiro. Higher ranks are earned.</small>');
+  }
+  if(file.startsWith('letters/'))s=s.replace(/\/js\/site\/letters\.js\?v=[^"]+/g,'/js/site/letters.js?v=20261112paths1');
   if(file==='admin/index.html'&&!s.includes('<option value="praetor">'))s=s.replace('<option value="legatus">legatus</option>','<option value="legatus">legatus</option><option value="praetor">praetor</option>');
   const partner=file.startsWith('compound/')?2:file.startsWith('friends/cardneto/')?3:file.startsWith('plethora/')?4:(file.startsWith('links/pidgy/')||file.startsWith('wiki/pidgy/'))?1:0;
   if(partner)s=s.replace(/<body([^>]*)>/,(_,attrs)=>`<body${attrs}><!-- SITE_CRUMB --><p class="site-company-crumb"><a href="/support/companies/">supported company #${partner}</a></p><!-- /SITE_CRUMB -->`);
@@ -104,6 +112,7 @@ async function build(){
   else if(sectionHub?.id==='daily')s=s.replace('</main>',`<!-- SITE_DIRECTORY --><details class="daily-group"><summary>All Daily pages</summary><p class="site-fine">Every public page in this corner. <a href="/map/">See the whole map →</a></p>${directory('daily')}</details><!-- /SITE_DIRECTORY --></main>`);
   else if(sectionHub)s=s.replace('</main>',`<!-- SITE_DIRECTORY --><section class="site-hub-directory"><h2>more ${sectionHub.label.toLowerCase()}, fewer dead ends.</h2><p class="site-fine">Every public page in this corner. <a href="/map/">See the whole map →</a></p><details><summary>browse all ${ROUTES.filter(r=>r.section===sectionHub.id).length} doors →</summary>${directory(sectionHub.id)}</details></section><!-- /SITE_DIRECTORY --></main>`);
   const chrome=shell(file);
+  chrome.nav+=ACTION_LINKS;chrome.head+=ACTION_STYLES;
   if(file==='legion/index.html')chrome.head+='<link rel="stylesheet" href="/css/site/legion.css?v=20261112legion1">';
   if(file==='daily/index.html')chrome.head+='<link rel="stylesheet" href="/css/site/daily.css?v=20261112daily1">';
   s=s.replace('</head>',`<!-- SITE_HEAD -->${chrome.head}<!-- /SITE_HEAD --></head>`);
@@ -114,6 +123,10 @@ async function build(){
   else s=s.replace('</body>',footer+'</body>');
   await fs.writeFile(file,s);
  }
+ let gate=await fs.readFile('public/realm-entry.html','utf8');
+ gate=gate.replace(/<!-- ACTION_PATHS -->[\s\S]*?<!-- \/ACTION_PATHS -->/g,'');
+ gate=gate.replace('</head>',`<!-- ACTION_PATHS -->${ACTION_STYLES}<!-- /ACTION_PATHS --></head>`).replace('</nav>',`</nav><!-- ACTION_PATHS -->${ACTION_LINKS}<!-- /ACTION_PATHS -->`);
+ await write('public/realm-entry.html',gate);
  console.log(`Site navigation: ${files.length} pages; ${ROUTES.length} directory entries.`);
 }
 if(process.argv[1]?.endsWith('/site/build.mjs')||process.argv[1]==='tools/site/build.mjs')await build();
