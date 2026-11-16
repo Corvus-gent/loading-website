@@ -62,6 +62,7 @@
 <body>
   <main>
     <header>
+      <p class="contact">Page visits · <span id="page-visits" aria-live="polite">…</span></p>
       <h1>F. Gabriel Van Langenhove</h1>
       <p><strong>Social Media &amp; Content · Founder of Corvus · AI-native creator</strong></p>
       <p class="contact">San Francisco, CA · Ghent, BE · <a href="mailto:gabriel@corvus.gent">gabriel@corvus.gent</a></p>
@@ -102,7 +103,7 @@
         <li>Filmed team interviews at an SF robotics hackathon. Short clips coming soon. Stay tuned.</li>
         <li>I run 10+ social accounts across platforms. Gabriel is my main account, Gabinho is for BJJ, Gabe Maxxing is for startups, and Corvus is for the builder community.</li>
       </ul>
-      <h3>GTM Internship, Pidgy (via Alkmist) <span>— Ghent · Oct 2026</span></h3>
+      <h3>GTM Internship, <a href="https://www.pidgy-ai.com/">Pidgy</a> (via <a href="https://www.alkmist.com/">Alkmist</a>) <span>— Ghent · Oct 2026</span></h3>
       <ul>
         <li>Analysed distribution, growth and <a href="https://www.producthunt.com/">Product Hunt</a> launches. Worked like a mad dawg.</li>
         <li>Blog coming soon. I dug into launches that took off and launches that flopped. I’ll share what worked, what went wrong, and what I’d try next. <time id="blog-countdown" role="timer" aria-label="Blog countdown" datetime="2026-11-23T16:49:22.784Z">November 23, 2026</time></li>
@@ -164,7 +165,13 @@
         <p class="secret-code">512</p>
       </details>
     </section>
+    <section aria-labelledby="outbound-heading">
+      <h2 id="outbound-heading">Outbound link clicks · <span id="outbound-total">…</span></h2>
+      <p class="contact" id="outbound-since"></p>
+      <ol id="outbound-top" aria-live="polite"></ol>
+    </section>
   </main>
+  <script type="module" src="/cv/social-media/stats.js"></script>
   <script>
     const phoneDialog = document.getElementById("phone-access");
     document.querySelector(".phone-request").addEventListener("click", () => phoneDialog.showModal());
