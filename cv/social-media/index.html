@@ -20,8 +20,19 @@
     .download { display: inline-block; padding: .75rem 1.25rem; margin-top: 1rem; background: #eee; color: #111; border-radius: .3rem; font-weight: 700; text-decoration: none; }
     .download:hover { background: white; color: black; }
     .download:focus-visible { outline-color: white; }
-    summary { display: list-item; width: fit-content; padding: .55rem 1rem; border: 1px solid #888; border-radius: .3rem; cursor: pointer; font: inherit; }
-    summary:focus-visible { outline: 2px solid white; outline-offset: 3px; }
+    .secret summary {
+      display: list-item;
+      width: fit-content;
+      padding: .6rem 1rem;
+      color: #f0d99b;
+      background: #40151c;
+      border: 1px solid #915f3b;
+      border-radius: .4rem;
+      cursor: pointer;
+    }
+    .secret summary::marker { color: #d6ad60; }
+    .secret summary:hover, .secret[open] summary { background: #592029; }
+    .secret summary:focus-visible { outline: 2px solid #f0d99b; outline-offset: 3px; }
     section { border-top: 1px solid #383838; margin-top: 2rem; }
     h2 { font-size: 1.25rem; margin: 1.4rem 0 .7rem; }
     h3 { font-size: 1rem; margin: 1.2rem 0 .3rem; }
@@ -94,8 +105,8 @@
     <section>
       <h2 id="beyond-work">Beyond work</h2>
       <p>Competitive Brazilian Jiu-Jitsu athlete chasing an IBJJF world title. Hackathons, robots and side quests. A nomad by choice, grounded by loving parents near Brussels and an office in Ghent.</p>
-      <details>
-        <summary>One more reason I come home</summary>
+      <details class="secret">
+        <summary aria-label="A little secret"><span lang="zh-Hans">一个小秘密</span> <span aria-hidden="true">✦</span></summary>
         <p>Also, a loving girl near Leuven who helps me lock tf in.</p>
       </details>
     </section>
