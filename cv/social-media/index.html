@@ -24,6 +24,7 @@
     .download:focus-visible { outline-color: white; }
     .trudy summary { cursor: pointer; width: fit-content; padding: .4rem .8rem; border: 1px solid #888; border-radius: .3rem; }
     .trudy img { display: block; width: min(100%, 28rem); height: auto; margin-top: .75rem; border-radius: .3rem; }
+    #release-countdown { display: block; font-variant-numeric: tabular-nums; font-weight: 600; }
     .secret-code { text-align: right; font: .8rem ui-monospace, monospace; letter-spacing: .15em; color: #d6ad60; }
     .secret summary {
       display: list-item;
@@ -92,7 +93,7 @@
       <p>One prompt turns raw footage into edits for each channel.</p>
       <ul>
         <li><strong>Editing:</strong> <a href="https://corvus.gent/go/compound-impact">Compound</a> and <a href="https://www.arcade.software/">Arcade</a> handle the cut and polish. <a href="https://corvus.gent/compound/impact/">The Compound Effect 💎</a></li>
-        <li><strong>Building:</strong> Developing a free, open-source MCP server to cut editing time another 10×. Previous project: <a href="https://github.com/Gabriellvl/nightjar-mcp">nightjar-mcp</a>.</li>
+        <li><strong>Building:</strong> Building a free MCP server to cut editing time another 10×. Stay tuned. I’m open-sourcing it on GitHub very soon. <time id="release-countdown" datetime="2026-11-19T15:42:55Z" role="timer" aria-label="GitHub release countdown">November 19, 2026</time></li>
         <li><strong>Result:</strong> Publishing solo leaves time for stories and community.</li>
       </ul>
     </section>
@@ -125,6 +126,21 @@
     </section>
   </main>
   <script>
+    const countdown = document.getElementById("release-countdown");
+    const deadline = Date.parse(countdown.dateTime);
+    function updateCountdown() {
+      const secondsLeft = Math.max(0, Math.ceil((deadline - Date.now()) / 1000));
+      const days = Math.floor(secondsLeft / 86400);
+      const hours = Math.floor(secondsLeft / 3600) % 24;
+      const minutes = Math.floor(secondsLeft / 60) % 60;
+      const seconds = secondsLeft % 60;
+      countdown.textContent = secondsLeft
+        ? `${days}d ${hours}h ${minutes}m ${seconds}s`
+        : "Countdown complete.";
+      if (secondsLeft) setTimeout(updateCountdown, 1000);
+    }
+    updateCountdown();
+
     const secretCode = document.querySelector(".secret-code");
     const codes = ["512", "520", "1314"];
     let index = 0;
