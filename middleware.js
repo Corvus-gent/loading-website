@@ -1,5 +1,6 @@
 // - stats.corvus.gent serves the stats pages at clean URLs; corvus.gent/stats redirects there
 // - curl / wget / scripts get counted, and curling the homepage gets a little reply
+import {noIndex} from './js/site/indexing.js';
 import {tierPath} from './js/site/page-tiers.js';
 import {ogRoute} from "./js/og-routes.js";
 import {COMPOUND_LINKS} from "./js/compound-links.js";
@@ -31,7 +32,18 @@ const CURL_REPLY = `
 `;
 
 export default function middleware(request) {
+  const response = route(request);
+  if (!noIndex(request.url)) return response;
+  const headers = new Headers(response.headers);
+  headers.set('X-Robots-Tag','noindex, nofollow');
+  return new Response(response.body,{status:response.status,statusText:response.statusText,headers});
+}
+function route(request) {
   const url = new URL(request.url);
+  if (url.hostname === 'stats.corvus.gent' && ['/robots.txt','/sitemap.xml'].includes(url.pathname)) {
+    url.pathname = '/stats' + url.pathname;
+    return rewrite(url);
+  }
   const cleanPath=url.pathname.replace(/\/index\.html$/,'').replace(/\/$/,'')||'/';
   // File-form stats links must reach the same clean routes as directory links.
   if (url.hostname === 'stats.corvus.gent' && /^\/(?:stats\/)?(?:(?:pidgy|games|map|music|hunt|x|coffee|status|hack|army|private)\/)?index\.html$/.test(url.pathname)) {
