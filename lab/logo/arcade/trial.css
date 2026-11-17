@@ -16,3 +16,30 @@
 .hero-wing img{display:block;width:100%;max-width:240px;height:auto;aspect-ratio:1;object-fit:contain;image-rendering:pixelated}
 .hero-wing span{font-size:13px;color:#ffd86e}
 @media(max-width:560px){.vote-hero-row{gap:24px}.hero-wing{flex-basis:150px}.hero-wing span{font-size:12px}#vote-total-trigger{flex:none}}
+
+/* Put the vote within reach on a phone. */
+header{padding-top:16px;padding-bottom:16px}main{padding-top:18px}
+.vote-hero{padding-bottom:20px;margin-bottom:20px}
+.vote-hero-row{justify-content:space-between;gap:20px}
+#vote-total-trigger{min-width:0}
+#vote-total{font-size:clamp(76px,15vw,150px)}
+.hero-wing{flex-basis:200px}
+.vote-cta{display:inline-flex;align-items:center;justify-content:center;min-height:48px;background:#9ce7bf;color:#201d2b;border-radius:8px;padding:12px 20px;font-weight:700;text-decoration:none;margin-top:8px}
+main>h1{font-size:clamp(24px,4vw,40px);line-height:1.15;letter-spacing:-.045em;margin:12px 0}
+main>h1+p,.vote-hint{font-size:13px;color:#c0b7cb;line-height:1.7}
+#vote-heading{font-size:22px;margin:24px 0 6px;scroll-margin-top:16px}
+.vote-hint{margin:0 0 18px}
+#choices{scroll-margin-top:20px}
+#choices article{min-width:0;border:1px solid #51475e;border-radius:10px;padding:12px;background:#ffffff04}
+#choices figure{max-width:none;border-radius:6px}
+#choices h3{font-size:14px;margin:12px 0}
+#choices button{width:100%;margin:0;min-height:48px;border-radius:6px;border-color:#9ce7bf;background:#9ce7bf;color:#201d2b;padding:10px 6px;font-size:13px}
+#choices article.is-picked{border-color:#ffd86e;background:#ffd86e0a}
+#choices article.is-picked button{background:#ffd86e;border-color:#ffd86e}
+#status{font-size:13px;line-height:1.7}
+main>details{padding:14px 0;border-top:1px solid #51475e;font-size:13px}
+main>details summary{cursor:pointer;min-height:32px}
+a:focus-visible,button:focus-visible{outline:2px solid #ffd86e;outline-offset:4px}
+@media(max-width:560px){.hero-wing{flex-basis:132px}.vote-hero-row{gap:16px}.vote-total-label{font-size:12px}#vote-total-note{font-size:11px;margin:10px 0}.vote-cta{width:100%}.grid{gap:8px}#choices article{padding:7px}#choices h3{font-size:11px;margin:10px 0}#choices button{font-size:12px}main>h1{font-size:25px}.snitch-note{font-size:11px}}
+
+#choices article.is-picked button:disabled{opacity:1}

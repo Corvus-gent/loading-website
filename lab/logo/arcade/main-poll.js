@@ -6,9 +6,12 @@ const keys=Object.keys(labels);
 for(const k of keys){
  const card=document.createElement('article');
  card.innerHTML='<figure><img src="'+(k==='c'?'wing-still.png':k+'.svg')+'" alt="'+labels[k]+'"></figure><h3>'+labels[k]+'</h3><button type="button">Pick '+k.toUpperCase()+'</button>';
+ card.dataset.choice=k;
+ card.querySelector('button').setAttribute('aria-pressed','false');
  card.querySelector('button').onclick=()=>vote(k);
  choices.append(card);
 }
+function markPicked(saved){for(const card of choices.children){const picked=card.dataset.choice===saved;card.classList.toggle('is-picked',picked);const button=card.querySelector('button');button.setAttribute('aria-pressed',String(picked));button.textContent=picked?'Picked '+saved.toUpperCase()+' ✓':'Pick '+card.dataset.choice.toUpperCase();}}
 function disable(value){choices.querySelectorAll('button').forEach(b=>b.disabled=value);}
 async function vote(choice){
  disable(true);
@@ -20,6 +23,7 @@ async function vote(choice){
  const {saved}=await r.json();
  status.textContent='Your vote: '+labels[saved]+'. Thanks!';
  localStorage.setItem('corvus-main-logo-choice',saved);
+ markPicked(saved);
  results();
  }catch{disable(false);status.textContent='Could not save your vote. Try again.';}
 }
@@ -40,4 +44,4 @@ results();
 
 document.querySelector('details').ontoggle=results;
 document.getElementById('flight').ontoggle=e=>{const img=document.getElementById('motion');if(e.target.open)img.src='wing-flight.gif';else img.removeAttribute('src');};
-try{const saved=localStorage.getItem('corvus-main-logo-choice');if(labels[saved]){disable(true);status.textContent='Your vote: '+labels[saved]+'. Thanks!';}}catch{}
+try{const saved=localStorage.getItem('corvus-main-logo-choice');if(labels[saved]){markPicked(saved);disable(true);status.textContent='Your vote: '+labels[saved]+'. Thanks!';}}catch{}
