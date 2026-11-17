@@ -23,7 +23,21 @@ async function vote(choice){
  results();
  }catch{disable(false);status.textContent='Could not save your vote. Try again.';}
 }
-async function results(){const el=document.getElementById('results');try{const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw Error();const v=await r.json();el.textContent=keys.map((k,i)=>labels[k]+' — '+v[i]).join('　/　');}catch{el.textContent='Results temporarily unavailable.';}}
+async function results(){
+ const el=document.getElementById('results'),total=document.getElementById('vote-total'),note=document.getElementById('vote-total-note');
+ try{
+  const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw Error();
+  const v=await r.json();
+  if(!Array.isArray(v)||v.length!==3||!v.every(n=>Number.isSafeInteger(n)&&n>=0))throw Error();
+  const count=v.reduce((sum,n)=>sum+n,0),formatted=count.toLocaleString('en');
+  el.textContent=keys.map((k,i)=>labels[k]+' — '+v[i]).join('　/　');
+  if(total.textContent!==formatted){total.textContent=formatted;total.classList.remove('count-updated');void total.offsetWidth;total.classList.add('count-updated');}
+  note.textContent='across Coil, Handle & Wing · updated just now';
+ }catch{el.textContent='Results temporarily unavailable.';note.textContent=total.textContent==='…'?'Vote count unavailable. Tap to retry.':'Last loaded vote count · tap to refresh.';if(total.textContent==='…')total.textContent='—';}
+}
+document.getElementById('vote-total-trigger').addEventListener('click',results);
+results();
+
 document.querySelector('details').ontoggle=results;
 document.getElementById('flight').ontoggle=e=>{const img=document.getElementById('motion');if(e.target.open)img.src='wing-flight.gif';else img.removeAttribute('src');};
 try{const saved=localStorage.getItem('corvus-main-logo-choice');if(labels[saved]){disable(true);status.textContent='Your vote: '+labels[saved]+'. Thanks!';}}catch{}
