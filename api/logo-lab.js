@@ -4,6 +4,7 @@ const editions = new Set(['lamplighter','sigil','arcade']);
 
 export default async function handler(req,res) {
   res.setHeader('Cache-Control','no-store');
+  if(req.query?.trial === 'main-logo') return mainLogo(req,res);
   if(req.query?.trial === 'arcade') return arcadeTrial(req,res);
   if(req.method !== 'POST') {
     res.setHeader('Allow','POST');
@@ -59,4 +60,21 @@ async function arcadeTrial(req,res) {
     if(state==='unseen') return res.status(409).end();
     return res.json({variant,answered:state!=='seen'});
   } catch {return res.status(503).end();}
+}
+
+async function mainLogo(req,res) {
+  if (!connected()) return res.status(503).end();
+  const votes='corvus:{main-logo-v1}:votes', totals='corvus:{main-logo-v1}:totals';
+  try {
+    if(req.method==='GET') {
+      const values=await redis(['HMGET',totals,'a','b','c']);
+      return res.json(values.map(Number));
+    }
+    if(req.method!=='POST') return res.status(405).end();
+    const {id,choice}=req.body||{};
+    if(typeof id!=='string'||!/^([a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12})$/.test(id)||!variants.includes(choice))return res.status(400).end();
+    const script="if redis.call('HSETNX',KEYS[1],ARGV[1],ARGV[2])==1 then redis.call('HINCRBY',KEYS[2],ARGV[2],1) end return redis.call('HGET',KEYS[1],ARGV[1])";
+    const saved=await redis(['EVAL',script,'2',votes,totals,id,choice]);
+    return res.json({saved});
+  }catch{return res.status(503).end();}
 }
