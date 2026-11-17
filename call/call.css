@@ -1,0 +1,43 @@
+/* The hotline: Corvus terminal, with a little late-night colour. */
+.call-wrap{max-width:1040px;text-align:left;padding-top:40px;padding-bottom:64px}
+.call-eyebrow,.call-section-label{font-size:11px;letter-spacing:.14em;color:#888;line-height:1.8}
+.call-eyebrow{margin:40px 0 16px}
+.call-wrap h1{font-size:clamp(56px,9vw,104px);line-height:.96;letter-spacing:-.075em;margin:0 0 24px;font-weight:500;text-align:left}
+.call-wrap h1 span{color:#d9a2c7}
+.call-wrap .sub{max-width:460px;line-height:1.7;margin:0;color:#aaa;text-align:left}
+.call-wrap .support-spots{display:inline-flex;align-items:center;gap:9px;border:1px solid #333;border-radius:99px;padding:7px 12px;margin:22px 0 36px;font-size:11px;color:#bbb}
+.support-spots:before{content:'';height:6px;width:6px;border-radius:50%;background:#b6cf9a}
+.call-wrap .call-tiers{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:12px 0 28px}
+.call-wrap .call-tier{display:flex;flex-direction:column;align-items:flex-start;min-width:0;padding:24px;background:linear-gradient(145deg,#151216,#0b0b0c);border:1px solid #363039;border-radius:16px;transition:border-color .2s,transform .2s}
+.call-wrap .call-tier:hover{border-color:#a07494;transform:translateY(-3px)}
+.call-wrap .call-tier:nth-child(2){border-color:#78566d;background:linear-gradient(145deg,#251a23,#100e11)}
+.call-wrap .call-tier h2{color:#eee;font-size:14px;line-height:1.6;letter-spacing:-.02em;margin:0}
+.call-wrap .call-tier p{font-size:13px;line-height:1.8;color:#aaa;flex:1;margin:18px 0 26px}
+.call-wrap .call-tier button{width:100%;text-align:left;border-color:#52424e;background:#211a20;color:#efcce4;font-size:12px;border-radius:8px;padding:12px}
+.call-wrap .call-tier:nth-child(2) button{background:#dfb4d1;color:#191017;border-color:#dfb4d1}
+.call-lower{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:14px;align-items:start}
+.call-details,.call-side{border:1px solid #303033;border-radius:16px;background:#0c0c0d;padding:28px;min-width:0}
+.call-wrap .paracetamail{border:0;border-bottom:1px solid #29262b;background:none;padding:0 0 22px;margin:0 0 26px}
+.call-wrap .paracetamail h2,.call-side>h2{font-size:20px;letter-spacing:-.04em;margin:0 0 12px;color:#e9d6e3}
+.call-wrap .paracetamail p{font-size:13px;line-height:1.9;margin:0;color:#aaa}
+.call-wrap .call-booking{margin:0;scroll-margin-top:90px}
+.call-wrap .call-booking h2{font-size:23px;letter-spacing:-.04em;margin:0 0 24px}
+.call-wrap .call-booking label{font-size:12px}
+.call-wrap .call-booking input,.call-wrap .call-booking select,.call-wrap .call-booking textarea{border-color:#383239;border-radius:8px;background:#111013}
+.call-wrap .call-submit{background:#dfb4d1;color:#171016;border:0;border-radius:8px}
+.call-wrap .coffee-honor{background:#20171d;border-color:#715267}
+.call-side{text-align:center;padding-top:28px;background:radial-gradient(ellipse at 50% 32%,#271a2b 0, #100e12 55%,#0c0c0d 90%)}
+.call-side .call-section-label{margin-bottom:24px}
+.side-caption{font-size:12px;color:#999;line-height:1.7}
+.call-side .deck{margin:30px 0 24px}
+.call-side .vinyl{width:190px;height:190px;box-shadow:0 0 60px #b16ea321}
+.call-side .spotify-privacy{font-size:10px;color:#999;line-height:1.6}
+.call-side .music-note{font-size:12px;line-height:1.8;display:block;color:#bbb}
+.call-side .card{border:1px solid #3a303b;border-radius:12px;padding:20px;margin-top:28px;background:#ffffff03}
+.call-side .card h2{font-size:14px;margin:0 0 10px}
+.call-side .card p{font-size:12px;color:#999;line-height:1.8}
+.call-side .btn{display:inline-block;padding:10px 14px;border:1px solid #51404f;border-radius:8px;font-size:12px;color:#e8c5df}
+.call-wrap .puzzle-note{text-align:center;margin-top:32px;font-size:12px}
+.call-wrap :is(a,button,input,select,textarea):focus-visible{outline:2px solid #dfb4d1;outline-offset:4px}
+@media(max-width:720px){.call-wrap{padding-top:24px}.call-eyebrow{margin-top:26px}.call-wrap .call-tiers,.call-lower{grid-template-columns:1fr}.call-wrap .call-tier{padding:22px;min-height:0}.call-wrap .call-tier p{margin:12px 0 20px}.call-details,.call-side{padding:22px}.call-wrap h1{font-size:clamp(52px,14vw,86px)}}
+@media(prefers-reduced-motion:reduce){.call-wrap .call-tier{transition:none}.call-wrap .call-tier:hover{transform:none}.call-wrap .vinyl.spinning,.call-wrap .playing .bar{animation:none}}

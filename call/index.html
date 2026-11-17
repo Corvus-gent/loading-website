@@ -19,21 +19,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://corvus.gent/og.png" />
   <link rel="stylesheet" href="/support/campaign/style.css?v=20261108s2">
-  <style>
-    .call-wrap { max-width: 680px; }
-    .card { border: 1px solid #2a2a2a; border-radius: 14px; padding: 22px 22px 20px; margin: 22px 0 0; background: linear-gradient(180deg, #0d0d0d, #070707); }
-    .card h2 { font-size: 20px; margin: 0 0 6px; letter-spacing: -.01em; }
-    .card p { margin: 0 0 16px; color: #9a9a9a; font-size: 14px; line-height: 1.5; }
-    .btn { display: inline-block; padding: 11px 18px; border-radius: 999px; text-decoration: none; font-size: 14px; transition: transform .15s ease, background .15s ease; }
-    .btn:hover { transform: translateY(-1px); }
-    .btn-main { background: #f2f2f2; color: #000 !important; font-weight: 600; }
-    .btn-main:hover { background: #fff; }
-    .btn-ghost { border: 1px solid #3a3a3a; color: #ddd !important; }
-    .btn-ghost:hover { background: #161616; }
-    .card.alt h2 { font-size: 16px; }
-    .or { display: flex; align-items: center; gap: 12px; color: #555; font-size: 12px; margin: 22px 0 0; }
-    .or::before, .or::after { content: ""; flex: 1; height: 1px; background: #222; }
-  </style>
+  <link rel="stylesheet" href="/call/call.css?v=20261116boxes">
 <link rel="stylesheet" href="/privacy/privacy.css?v=158032e36fdb"><meta name="referrer" content="no-referrer">
 <!-- SITE_HEAD --><script type="module" src="/js/live-banner.js?v=20261108live1"></script><link rel="stylesheet" href="/plethora/promo.css?v=20261108live1"><link rel="stylesheet" href="/css/site/shell.css?v=20261111layers1"><script type="module" src="/js/site/shell.js?v=20261111layers1"></script><!-- /SITE_HEAD --></head>
 <body class="people-page site-shell"><!-- SITE_NAV --><nav class="site-nav" aria-label="Corvus sections" data-site-shell><a class="site-mark" href="/" aria-label="Corvus home">corvus ↟</a><a href="/quests/">Quests</a><a href="/daily/">Daily</a><a href="/legion/">Legion</a><a href="/live/">Live</a><a href="/gabe/" aria-current="page">Gabe</a><button class="site-search-button" data-site-search aria-label="Find a page">/ search</button></nav><div class="site-section" data-site-shell><a href="/gabe/">corvus / gabe</a><button class="site-search-button" data-site-search aria-label="Find a page">/ find a page</button></div><!-- /SITE_NAV -->
@@ -41,13 +27,13 @@
     <div class="wrap call-wrap">
       <div class="lang-switcher" id="lang-switcher"></div>
       <div class="tag"><a href="/">corvus.gent</a> / call</div>
-      <h1>what hurts?</h1><p class="sub">quick question, big headache, or coffee in SF. pick your dose 💊</p><p class="support-spots" data-support-spots>5/5 spots this week</p>
-      <div class="call-tiers" aria-label="Choose your call">
+      <p class="call-eyebrow">GABE’S HOTLINE · GHENT ↔ THE INTERNET</p><h1>you used to<br><span>call me.</span></h1><p class="sub">quick question, big headache, or coffee in SF. pick your dose 💊</p><p class="support-spots" data-support-spots>5/5 spots this week</p>
+      <div class="call-section-label">01 / pick your dose</div><div class="call-tiers" aria-label="Choose your call">
         <section class="call-tier"><h2>⚡ 5 MIN · FREE</h2><p>quick question, quick answer.</p><button type="button" data-call-tier="quick">quick question →</button></section>
         <section class="call-tier"><h2>☕ 15 MIN · 1 COFFEE ($5)</h2><p>you sort the coffee, I'll bring the painkillers 💊</p><button type="button" data-call-tier="coffee">sort my headache →</button></section>
-        <section class="call-tier"><h2>🤝 MEET IN SF · 1 COFFEE</h2><p>or we just grab the coffee IRL. I'm in SF this week.</p><button type="button" data-call-tier="meet">meet in SF →</button></section>
+        <section class="call-tier"><h2>🤝 MEET IN SF · 1 COFFEE</h2><p>or we just grab the coffee IRL. let’s find a time when we’re both in SF.</p><button type="button" data-call-tier="meet">meet in SF →</button></section>
       </div>
-      <section class="paracetamail"><h2>the deal 💊</h2><p>Every paid call comes with 1 PARACETAMAIL 💊: one email from me, after the call, that kills your biggest headache (growth, launch, distribution, whatever hurts). You sort the coffee, I bring the painkillers.</p></section>
+      <div class="call-lower"><div class="call-details"><section class="paracetamail"><h2>the deal 💊</h2><p>Every paid call comes with 1 PARACETAMAIL 💊: one email from me, after the call, that kills your biggest headache (growth, launch, distribution, whatever hurts). You sort the coffee, I bring the painkillers.</p></section>
       <section class="call-booking" id="booking"><h2>leave me the headache.</h2>        <div id="call-coffee-step" class="coffee-honor" hidden><p>Did you sort the coffee? ☕</p><a class="support-button" data-support-step="call-coffee" href="/api/support?action=out&amp;step=call-coffee" target="_blank" rel="noopener noreferrer">Buy me a coffee ↗</a><label class="check-label"><input type="checkbox" name="coffeePaid" form="call-request">I bought the coffee</label><small>honor system. one coffee, one headache.</small></div><form id="call-request">
         <label>your name<input name="name" required maxlength="80" autocomplete="name"></label>
         <label>email or handle<input name="contact" required maxlength="160" autocomplete="email" placeholder="you@email.com or @yourhandle"></label>
@@ -60,7 +46,7 @@
         <button class="support-button call-submit" type="submit">send the headache →</button><p id="call-form-status" role="status" aria-live="polite"></p>
       </form><div id="call-success" hidden><h3>Got it 💊</h3><p>I'll reply within a few hours to lock a time.</p></div><noscript><p><a href="mailto:gabriel@corvus.gent?subject=Call%20request">Email Gabe your name, tier, headache and preferred times →</a></p></noscript></section>
 
-      <div class="deck" id="deck">
+      </div><aside class="call-side"><div class="call-section-label">02 / hold music</div><h2>hotline bling.</h2><p class="side-caption">you know when that hotline bling.</p><div class="deck" id="deck">
         <button class="vinyl" id="vinyl" aria-label="play / pause Hotline Bling" aria-pressed="false">
           <span class="label"><img src="/logo.png" alt=""></span>
         </button>
@@ -73,7 +59,7 @@
 
       <section class="card alt"><h2>just want to buy a coffee?</h2><p>same coffee jar. no call needed.</p><a id="coffee-link" class="btn btn-ghost" href="https://buymeacoffee.com/gabe.maxxing" target="_blank" rel="noopener noreferrer">☕ buy me a coffee</a></section>
 
-      <p class="puzzle-note"><a href="/games/">🕯 today’s puzzle is waiting →</a></p>
+      </aside></div><p class="puzzle-note"><a href="/games/">🕯 today’s puzzle is waiting →</a></p>
     </div>
   </main>
   <script type="module">
