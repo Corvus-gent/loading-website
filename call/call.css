@@ -41,3 +41,18 @@
 .call-wrap :is(a,button,input,select,textarea):focus-visible{outline:2px solid #dfb4d1;outline-offset:4px}
 @media(max-width:720px){.call-wrap{padding-top:24px}.call-eyebrow{margin-top:26px}.call-wrap .call-tiers,.call-lower{grid-template-columns:1fr}.call-wrap .call-tier{padding:22px;min-height:0}.call-wrap .call-tier p{margin:12px 0 20px}.call-details,.call-side{padding:22px}.call-wrap h1{font-size:clamp(52px,14vw,86px)}}
 @media(prefers-reduced-motion:reduce){.call-wrap .call-tier{transition:none}.call-wrap .call-tier:hover{transform:none}.call-wrap .vinyl.spinning,.call-wrap .playing .bar{animation:none}}
+
+/* Keep the action in the first screen, without the global landing-page spacing. */
+body.call-page main{display:block;min-height:0;padding:20px 24px 40px}
+body.call-page .call-wrap{width:min(1040px,100%);margin:0 auto;padding:0}
+.call-topline{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 0 20px}
+.call-topline .tag{margin:0}
+.call-primary{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 22px;border:1px solid #dfb4d1;border-radius:9px;background:#dfb4d1;color:#191017!important;font-size:14px;font-weight:700;text-decoration:none;white-space:nowrap}
+.call-primary:hover{background:#f0cce5}
+body.call-page .call-eyebrow{margin:0 0 10px}
+body.call-page .call-wrap h1{font-size:clamp(42px,6vw,68px);line-height:1;margin-bottom:16px}
+body.call-page .call-wrap .support-spots{margin:14px 0 20px}
+body.call-page .call-wrap .call-tier{padding:20px}
+body.call-page .call-wrap .call-tier p{margin:12px 0 20px}
+body.call-page .call-booking{scroll-margin-top:100px}
+@media(max-width:720px){body.call-page main{padding:16px 16px 32px}.call-topline{gap:8px;margin-bottom:20px}.call-topline .tag{font-size:10px;padding:6px 8px}.call-primary{padding:12px 14px;font-size:12px}body.call-page .call-wrap h1{font-size:48px}}
