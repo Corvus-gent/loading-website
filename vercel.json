@@ -4,6 +4,11 @@
   ],
   "redirects": [
     {
+      "source": "/logo",
+      "destination": "/lab/logo/arcade/",
+      "permanent": false
+    },
+    {
       "source": "/social",
       "destination": "/cv/social-media/",
       "permanent": true
