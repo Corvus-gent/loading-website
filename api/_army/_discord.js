@@ -1,3 +1,5 @@
+import {ROLE_ADDRESSES} from '../../lib/email/addresses.js';
+import {sendTransactional} from '../../lib/email/send.js';
 import crypto from 'node:crypto';
 import {armyCopy} from './_copy.js';
 import {activeTier,DAY} from '../../js/army/domain.js';
@@ -92,7 +94,7 @@ export function armyDiscord(store,{request=fetch,token=()=>process.env.DISCORD_B
   const findings=permissionFindings(config,roles,channels),result={state:findings.length?'unsafe':'ok',findings,checked:new Date(store.now()).toISOString()};
   await store.run(['SET',store.key('discord:audit'),JSON.stringify(result),'EX',2*DAY]);
   if(findings.length&&process.env.RESEND_API_KEY&&!await store.get('discord:alert')){
-   const response=await request('https://api.resend.com/emails',{method:'POST',redirect:'error',signal:AbortSignal.timeout(6000),headers:{Authorization:'Bearer '+process.env.RESEND_API_KEY,'Content-Type':'application/json','Idempotency-Key':'discord-audit-'+new Date(store.now()).toISOString().slice(0,10)},body:JSON.stringify({from:'the crow <crow@corvus.gent>',to:['gabriel@corvus.gent'],subject:'corvus: discord invite permissions changed',text:'the daily audit found '+findings.length+' unsafe permission settings. review the legion section on your private dashboard.\n\n'+findings.join('\n')})});
+   const response=await sendTransactional({to:[ROLE_ADDRESSES.hello],subject:'corvus: discord invite permissions changed',text:'the daily audit found '+findings.length+' unsafe permission settings. review the legion section on your private dashboard.\n\n'+findings.join('\n')},{request,idempotencyKey:'discord-audit-'+new Date(store.now()).toISOString().slice(0,10)});
    if(response.ok)await store.run(['SET',store.key('discord:alert'),JSON.stringify(true),'EX',DAY]);
   }
   return result;

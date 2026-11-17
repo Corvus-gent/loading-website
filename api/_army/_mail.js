@@ -1,3 +1,4 @@
+import {prepareEmail, sendPrepared, emailConfigured} from '../../lib/email/send.js';
 import {open, seal, digest} from './_security.js';
 import {dayKey, rank, activeTier, DAY, LANGUAGES} from '../../js/army/domain.js';
 import {mailCopy,armyCopy,fill} from './_copy.js';
@@ -51,8 +52,7 @@ export function armyMail(store, auth, {request = fetch, apiKey = () => process.e
     const rankLines=[badges.rankLabel+' '+rank(user)+' · '+badges.rankWhy];
     if(tier&&tier!=='imperator')rankLines.push(badges.tierLabel+' '+tier+' · '+badges.tierWhy+(['senator','consul'].includes(tier)?' · '+badges.supporterLifetime:''));
     const body=fill(copy[kind+'.body'],values)+(['claim','welcome','daily'].includes(kind)?'\n\n'+rankLines.join('\n'):'');
-    return {from:(kind === 'weekly' ? 'diogenes' : 'the crow') + ' <crow@corvus.gent>',to:[user.email],subject:copy[kind+'.subject'],
-      text:body, ...(unsub ? {headers:{'List-Unsubscribe':`<${unsub}>`,'List-Unsubscribe-Post':'List-Unsubscribe=One-Click'}} : {})};
+    return prepareEmail(unsub ? 'marketing' : 'transactional', {to:[user.email],subject:copy[kind+'.subject'],text:body,unsubscribeUrl:unsub});
   }
   async function finish(jobs) {
     const utc = new Date(store.now()).toISOString().slice(0,10), month = utc.slice(0,7);
@@ -71,7 +71,7 @@ export function armyMail(store, auth, {request = fetch, apiKey = () => process.e
   }
   async function flush({dryRun=false,only=null}={}) {
     return store.lock('mailer',async()=>{
-      if(!apiKey()) {await writeStatus({state:'not_configured',waiting:Number(await store.run(['ZCARD',store.key('outbox')]))});return {sent:0,state:'not_configured'};}
+      if(!emailConfigured({...process.env,RESEND_API_KEY:apiKey()})) {await writeStatus({state:'not_configured',waiting:Number(await store.run(['ZCARD',store.key('outbox')]))});return {sent:0,state:'not_configured'};}
       const budget=await quota();
       if(!budget.remaining) {const waiting=Number(await store.run(['ZCARD',store.key('outbox')]));await writeStatus({state:'quota',waiting,upgradeNeeded:waiting>0,...budget});return {sent:0,state:'quota',waiting};}
       let batch=await store.get('mail-batch');
@@ -82,7 +82,15 @@ export function armyMail(store, auth, {request = fetch, apiKey = () => process.e
         if(!job||!user||job.expires<=store.now()) {if(!dryRun)await store.run(['ZREM',store.key('outbox'),id]);continue;}
         if(['daily','weekly'].includes(job.kind)&&!await store.get('sub:'+job.uid+':'+job.kind))continue;
 
-        const payload=job.delivery?JSON.parse(open(job.delivery)):await compose(job,user,{dryRun});
+        let payload=job.delivery?JSON.parse(open(job.delivery)):await compose(job,user,{dryRun});
+        // Refresh cached identities after a rollout without dropping stable batch keys.
+        if(payload && job.delivery){
+          const refreshed=prepareEmail(['daily','weekly'].includes(job.kind)?'marketing':'transactional', {...payload,unsubscribeUrl:payload.headers?.['List-Unsubscribe']?.slice(1,-1)});
+          if(batch?.uncertain && JSON.stringify(refreshed)!==JSON.stringify(payload)){
+            await writeStatus({state:'review',waiting:ids.length});return {sent:0,state:'review'};
+          }
+          payload=refreshed;
+        }
         if(!payload)continue;
         if(!job.delivery&&!dryRun){job.delivery=seal(JSON.stringify(payload));await store.own(job.uid,'mail:'+id,job,Math.max(1,Math.ceil((job.expires-store.now())/1000)));}
         jobs.push({id,job,payload});
@@ -101,7 +109,7 @@ export function armyMail(store, auth, {request = fetch, apiKey = () => process.e
       if(store.now()-batch.created>23*3600000){await writeStatus({state:'review',waiting:jobs.length});return {sent:0,state:'review'};}
       batch.uncertain=true;await store.run(['SET',store.key('mail-batch'),JSON.stringify(batch),'EX',2*DAY]);
       let response;
-      try {response=await sendRequest('/emails/batch',{method:'POST',headers:{'Idempotency-Key':batch.key},body:JSON.stringify(jobs.map(j=>j.payload))});}
+      try {response=await sendPrepared(jobs.map(j=>j.payload),{batch:true,throwOnError:false,request,env:{...process.env,RESEND_API_KEY:apiKey()},idempotencyKey:batch.key});}
       catch {await writeStatus({state:'retry',waiting:jobs.length});return {sent:0,state:'retry'};}
       if(!response.ok){
         if(response.status===429){batch.uncertain=false;await store.run(['SET',store.key('mail-batch'),JSON.stringify(batch),'EX',2*DAY]);}

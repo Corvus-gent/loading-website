@@ -1,3 +1,4 @@
+import {OWNER_EMAIL} from '../lib/email/addresses.js';
 import crypto from 'node:crypto';
 import {redis,pipeline} from './_redis.js';
 import {dailyIPHash,serverSecret,ORIGINS} from './_privacy.js';
@@ -44,7 +45,7 @@ export default async function interviews(req,res) {
   try {
     if(req.query.interviews==='1'){
       if(req.method!=='GET')return res.status(405).json({error:'Use GET.'});
-      if((await getSession(req))?.email!=='gabriel@corvus.gent')return res.status(401).json({error:'Owner login required.'});
+      if((await getSession(req))?.email!==OWNER_EMAIL)return res.status(401).json({error:'Owner login required.'});
       const ids=await redis(['ZREVRANGEBYSCORE',prefix+':index','+inf',Date.now()-RETENTION*1000,'LIMIT',0,200]);
       const rows=ids.length?await pipeline(ids.map(id=>['GET',prefix+':record:'+id])):[];
       return res.status(200).json({interviews:rows.filter(Boolean).map(JSON.parse)});

@@ -34,7 +34,10 @@
     "build:persona-pages": "node tools/build-persona-pages.mjs",
     "ship-video": "node tools/ship-video.mjs",
     "feedback-digest": "node tools/feedback-digest.mjs",
-    "test:compound": "REDIS_URL=redis://127.0.0.1:16380/11 SESSION_SECRET=compound-local-test node tests/compound.mjs"
+    "test:compound": "REDIS_URL=redis://127.0.0.1:16380/11 SESSION_SECRET=compound-local-test node tests/compound.mjs",
+    "build": "node tools/site/build-all.mjs",
+    "lint": "node tools/email-lint.mjs",
+    "test:email": "node --test tests/email.mjs"
   },
   "overrides": {
     "@vercel/cli-config": {

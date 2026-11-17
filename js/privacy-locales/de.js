@@ -1,3 +1,4 @@
+import {ROLE_ADDRESSES} from '../../lib/email/addresses.js';
 export default {
   "title": "datenschutz, ohne nebel.",
   "intro": [
@@ -10,7 +11,7 @@ export default {
     [
       "who",
       "wer trägt die laterne?",
-      "Francisco Gabriel Van Langenhove ist für corvus.gent und stats.corvus.gent verantwortlich, einschließlich musik und spielen. fragen und datenwünsche: <a href=\"mailto:gabriel@corvus.gent\">gabriel@corvus.gent</a>."
+      "Francisco Gabriel Van Langenhove ist für corvus.gent und stats.corvus.gent verantwortlich, einschließlich musik und spielen. fragen und datenwünsche: <a href=\"mailto:" + ROLE_ADDRESSES.hello + "\">" + ROLE_ADDRESSES.hello + "</a>."
     ],
     [
       "counts",
@@ -33,7 +34,7 @@ export default {
       "sf",
       "nachrichten zur sf-reise",
       "wenn du das sf-formular abschickst, sieht nur gabe name, kontakt, tätigkeit, treffvorschläge, daten, ort und nachricht im privaten dashboard. wir nutzen sie für das gewünschte treffen (erfüllung deiner anfrage), nicht für marketing. jeder eintrag wird 60 tage nach dem absenden automatisch aus Redis gelöscht; als erledigt markieren verlängert das nicht.",
-      "eine kopie geht über Resend an gabriel@corvus.gent, die hier beschriebene ausnahme mit us-speicherung. Resend hat eigene fristen für versandprotokolle; gabe muss die benachrichtigung innerhalb derselben 60 tage aus seinem postfach löschen. bitte ihn um frühere löschung, auch bei angabe eines x-namens oder linkedin-profils.",
+      "eine kopie geht über Resend an " + ROLE_ADDRESSES.hello + ", die hier beschriebene ausnahme mit us-speicherung. Resend hat eigene fristen für versandprotokolle; gabe muss die benachrichtigung innerhalb derselben 60 tage aus seinem postfach löschen. bitte ihn um frühere löschung, auch bei angabe eines x-namens oder linkedin-profils.",
       "das signierte vid-cookie dient auch dem formularschutz; prüfungen verfallen nach 5 minuten, ip-hashes wechseln täglich und verfallen innerhalb eines tages, wiederholungsbelege nach 24 stunden. der zettel nutzt sessionStorage (sf-note:2026-11) für einmaliges erscheinen je tab-sitzung. optionale statistik zählt aktionen, niemals deine eingaben."
     ],
     [

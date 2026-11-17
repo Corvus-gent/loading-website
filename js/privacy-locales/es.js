@@ -1,3 +1,4 @@
+import {ROLE_ADDRESSES} from '../../lib/email/addresses.js';
 export default {
   "title": "privacidad, sin niebla.",
   "intro": [
@@ -10,7 +11,7 @@ export default {
     [
       "who",
       "¿quién lleva la linterna?",
-      "Francisco Gabriel Van Langenhove es responsable de corvus.gent y stats.corvus.gent, incluidos música y juegos. preguntas o solicitudes: <a href=\"mailto:gabriel@corvus.gent\">gabriel@corvus.gent</a>."
+      "Francisco Gabriel Van Langenhove es responsable de corvus.gent y stats.corvus.gent, incluidos música y juegos. preguntas o solicitudes: <a href=\"mailto:" + ROLE_ADDRESSES.hello + "\">" + ROLE_ADDRESSES.hello + "</a>."
     ],
     [
       "counts",
@@ -33,7 +34,7 @@ export default {
       "sf",
       "mensajes del viaje a sf",
       "si envías el formulario sf, solo gabe ve tu nombre, contacto, trabajo, planes, fechas, lugar y mensaje en el panel privado. se usan para organizar el encuentro solicitado (ejecución de tu petición), no para marketing. cada registro se borra automáticamente de Redis 60 días después del envío; marcarlo como hecho no alarga ese plazo.",
-      "se envía una copia a gabriel@corvus.gent mediante Resend, la excepción documentada de almacenamiento en ee. uu. Resend tiene su propia retención de registros; gabe debe borrar la notificación de su buzón dentro de esos mismos 60 días. puedes pedir borrarla antes, también si usaste un usuario de x o perfil de linkedin.",
+      "se envía una copia a " + ROLE_ADDRESSES.hello + " mediante Resend, la excepción documentada de almacenamiento en ee. uu. Resend tiene su propia retención de registros; gabe debe borrar la notificación de su buzón dentro de esos mismos 60 días. puedes pedir borrarla antes, también si usaste un usuario de x o perfil de linkedin.",
       "la cookie firmada vid también evita abusos del formulario; los retos caducan a los 5 minutos, los hashes ip cambian a diario y caducan en un día, y los recibos de reintento a las 24 horas. la nota usa sessionStorage (sf-note:2026-11) para mostrarse una vez por sesión de pestaña. las estadísticas opcionales cuentan acciones, nunca tus campos."
     ],
     [

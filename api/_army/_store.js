@@ -1,3 +1,4 @@
+import {OWNER_EMAIL} from '../../lib/email/addresses.js';
 import crypto from 'node:crypto';
 import {redis as defaultRedis} from '../_redis.js';
 import {digest, id, recruitCode, namespace, validID} from './_security.js';
@@ -87,7 +88,7 @@ redis.call('SET',KEYS[1],ARGV[1],'EX',ARGV[2]);redis.call('SET',KEYS[2],ARGV[1],
     return lock(uid, async () => {
       const user = await getUser(uid); if (!user?.email) throw Error('expired');
       if (!user.verifiedAt) {
-        user.verifiedAt = timestamp(); const initial=['anonymous','unconfirmed','subscriber'].includes(user.status); if(initial)user.status = user.applied ? 'waiting' : user.username?'member':'subscriber'; user.general = user.email === 'gabriel@corvus.gent';
+        user.verifiedAt = timestamp(); const initial=['anonymous','unconfirmed','subscriber'].includes(user.status); if(initial)user.status = user.applied ? 'waiting' : user.username?'member':'subscriber'; user.general = user.email === OWNER_EMAIL;
         if(initial)user.expires = new Date(now() + (user.applied ? RETENTION.waiting : RETENTION.member) * DAY * 1000).toISOString();
         await persist(user);
       }else if(['member','approved','subscriber'].includes(user.status)){user.expires=new Date(now()+RETENTION.member*DAY*1000).toISOString();await persist(user);}

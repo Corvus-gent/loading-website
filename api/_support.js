@@ -1,3 +1,6 @@
+import {ROLE_ADDRESSES} from '../lib/email/addresses.js';
+import {sendTransactional, emailConfigured} from '../lib/email/send.js';
+import {OWNER_EMAIL} from '../lib/email/addresses.js';
 import crypto from 'node:crypto';
 import {redis,pipeline} from './_redis.js';
 import {dailyIPHash,rateLimit,serverSecret} from './_privacy.js';
@@ -40,17 +43,17 @@ const clean=(v,max)=>typeof v==='string'?v.trim().replace(/[\u0000-\u001f\u007f]
 function sign(v){return crypto.createHmac('sha256',serverSecret()).update('call-form:'+v).digest('hex');}
 export function challenge(now=Date.now()){const value=now+'.'+crypto.randomBytes(12).toString('hex');return{token:value+'.'+sign(value),notBefore:now+3000};}
 function challengeOK(token){if(typeof token!=='string'||token.length>120)return false;const[at,nonce,sig]=token.split('.'),age=Date.now()-Number(at);return /^\d{13}$/.test(at||'')&&/^[a-f0-9]{24}$/.test(nonce||'')&&age>=3000&&age<1800000&&safeEqual(sig,sign(at+'.'+nonce));}
-async function admin(req){const key=String(req.headers.authorization||'').replace(/^Bearer /,'');return(process.env.CALL_ADMIN_KEY&&safeEqual(key,process.env.CALL_ADMIN_KEY))||(await getSession(req))?.email==='gabriel@corvus.gent';}
+async function admin(req){const key=String(req.headers.authorization||'').replace(/^Bearer /,'');return(process.env.CALL_ADMIN_KEY&&safeEqual(key,process.env.CALL_ADMIN_KEY))||(await getSession(req))?.email===OWNER_EMAIL;}
 export function validateRequest(b){
  const fields={name:80,contact:160,pain:600,times:250};for(const[k,max]of Object.entries(fields))if(typeof b[k]!=='string'||!b[k].trim()||b[k].length>max)throw Error('Please fill in your name, contact, what hurts and preferred times.');
  if(!Object.hasOwn(CALL_TIERS,b.tier))throw Error('Choose a call or meet-up.');if(CALL_TIERS[b.tier].paid&&b.coffeePaid!==true)throw Error('Sort the coffee first, then tick the checkbox.');
  return{...Object.fromEntries(Object.entries(fields).map(([k,max])=>[k,clean(b[k],max)])),tier:b.tier,coffeePaid:CALL_TIERS[b.tier].paid&&b.coffeePaid===true,source:source(b.source)};
 }
 export async function notifyRequest(id,send=fetch){
- const key=prefix+':request:'+id,raw=await redis(['GET',key]);if(!raw)return false;const row=JSON.parse(raw);if(row.mailSent)return true;if(!process.env.RESEND_API_KEY)return false;
- const tier=CALL_TIERS[row.tier],payload={from:'corvus <login@corvus.gent>',to:'gabriel@corvus.gent',subject:'💊 '+tier.short+': '+row.name,text:['New call / SF request','Name: '+row.name,'Contact: '+row.contact,'Tier: '+tier.label,'Coffee: '+(tier.paid?(row.coffeePaid?'self-reported yes (honor system)':'not confirmed'):'not required'),'What hurts: '+row.pain,'Preferred times: '+row.times,'Source: '+row.source,'Submitted: '+row.createdAt,tier.paid?'Includes 1 PARACETAMAIL after the call.':'','Manage: https://corvus.gent/call/admin/'].join('\n')};
- if(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(row.contact))payload.reply_to=row.contact;
- try{const response=await send('https://api.resend.com/emails',{method:'POST',headers:{Authorization:'Bearer '+process.env.RESEND_API_KEY,'Content-Type':'application/json','Idempotency-Key':'call-request-'+id},body:JSON.stringify(payload),signal:AbortSignal.timeout(8000)});if(!response.ok)return false;
+ const key=prefix+':request:'+id,raw=await redis(['GET',key]);if(!raw)return false;const row=JSON.parse(raw);if(row.mailSent)return true;if(!emailConfigured())return false;
+ const tier=CALL_TIERS[row.tier],payload={to:ROLE_ADDRESSES.hello,subject:'💊 '+tier.short+': '+row.name,text:['New call / SF request','Name: '+row.name,'Contact: '+row.contact,'Tier: '+tier.label,'Coffee: '+(tier.paid?(row.coffeePaid?'self-reported yes (honor system)':'not confirmed'):'not required'),'What hurts: '+row.pain,'Preferred times: '+row.times,'Source: '+row.source,'Submitted: '+row.createdAt,tier.paid?'Includes 1 PARACETAMAIL after the call.':'','Manage: https://corvus.gent/call/admin/'].join('\n')};
+
+ try{const response=await sendTransactional(payload,{request:send,idempotencyKey:'call-request-'+id});if(!response.ok)return false;
   await redis(['EVAL',"local v=redis.call('GET',KEYS[1]);if not v then return 0 end;local r=cjson.decode(v);r.mailSent=true;redis.call('SET',KEYS[1],cjson.encode(r),'KEEPTTL');return 1",1,key]);return true;
  }catch{return false;}
 }
@@ -91,5 +94,5 @@ export default async function handler(req,res){
   let data;try{data=validateRequest(b);}catch(e){return res.status(400).json({error:e.message});}const saved=await saveRequest(req,data,b.requestId);
   if(saved.code===429){res.setHeader('Retry-After',String(saved.value));return res.status(429).json({error:'One request at a time. Please wait before sending another.',retryAfter:Number(saved.value)});}
   const notified=await notifyRequest(saved.value);return res.status(saved.code).json({ok:true,notified,message:"Got it 💊 I'll reply within a few hours to lock a time."});
- }catch{return res.status(503).json({error:'The form is reconnecting. Your request is not confirmed. Please retry, or email gabriel@corvus.gent.'});}
+ }catch{return res.status(503).json({error:'The form is reconnecting. Your request is not confirmed. Please retry, or email ' + ROLE_ADDRESSES.hello + '.'});}
 }

@@ -1,3 +1,4 @@
+import {ROLE_ADDRESSES} from '../../lib/email/addresses.js';
 export default {
   "title": "privacy, zonder mist.",
   "intro": [
@@ -10,7 +11,7 @@ export default {
     [
       "who",
       "wie draagt de lantaarn?",
-      "Francisco Gabriel Van Langenhove is verantwoordelijk voor corvus.gent en stats.corvus.gent, inclusief muziek en games. vragen of dataverzoeken: <a href=\"mailto:gabriel@corvus.gent\">gabriel@corvus.gent</a>."
+      "Francisco Gabriel Van Langenhove is verantwoordelijk voor corvus.gent en stats.corvus.gent, inclusief muziek en games. vragen of dataverzoeken: <a href=\"mailto:" + ROLE_ADDRESSES.hello + "\">" + ROLE_ADDRESSES.hello + "</a>."
     ],
     [
       "counts",
@@ -33,7 +34,7 @@ export default {
       "sf",
       "berichten voor de sf-trip",
       "als je het sf-formulier verstuurt, kan alleen gabe je naam, contact, werk, plannen, datums, plaats en bericht zien in het privédashboard. we gebruiken dit om je gevraagde afspraak te regelen (uitvoering van je verzoek), niet voor marketing. elk formulierrecord verdwijnt automatisch uit Redis 60 dagen na inzending; afvinken verlengt dit niet.",
-      "een kopie gaat via Resend naar gabriel@corvus.gent, de beschreven uitzondering met opslag in de vs. Resend heeft een eigen bewaartermijn voor verzendlogs; gabe moet de melding binnen dezelfde 60 dagen uit zijn mailbox verwijderen. vraag gabe om eerdere verwijdering, ook als je een x-naam of linkedin-profiel gebruikte.",
+      "een kopie gaat via Resend naar " + ROLE_ADDRESSES.hello + ", de beschreven uitzondering met opslag in de vs. Resend heeft een eigen bewaartermijn voor verzendlogs; gabe moet de melding binnen dezelfde 60 dagen uit zijn mailbox verwijderen. vraag gabe om eerdere verwijdering, ook als je een x-naam of linkedin-profiel gebruikte.",
       "de ondertekende vid-cookie dient ook voor formulierbeveiliging; controles verlopen na 5 minuten, ip-hashes wisselen dagelijks en verlopen binnen een dag, ontvangstbewijzen voor nieuwe pogingen na 24 uur. het briefje gebruikt sessionStorage (sf-note:2026-11) om eenmaal per tabsessie te verschijnen. optionele analytics telt alleen briefje- en formulieracties, nooit je invoer."
     ],
     [

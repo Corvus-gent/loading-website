@@ -1,3 +1,5 @@
+import {ROLE_ADDRESSES} from '../lib/email/addresses.js';
+import {sendTransactional, emailConfigured} from '../lib/email/send.js';
 import crypto from 'node:crypto';
 import {redis as defaultRedis} from './_redis.js';
 import {SF_DAYS,SF_LETS} from '../js/sf-trip.js';
@@ -46,10 +48,10 @@ export function sfStore({redis=defaultRedis,now=Date.now,fetcher=fetch,mailKey=(
    const raw=await redis(['GET',`sf:lead:${id}`]);
    if(!raw){await redis(['ZREM','sf:outbox',id]);return false;}
    if(await redis(['GET',`sf:mail:${id}`])==='sent'){await redis(['ZREM','sf:outbox',id]);return true;}
-   if(!mailKey())return false;
-   const lead=JSON.parse(raw),activities=lead.lets.map(x=>({bjj:'open mat (bjj/mma)',studio:'studio session / cypher',thrift:'thrift & fashion',intro:'intro to someone'})[x]||x).join(', '),body={from:'corvus <login@corvus.gent>',to:['gabriel@corvus.gent'],subject:`🐦 sf: ${lead.name}${lead.thing?` (${lead.thing})`:''} wants to ${activities}`,text:`name: ${lead.name}\ncontact: ${lead.contact}\nyour thing: ${lead.thing||''}\nwhat: ${lead.what}\nlet's: ${activities}\nwhen: ${lead.when.join(', ')}\nwhere: ${lead.where}\nmessage: ${lead.message}\ndate: ${lead.date}\n\nprivate dashboard: https://stats.corvus.gent/private\nform record expires after 60 days. delete this notification on the same schedule.`};
-   if(isEmail(lead.contact))body.reply_to=lead.contact;
-   const r=await fetcher('https://api.resend.com/emails',{method:'POST',redirect:'error',signal:AbortSignal.timeout(8000),headers:{Authorization:`Bearer ${mailKey()}`,'Content-Type':'application/json','Idempotency-Key':`sf/${id}`},body:JSON.stringify(body)});
+   if(!emailConfigured({...process.env,RESEND_API_KEY:mailKey()}))return false;
+   const lead=JSON.parse(raw),activities=lead.lets.map(x=>({bjj:'open mat (bjj/mma)',studio:'studio session / cypher',thrift:'thrift & fashion',intro:'intro to someone'})[x]||x).join(', '),body={to:[ROLE_ADDRESSES.hello],subject:`🐦 sf: ${lead.name}${lead.thing?` (${lead.thing})`:''} wants to ${activities}`,text:`name: ${lead.name}\ncontact: ${lead.contact}\nyour thing: ${lead.thing||''}\nwhat: ${lead.what}\nlet's: ${activities}\nwhen: ${lead.when.join(', ')}\nwhere: ${lead.where}\nmessage: ${lead.message}\ndate: ${lead.date}\n\nprivate dashboard: https://stats.corvus.gent/private\nform record expires after 60 days. delete this notification on the same schedule.`};
+
+   const r=await sendTransactional(body,{request:fetcher,env:{...process.env,RESEND_API_KEY:mailKey()},idempotencyKey:`sf/${id}`});
    if(!r.ok)throw Error('mail_failed');
    await redis(['SET',`sf:mail:${id}`,'sent','XX','KEEPTTL']);await redis(['ZREM','sf:outbox',id]);return true;
   }catch{await redis(['SET',`sf:mail:${id}`,'pending','XX','KEEPTTL']);return false;}

@@ -1,3 +1,4 @@
+import {OWNER_EMAIL} from '../lib/email/addresses.js';
 import crypto from 'node:crypto';
 import {redis as defaultRedis,connected} from './_redis.js';
 import {getSession} from './_session.js';
@@ -17,7 +18,7 @@ export function createSFHandler({redis=defaultRedis,ready=connected,session=getS
   const q=req.query||{},body=req.body||{},privateRequest=q.private==='1'||req.method==='PATCH';
   try{
    if(privateRequest){
-    const user=await session(req);if(user?.email?.toLowerCase()!=='gabriel@corvus.gent')return res.status(403).json({error:'forbidden'});
+    const user=await session(req);if(user?.email?.toLowerCase()!==OWNER_EMAIL)return res.status(403).json({error:'forbidden'});
     if(req.method==='GET'){
      const activity=q.activity??'',thing=q.thing??'';
      if(typeof activity!=='string'||(activity&&!SF_LETS.includes(activity))||typeof thing!=='string'||thing.length>60)return res.status(400).json({error:'invalid_fields'});
