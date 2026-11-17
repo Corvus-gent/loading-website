@@ -62,3 +62,10 @@ body.people-page[data-stat-page=map] main{padding-top:20px}
 body.people-page[data-stat-page=map] #lang-switcher{min-height:0}
 body[data-stat-page=map] .stats-tabs{gap:8px 12px;margin:14px 0}
 body[data-stat-page=map] .snapshot-age:empty{display:none}
+
+/* Let the audience count lead the atlas. */
+body[data-stat-page=map] .map-total-heading{margin:22px 0 8px}
+.map-total-number{display:block;font-size:clamp(76px,15vw,190px);line-height:.95;letter-spacing:-.075em;color:#ffd76a;font-weight:700;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.map-total-label{display:block;font-size:clamp(12px,2vw,17px);line-height:1.6;letter-spacing:0;color:#bbb;font-weight:400;margin-top:16px}
+body[data-stat-page=map] #map-count{margin:10px 0 14px}
+@media(max-width:480px){.map-total-number{font-size:clamp(64px,19vw,92px)}}

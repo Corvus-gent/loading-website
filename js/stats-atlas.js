@@ -11,6 +11,11 @@ function mount(){
 const observer=new IntersectionObserver(entries=>{if(entries[0].isIntersecting){visible=true;observer.disconnect();mount();}});observer.observe(container);
 function show(payload,day){
   data=payload;
+  const total = Number.isSafeInteger(data?.total) && data.total >= 0 ? data.total
+    : Array.isArray(data?.countries) ? data.countries.reduce((sum, country) => sum + (Number.isSafeInteger(country.n) && country.n >= 0 ? country.n : 0), 0) : null;
+  document.querySelector('#map-total').textContent = total === null ? '—' : total.toLocaleString('en');
+  document.querySelector('#map-total-label').textContent = 'visitors · ' + (day === 'all' ? 'all time' : countryPeriod(day));
+
   document.querySelector('#countries-period').textContent=day==='all'?'all time · since 2 nov 2026':countryPeriod(day);
   const list=document.querySelector('#countries');
   if(data?.countries){const n=data.countries.filter(c=>c.c&&c.c!=='?').length;document.querySelector('#map-count').textContent=`${n} ${n===1?'country':'countries'} · ${day==='all'?'all time':day} · city areas + country totals.`;renderCountries(list,data.countries);}
