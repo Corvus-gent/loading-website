@@ -32,11 +32,79 @@ export function referenceCities(zoom,bounds){
 }
 const referencePalette = ['#64c7ed','#b5a0ff','#ee98d4','#71d9c0'];
 const referenceColor = code => referencePalette[[...code].reduce((n,c)=>n+c.charCodeAt(0),0)%referencePalette.length];
-const hotspots = [
-  {id:'sf',name:'san francisco',lat:37.8,lng:-122.4,color:'#57e1df'},
-  {id:'hk',name:'hong kong',lat:22.3,lng:114.2,color:'#ed9aff'},
-  {id:'brussels',name:'brussel',lat:50.8503,lng:4.3517,color:'#ffab83',zoom:10,labelDirection:'bottom'},
-  {id:'ghent',name:'gent',lat:51.0543,lng:3.7174,color:'#a2ed98',zoom:10}
+export const hotspots = [
+  {
+    "id": "sf",
+    "name": "san francisco",
+    "lat": 37.7749,
+    "lng": -122.4194,
+    "zoom": 10,
+    "color": "#d6b4ee"
+  },
+  {
+    "id": "nyc",
+    "name": "NYC",
+    "lat": 40.7128,
+    "lng": -74.006,
+    "zoom": 10,
+    "color": "#d6b4ee"
+  },
+  {
+    "id": "guangdong",
+    "name": "guangdong",
+    "lat": 23.1291,
+    "lng": 113.2644,
+    "zoom": 7,
+    "color": "#d6b4ee"
+  },
+  {
+    "id": "shanghai",
+    "name": "shanghai",
+    "lat": 31.2304,
+    "lng": 121.4737,
+    "zoom": 9,
+    "color": "#d6b4ee"
+  },
+  {
+    "id": "lisboa",
+    "name": "lisboa",
+    "lat": 38.7223,
+    "lng": -9.1393,
+    "zoom": 11,
+    "color": "#d6b4ee"
+  },
+  {
+    "id": "paris",
+    "name": "paris",
+    "lat": 48.8566,
+    "lng": 2.3522,
+    "zoom": 11,
+    "color": "#d6b4ee"
+  },
+  {
+    "id": "london",
+    "name": "london",
+    "lat": 51.5074,
+    "lng": -0.1278,
+    "zoom": 10,
+    "color": "#d6b4ee"
+  },
+  {
+    "id": "brussels",
+    "name": "brussel",
+    "lat": 50.8503,
+    "lng": 4.3517,
+    "zoom": 11,
+    "color": "#d6b4ee"
+  },
+  {
+    "id": "ghent",
+    "name": "gent",
+    "lat": 51.0543,
+    "lng": 3.7174,
+    "zoom": 12,
+    "color": "#d6b4ee"
+  }
 ];
 export const dotRadius = visitors => Math.max(4, Math.min(24, Math.sqrt(visitors)));
 
@@ -63,10 +131,12 @@ async function initMap(snapshot) {
   map.createPane('corvusHotspots').style.zIndex=450;
   for(const hotspot of hotspots){
     const icon=document.createElement('span');icon.className='corvus-hotspot-light';icon.style.setProperty('--hotspot',hotspot.color);
-    const label=document.createElement('span');label.textContent=hotspot.name+' · corvus hotspot';
+    const label=document.createElement('span');label.textContent=hotspot.name;
     const marker=L.marker([hotspot.lat,hotspot.lng],{pane:'corvusHotspots',icon:L.divIcon({className:'corvus-hotspot',html:icon,iconSize:[44,44],iconAnchor:[22,22]}),title:hotspot.name+' · corvus hotspot (highlight, not visitor count)',keyboard:true}).addTo(map);
-    marker.bindTooltip(label,{permanent:true,direction:hotspot.labelDirection||'top',offset:[0,hotspot.labelDirection==='bottom'?12:-12],className:'corvus-hotspot-label'});
-    const focusHotspot=()=>map.setView([hotspot.lat,hotspot.lng],hotspot.zoom||6,{animate:!reduced});
+    marker.bindTooltip(label,{permanent:false,direction:'auto',offset:[0,hotspot.labelDirection==='bottom'?12:-12],className:'corvus-hotspot-label'});
+    const focusHotspot=()=>{map.setView([hotspot.lat,hotspot.lng],hotspot.zoom||6,{animate:!reduced});marker.openTooltip();document.querySelectorAll('[data-map-hotspot]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.mapHotspot===hotspot.id)));};
+    marker.getElement()?.addEventListener('focus',()=>marker.openTooltip());
+    marker.getElement()?.addEventListener('blur',()=>marker.closeTooltip());
     marker.on('click',focusHotspot);
     document.querySelector('[data-map-hotspot="'+hotspot.id+'"]')?.addEventListener('click',focusHotspot);
   }
@@ -88,10 +158,10 @@ async function initMap(snapshot) {
     function draw() {
       markers.clearLayers();references.clearLayers();
       const zoom=map.getZoom();
-      referenceCities(zoom,map.getBounds()).forEach((city,index)=>{
+      (zoom>=4?referenceCities(zoom,map.getBounds()):[]).forEach((city,index)=>{
         const color=referenceColor(city.country);
         const dot=L.circleMarker([city.lat,city.lng],{radius:3,color,weight:1,fillColor:color,fillOpacity:.5,className:'reference-city-dot',interactive:false}).addTo(references);
-        if((zoom>=3&&index<35)||(zoom>=2&&index<8)){const label=document.createElement('span');label.textContent=city.city.toLowerCase();dot.bindTooltip(label,{permanent:true,direction:'top',className:'reference-city',offset:[0,-2]});}
+        if(zoom>=5&&index<8){const label=document.createElement('span');label.textContent=city.city.toLowerCase();dot.bindTooltip(label,{permanent:true,direction:'top',className:'reference-city',offset:[0,-2]});}
       });
       mergeLocations(cities.filter(c=>!c.unknown||countryToggle?.checked), zoom).forEach((group, index) => {
         const radius = dotRadius(group.visitors), size = radius * 2, hit = Math.max(44,size);

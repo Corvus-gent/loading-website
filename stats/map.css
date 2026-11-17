@@ -35,3 +35,30 @@
 .map-hotspots,.map-legend{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;font:11px/1.6 monospace;margin:12px 0}.map-hotspots>span{color:#aaa}.map-hotspots button{min-height:44px;padding:8px 12px;border:1px solid #326365;background:#0d191c;color:#75eeee;font:inherit;cursor:pointer}.map-hotspots button[data-map-hotspot=hk]{border-color:#685077;background:#1c1223;color:#edb2ff}.map-hotspots button:hover{filter:brightness(1.2)}.map-hotspots button:focus-visible,.corvus-hotspot:focus-visible{outline:2px solid #fff;outline-offset:3px}.legend-visitors{color:#ffd76a}.legend-reference{color:#a9c7ff}.legend-hotspot{color:#e7b0ff}
 
 .map-hotspots button[data-map-hotspot=brussels]{border-color:#815b49;background:#24160f;color:#ffab83}.map-hotspots button[data-map-hotspot=ghent]{border-color:#4d7046;background:#142010;color:#a2ed98}
+
+/* A quiet atlas: one toolbar, compact destinations, details on interaction. */
+body[data-stat-page=map] main{display:block;min-height:0;padding:24px}
+body[data-stat-page=map] .wrap.st{width:min(1040px,100%);margin:0 auto;text-align:left}
+body[data-stat-page=map] h1{font-size:clamp(32px,5vw,52px);letter-spacing:-.05em;margin:16px 0 10px}
+body[data-stat-page=map] .stat-copy{font-size:11px;padding:8px 10px;border-radius:6px}
+body[data-stat-page=map] #map-count{font-size:12px;line-height:1.7;color:#999}
+.map-period{display:inline-flex;gap:0;border:1px solid #554a30;border-radius:8px;overflow:hidden;margin:14px 18px 14px 0;vertical-align:middle}
+.map-period button{border:0;padding:9px 14px;font-size:12px}
+.map-period button[aria-pressed=true]{background:#ffd76a;color:#111}
+.map-focus-label{display:inline-flex;vertical-align:middle;font-size:11px}
+.map-focus-label select{border-radius:7px}
+.map-hotspots{gap:6px;margin:4px 0 16px}
+.map-hotspots>span{width:100%;font-size:10px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px;color:#888}
+.map-hotspots button[data-map-hotspot]{min-height:44px;border:1px solid #39313f;border-radius:8px;background:#141116;color:#d4c2df;padding:8px 12px;font-size:11px}
+.map-hotspots button[data-map-hotspot][aria-pressed=true]{background:#302237;border-color:#c6a1df;color:#fff}
+.map-legend{gap:8px 16px;font-size:10px;margin:10px 0 16px;color:#999}
+.corvus-hotspot-light{inset:17px;box-shadow:0 0 9px 3px #d6b4ee40}
+#visitor-map{height:480px;border-radius:12px}
+#visitor-map .corvus-hotspot-label{padding:5px 9px}
+body[data-stat-page=map] #visitor-map-title{font-size:12px;color:#999}
+@media(max-width:600px){body[data-stat-page=map] main{padding:16px}.map-focus-label{display:flex;margin-bottom:16px}.map-hotspots{gap:6px}.map-hotspots button[data-map-hotspot]{flex:1 0 auto}#visitor-map{height:380px}.map-legend{gap:6px 12px}}
+
+body.people-page[data-stat-page=map] main{padding-top:20px}
+body.people-page[data-stat-page=map] #lang-switcher{min-height:0}
+body[data-stat-page=map] .stats-tabs{gap:8px 12px;margin:14px 0}
+body[data-stat-page=map] .snapshot-age:empty{display:none}
