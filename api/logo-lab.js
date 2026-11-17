@@ -1,6 +1,6 @@
 import { connected, redis } from './_redis.js';
 
-const editions = new Set(['prompt','legio','flyer','sigil','arcade']);
+const editions = new Set(['lamplighter','sigil','arcade']);
 
 export default async function handler(req,res) {
   res.setHeader('Cache-Control','no-store');

@@ -17,11 +17,11 @@ jobs:
       - run: npm ci
       - run: node tools/site/build-all.mjs
       - run: npx playwright install --with-deps chromium
-      - run: node tools/logo-lab/proofs.cjs 02-character
+      - run: node tools/logo-lab/proofs.cjs 03-finalists
       - name: Save captured proofs on the design branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add design/logo-lab/rounds/*/*.png
-          git diff --cached --quiet || git commit -m "Capture desktop, mobile and fifty application proofs"
+          git diff --cached --quiet || git commit -m "Capture desktop, mobile and finalist application proofs"
           git push origin HEAD:design/logo-lab

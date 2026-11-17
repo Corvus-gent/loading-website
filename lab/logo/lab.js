@@ -1,10 +1,9 @@
 const editions = [
-  ['prompt','The beak opens a command. The perch waits for your next move.','#102823','#b7f6cd','#31aa78'],
-  ['legio','A crow raises the standard. Its banner carries the hooked end of a boarding bridge.','#382334','#f3d9aa','#ba8645'],
-  ['flyer','The lantern has changed hands. A scruffy street crow takes Diogenes’ night shift.','#f6e8c8','#2c2922','#b74325'],
+  ['lamplighter','Perched on Diogenes’ oil lamp, the crow keeps the last light on the block.','#f6e8c8','#2c2922','#b74325'],
   ['sigil','Follow the outer arc to read a C. Follow its upper edge to find the bird.','#16293d','#f2f4e9','#95b9d9'],
   ['arcade','A second player arrives on sixteen squares. The sprite speaks seven languages.','#302751','#fed79f','#fe937b']
 ];
+const numbers = {lamplighter:'03',sigil:'04',arcade:'05'};
 const $ = id => document.getElementById(id);
 const base = '/public/logo-lab/';
 const photo = (src,width,extra='') => '<img alt="" width="'+width+'" src="'+src+'" '+extra+'>';
@@ -23,7 +22,7 @@ for (const [slug] of [['current'],...editions]){
   const btn=document.createElement('button');
   btn.className='sample';btn.dataset.slug=slug;
   const current=slug==='current';btn.disabled=current;
-  btn.innerHTML='<span class="pair">'+['black','white'].map(tone=>'<i>'+photo(current?'/logo.png':base+slug+'/mono-'+tone+'.svg',58)+'</i>').join('')+'</span><strong>'+slug.toUpperCase()+'</strong>';
+  btn.innerHTML='<span class="pair">'+['black','white'].map(tone=>'<i>'+photo(current?'/logo.png':base+slug+'/mono-'+tone+'.svg',58)+'</i>').join('')+'</span><strong>'+(current?'CURRENT':numbers[slug]+' · '+slug.toUpperCase())+'</strong>';
   $('compare').append(btn);
   if(!current){$('edition').add(new Option(slug.toUpperCase(),slug));btn.onclick=()=>choose(slug)}
 }
@@ -35,8 +34,8 @@ function choose(slug){
   for (const [k,v] of Object.entries({ground,ink,accent}))document.body.style.setProperty('--'+k,v);
   document.querySelector('link[rel=icon]').href=dir+'favicon-32.png';
   $('head-mark').src=dir+'mark.svg';$('title').textContent=name.toUpperCase();
-  $('edition-number').textContent='EDITION 0'+(editions.indexOf(data)+1)+' / 05';
-  $('hero').src=dir+(['prompt','flyer','arcade'].includes(name)?'animated':'mark')+'.svg';
+  $('edition-number').textContent='EDITION '+numbers[name];
+  $('hero').src=dir+(['lamplighter','arcade'].includes(name)?'animated':'mark')+'.svg';
   $('hero').alt=name+' symbol';$('story').textContent=story;$('kit').href=dir+'kit.zip';
   $('edition').value=name;$('pick').textContent='Pick '+name.toUpperCase();
   $('vote').querySelector('output').textContent='';

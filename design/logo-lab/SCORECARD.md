@@ -1,3 +1,9 @@
+# Finalist selection
+
+Gabriel ruled out 01 Prompt over the reported use of a Pinterest design without permission and dropped 02 Legio. His favorites were 03, 04 and 05, especially the lamp in 03. The new 03 Lamplighter puts the crow on the lamp housing. Voting distinguishes the redraw from the earlier Flyer.
+
+## Original exploration
+
 # Studio verdict
 
 These are design judgments from the artwork and size proofs. Audience votes are a separate signal.
