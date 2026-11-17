@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "source": "LinkedIn profile analytics, manually transcribed from the owner's supplied summary",
+  "capturedOn": "2026-11-16",
+  "snapshots": [
+    {"start": "2026-11-03", "end": "2026-11-10", "viewers": 1627, "reportedChangePercent": 2293}
+  ],
+  "note": "LinkedIn displays this as a seven-day window. Exact displayed dates are preserved. No daily profile-view history was supplied."
+}

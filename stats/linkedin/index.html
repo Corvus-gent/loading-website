@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Gabe’s LinkedIn stats · Corvus</title>
+  <meta name="description" content="Gabe’s LinkedIn performance, plotted from the original analytics export. Impressions, engagements, followers and weekly profile views.">
+  <link rel="canonical" href="https://stats.corvus.gent/linkedin">
+  <meta property="og:title" content="Gabe’s LinkedIn stats">
+  <meta property="og:description" content="The numbers behind the stories. Original LinkedIn data, in-house graphs.">
+  <meta property="og:url" content="https://stats.corvus.gent/linkedin">
+  <link rel="stylesheet" href="/stats/linkedin/charts.css">
+  <style>
+    :root{color-scheme:dark;background:#090909;color:#eee;font:100%/1.65 system-ui,sans-serif}*{box-sizing:border-box}body{margin:0}main{max-width:52rem;margin:auto;padding:clamp(1.5rem,5vw,4rem) 1.25rem 3rem}a{color:inherit;text-underline-offset:.22em}a:hover{color:#c9dab9}a:focus-visible{outline:2px solid #c9dab9;outline-offset:4px}
+    .back{display:flex;flex-wrap:wrap;gap:1.5rem;font-size:.8rem;color:#999}.back a{text-decoration:none}.eyebrow{font-size:.7rem;text-transform:uppercase;letter-spacing:.16em;color:#a7bb96;margin:2.5rem 0 .6rem}h1{font-size:clamp(2.2rem,6vw,3.5rem);line-height:1.1;letter-spacing:-.05em;font-weight:650;margin:0 0 1rem}.intro{color:#aaa;max-width:35rem;margin:0}.freshness{font-size:.75rem;color:#777;margin:1rem 0 2rem}
+    .totals{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin:0 0 2rem;padding:1.4rem 0;border-block:1px solid #2b2b2b}.totals div{min-width:0}.totals dt{color:#999;font-size:.72rem}.totals dd{margin:.4rem 0 0;font-size:clamp(1.25rem,3.2vw,1.7rem);line-height:1.2;letter-spacing:-.04em;font-weight:550;font-variant-numeric:tabular-nums}
+    .chart-panel{padding:1.5rem;border:1px solid #303030;border-radius:.6rem;background:#101010}.context{margin:2rem 0 0;padding:1.5rem 0;border-block:1px solid #2b2b2b}.context h2{font-size:.85rem;font-weight:550;margin:0 0 .7rem}.context p{font-size:.85rem;color:#aaa;margin:.5rem 0}.context a{text-decoration-color:#555}footer{display:flex;gap:1.5rem;margin-top:2rem;color:#777;font-size:.75rem}
+    @media(max-width:540px){.totals{grid-template-columns:repeat(2,1fr);gap:1.2rem}.chart-panel{padding:1rem}.freshness{max-width:20rem}}
+  </style>
+  <script type="module" src="/stats/linkedin/charts.js"></script>
+</head>
+<body>
+<main>
+  <nav class="back" aria-label="Back"><a href="https://corvus.gent/cv/social-media/">← Gabe’s CV</a><a href="https://stats.corvus.gent/">All Corvus stats ↗</a></nav>
+  <header><p class="eyebrow">Gabe / LinkedIn</p><h1>The numbers behind<br>the stories.</h1><p class="intro">Posting what I’m building, where I’m going and what happens along the way.</p><p class="freshness" data-li-updated>Loading export details…</p></header>
+  <dl class="totals" aria-label="Full export totals">
+    <div><dt>Impressions</dt><dd data-li-total="impressions">…</dd></div>
+    <div><dt>Members reached</dt><dd data-li-total="membersReached">…</dd></div>
+    <div><dt>Engagements</dt><dd data-li-total="engagements">…</dd></div>
+    <div><dt>New followers</dt><dd data-li-total="newFollowers">…</dd></div>
+  </dl>
+  <div class="chart-panel"><div class="li-chart" data-linkedin-chart="interactive"></div></div>
+  <noscript><p>Enable JavaScript to explore the graphs. The <a href="/stats/linkedin/data.json">daily data</a> is also available as JSON.</p></noscript>
+  <section class="context"><h2>How to read this</h2><p>Impressions count content displays, including repeat views. Members reached is LinkedIn’s export-wide unique audience; it is not the sum of daily reach. Engagements and new followers use the daily counts in the export.</p><p>Cumulative starts at zero for the selected period. Recent ranges exclude the partial final date. The final date can still change in a later export. Profile viewers come from a separate, dated LinkedIn weekly summary.</p><p><span data-li-total="followers">…</span> followers at the end of this export. New exports refresh these graphs.</p><p><a href="https://www.linkedin.com/in/francisco-gabriel-van-langenhove">Follow Gabe on LinkedIn ↗</a></p></section>
+  <footer><a href="https://corvus.gent">corvus.gent</a><a href="https://corvus.gent/privacy/">Privacy</a></footer>
+</main>
+</body>
+</html>

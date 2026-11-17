@@ -83,6 +83,8 @@
     #phone-access p { margin: .6rem 0; }
     #phone-close { position: absolute; right: .4rem; top: .4rem; width: 2.5rem; height: 2.5rem; background: transparent; color: inherit; border: 0; font-size: 1.5rem; cursor: pointer; }
   </style>
+  <link rel="stylesheet" href="/stats/linkedin/charts.css">
+  <script type="module" src="/stats/linkedin/charts.js"></script>
 </head>
 <body>
   <main>
@@ -112,8 +114,13 @@
     </header>
     <section>
       <h2>Profile</h2>
-      <p>One week of SF stories (<time datetime="2026-11-06">Nov 6</time>–<time datetime="2026-11-13">13, 2026</time>) lifted my LinkedIn impressions and profile views <strong>1,500%+</strong>. Next: turning my footage into Instagram and TikTok posts.</p>
+      <p>One week of SF stories (<time datetime="2026-11-06">Nov 6</time>–<time datetime="2026-11-12">12, 2026</time>) lifted my LinkedIn impressions <strong>1,500%+</strong>. Next: turning my footage into Instagram and TikTok posts.</p>
       <p>I ship code daily and share the story on camera.</p>
+      <div class="linkedin-previews" aria-label="LinkedIn performance previews">
+        <details class="linkedin-preview"><summary>LinkedIn impressions <span data-li-preview="impressions">View graph</span></summary><div class="li-chart" data-linkedin-chart="impressions"></div></details>
+        <details class="linkedin-preview"><summary>LinkedIn profile viewers <span data-li-preview="profile">View graph</span></summary><div class="li-chart" data-linkedin-chart="profile"></div></details>
+        <a class="linkedin-all" href="https://stats.corvus.gent/linkedin">Explore all LinkedIn stats ↗</a>
+      </div>
       <div id="trudy">
         <p>I love drinking coffee at corgi cafés around the world. I only discovered them last week in SF, haha. One visit to <a href="https://www.corgicafe.com/">Corgi Cafe</a> and I’m in love with Trudy.</p>
         <details class="trudy">

@@ -34,7 +34,7 @@ export default function middleware(request) {
   const url = new URL(request.url);
   const cleanPath=url.pathname.replace(/\/index\.html$/,'').replace(/\/$/,'')||'/';
   // File-form stats links must reach the same clean routes as directory links.
-  if (url.hostname === 'stats.corvus.gent' && /^\/(?:stats\/)?(?:(?:pidgy|games|map|music|hunt|x|coffee|status|hack|army|private)\/)?index\.html$/.test(url.pathname)) {
+  if (url.hostname === 'stats.corvus.gent' && /^\/(?:stats\/)?(?:(?:pidgy|games|map|music|hunt|x|coffee|linkedin|status|hack|army|private)\/)?index\.html$/.test(url.pathname)) {
     url.pathname = url.pathname.replace(/index\.html$/, '');
     return Response.redirect(url, 308);
   }
@@ -46,7 +46,7 @@ export default function middleware(request) {
     return Response.redirect(url, 308);
   }
   // Stats lives on its own host. Other site pages must not become broken clones there.
-  if(url.hostname==='stats.corvus.gent'&&!/^\/(?:$|(?:pidgy|games|map|music|hunt|x|coffee|status|hack|army)\/?$|(?:private|stats)(?:\/|$)|(?:api|js|css|img|public|vendor)\/)/.test(url.pathname)&&!(/\.[a-z0-9]+$/i.test(url.pathname))){url.hostname='corvus.gent';return Response.redirect(url,301);}
+  if(url.hostname==='stats.corvus.gent'&&!/^\/(?:$|(?:pidgy|games|map|music|hunt|x|coffee|linkedin|status|hack|army)\/?$|(?:private|stats)(?:\/|$)|(?:api|js|css|img|public|vendor)\/)/.test(url.pathname)&&!(/\.[a-z0-9]+$/i.test(url.pathname))){url.hostname='corvus.gent';return Response.redirect(url,301);}
 
   if(/^\/(?:enlist|join-the-army-now)(?:\/.*)?$/.test(url.pathname)){
     if(url.hostname==='stats.corvus.gent')url.hostname='corvus.gent';url.pathname='/legion/';return Response.redirect(url,301);
@@ -123,7 +123,7 @@ export default function middleware(request) {
 
   if (url.hostname === "stats.corvus.gent") {
     if (url.pathname === "/") return rewrite(new URL("/stats/", url));
-    if (/^\/(pidgy|games|map|music|hunt|x|coffee|status|hack|army)\/?$/.test(url.pathname)) return rewrite(new URL(`/stats/${url.pathname.split("/")[1]}/`, url));
+    if (/^\/(pidgy|games|map|music|hunt|x|coffee|linkedin|status|hack|army)\/?$/.test(url.pathname)) return rewrite(new URL(`/stats/${url.pathname.split("/")[1]}/`, url));
     if (url.pathname.startsWith("/private")) return rewrite(new URL("/stats/private/", url));
     if (/^\/stats(?:\/|$)/.test(url.pathname)) return Response.redirect(new URL((url.pathname.replace(/^\/stats/, "") || "/") + url.search, url), 308);
     return next();
