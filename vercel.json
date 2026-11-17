@@ -4,6 +4,72 @@
   ],
   "redirects": [
     {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "corvus.gg"
+        }
+      ],
+      "destination": "https://corvus.gent/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.corvus.gg"
+        }
+      ],
+      "destination": "https://corvus.gent/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "corvus.ai"
+        }
+      ],
+      "destination": "https://corvus.gent/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.corvus.ai"
+        }
+      ],
+      "destination": "https://corvus.gent/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "corvus.com"
+        }
+      ],
+      "destination": "https://corvus.gent/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.corvus.com"
+        }
+      ],
+      "destination": "https://corvus.gent/:path*",
+      "statusCode": 301
+    },
+    {
       "source": "/social",
       "destination": "/cv/social-media/",
       "permanent": true
@@ -110,6 +176,10 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/.well-known/security.txt",
+      "destination": "/public/.well-known/security.txt"
+    },
     {
       "source": "/curiositycraft",
       "destination": "/curiositycraft/index.html"
