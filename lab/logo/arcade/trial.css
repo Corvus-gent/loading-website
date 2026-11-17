@@ -10,3 +10,9 @@
 .vote-hero .count-updated{animation:count-glow .7s ease-out}
 @keyframes count-glow{50%{text-shadow:0 0 30px #9ce7bf88}}
 @media(prefers-reduced-motion:reduce){.vote-hero .count-updated{animation:none}}
+
+.vote-hero-row{display:flex;align-items:center;gap:clamp(24px,7vw,90px)}
+.hero-wing{display:flex;flex-direction:column;align-items:center;gap:8px;text-decoration:none;flex:0 1 240px;min-width:0}
+.hero-wing img{display:block;width:100%;max-width:240px;height:auto;aspect-ratio:1;object-fit:contain;image-rendering:pixelated}
+.hero-wing span{font-size:13px;color:#ffd86e}
+@media(max-width:560px){.vote-hero-row{gap:24px}.hero-wing{flex-basis:150px}.hero-wing span{font-size:12px}#vote-total-trigger{flex:none}}
