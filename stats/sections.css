@@ -33,3 +33,9 @@
 .stats-actions button{color:#ffd76a;border:1px solid #665632;background:transparent;border-radius:4px;font:inherit;padding:.4rem .65rem;cursor:pointer}
 .stats-actions a{color:#aaa}
 @media(prefers-reduced-motion:reduce){.stats-track i{animation:none;width:100%;background:repeating-linear-gradient(90deg,#a48a46 0 6px,transparent 6px 10px)}}
+
+/* Put map exploration before the country totals. */
+.st .country-map-link{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;margin:4px 0 16px;padding:13px 18px;border:1px solid #ffd76a;border-radius:9px;background:#ffd76a;color:#090a0b;font:600 14px/1.5 ui-monospace,SFMono-Regular,monospace;text-decoration:none;box-sizing:border-box}
+.st .country-map-link:hover{background:#ffe59b;border-color:#ffe59b}
+.st .country-map-link:focus-visible{outline:2px solid #fff;outline-offset:4px}
+@media(max-width:480px){.st .country-map-link{display:flex;width:100%;font-size:13px;padding:12px}}
