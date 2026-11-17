@@ -5,7 +5,7 @@ const choices=document.getElementById('choices');
 const keys=Object.keys(labels);
 for(const k of keys){
  const card=document.createElement('article');
- card.innerHTML='<figure><img src="'+k+'.svg" alt="'+labels[k]+'"></figure><h3>'+labels[k]+'</h3><button type="button">Pick '+k.toUpperCase()+'</button>';
+ card.innerHTML='<figure><img src="'+(k==='c'?'wing-still.png':k+'.svg')+'" alt="'+labels[k]+'"></figure><h3>'+labels[k]+'</h3><button type="button">Pick '+k.toUpperCase()+'</button>';
  card.querySelector('button').onclick=()=>vote(k);
  choices.append(card);
 }
