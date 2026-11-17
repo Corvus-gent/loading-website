@@ -39,3 +39,8 @@
 .st .country-map-link:hover{background:#ffe59b;border-color:#ffe59b}
 .st .country-map-link:focus-visible{outline:2px solid #fff;outline-offset:4px}
 @media(max-width:480px){.st .country-map-link{display:flex;width:100%;font-size:13px;padding:12px}}
+
+/* Lead with the map: three times the label size, including on mobile. */
+.st .country-map-link{gap:16px;padding:14px 20px;text-align:left}
+.st .country-map-link .country-map-emoji{flex:none;font-size:3em;line-height:1;display:inline-block}
+@media(max-width:480px){.st .country-map-link{gap:12px;padding:14px 16px;justify-content:flex-start}}
