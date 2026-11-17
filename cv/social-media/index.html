@@ -57,6 +57,9 @@
     }
     #blog-countdown, #release-countdown { display: block; font-variant-numeric: tabular-nums; font-weight: 600; }
     .secret-code { text-align: right; font: .8rem ui-monospace, monospace; letter-spacing: .15em; color: #d6ad60; }
+    .secret-code button { color: inherit; font: inherit; letter-spacing: inherit; background: none; border: 0; padding: 10px 0 10px 12px; min-width: 5ch; min-height: 44px; cursor: pointer; text-align: right; border-radius: 4px; }
+    .secret-code button:hover { color: #f0d99b; text-shadow: 0 0 14px #d6ad6040; }
+    .secret-code button:focus-visible { outline: 2px solid #d6ad60; outline-offset: 4px; }
     .secret summary {
       display: list-item;
       width: fit-content;
@@ -197,7 +200,7 @@
       <details class="secret">
         <summary aria-label="A little secret"><span lang="zh-Hans">一个小秘密</span> <span aria-hidden="true">✦</span></summary>
         <p><span lang="zh-Hans">某人</span> near Leuven helps me lock tf in.</p>
-        <p class="secret-code">512</p>
+        <p class="secret-code"><button type="button" id="secret-number" title="Hover for the next code · click for binary · arrow keys to explore" aria-label="Secret code 512. Hover or use arrow keys for the next code; click to switch to binary.">512</button></p>
       </details>
     </section>
     <section aria-labelledby="outbound-heading">
@@ -233,13 +236,33 @@
     }
     document.querySelectorAll('#release-countdown, #blog-countdown').forEach(startCountdown);
 
-    const secretCode = document.querySelector(".secret-code");
+    const secretCode = document.getElementById("secret-number");
     const codes = ["512", "520", "1314"];
-    let index = 0;
-    setInterval(() => {
-      index = (index + 1) % codes.length;
-      secretCode.textContent = codes[index];
-    }, 60_000);
+    let index = 0, binary = false;
+    function renderCode() {
+      const code = codes[index];
+      secretCode.textContent = binary ? Number(code).toString(2) : code;
+      secretCode.setAttribute("aria-label", "Secret code " + code + (binary ? ", in binary." : ".") + " Arrow keys or touch to explore; click to switch number systems.");
+      secretCode.title = binary ? "same secret. different language. · click to decode" : "hover for the next code · click for binary";
+    }
+    function nextCode(step = 1) {
+      index = (index + step + codes.length) % codes.length;
+      binary = false;
+      renderCode();
+    }
+    secretCode.addEventListener("pointerenter", event => {
+      if (event.pointerType === "mouse" || event.pointerType === "pen") nextCode();
+    });
+    secretCode.addEventListener("click", event => {
+      if (event.pointerType === "touch") nextCode();
+      else { binary = !binary; renderCode(); }
+    });
+    secretCode.addEventListener("keydown", event => {
+      if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
+        event.preventDefault();
+        nextCode(event.key === "ArrowRight" ? 1 : -1);
+      }
+    });
   </script>
 </body>
 </html>
