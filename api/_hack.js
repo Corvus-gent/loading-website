@@ -1,3 +1,4 @@
+import {OWNER_EMAIL} from '../lib/email/addresses.js';
 import crypto from 'node:crypto';
 import {redis,pipeline} from './_redis.js';
 import {dailyIPHash,rateLimit} from './_privacy.js';
@@ -14,7 +15,7 @@ export default async function handler(req,res){
  try{
  if(req.method==='GET'){
   const privateView=req.query.private==='1';let authorized=false;
-  if(privateView){authorized=(await getSession(req))?.email==='gabriel@corvus.gent';if(!authorized)return res.status(401).json({error:'Log in to see private feedback.'});}
+  if(privateView){authorized=(await getSession(req))?.email===OWNER_EMAIL;if(!authorized)return res.status(401).json({error:'Log in to see private feedback.'});}
   res.setHeader('Cache-Control',privateView?'private, no-store':'public, s-maxage=15, stale-while-revalidate=60');
   const [all,bySource,comments,feedback,members]=await Promise.all([redis(['HGETALL','hack:totals']),redis(['HGETALL','hack:sources']),records('comments'),authorized?records('feedback'):[],redis(['HGETALL','hack:members'])]);
   return res.status(200).json({totals:obj(all),sources:obj(bySource),comments,feedback,members:publicMembers(members),private:authorized});

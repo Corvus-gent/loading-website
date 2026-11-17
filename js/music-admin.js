@@ -1,3 +1,4 @@
+import {OWNER_EMAIL} from '../lib/email/addresses.js';
 import {initI18n,t} from './i18n.js?v=20261108live1';
 import {$,esc,label,genres,request} from './music-shared.js?v=20261108live1';
 let state={tracks:[],suggestions:[],revision:null},dirty=false,busy=false,email='',editing=null,sortable=null;
@@ -69,7 +70,7 @@ $('edit-form').onsubmit=async event=>{
 $('cancel-edit').onclick=()=>$('edit-dialog').close();
 $('login-email').onsubmit=async event=>{
   event.preventDefault();email=$('email').value.trim().toLowerCase();
-  if(email!=='gabriel@corvus.gent'){msg(t('m.forbidden'));return;}
+  if(email!==OWNER_EMAIL){msg(t('m.forbidden'));return;}
   const button=event.submitter;button.disabled=true;
   try {await request('/api/auth',{action:'request',email});$('login-email').hidden=true;$('login-code').hidden=false;$('resend').hidden=false;msg(t('m.codeSent'));$('code').focus();}catch{msg(t('m.loginError'));}finally{button.disabled=false;}
 };

@@ -1,3 +1,4 @@
+import {OWNER_EMAIL} from '../lib/email/addresses.js';
 import crypto from 'node:crypto';
 import {redis,pipeline} from './_redis.js';
 import {dailyIPHash} from './_privacy.js';
@@ -44,7 +45,7 @@ end
 return unique`;
  return Number(await redis(['EVAL',lua,keys.length,...keys,dedupe.length,placement,now,JSON.stringify(entry),fields,device,kind,now-7*DAY,day,Date.parse(day+'T00:00:00Z'),now-DAY,Math.floor(now/DAY)*86400+7*86400]))===1;
 }
-async function authorized(req){const token=String(req.headers.authorization||'').replace(/^Bearer /,''),expected=process.env.PLETHORA_ADMIN_KEY;if(expected&&safeEqual(token,expected))return true;return (await getSession(req))?.email==='gabriel@corvus.gent';}
+async function authorized(req){const token=String(req.headers.authorization||'').replace(/^Bearer /,''),expected=process.env.PLETHORA_ADMIN_KEY;if(expected&&safeEqual(token,expected))return true;return (await getSession(req))?.email===OWNER_EMAIL;}
 function dailyRows(hash){
  const rows=new Map();for(const [field,count]of Object.entries(object(hash))){const[mode,placement,destination,device,country]=field.split('|');if(!['r','u'].includes(mode)||!country)continue;const key=[placement,destination,device,country].join('|');if(!rows.has(key))rows.set(key,{placement,destination,device,country,total:0,raw:0});rows.get(key)[mode==='u'?'total':'raw']+=Number(count);}
  return [...rows.values()].sort((a,b)=>b.total-a.total||a.placement.localeCompare(b.placement));

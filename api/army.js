@@ -1,3 +1,4 @@
+import {OWNER_EMAIL} from '../lib/email/addresses.js';
 import {armyService} from './_army/_service.js';
 import {sameOrigin,validCode,validID,cookie,rateHash} from './_army/_security.js';
 import {getSession,safeEqual} from './_session.js';
@@ -37,7 +38,7 @@ export function createArmyHandler({service=armyService(),ready=connected,ownerSe
     return res.status(200).json({soldier:publicSoldier(user),code:user.code});
    }
    if(q.admin==='1'){
-    const owner=await ownerSession(req);if(owner?.email?.toLowerCase()!=='gabriel@corvus.gent')return res.status(403).json({error:'forbidden'});
+    const owner=await ownerSession(req);if(owner?.email?.toLowerCase()!==OWNER_EMAIL)return res.status(403).json({error:'forbidden'});
     if(req.method==='GET')return res.status(200).json(await service.adminList(q));
     if(req.method!=='POST'||!sameOrigin(req))return res.status(403).json({error:'forbidden'});
     if(body.action==='approve-help'){

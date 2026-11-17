@@ -15,7 +15,7 @@ try{
  const cross=req({},'POST',body('quick'));cross.headers.origin='https://evil.test';assert.equal((await run(cross)).status,403);
  const early=body('quick');early.challenge=challenge().token;assert.equal((await run(req({},'POST',early))).status,400);
  for(const[tier,i]of ['quick','coffee','meet'].map((t,i)=>[t,i])){const b=body(tier),r=req({},'POST',b,'198.51.100.'+(50+i));assert.equal((await run(r)).status,201);assert.equal((await run(r)).status,200);assert.equal((await run(req({},'POST',body(tier),'198.51.100.'+(50+i)))).status,429);}
- assert.equal(mails.length,3);assert.equal(mails[0].reply_to,'qa@example.com');assert.match(mails[1].text,/PARACETAMAIL/);
+ assert.equal(mails.length,3);assert.equal(mails[0].reply_to,'hello@corvus.gent');assert.match(mails[1].text,/PARACETAMAIL/);
  const list=await run(admin());assert.equal(list.body.rows.length,3);const row=list.body.rows[0],key=prefix+':request:'+row.id,ttl=Number(await redis(['TTL',key]));assert.ok(ttl>0&&ttl<=60*86400);assert.equal(row.mailSent,true);
  assert.equal((await run(admin({id:row.id,status:'scheduled'}))).status,200);assert.ok(Number(await redis(['TTL',key]))<=ttl);assert.equal(JSON.parse(await redis(['GET',key])).status,'scheduled');
  assert.equal((await run(admin({id:row.id,status:'done'}))).status,200);assert.equal(await notifyRequest(row.id),true);assert.equal(mails.length,3);

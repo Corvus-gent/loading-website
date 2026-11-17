@@ -3,7 +3,7 @@
 Run after content changes:  python3 tools/build-search.py"""
 import glob, html, json, re, subprocess
 
-EN = json.loads(open("js/locales/en.js", encoding="utf-8").read().removeprefix("export default ").rstrip(";\n"))
+EN = json.loads(subprocess.check_output(['node', '--input-type=module', '-e', "import en from './js/locales/en.js'; console.log(JSON.stringify(en));"], text=True))
 people = json.load(open("people/people.json", encoding="utf-8"))["members"][0]
 
 TITLES = {"/": "home", "/gabe": "gabe · about me"}

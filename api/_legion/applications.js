@@ -1,3 +1,4 @@
+import {ROLE_ADDRESSES} from '../../lib/email/addresses.js';
 import {redis,pipeline} from '../_redis.js';
 import {normalizeEmail} from '../../js/army/domain.js';
 import {key,clean,sha,token} from './security.js';
@@ -10,7 +11,7 @@ export async function apply(b){
  if(who.length<5||build.length<3||why.length<3)throw Error('fields');if(source==='hack'&&!await redis(['GET',key('puzzle:'+sha(b.claim||''))]))throw Error('answer');
  const dedupe=key('application-dedupe:'+sha(email+source));if(!await redis(['SET',dedupe,'1','NX','EX',86400]))return {ok:true,message:'Your claim is already with Gabe.'};
  const id=token(),row={id,who,email,build,why,source,rank:targets[source],status:'new',created_at:now()};await put('application:'+id,row,90*86400);await redis(['ZADD',key('applications'),Date.now(),id]);
- const notified=await sendMail({to:'gabriel@corvus.gent',subject:'Legion · '+targets[source]+' application',text:[who,'','Build: '+build,'','Why: '+why,'','Source: '+source,'Review in corvus.gent/admin'].join('\n')},'application-'+id);
+ const notified=await sendMail({to:ROLE_ADDRESSES.hello,subject:'Legion · '+targets[source]+' application',text:[who,'','Build: '+build,'','Why: '+why,'','Source: '+source,'Review in corvus.gent/admin'].join('\n')},'application-'+id);
  return {ok:true,notified:notified.ok,message:'Received. Gabe reads these himself.'};
 }
 export async function applications(){const ids=await redis(['ZREVRANGE',key('applications'),0,499]);const rows=ids.length?await pipeline(ids.map(id=>['GET',key('application:'+id)])):[];return rows.filter(Boolean).map(JSON.parse);}

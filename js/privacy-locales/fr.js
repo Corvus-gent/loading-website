@@ -1,3 +1,4 @@
+import {ROLE_ADDRESSES} from '../../lib/email/addresses.js';
 export default {
   "title": "la vie privée, sans brouillard.",
   "intro": [
@@ -10,7 +11,7 @@ export default {
     [
       "who",
       "qui tient la lanterne ?",
-      "Francisco Gabriel Van Langenhove est responsable de corvus.gent et stats.corvus.gent, musique et jeux compris. questions et demandes : <a href=\"mailto:gabriel@corvus.gent\">gabriel@corvus.gent</a>."
+      "Francisco Gabriel Van Langenhove est responsable de corvus.gent et stats.corvus.gent, musique et jeux compris. questions et demandes : <a href=\"mailto:" + ROLE_ADDRESSES.hello + "\">" + ROLE_ADDRESSES.hello + "</a>."
     ],
     [
       "counts",
@@ -33,7 +34,7 @@ export default {
       "sf",
       "messages pour le voyage à sf",
       "si tu envoies le formulaire sf, seul gabe peut voir ton nom, contact, activité, choix de rencontre, dates, lieu et message dans le tableau privé. ces données servent à organiser la rencontre demandée (exécution de ta demande), pas au marketing. chaque fiche est supprimée automatiquement de Redis 60 jours après l’envoi ; la marquer comme traitée ne prolonge pas ce délai.",
-      "une copie est envoyée à gabriel@corvus.gent via Resend, l’exception de stockage aux états-unis documentée ici. Resend applique sa propre conservation des journaux ; gabe doit supprimer la notification de sa boîte sous les mêmes 60 jours. contacte-le pour une suppression anticipée, même avec un pseudo x ou un profil linkedin.",
+      "une copie est envoyée à " + ROLE_ADDRESSES.hello + " via Resend, l’exception de stockage aux états-unis documentée ici. Resend applique sa propre conservation des journaux ; gabe doit supprimer la notification de sa boîte sous les mêmes 60 jours. contacte-le pour une suppression anticipée, même avec un pseudo x ou un profil linkedin.",
       "le cookie signé vid sert aussi à éviter les abus du formulaire ; les défis expirent après 5 minutes, les empreintes ip changent chaque jour et expirent sous un jour, les reçus de nouvelle tentative sous 24 heures. le billet utilise sessionStorage (sf-note:2026-11) pour apparaître une fois par session d’onglet. les statistiques facultatives comptent les actions, jamais les champs."
     ],
     [

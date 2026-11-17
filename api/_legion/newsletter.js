@@ -1,3 +1,4 @@
+import {ROLE_ADDRESSES} from '../../lib/email/addresses.js';
 import {redis,pipeline} from '../_redis.js';
 import {normalizeEmail} from '../../js/army/domain.js';
 import {key,sha,token,validToken} from './security.js';
@@ -15,7 +16,7 @@ export async function subscribe(email,origin='https://corvus.gent'){
  }
  await put('subscriber:'+hash,{email,status:'pending',created_at:existing?.created_at||now(),confirmation:sha(raw),unsubscribe:sha(unsubscribe)},172800);
  await redis(['SET',key('confirm:'+sha(raw)),hash,'EX',172800]);await redis(['SET',key('unsubscribe:'+sha(unsubscribe)),hash,'EX',366*86400]);await redis(['ZADD',key('subscribers'),Date.now(),hash]);
- const sent=await sendMail({to:email,subject:'one small signal from the crow',text:'You asked for occasional Corvus transmissions. Confirm here:\n\n'+origin+'/letters/confirm/?token='+raw+'\n\nNo confirmation, no transmissions. This link expires in 48 hours.\n\nChanged your mind? '+origin+'/letters/unsubscribe/?token='+unsubscribe+'\n\nCorvus · gabriel@corvus.gent'},'confirm-'+sha(raw));
+ const sent=await sendMail({to:email,subject:'one small signal from the crow',text:'You asked for occasional Corvus transmissions. Confirm here:\n\n'+origin+'/letters/confirm/?token='+raw+'\n\nNo confirmation, no transmissions. This link expires in 48 hours.\n\nChanged your mind? '+origin+'/letters/unsubscribe/?token='+unsubscribe+'\n\nCorvus · ' + ROLE_ADDRESSES.hello},'confirm-'+sha(raw));
  if(!sent.ok){await redis(['DEL',key('subscribe-cooldown:'+hash)]);throw Error('mail');}
  return {ok:true,message:'Check your inbox. Confirm once to hear from the crow.'};
 }

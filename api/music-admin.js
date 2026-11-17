@@ -1,3 +1,4 @@
+import {OWNER_EMAIL} from '../lib/email/addresses.js';
 import { connected, redis } from './_redis.js';
 import { getSession } from './_session.js';
 import { loadTracks, suggestions, suggestion, validId, GENRES, ORIGINS, resolveLink, sameTrack, today, revision } from './_music-store.js';
@@ -9,7 +10,7 @@ export default async function handler(req,res) {
   try {
     const session=await getSession(req);
     if(!session) return res.status(401).json({error:'login_required'});
-    if(session.email!=='gabriel@corvus.gent') return res.status(403).json({error:'forbidden'});
+    if(session.email!==OWNER_EMAIL) return res.status(403).json({error:'forbidden'});
     if(req.method==='POST' && !ORIGINS.includes(req.headers.origin || '')) return res.status(403).json({error:'forbidden'});
     const catalog=await loadTracks();
     if(req.method==='GET') return res.status(200).json({tracks:catalog.tracks,revision:catalog.revision,suggestions:await suggestions()});

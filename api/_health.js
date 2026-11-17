@@ -1,3 +1,5 @@
+import {ROLE_ADDRESSES} from '../lib/email/addresses.js';
+import {sendTransactional} from '../lib/email/send.js';
 import { randomUUID } from 'node:crypto';
 import { safeEqual } from './_session.js';
 import { redis, pipeline, plaintextExceptionUntil } from './_redis.js';
@@ -225,22 +227,7 @@ const reserve = `
 const ack = `local s=cjson.decode(redis.call('GET',KEYS[1]) or '{}');if s.id==ARGV[1] then s.sent=s.pending;s.pending=nil;s.id=nil;s.delivered=tonumber(ARGV[2]);s.busy=0;redis.call('SET',KEYS[1],cjson.encode(s),'EX',2592000) end;return 1`;
 async function mail(name, state, id) {
   const subject = '🕯 corvus: ' + name + (state === 'down' ? ' is down' : ' is back up');
-  const r = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: {
-      Authorization: 'Bearer ' + process.env.RESEND_API_KEY,
-      'Content-Type': 'application/json',
-      'Idempotency-Key': id
-    },
-    body: JSON.stringify({
-      from: 'corvus <login@corvus.gent>',
-      to: ['gabriel@corvus.gent'],
-      subject,
-      text: subject + '\nhttps://stats.corvus.gent/status'
-    }),
-    signal: AbortSignal.timeout(5000),
-    redirect: 'error'
-  });
+  const r = await sendTransactional({to: [ROLE_ADDRESSES.hello], subject, text: subject + '\nhttps://stats.corvus.gent/status'}, {idempotencyKey: id});
   if (!r.ok) throw Error('delivery failed');
 }
 export async function notify(sample, store = redis, send = mail) {

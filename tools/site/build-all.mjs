@@ -6,3 +6,6 @@ execFileSync("node", ["tools/build-hackathons.mjs"], {stdio:'inherit'});
 execFileSync("node", ["tools/build-plethora.mjs"], {stdio:'inherit'});
 execFileSync("node", ["tools/site/build.mjs"], {stdio:'inherit'});
 execFileSync("python3", ["tools/build-search.py"], {stdio:'inherit'});
+
+execFileSync('node', ['tools/email-config.mjs'], {stdio:'inherit'});
+execFileSync('node', ['tools/email-contacts.mjs'], {stdio:'inherit'});

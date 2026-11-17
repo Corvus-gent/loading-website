@@ -1,3 +1,4 @@
+import {sendTransactional} from '../lib/email/send.js';
 // Email one-time-code login, only for @corvus.gent addresses.
 import crypto from "node:crypto";
 import { redis, connected } from "./_redis.js";
@@ -7,17 +8,12 @@ import { ORIGINS, dailyIPHash, rateLimit as limit, appendPrivateLog } from "./_p
 const isAllowed = e => e.length <= 254 && /^[a-z0-9._%+-]+@corvus\.gent$/i.test(e);
 
 async function sendCode(email, code) {
-  const r = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, "Content-Type": "application/json" },
-    body: JSON.stringify({
-      from: process.env.LOGIN_FROM || "corvus <login@corvus.gent>",
-      to: [email],
-      subject: `${code} is your corvus.gent code`,
-      text: `Your code: ${code}\n\nValid for 3 minutes. If you didn't ask for this, ignore it.\n\n— the crow`,
-    }),
-  });
-  if (!r.ok) throw new Error("mail failed");
+  const result = await sendTransactional({to: [email], subject: `${code} is your corvus.gent code`, text: `Your code: ${code}
+
+Valid for 3 minutes. If you didn't ask for this, ignore it.
+
+— the crow`});
+  if (!result.ok && !result.skipped) throw Error('mail failed');
 }
 
 export default async function handler(req, res) {

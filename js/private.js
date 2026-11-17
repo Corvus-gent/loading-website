@@ -1,3 +1,4 @@
+import {OWNER_EMAIL} from '../lib/email/addresses.js';
 import { showStorageWarning } from './storage-warning.js';
 const $ = (id) => document.getElementById(id);
 const post = (body) =>
@@ -128,9 +129,9 @@ function dash(snap) {
       table('logins', ['email', 'at'], records.logins || [])
     );
   });
-  if(snap.viewer.toLowerCase()==='gabriel@corvus.gent')whenVisible('army-admin',async root=>(await import('./private-army.js')).mountArmy(root));
+  if(snap.viewer.toLowerCase()===OWNER_EMAIL)whenVisible('army-admin',async root=>(await import('./private-army.js')).mountArmy(root));
   whenVisible('x-log', async (root) => (await import('./private-x.js')).mountXLog(root));
-  if (snap.viewer.toLowerCase() === 'gabriel@corvus.gent')
+  if (snap.viewer.toLowerCase() === OWNER_EMAIL)
     whenVisible('sf-leads', async (root) =>
       (await import('./private-sf.js?v=20261108live1')).mountSFLeads(root, s.funnelSF)
     );

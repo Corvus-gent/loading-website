@@ -1,3 +1,4 @@
+import {ROLE_ADDRESSES} from '../lib/email/addresses.js';
 /**
  * Easter egg: press any key on the homepage (or tap >_) to open a terminal.
  */
@@ -22,7 +23,7 @@ const COMMANDS = {
   sidequests: () => ["opening /sidequests ..."].concat(go("/sidequests/")),
   support: () => ["opening /support ..."].concat(go("/support/")),
   cv: () => ["opening cv ..."].concat(go("/cv")),
-  contact: () => ["gabriel@corvus.gent"].concat(go("mailto:gabriel@corvus.gent")),
+  contact: () => [ROLE_ADDRESSES.hello].concat(go("mailto:" + ROLE_ADDRESSES.hello)),
   live: () => ["twitch → https://corvus.gent/go/twitch", "instagram → https://corvus.gent/go/instagram", "x → https://corvus.gent/go/twitter"],
   ls: () => [Object.keys(PAGES).join("  ")],
   location: async () => {
@@ -38,7 +39,7 @@ const COMMANDS = {
   coo: () => ["coo coo."],
   headache: () => ["fast-acting inbox relief: paracetamail® 500 mg", "side effects may include free time."].concat(go("/img/paracetamail.png")),
   sudo: args => args.join(" ") === "hire gabe"
-    ? ["permission granted.", "→ gabriel@corvus.gent"]
+    ? ["permission granted.", "→ " + ROLE_ADDRESSES.hello]
     : ["nice try."],
   exit: () => { close(); return []; },
 };

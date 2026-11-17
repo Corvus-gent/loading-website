@@ -1,3 +1,4 @@
+import {OWNER_EMAIL} from '../lib/email/addresses.js';
 import { randomUUID } from 'node:crypto';
 import { waitUntil } from '@vercel/functions';
 import { redis, plaintextExceptionUntil } from './_redis.js';
@@ -284,7 +285,7 @@ export async function serve(
     else {
       publicFields.data = { tables: dashboardTables.filter((k) => Array.isArray(payload[k])) };
       for (const k of ['outbound', 'funnel']) if (payload[k]) publicFields.data[k] = payload[k];
-      if (user.email.toLowerCase() === 'gabriel@corvus.gent')
+      if (user.email.toLowerCase() === OWNER_EMAIL)
         publicFields.data.funnelSF = payload.funnelSF;
     }
   }
