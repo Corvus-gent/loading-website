@@ -1,6 +1,6 @@
 import { renderCountries, countryPeriod } from './stats-countries.js';
 const container=document.querySelector('#visitor-map');
-let visible=false,started=false,data,update,mode='day',daily;
+let visible=false,started=false,data,update,mode=null,daily;
 function mount(){
   if(update){update(data);return;}
   if(!visible||started||!data)return;
@@ -30,3 +30,6 @@ for(const button of document.querySelectorAll('[data-map-period]'))button.addEve
   }else{mode=next;show(daily?.data,daily?.day||window.statsPage.today);}
   for(const b of document.querySelectorAll('[data-map-period]'))b.setAttribute('aria-pressed',String(b.dataset.mapPeriod===mode));
 });
+
+// Load the all-time view immediately; the daily snapshot stays ready for switching.
+document.querySelector('[data-map-period="all"]').click();
