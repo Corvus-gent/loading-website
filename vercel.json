@@ -766,6 +766,10 @@
     {
       "path": "/api/compound-v2?impact=1&job=1",
       "schedule": "12 * * * *"
+    },
+    {
+      "path": "/api/stats?health=1&monitor=1",
+      "schedule": "*/5 * * * *"
     }
   ],
   "buildCommand": "node tools/site/build-all.mjs"
