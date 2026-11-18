@@ -40,7 +40,7 @@ const css = `
 @media(max-width:850px){.dashboard-columns{grid-template-columns:1fr;gap:0}}
 @media(prefers-reduced-motion:reduce){.dossier-switcher::before{transition:none}}
 
-.country-switch{display:flex;flex-wrap:wrap;gap:5px}.country-switch button{min-width:0;padding:5px 9px;font-size:12px}.country-switch button[aria-pressed=true]{color:var(--mint);border-color:#436862}.market-grid .inset-geo{height:clamp(150px,24vw,245px)}
+.country-switch{display:flex;flex-wrap:wrap;gap:5px}.country-switch button{min-width:0;padding:5px 9px;font-size:12px}.country-switch button[aria-pressed=true]{color:var(--mint);border-color:#436862}.market-grid .inset-geo{height:auto;aspect-ratio:var(--region-ratio);width:min(100%,var(--region-width));margin-inline:auto}
 
 .logo.has-art{color:transparent}.logo.has-art img{width:82%;height:82%;object-fit:contain}.logo img[hidden]{display:none}
 `;

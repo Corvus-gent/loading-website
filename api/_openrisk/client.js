@@ -83,18 +83,22 @@ export async function client() {
   function inset(key, label, cities) {
     const [west,south,east,north]=ctx.insets.bounds[key];
     const path=ctx.insets.paths[key];
+    const ratio=(east-west)*Math.cos((north+south)*Math.PI/360)/(north-south);
+    const projectedWidth=115*ratio;
     const pins=cities.map(city=>{
       const x=(city.lon-west)*100/(east-west);
       const y=(north-city.lat)*100/(north-south);
       return '<button class="pin" data-city="'+esc(city.name)+'" title="'+esc(city.name)+'" aria-label="'+esc(city.name)+' map pin" aria-pressed="'+(ctx.city===city.name)+'" style="left:'+x+'%;top:'+y+'%"></button>';
     }).join('');
     const labels=cities.map(city=>button(city.name,'data-city="'+esc(city.name)+'" aria-pressed="'+(ctx.city===city.name)+'"','inset-city')).join('');
-    return '<section class="market" aria-label="'+label+'"><div class="inset-geo" data-map-camera="'+key+'-'+esc(label)+'" tabindex="0" aria-label="'+esc(label)+' map"><div class="map-layer"><svg viewBox="0 0 300 115" preserveAspectRatio="none" aria-hidden="true"><path d="'+esc(path)+'" fill="#223754" stroke="#52769c" stroke-width=".7"/></svg>'+pins+'</div><span class="market-name">'+label+'</span>'+mapControls(label)+'</div><div class="inset-cities">'+labels+'</div></section>';
+    return '<section class="market" aria-label="'+label+'"><div class="inset-geo" data-map-camera="'+key+'-'+esc(label)+'" tabindex="0" aria-label="'+esc(label)+' map" style="--region-ratio:'+ratio+';--region-width:'+Math.round(310*ratio)+'px"><div class="map-layer"><svg viewBox="0 0 '+projectedWidth+' 115" aria-hidden="true"><path d="'+esc(path)+'" transform="scale('+projectedWidth/300+' 1)" fill="#223754" stroke="#52769c" stroke-width="1" vector-effect="non-scaling-stroke"/></svg>'+pins+'</div><span class="market-name">'+label+'</span>'+mapControls(label)+'</div><div class="inset-cities">'+labels+'</div></section>';
   }
 
-  const mapCountries=['Belgium','England','Netherlands','Germany','France','United States'];
+  const mapCountries=['Belgium','England','Netherlands','Germany','France','United States','New York City','Shanghai','Greater Bay Area','Morocco'];
+  const regionName=region=>region==='United States'?'Bay Area':region;
+  const regionOf=city=>city?.hub || city?.country;
   const cityRegion = name => {
-    const country=allCities().find(city=>city.name===name)?.country;
+    const country=regionOf(allCities().find(city=>city.name===name));
     return mapCountries.includes(country) ? country : 'Belgium';
   };
 
@@ -210,15 +214,14 @@ export async function client() {
   function map() {
     const cities=allCities();
     const region=ctx.countryList || cityRegion(ctx.city);
-    const regionName=country=>country==='United States'?'Bay Area':country;
-    const countries='<div class="country-switch" role="group" aria-label="Map country">' + mapCountries.map(country=>
+    const countries='<div class="country-switch" role="group" aria-label="Map region">' + mapCountries.map(country=>
       button(regionName(country),'data-map-country="'+country+'" aria-pressed="'+(region===country)+'"')).join('')+'</div>';
     const key=region==='United States'?'bay':citySlug(region);
     const [west,south,east,north]=ctx.insets.bounds[key];
-    const regionalCities=cities.filter(city=>city.country===region && city.lon>=west && city.lon<=east && city.lat>=south && city.lat<=north);
-    const europeCount=cities.filter(city=>mapCountries.includes(city.country) && city.country!=='United States').length;
+    const regionalCities=cities.filter(city=>regionOf(city)===region && city.lon>=west && city.lon<=east && city.lat>=south && city.lat<=north);
+    const europeCount=cities.filter(city=>['Belgium','England','Netherlands','Germany','France'].includes(city.country)).length;
     main.innerHTML = '<section class="hero"><span class="eyebrow">Startup intelligence</span><h1>Explore startup risk.</h1><p>Explore startups by city or build a risk dossier from public signals.</p><form id="search-form" class="search-wrap" role="search"><label for="company-search" hidden>Search for a startup</label><span class="search-symbol" aria-hidden="true">⌕</span><input id="company-search" placeholder="Search any startup…" maxlength="80" autocomplete="off" aria-controls="search-results" aria-expanded="false"><span class="keycap" aria-hidden="true">/</span><div id="search-results" class="results" hidden></div></form><div class="quick">Quick look ' + ['aikido-security','deliverect','stripe','odoo'].map(id => button(ctx.catalog.find(item => item.id === id).name, 'data-company="' + id + '"')).join('') + '</div></section>'
-      + '<div class="layout"><section class="panel atlas"><div class="panel-head"><h2>Ecosystem map</h2>' + '<div class="actions">' + badge(allCompanies().length + ' profiles · ' + allCities().length + ' cities') + button('Suggest startup','data-open-dialog="startup"') + button('+ Add city','data-open-dialog="city"') + '</div></div><div class="map-stage" data-map-camera="world" tabindex="0" aria-label="World map"><div class="map-layer"><svg viewBox="0 0 900 360" preserveAspectRatio="none" aria-hidden="true"><defs><pattern id="grid" width="37.5" height="37.5" patternUnits="userSpaceOnUse"><path d="M 37.5 0 L 0 0 0 37.5" fill="none" stroke="#253751" stroke-width=".7"/></pattern></defs><rect width="900" height="360" fill="url(#grid)"/><path d="' + esc(ctx.land) + '" fill="#243855" stroke="#507096" stroke-width=".65"/></svg><button class="cluster" aria-label="European startup hubs" data-city="Brussels" style="left:51.1%;top:22.2%">' + europeCount + '</button><button class="cluster" aria-label="Bay Area startup hubs" data-city="San Francisco" style="left:16%;top:31.4%">2</button>' + worldPins() + '</div><span class="map-caption">NATURAL EARTH · GLOBAL VIEW</span>' + mapControls('world map') + '</div><div class="market-grid">' + countries + inset(key,regionName(region),regionalCities) + '</div></section><section class="panel"><div class="panel-head"><h2 id="city-title"></h2>' + sortControls() + '</div>' + nearbyForm() + (ctx.countryList?'<p id="country-scope" class="source">Selected profiles and approved suggestions across several hubs</p>':'') + '<div id="city-rows" class="rows"></div></section></div>';
+      + '<div class="layout"><section class="panel atlas"><div class="panel-head"><h2>Ecosystem map</h2>' + '<div class="actions">' + badge(allCompanies().length + ' profiles · ' + allCities().length + ' cities') + button('Suggest startup','data-open-dialog="startup"') + button('+ Add city','data-open-dialog="city"') + '</div></div><div class="map-stage" data-map-camera="world" tabindex="0" aria-label="World map"><div class="map-layer"><svg viewBox="0 0 900 360" preserveAspectRatio="none" aria-hidden="true"><defs><pattern id="grid" width="37.5" height="37.5" patternUnits="userSpaceOnUse"><path d="M 37.5 0 L 0 0 0 37.5" fill="none" stroke="#253751" stroke-width=".7"/></pattern></defs><rect width="900" height="360" fill="url(#grid)"/><path d="' + esc(ctx.land) + '" fill="#243855" stroke="#507096" stroke-width=".65"/></svg><button class="cluster" aria-label="European startup hubs" data-city="Brussels" style="left:51.1%;top:22.2%">' + europeCount + '</button><button class="cluster" aria-label="Bay Area startup hubs" data-city="San Francisco" style="left:16%;top:31.4%">2</button>' + worldRegionClusters(cities) + worldPins() + '</div><span class="map-caption">NATURAL EARTH · GLOBAL VIEW</span>' + mapControls('world map') + '</div><div class="market-grid">' + countries + inset(key,regionName(region),regionalCities) + '</div></section><section class="panel"><div class="panel-head"><h2 id="city-title"></h2>' + sortControls() + '</div>' + nearbyForm() + (ctx.countryList?'<p id="country-scope" class="source">Selected profiles and approved suggestions across several hubs</p>':'') + '<div id="city-rows" class="rows"></div></section></div>';
     main.querySelector('.map-stage svg').classList.add('earth');
     main.querySelectorAll('[data-map-camera]').forEach(bindMapCamera);
     const input = document.querySelector('#company-search');
@@ -290,7 +293,7 @@ export async function client() {
     return '<form id="nearby-form" class="stack" hidden><label for="nearby-query">City or postal code</label>'
       + '<input id="nearby-query" name="query" maxlength="80" placeholder="e.g. Brussels or 1000" value="'+esc(ctx.originQuery)+'">'
       + '<label for="nearby-country">Country (optional)</label><select id="nearby-country" name="country">'
-      + [['','Auto'],['BE','Belgium'],['NL','Netherlands'],['FR','France'],['DE','Germany'],['GB','United Kingdom'],['US','United States']]
+      + [['','Auto'],['BE','Belgium'],['NL','Netherlands'],['FR','France'],['DE','Germany'],['GB','United Kingdom'],['US','United States'],['CN','China'],['HK','Hong Kong'],['MO','Macao'],['MA','Morocco']]
         .map(([code,label])=>'<option value="'+code+'"'+(ctx.originCountry===code?' selected':'')+'>'+label+'</option>').join('')
       + '</select><div class="actions"><button type="submit">Find nearby</button><button type="button" id="nearby-gps">Use approximate location</button></div>'
       + '<p class="source" id="nearby-status" role="status"></p>'
@@ -369,7 +372,7 @@ export async function client() {
       main.querySelectorAll('.pin,.inset-city').forEach(node=>node.setAttribute('aria-pressed','false'));
       return;
     }
-    const countryCities = new Set(allCities().filter(city=>city.country===ctx.countryList).map(city=>city.name));
+    const countryCities = new Set(allCities().filter(city=>regionOf(city)===ctx.countryList).map(city=>city.name));
     const items = (ctx.countryList ? [...ctx.catalog,...ctx.state.approved] : allCompanies())
       .filter(item => ctx.countryList ? countryCities.has(item.city) : item.city === ctx.city)
       .map(item=>({item,value:sort.value(item)}))
@@ -378,7 +381,7 @@ export async function client() {
         const comparison=ctx.sort==='name' ? a.value.localeCompare(b.value) : b.value-a.value;
         return direction*comparison || a.item.name.localeCompare(b.item.name);
       });
-    document.querySelector('#city-title').textContent = (ctx.countryList||ctx.city) + ' · ' + items.length;
+    document.querySelector('#city-title').textContent = regionName(ctx.countryList||ctx.city) + ' · ' + items.length;
     document.querySelector('#city-rows').innerHTML = items.map(({item,value})=>
       companions(item,'row',sort.detail ? (value==null?'Not available':sort.detail(item,value)) : '')
     ).join('') || empty('No profiles are available for this city yet.');
@@ -730,6 +733,15 @@ export async function client() {
     ...ctx.state.jobs.flatMap(job=>job.details||[]),...ctx.state.approved,...ctx.catalog,
   ].map(company=>[company.id,company])).values());
   const allCities = () => [...ctx.cities,...ctx.state.approved.map(company=>company.place).filter(Boolean),...ctx.state.jobs.filter(job=>job.type==='City' && job.stage==='Complete' && job.city && !ctx.cities.some(city=>city.name===job.city.name)).map(job=>job.city)].filter((city,i,arr)=>arr.findIndex(row=>row.name===city.name)===i);
+  function worldRegionClusters(cities) {
+    const centers={'New York City':'New York City',Shanghai:'Shanghai','Greater Bay Area':'Shenzhen',Morocco:'Casablanca'};
+    return Object.entries(centers).map(([region,name])=>{
+      const city=cities.find(place=>place.name===name);
+      const count=cities.filter(place=>regionOf(place)===region).length;
+      return button(String(count),'data-map-country="'+region+'" aria-label="'+region+' startup hub" title="'+region
+        +'" style="left:'+(city.lon+180)*100/360+'%;top:'+(83-city.lat)*250/360+'%"','cluster');
+    }).join('');
+  }
   const worldPins = () => {
     const extra=allCities().filter(city=>!ctx.cities.some(base=>base.name===city.name));
     const plot=city=>pin(city,(city.lon+180)*100/360,(83-city.lat)*250/360);
@@ -1107,7 +1119,7 @@ export async function client() {
       ctx.countryList=node.dataset.mapCountry;
       setPath('/country/'+citySlug(ctx.countryList));
       map();
-      main.querySelector('[data-map-country="'+ctx.countryList+'"]').focus({preventScroll:true});
+      main.querySelector('.country-switch [data-map-country="'+ctx.countryList+'"]').focus({preventScroll:true});
     }
     if (node.dataset.city) {
       const selected=ctx.countryList || ctx.sort==='nearby' || cityRegion(ctx.city)!==cityRegion(node.dataset.city);

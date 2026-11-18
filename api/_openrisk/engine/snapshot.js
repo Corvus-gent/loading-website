@@ -1637,5 +1637,436 @@ export default {
       "confidence": "medium",
       "fetchedAt": "2026-11-18T07:43:02.343Z"
     }
+  },
+  "ramp": {
+    "jobs": {
+      "value": {
+        "count": 181,
+        "roles": [
+          " Software Engineer, Security, Cloud",
+          "Software Engineer, Android",
+          "Account Executive | Strategic ",
+          "Software Engineer, iOS",
+          "Partner Development Representative | Accounting ",
+          "Senior Manager, Account Executive | Mid-Market"
+        ],
+        "departments": [
+          "Engineering",
+          "Sales",
+          "Design",
+          "Customer Experience",
+          "Marketing",
+          "Product",
+          "People & Talent",
+          "Data"
+        ],
+        "provider": "ashby"
+      },
+      "source": "https://jobs.ashbyhq.com/ramp",
+      "status": "scraped",
+      "confidence": "high",
+      "fetchedAt": "2026-11-18T09:16:18.175Z"
+    },
+    "news": {
+      "value": [
+        {
+          "title": "Battery Pack Prices Fall As Market Ramps Up",
+          "url": "https://news.ycombinator.com/item?id=21715018",
+          "date": "2019-12-05T18:47:03Z"
+        },
+        {
+          "title": "Pregnancy Discrimination Is Rampant Inside America’s Biggest Companies",
+          "url": "https://news.ycombinator.com/item?id=17320739",
+          "date": "2018-06-15T15:59:07Z"
+        },
+        {
+          "title": "Predatory Behavior Runs Rampant in Facebook’s Addiction Support Groups",
+          "url": "https://news.ycombinator.com/item?id=17118109",
+          "date": "2018-05-21T13:13:21Z"
+        },
+        {
+          "title": "Open Source Needs FPGAs; FPGAs Need an On-Ramp",
+          "url": "https://news.ycombinator.com/item?id=14008444",
+          "date": "2017-03-31T21:26:00Z"
+        }
+      ],
+      "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Ramp",
+      "status": "scraped",
+      "confidence": "medium",
+      "fetchedAt": "2026-11-18T09:16:18.458Z"
+    }
+  },
+  "runway": {
+    "github": {
+      "value": {
+        "repo": "avtensor",
+        "pushedAt": "2026-11-18T08:17:47Z",
+        "stars": 64
+      },
+      "source": "https://github.com/runwayml/avtensor",
+      "status": "scraped",
+      "confidence": "high",
+      "fetchedAt": "2026-11-18T09:16:19.128Z"
+    },
+    "news": {
+      "value": [
+        {
+          "title": "LaGuardia pilots raised safety alarms months before deadly runway crash",
+          "url": "https://news.ycombinator.com/item?id=47503965",
+          "date": "2026-03-24T15:19:19Z"
+        },
+        {
+          "title": "The hidden engineering of runways",
+          "url": "https://news.ycombinator.com/item?id=46694193",
+          "date": "2026-01-20T16:52:52Z"
+        },
+        {
+          "title": "Bug identified after Alaska Airlines planes bump runway while taking off",
+          "url": "https://news.ycombinator.com/item?id=34895061",
+          "date": "2023-02-22T13:26:24Z"
+        },
+        {
+          "title": "After Alaska Airlines planes bump runway, a scramble to ‘pull the plug’",
+          "url": "https://news.ycombinator.com/item?id=34847550",
+          "date": "2023-02-18T15:25:12Z"
+        }
+      ],
+      "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Runway",
+      "status": "scraped",
+      "confidence": "medium",
+      "fetchedAt": "2026-11-18T09:16:18.820Z"
+    }
+  },
+  "pinecone": {
+    "github": {
+      "value": {
+        "repo": "terraform-provider-pineconebyoc",
+        "pushedAt": "2026-11-17T10:12:20Z",
+        "stars": 0
+      },
+      "source": "https://github.com/pinecone-io/terraform-provider-pineconebyoc",
+      "status": "scraped",
+      "confidence": "high",
+      "fetchedAt": "2026-11-18T09:16:19.571Z"
+    },
+    "news": {
+      "value": [
+        {
+          "title": "Postgres vs. Pinecone",
+          "url": "https://news.ycombinator.com/item?id=41007624",
+          "date": "2024-07-19T15:44:46Z"
+        },
+        {
+          "title": "Pgvector Is Now Faster Than Pinecone at 75% Less Cost",
+          "url": "https://news.ycombinator.com/item?id=40646276",
+          "date": "2024-06-11T14:00:53Z"
+        },
+        {
+          "title": "Pinecone Open-Sources AWS Reference Architecture with Pulumi",
+          "url": "https://news.ycombinator.com/item?id=38435145",
+          "date": "2023-11-27T17:26:14Z"
+        },
+        {
+          "title": "Show HN: Chat with your data using LangChain, Pinecone, and Airbyte",
+          "url": "https://news.ycombinator.com/item?id=37050532",
+          "date": "2023-08-08T15:32:13Z"
+        }
+      ],
+      "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Pinecone",
+      "status": "scraped",
+      "confidence": "medium",
+      "fetchedAt": "2026-11-18T09:16:19.500Z"
+    }
+  },
+  "stepfun": {
+    "github": {
+      "value": {
+        "repo": "Step-Code",
+        "pushedAt": "2026-11-18T08:26:46Z",
+        "stars": 1042
+      },
+      "source": "https://github.com/stepfun-ai/Step-Code",
+      "status": "scraped",
+      "confidence": "high",
+      "fetchedAt": "2026-11-18T09:16:20.027Z"
+    },
+    "news": {
+      "value": [
+        {
+          "title": "StepFun opens Step5 Preview free for a week through OpenCode,Cline and Kilo Code",
+          "url": "https://news.ycombinator.com/item?id=50007811",
+          "date": "2026-10-08T16:23:00Z"
+        },
+        {
+          "title": "Step 5 Preview, a 1M-context MoE from StepFun, shows up on OpenRouter",
+          "url": "https://news.ycombinator.com/item?id=50007764",
+          "date": "2026-10-08T16:20:20Z"
+        },
+        {
+          "title": "Stepfun Step 5 Preview (LLM): On AA Pareto frontier",
+          "url": "https://news.ycombinator.com/item?id=49763660",
+          "date": "2026-09-19T05:42:31Z"
+        },
+        {
+          "title": "StepFun IPO",
+          "url": "https://news.ycombinator.com/item?id=48441951",
+          "date": "2026-06-08T06:33:53Z"
+        }
+      ],
+      "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=StepFun",
+      "status": "scraped",
+      "confidence": "medium",
+      "fetchedAt": "2026-11-18T09:16:19.869Z"
+    }
+  },
+  "fourier": {
+    "news": {
+      "value": [
+        {
+          "title": "What Is the Fourier Transform?",
+          "url": "https://news.ycombinator.com/item?id=45132810",
+          "date": "2025-09-04T22:11:09Z"
+        },
+        {
+          "title": "An animated introduction to Fourier series",
+          "url": "https://news.ycombinator.com/item?id=40578705",
+          "date": "2024-06-04T20:39:52Z"
+        },
+        {
+          "title": "The Fourier Transform, explained in one sentence (2014)",
+          "url": "https://news.ycombinator.com/item?id=34389037",
+          "date": "2023-01-15T12:54:17Z"
+        },
+        {
+          "title": "An Interactive Introduction to Fourier Transforms",
+          "url": "https://news.ycombinator.com/item?id=25095724",
+          "date": "2020-11-14T21:19:00Z"
+        }
+      ],
+      "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Fourier",
+      "status": "scraped",
+      "confidence": "medium",
+      "fetchedAt": "2026-11-18T09:16:20.349Z"
+    }
+  },
+  "agibot": {
+    "news": {
+      "value": [
+        {
+          "title": "AgiBot launches Q1, a bagpack-sized mini humanoid robot",
+          "url": "https://news.ycombinator.com/item?id=46498215",
+          "date": "2026-01-05T12:53:00Z"
+        },
+        {
+          "title": "AgiBot's Backpack-Sized Robot",
+          "url": "https://news.ycombinator.com/item?id=46495324",
+          "date": "2026-01-05T04:25:46Z"
+        },
+        {
+          "title": "Chinese open source robot Agibot X1",
+          "url": "https://news.ycombinator.com/item?id=44397032",
+          "date": "2025-06-27T14:23:09Z"
+        },
+        {
+          "title": "AgiBot X1, a modular humanoid robot with high dof",
+          "url": "https://news.ycombinator.com/item?id=41969908",
+          "date": "2024-10-28T11:17:12Z"
+        }
+      ],
+      "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=AgiBot",
+      "status": "scraped",
+      "confidence": "medium",
+      "fetchedAt": "2026-11-18T09:16:20.623Z"
+    }
+  },
+  "weride": {
+    "news": {
+      "value": [
+        {
+          "title": "Chinese autonomous driving firm WeRide taps banks for Hong Kong listing",
+          "url": "https://news.ycombinator.com/item?id=45583317",
+          "date": "2025-10-14T18:38:32Z"
+        },
+        {
+          "title": "Uber invests $100M in WeRide to fuel robotaxi expansion across 15 more cities",
+          "url": "https://news.ycombinator.com/item?id=43919977",
+          "date": "2025-05-07T19:55:32Z"
+        },
+        {
+          "title": "China's WeRide raises $440.5M through US IPO, placement",
+          "url": "https://news.ycombinator.com/item?id=41945604",
+          "date": "2024-10-25T14:26:14Z"
+        },
+        {
+          "title": "China's autonomous vehicle startup WeRide seeks US IPO at $5B valuation",
+          "url": "https://news.ycombinator.com/item?id=41239363",
+          "date": "2024-08-13T20:20:32Z"
+        }
+      ],
+      "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=WeRide",
+      "status": "scraped",
+      "confidence": "medium",
+      "fetchedAt": "2026-11-18T09:16:21.070Z"
+    }
+  },
+  "dji": {
+    "news": {
+      "value": [
+        {
+          "title": "I thought I bought a camera, but no DJI sold me a license to use it [video]",
+          "url": "https://news.ycombinator.com/item?id=43748133",
+          "date": "2025-04-21T02:47:55Z"
+        },
+        {
+          "title": "DJI ban passes the House and moves on to the Senate",
+          "url": "https://news.ycombinator.com/item?id=40705196",
+          "date": "2024-06-17T13:00:35Z"
+        },
+        {
+          "title": "DJI – The ART of obfuscation",
+          "url": "https://news.ycombinator.com/item?id=39438842",
+          "date": "2024-02-20T07:31:03Z"
+        },
+        {
+          "title": "DJI Mini 4 Pro",
+          "url": "https://news.ycombinator.com/item?id=37649448",
+          "date": "2023-09-25T19:40:54Z"
+        }
+      ],
+      "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=DJI",
+      "status": "scraped",
+      "confidence": "medium",
+      "fetchedAt": "2026-11-18T09:16:21.399Z"
+    }
+  },
+  "pudu-robotics": {
+    "news": {
+      "value": [],
+      "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Pudu%20Robotics",
+      "status": "scraped",
+      "confidence": "medium",
+      "fetchedAt": "2026-11-18T09:16:21.699Z"
+    }
+  },
+  "lalamove": {
+    "news": {
+      "value": [
+        {
+          "title": "Lalamove Hauls $300m in Sequoia and Hillhouse-Led Round",
+          "url": "https://news.ycombinator.com/item?id=19214591",
+          "date": "2019-02-21T04:42:57Z"
+        },
+        {
+          "title": "On-Demand Logistics Startup Lalamove Raises $300M for Asia Growth, Now a Unicorn",
+          "url": "https://news.ycombinator.com/item?id=19214018",
+          "date": "2019-02-21T02:24:36Z"
+        },
+        {
+          "title": "Lalamove raises $100M as it approaches a $1B valuation",
+          "url": "https://news.ycombinator.com/item?id=15455692",
+          "date": "2017-10-12T04:34:18Z"
+        }
+      ],
+      "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Lalamove",
+      "status": "scraped",
+      "confidence": "medium",
+      "fetchedAt": "2026-11-18T09:16:22.110Z"
+    }
+  },
+  "aomi": {
+    "news": {
+      "value": [
+        {
+          "title": "AoMI I: Where Do Babies Come From?",
+          "url": "https://news.ycombinator.com/item?id=25183521",
+          "date": "2020-11-23T04:15:46Z"
+        }
+      ],
+      "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Aomi",
+      "status": "scraped",
+      "confidence": "medium",
+      "fetchedAt": "2026-11-18T09:16:22.417Z"
+    }
+  },
+  "chari": {
+    "news": {
+      "value": [
+        {
+          "title": "Amazon ends charity donation program AmazonSmile",
+          "url": "https://news.ycombinator.com/item?id=34442647",
+          "date": "2023-01-19T17:02:12Z"
+        },
+        {
+          "title": "Pineapple Fund: Donating $86M of Bitcoins to Charity",
+          "url": "https://news.ycombinator.com/item?id=15917598",
+          "date": "2017-12-13T20:58:13Z"
+        },
+        {
+          "title": "PayPal Redirects Charitable Contributions Without Consent, Lawsuit Says",
+          "url": "https://news.ycombinator.com/item?id=13789260",
+          "date": "2017-03-04T04:25:43Z"
+        },
+        {
+          "title": "Funding Django is not an act of charity, it's an investment",
+          "url": "https://news.ycombinator.com/item?id=11065251",
+          "date": "2016-02-09T13:59:29Z"
+        }
+      ],
+      "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Chari",
+      "status": "scraped",
+      "confidence": "medium",
+      "fetchedAt": "2026-11-18T09:16:22.838Z"
+    }
+  },
+  "freterium": {
+    "news": {
+      "value": [],
+      "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Freterium",
+      "status": "scraped",
+      "confidence": "medium",
+      "fetchedAt": "2026-11-18T09:16:23.240Z"
+    }
+  },
+  "yakeey": {
+    "news": {
+      "value": [],
+      "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Yakeey",
+      "status": "scraped",
+      "confidence": "medium",
+      "fetchedAt": "2026-11-18T09:16:23.525Z"
+    }
+  },
+  "agenz": {
+    "news": {
+      "value": [],
+      "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Agenz",
+      "status": "scraped",
+      "confidence": "medium",
+      "fetchedAt": "2026-11-18T09:16:23.890Z"
+    }
+  },
+  "enakl": {
+    "news": {
+      "value": [],
+      "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=ENAKL",
+      "status": "scraped",
+      "confidence": "medium",
+      "fetchedAt": "2026-11-18T09:16:24.263Z"
+    }
+  },
+  "deepecho": {
+    "news": {
+      "value": [
+        {
+          "title": "DeepEcho: Synthetic Data Generation Library",
+          "url": "https://news.ycombinator.com/item?id=39267688",
+          "date": "2024-02-05T21:46:34Z"
+        }
+      ],
+      "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=DeepEcho",
+      "status": "scraped",
+      "confidence": "medium",
+      "fetchedAt": "2026-11-18T09:16:24.616Z"
+    }
   }
 };

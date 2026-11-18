@@ -55,8 +55,17 @@ regions = {
 }
 bounds = {key: frame for key, (_, frame) in regions.items()}
 paths = {key: path(rings(countries[name]), frame) for key, (name, frame) in regions.items()}
-bounds['bay'] = [-122.67,37.25,-121.87,37.94]
-paths['bay'] = path([r for f in read('land') for r in rings(f['geometry'])], bounds['bay'])
+bounds.update({
+    'bay': [-122.67,37.25,-121.87,37.94],
+    'new-york-city': [-74.28,40.47,-73.67,40.96],
+    'shanghai': [120.85,30.68,122.08,31.55],
+    'greater-bay-area': [112.2,21.85,114.75,23.48],
+    'morocco': [-13.45,27.5,-0.8,36.05],
+})
+land = [r for f in read('land') for r in rings(f['geometry'])]
+for key in ['bay', 'new-york-city', 'shanghai', 'greater-bay-area']:
+    paths[key] = path(land, bounds[key])
+paths['morocco'] = path(rings(countries['Morocco']), bounds['morocco'])
 (asset/'insets.js').write_text('// Natural Earth 1:10m public domain geometry.\nexport default ' + json.dumps({'bounds':bounds,'paths':paths},separators=(',',':'))+';\n')
 
 places = []

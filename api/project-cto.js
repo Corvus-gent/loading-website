@@ -29,7 +29,7 @@ const equal = (a, b) => {
 };
 const sign = (payload, key) => createHmac('sha256', key).update(payload).digest('base64url');
 const validRoles = ['Investor', 'Founder', 'Admin'];
-const pageRoute = /^(?:portfolio|compare|founder|investors|operations|country\/(?:belgium|england|netherlands|germany|france|united-states)|city\/[a-z0-9-]{1,100}|startup\/[a-z0-9-]{1,100}|invite\/[0-9a-f]{32}\/[A-Za-z0-9_-]{32})$/;
+const pageRoute = /^(?:portfolio|compare|founder|investors|operations|country\/(?:belgium|england|netherlands|germany|france|united-states|new-york-city|shanghai|greater-bay-area|morocco)|city\/[a-z0-9-]{1,100}|startup\/[a-z0-9-]{1,100}|invite\/[0-9a-f]{32}\/[A-Za-z0-9_-]{32})$/;
 const acceptedDestination = value => typeof value === 'string' && value.startsWith(root+'/') && pageRoute.test(value.slice(root.length+1)) ? value : '';
 const documentScripts = {
   'document/pdf.mjs':'node_modules/pdfjs-dist/legacy/build/pdf.min.mjs',
@@ -169,7 +169,7 @@ export default async function handle(req, res) {
     try { body=await readBody(req); } catch { return send(res,400,{error:'Invalid location request.'}); }
     const query=typeof body?.query==='string' ? body.query.trim() : '';
     const country=body?.country || '';
-    if (!/^[\p{L}\p{N}][\p{L}\p{N} ,.'’()-]{0,79}$/u.test(query) || !['','BE','NL','FR','DE','GB','US'].includes(country)) {
+    if (!/^[\p{L}\p{N}][\p{L}\p{N} ,.'’()-]{0,79}$/u.test(query) || !['','BE','NL','FR','DE','GB','US','CN','HK','MO','MA'].includes(country)) {
       return send(res,400,{error:'Enter a city or postal code.'});
     }
     try {

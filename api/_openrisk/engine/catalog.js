@@ -27,6 +27,21 @@ export const cities = [
   { name: 'Lille', country: 'France', lat: 50.63, lon: 3.06 },
   { name: 'San Francisco', country: 'United States', lat: 37.77, lon: -122.42, px: 34, py: 24 },
   { name: 'Palo Alto', country: 'United States', lat: 37.44, lon: -122.14, px: 63, py: 71 },
+  { name: 'New York City', country: 'United States', lat: 40.7128, lon: -74.006, hub: 'New York City' },
+  { name: 'Shanghai', country: 'China', lat: 31.2304, lon: 121.4737, hub: 'Shanghai' },
+  { name: 'Guangzhou', country: 'China', lat: 23.1291, lon: 113.2644, hub: 'Greater Bay Area' },
+  { name: 'Shenzhen', country: 'China', lat: 22.5431, lon: 114.0579, hub: 'Greater Bay Area' },
+  { name: 'Hong Kong', country: 'Hong Kong', lat: 22.3193, lon: 114.1694, hub: 'Greater Bay Area' },
+  { name: 'Macao', country: 'Macao', lat: 22.1987, lon: 113.5439, hub: 'Greater Bay Area' },
+  { name: 'Zhuhai', country: 'China', lat: 22.2707, lon: 113.5767, hub: 'Greater Bay Area' },
+  { name: 'Dongguan', country: 'China', lat: 23.043, lon: 113.7633, hub: 'Greater Bay Area' },
+  { name: 'Foshan', country: 'China', lat: 23.0218, lon: 113.1214, hub: 'Greater Bay Area' },
+  { name: 'Huizhou', country: 'China', lat: 23.1115, lon: 114.4162, hub: 'Greater Bay Area' },
+  { name: 'Zhongshan', country: 'China', lat: 22.517, lon: 113.3928, hub: 'Greater Bay Area' },
+  { name: 'Jiangmen', country: 'China', lat: 22.5789, lon: 113.0819, hub: 'Greater Bay Area' },
+  { name: 'Zhaoqing', country: 'China', lat: 23.0472, lon: 112.4651, hub: 'Greater Bay Area' },
+  { name: 'Casablanca', country: 'Morocco', lat: 33.5731, lon: -7.5898 },
+  { name: 'Rabat', country: 'Morocco', lat: 34.0209, lon: -6.8416 },
 ];
 
 const rows = [
@@ -84,13 +99,40 @@ const rows = [
   ['intoPIX', 'Louvain-la-Neuve', 'Semiconductors', 'intopix.com', 'UCLouvain spin-off in the regional science park. Develops image and video compression technology.', 2006],
   ['auxmoney', 'Düsseldorf', 'Fintech', 'auxmoney.com', 'Digital lending platform with an office in Düsseldorf.'],
   ['Mistral AI', 'Paris', 'Artificial intelligence', 'mistral.ai', 'Open-weight and commercial AI models.', 2023, 'mistralai', 'ashby:mistral.ai'],
+  ['Ramp', 'New York City', 'Fintech', 'ramp.com', 'Corporate cards, expense management and accounts payable.', 2019, undefined, 'ashby:ramp'],
+  ['Runway', 'New York City', 'Artificial intelligence', 'runway.com', 'Generative models and tools for video production.', 2018, 'runwayml'],
+  ['Pinecone', 'New York City', 'Data infrastructure', 'pinecone.io', 'Managed vector search infrastructure for AI applications.', 2019, 'pinecone-io'],
+  ['StepFun', 'Shanghai', 'Artificial intelligence', 'stepfun.com', 'Foundation models for language, audio and multimodal applications.', 2023, 'stepfun-ai'],
+  ['Fourier', 'Shanghai', 'Robotics', 'fftai.com', 'Rehabilitation robotics and humanoid robot platforms.'],
+  ['AgiBot', 'Shanghai', 'Robotics', 'agibot.com', 'Humanoid robots and embodied AI systems.'],
+  ['DJI', 'Shenzhen', 'Robotics', 'dji.com', 'Privately held drone and imaging technology scale-up.', 2006],
+  ['Pudu Robotics', 'Shenzhen', 'Robotics', 'pudurobotics.com', 'Service robots for hospitality, delivery and commercial cleaning.'],
+  ['WeRide', 'Guangzhou', 'Autonomous mobility', 'weride.ai', 'Publicly listed autonomous-driving company headquartered in Guangzhou.'],
+  ['Lalamove', 'Hong Kong', 'Logistics', 'lalamove.com', 'On-demand delivery marketplace founded in Hong Kong.', 2013],
+  ['Aomi', 'Macao', 'Commerce', 'aomi.mo', 'Local food delivery and lifestyle commerce platform in Macao.'],
+  ['Chari', 'Casablanca', 'Commerce and fintech', 'chari.com', 'Wholesale ordering and financial tools for neighbourhood shops.', 2020],
+  ['Freterium', 'Casablanca', 'Logistics', 'freterium.ai', 'Transport management software for shippers and carriers.', 2018],
+  ['Yakeey', 'Casablanca', 'Property technology', 'yakeey.com', 'Property transaction marketplace and tools for real estate professionals.'],
+  ['Agenz', 'Casablanca', 'Property technology', 'agenz.ma', 'Property valuation, market data and transaction tools.', 2021],
+  ['ENAKL', 'Casablanca', 'Mobility', 'enakl.com', 'Shared urban transport and commuter shuttle services.'],
+  ['DeepEcho', 'Rabat', 'Health technology', 'deepecho.io', 'AI-assisted fetal ultrasound imaging and workflow tools.'],
 ];
+
+const profileSources = {
+  'agenz.ma':'https://agenz.ma/fr/about-agenz',
+  'freterium.ai':'https://www.ycombinator.com/companies/freterium/jobs',
+  'deepecho.io':'https://um6pventures.com/press-release-wednesday-may-11-2022',
+  'dji.com':'https://www.dji.com/company',
+  'stepfun.com':'https://www.stepfun.com/about',
+  'weride.ai':'https://ir.weride.ai/static-files/64775d7b-a247-4baa-b482-e7d7f837e631',
+  'aomi.mo':'https://www.dsedt.gov.mo/pcet/pt/ent_detail.jsp?id=5',
+};
 
 const appIds = { 'stripe.com':978516833, 'notion.com':1232780281, 'linear.app':1645587184, 'openai.com':6448311069 };
 
 export const curated = rows.filter(row => row[3]).map(([name, city, sector, domain, description, founded, github, board]) => ({
   id: name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-$/,''),
   name, city, sector, domain, description, founded, github, board, appId:appIds[domain],
-  source: 'https://' + domain,
+  source: profileSources[domain] || 'https://' + domain,
   asOf: '2026-11-18',
 }));
