@@ -534,6 +534,16 @@ export async function client() {
       dossierModes.map(mode=>button(mode,'data-dossier-mode="'+mode+'" aria-pressed="'+(mode===dossierMode)+'"')).join('')+'</div>'+feedbackButton('dossier','dossier views')+'</div>';
   }
 
+  function jumpToDossier(hash) {
+    const id=hash.slice(1);
+    const target=document.getElementById(id);
+    if (!target?.closest('.reading-dossier')) return false;
+    const disclosure=target.closest('.dossier-disclosure');
+    if (disclosure) disclosure.open=true;
+    target.scrollIntoView({block:'start'});
+    return true;
+  }
+
   function profile(item, recordPath = true, logView = true) {
     if (logView) navigate('profile',false);
     if (recordPath) setPath('/startup/'+item.id);
@@ -609,7 +619,7 @@ export async function client() {
       main.querySelector('.dossier-layout').innerHTML=layout;
     }
     if (logView && ctx.role==='Investor' && claimed) void api('state',{action:'view',company:item.id}).catch(()=>{});
-    if (logView) window.scrollTo(0,0);
+    if (logView && !jumpToDossier(location.hash)) window.scrollTo(0,0);
   }
 
   function comparison() {
@@ -1447,10 +1457,10 @@ export async function client() {
 
   document.addEventListener('click', async event => {
     const jump=event.target.closest('.reading-dossier a[href^="#"]');
-    if (jump) {
-      const target=document.getElementById(jump.hash.slice(1));
-      const disclosure=target?.closest('.dossier-disclosure');
-      if (disclosure) disclosure.open=true;
+    if (jump && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey && jumpToDossier(jump.hash)) {
+      event.preventDefault();
+      history.replaceState(null,'',jump.hash);
+      return;
     }
     const node = event.target.closest('button');
     if (!node) return;
