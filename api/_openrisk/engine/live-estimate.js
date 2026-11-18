@@ -10,6 +10,7 @@ const missing = {
 const domain = url => url ? new URL(url).hostname.replace(/^www\./,'') : '';
 
 export async function runEstimate(item, emit) {
+  emit({key:'plan',factors:Object.keys(missing).length});
   const signals={...item.signals};
   const trustup=item.id==='trustup';
   const board=trustup?'trustup-careers:trustup':item.board;

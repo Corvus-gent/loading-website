@@ -606,7 +606,7 @@ export async function client() {
     const liveEstimate='<section class="dossier-chapter estimate-panel"><h2>Live evidence estimate</h2>'
       +'<p class="muted">Check public sources and see how missing evidence changes the score range.</p>'
       +button('Run live estimate','data-estimate="'+esc(item.id)+'"','accent')+feedbackButton('estimate','live estimates')
-      +'<ol class="estimate-timeline" aria-label="Evidence steps" data-estimate-trace aria-live="polite"></ol><div class="estimate-result" aria-live="polite" data-estimate-result></div></section>';
+      +'<div class="estimate-terminal" data-estimate-terminal hidden></div><ol class="estimate-timeline" aria-label="Evidence steps" data-estimate-trace aria-live="polite"></ol><div class="estimate-result" aria-live="polite" data-estimate-result></div></section>';
     const modeClass='reading-dossier dossier-'+dossierMode.toLowerCase();
     if (logView) {
       main.innerHTML='<article class="'+modeClass+'">'+profileHeader(item,controls)+dossierSwitcher()+(!r.grade?liveEstimate:'')+'<div class="dossier-layout">'+layout+'</div></article>';
@@ -814,6 +814,7 @@ export async function client() {
     const section=node.closest('.estimate-panel');
     const trace=section.querySelector('[data-estimate-trace]');
     const result=section.querySelector('[data-estimate-result]');
+    const terminal=section.querySelector('[data-estimate-terminal]');
     const controller=new AbortController();
     ctx.cancel?.abort();
     ctx.cancel=controller;
@@ -836,6 +837,27 @@ export async function client() {
         controller.signal.addEventListener('abort',finish,{once:true});
       });
     };
+    const factors=new Map();
+    let expected=0;
+    function renderTerminal(stage,complete=false) {
+      const processed=[...factors.values()];
+      const observed=processed.filter(row=>row.points!=null);
+      const sum=(rows,key)=>rows.reduce((total,row)=>total+row[key],0);
+      const format=value=>value.toFixed(2);
+      const range=processed.length?format(sum(processed,'low'))+'–'+format(sum(processed,'high')):'—';
+      const metrics=[
+        ['Factors',processed.length+' / '+(expected||'—')],
+        ['Observed weight',sum(observed,'weight')+'%'],
+        ['Observed points',format(sum(observed,'low'))],
+        [complete?'Unrounded bounds':'Processed bounds',range],
+      ];
+      terminal.innerHTML='<div class="estimate-terminal-head"><strong>'+esc(stage)+'</strong>'
+        +(expected?'<span>'+Math.round((processed.length+Number(complete))*100/(expected+1))+'%</span>':'')+'</div>'
+        +'<progress aria-label="Estimate calculation progress"'+(expected?' max="'+(expected+1)+'" value="'+(processed.length+Number(complete))+'"':'')+'></progress>'
+        +'<dl>'+metrics.map(([label,value])=>'<div><dt>'+label+'</dt><dd>'+value+'</dd></div>').join('')+'</dl>';
+      terminal.hidden=false;
+    }
+    renderTerminal('Loading evidence');
     const steps=new Map();
     let active;
     function step(title,detail) {
@@ -856,9 +878,15 @@ export async function client() {
         await waitForNextUpdate();
         if (controller.signal.aborted) return;
         if (event.key==='error') throw Error(event.detail);
+        if (event.key==='plan') {
+          expected=event.factors;
+          renderTerminal('Checking sources');
+        }
         if (event.key==='step') step(event.title,esc(event.detail)+(event.signal?source(event.signal):''));
         if (event.key==='factor') {
           const factor=event.factor;
+          factors.set(factor.key,factor);
+          renderTerminal('Calculating bounds');
           const points=scoreNumber(factor.low)+(factor.points==null?'–'+scoreNumber(factor.high):'');
           step(factor.title,factor.signal
             ? scoreObservation(factor,event.asOf)+' · '+factor.points+'/100 × '+factor.weight+' model points = '+esc(points)+source(factor.signal)
@@ -866,6 +894,7 @@ export async function client() {
         }
         if (event.key==='result') {
           complete=true;
+          renderTerminal('Estimate complete',true);
           const missing=event.factors.filter(row=>row.points==null);
           const sum=key=>event.factors.map(row=>scoreNumber(row[key])).join(' + ');
           result.innerHTML='<h3>Estimated model range</h3><p class="value">'+event.low+'–'+event.high+'/100</p>'
@@ -878,7 +907,11 @@ export async function client() {
       });
       if (!complete && !controller.signal.aborted) throw Error('The estimate did not finish. Try again.');
     } catch(error) {
-      if (!controller.signal.aborted) result.textContent=error.message;
+      if (!controller.signal.aborted) {
+        renderTerminal('Estimate interrupted');
+        terminal.querySelector('progress').hidden=true;
+        result.textContent=error.message;
+      }
     } finally {
       active?.classList.remove('current');
       node.disabled=false;
