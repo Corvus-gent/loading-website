@@ -116,6 +116,14 @@
   ],
   "rewrites": [
     {
+      "source": "/project-cto",
+      "destination": "/api/project-cto"
+    },
+    {
+      "source": "/project-cto/:route*",
+      "destination": "/api/project-cto?route=:route*"
+    },
+    {
       "source": "/curiositycraft",
       "destination": "/curiositycraft/index.html"
     },
