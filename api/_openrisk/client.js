@@ -292,9 +292,20 @@ export async function client() {
     const layout=dossierMode==='Dashboard'?overview+scan+jumps+'<div class="dashboard-columns">'+context+calculation+'</div>'+evidence+kpis
       : dossierMode==='Evidence'?calculation+evidence+kpis+context
       : overview+jumps+context+calculation+evidence+kpis;
-    main.innerHTML='<article class="reading-dossier dossier-'+dossierMode.toLowerCase()+'">'+profileHeader(item,controls)+dossierSwitcher()+layout+'</article>';
+    const modeClass='reading-dossier dossier-'+dossierMode.toLowerCase();
+    if (logView) {
+      main.innerHTML='<article class="'+modeClass+'">'+profileHeader(item,controls)+dossierSwitcher()+'<div class="dossier-layout">'+layout+'</div></article>';
+    } else {
+      main.querySelector('.reading-dossier').className=modeClass;
+      const switcher=main.querySelector('.dossier-switcher');
+      switcher.style.setProperty('--selected',dossierModes.indexOf(dossierMode));
+      for (const control of switcher.querySelectorAll('button')) {
+        control.setAttribute('aria-pressed',String(control.dataset.dossierMode===dossierMode));
+      }
+      main.querySelector('.dossier-layout').innerHTML=layout;
+    }
     if (logView && ctx.role==='Investor' && claimed) void api('state',{action:'view',company:item.id}).catch(()=>{});
-    window.scrollTo(0,0);
+    if (logView) window.scrollTo(0,0);
   }
 
   async function live(name) {
@@ -716,7 +727,6 @@ export async function client() {
       dossierMode=node.dataset.dossierMode;
       try { localStorage.setItem('openrisk:dossier-mode',dossierMode); } catch {}
       profile(allCompanies().find(item=>item.id===ctx.current),false,false);
-      main.querySelector('[data-dossier-mode="'+dossierMode+'"]').focus({preventScroll:true});
     }
     if (node.dataset.company) profile(allCompanies().find(item => item.id === node.dataset.company));
     try {
