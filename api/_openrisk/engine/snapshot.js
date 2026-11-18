@@ -9,14 +9,14 @@ export default {
       "source": "https://github.com/AikidoSec/zen-internals-node",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:58:17.869Z"
+      "fetchedAt": "2026-11-18T07:11:39.915Z"
     },
     "news": {
       "value": [],
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Aikido%20Security",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:17.867Z"
+      "fetchedAt": "2026-11-18T07:11:40.174Z"
     },
     "jobs": {
       "value": {
@@ -41,7 +41,7 @@ export default {
       "source": "https://aikidosecurity.recruitee.com/",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:58:17.698Z"
+      "fetchedAt": "2026-11-18T07:11:39.766Z"
     }
   },
   "deliverect": {
@@ -50,7 +50,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Deliverect",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:18.239Z"
+      "fetchedAt": "2026-11-18T07:11:40.605Z"
     },
     "jobs": {
       "value": {
@@ -78,7 +78,7 @@ export default {
       "source": "https://jobs.lever.co/deliverect",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:58:20.164Z"
+      "fetchedAt": "2026-11-18T07:11:42.530Z"
     }
   },
   "showpad": {
@@ -108,7 +108,26 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Showpad",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:20.521Z"
+      "fetchedAt": "2026-11-18T07:11:42.846Z"
+    },
+    "jobs": {
+      "value": {
+        "count": 22,
+        "roles": [
+          "Accountant",
+          "Account Executive, Commercial",
+          "AI Engineer",
+          "Associate Consultant",
+          "Business Development Representative",
+          "Business Development Representative"
+        ],
+        "departments": [],
+        "provider": "greenhouse"
+      },
+      "source": "https://job-boards.greenhouse.io/showpad",
+      "status": "scraped",
+      "confidence": "high",
+      "fetchedAt": "2026-11-18T07:11:42.902Z"
     }
   },
   "teamleader": {
@@ -121,14 +140,14 @@ export default {
       "source": "https://github.com/teamleadercrm/sdk-js",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:58:21.190Z"
+      "fetchedAt": "2026-11-18T07:11:43.318Z"
     },
     "news": {
       "value": [],
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Teamleader",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:20.955Z"
+      "fetchedAt": "2026-11-18T07:11:43.339Z"
     }
   },
   "lighthouse": {
@@ -158,7 +177,26 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Lighthouse",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:21.617Z"
+      "fetchedAt": "2026-11-18T07:11:43.749Z"
+    },
+    "jobs": {
+      "value": {
+        "count": 31,
+        "roles": [
+          "Account Executive (Acquisition)",
+          "Account Executive (Acquisition)",
+          "Account Executive - Czech or Hungarian Speaker",
+          "Account Executive - Czech or Hungarian Speaker",
+          "Account Executive - Czech or Hungarian Speaker",
+          "Account Executive - French Speaker"
+        ],
+        "departments": [],
+        "provider": "greenhouse"
+      },
+      "source": "https://job-boards.greenhouse.io/lighthouse",
+      "status": "scraped",
+      "confidence": "high",
+      "fetchedAt": "2026-11-18T07:11:43.588Z"
     }
   },
   "robovision": {
@@ -173,7 +211,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Robovision",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:22.367Z"
+      "fetchedAt": "2026-11-18T07:11:44.097Z"
     }
   },
   "silverfin": {
@@ -186,7 +224,7 @@ export default {
       "source": "https://github.com/silverfin/bso_github_actions",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:58:22.764Z"
+      "fetchedAt": "2026-11-18T07:11:44.550Z"
     },
     "news": {
       "value": [
@@ -199,7 +237,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Silverfin",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:22.852Z"
+      "fetchedAt": "2026-11-18T07:11:44.395Z"
     }
   },
   "techwolf": {
@@ -214,7 +252,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=TechWolf",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:23.290Z"
+      "fetchedAt": "2026-11-18T07:11:44.840Z"
     }
   },
   "introw": {
@@ -229,7 +267,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Introw",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:23.755Z"
+      "fetchedAt": "2026-11-18T07:11:45.176Z"
     }
   },
   "otiv": {
@@ -238,7 +276,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=OTIV",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:24.181Z"
+      "fetchedAt": "2026-11-18T07:11:45.675Z"
     }
   },
   "collibra": {
@@ -251,27 +289,46 @@ export default {
       "source": "https://github.com/collibra/data-access-go-sdk",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:58:24.549Z"
+      "fetchedAt": "2026-11-18T07:11:46.199Z"
     },
     "news": {
       "value": [],
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Collibra",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:24.494Z"
+      "fetchedAt": "2026-11-18T07:11:46.003Z"
+    },
+    "jobs": {
+      "value": {
+        "count": 26,
+        "roles": [
+          "Accounting Support Specialist",
+          "Chief of Staff, Product",
+          "Commercial Account Manager",
+          "Commercial Counsel",
+          "Federal Enterprise Solution Architect",
+          "Forward Deployed Engineer"
+        ],
+        "departments": [],
+        "provider": "greenhouse"
+      },
+      "source": "https://job-boards.greenhouse.io/collibra",
+      "status": "scraped",
+      "confidence": "high",
+      "fetchedAt": "2026-11-18T07:11:45.838Z"
     }
   },
   "odoo": {
     "github": {
       "value": {
-        "repo": "documentation",
-        "pushedAt": "2026-11-18T06:57:54Z",
-        "stars": 1378
+        "repo": "o-spreadsheet",
+        "pushedAt": "2026-11-18T07:03:04Z",
+        "stars": 298
       },
-      "source": "https://github.com/odoo/documentation",
+      "source": "https://github.com/odoo/o-spreadsheet",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:58:25.054Z"
+      "fetchedAt": "2026-11-18T07:11:46.249Z"
     },
     "news": {
       "value": [
@@ -299,7 +356,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Odoo",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:24.923Z"
+      "fetchedAt": "2026-11-18T07:11:46.554Z"
     }
   },
   "qover": {
@@ -329,7 +386,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Qover",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:25.387Z"
+      "fetchedAt": "2026-11-18T07:11:46.829Z"
     }
   },
   "cowboy": {
@@ -359,7 +416,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Cowboy",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:25.727Z"
+      "fetchedAt": "2026-11-18T07:11:47.449Z"
     }
   },
   "nodalview": {
@@ -368,7 +425,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Nodalview",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:26.050Z"
+      "fetchedAt": "2026-11-18T07:11:47.777Z"
     }
   },
   "wooclap": {
@@ -393,7 +450,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Wooclap",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:26.697Z"
+      "fetchedAt": "2026-11-18T07:11:48.107Z"
     }
   },
   "loop-earplugs": {
@@ -408,7 +465,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Loop%20Earplugs",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:27.194Z"
+      "fetchedAt": "2026-11-18T07:11:48.726Z"
     }
   },
   "intigriti": {
@@ -438,7 +495,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Intigriti",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:27.541Z"
+      "fetchedAt": "2026-11-18T07:11:49.664Z"
     }
   },
   "november-five": {
@@ -447,7 +504,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=November%20Five",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:27.904Z"
+      "fetchedAt": "2026-11-18T07:11:50.024Z"
     }
   },
   "twikit": {
@@ -462,7 +519,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Twikit",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:28.273Z"
+      "fetchedAt": "2026-11-18T07:11:50.403Z"
     }
   },
   "nobi": {
@@ -492,7 +549,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Nobi",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:28.732Z"
+      "fetchedAt": "2026-11-18T07:11:50.735Z"
     }
   },
   "guardsquare": {
@@ -505,14 +562,14 @@ export default {
       "source": "https://github.com/Guardsquare/proguard-core",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:58:29.092Z"
+      "fetchedAt": "2026-11-18T07:11:51.228Z"
     },
     "news": {
       "value": [],
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Guardsquare",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:29.079Z"
+      "fetchedAt": "2026-11-18T07:11:51.102Z"
     }
   },
   "icometrix": {
@@ -521,7 +578,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=icometrix",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:29.434Z"
+      "fetchedAt": "2026-11-18T07:11:51.577Z"
     }
   },
   "luzmo": {
@@ -536,7 +593,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Luzmo",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:29.812Z"
+      "fetchedAt": "2026-11-18T07:11:52.015Z"
     }
   },
   "diabatix": {
@@ -545,7 +602,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Diabatix",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:30.329Z"
+      "fetchedAt": "2026-11-18T07:11:52.340Z"
     }
   },
   "stripe": {
@@ -566,7 +623,7 @@ export default {
       "source": "https://job-boards.greenhouse.io/stripe",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:58:30.578Z"
+      "fetchedAt": "2026-11-18T07:11:52.642Z"
     },
     "github": {
       "value": {
@@ -577,7 +634,7 @@ export default {
       "source": "https://github.com/stripe/example-terminal-backend",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:58:30.807Z"
+      "fetchedAt": "2026-11-18T07:11:52.719Z"
     },
     "news": {
       "value": [
@@ -605,20 +662,20 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Stripe",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:30.812Z"
+      "fetchedAt": "2026-11-18T07:11:52.716Z"
     }
   },
   "openai": {
     "github": {
       "value": {
-        "repo": "openai-java",
-        "pushedAt": "2026-11-18T06:53:53Z",
-        "stars": 1568
+        "repo": "openai-ruby",
+        "pushedAt": "2026-11-18T07:11:05Z",
+        "stars": 475
       },
-      "source": "https://github.com/openai/openai-java",
+      "source": "https://github.com/openai/openai-ruby",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:58:31.526Z"
+      "fetchedAt": "2026-11-18T07:11:52.784Z"
     },
     "news": {
       "value": [
@@ -646,7 +703,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=OpenAI",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:31.164Z"
+      "fetchedAt": "2026-11-18T07:11:53.068Z"
     }
   },
   "anthropic": {
@@ -667,7 +724,7 @@ export default {
       "source": "https://job-boards.greenhouse.io/anthropic",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:58:31.675Z"
+      "fetchedAt": "2026-11-18T07:11:53.230Z"
     },
     "github": {
       "value": {
@@ -678,7 +735,7 @@ export default {
       "source": "https://github.com/anthropics/claude-code-action",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:58:32.011Z"
+      "fetchedAt": "2026-11-18T07:11:13.418Z"
     },
     "news": {
       "value": [
@@ -706,7 +763,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Anthropic",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:31.909Z"
+      "fetchedAt": "2026-11-18T07:11:53.424Z"
     }
   },
   "figma": {
@@ -727,7 +784,7 @@ export default {
       "source": "https://job-boards.greenhouse.io/figma",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:58:32.412Z"
+      "fetchedAt": "2026-11-18T07:11:53.571Z"
     },
     "github": {
       "value": {
@@ -738,7 +795,7 @@ export default {
       "source": "https://github.com/figma/mcp-server-guide",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:58:32.341Z"
+      "fetchedAt": "2026-11-18T07:11:13.806Z"
     },
     "news": {
       "value": [
@@ -766,7 +823,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Figma",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:32.317Z"
+      "fetchedAt": "2026-11-18T07:11:53.792Z"
     }
   },
   "notion": {
@@ -779,7 +836,7 @@ export default {
       "source": "https://github.com/makenotion/notion-cookbook",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:58:32.833Z"
+      "fetchedAt": "2026-11-18T07:11:14.269Z"
     },
     "news": {
       "value": [
@@ -807,7 +864,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Notion",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:32.738Z"
+      "fetchedAt": "2026-11-18T07:11:54.118Z"
     }
   },
   "vercel": {
@@ -828,18 +885,18 @@ export default {
       "source": "https://job-boards.greenhouse.io/vercel",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:58:33.230Z"
+      "fetchedAt": "2026-11-18T07:11:54.255Z"
     },
     "github": {
       "value": {
         "repo": "next.js",
-        "pushedAt": "2026-11-18T06:42:43Z",
+        "pushedAt": "2026-11-18T07:01:57Z",
         "stars": 143721
       },
       "source": "https://github.com/vercel/next.js",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:58:33.198Z"
+      "fetchedAt": "2026-11-18T07:11:14.738Z"
     },
     "news": {
       "value": [
@@ -867,7 +924,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Vercel",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:33.159Z"
+      "fetchedAt": "2026-11-18T07:11:54.402Z"
     }
   },
   "linear": {
@@ -880,7 +937,7 @@ export default {
       "source": "https://github.com/linear/linear",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:58:33.697Z"
+      "fetchedAt": "2026-11-18T07:11:15.109Z"
     },
     "news": {
       "value": [
@@ -908,7 +965,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Linear",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:33.669Z"
+      "fetchedAt": "2026-11-18T07:11:54.732Z"
     },
     "jobs": {
       "value": {
@@ -931,7 +988,7 @@ export default {
       "source": "https://jobs.ashbyhq.com/linear",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:58:33.365Z"
+      "fetchedAt": "2026-11-18T07:11:54.738Z"
     }
   },
   "mercury": {
@@ -961,20 +1018,20 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Mercury",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:34.024Z"
+      "fetchedAt": "2026-11-18T07:11:55.189Z"
     }
   },
   "supabase": {
     "github": {
       "value": {
-        "repo": "edge-runtime",
-        "pushedAt": "2026-11-18T06:57:13Z",
-        "stars": 999
+        "repo": "supabase",
+        "pushedAt": "2026-11-18T07:01:46Z",
+        "stars": 115229
       },
-      "source": "https://github.com/supabase/edge-runtime",
+      "source": "https://github.com/supabase/supabase",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:58:34.591Z"
+      "fetchedAt": "2026-11-18T07:11:15.873Z"
     },
     "news": {
       "value": [
@@ -1002,20 +1059,20 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Supabase",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:34.588Z"
+      "fetchedAt": "2026-11-18T07:11:55.499Z"
     }
   },
   "glean": {
     "github": {
       "value": {
-        "repo": "open-api",
-        "pushedAt": "2026-11-18T06:27:35Z",
-        "stars": 7
+        "repo": "api-client-java",
+        "pushedAt": "2026-11-18T07:01:59Z",
+        "stars": 9
       },
-      "source": "https://github.com/gleanwork/open-api",
+      "source": "https://github.com/gleanwork/api-client-java",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:58:34.977Z"
+      "fetchedAt": "2026-11-18T07:11:16.232Z"
     },
     "news": {
       "value": [
@@ -1043,7 +1100,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Glean",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:34.913Z"
+      "fetchedAt": "2026-11-18T07:11:55.785Z"
     }
   },
   "obsidian-security": {
@@ -1058,7 +1115,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Obsidian%20Security",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:36.856Z"
+      "fetchedAt": "2026-11-18T07:11:57.108Z"
     }
   },
   "denodo": {
@@ -1073,7 +1130,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Denodo",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:37.417Z"
+      "fetchedAt": "2026-11-18T07:11:57.423Z"
     }
   },
   "matroid": {
@@ -1103,7 +1160,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Matroid",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:37.815Z"
+      "fetchedAt": "2026-11-18T07:11:57.793Z"
     }
   },
   "psiquantum": {
@@ -1133,7 +1190,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=PsiQuantum",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:38.122Z"
+      "fetchedAt": "2026-11-18T07:11:58.123Z"
     }
   },
   "mistral-ai": {
@@ -1146,7 +1203,7 @@ export default {
       "source": "https://github.com/mistralai/mistral-common",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:58:40.652Z"
+      "fetchedAt": "2026-11-18T07:11:17.873Z"
     },
     "news": {
       "value": [
@@ -1174,7 +1231,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Mistral%20AI",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:40.416Z"
+      "fetchedAt": "2026-11-18T07:12:01.101Z"
     },
     "jobs": {
       "value": {
@@ -1202,7 +1259,7 @@ export default {
       "source": "https://jobs.ashbyhq.com/mistral.ai",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:58:40.373Z"
+      "fetchedAt": "2026-11-18T07:12:00.985Z"
     }
   },
   "retool": {
@@ -1215,7 +1272,7 @@ export default {
       "source": "https://github.com/tryretool/retool-helm",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:58:35.378Z"
+      "fetchedAt": "2026-11-18T07:11:16.636Z"
     },
     "news": {
       "value": [
@@ -1243,7 +1300,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Retool",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:35.478Z"
+      "fetchedAt": "2026-11-18T07:11:56.059Z"
     }
   },
   "vanta": {
@@ -1272,7 +1329,7 @@ export default {
       "source": "https://jobs.ashbyhq.com/vanta",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:58:35.679Z"
+      "fetchedAt": "2026-11-18T07:11:56.188Z"
     },
     "news": {
       "value": [
@@ -1300,7 +1357,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Vanta",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:35.829Z"
+      "fetchedAt": "2026-11-18T07:11:56.352Z"
     }
   },
   "webflow": {
@@ -1314,7 +1371,7 @@ export default {
       "source": "https://job-boards.greenhouse.io/webflow",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:58:35.975Z"
+      "fetchedAt": "2026-11-18T07:11:56.489Z"
     },
     "github": {
       "value": {
@@ -1325,7 +1382,7 @@ export default {
       "source": "https://github.com/webflow/brand_studio",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:58:36.496Z"
+      "fetchedAt": "2026-11-18T07:11:17.287Z"
     },
     "news": {
       "value": [
@@ -1353,7 +1410,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Webflow",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:36.493Z"
+      "fetchedAt": "2026-11-18T07:11:56.718Z"
     }
   },
   "pika": {
@@ -1383,7 +1440,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Pika",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:38.427Z"
+      "fetchedAt": "2026-11-18T07:11:58.539Z"
     }
   },
   "safe-superintelligence": {
@@ -1413,7 +1470,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Safe%20Superintelligence",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:38.739Z"
+      "fetchedAt": "2026-11-18T07:11:58.898Z"
     }
   },
   "hippocratic-ai": {
@@ -1433,7 +1490,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Hippocratic%20AI",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:39.066Z"
+      "fetchedAt": "2026-11-18T07:11:59.239Z"
     }
   },
   "uniphore": {
@@ -1448,7 +1505,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Uniphore",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:39.371Z"
+      "fetchedAt": "2026-11-18T07:11:59.979Z"
     }
   },
   "mashgin": {
@@ -1463,7 +1520,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Mashgin",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:39.686Z"
+      "fetchedAt": "2026-11-18T07:12:00.303Z"
     }
   },
   "1x-technologies": {
@@ -1478,7 +1535,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=1X%20Technologies",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:58:40.095Z"
+      "fetchedAt": "2026-11-18T07:12:00.733Z"
     }
   }
 };

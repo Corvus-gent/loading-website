@@ -1,12 +1,12 @@
 # OpenRisk · Seven-minute live demo
 
-Open the [private demo](https://corvus.gent/project-cto) at 1440×900 or a similar screen-share viewport. Enter the password from the brief before sharing your screen. A fresh browser session starts with an empty portfolio and workspace.
+Open the [private demo](https://corvus.gent/project-cto) at 1440×900 or a similar screen-share viewport. Enter the password from the brief before sharing your screen. A fresh browser session starts with an empty portfolio and workspace. Your demo inputs are scoped to that browser session.
 
 | Time | Clicks | What to say |
 | --- | --- | --- |
 | 0:00–0:45 | Open **Explore**. Click the **Antwerp** and **Gent** city buttons and sort the list **By name** and **By score**. | “Start with the market. An investor can open a company dossier before the founder has entered a single KPI.” |
 | 0:45–1:40 | Type **Aikido Security** and open its dossier. Point at **How the score is built**, evidence coverage and its financing source. Click **Follow**. | “Each observation has provenance. A missing source lowers coverage, and the weights are visible.” |
-| 1:40–2:25 | Return to **Explore**, search **Deliverect**, then **Stripe**. Open **Financial signals** on both. | “The same interface handles a Belgian enterprise record and a U.S. company disclosure.” |
+| 1:40–2:25 | Return to **Explore**, search **Deliverect**, then **Stripe**. Show **Belgian annual accounts** on Deliverect and **Financial signals** on Stripe. | “The same interface handles a Belgian enterprise record and a U.S. company disclosure.” |
 | 2:25–3:05 | Type **Hugging Face** and click **Research Hugging Face**. Watch the source badges. | “The public dossier starts immediately, and sources settle independently.” |
 | 3:05–4:30 | Back in **Explore**, search **Aikido Security**. Click **Claim this profile**. Load **September investor update**, click **Extract KPI proposals** and **Confirm all**. Repeat for **October investor update**. Show a highlighted sentence and the sample badge. | “Only the confirmed values become visible to investors. These two emails contain illustrative figures.” |
 | 4:30–5:20 | Click **Investor fit** and show **Notion Capital**. Change **View as** to **Investor**. Open **Portfolio**, point to **4.6 mo** in red and **11%** MRR growth, then open Aikido’s KPI charts. | “The founder gets investment context. The investor gets a read-only evidence trail and comparable KPI history.” |

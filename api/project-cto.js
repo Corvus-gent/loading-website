@@ -1,4 +1,6 @@
 import { createHmac, randomBytes, timingSafeEqual } from 'node:crypto';
+import { readFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
 import { catalog, cities, summary } from './_openrisk/engine/index.js';
 import { coverageNews, identify } from './_openrisk/engine/enrich.js';
 import land from './_openrisk/land.js';
@@ -8,8 +10,10 @@ import { metrics, samples } from './_openrisk/engine/metrics.js';
 import { getState, update, apply, project, invitation, runJob, Problem } from './_openrisk/store.js';
 import { score } from './_openrisk/engine/score.js';
 import { funds } from './_openrisk/engine/funds.js';
+import { subscribeResearch } from './_openrisk/engine/research.js';
 import { directoryCity } from './_openrisk/engine/directories.js';
 import { locate } from './_openrisk/engine/cities.js';
+import preloadReport from './_openrisk/engine/preload-report.js';
 import insets from './_openrisk/insets.js';
 import logos from './_openrisk/logos.js';
 
@@ -23,6 +27,13 @@ const equal = (a, b) => {
 };
 const sign = (payload, key) => createHmac('sha256', key).update(payload).digest('base64url');
 const validRoles = ['Investor', 'Founder', 'Admin'];
+const pageRoute = /^(?:portfolio|founder|investors|operations|startup\/[a-z0-9-]{1,100}|invite\/[0-9a-f]{32}\/[A-Za-z0-9_-]{32})$/;
+const acceptedDestination = value => typeof value === 'string' && value.startsWith(root+'/') && pageRoute.test(value.slice(root.length+1)) ? value : '';
+const documentScripts = {
+  'document/pdf.mjs':'node_modules/pdfjs-dist/legacy/build/pdf.min.mjs',
+  'document/pdf.worker.mjs':'node_modules/pdfjs-dist/legacy/build/pdf.worker.min.mjs',
+  'document/xlsx.js':'node_modules/read-excel-file/bundle/read-excel-file.min.js',
+};
 
 function session(req, key) {
   const value = (req.headers.cookie || '').split(';').map(part => part.trim()).find(part => part.startsWith(cookie + '='))?.slice(cookie.length + 1) || '';
@@ -85,30 +96,18 @@ function send(res, code, value, type = 'application/json; charset=utf-8') {
   res.end(type.startsWith('application/json') ? JSON.stringify(value) : value);
 }
 
-const coldCache = new Map();
 async function cold(res, name) {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'application/x-ndjson; charset=utf-8');
   res.setHeader('X-Accel-Buffering', 'no');
-  const write = event => res.write(JSON.stringify(event) + '\n');
-  write({ key: 'start', value: name });
-  const key = name.toLowerCase();
-  const existing = coldCache.get(key);
-  if (existing && existing.until > Date.now()) {
-    for (const event of existing.events) write(event);
-    return res.end();
-  }
-  const events = [];
-  await Promise.all([['identity', identify], ['news', coverageNews]].map(async ([key, lookup]) => {
-    let value = null;
-    try { value = await lookup(name); } catch {}
-    const event = { key, value, status: value ? 'observed' : 'unavailable' };
-    events.push(event);
-    write(event);
-  }));
-  if (coldCache.size > 300) coldCache.clear();
-  coldCache.set(key, { until: Date.now() + 900000, events });
-  res.end();
+  const write = event => {
+    if (!res.destroyed) res.write(JSON.stringify(event) + '\n');
+  };
+  write({ key:'start', value:name });
+  const subscription = subscribeResearch(name,write);
+  res.on('close',subscription.unsubscribe);
+  try { await subscription.done; }
+  finally { subscription.unsubscribe(); res.end(); }
 }
 
 export default async function handle(req, res) {
@@ -118,32 +117,39 @@ export default async function handle(req, res) {
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('X-Frame-Options', 'DENY');
   res.setHeader('Referrer-Policy', 'same-origin');
-  res.setHeader('Content-Security-Policy', "default-src 'none'; script-src 'self'; style-src 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'");
+  res.setHeader('Content-Security-Policy', "default-src 'none'; script-src 'self'; worker-src 'self'; style-src 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'");
   const html = 'text/html; charset=utf-8';
   const route = routeOf(req);
-  const inviteRoute = /^invite\/([0-9a-f]{32})\/([A-Za-z0-9_-]{32})$/.exec(route);
+  const appRoute = pageRoute.test(route);
   const key = process.env.OPENRISK_SESSION_KEY;
   const password = process.env.OPENRISK_PASSWORD;
   if (!key || !password) return send(res, 503, login('This deployment is awaiting its private demo configuration.'), html);
   if (route === 'login' && req.method === 'POST') {
     if (!sameOrigin(req) || !allowLogin(req)) return send(res, 429, login('Try again from the workspace in a few minutes.'), html);
+    let destination = '';
     try {
       const body = await readBody(req);
+      destination = acceptedDestination(body.destination);
       if (typeof body.password === 'string' && body.password.length <= 128 && equal(body.password, password)) {
         setSession(res, { id: randomBytes(16).toString('hex'), exp: Math.floor(Date.now() / 1000) + lifetime, role: 'Investor' }, key);
         res.statusCode = 303;
-        res.setHeader('Location', typeof body.destination==='string' && /^\/project-cto\/invite\/[0-9a-f]{32}\/[A-Za-z0-9_-]{32}$/.test(body.destination) ? body.destination : root);
+        res.setHeader('Location', destination || root);
         return res.end();
       }
     } catch {}
-    return send(res, 401, login('That password did not match.'), html);
+    return send(res, 401, login('That password did not match.',destination), html);
   }
   const auth = session(req, key);
   const asset = route === 'workspace.js';
-  if (!auth) return route.startsWith('api/') || asset ? send(res, 401, { error: 'Sign in to OpenRisk.' }) : send(res, 401, login('', inviteRoute ? root+'/'+route : ''), html);
+  const documentScript = Object.hasOwn(documentScripts,route) ? documentScripts[route] : null;
+  if (!auth) return route.startsWith('api/') || asset || documentScript ? send(res, 401, { error: 'Sign in to OpenRisk.' }) : send(res, 401, login('', appRoute ? root+'/'+route : ''), html);
+  if (req.method === 'GET' && documentScript) {
+    if (auth.role!=='Founder') return send(res,403,{error:'The document reader belongs to the founder desk.'});
+    try { return send(res,200,await readFile(resolve(documentScript)),'application/javascript; charset=utf-8'); }
+    catch { return send(res,503,{error:'The document reader is temporarily unavailable.'}); }
+  }
   if (req.method === 'GET' && asset) return send(res, 200, '(' + client.toString() + ')();', 'application/javascript; charset=utf-8');
-  if (req.method === 'GET' && route === 'api/bootstrap') return send(res, 200, { catalog: catalog.map(item => ({ ...item, summary: summary(item) })), cities, land, insets, logos, funds, role: auth.role });
-  if (req.method === 'GET' && inviteRoute) return send(res, 200, workspace(), html);
+  if (req.method === 'GET' && route === 'api/bootstrap') return send(res, 200, { catalog: catalog.map(item => ({ ...item, summary: summary(item) })), cities, land, insets, logos, funds, preloadReport, role: auth.role });
   if (req.method === 'GET' && route.startsWith('api/invite/')) {
     const target = /^api\/invite\/([0-9a-f]{32})\/([A-Za-z0-9_-]{32})$/.exec(route);
     if (!target) return send(res,404,{error:'Invitation not found.'});
@@ -183,7 +189,7 @@ export default async function handle(req, res) {
       return send(res, 200, { role });
     } catch { return send(res, 400, { error: 'Choose a demo role.' }); }
   }
-  if (['GET','HEAD'].includes(req.method) && (!route || route === 'login' || route === 'index.html')) return send(res, 200, workspace(), html);
+  if (['GET','HEAD'].includes(req.method) && (!route || route === 'login' || route === 'index.html' || appRoute)) return send(res, 200, workspace(), html);
   return send(res, 404, { error: 'OpenRisk route not found.' });
 }
 

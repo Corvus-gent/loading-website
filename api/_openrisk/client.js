@@ -18,6 +18,7 @@ export async function client() {
     return '<span class="logo brand-color-'+color+(large?' large':'')+'" aria-hidden="true">'+esc(initials)
       +(artwork?'<img alt="" decoding="async" src="'+esc(artwork)+'">':'')+'</span>';
   };
+  const stamp = value => /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}/.test(value||'') ? value.slice(0,16).replace('T',' ')+' UTC' : date(value);
   const date = stamp => /^\d{4}-\d{2}-\d{2}/.test(stamp || '') ? stamp.slice(0, 10) : '—';
   const ctx = { city:'Gent', sort:'risk', role:'Investor', page:'map', selectedPeriod:'2026-10', range:12, category:'Financial', order:'risk', descending:true };
   let toastTimer;
@@ -44,9 +45,15 @@ export async function client() {
     const tabs = [['map','Explore'], ...(ctx.role==='Investor' ? [['portfolio','Portfolio']] : ctx.role==='Founder' ? [['founder','Founder desk'],['funds','Investor fit']] : [['admin','Operations']])];
     top.innerHTML = tabs.map(([page,label])=>button(label,'data-page="'+page+'"',ctx.page===page?'current':'')).join('');
   };
-  function navigate(page) {
+  const viewRoutes = {map:'',portfolio:'/portfolio',founder:'/founder',funds:'/investors',admin:'/operations'};
+  function setPath(path) {
+    const target=root+path;
+    if (location.pathname!==target) history.pushState(null,'',target);
+  }
+  function navigate(page, recordPath = true) {
     ctx.cancel?.abort();
     ctx.page = page;
+    if (recordPath && Object.hasOwn(viewRoutes,page)) setPath(viewRoutes[page]);
     nav();
     if (page === 'map') map();
     if (page === 'portfolio') portfolio();
@@ -135,8 +142,9 @@ export async function client() {
     return '<div class="breadcrumb">' + button('← Explore', 'data-page="map"', 'link') + '</div><div class="profile-head"><div class="profile-id">' + logo(item,true) + '<div><h1>' + esc(item.name) + '</h1><p>' + esc([item.city,item.sector].filter(Boolean).join(' · ')) + '</p></div></div><div class="actions">' + right + '</div></div>';
   }
 
-  function profile(item) {
-    navigate('profile');
+  function profile(item, recordPath = true) {
+    navigate('profile',false);
+    if (recordPath) setPath('/startup/'+item.id);
     ctx.current = item.id;
     const s = item.signals || {}, r = item.risk || { value:null, coverage:0, breakdown:[] };
     const funding = s.funding?.value;
@@ -148,6 +156,9 @@ export async function client() {
     const teamData=(s.jobs ? val(s.jobs.value.count + ' open roles',s.jobs) + '<ul class="items">' + s.jobs.value.roles.map(role=>'<li>' + esc(role) + '</li>').join('') + '</ul>' + (s.jobs.value.departments?.length ? '<div class="source">Teams · '+esc(s.jobs.value.departments.join(', '))+'</div>' : '') : '')
       +(headcount ? '<p style="margin-top:8px">'+esc(headcount.value.label || (headcount.value.min+'–'+headcount.value.max+' estimated employees'))+'</p>'+source(headcount) : '');
     const identityFields=(s.location?'<p>'+esc(s.location.value)+'</p>'+source(s.location):'')+(s.enterprise?'<div>Belgian enterprise number '+esc(s.enterprise.value)+'</div>'+source(s.enterprise)+'<div class="source">'+link('https://consult.cbso.nbb.be/','NBB annual accounts ↗')+'</div>':'');
+    const accounts = s.accounts?.value;
+    const filing = accounts ? panel('Belgian annual accounts','<p>'+esc(accounts.entity)+' · '+esc(accounts.scope)+'</p><div class="scroll"><table class="rules"><thead><tr><th>Filed item</th><th>FY ended '+esc(accounts.fiscalEnd)+'</th></tr></thead><tbody>'+accounts.rows.map(row=>'<tr><td>'+esc(row.label)+' <small>· '+esc(row.code)+'</small></td><td>'+shown({value:row.value,currency:row.code==='9087'?null:accounts.currency})+'</td></tr>').join('')+'</tbody></table></div><div class="source">NBB filing '+esc(accounts.reference)+' · Filed '+esc(accounts.filedAt)+'</div>'+source(s.accounts),'wide') : '';
+    const event = s.corporateEvent ? '<p>'+esc(s.corporateEvent.value.label)+' · '+esc(s.corporateEvent.value.date)+'</p>'+source(s.corporateEvent) : '';
     const summary = (item.summary || []).map((entry, i) => '<li><strong>' + ['What changed','What’s risky','Ask the founder'][i] + '</strong> · ' + esc(entry.text) + ' ' + link(entry.source) + '</li>').join('');
     const claimed = ctx.state.claims.includes(item.id);
     const followed = ctx.state.followed.includes(item.id);
@@ -158,9 +169,9 @@ export async function client() {
       + panel('How the score is built','<div class="scroll"><table class="rules"><thead><tr><th>Signal</th><th>Weight</th><th>Observed value</th><th>Points</th><th>Source</th></tr></thead><tbody>' + breakdown + '</tbody></table></div>','wide')
       + panel('Company identity','<p>' + esc(item.description) + '</p>' + (s.founded ? '<div>Founded ' + esc(s.founded.value) + '</div>' + source(s.founded) : '') + '<div class="source">' + link(item.source,(item.directory || item.domain || 'Source') + ' ↗') + ' · Observed ' + esc(date(item.asOf)) + '</div>' + identityFields)
       + panel('Team & hiring',teamData || empty('No attributable hiring or headcount data in this snapshot.'))
-      + panel('Financial signals',funding ? val(funding.label,s.funding) + '<div class="source">Announced ' + esc(funding.announced) + (age > 18 ? ' · ' + badge('Older than 18 months','warn') : '') + '</div>' : s.disclosure ? val(s.disclosure.value.label,s.disclosure) + '<p>' + esc(s.disclosure.value.detail) + '</p>' : s.stage ? val(s.stage.value,s.stage) + '<p>Directory-reported stage · Round amount and date unavailable.</p>' : empty('No verified financing or annual accounts in this snapshot.'))
+      + panel('Financial signals',(funding ? val(funding.label,s.funding) + '<div class="source">Announced ' + esc(funding.announced) + (age > 18 ? ' · ' + badge('Older than 18 months','warn') : '') + '</div>' : '') + (s.disclosure ? '<div style="margin-top:10px">'+val(s.disclosure.value.label,s.disclosure) + '<p>' + esc(s.disclosure.value.detail) + '</p></div>' : '') + (!funding && !s.disclosure ? s.stage ? val(s.stage.value,s.stage) + '<p>Directory-reported stage · Round amount and date unavailable.</p>' : empty('No verified financing in this snapshot.') : '')) + filing
       + panel('Product & engineering',(s.github ? '<p>' + esc(s.github.value.repo) + ' · Last public push ' + esc(date(s.github.value.pushedAt)) + '</p>' + source(s.github) : '') + (s.website ? link(s.website.value,'Official site ↗') + source(s.website) : '') || empty('No attributable engineering observations in this snapshot.'))
-      + panel('Public coverage',news) + panel('Diligence brief','<ul class="items">' + summary + '</ul>') + '</div>';
+      + panel('Coverage & corporate events',event+news) + panel('Diligence brief','<ul class="items">' + summary + '</ul>') + '</div>';
     if (ctx.state.companies[item.id]?.values.length) main.insertAdjacentHTML('beforeend', metricView(item.id));
     if (ctx.role==='Investor' && claimed) void api('state',{action:'view',company:item.id}).catch(()=>{});
     window.scrollTo(0,0);
@@ -171,7 +182,7 @@ export async function client() {
     const controller = new AbortController();
     ctx.cancel = controller;
     const item = { name };
-    const keys = { identity:'Identity', news:'Public coverage' };
+    const keys = { identity:'Identity', news:'Public coverage', engineering:'Product & engineering' };
     const state = {};
     const draw = () => {
       const cards = Object.entries(keys).map(([key, title]) => {
@@ -183,10 +194,15 @@ export async function client() {
           const identity=signal.value;
           return panel(title,'<p>'+esc(identity.description)+'</p>'+(identity.founded?'<p>Founded '+esc(identity.founded)+'</p>':'')+(identity.website?link(identity.website,'Company site ↗'):'')+source(signal));
         }
+        if (key==='engineering') return panel(title,'<p>'+esc(signal.value.repo)+' · Last public push '+date(signal.value.pushedAt)+'</p>'+source(signal));
         return panel(title, signal.value.length ? '<ul class="items">' + signal.value.map(row=>'<li>' + link(row.url,row.title) + ' <small>· ' + esc(date(row.date)) + '</small></li>').join('') + '</ul>' + source(signal) : empty('The source returned no matching stories.') + source(signal));
       }).join('');
       const ready=Object.keys(keys).every(key=>state[key]);
-      main.innerHTML = profileHeader(item,ready?button('+ Add a startup','data-open-dialog="startup" data-startup-name="'+esc(name)+'"','ghost'):'') + '<div class="ticker" aria-live="polite">' + Object.entries(keys).map(([key,label]) => badge((!state[key] ? '… ' : state[key].value ? '✓ ' : '– ') + label, state[key]?.value ? 'ok' : 'dim')).join('') + '</div><div class="dossier">' + panel('OpenRisk score',val('Unrated') + '<p>Scoring requires sufficient attributable evidence.</p>') + cards + panel('Team & hiring',empty('A verified hiring board is required.')) + panel('Financial signals',empty('Company financing and filings need verification.')) + panel('Product & engineering',empty('A verified repository or product page is required.')) + '</div>';
+      const risk=state.score?.value;
+      const preliminary=risk?.grade
+        ? '<div class="scoreline"><div class="score">'+risk.value+'<sub>/100</sub></div>'+riskBadge(risk)+'</div><p>'+risk.coverage+'% evidence coverage · Preliminary score</p><ul class="items">'+risk.breakdown.filter(rule=>rule.signal).map(rule=>'<li>'+esc(rule.title)+' · '+esc(signalValue(rule))+' · '+rule.weight+'% weight '+link(rule.signal.source)+'</li>').join('')+'</ul>'
+        : val('Unrated')+'<p>Scoring requires sufficient attributable evidence.</p>';
+      main.innerHTML = profileHeader(item,ready?button('+ Add a startup','data-open-dialog="startup" data-startup-name="'+esc(name)+'"','ghost'):'') + '<div class="ticker" aria-live="polite">' + Object.entries(keys).map(([key,label]) => badge((!state[key] ? '… ' : state[key].value ? '✓ ' : '– ') + label, state[key]?.value ? 'ok' : 'dim')).join('') + '</div><div class="dossier">' + panel('OpenRisk score',preliminary) + cards + panel('Team & hiring',empty('A verified hiring board is required.')) + panel('Financial signals',empty('Company financing and filings need verification.')) + '</div>';
     };
     draw();
     window.scrollTo(0,0);
@@ -203,7 +219,7 @@ export async function client() {
         buffer = rows.pop();
         for (const row of rows) {
           const event = JSON.parse(row);
-          if (Object.hasOwn(keys,event.key)) { state[event.key] = event; draw(); }
+          if (Object.hasOwn(keys,event.key) || event.key==='score') { state[event.key] = event; draw(); }
         }
         if (done) break;
       }
@@ -287,7 +303,9 @@ export async function client() {
   function plot(rows) {
     const values=rows.map(row=>row.value);
     const min=Math.min(...values), max=Math.max(...values);
-    const pts=rows.map((row,i)=>[rows.length===1?136:14+i*244/(rows.length-1),max===min?56:98-(row.value-min)*72/(max-min),row]);
+    const monthIndex = period => 12*Number(period.slice(0,4))+Number(period.slice(5));
+    const base=monthIndex(rows[0].period), span=monthIndex(rows.at(-1).period)-base;
+    const pts=rows.map(row=>[span?14+244*(monthIndex(row.period)-base)/span:136,max===min?56:98-(row.value-min)*72/(max-min),row]);
     return '<svg class="chart" viewBox="0 0 272 130" role="img" aria-label="Monthly KPI trend"><path d="M14 30H258 M14 60H258 M14 98H258" fill="none" stroke="#283953"/><polyline points="'+pts.map(([x,y])=>x+','+y).join(' ')+'" fill="none" stroke="#89afff" stroke-width="2"/>'+pts.map(([x,y,row])=>'<circle cx="'+x+'" cy="'+y+'" r="3.8" fill="#8fe1cc"><title>'+esc(row.period)+' · '+shown(row)+'</title></circle>').join('')+'<text x="14" y="119" class="number-label">'+esc(rows[0].period)+'</text>'+(rows.length>1?'<text x="258" y="119" text-anchor="end" class="number-label">'+esc(rows.at(-1).period)+'</text>':'')+'</svg>';
   }
 
@@ -308,8 +326,8 @@ export async function client() {
     const inviteList=ctx.state.invites.filter(row=>row.company===item.id).map(row=>'<li><div class="split"><span>'+esc(row.email)+' '+badge(row.status==='revoked'?'Revoked':Date.parse(row.expiresAt)<=Date.now()?'Expired':row.status)+'</span>'+(row.status==='revoked'?'':button('Revoke','data-revoke="'+row.id+'"','link'))+'</div><small>Expires '+date(row.expiresAt)+'</small></li>').join('');
     main.innerHTML=title('Founder desk','Manage demo ownership, review proposed metrics and publish confirmed values.')
       +'<div class="actions" style="margin-bottom:14px"><label for="claimed-company">Claimed profile</label><select id="claimed-company">'+claimed.map(row=>'<option value="'+row.id+'"'+(item.id===row.id?' selected':'')+'>'+esc(row.name)+'</option>').join('')+'</select>'+button('View dossier','data-company="'+item.id+'"')+'</div><div class="stack">'
-      +panel('Email → KPI','<div class="actions">'+ctx.samples.map((sample,i)=>button(sample.label,'data-sample="'+i+'"')).join('')+'</div><form id="mail-form" class="stack" style="margin-top:12px"><div><label>Default reporting month<input name="period" type="month" value="'+ctx.selectedPeriod+'" required></label></div><div><label>Investor update<textarea name="text" maxlength="16000" placeholder="Paste a monthly investor update…" required></textarea></label></div><div><button class="accent">Extract KPI proposals</button></div></form>'
-      +(proposals.length?'<div id="proposals"><h3 style="margin-top:18px">Review proposals</h3><div class="scroll"><table class="rules"><thead><tr><th>KPI</th><th>Period</th><th>Proposed value</th><th>Source sentence</th><th>Review</th></tr></thead><tbody>'+proposals.map(p=>'<tr data-proposal="'+p.id+'"><td>'+esc(labelFor(item.id,p.metric))+'<br>'+badge('proposed','warn')+sampleTag(p)+(p.duplicate?' '+badge('Existing value','red'):'')+'</td><td><input aria-label="Reporting month" name="period" type="month" value="'+p.period+'"></td><td><input aria-label="Proposed value" name="value" type="number" step="any" value="'+p.value+'"><small>'+esc(p.currency||'')+' '+esc(p.confidence)+' · '+date(p.fetchedAt)+'</small></td><td><blockquote><mark>'+esc(p.evidence)+'</mark></blockquote></td><td><div class="actions">'+button('Confirm','data-review="'+p.id+'"')+button('Reject','data-review="'+p.id+'" data-reject="yes"','link')+'</div></td></tr>').join('')+'</tbody></table></div><div class="actions spaced">'+button('Confirm all','data-confirm-all','accent')+'</div></div>':''))
+      +panel('Email → KPI','<div class="actions">'+ctx.samples.map((sample,i)=>button(sample.label,'data-sample="'+i+'"')).join('')+'</div><form id="mail-form" class="stack" style="margin-top:12px"><div><label>Default reporting month<input name="period" type="month" value="'+ctx.selectedPeriod+'" required></label></div><div><label>Investor update<textarea name="text" maxlength="16000" placeholder="Paste a monthly investor update…"></textarea></label></div><div><label>PDF or XLSX attachments <input name="files" type="file" accept=".pdf,.xlsx" multiple></label><small>Files are read locally. Up to two attachments, 2 MB each.</small></div><div><button class="accent">Extract KPI proposals</button></div></form>'
+      +(proposals.length?'<div id="proposals"><h3 style="margin-top:18px">Review proposals</h3><div class="scroll"><table class="rules"><thead><tr><th>KPI</th><th>Period</th><th>Proposed value</th><th>Source sentence</th><th>Review</th></tr></thead><tbody>'+proposals.map(p=>'<tr data-proposal="'+p.id+'"><td>'+esc(labelFor(item.id,p.metric))+'<br>'+badge('proposed','warn')+sampleTag(p)+(p.duplicate?' '+badge('Existing value','red'):'')+'</td><td><input aria-label="Reporting month" name="period" type="month" value="'+p.period+'"></td><td><input aria-label="Proposed value" name="value" type="number" step="any" value="'+p.value+'">'+(ctx.metrics[p.metric]?.unit==='money'?'<select aria-label="Currency" name="currency">'+['EUR','USD','GBP'].map(code=>'<option'+(code===(p.currency||'EUR')?' selected':'')+'>'+code+'</option>').join('')+'</select>':'')+'<small>'+esc(p.confidence)+' · '+date(p.fetchedAt)+'</small></td><td><small>'+esc(p.document||'Investor update')+'</small><blockquote><mark>'+esc(p.evidence)+'</mark></blockquote></td><td><div class="actions">'+button('Confirm','data-review="'+p.id+'"')+button('Reject','data-review="'+p.id+'" data-reject="yes"','link')+'</div></td></tr>').join('')+'</tbody></table></div><div class="actions spaced">'+button('Confirm all','data-confirm-all','accent')+'</div></div>':''))
       +panel('Monthly KPI form','<form id="kpi-form" class="form-grid"><div><label>Reporting month<input name="period" id="kpi-period" type="month" value="'+ctx.selectedPeriod+'" required></label></div><div><label>Currency<select name="currency">'+['EUR','USD','GBP'].map(code=>'<option'+(currency===code?' selected':'')+'>'+code+'</option>').join('')+'</select></label></div><div></div>'+fields+'<div class="full"><label>Monthly text update<textarea name="note" maxlength="2000">'+esc(c.updates[ctx.selectedPeriod]?.note||'')+'</textarea></label></div><div class="full actions"><button class="accent">Save KPI update</button><small>Blank metrics keep their existing values.</small></div></form>')
       +panel('Custom KPI','<form id="custom-form" class="form-grid"><label>Name<input name="label" maxlength="48" required></label><label>Category<select name="category"><option>Operational</option><option>Commercial</option><option>Sales</option><option>Financial</option></select></label><label>Unit<select name="unit"><option value="count">Number</option><option value="money">Currency</option><option value="months">Months</option></select></label><div><button>Create KPI</button></div></form>')
       +panel('Investor invitations','<form id="invite-form" class="actions"><label style="flex:1">Email<input name="email" type="email" maxlength="180" required></label><button>Create 7-day link</button></form><small>Email delivery is simulated. Copy the link to share it.</small><div id="invite-result"></div><ul class="items">'+inviteList+'</ul>')
@@ -321,7 +339,7 @@ export async function client() {
     const items=rows.map(row=>{
       const input=row.querySelector('input[name="value"]');
       if (!node.dataset.reject && (!input.value || !input.reportValidity())) throw Error('Enter a valid proposed value.');
-      return {id:row.dataset.proposal,value:Number(input.value),period:row.querySelector('[name="period"]').value,reject:Boolean(node.dataset.reject)};
+      return {id:row.dataset.proposal,value:Number(input.value),period:row.querySelector('[name="period"]').value,currency:row.querySelector('[name="currency"]')?.value,reject:Boolean(node.dataset.reject)};
     });
     node.disabled=true;
     try {
@@ -369,9 +387,16 @@ export async function client() {
     const rows=requests.map(row=>'<tr><td><strong>'+esc(row.name)+'</strong><br>'+link(row.website,row.website)+'</td><td>'+esc(row.city)+'</td><td>'+date(row.at)+'</td><td>'+badge(row.status,row.status==='approved'?'ok':'warn')+'</td><td>'+(row.status==='pending'?button('Approve & enrich','data-approve="'+row.id+'"','accent'):'')+'</td></tr>').join('');
     const list=jobs.slice(0,15).map(row=>'<li><strong>'+esc(row.name)+'</strong> · '+esc(row.type)+' · '+badge(row.stage,row.stage==='Complete'?'ok':'warn')+(row.count!=null?' · '+row.count+' indexed':'')+(row.candidates?.length?' · '+row.candidates.length+' discovery candidates':'')+' <small>'+date(row.updatedAt||row.at)+'</small>'+(row.sources?.length?'<div class="source">'+row.sources.map(source=>badge((source.ok?'✓ ':'– ')+source.label,source.ok?'ok':'dim')).join(' ')+'</div>':'')+'</li>').join('');
     const extracted=stats?.extracted || 0, confirmed=stats?.confirmed || 0, unchanged=stats?.unchanged || 0;
+    const seeds=ctx.cities.map(city=>{
+      const sweep=ctx.preloadReport?.cities[city.name];
+      const count=allCompanies().filter(item=>item.city===city.name).length;
+      return '<tr><td>'+esc(city.name)+'</td><td>'+count+'</td><td>'+(sweep ? sweep.count : '—')+'</td><td>'+(sweep ? stamp(sweep.completedAt) : '—')+'</td></tr>';
+    }).join('');
+    const health=Object.entries(ctx.preloadReport?.sources||{}).map(([label, row])=>'<tr><td>'+esc(label)+'</td><td>'+stamp(row.lastSuccess)+'</td><td>'+stamp(row.lastFailure)+'</td></tr>').join('');
     main.innerHTML=title('Operations','Review map submissions, preload runs and extraction quality.')+'<div class="stack">'
       +panel('Startup request queue','<div id="queue-progress" aria-live="polite"></div>'+(rows?'<div class="scroll"><table class="rules"><thead><tr><th>Startup</th><th>City</th><th>Submitted</th><th>Status</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>':empty('No startup requests yet.'))+'<div class="actions spaced">'+button('+ Add a startup','data-open-dialog="startup"')+'</div>')
-      +panel('Preload jobs & source health',(list?'<ul class="items">'+list+'</ul>':empty('Run Add city to see live preload job health.'))+'<div class="actions spaced">'+button('+ Add city','data-open-dialog="city"')+'</div>')
+      +panel('City preloads','<div class="scroll"><table class="rules"><thead><tr><th>City</th><th>Indexed profiles</th><th>Signals captured</th><th>Snapshot run</th></tr></thead><tbody>'+seeds+'</tbody></table></div>'+(list?'<h3 style="margin-top:14px">Workspace jobs</h3><ul class="items">'+list+'</ul>':'')+'<div class="actions spaced">'+button('+ Add city','data-open-dialog="city"')+'</div>')
+      +(health?panel('Source health','<div class="scroll"><table class="rules"><thead><tr><th>Connector</th><th>Last success</th><th>Last failure</th></tr></thead><tbody>'+health+'</tbody></table></div>'):'')
       +panel('Extraction quality','<div class="cards"><div><div class="value">'+extracted+'</div><small>Documents processed</small></div><div><div class="value">'+confirmed+'</div><small>Confirmed fields</small></div><div><div class="value">'+(confirmed?Math.round(100*unchanged/confirmed)+'%':'—')+'</div><small>Confirmed unchanged</small></div></div>')+'</div>';
   }
 
@@ -382,12 +407,13 @@ export async function client() {
       return;
     }
     const fits=(ctx.funds||[]).map(fund=>{
-      const geo=ctx.cities.find(city=>city.name===company.city)?.country === 'Belgium' ? 'Belgium' : company.city==='Paris'?'Europe':'United States';
-      const geographic=fund.regions.includes(geo) || geo==='Belgium' && fund.regions.includes('Europe');
+      const geo=allCities().find(city=>city.name===company.city)?.country || (company.city==='Paris'?'France':'Unknown');
+      const inEurope=['Belgium','France','Germany','United Kingdom','Netherlands','Spain','Portugal','Ireland','Sweden','Finland','Italy','Austria','Switzerland','Denmark','Norway'].includes(geo);
+      const geographic=fund.regions.includes(geo) || inEurope && fund.regions.includes('Europe');
       const sector=fund.sectors.some(sector=>company.sector.toLowerCase().includes(sector));
       return {...fund,geographic,sector,fit:40*Number(geographic)+60*Number(sector)};
     }).sort((a,b)=>b.fit-a.fit);
-    main.innerHTML=title('Investor fit','Match public mandates against '+company.name+'’s sector and ecosystem.')+'<div class="cards">'+fits.map(fund=>panel(fund.name,'<div class="scoreline"><div class="score">'+fund.fit+'<sub>/100 fit</sub></div></div><p>'+esc(fund.description)+'</p><div class="actions">'+badge(fund.geographic?'Region matches':'Region unverified',fund.geographic?'ok':'dim')+badge(fund.sector?'Sector matches':'Sector unverified',fund.sector?'ok':'dim')+'</div><ul class="items"><li>Stage · '+esc(fund.stage)+'</li><li>Example portfolio · '+esc(fund.portfolio.join(', '))+'</li><li>Check size · '+esc(fund.ticket)+'</li><li>Follow-on and responsiveness · Insufficient observations</li></ul><div class="source">'+link(fund.source)+' · Reviewed '+esc(fund.asOf)+'</div>')).join('')+'</div>';
+    main.innerHTML=title('Investor fit','Match public mandates against '+company.name+'’s sector and ecosystem.')+'<div class="cards">'+fits.map(fund=>panel(fund.name,'<div class="scoreline"><div class="score">'+fund.fit+'<sub>/100 fit</sub></div></div><p>'+esc(fund.description)+'</p><div class="actions">'+badge(fund.geographic?'Region matches':'Region unverified',fund.geographic?'ok':'dim')+badge(fund.sector?'Sector matches':'Sector unverified',fund.sector?'ok':'dim')+'</div><ul class="items"><li>Stage · '+esc(fund.stage)+'</li><li>Example portfolio · '+esc(fund.portfolio.join(', '))+'</li><li>Check size · '+esc(fund.ticket)+'</li>'+(fund.recent?'<li>'+link(fund.recent.url,fund.recent.label+' ↗')+'</li>':'')+'<li>Follow-on rate and responsiveness · No measured history</li></ul><div class="source">'+link(fund.source)+' · Reviewed '+esc(fund.asOf)+'</div>')).join('')+'</div>';
   }
 
   document.addEventListener('change',event=>{
@@ -400,6 +426,53 @@ export async function client() {
       document.querySelector('#metric-view').outerHTML=metricView(ctx.state.companies.guest?'guest':ctx.current);
     }
   });
+
+  const readers = new Map();
+
+  function loadXlsx() {
+    return new Promise((resolve,reject)=>{
+      const script=document.createElement('script');
+      script.src=root+'/document/xlsx.js';
+      script.onload=()=>typeof globalThis.readXlsxFile==='function' ? resolve(globalThis.readXlsxFile) : reject(Error('The spreadsheet reader did not load.'));
+      script.onerror=()=>reject(Error('The spreadsheet reader is unavailable.'));
+      document.head.append(script);
+    });
+  }
+
+  async function openAttachment(file) {
+    if (file.size > 2_000_000) throw Error('Keep attachments under 2 MB each.');
+    const kind=file.name.split('.').at(-1).toLowerCase();
+    if (kind==='xlsx') {
+      if (!readers.has(kind)) readers.set(kind,loadXlsx().catch(error=>{readers.delete(kind);throw error;}));
+      const read=await readers.get(kind);
+      const rows=await read(file);
+      return rows.slice(0,350).map(row=>row.slice(0,12).map(cell=>
+        cell instanceof Date ? cell.toISOString().slice(0,10) : String(cell ?? '').slice(0,180)
+      ).filter(Boolean).join(' ')).join('\n').slice(0,16000);
+    }
+    if (kind==='pdf') {
+      if (!readers.has(kind)) readers.set(kind,import(root+'/document/pdf.mjs').catch(error=>{readers.delete(kind);throw error;}));
+      const pdfjs=await readers.get(kind);
+      pdfjs.GlobalWorkerOptions.workerSrc=root+'/document/pdf.worker.mjs';
+      const task=pdfjs.getDocument({data:new Uint8Array(await file.arrayBuffer()),isEvalSupported:false,useWasm:false});
+      const document=await task.promise;
+      try {
+        const chunks=[];
+        let length=0;
+        for (let i=1;i<=Math.min(document.numPages,12) && length<16000;i++) {
+          const page=await document.getPage(i);
+          const {items}=await page.getTextContent();
+          const text=items.map(item=>item.str+(item.hasEOL?'\n':' ')).join('');
+          chunks.push(text);
+          length+=text.length;
+        }
+        const text=chunks.join('\n').slice(0,16000).trim();
+        if (!text) throw Error('The PDF has no selectable text.');
+        return text;
+      } finally { await task.destroy(); }
+    }
+    throw Error('Choose a PDF or XLSX attachment.');
+  }
 
   document.addEventListener('submit',async event=>{
     const form=event.target;
@@ -429,8 +502,14 @@ export async function client() {
         founder();
         toast('Custom KPI created.');
       } else if(form.id==='mail-form') {
-        const data=Object.fromEntries(fields);
-        await mutate({action:'extract',company:ctx.current,...data,sample:ctx.samples.some(row=>row.text===data.text)||Boolean(form.dataset.sampleText)});
+        const text=String(fields.get('text')||'');
+        const files=[...form.elements.files.files];
+        if (files.length>2) throw Error('Choose at most two attachments.');
+        if (files.length) submit.textContent='Reading attachments…';
+        const attachments=[];
+        for (const file of files) attachments.push({name:file.name,text:await openAttachment(file)});
+        await mutate({action:'extract',company:ctx.current,period:fields.get('period'),text,attachments,
+          sample:ctx.samples.some(row=>row.text===text)||Boolean(form.dataset.sampleText)});
         founder();
         document.querySelector('#proposals')?.scrollIntoView({block:'nearest'});
         toast('Review the proposed values before publishing.');
@@ -453,8 +532,24 @@ export async function client() {
         });
       }
     } catch(error) { toast(error.message); }
-    finally { if(submit) submit.disabled=false; }
+    finally {
+      if(submit) {
+        submit.disabled=false;
+        if(form.id==='mail-form') submit.textContent='Extract KPI proposals';
+      }
+    }
   });
+
+  function openPath() {
+    const relative=location.pathname.slice(root.length);
+    const startup=/^\/startup\/([a-z0-9-]+)$/.exec(relative);
+    const item=startup && allCompanies().find(company=>company.id===startup[1]);
+    if (item) { profile(item,false); return; }
+    const page=Object.keys(viewRoutes).find(key=>viewRoutes[key]===relative);
+    const allowed={Investor:['map','portfolio'],Founder:['map','founder','funds'],Admin:['map','admin']};
+    navigate(allowed[ctx.role]?.includes(page)?page:'map',false);
+  }
+  addEventListener('popstate',openPath);
 
   document.addEventListener('click', async event => {
     const node = event.target.closest('button');
@@ -528,7 +623,7 @@ export async function client() {
     }
     const [boot, state] = await Promise.all([api('bootstrap'),api('state').catch(()=>({state:emptyState(),metrics:{},samples:[]}))]);
     Object.assign(ctx, boot, state);
-    navigate('map');
+    openPath();
   } catch (error) {
     main.textContent = error.message;
   }

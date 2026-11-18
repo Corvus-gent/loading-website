@@ -24,7 +24,7 @@ try {
   const gate = await page.goto(root);
   assert.equal(gate.status(),401);
   assert.equal(gate.headers()['x-robots-tag'],'noindex, nofollow');
-  for (const path of ['/api/bootstrap','/api/state','/workspace.js','/unknown']) assert.equal((await page.request.get(root+path)).status(),401);
+  for (const path of ['/api/bootstrap','/api/state','/workspace.js','/document/pdf.mjs','/startup/aikido-security','/unknown']) assert.equal((await page.request.get(root+path)).status(),401);
   await page.getByLabel('Password').fill(password);
   await page.getByRole('button',{name:'Open workspace'}).click();
   await page.getByRole('heading',{name:'Ecosystem map'}).waitFor();
@@ -80,6 +80,26 @@ try {
   await page.getByRole('button',{name:'Investor fit',exact:true}).click();
   await page.getByRole('heading',{name:'Notion Capital'}).waitFor();
   await shot('05-investor-fit');
+  await page.getByRole('button',{name:'Founder desk',exact:true}).click();
+  await page.getByLabel('Email',{exact:true}).fill('sam@example.com');
+  await page.getByRole('button',{name:'Create 7-day link'}).click();
+  const guestLink = page.getByLabel('Private demo link');
+  await guestLink.waitFor();
+  const invited = await browser.newPage({viewport:size});
+  invited.setDefaultTimeout(12000);
+  try {
+    const inviteUrl=await guestLink.inputValue();
+    const invitePath=new URL(inviteUrl).pathname;
+    assert.equal((await invited.goto(inviteUrl)).status(),401);
+    await invited.getByLabel('Password').fill(password);
+    await invited.getByRole('button',{name:'Open workspace'}).click();
+    await invited.getByRole('heading',{name:'Confirmed KPIs'}).waitFor();
+    assert.equal(new URL(invited.url()).pathname,invitePath);
+    await page.getByRole('button',{name:'Revoke'}).click();
+    await page.getByText('Invitation revoked.').waitFor();
+    await invited.reload();
+    await invited.getByText('This invitation has expired or been revoked.').waitFor();
+  } finally { await invited.close(); }
   await page.getByLabel('View as').selectOption('Investor');
   await page.getByRole('heading',{name:'Portfolio cockpit'}).waitFor();
   await page.getByText('4.6 mo').waitFor();
@@ -98,6 +118,24 @@ try {
   await shot('07-admin-queue');
   await explore();
   await search('Northstar Demo');
+  await page.reload();
+  await page.getByRole('heading',{name:'Northstar Demo',exact:true}).waitFor();
+  await explore();
+  await page.getByRole('button',{name:'+ Add city',exact:true}).click();
+  await page.getByLabel('City name').fill('Paris');
+  await page.getByRole('button',{name:'Start preload'}).click();
+  await page.getByRole('heading',{name:/Paris ·/}).waitFor();
+  assert.equal(await page.locator('#city-rows').getByRole('button').count()>0,true);
+  if (process.env.OPENRISK_TEST_PDF && process.env.OPENRISK_TEST_XLSX) {
+    await page.getByLabel('View as').selectOption('Founder');
+    await page.getByRole('heading',{name:'Founder desk'}).waitFor();
+    await page.locator('input[type=file]').setInputFiles([process.env.OPENRISK_TEST_PDF,process.env.OPENRISK_TEST_XLSX]);
+    await page.getByRole('button',{name:'Extract KPI proposals'}).click();
+    await page.getByRole('heading',{name:'Review proposals'}).waitFor();
+    assert.equal(await page.locator('[data-proposal]').count(),4);
+    await page.getByText('September update.pdf',{exact:true}).first().waitFor();
+    await page.getByText('October update.xlsx',{exact:true}).first().waitFor();
+  }
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth <= innerWidth),true,'No page overflow');
   assert.deepEqual(errors,[]);
   console.log(JSON.stringify(measurements,null,2));

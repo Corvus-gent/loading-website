@@ -57,10 +57,10 @@ export async function hiring(board) {
   return signal({ count:publicJobs.length, roles, departments, provider }, config.source(slug));
 }
 
-export async function engineering(org) {
+export async function engineering(org, deadline) {
   if (!/^[a-z0-9-]{2,39}$/i.test(org || '')) return null;
   const url = 'https://api.github.com/orgs/' + org + '/repos?sort=pushed&direction=desc&per_page=5';
-  const data = await json(url);
+  const data = await json(url,deadline);
   if (!Array.isArray(data)) return null;
   const repo = data.find(repo => !repo.fork && repo.pushed_at);
   if (!repo) return null;
@@ -89,7 +89,9 @@ export async function identify(name) {
     const claims = record.entities?.[row.id]?.claims;
     const first = property=>claims?.[property]?.find(item=>item.rank!=='deprecated')?.mainsnak?.datavalue?.value;
     const website = first('P856');
+    const github = first('P2037');
     const epoch = first('P571')?.time;
+    if (typeof github==='string' && /^[a-z0-9-]{2,39}$/i.test(github)) value.github=github;
     if (typeof website==='string' && /^https:\/\//i.test(website)) value.website=website;
     if (typeof epoch==='string' && /^\+\d{4}-/.test(epoch)) value.founded=Number(epoch.slice(1,5));
   } catch {}

@@ -15,7 +15,7 @@ export interface PublicSignals {
   jobs?: Signal<{ count: number; roles: string[]; departments?: string[]; provider?: string }>;
   github?: Signal<{ repo: string; pushedAt: string; stars?: number }>;
   news?: Signal<{ title: string; url: string; date: string }[]>;
-  identity?: Signal<{ name: string; description: string; website?: string; founded?: number }>;
+  identity?: Signal<{ name: string; description: string; website?: string; founded?: number; github?: string }>;
 }
 
 export interface RiskSnapshot {
@@ -43,4 +43,6 @@ export interface Dossier {
 export type ResearchEvent =
   | { key: 'start'; value: string }
   | { key: 'identity'; value: PublicSignals['identity'] | null; status: 'observed' | 'unavailable' }
-  | { key: 'news'; value: PublicSignals['news'] | null; status: 'observed' | 'unavailable' };
+  | { key: 'news'; value: PublicSignals['news'] | null; status: 'observed' | 'unavailable' }
+  | { key: 'engineering'; value: PublicSignals['github'] | null; status: 'observed' | 'unavailable' }
+  | { key: 'score'; value: RiskSnapshot };

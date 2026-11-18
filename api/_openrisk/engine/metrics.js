@@ -1,5 +1,5 @@
 export const metrics = {
-  revenue: { label:'Revenue', category:'Financial', unit:'money', aliases:'revenue' },
+  revenue: { label:'Revenue', category:'Financial', unit:'money', aliases:'(?<!monthly recurring )revenue' },
   mrr: { label:'MRR', category:'Financial', unit:'money', aliases:'MRR|monthly recurring revenue' },
   burn: { label:'Net burn', category:'Financial', unit:'money', aliases:'monthly net burn|net burn|monthly burn|burn' },
   cash: { label:'Cash', category:'Financial', unit:'money', aliases:'cash balance|cash on hand|cash in bank|cash' },
@@ -34,14 +34,21 @@ export function extract(text, defaultPeriod) {
   const proposals = [];
   for (const [metric, def] of Object.entries(metrics)) {
     // A metric name must precede its value, with at most one common linking verb.
-    const pattern = new RegExp('\\b(?:'+def.aliases+')\\b\\s*(?:(?:was|were|is|at|of|reached|stands at|closed at|came in at)\\s*)?[:=]?\\s*([€$£]?)[ \\t]*(-?\\d[\\d,.]*)(?:[ \\t]*([kmb])\\b)?','i');
+    const pattern = new RegExp('\\b(?:'+def.aliases+')\\b\\s*(?:\\((EUR|USD|GBP)\\)\\s*)?(?:(?:was|were|is|at|of|reached|stands at|closed at|came in at)\\s*)?[:=]?\\s*(€|\\$|£|EUR|USD|GBP)?[ \\t]*(-?\\d[\\d,.]*(?:[ \u00a0\u202f]\\d{3}(?!\\d))*)(?:[ \\t]*([kmb])\\b)?(?:[ \\t]*(EUR|USD|GBP)\\b)?','i');
     const evidence = sentences.find(sentence=>pattern.test(sentence));
     const matched = evidence?.match(pattern);
     if (!matched) continue;
-    const [, mark, raw, suffix] = matched;
-    const number = Number(raw.replace(/[.,]+$/,'').replace(/,/g,''));
-    const unit = { '€':'EUR', '$':'USD', '£':'GBP' }[mark] || null;
-    const value = number * ({ k:1e3, m:1e6, b:1e9 }[suffix?.toLowerCase()] || 1);
+    const [, labelCurrency, mark, raw, suffix, after] = matched;
+    let canonical = raw.replace(/[.,]+$/,'').replace(/\s/g,'');
+    if (canonical.includes('.') && canonical.includes(',')) {
+      canonical = canonical.lastIndexOf(',') > canonical.lastIndexOf('.') ? canonical.replace(/\./g,'').replace(',','.') : canonical.replace(/,/g,'');
+    } else if (canonical.includes(',')) {
+      canonical = /,\d{1,2}$/.test(canonical) ? canonical.replace(',','.') : canonical.replace(/,/g,'');
+    } else if (canonical.includes('.') && /^-?\d{1,3}(?:\.\d{3})+$/.test(canonical) && !suffix) {
+      canonical = canonical.replace(/\./g,'');
+    }
+    const unit = ({ '€':'EUR', '$':'USD', '£':'GBP' }[mark] || mark || labelCurrency || after)?.toUpperCase() || null;
+    const value = Number(canonical) * ({ k:1e3, m:1e6, b:1e9 }[suffix?.toLowerCase()] || 1);
     if (!Number.isFinite(value) || Math.abs(value) > 1e12 || (def.unit === 'count' && !Number.isInteger(value))) continue;
     proposals.push({ metric, period, value, currency:def.unit === 'money' ? unit : null, evidence:evidence.slice(0, 400), confidence:provided && (def.unit !== 'money' || unit) ? 'high' : 'medium' });
   }

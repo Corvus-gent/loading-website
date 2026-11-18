@@ -15,6 +15,6 @@ OpenRisk runs in the existing Corvus Vercel project. The protected route reads
 existing Redis connection for demo workspaces. The offline catalog is bundled
 with the function. Run `node tools/openrisk-discover.mjs` for public directory
 discovery and `node tools/openrisk-preload.mjs` for the curated signal snapshot.
-The browser smoke script is `node tools/openrisk-smoke.mjs` and takes
+PDF and XLSX attachments are decoded in the browser. The browser smoke script is `node tools/openrisk-smoke.mjs` and takes
 `OPENRISK_TEST_PASSWORD` via the environment. See [DEMO.md](DEMO.md),
 [DECISIONS.md](DECISIONS.md), and [RUST_PLAN.md](RUST_PLAN.md).

@@ -66,7 +66,7 @@ function companyData(state,id) {
   return state.companies[id] ??= { values:{}, updates:{}, definitions:{}, audit:[], proposals:[], views:[] };
 }
 
-function record(company, metric, period, value, currency, source, evidence, confidence, sample) {
+function record(company, metric, period, value, currency, source, evidence, confidence, sample, sourceRef = null) {
   if (!validPeriod(period)) fail(400,'Enter a month in YYYY-MM format.');
   if (!Object.hasOwn(metrics,metric) && !Object.hasOwn(company.definitions,metric)) fail(400,'Unknown metric.');
   if (typeof value !== 'number' || !Number.isFinite(value) || Math.abs(value)>1e12) fail(400,'Enter a valid metric value.');
@@ -77,7 +77,7 @@ function record(company, metric, period, value, currency, source, evidence, conf
   const key = period + '/' + metric;
   const old = company.values[key];
   if (old?.value === value && old.currency === currency && old.sample === sample) return;
-  const next = { metric,period,value,currency, status:'founder-confirmed', source, confidence, evidence, sample, fetchedAt:new Date().toISOString() };
+  const next = { metric,period,value,currency, status:'founder-confirmed', source, sourceRef, confidence, evidence, sample, fetchedAt:new Date().toISOString() };
   company.values[key] = next;
   audit(company,{ metric, period, old:old?.value ?? null, value, currency, actor:'Demo founder', sample });
 }
@@ -190,15 +190,29 @@ export function apply(state, auth, body) {
     if (action==='extract') {
       if (!validPeriod(period)) fail(400,'Pick a default period.');
       const mail = txt(body.text,16000);
-      if (mail.length<10) fail(400,'Paste an investor update first.');
-      const projections = extract(mail,period);
-      if (!projections.length) fail(422,'No supported KPI sentences were identified.');
-      const reference = 'mail-' + randomBytes(6).toString('hex');
-      c.proposals = projections.map(p => ({
-        ...p, id:randomBytes(8).toString('hex'), reference, status:'proposed', fetchedAt:new Date().toISOString(), sample:Boolean(body.sample),
-        duplicate:Object.hasOwn(c.values,p.period+'/'+p.metric),
+      const raw = Array.isArray(body.attachments) ? body.attachments.slice(0,2) : [];
+      const documents = raw.filter(isObject).map(item=>({
+        source:'attachment', display:txt(item.name,120), text:txt(item.text,16000), sample:false,
       }));
-      state.stats.extracted++;
+      if (mail) documents.unshift({source:'email',display:'Investor update',text:mail,sample:Boolean(body.sample)});
+      if (!documents.length) fail(400,'Paste an investor update or attach a document first.');
+      const seen = new Set();
+      const proposals = [];
+      for (const doc of documents) {
+        const reference = 'doc-' + randomBytes(6).toString('hex');
+        for (const match of extract(doc.text,period)) {
+          const key = match.period+'/'+match.metric;
+          if (seen.has(key)) continue;
+          seen.add(key);
+          proposals.push({
+            ...match,id:randomBytes(8).toString('hex'),reference,document:doc.display,source:doc.source,
+            status:'proposed',fetchedAt:new Date().toISOString(),sample:doc.sample,duplicate:Object.hasOwn(c.values,key),
+          });
+        }
+      }
+      if (!proposals.length) fail(422,'No supported KPI sentences or rows were identified.');
+      c.proposals = proposals.slice(0,20);
+      state.stats.extracted+=documents.length;
       return {};
     }
     const instructions = Array.isArray(body.items) ? body.items.slice(0,20) : [];
@@ -210,7 +224,7 @@ export function apply(state, auth, body) {
       const value = choice.value ?? p.value;
       const currency = choice.currency || p.currency || 'EUR';
       const resolvedPeriod = choice.period || p.period;
-      record(c,p.metric,resolvedPeriod,value,currency,'email',p.evidence,p.confidence,p.sample);
+      record(c,p.metric,resolvedPeriod,value,currency,p.source||'email',p.evidence,p.confidence,p.sample,p.reference);
       affected.add(resolvedPeriod);
       state.stats.confirmed++;
       if (value===p.value && resolvedPeriod===p.period && (currency===p.currency || !p.currency)) state.stats.unchanged++;
