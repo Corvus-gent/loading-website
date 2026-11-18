@@ -957,11 +957,21 @@ export async function client() {
           renderTerminal('Estimate complete',true);
           const missing=event.factors.filter(row=>row.points==null);
           const sum=key=>event.factors.map(row=>scoreNumber(row[key])).join(' + ');
-          result.innerHTML='<h3>Estimated model range</h3><p class="value">'+event.low+'–'+event.high+'/100</p>'
-            +'<p>'+event.coverage+'% evidence coverage'+(event.midpoint!=null && missing.length?' · Illustrative midpoint '+event.midpoint+'/100':'')+'</p>'
+          const model=event.distribution;
+          const format=value=>value.toFixed(1);
+          const interval=model && model.interval.map(format).join('–');
+          const graph=model?'<div class="estimate-density" role="img" aria-label="Truncated normal scenario distribution, from '+format(model.low)+' to '+format(model.high)+'. The shaded center is the 95% model interval.">'
+            +model.density.map(point=>'<i class="'+(point.inside?'in-interval':'')+'" style="--density:'+point.height*100+'%"></i>').join('')+'</div>'
+            +'<div class="estimate-density-labels"><span>'+format(model.low)+'</span><span>'+format(model.mean)+'</span><span>'+format(model.high)+'</span></div>':'';
+          result.innerHTML='<h3>Estimated model score</h3><p class="value">'+(event.midpoint==null?'—':format(event.midpoint)+'/100')+'</p>'
+            +(model?'<p><strong>95% model interval</strong> · '+interval+'/100</p>'+graph
+              +'<p>Model probability of scoring at least '+model.threshold+'/100 · <strong>'+Math.round(model.probability*100)+'%</strong></p>'
+              : '<p>'+ (event.midpoint==null?'No observed scoring inputs.':'All model inputs are observed.')+'</p>')
+            +'<p class="source">'+event.coverage+'% evidence coverage</p>'
             +(missing.length?'<p class="muted"><strong>What would narrow it</strong> · '+esc(missing.map(row=>row.title).join(', '))+'.</p>':'')
-            +'<details><summary>How the range was calculated</summary><p class="source">Lower bound · '+sum('low')+' → '+event.low+'<br>Upper bound · '+sum('high')+' → '+event.high+'</p>'
-            +'<p>Bounds use the rubric’s lowest and highest values for missing inputs and round outward. These numbers describe the public-signal model only.</p></details>';
+            +'<details><summary>Assumptions and calculation</summary><p class="source">Lower bound · '+sum('low')+' → '+event.low+'<br>Upper bound · '+sum('high')+' → '+event.high+'</p>'
+            +(model?'<p>We assume a normal distribution truncated at the rubric bounds, centered at their midpoint. Before truncation, σ = '+format(model.sigma)+' points (one quarter of their span). The interval covers the central 95% of that assumed distribution.</p>':'')
+            +'<p>P-value unavailable. The public signals provide no statistical sample or null model for a hypothesis test.</p></details>';
         }
         lastUpdate=performance.now();
       });

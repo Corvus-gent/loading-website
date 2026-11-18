@@ -43,6 +43,7 @@ const css = `
 .estimate-timeline li.current::before{background:var(--blue);box-shadow:0 0 0 3px #6c9afa33}
 .estimate-step-detail{font-size:13px;color:var(--mute);margin-top:3px}
 .estimate-result{padding:16px;margin-top:16px;background:var(--panel2);border:1px solid var(--line);border-radius:12px}
+.estimate-density{display:flex;align-items:end;gap:2px;height:48px;max-width:420px;border-bottom:1px solid var(--line)}.estimate-density i{flex:1;height:var(--density);background:#405778}.estimate-density i.in-interval{background:#65afaa}.estimate-density-labels{display:flex;justify-content:space-between;max-width:420px;font-size:11px;color:var(--mute);font-variant-numeric:tabular-nums}
 .estimate-result h3{margin-top:0}.estimate-result .value{font-size:26px;margin:8px 0}.estimate-result summary{cursor:pointer;color:var(--soft)}
 #sector-filter,.company-picker{min-width:0;max-width:100%}
 .market-pulse{margin-bottom:18px}.market-pulse-main{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}

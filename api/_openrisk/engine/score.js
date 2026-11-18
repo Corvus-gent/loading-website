@@ -29,6 +29,40 @@ export function score(signals, now = new Date()) {
 }
 
 
+// Approximate the standard normal CDF, then normalize it over the allowed score range.
+function normalCdf(z) {
+  const x=Math.abs(z)/Math.SQRT2;
+  const t=1/(1+0.3275911*x);
+  const erf=1-(((((1.061405429*t-1.453152027)*t+1.421413741)*t-0.284496736)*t+0.254829592)*t)*Math.exp(-x*x);
+  return (1+Math.sign(z)*erf)/2;
+}
+
+function modelDistribution(low,high) {
+  const mean=(low+high)/2;
+  const sigma=(high-low)/4;
+  if (sigma<1e-9) return null;
+  const floor=normalCdf(-2), mass=normalCdf(2)-floor;
+  const cdf=value=>Math.max(0,Math.min(1,(normalCdf((value-mean)/sigma)-floor)/mass));
+  const quantile=probability=>{
+    let left=low,right=high;
+    for (let n=0;n<36;n++) {
+      const candidate=(left+right)/2;
+      if (cdf(candidate)<probability) left=candidate;
+      else right=candidate;
+    }
+    return (left+right)/2;
+  };
+  const threshold=75;
+  return {
+    mean,sigma,low,high,interval:[quantile(.025),quantile(.975)],threshold,
+    probability:1-cdf(threshold),
+    density:Array.from({length:31},(_,i)=>{
+      const point=low+(high-low)*i/30;
+      return {height:Math.exp(-.5*((point-mean)/sigma)**2),inside:cdf(point)>=.025 && cdf(point)<=.975};
+    }),
+  };
+}
+
 export function estimate(signals) {
   const snapshot=score(signals);
   const factors=snapshot.breakdown.map((row,index)=>({
@@ -39,5 +73,6 @@ export function estimate(signals) {
   const low=factors.reduce((total,row)=>total+row.low,0);
   const high=factors.reduce((total,row)=>total+row.high,0);
   return {factors,coverage:snapshot.coverage,asOf:snapshot.asOf,low:Math.floor(low),high:Math.ceil(high),
-    midpoint:snapshot.coverage ? Math.round((low+high)/2) : null};
+    midpoint:snapshot.coverage ? (low+high)/2 : null,
+    distribution:snapshot.coverage ? modelDistribution(low,high) : null};
 }
