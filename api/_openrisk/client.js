@@ -285,6 +285,30 @@ export async function client() {
     }
   }
 
+  async function drawRadar() {
+    const target=main.querySelector('#daily-radar');
+    if (!target) return;
+    try {
+      const data=await api('radar');
+      if (!target.isConnected) return;
+      const card=row=>'<article class="radar-card"><div class="actions">'+badge(row.theme)
+        +'<small>'+esc(row.city)+' · '+date(new Date(row.at).toISOString())+'</small></div><h3>'
+        +button(row.name,'data-company="'+esc(row.id)+'"','link')+'</h3><p>'+esc(row.title.replace(row.name+' · ',''))+'</p>'
+        +'<p class="source">'+esc(row.verified?'Company announcement':'Catalog name matched in headline')+' · '+link(row.link,row.publisher+' ↗')+'</p>'
+        +(row.market?'<p class="source">Related US sector · '+esc(row.market.ticker)+' '+quoteChange(row.market.change)+' · '+esc(row.market.asOf)+'</p>':'')
+        +'</article>';
+      const list=data.highlights.slice(0,3).map(card).join('');
+      const more=data.highlights.slice(3).map(card).join('');
+      target.innerHTML='<div class="split"><h2>Daily startup radar</h2><small class="source">Last '+data.windowHours+' hours · '+data.feedCount+'/'+data.feedTotal+' regional feeds available</small></div>'
+        +(list?'<div class="radar-grid">'+list+'</div>':empty('No catalog matches in recent headlines.'))
+        +'<details><summary>News by region and recurring themes</summary>'
+        +(data.trends.length?'<div class="actions spaced">'+data.trends.map(item=>badge(item.label+' · '+item.count+' headlines / '+item.sources+' sources')).join('')+'</div>':'')
+        +(more?'<div class="radar-grid">'+more+'</div>':'')
+        +'<ul class="items">'+data.regional.map(item=>'<li><strong>'+esc(item.region)+'</strong> · '+link(item.link,item.title)+' <small>'+esc(item.publisher)+'</small></li>').join('')+'</ul>'
+        +'<p class="source">Highlights match the OpenRisk catalog to public headlines and dated company announcements, with announcements shown first. Related ETF moves describe public markets. Feed coverage varies by region.</p></details>';
+    } catch(error) { if (target.isConnected) target.querySelector('p').textContent=error.message; }
+  }
+
   function map() {
     const cities=allCities();
     const region=ctx.countryList || cityRegion(ctx.city);
@@ -299,9 +323,10 @@ export async function client() {
     const regionalCities=cities.filter(city=>regionIncludes(region,city) && city.lon>=west && city.lon<=east && city.lat>=south && city.lat<=north);
     const home=location.pathname===root;
     const market=home?'<section id="market-pulse" class="panel market-pulse" aria-label="US market pulse"><h1>US market pulse</h1><p class="muted">Loading US sector quotes…</p></section>':'';
-    main.innerHTML = market+'<section class="hero"><span class="eyebrow">Startup intelligence</span><'+(home?'h2':'h1')+'>Explore startup risk.</'+(home?'h2':'h1')+'><p>Explore startups by city or build a risk dossier from public signals.</p><form id="search-form" class="search-wrap" role="search"><label for="company-search" hidden>Search for a startup</label><span class="search-symbol" aria-hidden="true">⌕</span><input id="company-search" placeholder="Search any startup…" maxlength="80" autocomplete="off" aria-controls="search-results" aria-expanded="false"><span class="keycap" aria-hidden="true">/</span><div id="search-results" class="results" hidden></div></form><div class="quick">Quick look ' + ['aikido-security','deliverect','stripe','odoo'].map(id => button(ctx.catalog.find(item => item.id === id).name, 'data-company="' + id + '"')).join('') + button('Browse all startups','data-browse-all aria-pressed="'+Boolean(ctx.allProfiles)+'"')+'</div></section>'
+    const radar=home?'<section id="daily-radar" class="panel daily-radar" aria-label="Daily startup radar"><h2>Daily startup radar</h2><p class="muted">Checking recent startup news…</p></section>':'';
+    main.innerHTML = radar+market+'<section class="hero"><span class="eyebrow">Startup intelligence</span><'+(home?'h2':'h1')+'>Explore startup risk.</'+(home?'h2':'h1')+'><p>Explore startups by city or build a risk dossier from public signals.</p><form id="search-form" class="search-wrap" role="search"><label for="company-search" hidden>Search for a startup</label><span class="search-symbol" aria-hidden="true">⌕</span><input id="company-search" placeholder="Search any startup…" maxlength="80" autocomplete="off" aria-controls="search-results" aria-expanded="false"><span class="keycap" aria-hidden="true">/</span><div id="search-results" class="results" hidden></div></form><div class="quick">Quick look ' + ['aikido-security','deliverect','stripe','odoo'].map(id => button(ctx.catalog.find(item => item.id === id).name, 'data-company="' + id + '"')).join('') + button('Browse all startups','data-browse-all aria-pressed="'+Boolean(ctx.allProfiles)+'"')+'</div></section>'
       + '<div class="layout"><section class="panel atlas"><div class="panel-head"><h2>Ecosystem map</h2>' + '<div class="actions">' + badge(allCompanies().length + ' profiles · ' + allCities().length + ' cities') + button('Suggest startup','data-open-dialog="startup"') + button('+ Add city','data-open-dialog="city"') + feedbackButton('explore','Explore and map') + '</div></div><div class="map-stage" data-map-camera="world" tabindex="0" aria-label="World map"><div class="map-layer"><svg viewBox="0 0 900 360" preserveAspectRatio="none" aria-hidden="true"><defs><pattern id="grid" width="37.5" height="37.5" patternUnits="userSpaceOnUse"><path d="M 37.5 0 L 0 0 0 37.5" fill="none" stroke="#253751" stroke-width=".7"/></pattern></defs><rect width="900" height="360" fill="url(#grid)"/><path d="' + esc(ctx.land) + '" fill="#243855" stroke="#507096" stroke-width=".65"/></svg>' + worldRegionClusters(cities) + worldPins() + '</div><span class="map-caption">NATURAL EARTH · GLOBAL VIEW</span>' + mapControls('world map') + '</div><div class="market-grid">' + countries + inset(key,regionName(region),regionalCities) + '</div></section><section class="panel"><div class="panel-head"><h2 id="city-title"></h2>' + sortControls() + '</div>' + (ctx.allProfiles?sectorPicker():'') + nearbyForm() + (ctx.countryList?'<p id="country-scope" class="source">Selected profiles and approved suggestions across several hubs</p>':'') + '<div id="city-rows" class="rows"></div></section></div>';
-    if (home) void drawMarket();
+    if (home) { void drawMarket(); void drawRadar(); }
     main.querySelector('.map-stage svg').classList.add('earth');
     const regions=main.querySelector('.atlas-regions');
     const activeRegion=regions.querySelector('[aria-pressed="true"]');

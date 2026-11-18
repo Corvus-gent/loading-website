@@ -10,6 +10,7 @@ import { getState, update, apply, project, invitation, runJob, existingStartup, 
 import { signal } from './_openrisk/engine/enrich.js';
 import { runEstimate } from './_openrisk/engine/live-estimate.js';
 import { listFeedback, changeFeedback, feedbackAreas } from './_openrisk/feedback.js';
+import { dailyRadar } from './_openrisk/radar.js';
 import { marketSnapshot } from './_openrisk/market.js';
 import { scorePlan, premiumComparison } from './_openrisk/engine/premium.js';
 import { score } from './_openrisk/engine/score.js';
@@ -159,6 +160,10 @@ export default async function handle(req, res) {
     return artwork ? send(res,200,Buffer.from(artwork[2],'base64'),artwork[1]) : send(res,404,{error:'Logo not found.'});
   }
   if (req.method === 'GET' && asset) return send(res, 200, '(' + client.toString() + ')();', 'application/javascript; charset=utf-8');
+  if (req.method==='GET' && route==='api/radar') {
+    try { return send(res,200,await dailyRadar()); }
+    catch { return send(res,503,{error:'The startup radar is temporarily unavailable.'}); }
+  }
   if (req.method==='GET' && route==='api/market') {
     try { return send(res,200,await marketSnapshot()); }
     catch { return send(res,503,{error:'US sector quotes are temporarily unavailable.'}); }

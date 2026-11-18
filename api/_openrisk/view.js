@@ -46,6 +46,9 @@ const css = `
 .estimate-density{display:flex;align-items:end;gap:2px;height:48px;max-width:420px;border-bottom:1px solid var(--line)}.estimate-density i{flex:1;height:var(--density);background:#405778}.estimate-density i.in-interval{background:#65afaa}.estimate-density-labels{display:flex;justify-content:space-between;max-width:420px;font-size:11px;color:var(--mute);font-variant-numeric:tabular-nums}
 .estimate-result h3{margin-top:0}.estimate-result .value{font-size:26px;margin:8px 0}.estimate-result summary{cursor:pointer;color:var(--soft)}
 #sector-filter,.company-picker{min-width:0;max-width:100%}
+.daily-radar{margin-bottom:18px}.daily-radar h2{margin:0}.daily-radar summary{margin-top:10px;color:var(--blue);cursor:pointer}.radar-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:11px}
+.radar-card{min-width:0;border-top:1px solid var(--line);padding:10px 4px}.radar-card h3,.radar-card p{margin:5px 0}.radar-card h3 button{font-weight:700;text-align:left}.radar-card small{color:var(--mute)}
+@media(max-width:680px){.radar-grid{grid-template-columns:1fr}.radar-card{padding-bottom:6px}}
 .market-pulse{margin-bottom:18px}.market-pulse-main{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
 .market-pulse h1{margin:5px 0;font-size:clamp(27px,5vw,48px);line-height:1.06}.market-pulse p{margin:8px 0}.market-pulse details{margin-top:12px}.market-pulse summary{cursor:pointer;color:var(--blue)}
 .market-niche{display:grid;gap:5px;justify-items:start}.market-niche strong{font-size:17px}.market-niche button{padding:6px 10px}

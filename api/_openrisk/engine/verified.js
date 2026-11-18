@@ -34,6 +34,8 @@ export const verified = {
       office('Austin','United States','Hiring location',aikidoCareers,'hiring'),
       office(null,'Japan','Market entry and local entity announced','https://prtimes.jp/main/html/rd/p/000000001.000194415.html','announced'),
     ],
+    corporateEvent:evidence({label:'Japan Cloud partnership and Japan market entry announced',date:'2026-11-17T01:00:00Z'},
+      'https://prtimes.jp/main/html/rd/p/000000001.000194415.html'),
     founders: evidence(['Willem Delbare','Roeland Delrue','Felix Garriau','Madeline Lawrence'], 'https://www.aikido.dev/company/about'),
     founded: evidence(2022, 'https://www.aikido.dev/company/about'),
     traction: evidence({ label:'150,000+ teams protected', detail:'Aikido’s own October 2026 press-kit disclosure.' }, 'https://www.aikido.dev/company/press-kit'),
