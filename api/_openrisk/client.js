@@ -91,7 +91,11 @@ export async function client() {
     return '<section class="market" aria-label="'+label+'"><div class="inset-geo" data-map-camera="'+key+'-'+esc(label)+'" tabindex="0" aria-label="'+esc(label)+' map"><div class="map-layer"><svg viewBox="0 0 300 115" preserveAspectRatio="none" aria-hidden="true"><path d="'+esc(path)+'" fill="#223754" stroke="#52769c" stroke-width=".7"/></svg>'+pins+'</div><span class="market-name">'+label+'</span>'+mapControls(label)+'</div><div class="inset-cities">'+labels+'</div></section>';
   }
 
-  const mapCountries=['England','Netherlands','Germany','France'];
+  const mapCountries=['Belgium','England','Netherlands','Germany','France','United States'];
+  const cityRegion = name => {
+    const country=allCities().find(city=>city.name===name)?.country;
+    return mapCountries.includes(country) ? country : 'Belgium';
+  };
 
   const mapCameras = new Map();
 
@@ -203,14 +207,17 @@ export async function client() {
   }
 
   function map() {
-    const belgium=ctx.cities.filter(city=>city.country==='Belgium');
-    const neighbors=ctx.cities.filter(city=>mapCountries.includes(city.country));
-    const region=ctx.countryList || ctx.cities.find(city=>city.name===ctx.city && mapCountries.includes(city.country))?.country || 'France';
-    const countries='<div class="country-switch" role="group" aria-label="European country">' + mapCountries.map(country=>
-      button(country,'data-map-country="'+country+'" aria-pressed="'+(ctx.countryList===country)+'"')).join('')+'</div>';
-    const bay=ctx.cities.filter(city=>city.country==='United States');
+    const cities=allCities();
+    const region=ctx.countryList || cityRegion(ctx.city);
+    const regionName=country=>country==='United States'?'Bay Area':country;
+    const countries='<div class="country-switch" role="group" aria-label="Map country">' + mapCountries.map(country=>
+      button(regionName(country),'data-map-country="'+country+'" aria-pressed="'+(region===country)+'"')).join('')+'</div>';
+    const key=region==='United States'?'bay':citySlug(region);
+    const [west,south,east,north]=ctx.insets.bounds[key];
+    const regionalCities=cities.filter(city=>city.country===region && city.lon>=west && city.lon<=east && city.lat>=south && city.lat<=north);
+    const europeCount=cities.filter(city=>mapCountries.includes(city.country) && city.country!=='United States').length;
     main.innerHTML = '<section class="hero"><span class="eyebrow">Startup intelligence</span><h1>Explore startup risk.</h1><p>Explore startups by city or build a risk dossier from public signals.</p><form id="search-form" class="search-wrap" role="search"><label for="company-search" hidden>Search for a startup</label><span class="search-symbol" aria-hidden="true">⌕</span><input id="company-search" placeholder="Search any startup…" maxlength="80" autocomplete="off" aria-controls="search-results" aria-expanded="false"><span class="keycap" aria-hidden="true">/</span><div id="search-results" class="results" hidden></div></form><div class="quick">Quick look ' + ['aikido-security','deliverect','stripe','odoo'].map(id => button(ctx.catalog.find(item => item.id === id).name, 'data-company="' + id + '"')).join('') + '</div></section>'
-      + '<div class="layout"><section class="panel atlas"><div class="panel-head"><h2>Ecosystem map</h2>' + '<div class="actions">' + badge(allCompanies().length + ' profiles · ' + allCities().length + ' cities') + button('Suggest startup','data-open-dialog="startup"') + button('+ Add city','data-open-dialog="city"') + '</div></div><div class="map-stage" data-map-camera="world" tabindex="0" aria-label="World map"><div class="map-layer"><svg viewBox="0 0 900 360" preserveAspectRatio="none" aria-hidden="true"><defs><pattern id="grid" width="37.5" height="37.5" patternUnits="userSpaceOnUse"><path d="M 37.5 0 L 0 0 0 37.5" fill="none" stroke="#253751" stroke-width=".7"/></pattern></defs><rect width="900" height="360" fill="url(#grid)"/><path d="' + esc(ctx.land) + '" fill="#243855" stroke="#507096" stroke-width=".65"/></svg><button class="cluster" aria-label="European startup hubs" data-city="Brussels" style="left:51.1%;top:22.2%">' + (belgium.length+neighbors.length) + '</button><button class="cluster" aria-label="Bay Area startup hubs" data-city="San Francisco" style="left:16%;top:31.4%">2</button>' + worldPins() + '</div><span class="map-caption">NATURAL EARTH · GLOBAL VIEW</span>' + mapControls('world map') + '</div><div class="market-grid">' + inset('belgium','Belgium',belgium) + '<div>'+countries+inset('europe',region,neighbors.filter(city=>city.country===region))+'</div>' + inset('bay','Bay Area',bay) + '</div></section><section class="panel"><div class="panel-head"><h2 id="city-title"></h2><select id="city-sort" aria-label="Sort startups"><option value="risk">By score</option><option value="name">By name</option><option value="nearby">Nearest first</option></select></div>' + nearbyForm() + (ctx.countryList?'<p id="country-scope" class="source">Selected profiles and approved suggestions across several hubs</p>':'') + '<div id="city-rows" class="rows"></div></section></div>';
+      + '<div class="layout"><section class="panel atlas"><div class="panel-head"><h2>Ecosystem map</h2>' + '<div class="actions">' + badge(allCompanies().length + ' profiles · ' + allCities().length + ' cities') + button('Suggest startup','data-open-dialog="startup"') + button('+ Add city','data-open-dialog="city"') + '</div></div><div class="map-stage" data-map-camera="world" tabindex="0" aria-label="World map"><div class="map-layer"><svg viewBox="0 0 900 360" preserveAspectRatio="none" aria-hidden="true"><defs><pattern id="grid" width="37.5" height="37.5" patternUnits="userSpaceOnUse"><path d="M 37.5 0 L 0 0 0 37.5" fill="none" stroke="#253751" stroke-width=".7"/></pattern></defs><rect width="900" height="360" fill="url(#grid)"/><path d="' + esc(ctx.land) + '" fill="#243855" stroke="#507096" stroke-width=".65"/></svg><button class="cluster" aria-label="European startup hubs" data-city="Brussels" style="left:51.1%;top:22.2%">' + europeCount + '</button><button class="cluster" aria-label="Bay Area startup hubs" data-city="San Francisco" style="left:16%;top:31.4%">2</button>' + worldPins() + '</div><span class="map-caption">NATURAL EARTH · GLOBAL VIEW</span>' + mapControls('world map') + '</div><div class="market-grid">' + countries + inset(key,regionName(region),regionalCities) + '</div></section><section class="panel"><div class="panel-head"><h2 id="city-title"></h2><select id="city-sort" aria-label="Sort startups"><option value="risk">By score</option><option value="name">By name</option><option value="nearby">Nearest first</option></select></div>' + nearbyForm() + (ctx.countryList?'<p id="country-scope" class="source">Selected profiles and approved suggestions across several hubs</p>':'') + '<div id="city-rows" class="rows"></div></section></div>';
     main.querySelector('.map-stage svg').classList.add('earth');
     main.querySelectorAll('[data-map-camera]').forEach(bindMapCamera);
     const input = document.querySelector('#company-search');
@@ -951,7 +958,7 @@ export async function client() {
       main.querySelector('[data-map-country="'+ctx.countryList+'"]').focus({preventScroll:true});
     }
     if (node.dataset.city) {
-      const selected=ctx.countryList || ctx.sort==='nearby';
+      const selected=ctx.countryList || ctx.sort==='nearby' || cityRegion(ctx.city)!==cityRegion(node.dataset.city);
       if (ctx.sort==='nearby') ctx.sort='risk';
       ctx.countryList=null;
       ctx.city=node.dataset.city;

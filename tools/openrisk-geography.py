@@ -45,14 +45,18 @@ def path(polygons, bounds):
     return ' '.join(result)
 
 
-countries = read('countries')
-belgium = next(f for f in countries if f['properties'].get('ADMIN') == 'Belgium')
-bounds = {'belgium': [2.50,49.47,6.50,51.59], 'europe':[-5.0,42.0,16.0,55.8], 'bay':[-122.67,37.25,-121.87,37.94]}
-paths = {'belgium':path(rings(belgium['geometry']),bounds['belgium']),
-         'europe':path([r for f in countries
-                        if f['properties'].get('ADMIN') in {'France','Belgium','Netherlands','Germany','Luxembourg','Switzerland','Austria','United Kingdom'}
-                        for r in rings(f['geometry'])],bounds['europe']),
-         'bay':path([r for f in read('land') for r in rings(f['geometry'])],bounds['bay'])}
+countries = {f['properties']['ADMIN']: f['geometry'] for f in read('countries')}
+regions = {
+    'belgium': ('Belgium', [2.50,49.47,6.50,51.59]),
+    'england': ('United Kingdom', [-6.0,49.7,2.1,56.0]),
+    'netherlands': ('Netherlands', [3.15,50.65,7.35,53.7]),
+    'germany': ('Germany', [5.7,47.1,15.4,55.3]),
+    'france': ('France', [-5.5,41.1,9.85,51.5]),
+}
+bounds = {key: frame for key, (_, frame) in regions.items()}
+paths = {key: path(rings(countries[name]), frame) for key, (name, frame) in regions.items()}
+bounds['bay'] = [-122.67,37.25,-121.87,37.94]
+paths['bay'] = path([r for f in read('land') for r in rings(f['geometry'])], bounds['bay'])
 (asset/'insets.js').write_text('// Natural Earth 1:10m public domain geometry.\nexport default ' + json.dumps({'bounds':bounds,'paths':paths},separators=(',',':'))+';\n')
 
 places = []
