@@ -48,6 +48,27 @@ export default {
       "profiles": 1,
       "count": 2,
       "failures": 1
+    },
+    "Liège": {
+      "startedAt": "2026-11-18T07:43:00.560Z",
+      "completedAt": "2026-11-18T07:43:01.173Z",
+      "profiles": 1,
+      "count": 1,
+      "failures": 0
+    },
+    "Louvain-la-Neuve": {
+      "startedAt": "2026-11-18T07:43:01.182Z",
+      "completedAt": "2026-11-18T07:43:01.931Z",
+      "profiles": 2,
+      "count": 2,
+      "failures": 0
+    },
+    "Düsseldorf": {
+      "startedAt": "2026-11-18T07:43:01.938Z",
+      "completedAt": "2026-11-18T07:43:02.343Z",
+      "profiles": 1,
+      "count": 1,
+      "failures": 0
     }
   },
   "sources": {
@@ -60,7 +81,7 @@ export default {
       "lastFailure": "2026-11-18T07:22:14.241Z"
     },
     "Hacker News": {
-      "lastSuccess": "2026-11-18T07:22:14.241Z"
+      "lastSuccess": "2026-11-18T07:43:02.343Z"
     },
     "Apple App Store": {
       "lastSuccess": "2026-11-18T07:22:06.280Z"

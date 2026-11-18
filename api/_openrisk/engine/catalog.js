@@ -3,6 +3,15 @@ export const cities = [
   { name: 'Brussels', country: 'Belgium', lat: 50.85, lon: 4.35, px: 48, py: 67 },
   { name: 'Antwerp', country: 'Belgium', lat: 51.22, lon: 4.40, px: 57, py: 24 },
   { name: 'Leuven', country: 'Belgium', lat: 50.88, lon: 4.70, px: 75, py: 49 },
+  { name: 'Liège', country: 'Belgium', lat: 50.63, lon: 5.57 },
+  { name: 'Bruges', country: 'Belgium', lat: 51.21, lon: 3.22 },
+  { name: 'Louvain-la-Neuve', country: 'Belgium', lat: 50.67, lon: 4.62 },
+  { name: 'Paris', country: 'France', lat: 48.86, lon: 2.35 },
+  { name: 'Amsterdam', country: 'Netherlands', lat: 52.37, lon: 4.90 },
+  { name: 'Rotterdam', country: 'Netherlands', lat: 51.92, lon: 4.48 },
+  { name: 'Frankfurt', country: 'Germany', lat: 50.11, lon: 8.68 },
+  { name: 'Düsseldorf', country: 'Germany', lat: 51.23, lon: 6.77 },
+  { name: 'Munich', country: 'Germany', lat: 48.14, lon: 11.58 },
   { name: 'San Francisco', country: 'United States', lat: 37.77, lon: -122.42, px: 34, py: 24 },
   { name: 'Palo Alto', country: 'United States', lat: 37.44, lon: -122.14, px: 63, py: 71 },
 ];
@@ -56,6 +65,11 @@ const rows = [
   ['Uniphore', 'Palo Alto', 'Enterprise AI', 'uniphore.com', 'AI platform for enterprise data and workflows.', 2008],
   ['Mashgin', 'Palo Alto', 'Computer vision', 'mashgin.com', 'Computer vision checkout for retail and food service.'],
   ['1X Technologies', 'Palo Alto', 'Robotics', '1x.tech', 'Humanoid robot development and manufacturing.'],
+  ['Ampacimon', 'Liège', 'Energy technology', 'ampacimon.com', 'Grid monitoring and analytics for electricity networks. Headquarters in Liège.', 2010],
+  ['Trustup', 'Liège', 'Construction software', 'trustup-group.com', 'Marketplace and management tools for construction professionals. Headquarters in the Liège area.'],
+  ['Aerospacelab', 'Louvain-la-Neuve', 'Space technology', 'aerospacelab.com', 'Satellite manufacturer with a production facility in Louvain-la-Neuve. Founded in nearby Mont-Saint-Guibert.', 2018],
+  ['intoPIX', 'Louvain-la-Neuve', 'Semiconductors', 'intopix.com', 'UCLouvain spin-off in the regional science park. Develops image and video compression technology.', 2006],
+  ['auxmoney', 'Düsseldorf', 'Fintech', 'auxmoney.com', 'Digital lending platform with an office in Düsseldorf.'],
   ['Mistral AI', 'Paris', 'Artificial intelligence', 'mistral.ai', 'Open-weight and commercial AI models.', 2023, 'mistralai', 'ashby:mistral.ai'],
 ];
 

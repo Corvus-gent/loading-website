@@ -16,7 +16,7 @@ async function persist(name, data) {
   await writeFile(file,'export default '+JSON.stringify(data,null,2)+';\n');
 }
 
-for (const city of [...cities.map(city => city.name), 'Paris']) {
+for (const city of cities.map(city => city.name)) {
   if (requested.length && !requested.includes(city)) continue;
   const entries = curated.filter(company => company.city === city);
   const startedAt = new Date().toISOString();

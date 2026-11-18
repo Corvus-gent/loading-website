@@ -77,7 +77,7 @@ export async function directoryDetail(company) {
 }
 
 const cityEntities = {
-  Gent:'Q1296', Brussels:'Q239', Antwerp:'Q12892', Leuven:'Q118958',
+  'Liège':'Q3992', Gent:'Q1296', Brussels:'Q239', Antwerp:'Q12892', Leuven:'Q118958',
   'San Francisco':'Q62', 'Palo Alto':'Q47265', Paris:'Q90',
 };
 const tech = /artificial intelligence|software|comput|cloud|technolog|fintech|robotics|machine learning|security|information technology|semiconduct|cyber|analytics|speech recognition|data platform|identity verification/i;

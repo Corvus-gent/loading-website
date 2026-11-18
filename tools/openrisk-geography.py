@@ -45,9 +45,13 @@ def path(polygons, bounds):
     return ' '.join(result)
 
 
-belgium = next(f for f in read('countries') if f['properties'].get('ADMIN') == 'Belgium')
-bounds = {'belgium': [2.50,49.47,6.50,51.59], 'bay':[-122.67,37.25,-121.87,37.94]}
+countries = read('countries')
+belgium = next(f for f in countries if f['properties'].get('ADMIN') == 'Belgium')
+bounds = {'belgium': [2.50,49.47,6.50,51.59], 'europe':[-0.1,46.9,13.2,53.8], 'bay':[-122.67,37.25,-121.87,37.94]}
 paths = {'belgium':path(rings(belgium['geometry']),bounds['belgium']),
+         'europe':path([r for f in countries
+                        if f['properties'].get('ADMIN') in {'France','Belgium','Netherlands','Germany','Luxembourg','Switzerland','Austria','United Kingdom'}
+                        for r in rings(f['geometry'])],bounds['europe']),
          'bay':path([r for f in read('land') for r in rings(f['geometry'])],bounds['bay'])}
 (asset/'insets.js').write_text('// Natural Earth 1:10m public domain geometry.\nexport default ' + json.dumps({'bounds':bounds,'paths':paths},separators=(',',':'))+';\n')
 

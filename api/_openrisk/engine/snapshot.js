@@ -1589,5 +1589,53 @@ export default {
       "confidence": "medium",
       "fetchedAt": "2026-11-18T07:22:13.913Z"
     }
+  },
+  "ampacimon": {
+    "news": {
+      "value": [],
+      "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Ampacimon",
+      "status": "scraped",
+      "confidence": "medium",
+      "fetchedAt": "2026-11-18T07:43:01.172Z"
+    }
+  },
+  "aerospacelab": {
+    "news": {
+      "value": [
+        {
+          "title": "Aerospacelab to Build “Megafactory” in Belgium",
+          "url": "https://news.ycombinator.com/item?id=31743970",
+          "date": "2022-06-14T18:40:31Z"
+        }
+      ],
+      "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Aerospacelab",
+      "status": "scraped",
+      "confidence": "medium",
+      "fetchedAt": "2026-11-18T07:43:01.512Z"
+    }
+  },
+  "intopix": {
+    "news": {
+      "value": [],
+      "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=intoPIX",
+      "status": "scraped",
+      "confidence": "medium",
+      "fetchedAt": "2026-11-18T07:43:01.931Z"
+    }
+  },
+  "auxmoney": {
+    "news": {
+      "value": [
+        {
+          "title": "Auxmoney GmbH",
+          "url": "https://news.ycombinator.com/item?id=3086065",
+          "date": "2011-10-07T21:31:40Z"
+        }
+      ],
+      "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=auxmoney",
+      "status": "scraped",
+      "confidence": "medium",
+      "fetchedAt": "2026-11-18T07:43:02.343Z"
+    }
   }
 };

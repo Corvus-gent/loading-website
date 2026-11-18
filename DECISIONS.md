@@ -31,3 +31,9 @@
 - The six initial cities contain 219 indexed profiles. Mistral AI is an additional searchable fallback with Paris as its home city. Wikidata Query Service adds attributed organizations with a recorded headquarters, a technology sector and an official domain. Remove reviewed stale, moved or incumbent entities and deduplicate against the curated catalog. Seeded connector health is timestamped in the operations view. Demo workspace jobs stay separate from the baked seed.
 - Deep links preserve the requested dossier through password login. The workspace remains private and investor links can only read a company-scoped projection until expiry or revocation.
 - The browser reads bounded PDF text and the first XLSX sheet on demand. Text extraction avoids retaining the original files. Investor projections omit private source passages and retain the reference, status and confirmation time.
+
+## European map expansion
+
+- Keep Gent, Brussels, Antwerp, Leuven and Liège as the five Belgian anchors using Dealroom’s combined enterprise-value view as the selection criterion. Add Bruges and the Louvain-la-Neuve science park cluster for the requested coverage in West Flanders and Walloon Brabant.
+- Preload Paris, Amsterdam, Rotterdam, Frankfurt, Düsseldorf and Munich in the existing snapshot. Index a small number of directly sourced Liège profiles where the directory search is sparse. Show the actual profile count in each city list.
+- Add a nearby Europe inset and password-protected city links. Keep the Bay Area. The presenter guide follows discovery, evidence, founder confirmation and investor review before the operations workflow.

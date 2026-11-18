@@ -10,6 +10,8 @@ for (const [name,country,lat,lon] of places) {
 }
 
 export function locate(input) {
-  const key=normal(input.trim().replace(/,\s*/,', '));
-  return cities.find(city=>normal(city.name)===key) || (key==='ghent' ? cities[0] : index.get(key)) || null;
+  const query=normal(input.trim().replace(/,\s*/,', '));
+  const aliases={ghent:'gent',brugge:'bruges',anvers:'antwerp',brussel:'brussels','frankfurt am main':'frankfurt',munchen:'munich'};
+  const key=Object.hasOwn(aliases,query) ? aliases[query] : query;
+  return cities.find(city=>normal(city.name)===key) || index.get(key) || null;
 }

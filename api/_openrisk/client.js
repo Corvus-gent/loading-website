@@ -46,6 +46,7 @@ export async function client() {
     top.innerHTML = tabs.map(([page,label])=>button(label,'data-page="'+page+'"',ctx.page===page?'current':'')).join('');
   };
   const viewRoutes = {map:'',portfolio:'/portfolio',founder:'/founder',funds:'/investors',admin:'/operations'};
+  const citySlug = name => name.normalize('NFKD').toLowerCase().replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
   function setPath(path) {
     const target=root+path;
     if (location.pathname!==target) history.pushState(null,'',target);
@@ -53,7 +54,7 @@ export async function client() {
   function navigate(page, recordPath = true) {
     ctx.cancel?.abort();
     ctx.page = page;
-    if (recordPath && Object.hasOwn(viewRoutes,page)) setPath(viewRoutes[page]);
+    if (recordPath && Object.hasOwn(viewRoutes,page)) setPath(page==='map' && ctx.city!=='Gent' ? '/city/'+citySlug(ctx.city) : viewRoutes[page]);
     nav();
     if (page === 'map') map();
     if (page === 'portfolio') portfolio();
@@ -84,8 +85,11 @@ export async function client() {
   }
 
   function map() {
+    const belgium=ctx.cities.filter(city=>city.country==='Belgium');
+    const neighbors=ctx.cities.filter(city=>['France','Netherlands','Germany'].includes(city.country));
+    const bay=ctx.cities.filter(city=>city.country==='United States');
     main.innerHTML = '<section class="hero"><span class="eyebrow">Startup intelligence</span><h1>Explore startup risk.</h1><p>Explore startups by city or build a risk dossier from public signals.</p><form id="search-form" class="search-wrap" role="search"><label for="company-search" hidden>Search for a startup</label><span class="search-symbol" aria-hidden="true">⌕</span><input id="company-search" placeholder="Search any startup…" maxlength="80" autocomplete="off" aria-controls="search-results" aria-expanded="false"><span class="keycap" aria-hidden="true">/</span><div id="search-results" class="results" hidden></div></form><div class="quick">Quick look ' + ['aikido-security','deliverect','stripe','odoo'].map(id => button(ctx.catalog.find(item => item.id === id).name, 'data-company="' + id + '"')).join('') + '</div></section>'
-      + '<div class="layout"><section class="panel atlas"><div class="panel-head"><h2>Ecosystem map</h2>' + '<div class="actions">' + badge(allCompanies().length + ' profiles · ' + allCities().length + ' cities') + button('+ Add city','data-open-dialog="city"') + '</div></div><div class="map-stage"><svg viewBox="0 0 900 360" preserveAspectRatio="none" aria-label="World map"><defs><pattern id="grid" width="37.5" height="37.5" patternUnits="userSpaceOnUse"><path d="M 37.5 0 L 0 0 0 37.5" fill="none" stroke="#253751" stroke-width=".7"/></pattern></defs><rect width="900" height="360" fill="url(#grid)"/><path d="' + esc(ctx.land) + '" fill="#243855" stroke="#507096" stroke-width=".65"/></svg><button class="cluster" aria-label="Belgium startup hubs" data-city="Gent" style="left:51.1%;top:22.2%">4</button><button class="cluster" aria-label="Bay Area startup hubs" data-city="San Francisco" style="left:16%;top:31.4%">2</button>' + extraPins() + '<span class="map-caption">NATURAL EARTH · GLOBAL VIEW</span></div><div class="market-grid">' + inset('belgium','Belgium',ctx.cities.slice(0,4)) + inset('bay','Bay Area',ctx.cities.slice(4,6)) + '</div></section><section class="panel"><div class="panel-head"><h2 id="city-title"></h2><select id="city-sort" aria-label="Sort startups"><option value="risk">By score</option><option value="name">By name</option></select></div><div id="city-rows" class="rows"></div></section></div>';
+      + '<div class="layout"><section class="panel atlas"><div class="panel-head"><h2>Ecosystem map</h2>' + '<div class="actions">' + badge(allCompanies().length + ' profiles · ' + allCities().length + ' cities') + button('+ Add city','data-open-dialog="city"') + '</div></div><div class="map-stage"><svg viewBox="0 0 900 360" preserveAspectRatio="none" aria-label="World map"><defs><pattern id="grid" width="37.5" height="37.5" patternUnits="userSpaceOnUse"><path d="M 37.5 0 L 0 0 0 37.5" fill="none" stroke="#253751" stroke-width=".7"/></pattern></defs><rect width="900" height="360" fill="url(#grid)"/><path d="' + esc(ctx.land) + '" fill="#243855" stroke="#507096" stroke-width=".65"/></svg><button class="cluster" aria-label="European startup hubs" data-city="Brussels" style="left:51.1%;top:22.2%">' + (belgium.length+neighbors.length) + '</button><button class="cluster" aria-label="Bay Area startup hubs" data-city="San Francisco" style="left:16%;top:31.4%">2</button>' + extraPins() + '<span class="map-caption">NATURAL EARTH · GLOBAL VIEW</span></div><div class="market-grid">' + inset('belgium','Belgium',belgium) + inset('europe','Nearby Europe',neighbors) + inset('bay','Bay Area',bay) + '</div></section><section class="panel"><div class="panel-head"><h2 id="city-title"></h2><select id="city-sort" aria-label="Sort startups"><option value="risk">By score</option><option value="name">By name</option></select></div><div id="city-rows" class="rows"></div></section></div>';
     main.querySelector('.map-stage svg').classList.add('earth');
     main.insertAdjacentHTML('beforeend','<div class="actions spaced">'+button('+ Add a startup','data-open-dialog="startup"','ghost')+'</div>');
     const input = document.querySelector('#company-search');
@@ -581,6 +585,13 @@ export async function client() {
 
   function openPath() {
     const relative=location.pathname.slice(root.length);
+    const city=/^\/city\/([a-z0-9-]+)$/.exec(relative);
+    if (!relative) ctx.city='Gent';
+    if (city) {
+      ctx.city=allCities().find(item=>citySlug(item.name)===city[1])?.name || 'Gent';
+      navigate('map',false);
+      return;
+    }
     const startup=/^\/startup\/([a-z0-9-]+)$/.exec(relative);
     const item=startup && allCompanies().find(company=>company.id===startup[1]);
     if (item) { profile(item,false); return; }
@@ -594,7 +605,7 @@ export async function client() {
     const node = event.target.closest('button');
     if (!node) return;
     if (node.dataset.page) navigate(node.dataset.page);
-    if (node.dataset.city) { ctx.city = node.dataset.city; cityRows(); }
+    if (node.dataset.city) { ctx.city = node.dataset.city; setPath('/city/'+citySlug(ctx.city)); cityRows(); }
     if (node.dataset.company) profile(allCompanies().find(item => item.id === node.dataset.company));
     try {
       if (node.dataset.follow) {
