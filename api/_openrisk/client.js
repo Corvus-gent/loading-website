@@ -49,10 +49,10 @@ export async function client() {
   const val = (text, s) => '<div class="value">' + esc(text) + '</div>' + source(s);
   const nav = () => {
     roleInput.value = ctx.role;
-    const tabs = [['map','Explore'], ...(ctx.role==='Investor' ? [['portfolio','Portfolio']] : ctx.role==='Founder' ? [['founder','Founder desk'],['funds','Investor fit']] : [['admin','Operations']])];
+    const tabs = [['map','Explore'], ...(ctx.role==='Investor' ? [['compare','Compare'],['portfolio','Portfolio']] : ctx.role==='Founder' ? [['founder','Founder desk'],['funds','Investor fit']] : [['admin','Operations']])];
     top.innerHTML = tabs.map(([page,label])=>button(label,'data-page="'+page+'"',ctx.page===page?'current':'')).join('');
   };
-  const viewRoutes = {map:'',portfolio:'/portfolio',founder:'/founder',funds:'/investors',admin:'/operations'};
+  const viewRoutes = {map:'',portfolio:'/portfolio',compare:'/compare',founder:'/founder',funds:'/investors',admin:'/operations'};
   const citySlug = name => name.normalize('NFKD').toLowerCase().replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
   function setPath(path) {
     const target=root+path;
@@ -65,6 +65,7 @@ export async function client() {
     nav();
     if (page === 'map') map();
     if (page === 'portfolio') portfolio();
+    if (page === 'compare') comparison();
     if (page === 'founder') founder();
     if (page === 'funds') funds();
     if (page === 'admin') admin();
@@ -516,7 +517,7 @@ export async function client() {
     const trend=r.trend==null?'No comparable prior snapshot':(r.trend>0?'↑ +':r.trend<0?'↓ ':'→ ')+r.trend+' since '+stamp(r.priorAt);
     const claimed = ctx.state.claims.includes(item.id);
     const followed = ctx.state.followed.includes(item.id);
-    const controls = (ctx.role==='Investor' ? button(followed?'Following':'Follow','data-follow="'+item.id+'"','accent') : '')
+    const controls = (ctx.role==='Investor' ? button('Compare','data-compare-company="'+esc(item.id)+'"','ghost')+button(followed?'Following':'Follow','data-follow="'+item.id+'"','accent') : '')
       + (ctx.role!=='Admin' ? button(claimed?'Open founder desk':'Claim this profile','data-claim="'+item.id+'"',ctx.role==='Founder'?'accent':'ghost') : '');
     const kpis=ctx.state.companies[item.id]?.values.length ? metricView(item.id) : '';
     const overview='<section class="dossier-overview" aria-label="Score overview"><div class="dossier-score"><h2>OpenRisk score</h2>'
@@ -542,9 +543,13 @@ export async function client() {
     const layout=dossierMode==='Dashboard'?overview+scan+jumps+'<div class="dashboard-columns">'+context+calculation+'</div>'+evidence+kpis
       : dossierMode==='Evidence'?calculation+evidence+kpis+context
       : overview+jumps+context+calculation+evidence+kpis;
+    const liveEstimate='<section class="dossier-chapter estimate-panel"><h2>Live evidence estimate</h2>'
+      +'<p class="muted">Check public sources and see how missing evidence changes the score range.</p>'
+      +button('Run live estimate','data-estimate="'+esc(item.id)+'"','accent')
+      +'<ol class="items" data-estimate-trace aria-live="polite"></ol><div data-estimate-result></div></section>';
     const modeClass='reading-dossier dossier-'+dossierMode.toLowerCase();
     if (logView) {
-      main.innerHTML='<article class="'+modeClass+'">'+profileHeader(item,controls)+dossierSwitcher()+'<div class="dossier-layout">'+layout+'</div></article>';
+      main.innerHTML='<article class="'+modeClass+'">'+profileHeader(item,controls)+dossierSwitcher()+(!r.grade?liveEstimate:'')+'<div class="dossier-layout">'+layout+'</div></article>';
     } else {
       main.querySelector('.reading-dossier').className=modeClass;
       const switcher=main.querySelector('.dossier-switcher');
@@ -556,6 +561,125 @@ export async function client() {
     }
     if (logView && ctx.role==='Investor' && claimed) void api('state',{action:'view',company:item.id}).catch(()=>{});
     if (logView) window.scrollTo(0,0);
+  }
+
+  function comparison() {
+    const companies=allCompanies().slice().sort((a,b)=>a.name.localeCompare(b.name));
+    const [left,right]=ctx.comparePair || ['', ''];
+    const picker=(label,selected,other,index)=>'<label>'+label+'<select data-compare-index="'+index+'"><option value="">Choose a startup</option>'
+      +companies.filter(item=>item.id!==other).map(item=>'<option value="'+esc(item.id)+'"'+(item.id===selected?' selected':'')+'>'
+        +esc(item.name+' · '+item.city)+'</option>').join('')+'</select></label>';
+    const pair=[left,right].map(id=>companies.find(item=>item.id===id));
+    const ready=pair.every(Boolean);
+    const observed=(item,key)=>item.risk.breakdown.find(row=>row.key===key);
+    const cell=(item,key)=>{
+      const row=observed(item,key);
+      return row?.signal ? scoreObservation(row,item.risk.asOf)+' · '+link(row.signal.source,'Source ↗') : 'No attributable evidence';
+    };
+    const rows=[
+      ['Grade and score',item=>riskBadge(item.risk)],
+      ['Evidence coverage',item=>esc(item.risk.coverage)+'%'],
+      ['Sector and city',item=>esc(item.sector+' · '+item.city)],
+      ['Operating history',item=>cell(item,'founded')],
+      ['Funding recency',item=>cell(item,'funding')],
+      ['Hiring',item=>cell(item,'jobs')],
+      ['Engineering',item=>cell(item,'github')],
+      ['Biggest contribution and gap',item=>scoreTakeaways(item.risk)],
+    ];
+    const table=ready ? '<div class="scroll"><table class="rules compare-table"><thead><tr><th scope="col">Metric</th>'
+      +pair.map(item=>'<th scope="col">'+logo(item)+' '+button(item.name,'data-company="'+esc(item.id)+'"','link')+'</th>').join('')
+      +'</tr></thead><tbody>'+rows.map(([label,value])=>'<tr><th scope="row">'+label+'</th>'
+        +pair.map(item=>'<td>'+value(item)+'</td>').join('')+'</tr>').join('')+'</tbody></table></div>' : '';
+    const shared=ready ? pair[0].risk.breakdown.filter(row=>row.signal && observed(pair[1],row.key)?.signal) : [];
+    const contrast=shared.filter(row=>row.points!==observed(pair[1],row.key).points);
+    const questions=ready ? panel('Investment trade-offs',
+      (contrast.length ? '<ul class="items">'+contrast.map(row=>{
+        const other=observed(pair[1],row.key);
+        const winner=pair[row.points>other.points?0:1];
+        return '<li><strong>'+esc(winner.name)+'</strong> leads on '+esc(row.title.toLowerCase())+' in the model ('+Math.max(row.points,other.points)+' vs '+Math.min(row.points,other.points)+' raw points).</li>';
+      }).join('')+'</ul>' : '<p>Shared public signals show no clear lead. Check both companies’ missing evidence before acting on the scores.</p>')
+      +'<p><strong>One company</strong> · Compare the value proposition, valuation, retention and runway before choosing.</p>'
+      +'<p><strong>Both companies</strong> · Check whether they serve different customers or markets. Direct competitors can double your exposure to the same market risk.</p>'
+      +button(pair.every(item=>ctx.state.followed.includes(item.id))?'Both followed':'Follow both','data-follow-pair'+(pair.every(item=>ctx.state.followed.includes(item.id))?' disabled':''),'accent')) : '';
+    main.innerHTML=title('Compare startups','Review two companies side by side using public evidence.')
+      +'<div class="stack"><section class="panel"><div class="compare-picker">'+picker('Startup 1',left,right,0)+picker('Startup 2',right,left,1)
+      +'</div>'+table+'</section>'+questions+'</div>';
+    for (const select of main.querySelectorAll('[data-compare-index]')) {
+      select.onchange=()=>{
+        const selected=[left,right];
+        selected[Number(select.dataset.compareIndex)]=select.value;
+        ctx.comparePair=selected;
+        comparison();
+        main.querySelector('[data-compare-index="'+select.dataset.compareIndex+'"]').focus({preventScroll:true});
+      };
+    }
+  }
+
+  async function readEvents(path, signal, receive) {
+    const response=await fetch(root+path,{signal});
+    if (response.status===401) { location.replace(root); return; }
+    if (!response.ok || !response.body) throw Error('Live sources are temporarily unavailable.');
+    const reader=response.body.pipeThrough(new TextDecoderStream()).getReader();
+    let buffer='';
+    try {
+      for (;;) {
+        const {value,done}=await reader.read();
+        if (done) break;
+        const lines=(buffer+value).split('\n');
+        buffer=lines.pop();
+        for (const line of lines) if (line) receive(JSON.parse(line));
+      }
+      if (buffer.trim()) receive(JSON.parse(buffer));
+    } finally { await reader.cancel().catch(()=>{}); }
+  }
+
+  async function showEstimate(node) {
+    const section=node.closest('.estimate-panel');
+    const trace=section.querySelector('[data-estimate-trace]');
+    const result=section.querySelector('[data-estimate-result]');
+    const controller=new AbortController();
+    ctx.cancel?.abort();
+    ctx.cancel=controller;
+    trace.replaceChildren();
+    result.replaceChildren();
+    node.disabled=true;
+    const steps=new Map();
+    function step(title,detail) {
+      if (!steps.has(title)) {
+        const line=document.createElement('li');
+        trace.append(line);
+        steps.set(title,line);
+      }
+      steps.get(title).innerHTML='<strong>'+esc(title)+'</strong> · '+detail;
+    }
+    step('Start','Checking confirmed public sources and existing observations…');
+    let complete=false;
+    try {
+      await readEvents('/api/estimate/'+encodeURIComponent(node.dataset.estimate),controller.signal,event=>{
+        if (event.key==='error') throw Error(event.detail);
+        if (event.key==='step') step(event.title,esc(event.detail)+(event.signal?source(event.signal):''));
+        if (event.key==='factor') {
+          const factor=event.factor;
+          const points=scoreNumber(factor.low)+(factor.points==null?'–'+scoreNumber(factor.high):'');
+          step(factor.title,factor.signal
+            ? scoreObservation(factor,event.asOf)+' · '+factor.points+'/100 × '+factor.weight+' model points = '+esc(points)+source(factor.signal)
+            : 'Missing · '+esc(event.missing)+' Adds '+esc(points)+' possible points to the range.');
+        }
+        if (event.key==='result') {
+          complete=true;
+          const missing=event.factors.filter(row=>row.points==null);
+          const sum=key=>event.factors.map(row=>scoreNumber(row[key])).join(' + ');
+          result.innerHTML='<h3>Estimated model range</h3><p class="value">'+event.low+'–'+event.high+'/100</p>'
+            +'<p>'+event.coverage+'% evidence coverage'+(event.midpoint!=null && missing.length?' · Illustrative midpoint '+event.midpoint+'/100':'')+'</p>'
+            +'<p class="source">Lower bound · '+sum('low')+' → '+event.low+'<br>Upper bound · '+sum('high')+' → '+event.high+'</p>'
+            +'<p>Bounds use the rubric’s lowest and highest values for missing inputs and round outward. The midpoint is the middle of these scenarios. These numbers describe the public-signal model only.</p>'
+            +(missing.length?'<p><strong>What would narrow it</strong> · '+esc(missing.map(row=>row.title).join(', '))+'. Public evidence gives a partial view of the business.</p>':'<p>All model inputs were observed. Valuation, runway and retention still matter for due diligence.</p>');
+        }
+      });
+      if (!complete && !controller.signal.aborted) throw Error('The estimate did not finish. Try again.');
+    } catch(error) {
+      if (!controller.signal.aborted) result.textContent=error.message;
+    } finally { node.disabled=false; }
   }
 
   async function live(name) {
@@ -588,22 +712,9 @@ export async function client() {
     draw();
     window.scrollTo(0,0);
     try {
-      const res = await fetch(root + '/api/cold?name=' + encodeURIComponent(name), { signal: controller.signal });
-      if (res.status === 401) return location.replace(root);
-      if (!res.ok) throw Error();
-      const reader = res.body.getReader(), decoder = new TextDecoder();
-      let buffer = '';
-      for (;;) {
-        const {value,done} = await reader.read();
-        buffer += decoder.decode(value, { stream: !done });
-        const rows = buffer.split('\n');
-        buffer = rows.pop();
-        for (const row of rows) {
-          const event = JSON.parse(row);
-          if (Object.hasOwn(keys,event.key) || event.key==='score') { state[event.key] = event; draw(); }
-        }
-        if (done) break;
-      }
+      await readEvents('/api/cold?name='+encodeURIComponent(name),controller.signal,event=>{
+        if (Object.hasOwn(keys,event.key) || event.key==='score') { state[event.key]=event; draw(); }
+      });
     } catch {
       if (!controller.signal.aborted) toast('Live sources are temporarily unavailable.');
     } finally {
@@ -982,7 +1093,7 @@ export async function client() {
     const item=startup && allCompanies().find(company=>company.id===startup[1]);
     if (item) { profile(item,false); return; }
     const page=Object.keys(viewRoutes).find(key=>viewRoutes[key]===relative);
-    const allowed={Investor:['map','portfolio'],Founder:['map','founder','funds'],Admin:['map','admin']};
+    const allowed={Investor:['map','portfolio','compare'],Founder:['map','founder','funds'],Admin:['map','admin']};
     navigate(allowed[ctx.role]?.includes(page)?page:'map',false);
   }
   addEventListener('popstate',openPath);
@@ -1011,8 +1122,25 @@ export async function client() {
       try { localStorage.setItem('openrisk:dossier-mode',dossierMode); } catch {}
       profile(allCompanies().find(item=>item.id===ctx.current),false,false);
     }
+    if (node.dataset.compareCompany) {
+      const previous=ctx.comparePair || [];
+      const id=node.dataset.compareCompany;
+      ctx.comparePair=[id,previous.find(other=>other!==id) || ''];
+      navigate('compare');
+    }
+    if (node.dataset.estimate) void showEstimate(node);
     if (node.dataset.company) profile(allCompanies().find(item => item.id === node.dataset.company));
     try {
+      if (node.hasAttribute('data-follow-pair')) {
+        node.disabled=true;
+        try {
+          for (const id of ctx.comparePair) {
+            if (!ctx.state.followed.includes(id)) await mutate({action:'follow',company:id,enabled:true});
+          }
+          if (ctx.page==='compare') comparison();
+          toast('Both startups are in your portfolio watchlist.');
+        } finally { node.disabled=false; }
+      }
       if (node.dataset.follow) {
         const item = allCompanies().find(item=>item.id===node.dataset.follow);
         const enabled = !ctx.state.followed.includes(item.id);

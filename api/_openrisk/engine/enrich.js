@@ -13,6 +13,13 @@ async function json(url, deadline = 4200) {
 }
 
 const boardProviders = {
+  'trustup-careers': {
+    api:()=> 'https://jobs.trustup.be/api/offers',
+    source:()=> 'https://jobs.trustup.be/',
+    postings:doc=>doc.offers,
+    title:job=>job.title,
+    department:job=>job.department,
+  },
   greenhouse: {
     api:slug=>'https://boards-api.greenhouse.io/v1/boards/'+slug+'/jobs',
     source:slug=>'https://job-boards.greenhouse.io/'+slug,
@@ -51,7 +58,7 @@ export async function hiring(board) {
   const data = await json(config.api(slug));
   const jobs = config.postings(data);
   if (!Array.isArray(jobs)) return null;
-  const publicJobs = jobs.filter(job=>config.title(job) && !/talent (pool|community|network)|general (application|opportunity)/i.test(config.title(job)));
+  const publicJobs = jobs.filter(job=>config.title(job) && !/talent (pool|community|network)|general (application|opportunity)|candidature spontanée|open application/i.test(config.title(job)));
   const roles = publicJobs.slice(0,6).map(job=>String(config.title(job)).slice(0,120));
   const departments = Array.from(new Set(publicJobs.map(config.department).filter(value=>typeof value==='string' && value))).slice(0,8);
   return signal({ count:publicJobs.length, roles, departments, provider }, config.source(slug));

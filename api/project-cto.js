@@ -8,6 +8,7 @@ import { client } from './_openrisk/client.js';
 import { metrics, samples } from './_openrisk/engine/metrics.js';
 import { getState, update, apply, project, invitation, runJob, existingStartup, websiteHost, Problem } from './_openrisk/store.js';
 import { signal } from './_openrisk/engine/enrich.js';
+import { runEstimate } from './_openrisk/engine/live-estimate.js';
 import { score } from './_openrisk/engine/score.js';
 import { funds } from './_openrisk/engine/funds.js';
 import { subscribeResearch } from './_openrisk/engine/research.js';
@@ -28,7 +29,7 @@ const equal = (a, b) => {
 };
 const sign = (payload, key) => createHmac('sha256', key).update(payload).digest('base64url');
 const validRoles = ['Investor', 'Founder', 'Admin'];
-const pageRoute = /^(?:portfolio|founder|investors|operations|country\/(?:belgium|england|netherlands|germany|france|united-states)|city\/[a-z0-9-]{1,100}|startup\/[a-z0-9-]{1,100}|invite\/[0-9a-f]{32}\/[A-Za-z0-9_-]{32})$/;
+const pageRoute = /^(?:portfolio|compare|founder|investors|operations|country\/(?:belgium|england|netherlands|germany|france|united-states)|city\/[a-z0-9-]{1,100}|startup\/[a-z0-9-]{1,100}|invite\/[0-9a-f]{32}\/[A-Za-z0-9_-]{32})$/;
 const acceptedDestination = value => typeof value === 'string' && value.startsWith(root+'/') && pageRoute.test(value.slice(root.length+1)) ? value : '';
 const documentScripts = {
   'document/pdf.mjs':'node_modules/pdfjs-dist/legacy/build/pdf.min.mjs',
@@ -195,6 +196,26 @@ export default async function handle(req, res) {
       if (!storeError) console.error('OpenRisk workspace operation failed',error?.code || error?.name);
       return send(res,storeError ? error.status : 503,{error:storeError ? error.message : 'Workspace storage is temporarily unavailable.'});
     }
+  }
+  if (req.method==='GET' && route.startsWith('api/estimate/')) {
+    const id=route.slice('api/estimate/'.length);
+    let item=catalog.find(company=>company.id===id);
+    if (!item) {
+      try {
+        const state=await getState(auth.id);
+        item=state.requests.find(row=>row.company?.id===id)?.company
+          || state.jobs.flatMap(job=>job.details || []).find(company=>company.id===id);
+      } catch { return send(res,503,{error:'Workspace storage is temporarily unavailable.'}); }
+    }
+    if (!item) return send(res,404,{error:'Startup not found.'});
+    res.statusCode=200;
+    res.setHeader('Content-Type','application/x-ndjson; charset=utf-8');
+    res.setHeader('X-Accel-Buffering','no');
+    const emit=event=>{ if (!res.destroyed) res.write(JSON.stringify(event)+'\n'); };
+    try { await runEstimate(item,emit); }
+    catch { emit({key:'error',detail:'The estimate could not be completed. Try again.'}); }
+    finally { res.end(); }
+    return;
   }
   if (req.method === 'GET' && route === 'api/cold') {
     const url = new URL(req.url, 'http://openrisk.local');
