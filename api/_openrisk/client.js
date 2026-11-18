@@ -71,8 +71,8 @@ export async function client() {
     if (!['profile','cold'].includes(page)) window.scrollTo(0,0);
   }
 
-  function companions(company, mode = 'row') {
-    return '<button type="button" class="' + mode + '" data-company="' + esc(company.id) + '">' + logo(company) + '<span><strong>' + esc(company.name) + '</strong><small>' + esc(company.city) + ' · ' + esc(company.sector) + (company.signals?.stage ? ' · '+esc(company.signals.stage.value) : '') + '</small></span>' + riskBadge(company.risk) + '</button>';
+  function companions(company, mode = 'row', distance = '') {
+    return '<button type="button" class="' + mode + '" data-company="' + esc(company.id) + '">' + logo(company) + '<span><strong>' + esc(company.name) + '</strong><small>' + esc(company.city) + (distance ? ' · ' + esc(distance) : '') + ' · ' + esc(company.sector) + (company.signals?.stage ? ' · '+esc(company.signals.stage.value) : '') + '</small></span>' + riskBadge(company.risk) + '</button>';
   }
 
   function pin(city, px, py) {
@@ -101,7 +101,7 @@ export async function client() {
       button(country,'data-map-country="'+country+'" aria-pressed="'+(ctx.countryList===country)+'"')).join('')+'</div>';
     const bay=ctx.cities.filter(city=>city.country==='United States');
     main.innerHTML = '<section class="hero"><span class="eyebrow">Startup intelligence</span><h1>Explore startup risk.</h1><p>Explore startups by city or build a risk dossier from public signals.</p><form id="search-form" class="search-wrap" role="search"><label for="company-search" hidden>Search for a startup</label><span class="search-symbol" aria-hidden="true">⌕</span><input id="company-search" placeholder="Search any startup…" maxlength="80" autocomplete="off" aria-controls="search-results" aria-expanded="false"><span class="keycap" aria-hidden="true">/</span><div id="search-results" class="results" hidden></div></form><div class="quick">Quick look ' + ['aikido-security','deliverect','stripe','odoo'].map(id => button(ctx.catalog.find(item => item.id === id).name, 'data-company="' + id + '"')).join('') + '</div></section>'
-      + '<div class="layout"><section class="panel atlas"><div class="panel-head"><h2>Ecosystem map</h2>' + '<div class="actions">' + badge(allCompanies().length + ' profiles · ' + allCities().length + ' cities') + button('Suggest startup','data-open-dialog="startup"') + button('+ Add city','data-open-dialog="city"') + '</div></div><div class="map-stage"><svg viewBox="0 0 900 360" preserveAspectRatio="none" aria-label="World map"><defs><pattern id="grid" width="37.5" height="37.5" patternUnits="userSpaceOnUse"><path d="M 37.5 0 L 0 0 0 37.5" fill="none" stroke="#253751" stroke-width=".7"/></pattern></defs><rect width="900" height="360" fill="url(#grid)"/><path d="' + esc(ctx.land) + '" fill="#243855" stroke="#507096" stroke-width=".65"/></svg><button class="cluster" aria-label="European startup hubs" data-city="Brussels" style="left:51.1%;top:22.2%">' + (belgium.length+neighbors.length) + '</button><button class="cluster" aria-label="Bay Area startup hubs" data-city="San Francisco" style="left:16%;top:31.4%">2</button>' + extraPins() + '<span class="map-caption">NATURAL EARTH · GLOBAL VIEW</span></div><div class="market-grid">' + inset('belgium','Belgium',belgium) + '<div>'+countries+inset('europe',region,neighbors.filter(city=>city.country===region))+'</div>' + inset('bay','Bay Area',bay) + '</div></section><section class="panel"><div class="panel-head"><h2 id="city-title"></h2><select id="city-sort" aria-label="Sort startups"><option value="risk">By score</option><option value="name">By name</option></select></div>' + (ctx.countryList?'<p class="source">Selected profiles and approved suggestions across several hubs</p>':'') + '<div id="city-rows" class="rows"></div></section></div>';
+      + '<div class="layout"><section class="panel atlas"><div class="panel-head"><h2>Ecosystem map</h2>' + '<div class="actions">' + badge(allCompanies().length + ' profiles · ' + allCities().length + ' cities') + button('Suggest startup','data-open-dialog="startup"') + button('+ Add city','data-open-dialog="city"') + '</div></div><div class="map-stage"><svg viewBox="0 0 900 360" preserveAspectRatio="none" aria-label="World map"><defs><pattern id="grid" width="37.5" height="37.5" patternUnits="userSpaceOnUse"><path d="M 37.5 0 L 0 0 0 37.5" fill="none" stroke="#253751" stroke-width=".7"/></pattern></defs><rect width="900" height="360" fill="url(#grid)"/><path d="' + esc(ctx.land) + '" fill="#243855" stroke="#507096" stroke-width=".65"/></svg><button class="cluster" aria-label="European startup hubs" data-city="Brussels" style="left:51.1%;top:22.2%">' + (belgium.length+neighbors.length) + '</button><button class="cluster" aria-label="Bay Area startup hubs" data-city="San Francisco" style="left:16%;top:31.4%">2</button>' + extraPins() + '<span class="map-caption">NATURAL EARTH · GLOBAL VIEW</span></div><div class="market-grid">' + inset('belgium','Belgium',belgium) + '<div>'+countries+inset('europe',region,neighbors.filter(city=>city.country===region))+'</div>' + inset('bay','Bay Area',bay) + '</div></section><section class="panel"><div class="panel-head"><h2 id="city-title"></h2><select id="city-sort" aria-label="Sort startups"><option value="risk">By score</option><option value="name">By name</option><option value="nearby">Nearest first</option></select></div>' + nearbyForm() + (ctx.countryList?'<p id="country-scope" class="source">Selected profiles and approved suggestions across several hubs</p>':'') + '<div id="city-rows" class="rows"></div></section></div>';
     main.querySelector('.map-stage svg').classList.add('earth');
     const input = document.querySelector('#company-search');
     const results = document.querySelector('#search-results');
@@ -136,11 +136,88 @@ export async function client() {
       if (input.value.trim()) results.children[active]?.click();
     };
     document.querySelector('#city-sort').value = ctx.sort;
-    document.querySelector('#city-sort').onchange = event => { ctx.sort = event.target.value; cityRows(); };
+    document.querySelector('#city-sort').onchange = event => {
+      ctx.sort = event.target.value;
+      cityRows();
+      if (ctx.sort==='nearby' && !ctx.origin) main.querySelector('#nearby-query').focus();
+    };
+    bindNearbyForm();
     cityRows();
   }
 
+  function nearbyForm() {
+    return '<form id="nearby-form" class="stack" hidden><label for="nearby-query">City or postal code</label>'
+      + '<input id="nearby-query" name="query" maxlength="80" placeholder="e.g. Brussels or 1000" value="'+esc(ctx.originQuery)+'">'
+      + '<label for="nearby-country">Country (optional)</label><select id="nearby-country" name="country">'
+      + [['','Auto'],['BE','Belgium'],['NL','Netherlands'],['FR','France'],['DE','Germany'],['GB','United Kingdom'],['US','United States']]
+        .map(([code,label])=>'<option value="'+code+'"'+(ctx.originCountry===code?' selected':'')+'>'+label+'</option>').join('')
+      + '</select><div class="actions"><button type="submit">Find nearby</button><button type="button" id="nearby-gps">Use my location once</button></div>'
+      + '<p class="source" id="nearby-status" role="status"></p>'
+      + '<p class="source">Device location stays in this tab. Address lookup uses '+link('https://www.openstreetmap.org/copyright','OpenStreetMap data')+'.</p></form>';
+  }
+
+  function bindNearbyForm() {
+    const form=main.querySelector('#nearby-form'), status=form.querySelector('#nearby-status');
+    const gps=form.querySelector('#nearby-gps'), submit=form.querySelector('[type="submit"]');
+    const locateFrom = async (task, pending, query='', country='') => {
+      status.textContent=pending;
+      gps.disabled=submit.disabled=true;
+      try {
+        const origin=await task();
+        if (!form.isConnected || ctx.sort!=='nearby') return;
+        ctx.origin=origin;
+        ctx.originQuery=query;
+        ctx.originCountry=country;
+        cityRows();
+      } catch (error) {
+        status.textContent=error.message;
+      } finally {
+        gps.disabled=submit.disabled=false;
+      }
+    };
+    form.onsubmit=event=>{
+      event.preventDefault();
+      const {query,country}=Object.fromEntries(new FormData(form));
+      if (!query.trim()) { status.textContent='Enter a city or postal code.'; return; }
+      void locateFrom(()=>api('location',{query,country}),'Finding that location…',query,country);
+    };
+    gps.onclick=()=>{
+      if (!navigator.geolocation) { status.textContent='Location is unavailable. Enter a city or postal code.'; return; }
+      void locateFrom(()=>new Promise((resolve,reject)=>{
+        navigator.geolocation.getCurrentPosition(({coords})=>resolve({label:'your location',lat:coords.latitude,lon:coords.longitude}),
+          error=>reject(new Error(error.code===1?'Location access was declined. Enter a city or postal code.':'Could not get your location. Enter a city or postal code.')),
+          {enableHighAccuracy:false,timeout:8000,maximumAge:0});
+      }),'Waiting for your location…');
+    };
+  }
+
+  function distanceKm(origin, place) {
+    const radians=Math.PI/180;
+    const lat=(place.lat-origin.lat)*radians, lon=(place.lon-origin.lon)*radians;
+    const h=Math.sin(lat/2)**2 + Math.cos(origin.lat*radians)*Math.cos(place.lat*radians)*Math.sin(lon/2)**2;
+    return 12742*Math.asin(Math.sqrt(Math.min(1,h)));
+  }
+
   function cityRows() {
+    const nearby=ctx.sort==='nearby';
+    main.querySelector('#nearby-form').hidden=!nearby;
+    main.querySelector('#nearby-status').textContent=nearby && ctx.origin
+      ? 'From '+ctx.origin.label+' · Straight-line distance to each startup’s city' : '';
+    const scope=main.querySelector('#country-scope');
+    if (scope) scope.hidden=nearby;
+    if (nearby) {
+      main.querySelector('#city-title').textContent='Nearby startups';
+      const places=new Map(allCities().map(place=>[place.name,place]));
+      const closest=ctx.origin ? allCompanies().filter(item=>places.has(item.city))
+        .map(item=>({item,km:distanceKm(ctx.origin,places.get(item.city))}))
+        .sort((a,b)=>a.km-b.km || a.item.name.localeCompare(b.item.name)) : [];
+      const format=new Intl.NumberFormat('en',{maximumFractionDigits:1});
+      main.querySelector('#city-rows').innerHTML=closest.length ? closest.map(({item,km})=>
+        companions(item,'row',format.format(km)+' km')).join('')
+        : empty(ctx.origin?'No startups have a mapped city.':'Choose a starting location to sort the map.');
+      main.querySelectorAll('.pin,.inset-city').forEach(node=>node.setAttribute('aria-pressed','false'));
+      return;
+    }
     const countryCities = new Set(allCities().filter(city=>city.country===ctx.countryList).map(city=>city.name));
     const items = (ctx.countryList ? [...ctx.catalog,...ctx.state.approved] : allCompanies()).filter(item => ctx.countryList ? countryCities.has(item.city) : item.city === ctx.city).sort((a,b) =>
       (ctx.sort === 'risk' ? (b.risk?.value ?? -1) - (a.risk?.value ?? -1) : 0) || a.name.localeCompare(b.name));
@@ -709,6 +786,7 @@ export async function client() {
       } else {
         await runJob(submit,{action:'add-city',name:fields.get('name')},result=>{
           ctx.countryList=null;
+          if (ctx.sort==='nearby') ctx.sort='risk';
           ctx.city=result.city;
           document.querySelector('#openrisk-dialog').close();
           navigate('map');
@@ -752,13 +830,15 @@ export async function client() {
     if (!node) return;
     if (node.dataset.page) navigate(node.dataset.page);
     if (mapCountries.includes(node.dataset.mapCountry)) {
+      if (ctx.sort==='nearby') ctx.sort='risk';
       ctx.countryList=node.dataset.mapCountry;
       setPath('/country/'+citySlug(ctx.countryList));
       map();
       main.querySelector('[data-map-country="'+ctx.countryList+'"]').focus({preventScroll:true});
     }
     if (node.dataset.city) {
-      const selected=ctx.countryList;
+      const selected=ctx.countryList || ctx.sort==='nearby';
+      if (ctx.sort==='nearby') ctx.sort='risk';
       ctx.countryList=null;
       ctx.city=node.dataset.city;
       setPath('/city/'+citySlug(ctx.city));

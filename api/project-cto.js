@@ -12,6 +12,7 @@ import { score } from './_openrisk/engine/score.js';
 import { funds } from './_openrisk/engine/funds.js';
 import { subscribeResearch } from './_openrisk/engine/research.js';
 import { directoryCity, wikidataCity } from './_openrisk/engine/directories.js';
+import { findOrigin } from './_openrisk/engine/location.js';
 import { locate } from './_openrisk/engine/cities.js';
 import preloadReport from './_openrisk/engine/preload-report.js';
 import insets from './_openrisk/insets.js';
@@ -160,6 +161,22 @@ export default async function handle(req, res) {
     if (!target) return send(res,404,{error:'Invitation not found.'});
     try { return send(res,200,{...await invitation(target[1],target[2]),metrics}); }
     catch (error) { return send(res,error instanceof Problem ? error.status : 503,{error:error instanceof Problem ? error.message : 'Invitations are temporarily unavailable.'}); }
+  }
+  if (route === 'api/location' && req.method === 'POST') {
+    if (!sameOrigin(req) || !String(req.headers['content-type']).startsWith('application/json')) return send(res,403,{error:'Use the OpenRisk workspace.'});
+    let body;
+    try { body=await readBody(req); } catch { return send(res,400,{error:'Invalid location request.'}); }
+    const query=typeof body?.query==='string' ? body.query.trim() : '';
+    const country=body?.country || '';
+    if (!/^[\p{L}\p{N}][\p{L}\p{N} ,.'’()-]{0,79}$/u.test(query) || !['','BE','NL','FR','DE','GB','US'].includes(country)) {
+      return send(res,400,{error:'Enter a city or postal code.'});
+    }
+    try {
+      const origin=await findOrigin(query,country);
+      return origin ? send(res,200,origin) : send(res,404,{error:'Location not found. Try the city name or choose a country.'});
+    } catch {
+      return send(res,503,{error:'Location lookup is temporarily unavailable. Try a major city or use your location.'});
+    }
   }
   if (route === 'api/state') {
     try {
