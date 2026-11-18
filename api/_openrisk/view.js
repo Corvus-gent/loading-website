@@ -25,7 +25,7 @@ const css = `
 .world-detail,.map-closeup .cluster{display:none}
 .map-closeup .world-detail{display:block}
 
-.compare-picker{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:12px}.compare-picker select{display:block;width:100%;margin-top:6px}.compare-table td,.compare-table th{vertical-align:top}.compare-table th .logo{display:inline-flex;vertical-align:middle}
+.compare-picker{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:12px}.compare-slot{margin:0;min-width:0;padding:12px;border:1px solid var(--line);border-radius:10px}.compare-slot legend{padding:0 5px;color:var(--soft);font-weight:650}.compare-location{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:9px}.compare-slot select,.compare-slot input{display:block;width:100%;min-width:0;margin-top:4px}.compare-search{position:relative}.compare-selected{display:flex;align-items:center;gap:8px;margin-bottom:9px}.compare-selected small{color:var(--mute)}@media(max-width:650px){.compare-picker{grid-template-columns:1fr}}.compare-table td,.compare-table th{vertical-align:top}.compare-table th .logo{display:inline-flex;vertical-align:middle}
 .estimate-timeline{list-style:none;margin:22px 0;padding:0}
 .estimate-timeline:empty,.estimate-result:empty{display:none}
 .estimate-timeline li{position:relative;padding:0 0 17px 23px}

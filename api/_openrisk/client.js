@@ -606,9 +606,6 @@ export async function client() {
   function comparison() {
     const companies=allCompanies().slice().sort((a,b)=>a.name.localeCompare(b.name));
     const [left,right]=ctx.comparePair || ['', ''];
-    const picker=(label,selected,other,index)=>'<label>'+label+'<select data-compare-index="'+index+'"><option value="">Choose a startup</option>'
-      +companies.filter(item=>item.id!==other).map(item=>'<option value="'+esc(item.id)+'"'+(item.id===selected?' selected':'')+'>'
-        +esc(item.name+' · '+item.city)+'</option>').join('')+'</select></label>';
     const pair=[left,right].map(id=>companies.find(item=>item.id===id));
     const ready=pair.every(Boolean);
     const observed=(item,key)=>item.risk.breakdown.find(row=>row.key===key);
@@ -642,17 +639,112 @@ export async function client() {
       +'<p><strong>Both companies</strong> · Check whether they serve different customers or markets. Direct competitors can double your exposure to the same market risk.</p>'
       +button(pair.every(item=>ctx.state.followed.includes(item.id))?'Both followed':'Follow both','data-follow-pair'+(pair.every(item=>ctx.state.followed.includes(item.id))?' disabled':''),'accent')) : '';
     main.innerHTML=title('Compare startups','Review two companies side by side using public evidence.')
-      +'<div class="stack"><section class="panel"><div class="compare-picker">'+picker('Startup 1',left,right,0)+picker('Startup 2',right,left,1)
+      +'<div class="stack"><section class="panel"><div class="compare-picker">'+pair.map(comparePicker).join('')
       +'</div>'+table+'</section>'+questions+'</div>';
-    for (const select of main.querySelectorAll('[data-compare-index]')) {
-      select.onchange=()=>{
-        const selected=[left,right];
-        selected[Number(select.dataset.compareIndex)]=select.value;
-        ctx.comparePair=selected;
-        comparison();
-        main.querySelector('[data-compare-index="'+select.dataset.compareIndex+'"]').focus({preventScroll:true});
-      };
+    main.querySelectorAll('[data-compare-slot]').forEach((slot,index)=>
+      bindComparePicker(slot,index,companies.filter(item=>item.id!==pair[1-index]?.id)));
+  }
+
+  function comparePicker(selected,index) {
+    const id='compare-startup-'+index;
+    return '<fieldset class="compare-slot" data-compare-slot><legend>Startup '+(index+1)+'</legend>'
+      +(selected?'<div class="compare-selected">'+logo(selected)+'<strong tabindex="-1">'+esc(selected.name)+'</strong><small>'+esc(selected.city)+'</small>'+button('Clear','data-clear-match','link')+'</div>':'')
+      +'<div class="compare-location"><label>Country<select data-country aria-label="Country"></select></label><label>City<select data-city-filter aria-label="City"></select></label></div>'
+      +'<label for="'+id+'">'+(selected?'Replace startup':'Search by name')+'</label><div class="compare-search">'
+      +'<input id="'+id+'" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="'+id+'-matches" autocomplete="off" maxlength="100" placeholder="Type a startup name">'
+      +'<div class="results" id="'+id+'-matches" role="listbox" aria-label="Matching startups" hidden></div></div></fieldset>';
+  }
+
+  function bindComparePicker(slot,index,companies) {
+    ctx.compareFilters ??= [{},{}];
+    const filter=ctx.compareFilters[index];
+    const country=slot.querySelector('[data-country]'), city=slot.querySelector('[data-city-filter]');
+    const input=slot.querySelector('input'), results=slot.querySelector('.results');
+    const locationByCity=new Map(allCities().map(place=>[place.name,place.country]));
+    const countryOf=item=>locationByCity.get(item.city);
+    const choices=(select,label,values,selected)=>{
+      const options=[...new Set(values.filter(Boolean))].sort((a,b)=>a.localeCompare(b));
+      select.replaceChildren(new Option(label,''),...options.map(value=>new Option(value,value)));
+      select.value=options.includes(selected)?selected:'';
+    };
+    choices(country,'All countries',companies.map(countryOf),filter.country);
+    const updateCities=()=>{
+      choices(city,'All cities',companies.filter(item=>!country.value || countryOf(item)===country.value).map(item=>item.city),filter.city);
+    };
+    updateCities();
+    let matches=[],active=-1;
+    const normalize=value=>value.normalize('NFKD').replace(/\p{M}/gu,'').toLowerCase();
+    const close=()=>{
+      results.hidden=true;
+      input.setAttribute('aria-expanded','false');
+      input.removeAttribute('aria-activedescendant');
+    };
+    function show() {
+      const query=normalize(input.value.trim());
+      if (!query && !country.value && !city.value) { close(); return; }
+      matches=companies.filter(item=>(!country.value || countryOf(item)===country.value)
+        && (!city.value || item.city===city.value) && normalize(item.name).includes(query))
+        .sort((a,b)=>Number(normalize(b.name).startsWith(query))-Number(normalize(a.name).startsWith(query))).slice(0,12);
+      active=-1;
+      input.removeAttribute('aria-activedescendant');
+      results.innerHTML=matches.length ? matches.map((item,i)=>'<button type="button" role="option" tabindex="-1" aria-selected="false" id="'+input.id+'-option-'+i+'" data-match="'+i+'">'
+        +logo(item)+'<span><strong>'+esc(item.name)+'</strong><small>'+esc([item.city,countryOf(item)].filter(Boolean).join(' · '))+'</small></span></button>').join('')
+        : '<p class="empty" role="status">No matching startups.</p>';
+      results.hidden=false;
+      input.setAttribute('aria-expanded','true');
     }
+    function select(id) {
+      const selected=[...(ctx.comparePair || ['',''])];
+      selected[index]=id;
+      ctx.comparePair=selected;
+      comparison();
+      const current=main.querySelector('#compare-startup-'+index);
+      const focus=!id ? current : selected[1-index]
+        ? current.closest('[data-compare-slot]').querySelector('.compare-selected strong')
+        : main.querySelector('#compare-startup-'+(1-index));
+      focus.focus({preventScroll:true});
+    }
+    slot.querySelector('[data-clear-match]')?.addEventListener('click',()=>select(''));
+    country.onchange=()=>{
+      filter.country=country.value;
+      filter.city='';
+      updateCities();
+      city.focus();
+    };
+    city.onchange=()=>{
+      filter.city=city.value;
+      input.focus();
+      show();
+    };
+    input.oninput=show;
+    input.onfocus=show;
+    input.onblur=close;
+    input.onkeydown=event=>{
+      if (event.key==='Escape') { close(); return; }
+      if (event.key==='Enter' && !results.hidden && matches.length) {
+        event.preventDefault();
+        select(matches[Math.max(active,0)].id);
+      }
+      if (['ArrowDown','ArrowUp'].includes(event.key)) {
+        if (results.hidden) show();
+        if (results.hidden || !matches.length) return;
+        event.preventDefault();
+        active=active<0 ? (event.key==='ArrowDown'?0:matches.length-1)
+          : (active+(event.key==='ArrowDown'?1:-1)+matches.length)%matches.length;
+        for (const [i,option] of [...results.children].entries()) {
+          option.classList.toggle('active',i===active);
+          option.setAttribute('aria-selected',String(i===active));
+        }
+        const option=results.children[active];
+        option.scrollIntoView({block:'nearest'});
+        input.setAttribute('aria-activedescendant',option.id);
+      }
+    };
+    results.onmousedown=event=>event.preventDefault();
+    results.onclick=event=>{
+      const option=event.target.closest('[data-match]');
+      if (option) select(matches[Number(option.dataset.match)].id);
+    };
   }
 
   async function readEvents(path, signal, receive) {
