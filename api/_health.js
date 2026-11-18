@@ -107,7 +107,7 @@ export function checks({
       if (pong !== 'PONG' || value !== id) throw new CheckError('read/write mismatch');
     },
     posthog: async () => {
-      if (Number((await query('SELECT 1', AbortSignal.timeout(2900)))?.[0]?.[0]) !== 1)
+      if (Number((await query('SELECT 1', AbortSignal.timeout(7900)))?.[0]?.[0]) !== 1)
         throw new CheckError('unexpected query result');
     },
     resend: optional(env.RESEND_HEALTH_KEY || env.RESEND_API_KEY, async () => {
@@ -164,7 +164,9 @@ export async function inspect(list, now = Date.now) {
         if (!run) return [name, { ok: null, ms: 0, skipped: true }];
         const start = now();
         try {
-          await bounded(Promise.resolve().then(run), 3000);
+          // HogQL includes query scheduling as well as HTTP latency. A healthy
+          // query taking >3s is slow, not evidence that PostHog is unavailable.
+          await bounded(Promise.resolve().then(run), name === 'posthog' ? 8000 : 3000);
           return [name, { ok: true, ms: now() - start }];
         } catch (e) {
           return [
