@@ -8,8 +8,8 @@ export const cities = [
 ];
 
 const rows = [
-  ['Aikido Security', 'Gent', 'Cybersecurity', 'aikido.dev', 'Developer-first application and cloud security.', 2022, 'AikidoSec'],
-  ['Deliverect', 'Gent', 'Restaurant technology', 'deliverect.com', 'Connects digital food orders with restaurant operations.', 2018],
+  ['Aikido Security', 'Gent', 'Cybersecurity', 'aikido.dev', 'Developer-first application and cloud security.', 2022, 'AikidoSec', 'recruitee:aikidosecurity'],
+  ['Deliverect', 'Gent', 'Restaurant technology', 'deliverect.com', 'Connects digital food orders with restaurant operations.', 2018, undefined, 'lever:deliverect'],
   ['Showpad', 'Gent', 'Sales enablement', 'showpad.com', 'Content, coaching and analytics for revenue teams.', 2011],
   ['Teamleader', 'Gent', 'Business software', 'teamleader.eu', 'CRM, projects and invoicing for service businesses.', 2012, 'teamleadercrm'],
   ['Lighthouse', 'Gent', 'Hospitality data', 'mylighthouse.com', 'Market intelligence and commercial tools for hotels. Gent is an ecosystem tie.'],
@@ -19,7 +19,7 @@ const rows = [
   ['Introw', 'Gent', 'Partner software', 'introw.io', 'Partner relationship management for B2B companies.'],
   ['OTIV', 'Gent', 'Industrial AI', 'otiv.ai', 'Assisted and autonomous operations for rail vehicles.'],
   ['Collibra', 'Brussels', 'Data governance', 'collibra.com', 'Data catalog, governance and intelligence for enterprises.', 2008, 'collibra'],
-  ['Odoo', 'Brussels', 'Business software', 'odoo.com', 'Open-source suite of business applications. Brussels is the regional cluster for Brabant Wallon.', 2005, 'odoo'],
+  ['Odoo', 'Brussels', 'Business software', 'odoo.com', 'Open-source business applications. Brussels is an office location. Registered office is in Grand-Rosière.', undefined, 'odoo'],
   ['Qover', 'Brussels', 'Insurtech', 'qover.com', 'Embedded insurance infrastructure for digital businesses.'],
   ['Cowboy', 'Brussels', 'Mobility', 'cowboy.com', 'Connected urban electric bikes.'],
   ['Nodalview', 'Brussels', 'Proptech', 'nodalview.com', 'Visual marketing software for real-estate teams.'],
@@ -39,15 +39,24 @@ const rows = [
   ['Figma', 'San Francisco', 'Design software', 'figma.com', 'Collaborative design and product development.', 2012, 'figma', 'figma'],
   ['Notion', 'San Francisco', 'Productivity', 'notion.com', 'Connected workspace for notes, docs and collaboration.', 2013, 'makenotion', 'notion'],
   ['Vercel', 'San Francisco', 'Developer tools', 'vercel.com', 'Cloud infrastructure for web applications.', 2015, 'vercel', 'vercel'],
-  ['Linear', 'San Francisco', 'Productivity', 'linear.app', 'Issue tracking and planning for product teams.', 2019, 'linear', 'linear'],
+  ['Linear', 'San Francisco', 'Productivity', 'linear.app', 'Issue tracking and planning for product teams.', 2019, 'linear', 'ashby:linear'],
   ['Mercury', 'San Francisco', 'Fintech', 'mercury.com', 'Banking and financial workflow products for businesses.'],
   ['Supabase', 'San Francisco', 'Developer tools', 'supabase.com', 'Open-source Postgres-based backend platform.', 2020, 'supabase', 'supabase'],
-  ['Glean', 'Palo Alto', 'Enterprise AI', 'glean.com', 'Enterprise search and work AI.', 2019, 'gleanwork', 'glean'],
+  ['Glean', 'San Francisco', 'Enterprise AI', 'glean.com', 'Enterprise search and work AI.', 2019, 'gleanwork', 'glean'],
   ['Obsidian Security', 'Palo Alto', 'Cybersecurity', 'obsidiansecurity.com', 'Security for SaaS and enterprise applications.'],
   ['Denodo', 'Palo Alto', 'Data infrastructure', 'denodo.com', 'Data management and data virtualization.'],
   ['Matroid', 'Palo Alto', 'Computer vision', 'matroid.com', 'Computer vision tools for detecting events in video.'],
   ['PsiQuantum', 'Palo Alto', 'Quantum computing', 'psiquantum.com', 'Photonic quantum computing hardware.'],
-  ['Mistral AI', 'Paris', 'Artificial intelligence', 'mistral.ai', 'Open-weight and commercial AI models.', 2023, 'mistralai', 'mistral'],
+  ['Retool', 'San Francisco', 'Developer tools', 'retool.com', 'Application development tools for internal teams.', 2017, 'tryretool', 'retool'],
+  ['Vanta', 'San Francisco', 'Cybersecurity', 'vanta.com', 'Trust management and compliance automation.', 2018, undefined, 'ashby:vanta'],
+  ['Webflow', 'San Francisco', 'Web development', 'webflow.com', 'Visual website development and hosting.', 2013, 'webflow', 'webflow'],
+  ['Pika', 'Palo Alto', 'Artificial intelligence', 'pika.art', 'Generative video creation and editing.'],
+  ['Safe Superintelligence', 'Palo Alto', 'Artificial intelligence', 'ssi.inc', 'AI research lab with Palo Alto and Tel Aviv offices.', 2024],
+  ['Hippocratic AI', 'Palo Alto', 'Health technology', 'hippocraticai.com', 'Voice agents for patient engagement.', 2023, undefined, 'ashby:hippocraticai'],
+  ['Uniphore', 'Palo Alto', 'Enterprise AI', 'uniphore.com', 'AI platform for enterprise data and workflows.', 2008],
+  ['Mashgin', 'Palo Alto', 'Computer vision', 'mashgin.com', 'Computer vision checkout for retail and food service.'],
+  ['1X Technologies', 'Palo Alto', 'Robotics', '1x.tech', 'Humanoid robot development and manufacturing.'],
+  ['Mistral AI', 'Paris', 'Artificial intelligence', 'mistral.ai', 'Open-weight and commercial AI models.', 2023, 'mistralai', 'ashby:mistral.ai'],
 ];
 
 export const curated = rows.filter(row => row[3]).map(([name, city, sector, domain, description, founded, github, board]) => ({

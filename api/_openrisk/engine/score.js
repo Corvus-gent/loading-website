@@ -19,7 +19,8 @@ export function score(signals, now = new Date()) {
   });
   const seen = breakdown.filter(item => item.points !== null);
   const coverage = seen.reduce((sum, item) => sum + item.weight, 0);
-  const value = coverage >= 45 ? Math.round(seen.reduce((sum, item) => sum + item.weight * item.points, 0) / coverage) : null;
+  const weighted = seen.reduce((sum, item) => sum + item.weight * item.points, 0);
+  const value = coverage >= 45 ? Math.round(weighted / coverage) : null;
   const grade = value === null ? null : value >= 85 ? 'A' : value >= 70 ? 'B' : value >= 55 ? 'C' : value >= 40 ? 'D' : 'E';
   return { value, grade, coverage, breakdown, trend: null, asOf: now.toISOString() };
 }

@@ -3,12 +3,14 @@ import { score } from './score.js';
 import { signal } from './enrich.js';
 import snapshot from './snapshot.js';
 import { verified } from './verified.js';
+import discovered from './discovered.js';
 
 export { cities };
-export const catalog = curated.map(company => {
+export const catalog = [...curated,...discovered].map(company => {
   const data = snapshot[company.id] || {};
   const signals = {
     ...data,
+    ...company.signals,
     ...(company.founded ? { founded: signal(company.founded, company.source, 'scraped', 'medium', company.asOf) } : {}),
     ...verified[company.id],
   };

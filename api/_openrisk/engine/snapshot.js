@@ -9,14 +9,39 @@ export default {
       "source": "https://github.com/AikidoSec/zen-internals-node",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:29:58.246Z"
+      "fetchedAt": "2026-11-18T06:58:17.869Z"
     },
     "news": {
       "value": [],
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Aikido%20Security",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:29:58.108Z"
+      "fetchedAt": "2026-11-18T06:58:17.867Z"
+    },
+    "jobs": {
+      "value": {
+        "count": 75,
+        "roles": [
+          "Full Stack Developer - Autofix",
+          "Full Stack Developer - Core",
+          "Full Stack Developer - Aikido Machine",
+          "Full Stack Developer - AI Pentest",
+          "Office Manager",
+          "Microsoft Alliance Manager"
+        ],
+        "departments": [
+          "Product & Development",
+          "People",
+          "Sales",
+          "Finance & Operations",
+          "Marketing"
+        ],
+        "provider": "recruitee"
+      },
+      "source": "https://aikidosecurity.recruitee.com/",
+      "status": "scraped",
+      "confidence": "high",
+      "fetchedAt": "2026-11-18T06:58:17.698Z"
     }
   },
   "deliverect": {
@@ -25,22 +50,40 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Deliverect",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:29:58.563Z"
+      "fetchedAt": "2026-11-18T06:58:18.239Z"
+    },
+    "jobs": {
+      "value": {
+        "count": 14,
+        "roles": [
+          "Account Executive",
+          "Account Executive",
+          "Account Manager",
+          "Engineering Intern",
+          "Enterprise Customer Success Manager",
+          "Head of Customer Delivery"
+        ],
+        "departments": [
+          "Mid Market Sales",
+          "Growth Account Management",
+          "Restaurant (PR03)",
+          "Customer Experience Management",
+          "Consulting & Implementation team",
+          "Regional Marketing",
+          "Design (PD01)",
+          "PM (PM01)"
+        ],
+        "provider": "lever"
+      },
+      "source": "https://jobs.lever.co/deliverect",
+      "status": "scraped",
+      "confidence": "high",
+      "fetchedAt": "2026-11-18T06:58:20.164Z"
     }
   },
   "showpad": {
     "news": {
       "value": [
-        {
-          "title": "Founder interview with Louis from Showpad",
-          "url": "https://news.ycombinator.com/item?id=17072880",
-          "date": "2018-05-15T10:14:39Z"
-        },
-        {
-          "title": "Showpad raises $2M Series A from Hummingbird Ventures",
-          "url": "https://news.ycombinator.com/item?id=5454856",
-          "date": "2013-03-28T14:16:00Z"
-        },
         {
           "title": "Showpad's founder, PJ Bouten shares lessons from decade-long SaaS journey",
           "url": "https://news.ycombinator.com/item?id=32821856",
@@ -50,12 +93,22 @@ export default {
           "title": "Chicago Edtech Startup, Learncore, Purchased by Belgium-Based Showpad",
           "url": "https://news.ycombinator.com/item?id=17314737",
           "date": "2018-06-14T19:43:43Z"
+        },
+        {
+          "title": "Founder interview with Louis from Showpad",
+          "url": "https://news.ycombinator.com/item?id=17072880",
+          "date": "2018-05-15T10:14:39Z"
+        },
+        {
+          "title": "Showpad closes $50M SeriesC to keep growing its SaaS sales productivity platform",
+          "url": "https://news.ycombinator.com/item?id=11730084",
+          "date": "2016-05-19T13:42:38Z"
         }
       ],
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Showpad",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:29:59.005Z"
+      "fetchedAt": "2026-11-18T06:58:20.521Z"
     }
   },
   "teamleader": {
@@ -68,28 +121,23 @@ export default {
       "source": "https://github.com/teamleadercrm/sdk-js",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:29:59.524Z"
+      "fetchedAt": "2026-11-18T06:58:21.190Z"
     },
     "news": {
       "value": [],
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Teamleader",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:29:59.369Z"
+      "fetchedAt": "2026-11-18T06:58:20.955Z"
     }
   },
   "lighthouse": {
     "news": {
       "value": [
         {
-          "title": "Nuclear lighthouses built by the Soviets in the Arctic [video]",
-          "url": "https://news.ycombinator.com/item?id=25677144",
-          "date": "2021-01-07T20:41:09Z"
-        },
-        {
-          "title": "Building the most inaccessible site with a perfect Lighthouse score (2019)",
-          "url": "https://news.ycombinator.com/item?id=23440752",
-          "date": "2020-06-06T17:23:09Z"
+          "title": "Removing Next.js Got My Blog to 100 on Every Lighthouse Category",
+          "url": "https://news.ycombinator.com/item?id=50237712",
+          "date": "2026-10-26T01:03:39Z"
         },
         {
           "title": "A map of every lighthouse",
@@ -97,15 +145,20 @@ export default {
           "date": "2026-10-02T13:45:49Z"
         },
         {
-          "title": "Removing Next.js Got My Blog to 100 on Every Lighthouse Category",
-          "url": "https://news.ycombinator.com/item?id=50237712",
-          "date": "2026-10-26T01:03:39Z"
+          "title": "Unlighthouse: Like Lighthouse, but it scans every single page",
+          "url": "https://news.ycombinator.com/item?id=35868447",
+          "date": "2023-05-08T23:45:50Z"
+        },
+        {
+          "title": "Building the most inaccessible site with a perfect Lighthouse score (2019)",
+          "url": "https://news.ycombinator.com/item?id=31538475",
+          "date": "2022-05-28T07:58:59Z"
         }
       ],
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Lighthouse",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:29:59.878Z"
+      "fetchedAt": "2026-11-18T06:58:21.617Z"
     }
   },
   "robovision": {
@@ -120,7 +173,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Robovision",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:30:00.252Z"
+      "fetchedAt": "2026-11-18T06:58:22.367Z"
     }
   },
   "silverfin": {
@@ -133,7 +186,7 @@ export default {
       "source": "https://github.com/silverfin/bso_github_actions",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:30:00.951Z"
+      "fetchedAt": "2026-11-18T06:58:22.764Z"
     },
     "news": {
       "value": [
@@ -146,7 +199,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Silverfin",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:30:01.039Z"
+      "fetchedAt": "2026-11-18T06:58:22.852Z"
     }
   },
   "techwolf": {
@@ -161,7 +214,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=TechWolf",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:30:01.545Z"
+      "fetchedAt": "2026-11-18T06:58:23.290Z"
     }
   },
   "introw": {
@@ -176,7 +229,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Introw",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:30:03.120Z"
+      "fetchedAt": "2026-11-18T06:58:23.755Z"
     }
   },
   "otiv": {
@@ -185,7 +238,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=OTIV",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:30:03.953Z"
+      "fetchedAt": "2026-11-18T06:58:24.181Z"
     }
   },
   "collibra": {
@@ -198,34 +251,39 @@ export default {
       "source": "https://github.com/collibra/data-access-go-sdk",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:30:04.536Z"
+      "fetchedAt": "2026-11-18T06:58:24.549Z"
     },
     "news": {
       "value": [],
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Collibra",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:30:04.607Z"
+      "fetchedAt": "2026-11-18T06:58:24.494Z"
     }
   },
   "odoo": {
     "github": {
       "value": {
         "repo": "documentation",
-        "pushedAt": "2026-11-18T06:29:08Z",
+        "pushedAt": "2026-11-18T06:57:54Z",
         "stars": 1378
       },
       "source": "https://github.com/odoo/documentation",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:30:05.062Z"
+      "fetchedAt": "2026-11-18T06:58:25.054Z"
     },
     "news": {
       "value": [
         {
-          "title": "Story of Odoo: Open-Sourced Competitor to Oracle, SAP",
-          "url": "https://news.ycombinator.com/item?id=21865699",
-          "date": "2019-12-23T18:18:55Z"
+          "title": "Ask HN: Non-profit, volunteers run org needs CRM. Is Odoo Community a good sol.?",
+          "url": "https://news.ycombinator.com/item?id=46920322",
+          "date": "2026-02-07T01:17:41Z"
+        },
+        {
+          "title": "Interview of Fabien Pinckaers, CEO at Odoo[video]",
+          "url": "https://news.ycombinator.com/item?id=46486269",
+          "date": "2026-01-04T09:00:16Z"
         },
         {
           "title": "Odoo: Open-Source ERP",
@@ -233,70 +291,89 @@ export default {
           "date": "2025-12-31T00:35:29Z"
         },
         {
-          "title": "Odoo: The new OpenERP",
-          "url": "https://news.ycombinator.com/item?id=7750020",
-          "date": "2014-05-15T15:33:45Z"
-        },
-        {
-          "title": "Odoo's open source business model explained",
-          "url": "https://news.ycombinator.com/item?id=19397590",
-          "date": "2019-03-15T08:03:14Z"
+          "title": "Odoo raised 500M at 5B valuation from Sequoia and Alphabet",
+          "url": "https://news.ycombinator.com/item?id=42196208",
+          "date": "2024-11-20T17:26:48Z"
         }
       ],
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Odoo",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:30:08.765Z"
+      "fetchedAt": "2026-11-18T06:58:24.923Z"
     }
   },
   "qover": {
     "news": {
       "value": [
         {
-          "title": "Rust in Production: Qovery",
-          "url": "https://news.ycombinator.com/item?id=28129159",
-          "date": "2021-08-10T14:17:01Z"
+          "title": "How we built Qovery",
+          "url": "https://news.ycombinator.com/item?id=33503551",
+          "date": "2022-11-07T09:40:53Z"
         },
         {
-          "title": "Qovery Engine – open-source multi-cloud deployment",
-          "url": "https://news.ycombinator.com/item?id=24984869",
-          "date": "2020-11-03T22:40:39Z"
+          "title": "This is how we built Qovery – an Environment as a Service platform",
+          "url": "https://news.ycombinator.com/item?id=33066903",
+          "date": "2022-10-03T13:03:46Z"
+        },
+        {
+          "title": "Qovery NFTs - The next step in Cloud deployment",
+          "url": "https://news.ycombinator.com/item?id=30876704",
+          "date": "2022-04-01T10:18:22Z"
         },
         {
           "title": "QOvery Engine: We lost 3800 stars on GitHub",
           "url": "https://news.ycombinator.com/item?id=29415589",
           "date": "2021-12-02T13:04:51Z"
-        },
-        {
-          "title": "Qovery: Superpowers for Developer",
-          "url": "https://news.ycombinator.com/item?id=22251019",
-          "date": "2020-02-05T21:10:12Z"
         }
       ],
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Qover",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:30:09.891Z"
+      "fetchedAt": "2026-11-18T06:58:25.387Z"
     }
   },
-  "cowboy": {},
+  "cowboy": {
+    "news": {
+      "value": [
+        {
+          "title": "A former slave who became a cowboy, a rancher, and a Texas legend",
+          "url": "https://news.ycombinator.com/item?id=40081999",
+          "date": "2024-04-18T23:59:25Z"
+        },
+        {
+          "title": "Future Blues – Emily's Cowboy Bebop Page (1999)",
+          "url": "https://news.ycombinator.com/item?id=35589124",
+          "date": "2023-04-16T11:37:58Z"
+        },
+        {
+          "title": "Designing the Characters of 'Cowboy Bebop'",
+          "url": "https://news.ycombinator.com/item?id=32113864",
+          "date": "2022-07-15T23:34:03Z"
+        },
+        {
+          "title": "Designing the Characters of 'Cowboy Bebop'",
+          "url": "https://news.ycombinator.com/item?id=32104791",
+          "date": "2022-07-15T05:05:48Z"
+        }
+      ],
+      "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Cowboy",
+      "status": "scraped",
+      "confidence": "medium",
+      "fetchedAt": "2026-11-18T06:58:25.727Z"
+    }
+  },
   "nodalview": {
     "news": {
       "value": [],
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Nodalview",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:30:17.980Z"
+      "fetchedAt": "2026-11-18T06:58:26.050Z"
     }
   },
   "wooclap": {
     "news": {
       "value": [
-        {
-          "title": "Show HN: Wooclap, an interactive platform for your classes and training sessions",
-          "url": "https://news.ycombinator.com/item?id=17292485",
-          "date": "2018-06-12T12:06:25Z"
-        },
         {
           "title": "Wooclap - An online voting system, becomes free for K-12 schools",
           "url": "https://news.ycombinator.com/item?id=17867466",
@@ -306,12 +383,17 @@ export default {
           "title": "Wooclap - Revolutionise education",
           "url": "https://news.ycombinator.com/item?id=17678920",
           "date": "2018-08-03T11:27:27Z"
+        },
+        {
+          "title": "Show HN: Wooclap, an interactive platform for your classes and training sessions",
+          "url": "https://news.ycombinator.com/item?id=17292485",
+          "date": "2018-06-12T12:06:25Z"
         }
       ],
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Wooclap",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:30:20.708Z"
+      "fetchedAt": "2026-11-18T06:58:26.697Z"
     }
   },
   "loop-earplugs": {
@@ -326,7 +408,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Loop%20Earplugs",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:30:24.183Z"
+      "fetchedAt": "2026-11-18T06:58:27.194Z"
     }
   },
   "intigriti": {
@@ -356,7 +438,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Intigriti",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:30:27.473Z"
+      "fetchedAt": "2026-11-18T06:58:27.541Z"
     }
   },
   "november-five": {
@@ -365,7 +447,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=November%20Five",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:30:29.498Z"
+      "fetchedAt": "2026-11-18T06:58:27.904Z"
     }
   },
   "twikit": {
@@ -380,7 +462,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Twikit",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:30:31.959Z"
+      "fetchedAt": "2026-11-18T06:58:28.273Z"
     }
   },
   "nobi": {
@@ -392,9 +474,9 @@ export default {
           "date": "2026-07-13T18:26:04Z"
         },
         {
-          "title": "Iranian Crypto Exchange Nobitex Hacked for over $82M by Suspected Israeli Group",
-          "url": "https://news.ycombinator.com/item?id=44307884",
-          "date": "2025-06-18T08:35:38Z"
+          "title": "What the Leaked Nobitex Source Code Reveals About Iran's Crypto Infrastructure",
+          "url": "https://news.ycombinator.com/item?id=44432910",
+          "date": "2025-07-01T11:43:56Z"
         },
         {
           "title": "Iranian crypto exchange Nobitex hacked for over $90M by pro-Israel group",
@@ -402,15 +484,15 @@ export default {
           "date": "2025-06-18T15:16:50Z"
         },
         {
-          "title": "Neomedievalism and Transnational Nobility",
-          "url": "https://news.ycombinator.com/item?id=42567285",
-          "date": "2025-01-01T17:00:24Z"
+          "title": "Iranian Crypto Exchange Nobitex Hacked for over $82M by Suspected Israeli Group",
+          "url": "https://news.ycombinator.com/item?id=44307884",
+          "date": "2025-06-18T08:35:38Z"
         }
       ],
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Nobi",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:30:33.891Z"
+      "fetchedAt": "2026-11-18T06:58:28.732Z"
     }
   },
   "guardsquare": {
@@ -423,14 +505,14 @@ export default {
       "source": "https://github.com/Guardsquare/proguard-core",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:30:34.399Z"
+      "fetchedAt": "2026-11-18T06:58:29.092Z"
     },
     "news": {
       "value": [],
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Guardsquare",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:30:35.313Z"
+      "fetchedAt": "2026-11-18T06:58:29.079Z"
     }
   },
   "icometrix": {
@@ -439,7 +521,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=icometrix",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:30:36.095Z"
+      "fetchedAt": "2026-11-18T06:58:29.434Z"
     }
   },
   "luzmo": {
@@ -454,7 +536,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Luzmo",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:30:36.530Z"
+      "fetchedAt": "2026-11-18T06:58:29.812Z"
     }
   },
   "diabatix": {
@@ -463,7 +545,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Diabatix",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:30:39.382Z"
+      "fetchedAt": "2026-11-18T06:58:30.329Z"
     }
   },
   "stripe": {
@@ -477,98 +559,100 @@ export default {
           "Account Executive, AI Sales",
           "Account Executive, AI Sales",
           "Account Executive, AI Startups - Grower"
-        ]
+        ],
+        "departments": [],
+        "provider": "greenhouse"
       },
-      "source": "https://boards-api.greenhouse.io/v1/boards/stripe/jobs",
+      "source": "https://job-boards.greenhouse.io/stripe",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:30:40.021Z"
+      "fetchedAt": "2026-11-18T06:58:30.578Z"
     },
     "github": {
       "value": {
-        "repo": "stripe-java",
-        "pushedAt": "2026-11-18T05:31:49Z",
-        "stars": 1014
+        "repo": "example-terminal-backend",
+        "pushedAt": "2026-11-18T06:45:34Z",
+        "stars": 108
       },
-      "source": "https://github.com/stripe/stripe-java",
+      "source": "https://github.com/stripe/example-terminal-backend",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:30:40.099Z"
+      "fetchedAt": "2026-11-18T06:58:30.807Z"
     },
     "news": {
       "value": [
+        {
+          "title": "Stripe has decided to nuke my entire business",
+          "url": "https://news.ycombinator.com/item?id=32854528",
+          "date": "2022-09-15T16:33:38Z"
+        },
+        {
+          "title": "Bolt founder on Stripe/YC",
+          "url": "https://news.ycombinator.com/item?id=30066969",
+          "date": "2022-01-25T02:03:36Z"
+        },
         {
           "title": "Accepted and ghosted: interviewing for a leadership position at Stripe",
           "url": "https://news.ycombinator.com/item?id=29387264",
           "date": "2021-11-30T00:30:59Z"
         },
         {
-          "title": "Shirt Without Stripes",
-          "url": "https://news.ycombinator.com/item?id=22925087",
-          "date": "2020-04-20T16:00:40Z"
-        },
-        {
-          "title": "Stripe Atlas",
-          "url": "https://news.ycombinator.com/item?id=11166417",
-          "date": "2016-02-24T13:12:30Z"
-        },
-        {
-          "title": "Stripe has decided to nuke my entire business",
-          "url": "https://news.ycombinator.com/item?id=32854528",
-          "date": "2022-09-15T16:33:38Z"
+          "title": "Stripe records user movements on its customers' websites",
+          "url": "https://news.ycombinator.com/item?id=22936818",
+          "date": "2020-04-21T17:01:03Z"
         }
       ],
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Stripe",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:30:40.025Z"
+      "fetchedAt": "2026-11-18T06:58:30.812Z"
     }
   },
   "openai": {
     "github": {
       "value": {
-        "repo": "codex",
-        "pushedAt": "2026-11-18T06:23:06Z",
-        "stars": 135711
+        "repo": "openai-java",
+        "pushedAt": "2026-11-18T06:53:53Z",
+        "stars": 1568
       },
-      "source": "https://github.com/openai/codex",
+      "source": "https://github.com/openai/openai-java",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:30:40.738Z"
+      "fetchedAt": "2026-11-18T06:58:31.526Z"
     },
     "news": {
       "value": [
-        {
-          "title": "OpenAI's board has fired Sam Altman",
-          "url": "https://news.ycombinator.com/item?id=38309611",
-          "date": "2023-11-17T20:28:50Z"
-        },
-        {
-          "title": "Google “We have no moat, and neither does OpenAI”",
-          "url": "https://news.ycombinator.com/item?id=35813322",
-          "date": "2023-05-04T10:19:13Z"
-        },
         {
           "title": "Discovery of a new OpenAI agent message board",
           "url": "https://news.ycombinator.com/item?id=49563355",
           "date": "2026-09-04T11:54:53Z"
         },
         {
+          "title": "OpenAI – How to delete your account",
+          "url": "https://news.ycombinator.com/item?id=47193478",
+          "date": "2026-02-28T10:41:55Z"
+        },
+        {
           "title": "Open models by OpenAI",
           "url": "https://news.ycombinator.com/item?id=44800746",
           "date": "2025-08-05T17:02:02Z"
+        },
+        {
+          "title": "OpenAI O3 breakthrough high score on ARC-AGI-PUB",
+          "url": "https://news.ycombinator.com/item?id=42473321",
+          "date": "2024-12-20T18:11:13Z"
         }
       ],
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=OpenAI",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:30:40.810Z"
+      "fetchedAt": "2026-11-18T06:58:31.164Z"
     }
   },
   "anthropic": {
     "jobs": {
       "value": {
-        "count": 657,
+        "count": 656,
         "roles": [
           "3P Revenue Accounting & Reporting",
           "Account Executive, AI Native",
@@ -576,31 +660,28 @@ export default {
           "Account Executive - Public Sector (ASEAN)",
           "Account Executive, Startups",
           "Account Executive, Startups"
-        ]
+        ],
+        "departments": [],
+        "provider": "greenhouse"
       },
-      "source": "https://boards-api.greenhouse.io/v1/boards/anthropic/jobs",
+      "source": "https://job-boards.greenhouse.io/anthropic",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:30:41.093Z"
+      "fetchedAt": "2026-11-18T06:58:31.675Z"
     },
     "github": {
       "value": {
-        "repo": "oss-scanner",
-        "pushedAt": "2026-11-18T06:15:06Z",
-        "stars": 1823
+        "repo": "claude-code-action",
+        "pushedAt": "2026-11-18T06:41:02Z",
+        "stars": 10000
       },
-      "source": "https://github.com/anthropics/oss-scanner",
+      "source": "https://github.com/anthropics/claude-code-action",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:30:41.339Z"
+      "fetchedAt": "2026-11-18T06:58:32.011Z"
     },
     "news": {
       "value": [
-        {
-          "title": "Anthropic acquires Bun",
-          "url": "https://news.ycombinator.com/item?id=46124267",
-          "date": "2025-12-02T18:05:44Z"
-        },
         {
           "title": "Anthropic S-1",
           "url": "https://news.ycombinator.com/item?id=50242939",
@@ -615,12 +696,17 @@ export default {
           "title": "S&P 500 rejects SpaceX, also blocking entry for OpenAI and Anthropic",
           "url": "https://news.ycombinator.com/item?id=48421442",
           "date": "2026-06-06T04:38:36Z"
+        },
+        {
+          "title": "I’ve joined Anthropic",
+          "url": "https://news.ycombinator.com/item?id=48194352",
+          "date": "2026-05-19T15:07:45Z"
         }
       ],
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Anthropic",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:30:41.377Z"
+      "fetchedAt": "2026-11-18T06:58:31.909Z"
     }
   },
   "figma": {
@@ -634,12 +720,14 @@ export default {
           "Account Executive, Enterprise (London, United Kingdom)",
           "Account Executive, Enterprise, Mandarin Speaking (Singapore)",
           "Account Executive, Enterprise (São Paulo, Brazil)"
-        ]
+        ],
+        "departments": [],
+        "provider": "greenhouse"
       },
-      "source": "https://boards-api.greenhouse.io/v1/boards/figma/jobs",
+      "source": "https://job-boards.greenhouse.io/figma",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:30:41.794Z"
+      "fetchedAt": "2026-11-18T06:58:32.412Z"
     },
     "github": {
       "value": {
@@ -650,24 +738,24 @@ export default {
       "source": "https://github.com/figma/mcp-server-guide",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:30:41.840Z"
+      "fetchedAt": "2026-11-18T06:58:32.341Z"
     },
     "news": {
       "value": [
         {
-          "title": "Adobe to acquire Figma for $20B",
-          "url": "https://news.ycombinator.com/item?id=32850178",
-          "date": "2022-09-15T11:32:25Z"
-        },
-        {
-          "title": "Figma and Adobe abandon proposed merger",
-          "url": "https://news.ycombinator.com/item?id=38681861",
-          "date": "2023-12-18T13:04:34Z"
-        },
-        {
           "title": "Penpot: The Open-Source Figma",
           "url": "https://news.ycombinator.com/item?id=46064757",
           "date": "2025-11-27T02:14:36Z"
+        },
+        {
+          "title": "Figma files for proposed IPO",
+          "url": "https://news.ycombinator.com/item?id=44437316",
+          "date": "2025-07-01T19:39:14Z"
+        },
+        {
+          "title": "Figma Slides",
+          "url": "https://news.ycombinator.com/item?id=40802676",
+          "date": "2024-06-26T18:04:34Z"
         },
         {
           "title": "How Figma's databases team lived to tell the scale",
@@ -678,7 +766,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Figma",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:30:41.780Z"
+      "fetchedAt": "2026-11-18T06:58:32.317Z"
     }
   },
   "notion": {
@@ -691,7 +779,7 @@ export default {
       "source": "https://github.com/makenotion/notion-cookbook",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:30:42.307Z"
+      "fetchedAt": "2026-11-18T06:58:32.833Z"
     },
     "news": {
       "value": [
@@ -701,25 +789,25 @@ export default {
           "date": "2025-03-16T11:38:52Z"
         },
         {
-          "title": "Notion for everyone",
-          "url": "https://news.ycombinator.com/item?id=23236786",
-          "date": "2020-05-19T16:29:38Z"
+          "title": "Show HN: I am building an open-source Confluence and Notion alternative",
+          "url": "https://news.ycombinator.com/item?id=40832146",
+          "date": "2024-06-29T17:27:58Z"
         },
         {
-          "title": "Notion – All-in-one workspace for notes, tasks, wikis, and databases",
-          "url": "https://news.ycombinator.com/item?id=18904648",
-          "date": "2019-01-14T17:33:16Z"
+          "title": "Lessons learned from sharding Postgres at Notion",
+          "url": "https://news.ycombinator.com/item?id=28776786",
+          "date": "2021-10-06T18:50:42Z"
         },
         {
-          "title": "Focalboard – a self-hosted alternative to Trello, Notion, and Asana",
-          "url": "https://news.ycombinator.com/item?id=26499062",
-          "date": "2021-03-18T02:06:26Z"
+          "title": "Ask HN: Notion is withholding my company data, what can I do?",
+          "url": "https://news.ycombinator.com/item?id=27612894",
+          "date": "2021-06-24T01:40:02Z"
         }
       ],
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Notion",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:30:43.969Z"
+      "fetchedAt": "2026-11-18T06:58:32.738Z"
     }
   },
   "vercel": {
@@ -733,35 +821,37 @@ export default {
           "Account Executive, Majors- Install Base (APAC)",
           "Account Executive-Startups, EMEA (French or German Speaker)",
           "Account Executive, Startups, Greenfield"
-        ]
+        ],
+        "departments": [],
+        "provider": "greenhouse"
       },
-      "source": "https://boards-api.greenhouse.io/v1/boards/vercel/jobs",
+      "source": "https://job-boards.greenhouse.io/vercel",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:30:44.402Z"
+      "fetchedAt": "2026-11-18T06:58:33.230Z"
     },
     "github": {
       "value": {
-        "repo": "sandbox",
-        "pushedAt": "2026-11-18T06:12:27Z",
-        "stars": 225
+        "repo": "next.js",
+        "pushedAt": "2026-11-18T06:42:43Z",
+        "stars": 143721
       },
-      "source": "https://github.com/vercel/sandbox",
+      "source": "https://github.com/vercel/next.js",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:30:44.352Z"
+      "fetchedAt": "2026-11-18T06:58:33.198Z"
     },
     "news": {
       "value": [
         {
-          "title": "We pwned X, Vercel, Cursor, and Discord through a supply-chain attack",
-          "url": "https://news.ycombinator.com/item?id=46317098",
-          "date": "2025-12-18T19:08:48Z"
+          "title": "The Vercel breach: OAuth attack exposes risk in platform environment variables",
+          "url": "https://news.ycombinator.com/item?id=47851634",
+          "date": "2026-04-21T17:14:35Z"
         },
         {
-          "title": "Rich Harris joins Vercel to work on Svelte full time",
-          "url": "https://news.ycombinator.com/item?id=29189144",
-          "date": "2021-11-11T15:43:47Z"
+          "title": "Vercel says internal systems hit in breach",
+          "url": "https://news.ycombinator.com/item?id=47824976",
+          "date": "2026-04-19T15:23:39Z"
         },
         {
           "title": "Vercel April 2026 security incident",
@@ -769,15 +859,15 @@ export default {
           "date": "2026-04-19T14:14:38Z"
         },
         {
-          "title": "Tau: Open-source PaaS – A self-hosted Vercel / Netlify / Cloudflare alternative",
-          "url": "https://news.ycombinator.com/item?id=40946033",
-          "date": "2024-07-12T14:41:22Z"
+          "title": "We pwned X, Vercel, Cursor, and Discord through a supply-chain attack",
+          "url": "https://news.ycombinator.com/item?id=46317098",
+          "date": "2025-12-18T19:08:48Z"
         }
       ],
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Vercel",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:30:45.553Z"
+      "fetchedAt": "2026-11-18T06:58:33.159Z"
     }
   },
   "linear": {
@@ -790,49 +880,72 @@ export default {
       "source": "https://github.com/linear/linear",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:30:46.219Z"
+      "fetchedAt": "2026-11-18T06:58:33.697Z"
     },
     "news": {
       "value": [
         {
-          "title": "Immersive Linear Algebra (2016)",
-          "url": "https://news.ycombinator.com/item?id=19264048",
-          "date": "2019-02-27T16:05:07Z"
+          "title": "Immersive Linear Algebra (2015)",
+          "url": "https://news.ycombinator.com/item?id=40329388",
+          "date": "2024-05-11T17:16:08Z"
         },
         {
-          "title": "Immersive Linear Algebra – textbook with fully interactive figures (2015)",
-          "url": "https://news.ycombinator.com/item?id=13904881",
-          "date": "2017-03-19T02:52:34Z"
+          "title": "Linear Algebra Done Right – 4th Edition",
+          "url": "https://news.ycombinator.com/item?id=38060159",
+          "date": "2023-10-29T16:31:26Z"
         },
         {
-          "title": "Interactive Linear Algebra",
-          "url": "https://news.ycombinator.com/item?id=21628449",
-          "date": "2019-11-25T14:39:18Z"
+          "title": "A 2020 Vision of Linear Algebra",
+          "url": "https://news.ycombinator.com/item?id=23150699",
+          "date": "2020-05-12T04:55:03Z"
         },
         {
-          "title": "Introduction to Applied Linear Algebra: Vectors, Matrices, and Least Squares",
-          "url": "https://news.ycombinator.com/item?id=18678314",
-          "date": "2018-12-14T03:48:32Z"
+          "title": "An Intuitive Guide to Linear Algebra (2012)",
+          "url": "https://news.ycombinator.com/item?id=22416319",
+          "date": "2020-02-25T19:19:50Z"
         }
       ],
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Linear",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:30:48.593Z"
+      "fetchedAt": "2026-11-18T06:58:33.669Z"
+    },
+    "jobs": {
+      "value": {
+        "count": 33,
+        "roles": [
+          "Senior / Staff Fullstack Engineer",
+          "Senior / Staff Fullstack Engineer",
+          "Senior / Staff Product Engineer",
+          "Senior / Staff Product Engineer",
+          "Product Engineer",
+          "Product Manager"
+        ],
+        "departments": [
+          "Product",
+          "GTM",
+          "Operations"
+        ],
+        "provider": "ashby"
+      },
+      "source": "https://jobs.ashbyhq.com/linear",
+      "status": "scraped",
+      "confidence": "high",
+      "fetchedAt": "2026-11-18T06:58:33.365Z"
     }
   },
   "mercury": {
     "news": {
       "value": [
         {
-          "title": "Mercury Spill",
-          "url": "https://news.ycombinator.com/item?id=10357115",
-          "date": "2015-10-08T23:27:28Z"
+          "title": "Mercury 3: Diffusion at scale",
+          "url": "https://news.ycombinator.com/item?id=50155245",
+          "date": "2026-10-19T17:27:11Z"
         },
         {
-          "title": "Mercury: Ultra-fast language models based on diffusion",
-          "url": "https://news.ycombinator.com/item?id=44489690",
-          "date": "2025-07-07T12:31:08Z"
+          "title": "Mercury 2.5",
+          "url": "https://news.ycombinator.com/item?id=49616354",
+          "date": "2026-09-08T20:14:52Z"
         },
         {
           "title": "A couple million lines of Haskell: Production engineering at Mercury",
@@ -840,40 +953,40 @@ export default {
           "date": "2026-05-03T00:01:14Z"
         },
         {
-          "title": "Mercury: Commercial-scale diffusion language model",
-          "url": "https://news.ycombinator.com/item?id=43851099",
-          "date": "2025-04-30T21:51:10Z"
+          "title": "Mercury 2: Fast reasoning LLM powered by diffusion",
+          "url": "https://news.ycombinator.com/item?id=47144464",
+          "date": "2026-02-24T22:46:23Z"
         }
       ],
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Mercury",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:30:50.447Z"
+      "fetchedAt": "2026-11-18T06:58:34.024Z"
     }
   },
   "supabase": {
     "github": {
       "value": {
-        "repo": "etl",
-        "pushedAt": "2026-11-18T06:25:31Z",
-        "stars": 2353
+        "repo": "edge-runtime",
+        "pushedAt": "2026-11-18T06:57:13Z",
+        "stars": 999
       },
-      "source": "https://github.com/supabase/etl",
+      "source": "https://github.com/supabase/edge-runtime",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:30:51.052Z"
+      "fetchedAt": "2026-11-18T06:58:34.591Z"
     },
     "news": {
       "value": [
         {
-          "title": "Supabase (YC S20) – An open source Firebase alternative",
-          "url": "https://news.ycombinator.com/item?id=23319901",
-          "date": "2020-05-27T06:13:59Z"
-        },
-        {
           "title": "Supabase MCP can leak your entire SQL database",
           "url": "https://news.ycombinator.com/item?id=44502318",
           "date": "2025-07-08T17:46:55Z"
+        },
+        {
+          "title": "Supabase raises $200M Series D at $2B valuation",
+          "url": "https://news.ycombinator.com/item?id=43763225",
+          "date": "2025-04-22T15:17:23Z"
         },
         {
           "title": "Supabase Storage now supports the S3 protocol",
@@ -889,7 +1002,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Supabase",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:30:51.646Z"
+      "fetchedAt": "2026-11-18T06:58:34.588Z"
     }
   },
   "glean": {
@@ -902,35 +1015,35 @@ export default {
       "source": "https://github.com/gleanwork/open-api",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:30:52.053Z"
+      "fetchedAt": "2026-11-18T06:58:34.977Z"
     },
     "news": {
       "value": [
-        {
-          "title": "Glean – System for collecting, deriving and querying facts about source code",
-          "url": "https://news.ycombinator.com/item?id=28365880",
-          "date": "2021-08-31T09:56:44Z"
-        },
         {
           "title": "Indexing Code at Scale with Glean",
           "url": "https://news.ycombinator.com/item?id=42568516",
           "date": "2025-01-01T19:25:32Z"
         },
         {
-          "title": "Show HN: Glean, a tiny bitmap font for programming",
-          "url": "https://news.ycombinator.com/item?id=12673368",
-          "date": "2016-10-09T20:44:41Z"
+          "title": "Glean – Lessons and learnings from building an enterprise-ready AI assistant",
+          "url": "https://news.ycombinator.com/item?id=36686169",
+          "date": "2023-07-11T19:33:39Z"
         },
         {
-          "title": "‘Stay Far, Far Away’ and Other Things Gleaned from Yelp Health Reviews",
-          "url": "https://news.ycombinator.com/item?id=10015914",
-          "date": "2015-08-06T12:19:34Z"
+          "title": "Glean Chat: first enterprise-grade ChatGPT for work",
+          "url": "https://news.ycombinator.com/item?id=36245387",
+          "date": "2023-06-08T17:19:36Z"
+        },
+        {
+          "title": "Glean: Data tooling that inspires your team’s curiosity",
+          "url": "https://news.ycombinator.com/item?id=30857417",
+          "date": "2022-03-30T16:27:22Z"
         }
       ],
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Glean",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:30:53.852Z"
+      "fetchedAt": "2026-11-18T06:58:34.913Z"
     }
   },
   "obsidian-security": {
@@ -945,7 +1058,7 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Obsidian%20Security",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:30:55.622Z"
+      "fetchedAt": "2026-11-18T06:58:36.856Z"
     }
   },
   "denodo": {
@@ -960,17 +1073,12 @@ export default {
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Denodo",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:30:56.050Z"
+      "fetchedAt": "2026-11-18T06:58:37.417Z"
     }
   },
   "matroid": {
     "news": {
       "value": [
-        {
-          "title": "When Greedy Algorithms Are Perfect: The Matroid",
-          "url": "https://news.ycombinator.com/item?id=8236894",
-          "date": "2014-08-28T12:37:08Z"
-        },
         {
           "title": "Recogntion of Algebraic Matroids is Undecidable",
           "url": "https://news.ycombinator.com/item?id=49862736",
@@ -985,42 +1093,47 @@ export default {
           "title": "Matroid can watch videos and detect anything within them",
           "url": "https://news.ycombinator.com/item?id=13957877",
           "date": "2017-03-25T22:35:37Z"
+        },
+        {
+          "title": "When Greedy Algorithms Are Perfect: The Matroid",
+          "url": "https://news.ycombinator.com/item?id=8236894",
+          "date": "2014-08-28T12:37:08Z"
         }
       ],
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Matroid",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:30:57.376Z"
+      "fetchedAt": "2026-11-18T06:58:37.815Z"
     }
   },
   "psiquantum": {
     "news": {
       "value": [
         {
-          "title": "PsiQuantum to Build the World’s First Full-Scale Quantum Computer",
-          "url": "https://news.ycombinator.com/item?id=27080883",
-          "date": "2021-05-07T21:10:00Z"
-        },
-        {
-          "title": "Nvidia in advanced talks to invest in PsiQuantum, The Information reports",
-          "url": "https://news.ycombinator.com/item?id=44069934",
-          "date": "2025-05-23T04:48:44Z"
-        },
-        {
-          "title": "PsiQuantum Raises $450M to Build Its Quantum Computer",
-          "url": "https://news.ycombinator.com/item?id=27972001",
-          "date": "2021-07-27T13:14:48Z"
-        },
-        {
           "title": "PsiQuantum has a plan to make a quantum computer out of light",
           "url": "https://news.ycombinator.com/item?id=48917212",
           "date": "2026-07-15T07:02:18Z"
+        },
+        {
+          "title": "PsiQuantum Supercomputer: Aiming for a Million Qubits",
+          "url": "https://news.ycombinator.com/item?id=45516452",
+          "date": "2025-10-08T14:15:28Z"
+        },
+        {
+          "title": "PsiQuantum raise 1B to build quantum computer in collab with Nvidia",
+          "url": "https://news.ycombinator.com/item?id=45216995",
+          "date": "2025-09-11T23:03:39Z"
+        },
+        {
+          "title": "PsiQuantum Raises $1B, Says Its Quantum Computer Will Be Ready in 2 Years",
+          "url": "https://news.ycombinator.com/item?id=45200029",
+          "date": "2025-09-10T16:26:16Z"
         }
       ],
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=PsiQuantum",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:30:59.529Z"
+      "fetchedAt": "2026-11-18T06:58:38.122Z"
     }
   },
   "mistral-ai": {
@@ -1033,14 +1146,19 @@ export default {
       "source": "https://github.com/mistralai/mistral-common",
       "status": "scraped",
       "confidence": "high",
-      "fetchedAt": "2026-11-18T06:31:00.150Z"
+      "fetchedAt": "2026-11-18T06:58:40.652Z"
     },
     "news": {
       "value": [
         {
-          "title": "Magistral — the first reasoning model by Mistral AI",
-          "url": "https://news.ycombinator.com/item?id=44236997",
-          "date": "2025-06-10T14:08:01Z"
+          "title": "Notes from the Mistral AI Now Summit",
+          "url": "https://news.ycombinator.com/item?id=48325340",
+          "date": "2026-05-29T16:22:01Z"
+        },
+        {
+          "title": "Mistral AI acquires Emmi AI",
+          "url": "https://news.ycombinator.com/item?id=48197995",
+          "date": "2026-05-19T19:14:12Z"
         },
         {
           "title": "Mistral AI Releases Forge",
@@ -1048,20 +1166,319 @@ export default {
           "date": "2026-03-17T21:04:26Z"
         },
         {
-          "title": "Notes from the Mistral AI Now Summit",
-          "url": "https://news.ycombinator.com/item?id=48325340",
-          "date": "2026-05-29T16:22:01Z"
-        },
-        {
-          "title": "Mistral AI Launches New 8x22B MOE Model",
-          "url": "https://news.ycombinator.com/item?id=39986095",
-          "date": "2024-04-10T01:31:24Z"
+          "title": "Magistral — the first reasoning model by Mistral AI",
+          "url": "https://news.ycombinator.com/item?id=44236997",
+          "date": "2025-06-10T14:08:01Z"
         }
       ],
       "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Mistral%20AI",
       "status": "scraped",
       "confidence": "medium",
-      "fetchedAt": "2026-11-18T06:31:01.847Z"
+      "fetchedAt": "2026-11-18T06:58:40.416Z"
+    },
+    "jobs": {
+      "value": {
+        "count": 254,
+        "roles": [
+          "AI Deployment Strategist - USA",
+          "Engineering Manager, Fleet Delivery",
+          "AI Scientist, Agentic CAD (AI4Engineering)",
+          "Engineering Team Lead, Managed K8s",
+          "Engineering Manager, Storage",
+          "Engineering Manager, Sandbox"
+        ],
+        "departments": [
+          "Solutions",
+          "Engineering & Infra",
+          "Science",
+          "Human Resources",
+          "Finance",
+          "Marketing",
+          "Legal",
+          "Business"
+        ],
+        "provider": "ashby"
+      },
+      "source": "https://jobs.ashbyhq.com/mistral.ai",
+      "status": "scraped",
+      "confidence": "high",
+      "fetchedAt": "2026-11-18T06:58:40.373Z"
+    }
+  },
+  "retool": {
+    "github": {
+      "value": {
+        "repo": "retool-helm",
+        "pushedAt": "2026-11-17T00:33:28Z",
+        "stars": 55
+      },
+      "source": "https://github.com/tryretool/retool-helm",
+      "status": "scraped",
+      "confidence": "high",
+      "fetchedAt": "2026-11-18T06:58:35.378Z"
+    },
+    "news": {
+      "value": [
+        {
+          "title": "Retool AI",
+          "url": "https://news.ycombinator.com/item?id=37419886",
+          "date": "2023-09-07T15:00:15Z"
+        },
+        {
+          "title": "Show HN: Retool Mobile",
+          "url": "https://news.ycombinator.com/item?id=34441346",
+          "date": "2023-01-19T15:31:21Z"
+        },
+        {
+          "title": "Show HN: ToolJet 2.0 – Open-source alternative to Power Apps and Retool",
+          "url": "https://news.ycombinator.com/item?id=34323247",
+          "date": "2023-01-10T11:33:18Z"
+        },
+        {
+          "title": "Show HN: Open-source alternative to Retool",
+          "url": "https://news.ycombinator.com/item?id=33592990",
+          "date": "2022-11-14T12:20:36Z"
+        }
+      ],
+      "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Retool",
+      "status": "scraped",
+      "confidence": "medium",
+      "fetchedAt": "2026-11-18T06:58:35.478Z"
+    }
+  },
+  "vanta": {
+    "jobs": {
+      "value": {
+        "count": 77,
+        "roles": [
+          "Account Executive, Early Stage - UK&I",
+          "Senior Fullstack Software Engineer, GRC",
+          "Backend Senior Software Engineer, Identity",
+          "Account Executive, Early Stage - UK&I",
+          "Senior Fullstack Software Engineer, GRC",
+          "Sales Development Representative, Enterprise"
+        ],
+        "departments": [
+          "Revenue",
+          "Software Engineering",
+          "Product Design",
+          "Product Management",
+          "People",
+          "Finance",
+          "Marketing"
+        ],
+        "provider": "ashby"
+      },
+      "source": "https://jobs.ashbyhq.com/vanta",
+      "status": "scraped",
+      "confidence": "high",
+      "fetchedAt": "2026-11-18T06:58:35.679Z"
+    },
+    "news": {
+      "value": [
+        {
+          "title": "Vanta.js: Animated 3D backgrounds for websites",
+          "url": "https://news.ycombinator.com/item?id=29780423",
+          "date": "2022-01-03T13:12:37Z"
+        },
+        {
+          "title": "Vantage has acquired ec2instances.info",
+          "url": "https://news.ycombinator.com/item?id=26080571",
+          "date": "2021-02-09T18:00:42Z"
+        },
+        {
+          "title": "Show HN: Vantage – An alternative AWS console focused on developer experience",
+          "url": "https://news.ycombinator.com/item?id=25750807",
+          "date": "2021-01-12T18:09:08Z"
+        },
+        {
+          "title": "Black Blacker Than Vantablack",
+          "url": "https://news.ycombinator.com/item?id=21093784",
+          "date": "2019-09-27T16:40:15Z"
+        }
+      ],
+      "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Vanta",
+      "status": "scraped",
+      "confidence": "medium",
+      "fetchedAt": "2026-11-18T06:58:35.829Z"
+    }
+  },
+  "webflow": {
+    "jobs": {
+      "value": {
+        "count": 0,
+        "roles": [],
+        "departments": [],
+        "provider": "greenhouse"
+      },
+      "source": "https://job-boards.greenhouse.io/webflow",
+      "status": "scraped",
+      "confidence": "high",
+      "fetchedAt": "2026-11-18T06:58:35.975Z"
+    },
+    "github": {
+      "value": {
+        "repo": "brand_studio",
+        "pushedAt": "2026-11-18T04:23:14Z",
+        "stars": 11
+      },
+      "source": "https://github.com/webflow/brand_studio",
+      "status": "scraped",
+      "confidence": "high",
+      "fetchedAt": "2026-11-18T06:58:36.496Z"
+    },
+    "news": {
+      "value": [
+        {
+          "title": "Webflow makes GSAP 100% free – plus more updates",
+          "url": "https://news.ycombinator.com/item?id=43868273",
+          "date": "2025-05-02T11:09:52Z"
+        },
+        {
+          "title": "Show HN: An open-source, local-first Webflow for your own app",
+          "url": "https://news.ycombinator.com/item?id=41390449",
+          "date": "2024-08-29T13:11:45Z"
+        },
+        {
+          "title": "Show HN: Open-sourced Webflow for your own app",
+          "url": "https://news.ycombinator.com/item?id=40904862",
+          "date": "2024-07-08T12:36:10Z"
+        },
+        {
+          "title": "Civilization VI UI, but made in Webflow (a no-code tool)",
+          "url": "https://news.ycombinator.com/item?id=24294450",
+          "date": "2020-08-27T15:12:11Z"
+        }
+      ],
+      "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Webflow",
+      "status": "scraped",
+      "confidence": "medium",
+      "fetchedAt": "2026-11-18T06:58:36.493Z"
+    }
+  },
+  "pika": {
+    "news": {
+      "value": [
+        {
+          "title": "Pikaday: A friendly guide to front-end date pickers",
+          "url": "https://news.ycombinator.com/item?id=45887957",
+          "date": "2025-11-11T14:58:47Z"
+        },
+        {
+          "title": "Pikachu Volleyball",
+          "url": "https://news.ycombinator.com/item?id=39614156",
+          "date": "2024-03-06T09:49:02Z"
+        },
+        {
+          "title": "Show HN: Pika – Simple blogging software",
+          "url": "https://news.ycombinator.com/item?id=39274521",
+          "date": "2024-02-06T14:28:15Z"
+        },
+        {
+          "title": "Pikascript: An ultra-lightweight Python engine that can run in 4Kb of RAM",
+          "url": "https://news.ycombinator.com/item?id=31433815",
+          "date": "2022-05-19T12:41:54Z"
+        }
+      ],
+      "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Pika",
+      "status": "scraped",
+      "confidence": "medium",
+      "fetchedAt": "2026-11-18T06:58:38.427Z"
+    }
+  },
+  "safe-superintelligence": {
+    "news": {
+      "value": [
+        {
+          "title": "Safe Superintelligence Inc",
+          "url": "https://news.ycombinator.com/item?id=49290264",
+          "date": "2026-08-13T18:44:38Z"
+        },
+        {
+          "title": "Ask HN: What is Safe Superintelligence Inc building?",
+          "url": "https://news.ycombinator.com/item?id=46272806",
+          "date": "2025-12-15T10:50:25Z"
+        },
+        {
+          "title": "Sutskever to Lead Safe Superintelligence after Meta poaches CEO Gross",
+          "url": "https://news.ycombinator.com/item?id=44460602",
+          "date": "2025-07-04T02:16:37Z"
+        },
+        {
+          "title": "Ilya Sutskever will lead Safe Superintelligence following his CEO's exit",
+          "url": "https://news.ycombinator.com/item?id=44457789",
+          "date": "2025-07-03T18:16:55Z"
+        }
+      ],
+      "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Safe%20Superintelligence",
+      "status": "scraped",
+      "confidence": "medium",
+      "fetchedAt": "2026-11-18T06:58:38.739Z"
+    }
+  },
+  "hippocratic-ai": {
+    "news": {
+      "value": [
+        {
+          "title": "Hippocratic AI Acquires Grove AI",
+          "url": "https://news.ycombinator.com/item?id=46597529",
+          "date": "2026-01-13T05:19:27Z"
+        },
+        {
+          "title": "Hippocratic AI banks $141M Series B with $1.64B valuation",
+          "url": "https://news.ycombinator.com/item?id=42651604",
+          "date": "2025-01-10T01:33:15Z"
+        }
+      ],
+      "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Hippocratic%20AI",
+      "status": "scraped",
+      "confidence": "medium",
+      "fetchedAt": "2026-11-18T06:58:39.066Z"
+    }
+  },
+  "uniphore": {
+    "news": {
+      "value": [
+        {
+          "title": "Video Interview: Uniphore | Voice of the web",
+          "url": "https://news.ycombinator.com/item?id=677775",
+          "date": "2009-06-28T16:01:04Z"
+        }
+      ],
+      "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Uniphore",
+      "status": "scraped",
+      "confidence": "medium",
+      "fetchedAt": "2026-11-18T06:58:39.371Z"
+    }
+  },
+  "mashgin": {
+    "news": {
+      "value": [
+        {
+          "title": "Mashgin Hits $1.5B Valuation with AI-Powered Self-Checkout System",
+          "url": "https://news.ycombinator.com/item?id=31333864",
+          "date": "2022-05-10T23:13:34Z"
+        }
+      ],
+      "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=Mashgin",
+      "status": "scraped",
+      "confidence": "medium",
+      "fetchedAt": "2026-11-18T06:58:39.686Z"
+    }
+  },
+  "1x-technologies": {
+    "news": {
+      "value": [
+        {
+          "title": "They Built This Robot for Your Home – 1X Technologies",
+          "url": "https://news.ycombinator.com/item?id=41416605",
+          "date": "2024-09-01T12:53:00Z"
+        }
+      ],
+      "source": "https://hn.algolia.com/api/v1/search?tags=story&hitsPerPage=8&query=1X%20Technologies",
+      "status": "scraped",
+      "confidence": "medium",
+      "fetchedAt": "2026-11-18T06:58:40.095Z"
     }
   }
 };

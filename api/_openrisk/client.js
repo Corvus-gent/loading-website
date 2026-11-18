@@ -11,9 +11,15 @@ export async function client() {
   const link = (url, label = 'Source ↗') => safeUrl(url) ? '<a href="' + esc(safeUrl(url)) + '" target="_blank" rel="noreferrer">' + esc(label) + '</a>' : '';
   const badge = (text, tone = 'dim') => '<span class="badge ' + tone + '">' + esc(text) + '</span>';
   const riskBadge = risk => risk?.grade ? badge(risk.grade + ' · ' + risk.value, risk.grade <= 'B' ? 'ok' : risk.grade === 'C' ? 'warn' : 'red') : badge('Unrated');
-  const logo = (item, large = false) => '<span class="logo' + (large ? ' large' : '') + '" aria-hidden="true">' + esc(item.name.split(/\s+/).slice(0,2).map(word => word[0]).join('').toUpperCase()) + (item.domain ? '<img alt="" loading="lazy" src="https://www.google.com/s2/favicons?sz=64&amp;domain=' + encodeURIComponent(item.domain) + '">' : '') + '</span>';
+  const logo = (item, large = false) => {
+    const initials=item.name.split(/\s+/).slice(0,2).map(word=>word[0]).join('').toUpperCase();
+    const color=Array.from(item.name).reduce((sum,letter)=>sum+letter.charCodeAt(0),0)%4;
+    const artwork=ctx.logos?.[item.id];
+    return '<span class="logo brand-color-'+color+(large?' large':'')+'" aria-hidden="true">'+esc(initials)
+      +(artwork?'<img alt="" decoding="async" src="'+esc(artwork)+'">':'')+'</span>';
+  };
   const date = stamp => /^\d{4}-\d{2}-\d{2}/.test(stamp || '') ? stamp.slice(0, 10) : '—';
-  const ctx = { city: 'Gent', sort: 'risk', role: 'Investor', page: 'map', cache: new Map() };
+  const ctx = { city:'Gent', sort:'risk', role:'Investor', page:'map', selectedPeriod:'2026-10', range:12, category:'Financial', order:'risk', descending:true };
   let toastTimer;
   function toast(text) {
     clearTimeout(toastTimer);
@@ -35,13 +41,18 @@ export async function client() {
   const val = (text, s) => '<div class="value">' + esc(text) + '</div>' + source(s);
   const nav = () => {
     roleInput.value = ctx.role;
-    top.innerHTML = button('Explore', 'data-page="map"', ctx.page === 'map' ? 'current' : '');
+    const tabs = [['map','Explore'], ...(ctx.role==='Investor' ? [['portfolio','Portfolio']] : ctx.role==='Founder' ? [['founder','Founder desk'],['funds','Investor fit']] : [['admin','Operations']])];
+    top.innerHTML = tabs.map(([page,label])=>button(label,'data-page="'+page+'"',ctx.page===page?'current':'')).join('');
   };
   function navigate(page) {
     ctx.cancel?.abort();
     ctx.page = page;
     nav();
     if (page === 'map') map();
+    if (page === 'portfolio') portfolio();
+    if (page === 'founder') founder();
+    if (page === 'funds') funds();
+    if (page === 'admin') admin();
     if (!['profile','cold'].includes(page)) window.scrollTo(0,0);
   }
 
@@ -53,10 +64,23 @@ export async function client() {
     return '<button class="pin" data-city="' + esc(city.name) + '" title="' + esc(city.name) + '" aria-label="' + esc(city.name) + '" aria-pressed="' + (ctx.city === city.name) + '" style="left:' + px + '%;top:' + py + '%"></button><span class="map-label" style="left:' + px + '%;top:' + py + '%">' + esc(city.name) + '</span>';
   }
 
+  function inset(key, label, cities) {
+    const [west,south,east,north]=ctx.insets.bounds[key];
+    const path=ctx.insets.paths[key];
+    const pins=cities.map(city=>{
+      const x=(city.lon-west)*100/(east-west);
+      const y=(north-city.lat)*100/(north-south);
+      return '<button class="pin" data-city="'+esc(city.name)+'" title="'+esc(city.name)+'" aria-label="'+esc(city.name)+' map pin" aria-pressed="'+(ctx.city===city.name)+'" style="left:'+x+'%;top:'+y+'%"></button>';
+    }).join('');
+    const labels=cities.map(city=>button(city.name,'data-city="'+esc(city.name)+'" aria-pressed="'+(ctx.city===city.name)+'"','inset-city')).join('');
+    return '<section class="market" aria-label="'+label+'"><div class="inset-geo"><svg viewBox="0 0 300 115" preserveAspectRatio="none" aria-hidden="true"><path d="'+esc(path)+'" fill="#223754" stroke="#52769c" stroke-width=".7"/></svg>'+pins+'<span class="market-name">'+label+'</span></div><div class="inset-cities">'+labels+'</div></section>';
+  }
+
   function map() {
-    main.innerHTML = '<section class="hero"><span class="eyebrow">Startup intelligence</span><h1>See the risk.<br>Find the opportunity.</h1><p>Explore startups by city or build a risk dossier from public signals.</p><form id="search-form" class="search-wrap" role="search"><label for="company-search" hidden>Search for a startup</label><span class="search-symbol" aria-hidden="true">⌕</span><input id="company-search" placeholder="Search any startup…" maxlength="80" autocomplete="off" aria-controls="search-results" aria-expanded="false"><span class="keycap" aria-hidden="true">/</span><div id="search-results" class="results" hidden></div></form><div class="quick">Quick look ' + ['aikido-security','deliverect','stripe','odoo'].map(id => button(ctx.catalog.find(item => item.id === id).name, 'data-company="' + id + '"')).join('') + '</div></section>'
-      + '<div class="layout"><section class="panel atlas"><div class="panel-head"><h2>Ecosystem map</h2>' + badge(ctx.cities.length + ' cities') + '</div><div class="map-stage"><svg viewBox="0 0 900 360" preserveAspectRatio="none" aria-label="World map"><defs><pattern id="grid" width="37.5" height="37.5" patternUnits="userSpaceOnUse"><path d="M 37.5 0 L 0 0 0 37.5" fill="none" stroke="#253751" stroke-width=".7"/></pattern></defs><rect width="900" height="360" fill="url(#grid)"/><path d="' + esc(ctx.land) + '" fill="#243855" stroke="#507096" stroke-width=".65"/></svg><button class="cluster" aria-label="Belgium startup hubs" data-city="Gent" style="left:51.1%;top:22.2%">4</button><button class="cluster" aria-label="Bay Area startup hubs" data-city="San Francisco" style="left:16%;top:31.4%">2</button><span class="map-caption">NATURAL EARTH · GLOBAL VIEW</span></div><div class="market-grid"><div class="market" aria-label="Belgium city pins">' + ctx.cities.filter(c=>c.country==='Belgium').map(c=>pin(c,c.px,c.py)).join('') + '<div class="market-name">Belgium</div></div><div class="market" aria-label="Bay Area city pins">' + ctx.cities.filter(c=>c.country==='United States').map(c=>pin(c,c.px,c.py)).join('') + '<div class="market-name">Bay Area</div></div></div></section><section class="panel"><div class="panel-head"><h2 id="city-title"></h2><select id="city-sort" aria-label="Sort startups"><option value="risk">By score</option><option value="name">By name</option></select></div><div id="city-rows" class="rows"></div></section></div>';
+    main.innerHTML = '<section class="hero"><span class="eyebrow">Startup intelligence</span><h1>Explore startup risk.</h1><p>Explore startups by city or build a risk dossier from public signals.</p><form id="search-form" class="search-wrap" role="search"><label for="company-search" hidden>Search for a startup</label><span class="search-symbol" aria-hidden="true">⌕</span><input id="company-search" placeholder="Search any startup…" maxlength="80" autocomplete="off" aria-controls="search-results" aria-expanded="false"><span class="keycap" aria-hidden="true">/</span><div id="search-results" class="results" hidden></div></form><div class="quick">Quick look ' + ['aikido-security','deliverect','stripe','odoo'].map(id => button(ctx.catalog.find(item => item.id === id).name, 'data-company="' + id + '"')).join('') + '</div></section>'
+      + '<div class="layout"><section class="panel atlas"><div class="panel-head"><h2>Ecosystem map</h2>' + '<div class="actions">' + badge(allCompanies().length + ' profiles · ' + allCities().length + ' cities') + button('+ Add city','data-open-dialog="city"') + '</div></div><div class="map-stage"><svg viewBox="0 0 900 360" preserveAspectRatio="none" aria-label="World map"><defs><pattern id="grid" width="37.5" height="37.5" patternUnits="userSpaceOnUse"><path d="M 37.5 0 L 0 0 0 37.5" fill="none" stroke="#253751" stroke-width=".7"/></pattern></defs><rect width="900" height="360" fill="url(#grid)"/><path d="' + esc(ctx.land) + '" fill="#243855" stroke="#507096" stroke-width=".65"/></svg><button class="cluster" aria-label="Belgium startup hubs" data-city="Gent" style="left:51.1%;top:22.2%">4</button><button class="cluster" aria-label="Bay Area startup hubs" data-city="San Francisco" style="left:16%;top:31.4%">2</button>' + extraPins() + '<span class="map-caption">NATURAL EARTH · GLOBAL VIEW</span></div><div class="market-grid">' + inset('belgium','Belgium',ctx.cities.slice(0,4)) + inset('bay','Bay Area',ctx.cities.slice(4,6)) + '</div></section><section class="panel"><div class="panel-head"><h2 id="city-title"></h2><select id="city-sort" aria-label="Sort startups"><option value="risk">By score</option><option value="name">By name</option></select></div><div id="city-rows" class="rows"></div></section></div>';
     main.querySelector('.map-stage svg').classList.add('earth');
+    main.insertAdjacentHTML('beforeend','<div class="actions spaced">'+button('+ Add a startup','data-open-dialog="startup"','ghost')+'</div>');
     const input = document.querySelector('#company-search');
     const results = document.querySelector('#search-results');
     let active = 0;
@@ -64,7 +88,7 @@ export async function client() {
     const update = () => {
       const name = input.value.trim();
       active = 0;
-      hits = name ? ctx.catalog.filter(item => item.name.toLowerCase().includes(name.toLowerCase())).sort((a,b) => Number(b.name.toLowerCase().startsWith(name.toLowerCase())) - Number(a.name.toLowerCase().startsWith(name.toLowerCase()))).slice(0,7) : [];
+      hits = name ? allCompanies().filter(item => item.name.toLowerCase().includes(name.toLowerCase())).sort((a,b) => Number(b.name.toLowerCase().startsWith(name.toLowerCase())) - Number(a.name.toLowerCase().startsWith(name.toLowerCase()))).slice(0,7) : [];
       results.innerHTML = name ? hits.map(item => companions(item, '')).join('') + '<button type="button" data-cold="' + esc(name) + '"><span class="logo">↗</span><span><strong>Research ' + esc(name) + '</strong><small>Look up public sources live</small></span>' + badge('Live') + '</button>' : '';
       results.hidden = !name;
       input.setAttribute('aria-expanded', String(Boolean(name)));
@@ -95,11 +119,11 @@ export async function client() {
   }
 
   function cityRows() {
-    const items = ctx.catalog.filter(item => item.city === ctx.city).sort((a,b) =>
+    const items = allCompanies().filter(item => item.city === ctx.city).sort((a,b) =>
       (ctx.sort === 'risk' ? (b.risk?.value ?? -1) - (a.risk?.value ?? -1) : 0) || a.name.localeCompare(b.name));
     document.querySelector('#city-title').textContent = ctx.city + ' · ' + items.length;
     document.querySelector('#city-rows').innerHTML = items.map(item=>companions(item)).join('') || empty('No profiles are available for this city yet.');
-    main.querySelectorAll('.pin').forEach(node => node.setAttribute('aria-pressed', String(node.dataset.city === ctx.city)));
+    main.querySelectorAll('.pin,.inset-city').forEach(node => node.setAttribute('aria-pressed', String(node.dataset.city === ctx.city)));
   }
 
   const signalValue = item => {
@@ -117,18 +141,28 @@ export async function client() {
     const s = item.signals || {}, r = item.risk || { value:null, coverage:0, breakdown:[] };
     const funding = s.funding?.value;
     const age = funding ? (Date.now() - Date.parse(funding.announced)) / (30.4375 * 86400000) : null;
-    const ticker = [['Website',item.source],['Jobs',s.jobs],['GitHub',s.github],['Financing',funding],['News',s.news]].map(([label, value]) => badge((value ? '✓ ' : '– ') + label, value ? 'ok' : 'dim')).join('');
+    const ticker = [['Company website',item.domain],['Directory',item.directory],['Jobs',s.jobs],['GitHub',s.github],['Financing',funding || s.stage],['News',s.news?.value?.length]].map(([label, value]) => badge((value ? '✓ ' : '– ') + label, value ? 'ok' : 'dim')).join('');
     const breakdown = r.breakdown.map(rule => '<tr><td>' + esc(rule.title) + '</td><td>' + rule.weight + '%</td><td>' + esc(signalValue(rule)) + '</td><td>' + (rule.points ?? '—') + '</td><td>' + (rule.signal ? link(rule.signal.source, date(rule.signal.fetchedAt) + ' ↗') : '—') + '</td></tr>').join('');
     const news = s.news?.value?.length ? '<ul class="items">' + s.news.value.map(row => '<li>' + link(row.url, row.title) + ' <small>· ' + esc(date(row.date)) + '</small></li>').join('') + '</ul>' + source(s.news) : empty('No matching stories in the snapshot.');
+    const headcount=s.headcount;
+    const teamData=(s.jobs ? val(s.jobs.value.count + ' open roles',s.jobs) + '<ul class="items">' + s.jobs.value.roles.map(role=>'<li>' + esc(role) + '</li>').join('') + '</ul>' + (s.jobs.value.departments?.length ? '<div class="source">Teams · '+esc(s.jobs.value.departments.join(', '))+'</div>' : '') : '')
+      +(headcount ? '<p style="margin-top:8px">'+esc(headcount.value.label || (headcount.value.min+'–'+headcount.value.max+' estimated employees'))+'</p>'+source(headcount) : '');
+    const identityFields=(s.location?'<p>'+esc(s.location.value)+'</p>'+source(s.location):'')+(s.enterprise?'<div>Belgian enterprise number '+esc(s.enterprise.value)+'</div>'+source(s.enterprise)+'<div class="source">'+link('https://consult.cbso.nbb.be/','NBB annual accounts ↗')+'</div>':'');
     const summary = (item.summary || []).map((entry, i) => '<li><strong>' + ['What changed','What’s risky','Ask the founder'][i] + '</strong> · ' + esc(entry.text) + ' ' + link(entry.source) + '</li>').join('');
-    main.innerHTML = profileHeader(item) + '<div class="ticker" aria-label="Sources">' + ticker + '</div><div class="dossier">'
-      + panel('OpenRisk score','<div class="scoreline"><div class="score">' + (r.value ?? '—') + '<sub>/100</sub></div>' + riskBadge(r) + '</div><div class="meter"><span style="width:' + r.coverage + '%"></span></div><p class="muted">' + r.coverage + '% evidence coverage · ' + (r.trend === null ? '— prior snapshot' : esc(r.trend)) + '</p><div class="source">Public signal rubric · ' + date(r.asOf) + '</div>')
+    const claimed = ctx.state.claims.includes(item.id);
+    const followed = ctx.state.followed.includes(item.id);
+    const controls = (ctx.role==='Investor' ? button(followed?'Following':'Follow','data-follow="'+item.id+'"','accent') : '')
+      + (ctx.role!=='Admin' ? button(claimed?'Open founder desk':'Claim this profile','data-claim="'+item.id+'"',ctx.role==='Founder'?'accent':'ghost') : '');
+    main.innerHTML = profileHeader(item,controls) + '<div class="ticker" aria-label="Sources">' + ticker + '</div><div class="dossier">'
+      + panel('OpenRisk score','<div class="scoreline"><div class="score">' + (r.value ?? '—') + '<sub>/100</sub></div>' + riskBadge(r) + '</div><div class="meter"><span style="width:' + r.coverage + '%"></span></div><p class="muted">' + r.coverage + '% evidence coverage · ' + (r.trend === null ? '— prior snapshot' : esc(r.trend)) + '</p><div class="source">Higher scores indicate stronger visible signals · ' + date(r.asOf) + '</div>')
       + panel('How the score is built','<div class="scroll"><table class="rules"><thead><tr><th>Signal</th><th>Weight</th><th>Observed value</th><th>Points</th><th>Source</th></tr></thead><tbody>' + breakdown + '</tbody></table></div>','wide')
-      + panel('Company identity','<p>' + esc(item.description) + '</p>' + (s.founded ? '<div>Founded ' + esc(s.founded.value) + '</div>' + source(s.founded) : '') + '<div class="source">' + link(item.source,item.domain + ' ↗') + ' · Curated ' + esc(date(item.asOf)) + '</div>')
-      + panel('Team & hiring',s.jobs ? val(s.jobs.value.count + ' open roles',s.jobs) + '<ul class="items">' + s.jobs.value.roles.map(role=>'<li>' + esc(role) + '</li>').join('') + '</ul>' : empty('No supported hiring board in this snapshot.'))
-      + panel('Financial signals',funding ? val(funding.label,s.funding) + '<div class="source">Announced ' + esc(funding.announced) + (age > 18 ? ' · ' + badge('Older than 18 months','warn') : '') + '</div>' : s.disclosure ? val(s.disclosure.value.label,s.disclosure) + '<p>' + esc(s.disclosure.value.detail) + '</p>' : empty('No verified financing or annual accounts in this snapshot.'))
-      + panel('Product & engineering',s.github ? '<p>' + esc(s.github.value.repo) + ' · Last public push ' + esc(date(s.github.value.pushedAt)) + '</p>' + source(s.github) : empty('No attributable public repository in this snapshot.'))
+      + panel('Company identity','<p>' + esc(item.description) + '</p>' + (s.founded ? '<div>Founded ' + esc(s.founded.value) + '</div>' + source(s.founded) : '') + '<div class="source">' + link(item.source,(item.directory || item.domain || 'Source') + ' ↗') + ' · Observed ' + esc(date(item.asOf)) + '</div>' + identityFields)
+      + panel('Team & hiring',teamData || empty('No attributable hiring or headcount data in this snapshot.'))
+      + panel('Financial signals',funding ? val(funding.label,s.funding) + '<div class="source">Announced ' + esc(funding.announced) + (age > 18 ? ' · ' + badge('Older than 18 months','warn') : '') + '</div>' : s.disclosure ? val(s.disclosure.value.label,s.disclosure) + '<p>' + esc(s.disclosure.value.detail) + '</p>' : s.stage ? val(s.stage.value,s.stage) + '<p>Directory-reported stage · Round amount and date unavailable.</p>' : empty('No verified financing or annual accounts in this snapshot.'))
+      + panel('Product & engineering',(s.github ? '<p>' + esc(s.github.value.repo) + ' · Last public push ' + esc(date(s.github.value.pushedAt)) + '</p>' + source(s.github) : '') + (s.website ? link(s.website.value,'Official site ↗') + source(s.website) : '') || empty('No attributable engineering observations in this snapshot.'))
       + panel('Public coverage',news) + panel('Diligence brief','<ul class="items">' + summary + '</ul>') + '</div>';
+    if (ctx.state.companies[item.id]?.values.length) main.insertAdjacentHTML('beforeend', metricView(item.id));
+    if (ctx.role==='Investor' && claimed) void api('state',{action:'view',company:item.id}).catch(()=>{});
     window.scrollTo(0,0);
   }
 
@@ -137,7 +171,7 @@ export async function client() {
     const controller = new AbortController();
     ctx.cancel = controller;
     const item = { name };
-    const keys = { identity: 'Identity', news: 'Public coverage' };
+    const keys = { identity:'Identity', news:'Public coverage' };
     const state = {};
     const draw = () => {
       const cards = Object.entries(keys).map(([key, title]) => {
@@ -145,10 +179,14 @@ export async function client() {
         if (!event) return panel(title, '<div class="shimmer"></div><div class="shimmer"></div><div class="shimmer"></div>');
         if (!event.value) return panel(title, empty('No verified match returned by this source.'));
         const signal = event.value;
-        if (key === 'identity') return panel(title, '<p>' + esc(signal.value.description) + '</p>' + source(signal));
+        if (key === 'identity') {
+          const identity=signal.value;
+          return panel(title,'<p>'+esc(identity.description)+'</p>'+(identity.founded?'<p>Founded '+esc(identity.founded)+'</p>':'')+(identity.website?link(identity.website,'Company site ↗'):'')+source(signal));
+        }
         return panel(title, signal.value.length ? '<ul class="items">' + signal.value.map(row=>'<li>' + link(row.url,row.title) + ' <small>· ' + esc(date(row.date)) + '</small></li>').join('') + '</ul>' + source(signal) : empty('The source returned no matching stories.') + source(signal));
       }).join('');
-      main.innerHTML = profileHeader(item) + '<div class="ticker" aria-live="polite">' + Object.entries(keys).map(([key,label]) => badge((!state[key] ? '… ' : state[key].value ? '✓ ' : '– ') + label, state[key]?.value ? 'ok' : 'dim')).join('') + '</div><div class="dossier">' + panel('OpenRisk score',val('Unrated') + '<p>Scoring requires sufficient attributable evidence.</p>') + cards + '</div>';
+      const ready=Object.keys(keys).every(key=>state[key]);
+      main.innerHTML = profileHeader(item,ready?button('+ Add a startup','data-open-dialog="startup" data-startup-name="'+esc(name)+'"','ghost'):'') + '<div class="ticker" aria-live="polite">' + Object.entries(keys).map(([key,label]) => badge((!state[key] ? '… ' : state[key].value ? '✓ ' : '– ') + label, state[key]?.value ? 'ok' : 'dim')).join('') + '</div><div class="dossier">' + panel('OpenRisk score',val('Unrated') + '<p>Scoring requires sufficient attributable evidence.</p>') + cards + panel('Team & hiring',empty('A verified hiring board is required.')) + panel('Financial signals',empty('Company financing and filings need verification.')) + panel('Product & engineering',empty('A verified repository or product page is required.')) + '</div>';
     };
     draw();
     window.scrollTo(0,0);
@@ -179,12 +217,285 @@ export async function client() {
     }
   }
 
-  document.addEventListener('click', event => {
+  const emptyState = () => ({followed:[],claims:[],companies:{},alerts:{},requests:[],approved:[],jobs:[],invites:[]});
+  const allCompanies = () => [...ctx.catalog,...ctx.state.approved,...ctx.state.jobs.flatMap(job=>job.details||[])]
+    .filter((company,i,arr)=>arr.findIndex(row=>row.id===company.id)===i);
+  const allCities = () => [...ctx.cities,...ctx.state.jobs.filter(job=>job.type==='City' && job.stage==='Complete' && job.city && !ctx.cities.some(city=>city.name===job.city.name)).map(job=>job.city)].filter((city,i,arr)=>arr.findIndex(row=>row.name===city.name)===i);
+  const extraPins = () => allCities().filter(city=>!ctx.cities.some(base=>base.name===city.name)).map(city=>pin(city,(city.lon+180)*100/360,(83-city.lat)*250/360)).join('');
+  async function switchRole(role) {
+    ctx.role=(await api('role',{role})).role;
+    ctx.state=(await api('state')).state;
+    nav();
+  }
+  async function mutate(command) {
+    const response=await api('state',command);
+    ctx.state=response.state;
+    return response;
+  }
+  const title = (h, detail) => '<div class="view-title"><h1>'+esc(h)+'</h1><p>'+esc(detail)+'</p></div>';
+  const labelFor = (id, key) => ctx.metrics[key]?.label || ctx.state.companies[id]?.definitions[key]?.label || key;
+  const number = value => new Intl.NumberFormat('en', {maximumFractionDigits:1}).format(value);
+  const shown = row => row ? (row.currency ? esc(new Intl.NumberFormat('en', {style:'currency',currency:row.currency,maximumFractionDigits:row.value % 1 === 0 ? 0 : 2}).format(row.value)) : esc(number(row.value))) : '—';
+  const sampleTag = row => row?.sample ? ' '+badge('Sample data','warn') : '';
+
+  function portfolio() {
+    const keys=[['name','Startup'],['last','Last update'],['cash','Cash'],['runway','Runway'],['growth','MRR growth'],['risk','Score']];
+    const items=allCompanies().filter(item=>ctx.state.followed.includes(item.id)).map(company=>{
+      const values=ctx.state.companies[company.id]?.values || [];
+      const latest=key=>values.filter(row=>row.metric===key).at(-1);
+      const mrr=values.filter(row=>row.metric==='mrr').slice(-2);
+      const prev=mrr[0], curr=mrr[1];
+      const growth=prev?.value && curr && prev.currency===curr.currency ? 100*(curr.value/prev.value-1) : null;
+      return { company,name:company.name,last:values.map(row=>row.fetchedAt).sort().at(-1),cash:latest('cash'),runway:latest('runway'),growth,risk:company.risk?.value,sample:values.some(row=>row.sample) };
+    });
+    items.sort((a,b)=>{
+      const x=a[ctx.order]?.value ?? a[ctx.order], y=b[ctx.order]?.value ?? b[ctx.order];
+      if (x==null && y==null) return a.name.localeCompare(b.name);
+      if (x==null) return 1;
+      if (y==null) return -1;
+      return (typeof x==='string'?x.localeCompare(y):x-y)*(ctx.descending?-1:1);
+    });
+    const rows=items.map(row=>'<tr><td>'+button(row.name,'data-company="'+row.company.id+'"','link')+sampleTag(row)+'</td><td>'+date(row.last)+'</td><td>'+shown(row.cash)+'</td><td class="'+(row.runway?.value<6?'danger':'')+'">'+(row.runway?shown(row.runway)+' mo':'—')+'</td><td>'+(row.growth==null?'—':number(row.growth)+'%')+'</td><td>'+riskBadge(row.company.risk)+'</td></tr>').join('');
+    const table = rows ? '<div class="scroll"><table class="rules"><thead><tr>'+keys.map(([key,label])=>'<th scope="col"'+(ctx.order===key?' aria-sort="'+(ctx.descending?'descending':'ascending')+'"':'')+'>'+button(label+(ctx.order===key?(ctx.descending?' ↓':' ↑'):''),'data-port-sort="'+key+'"')+'</th>').join('')+'</tr></thead><tbody>'+rows+'</tbody></table></div>' : empty('Follow any startup from its profile to add it here.');
+    const alerts=ctx.state.alerts;
+    main.innerHTML=title('Portfolio cockpit','Track followed companies and review founder-confirmed updates.')
+      +'<div class="stack">'+panel('Followed startups',table)+panel('Alert settings','<form id="alerts-form" class="form-grid"><div><label>Runway warning (months)<input name="threshold" type="number" min="1" max="36" required value="'+(alerts.threshold||6)+'"></label></div><label class="switchline"><input name="monthly" type="checkbox" '+(alerts.monthly?'checked':'')+'> New monthly figures</label><div class="full actions"><button class="accent">Save alerts</button><small>Demo settings · Email delivery simulated</small></div></form>')+'</div>';
+  }
+
+  function metricView(id, guest = null) {
+    const company=guest || ctx.state.companies[id];
+    if (!company) return '';
+    const defs={...ctx.metrics,...company.definitions};
+    const grouped=Object.entries(defs).filter(([,def])=>def.category===ctx.category);
+    const latest=company.values.map(row=>row.period).sort().at(-1);
+    const cutoff=latest ? new Date(latest+'-01T00:00:00Z') : null;
+    if(cutoff) cutoff.setUTCMonth(cutoff.getUTCMonth()-(ctx.range-1));
+    const start=cutoff?.toISOString().slice(0,7);
+    const graphs=grouped.map(([key,def])=>{
+      const observed=company.values.filter(row=>row.metric===key && row.period>=start);
+      const last=observed.at(-1);
+      const rows=observed.filter(row=>row.currency===last?.currency);
+      const chart=rows.length ? plot(rows) : empty('No recorded values in this period.');
+      return panel(def.label,(last?'<div class="value">'+shown(last)+(def.unit==='months'?' mo':'')+sampleTag(last)+'</div><div class="source">'+badge(last.status,'ok')+' '+esc(last.source)+' · '+date(last.fetchedAt)+'</div>':'')+chart);
+    }).join('');
+    const updates=Object.entries(company.updates).sort(([a],[b])=>b.localeCompare(a)).slice(0,5).map(([period,entry])=>'<li><strong>'+esc(period)+'</strong>'+sampleTag(entry)+' <small>'+date(entry.at)+'</small><p>'+esc(entry.note)+'</p></li>').join('');
+    const audit=(company.audit||[]).slice().reverse().slice(0,12).map(row=>'<tr><td>'+esc(row.period)+'</td><td>'+esc(labelFor(id,row.metric))+sampleTag(row)+'</td><td>'+shown(row.old===null?null:{value:row.old,currency:row.currency})+'</td><td>'+shown(row.value===null?null:row)+'</td><td>'+esc(row.actor)+' · '+date(row.at)+'</td></tr>').join('');
+    return '<section class="stack" id="metric-view" style="margin-top:18px"><div class="split"><h2>Confirmed KPIs</h2><div class="chart-controls"><select id="metric-category" aria-label="KPI category">'+['Financial','Sales','Commercial','Operational'].map(option=>'<option'+(ctx.category===option?' selected':'')+'>'+option+'</option>').join('')+'</select><select id="metric-range" aria-label="Chart range">'+[3,6,12,24].map(option=>'<option value="'+option+'"'+(ctx.range===option?' selected':'')+'>'+option+' months</option>').join('')+'</select></div></div><div class="cards">'+graphs+'</div>'
+      +(updates?panel('Monthly updates','<ul class="items">'+updates+'</ul>'):'')+(audit?panel('Edit history','<div class="scroll"><table class="rules"><thead><tr><th>Period</th><th>Metric</th><th>Previous</th><th>Current</th><th>Changed by</th></tr></thead><tbody>'+audit+'</tbody></table></div>'):'')+'</section>';
+  }
+
+  function plot(rows) {
+    const values=rows.map(row=>row.value);
+    const min=Math.min(...values), max=Math.max(...values);
+    const pts=rows.map((row,i)=>[rows.length===1?136:14+i*244/(rows.length-1),max===min?56:98-(row.value-min)*72/(max-min),row]);
+    return '<svg class="chart" viewBox="0 0 272 130" role="img" aria-label="Monthly KPI trend"><path d="M14 30H258 M14 60H258 M14 98H258" fill="none" stroke="#283953"/><polyline points="'+pts.map(([x,y])=>x+','+y).join(' ')+'" fill="none" stroke="#89afff" stroke-width="2"/>'+pts.map(([x,y,row])=>'<circle cx="'+x+'" cy="'+y+'" r="3.8" fill="#8fe1cc"><title>'+esc(row.period)+' · '+shown(row)+'</title></circle>').join('')+'<text x="14" y="119" class="number-label">'+esc(rows[0].period)+'</text>'+(rows.length>1?'<text x="258" y="119" text-anchor="end" class="number-label">'+esc(rows.at(-1).period)+'</text>':'')+'</svg>';
+  }
+
+  function founder() {
+    const claimed = allCompanies().filter(item=>ctx.state.claims.includes(item.id));
+    const item = claimed.find(company=>company.id===ctx.current) || claimed[0];
+    if (!item) {
+      main.innerHTML=title('Founder desk','Claim a startup from Explore to start publishing confirmed updates.')+button('Explore startups','data-page="map"','accent');
+      return;
+    }
+    ctx.current=item.id;
+    const c=ctx.state.companies[item.id] || {values:[],updates:{},definitions:{},proposals:[],views:[]};
+    const values=Object.fromEntries(c.values.filter(row=>row.period===ctx.selectedPeriod).map(row=>[row.metric,row]));
+    const defs={...ctx.metrics,...c.definitions};
+    const currency=Object.values(values).find(row=>row.currency)?.currency || 'EUR';
+    const fields=Object.entries(defs).map(([key,def])=>'<div><label for="kpi-'+esc(key)+'">'+esc(def.label)+(key==='runway'?' (auto if blank)':'')+'</label><input id="kpi-'+esc(key)+'" name="'+esc(key)+'" type="number" step="'+(def.unit==='count'?'1':'any')+'" '+(key==='runway'&&values[key]?.source==='calculated'?'placeholder="'+esc(values[key].value)+' calculated"':'value="'+esc(values[key]?.value ?? '')+'"')+'></div>').join('');
+    const proposals=(c.proposals||[]).filter(row=>row.status==='proposed');
+    const inviteList=ctx.state.invites.filter(row=>row.company===item.id).map(row=>'<li><div class="split"><span>'+esc(row.email)+' '+badge(row.status==='revoked'?'Revoked':Date.parse(row.expiresAt)<=Date.now()?'Expired':row.status)+'</span>'+(row.status==='revoked'?'':button('Revoke','data-revoke="'+row.id+'"','link'))+'</div><small>Expires '+date(row.expiresAt)+'</small></li>').join('');
+    main.innerHTML=title('Founder desk','Manage demo ownership, review proposed metrics and publish confirmed values.')
+      +'<div class="actions" style="margin-bottom:14px"><label for="claimed-company">Claimed profile</label><select id="claimed-company">'+claimed.map(row=>'<option value="'+row.id+'"'+(item.id===row.id?' selected':'')+'>'+esc(row.name)+'</option>').join('')+'</select>'+button('View dossier','data-company="'+item.id+'"')+'</div><div class="stack">'
+      +panel('Email → KPI','<div class="actions">'+ctx.samples.map((sample,i)=>button(sample.label,'data-sample="'+i+'"')).join('')+'</div><form id="mail-form" class="stack" style="margin-top:12px"><div><label>Default reporting month<input name="period" type="month" value="'+ctx.selectedPeriod+'" required></label></div><div><label>Investor update<textarea name="text" maxlength="16000" placeholder="Paste a monthly investor update…" required></textarea></label></div><div><button class="accent">Extract KPI proposals</button></div></form>'
+      +(proposals.length?'<div id="proposals"><h3 style="margin-top:18px">Review proposals</h3><div class="scroll"><table class="rules"><thead><tr><th>KPI</th><th>Period</th><th>Proposed value</th><th>Source sentence</th><th>Review</th></tr></thead><tbody>'+proposals.map(p=>'<tr data-proposal="'+p.id+'"><td>'+esc(labelFor(item.id,p.metric))+'<br>'+badge('proposed','warn')+sampleTag(p)+(p.duplicate?' '+badge('Existing value','red'):'')+'</td><td><input aria-label="Reporting month" name="period" type="month" value="'+p.period+'"></td><td><input aria-label="Proposed value" name="value" type="number" step="any" value="'+p.value+'"><small>'+esc(p.currency||'')+' '+esc(p.confidence)+' · '+date(p.fetchedAt)+'</small></td><td><blockquote><mark>'+esc(p.evidence)+'</mark></blockquote></td><td><div class="actions">'+button('Confirm','data-review="'+p.id+'"')+button('Reject','data-review="'+p.id+'" data-reject="yes"','link')+'</div></td></tr>').join('')+'</tbody></table></div><div class="actions spaced">'+button('Confirm all','data-confirm-all','accent')+'</div></div>':''))
+      +panel('Monthly KPI form','<form id="kpi-form" class="form-grid"><div><label>Reporting month<input name="period" id="kpi-period" type="month" value="'+ctx.selectedPeriod+'" required></label></div><div><label>Currency<select name="currency">'+['EUR','USD','GBP'].map(code=>'<option'+(currency===code?' selected':'')+'>'+code+'</option>').join('')+'</select></label></div><div></div>'+fields+'<div class="full"><label>Monthly text update<textarea name="note" maxlength="2000">'+esc(c.updates[ctx.selectedPeriod]?.note||'')+'</textarea></label></div><div class="full actions"><button class="accent">Save KPI update</button><small>Blank metrics keep their existing values.</small></div></form>')
+      +panel('Custom KPI','<form id="custom-form" class="form-grid"><label>Name<input name="label" maxlength="48" required></label><label>Category<select name="category"><option>Operational</option><option>Commercial</option><option>Sales</option><option>Financial</option></select></label><label>Unit<select name="unit"><option value="count">Number</option><option value="money">Currency</option><option value="months">Months</option></select></label><div><button>Create KPI</button></div></form>')
+      +panel('Investor invitations','<form id="invite-form" class="actions"><label style="flex:1">Email<input name="email" type="email" maxlength="180" required></label><button>Create 7-day link</button></form><small>Email delivery is simulated. Copy the link to share it.</small><div id="invite-result"></div><ul class="items">'+inviteList+'</ul>')
+      +panel('Investor engagement',c.views.length?'<ul class="items">'+c.views.slice().reverse().slice(0,12).map(view=>'<li>'+esc(view.label)+' · '+esc(view.kind)+' · '+date(view.at)+'</li>').join('')+'</ul>':empty('Investor views and invite opens appear here.'))+'</div>';
+  }
+
+  async function submitProposals(node) {
+    const rows=node.dataset.confirmAll!==undefined ? [...document.querySelectorAll('[data-proposal]')] : [node.closest('[data-proposal]')];
+    const items=rows.map(row=>{
+      const input=row.querySelector('input[name="value"]');
+      if (!node.dataset.reject && (!input.value || !input.reportValidity())) throw Error('Enter a valid proposed value.');
+      return {id:row.dataset.proposal,value:Number(input.value),period:row.querySelector('[name="period"]').value,reject:Boolean(node.dataset.reject)};
+    });
+    node.disabled=true;
+    try {
+      await mutate({action:'review',company:ctx.current,items});
+      founder();
+      toast(node.dataset.reject?'Proposal rejected.':items.length+' KPI proposal'+(items.length===1?'':'s')+' confirmed.');
+    } finally { node.disabled=false; }
+  }
+
+  function openDialog(kind, startupName) {
+    document.querySelector('#openrisk-dialog')?.remove();
+    const city=kind==='city';
+    main.insertAdjacentHTML('beforeend','<dialog id="openrisk-dialog"><div class="split"><h2>'+(city?'Add a city':'Add a startup')+'</h2>'+button('Close','data-close-dialog','link')+'</div><form id="'+(city?'city-form':'startup-form')+'" class="stack">'+(city?'<label>City name<input name="name" required maxlength="70" placeholder="e.g. Paris"></label>':'<label>Startup name<input name="name" required maxlength="80"></label><label>Website<input name="website" required maxlength="300" placeholder="example.com"></label><label>City<select name="city">'+allCities().map(city=>'<option'+(city.name===ctx.city?' selected':'')+'>'+esc(city.name)+'</option>').join('')+'</select></label>')+'<button class="accent">'+(city?'Start preload':'Submit for approval')+'</button><div data-job-progress aria-live="polite"></div></form></dialog>');
+    const dialog=document.querySelector('#openrisk-dialog');
+    if(startupName) dialog.querySelector('[name="name"]').value=startupName;
+    dialog.addEventListener('close',()=>dialog.remove(),{once:true});
+    dialog.showModal();
+  }
+
+  async function runJob(node,command,done) {
+    node.disabled=true;
+    const surface=document.querySelector('#openrisk-dialog [data-job-progress]') || document.querySelector('#queue-progress');
+    const paint = message=>{ if(surface) surface.innerHTML='<div class="source">'+esc(message)+'</div><progress aria-label="Job progress"></progress>'; };
+    paint('Queued · discovering public sources');
+    const interval=setInterval(async()=>{
+      try {
+        const {state}=await api('state');
+        const job=state.jobs.find(row=>command.action==='add-city'?row.name.toLowerCase()===command.name.toLowerCase():row.type==='Startup');
+        if(job) paint(job.stage+' · '+job.name);
+      } catch {}
+    },700);
+    try {
+      const result=await mutate(command);
+      done(result);
+      toast(command.action==='approve'?'Approved and added to the map.':result.count+' profiles indexed for '+result.city+'.');
+    } finally {
+      clearInterval(interval);
+      if(surface) surface.textContent='';
+      node.disabled=false;
+    }
+  }
+
+  function admin() {
+    const { requests, jobs, stats } = ctx.state;
+    const rows=requests.map(row=>'<tr><td><strong>'+esc(row.name)+'</strong><br>'+link(row.website,row.website)+'</td><td>'+esc(row.city)+'</td><td>'+date(row.at)+'</td><td>'+badge(row.status,row.status==='approved'?'ok':'warn')+'</td><td>'+(row.status==='pending'?button('Approve & enrich','data-approve="'+row.id+'"','accent'):'')+'</td></tr>').join('');
+    const list=jobs.slice(0,15).map(row=>'<li><strong>'+esc(row.name)+'</strong> · '+esc(row.type)+' · '+badge(row.stage,row.stage==='Complete'?'ok':'warn')+(row.count!=null?' · '+row.count+' indexed':'')+(row.candidates?.length?' · '+row.candidates.length+' discovery candidates':'')+' <small>'+date(row.updatedAt||row.at)+'</small>'+(row.sources?.length?'<div class="source">'+row.sources.map(source=>badge((source.ok?'✓ ':'– ')+source.label,source.ok?'ok':'dim')).join(' ')+'</div>':'')+'</li>').join('');
+    const extracted=stats?.extracted || 0, confirmed=stats?.confirmed || 0, unchanged=stats?.unchanged || 0;
+    main.innerHTML=title('Operations','Review map submissions, preload runs and extraction quality.')+'<div class="stack">'
+      +panel('Startup request queue','<div id="queue-progress" aria-live="polite"></div>'+(rows?'<div class="scroll"><table class="rules"><thead><tr><th>Startup</th><th>City</th><th>Submitted</th><th>Status</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>':empty('No startup requests yet.'))+'<div class="actions spaced">'+button('+ Add a startup','data-open-dialog="startup"')+'</div>')
+      +panel('Preload jobs & source health',(list?'<ul class="items">'+list+'</ul>':empty('Run Add city to see live preload job health.'))+'<div class="actions spaced">'+button('+ Add city','data-open-dialog="city"')+'</div>')
+      +panel('Extraction quality','<div class="cards"><div><div class="value">'+extracted+'</div><small>Documents processed</small></div><div><div class="value">'+confirmed+'</div><small>Confirmed fields</small></div><div><div class="value">'+(confirmed?Math.round(100*unchanged/confirmed)+'%':'—')+'</div><small>Confirmed unchanged</small></div></div>')+'</div>';
+  }
+
+  function funds() {
+    const company=allCompanies().find(item=>item.id===ctx.current && ctx.state.claims.includes(item.id));
+    if (!company) {
+      main.innerHTML=title('Investor fit','Claim a startup to match its sector and location to investor mandates.')+button('Founder desk','data-page="founder"','accent');
+      return;
+    }
+    const fits=(ctx.funds||[]).map(fund=>{
+      const geo=ctx.cities.find(city=>city.name===company.city)?.country === 'Belgium' ? 'Belgium' : company.city==='Paris'?'Europe':'United States';
+      const geographic=fund.regions.includes(geo) || geo==='Belgium' && fund.regions.includes('Europe');
+      const sector=fund.sectors.some(sector=>company.sector.toLowerCase().includes(sector));
+      return {...fund,geographic,sector,fit:40*Number(geographic)+60*Number(sector)};
+    }).sort((a,b)=>b.fit-a.fit);
+    main.innerHTML=title('Investor fit','Match public mandates against '+company.name+'’s sector and ecosystem.')+'<div class="cards">'+fits.map(fund=>panel(fund.name,'<div class="scoreline"><div class="score">'+fund.fit+'<sub>/100 fit</sub></div></div><p>'+esc(fund.description)+'</p><div class="actions">'+badge(fund.geographic?'Region matches':'Region unverified',fund.geographic?'ok':'dim')+badge(fund.sector?'Sector matches':'Sector unverified',fund.sector?'ok':'dim')+'</div><ul class="items"><li>Stage · '+esc(fund.stage)+'</li><li>Example portfolio · '+esc(fund.portfolio.join(', '))+'</li><li>Check size · '+esc(fund.ticket)+'</li><li>Follow-on and responsiveness · Insufficient observations</li></ul><div class="source">'+link(fund.source)+' · Reviewed '+esc(fund.asOf)+'</div>')).join('')+'</div>';
+  }
+
+  document.addEventListener('change',event=>{
+    const input=event.target;
+    if(input.id==='claimed-company') { ctx.current=input.value; founder(); }
+    if(input.id==='kpi-period' && input.value) { ctx.selectedPeriod=input.value; founder(); }
+    if(input.id==='metric-category' || input.id==='metric-range') {
+      if(input.id==='metric-category') ctx.category=input.value;
+      else ctx.range=Number(input.value);
+      document.querySelector('#metric-view').outerHTML=metricView(ctx.state.companies.guest?'guest':ctx.current);
+    }
+  });
+
+  document.addEventListener('submit',async event=>{
+    const form=event.target;
+    if(!['alerts-form','kpi-form','custom-form','mail-form','invite-form','startup-form','city-form'].includes(form.id)) return;
+    event.preventDefault();
+    const fields=new FormData(form);
+    const submit=form.querySelector('button[type="submit"],button:not([type])');
+    if(submit) submit.disabled=true;
+    try {
+      if(form.id==='alerts-form') {
+        await mutate({action:'alerts',threshold:Number(fields.get('threshold')),monthly:fields.has('monthly')});
+        toast('Alert settings saved.');
+      } else if(form.id==='kpi-form') {
+        const keys=[...Object.keys(ctx.metrics),...Object.keys(ctx.state.companies[ctx.current].definitions)];
+        const latest=ctx.state.companies[ctx.current].values.filter(row=>row.period===fields.get('period'));
+        const values=Object.fromEntries(keys.filter(key=>fields.get(key)!=='' && fields.has(key)).flatMap(key=>{
+          const old=latest.find(row=>row.metric===key);
+          const value=Number(fields.get(key));
+          const def=ctx.metrics[key]||ctx.state.companies[ctx.current].definitions[key];
+          return old?.value===value && (def.unit!=='money'||old.currency===fields.get('currency')) ? [] : [[key,value]];
+        }));
+        await mutate({action:'save',company:ctx.current,period:fields.get('period'),currency:fields.get('currency'),note:fields.get('note'),values});
+        founder();
+        toast('KPI update saved.');
+      } else if(form.id==='custom-form') {
+        await mutate({action:'define',company:ctx.current,...Object.fromEntries(fields)});
+        founder();
+        toast('Custom KPI created.');
+      } else if(form.id==='mail-form') {
+        const data=Object.fromEntries(fields);
+        await mutate({action:'extract',company:ctx.current,...data,sample:ctx.samples.some(row=>row.text===data.text)||Boolean(form.dataset.sampleText)});
+        founder();
+        document.querySelector('#proposals')?.scrollIntoView({block:'nearest'});
+        toast('Review the proposed values before publishing.');
+      } else if(form.id==='invite-form') {
+        const result=await mutate({action:'invite',company:ctx.current,email:fields.get('email')});
+        founder();
+        document.querySelector('#invite-result').innerHTML='<label class="source">Private demo link<input readonly value="'+esc(location.origin+result.invitePath)+'"></label>';
+        document.querySelector('#invite-result input').select();
+        toast('Invitation created.');
+      } else if(form.id==='startup-form') {
+        await mutate({action:'submit',...Object.fromEntries(fields)});
+        document.querySelector('#openrisk-dialog').close();
+        if(ctx.page==='admin') admin();
+        toast('Submitted to the admin queue.');
+      } else {
+        await runJob(submit,{action:'add-city',name:fields.get('name')},result=>{
+          ctx.city=result.city;
+          document.querySelector('#openrisk-dialog').close();
+          navigate('map');
+        });
+      }
+    } catch(error) { toast(error.message); }
+    finally { if(submit) submit.disabled=false; }
+  });
+
+  document.addEventListener('click', async event => {
     const node = event.target.closest('button');
     if (!node) return;
     if (node.dataset.page) navigate(node.dataset.page);
     if (node.dataset.city) { ctx.city = node.dataset.city; cityRows(); }
-    if (node.dataset.company) profile(ctx.catalog.find(item => item.id === node.dataset.company));
+    if (node.dataset.company) profile(allCompanies().find(item => item.id === node.dataset.company));
+    try {
+      if (node.dataset.follow) {
+        const item = allCompanies().find(item=>item.id===node.dataset.follow);
+        const enabled = !ctx.state.followed.includes(item.id);
+        await mutate({action:'follow',company:item.id,enabled});
+        profile(item);
+        toast(enabled ? item.name + ' added to portfolio.' : item.name + ' unfollowed.');
+      }
+      if (node.dataset.claim) {
+        if (ctx.role !== 'Founder') await switchRole('Founder');
+        const company = node.dataset.claim;
+        if (!ctx.state.claims.includes(company)) await mutate({action:'claim',company});
+        ctx.current=company;
+        navigate('founder');
+      }
+      if (node.dataset.portSort) {
+        const key=node.dataset.portSort;
+        ctx.descending=key===ctx.order ? !ctx.descending : key!=='name';
+        ctx.order=key;
+        portfolio();
+      }
+      if (node.dataset.openDialog) openDialog(node.dataset.openDialog,node.dataset.startupName);
+      if (node.dataset.closeDialog) node.closest('dialog').close();
+      if (node.dataset.sample!==undefined) {
+        const sample=ctx.samples[Number(node.dataset.sample)];
+        const form=document.querySelector('#mail-form');
+        form.elements.text.value=sample.text;
+        form.elements.period.value=sample.period;
+        form.dataset.sampleText=sample.text;
+      }
+      if (node.dataset.review || node.dataset.confirmAll!==undefined) await submitProposals(node);
+      if (node.dataset.approve) await runJob(node,{action:'approve',request:node.dataset.approve},()=>admin());
+      if (node.dataset.revoke) { await mutate({action:'revoke',company:ctx.current,invite:node.dataset.revoke}); founder(); toast('Invitation revoked.'); }
+    } catch (error) { toast(error.message); }
     if (node.dataset.cold) void live(node.dataset.cold);
   });
   document.addEventListener('error', event => { if (event.target instanceof HTMLImageElement) event.target.hidden = true; }, true);
@@ -197,12 +508,26 @@ export async function client() {
   });
   roleInput.onchange = async () => {
     roleInput.disabled = true;
-    try { ctx.role = (await api('role', { role:roleInput.value })).role; nav(); }
+    try {
+      await switchRole(roleInput.value);
+      if (ctx.page==='profile') profile(allCompanies().find(item=>item.id===ctx.current));
+      else navigate(ctx.role==='Investor'?'portfolio':ctx.role==='Founder'?'founder':'admin');
+    }
     catch (error) { roleInput.value = ctx.role; toast(error.message); }
     finally { roleInput.disabled = false; }
   };
   try {
-    Object.assign(ctx, await api('bootstrap'));
+    const invite = /^\/project-cto\/invite\/(.+)$/.exec(location.pathname);
+    if (invite) {
+      document.querySelector('.bar-end').hidden=true;
+      const guest=await api('invite/'+invite[1]);
+      ctx.metrics=guest.metrics || {};
+      ctx.state={ companies:{ guest }, claims:[], followed:[] };
+      main.innerHTML=title(guest.name,'Investor invitation · Read-only monthly KPIs')+metricView('guest',guest);
+      return;
+    }
+    const [boot, state] = await Promise.all([api('bootstrap'),api('state').catch(()=>({state:emptyState(),metrics:{},samples:[]}))]);
+    Object.assign(ctx, boot, state);
     navigate('map');
   } catch (error) {
     main.textContent = error.message;

@@ -4,6 +4,14 @@ import { coverageNews, identify } from './_openrisk/engine/enrich.js';
 import land from './_openrisk/land.js';
 import { login, workspace } from './_openrisk/view.js';
 import { client } from './_openrisk/client.js';
+import { metrics, samples } from './_openrisk/engine/metrics.js';
+import { getState, update, apply, project, invitation, runJob, Problem } from './_openrisk/store.js';
+import { score } from './_openrisk/engine/score.js';
+import { funds } from './_openrisk/engine/funds.js';
+import { directoryCity } from './_openrisk/engine/directories.js';
+import { locate } from './_openrisk/engine/cities.js';
+import insets from './_openrisk/insets.js';
+import logos from './_openrisk/logos.js';
 
 const root = '/project-cto';
 const cookie = 'openrisk_session';
@@ -110,9 +118,10 @@ export default async function handle(req, res) {
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('X-Frame-Options', 'DENY');
   res.setHeader('Referrer-Policy', 'same-origin');
-  res.setHeader('Content-Security-Policy', "default-src 'none'; script-src 'self'; style-src 'unsafe-inline'; img-src 'self' https:; connect-src 'self'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'");
+  res.setHeader('Content-Security-Policy', "default-src 'none'; script-src 'self'; style-src 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'");
   const html = 'text/html; charset=utf-8';
   const route = routeOf(req);
+  const inviteRoute = /^invite\/([0-9a-f]{32})\/([A-Za-z0-9_-]{32})$/.exec(route);
   const key = process.env.OPENRISK_SESSION_KEY;
   const password = process.env.OPENRISK_PASSWORD;
   if (!key || !password) return send(res, 503, login('This deployment is awaiting its private demo configuration.'), html);
@@ -123,7 +132,7 @@ export default async function handle(req, res) {
       if (typeof body.password === 'string' && body.password.length <= 128 && equal(body.password, password)) {
         setSession(res, { id: randomBytes(16).toString('hex'), exp: Math.floor(Date.now() / 1000) + lifetime, role: 'Investor' }, key);
         res.statusCode = 303;
-        res.setHeader('Location', root);
+        res.setHeader('Location', typeof body.destination==='string' && /^\/project-cto\/invite\/[0-9a-f]{32}\/[A-Za-z0-9_-]{32}$/.test(body.destination) ? body.destination : root);
         return res.end();
       }
     } catch {}
@@ -131,9 +140,34 @@ export default async function handle(req, res) {
   }
   const auth = session(req, key);
   const asset = route === 'workspace.js';
-  if (!auth) return route.startsWith('api/') || asset ? send(res, 401, { error: 'Sign in to OpenRisk.' }) : send(res, 401, login(), html);
+  if (!auth) return route.startsWith('api/') || asset ? send(res, 401, { error: 'Sign in to OpenRisk.' }) : send(res, 401, login('', inviteRoute ? root+'/'+route : ''), html);
   if (req.method === 'GET' && asset) return send(res, 200, '(' + client.toString() + ')();', 'application/javascript; charset=utf-8');
-  if (req.method === 'GET' && route === 'api/bootstrap') return send(res, 200, { catalog: catalog.map(item => ({ ...item, summary: summary(item) })), cities, land, role: auth.role });
+  if (req.method === 'GET' && route === 'api/bootstrap') return send(res, 200, { catalog: catalog.map(item => ({ ...item, summary: summary(item) })), cities, land, insets, logos, funds, role: auth.role });
+  if (req.method === 'GET' && inviteRoute) return send(res, 200, workspace(), html);
+  if (req.method === 'GET' && route.startsWith('api/invite/')) {
+    const target = /^api\/invite\/([0-9a-f]{32})\/([A-Za-z0-9_-]{32})$/.exec(route);
+    if (!target) return send(res,404,{error:'Invitation not found.'});
+    try { return send(res,200,{...await invitation(target[1],target[2]),metrics}); }
+    catch (error) { return send(res,error instanceof Problem ? error.status : 503,{error:error instanceof Problem ? error.message : 'Invitations are temporarily unavailable.'}); }
+  }
+  if (route === 'api/state') {
+    try {
+      if (req.method === 'GET') return send(res,200,{ state:project(await getState(auth.id), auth.role), metrics, samples });
+      if (req.method !== 'POST') return send(res,405,{error:'Use GET or POST.'});
+      if (!sameOrigin(req) || !String(req.headers['content-type']).startsWith('application/json')) return send(res,403,{error:'Use the OpenRisk workspace.'});
+      let body;
+      try { body=await readBody(req); } catch { return send(res,400,{error:'Invalid workspace request.'}); }
+      if (body?.action==='add-city' || body?.action==='approve') {
+        return send(res,200,await jobs(auth,body));
+      }
+      const result = await update(auth.id,state=>apply(state,auth,body));
+      return send(res,200,{...result,state:project(await getState(auth.id),auth.role)});
+    } catch (error) {
+      const storeError = error instanceof Problem;
+      if (!storeError) console.error('OpenRisk workspace operation failed',error?.code || error?.name);
+      return send(res,storeError ? error.status : 503,{error:storeError ? error.message : 'Workspace storage is temporarily unavailable.'});
+    }
+  }
   if (req.method === 'GET' && route === 'api/cold') {
     const url = new URL(req.url, 'http://openrisk.local');
     const name = String(req.query?.name ?? url.searchParams.get('name') ?? '').trim();
@@ -151,4 +185,48 @@ export default async function handle(req, res) {
   }
   if (['GET','HEAD'].includes(req.method) && (!route || route === 'login' || route === 'index.html')) return send(res, 200, workspace(), html);
   return send(res, 404, { error: 'OpenRisk route not found.' });
+}
+
+async function jobs(auth, body) {
+  if (body.action==='approve') {
+    if (auth.role!=='Admin') throw new Problem(403,'Only an admin can approve a request.');
+    const {requests} = await getState(auth.id);
+    const row = requests.find(item=>item.id===body.request);
+    if (!row || row.status!=='pending') throw new Problem(404,'Pending request not found.');
+    return runJob(auth.id,{type:'Startup',name:row.name},async progress=>{
+      await progress('Enriching');
+      const lookups = await Promise.allSettled([identify(row.name),coverageNews(row.name)]);
+      const identity = lookups[0].value;
+      const news = lookups[1].value;
+      const company = {
+        id:'request-'+row.id, name:row.name, city:row.city, sector:'Pending classification',
+        domain:new URL(row.website).hostname, source:row.website, asOf:new Date().toISOString(),
+        description:identity?.value?.description || 'Submitted for inclusion by a demo visitor.',
+        signals:{ ...(identity ? {identity} : {}), ...(news ? {news} : {}) }, risk:score({}),
+      };
+      company.summary=summary(company);
+      await update(auth.id,state=>{
+        const request = state.requests.find(item=>item.id===row.id);
+        Object.assign(request,{status:'approved',company});
+      });
+      await progress('Complete',{ count:1, sources:[{label:'Wikidata',ok:Boolean(identity)},{label:'Hacker News',ok:Boolean(news)}] });
+      return {state:project(await getState(auth.id),auth.role)};
+    });
+  }
+  const name = typeof body.name==='string' ? body.name.trim() : '';
+  if (!/^[\p{L}][\p{L} .,’'()-]{1,79}$/u.test(name)) throw new Problem(400,'Enter a city name.');
+  const place = locate(name);
+  if (!place) throw new Problem(422,'City not found in the gazetteer. Try the English city name or add the country.');
+  return runJob(auth.id,{type:'City',name:place.name},async progress=>{
+    const [result] = await Promise.allSettled([directoryCity(place.name)]);
+    await progress('Enriching',{ city:place });
+    const existing = new Set(catalog.map(item=>item.id));
+    const details = (result.value || []).filter(item=>!existing.has(item.id)).map(item=>{
+      const company={...item,risk:score(item.signals)};
+      return {...company,summary:summary(company)};
+    });
+    const count=details.length+catalog.filter(item=>item.city===place.name).length;
+    await progress('Complete',{count,details,sources:[{label:'Natural Earth gazetteer',ok:true},{label:'StartupMap public directory',ok:result.status==='fulfilled' && result.value.length>0}]});
+    return {state:project(await getState(auth.id),auth.role), city:place.name, count};
+  });
 }

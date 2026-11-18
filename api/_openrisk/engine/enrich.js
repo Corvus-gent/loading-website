@@ -12,12 +12,49 @@ async function json(url, deadline = 4200) {
   return JSON.parse(raw);
 }
 
+const boardProviders = {
+  greenhouse: {
+    api:slug=>'https://boards-api.greenhouse.io/v1/boards/'+slug+'/jobs',
+    source:slug=>'https://job-boards.greenhouse.io/'+slug,
+    postings:doc=>doc.jobs,
+    title:job=>job.title,
+    department:job=>job.departments?.[0]?.name,
+  },
+  lever: {
+    api:slug=>'https://api.lever.co/v0/postings/'+slug+'?mode=json',
+    source:slug=>'https://jobs.lever.co/'+slug,
+    postings:doc=>doc,
+    title:job=>job.text,
+    department:job=>job.categories?.team,
+  },
+  ashby: {
+    api:slug=>'https://api.ashbyhq.com/posting-api/job-board/'+slug,
+    source:slug=>'https://jobs.ashbyhq.com/'+slug,
+    postings:doc=>doc.jobs?.filter(job=>job.isListed!==false),
+    title:job=>job.title,
+    department:job=>job.department,
+  },
+  recruitee: {
+    api:slug=>'https://'+slug+'.recruitee.com/api/offers',
+    source:slug=>'https://'+slug+'.recruitee.com/',
+    postings:doc=>doc.offers,
+    title:job=>job.title,
+    department:job=>job.department,
+  },
+};
+
 export async function hiring(board) {
-  if (!/^[a-z0-9_-]{2,60}$/.test(board || '')) return null;
-  const url = 'https://boards-api.greenhouse.io/v1/boards/' + board + '/jobs';
-  const data = await json(url);
-  if (!Array.isArray(data.jobs)) return null;
-  return signal({ count: data.jobs.length, roles: data.jobs.slice(0, 6).map(job => String(job.title).slice(0, 120)) }, url);
+  if (typeof board !== 'string' || !board) return null;
+  const [provider,slug] = board.includes(':') ? board.split(':') : ['greenhouse',board];
+  if (!Object.hasOwn(boardProviders,provider) || !/^[a-z0-9][a-z0-9_.-]{1,59}$/.test(slug)) return null;
+  const config = boardProviders[provider];
+  const data = await json(config.api(slug));
+  const jobs = config.postings(data);
+  if (!Array.isArray(jobs)) return null;
+  const publicJobs = jobs.filter(job=>config.title(job) && !/talent (pool|community|network)|general (application|opportunity)/i.test(config.title(job)));
+  const roles = publicJobs.slice(0,6).map(job=>String(config.title(job)).slice(0,120));
+  const departments = Array.from(new Set(publicJobs.map(config.department).filter(value=>typeof value==='string' && value))).slice(0,8);
+  return signal({ count:publicJobs.length, roles, departments, provider }, config.source(slug));
 }
 
 export async function engineering(org) {
@@ -35,7 +72,7 @@ export async function coverageNews(name) {
   const data = await json(url);
   if (!Array.isArray(data.hits)) return null;
   const matches = data.hits.filter(hit => hit.title?.toLowerCase().includes(name.toLowerCase()))
-    .slice(0, 4).map(hit => ({ title: hit.title, url: 'https://news.ycombinator.com/item?id=' + encodeURIComponent(hit.objectID), date: hit.created_at }));
+    .sort((a,b)=>b.created_at_i-a.created_at_i).slice(0, 4).map(hit => ({ title: hit.title, url: 'https://news.ycombinator.com/item?id=' + encodeURIComponent(hit.objectID), date: hit.created_at }));
   return signal(matches, url, 'scraped', 'medium');
 }
 
@@ -46,5 +83,15 @@ export async function identify(name) {
     && /company|startup|corporation|developer|software|enterprise|business/i.test(row.description || '')
     && /^Q[0-9]+$/.test(row.id));
   if (!row) return null;
-  return signal({ name: row.label, description: row.description }, 'https://www.wikidata.org/wiki/' + row.id, 'scraped', 'medium');
+  const value = { name: row.label, description: row.description };
+  try {
+    const record = await json('https://www.wikidata.org/wiki/Special:EntityData/'+row.id+'.json',2300);
+    const claims = record.entities?.[row.id]?.claims;
+    const first = property=>claims?.[property]?.find(item=>item.rank!=='deprecated')?.mainsnak?.datavalue?.value;
+    const website = first('P856');
+    const epoch = first('P571')?.time;
+    if (typeof website==='string' && /^https:\/\//i.test(website)) value.website=website;
+    if (typeof epoch==='string' && /^\+\d{4}-/.test(epoch)) value.founded=Number(epoch.slice(1,5));
+  } catch {}
+  return signal(value, 'https://www.wikidata.org/wiki/' + row.id, 'scraped', 'medium');
 }

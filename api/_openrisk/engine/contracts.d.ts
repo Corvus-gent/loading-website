@@ -1,0 +1,46 @@
+export type Trust = 'scraped' | 'founder-confirmed' | 'proposed';
+export type Confidence = 'high' | 'medium' | 'low';
+
+export interface Signal<T> {
+  value: T;
+  source: string;
+  fetchedAt: string;
+  status: Trust;
+  confidence: Confidence;
+}
+
+export interface PublicSignals {
+  founded?: Signal<number>;
+  funding?: Signal<{ label: string; announced: string }>;
+  jobs?: Signal<{ count: number; roles: string[]; departments?: string[]; provider?: string }>;
+  github?: Signal<{ repo: string; pushedAt: string; stars?: number }>;
+  news?: Signal<{ title: string; url: string; date: string }[]>;
+  identity?: Signal<{ name: string; description: string; website?: string; founded?: number }>;
+}
+
+export interface RiskSnapshot {
+  value: number | null;
+  grade: 'A' | 'B' | 'C' | 'D' | 'E' | null;
+  coverage: number;
+  asOf: string;
+  trend: number | null;
+  breakdown: { key: string; title: string; weight: number; points: number | null; signal?: Signal<unknown> }[];
+}
+
+export interface Dossier {
+  id: string;
+  name: string;
+  city: string;
+  sector: string;
+  domain: string;
+  description: string;
+  source: string;
+  asOf: string;
+  signals: PublicSignals;
+  risk: RiskSnapshot;
+}
+
+export type ResearchEvent =
+  | { key: 'start'; value: string }
+  | { key: 'identity'; value: PublicSignals['identity'] | null; status: 'observed' | 'unavailable' }
+  | { key: 'news'; value: PublicSignals['news'] | null; status: 'observed' | 'unavailable' };
