@@ -9,7 +9,16 @@ export interface Signal<T> {
   confidence: Confidence;
 }
 
+export interface CompanyLocation {
+  city: string | null;
+  country: string;
+  label: string;
+  source: string;
+  kind: 'primary' | 'office' | 'hiring' | 'announced';
+}
+
 export interface PublicSignals {
+  locations?: CompanyLocation[];
   founded?: Signal<number>;
   website?: Signal<string>;
   funding?: Signal<{ label: string; announced: string }>;

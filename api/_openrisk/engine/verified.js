@@ -3,8 +3,23 @@ import { signal } from './enrich.js';
 const reviewed = '2026-11-18';
 const evidence = (value, source) => signal(value,source,'scraped','high',reviewed);
 const odooRelease = 'https://www.odoo.com/blog/odoo-news-5/odoo-s-a-announces-a-500-million-transaction-increasing-the-belgian-unicorn-s-valuation-to-5-billion-1508';
+const aikidoOffices='https://www.aikido.dev/company/about';
+const aikidoCareers='https://www.aikido.dev/company/careers';
+const deliverectOffices='https://www.deliverect.com/en/careers';
+const office = (city,country,label,source,kind='office') => ({city,country,label,source,kind});
+
 export const verified = {
   'aikido-security': {
+    locations:[
+      office('Gent','Belgium','Main HQ','https://prtimes.jp/main/html/rd/p/000000001.000194415.html','primary'),
+      office('San Francisco','United States','US headquarters (company About page)',aikidoOffices),
+      office('Chicago','United States','US office',aikidoOffices),
+      office('London','United Kingdom','UK office',aikidoOffices),
+      office('Singapore','Singapore','APAC headquarters',aikidoOffices),
+      office('Boston','United States','Defense headquarters',aikidoOffices),
+      office('Austin','United States','Hiring location',aikidoCareers,'hiring'),
+      office(null,'Japan','Market entry and local entity announced','https://prtimes.jp/main/html/rd/p/000000001.000194415.html','announced'),
+    ],
     founders: evidence(['Willem Delbare','Roeland Delrue','Felix Garriau','Madeline Lawrence'], 'https://www.aikido.dev/company/about'),
     founded: evidence(2022, 'https://www.aikido.dev/company/about'),
     traction: evidence({ label:'150,000+ teams protected', detail:'Aikido’s own October 2026 press-kit disclosure.' }, 'https://www.aikido.dev/company/press-kit'),
@@ -13,6 +28,14 @@ export const verified = {
     funding: signal({ label: '$60M Series B', announced: '2026-01-14' }, 'https://www.aikido.dev/blog/aikido-funding-series-b', 'scraped', 'high', reviewed),
   },
   deliverect: {
+    locations:[
+      office('Gent','Belgium','Main HQ',deliverectOffices,'primary'),
+      ...[
+        ['Toronto','Canada'],['New York City','United States'],['London','United Kingdom'],['Madrid','Spain'],
+        ['Paris','France'],['Amersfoort','Netherlands'],['Dubai','United Arab Emirates'],['Mexico City','Mexico'],
+        ['Sydney','Australia'],['Glasgow','United Kingdom'],['Riyadh','Saudi Arabia'],['Copenhagen','Denmark'],
+      ].map(([city,country])=>office(city,country,'Office',deliverectOffices)),
+    ],
     founders: evidence(['Zhong Xu','Jan Hollez','Jelte Vrijhoef','Jérôme Laredo'], 'https://www.deliverect.com/en-us/about-us'),
     accounts: evidence({ entity:'Deliverect NV', scope:'Standalone Belgian filing', fiscalEnd:'2025-12-31',
       filedAt:'2026-07-16', reference:'2026-00308255', currency:'EUR',
@@ -26,6 +49,12 @@ export const verified = {
     location: signal('Registered office in Gent, Belgium', 'https://www.deliverect.com/en/terms-of-service', 'scraped', 'high', reviewed),
     founded: signal(2018, 'https://www.deliverect.com/en-us/about-us', 'scraped', 'high', reviewed),
     funding: signal({ label: 'Over $150M Series D', announced: '2022-01-25' }, 'https://www.deliverect.com/en-us/blog/deliverect/unicorn-status-series-d-funding-and-approaching-100m-orders-processed', 'scraped', 'high', reviewed),
+  },
+  'safe-superintelligence': {
+    locations:[
+      office('Palo Alto','United States','Office','https://ssi.inc/'),
+      office('Tel Aviv','Israel','Office','https://ssi.inc/'),
+    ],
   },
   teamleader: {
     enterprise: evidence('0899.623.035', 'https://www.teamleader.eu/legal'),

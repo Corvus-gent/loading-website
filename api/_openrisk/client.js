@@ -84,7 +84,7 @@ export async function client() {
   function navigate(page, recordPath = true) {
     ctx.cancel?.abort();
     ctx.page = page;
-    if (recordPath && Object.hasOwn(destinations,page)) setPath(page==='map'?mapPath():destinations[page].path);
+    if (recordPath && Object.hasOwn(destinations,page)) setPath(page==='map'?mapPath():page==='compare'?comparePath():destinations[page].path);
     nav();
     if (page === 'map') map();
     if (page === 'portfolio') portfolio();
@@ -579,11 +579,12 @@ export async function client() {
     const overview='<section class="dossier-overview" aria-label="Investment score overview"><div class="dossier-score"><h2>Investment signal score</h2>'
       + '<div class="scoreline"><div class="score">'+(r.value??'—')+'<sub>/100</sub></div>'+(r.grade?badge('Grade '+r.grade,r.grade<='B'?'ok':'warn'):r.provisional?badge('Provisional','warn'):'')+'</div>'
       + scoreVisual(r)+'<p class="source">Based on public operating, funding, hiring and engineering signals.</p></div><div class="dossier-lead">'
-      + '<p>'+esc(item.description)+'</p>'+scoreTakeaways(r)+'<a href="#score-details">See score calculation ↓</a></div></section>';
+      + '<p>'+esc(item.description)+'</p>'+(s.locations?.length?'<p class="source">'+esc((companyPlace(item).kind==='primary'?'Main HQ · ':'')+placeLabel(companyPlace(item)))+'</p>':'')+scoreTakeaways(r)+'<a href="#score-details">See score calculation ↓</a></div></section>';
     const context='<section id="investment-context" class="dossier-chapter"><h2>Investment context</h2>'+investmentLens(s)+'</section>';
     const calculation='<section id="score-details" class="dossier-chapter"><h2>How the score is built</h2><p class="muted">Public evidence · '+esc(date(r.asOf))+' · '+esc(trend)+' · '+r.coverage+'% evidence coverage</p>'+scoreBreakdown(r)+'</section>';
+    const locations=s.locations?.length ? evidenceDetail('Company locations',locationList(item),s.locations.length+' locations') : '';
     const evidence='<section id="source-evidence" class="dossier-chapter"><h2>Source evidence</h2>'
-      + evidenceDetail('Company identity',(s.founded?'<p>Founded '+esc(s.founded.value)+'</p>'+source(s.founded):'')+'<div class="source">'+link(item.source,(item.directory||item.domain||'Source')+' ↗')+' · Observed '+esc(date(item.asOf))+'</div>'+identityFields+(s.website?'<div class="source">'+link(s.website.value,'Company website ↗')+'</div>':'')+(s.linkedin?'<div class="source">'+link(s.linkedin.value,'Company LinkedIn ↗')+'</div>':''))
+      + locations + evidenceDetail('Company identity',(s.founded?'<p>Founded '+esc(s.founded.value)+'</p>'+source(s.founded):'')+'<div class="source">'+link(item.source,(item.directory||item.domain||'Source')+' ↗')+' · Observed '+esc(date(item.asOf))+'</div>'+identityFields+(s.website?'<div class="source">'+link(s.website.value,'Company website ↗')+'</div>':'')+(s.linkedin?'<div class="source">'+link(s.linkedin.value,'Company LinkedIn ↗')+'</div>':''))
       + evidenceDetail('Financial signals',(funding?val(funding.label,s.funding)+'<div class="source">Announced '+esc(funding.announced)+(age>18?' · '+badge('Older than 18 months','warn'):'')+'</div>':'')+(s.disclosure?val(s.disclosure.value.label,s.disclosure)+'<p>'+esc(s.disclosure.value.detail)+'</p>':'')+(!funding&&!s.disclosure?s.stage?val(s.stage.value,s.stage):empty('No verified financing in this snapshot.'):'')+(!funding&&s.directoryFunding?'<p>Directory-reported round amount · '+esc(s.directoryFunding.value)+'</p>'+source(s.directoryFunding):'')+filing,funding?.label||(accounts?'Belgian annual accounts':''))
       + evidenceDetail('Team & hiring',teamData||empty('No attributable hiring or headcount data in this snapshot.'),s.jobs?s.jobs.value.count+' open roles':listedRoles?listedRoles+(listedRoles>=50?'+':'')+' directory listings':'')
       + evidenceDetail('Product & engineering',product||empty('No attributable product observations in this snapshot.'))
@@ -622,6 +623,21 @@ export async function client() {
     if (logView && !jumpToDossier(location.hash)) window.scrollTo(0,0);
   }
 
+  const companyPlace = (item, countryByCity) => item.signals?.locations?.find(place=>place.kind==='primary')
+    || {city:item.city,country:countryByCity?.get(item.city) || allCities().find(place=>place.name===item.city)?.country};
+  const placeLabel = place => [place.city,place.country].filter(Boolean).join(', ');
+  function locationList(item) {
+    const locations=item.signals?.locations;
+    if (!locations?.length) return esc(placeLabel(companyPlace(item)));
+    return '<ul class="company-locations">'+locations.map(place=>'<li><strong>'+esc(placeLabel(place))+'</strong> · '+esc(place.label)
+      +' '+link(place.source,'Source ↗')+'</li>').join('')+'</ul>';
+  }
+
+  function comparePath() {
+    const [left,right]=ctx.comparePair || [];
+    return right ? '/compare/'+(left || '-')+'/'+right : left ? '/compare/'+left : '/compare';
+  }
+
   function comparison() {
     const companies=allCompanies().slice().sort((a,b)=>a.name.localeCompare(b.name));
     const [left,right]=ctx.comparePair || ['', ''];
@@ -634,7 +650,8 @@ export async function client() {
     };
     const rows=[
       ['Investment signal score',item=>riskBadge(item.risk)],
-      ['Sector and city',item=>esc(item.sector+' · '+item.city)],
+      ['Sector',item=>esc(item.sector)],
+      ['Locations',locationList],
       ['Operating history',item=>cell(item,'founded')],
       ['Funding recency',item=>cell(item,'funding')],
       ['Hiring',item=>cell(item,'jobs')],
@@ -661,26 +678,33 @@ export async function client() {
       +'<div class="stack"><section class="panel"><div class="compare-picker">'+pair.map(comparePicker).join('')
       +'</div><div class="actions compare-feedback">'+feedbackButton('compare','startup comparisons')+'</div>'+table+'</section>'+questions+'</div>';
     main.querySelectorAll('[data-compare-slot]').forEach((slot,index)=>
-      bindComparePicker(slot,index,companies.filter(item=>item.id!==pair[1-index]?.id)));
+      bindComparePicker(slot,index,companies.filter(item=>item.id!==pair[1-index]?.id),pair[index]));
   }
 
   function comparePicker(selected,index) {
     const id='compare-startup-'+index;
+    const mainLocation=selected && companyPlace(selected);
+    const locations=selected?.signals?.locations || [];
+    const other=locations.filter(place=>place.kind==='office' && place.city!==mainLocation?.city);
+    const additional=locations.filter(place=>place.kind==='hiring' || place.kind==='announced');
     return '<fieldset class="compare-slot" data-compare-slot><legend>Startup '+(index+1)+'</legend>'
-      +(selected?'<div class="compare-selected">'+logo(selected)+'<strong tabindex="-1">'+esc(selected.name)+'</strong><small>'+esc(selected.city)+'</small>'+button('Clear','data-clear-match','link')+'</div>':'')
+      +(selected?'<div class="compare-selected">'+logo(selected)+'<strong tabindex="-1">'+esc(selected.name)+'</strong><small>'+esc((mainLocation.kind==='primary'?'Main HQ · ':'')+placeLabel(mainLocation))+'</small>'+button('Clear','data-clear-match','link')+'</div>'
+        +(other.length?'<p class="source compare-offices">Other offices · '+esc(other.map(place=>place.city || place.country).join(', '))+'</p>':'')
+        +additional.map(place=>'<p class="source compare-offices">'+esc(placeLabel(place)+' · '+place.label)+'</p>').join('')+'':'')
       +'<div class="compare-location"><label>Country<select data-country aria-label="Country"></select></label><label>City<select data-city-filter aria-label="City"></select></label></div>'
       +'<label for="'+id+'">'+(selected?'Replace startup':'Search by name')+'</label><div class="compare-search">'
       +'<input id="'+id+'" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="'+id+'-matches" autocomplete="off" maxlength="100" placeholder="Type a startup name">'
       +'<div class="results" id="'+id+'-matches" role="listbox" aria-label="Matching startups" hidden></div></div></fieldset>';
   }
 
-  function bindComparePicker(slot,index,companies) {
-    ctx.compareFilters ??= [{},{}];
-    const filter=ctx.compareFilters[index];
+  function bindComparePicker(slot,index,companies,selected) {
+    ctx.compareFilters ??= [null,null];
+    const filter=ctx.compareFilters[index] ??= selected ? {country:companyPlace(selected).country,city:companyPlace(selected).city} : {};
     const country=slot.querySelector('[data-country]'), city=slot.querySelector('[data-city-filter]');
     const input=slot.querySelector('input'), results=slot.querySelector('.results');
     const locationByCity=new Map(allCities().map(place=>[place.name,place.country]));
-    const countryOf=item=>locationByCity.get(item.city);
+    const countryOf=item=>companyPlace(item,locationByCity).country;
+    const cityOf=item=>companyPlace(item,locationByCity).city;
     const choices=(select,label,values,selected)=>{
       const options=[...new Set(values.filter(Boolean))].sort((a,b)=>a.localeCompare(b));
       select.replaceChildren(new Option(label,''),...options.map(value=>new Option(value,value)));
@@ -688,7 +712,7 @@ export async function client() {
     };
     choices(country,'All countries',companies.map(countryOf),filter.country);
     const updateCities=()=>{
-      choices(city,'All cities',companies.filter(item=>!country.value || countryOf(item)===country.value).map(item=>item.city),filter.city);
+      choices(city,'All cities',companies.filter(item=>!country.value || countryOf(item)===country.value).map(cityOf),filter.city);
     };
     updateCities();
     let matches=[],active=-1;
@@ -702,12 +726,12 @@ export async function client() {
       const query=normalize(input.value.trim());
       if (!query && !country.value && !city.value) { close(); return; }
       matches=companies.filter(item=>(!country.value || countryOf(item)===country.value)
-        && (!city.value || item.city===city.value) && normalize(item.name).includes(query))
+        && (!city.value || cityOf(item)===city.value) && normalize(item.name).includes(query))
         .sort((a,b)=>Number(normalize(b.name).startsWith(query))-Number(normalize(a.name).startsWith(query))).slice(0,12);
       active=-1;
       input.removeAttribute('aria-activedescendant');
       results.innerHTML=matches.length ? matches.map((item,i)=>'<button type="button" role="option" tabindex="-1" aria-selected="false" id="'+input.id+'-option-'+i+'" data-match="'+i+'">'
-        +logo(item)+'<span><strong>'+esc(item.name)+'</strong><small>'+esc([item.city,countryOf(item)].filter(Boolean).join(' · '))+'</small></span></button>').join('')
+        +logo(item)+'<span><strong>'+esc(item.name)+'</strong><small>'+esc([cityOf(item),countryOf(item)].filter(Boolean).join(' · '))+'</small></span></button>').join('')
         : '<p class="empty" role="status">No matching startups.</p>';
       results.hidden=false;
       input.setAttribute('aria-expanded','true');
@@ -715,7 +739,9 @@ export async function client() {
     function select(id) {
       const selected=[...(ctx.comparePair || ['',''])];
       selected[index]=id;
+      ctx.compareFilters[index]=null;
       ctx.comparePair=selected;
+      history.replaceState(null,'',root+comparePath());
       comparison();
       const current=main.querySelector('#compare-startup-'+index);
       const focus=!id ? current : selected[1-index]
@@ -1449,6 +1475,13 @@ export async function client() {
       profile(item,false);
       return;
     }
+    const compare=/^\/compare\/([a-z0-9-]+)(?:\/([a-z0-9-]+))?$/.exec(relative);
+    if (compare) {
+      const ids=new Set(allCompanies().map(item=>item.id));
+      ctx.comparePair=[compare[1],compare[2]===compare[1]?'':compare[2]].map(id=>ids.has(id)?id:'');
+      ctx.compareFilters=[null,null];
+      return openPage('compare',false);
+    }
     const page=Object.keys(destinations).find(key=>destinations[key].path===relative);
     return openPage(page || 'map',false);
   }
@@ -1513,6 +1546,7 @@ export async function client() {
       const previous=ctx.comparePair || [];
       const id=node.dataset.compareCompany;
       ctx.comparePair=[id,previous.find(other=>other!==id) || ''];
+      ctx.compareFilters=[null,null];
       navigate('compare');
     }
     if (node.dataset.estimate) void showEstimate(node);
