@@ -1,6 +1,7 @@
 import { createHash, randomBytes } from 'node:crypto';
 import { connected, redis } from '../_redis.js';
 import { catalog } from './engine/index.js';
+import { locate } from './engine/cities.js';
 import { metrics, extract, validPeriod } from './engine/metrics.js';
 
 const sessions = new Map();
@@ -107,6 +108,17 @@ function cleanWebsite(value) {
   fail(400,'Enter a valid HTTPS company website.');
 }
 
+export const websiteHost = website => website ? new URL(website).hostname.replace(/^www\./,'') : '';
+const normalizeName = name => name.normalize('NFKC').toLowerCase().replace(/\s+/g,' ');
+export function existingStartup(state,name,website,exclude) {
+  const domain=websiteHost(website);
+  const key=normalizeName(name);
+  const profiles=[...catalog,...state.jobs.flatMap(row=>row.details||[])];
+  return profiles.some(row=>domain ? row.domain?.replace(/^www\./,'')===domain : normalizeName(row.name)===key)
+    || state.requests.some(row=>row.id!==exclude && (!exclude || row.status==='approved') && (domain && row.website
+      ? websiteHost(row.website)===domain : key && normalizeName(row.name)===key));
+}
+
 export function apply(state, auth, body) {
   if (!isObject(body)) fail(400,'Invalid request.');
   const { action } = body;
@@ -141,13 +153,16 @@ export function apply(state, auth, body) {
     return {};
   }
   if (action === 'submit') {
-    const name = txt(body.name,80), website = cleanWebsite(body.website), city = txt(body.city,80);
-    if (name.length<2 || !city) fail(400,'Enter a startup name and choose a city.');
+    const name=txt(body.name,80);
+    const website=txt(body.website,300) ? cleanWebsite(body.website) : null;
+    const city=txt(body.city,80);
+    const place=city ? locate(city) : null;
+    if (!website && !name) fail(400,'Enter a startup name or website.');
+    if (name && !/^[\p{L}\p{N}][\p{L}\p{N} .&'’+_()-]{0,79}$/u.test(name)) fail(400,'Enter a valid startup name.');
+    if (city && !place) fail(422,'City not found. Try the English name or include the country.');
     if (state.requests.length>=80) fail(409,'This demo queue is full.');
-    if (state.requests.some(row=>row.website===website)) fail(409,'A request already exists for this domain.');
-    const host=new URL(website).hostname.replace(/^www\./,'');
-    if (catalog.some(row=>row.domain.replace(/^www\./,'')===host)) fail(409,'This domain already has a profile.');
-    state.requests.unshift({ id:randomBytes(8).toString('hex'), name, website, city, status:'pending', at:new Date().toISOString() });
+    if (existingStartup(state,name,website)) fail(409,'This startup already has a profile or suggestion.');
+    state.requests.unshift({id:randomBytes(8).toString('hex'),name,website,city:place?.name || null,place,status:'pending',at:new Date().toISOString()});
     return {};
   }
   if (action === 'invite' || action === 'revoke') {

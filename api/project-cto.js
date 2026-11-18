@@ -6,7 +6,8 @@ import land from './_openrisk/land.js';
 import { login, workspace } from './_openrisk/view.js';
 import { client } from './_openrisk/client.js';
 import { metrics, samples } from './_openrisk/engine/metrics.js';
-import { getState, update, apply, project, invitation, runJob, Problem } from './_openrisk/store.js';
+import { getState, update, apply, project, invitation, runJob, existingStartup, websiteHost, Problem } from './_openrisk/store.js';
+import { signal } from './_openrisk/engine/enrich.js';
 import { score } from './_openrisk/engine/score.js';
 import { funds } from './_openrisk/engine/funds.js';
 import { subscribeResearch } from './_openrisk/engine/research.js';
@@ -203,32 +204,44 @@ async function jobs(auth, body) {
     const {requests} = await getState(auth.id);
     const row = requests.find(item=>item.id===body.request);
     if (!row || row.status!=='pending') throw new Problem(404,'Pending request not found.');
-    return runJob(auth.id,{type:'Startup',name:row.name},async progress=>{
+    const cityInput=typeof body.city==='string' ? body.city.trim().slice(0,80) : '';
+    const place=cityInput ? locate(cityInput) : row.place || (row.city && locate(row.city));
+    if (!place) throw new Problem(422,'Choose a known city before adding the startup to the map.');
+    const submittedDomain=websiteHost(row.website);
+    const researchName=row.name || submittedDomain.split('.')[0].replace(/-/g,' ');
+    return runJob(auth.id,{type:'Startup',name:researchName},async progress=>{
       await progress('Enriching');
       const events = {};
-      const subscription=subscribeResearch(row.name,event=>events[event.key]=event.value);
+      const subscription=subscribeResearch(researchName,event=>events[event.key]=event.value);
       try { await subscription.done; } finally { subscription.unsubscribe(); }
-      const domain=new URL(row.website).hostname.replace(/^www\./,'');
-      const matchingWebsite=events.identity?.value.website && new URL(events.identity.value.website).hostname.replace(/^www\./,'')===domain;
-      const identity=matchingWebsite?events.identity:null;
-      const news=events.news;
+      const identitySite=events.identity?.value.website;
+      const identity=(!submittedDomain || websiteHost(identitySite)===submittedDomain) ? events.identity : null;
+      const website=row.website || identity?.value.website || null;
+      const name=identity?.value.name || row.name || submittedDomain;
+      const github=identity && events.engineering;
+      const news=(identity || !submittedDomain) && events.news;
+      const asOf=new Date().toISOString();
       const signals={
         ...(identity ? {identity} : {}),
-        ...(identity && events.engineering ? {github:events.engineering} : {}),
+        ...(identity?.value.founded ? {founded:signal(identity.value.founded,identity.source,'scraped','medium',identity.fetchedAt)} : {}),
+        ...(website ? {website:signal(website,identity?.source || website,identity ? 'scraped' : 'proposed',identity ? 'medium' : 'low',asOf)} : {}),
+        ...(github ? {github} : {}),
         ...(news ? {news} : {}),
       };
       const company = {
-        id:'request-'+row.id, name:row.name, city:row.city, sector:'Pending classification',
-        domain, source:row.website, asOf:new Date().toISOString(),
-        description:identity?.value?.description || 'Submitted for inclusion by a demo visitor.',
-        signals, risk:matchingWebsite && events.score ? events.score : score(signals),
+        id:'request-'+row.id, name, city:place.name, place, sector:'Pending classification',
+        domain:websiteHost(website), source:website || identity?.source || '', asOf,
+        description:identity?.value.description || 'Submitted for inclusion by a demo visitor.',
+        signals, risk:score(signals),
       };
       company.summary=summary(company);
       await update(auth.id,state=>{
         const request = state.requests.find(item=>item.id===row.id);
-        Object.assign(request,{status:'approved',company});
+        if (!request || request.status!=='pending') throw new Problem(409,'This suggestion is already processed.');
+        if (existingStartup(state,name,website,row.id)) throw new Problem(409,'This startup already has a profile or suggestion.');
+        Object.assign(request,{status:'approved',company,city:place.name,name,website});
       });
-      await progress('Complete',{ count:1, sources:[{label:'Wikidata',ok:Boolean(identity)},{label:'Hacker News',ok:Boolean(news)}] });
+      await progress('Complete',{count:1,sources:[{label:'Wikidata',ok:Boolean(identity)},{label:'Hacker News',ok:Boolean(news)}]});
       return {state:project(await getState(auth.id),auth.role)};
     });
   }

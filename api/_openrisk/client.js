@@ -101,9 +101,8 @@ export async function client() {
       button(country,'data-map-country="'+country+'" aria-pressed="'+(ctx.countryList===country)+'"')).join('')+'</div>';
     const bay=ctx.cities.filter(city=>city.country==='United States');
     main.innerHTML = '<section class="hero"><span class="eyebrow">Startup intelligence</span><h1>Explore startup risk.</h1><p>Explore startups by city or build a risk dossier from public signals.</p><form id="search-form" class="search-wrap" role="search"><label for="company-search" hidden>Search for a startup</label><span class="search-symbol" aria-hidden="true">⌕</span><input id="company-search" placeholder="Search any startup…" maxlength="80" autocomplete="off" aria-controls="search-results" aria-expanded="false"><span class="keycap" aria-hidden="true">/</span><div id="search-results" class="results" hidden></div></form><div class="quick">Quick look ' + ['aikido-security','deliverect','stripe','odoo'].map(id => button(ctx.catalog.find(item => item.id === id).name, 'data-company="' + id + '"')).join('') + '</div></section>'
-      + '<div class="layout"><section class="panel atlas"><div class="panel-head"><h2>Ecosystem map</h2>' + '<div class="actions">' + badge(allCompanies().length + ' profiles · ' + allCities().length + ' cities') + button('+ Add city','data-open-dialog="city"') + '</div></div><div class="map-stage"><svg viewBox="0 0 900 360" preserveAspectRatio="none" aria-label="World map"><defs><pattern id="grid" width="37.5" height="37.5" patternUnits="userSpaceOnUse"><path d="M 37.5 0 L 0 0 0 37.5" fill="none" stroke="#253751" stroke-width=".7"/></pattern></defs><rect width="900" height="360" fill="url(#grid)"/><path d="' + esc(ctx.land) + '" fill="#243855" stroke="#507096" stroke-width=".65"/></svg><button class="cluster" aria-label="European startup hubs" data-city="Brussels" style="left:51.1%;top:22.2%">' + (belgium.length+neighbors.length) + '</button><button class="cluster" aria-label="Bay Area startup hubs" data-city="San Francisco" style="left:16%;top:31.4%">2</button>' + extraPins() + '<span class="map-caption">NATURAL EARTH · GLOBAL VIEW</span></div><div class="market-grid">' + inset('belgium','Belgium',belgium) + '<div>'+countries+inset('europe',region,neighbors.filter(city=>city.country===region))+'</div>' + inset('bay','Bay Area',bay) + '</div></section><section class="panel"><div class="panel-head"><h2 id="city-title"></h2><select id="city-sort" aria-label="Sort startups"><option value="risk">By score</option><option value="name">By name</option></select></div>' + (ctx.countryList?'<p class="source">100 selected profiles across several hubs</p>':'') + '<div id="city-rows" class="rows"></div></section></div>';
+      + '<div class="layout"><section class="panel atlas"><div class="panel-head"><h2>Ecosystem map</h2>' + '<div class="actions">' + badge(allCompanies().length + ' profiles · ' + allCities().length + ' cities') + button('Suggest startup','data-open-dialog="startup"') + button('+ Add city','data-open-dialog="city"') + '</div></div><div class="map-stage"><svg viewBox="0 0 900 360" preserveAspectRatio="none" aria-label="World map"><defs><pattern id="grid" width="37.5" height="37.5" patternUnits="userSpaceOnUse"><path d="M 37.5 0 L 0 0 0 37.5" fill="none" stroke="#253751" stroke-width=".7"/></pattern></defs><rect width="900" height="360" fill="url(#grid)"/><path d="' + esc(ctx.land) + '" fill="#243855" stroke="#507096" stroke-width=".65"/></svg><button class="cluster" aria-label="European startup hubs" data-city="Brussels" style="left:51.1%;top:22.2%">' + (belgium.length+neighbors.length) + '</button><button class="cluster" aria-label="Bay Area startup hubs" data-city="San Francisco" style="left:16%;top:31.4%">2</button>' + extraPins() + '<span class="map-caption">NATURAL EARTH · GLOBAL VIEW</span></div><div class="market-grid">' + inset('belgium','Belgium',belgium) + '<div>'+countries+inset('europe',region,neighbors.filter(city=>city.country===region))+'</div>' + inset('bay','Bay Area',bay) + '</div></section><section class="panel"><div class="panel-head"><h2 id="city-title"></h2><select id="city-sort" aria-label="Sort startups"><option value="risk">By score</option><option value="name">By name</option></select></div>' + (ctx.countryList?'<p class="source">Selected profiles and approved suggestions across several hubs</p>':'') + '<div id="city-rows" class="rows"></div></section></div>';
     main.querySelector('.map-stage svg').classList.add('earth');
-    main.insertAdjacentHTML('beforeend','<div class="actions spaced">'+button('+ Add a startup','data-open-dialog="startup"','ghost')+'</div>');
     const input = document.querySelector('#company-search');
     const results = document.querySelector('#search-results');
     let active = 0;
@@ -142,8 +141,8 @@ export async function client() {
   }
 
   function cityRows() {
-    const countryCities = new Set(ctx.cities.filter(city=>city.country===ctx.countryList).map(city=>city.name));
-    const items = (ctx.countryList ? ctx.catalog : allCompanies()).filter(item => ctx.countryList ? countryCities.has(item.city) : item.city === ctx.city).sort((a,b) =>
+    const countryCities = new Set(allCities().filter(city=>city.country===ctx.countryList).map(city=>city.name));
+    const items = (ctx.countryList ? [...ctx.catalog,...ctx.state.approved] : allCompanies()).filter(item => ctx.countryList ? countryCities.has(item.city) : item.city === ctx.city).sort((a,b) =>
       (ctx.sort === 'risk' ? (b.risk?.value ?? -1) - (a.risk?.value ?? -1) : 0) || a.name.localeCompare(b.name));
     document.querySelector('#city-title').textContent = (ctx.countryList||ctx.city) + ' · ' + items.length;
     document.querySelector('#city-rows').innerHTML = items.map(item=>companions(item)).join('') || empty('No profiles are available for this city yet.');
@@ -349,7 +348,7 @@ export async function client() {
       const preliminary=risk?.value!=null
         ? '<div class="scoreline"><div class="score">'+risk.value+'<sub>/100</sub></div>'+riskBadge(risk)+'</div>'+scoreVisual(risk)+'<p>'+risk.coverage+'% evidence coverage · Preliminary score</p>'
         : val('Unrated')+'<p>Scoring requires sufficient attributable evidence.</p>';
-      main.innerHTML = profileHeader(item,ready?button('+ Add a startup','data-open-dialog="startup" data-startup-name="'+esc(name)+'"','ghost'):'') + '<div class="ticker" aria-live="polite">' + Object.entries(keys).map(([key,label]) => badge((!state[key] ? '… ' : state[key].value ? '✓ ' : '– ') + label, state[key]?.value ? 'ok' : 'dim')).join('') + '</div><div class="dossier">' + panel('OpenRisk score',preliminary) + (risk?panel('How the score is built',scoreBreakdown(risk),'wide'):'') + cards + panel('Team & hiring',empty('A verified hiring board is required.')) + panel('Financial signals',empty('Company financing and filings need verification.')) + '</div>';
+      main.innerHTML = profileHeader(item,ready?button('Suggest startup','data-open-dialog="startup" data-startup-name="'+esc(name)+'"','ghost'):'') + '<div class="ticker" aria-live="polite">' + Object.entries(keys).map(([key,label]) => badge((!state[key] ? '… ' : state[key].value ? '✓ ' : '– ') + label, state[key]?.value ? 'ok' : 'dim')).join('') + '</div><div class="dossier">' + panel('OpenRisk score',preliminary) + (risk?panel('How the score is built',scoreBreakdown(risk),'wide'):'') + cards + panel('Team & hiring',empty('A verified hiring board is required.')) + panel('Financial signals',empty('Company financing and filings need verification.')) + '</div>';
     };
     draw();
     window.scrollTo(0,0);
@@ -384,7 +383,7 @@ export async function client() {
   const allCompanies = () => Array.from(new Map([
     ...ctx.state.jobs.flatMap(job=>job.details||[]),...ctx.state.approved,...ctx.catalog,
   ].map(company=>[company.id,company])).values());
-  const allCities = () => [...ctx.cities,...ctx.state.jobs.filter(job=>job.type==='City' && job.stage==='Complete' && job.city && !ctx.cities.some(city=>city.name===job.city.name)).map(job=>job.city)].filter((city,i,arr)=>arr.findIndex(row=>row.name===city.name)===i);
+  const allCities = () => [...ctx.cities,...ctx.state.approved.map(company=>company.place).filter(Boolean),...ctx.state.jobs.filter(job=>job.type==='City' && job.stage==='Complete' && job.city && !ctx.cities.some(city=>city.name===job.city.name)).map(job=>job.city)].filter((city,i,arr)=>arr.findIndex(row=>row.name===city.name)===i);
   const extraPins = () => allCities().filter(city=>!ctx.cities.some(base=>base.name===city.name)).map(city=>pin(city,(city.lon+180)*100/360,(83-city.lat)*250/360)).join('');
   async function switchRole(role) {
     ctx.role=(await api('role',{role})).role;
@@ -506,7 +505,7 @@ export async function client() {
   function openDialog(kind, startupName) {
     document.querySelector('#openrisk-dialog')?.remove();
     const city=kind==='city';
-    main.insertAdjacentHTML('beforeend','<dialog id="openrisk-dialog"><div class="split"><h2>'+(city?'Add a city':'Add a startup')+'</h2>'+button('Close','data-close-dialog','link')+'</div><form id="'+(city?'city-form':'startup-form')+'" class="stack">'+(city?'<label>City name<input name="name" required maxlength="70" placeholder="e.g. Paris"></label>':'<label>Startup name<input name="name" required maxlength="80"></label><label>Website<input name="website" required maxlength="300" placeholder="example.com"></label><label>City<select name="city">'+allCities().map(city=>'<option'+(city.name===ctx.city?' selected':'')+'>'+esc(city.name)+'</option>').join('')+'</select></label>')+'<button class="accent">'+(city?'Start preload':'Submit for approval')+'</button><div data-job-progress aria-live="polite"></div></form></dialog>');
+    main.insertAdjacentHTML('beforeend','<dialog id="openrisk-dialog"><div class="split"><h2>'+(city?'Add a city':'Suggest a startup')+'</h2>'+button('Close','data-close-dialog','link')+'</div><form id="'+(city?'city-form':'startup-form')+'" class="stack">'+(city?'<label>City name<input name="name" required maxlength="70" placeholder="e.g. Paris"></label>':'<p>Enter a name or website. After approval, the profile is preloaded on this workspace map.</p><label>Startup name<input name="name" maxlength="80"></label><label>Website<input name="website" inputmode="url" maxlength="300" placeholder="example.com"></label><label>City (optional)<input name="city" maxlength="80" placeholder="e.g. Paris"></label>')+'<button class="accent">'+(city?'Start preload':'Submit for approval')+'</button><div data-job-progress aria-live="polite"></div><div data-form-error role="alert"></div></form></dialog>');
     const dialog=document.querySelector('#openrisk-dialog');
     if(startupName) dialog.querySelector('[name="name"]').value=startupName;
     dialog.addEventListener('close',()=>dialog.remove(),{once:true});
@@ -542,7 +541,10 @@ export async function client() {
 
   function admin() {
     const { requests, jobs, stats } = ctx.state;
-    const rows=requests.map(row=>'<tr><td><strong>'+esc(row.name)+'</strong><br>'+link(row.website,row.website)+'</td><td>'+esc(row.city)+'</td><td>'+date(row.at)+'</td><td>'+badge(row.status,row.status==='approved'?'ok':'warn')+'</td><td>'+(row.status==='pending'?button('Approve & enrich','data-approve="'+row.id+'"','accent'):'')+'</td></tr>').join('');
+    const rows=requests.map(row=>{
+      const review=row.status==='pending' ? '<form data-review-startup="'+esc(row.id)+'"><label>Map city<input name="city" maxlength="80" required value="'+esc(row.city)+'" placeholder="e.g. Paris"></label><button class="accent">Approve &amp; preload</button></form>' : '';
+      return '<tr><td><strong>'+esc(row.name || row.website)+'</strong><br>'+link(row.website,row.website)+'</td><td>'+esc(row.city || '—')+'</td><td>'+date(row.at)+'</td><td>'+badge(row.status,row.status==='approved'?'ok':'warn')+'</td><td>'+review+'</td></tr>';
+    }).join('');
     const list=jobs.slice(0,15).map(row=>'<li><strong>'+esc(row.name)+'</strong> · '+esc(row.type)+' · '+badge(row.stage,row.stage==='Complete'?'ok':'warn')+(row.count!=null?' · '+row.count+' indexed':'')+(row.candidates?.length?' · '+row.candidates.length+' discovery candidates':'')+' <small>'+date(row.updatedAt||row.at)+'</small>'+(row.sources?.length?'<div class="source">'+row.sources.map(source=>badge((source.ok?'✓ ':'– ')+source.label,source.ok?'ok':'dim')).join(' ')+'</div>':'')+'</li>').join('');
     const extracted=stats?.extracted || 0, confirmed=stats?.confirmed || 0, unchanged=stats?.unchanged || 0;
     const seeds=ctx.cities.map(city=>{
@@ -552,7 +554,7 @@ export async function client() {
     }).join('');
     const health=Object.entries(ctx.preloadReport?.sources||{}).map(([label, row])=>'<tr><td>'+esc(label)+'</td><td>'+stamp(row.lastSuccess)+'</td><td>'+stamp(row.lastFailure)+'</td></tr>').join('');
     main.innerHTML=title('Operations','Review map submissions, preload runs and extraction quality.')+'<div class="stack">'
-      +panel('Startup request queue','<div id="queue-progress" aria-live="polite"></div>'+(rows?'<div class="scroll"><table class="rules"><thead><tr><th>Startup</th><th>City</th><th>Submitted</th><th>Status</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>':empty('No startup requests yet.'))+'<div class="actions spaced">'+button('+ Add a startup','data-open-dialog="startup"')+'</div>')
+      +panel('Startup request queue','<div id="queue-progress" aria-live="polite"></div>'+(rows?'<div class="scroll"><table class="rules"><thead><tr><th>Startup</th><th>City</th><th>Submitted</th><th>Status</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>':empty('No startup requests yet.'))+'<div class="actions spaced">'+button('Suggest startup','data-open-dialog="startup"')+'</div>')
       +panel('City preloads','<div class="scroll"><table class="rules"><thead><tr><th>City</th><th>Indexed profiles</th><th>Signals captured</th><th>Snapshot run</th></tr></thead><tbody>'+seeds+'</tbody></table></div>'+(list?'<h3 style="margin-top:14px">Workspace jobs</h3><ul class="items">'+list+'</ul>':'')+'<div class="actions spaced">'+button('+ Add city','data-open-dialog="city"')+'</div>')
       +(health?panel('Source health','<div class="scroll"><table class="rules"><thead><tr><th>Connector</th><th>Last success</th><th>Last failure</th></tr></thead><tbody>'+health+'</tbody></table></div>'):'')
       +panel('Extraction quality','<div class="cards"><div><div class="value">'+extracted+'</div><small>Documents processed</small></div><div><div class="value">'+confirmed+'</div><small>Confirmed fields</small></div><div><div class="value">'+(confirmed?Math.round(100*unchanged/confirmed)+'%':'—')+'</div><small>Confirmed unchanged</small></div></div>')+'</div>';
@@ -652,13 +654,17 @@ export async function client() {
 
   document.addEventListener('submit',async event=>{
     const form=event.target;
-    if(!['alerts-form','kpi-form','custom-form','mail-form','invite-form','startup-form','city-form'].includes(form.id)) return;
+    if(!form.dataset.reviewStartup && !['alerts-form','kpi-form','custom-form','mail-form','invite-form','startup-form','city-form'].includes(form.id)) return;
     event.preventDefault();
+    const feedback=form.querySelector('[data-form-error]');
+    if(feedback) feedback.textContent='';
     const fields=new FormData(form);
     const submit=form.querySelector('button[type="submit"],button:not([type])');
     if(submit) submit.disabled=true;
     try {
-      if(form.id==='alerts-form') {
+      if(form.dataset.reviewStartup) {
+        await runJob(submit,{action:'approve',request:form.dataset.reviewStartup,city:fields.get('city')},()=>admin());
+      } else if(form.id==='alerts-form') {
         await mutate({action:'alerts',threshold:Number(fields.get('threshold')),monthly:fields.has('monthly')});
         toast('Alert settings saved.');
       } else if(form.id==='kpi-form') {
@@ -708,7 +714,10 @@ export async function client() {
           navigate('map');
         });
       }
-    } catch(error) { toast(error.message); }
+    } catch(error) {
+      if(feedback) feedback.textContent=error.message;
+      else toast(error.message);
+    }
     finally {
       if(submit) {
         submit.disabled=false;
@@ -792,7 +801,6 @@ export async function client() {
         form.dataset.sampleText=sample.text;
       }
       if (node.dataset.review || node.dataset.confirmAll!==undefined) await submitProposals(node);
-      if (node.dataset.approve) await runJob(node,{action:'approve',request:node.dataset.approve},()=>admin());
       if (node.dataset.revoke) { await mutate({action:'revoke',company:ctx.current,invite:node.dataset.revoke}); founder(); toast('Invitation revoked.'); }
     } catch (error) { toast(error.message); }
     if (node.dataset.cold) void live(node.dataset.cold);

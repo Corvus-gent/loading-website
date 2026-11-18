@@ -11,6 +11,7 @@ export interface Signal<T> {
 
 export interface PublicSignals {
   founded?: Signal<number>;
+  website?: Signal<string>;
   funding?: Signal<{ label: string; announced: string }>;
   jobs?: Signal<{ count: number; roles: string[]; departments?: string[]; provider?: string; delta?: number; priorAt?: string }>;
   github?: Signal<{ repo: string; pushedAt: string; stars?: number }>;
