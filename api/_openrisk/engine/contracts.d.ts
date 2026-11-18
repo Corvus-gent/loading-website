@@ -22,10 +22,11 @@ export interface RiskSnapshot {
   value: number | null;
   grade: 'A' | 'B' | 'C' | 'D' | 'E' | null;
   coverage: number;
+  provisional: boolean;
   asOf: string;
   trend: number | null;
   priorAt?: string;
-  breakdown: { key: string; title: string; weight: number; points: number | null; signal?: Signal<unknown> }[];
+  breakdown: { key: string; title: string; weight: number; points: number | null; basis?: 'directory'; signal?: Signal<unknown> }[];
 }
 
 export interface Dossier {

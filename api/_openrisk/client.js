@@ -10,7 +10,7 @@ export async function client() {
   };
   const link = (url, label = 'Source ↗') => safeUrl(url) ? '<a href="' + esc(safeUrl(url)) + '" target="_blank" rel="noreferrer">' + esc(label) + '</a>' : '';
   const badge = (text, tone = 'dim') => '<span class="badge ' + tone + '">' + esc(text) + '</span>';
-  const riskBadge = risk => risk?.grade ? badge(risk.grade + ' · ' + risk.value, risk.grade <= 'B' ? 'ok' : risk.grade === 'C' ? 'warn' : 'red') : badge('Unrated');
+  const riskBadge = risk => risk?.grade ? badge(risk.grade + ' · ' + risk.value, risk.grade <= 'B' ? 'ok' : risk.grade === 'C' ? 'warn' : 'red') : risk?.provisional ? badge('Provisional · '+risk.value,'warn') : badge('Insufficient data');
   const logo = (item, large = false) => {
     const initials=item.name.split(/\s+/).slice(0,2).map(word=>word[0]).join('').toUpperCase();
     const color=Array.from(item.name).reduce((sum,letter)=>sum+letter.charCodeAt(0),0)%4;
@@ -152,6 +152,7 @@ export async function client() {
 
   const signalValue = item => {
     const v = item.signal?.value;
+    if (item.basis==='directory') return v + (v>=50?'+':'') + ' roles listed in StartupMap';
     return item.key === 'funding' && v ? v.label + ' · ' + v.announced : item.key === 'jobs' && v ? v.count + ' open roles' : item.key === 'github' && v ? 'Push ' + date(v.pushedAt) : v ?? 'Unknown';
   };
 
@@ -195,15 +196,15 @@ export async function client() {
     });
     const observed=rows.filter(row=>row.earned!=null);
     const total=observed.reduce((sum,row)=>sum+row.earned,0);
-    const highlights=scored ? '' : '<p class="muted">At least 45% of the model weight must have evidence before OpenRisk shows a score.</p>';
+    const highlights=scored ? '' : '<p class="muted">At least 25% evidence coverage is required to show a provisional score.</p>';
     const table=rows.map(row=>'<tr><th scope="row">'+esc(row.title)+'<small class="score-observed">'+scoreObservation(row,r.asOf)+' · '+row.weight+'% model weight</small></th><td>'+(row.points==null?'No evidence':row.points+'/100')+'</td><td>'+(row.earned==null?'—':'<strong class="gain">+'+scoreNumber(row.earned)+'</strong> / '+scoreNumber(row.maximum))+'</td><td>'+(row.gap==null?'—':row.gap>0?'<strong class="gap">−'+scoreNumber(row.gap)+'</strong>':'0')+'</td><td>'+(row.signal?link(row.signal.source,date(row.signal.fetchedAt)+' ↗'):'—')+'</td></tr>').join('');
-    const math=scored ? '<div class="score-math"><strong>'+observed.map(row=>scoreNumber(row.earned)).join(' + ')+' = '+scoreNumber(total)+' → '+r.value+'/100</strong><small>'+scoreNumber(100-total)+' points below the maximum before rounding.'+(r.coverage<100?' Observed weights are scaled to 100. Missing signals reduce coverage.':'')+'</small></div>' : '';
-    const methodology='<details class="score-method"><summary>Scoring rules and grade thresholds</summary><ul class="items">'+rows.map(row=>'<li><strong>'+esc(row.title)+'</strong> · '+esc(scoreRules[row.key]||'')+'</li>').join('')+'</ul><p>Weighted points = raw score ÷ 100 × available points. Grade A ≥ 85, B ≥ 70, C ≥ 55, D ≥ 40, E &lt; 40.</p></details>';
+    const math=scored ? '<div class="score-math"><strong>'+observed.map(row=>scoreNumber(row.earned)).join(' + ')+' = '+scoreNumber(total)+' → '+r.value+'/100</strong><small>'+scoreNumber(100-total)+' points below the maximum before rounding.'+(r.provisional?' Provisional score based on limited evidence.':'')+(r.coverage<100?' Observed weights are scaled to 100. Missing signals reduce coverage.':'')+'</small></div>' : '';
+    const methodology='<details class="score-method"><summary>Scoring rules and grade thresholds</summary><ul class="items">'+rows.map(row=>'<li><strong>'+esc(row.title)+'</strong> · '+esc(scoreRules[row.key]||'')+'</li>').join('')+'</ul><p>Weighted points = raw score ÷ 100 × available points. Letter grades require at least 45% evidence coverage. Grade A ≥ 85, B ≥ 70, C ≥ 55, D ≥ 40, E &lt; 40.</p></details>';
     return highlights+'<div class="scroll"><table class="rules score-table"><thead><tr><th>Signal</th><th>Raw score</th><th>Points earned</th><th>Gap</th><th>Source</th></tr></thead><tbody>'+table+'</tbody></table></div>'+math+methodology;
   }
 
   function scoreTakeaways(r) {
-    if (r.value==null) return '<p>OpenRisk needs evidence for at least 45% of the model weight before showing a score.</p>';
+    if (r.value==null) return '<p>OpenRisk needs evidence for at least 25% of the model weight before showing a provisional score.</p>';
     const observed=r.breakdown.filter(row=>row.points!=null);
     const earned=row=>row.weight*row.points/r.coverage;
     const missing=row=>row.weight*(100-row.points)/r.coverage;
@@ -285,7 +286,7 @@ export async function client() {
       + (ctx.role!=='Admin' ? button(claimed?'Open founder desk':'Claim this profile','data-claim="'+item.id+'"',ctx.role==='Founder'?'accent':'ghost') : '');
     const kpis=ctx.state.companies[item.id]?.values.length ? metricView(item.id) : '';
     const overview='<section class="dossier-overview" aria-label="Score overview"><div class="dossier-score"><h2>OpenRisk score</h2>'
-      + '<div class="scoreline"><div class="score">'+(r.value??'—')+'<sub>/100</sub></div>'+(r.grade?badge('Grade '+r.grade,r.grade<='B'?'ok':'warn'):'')+'</div>'
+      + '<div class="scoreline"><div class="score">'+(r.value??'—')+'<sub>/100</sub></div>'+(r.grade?badge('Grade '+r.grade,r.grade<='B'?'ok':'warn'):r.provisional?badge('Provisional','warn'):'')+'</div>'
       + scoreVisual(r)+'<p class="source">'+r.coverage+'% evidence coverage</p></div><div class="dossier-lead">'
       + '<p>'+esc(item.description)+'</p>'+scoreTakeaways(r)+'<a href="#score-details">See score calculation ↓</a></div></section>';
     const context='<section id="investment-context" class="dossier-chapter"><h2>Investment context</h2>'+investmentLens(s)+'</section>';
@@ -345,7 +346,7 @@ export async function client() {
       }).join('');
       const ready=Object.keys(keys).every(key=>state[key]);
       const risk=state.score?.value;
-      const preliminary=risk?.grade
+      const preliminary=risk?.value!=null
         ? '<div class="scoreline"><div class="score">'+risk.value+'<sub>/100</sub></div>'+riskBadge(risk)+'</div>'+scoreVisual(risk)+'<p>'+risk.coverage+'% evidence coverage · Preliminary score</p>'
         : val('Unrated')+'<p>Scoring requires sufficient attributable evidence.</p>';
       main.innerHTML = profileHeader(item,ready?button('+ Add a startup','data-open-dialog="startup" data-startup-name="'+esc(name)+'"','ghost'):'') + '<div class="ticker" aria-live="polite">' + Object.entries(keys).map(([key,label]) => badge((!state[key] ? '… ' : state[key].value ? '✓ ' : '– ') + label, state[key]?.value ? 'ok' : 'dim')).join('') + '</div><div class="dossier">' + panel('OpenRisk score',preliminary) + (risk?panel('How the score is built',scoreBreakdown(risk),'wide'):'') + cards + panel('Team & hiring',empty('A verified hiring board is required.')) + panel('Financial signals',empty('Company financing and filings need verification.')) + '</div>';

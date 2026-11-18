@@ -14,13 +14,16 @@ const rules = [
 
 export function score(signals, now = new Date()) {
   const breakdown = rules.map(rule => {
-    const signal = signals[rule.key];
-    return { key: rule.key, title: rule.title, weight: rule.weight, points: signal ? rule.rate(signal.value, now) : null, signal };
+    const directory = rule.key==='jobs' && !signals.jobs && Number.isSafeInteger(signals.directoryJobs?.value) && signals.directoryJobs.value>0;
+    const signal = directory ? signals.directoryJobs : signals[rule.key];
+    const input = directory ? {count:signal.value} : signal?.value;
+    return { key: rule.key, title:directory?'Directory-listed hiring':rule.title, weight:rule.weight, points:signal?rule.rate(input,now):null, signal, ...(directory?{basis:'directory'}:{}) };
   });
   const seen = breakdown.filter(item => item.points !== null);
   const coverage = seen.reduce((sum, item) => sum + item.weight, 0);
   const weighted = seen.reduce((sum, item) => sum + item.weight * item.points, 0);
-  const value = coverage >= 45 ? Math.round(weighted / coverage) : null;
-  const grade = value === null ? null : value >= 85 ? 'A' : value >= 70 ? 'B' : value >= 55 ? 'C' : value >= 40 ? 'D' : 'E';
-  return { value, grade, coverage, breakdown, trend: null, asOf: now.toISOString() };
+  const value = coverage >= 25 ? Math.round(weighted / coverage) : null;
+  const provisional = value !== null && coverage < 45;
+  const grade = value === null || provisional ? null : value >= 85 ? 'A' : value >= 70 ? 'B' : value >= 55 ? 'C' : value >= 40 ? 'D' : 'E';
+  return { value, grade, provisional, coverage, breakdown, trend: null, asOf: now.toISOString() };
 }

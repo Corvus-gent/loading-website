@@ -56,3 +56,8 @@
 
 - Enrich every existing directory profile from its public, attributable individual page, keeping the existing city selection and score rules. Capture sector, founding date, headcount range, financing stage, verifiable links and, when available, directory-reported financing and role count. Label directory observations separately from direct ATS and verified round data.
 - Rasterize directory logos or public company favicons during preload. Serve small, individually lazy-loaded images from the private origin and keep initials for unresolved artwork. The bootstrap carries logo IDs so the artwork does not inflate the search index payload.
+
+## Scoring imported profiles
+
+- Use cited directory vacancy counts as a hiring fallback when a direct company board count is unavailable. Keep direct board observations first. Show capped directory results as lower bounds.
+- Show a provisional score with 25–44% model coverage and reserve letter grades for at least 45%. Keep profiles below 25% marked as insufficient data. Retain the existing weights and Aikido’s 87.
