@@ -5,7 +5,7 @@ import {ogRoute} from "./js/og-routes.js";
 import {COMPOUND_LINKS} from "./js/compound-links.js";
 import { rewrite, next, waitUntil } from "@vercel/functions";
 
-export const config = { matcher: ["/((?!api/|js/|img/|cv/|papers/|.*\\.(?:css|js|png|jpg|svg|pdf|json|ico)$).*)"] };
+export const config = { matcher: ["/((?!api/|js/|img/|cv/|papers/|.*\\.(?:css|js|png|jpg|svg|pdf|json|ico)$).*)", "/project-cto/:path*", "/api/_openrisk/:path*"] };
 
 const COMPANY_LINKS = {
   "/enter": "/?utm_source=linkedin&utm_medium=company-page&utm_campaign=gabe-corvus-page&utm_content=button",
@@ -32,6 +32,17 @@ const CURL_REPLY = `
 
 export default function middleware(request) {
   const url = new URL(request.url);
+  if (/^\/api\/_openrisk(?:\/|$)/.test(url.pathname)) {
+    return new Response(null, { status:404, headers:{'Cache-Control':'private, no-store','X-Robots-Tag':'noindex, nofollow'} });
+  }
+  if (/^\/project-cto(?:\/|$)/.test(url.pathname)) {
+    if (url.hostname === 'stats.corvus.gent' || url.pathname.endsWith('/')) {
+      if (url.hostname === 'stats.corvus.gent') url.hostname = 'corvus.gent';
+      url.pathname = url.pathname.replace(/\/+$/, '');
+      return new Response(null, { status:308, headers:{Location:url.href,'Cache-Control':'private, no-store','X-Robots-Tag':'noindex, nofollow'} });
+    }
+    return next();
+  }
   const cleanPath=url.pathname.replace(/\/index\.html$/,'').replace(/\/$/,'')||'/';
   // File-form stats links must reach the same clean routes as directory links.
   if (url.hostname === 'stats.corvus.gent' && /^\/(?:stats\/)?(?:(?:pidgy|games|map|music|hunt|x|coffee|linkedin|status|hack|army|private)\/)?index\.html$/.test(url.pathname)) {

@@ -1,3 +1,4 @@
 User-agent: *
 Disallow: /project-cto
 Disallow: /api/project-cto
+Disallow: /api/_openrisk
