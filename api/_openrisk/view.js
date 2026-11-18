@@ -36,6 +36,7 @@ const css = `
 .estimate-step-detail{font-size:13px;color:var(--mute);margin-top:3px}
 .estimate-result{padding:16px;margin-top:16px;background:var(--panel2);border:1px solid var(--line);border-radius:12px}
 .estimate-result h3{margin-top:0}.estimate-result .value{font-size:26px;margin:8px 0}.estimate-result summary{cursor:pointer;color:var(--soft)}
+#sector-filter{min-width:0;max-width:100%}
 .startup-sort{display:flex;gap:8px;flex-wrap:wrap}.startup-sort label{font-size:11px;color:var(--soft)}.startup-sort select{display:block;font-size:12px;margin-top:3px}
 
 .score-drivers,.investment-lens{display:grid;gap:12px}.score-drivers{grid-template-columns:1fr 1fr;margin:10px 0 14px}.score-drivers>div,.score-math{background:#172237;border:1px solid #293a55;border-radius:9px;padding:10px 12px}.score-drivers small,.score-drivers strong,.score-math small,.score-observed{display:block}.score-drivers strong{margin-top:3px}.score-table tbody th{color:var(--fg)}.score-observed{margin-top:3px;font-weight:400}.gain{color:var(--mint)}.gap{color:var(--amber)}.score-math{margin-top:12px}.score-method{margin-top:12px;color:var(--soft);font-size:13px}.score-method summary{cursor:pointer}.score-method p{margin-top:8px}.investment-lens{grid-template-columns:repeat(3,minmax(0,1fr));margin:14px 0}.investment-lens p:last-child{margin-bottom:0}

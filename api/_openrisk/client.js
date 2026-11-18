@@ -75,10 +75,15 @@ export async function client() {
     const target=root+path;
     if (location.pathname!==target) history.pushState(null,'',target);
   }
+  function mapPath() {
+    if (ctx.allProfiles) return '/catalog';
+    if (ctx.countryList) return '/country/'+citySlug(ctx.countryList);
+    return ctx.city==='Gent'?'':'/city/'+citySlug(ctx.city);
+  }
   function navigate(page, recordPath = true) {
     ctx.cancel?.abort();
     ctx.page = page;
-    if (recordPath && Object.hasOwn(destinations,page)) setPath(page==='map' && ctx.countryList ? '/country/'+citySlug(ctx.countryList) : page==='map' && ctx.city!=='Gent' ? '/city/'+citySlug(ctx.city) : destinations[page].path);
+    if (recordPath && Object.hasOwn(destinations,page)) setPath(page==='map'?mapPath():destinations[page].path);
     nav();
     if (page === 'map') map();
     if (page === 'portfolio') portfolio();
@@ -111,7 +116,7 @@ export async function client() {
     return '<section class="market" aria-label="'+label+'"><div class="inset-geo" data-map-camera="'+key+'-'+esc(label)+'" tabindex="0" aria-label="'+esc(label)+' map" style="--region-ratio:'+ratio+';--region-width:'+Math.round(310*ratio)+'px"><div class="map-layer"><svg viewBox="0 0 '+projectedWidth+' 115" aria-hidden="true"><path d="'+esc(path)+'" transform="scale('+projectedWidth/300+' 1)" fill="#223754" stroke="#52769c" stroke-width="1" vector-effect="non-scaling-stroke"/></svg>'+pins+'</div><span class="market-name">'+label+'</span>'+mapControls(label)+'</div><div class="inset-cities">'+labels+'</div></section>';
   }
 
-  const mapCountries=['Belgium','England','Netherlands','Germany','France','United States','New York City','Shanghai','Greater Bay Area','Morocco'];
+  const mapCountries=['Belgium','England','Netherlands','Germany','France','European hubs','United States','New York City','Shanghai','Greater Bay Area','Morocco'];
   const regionName=region=>region==='United States'?'Bay Area':region;
   const regionOf=city=>city?.hub || city?.country;
   const cityRegion = name => {
@@ -236,9 +241,9 @@ export async function client() {
     const key=region==='United States'?'bay':citySlug(region);
     const [west,south,east,north]=ctx.insets.bounds[key];
     const regionalCities=cities.filter(city=>regionOf(city)===region && city.lon>=west && city.lon<=east && city.lat>=south && city.lat<=north);
-    const europeCount=cities.filter(city=>['Belgium','England','Netherlands','Germany','France'].includes(city.country)).length;
-    main.innerHTML = '<section class="hero"><span class="eyebrow">Startup intelligence</span><h1>Explore startup risk.</h1><p>Explore startups by city or build a risk dossier from public signals.</p><form id="search-form" class="search-wrap" role="search"><label for="company-search" hidden>Search for a startup</label><span class="search-symbol" aria-hidden="true">⌕</span><input id="company-search" placeholder="Search any startup…" maxlength="80" autocomplete="off" aria-controls="search-results" aria-expanded="false"><span class="keycap" aria-hidden="true">/</span><div id="search-results" class="results" hidden></div></form><div class="quick">Quick look ' + ['aikido-security','deliverect','stripe','odoo'].map(id => button(ctx.catalog.find(item => item.id === id).name, 'data-company="' + id + '"')).join('') + '</div></section>'
-      + '<div class="layout"><section class="panel atlas"><div class="panel-head"><h2>Ecosystem map</h2>' + '<div class="actions">' + badge(allCompanies().length + ' profiles · ' + allCities().length + ' cities') + button('Suggest startup','data-open-dialog="startup"') + button('+ Add city','data-open-dialog="city"') + '</div></div><div class="map-stage" data-map-camera="world" tabindex="0" aria-label="World map"><div class="map-layer"><svg viewBox="0 0 900 360" preserveAspectRatio="none" aria-hidden="true"><defs><pattern id="grid" width="37.5" height="37.5" patternUnits="userSpaceOnUse"><path d="M 37.5 0 L 0 0 0 37.5" fill="none" stroke="#253751" stroke-width=".7"/></pattern></defs><rect width="900" height="360" fill="url(#grid)"/><path d="' + esc(ctx.land) + '" fill="#243855" stroke="#507096" stroke-width=".65"/></svg><button class="cluster" aria-label="European startup hubs" data-city="Brussels" style="left:51.1%;top:22.2%">' + europeCount + '</button><button class="cluster" aria-label="Bay Area startup hubs" data-city="San Francisco" style="left:16%;top:31.4%">2</button>' + worldRegionClusters(cities) + worldPins() + '</div><span class="map-caption">NATURAL EARTH · GLOBAL VIEW</span>' + mapControls('world map') + '</div><div class="market-grid">' + countries + inset(key,regionName(region),regionalCities) + '</div></section><section class="panel"><div class="panel-head"><h2 id="city-title"></h2>' + sortControls() + '</div>' + nearbyForm() + (ctx.countryList?'<p id="country-scope" class="source">Selected profiles and approved suggestions across several hubs</p>':'') + '<div id="city-rows" class="rows"></div></section></div>';
+    const europeCount=cities.filter(city=>['Belgium','England','Netherlands','Germany','France','European hubs'].includes(regionOf(city))).length;
+    main.innerHTML = '<section class="hero"><span class="eyebrow">Startup intelligence</span><h1>Explore startup risk.</h1><p>Explore startups by city or build a risk dossier from public signals.</p><form id="search-form" class="search-wrap" role="search"><label for="company-search" hidden>Search for a startup</label><span class="search-symbol" aria-hidden="true">⌕</span><input id="company-search" placeholder="Search any startup…" maxlength="80" autocomplete="off" aria-controls="search-results" aria-expanded="false"><span class="keycap" aria-hidden="true">/</span><div id="search-results" class="results" hidden></div></form><div class="quick">Quick look ' + ['aikido-security','deliverect','stripe','odoo'].map(id => button(ctx.catalog.find(item => item.id === id).name, 'data-company="' + id + '"')).join('') + button('Browse all startups','data-browse-all aria-pressed="'+Boolean(ctx.allProfiles)+'"')+'</div></section>'
+      + '<div class="layout"><section class="panel atlas"><div class="panel-head"><h2>Ecosystem map</h2>' + '<div class="actions">' + badge(allCompanies().length + ' profiles · ' + allCities().length + ' cities') + button('Suggest startup','data-open-dialog="startup"') + button('+ Add city','data-open-dialog="city"') + '</div></div><div class="map-stage" data-map-camera="world" tabindex="0" aria-label="World map"><div class="map-layer"><svg viewBox="0 0 900 360" preserveAspectRatio="none" aria-hidden="true"><defs><pattern id="grid" width="37.5" height="37.5" patternUnits="userSpaceOnUse"><path d="M 37.5 0 L 0 0 0 37.5" fill="none" stroke="#253751" stroke-width=".7"/></pattern></defs><rect width="900" height="360" fill="url(#grid)"/><path d="' + esc(ctx.land) + '" fill="#243855" stroke="#507096" stroke-width=".65"/></svg><button class="cluster" aria-label="European startup hubs" data-city="Brussels" style="left:51.1%;top:22.2%">' + europeCount + '</button><button class="cluster" aria-label="Bay Area startup hubs" data-city="San Francisco" style="left:16%;top:31.4%">2</button>' + worldRegionClusters(cities) + worldPins() + '</div><span class="map-caption">NATURAL EARTH · GLOBAL VIEW</span>' + mapControls('world map') + '</div><div class="market-grid">' + countries + inset(key,regionName(region),regionalCities) + '</div></section><section class="panel"><div class="panel-head"><h2 id="city-title"></h2>' + sortControls() + '</div>' + (ctx.allProfiles?sectorPicker():'') + nearbyForm() + (ctx.countryList?'<p id="country-scope" class="source">Selected profiles and approved suggestions across several hubs</p>':'') + '<div id="city-rows" class="rows"></div></section></div>';
     main.querySelector('.map-stage svg').classList.add('earth');
     main.querySelectorAll('[data-map-camera]').forEach(bindMapCamera);
     const input = document.querySelector('#company-search');
@@ -283,6 +288,14 @@ export async function client() {
       ctx.sortDirection=event.target.value;
       cityRows();
     };
+    const sector=main.querySelector('#sector-filter');
+    if (sector) {
+      sector.value=ctx.sectorFilter || '';
+      sector.onchange=()=>{
+        ctx.sectorFilter=sector.value;
+        cityRows();
+      };
+    }
     bindNearbyForm();
     cityRows();
   }
@@ -304,6 +317,12 @@ export async function client() {
     return '<div class="startup-sort"><label>Sort by<select id="city-sort" aria-label="Sort startups">'
       +Object.entries(startupSorts).map(([key,sort])=>'<option value="'+key+'">'+sort.label+'</option>').join('')
       +'</select></label><label>Order<select id="city-direction" aria-label="Sort order"></select></label></div>';
+  }
+
+  function sectorPicker() {
+    const sectors=[...new Set(allCompanies().map(item=>item.sector).filter(sector=>sector && sector!=='Unclassified'))].sort((a,b)=>a.localeCompare(b));
+    return '<div class="actions spaced"><label for="sector-filter">Sector</label><select id="sector-filter"><option value="">All sectors</option>'
+      +sectors.map(sector=>'<option>'+esc(sector)+'</option>').join('')+'</select></div>';
   }
 
   function nearbyForm() {
@@ -371,6 +390,7 @@ export async function client() {
     orderInput.replaceChildren(new Option(sort.directions[0],'default'),new Option(sort.directions[1],'reverse'));
     orderInput.value=order;
     const direction=order==='reverse'?-1:1;
+    const inSector=item=>!ctx.allProfiles || !ctx.sectorFilter || item.sector===ctx.sectorFilter;
     main.querySelector('#nearby-form').hidden=!nearby;
     main.querySelector('#nearby-status').textContent=nearby && ctx.origin
       ? 'From '+ctx.origin.label+' · Straight-line distance to each startup’s city' : '';
@@ -379,7 +399,7 @@ export async function client() {
     if (nearby) {
       main.querySelector('#city-title').textContent='Nearby startups';
       const places=new Map(allCities().map(place=>[place.name,place]));
-      const closest=ctx.origin ? allCompanies().filter(item=>places.has(item.city))
+      const closest=ctx.origin ? allCompanies().filter(item=>inSector(item) && places.has(item.city))
         .map(item=>({item,km:distanceKm(ctx.origin,places.get(item.city))}))
         .sort((a,b)=>direction*(a.km-b.km) || a.item.name.localeCompare(b.item.name)) : [];
       const format=new Intl.NumberFormat('en',{maximumFractionDigits:ctx.origin?.approximate?0:1});
@@ -391,18 +411,18 @@ export async function client() {
     }
     const countryCities = new Set(allCities().filter(city=>regionOf(city)===ctx.countryList).map(city=>city.name));
     const items = (ctx.countryList ? [...ctx.catalog,...ctx.state.approved] : allCompanies())
-      .filter(item => ctx.countryList ? countryCities.has(item.city) : item.city === ctx.city)
+      .filter(item => ctx.allProfiles ? inSector(item) : ctx.countryList ? countryCities.has(item.city) : item.city===ctx.city)
       .map(item=>({item,value:sort.value(item)}))
       .sort((a,b)=>{
         if (a.value==null || b.value==null) return Number(a.value==null)-Number(b.value==null) || a.item.name.localeCompare(b.item.name);
         const comparison=ctx.sort==='name' ? a.value.localeCompare(b.value) : b.value-a.value;
         return direction*comparison || a.item.name.localeCompare(b.item.name);
       });
-    document.querySelector('#city-title').textContent = regionName(ctx.countryList||ctx.city) + ' · ' + items.length;
+    document.querySelector('#city-title').textContent = (ctx.allProfiles?(ctx.sectorFilter || 'All startups'):regionName(ctx.countryList||ctx.city)) + ' · ' + items.length;
     document.querySelector('#city-rows').innerHTML = items.map(({item,value})=>
       companions(item,'row',sort.detail ? (value==null?'Not available':sort.detail(item,value)) : '')
     ).join('') || empty('No profiles are available for this city yet.');
-    main.querySelectorAll('.pin,.inset-city').forEach(node => node.setAttribute('aria-pressed', String(!ctx.countryList && node.dataset.city === ctx.city)));
+    main.querySelectorAll('.pin,.inset-city').forEach(node => node.setAttribute('aria-pressed', String(!ctx.allProfiles && !ctx.countryList && node.dataset.city === ctx.city)));
   }
 
   const signalValue = item => {
@@ -1122,6 +1142,7 @@ export async function client() {
       } else {
         await runJob(submit,{action:'add-city',name:fields.get('name')},result=>{
           ctx.countryList=null;
+          ctx.allProfiles=false;
           if (ctx.sort==='nearby') { ctx.sort='risk'; ctx.sortDirection=null; }
           ctx.city=result.city;
           document.querySelector('#openrisk-dialog').close();
@@ -1144,6 +1165,8 @@ export async function client() {
     const relative=location.pathname.slice(root.length);
     const city=/^\/city\/([a-z0-9-]+)$/.exec(relative);
     ctx.countryList=null;
+    ctx.allProfiles=relative==='/catalog';
+    if (ctx.allProfiles) return openPage('map',false);
     const country=mapCountries.find(name=>'/country/'+citySlug(name)===relative);
     if (country) { ctx.countryList=country; return openPage('map',false); }
     if (!relative) ctx.city='Gent';
@@ -1178,16 +1201,26 @@ export async function client() {
       finally { node.disabled=false; }
       return;
     }
+    if (node.hasAttribute('data-browse-all')) {
+      ctx.allProfiles=true;
+      ctx.countryList=null;
+      setPath('/catalog');
+      map();
+      main.querySelector('#sector-filter')?.focus({preventScroll:true});
+      return;
+    }
     if (mapCountries.includes(node.dataset.mapCountry)) {
       if (ctx.sort==='nearby') { ctx.sort='risk'; ctx.sortDirection=null; }
+      ctx.allProfiles=false;
       ctx.countryList=node.dataset.mapCountry;
       setPath('/country/'+citySlug(ctx.countryList));
       map();
       main.querySelector('.country-switch [data-map-country="'+ctx.countryList+'"]').focus({preventScroll:true});
     }
     if (node.dataset.city) {
-      const selected=ctx.countryList || ctx.sort==='nearby' || cityRegion(ctx.city)!==cityRegion(node.dataset.city);
+      const selected=ctx.allProfiles || ctx.countryList || ctx.sort==='nearby' || cityRegion(ctx.city)!==cityRegion(node.dataset.city);
       if (ctx.sort==='nearby') { ctx.sort='risk'; ctx.sortDirection=null; }
+      ctx.allProfiles=false;
       ctx.countryList=null;
       ctx.city=node.dataset.city;
       setPath('/city/'+citySlug(ctx.city));

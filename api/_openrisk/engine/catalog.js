@@ -42,6 +42,20 @@ export const cities = [
   { name: 'Zhaoqing', country: 'China', lat: 23.0472, lon: 112.4651, hub: 'Greater Bay Area' },
   { name: 'Casablanca', country: 'Morocco', lat: 33.5731, lon: -7.5898 },
   { name: 'Rabat', country: 'Morocco', lat: 34.0209, lon: -6.8416 },
+  { name: 'Barcelona', country: 'Spain', lat: 41.3852, lon: 2.1814, hub: 'European hubs' },
+  { name: 'Madrid', country: 'Spain', lat: 40.402, lon: -3.6853, hub: 'European hubs' },
+  { name: 'Stockholm', country: 'Sweden', lat: 59.3241, lon: 18.0663, hub: 'European hubs' },
+  { name: 'Copenhagen', country: 'Denmark', lat: 55.6761, lon: 12.5683, hub: 'European hubs' },
+  { name: 'Zurich', country: 'Switzerland', lat: 47.3819, lon: 8.5481, hub: 'European hubs' },
+  { name: 'Dublin', country: 'Ireland', lat: 53.3467, lon: -6.257, hub: 'European hubs' },
+  { name: 'Vienna', country: 'Austria', lat: 48.202, lon: 16.3647, hub: 'European hubs' },
+  { name: 'Helsinki', country: 'Finland', lat: 60.1638, lon: 24.9325, hub: 'European hubs' },
+  { name: 'Lisbon', country: 'Portugal', lat: 38.7247, lon: -9.1468, hub: 'European hubs' },
+  { name: 'Oslo', country: 'Norway', lat: 59.9186, lon: 10.748, hub: 'European hubs' },
+  { name: 'Milan', country: 'Italy', lat: 45.4719, lon: 9.2031, hub: 'European hubs' },
+  { name: 'Warsaw', country: 'Poland', lat: 52.2309, lon: 21.0053, hub: 'European hubs' },
+  { name: 'Tallinn', country: 'Estonia', lat: 59.4339, lon: 24.728, hub: 'European hubs' },
+  { name: 'Prague', country: 'Czechia', lat: 50.087, lon: 14.4229, hub: 'European hubs' },
 ];
 
 const rows = [
