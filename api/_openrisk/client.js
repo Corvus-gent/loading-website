@@ -139,8 +139,53 @@ export async function client() {
 
   const signalValue = item => {
     const v = item.signal?.value;
-    return item.key === 'funding' && v ? v.announced : item.key === 'jobs' && v ? v.count + ' open roles' : item.key === 'github' && v ? 'Push ' + date(v.pushedAt) : v ?? 'Unknown';
+    return item.key === 'funding' && v ? v.label + ' · ' + v.announced : item.key === 'jobs' && v ? v.count + ' open roles' : item.key === 'github' && v ? 'Push ' + date(v.pushedAt) : v ?? 'Unknown';
   };
+
+  const scoreNumber = value => new Intl.NumberFormat('en-US',{maximumFractionDigits:2}).format(value);
+  const scoreRules = {
+    founded:'45 raw points plus 5 per calendar year since founding, bounded between 20 and 100.',
+    funding:'100 raw points up to 6 months, 85 up to 12, 70 up to 18, then 45.',
+    jobs:'Starts at 50 raw points. Adds 17 × log₂(open roles + 1), rounded, with a ceiling of 100.',
+    github:'100 raw points for a push in the past 14 days, 80 up to 45, 60 up to 120, then 35.',
+  };
+
+  function scoreBreakdown(r) {
+    const scored=r.value!=null;
+    const rows=r.breakdown.map(rule=>{
+      const known=rule.points!=null;
+      const maximum=known && scored ? 100*rule.weight/r.coverage : null;
+      const earned=maximum==null ? null : maximum*rule.points/100;
+      return {...rule,maximum,earned,gap:earned==null?null:maximum-earned};
+    });
+    const observed=rows.filter(row=>row.earned!=null);
+    const total=observed.reduce((sum,row)=>sum+row.earned,0);
+    const biggest=[...observed].sort((a,b)=>b.gap-a.gap)[0];
+    const leader=[...observed].sort((a,b)=>b.earned-a.earned)[0];
+    const highlights=scored ? '<div class="score-drivers"><div><small>Largest contribution</small><strong>'+esc(leader.title)+' <span class="gain">+'+scoreNumber(leader.earned)+'</span></strong></div><div><small>Largest gap to 100</small><strong>'+(biggest.gap>0?esc(biggest.title)+' <span class="gap">−'+scoreNumber(biggest.gap)+'</span>':'No points left on the table')+'</strong></div></div>' : '<p class="muted">At least 45% of the model weight must have evidence before OpenRisk shows a score.</p>';
+    const table=rows.map(row=>'<tr><th scope="row">'+esc(row.title)+'<small class="score-observed">'+esc(signalValue(row))+' · '+row.weight+'% model weight</small></th><td>'+(row.points==null?'No evidence':row.points+'/100')+'</td><td>'+(row.earned==null?'—':'<strong class="gain">+'+scoreNumber(row.earned)+'</strong> / '+scoreNumber(row.maximum))+'</td><td>'+(row.gap==null?'—':row.gap>0?'<strong class="gap">−'+scoreNumber(row.gap)+'</strong>':'0')+'</td><td>'+(row.signal?link(row.signal.source,date(row.signal.fetchedAt)+' ↗'):'—')+'</td></tr>').join('');
+    const math=scored ? '<div class="score-math"><strong>'+observed.map(row=>scoreNumber(row.earned)).join(' + ')+' = '+scoreNumber(total)+' → '+r.value+'/100</strong><small>'+scoreNumber(100-total)+' points below the maximum before rounding.'+(r.coverage<100?' Observed weights are scaled to 100. Missing signals reduce coverage.':'')+'</small></div>' : '';
+    const methodology='<details class="score-method"><summary>Scoring rules and grade thresholds</summary><ul class="items">'+rows.map(row=>'<li><strong>'+esc(row.title)+'</strong> · '+esc(scoreRules[row.key]||'')+'</li>').join('')+'</ul><p>Weighted points = raw score ÷ 100 × available points. Grade A ≥ 85, B ≥ 70, C ≥ 55, D ≥ 40, E &lt; 40.</p></details>';
+    return highlights+'<div class="scroll"><table class="rules score-table"><thead><tr><th>Signal</th><th>Raw score</th><th>Points earned</th><th>Gap</th><th>Source</th></tr></thead><tbody>'+table+'</tbody></table></div>'+math+methodology;
+  }
+
+  function investmentLens(s) {
+    const strengths=[
+      s.funding && [s.funding.value.label+' announced '+date(s.funding.value.announced),s.funding.source],
+      s.jobs?.value.count>0 && [s.jobs.value.count+' advertised roles show active hiring',s.jobs.source],
+      s.github && ['Public GitHub activity recorded on '+date(s.github.value.pushedAt),s.github.source],
+    ].filter(Boolean);
+    const risks=s.jobs?.value.count>0
+      ? 'Hiring can raise burn. Check how much of the current plan is funded.'
+      : 'Check current burn, cash runway and near-term funding needs.';
+    const upside=s.traction
+      ? '<p>'+esc(s.traction.value.label)+' suggests reach. Verify paying conversion, retention and account expansion.</p>'+source(s.traction)
+      : '<p>Assess demand through paid revenue growth, retention and customer concentration.</p>';
+    return '<div class="investment-lens">'+
+      panel('Reasons to investigate',strengths.length?'<ul class="items">'+strengths.map(([text,url])=>'<li>'+esc(text)+' '+link(url)+'</li>').join('')+'</ul>':empty('Evidence is limited. Start by verifying company fundamentals.'))+
+      panel('Upside to validate',upside)+
+      panel('Risks and deal terms','<p>'+esc(risks)+'</p><p>Ask for cash, net burn, retention, entry valuation and investor rights. Those determine whether the opportunity fits your mandate.</p>')+'</div>';
+  }
 
   function profileHeader(item, right = '') {
     return '<div class="breadcrumb">' + button('← Explore', 'data-page="map"', 'link') + '</div><div class="profile-head"><div class="profile-id">' + logo(item,true) + '<div><h1>' + esc(item.name) + '</h1><p>' + esc([item.city,item.sector].filter(Boolean).join(' · ')) + '</p></div></div><div class="actions">' + right + '</div></div>';
@@ -154,7 +199,6 @@ export async function client() {
     const funding = s.funding?.value;
     const age = funding ? (Date.now() - Date.parse(funding.announced)) / (30.4375 * 86400000) : null;
     const ticker = [['Company website',item.domain],['Directory',item.directory],['Jobs',s.jobs],['GitHub',s.github],['Financing',funding || s.stage],['News',s.news?.value?.length]].map(([label, value]) => badge((value ? '✓ ' : '– ') + label, value ? 'ok' : 'dim')).join('');
-    const breakdown = r.breakdown.map(rule => '<tr><td>' + esc(rule.title) + '</td><td>' + rule.weight + '%</td><td>' + esc(signalValue(rule)) + '</td><td>' + (rule.points ?? '—') + '</td><td>' + (rule.signal ? link(rule.signal.source, date(rule.signal.fetchedAt) + ' ↗') : '—') + '</td></tr>').join('');
     const news = s.news?.value?.length ? '<ul class="items">' + s.news.value.map(row => '<li>' + link(row.url, row.title) + ' <small>· ' + esc(date(row.date)) + '</small></li>').join('') + '</ul>' + source(s.news) : empty('No matching stories in the snapshot.');
     const headcount=s.headcount;
     const hiringTrend=s.jobs?.value.delta;
@@ -173,19 +217,19 @@ export async function client() {
       +(s.website ? link(s.website.value,'Official site ↗')+source(s.website) : '');
     const event = s.corporateEvent ? '<p>'+esc(s.corporateEvent.value.label)+' · '+esc(s.corporateEvent.value.date)+'</p>'+source(s.corporateEvent) : '';
     const trend=r.trend==null?'No comparable prior snapshot':(r.trend>0?'↑ +':r.trend<0?'↓ ':'→ ')+r.trend+' since '+stamp(r.priorAt);
-    const summary = (item.summary || []).map((entry, i) => '<li><strong>' + ['What changed','What’s risky','Ask the founder'][i] + '</strong> · ' + esc(entry.text) + ' ' + link(entry.source) + '</li>').join('');
     const claimed = ctx.state.claims.includes(item.id);
     const followed = ctx.state.followed.includes(item.id);
     const controls = (ctx.role==='Investor' ? button(followed?'Following':'Follow','data-follow="'+item.id+'"','accent') : '')
       + (ctx.role!=='Admin' ? button(claimed?'Open founder desk':'Claim this profile','data-claim="'+item.id+'"',ctx.role==='Founder'?'accent':'ghost') : '');
     main.innerHTML = profileHeader(item,controls) + '<div class="ticker" aria-label="Sources">' + ticker + '</div><div class="dossier">'
-      + panel('OpenRisk score','<div class="scoreline"><div class="score">' + (r.value ?? '—') + '<sub>/100</sub></div>' + riskBadge(r) + '</div><div class="meter"><span style="width:' + r.coverage + '%"></span></div><p class="muted">' + r.coverage + '% evidence coverage · ' + esc(trend) + '</p><div class="source">Higher scores indicate stronger visible signals · ' + date(r.asOf) + '</div>')
-      + panel('How the score is built','<div class="scroll"><table class="rules"><thead><tr><th>Signal</th><th>Weight</th><th>Observed value</th><th>Points</th><th>Source</th></tr></thead><tbody>' + breakdown + '</tbody></table></div>','wide')
+      + panel('OpenRisk score','<div class="scoreline"><div class="score">' + (r.value ?? '—') + '<sub>/100</sub></div>' + riskBadge(r) + '</div><div class="meter"><span style="width:' + r.coverage + '%"></span></div><p class="muted">' + r.coverage + '% evidence coverage · ' + esc(trend) + '</p><div class="source">Public evidence score · Deal price and returns are outside this model · ' + date(r.asOf) + '</div>')
+      + panel('How the score is built',scoreBreakdown(r),'wide')+'</div>'
+      + investmentLens(s)+'<div class="dossier">'
       + panel('Company identity','<p>' + esc(item.description) + '</p>' + (s.founded ? '<div>Founded ' + esc(s.founded.value) + '</div>' + source(s.founded) : '') + '<div class="source">' + link(item.source,(item.directory || item.domain || 'Source') + ' ↗') + ' · Observed ' + esc(date(item.asOf)) + '</div>' + identityFields)
       + panel('Team & hiring',teamData || empty('No attributable hiring or headcount data in this snapshot.'))
       + panel('Financial signals',(funding ? val(funding.label,s.funding) + '<div class="source">Announced ' + esc(funding.announced) + (age > 18 ? ' · ' + badge('Older than 18 months','warn') : '') + '</div>' : '') + (s.disclosure ? '<div style="margin-top:10px">'+val(s.disclosure.value.label,s.disclosure) + '<p>' + esc(s.disclosure.value.detail) + '</p></div>' : '') + (!funding && !s.disclosure ? s.stage ? val(s.stage.value,s.stage) + '<p>Directory-reported stage · Round amount and date unavailable.</p>' : empty('No verified financing in this snapshot.') : '')) + filing
        + panel('Product & engineering',product || empty('No attributable product observations in this snapshot.'))
-      + panel('Coverage & corporate events',event+news) + panel('Diligence brief','<ul class="items">' + summary + '</ul>') + '</div>';
+      + panel('Coverage & corporate events',event+news) + '</div>';
     if (ctx.state.companies[item.id]?.values.length) main.insertAdjacentHTML('beforeend', metricView(item.id));
     if (ctx.role==='Investor' && claimed) void api('state',{action:'view',company:item.id}).catch(()=>{});
     window.scrollTo(0,0);

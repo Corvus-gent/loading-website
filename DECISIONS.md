@@ -37,3 +37,8 @@
 - Keep Gent, Brussels, Antwerp, Leuven and Liège as the five Belgian anchors using Dealroom’s combined enterprise-value view as the selection criterion. Add Bruges and the Louvain-la-Neuve science park cluster for the requested coverage in West Flanders and Walloon Brabant.
 - Preload Paris, Amsterdam, Rotterdam, Frankfurt, Düsseldorf and Munich in the existing snapshot. Index a small number of directly sourced Liège profiles where the directory search is sparse. Show the actual profile count in each city list.
 - Add a nearby Europe inset and password-protected city links. Keep the Bay Area. The presenter guide follows discovery, evidence, founder confirmation and investor review before the operations workflow.
+
+## Score breakdown and investment context
+
+- Put the exact weighted contributions, points below the maximum and rounding next to the overall score. Highlight the largest contribution and the largest gap. For incomplete dossiers, show the evidence coverage and explain the normalization over observed factors.
+- Keep investment questions separate from the numerical rubric. Public activity supports an initial screen. Customer economics, financing terms and valuation need their own evidence. The score coefficients and grade thresholds are unchanged.
