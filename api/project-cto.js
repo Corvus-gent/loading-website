@@ -2,7 +2,6 @@ import { createHmac, randomBytes, timingSafeEqual } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { catalog, cities, summary } from './_openrisk/engine/index.js';
-import { coverageNews, identify } from './_openrisk/engine/enrich.js';
 import land from './_openrisk/land.js';
 import { login, workspace } from './_openrisk/view.js';
 import { client } from './_openrisk/client.js';
@@ -11,7 +10,7 @@ import { getState, update, apply, project, invitation, runJob, Problem } from '.
 import { score } from './_openrisk/engine/score.js';
 import { funds } from './_openrisk/engine/funds.js';
 import { subscribeResearch } from './_openrisk/engine/research.js';
-import { directoryCity } from './_openrisk/engine/directories.js';
+import { directoryCity, wikidataCity } from './_openrisk/engine/directories.js';
 import { locate } from './_openrisk/engine/cities.js';
 import preloadReport from './_openrisk/engine/preload-report.js';
 import insets from './_openrisk/insets.js';
@@ -201,14 +200,23 @@ async function jobs(auth, body) {
     if (!row || row.status!=='pending') throw new Problem(404,'Pending request not found.');
     return runJob(auth.id,{type:'Startup',name:row.name},async progress=>{
       await progress('Enriching');
-      const lookups = await Promise.allSettled([identify(row.name),coverageNews(row.name)]);
-      const identity = lookups[0].value;
-      const news = lookups[1].value;
+      const events = {};
+      const subscription=subscribeResearch(row.name,event=>events[event.key]=event.value);
+      try { await subscription.done; } finally { subscription.unsubscribe(); }
+      const domain=new URL(row.website).hostname.replace(/^www\./,'');
+      const matchingWebsite=events.identity?.value.website && new URL(events.identity.value.website).hostname.replace(/^www\./,'')===domain;
+      const identity=matchingWebsite?events.identity:null;
+      const news=events.news;
+      const signals={
+        ...(identity ? {identity} : {}),
+        ...(identity && events.engineering ? {github:events.engineering} : {}),
+        ...(news ? {news} : {}),
+      };
       const company = {
         id:'request-'+row.id, name:row.name, city:row.city, sector:'Pending classification',
-        domain:new URL(row.website).hostname, source:row.website, asOf:new Date().toISOString(),
+        domain, source:row.website, asOf:new Date().toISOString(),
         description:identity?.value?.description || 'Submitted for inclusion by a demo visitor.',
-        signals:{ ...(identity ? {identity} : {}), ...(news ? {news} : {}) }, risk:score({}),
+        signals, risk:matchingWebsite && events.score ? events.score : score(signals),
       };
       company.summary=summary(company);
       await update(auth.id,state=>{
@@ -224,15 +232,24 @@ async function jobs(auth, body) {
   const place = locate(name);
   if (!place) throw new Problem(422,'City not found in the gazetteer. Try the English city name or add the country.');
   return runJob(auth.id,{type:'City',name:place.name},async progress=>{
-    const [result] = await Promise.allSettled([directoryCity(place.name)]);
+    const [startupMap, wikidata] = await Promise.allSettled([directoryCity(place.name),wikidataCity(place.name,35)]);
     await progress('Enriching',{ city:place });
     const existing = new Set(catalog.map(item=>item.id));
-    const details = (result.value || []).filter(item=>!existing.has(item.id)).map(item=>{
+    const domains = new Set(catalog.map(item=>item.domain));
+    const details = [];
+    for (const item of [...(startupMap.value || []), ...(wikidata.value || [])]) {
+      if (existing.has(item.id) || (item.domain && domains.has(item.domain))) continue;
+      existing.add(item.id);
+      if (item.domain) domains.add(item.domain);
       const company={...item,risk:score(item.signals)};
-      return {...company,summary:summary(company)};
-    });
+      details.push({...company,summary:summary(company)});
+    }
     const count=details.length+catalog.filter(item=>item.city===place.name).length;
-    await progress('Complete',{count,details,sources:[{label:'Natural Earth gazetteer',ok:true},{label:'StartupMap public directory',ok:result.status==='fulfilled' && result.value.length>0}]});
+    await progress('Complete',{count,details,sources:[
+      {label:'Natural Earth gazetteer',ok:true},
+      {label:'StartupMap public directory',ok:Boolean(startupMap.value?.length)},
+      {label:'Wikidata Query Service',ok:Boolean(wikidata.value?.length)},
+    ]});
     return {state:project(await getState(auth.id),auth.role), city:place.name, count};
   });
 }

@@ -153,24 +153,34 @@ export async function client() {
     const breakdown = r.breakdown.map(rule => '<tr><td>' + esc(rule.title) + '</td><td>' + rule.weight + '%</td><td>' + esc(signalValue(rule)) + '</td><td>' + (rule.points ?? '—') + '</td><td>' + (rule.signal ? link(rule.signal.source, date(rule.signal.fetchedAt) + ' ↗') : '—') + '</td></tr>').join('');
     const news = s.news?.value?.length ? '<ul class="items">' + s.news.value.map(row => '<li>' + link(row.url, row.title) + ' <small>· ' + esc(date(row.date)) + '</small></li>').join('') + '</ul>' + source(s.news) : empty('No matching stories in the snapshot.');
     const headcount=s.headcount;
-    const teamData=(s.jobs ? val(s.jobs.value.count + ' open roles',s.jobs) + '<ul class="items">' + s.jobs.value.roles.map(role=>'<li>' + esc(role) + '</li>').join('') + '</ul>' + (s.jobs.value.departments?.length ? '<div class="source">Teams · '+esc(s.jobs.value.departments.join(', '))+'</div>' : '') : '')
-      +(headcount ? '<p style="margin-top:8px">'+esc(headcount.value.label || (headcount.value.min+'–'+headcount.value.max+' estimated employees'))+'</p>'+source(headcount) : '');
-    const identityFields=(s.location?'<p>'+esc(s.location.value)+'</p>'+source(s.location):'')+(s.enterprise?'<div>Belgian enterprise number '+esc(s.enterprise.value)+'</div>'+source(s.enterprise)+'<div class="source">'+link('https://consult.cbso.nbb.be/','NBB annual accounts ↗')+'</div>':'');
+    const hiringTrend=s.jobs?.value.delta;
+    const teamData=(s.jobs ? val(s.jobs.value.count + ' open roles',s.jobs)
+      +(typeof hiringTrend==='number'?'<div class="source">'+(hiringTrend>0?'+':'')+hiringTrend+' since '+stamp(s.jobs.value.priorAt)+'</div>':'')+'<ul class="items">' + s.jobs.value.roles.map(role=>'<li>' + esc(role) + '</li>').join('') + '</ul>' + (s.jobs.value.departments?.length ? '<div class="source">Teams · '+esc(s.jobs.value.departments.join(', '))+'</div>' : '') : '')
+      +(headcount ? '<p style="margin-top:8px">'+esc(headcount.value.label || (headcount.value.min+'–'+headcount.value.max+' estimated employees'))+'</p>'+(headcount.value.detail?'<small>'+esc(headcount.value.detail)+'</small>':'')+source(headcount) : '');
+    const founderNames=s.founders?.value;
+    const identityFields=(founderNames?.length?'<p style="margin-top:8px">Founders · '+esc(founderNames.join(', '))+'</p>'+source(s.founders):'')+(s.location?'<p>'+esc(s.location.value)+'</p>'+source(s.location):'')+(s.enterprise?'<div>Belgian enterprise number '+esc(s.enterprise.value)+'</div>'+source(s.enterprise)+'<div class="source">'+link('https://consult.cbso.nbb.be/','NBB annual accounts ↗')+'</div>':'');
     const accounts = s.accounts?.value;
     const filing = accounts ? panel('Belgian annual accounts','<p>'+esc(accounts.entity)+' · '+esc(accounts.scope)+'</p><div class="scroll"><table class="rules"><thead><tr><th>Filed item</th><th>FY ended '+esc(accounts.fiscalEnd)+'</th></tr></thead><tbody>'+accounts.rows.map(row=>'<tr><td>'+esc(row.label)+' <small>· '+esc(row.code)+'</small></td><td>'+shown({value:row.value,currency:row.code==='9087'?null:accounts.currency})+'</td></tr>').join('')+'</tbody></table></div><div class="source">NBB filing '+esc(accounts.reference)+' · Filed '+esc(accounts.filedAt)+'</div>'+source(s.accounts),'wide') : '';
+    const app = s.app?.value;
+    const product = (s.github ? '<p>'+esc(s.github.value.repo)+' · Last public push '+date(s.github.value.pushedAt)+'</p>'
+      +(Number.isInteger(s.github.value.stars)?'<div>'+number(s.github.value.stars)+' repository stars</div>':'')+source(s.github) : '')
+      +(app ? '<div style="margin-top:13px"><strong>'+esc(app.title)+'</strong><p>'+number(app.rating)+' / 5 · '+number(app.reviews)+' ratings<br>App Store · '+esc(app.storefront)+(app.releasedAt?' · Last version '+date(app.releasedAt):'')+'</p>'+source(s.app)+'</div>' : '')
+      +(s.traction ? '<div style="margin-top:12px"><strong>'+esc(s.traction.value.label)+'</strong><p>'+esc(s.traction.value.detail)+'</p>'+source(s.traction)+'</div>' : '')
+      +(s.website ? link(s.website.value,'Official site ↗')+source(s.website) : '');
     const event = s.corporateEvent ? '<p>'+esc(s.corporateEvent.value.label)+' · '+esc(s.corporateEvent.value.date)+'</p>'+source(s.corporateEvent) : '';
+    const trend=r.trend==null?'No comparable prior snapshot':(r.trend>0?'↑ +':r.trend<0?'↓ ':'→ ')+r.trend+' since '+stamp(r.priorAt);
     const summary = (item.summary || []).map((entry, i) => '<li><strong>' + ['What changed','What’s risky','Ask the founder'][i] + '</strong> · ' + esc(entry.text) + ' ' + link(entry.source) + '</li>').join('');
     const claimed = ctx.state.claims.includes(item.id);
     const followed = ctx.state.followed.includes(item.id);
     const controls = (ctx.role==='Investor' ? button(followed?'Following':'Follow','data-follow="'+item.id+'"','accent') : '')
       + (ctx.role!=='Admin' ? button(claimed?'Open founder desk':'Claim this profile','data-claim="'+item.id+'"',ctx.role==='Founder'?'accent':'ghost') : '');
     main.innerHTML = profileHeader(item,controls) + '<div class="ticker" aria-label="Sources">' + ticker + '</div><div class="dossier">'
-      + panel('OpenRisk score','<div class="scoreline"><div class="score">' + (r.value ?? '—') + '<sub>/100</sub></div>' + riskBadge(r) + '</div><div class="meter"><span style="width:' + r.coverage + '%"></span></div><p class="muted">' + r.coverage + '% evidence coverage · ' + (r.trend === null ? '— prior snapshot' : esc(r.trend)) + '</p><div class="source">Higher scores indicate stronger visible signals · ' + date(r.asOf) + '</div>')
+      + panel('OpenRisk score','<div class="scoreline"><div class="score">' + (r.value ?? '—') + '<sub>/100</sub></div>' + riskBadge(r) + '</div><div class="meter"><span style="width:' + r.coverage + '%"></span></div><p class="muted">' + r.coverage + '% evidence coverage · ' + esc(trend) + '</p><div class="source">Higher scores indicate stronger visible signals · ' + date(r.asOf) + '</div>')
       + panel('How the score is built','<div class="scroll"><table class="rules"><thead><tr><th>Signal</th><th>Weight</th><th>Observed value</th><th>Points</th><th>Source</th></tr></thead><tbody>' + breakdown + '</tbody></table></div>','wide')
       + panel('Company identity','<p>' + esc(item.description) + '</p>' + (s.founded ? '<div>Founded ' + esc(s.founded.value) + '</div>' + source(s.founded) : '') + '<div class="source">' + link(item.source,(item.directory || item.domain || 'Source') + ' ↗') + ' · Observed ' + esc(date(item.asOf)) + '</div>' + identityFields)
       + panel('Team & hiring',teamData || empty('No attributable hiring or headcount data in this snapshot.'))
       + panel('Financial signals',(funding ? val(funding.label,s.funding) + '<div class="source">Announced ' + esc(funding.announced) + (age > 18 ? ' · ' + badge('Older than 18 months','warn') : '') + '</div>' : '') + (s.disclosure ? '<div style="margin-top:10px">'+val(s.disclosure.value.label,s.disclosure) + '<p>' + esc(s.disclosure.value.detail) + '</p></div>' : '') + (!funding && !s.disclosure ? s.stage ? val(s.stage.value,s.stage) + '<p>Directory-reported stage · Round amount and date unavailable.</p>' : empty('No verified financing in this snapshot.') : '')) + filing
-      + panel('Product & engineering',(s.github ? '<p>' + esc(s.github.value.repo) + ' · Last public push ' + esc(date(s.github.value.pushedAt)) + '</p>' + source(s.github) : '') + (s.website ? link(s.website.value,'Official site ↗') + source(s.website) : '') || empty('No attributable engineering observations in this snapshot.'))
+       + panel('Product & engineering',product || empty('No attributable product observations in this snapshot.'))
       + panel('Coverage & corporate events',event+news) + panel('Diligence brief','<ul class="items">' + summary + '</ul>') + '</div>';
     if (ctx.state.companies[item.id]?.values.length) main.insertAdjacentHTML('beforeend', metricView(item.id));
     if (ctx.role==='Investor' && claimed) void api('state',{action:'view',company:item.id}).catch(()=>{});
@@ -234,8 +244,9 @@ export async function client() {
   }
 
   const emptyState = () => ({followed:[],claims:[],companies:{},alerts:{},requests:[],approved:[],jobs:[],invites:[]});
-  const allCompanies = () => [...ctx.catalog,...ctx.state.approved,...ctx.state.jobs.flatMap(job=>job.details||[])]
-    .filter((company,i,arr)=>arr.findIndex(row=>row.id===company.id)===i);
+  const allCompanies = () => Array.from(new Map([
+    ...ctx.state.jobs.flatMap(job=>job.details||[]),...ctx.state.approved,...ctx.catalog,
+  ].map(company=>[company.id,company])).values());
   const allCities = () => [...ctx.cities,...ctx.state.jobs.filter(job=>job.type==='City' && job.stage==='Complete' && job.city && !ctx.cities.some(city=>city.name===job.city.name)).map(job=>job.city)].filter((city,i,arr)=>arr.findIndex(row=>row.name===city.name)===i);
   const extraPins = () => allCities().filter(city=>!ctx.cities.some(base=>base.name===city.name)).map(city=>pin(city,(city.lon+180)*100/360,(83-city.lat)*250/360)).join('');
   async function switchRole(role) {
@@ -295,7 +306,7 @@ export async function client() {
       return panel(def.label,(last?'<div class="value">'+shown(last)+(def.unit==='months'?' mo':'')+sampleTag(last)+'</div><div class="source">'+badge(last.status,'ok')+' '+esc(last.source)+' · '+date(last.fetchedAt)+'</div>':'')+chart);
     }).join('');
     const updates=Object.entries(company.updates).sort(([a],[b])=>b.localeCompare(a)).slice(0,5).map(([period,entry])=>'<li><strong>'+esc(period)+'</strong>'+sampleTag(entry)+' <small>'+date(entry.at)+'</small><p>'+esc(entry.note)+'</p></li>').join('');
-    const audit=(company.audit||[]).slice().reverse().slice(0,12).map(row=>'<tr><td>'+esc(row.period)+'</td><td>'+esc(labelFor(id,row.metric))+sampleTag(row)+'</td><td>'+shown(row.old===null?null:{value:row.old,currency:row.currency})+'</td><td>'+shown(row.value===null?null:row)+'</td><td>'+esc(row.actor)+' · '+date(row.at)+'</td></tr>').join('');
+    const audit=(company.audit||[]).slice().reverse().slice(0,12).map(row=>'<tr><td>'+esc(row.period)+'</td><td>'+esc(labelFor(id,row.metric))+sampleTag(row)+'</td><td>'+shown(row.old===null?null:{value:row.old,currency:row.oldCurrency??row.currency})+'</td><td>'+shown(row.value===null?null:row)+'</td><td>'+esc(row.actor)+' · '+date(row.at)+'</td></tr>').join('');
     return '<section class="stack" id="metric-view" style="margin-top:18px"><div class="split"><h2>Confirmed KPIs</h2><div class="chart-controls"><select id="metric-category" aria-label="KPI category">'+['Financial','Sales','Commercial','Operational'].map(option=>'<option'+(ctx.category===option?' selected':'')+'>'+option+'</option>').join('')+'</select><select id="metric-range" aria-label="Chart range">'+[3,6,12,24].map(option=>'<option value="'+option+'"'+(ctx.range===option?' selected':'')+'>'+option+' months</option>').join('')+'</select></div></div><div class="cards">'+graphs+'</div>'
       +(updates?panel('Monthly updates','<ul class="items">'+updates+'</ul>'):'')+(audit?panel('Edit history','<div class="scroll"><table class="rules"><thead><tr><th>Period</th><th>Metric</th><th>Previous</th><th>Current</th><th>Changed by</th></tr></thead><tbody>'+audit+'</tbody></table></div>'):'')+'</section>';
   }
@@ -341,10 +352,16 @@ export async function client() {
       if (!node.dataset.reject && (!input.value || !input.reportValidity())) throw Error('Enter a valid proposed value.');
       return {id:row.dataset.proposal,value:Number(input.value),period:row.querySelector('[name="period"]').value,currency:row.querySelector('[name="currency"]')?.value,reject:Boolean(node.dataset.reject)};
     });
+    const pending=new Map([...document.querySelectorAll('[data-proposal]')].map(row=>[row.dataset.proposal,
+      [...row.querySelectorAll('input,select')].map(input=>[input.name,input.value])]));
     node.disabled=true;
     try {
       await mutate({action:'review',company:ctx.current,items});
       founder();
+      for (const row of document.querySelectorAll('[data-proposal]')) {
+        for (const [name,value] of pending.get(row.dataset.proposal)||[]) row.querySelector('[name="'+name+'"]').value=value;
+      }
+      (document.querySelector('#proposals') || document.querySelector('#mail-form'))?.scrollIntoView({block:'nearest'});
       toast(node.dataset.reject?'Proposal rejected.':items.length+' KPI proposal'+(items.length===1?'':'s')+' confirmed.');
     } finally { node.disabled=false; }
   }
@@ -376,7 +393,8 @@ export async function client() {
       done(result);
       toast(command.action==='approve'?'Approved and added to the map.':result.count+' profiles indexed for '+result.city+'.');
     } finally {
-      clearInterval(interval);
+      active=false;
+      clearTimeout(timer);
       if(surface) surface.textContent='';
       node.disabled=false;
     }
@@ -439,10 +457,28 @@ export async function client() {
     });
   }
 
+  async function validateWorkbook(file) {
+    const bytes=new DataView(await file.arrayBuffer());
+    const size=bytes.byteLength;
+    let end=size-22;
+    while (end>=Math.max(0,size-65557) && bytes.getUint32(end,true)!==0x06054b50) end--;
+    if (end<Math.max(0,size-65557)) throw Error('OpenRisk could not read this XLSX archive.');
+    const entries=bytes.getUint16(end+10,true), directory=bytes.getUint32(end+16,true);
+    if (entries>350 || directory>end) throw Error('The spreadsheet archive exceeds the demo limits.');
+    let cursor=directory, expanded=0;
+    for (let i=0;i<entries;i++) {
+      if (cursor+46>end || bytes.getUint32(cursor,true)!==0x02014b50) throw Error('OpenRisk could not read this XLSX archive.');
+      expanded+=bytes.getUint32(cursor+24,true);
+      if (expanded>20_000_000) throw Error('The expanded spreadsheet exceeds the demo limits.');
+      cursor+=46+bytes.getUint16(cursor+28,true)+bytes.getUint16(cursor+30,true)+bytes.getUint16(cursor+32,true);
+    }
+  }
+
   async function openAttachment(file) {
     if (file.size > 2_000_000) throw Error('Keep attachments under 2 MB each.');
     const kind=file.name.split('.').at(-1).toLowerCase();
     if (kind==='xlsx') {
+      await validateWorkbook(file);
       if (!readers.has(kind)) readers.set(kind,loadXlsx().catch(error=>{readers.delete(kind);throw error;}));
       const read=await readers.get(kind);
       const rows=await read(file);

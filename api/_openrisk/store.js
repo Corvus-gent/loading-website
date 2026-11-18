@@ -40,14 +40,18 @@ const requireClaim = (state,id) => Object.hasOwn(state.claims,id) || fail(403,'C
 const needRole = (role,allowed) => allowed.includes(role) || fail(403,'This role cannot change these records.');
 const isObject = v => v && typeof v === 'object' && !Array.isArray(v);
 const sortedValues = data => Object.values(data?.values || {}).sort((a,b)=>a.period.localeCompare(b.period));
-const audit = (company, change) => company.audit.push({ ...change, at:new Date().toISOString() });
+const audit = (company, change) => {
+  company.audit.push({ ...change, at:new Date().toISOString() });
+  if (company.audit.length>240) company.audit.shift();
+};
+const publicValues = data => sortedValues(data).map(({evidence,...rest})=>rest);
 
 export function project(state, role) {
   const companies = {};
   for (const [id, data] of Object.entries(state.companies)) {
     if (role === 'Admin' || (role === 'Investor' && !state.followed.includes(id))) continue;
     companies[id] = {
-      values:sortedValues(data), updates:data.updates, definitions:data.definitions, audit:data.audit.slice(-70),
+      values:role==='Founder'?sortedValues(data):publicValues(data), updates:data.updates, definitions:data.definitions, audit:data.audit.slice(-70),
       ...(role === 'Founder' ? { proposals:data.proposals, views:data.views } : {}),
     };
   }
@@ -79,7 +83,7 @@ function record(company, metric, period, value, currency, source, evidence, conf
   if (old?.value === value && old.currency === currency && old.sample === sample) return;
   const next = { metric,period,value,currency, status:'founder-confirmed', source, sourceRef, confidence, evidence, sample, fetchedAt:new Date().toISOString() };
   company.values[key] = next;
-  audit(company,{ metric, period, old:old?.value ?? null, value, currency, actor:'Demo founder', sample });
+  audit(company,{ metric, period, old:old?.value ?? null, oldCurrency:old?.currency ?? null, value, currency, actor:'Demo founder', sample });
 }
 
 function runway(company,period) {
@@ -141,6 +145,8 @@ export function apply(state, auth, body) {
     if (name.length<2 || !city) fail(400,'Enter a startup name and choose a city.');
     if (state.requests.length>=80) fail(409,'This demo queue is full.');
     if (state.requests.some(row=>row.website===website)) fail(409,'A request already exists for this domain.');
+    const host=new URL(website).hostname.replace(/^www\./,'');
+    if (catalog.some(row=>row.domain.replace(/^www\./,'')===host)) fail(409,'This domain already has a profile.');
     state.requests.unshift({ id:randomBytes(8).toString('hex'), name, website, city, status:'pending', at:new Date().toISOString() });
     return {};
   }
@@ -248,7 +254,7 @@ export async function invitation(owner, token) {
       data.views.push({ at:new Date().toISOString(), label:row.email, kind:'Invitation opened' });
       if (data.views.length>100) data.views.shift();
     }
-    return { name:company.name, values:sortedValues(data), updates:data.updates, definitions:data.definitions };
+    return { name:company.name, values:publicValues(data), updates:data.updates, definitions:data.definitions };
   });
 }
 

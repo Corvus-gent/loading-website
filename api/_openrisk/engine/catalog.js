@@ -59,9 +59,11 @@ const rows = [
   ['Mistral AI', 'Paris', 'Artificial intelligence', 'mistral.ai', 'Open-weight and commercial AI models.', 2023, 'mistralai', 'ashby:mistral.ai'],
 ];
 
+const appIds = { 'stripe.com':978516833, 'notion.com':1232780281, 'linear.app':1645587184, 'openai.com':6448311069 };
+
 export const curated = rows.filter(row => row[3]).map(([name, city, sector, domain, description, founded, github, board]) => ({
   id: name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-$/,''),
-  name, city, sector, domain, description, founded, github, board,
+  name, city, sector, domain, description, founded, github, board, appId:appIds[domain],
   source: 'https://' + domain,
   asOf: '2026-11-18',
 }));

@@ -75,3 +75,61 @@ export async function directoryDetail(company) {
   if (domain) signals.website=evidence('https://'+domain);
   return {...company,domain,sector:sector||company.sector,asOf,signals};
 }
+
+const cityEntities = {
+  Gent:'Q1296', Brussels:'Q239', Antwerp:'Q12892', Leuven:'Q118958',
+  'San Francisco':'Q62', 'Palo Alto':'Q47265', Paris:'Q90',
+};
+const tech = /artificial intelligence|software|comput|cloud|technolog|fintech|robotics|machine learning|security|information technology|semiconduct|cyber|analytics|speech recognition|data platform|identity verification/i;
+const dismissed = new Set([
+  'Q21404084', // HP Inc. is an incumbent successor.
+  'Q18148863', // HP Helion is a product.
+  'Q127693035', // SambaNova's current company address is San Jose.
+  'Q122808411', // Whop identifies itself with New York.
+  'Q3344170', // Upwork is public and its principal office moved.
+  'Q2085911', // Proximus NXT is a business unit.
+]);
+
+export async function wikidataCity(name, limit=65) {
+  const id = cityEntities[name];
+  if (!id) return [];
+  const query = `SELECT DISTINCT ?company ?name ?homepage ?founded ?industryLabel WHERE {
+    ?company wdt:P159 wd:${id}; wdt:P856 ?homepage; wdt:P571 ?founded; rdfs:label ?name; wdt:P452 ?industry.
+    ?industry rdfs:label ?industryLabel.
+    FILTER(LANG(?name)="en" && LANG(?industryLabel)="en" && YEAR(?founded)>=2014)
+    FILTER NOT EXISTS { ?company wdt:P576 ?dissolved. }
+    FILTER NOT EXISTS { ?company wdt:P749 ?parent. }
+    FILTER NOT EXISTS { ?company wdt:P414 ?exchange. }
+  } ORDER BY DESC(?founded) LIMIT 200`;
+  const url = 'https://query.wikidata.org/sparql?query='+encodeURIComponent(query)+'&format=json';
+  const response = await fetch(url,{
+    headers:{ ...headers,Accept:'application/sparql-results+json' }, redirect:'error', signal:AbortSignal.timeout(6000),
+  });
+  if (!response.ok) throw Error('Wikidata query unavailable');
+  const document = await response.json();
+  if (!Array.isArray(document.results?.bindings)) return [];
+  const seen = new Set();
+  const fetchedAt = new Date().toISOString();
+  const companies = [];
+  for (const row of document.results.bindings) {
+    const qid=row.company?.value?.split('/').at(-1);
+    const label=row.name?.value;
+    const sector=row.industryLabel?.value;
+    const founded = Number(row.founded?.value?.slice(0,4));
+    const id=typeof label==='string' ? slug(label) : '';
+    if (!id || seen.has(id) || !/^Q[0-9]+$/.test(qid||'') || dismissed.has(qid) || !tech.test(sector||'') || !Number.isInteger(founded)) continue;
+    let website;
+    try { website = new URL(row.homepage?.value); } catch { continue; }
+    if (!['http:','https:'].includes(website.protocol) || website.username || website.password || !/^(?:[a-z0-9-]+\.)+[a-z]{2,}$/i.test(website.hostname)) continue;
+    const source='https://www.wikidata.org/wiki/'+qid;
+    seen.add(id);
+    companies.push({
+      id,name:label.replace(/ \(.*company\)$/i,''),city:name,sector:sector[0].toUpperCase()+sector.slice(1),
+      domain:website.hostname.replace(/^www\./i,''),source,asOf:fetchedAt,directory:'Wikidata',
+      description:'Wikidata lists this company in '+name+'.',
+      signals:{ founded:signal(founded,source,'scraped','medium',fetchedAt) },
+    });
+    if (companies.length>=limit) break;
+  }
+  return companies;
+}

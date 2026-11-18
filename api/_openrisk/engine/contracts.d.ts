@@ -12,7 +12,7 @@ export interface Signal<T> {
 export interface PublicSignals {
   founded?: Signal<number>;
   funding?: Signal<{ label: string; announced: string }>;
-  jobs?: Signal<{ count: number; roles: string[]; departments?: string[]; provider?: string }>;
+  jobs?: Signal<{ count: number; roles: string[]; departments?: string[]; provider?: string; delta?: number; priorAt?: string }>;
   github?: Signal<{ repo: string; pushedAt: string; stars?: number }>;
   news?: Signal<{ title: string; url: string; date: string }[]>;
   identity?: Signal<{ name: string; description: string; website?: string; founded?: number; github?: string }>;
@@ -24,6 +24,7 @@ export interface RiskSnapshot {
   coverage: number;
   asOf: string;
   trend: number | null;
+  priorAt?: string;
   breakdown: { key: string; title: string; weight: number; points: number | null; signal?: Signal<unknown> }[];
 }
 

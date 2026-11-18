@@ -5,11 +5,15 @@ const evidence = (value, source) => signal(value,source,'scraped','high',reviewe
 const odooRelease = 'https://www.odoo.com/blog/odoo-news-5/odoo-s-a-announces-a-500-million-transaction-increasing-the-belgian-unicorn-s-valuation-to-5-billion-1508';
 export const verified = {
   'aikido-security': {
+    founders: evidence(['Willem Delbare','Roeland Delrue','Felix Garriau','Madeline Lawrence'], 'https://www.aikido.dev/company/about'),
+    founded: evidence(2022, 'https://www.aikido.dev/company/about'),
+    traction: evidence({ label:'150,000+ teams protected', detail:'Aikido’s own October 2026 press-kit disclosure.' }, 'https://www.aikido.dev/company/press-kit'),
     location: signal('European headquarters in Gent', 'https://www.aikido.dev/company/europe-office', 'scraped', 'high', reviewed),
-    headcount: signal({ label:'180 people at Series B announcement', detail:'Historical figure disclosed in the Series B announcement.' }, 'https://www.aikido.dev/blog/aikido-funding-series-b', 'scraped', 'high', reviewed),
+    headcount: evidence({ label:'375+ employees', detail:'Aikido press kit, October 2026.' }, 'https://www.aikido.dev/company/press-kit'),
     funding: signal({ label: '$60M Series B', announced: '2026-01-14' }, 'https://www.aikido.dev/blog/aikido-funding-series-b', 'scraped', 'high', reviewed),
   },
   deliverect: {
+    founders: evidence(['Zhong Xu','Jan Hollez','Jelte Vrijhoef','Jérôme Laredo'], 'https://www.deliverect.com/en-us/about-us'),
     accounts: evidence({ entity:'Deliverect NV', scope:'Standalone Belgian filing', fiscalEnd:'2025-12-31',
       filedAt:'2026-07-16', reference:'2026-00308255', currency:'EUR',
       rows:[
@@ -22,6 +26,18 @@ export const verified = {
     location: signal('Registered office in Gent, Belgium', 'https://www.deliverect.com/en/terms-of-service', 'scraped', 'high', reviewed),
     founded: signal(2018, 'https://www.deliverect.com/en-us/about-us', 'scraped', 'high', reviewed),
     funding: signal({ label: 'Over $150M Series D', announced: '2022-01-25' }, 'https://www.deliverect.com/en-us/blog/deliverect/unicorn-status-series-d-funding-and-approaching-100m-orders-processed', 'scraped', 'high', reviewed),
+  },
+  teamleader: {
+    enterprise: evidence('0899.623.035', 'https://www.teamleader.eu/legal'),
+    location: evidence('Registered office in Gent, Belgium', 'https://www.teamleader.eu/legal'),
+    accounts: evidence({ entity:'Teamleader NV', scope:'Standalone Belgian filing', fiscalEnd:'2025-12-31',
+      filedAt:'2026-04-23', reference:'2026-00085960', currency:'EUR',
+      rows:[
+        { label:'Turnover', code:'70', value:31259961.77 },
+        { label:'Equity', code:'10/15', value:12860213.69 },
+        { label:'Liquid assets', code:'54/58', value:12510357.35 },
+        { label:'Average FTE', code:'9087', value:146.4 },
+      ] }, 'https://consult.cbso.nbb.be/'),
   },
   showpad: {
     location: evidence('Headquarters in Chicago and Gent', 'https://www.showpad.com/press/showpad-and-bigtincan-announce-merger'),

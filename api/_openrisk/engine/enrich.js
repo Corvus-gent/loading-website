@@ -92,8 +92,22 @@ export async function identify(name) {
     const github = first('P2037');
     const epoch = first('P571')?.time;
     if (typeof github==='string' && /^[a-z0-9-]{2,39}$/i.test(github)) value.github=github;
-    if (typeof website==='string' && /^https:\/\//i.test(website)) value.website=website;
+    if (typeof website==='string' && /^https:\/\//i.test(website)) {
+      const site = new URL(website);
+      if (!site.username && !site.password) value.website=site.href;
+    }
     if (typeof epoch==='string' && /^\+\d{4}-/.test(epoch)) value.founded=Number(epoch.slice(1,5));
   } catch {}
   return signal(value, 'https://www.wikidata.org/wiki/' + row.id, 'scraped', 'medium');
+}
+
+export async function appStore(appId) {
+  if (!Number.isSafeInteger(appId) || appId<1) return null;
+  const lookup='https://itunes.apple.com/lookup?country=us&id='+appId;
+  const data=await json(lookup,3000);
+  const row=data.results?.find(item=>item.trackId===appId && item.kind==='software');
+  if (!row || !Number.isFinite(row.averageUserRating) || !Number.isSafeInteger(row.userRatingCount)) return null;
+  const value={ title:String(row.trackName), rating:Math.round(row.averageUserRating*10)/10, reviews:row.userRatingCount,
+    releasedAt:row.currentVersionReleaseDate, storefront:'United States' };
+  return signal(value,'https://apps.apple.com/us/app/id'+appId);
 }
