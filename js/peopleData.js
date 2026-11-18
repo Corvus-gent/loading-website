@@ -2,7 +2,7 @@
  * People data management
  */
 
-const DATA_URL = "/people/people.json";
+const DATA_URL = "/people/people.json?v=20261118profile";
 
 let cachedData = null;
 

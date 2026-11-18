@@ -4,6 +4,60 @@
   ],
   "redirects": [
     {
+      "source": "/people",
+      "has": [
+        {
+          "type": "query",
+          "key": "id",
+          "value": "(?:gabe|gabriel)"
+        }
+      ],
+      "destination": "/whoami",
+      "permanent": false
+    },
+    {
+      "source": "/people/",
+      "has": [
+        {
+          "type": "query",
+          "key": "id",
+          "value": "(?:gabe|gabriel)"
+        }
+      ],
+      "destination": "/whoami",
+      "permanent": false
+    },
+    {
+      "source": "/about/gabe",
+      "destination": "/whoami",
+      "permanent": false
+    },
+    {
+      "source": "/about/gabe/",
+      "destination": "/whoami",
+      "permanent": false
+    },
+    {
+      "source": "/cv/technical",
+      "destination": "/cv/tech/",
+      "permanent": false
+    },
+    {
+      "source": "/cv/technical/",
+      "destination": "/cv/tech/",
+      "permanent": false
+    },
+    {
+      "source": "/cv/socials",
+      "destination": "/cv/social-media/",
+      "permanent": false
+    },
+    {
+      "source": "/cv/socials/",
+      "destination": "/cv/social-media/",
+      "permanent": false
+    },
+    {
       "source": "/logo",
       "destination": "/lab/logo/arcade/",
       "permanent": false
@@ -105,7 +159,7 @@
     },
     {
       "source": "/cv/gabriel.pdf",
-      "destination": "/cv",
+      "destination": "/cv/tech/download",
       "permanent": true
     },
     {
@@ -115,6 +169,22 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/cv",
+      "destination": "/cv/index.html"
+    },
+    {
+      "source": "/cv/",
+      "destination": "/cv/index.html"
+    },
+    {
+      "source": "/cv/tech/download",
+      "destination": "/api/cv?dl=1"
+    },
+    {
+      "source": "/cv/socials/download",
+      "destination": "/cv/social-media.pdf"
+    },
     {
       "source": "/project-cto",
       "destination": "/api/project-cto"
@@ -373,14 +443,6 @@
     {
       "source": "/api/game",
       "destination": "/api/stats?game=1"
-    },
-    {
-      "source": "/cv/",
-      "destination": "/api/cv"
-    },
-    {
-      "source": "/cv",
-      "destination": "/api/cv"
     },
     {
       "source": "/cv/download",
@@ -663,6 +725,15 @@
         {
           "key": "Content-Disposition",
           "value": "inline; filename=\"gabe - social media.pdf\""
+        }
+      ]
+    },
+    {
+      "source": "/cv/socials/download",
+      "headers": [
+        {
+          "key": "Content-Disposition",
+          "value": "attachment; filename=\"Gabe-Social-Media-CV.pdf\""
         }
       ]
     }

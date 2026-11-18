@@ -24,7 +24,7 @@ function gabeSections(choices){
   return folded?`<details class="gabe-group"><summary>${escape(title)}</summary>${links(rows)}</details>`:`<section class="gabe-group" aria-labelledby="gabe-meet"><h2 id="gabe-meet">${escape(title)}</h2>${links(rows)}</section>`;
  }).join('');
  const references=[
-  {path:'/people/?id=gabe',title:'the full story'},
+  {path:'/whoami',title:'whoami · the full story'},
   {path:'/links/gabe',title:'all my links'},
   {path:'/cv',title:'CV'},
   {path:'/realm/',title:'wander the old realm'},
@@ -86,7 +86,7 @@ async function build(){
    continue;
   }
   const lead=id==='gabe'?'<a class="site-button" href="/call/">Book a call →</a>':id==='daily'?'<a class="site-button" href="/games/">Play today →</a>':'<a class="site-button" href="/hack/3/">Meet the robots →</a>';
-  const aside=id==='daily'?'<figure class="site-daily-photo"><img src="/public/live/gabe-surf.jpg" alt="Gabe with his surfboard beside the ocean" width="360" height="480" loading="lazy"><figcaption>between builds, there is an ocean.</figcaption></figure><section><p class="site-eyebrow">one line from gabe</p><p>one-man army. many editors. leave something better than you found it.</p><p class="site-fine">Your daily-game streak lives with today’s puzzle.</p></section>'+newsletter():id==='gabe'?'<p class="site-fine"><a href="/people/?id=gabe">the full story</a> · <a href="/links/gabe">all my links</a> · <a href="/cv">CV</a> · <a href="/realm/">wander the old realm</a> · <a href="/sf/larp/">SF LARPing</a></p>':'';
+  const aside=id==='daily'?'<figure class="site-daily-photo"><img src="/public/live/gabe-surf.jpg" alt="Gabe with his surfboard beside the ocean" width="360" height="480" loading="lazy"><figcaption>between builds, there is an ocean.</figcaption></figure><section><p class="site-eyebrow">one line from gabe</p><p>one-man army. many editors. leave something better than you found it.</p><p class="site-fine">Your daily-game streak lives with today’s puzzle.</p></section>'+newsletter():id==='gabe'?'<p class="site-fine"><a href="/whoami">the full story</a> · <a href="/links/gabe">all my links</a> · <a href="/cv">CV</a> · <a href="/realm/">wander the old realm</a> · <a href="/sf/larp/">SF LARPing</a></p>':'';
   await write(id+'/index.html',page(title,description,`<p class="site-eyebrow">corvus / ${id}</p><h1>${title}</h1><p class="site-lead">${description}</p>${lead}<div class="site-grid">${choices.map(card).join('')}</div>${aside}`));
  }
  await write('map/index.html',page('the whole map.','Every public corner of Corvus, grouped by where you want to go.',`<p class="site-eyebrow">no dead ends</p><h1>the whole map.</h1><p class="site-lead">Every door, in one place. Pick a section, find a name, or press /.</p><label class="directory-search">find your next rabbit hole<input type="search" data-directory-filter placeholder="a game, a cut, a person…" aria-label="Filter the public map"></label><p class="site-fine" data-directory-count>${ROUTES.length} public doors</p><div data-full-directory>${SECTIONS.map(s=>`<section id="${s.id}"><h2>${s.label}</h2>${directory(s.id)}</section>`).join('<hr class="site-divider">')}</div>`));
