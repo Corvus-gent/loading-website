@@ -14,10 +14,17 @@ export async function client() {
   const logo = (item, large = false) => {
     const initials=item.name.split(/\s+/).slice(0,2).map(word=>word[0]).join('').toUpperCase();
     const color=Array.from(item.name).reduce((sum,letter)=>sum+letter.charCodeAt(0),0)%4;
-    const artwork=ctx.logos?.[item.id];
-    return '<span class="logo brand-color-'+color+(large?' large':'')+'" aria-hidden="true">'+esc(initials)
-      +(artwork?'<img alt="" decoding="async" src="'+esc(artwork)+'">':'')+'</span>';
+    const artwork=ctx.logoIds?.includes(item.id)?root+'/logo/'+item.id:'';
+    return '<span class="logo brand-color-'+color+(large?' large':'')+(artwork?' has-art':'')+'" aria-hidden="true">'+esc(initials)
+      +(artwork?'<img alt="" '+(large?'':'loading="lazy" ')+'decoding="async" src="'+esc(artwork)+'">':'')+'</span>';
   };
+  main.addEventListener('error',event=>{
+    const image=event.target;
+    if (image instanceof HTMLImageElement && image.parentElement?.classList.contains('logo')) {
+      image.hidden=true;
+      image.parentElement.classList.remove('has-art');
+    }
+  },true);
   const stamp = value => /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}/.test(value||'') ? value.slice(0,16).replace('T',' ')+' UTC' : date(value);
   const date = stamp => /^\d{4}-\d{2}-\d{2}/.test(stamp || '') ? stamp.slice(0, 10) : '—';
   const ctx = { city:'Gent', sort:'risk', role:'Investor', page:'map', selectedPeriod:'2026-10', range:12, category:'Financial', order:'risk', descending:true };
@@ -65,7 +72,7 @@ export async function client() {
   }
 
   function companions(company, mode = 'row') {
-    return '<button type="button" class="' + mode + '" data-company="' + esc(company.id) + '">' + logo(company) + '<span><strong>' + esc(company.name) + '</strong><small>' + esc(company.city) + ' · ' + esc(company.sector) + '</small></span>' + riskBadge(company.risk) + '</button>';
+    return '<button type="button" class="' + mode + '" data-company="' + esc(company.id) + '">' + logo(company) + '<span><strong>' + esc(company.name) + '</strong><small>' + esc(company.city) + ' · ' + esc(company.sector) + (company.signals?.stage ? ' · '+esc(company.signals.stage.value) : '') + '</small></span>' + riskBadge(company.risk) + '</button>';
   }
 
   function pin(city, px, py) {
@@ -255,8 +262,10 @@ export async function client() {
     const news = s.news?.value?.length ? '<ul class="items">' + s.news.value.map(row => '<li>' + link(row.url, row.title) + ' <small>· ' + esc(date(row.date)) + '</small></li>').join('') + '</ul>' + source(s.news) : empty('No matching stories in the snapshot.');
     const headcount=s.headcount;
     const hiringTrend=s.jobs?.value.delta;
+    const listedRoles=s.directoryJobs?.value;
+    const directoryRoles=listedRoles ? '<p>'+esc(listedRoles)+(listedRoles>=50?'+':'')+' roles listed in StartupMap</p>'+source(s.directoryJobs) : '';
     const teamData=(s.jobs ? val(s.jobs.value.count + ' open roles',s.jobs)
-      +(typeof hiringTrend==='number'?'<div class="source">'+(hiringTrend>0?'+':'')+hiringTrend+' since '+stamp(s.jobs.value.priorAt)+'</div>':'')+'<ul class="items">' + s.jobs.value.roles.map(role=>'<li>' + esc(role) + '</li>').join('') + '</ul>' + (s.jobs.value.departments?.length ? '<div class="source">Teams · '+esc(s.jobs.value.departments.join(', '))+'</div>' : '') : '')
+      +(typeof hiringTrend==='number'?'<div class="source">'+(hiringTrend>0?'+':'')+hiringTrend+' since '+stamp(s.jobs.value.priorAt)+'</div>':'')+'<ul class="items">' + s.jobs.value.roles.map(role=>'<li>' + esc(role) + '</li>').join('') + '</ul>' + (s.jobs.value.departments?.length ? '<div class="source">Teams · '+esc(s.jobs.value.departments.join(', '))+'</div>' : '') : directoryRoles)
       +(headcount ? '<p style="margin-top:8px">'+esc(headcount.value.label || (headcount.value.min+'–'+headcount.value.max+' estimated employees'))+'</p>'+(headcount.value.detail?'<small>'+esc(headcount.value.detail)+'</small>':'')+source(headcount) : '');
     const founderNames=s.founders?.value;
     const identityFields=(founderNames?.length?'<p style="margin-top:8px">Founders · '+esc(founderNames.join(', '))+'</p>'+source(s.founders):'')+(s.location?'<p>'+esc(s.location.value)+'</p>'+source(s.location):'')+(s.enterprise?'<div>Belgian enterprise number '+esc(s.enterprise.value)+'</div>'+source(s.enterprise)+'<div class="source">'+link('https://consult.cbso.nbb.be/','NBB annual accounts ↗')+'</div>':'');
@@ -282,9 +291,9 @@ export async function client() {
     const context='<section id="investment-context" class="dossier-chapter"><h2>Investment context</h2>'+investmentLens(s)+'</section>';
     const calculation='<section id="score-details" class="dossier-chapter"><h2>How the score is built</h2><p class="muted">Public evidence · '+esc(date(r.asOf))+' · '+esc(trend)+'</p>'+scoreBreakdown(r)+'</section>';
     const evidence='<section id="source-evidence" class="dossier-chapter"><h2>Source evidence</h2>'
-      + evidenceDetail('Company identity',(s.founded?'<p>Founded '+esc(s.founded.value)+'</p>'+source(s.founded):'')+'<div class="source">'+link(item.source,(item.directory||item.domain||'Source')+' ↗')+' · Observed '+esc(date(item.asOf))+'</div>'+identityFields)
-      + evidenceDetail('Financial signals',(funding?val(funding.label,s.funding)+'<div class="source">Announced '+esc(funding.announced)+(age>18?' · '+badge('Older than 18 months','warn'):'')+'</div>':'')+(s.disclosure?val(s.disclosure.value.label,s.disclosure)+'<p>'+esc(s.disclosure.value.detail)+'</p>':'')+(!funding&&!s.disclosure?s.stage?val(s.stage.value,s.stage):empty('No verified financing in this snapshot.'):'')+filing,funding?.label||(accounts?'Belgian annual accounts':''))
-      + evidenceDetail('Team & hiring',teamData||empty('No attributable hiring or headcount data in this snapshot.'),s.jobs?s.jobs.value.count+' open roles':'')
+      + evidenceDetail('Company identity',(s.founded?'<p>Founded '+esc(s.founded.value)+'</p>'+source(s.founded):'')+'<div class="source">'+link(item.source,(item.directory||item.domain||'Source')+' ↗')+' · Observed '+esc(date(item.asOf))+'</div>'+identityFields+(s.website?'<div class="source">'+link(s.website.value,'Company website ↗')+'</div>':'')+(s.linkedin?'<div class="source">'+link(s.linkedin.value,'Company LinkedIn ↗')+'</div>':''))
+      + evidenceDetail('Financial signals',(funding?val(funding.label,s.funding)+'<div class="source">Announced '+esc(funding.announced)+(age>18?' · '+badge('Older than 18 months','warn'):'')+'</div>':'')+(s.disclosure?val(s.disclosure.value.label,s.disclosure)+'<p>'+esc(s.disclosure.value.detail)+'</p>':'')+(!funding&&!s.disclosure?s.stage?val(s.stage.value,s.stage):empty('No verified financing in this snapshot.'):'')+(!funding&&s.directoryFunding?'<p>Directory-reported round amount · '+esc(s.directoryFunding.value)+'</p>'+source(s.directoryFunding):'')+filing,funding?.label||(accounts?'Belgian annual accounts':''))
+      + evidenceDetail('Team & hiring',teamData||empty('No attributable hiring or headcount data in this snapshot.'),s.jobs?s.jobs.value.count+' open roles':listedRoles?listedRoles+(listedRoles>=50?'+':'')+' directory listings':'')
       + evidenceDetail('Product & engineering',product||empty('No attributable product observations in this snapshot.'))
       + evidenceDetail('Coverage & corporate events',event+news)+'</section>';
     const jumps='<nav class="dossier-jumps" aria-label="Dossier sections"><a href="#investment-context">Investment context</a><a href="#score-details">Score details</a><a href="#source-evidence">Source evidence</a>'+(kpis?'<a href="#metric-view">Confirmed KPIs</a>':'')+'</nav>';

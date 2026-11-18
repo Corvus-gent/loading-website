@@ -140,15 +140,20 @@ export default async function handle(req, res) {
   }
   const auth = session(req, key);
   const asset = route === 'workspace.js';
+  const logoId = /^logo\/([a-z0-9-]{1,100})$/.exec(route)?.[1];
   const documentScript = Object.hasOwn(documentScripts,route) ? documentScripts[route] : null;
-  if (!auth) return route.startsWith('api/') || asset || documentScript ? send(res, 401, { error: 'Sign in to OpenRisk.' }) : send(res, 401, login('', appRoute ? root+'/'+route : ''), html);
+  if (!auth) return route.startsWith('api/') || asset || documentScript || logoId ? send(res, 401, { error: 'Sign in to OpenRisk.' }) : send(res, 401, login('', appRoute ? root+'/'+route : ''), html);
   if (req.method === 'GET' && documentScript) {
     if (auth.role!=='Founder') return send(res,403,{error:'The document reader belongs to the founder desk.'});
     try { return send(res,200,await readFile(resolve(documentScript)),'application/javascript; charset=utf-8'); }
     catch { return send(res,503,{error:'The document reader is temporarily unavailable.'}); }
   }
+  if (req.method === 'GET' && logoId) {
+    const artwork=Object.hasOwn(logos,logoId) ? /^data:(image\/(?:png|webp));base64,(.+)$/.exec(logos[logoId]) : null;
+    return artwork ? send(res,200,Buffer.from(artwork[2],'base64'),artwork[1]) : send(res,404,{error:'Logo not found.'});
+  }
   if (req.method === 'GET' && asset) return send(res, 200, '(' + client.toString() + ')();', 'application/javascript; charset=utf-8');
-  if (req.method === 'GET' && route === 'api/bootstrap') return send(res, 200, { catalog: catalog.map(item => ({ ...item, summary: summary(item) })), cities, land, insets, logos, funds, preloadReport, role: auth.role });
+  if (req.method === 'GET' && route === 'api/bootstrap') return send(res, 200, { catalog: catalog.map(item => ({ ...item, summary: summary(item) })), cities, land, insets, logoIds:Object.keys(logos), funds, preloadReport, role: auth.role });
   if (req.method === 'GET' && route.startsWith('api/invite/')) {
     const target = /^api\/invite\/([0-9a-f]{32})\/([A-Za-z0-9_-]{32})$/.exec(route);
     if (!target) return send(res,404,{error:'Invitation not found.'});

@@ -5,6 +5,7 @@ import snapshot from './snapshot.js';
 import priorSnapshot from './prior-snapshot.js';
 import { verified } from './verified.js';
 import discovered from './discovered.js';
+import directoryEnrichment from './directory-enrichment.js';
 import wikidata from './wikidata-snapshot.js';
 
 export { cities };
@@ -16,7 +17,9 @@ const seeds = [...curated,...discovered,...wikidata].filter(company=>{
   if (domain) seenDomains.add(domain);
   return true;
 });
-export const catalog = seeds.map(company => {
+export const catalog = seeds.map(base => {
+  const imported = directoryEnrichment[base.source];
+  const company = imported ? {...base,...imported,signals:{...base.signals,...imported.signals}} : base;
   const data = snapshot[company.id] || {};
   const signals = {
     ...data,

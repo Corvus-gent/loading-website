@@ -25,4 +25,6 @@ const css = `
 @media(prefers-reduced-motion:reduce){.dossier-switcher::before{transition:none}}
 
 .country-switch{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:6px}.country-switch button{min-width:0;padding:5px 3px;font-size:11px}.country-switch button[aria-pressed=true]{color:var(--mint);border-color:#436862}.market-grid{align-items:start}
+
+.logo.has-art{color:transparent}.logo.has-art img{width:82%;height:82%;object-fit:contain}.logo img[hidden]{display:none}
 `;

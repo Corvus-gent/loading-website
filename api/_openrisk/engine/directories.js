@@ -60,6 +60,11 @@ export async function directoryDetail(company) {
   const html=await startupMap(new URL(company.source).pathname);
   const entry=structured(html).find(entity=>entity['@type']==='Organization' && entity.name?.toLowerCase()===company.name.toLowerCase());
   if (!entry) return company;
+  let published;
+  try {
+    published=JSON.parse(/<script\b[^>]*id="__startup__"[^>]*>([\s\S]*?)<\/script>/i.exec(html)?.[1] || 'null');
+  } catch {}
+  const listed=published?.startup;
   const asOf=new Date().toISOString();
   let domain='';
   try {
@@ -77,7 +82,15 @@ export async function directoryDetail(company) {
     signals.headcount=evidence({min:employees.minValue,max:employees.maxValue},'low');
   }
   if (domain) signals.website=evidence('https://'+domain);
-  return {...company,domain,sector:sector||company.sector,asOf,signals};
+  const logoUrl=typeof entry.logo==='string' && /^https:\/\/ctyjqoiryugiaxojrgve\.supabase\.co\/storage\/v1\/object\/public\/startup-logos\/[a-z0-9_.%-]+$/i.test(entry.logo) ? entry.logo : undefined;
+  const social=Array.isArray(entry.sameAs) ? entry.sameAs.find(url=>typeof url==='string' && /^https:\/\/(?:[a-z]{2}\.|www\.)?linkedin\.com\/company\/[a-z0-9_-]+\/?$/i.test(url)) : undefined;
+  if (social) signals.linkedin=evidence(social);
+  const count=/<h2>Open roles at [^<]+ \((\d+)\)<\/h2>/i.exec(html)?.[1];
+  if (count) signals.directoryJobs=evidence(Number(count));
+  if (typeof listed?.last_funding_round==='string' && /^[€$£][\d,. ]{1,25}$/.test(listed.last_funding_round)) {
+    signals.directoryFunding=evidence(listed.last_funding_round);
+  }
+  return {...company,domain,logoUrl,sector:sector||company.sector,asOf,signals};
 }
 
 const cityEntities = {

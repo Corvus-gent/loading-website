@@ -19,3 +19,6 @@ discovery, `node tools/openrisk-wikidata.mjs` for Wikidata city seeds, and
 PDF and XLSX attachments are decoded in the browser. The browser smoke script is `node tools/openrisk-smoke.mjs` and takes
 `OPENRISK_TEST_PASSWORD` via the environment. See [DEMO.md](DEMO.md),
 [DECISIONS.md](DECISIONS.md), and [RUST_PLAN.md](RUST_PLAN.md).
+
+Refresh the public company detail snapshot with `node tools/openrisk-enrich-catalog.mjs`.
+Then run `node tools/openrisk-import-logos.mjs` to cache missing logos.

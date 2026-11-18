@@ -51,3 +51,8 @@
 
 - Add England, the Netherlands, Germany and France as 100-company snapshots. Allocate places across supported hubs, preserve curated profiles, and use public StartupMap city listing order for the directory candidates within each hub. Fill unused places from the larger hubs. This is a discovery shortlist and carries no national investment rank.
 - Use protected country URLs and switch from the national list to a city by selecting a pin. Keep the cap on preloaded country views distinct from session-specific additions.
+
+## Catalog data and company artwork
+
+- Enrich every existing directory profile from its public, attributable individual page, keeping the existing city selection and score rules. Capture sector, founding date, headcount range, financing stage, verifiable links and, when available, directory-reported financing and role count. Label directory observations separately from direct ATS and verified round data.
+- Rasterize directory logos or public company favicons during preload. Serve small, individually lazy-loaded images from the private origin and keep initials for unresolved artwork. The bootstrap carries logo IDs so the artwork does not inflate the search index payload.
