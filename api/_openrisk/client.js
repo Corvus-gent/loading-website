@@ -27,7 +27,7 @@ export async function client() {
   },true);
   const stamp = value => /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}/.test(value||'') ? value.slice(0,16).replace('T',' ')+' UTC' : date(value);
   const date = stamp => /^\d{4}-\d{2}-\d{2}/.test(stamp || '') ? stamp.slice(0, 10) : '—';
-  const ctx = { city:'Gent', sort:'risk', role:'Investor', page:'map', selectedPeriod:'2026-10', range:12, category:'Financial', order:'risk', descending:true };
+  const ctx = { city:'Gent', sort:'risk', sortDirection:null, role:'Investor', page:'map', selectedPeriod:'2026-10', range:12, category:'Financial', order:'risk', descending:true };
   let toastTimer;
   function toast(text) {
     clearTimeout(toastTimer);
@@ -71,8 +71,8 @@ export async function client() {
     if (!['profile','cold'].includes(page)) window.scrollTo(0,0);
   }
 
-  function companions(company, mode = 'row', distance = '') {
-    return '<button type="button" class="' + mode + '" data-company="' + esc(company.id) + '">' + logo(company) + '<span><strong>' + esc(company.name) + '</strong><small>' + esc(company.city) + (distance ? ' · ' + esc(distance) : '') + ' · ' + esc(company.sector) + (company.signals?.stage ? ' · '+esc(company.signals.stage.value) : '') + '</small></span>' + riskBadge(company.risk) + '</button>';
+  function companions(company, mode = 'row', metric = '') {
+    return '<button type="button" class="' + mode + '" data-company="' + esc(company.id) + '">' + logo(company) + '<span><strong>' + esc(company.name) + '</strong><small>' + esc(company.city) + (metric ? ' · ' + esc(metric) : '') + ' · ' + esc(company.sector) + (company.signals?.stage ? ' · '+esc(company.signals.stage.value) : '') + '</small></span>' + riskBadge(company.risk) + '</button>';
   }
 
   function pin(city, px, py) {
@@ -217,7 +217,7 @@ export async function client() {
     const regionalCities=cities.filter(city=>city.country===region && city.lon>=west && city.lon<=east && city.lat>=south && city.lat<=north);
     const europeCount=cities.filter(city=>mapCountries.includes(city.country) && city.country!=='United States').length;
     main.innerHTML = '<section class="hero"><span class="eyebrow">Startup intelligence</span><h1>Explore startup risk.</h1><p>Explore startups by city or build a risk dossier from public signals.</p><form id="search-form" class="search-wrap" role="search"><label for="company-search" hidden>Search for a startup</label><span class="search-symbol" aria-hidden="true">⌕</span><input id="company-search" placeholder="Search any startup…" maxlength="80" autocomplete="off" aria-controls="search-results" aria-expanded="false"><span class="keycap" aria-hidden="true">/</span><div id="search-results" class="results" hidden></div></form><div class="quick">Quick look ' + ['aikido-security','deliverect','stripe','odoo'].map(id => button(ctx.catalog.find(item => item.id === id).name, 'data-company="' + id + '"')).join('') + '</div></section>'
-      + '<div class="layout"><section class="panel atlas"><div class="panel-head"><h2>Ecosystem map</h2>' + '<div class="actions">' + badge(allCompanies().length + ' profiles · ' + allCities().length + ' cities') + button('Suggest startup','data-open-dialog="startup"') + button('+ Add city','data-open-dialog="city"') + '</div></div><div class="map-stage" data-map-camera="world" tabindex="0" aria-label="World map"><div class="map-layer"><svg viewBox="0 0 900 360" preserveAspectRatio="none" aria-hidden="true"><defs><pattern id="grid" width="37.5" height="37.5" patternUnits="userSpaceOnUse"><path d="M 37.5 0 L 0 0 0 37.5" fill="none" stroke="#253751" stroke-width=".7"/></pattern></defs><rect width="900" height="360" fill="url(#grid)"/><path d="' + esc(ctx.land) + '" fill="#243855" stroke="#507096" stroke-width=".65"/></svg><button class="cluster" aria-label="European startup hubs" data-city="Brussels" style="left:51.1%;top:22.2%">' + europeCount + '</button><button class="cluster" aria-label="Bay Area startup hubs" data-city="San Francisco" style="left:16%;top:31.4%">2</button>' + worldPins() + '</div><span class="map-caption">NATURAL EARTH · GLOBAL VIEW</span>' + mapControls('world map') + '</div><div class="market-grid">' + countries + inset(key,regionName(region),regionalCities) + '</div></section><section class="panel"><div class="panel-head"><h2 id="city-title"></h2><select id="city-sort" aria-label="Sort startups"><option value="risk">By score</option><option value="name">By name</option><option value="nearby">Nearest first</option></select></div>' + nearbyForm() + (ctx.countryList?'<p id="country-scope" class="source">Selected profiles and approved suggestions across several hubs</p>':'') + '<div id="city-rows" class="rows"></div></section></div>';
+      + '<div class="layout"><section class="panel atlas"><div class="panel-head"><h2>Ecosystem map</h2>' + '<div class="actions">' + badge(allCompanies().length + ' profiles · ' + allCities().length + ' cities') + button('Suggest startup','data-open-dialog="startup"') + button('+ Add city','data-open-dialog="city"') + '</div></div><div class="map-stage" data-map-camera="world" tabindex="0" aria-label="World map"><div class="map-layer"><svg viewBox="0 0 900 360" preserveAspectRatio="none" aria-hidden="true"><defs><pattern id="grid" width="37.5" height="37.5" patternUnits="userSpaceOnUse"><path d="M 37.5 0 L 0 0 0 37.5" fill="none" stroke="#253751" stroke-width=".7"/></pattern></defs><rect width="900" height="360" fill="url(#grid)"/><path d="' + esc(ctx.land) + '" fill="#243855" stroke="#507096" stroke-width=".65"/></svg><button class="cluster" aria-label="European startup hubs" data-city="Brussels" style="left:51.1%;top:22.2%">' + europeCount + '</button><button class="cluster" aria-label="Bay Area startup hubs" data-city="San Francisco" style="left:16%;top:31.4%">2</button>' + worldPins() + '</div><span class="map-caption">NATURAL EARTH · GLOBAL VIEW</span>' + mapControls('world map') + '</div><div class="market-grid">' + countries + inset(key,regionName(region),regionalCities) + '</div></section><section class="panel"><div class="panel-head"><h2 id="city-title"></h2>' + sortControls() + '</div>' + nearbyForm() + (ctx.countryList?'<p id="country-scope" class="source">Selected profiles and approved suggestions across several hubs</p>':'') + '<div id="city-rows" class="rows"></div></section></div>';
     main.querySelector('.map-stage svg').classList.add('earth');
     main.querySelectorAll('[data-map-camera]').forEach(bindMapCamera);
     const input = document.querySelector('#company-search');
@@ -252,14 +252,37 @@ export async function client() {
       event.preventDefault();
       if (input.value.trim()) results.children[active]?.click();
     };
-    document.querySelector('#city-sort').value = ctx.sort;
-    document.querySelector('#city-sort').onchange = event => {
-      ctx.sort = event.target.value;
+    main.querySelector('#city-sort').onchange = event => {
+      ctx.sort=event.target.value;
+      ctx.sortDirection=null;
       cityRows();
       if (ctx.sort==='nearby' && !ctx.origin) main.querySelector('#nearby-query').focus();
     };
+    main.querySelector('#city-direction').onchange = event => {
+      ctx.sortDirection=event.target.value;
+      cityRows();
+    };
     bindNearbyForm();
     cityRows();
+  }
+
+  const hiringMetric = item => item.signals.jobs?.value.count ?? item.signals.directoryJobs?.value;
+  const startupSorts = {
+    risk:{label:'Grade', directions:['High to low','Low to high'], value:item=>item.risk?.grade ? item.risk.value : null},
+    coverage:{label:'Evidence coverage', directions:['Most first','Least first'], value:item=>item.risk?.coverage,
+      detail:(item,value)=>value+'% evidence coverage'},
+    hiring:{label:'Open roles', directions:['Most first','Fewest first'], value:hiringMetric,
+      detail:(item,value)=>value+(item.signals.jobs ? ' direct openings' : (value>=50?'+':'')+' directory listings')},
+    founded:{label:'Year founded', directions:['Newest first','Oldest first'], value:item=>item.signals.founded?.value,
+      detail:(item,value)=>'Founded '+value},
+    name:{label:'Name', directions:['A to Z','Z to A'], value:item=>item.name},
+    nearby:{label:'Distance', directions:['Nearest first','Farthest first']},
+  };
+
+  function sortControls() {
+    return '<div class="startup-sort"><label>Sort by<select id="city-sort" aria-label="Sort startups">'
+      +Object.entries(startupSorts).map(([key,sort])=>'<option value="'+key+'">'+sort.label+'</option>').join('')
+      +'</select></label><label>Order<select id="city-direction" aria-label="Sort order"></select></label></div>';
   }
 
   function nearbyForm() {
@@ -268,9 +291,9 @@ export async function client() {
       + '<label for="nearby-country">Country (optional)</label><select id="nearby-country" name="country">'
       + [['','Auto'],['BE','Belgium'],['NL','Netherlands'],['FR','France'],['DE','Germany'],['GB','United Kingdom'],['US','United States']]
         .map(([code,label])=>'<option value="'+code+'"'+(ctx.originCountry===code?' selected':'')+'>'+label+'</option>').join('')
-      + '</select><div class="actions"><button type="submit">Find nearby</button><button type="button" id="nearby-gps">Use my location once</button></div>'
+      + '</select><div class="actions"><button type="submit">Find nearby</button><button type="button" id="nearby-gps">Use approximate location</button></div>'
       + '<p class="source" id="nearby-status" role="status"></p>'
-      + '<p class="source">Device location stays in this tab. Address lookup uses '+link('https://www.openstreetmap.org/copyright','OpenStreetMap data')+'.</p></form>';
+      + '<p class="source">With permission, your browser checks once and rounds your position to a coarse area in this tab. City and postcode lookup uses '+link('https://www.openstreetmap.org/copyright','OpenStreetMap data')+'.</p></form>';
   }
 
   function bindNearbyForm() {
@@ -301,7 +324,10 @@ export async function client() {
     gps.onclick=()=>{
       if (!navigator.geolocation) { status.textContent='Location is unavailable. Enter a city or postal code.'; return; }
       void locateFrom(()=>new Promise((resolve,reject)=>{
-        navigator.geolocation.getCurrentPosition(({coords})=>resolve({label:'your location',lat:coords.latitude,lon:coords.longitude}),
+        navigator.geolocation.getCurrentPosition(({coords})=>resolve({
+          label:'your approximate area', approximate:true,
+          lat:Math.round(coords.latitude*10)/10, lon:Math.round(coords.longitude*10)/10,
+        }),
           error=>reject(new Error(error.code===1?'Location access was declined. Enter a city or postal code.':'Could not get your location. Enter a city or postal code.')),
           {enableHighAccuracy:false,timeout:8000,maximumAge:0});
       }),'Waiting for your location…');
@@ -317,6 +343,13 @@ export async function client() {
 
   function cityRows() {
     const nearby=ctx.sort==='nearby';
+    const sort=startupSorts[ctx.sort];
+    const order=ctx.sortDirection || 'default';
+    main.querySelector('#city-sort').value=ctx.sort;
+    const orderInput=main.querySelector('#city-direction');
+    orderInput.replaceChildren(new Option(sort.directions[0],'default'),new Option(sort.directions[1],'reverse'));
+    orderInput.value=order;
+    const direction=order==='reverse'?-1:1;
     main.querySelector('#nearby-form').hidden=!nearby;
     main.querySelector('#nearby-status').textContent=nearby && ctx.origin
       ? 'From '+ctx.origin.label+' · Straight-line distance to each startup’s city' : '';
@@ -327,19 +360,27 @@ export async function client() {
       const places=new Map(allCities().map(place=>[place.name,place]));
       const closest=ctx.origin ? allCompanies().filter(item=>places.has(item.city))
         .map(item=>({item,km:distanceKm(ctx.origin,places.get(item.city))}))
-        .sort((a,b)=>a.km-b.km || a.item.name.localeCompare(b.item.name)) : [];
-      const format=new Intl.NumberFormat('en',{maximumFractionDigits:1});
+        .sort((a,b)=>direction*(a.km-b.km) || a.item.name.localeCompare(b.item.name)) : [];
+      const format=new Intl.NumberFormat('en',{maximumFractionDigits:ctx.origin?.approximate?0:1});
       main.querySelector('#city-rows').innerHTML=closest.length ? closest.map(({item,km})=>
-        companions(item,'row',format.format(km)+' km')).join('')
+        companions(item,'row',(ctx.origin.approximate?'≈ ':'')+format.format(km)+' km')).join('')
         : empty(ctx.origin?'No startups have a mapped city.':'Choose a starting location to sort the map.');
       main.querySelectorAll('.pin,.inset-city').forEach(node=>node.setAttribute('aria-pressed','false'));
       return;
     }
     const countryCities = new Set(allCities().filter(city=>city.country===ctx.countryList).map(city=>city.name));
-    const items = (ctx.countryList ? [...ctx.catalog,...ctx.state.approved] : allCompanies()).filter(item => ctx.countryList ? countryCities.has(item.city) : item.city === ctx.city).sort((a,b) =>
-      (ctx.sort === 'risk' ? (b.risk?.value ?? -1) - (a.risk?.value ?? -1) : 0) || a.name.localeCompare(b.name));
+    const items = (ctx.countryList ? [...ctx.catalog,...ctx.state.approved] : allCompanies())
+      .filter(item => ctx.countryList ? countryCities.has(item.city) : item.city === ctx.city)
+      .map(item=>({item,value:sort.value(item)}))
+      .sort((a,b)=>{
+        if (a.value==null || b.value==null) return Number(a.value==null)-Number(b.value==null) || a.item.name.localeCompare(b.item.name);
+        const comparison=ctx.sort==='name' ? a.value.localeCompare(b.value) : b.value-a.value;
+        return direction*comparison || a.item.name.localeCompare(b.item.name);
+      });
     document.querySelector('#city-title').textContent = (ctx.countryList||ctx.city) + ' · ' + items.length;
-    document.querySelector('#city-rows').innerHTML = items.map(item=>companions(item)).join('') || empty('No profiles are available for this city yet.');
+    document.querySelector('#city-rows').innerHTML = items.map(({item,value})=>
+      companions(item,'row',sort.detail ? (value==null?'Not available':sort.detail(item,value)) : '')
+    ).join('') || empty('No profiles are available for this city yet.');
     main.querySelectorAll('.pin,.inset-city').forEach(node => node.setAttribute('aria-pressed', String(!ctx.countryList && node.dataset.city === ctx.city)));
   }
 
@@ -907,7 +948,7 @@ export async function client() {
       } else {
         await runJob(submit,{action:'add-city',name:fields.get('name')},result=>{
           ctx.countryList=null;
-          if (ctx.sort==='nearby') ctx.sort='risk';
+          if (ctx.sort==='nearby') { ctx.sort='risk'; ctx.sortDirection=null; }
           ctx.city=result.city;
           document.querySelector('#openrisk-dialog').close();
           navigate('map');
@@ -951,7 +992,7 @@ export async function client() {
     if (!node) return;
     if (node.dataset.page) navigate(node.dataset.page);
     if (mapCountries.includes(node.dataset.mapCountry)) {
-      if (ctx.sort==='nearby') ctx.sort='risk';
+      if (ctx.sort==='nearby') { ctx.sort='risk'; ctx.sortDirection=null; }
       ctx.countryList=node.dataset.mapCountry;
       setPath('/country/'+citySlug(ctx.countryList));
       map();
@@ -959,7 +1000,7 @@ export async function client() {
     }
     if (node.dataset.city) {
       const selected=ctx.countryList || ctx.sort==='nearby' || cityRegion(ctx.city)!==cityRegion(node.dataset.city);
-      if (ctx.sort==='nearby') ctx.sort='risk';
+      if (ctx.sort==='nearby') { ctx.sort='risk'; ctx.sortDirection=null; }
       ctx.countryList=null;
       ctx.city=node.dataset.city;
       setPath('/city/'+citySlug(ctx.city));

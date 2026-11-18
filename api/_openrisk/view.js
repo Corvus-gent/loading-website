@@ -25,6 +25,8 @@ const css = `
 .world-detail,.map-closeup .cluster{display:none}
 .map-closeup .world-detail{display:block}
 
+.startup-sort{display:flex;gap:8px;flex-wrap:wrap}.startup-sort label{font-size:11px;color:var(--soft)}.startup-sort select{display:block;font-size:12px;margin-top:3px}
+
 .score-drivers,.investment-lens{display:grid;gap:12px}.score-drivers{grid-template-columns:1fr 1fr;margin:10px 0 14px}.score-drivers>div,.score-math{background:#172237;border:1px solid #293a55;border-radius:9px;padding:10px 12px}.score-drivers small,.score-drivers strong,.score-math small,.score-observed{display:block}.score-drivers strong{margin-top:3px}.score-table tbody th{color:var(--fg)}.score-observed{margin-top:3px;font-weight:400}.gain{color:var(--mint)}.gap{color:var(--amber)}.score-math{margin-top:12px}.score-method{margin-top:12px;color:var(--soft);font-size:13px}.score-method summary{cursor:pointer}.score-method p{margin-top:8px}.investment-lens{grid-template-columns:repeat(3,minmax(0,1fr));margin:14px 0}.investment-lens p:last-child{margin-bottom:0}
 @media(max-width:700px){.investment-lens,.score-drivers{grid-template-columns:1fr}}
 
