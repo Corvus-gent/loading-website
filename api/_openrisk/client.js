@@ -88,10 +88,119 @@ export async function client() {
       return '<button class="pin" data-city="'+esc(city.name)+'" title="'+esc(city.name)+'" aria-label="'+esc(city.name)+' map pin" aria-pressed="'+(ctx.city===city.name)+'" style="left:'+x+'%;top:'+y+'%"></button>';
     }).join('');
     const labels=cities.map(city=>button(city.name,'data-city="'+esc(city.name)+'" aria-pressed="'+(ctx.city===city.name)+'"','inset-city')).join('');
-    return '<section class="market" aria-label="'+label+'"><div class="inset-geo"><svg viewBox="0 0 300 115" preserveAspectRatio="none" aria-hidden="true"><path d="'+esc(path)+'" fill="#223754" stroke="#52769c" stroke-width=".7"/></svg>'+pins+'<span class="market-name">'+label+'</span></div><div class="inset-cities">'+labels+'</div></section>';
+    return '<section class="market" aria-label="'+label+'"><div class="inset-geo" data-map-camera="'+key+'-'+esc(label)+'" tabindex="0" aria-label="'+esc(label)+' map"><div class="map-layer"><svg viewBox="0 0 300 115" preserveAspectRatio="none" aria-hidden="true"><path d="'+esc(path)+'" fill="#223754" stroke="#52769c" stroke-width=".7"/></svg>'+pins+'</div><span class="market-name">'+label+'</span>'+mapControls(label)+'</div><div class="inset-cities">'+labels+'</div></section>';
   }
 
   const mapCountries=['England','Netherlands','Germany','France'];
+
+  const mapCameras = new Map();
+
+  function mapControls(label) {
+    return '<div class="map-controls" role="group" aria-label="'+esc(label)+' controls">'
+      +button('−','data-map-zoom="out" aria-label="Zoom out · '+esc(label)+'"')
+      +button('+','data-map-zoom="in" aria-label="Zoom in · '+esc(label)+'"')
+      +button('Reset','data-map-zoom="reset" aria-label="Reset view · '+esc(label)+'"')+'</div>';
+  }
+
+  function bindMapCamera(viewport) {
+    const key=viewport.dataset.mapCamera;
+    const world=key==='world';
+    const layer=viewport.querySelector('.map-layer');
+    const controls=viewport.querySelector('.map-controls');
+    const camera=mapCameras.get(key) || {scale:1,x:0,y:0};
+    mapCameras.set(key,camera);
+    const maxScale=world?32:8;
+    const pointers=new Map();
+    let moved=false;
+    const point=event=>{
+      const bounds=viewport.getBoundingClientRect();
+      return {x:(event.clientX-bounds.left)/bounds.width,y:(event.clientY-bounds.top)/bounds.height};
+    };
+    const center={x:.5,y:.5};
+    function paint() {
+      const {scale}=camera;
+      camera.x=Math.max(1-scale,Math.min(0,camera.x));
+      camera.y=Math.max(1-scale,Math.min(0,camera.y));
+      layer.style.transform='translate('+camera.x*100+'%, '+camera.y*100+'%) scale('+scale+')';
+      layer.style.setProperty('--map-pin-scale',1/scale);
+      viewport.classList.toggle('map-closeup',world && scale>=5);
+      controls.querySelector('[data-map-zoom="out"]').disabled=scale===1;
+      controls.querySelector('[data-map-zoom="in"]').disabled=scale===maxScale;
+    }
+    function zoom(factor, anchor=center, destination=anchor) {
+      const next=Math.max(1,Math.min(maxScale,camera.scale*factor));
+      const ratio=next/camera.scale;
+      camera.x=destination.x-(anchor.x-camera.x)*ratio;
+      camera.y=destination.y-(anchor.y-camera.y)*ratio;
+      camera.scale=next;
+      paint();
+    }
+    function act(action) {
+      if (action==='reset') { Object.assign(camera,{scale:1,x:0,y:0}); paint(); }
+      else zoom(action==='in'?1.6:1/1.6);
+    }
+    controls.addEventListener('click',event=>{
+      const node=event.target.closest('[data-map-zoom]');
+      if (node) act(node.dataset.mapZoom);
+    });
+    viewport.addEventListener('wheel',event=>{
+      if (event.target.closest('.map-controls') || !event.deltaY) return;
+      if (event.deltaY>0 && camera.scale===1 && !event.ctrlKey) return;
+      event.preventDefault();
+      zoom(event.deltaY<0?1.2:1/1.2,point(event));
+    },{passive:false});
+    viewport.addEventListener('keydown',event=>{
+      if (event.target!==viewport) return;
+      const offsets={ArrowLeft:[.1,0],ArrowRight:[-.1,0],ArrowUp:[0,.1],ArrowDown:[0,-.1]};
+      if (Object.hasOwn(offsets,event.key)) {
+        const [x,y]=offsets[event.key];
+        camera.x+=x;
+        camera.y+=y;
+        paint();
+      } else if (['+','=','-','0'].includes(event.key)) {
+        act(event.key==='0'?'reset':event.key==='-'?'out':'in');
+      } else return;
+      event.preventDefault();
+    });
+    const midpoint=(a,b)=>({x:(a.x+b.x)/2,y:(a.y+b.y)/2});
+    const span=(a,b)=>Math.hypot((a.x-b.x)*viewport.clientWidth,(a.y-b.y)*viewport.clientHeight);
+    viewport.addEventListener('pointerdown',event=>{
+      if (event.button!==0 || event.target.closest('.map-controls') || pointers.size>=2) return;
+      if (!pointers.size) moved=false;
+      pointers.set(event.pointerId,point(event));
+    });
+    viewport.addEventListener('pointermove',event=>{
+      const previous=pointers.get(event.pointerId);
+      if (!previous) return;
+      const next=point(event);
+      const other=[...pointers].find(([id])=>id!==event.pointerId)?.[1];
+      if (!other && !moved && span(previous,next)<5) return;
+      moved=true;
+      viewport.classList.add('map-dragging');
+      if (!viewport.hasPointerCapture(event.pointerId)) viewport.setPointerCapture(event.pointerId);
+      pointers.set(event.pointerId,next);
+      if (other) {
+        zoom(span(next,other)/Math.max(1,span(previous,other)),midpoint(previous,other),midpoint(next,other));
+      } else {
+        camera.x+=next.x-previous.x;
+        camera.y+=next.y-previous.y;
+        paint();
+      }
+    });
+    const end=event=>{
+      pointers.delete(event.pointerId);
+      if (!pointers.size) viewport.classList.remove('map-dragging');
+    };
+    viewport.addEventListener('pointerup',end);
+    viewport.addEventListener('pointercancel',end);
+    viewport.addEventListener('pointerleave',event=>{
+      if (!viewport.hasPointerCapture(event.pointerId)) end(event);
+    });
+    viewport.addEventListener('click',event=>{
+      if (moved && event.detail && !event.target.closest('.map-controls')) event.stopPropagation();
+    },true);
+    paint();
+  }
 
   function map() {
     const belgium=ctx.cities.filter(city=>city.country==='Belgium');
@@ -101,8 +210,9 @@ export async function client() {
       button(country,'data-map-country="'+country+'" aria-pressed="'+(ctx.countryList===country)+'"')).join('')+'</div>';
     const bay=ctx.cities.filter(city=>city.country==='United States');
     main.innerHTML = '<section class="hero"><span class="eyebrow">Startup intelligence</span><h1>Explore startup risk.</h1><p>Explore startups by city or build a risk dossier from public signals.</p><form id="search-form" class="search-wrap" role="search"><label for="company-search" hidden>Search for a startup</label><span class="search-symbol" aria-hidden="true">⌕</span><input id="company-search" placeholder="Search any startup…" maxlength="80" autocomplete="off" aria-controls="search-results" aria-expanded="false"><span class="keycap" aria-hidden="true">/</span><div id="search-results" class="results" hidden></div></form><div class="quick">Quick look ' + ['aikido-security','deliverect','stripe','odoo'].map(id => button(ctx.catalog.find(item => item.id === id).name, 'data-company="' + id + '"')).join('') + '</div></section>'
-      + '<div class="layout"><section class="panel atlas"><div class="panel-head"><h2>Ecosystem map</h2>' + '<div class="actions">' + badge(allCompanies().length + ' profiles · ' + allCities().length + ' cities') + button('Suggest startup','data-open-dialog="startup"') + button('+ Add city','data-open-dialog="city"') + '</div></div><div class="map-stage"><svg viewBox="0 0 900 360" preserveAspectRatio="none" aria-label="World map"><defs><pattern id="grid" width="37.5" height="37.5" patternUnits="userSpaceOnUse"><path d="M 37.5 0 L 0 0 0 37.5" fill="none" stroke="#253751" stroke-width=".7"/></pattern></defs><rect width="900" height="360" fill="url(#grid)"/><path d="' + esc(ctx.land) + '" fill="#243855" stroke="#507096" stroke-width=".65"/></svg><button class="cluster" aria-label="European startup hubs" data-city="Brussels" style="left:51.1%;top:22.2%">' + (belgium.length+neighbors.length) + '</button><button class="cluster" aria-label="Bay Area startup hubs" data-city="San Francisco" style="left:16%;top:31.4%">2</button>' + extraPins() + '<span class="map-caption">NATURAL EARTH · GLOBAL VIEW</span></div><div class="market-grid">' + inset('belgium','Belgium',belgium) + '<div>'+countries+inset('europe',region,neighbors.filter(city=>city.country===region))+'</div>' + inset('bay','Bay Area',bay) + '</div></section><section class="panel"><div class="panel-head"><h2 id="city-title"></h2><select id="city-sort" aria-label="Sort startups"><option value="risk">By score</option><option value="name">By name</option><option value="nearby">Nearest first</option></select></div>' + nearbyForm() + (ctx.countryList?'<p id="country-scope" class="source">Selected profiles and approved suggestions across several hubs</p>':'') + '<div id="city-rows" class="rows"></div></section></div>';
+      + '<div class="layout"><section class="panel atlas"><div class="panel-head"><h2>Ecosystem map</h2>' + '<div class="actions">' + badge(allCompanies().length + ' profiles · ' + allCities().length + ' cities') + button('Suggest startup','data-open-dialog="startup"') + button('+ Add city','data-open-dialog="city"') + '</div></div><div class="map-stage" data-map-camera="world" tabindex="0" aria-label="World map"><div class="map-layer"><svg viewBox="0 0 900 360" preserveAspectRatio="none" aria-hidden="true"><defs><pattern id="grid" width="37.5" height="37.5" patternUnits="userSpaceOnUse"><path d="M 37.5 0 L 0 0 0 37.5" fill="none" stroke="#253751" stroke-width=".7"/></pattern></defs><rect width="900" height="360" fill="url(#grid)"/><path d="' + esc(ctx.land) + '" fill="#243855" stroke="#507096" stroke-width=".65"/></svg><button class="cluster" aria-label="European startup hubs" data-city="Brussels" style="left:51.1%;top:22.2%">' + (belgium.length+neighbors.length) + '</button><button class="cluster" aria-label="Bay Area startup hubs" data-city="San Francisco" style="left:16%;top:31.4%">2</button>' + worldPins() + '</div><span class="map-caption">NATURAL EARTH · GLOBAL VIEW</span>' + mapControls('world map') + '</div><div class="market-grid">' + inset('belgium','Belgium',belgium) + '<div>'+countries+inset('europe',region,neighbors.filter(city=>city.country===region))+'</div>' + inset('bay','Bay Area',bay) + '</div></section><section class="panel"><div class="panel-head"><h2 id="city-title"></h2><select id="city-sort" aria-label="Sort startups"><option value="risk">By score</option><option value="name">By name</option><option value="nearby">Nearest first</option></select></div>' + nearbyForm() + (ctx.countryList?'<p id="country-scope" class="source">Selected profiles and approved suggestions across several hubs</p>':'') + '<div id="city-rows" class="rows"></div></section></div>';
     main.querySelector('.map-stage svg').classList.add('earth');
+    main.querySelectorAll('[data-map-camera]').forEach(bindMapCamera);
     const input = document.querySelector('#company-search');
     const results = document.querySelector('#search-results');
     let active = 0;
@@ -461,7 +571,11 @@ export async function client() {
     ...ctx.state.jobs.flatMap(job=>job.details||[]),...ctx.state.approved,...ctx.catalog,
   ].map(company=>[company.id,company])).values());
   const allCities = () => [...ctx.cities,...ctx.state.approved.map(company=>company.place).filter(Boolean),...ctx.state.jobs.filter(job=>job.type==='City' && job.stage==='Complete' && job.city && !ctx.cities.some(city=>city.name===job.city.name)).map(job=>job.city)].filter((city,i,arr)=>arr.findIndex(row=>row.name===city.name)===i);
-  const extraPins = () => allCities().filter(city=>!ctx.cities.some(base=>base.name===city.name)).map(city=>pin(city,(city.lon+180)*100/360,(83-city.lat)*250/360)).join('');
+  const worldPins = () => {
+    const extra=allCities().filter(city=>!ctx.cities.some(base=>base.name===city.name));
+    const plot=city=>pin(city,(city.lon+180)*100/360,(83-city.lat)*250/360);
+    return '<div class="world-detail">'+ctx.cities.map(plot).join('')+'</div>'+extra.map(plot).join('');
+  };
   async function switchRole(role) {
     ctx.role=(await api('role',{role})).role;
     ctx.state=(await api('state')).state;
