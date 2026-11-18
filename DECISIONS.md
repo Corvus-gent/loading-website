@@ -42,3 +42,7 @@
 
 - Put the exact weighted contributions, points below the maximum and rounding next to the overall score. Highlight the largest contribution and the largest gap. For incomplete dossiers, show the evidence coverage and explain the normalization over observed factors.
 - Keep investment questions separate from the numerical rubric. Public activity supports an initial screen. Customer economics, financing terms and valuation need their own evidence. The score coefficients and grade thresholds are unchanged.
+
+## Dossier reading order
+
+- Present the company, score and two main drivers in a compact opening. Use one reading column with investment context, the calculation and expandable source evidence. Keep the score math visible and make individual raw-data categories opt-in. Use section links so reviewers can skip directly to a question.

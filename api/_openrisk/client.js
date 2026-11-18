@@ -182,13 +182,26 @@ export async function client() {
     });
     const observed=rows.filter(row=>row.earned!=null);
     const total=observed.reduce((sum,row)=>sum+row.earned,0);
-    const biggest=[...observed].sort((a,b)=>b.gap-a.gap)[0];
-    const leader=[...observed].sort((a,b)=>b.earned-a.earned)[0];
-    const highlights=scored ? '<div class="score-drivers"><div><small>Largest contribution</small><strong>'+esc(leader.title)+' <span class="gain">+'+scoreNumber(leader.earned)+'</span></strong></div><div><small>Largest gap to 100</small><strong>'+(biggest.gap>0?esc(biggest.title)+' <span class="gap">−'+scoreNumber(biggest.gap)+'</span>':'No points left on the table')+'</strong></div></div>' : '<p class="muted">At least 45% of the model weight must have evidence before OpenRisk shows a score.</p>';
+    const highlights=scored ? '' : '<p class="muted">At least 45% of the model weight must have evidence before OpenRisk shows a score.</p>';
     const table=rows.map(row=>'<tr><th scope="row">'+esc(row.title)+'<small class="score-observed">'+scoreObservation(row,r.asOf)+' · '+row.weight+'% model weight</small></th><td>'+(row.points==null?'No evidence':row.points+'/100')+'</td><td>'+(row.earned==null?'—':'<strong class="gain">+'+scoreNumber(row.earned)+'</strong> / '+scoreNumber(row.maximum))+'</td><td>'+(row.gap==null?'—':row.gap>0?'<strong class="gap">−'+scoreNumber(row.gap)+'</strong>':'0')+'</td><td>'+(row.signal?link(row.signal.source,date(row.signal.fetchedAt)+' ↗'):'—')+'</td></tr>').join('');
     const math=scored ? '<div class="score-math"><strong>'+observed.map(row=>scoreNumber(row.earned)).join(' + ')+' = '+scoreNumber(total)+' → '+r.value+'/100</strong><small>'+scoreNumber(100-total)+' points below the maximum before rounding.'+(r.coverage<100?' Observed weights are scaled to 100. Missing signals reduce coverage.':'')+'</small></div>' : '';
     const methodology='<details class="score-method"><summary>Scoring rules and grade thresholds</summary><ul class="items">'+rows.map(row=>'<li><strong>'+esc(row.title)+'</strong> · '+esc(scoreRules[row.key]||'')+'</li>').join('')+'</ul><p>Weighted points = raw score ÷ 100 × available points. Grade A ≥ 85, B ≥ 70, C ≥ 55, D ≥ 40, E &lt; 40.</p></details>';
     return highlights+'<div class="scroll"><table class="rules score-table"><thead><tr><th>Signal</th><th>Raw score</th><th>Points earned</th><th>Gap</th><th>Source</th></tr></thead><tbody>'+table+'</tbody></table></div>'+math+methodology;
+  }
+
+  function scoreTakeaways(r) {
+    if (r.value==null) return '<p>OpenRisk needs evidence for at least 45% of the model weight before showing a score.</p>';
+    const observed=r.breakdown.filter(row=>row.points!=null);
+    const earned=row=>row.weight*row.points/r.coverage;
+    const missing=row=>row.weight*(100-row.points)/r.coverage;
+    const leader=[...observed].sort((a,b)=>earned(b)-earned(a))[0];
+    const largestGap=[...observed].sort((a,b)=>missing(b)-missing(a))[0];
+    return '<dl class="dossier-takeaways"><div><dt>Biggest contribution</dt><dd>'+esc(leader.title)+' <strong class="gain">+'+scoreNumber(earned(leader))+'</strong></dd></div>'+
+      (missing(largestGap)>0?'<div><dt>Biggest gap</dt><dd>'+esc(largestGap.title)+' <strong class="gap">−'+scoreNumber(missing(largestGap))+'</strong></dd></div>':'')+'</dl>';
+  }
+
+  function evidenceDetail(title, content, hint='') {
+    return '<details class="evidence-detail"><summary><span>'+esc(title)+'</span>'+(hint?'<small>'+esc(hint)+'</small>':'')+'</summary><div class="evidence-body">'+content+'</div></details>';
   }
 
   function investmentLens(s) {
@@ -203,10 +216,11 @@ export async function client() {
     const upside=s.traction
       ? '<p>'+esc(s.traction.value.label)+' suggests reach. Verify paying conversion, retention and account expansion.</p>'+source(s.traction)
       : '<p>Assess demand through paid revenue growth, retention and customer concentration.</p>';
-    return '<div class="investment-lens">'+
-      panel('Reasons to investigate',strengths.length?'<ul class="items">'+strengths.map(([text,url])=>'<li>'+esc(text)+' '+link(url)+'</li>').join('')+'</ul>':empty('Evidence is limited. Start by verifying company fundamentals.'))+
-      panel('Upside to validate',upside)+
-      panel('Risks and deal terms','<p>'+esc(risks)+'</p><p>Ask for cash, net burn, retention, entry valuation and investor rights. Those determine whether the opportunity fits your mandate.</p>')+'</div>';
+    const row=(heading,content)=>'<div class="lens-row"><h3>'+heading+'</h3><div>'+content+'</div></div>';
+    return row('Reasons to investigate',strengths.length?'<ul class="items">'+strengths.map(([text,url])=>'<li>'+esc(text)+' '+link(url)+'</li>').join('')+'</ul>':empty('Evidence is limited. Start by verifying company fundamentals.'))+
+      row('Upside to validate',upside)+
+      row('Risks and deal terms','<p>'+esc(risks)+'</p><p>Ask for cash, net burn, retention, entry valuation and investor rights.</p>');
+
   }
 
   function profileHeader(item, right = '') {
@@ -220,7 +234,6 @@ export async function client() {
     const s = item.signals || {}, r = item.risk || { value:null, coverage:0, breakdown:[] };
     const funding = s.funding?.value;
     const age = funding ? (Date.now() - Date.parse(funding.announced)) / (30.4375 * 86400000) : null;
-    const ticker = [['Company website',item.domain],['Directory',item.directory],['Jobs',s.jobs],['GitHub',s.github],['Financing',funding || s.stage],['News',s.news?.value?.length]].map(([label, value]) => badge((value ? '✓ ' : '– ') + label, value ? 'ok' : 'dim')).join('');
     const news = s.news?.value?.length ? '<ul class="items">' + s.news.value.map(row => '<li>' + link(row.url, row.title) + ' <small>· ' + esc(date(row.date)) + '</small></li>').join('') + '</ul>' + source(s.news) : empty('No matching stories in the snapshot.');
     const headcount=s.headcount;
     const hiringTrend=s.jobs?.value.delta;
@@ -243,16 +256,21 @@ export async function client() {
     const followed = ctx.state.followed.includes(item.id);
     const controls = (ctx.role==='Investor' ? button(followed?'Following':'Follow','data-follow="'+item.id+'"','accent') : '')
       + (ctx.role!=='Admin' ? button(claimed?'Open founder desk':'Claim this profile','data-claim="'+item.id+'"',ctx.role==='Founder'?'accent':'ghost') : '');
-    main.innerHTML = profileHeader(item,controls) + '<div class="ticker" aria-label="Sources">' + ticker + '</div><div class="dossier">'
-      + panel('OpenRisk score','<div class="scoreline"><div class="score">' + (r.value ?? '—') + '<sub>/100</sub></div>' + riskBadge(r) + '</div>' + scoreVisual(r) + '<p class="muted">' + r.coverage + '% evidence coverage across four scoring factors · ' + esc(trend) + '</p><div class="source">Public evidence score · Deal price and returns are outside this model · ' + date(r.asOf) + '</div>')
-      + panel('How the score is built',scoreBreakdown(r),'wide')+'</div>'
-      + investmentLens(s)+'<div class="dossier">'
-      + panel('Company identity','<p>' + esc(item.description) + '</p>' + (s.founded ? '<div>Founded ' + esc(s.founded.value) + '</div>' + source(s.founded) : '') + '<div class="source">' + link(item.source,(item.directory || item.domain || 'Source') + ' ↗') + ' · Observed ' + esc(date(item.asOf)) + '</div>' + identityFields)
-      + panel('Team & hiring',teamData || empty('No attributable hiring or headcount data in this snapshot.'))
-      + panel('Financial signals',(funding ? val(funding.label,s.funding) + '<div class="source">Announced ' + esc(funding.announced) + (age > 18 ? ' · ' + badge('Older than 18 months','warn') : '') + '</div>' : '') + (s.disclosure ? '<div style="margin-top:10px">'+val(s.disclosure.value.label,s.disclosure) + '<p>' + esc(s.disclosure.value.detail) + '</p></div>' : '') + (!funding && !s.disclosure ? s.stage ? val(s.stage.value,s.stage) + '<p>Directory-reported stage · Round amount and date unavailable.</p>' : empty('No verified financing in this snapshot.') : '')) + filing
-       + panel('Product & engineering',product || empty('No attributable product observations in this snapshot.'))
-      + panel('Coverage & corporate events',event+news) + '</div>';
-    if (ctx.state.companies[item.id]?.values.length) main.insertAdjacentHTML('beforeend', metricView(item.id));
+    const kpis=ctx.state.companies[item.id]?.values.length ? metricView(item.id) : '';
+    main.innerHTML = '<article class="reading-dossier">'+profileHeader(item,controls)
+      + '<section class="dossier-overview" aria-label="Score overview"><div class="dossier-score"><h2>OpenRisk score</h2>'
+      + '<div class="scoreline"><div class="score">'+(r.value??'—')+'<sub>/100</sub></div>'+(r.grade?badge('Grade '+r.grade,r.grade<='B'?'ok':'warn'):'')+'</div>'
+      + scoreVisual(r)+'<p class="source">'+r.coverage+'% evidence coverage</p></div><div class="dossier-lead">'
+      + '<p>'+esc(item.description)+'</p>'+scoreTakeaways(r)+'<a href="#score-details">See score calculation ↓</a></div></section>'
+      + '<nav class="dossier-jumps" aria-label="Dossier sections"><a href="#investment-context">Investment context</a><a href="#score-details">Score details</a><a href="#source-evidence">Source evidence</a>'+(kpis?'<a href="#metric-view">Confirmed KPIs</a>':'')+'</nav>'
+      + '<section id="investment-context" class="dossier-chapter"><h2>Investment context</h2>'+investmentLens(s)+'</section>'
+      + '<section id="score-details" class="dossier-chapter"><h2>How the score is built</h2><p class="muted">Public evidence · '+esc(date(r.asOf))+' · '+esc(trend)+'</p>'+scoreBreakdown(r)+'</section>'
+      + '<section id="source-evidence" class="dossier-chapter"><h2>Source evidence</h2>'
+      + evidenceDetail('Company identity',(s.founded?'<p>Founded '+esc(s.founded.value)+'</p>'+source(s.founded):'')+'<div class="source">'+link(item.source,(item.directory||item.domain||'Source')+' ↗')+' · Observed '+esc(date(item.asOf))+'</div>'+identityFields)
+      + evidenceDetail('Financial signals',(funding?val(funding.label,s.funding)+'<div class="source">Announced '+esc(funding.announced)+(age>18?' · '+badge('Older than 18 months','warn'):'')+'</div>':'')+(s.disclosure?val(s.disclosure.value.label,s.disclosure)+'<p>'+esc(s.disclosure.value.detail)+'</p>':'')+(!funding&&!s.disclosure?s.stage?val(s.stage.value,s.stage):empty('No verified financing in this snapshot.'):'')+filing,funding?.label||(accounts?'Belgian annual accounts':''))
+      + evidenceDetail('Team & hiring',teamData||empty('No attributable hiring or headcount data in this snapshot.'),s.jobs?s.jobs.value.count+' open roles':'')
+      + evidenceDetail('Product & engineering',product||empty('No attributable product observations in this snapshot.'))
+      + evidenceDetail('Coverage & corporate events',event+news)+'</section>'+kpis+'</article>';
     if (ctx.role==='Investor' && claimed) void api('state',{action:'view',company:item.id}).catch(()=>{});
     window.scrollTo(0,0);
   }
