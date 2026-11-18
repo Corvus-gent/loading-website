@@ -6,11 +6,12 @@ import land from './_openrisk/land.js';
 import { login, workspace } from './_openrisk/view.js';
 import { client } from './_openrisk/client.js';
 import { metrics, samples } from './_openrisk/engine/metrics.js';
-import { getState, update, apply, project, invitation, runJob, existingStartup, websiteHost, Problem } from './_openrisk/store.js';
+import { getState, update, apply, project, invitation, runJob, existingStartup, websiteHost, findCompany, Problem } from './_openrisk/store.js';
 import { signal } from './_openrisk/engine/enrich.js';
 import { runEstimate } from './_openrisk/engine/live-estimate.js';
 import { listFeedback, changeFeedback, feedbackAreas } from './_openrisk/feedback.js';
 import { marketSnapshot } from './_openrisk/market.js';
+import { scorePlan, premiumComparison } from './_openrisk/engine/premium.js';
 import { score } from './_openrisk/engine/score.js';
 import { funds } from './_openrisk/engine/funds.js';
 import { subscribeResearch } from './_openrisk/engine/research.js';
@@ -31,7 +32,7 @@ const equal = (a, b) => {
 };
 const sign = (payload, key) => createHmac('sha256', key).update(payload).digest('base64url');
 const validRoles = ['Investor', 'Founder', 'Admin'];
-const pageRoute = /^(?:feedback|catalog|portfolio|compare(?:\/[a-z0-9-]{1,100}){0,2}|founder|investors|operations|country\/(?:belgium|england|netherlands|germany|france|european-hubs|united-states|new-york-city|shanghai|greater-bay-area|morocco|western-europe|north-america|central-america|south-america|africa|middle-east|east-asia|south-asia|southeast-asia|australia)|city\/[a-z0-9-]{1,100}|startup\/[a-z0-9-]{1,100}|invite\/[0-9a-f]{32}\/[A-Za-z0-9_-]{32})$/;
+const pageRoute = /^(?:feedback|catalog|portfolio|compare(?:\/[a-z0-9-]{1,100}){0,2}|founder(?:\/score-plan\/[a-z0-9-]{1,100})?|investors|operations|country\/(?:belgium|england|netherlands|germany|france|european-hubs|united-states|new-york-city|shanghai|greater-bay-area|morocco|western-europe|north-america|central-america|south-america|africa|middle-east|east-asia|south-asia|southeast-asia|australia)|city\/[a-z0-9-]{1,100}|startup\/[a-z0-9-]{1,100}|invite\/[0-9a-f]{32}\/[A-Za-z0-9_-]{32})$/;
 const acceptedDestination = value => typeof value === 'string' && value.startsWith(root+'/') && pageRoute.test(value.slice(root.length+1)) ? value : '';
 const documentScripts = {
   'document/pdf.mjs':'node_modules/pdfjs-dist/legacy/build/pdf.min.mjs',
@@ -199,6 +200,20 @@ export default async function handle(req, res) {
     } catch(error) {
       return send(res,error instanceof Problem?error.status:503,{error:error instanceof Problem?error.message:'Feedback is temporarily unavailable.'});
     }
+  }
+  const premium=/^api\/premium\/(founder|investor)\/([a-z0-9-]{1,100})(?:\/([a-z0-9-]{1,100}))?$/.exec(route);
+  if (req.method==='GET' && premium) {
+    const [,feature,left,right]=premium;
+    if (auth.role!==(feature==='founder'?'Founder':'Investor')) return send(res,403,{error:'Open the matching workspace view.'});
+    try {
+      const state=await getState(auth.id);
+      if (!state.unlocks?.[feature]) return send(res,403,{error:'Unlock this preview first.'});
+      const item=findCompany(state,left);
+      if (feature==='founder' && item && !right && (left==='alkmist' || Object.hasOwn(state.claims,left))) return send(res,200,scorePlan(item));
+      const other=right && findCompany(state,right);
+      if (feature==='investor' && item && other && left!==right) return send(res,200,premiumComparison(item,other));
+      return send(res,404,{error:'Analysis inputs not found.'});
+    } catch { return send(res,503,{error:'Analysis is temporarily unavailable.'}); }
   }
   if (route === 'api/state') {
     try {

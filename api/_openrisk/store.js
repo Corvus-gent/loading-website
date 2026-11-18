@@ -35,7 +35,7 @@ export class Problem extends Error {
 
 const fail = (status,message) => { throw new Problem(status,message); };
 const txt = (v,n) => typeof v === 'string' ? v.trim().slice(0,n) : '';
-const findCompany = (state,id) => catalog.find(row=>row.id===id) || state.requests.find(row=>row.company?.id===id)?.company || state.jobs.flatMap(row=>row.details||[]).find(row=>row.id===id);
+export const findCompany = (state,id) => catalog.find(row=>row.id===id) || state.requests.find(row=>row.company?.id===id)?.company || state.jobs.flatMap(row=>row.details||[]).find(row=>row.id===id);
 const requireCompany = (state,id) => findCompany(state,id) || fail(404,'Company not found.');
 const requireClaim = (state,id) => Object.hasOwn(state.claims,id) || fail(403,'Claim this profile first.');
 const needRole = (role,allowed) => allowed.includes(role) || fail(403,'This role cannot change these records.');
@@ -57,7 +57,7 @@ export function project(state, role) {
     };
   }
   return {
-    followed:state.followed, claims:Object.keys(state.claims), companies,
+    unlocks:state.unlocks || {}, followed:state.followed, claims:Object.keys(state.claims), companies,
     alerts:role==='Investor' ? state.alerts : {},
     requests:role==='Admin' ? state.requests : [],
     approved:state.requests.filter(row=>row.company).map(row=>row.company),
@@ -124,6 +124,13 @@ export function apply(state, auth, body) {
   const { action } = body;
   const id = txt(body.company,100);
   const period = body.period;
+  if (action==='unlock-preview') {
+    if (!['founder','investor'].includes(body.feature)) fail(400,'Unknown preview.');
+    needRole(auth.role,body.feature==='founder'?['Founder']:['Investor']);
+    const unlocks=state.unlocks ??= {};
+    unlocks[body.feature]=true;
+    return {};
+  }
   if (action === 'follow' || action === 'view') {
     needRole(auth.role,['Investor']);
     requireCompany(state,id);

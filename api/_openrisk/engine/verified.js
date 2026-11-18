@@ -9,6 +9,10 @@ const deliverectOffices='https://www.deliverect.com/en/careers';
 const office = (city,country,label,source,kind='office') => ({city,country,label,source,kind});
 
 export const verified = {
+  alkmist: {
+    founded:evidence(2024,'https://www.alkmist.com/careers/ai-engineer'),
+    funding:evidence({label:'€1.8M seed announced',announced:'2025-09-09'},'https://mathiascelis.com/press/in-the-press/alkmist-secures-18-million-funding-round'),
+  },
   caddi: {
     funding:evidence({label:'$114M Series D announced',announced:'2026-09-16'},'https://caddi.com/en-us/news/announcements/caddi-raises-funds-in-series-d-at-12-billion-valuation/'),
     locations:[

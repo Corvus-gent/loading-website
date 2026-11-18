@@ -713,6 +713,55 @@ export async function client() {
       ? 100*(current.value/previous.value-1) : null;
   }
 
+  function previewCard(feature, ids) {
+    const heading=feature==='founder'?'Score improvement plan':'Premium comparison';
+    const path=ids.map(encodeURIComponent).join('/');
+    const locked=!ctx.state.unlocks?.[feature];
+    return '<section class="panel premium-preview" data-preview="'+feature+'" data-preview-path="'+esc(path)+'">'
+      +'<div class="split"><h2>'+heading+'</h2>'+badge(locked?'🔒 Locked · $0 preview':'Unlocked · $0','ok')+'</div>'
+      +'<p class="muted">'+(feature==='founder'?'See the current score, the strongest evidence to add and modelled paths to 70, 80 and 90+.':
+        'Stress-test the comparison across different factor weights and see how missing evidence could change the ranking.')+'</p>'
+      +(locked?button('Unlock preview · $0','data-unlock-preview="'+feature+'"','accent')+' <small class="muted">No payment details needed.</small>':'')
+      +'<div data-premium-result aria-live="polite">'+(locked?'':'<p class="muted">Calculating analysis…</p>')+'</div></section>';
+  }
+
+  async function loadPreviews() {
+    for (const card of main.querySelectorAll('[data-preview]')) {
+      const feature=card.dataset.preview;
+      if (!ctx.state.unlocks?.[feature]) continue;
+      const result=card.querySelector('[data-premium-result]');
+      try {
+        const analysis=await api('premium/'+feature+'/'+card.dataset.previewPath);
+        if (!card.isConnected) continue;
+        result.innerHTML=feature==='founder'?renderScorePlan(analysis,card.dataset.previewPath):renderPremium(analysis,card.dataset.previewPath);
+      } catch(error) { result.textContent=error.message; }
+    }
+  }
+
+  function renderScorePlan(analysis,id) {
+    const specific=id==='alkmist';
+    return '<p><strong>Current score · '+(analysis.current??'—')+'/100</strong> · Model ceiling today '+analysis.ceiling+'/100</p>'
+      +(specific?'<p>Alkmist’s €1.8M seed round counts once its September 2025 announcement is dated. The company lists 2024 as its founding year. A recent public engineering signal is the clearest gap in the current rubric. '
+        +link('https://mathiascelis.com/press/in-the-press/alkmist-secures-18-million-funding-round','Seed source')+' · '+link('https://www.alkmist.com/careers/ai-engineer','Company source')+'</p>':'')
+      +'<div class="cards">'+analysis.scenarios.map(row=>panel('Target '+row.target+(row.target===90?'+':''),
+        '<p class="value">'+row.score+'/100</p><p><strong>'+esc(row.title)+'</strong></p><p>'+esc(row.detail)+'</p><small>'+row.coverage+'% model coverage'
+        +(row.score<row.target?' · Target still out of reach':'')+'</small>')).join('')+'</div>'
+      +'<p class="source">Illustrative scenarios use the public-signal rubric. Hiring or raising capital should support your operating plan. Keep company-owned evidence accurate and dated.</p>'
+      +(specific?'<h3>Improve the business evidence</h3><ul class="items"><li>Pick one audit workflow and measure median time to collect client documents before and after adoption.</li><li>Report how many pilots become paid accounts, and track retention and expansion by customer cohort.</li><li>Show gross margin and runway by month, including AI processing costs. Ask a customer to verify the impact in a case study.</li></ul><p class="source">These operating metrics improve investor diligence. The current public score uses different inputs.</p>':'');
+  }
+
+  function renderPremium(data,path) {
+    const names=path.split('/').map(id=>allCompanies().find(item=>item.id===id)?.name || id);
+    const top=data.cases?'<p><strong>'+data.cases+' weight scenarios</strong> · '+esc(names[0])+' leads in '+data.leftWins+', '
+      +esc(names[1])+' in '+data.rightWins+', with '+(data.cases-data.leftWins-data.rightWins)+' ties.</p>'
+      +'<p>Margin for '+esc(names[0])+' · '+number(data.low)+' to '+number(data.high)+' points</p>'
+      : '<p>There are no comparable public factors to stress-test for this pair.</p>';
+    return top+'<ul class="items">'+data.bands.map((band,index)=>'<li><strong>'+esc(names[index])+'</strong> · '
+      +(band.low===band.high?number(band.low)+'/100 fully observed model score':number(band.low)+'–'+number(band.high)+'/100 possible model bounds')+' · '+band.coverage+'% observed weight</li>').join('')+'</ul>'
+      +(data.shared.length?'<ul class="items">'+data.shared.map(row=>'<li>'+esc(row.title)+' · '+(row.delta>0?'+':'')+row.delta+' raw points for '+esc(names[0])+'</li>').join('')+'</ul>':'')
+      +'<details><summary>How to read the stress test</summary><p>Each shared factor weight is varied independently by −25%, 0% or +25%, then renormalized. Counts describe scenarios, with no probability assigned. Bounds vary missing inputs across their rubric limits.</p></details>';
+  }
+
   function diligencePanel(pair,shared) {
     const weight=shared.reduce((total,row)=>total+row.weight,0);
     const commonScore=item=>shared.reduce((total,row)=>total+row.weight*item.risk.breakdown.find(factor=>factor.key===row.key).points,0)/weight;
@@ -790,7 +839,8 @@ export async function client() {
     main.innerHTML=title('Compare startups','Review two companies side by side using public evidence.')
       +'<div class="stack"><section class="panel"><div class="compare-picker">'+pair.map(comparePicker).join('')
       +'</div><div class="actions compare-feedback">'+feedbackButton('compare','startup comparisons')+'</div>'+table+'</section>'
-      +(ready?diligencePanel(pair,shared):'')+questions+'</div>';
+      +(ready?diligencePanel(pair,shared)+previewCard('investor',pair.map(item=>item.id)):'')+questions+'</div>';
+    void loadPreviews();
     main.querySelectorAll('[data-compare-slot]').forEach((slot,index)=>
       bindComparePicker(slot,index,companies.filter(item=>item.id!==pair[1-index]?.id),pair[index]));
   }
@@ -1217,8 +1267,13 @@ export async function client() {
   function founder() {
     const claimed=claimedCompanies();
     const item = claimed.find(company=>company.id===ctx.current) || claimed[0];
+    const plan=ctx.scorePlanId && (ctx.scorePlanId==='alkmist' || ctx.state.claims.includes(ctx.scorePlanId))
+      ? allCompanies().find(company=>company.id===ctx.scorePlanId) : item;
+    const preview=plan ? previewCard('founder',[plan.id])
+      : '<p>'+link(root+'/founder/score-plan/alkmist','Try Alkmist’s score improvement plan ↗')+'</p>';
     if (!item) {
-      main.innerHTML=title('My startup','Find your company in Explore, open its dossier and choose Claim this profile.')+button('Find my startup','data-page="map" data-focus-search','accent');
+      main.innerHTML=title('My startup','Find your company in Explore, open its dossier and choose Claim this profile.')+button('Find my startup','data-page="map" data-focus-search','accent')+(plan?'<h2>'+esc(plan.name)+' · '+esc(plan.city)+'</h2>':'')+preview;
+      void loadPreviews();
       return;
     }
     ctx.current=item.id;
@@ -1231,12 +1286,13 @@ export async function client() {
     const inviteList=ctx.state.invites.filter(row=>row.company===item.id).map(row=>'<li><div class="split"><span>'+esc(row.email)+' '+badge(row.status==='revoked'?'Revoked':Date.parse(row.expiresAt)<=Date.now()?'Expired':row.status)+'</span>'+(row.status==='revoked'?'':button('Revoke','data-revoke="'+row.id+'"','link'))+'</div><small>Expires '+date(row.expiresAt)+'</small></li>').join('');
     main.innerHTML=title('My startup','Assess potential collaborators and publish updates from your claimed profile.')
       +'<div class="actions" style="margin-bottom:14px">'+claimedPicker(claimed,item.id)+button('View dossier','data-company="'+item.id+'"')+feedbackButton('founder','My startup')+'</div><div class="stack">'
-      +fitPanel(item)+panel('Email → KPI','<div class="actions">'+ctx.samples.map((sample,i)=>button(sample.label,'data-sample="'+i+'"')).join('')+'</div><form id="mail-form" class="stack" style="margin-top:12px"><div><label>Default reporting month<input name="period" type="month" value="'+ctx.selectedPeriod+'" required></label></div><div><label>Investor update<textarea name="text" maxlength="16000" placeholder="Paste a monthly investor update…"></textarea></label></div><div><label>PDF or XLSX attachments <input name="files" type="file" accept=".pdf,.xlsx" multiple></label><small>Files are read locally. Up to two attachments, 2 MB each.</small></div><div><button class="accent">Extract KPI proposals</button></div></form>'
+      +preview+fitPanel(item)+panel('Email → KPI','<div class="actions">'+ctx.samples.map((sample,i)=>button(sample.label,'data-sample="'+i+'"')).join('')+'</div><form id="mail-form" class="stack" style="margin-top:12px"><div><label>Default reporting month<input name="period" type="month" value="'+ctx.selectedPeriod+'" required></label></div><div><label>Investor update<textarea name="text" maxlength="16000" placeholder="Paste a monthly investor update…"></textarea></label></div><div><label>PDF or XLSX attachments <input name="files" type="file" accept=".pdf,.xlsx" multiple></label><small>Files are read locally. Up to two attachments, 2 MB each.</small></div><div><button class="accent">Extract KPI proposals</button></div></form>'
       +(proposals.length?'<div id="proposals"><h3 style="margin-top:18px">Review proposals</h3><div class="scroll"><table class="rules"><thead><tr><th>KPI</th><th>Period</th><th>Proposed value</th><th>Source sentence</th><th>Review</th></tr></thead><tbody>'+proposals.map(p=>'<tr data-proposal="'+p.id+'"><td>'+esc(labelFor(item.id,p.metric))+'<br>'+badge('proposed','warn')+sampleTag(p)+(p.duplicate?' '+badge('Existing value','red'):'')+'</td><td><input aria-label="Reporting month" name="period" type="month" value="'+p.period+'"></td><td><input aria-label="Proposed value" name="value" type="number" step="any" value="'+p.value+'">'+(ctx.metrics[p.metric]?.unit==='money'?'<select aria-label="Currency" name="currency">'+['EUR','USD','GBP'].map(code=>'<option'+(code===(p.currency||'EUR')?' selected':'')+'>'+code+'</option>').join('')+'</select>':'')+'<small>'+esc(p.confidence)+' · '+date(p.fetchedAt)+'</small></td><td><small>'+esc(p.document||'Investor update')+'</small><blockquote><mark>'+esc(p.evidence)+'</mark></blockquote></td><td><div class="actions">'+button('Confirm','data-review="'+p.id+'"')+button('Reject','data-review="'+p.id+'" data-reject="yes"','link')+'</div></td></tr>').join('')+'</tbody></table></div><div class="actions spaced">'+button('Confirm all','data-confirm-all','accent')+'</div></div>':''))
       +panel('Monthly KPI form','<form id="kpi-form" class="form-grid"><div><label>Reporting month<input name="period" id="kpi-period" type="month" value="'+ctx.selectedPeriod+'" required></label></div><div><label>Currency<select name="currency">'+['EUR','USD','GBP'].map(code=>'<option'+(currency===code?' selected':'')+'>'+code+'</option>').join('')+'</select></label></div><div></div>'+fields+'<div class="full"><label>Monthly text update<textarea name="note" maxlength="2000">'+esc(c.updates[ctx.selectedPeriod]?.note||'')+'</textarea></label></div><div class="full actions"><button class="accent">Save KPI update</button><small>Blank metrics keep their existing values.</small></div></form>')
       +panel('Custom KPI','<form id="custom-form" class="form-grid"><label>Name<input name="label" maxlength="48" required></label><label>Category<select name="category"><option>Operational</option><option>Commercial</option><option>Sales</option><option>Financial</option></select></label><label>Unit<select name="unit"><option value="count">Number</option><option value="money">Currency</option><option value="months">Months</option></select></label><div><button>Create KPI</button></div></form>')
       +panel('Investor invitations','<form id="invite-form" class="actions"><label style="flex:1">Email<input name="email" type="email" maxlength="180" required></label><button>Create 7-day link</button></form><small>Email delivery is simulated. Copy the link to share it.</small><div id="invite-result"></div><ul class="items">'+inviteList+'</ul>')
       +panel('Investor engagement',c.views.length?'<ul class="items">'+c.views.slice().reverse().slice(0,12).map(view=>'<li>'+esc(view.label)+' · '+esc(view.kind)+' · '+date(view.at)+'</li>').join('')+'</ul>':empty('Investor views and invite opens appear here.'))+'</div>';
+    void loadPreviews();
   }
 
   async function submitProposals(node) {
@@ -1629,6 +1685,9 @@ export async function client() {
       profile(item,false);
       return;
     }
+    const plan=/^\/founder\/score-plan\/([a-z0-9-]+)$/.exec(relative);
+    ctx.scorePlanId=plan?.[1];
+    if (plan) return openPage('founder',false);
     const compare=/^\/compare\/([a-z0-9-]+)(?:\/([a-z0-9-]+))?$/.exec(relative);
     if (compare) {
       const ids=new Set(allCompanies().map(item=>item.id));
@@ -1653,6 +1712,16 @@ export async function client() {
     if (!node) return;
     if (node.dataset.feedbackArea || node.dataset.feedbackVote || node.dataset.feedbackRetry) {
       await handleFeedbackButton(node);
+      return;
+    }
+    if (node.dataset.unlockPreview) {
+      node.disabled=true;
+      try {
+        await mutate({action:'unlock-preview',feature:node.dataset.unlockPreview});
+        if (ctx.page==='founder') founder();
+        if (ctx.page==='compare') comparison();
+      } catch(error) { toast(error.message); }
+      finally { node.disabled=false; }
       return;
     }
     if (node.dataset.page) {
@@ -1729,6 +1798,7 @@ export async function client() {
         const company = node.dataset.claim;
         if (!ctx.state.claims.includes(company)) await mutate({action:'claim',company});
         ctx.current=company;
+        ctx.scorePlanId=null;
         navigate('founder');
       }
       if (node.dataset.portSort) {
