@@ -1,6 +1,6 @@
 export const frame = content => `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex, nofollow"><meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex, nofollow"><meta name="referrer" content="same-origin">
 <title>OpenRisk | Startup intelligence</title><style>${css}</style></head><body>${content}</body></html>`;
 
 export const login = error => frame(`<main class="gate"><div class="panel gate-card"><div class="brand"><i>◈</i> OpenRisk</div><h1>Private demo</h1><p>Enter the demo password to open the workspace.</p><form method="post" action="/project-cto/login"><label for="pw">Password</label><input id="pw" type="password" name="password" required maxlength="128" autocomplete="current-password" autofocus><button class="accent">Open workspace <span>↗</span></button></form>${error ? '<p class="error" role="alert">'+error+'</p>' : ''}<footer>prototype by Corvus</footer></div></main>`);
