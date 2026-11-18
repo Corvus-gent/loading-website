@@ -81,7 +81,10 @@ async function buildRadar() {
     return {label,count:new Set(articles.map(article=>normalize(article.title))).size,
       sources:new Set(articles.map(article=>article.publisher)).size};
   }).filter(topic=>topic.sources>=2).sort((a,b)=>b.count-a.count).slice(0,4);
-  const picks=[...highlights.values()].sort((a,b)=>Number(Boolean(b.verified))-Number(Boolean(a.verified)) || b.at-a.at).slice(0,6);
+  const leading=new Set(market?.quotes.slice(0,3).map(quote=>quote.ticker) || []);
+  const picks=[...highlights.values()].map(item=>({...item,leadingSector:leading.has(item.market?.ticker)}))
+    .sort((a,b)=>Number(Boolean(b.verified))-Number(Boolean(a.verified))
+      || Number(b.leadingSector)-Number(a.leadingSector) || b.at-a.at).slice(0,6);
   const coveredRegions=new Set();
   const regional=headlines.filter(article=>{
     if (article.verified || coveredRegions.has(article.region)) return false;

@@ -305,7 +305,7 @@ export async function client() {
         +(data.trends.length?'<div class="actions spaced">'+data.trends.map(item=>badge(item.label+' · '+item.count+' headlines / '+item.sources+' sources')).join('')+'</div>':'')
         +(more?'<div class="radar-grid">'+more+'</div>':'')
         +'<ul class="items">'+data.regional.map(item=>'<li><strong>'+esc(item.region)+'</strong> · '+link(item.link,item.title)+' <small>'+esc(item.publisher)+'</small></li>').join('')+'</ul>'
-        +'<p class="source">Highlights match the OpenRisk catalog to public headlines and dated company announcements, with announcements shown first. Related ETF moves describe public markets. Feed coverage varies by region.</p></details>';
+        +'<p class="source">Highlights match the OpenRisk catalog to public headlines and dated company announcements, with announcements first, then matches tied to the three leading US sectors and recent headlines. Related ETF moves describe public markets. Feed coverage varies by region.</p></details>';
     } catch(error) { if (target.isConnected) target.querySelector('p').textContent=error.message; }
   }
 
