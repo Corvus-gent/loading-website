@@ -53,10 +53,11 @@ export async function client() {
     founder:{label:'My startup',path:'/founder',role:'Founder'},
     funds:{label:'Find investors',path:'/investors',role:'Founder'},
     admin:{label:'Manage map',path:'/operations',role:'Admin'},
+    feedback:{label:'Feedback',path:'/feedback'},
   };
   const nav = () => {
     const current=['profile','cold'].includes(ctx.page)?'map':ctx.page;
-    const groups=[['Find startups',['map','compare','portfolio']],['Grow your startup',['founder','funds']],['Manage the ecosystem',['admin']]];
+    const groups=[['Find startups',['map','compare','portfolio']],['Grow your startup',['founder','funds']],['Manage the ecosystem',['admin','feedback']]];
     top.innerHTML=groups.map(([label,pages])=>'<div class="nav-group" role="group" aria-label="'+label+'">'
       +pages.map(page=>button(destinations[page].label,'data-page="'+page+'"'+(current===page?' aria-current="page"':''),current===page?'current':'')).join('')+'</div>').join('');
   };
@@ -64,7 +65,7 @@ export async function client() {
   function openPage(page,recordPath=true) {
     const job=pageQueue.then(async()=>{
       const role=destinations[page].role;
-      if (ctx.role!==role) await switchRole(role);
+      if (role && ctx.role!==role) await switchRole(role);
       navigate(page,recordPath);
     });
     pageQueue=job.catch(()=>{});
@@ -91,6 +92,7 @@ export async function client() {
     if (page === 'founder') founder();
     if (page === 'funds') funds();
     if (page === 'admin') admin();
+    if (page === 'feedback') void feedbackPage();
     if (!['profile','cold'].includes(page)) window.scrollTo(0,0);
   }
 
@@ -243,7 +245,7 @@ export async function client() {
     const regionalCities=cities.filter(city=>regionOf(city)===region && city.lon>=west && city.lon<=east && city.lat>=south && city.lat<=north);
     const europeCount=cities.filter(city=>['Belgium','England','Netherlands','Germany','France','European hubs'].includes(regionOf(city))).length;
     main.innerHTML = '<section class="hero"><span class="eyebrow">Startup intelligence</span><h1>Explore startup risk.</h1><p>Explore startups by city or build a risk dossier from public signals.</p><form id="search-form" class="search-wrap" role="search"><label for="company-search" hidden>Search for a startup</label><span class="search-symbol" aria-hidden="true">⌕</span><input id="company-search" placeholder="Search any startup…" maxlength="80" autocomplete="off" aria-controls="search-results" aria-expanded="false"><span class="keycap" aria-hidden="true">/</span><div id="search-results" class="results" hidden></div></form><div class="quick">Quick look ' + ['aikido-security','deliverect','stripe','odoo'].map(id => button(ctx.catalog.find(item => item.id === id).name, 'data-company="' + id + '"')).join('') + button('Browse all startups','data-browse-all aria-pressed="'+Boolean(ctx.allProfiles)+'"')+'</div></section>'
-      + '<div class="layout"><section class="panel atlas"><div class="panel-head"><h2>Ecosystem map</h2>' + '<div class="actions">' + badge(allCompanies().length + ' profiles · ' + allCities().length + ' cities') + button('Suggest startup','data-open-dialog="startup"') + button('+ Add city','data-open-dialog="city"') + '</div></div><div class="map-stage" data-map-camera="world" tabindex="0" aria-label="World map"><div class="map-layer"><svg viewBox="0 0 900 360" preserveAspectRatio="none" aria-hidden="true"><defs><pattern id="grid" width="37.5" height="37.5" patternUnits="userSpaceOnUse"><path d="M 37.5 0 L 0 0 0 37.5" fill="none" stroke="#253751" stroke-width=".7"/></pattern></defs><rect width="900" height="360" fill="url(#grid)"/><path d="' + esc(ctx.land) + '" fill="#243855" stroke="#507096" stroke-width=".65"/></svg><button class="cluster" aria-label="European startup hubs" data-city="Brussels" style="left:51.1%;top:22.2%">' + europeCount + '</button><button class="cluster" aria-label="Bay Area startup hubs" data-city="San Francisco" style="left:16%;top:31.4%">2</button>' + worldRegionClusters(cities) + worldPins() + '</div><span class="map-caption">NATURAL EARTH · GLOBAL VIEW</span>' + mapControls('world map') + '</div><div class="market-grid">' + countries + inset(key,regionName(region),regionalCities) + '</div></section><section class="panel"><div class="panel-head"><h2 id="city-title"></h2>' + sortControls() + '</div>' + (ctx.allProfiles?sectorPicker():'') + nearbyForm() + (ctx.countryList?'<p id="country-scope" class="source">Selected profiles and approved suggestions across several hubs</p>':'') + '<div id="city-rows" class="rows"></div></section></div>';
+      + '<div class="layout"><section class="panel atlas"><div class="panel-head"><h2>Ecosystem map</h2>' + '<div class="actions">' + badge(allCompanies().length + ' profiles · ' + allCities().length + ' cities') + button('Suggest startup','data-open-dialog="startup"') + button('+ Add city','data-open-dialog="city"') + feedbackButton('explore','Explore and map') + '</div></div><div class="map-stage" data-map-camera="world" tabindex="0" aria-label="World map"><div class="map-layer"><svg viewBox="0 0 900 360" preserveAspectRatio="none" aria-hidden="true"><defs><pattern id="grid" width="37.5" height="37.5" patternUnits="userSpaceOnUse"><path d="M 37.5 0 L 0 0 0 37.5" fill="none" stroke="#253751" stroke-width=".7"/></pattern></defs><rect width="900" height="360" fill="url(#grid)"/><path d="' + esc(ctx.land) + '" fill="#243855" stroke="#507096" stroke-width=".65"/></svg><button class="cluster" aria-label="European startup hubs" data-city="Brussels" style="left:51.1%;top:22.2%">' + europeCount + '</button><button class="cluster" aria-label="Bay Area startup hubs" data-city="San Francisco" style="left:16%;top:31.4%">2</button>' + worldRegionClusters(cities) + worldPins() + '</div><span class="map-caption">NATURAL EARTH · GLOBAL VIEW</span>' + mapControls('world map') + '</div><div class="market-grid">' + countries + inset(key,regionName(region),regionalCities) + '</div></section><section class="panel"><div class="panel-head"><h2 id="city-title"></h2>' + sortControls() + '</div>' + (ctx.allProfiles?sectorPicker():'') + nearbyForm() + (ctx.countryList?'<p id="country-scope" class="source">Selected profiles and approved suggestions across several hubs</p>':'') + '<div id="city-rows" class="rows"></div></section></div>';
     main.querySelector('.map-stage svg').classList.add('earth');
     main.querySelectorAll('[data-map-camera]').forEach(bindMapCamera);
     const input = document.querySelector('#company-search');
@@ -523,13 +525,17 @@ export async function client() {
     if (dossierModes.includes(saved)) dossierMode=saved;
   } catch {}
 
+  function feedbackButton(area,label) {
+    return button('','data-feedback-area="'+area+'" aria-label="Feedback on '+esc(label)+'" title="Feedback on '+esc(label)+'"','feedback-trigger');
+  }
+
   function dossierSwitcher() {
-    return '<div class="dossier-switcher" role="group" aria-label="Dossier view" style="--selected:'+dossierModes.indexOf(dossierMode)+'">'+
-      dossierModes.map(mode=>button(mode,'data-dossier-mode="'+mode+'" aria-pressed="'+(mode===dossierMode)+'"')).join('')+'</div>';
+    return '<div class="dossier-view-controls"><div class="dossier-switcher" role="group" aria-label="Dossier view" style="--selected:'+dossierModes.indexOf(dossierMode)+'">'+
+      dossierModes.map(mode=>button(mode,'data-dossier-mode="'+mode+'" aria-pressed="'+(mode===dossierMode)+'"')).join('')+'</div>'+feedbackButton('dossier','dossier views')+'</div>';
   }
 
   function profile(item, recordPath = true, logView = true) {
-    navigate('profile',false);
+    if (logView) navigate('profile',false);
     if (recordPath) setPath('/startup/'+item.id);
     ctx.current = item.id;
     const s = item.signals || {}, r = item.risk || { value:null, coverage:0, breakdown:[] };
@@ -580,12 +586,15 @@ export async function client() {
       !s.traction && s.github && ['Engineering','Push '+date(s.github.value.pushedAt),s.github],
     ].filter(Boolean);
     const scan=signals.length?'<div class="dashboard-signals">'+signals.map(([label,value,observation])=>panel(label,val(value,observation))).join('')+'</div>':'';
-    const layout=dossierMode==='Dashboard'?overview+scan+jumps+'<div class="dashboard-columns">'+context+calculation+'</div>'+evidence+kpis
+    const disclosure=(label,body)=>body?'<details class="dossier-disclosure"><summary>'+label+'</summary>'+body+'</details>':'';
+    const layout=dossierMode==='Dashboard'
+      ? overview+scan+jumps+disclosure('Investment context',context)+disclosure('Score calculation',calculation)
+        +disclosure('Source evidence',evidence)+disclosure('Confirmed KPIs',kpis)
       : dossierMode==='Evidence'?calculation+evidence+kpis+context
-      : overview+jumps+context+calculation+evidence+kpis;
+      : overview+jumps+context+disclosure('Score calculation',calculation)+evidence+kpis;
     const liveEstimate='<section class="dossier-chapter estimate-panel"><h2>Live evidence estimate</h2>'
       +'<p class="muted">Check public sources and see how missing evidence changes the score range.</p>'
-      +button('Run live estimate','data-estimate="'+esc(item.id)+'"','accent')
+      +button('Run live estimate','data-estimate="'+esc(item.id)+'"','accent')+feedbackButton('estimate','live estimates')
       +'<ol class="estimate-timeline" aria-label="Evidence steps" data-estimate-trace aria-live="polite"></ol><div class="estimate-result" aria-live="polite" data-estimate-result></div></section>';
     const modeClass='reading-dossier dossier-'+dossierMode.toLowerCase();
     if (logView) {
@@ -640,7 +649,7 @@ export async function client() {
       +button(pair.every(item=>ctx.state.followed.includes(item.id))?'Both followed':'Follow both','data-follow-pair'+(pair.every(item=>ctx.state.followed.includes(item.id))?' disabled':''),'accent')) : '';
     main.innerHTML=title('Compare startups','Review two companies side by side using public evidence.')
       +'<div class="stack"><section class="panel"><div class="compare-picker">'+pair.map(comparePicker).join('')
-      +'</div>'+table+'</section>'+questions+'</div>';
+      +'</div><div class="actions compare-feedback">'+feedbackButton('compare','startup comparisons')+'</div>'+table+'</section>'+questions+'</div>';
     main.querySelectorAll('[data-compare-slot]').forEach((slot,index)=>
       bindComparePicker(slot,index,companies.filter(item=>item.id!==pair[1-index]?.id)));
   }
@@ -940,7 +949,7 @@ export async function client() {
     const table = rows ? '<div class="scroll"><table class="rules"><thead><tr>'+keys.map(([key,label])=>'<th scope="col"'+(ctx.order===key?' aria-sort="'+(ctx.descending?'descending':'ascending')+'"':'')+'>'+button(label+(ctx.order===key?(ctx.descending?' ↓':' ↑'):''),'data-port-sort="'+key+'"')+'</th>').join('')+'</tr></thead><tbody>'+rows+'</tbody></table></div>' : empty('Follow any startup from its profile to add it here.');
     const alerts=ctx.state.alerts;
     main.innerHTML=title('Watchlist','Follow companies from Explore or Compare and review founder-confirmed updates.')
-      +'<div class="stack">'+panel('Followed startups',table)+panel('Alert settings','<form id="alerts-form" class="form-grid"><div><label>Runway warning (months)<input name="threshold" type="number" min="1" max="36" required value="'+(alerts.threshold||6)+'"></label></div><label class="switchline"><input name="monthly" type="checkbox" '+(alerts.monthly?'checked':'')+'> New monthly figures</label><div class="full actions"><button class="accent">Save alerts</button><small>Demo settings · Email delivery simulated</small></div></form>')+'</div>';
+      +'<div class="stack">'+panel('Followed startups','<div class="actions compare-feedback">'+feedbackButton('portfolio','Watchlist')+'</div>'+table)+panel('Alert settings','<form id="alerts-form" class="form-grid"><div><label>Runway warning (months)<input name="threshold" type="number" min="1" max="36" required value="'+(alerts.threshold||6)+'"></label></div><label class="switchline"><input name="monthly" type="checkbox" '+(alerts.monthly?'checked':'')+'> New monthly figures</label><div class="full actions"><button class="accent">Save alerts</button><small>Demo settings · Email delivery simulated</small></div></form>')+'</div>';
   }
 
   function metricView(id, guest = null) {
@@ -1031,7 +1040,7 @@ export async function client() {
     const proposals=(c.proposals||[]).filter(row=>row.status==='proposed');
     const inviteList=ctx.state.invites.filter(row=>row.company===item.id).map(row=>'<li><div class="split"><span>'+esc(row.email)+' '+badge(row.status==='revoked'?'Revoked':Date.parse(row.expiresAt)<=Date.now()?'Expired':row.status)+'</span>'+(row.status==='revoked'?'':button('Revoke','data-revoke="'+row.id+'"','link'))+'</div><small>Expires '+date(row.expiresAt)+'</small></li>').join('');
     main.innerHTML=title('My startup','Assess potential collaborators and publish updates from your claimed profile.')
-      +'<div class="actions" style="margin-bottom:14px">'+claimedPicker(claimed,item.id)+button('View dossier','data-company="'+item.id+'"')+'</div><div class="stack">'
+      +'<div class="actions" style="margin-bottom:14px">'+claimedPicker(claimed,item.id)+button('View dossier','data-company="'+item.id+'"')+feedbackButton('founder','My startup')+'</div><div class="stack">'
       +fitPanel(item)+panel('Email → KPI','<div class="actions">'+ctx.samples.map((sample,i)=>button(sample.label,'data-sample="'+i+'"')).join('')+'</div><form id="mail-form" class="stack" style="margin-top:12px"><div><label>Default reporting month<input name="period" type="month" value="'+ctx.selectedPeriod+'" required></label></div><div><label>Investor update<textarea name="text" maxlength="16000" placeholder="Paste a monthly investor update…"></textarea></label></div><div><label>PDF or XLSX attachments <input name="files" type="file" accept=".pdf,.xlsx" multiple></label><small>Files are read locally. Up to two attachments, 2 MB each.</small></div><div><button class="accent">Extract KPI proposals</button></div></form>'
       +(proposals.length?'<div id="proposals"><h3 style="margin-top:18px">Review proposals</h3><div class="scroll"><table class="rules"><thead><tr><th>KPI</th><th>Period</th><th>Proposed value</th><th>Source sentence</th><th>Review</th></tr></thead><tbody>'+proposals.map(p=>'<tr data-proposal="'+p.id+'"><td>'+esc(labelFor(item.id,p.metric))+'<br>'+badge('proposed','warn')+sampleTag(p)+(p.duplicate?' '+badge('Existing value','red'):'')+'</td><td><input aria-label="Reporting month" name="period" type="month" value="'+p.period+'"></td><td><input aria-label="Proposed value" name="value" type="number" step="any" value="'+p.value+'">'+(ctx.metrics[p.metric]?.unit==='money'?'<select aria-label="Currency" name="currency">'+['EUR','USD','GBP'].map(code=>'<option'+(code===(p.currency||'EUR')?' selected':'')+'>'+code+'</option>').join('')+'</select>':'')+'<small>'+esc(p.confidence)+' · '+date(p.fetchedAt)+'</small></td><td><small>'+esc(p.document||'Investor update')+'</small><blockquote><mark>'+esc(p.evidence)+'</mark></blockquote></td><td><div class="actions">'+button('Confirm','data-review="'+p.id+'"')+button('Reject','data-review="'+p.id+'" data-reject="yes"','link')+'</div></td></tr>').join('')+'</tbody></table></div><div class="actions spaced">'+button('Confirm all','data-confirm-all','accent')+'</div></div>':''))
       +panel('Monthly KPI form','<form id="kpi-form" class="form-grid"><div><label>Reporting month<input name="period" id="kpi-period" type="month" value="'+ctx.selectedPeriod+'" required></label></div><div><label>Currency<select name="currency">'+['EUR','USD','GBP'].map(code=>'<option'+(currency===code?' selected':'')+'>'+code+'</option>').join('')+'</select></label></div><div></div>'+fields+'<div class="full"><label>Monthly text update<textarea name="note" maxlength="2000">'+esc(c.updates[ctx.selectedPeriod]?.note||'')+'</textarea></label></div><div class="full actions"><button class="accent">Save KPI update</button><small>Blank metrics keep their existing values.</small></div></form>')
@@ -1059,6 +1068,98 @@ export async function client() {
       (document.querySelector('#proposals') || document.querySelector('#mail-form'))?.scrollIntoView({block:'nearest'});
       toast(node.dataset.reject?'Proposal rejected.':items.length+' KPI proposal'+(items.length===1?'':'s')+' confirmed.');
     } finally { node.disabled=false; }
+  }
+
+  function feedbackDialog(area) {
+    const areas=ctx.feedbackAreas;
+    main.querySelector('#feedback-dialog')?.remove();
+    main.insertAdjacentHTML('beforeend','<dialog id="feedback-dialog" aria-labelledby="feedback-title" class="feedback-dialog"><div class="split"><h2 id="feedback-title">Share feedback</h2>'
+      +button('Close','data-feedback-close','link')+'</div>'
+      +'<form id="feedback-form" class="stack"><label for="feedback-area">Area</label><select id="feedback-area" name="area">'
+      +Object.entries(areas).map(([key,label])=>'<option value="'+key+'"'+(key===area?' selected':'')+'>'+esc(label)+'</option>').join('')
+      +'</select><label for="feedback-kind">Type</label><select id="feedback-kind" name="kind"><option value="suggestion">Suggestion</option><option value="bug">Bug</option></select>'
+      +'<label for="feedback-subject">Title</label><input id="feedback-subject" name="title" required minlength="4" maxlength="100">'
+      +'<label for="feedback-detail">What should we improve?</label><textarea id="feedback-detail" name="detail" required minlength="8" maxlength="1600"></textarea>'
+      +'<label id="feedback-critical-row" hidden><input type="checkbox" name="critical"> Critical bug · a core task is blocked and there is no workaround. Sends an email alert.</label>'
+      +'<small class="muted">Visible to everyone with access to this demo. Leave out personal or confidential details.</small>'
+      +'<div class="actions"><button class="accent" type="submit">Submit feedback</button></div><p data-feedback-error role="alert"></p></form></dialog>');
+    const dialog=main.querySelector('#feedback-dialog');
+    dialog.querySelector('#feedback-kind').onchange=event=>{
+      const critical=dialog.querySelector('#feedback-critical-row');
+      critical.hidden=event.target.value!=='bug';
+      if (critical.hidden) critical.querySelector('input').checked=false;
+    };
+    dialog.querySelector('[data-feedback-close]').onclick=()=>dialog.close();
+    dialog.addEventListener('close',()=>dialog.remove(),{once:true});
+    dialog.showModal();
+  }
+
+  function renderFeedback() {
+    const target=main.querySelector('#feedback-list');
+    if (!target) return;
+    const rows=(ctx.feedbackRows || []).slice().sort((a,b)=>
+      ctx.feedbackOrder==='newest' ? b.at.localeCompare(a.at)
+        : Number(b.critical)-Number(a.critical) || b.priority-a.priority || b.likes-a.likes || b.at.localeCompare(a.at));
+    target.innerHTML=rows.length?rows.map(row=>{
+      const vote=(kind,label,count,enabled)=>button(label+' · '+count,'data-feedback-vote="'+kind+'" data-feedback-id="'+esc(row.id)+'" aria-pressed="'+enabled+'"');
+      return '<article class="panel feedback-item" id="feedback-'+esc(row.id)+'"><div class="actions">'+badge(row.kind==='bug'?'Bug':'Suggestion')
+        +(row.critical?badge('Critical','red'):'')+'<small>'+esc(ctx.feedbackAreas[row.area])+' · '+date(row.at)+'</small></div><h2>'+esc(row.title)+'</h2>'
+        +'<p>'+esc(row.detail)+'</p>'+(row.context?'<a href="'+root+esc(row.context)+'">Open reported page ↗</a>':'')
+        +'<div class="actions spaced">'+vote('likes','Like',row.likes,row.liked)+vote('priority','Prioritize',row.priority,row.prioritized)
+        +(row.canRetry?button('Retry critical email','data-feedback-retry="'+esc(row.id)+'"','link'):'')+'</div></article>';
+    }).join(''):empty('No feedback yet.');
+  }
+
+  async function feedbackPage() {
+    main.innerHTML=title('Feedback','Share an idea, report a bug or vote on what should be fixed first.')
+      +'<div class="actions feedback-toolbar">'+button('Share feedback','data-feedback-area="general"','accent')
+      +'<label for="feedback-order">Order</label><select id="feedback-order"><option value="priority">Priority</option><option value="newest">Newest</option></select></div>'
+      +'<div class="stack" id="feedback-list"><p role="status" class="muted">Loading feedback…</p></div>';
+    const list=main.querySelector('#feedback-list');
+    const order=main.querySelector('#feedback-order');
+    order.value=ctx.feedbackOrder || 'priority';
+    order.onchange=()=>{ ctx.feedbackOrder=order.value; renderFeedback(); };
+    try {
+      const {rows}=await api('feedback');
+      if (!list.isConnected) return;
+      ctx.feedbackRows=rows;
+      renderFeedback();
+      if (/^#feedback-[a-f0-9]{16}$/.test(location.hash)) document.querySelector(location.hash)?.scrollIntoView();
+    } catch(error) { list.textContent=error.message; }
+  }
+
+  async function submitFeedback(form) {
+    const fields=new FormData(form);
+    const submit=form.querySelector('[type="submit"]'), error=form.querySelector('[data-feedback-error]');
+    submit.disabled=true;
+    error.textContent='';
+    try {
+      const response=await api('feedback',{action:'submit',...Object.fromEntries(fields),critical:fields.has('critical'),context:location.pathname.slice(root.length)});
+      ctx.feedbackRows=response.rows;
+      form.closest('dialog').close();
+      if (ctx.page==='feedback') renderFeedback();
+      toast(response.critical?(response.notified?'Critical bug saved. Email alert accepted.':'Critical bug saved. Retry the email from Feedback.'):'Feedback submitted.');
+    } catch(failure) { error.textContent=failure.message; }
+    finally { submit.disabled=false; }
+  }
+
+  async function handleFeedbackButton(node) {
+    if (node.dataset.feedbackArea) { feedbackDialog(node.dataset.feedbackArea); return; }
+    const vote=node.dataset.feedbackVote;
+    const body=vote
+      ? {action:'vote',id:node.dataset.feedbackId,vote,enabled:node.getAttribute('aria-pressed')!=='true'}
+      : {action:'retry',id:node.dataset.feedbackRetry};
+    node.disabled=true;
+    try {
+      const response=await api('feedback',body);
+      ctx.feedbackRows=response.rows;
+      if (ctx.page==='feedback') {
+        renderFeedback();
+        if (vote) main.querySelector('[data-feedback-id="'+body.id+'"][data-feedback-vote="'+vote+'"]')?.focus({preventScroll:true});
+      }
+      if (!vote) toast(response.notified?'Critical email accepted.':'Email unavailable. The bug remains saved.');
+    } catch(error) { toast(error.message); }
+    finally { node.disabled=false; }
   }
 
   function openDialog(kind, startupName) {
@@ -1138,7 +1239,7 @@ export async function client() {
     }).join('');
     const health=Object.entries(ctx.preloadReport?.sources||{}).map(([label, row])=>'<tr><td>'+esc(label)+'</td><td>'+stamp(row.lastSuccess)+'</td><td>'+stamp(row.lastFailure)+'</td></tr>').join('');
     main.innerHTML=title('Manage map','Review startup suggestions and preload profiles and cities onto the map.')+'<div class="stack">'
-      +evidenceAudit(companies)+panel('Startup request queue','<div id="queue-progress" aria-live="polite"></div>'+(rows?'<div class="scroll"><table class="rules"><thead><tr><th>Startup</th><th>City</th><th>Submitted</th><th>Status</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>':empty('No startup requests yet.'))+'<div class="actions spaced">'+button('Suggest startup','data-open-dialog="startup"')+'</div>')
+      +'<div class="actions">'+feedbackButton('admin','map management')+'</div>'+evidenceAudit(companies)+panel('Startup request queue','<div id="queue-progress" aria-live="polite"></div>'+(rows?'<div class="scroll"><table class="rules"><thead><tr><th>Startup</th><th>City</th><th>Submitted</th><th>Status</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>':empty('No startup requests yet.'))+'<div class="actions spaced">'+button('Suggest startup','data-open-dialog="startup"')+'</div>')
       +panel('City preloads','<div class="scroll"><table class="rules"><thead><tr><th>City</th><th>Indexed profiles</th><th>Signals captured</th><th>Snapshot run</th></tr></thead><tbody>'+seeds+'</tbody></table></div>'+(list?'<h3 style="margin-top:14px">Workspace jobs</h3><ul class="items">'+list+'</ul>':'')+'<div class="actions spaced">'+button('+ Add city','data-open-dialog="city"')+'</div>')
       +(health?panel('Source health','<div class="scroll"><table class="rules"><thead><tr><th>Connector</th><th>Last success</th><th>Last failure</th></tr></thead><tbody>'+health+'</tbody></table></div>'):'')
       +panel('Extraction quality','<div class="cards"><div><div class="value">'+extracted+'</div><small>Documents processed</small></div><div><div class="value">'+confirmed+'</div><small>Confirmed fields</small></div><div><div class="value">'+(confirmed?Math.round(100*unchanged/confirmed)+'%':'—')+'</div><small>Confirmed unchanged</small></div></div>')+'</div>';
@@ -1160,7 +1261,7 @@ export async function client() {
       const sector=fund.sectors.some(sector=>company.sector.toLowerCase().includes(sector));
       return {...fund,geographic,sector,fit:40*Number(geographic)+60*Number(sector)};
     }).sort((a,b)=>b.fit-a.fit);
-    main.innerHTML=title('Find investors','Match public mandates against '+company.name+'’s sector and ecosystem.')+picker+'<div class="cards">'+fits.map(fund=>panel(fund.name,'<div class="scoreline"><div class="score">'+fund.fit+'<sub>/100 fit</sub></div></div><p>'+esc(fund.description)+'</p><div class="actions">'+badge(fund.geographic?'Region matches':'Region unverified',fund.geographic?'ok':'dim')+badge(fund.sector?'Sector matches':'Sector unverified',fund.sector?'ok':'dim')+'</div><ul class="items"><li>Stage · '+esc(fund.stage)+'</li><li>Example portfolio · '+esc(fund.portfolio.join(', '))+'</li><li>Check size · '+esc(fund.ticket)+'</li>'+(fund.recent?'<li>'+link(fund.recent.url,fund.recent.label+' ↗')+'</li>':'')+'<li>Follow-on rate and responsiveness · No measured history</li></ul><div class="source">'+link(fund.source)+' · Reviewed '+esc(fund.asOf)+'</div>')).join('')+'</div>';
+    main.innerHTML=title('Find investors','Match public mandates against '+company.name+'’s sector and ecosystem.')+'<div class="actions">'+feedbackButton('funds','investor matches')+'</div>'+picker+'<div class="cards">'+fits.map(fund=>panel(fund.name,'<div class="scoreline"><div class="score">'+fund.fit+'<sub>/100 fit</sub></div></div><p>'+esc(fund.description)+'</p><div class="actions">'+badge(fund.geographic?'Region matches':'Region unverified',fund.geographic?'ok':'dim')+badge(fund.sector?'Sector matches':'Sector unverified',fund.sector?'ok':'dim')+'</div><ul class="items"><li>Stage · '+esc(fund.stage)+'</li><li>Example portfolio · '+esc(fund.portfolio.join(', '))+'</li><li>Check size · '+esc(fund.ticket)+'</li>'+(fund.recent?'<li>'+link(fund.recent.url,fund.recent.label+' ↗')+'</li>':'')+'<li>Follow-on rate and responsiveness · No measured history</li></ul><div class="source">'+link(fund.source)+' · Reviewed '+esc(fund.asOf)+'</div>')).join('')+'</div>';
   }
 
   document.addEventListener('change',event=>{
@@ -1243,6 +1344,7 @@ export async function client() {
 
   document.addEventListener('submit',async event=>{
     const form=event.target;
+    if (form.id==='feedback-form') { event.preventDefault(); await submitFeedback(form); return; }
     if(!form.dataset.reviewStartup && !['alerts-form','kpi-form','custom-form','mail-form','invite-form','startup-form','city-form'].includes(form.id)) return;
     event.preventDefault();
     const feedback=form.querySelector('[data-form-error]');
@@ -1344,8 +1446,18 @@ export async function client() {
 
 
   document.addEventListener('click', async event => {
+    const jump=event.target.closest('.reading-dossier a[href^="#"]');
+    if (jump) {
+      const target=document.getElementById(jump.hash.slice(1));
+      const disclosure=target?.closest('.dossier-disclosure');
+      if (disclosure) disclosure.open=true;
+    }
     const node = event.target.closest('button');
     if (!node) return;
+    if (node.dataset.feedbackArea || node.dataset.feedbackVote || node.dataset.feedbackRetry) {
+      await handleFeedbackButton(node);
+      return;
+    }
     if (node.dataset.page) {
       const fromHeader=top.contains(node);
       node.disabled=true;

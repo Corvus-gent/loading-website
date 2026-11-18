@@ -21,3 +21,7 @@ Open de [demo](https://corvus.gent/project-cto) in één browservenster en gebru
 De sterkste volgorde is **ontdekken → bewijs checken → founder bevestigt → investor ziet het resultaat**. Zo maak je het verschil met een klassieke KPI-portal al in de eerste minuut duidelijk. De kaart helpt om bedrijven te ontdekken. Het dossier onderbouwt de observaties. De maandelijkse update laat zien hoe het product na de eerste zoekopdracht waarde blijft leveren.
 
 Als live onderzoek weinig oplevert, keer terug naar Aikido of Deliverect. Beide dossiers komen uit de vooraf geladen catalogus. De dichtheid verschilt per stad. Beoordeel kleinere hubs op vindbaarheid en herkomst van een profiel.
+
+## Feedback
+
+Open [Feedback](https://corvus.gent/project-cto/feedback) voor algemene feedback, of gebruik het chatballonnetje naast een dossierweergave, de kaart of Compare. Een gewone bug of prioriteitsstem verschijnt alleen op het bord. Een als kritisch gemarkeerde bug gebruikt Resend en gaat naar `OPENRISK_FEEDBACK_TO` of, standaard, `gabriel@corvus.gent`.

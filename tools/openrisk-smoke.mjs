@@ -151,6 +151,14 @@ try {
     await page.getByText('September update.pdf',{exact:true}).first().waitFor();
     await page.getByText('October update.xlsx',{exact:true}).first().waitFor();
   }
+  await page.locator('#top-nav').getByRole('button',{name:'Feedback',exact:true}).click();
+  await page.getByRole('heading',{name:'Feedback',exact:true}).waitFor();
+  assert.ok((await page.request.get(root+'/api/feedback')).ok());
+  await page.getByRole('button',{name:'Share feedback',exact:true}).click();
+  const feedback=page.getByRole('dialog',{name:'Share feedback'});
+  await feedback.getByLabel('Type').selectOption('bug');
+  await feedback.getByLabel(/Critical bug/).waitFor();
+  await feedback.getByRole('button',{name:'Close',exact:true}).click();
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth <= innerWidth),true,'No page overflow');
   assert.deepEqual(errors,[]);
   console.log(JSON.stringify(measurements,null,2));

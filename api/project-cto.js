@@ -9,6 +9,7 @@ import { metrics, samples } from './_openrisk/engine/metrics.js';
 import { getState, update, apply, project, invitation, runJob, existingStartup, websiteHost, Problem } from './_openrisk/store.js';
 import { signal } from './_openrisk/engine/enrich.js';
 import { runEstimate } from './_openrisk/engine/live-estimate.js';
+import { listFeedback, changeFeedback, feedbackAreas } from './_openrisk/feedback.js';
 import { score } from './_openrisk/engine/score.js';
 import { funds } from './_openrisk/engine/funds.js';
 import { subscribeResearch } from './_openrisk/engine/research.js';
@@ -29,7 +30,7 @@ const equal = (a, b) => {
 };
 const sign = (payload, key) => createHmac('sha256', key).update(payload).digest('base64url');
 const validRoles = ['Investor', 'Founder', 'Admin'];
-const pageRoute = /^(?:catalog|portfolio|compare|founder|investors|operations|country\/(?:belgium|england|netherlands|germany|france|european-hubs|united-states|new-york-city|shanghai|greater-bay-area|morocco)|city\/[a-z0-9-]{1,100}|startup\/[a-z0-9-]{1,100}|invite\/[0-9a-f]{32}\/[A-Za-z0-9_-]{32})$/;
+const pageRoute = /^(?:feedback|catalog|portfolio|compare|founder|investors|operations|country\/(?:belgium|england|netherlands|germany|france|european-hubs|united-states|new-york-city|shanghai|greater-bay-area|morocco)|city\/[a-z0-9-]{1,100}|startup\/[a-z0-9-]{1,100}|invite\/[0-9a-f]{32}\/[A-Za-z0-9_-]{32})$/;
 const acceptedDestination = value => typeof value === 'string' && value.startsWith(root+'/') && pageRoute.test(value.slice(root.length+1)) ? value : '';
 const documentScripts = {
   'document/pdf.mjs':'node_modules/pdfjs-dist/legacy/build/pdf.min.mjs',
@@ -156,7 +157,7 @@ export default async function handle(req, res) {
     return artwork ? send(res,200,Buffer.from(artwork[2],'base64'),artwork[1]) : send(res,404,{error:'Logo not found.'});
   }
   if (req.method === 'GET' && asset) return send(res, 200, '(' + client.toString() + ')();', 'application/javascript; charset=utf-8');
-  if (req.method === 'GET' && route === 'api/bootstrap') return send(res, 200, { catalog: catalog.map(item => ({ ...item, summary: summary(item) })), cities, land, insets, logoIds:Object.keys(logos), funds, preloadReport, role: auth.role });
+  if (req.method === 'GET' && route === 'api/bootstrap') return send(res, 200, { catalog: catalog.map(item => ({ ...item, summary: summary(item) })), cities, land, insets, logoIds:Object.keys(logos), funds, preloadReport, feedbackAreas, role: auth.role });
   if (req.method === 'GET' && route.startsWith('api/invite/')) {
     const target = /^api\/invite\/([0-9a-f]{32})\/([A-Za-z0-9_-]{32})$/.exec(route);
     if (!target) return send(res,404,{error:'Invitation not found.'});
@@ -177,6 +178,21 @@ export default async function handle(req, res) {
       return origin ? send(res,200,origin) : send(res,404,{error:'Location not found. Try the city name or choose a country.'});
     } catch {
       return send(res,503,{error:'Location lookup is temporarily unavailable. Try a major city or use your location.'});
+    }
+  }
+  if (route==='api/feedback') {
+    if (req.method==='POST' && (!sameOrigin(req) || !String(req.headers['content-type']).startsWith('application/json'))) {
+      return send(res,403,{error:'Use the OpenRisk workspace.'});
+    }
+    try {
+      if (req.method==='GET') return send(res,200,{rows:await listFeedback(auth.id)});
+      if (req.method!=='POST') return send(res,405,{error:'Use GET or POST.'});
+      let body;
+      try { body=await readBody(req); } catch { return send(res,400,{error:'Invalid feedback request.'}); }
+      const result=await changeFeedback(auth.id,body);
+      return send(res,200,{...result,rows:await listFeedback(auth.id)});
+    } catch(error) {
+      return send(res,error instanceof Problem?error.status:503,{error:error instanceof Problem?error.message:'Feedback is temporarily unavailable.'});
     }
   }
   if (route === 'api/state') {
