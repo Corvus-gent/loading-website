@@ -47,6 +47,7 @@ try {
     if(name==='Aikido Security') await shot('02-aikido-dossier');
     await explore();
   }
+  await page.getByRole('group',{name:'Map region'}).getByRole('button',{name:'Bay Area',exact:true}).click();
   await page.getByRole('button',{name:'Palo Alto',exact:true}).click();
   await page.getByRole('heading',{name:/Palo Alto ·/}).waitFor();
   const started = Date.now();
@@ -64,7 +65,7 @@ try {
   const investorWrite = await page.request.post(root+'/api/state',{headers:{Origin:origin},data:{action:'save',company:'aikido-security',period:'2026-10',values:{cash:10},currency:'EUR'}});
   assert.equal(investorWrite.status(),403);
   await page.getByRole('button',{name:'Claim this profile'}).click();
-  await page.getByRole('heading',{name:'Founder desk'}).waitFor();
+  await page.getByRole('heading',{name:'My startup'}).waitFor();
   await page.getByRole('button',{name:'September investor update'}).click();
   await page.getByRole('button',{name:'Extract KPI proposals'}).click();
   await page.getByRole('heading',{name:'Review proposals'}).waitFor();
@@ -77,10 +78,10 @@ try {
   await shot('04-email-proposals');
   await page.getByRole('button',{name:'Confirm all'}).click();
   await page.getByText('7 KPI proposals confirmed.').waitFor();
-  await page.getByRole('button',{name:'Investor fit',exact:true}).click();
+  await page.getByRole('button',{name:'Find investors',exact:true}).click();
   await page.getByRole('heading',{name:'Notion Capital'}).waitFor();
   await shot('05-investor-fit');
-  await page.getByRole('button',{name:'Founder desk',exact:true}).click();
+  await page.getByRole('button',{name:'My startup',exact:true}).click();
   await page.getByLabel('Email',{exact:true}).fill('sam@example.com');
   await page.getByRole('button',{name:'Create 7-day link'}).click();
   const guestLink = page.getByLabel('Private demo link');
@@ -100,8 +101,8 @@ try {
     await invited.reload();
     await invited.getByText('This invitation has expired or been revoked.').waitFor();
   } finally { await invited.close(); }
-  await page.getByLabel('View as').selectOption('Investor');
-  await page.getByRole('heading',{name:'Portfolio cockpit'}).waitFor();
+  await page.locator('#top-nav').getByRole('button',{name:'Watchlist',exact:true}).click();
+  await page.getByRole('heading',{name:'Watchlist'}).waitFor();
   await page.getByText('4.6 mo').waitFor();
   await page.getByText('11%',{exact:true}).waitFor();
   await shot('06-portfolio-cockpit');
@@ -117,8 +118,8 @@ try {
   await page.getByLabel('City (optional)').fill('Gent');
   await page.getByRole('button',{name:'Submit for approval'}).click();
   await page.getByText('Submitted to the admin queue.').waitFor();
-  await page.getByLabel('View as').selectOption('Admin');
-  await page.getByRole('heading',{name:'Operations'}).waitFor();
+  await page.locator('#top-nav').getByRole('button',{name:'Manage map',exact:true}).click();
+  await page.getByRole('heading',{name:'Manage map'}).waitFor();
   const proposed = label => page.getByRole('row').filter({hasText:label});
   await proposed('Northstar Demo').getByLabel('Map city').fill('Gent');
   await proposed('Northstar Demo').getByRole('button',{name:'Approve & preload'}).click();
@@ -141,8 +142,8 @@ try {
   await page.getByRole('heading',{name:/Paris ·/}).waitFor();
   assert.equal(await page.locator('#city-rows').getByRole('button').count()>0,true);
   if (process.env.OPENRISK_TEST_PDF && process.env.OPENRISK_TEST_XLSX) {
-    await page.getByLabel('View as').selectOption('Founder');
-    await page.getByRole('heading',{name:'Founder desk'}).waitFor();
+    await page.locator('#top-nav').getByRole('button',{name:'My startup',exact:true}).click();
+    await page.getByRole('heading',{name:'My startup'}).waitFor();
     await page.locator('input[type=file]').setInputFiles([process.env.OPENRISK_TEST_PDF,process.env.OPENRISK_TEST_XLSX]);
     await page.getByRole('button',{name:'Extract KPI proposals'}).click();
     await page.getByRole('heading',{name:'Review proposals'}).waitFor();

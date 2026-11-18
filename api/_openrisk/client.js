@@ -2,7 +2,6 @@ export async function client() {
   const root = '/project-cto';
   const main = document.querySelector('#workspace');
   const top = document.querySelector('#top-nav');
-  const roleInput = document.querySelector('#role');
   const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[char]));
   const safeUrl = value => {
     try { return new URL(value).protocol === 'https:' ? new URL(value).href : ''; }
@@ -47,12 +46,30 @@ export async function client() {
   const empty = text => '<p class="empty">' + esc(text) + '</p>';
   const source = signal => signal ? '<div class="source">' + badge(signal.status, signal.status === 'founder-confirmed' ? 'ok' : signal.status === 'proposed' ? 'warn' : 'dim') + ' ' + esc(signal.confidence) + ' confidence · ' + esc(date(signal.fetchedAt)) + ' · ' + link(signal.source) + '</div>' : '';
   const val = (text, s) => '<div class="value">' + esc(text) + '</div>' + source(s);
-  const nav = () => {
-    roleInput.value = ctx.role;
-    const tabs = [['map','Explore'], ...(ctx.role==='Investor' ? [['compare','Compare'],['portfolio','Portfolio']] : ctx.role==='Founder' ? [['founder','Founder desk'],['funds','Investor fit']] : [['admin','Operations']])];
-    top.innerHTML = tabs.map(([page,label])=>button(label,'data-page="'+page+'"',ctx.page===page?'current':'')).join('');
+  const destinations = {
+    map:{label:'Explore',path:'',role:'Investor'},
+    compare:{label:'Compare',path:'/compare',role:'Investor'},
+    portfolio:{label:'Watchlist',path:'/portfolio',role:'Investor'},
+    founder:{label:'My startup',path:'/founder',role:'Founder'},
+    funds:{label:'Find investors',path:'/investors',role:'Founder'},
+    admin:{label:'Manage map',path:'/operations',role:'Admin'},
   };
-  const viewRoutes = {map:'',portfolio:'/portfolio',compare:'/compare',founder:'/founder',funds:'/investors',admin:'/operations'};
+  const nav = () => {
+    const current=['profile','cold'].includes(ctx.page)?'map':ctx.page;
+    const groups=[['Find startups',['map','compare','portfolio']],['Grow your startup',['founder','funds']],['Manage the ecosystem',['admin']]];
+    top.innerHTML=groups.map(([label,pages])=>'<div class="nav-group" role="group" aria-label="'+label+'">'
+      +pages.map(page=>button(destinations[page].label,'data-page="'+page+'"'+(current===page?' aria-current="page"':''),current===page?'current':'')).join('')+'</div>').join('');
+  };
+  let pageQueue=Promise.resolve();
+  function openPage(page,recordPath=true) {
+    const job=pageQueue.then(async()=>{
+      const role=destinations[page].role;
+      if (ctx.role!==role) await switchRole(role);
+      navigate(page,recordPath);
+    });
+    pageQueue=job.catch(()=>{});
+    return job;
+  }
   const citySlug = name => name.normalize('NFKD').toLowerCase().replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
   function setPath(path) {
     const target=root+path;
@@ -61,7 +78,7 @@ export async function client() {
   function navigate(page, recordPath = true) {
     ctx.cancel?.abort();
     ctx.page = page;
-    if (recordPath && Object.hasOwn(viewRoutes,page)) setPath(page==='map' && ctx.countryList ? '/country/'+citySlug(ctx.countryList) : page==='map' && ctx.city!=='Gent' ? '/city/'+citySlug(ctx.city) : viewRoutes[page]);
+    if (recordPath && Object.hasOwn(destinations,page)) setPath(page==='map' && ctx.countryList ? '/country/'+citySlug(ctx.countryList) : page==='map' && ctx.city!=='Gent' ? '/city/'+citySlug(ctx.city) : destinations[page].path);
     nav();
     if (page === 'map') map();
     if (page === 'portfolio') portfolio();
@@ -521,7 +538,7 @@ export async function client() {
     const claimed = ctx.state.claims.includes(item.id);
     const followed = ctx.state.followed.includes(item.id);
     const controls = (ctx.role==='Investor' ? button('Compare','data-compare-company="'+esc(item.id)+'"','ghost')+button(followed?'Following':'Follow','data-follow="'+item.id+'"','accent') : '')
-      + (ctx.role!=='Admin' ? button(claimed?'Open founder desk':'Claim this profile','data-claim="'+item.id+'"',ctx.role==='Founder'?'accent':'ghost') : '');
+      + (ctx.role!=='Admin' ? button(claimed?'Open My startup':'Claim this profile','data-claim="'+item.id+'"',ctx.role==='Founder'?'accent':'ghost') : '');
     const kpis=ctx.state.companies[item.id]?.values.length ? metricView(item.id) : '';
     const overview='<section class="dossier-overview" aria-label="Score overview"><div class="dossier-score"><h2>OpenRisk score</h2>'
       + '<div class="scoreline"><div class="score">'+(r.value??'—')+'<sub>/100</sub></div>'+(r.grade?badge('Grade '+r.grade,r.grade<='B'?'ok':'warn'):r.provisional?badge('Provisional','warn'):'')+'</div>'
@@ -748,9 +765,9 @@ export async function client() {
     return '<div class="world-detail">'+ctx.cities.map(plot).join('')+'</div>'+extra.map(plot).join('');
   };
   async function switchRole(role) {
-    ctx.role=(await api('role',{role})).role;
+    const session=await api('role',{role});
     ctx.state=(await api('state')).state;
-    nav();
+    ctx.role=session.role;
   }
   async function mutate(command) {
     const response=await api('state',command);
@@ -783,7 +800,7 @@ export async function client() {
     const rows=items.map(row=>'<tr><td>'+button(row.name,'data-company="'+row.company.id+'"','link')+sampleTag(row)+'</td><td>'+date(row.last)+'</td><td>'+shown(row.cash)+'</td><td class="'+(row.runway?.value<6?'danger':'')+'">'+(row.runway?shown(row.runway)+' mo':'—')+'</td><td>'+(row.growth==null?'—':number(row.growth)+'%')+'</td><td>'+riskBadge(row.company.risk)+'</td></tr>').join('');
     const table = rows ? '<div class="scroll"><table class="rules"><thead><tr>'+keys.map(([key,label])=>'<th scope="col"'+(ctx.order===key?' aria-sort="'+(ctx.descending?'descending':'ascending')+'"':'')+'>'+button(label+(ctx.order===key?(ctx.descending?' ↓':' ↑'):''),'data-port-sort="'+key+'"')+'</th>').join('')+'</tr></thead><tbody>'+rows+'</tbody></table></div>' : empty('Follow any startup from its profile to add it here.');
     const alerts=ctx.state.alerts;
-    main.innerHTML=title('Portfolio cockpit','Track followed companies and review founder-confirmed updates.')
+    main.innerHTML=title('Watchlist','Follow companies from Explore or Compare and review founder-confirmed updates.')
       +'<div class="stack">'+panel('Followed startups',table)+panel('Alert settings','<form id="alerts-form" class="form-grid"><div><label>Runway warning (months)<input name="threshold" type="number" min="1" max="36" required value="'+(alerts.threshold||6)+'"></label></div><label class="switchline"><input name="monthly" type="checkbox" '+(alerts.monthly?'checked':'')+'> New monthly figures</label><div class="full actions"><button class="accent">Save alerts</button><small>Demo settings · Email delivery simulated</small></div></form>')+'</div>';
   }
 
@@ -818,11 +835,15 @@ export async function client() {
     return '<svg class="chart" viewBox="0 0 272 130" role="img" aria-label="Monthly KPI trend"><path d="M14 30H258 M14 60H258 M14 98H258" fill="none" stroke="#283953"/><polyline points="'+pts.map(([x,y])=>x+','+y).join(' ')+'" fill="none" stroke="#89afff" stroke-width="2"/>'+pts.map(([x,y,row])=>'<circle cx="'+x+'" cy="'+y+'" r="3.8" fill="#8fe1cc"><title>'+esc(row.period)+' · '+shown(row)+'</title></circle>').join('')+'<text x="14" y="119" class="number-label">'+esc(rows[0].period)+'</text>'+(rows.length>1?'<text x="258" y="119" text-anchor="end" class="number-label">'+esc(rows.at(-1).period)+'</text>':'')+'</svg>';
   }
 
+  const claimedCompanies = () => allCompanies().filter(item=>ctx.state.claims.includes(item.id));
+  const claimedPicker = (companies,id) => '<label for="claimed-company">Claimed profile</label><select id="claimed-company">'
+    +companies.map(item=>'<option value="'+esc(item.id)+'"'+(item.id===id?' selected':'')+'>'+esc(item.name)+'</option>').join('')+'</select>';
+
   function founder() {
-    const claimed = allCompanies().filter(item=>ctx.state.claims.includes(item.id));
+    const claimed=claimedCompanies();
     const item = claimed.find(company=>company.id===ctx.current) || claimed[0];
     if (!item) {
-      main.innerHTML=title('Founder desk','Claim a startup from Explore to start publishing confirmed updates.')+button('Explore startups','data-page="map"','accent');
+      main.innerHTML=title('My startup','Find your company in Explore, open its dossier and choose Claim this profile.')+button('Find my startup','data-page="map" data-focus-search','accent');
       return;
     }
     ctx.current=item.id;
@@ -833,8 +854,8 @@ export async function client() {
     const fields=Object.entries(defs).map(([key,def])=>'<div><label for="kpi-'+esc(key)+'">'+esc(def.label)+(key==='runway'?' (auto if blank)':'')+'</label><input id="kpi-'+esc(key)+'" name="'+esc(key)+'" type="number" step="'+(def.unit==='count'?'1':'any')+'" '+(key==='runway'&&values[key]?.source==='calculated'?'placeholder="'+esc(values[key].value)+' calculated"':'value="'+esc(values[key]?.value ?? '')+'"')+'></div>').join('');
     const proposals=(c.proposals||[]).filter(row=>row.status==='proposed');
     const inviteList=ctx.state.invites.filter(row=>row.company===item.id).map(row=>'<li><div class="split"><span>'+esc(row.email)+' '+badge(row.status==='revoked'?'Revoked':Date.parse(row.expiresAt)<=Date.now()?'Expired':row.status)+'</span>'+(row.status==='revoked'?'':button('Revoke','data-revoke="'+row.id+'"','link'))+'</div><small>Expires '+date(row.expiresAt)+'</small></li>').join('');
-    main.innerHTML=title('Founder desk','Manage demo ownership, review proposed metrics and publish confirmed values.')
-      +'<div class="actions" style="margin-bottom:14px"><label for="claimed-company">Claimed profile</label><select id="claimed-company">'+claimed.map(row=>'<option value="'+row.id+'"'+(item.id===row.id?' selected':'')+'>'+esc(row.name)+'</option>').join('')+'</select>'+button('View dossier','data-company="'+item.id+'"')+'</div><div class="stack">'
+    main.innerHTML=title('My startup','Review draft metrics and publish confirmed updates from your claimed profile.')
+      +'<div class="actions" style="margin-bottom:14px">'+claimedPicker(claimed,item.id)+button('View dossier','data-company="'+item.id+'"')+'</div><div class="stack">'
       +panel('Email → KPI','<div class="actions">'+ctx.samples.map((sample,i)=>button(sample.label,'data-sample="'+i+'"')).join('')+'</div><form id="mail-form" class="stack" style="margin-top:12px"><div><label>Default reporting month<input name="period" type="month" value="'+ctx.selectedPeriod+'" required></label></div><div><label>Investor update<textarea name="text" maxlength="16000" placeholder="Paste a monthly investor update…"></textarea></label></div><div><label>PDF or XLSX attachments <input name="files" type="file" accept=".pdf,.xlsx" multiple></label><small>Files are read locally. Up to two attachments, 2 MB each.</small></div><div><button class="accent">Extract KPI proposals</button></div></form>'
       +(proposals.length?'<div id="proposals"><h3 style="margin-top:18px">Review proposals</h3><div class="scroll"><table class="rules"><thead><tr><th>KPI</th><th>Period</th><th>Proposed value</th><th>Source sentence</th><th>Review</th></tr></thead><tbody>'+proposals.map(p=>'<tr data-proposal="'+p.id+'"><td>'+esc(labelFor(item.id,p.metric))+'<br>'+badge('proposed','warn')+sampleTag(p)+(p.duplicate?' '+badge('Existing value','red'):'')+'</td><td><input aria-label="Reporting month" name="period" type="month" value="'+p.period+'"></td><td><input aria-label="Proposed value" name="value" type="number" step="any" value="'+p.value+'">'+(ctx.metrics[p.metric]?.unit==='money'?'<select aria-label="Currency" name="currency">'+['EUR','USD','GBP'].map(code=>'<option'+(code===(p.currency||'EUR')?' selected':'')+'>'+code+'</option>').join('')+'</select>':'')+'<small>'+esc(p.confidence)+' · '+date(p.fetchedAt)+'</small></td><td><small>'+esc(p.document||'Investor update')+'</small><blockquote><mark>'+esc(p.evidence)+'</mark></blockquote></td><td><div class="actions">'+button('Confirm','data-review="'+p.id+'"')+button('Reject','data-review="'+p.id+'" data-reject="yes"','link')+'</div></td></tr>').join('')+'</tbody></table></div><div class="actions spaced">'+button('Confirm all','data-confirm-all','accent')+'</div></div>':''))
       +panel('Monthly KPI form','<form id="kpi-form" class="form-grid"><div><label>Reporting month<input name="period" id="kpi-period" type="month" value="'+ctx.selectedPeriod+'" required></label></div><div><label>Currency<select name="currency">'+['EUR','USD','GBP'].map(code=>'<option'+(currency===code?' selected':'')+'>'+code+'</option>').join('')+'</select></label></div><div></div>'+fields+'<div class="full"><label>Monthly text update<textarea name="note" maxlength="2000">'+esc(c.updates[ctx.selectedPeriod]?.note||'')+'</textarea></label></div><div class="full actions"><button class="accent">Save KPI update</button><small>Blank metrics keep their existing values.</small></div></form>')
@@ -915,7 +936,7 @@ export async function client() {
       return '<tr><td>'+esc(city.name)+'</td><td>'+count+'</td><td>'+(sweep ? sweep.count : '—')+'</td><td>'+(sweep ? stamp(sweep.completedAt) : '—')+'</td></tr>';
     }).join('');
     const health=Object.entries(ctx.preloadReport?.sources||{}).map(([label, row])=>'<tr><td>'+esc(label)+'</td><td>'+stamp(row.lastSuccess)+'</td><td>'+stamp(row.lastFailure)+'</td></tr>').join('');
-    main.innerHTML=title('Operations','Review map submissions, preload runs and extraction quality.')+'<div class="stack">'
+    main.innerHTML=title('Manage map','Review startup suggestions and preload profiles and cities onto the map.')+'<div class="stack">'
       +panel('Startup request queue','<div id="queue-progress" aria-live="polite"></div>'+(rows?'<div class="scroll"><table class="rules"><thead><tr><th>Startup</th><th>City</th><th>Submitted</th><th>Status</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>':empty('No startup requests yet.'))+'<div class="actions spaced">'+button('Suggest startup','data-open-dialog="startup"')+'</div>')
       +panel('City preloads','<div class="scroll"><table class="rules"><thead><tr><th>City</th><th>Indexed profiles</th><th>Signals captured</th><th>Snapshot run</th></tr></thead><tbody>'+seeds+'</tbody></table></div>'+(list?'<h3 style="margin-top:14px">Workspace jobs</h3><ul class="items">'+list+'</ul>':'')+'<div class="actions spaced">'+button('+ Add city','data-open-dialog="city"')+'</div>')
       +(health?panel('Source health','<div class="scroll"><table class="rules"><thead><tr><th>Connector</th><th>Last success</th><th>Last failure</th></tr></thead><tbody>'+health+'</tbody></table></div>'):'')
@@ -923,11 +944,14 @@ export async function client() {
   }
 
   function funds() {
-    const company=allCompanies().find(item=>item.id===ctx.current && ctx.state.claims.includes(item.id));
+    const claimed=claimedCompanies();
+    const company=claimed.find(item=>item.id===ctx.current) || claimed[0];
     if (!company) {
-      main.innerHTML=title('Investor fit','Claim a startup to match its sector and location to investor mandates.')+button('Founder desk','data-page="founder"','accent');
+      main.innerHTML=title('Find investors','Claim your startup to see investors who match its sector and location.')+button('Set up my startup','data-page="founder"','accent');
       return;
     }
+    ctx.current=company.id;
+    const picker=claimed.length>1 ? '<div class="actions spaced">'+claimedPicker(claimed,company.id)+'</div>' : '';
     const fits=(ctx.funds||[]).map(fund=>{
       const geo=allCities().find(city=>city.name===company.city)?.country || (company.city==='Paris'?'France':'Unknown');
       const inEurope=['Belgium','France','Germany','United Kingdom','England','Netherlands','Spain','Portugal','Ireland','Sweden','Finland','Italy','Austria','Switzerland','Denmark','Norway'].includes(geo);
@@ -935,12 +959,12 @@ export async function client() {
       const sector=fund.sectors.some(sector=>company.sector.toLowerCase().includes(sector));
       return {...fund,geographic,sector,fit:40*Number(geographic)+60*Number(sector)};
     }).sort((a,b)=>b.fit-a.fit);
-    main.innerHTML=title('Investor fit','Match public mandates against '+company.name+'’s sector and ecosystem.')+'<div class="cards">'+fits.map(fund=>panel(fund.name,'<div class="scoreline"><div class="score">'+fund.fit+'<sub>/100 fit</sub></div></div><p>'+esc(fund.description)+'</p><div class="actions">'+badge(fund.geographic?'Region matches':'Region unverified',fund.geographic?'ok':'dim')+badge(fund.sector?'Sector matches':'Sector unverified',fund.sector?'ok':'dim')+'</div><ul class="items"><li>Stage · '+esc(fund.stage)+'</li><li>Example portfolio · '+esc(fund.portfolio.join(', '))+'</li><li>Check size · '+esc(fund.ticket)+'</li>'+(fund.recent?'<li>'+link(fund.recent.url,fund.recent.label+' ↗')+'</li>':'')+'<li>Follow-on rate and responsiveness · No measured history</li></ul><div class="source">'+link(fund.source)+' · Reviewed '+esc(fund.asOf)+'</div>')).join('')+'</div>';
+    main.innerHTML=title('Find investors','Match public mandates against '+company.name+'’s sector and ecosystem.')+picker+'<div class="cards">'+fits.map(fund=>panel(fund.name,'<div class="scoreline"><div class="score">'+fund.fit+'<sub>/100 fit</sub></div></div><p>'+esc(fund.description)+'</p><div class="actions">'+badge(fund.geographic?'Region matches':'Region unverified',fund.geographic?'ok':'dim')+badge(fund.sector?'Sector matches':'Sector unverified',fund.sector?'ok':'dim')+'</div><ul class="items"><li>Stage · '+esc(fund.stage)+'</li><li>Example portfolio · '+esc(fund.portfolio.join(', '))+'</li><li>Check size · '+esc(fund.ticket)+'</li>'+(fund.recent?'<li>'+link(fund.recent.url,fund.recent.label+' ↗')+'</li>':'')+'<li>Follow-on rate and responsiveness · No measured history</li></ul><div class="source">'+link(fund.source)+' · Reviewed '+esc(fund.asOf)+'</div>')).join('')+'</div>';
   }
 
   document.addEventListener('change',event=>{
     const input=event.target;
-    if(input.id==='claimed-company') { ctx.current=input.value; founder(); }
+    if(input.id==='claimed-company') { ctx.current=input.value; if (ctx.page==='funds') funds(); else founder(); }
     if(input.id==='kpi-period' && input.value) { ctx.selectedPeriod=input.value; founder(); }
     if(input.id==='metric-category' || input.id==='metric-range') {
       if(input.id==='metric-category') ctx.category=input.value;
@@ -1089,31 +1113,44 @@ export async function client() {
     }
   });
 
-  function openPath() {
+  async function openPath() {
     const relative=location.pathname.slice(root.length);
     const city=/^\/city\/([a-z0-9-]+)$/.exec(relative);
     ctx.countryList=null;
     const country=mapCountries.find(name=>'/country/'+citySlug(name)===relative);
-    if (country) { ctx.countryList=country; navigate('map',false); return; }
+    if (country) { ctx.countryList=country; return openPage('map',false); }
     if (!relative) ctx.city='Gent';
     if (city) {
       ctx.city=allCities().find(item=>citySlug(item.name)===city[1])?.name || 'Gent';
-      navigate('map',false);
-      return;
+      return openPage('map',false);
     }
     const startup=/^\/startup\/([a-z0-9-]+)$/.exec(relative);
     const item=startup && allCompanies().find(company=>company.id===startup[1]);
-    if (item) { profile(item,false); return; }
-    const page=Object.keys(viewRoutes).find(key=>viewRoutes[key]===relative);
-    const allowed={Investor:['map','portfolio','compare'],Founder:['map','founder','funds'],Admin:['map','admin']};
-    navigate(allowed[ctx.role]?.includes(page)?page:'map',false);
+    if (item) {
+      if (ctx.role!=='Investor') await switchRole('Investor');
+      profile(item,false);
+      return;
+    }
+    const page=Object.keys(destinations).find(key=>destinations[key].path===relative);
+    return openPage(page || 'map',false);
   }
-  addEventListener('popstate',openPath);
+  addEventListener('popstate',()=>{ void openPath().catch(error=>toast(error.message)); });
+
 
   document.addEventListener('click', async event => {
     const node = event.target.closest('button');
     if (!node) return;
-    if (node.dataset.page) navigate(node.dataset.page);
+    if (node.dataset.page) {
+      const fromHeader=top.contains(node);
+      node.disabled=true;
+      try {
+        await openPage(node.dataset.page);
+        if (node.hasAttribute('data-focus-search')) main.querySelector('#company-search')?.focus();
+        else if (fromHeader) top.querySelector('[aria-current="page"]')?.focus({preventScroll:true});
+      } catch(error) { toast(error.message); }
+      finally { node.disabled=false; }
+      return;
+    }
     if (mapCountries.includes(node.dataset.mapCountry)) {
       if (ctx.sort==='nearby') { ctx.sort='risk'; ctx.sortDirection=null; }
       ctx.countryList=node.dataset.mapCountry;
@@ -1188,27 +1225,18 @@ export async function client() {
     if (node.dataset.cold) void live(node.dataset.cold);
   });
   document.addEventListener('error', event => { if (event.target instanceof HTMLImageElement) event.target.hidden = true; }, true);
-  document.addEventListener('keydown', event => {
+  document.addEventListener('keydown', async event => {
     if (event.key === '/' && !['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)) {
       event.preventDefault();
-      if (ctx.page !== 'map') navigate('map');
-      document.querySelector('#company-search')?.focus();
+      try {
+        if (ctx.page!=='map') await openPage('map');
+        main.querySelector('#company-search')?.focus();
+      } catch(error) { toast(error.message); }
     }
   });
-  roleInput.onchange = async () => {
-    roleInput.disabled = true;
-    try {
-      await switchRole(roleInput.value);
-      if (ctx.page==='profile') profile(allCompanies().find(item=>item.id===ctx.current));
-      else navigate(ctx.role==='Investor'?'portfolio':ctx.role==='Founder'?'founder':'admin');
-    }
-    catch (error) { roleInput.value = ctx.role; toast(error.message); }
-    finally { roleInput.disabled = false; }
-  };
   try {
     const invite = /^\/project-cto\/invite\/(.+)$/.exec(location.pathname);
     if (invite) {
-      document.querySelector('.bar-end').hidden=true;
       const guest=await api('invite/'+invite[1]);
       ctx.metrics=guest.metrics || {};
       ctx.state={ companies:{ guest }, claims:[], followed:[] };
@@ -1217,7 +1245,7 @@ export async function client() {
     }
     const [boot, state] = await Promise.all([api('bootstrap'),api('state').catch(()=>({state:emptyState(),metrics:{},samples:[]}))]);
     Object.assign(ctx, boot, state);
-    openPath();
+    await openPath();
   } catch (error) {
     main.textContent = error.message;
   }

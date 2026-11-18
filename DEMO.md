@@ -9,9 +9,9 @@ Open the [private demo](https://corvus.gent/project-cto) at 1440×900 or a simil
 | 1:40–2:25 | Return to **Explore**, search **Deliverect**, then **Stripe**. Show **Belgian annual accounts** on Deliverect and **Financial signals** on Stripe. | “The same interface handles a Belgian enterprise record and a U.S. company disclosure.” |
 | 2:25–3:05 | Type **Hugging Face** and click **Research Hugging Face**. Watch the source badges. | “The public dossier starts immediately, and sources settle independently.” |
 | 3:05–4:30 | Back in **Explore**, search **Aikido Security**. Click **Claim this profile**. Load **September investor update**, click **Extract KPI proposals** and **Confirm all**. Repeat for **October investor update**. Show a highlighted sentence and the sample badge. | “Only the confirmed values become visible to investors. These two emails contain illustrative figures.” |
-| 4:30–5:20 | Click **Investor fit** and show **Notion Capital**. Change **View as** to **Investor**. Open **Portfolio**, point to **4.6 mo** in red and **11%** MRR growth, then open Aikido’s KPI charts. | “The founder gets investment context. The investor gets a read-only evidence trail and comparable KPI history.” |
-| 5:20–6:15 | In **Explore**, click **Suggest startup**. Enter **Northstar Demo**, **example.com**, and **Gent**. Submit, switch **View as → Admin**, then click **Approve & preload**. Back in Explore, search **Northstar Demo**. | “We can own the map. Submissions go through a review queue and approved records immediately join search.” |
-| 6:15–7:00 | Point to sources and extraction quality in **Operations**. Use the lines below. | “We now have one flow from public discovery to private, founder-approved reporting.” |
+| 4:30–5:20 | Click **Find investors** and show **Notion Capital**. Open **Watchlist**, point to **4.6 mo** in red and **11%** MRR growth, then open Aikido’s KPI charts. | “The founder gets investment context. The investor gets a read-only evidence trail and comparable KPI history.” |
+| 5:20–6:15 | In **Explore**, click **Suggest startup**. Enter **Northstar Demo**, **example.com**, and **Gent**. Submit, open **Manage map**, then click **Approve & preload**. Back in Explore, search **Northstar Demo**. | “We can own the map. Submissions go through a review queue and approved records immediately join search.” |
+| 6:15–7:00 | Point to sources and extraction quality in **Manage map**. Use the lines below. | “We now have one flow from public discovery to private, founder-approved reporting.” |
 
 ## Live-source fallback
 
