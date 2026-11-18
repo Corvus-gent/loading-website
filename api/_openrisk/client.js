@@ -566,7 +566,7 @@ export async function client() {
     const liveEstimate='<section class="dossier-chapter estimate-panel"><h2>Live evidence estimate</h2>'
       +'<p class="muted">Check public sources and see how missing evidence changes the score range.</p>'
       +button('Run live estimate','data-estimate="'+esc(item.id)+'"','accent')
-      +'<ol class="items" data-estimate-trace aria-live="polite"></ol><div data-estimate-result></div></section>';
+      +'<ol class="estimate-timeline" aria-label="Evidence steps" data-estimate-trace aria-live="polite"></ol><div class="estimate-result" aria-live="polite" data-estimate-result></div></section>';
     const modeClass='reading-dossier dossier-'+dossierMode.toLowerCase();
     if (logView) {
       main.innerHTML='<article class="'+modeClass+'">'+profileHeader(item,controls)+dossierSwitcher()+(!r.grade?liveEstimate:'')+'<div class="dossier-layout">'+layout+'</div></article>';
@@ -647,9 +647,9 @@ export async function client() {
         if (done) break;
         const lines=(buffer+value).split('\n');
         buffer=lines.pop();
-        for (const line of lines) if (line) receive(JSON.parse(line));
+        for (const line of lines) if (line) await receive(JSON.parse(line));
       }
-      if (buffer.trim()) receive(JSON.parse(buffer));
+      if (buffer.trim()) await receive(JSON.parse(buffer));
     } finally { await reader.cancel().catch(()=>{}); }
   }
 
@@ -663,19 +663,41 @@ export async function client() {
     trace.replaceChildren();
     result.replaceChildren();
     node.disabled=true;
+    node.textContent='Showing evidence…';
+    const interval=700;
+    let lastUpdate=performance.now();
+    const waitForNextUpdate=()=>{
+      const remaining=interval-(performance.now()-lastUpdate);
+      if (remaining<=0 || controller.signal.aborted) return;
+      return new Promise(resolve=>{
+        const finish=()=>{
+          clearTimeout(timer);
+          controller.signal.removeEventListener('abort',finish);
+          resolve();
+        };
+        const timer=setTimeout(finish,Math.ceil(remaining));
+        controller.signal.addEventListener('abort',finish,{once:true});
+      });
+    };
     const steps=new Map();
+    let active;
     function step(title,detail) {
       if (!steps.has(title)) {
         const line=document.createElement('li');
         trace.append(line);
         steps.set(title,line);
       }
-      steps.get(title).innerHTML='<strong>'+esc(title)+'</strong> · '+detail;
+      active?.classList.remove('current');
+      active=steps.get(title);
+      active.classList.add('current');
+      active.innerHTML='<strong>'+esc(title)+'</strong><div class="estimate-step-detail">'+detail+'</div>';
     }
     step('Start','Checking confirmed public sources and existing observations…');
     let complete=false;
     try {
-      await readEvents('/api/estimate/'+encodeURIComponent(node.dataset.estimate),controller.signal,event=>{
+      await readEvents('/api/estimate/'+encodeURIComponent(node.dataset.estimate),controller.signal,async event=>{
+        await waitForNextUpdate();
+        if (controller.signal.aborted) return;
         if (event.key==='error') throw Error(event.detail);
         if (event.key==='step') step(event.title,esc(event.detail)+(event.signal?source(event.signal):''));
         if (event.key==='factor') {
@@ -691,15 +713,20 @@ export async function client() {
           const sum=key=>event.factors.map(row=>scoreNumber(row[key])).join(' + ');
           result.innerHTML='<h3>Estimated model range</h3><p class="value">'+event.low+'–'+event.high+'/100</p>'
             +'<p>'+event.coverage+'% evidence coverage'+(event.midpoint!=null && missing.length?' · Illustrative midpoint '+event.midpoint+'/100':'')+'</p>'
-            +'<p class="source">Lower bound · '+sum('low')+' → '+event.low+'<br>Upper bound · '+sum('high')+' → '+event.high+'</p>'
-            +'<p>Bounds use the rubric’s lowest and highest values for missing inputs and round outward. The midpoint is the middle of these scenarios. These numbers describe the public-signal model only.</p>'
-            +(missing.length?'<p><strong>What would narrow it</strong> · '+esc(missing.map(row=>row.title).join(', '))+'. Public evidence gives a partial view of the business.</p>':'<p>All model inputs were observed. Valuation, runway and retention still matter for due diligence.</p>');
+            +(missing.length?'<p class="muted"><strong>What would narrow it</strong> · '+esc(missing.map(row=>row.title).join(', '))+'.</p>':'')
+            +'<details><summary>How the range was calculated</summary><p class="source">Lower bound · '+sum('low')+' → '+event.low+'<br>Upper bound · '+sum('high')+' → '+event.high+'</p>'
+            +'<p>Bounds use the rubric’s lowest and highest values for missing inputs and round outward. These numbers describe the public-signal model only.</p></details>';
         }
+        lastUpdate=performance.now();
       });
       if (!complete && !controller.signal.aborted) throw Error('The estimate did not finish. Try again.');
     } catch(error) {
       if (!controller.signal.aborted) result.textContent=error.message;
-    } finally { node.disabled=false; }
+    } finally {
+      active?.classList.remove('current');
+      node.disabled=false;
+      node.textContent='Run live estimate';
+    }
   }
 
   async function live(name) {
