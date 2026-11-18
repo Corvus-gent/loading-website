@@ -30,7 +30,7 @@ const equal = (a, b) => {
 };
 const sign = (payload, key) => createHmac('sha256', key).update(payload).digest('base64url');
 const validRoles = ['Investor', 'Founder', 'Admin'];
-const pageRoute = /^(?:feedback|catalog|portfolio|compare(?:\/[a-z0-9-]{1,100}){0,2}|founder|investors|operations|country\/(?:belgium|england|netherlands|germany|france|european-hubs|united-states|new-york-city|shanghai|greater-bay-area|morocco)|city\/[a-z0-9-]{1,100}|startup\/[a-z0-9-]{1,100}|invite\/[0-9a-f]{32}\/[A-Za-z0-9_-]{32})$/;
+const pageRoute = /^(?:feedback|catalog|portfolio|compare(?:\/[a-z0-9-]{1,100}){0,2}|founder|investors|operations|country\/(?:belgium|england|netherlands|germany|france|european-hubs|united-states|new-york-city|shanghai|greater-bay-area|morocco|western-europe|north-america|central-america|south-america|africa|middle-east|east-asia|south-asia|southeast-asia|australia)|city\/[a-z0-9-]{1,100}|startup\/[a-z0-9-]{1,100}|invite\/[0-9a-f]{32}\/[A-Za-z0-9_-]{32})$/;
 const acceptedDestination = value => typeof value === 'string' && value.startsWith(root+'/') && pageRoute.test(value.slice(root.length+1)) ? value : '';
 const documentScripts = {
   'document/pdf.mjs':'node_modules/pdfjs-dist/legacy/build/pdf.min.mjs',

@@ -6,7 +6,7 @@ import logos from '../api/_openrisk/logos.js';
 import {catalog} from '../api/_openrisk/engine/index.js';
 
 const out={...logos};
-const officialIcons={intopix:'https://www.intopix.com/favicon.png'};
+const officialIcons={intopix:'https://www.intopix.com/favicon.png','lean-technologies':'https://leantech.me/favicon.png'};
 const directoryLogo=/^https:\/\/ctyjqoiryugiaxojrgve\.supabase\.co\/storage\/v1\/object\/public\/startup-logos\/[a-z0-9_.%-]+$/i;
 const safeDomain=/^(?:[a-z0-9-]+\.)+[a-z]{2,}$/i;
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex');

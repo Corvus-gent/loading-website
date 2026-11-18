@@ -9,6 +9,16 @@ const deliverectOffices='https://www.deliverect.com/en/careers';
 const office = (city,country,label,source,kind='office') => ({city,country,label,source,kind});
 
 export const verified = {
+  caddi: {
+    funding:evidence({label:'$114M Series D announced',announced:'2026-09-16'},'https://caddi.com/en-us/news/announcements/caddi-raises-funds-in-series-d-at-12-billion-valuation/'),
+    locations:[
+      office('Tokyo','Japan','Headquarters','https://caddi.com/ja-jp/company/'),
+      office('Chicago','United States','Headquarters','https://caddi.com/en-us/news/announcements/caddi-raises-funds-in-series-d-at-12-billion-valuation/'),
+    ],
+  },
+  waabi: {
+    funding:evidence({label:'$1B Series C',announced:'2026-01-28'},'https://www.waabi.ai/insights/waabi-secures-1-billion-in-new-funding-to-lead-physical-ai-revolution'),
+  },
   'aikido-security': {
     locations:[
       office('Gent','Belgium','Main HQ','https://prtimes.jp/main/html/rd/p/000000001.000194415.html','primary'),

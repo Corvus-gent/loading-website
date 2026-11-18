@@ -70,7 +70,8 @@ const css = `
 @media(max-width:850px){}
 @media(prefers-reduced-motion:reduce){.dossier-switcher::before{transition:none}}
 
-.country-switch{display:flex;flex-wrap:wrap;gap:5px}.country-switch button{min-width:0;padding:5px 9px;font-size:12px}.country-switch button[aria-pressed=true]{color:var(--mint);border-color:#436862}.market-grid .inset-geo{height:auto;aspect-ratio:var(--region-ratio);width:min(100%,var(--region-width));margin-inline:auto}
+.country-switch{display:flex;flex-wrap:wrap;gap:5px}.country-switch button{min-width:0;padding:5px 9px;font-size:12px}.atlas-regions{flex-wrap:nowrap;overflow-x:auto;padding:4px 4px 8px;scrollbar-width:thin}.atlas-regions button{flex:none}.atlas-hubs{padding:2px 4px 5px}
+.country-switch button[aria-pressed=true]{color:var(--mint);border-color:#436862}.market-grid .inset-geo{height:auto;aspect-ratio:var(--region-ratio);width:min(100%,var(--region-width));margin-inline:auto}
 
 .logo.has-art{color:transparent}.logo.has-art img{width:82%;height:82%;object-fit:contain}.logo img[hidden]{display:none}
 `;

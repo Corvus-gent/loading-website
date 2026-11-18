@@ -32,7 +32,7 @@ def clip(points, axis, edge, sign):
     return out
 
 
-def path(polygons, bounds):
+def path(polygons, bounds, precision=1):
     west, south, east, north = bounds
     result = []
     for points in polygons:
@@ -40,7 +40,7 @@ def path(polygons, bounds):
             points = clip(points,axis,edge,sign)
         if len(points) < 3:
             continue
-        mapped = [f'{300*(x-west)/(east-west):.1f},{115*(north-y)/(north-south):.1f}' for x,y in points]
+        mapped = [f'{300*(x-west)/(east-west):.{precision}f},{115*(north-y)/(north-south):.{precision}f}' for x,y in points]
         result.append('M'+' '.join(dict.fromkeys(mapped))+'Z')
     return ' '.join(result)
 
@@ -57,6 +57,16 @@ bounds = {key: frame for key, (_, frame) in regions.items()}
 paths = {key: path(rings(countries[name]), frame) for key, (name, frame) in regions.items()}
 bounds.update({
     'european-hubs': [-12.0,35.0,31.0,63.0],
+    'western-europe': [-12,40,20,60],
+    'north-america': [-132,22,-55,59],
+    'central-america': [-103,5,-74,26],
+    'south-america': [-84,-57,-33,15],
+    'africa': [-20,-37,53,38],
+    'middle-east': [29,15,62,40],
+    'east-asia': [103,17,148,46],
+    'south-asia': [65,6,97,32],
+    'southeast-asia': [95,-12,130,25],
+    'australia': [111,-45,155,-9],
     'bay': [-122.67,37.25,-121.87,37.94],
     'new-york-city': [-74.28,40.47,-73.67,40.96],
     'shanghai': [120.85,30.68,122.08,31.55],
@@ -71,6 +81,9 @@ paths['european-hubs'] = path(
                     'Switzerland', 'Austria', 'Czechia', 'Poland', 'Denmark', 'Norway', 'Sweden',
                     'Finland', 'Estonia', 'Latvia', 'Lithuania', 'Belgium', 'Netherlands']
      for r in rings(countries[name])], bounds['european-hubs'])
+for key in ['western-europe','north-america','central-america','south-america','africa',
+            'middle-east','east-asia','south-asia','southeast-asia','australia']:
+    paths[key] = path(land, bounds[key], precision=0)
 paths['morocco'] = path(rings(countries['Morocco']), bounds['morocco'])
 (asset/'insets.js').write_text('// Natural Earth 1:10m public domain geometry.\nexport default ' + json.dumps({'bounds':bounds,'paths':paths},separators=(',',':'))+';\n')
 

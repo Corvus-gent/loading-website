@@ -47,7 +47,8 @@ try {
     if(name==='Aikido Security') await shot('02-aikido-dossier');
     await explore();
   }
-  await page.getByRole('group',{name:'Map region'}).getByRole('button',{name:'Bay Area',exact:true}).click();
+  await page.getByRole('group',{name:'Map region'}).getByRole('button',{name:'North America',exact:true}).click();
+  await page.getByRole('group',{name:'Map hub'}).getByRole('button',{name:'Bay Area',exact:true}).click();
   await page.getByRole('button',{name:'Palo Alto',exact:true}).click();
   await page.getByRole('heading',{name:/Palo Alto ·/}).waitFor();
   const started = Date.now();
