@@ -43,7 +43,7 @@ try {
   const explore=()=>page.locator('#top-nav').getByRole('button',{name:'Explore'}).click();
   for (const name of ['Aikido Security','Deliverect','Stripe']) {
     await search(name);
-    await page.getByRole('heading',{name:'OpenRisk score'}).waitFor();
+    await page.getByRole('heading',{name:'Investment signal score'}).waitFor();
     if(name==='Aikido Security') await shot('02-aikido-dossier');
     await explore();
   }
