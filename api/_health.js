@@ -22,6 +22,8 @@ const vanity = {
   '/self': '/?utm_source=self&utm_medium=share&utm_campaign=home-share'
 };
 class CheckError extends Error {}
+// Keep the query abort and the enclosing check deadline in sync.
+const checkTimeout = (name) => name === 'posthog' ? 8000 : 3000;
 export function checks({
   env = process.env,
   request = fetch,
@@ -107,7 +109,7 @@ export function checks({
       if (pong !== 'PONG' || value !== id) throw new CheckError('read/write mismatch');
     },
     posthog: async () => {
-      if (Number((await query('SELECT 1', AbortSignal.timeout(7900)))?.[0]?.[0]) !== 1)
+      if (Number((await query('SELECT 1', AbortSignal.timeout(checkTimeout('posthog') - 100)))?.[0]?.[0]) !== 1)
         throw new CheckError('unexpected query result');
     },
     resend: optional(env.RESEND_HEALTH_KEY || env.RESEND_API_KEY, async () => {
@@ -166,7 +168,7 @@ export async function inspect(list, now = Date.now) {
         try {
           // HogQL includes query scheduling as well as HTTP latency. A healthy
           // query taking >3s is slow, not evidence that PostHog is unavailable.
-          await bounded(Promise.resolve().then(run), name === 'posthog' ? 8000 : 3000);
+          await bounded(Promise.resolve().then(run), checkTimeout(name));
           return [name, { ok: true, ms: now() - start }];
         } catch (e) {
           return [
