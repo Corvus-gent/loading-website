@@ -227,7 +227,19 @@ export async function client() {
     return '<div class="breadcrumb">' + button('← Explore', 'data-page="map"', 'link') + '</div><div class="profile-head"><div class="profile-id">' + logo(item,true) + '<div><h1>' + esc(item.name) + '</h1><p>' + esc([item.city,item.sector].filter(Boolean).join(' · ')) + '</p></div></div><div class="actions">' + right + '</div></div>';
   }
 
-  function profile(item, recordPath = true) {
+  const dossierModes = ['Read','Dashboard','Evidence'];
+  let dossierMode='Read';
+  try {
+    const saved=localStorage.getItem('openrisk:dossier-mode');
+    if (dossierModes.includes(saved)) dossierMode=saved;
+  } catch {}
+
+  function dossierSwitcher() {
+    return '<div class="dossier-switcher" role="group" aria-label="Dossier view" style="--selected:'+dossierModes.indexOf(dossierMode)+'">'+
+      dossierModes.map(mode=>button(mode,'data-dossier-mode="'+mode+'" aria-pressed="'+(mode===dossierMode)+'"')).join('')+'</div>';
+  }
+
+  function profile(item, recordPath = true, logView = true) {
     navigate('profile',false);
     if (recordPath) setPath('/startup/'+item.id);
     ctx.current = item.id;
@@ -257,21 +269,31 @@ export async function client() {
     const controls = (ctx.role==='Investor' ? button(followed?'Following':'Follow','data-follow="'+item.id+'"','accent') : '')
       + (ctx.role!=='Admin' ? button(claimed?'Open founder desk':'Claim this profile','data-claim="'+item.id+'"',ctx.role==='Founder'?'accent':'ghost') : '');
     const kpis=ctx.state.companies[item.id]?.values.length ? metricView(item.id) : '';
-    main.innerHTML = '<article class="reading-dossier">'+profileHeader(item,controls)
-      + '<section class="dossier-overview" aria-label="Score overview"><div class="dossier-score"><h2>OpenRisk score</h2>'
+    const overview='<section class="dossier-overview" aria-label="Score overview"><div class="dossier-score"><h2>OpenRisk score</h2>'
       + '<div class="scoreline"><div class="score">'+(r.value??'—')+'<sub>/100</sub></div>'+(r.grade?badge('Grade '+r.grade,r.grade<='B'?'ok':'warn'):'')+'</div>'
       + scoreVisual(r)+'<p class="source">'+r.coverage+'% evidence coverage</p></div><div class="dossier-lead">'
-      + '<p>'+esc(item.description)+'</p>'+scoreTakeaways(r)+'<a href="#score-details">See score calculation ↓</a></div></section>'
-      + '<nav class="dossier-jumps" aria-label="Dossier sections"><a href="#investment-context">Investment context</a><a href="#score-details">Score details</a><a href="#source-evidence">Source evidence</a>'+(kpis?'<a href="#metric-view">Confirmed KPIs</a>':'')+'</nav>'
-      + '<section id="investment-context" class="dossier-chapter"><h2>Investment context</h2>'+investmentLens(s)+'</section>'
-      + '<section id="score-details" class="dossier-chapter"><h2>How the score is built</h2><p class="muted">Public evidence · '+esc(date(r.asOf))+' · '+esc(trend)+'</p>'+scoreBreakdown(r)+'</section>'
-      + '<section id="source-evidence" class="dossier-chapter"><h2>Source evidence</h2>'
+      + '<p>'+esc(item.description)+'</p>'+scoreTakeaways(r)+'<a href="#score-details">See score calculation ↓</a></div></section>';
+    const context='<section id="investment-context" class="dossier-chapter"><h2>Investment context</h2>'+investmentLens(s)+'</section>';
+    const calculation='<section id="score-details" class="dossier-chapter"><h2>How the score is built</h2><p class="muted">Public evidence · '+esc(date(r.asOf))+' · '+esc(trend)+'</p>'+scoreBreakdown(r)+'</section>';
+    const evidence='<section id="source-evidence" class="dossier-chapter"><h2>Source evidence</h2>'
       + evidenceDetail('Company identity',(s.founded?'<p>Founded '+esc(s.founded.value)+'</p>'+source(s.founded):'')+'<div class="source">'+link(item.source,(item.directory||item.domain||'Source')+' ↗')+' · Observed '+esc(date(item.asOf))+'</div>'+identityFields)
       + evidenceDetail('Financial signals',(funding?val(funding.label,s.funding)+'<div class="source">Announced '+esc(funding.announced)+(age>18?' · '+badge('Older than 18 months','warn'):'')+'</div>':'')+(s.disclosure?val(s.disclosure.value.label,s.disclosure)+'<p>'+esc(s.disclosure.value.detail)+'</p>':'')+(!funding&&!s.disclosure?s.stage?val(s.stage.value,s.stage):empty('No verified financing in this snapshot.'):'')+filing,funding?.label||(accounts?'Belgian annual accounts':''))
       + evidenceDetail('Team & hiring',teamData||empty('No attributable hiring or headcount data in this snapshot.'),s.jobs?s.jobs.value.count+' open roles':'')
       + evidenceDetail('Product & engineering',product||empty('No attributable product observations in this snapshot.'))
-      + evidenceDetail('Coverage & corporate events',event+news)+'</section>'+kpis+'</article>';
-    if (ctx.role==='Investor' && claimed) void api('state',{action:'view',company:item.id}).catch(()=>{});
+      + evidenceDetail('Coverage & corporate events',event+news)+'</section>';
+    const jumps='<nav class="dossier-jumps" aria-label="Dossier sections"><a href="#investment-context">Investment context</a><a href="#score-details">Score details</a><a href="#source-evidence">Source evidence</a>'+(kpis?'<a href="#metric-view">Confirmed KPIs</a>':'')+'</nav>';
+    const signals=[
+      funding && ['Funding',funding.label,s.funding],
+      s.jobs && ['Hiring',s.jobs.value.count+' open roles',s.jobs],
+      s.traction && ['Product reach',s.traction.value.label,s.traction],
+      !s.traction && s.github && ['Engineering','Push '+date(s.github.value.pushedAt),s.github],
+    ].filter(Boolean);
+    const scan=signals.length?'<div class="dashboard-signals">'+signals.map(([label,value,observation])=>panel(label,val(value,observation))).join('')+'</div>':'';
+    const layout=dossierMode==='Dashboard'?overview+scan+jumps+'<div class="dashboard-columns">'+context+calculation+'</div>'+evidence+kpis
+      : dossierMode==='Evidence'?calculation+evidence+kpis+context
+      : overview+jumps+context+calculation+evidence+kpis;
+    main.innerHTML='<article class="reading-dossier dossier-'+dossierMode.toLowerCase()+'">'+profileHeader(item,controls)+dossierSwitcher()+layout+'</article>';
+    if (logView && ctx.role==='Investor' && claimed) void api('state',{action:'view',company:item.id}).catch(()=>{});
     window.scrollTo(0,0);
   }
 
@@ -690,6 +712,12 @@ export async function client() {
     if (!node) return;
     if (node.dataset.page) navigate(node.dataset.page);
     if (node.dataset.city) { ctx.city = node.dataset.city; setPath('/city/'+citySlug(ctx.city)); cityRows(); }
+    if (dossierModes.includes(node.dataset.dossierMode) && ctx.page==='profile') {
+      dossierMode=node.dataset.dossierMode;
+      try { localStorage.setItem('openrisk:dossier-mode',dossierMode); } catch {}
+      profile(allCompanies().find(item=>item.id===ctx.current),false,false);
+      main.querySelector('[data-dossier-mode="'+dossierMode+'"]').focus({preventScroll:true});
+    }
     if (node.dataset.company) profile(allCompanies().find(item => item.id === node.dataset.company));
     try {
       if (node.dataset.follow) {
