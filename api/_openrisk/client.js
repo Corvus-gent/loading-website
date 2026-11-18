@@ -381,13 +381,16 @@ export async function client() {
     const surface=document.querySelector('#openrisk-dialog [data-job-progress]') || document.querySelector('#queue-progress');
     const paint = message=>{ if(surface) surface.innerHTML='<div class="source">'+esc(message)+'</div><progress aria-label="Job progress"></progress>'; };
     paint('Queued · discovering public sources');
-    const interval=setInterval(async()=>{
+    let active=true, timer;
+    async function poll() {
       try {
         const {state}=await api('state');
-        const job=state.jobs.find(row=>command.action==='add-city'?row.name.toLowerCase()===command.name.toLowerCase():row.type==='Startup');
-        if(job) paint(job.stage+' · '+job.name);
+        const job=state.jobs.find(row=>row.type===(command.action==='add-city'?'City':'Startup'));
+        if (active && job) paint(job.stage+' · '+job.name);
       } catch {}
-    },700);
+      if (active) timer=setTimeout(poll,850);
+    }
+    timer=setTimeout(poll,700);
     try {
       const result=await mutate(command);
       done(result);
