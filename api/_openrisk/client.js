@@ -698,6 +698,56 @@ export async function client() {
     return right ? '/compare/'+(left || '-')+'/'+right : left ? '/compare/'+left : '/compare';
   }
 
+  function financialInputs(values) {
+    const cash=values.filter(row=>row.metric==='cash').at(-1);
+    const burn=cash && values.find(row=>row.metric==='burn' && row.period===cash.period
+      && row.currency===cash.currency && Boolean(row.sample)===Boolean(cash.sample));
+    return {cash,burn};
+  }
+
+  function monthlyGrowth(values) {
+    const [previous,current]=values.filter(row=>row.metric==='mrr').slice(-2);
+    const month=period=>Number(period.slice(0,4))*12+Number(period.slice(5));
+    return previous?.value>0 && current && current.value>=0 && previous.currency===current.currency
+      && Boolean(previous.sample)===Boolean(current.sample) && month(current.period)-month(previous.period)===1
+      ? 100*(current.value/previous.value-1) : null;
+  }
+
+  function diligencePanel(pair,shared) {
+    const weight=shared.reduce((total,row)=>total+row.weight,0);
+    const commonScore=item=>shared.reduce((total,row)=>total+row.weight*item.risk.breakdown.find(factor=>factor.key===row.key).points,0)/weight;
+    const data=pair.map(item=>{
+      const values=ctx.state.companies[item.id]?.values || [];
+      return {item,values,...financialInputs(values)};
+    });
+    const scenario=(data,multiplier)=>{
+      const {cash,burn}=data;
+      return cash && burn?.value>0 && cash.value>=0 ? number(cash.value/(burn.value*multiplier))+' mo'+sampleTag(cash) : '—';
+    };
+    const rows=[
+      ['Shared-input model score',({item})=>weight ? number(commonScore(item))+'/100' : '—'],
+      ['Cash and monthly net burn',({cash,burn})=>cash && burn ? shown(cash)+' cash · '+shown(burn)+' burn · '+esc(cash.period)+sampleTag(cash) : 'Matching cash and burn needed'],
+      ['Runway · burn 25% lower',data=>scenario(data,.75)],
+      ['Runway · current burn',data=>scenario(data,1)],
+      ['Runway · burn 25% higher',data=>scenario(data,1.25)],
+      ['Cash gap to 6 months',({cash,burn})=>cash && burn?.value>0 && cash.value>=0
+        ? shown({value:Math.max(0,burn.value*6-cash.value),currency:cash.currency})+sampleTag(cash) : '—'],
+      ['MRR growth · month over month',({values})=>{
+        const growth=monthlyGrowth(values);
+        const latest=values.filter(row=>row.metric==='mrr').at(-1);
+        return growth==null?'Two consecutive comparable months needed':number(growth)+'% · '+esc(latest.period)+sampleTag(latest);
+      }],
+    ];
+    return panel('Investor diligence','<p class="source">'+(weight
+      ? weight+'% shared model weight · '+esc(shared.map(row=>row.title).join(', '))
+      : 'No comparable public scoring inputs for this pair.')+'</p>'
+      +'<div class="scroll"><table class="rules"><thead><tr><th scope="col">Analysis</th>'+pair.map(item=>'<th scope="col">'+esc(item.name)+'</th>').join('')
+      +'</tr></thead><tbody>'+rows.map(([label,value])=>'<tr><th scope="row">'+label+'</th>'+data.map(item=>'<td>'+value(item)+'</td>').join('')+'</tr>').join('')
+      +'</tbody></table></div><details class="score-method"><summary>Inputs and assumptions</summary>'
+      +'<p>Shared-input scores use the same observed factors and weights for both companies. Direct hiring and directory hiring are compared only when both use the same source type.</p>'
+      +'<p>Runway scenarios use cash divided by monthly net burn from the same reporting month and currency. The ±25% burn shocks are illustrative and hold cash fixed. The six-month cash gap uses current burn. All scenarios assume no new funding. Sample data is labelled.</p></details>');
+  }
+
   function comparison() {
     const companies=allCompanies().slice().sort((a,b)=>a.name.localeCompare(b.name));
     const [left,right]=ctx.comparePair || ['', ''];
@@ -723,7 +773,10 @@ export async function client() {
       +pair.map(item=>'<th scope="col">'+logo(item)+' '+button(item.name,'data-company="'+esc(item.id)+'"','link')+'</th>').join('')
       +'</tr></thead><tbody>'+rows.map(([label,value])=>'<tr><th scope="row">'+label+'</th>'
         +pair.map(item=>'<td>'+value(item)+'</td>').join('')+'</tr>').join('')+'</tbody></table></div>' : '';
-    const shared=ready ? pair[0].risk.breakdown.filter(row=>row.signal && observed(pair[1],row.key)?.signal) : [];
+    const shared=ready ? pair[0].risk.breakdown.filter(row=>{
+      const other=observed(pair[1],row.key);
+      return row.points!=null && other?.points!=null && row.basis===other.basis;
+    }) : [];
     const contrast=shared.filter(row=>row.points!==observed(pair[1],row.key).points);
     const questions=ready ? panel('Investment trade-offs',
       (contrast.length ? '<ul class="items">'+contrast.map(row=>{
@@ -736,7 +789,8 @@ export async function client() {
       +button(pair.every(item=>ctx.state.followed.includes(item.id))?'Both followed':'Follow both','data-follow-pair'+(pair.every(item=>ctx.state.followed.includes(item.id))?' disabled':''),'accent')) : '';
     main.innerHTML=title('Compare startups','Review two companies side by side using public evidence.')
       +'<div class="stack"><section class="panel"><div class="compare-picker">'+pair.map(comparePicker).join('')
-      +'</div><div class="actions compare-feedback">'+feedbackButton('compare','startup comparisons')+'</div>'+table+'</section>'+questions+'</div>';
+      +'</div><div class="actions compare-feedback">'+feedbackButton('compare','startup comparisons')+'</div>'+table+'</section>'
+      +(ready?diligencePanel(pair,shared):'')+questions+'</div>';
     main.querySelectorAll('[data-compare-slot]').forEach((slot,index)=>
       bindComparePicker(slot,index,companies.filter(item=>item.id!==pair[1-index]?.id),pair[index]));
   }
@@ -1071,9 +1125,7 @@ export async function client() {
     const items=allCompanies().filter(item=>ctx.state.followed.includes(item.id)).map(company=>{
       const values=ctx.state.companies[company.id]?.values || [];
       const latest=key=>values.filter(row=>row.metric===key).at(-1);
-      const mrr=values.filter(row=>row.metric==='mrr').slice(-2);
-      const prev=mrr[0], curr=mrr[1];
-      const growth=prev?.value && curr && prev.currency===curr.currency ? 100*(curr.value/prev.value-1) : null;
+      const growth=monthlyGrowth(values);
       return { company,name:company.name,last:values.map(row=>row.fetchedAt).sort().at(-1),cash:latest('cash'),runway:latest('runway'),growth,risk:company.risk?.value,sample:values.some(row=>row.sample) };
     });
     items.sort((a,b)=>{
