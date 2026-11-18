@@ -47,7 +47,7 @@ def path(polygons, bounds):
 
 countries = read('countries')
 belgium = next(f for f in countries if f['properties'].get('ADMIN') == 'Belgium')
-bounds = {'belgium': [2.50,49.47,6.50,51.59], 'europe':[-0.1,46.9,13.2,53.8], 'bay':[-122.67,37.25,-121.87,37.94]}
+bounds = {'belgium': [2.50,49.47,6.50,51.59], 'europe':[-5.0,42.0,16.0,55.8], 'bay':[-122.67,37.25,-121.87,37.94]}
 paths = {'belgium':path(rings(belgium['geometry']),bounds['belgium']),
          'europe':path([r for f in countries
                         if f['properties'].get('ADMIN') in {'France','Belgium','Netherlands','Germany','Luxembourg','Switzerland','Austria','United Kingdom'}

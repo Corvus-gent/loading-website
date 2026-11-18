@@ -46,3 +46,8 @@
 ## Dossier reading order
 
 - Present the company, score and two main drivers in a compact opening. Use one reading column with investment context, the calculation and expandable source evidence. Keep the score math visible and make individual raw-data categories opt-in. Use section links so reviewers can skip directly to a question.
+
+## Four national selections
+
+- Add England, the Netherlands, Germany and France as 100-company snapshots. Allocate places across supported hubs, preserve curated profiles, and use public StartupMap city listing order for the directory candidates within each hub. Fill unused places from the larger hubs. This is a discovery shortlist and carries no national investment rank.
+- Use protected country URLs and switch from the national list to a city by selecting a pin. Keep the cap on preloaded country views distinct from session-specific additions.

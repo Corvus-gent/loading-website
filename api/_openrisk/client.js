@@ -54,7 +54,7 @@ export async function client() {
   function navigate(page, recordPath = true) {
     ctx.cancel?.abort();
     ctx.page = page;
-    if (recordPath && Object.hasOwn(viewRoutes,page)) setPath(page==='map' && ctx.city!=='Gent' ? '/city/'+citySlug(ctx.city) : viewRoutes[page]);
+    if (recordPath && Object.hasOwn(viewRoutes,page)) setPath(page==='map' && ctx.countryList ? '/country/'+citySlug(ctx.countryList) : page==='map' && ctx.city!=='Gent' ? '/city/'+citySlug(ctx.city) : viewRoutes[page]);
     nav();
     if (page === 'map') map();
     if (page === 'portfolio') portfolio();
@@ -84,12 +84,17 @@ export async function client() {
     return '<section class="market" aria-label="'+label+'"><div class="inset-geo"><svg viewBox="0 0 300 115" preserveAspectRatio="none" aria-hidden="true"><path d="'+esc(path)+'" fill="#223754" stroke="#52769c" stroke-width=".7"/></svg>'+pins+'<span class="market-name">'+label+'</span></div><div class="inset-cities">'+labels+'</div></section>';
   }
 
+  const mapCountries=['England','Netherlands','Germany','France'];
+
   function map() {
     const belgium=ctx.cities.filter(city=>city.country==='Belgium');
-    const neighbors=ctx.cities.filter(city=>['France','Netherlands','Germany'].includes(city.country));
+    const neighbors=ctx.cities.filter(city=>mapCountries.includes(city.country));
+    const region=ctx.countryList || ctx.cities.find(city=>city.name===ctx.city && mapCountries.includes(city.country))?.country || 'France';
+    const countries='<div class="country-switch" role="group" aria-label="European country">' + mapCountries.map(country=>
+      button(country,'data-map-country="'+country+'" aria-pressed="'+(ctx.countryList===country)+'"')).join('')+'</div>';
     const bay=ctx.cities.filter(city=>city.country==='United States');
     main.innerHTML = '<section class="hero"><span class="eyebrow">Startup intelligence</span><h1>Explore startup risk.</h1><p>Explore startups by city or build a risk dossier from public signals.</p><form id="search-form" class="search-wrap" role="search"><label for="company-search" hidden>Search for a startup</label><span class="search-symbol" aria-hidden="true">⌕</span><input id="company-search" placeholder="Search any startup…" maxlength="80" autocomplete="off" aria-controls="search-results" aria-expanded="false"><span class="keycap" aria-hidden="true">/</span><div id="search-results" class="results" hidden></div></form><div class="quick">Quick look ' + ['aikido-security','deliverect','stripe','odoo'].map(id => button(ctx.catalog.find(item => item.id === id).name, 'data-company="' + id + '"')).join('') + '</div></section>'
-      + '<div class="layout"><section class="panel atlas"><div class="panel-head"><h2>Ecosystem map</h2>' + '<div class="actions">' + badge(allCompanies().length + ' profiles · ' + allCities().length + ' cities') + button('+ Add city','data-open-dialog="city"') + '</div></div><div class="map-stage"><svg viewBox="0 0 900 360" preserveAspectRatio="none" aria-label="World map"><defs><pattern id="grid" width="37.5" height="37.5" patternUnits="userSpaceOnUse"><path d="M 37.5 0 L 0 0 0 37.5" fill="none" stroke="#253751" stroke-width=".7"/></pattern></defs><rect width="900" height="360" fill="url(#grid)"/><path d="' + esc(ctx.land) + '" fill="#243855" stroke="#507096" stroke-width=".65"/></svg><button class="cluster" aria-label="European startup hubs" data-city="Brussels" style="left:51.1%;top:22.2%">' + (belgium.length+neighbors.length) + '</button><button class="cluster" aria-label="Bay Area startup hubs" data-city="San Francisco" style="left:16%;top:31.4%">2</button>' + extraPins() + '<span class="map-caption">NATURAL EARTH · GLOBAL VIEW</span></div><div class="market-grid">' + inset('belgium','Belgium',belgium) + inset('europe','Nearby Europe',neighbors) + inset('bay','Bay Area',bay) + '</div></section><section class="panel"><div class="panel-head"><h2 id="city-title"></h2><select id="city-sort" aria-label="Sort startups"><option value="risk">By score</option><option value="name">By name</option></select></div><div id="city-rows" class="rows"></div></section></div>';
+      + '<div class="layout"><section class="panel atlas"><div class="panel-head"><h2>Ecosystem map</h2>' + '<div class="actions">' + badge(allCompanies().length + ' profiles · ' + allCities().length + ' cities') + button('+ Add city','data-open-dialog="city"') + '</div></div><div class="map-stage"><svg viewBox="0 0 900 360" preserveAspectRatio="none" aria-label="World map"><defs><pattern id="grid" width="37.5" height="37.5" patternUnits="userSpaceOnUse"><path d="M 37.5 0 L 0 0 0 37.5" fill="none" stroke="#253751" stroke-width=".7"/></pattern></defs><rect width="900" height="360" fill="url(#grid)"/><path d="' + esc(ctx.land) + '" fill="#243855" stroke="#507096" stroke-width=".65"/></svg><button class="cluster" aria-label="European startup hubs" data-city="Brussels" style="left:51.1%;top:22.2%">' + (belgium.length+neighbors.length) + '</button><button class="cluster" aria-label="Bay Area startup hubs" data-city="San Francisco" style="left:16%;top:31.4%">2</button>' + extraPins() + '<span class="map-caption">NATURAL EARTH · GLOBAL VIEW</span></div><div class="market-grid">' + inset('belgium','Belgium',belgium) + '<div>'+countries+inset('europe',region,neighbors.filter(city=>city.country===region))+'</div>' + inset('bay','Bay Area',bay) + '</div></section><section class="panel"><div class="panel-head"><h2 id="city-title"></h2><select id="city-sort" aria-label="Sort startups"><option value="risk">By score</option><option value="name">By name</option></select></div>' + (ctx.countryList?'<p class="source">100 selected profiles across several hubs</p>':'') + '<div id="city-rows" class="rows"></div></section></div>';
     main.querySelector('.map-stage svg').classList.add('earth');
     main.insertAdjacentHTML('beforeend','<div class="actions spaced">'+button('+ Add a startup','data-open-dialog="startup"','ghost')+'</div>');
     const input = document.querySelector('#company-search');
@@ -130,11 +135,12 @@ export async function client() {
   }
 
   function cityRows() {
-    const items = allCompanies().filter(item => item.city === ctx.city).sort((a,b) =>
+    const countryCities = new Set(ctx.cities.filter(city=>city.country===ctx.countryList).map(city=>city.name));
+    const items = (ctx.countryList ? ctx.catalog : allCompanies()).filter(item => ctx.countryList ? countryCities.has(item.city) : item.city === ctx.city).sort((a,b) =>
       (ctx.sort === 'risk' ? (b.risk?.value ?? -1) - (a.risk?.value ?? -1) : 0) || a.name.localeCompare(b.name));
-    document.querySelector('#city-title').textContent = ctx.city + ' · ' + items.length;
+    document.querySelector('#city-title').textContent = (ctx.countryList||ctx.city) + ' · ' + items.length;
     document.querySelector('#city-rows').innerHTML = items.map(item=>companions(item)).join('') || empty('No profiles are available for this city yet.');
-    main.querySelectorAll('.pin,.inset-city').forEach(node => node.setAttribute('aria-pressed', String(node.dataset.city === ctx.city)));
+    main.querySelectorAll('.pin,.inset-city').forEach(node => node.setAttribute('aria-pressed', String(!ctx.countryList && node.dataset.city === ctx.city)));
   }
 
   const signalValue = item => {
@@ -550,7 +556,7 @@ export async function client() {
     }
     const fits=(ctx.funds||[]).map(fund=>{
       const geo=allCities().find(city=>city.name===company.city)?.country || (company.city==='Paris'?'France':'Unknown');
-      const inEurope=['Belgium','France','Germany','United Kingdom','Netherlands','Spain','Portugal','Ireland','Sweden','Finland','Italy','Austria','Switzerland','Denmark','Norway'].includes(geo);
+      const inEurope=['Belgium','France','Germany','United Kingdom','England','Netherlands','Spain','Portugal','Ireland','Sweden','Finland','Italy','Austria','Switzerland','Denmark','Norway'].includes(geo);
       const geographic=fund.regions.includes(geo) || inEurope && fund.regions.includes('Europe');
       const sector=fund.sectors.some(sector=>company.sector.toLowerCase().includes(sector));
       return {...fund,geographic,sector,fit:40*Number(geographic)+60*Number(sector)};
@@ -686,6 +692,7 @@ export async function client() {
         toast('Submitted to the admin queue.');
       } else {
         await runJob(submit,{action:'add-city',name:fields.get('name')},result=>{
+          ctx.countryList=null;
           ctx.city=result.city;
           document.querySelector('#openrisk-dialog').close();
           navigate('map');
@@ -703,6 +710,9 @@ export async function client() {
   function openPath() {
     const relative=location.pathname.slice(root.length);
     const city=/^\/city\/([a-z0-9-]+)$/.exec(relative);
+    ctx.countryList=null;
+    const country=mapCountries.find(name=>'/country/'+citySlug(name)===relative);
+    if (country) { ctx.countryList=country; navigate('map',false); return; }
     if (!relative) ctx.city='Gent';
     if (city) {
       ctx.city=allCities().find(item=>citySlug(item.name)===city[1])?.name || 'Gent';
@@ -722,7 +732,19 @@ export async function client() {
     const node = event.target.closest('button');
     if (!node) return;
     if (node.dataset.page) navigate(node.dataset.page);
-    if (node.dataset.city) { ctx.city = node.dataset.city; setPath('/city/'+citySlug(ctx.city)); cityRows(); }
+    if (mapCountries.includes(node.dataset.mapCountry)) {
+      ctx.countryList=node.dataset.mapCountry;
+      setPath('/country/'+citySlug(ctx.countryList));
+      map();
+      main.querySelector('[data-map-country="'+ctx.countryList+'"]').focus({preventScroll:true});
+    }
+    if (node.dataset.city) {
+      const selected=ctx.countryList;
+      ctx.countryList=null;
+      ctx.city=node.dataset.city;
+      setPath('/city/'+citySlug(ctx.city));
+      if (selected) map(); else cityRows();
+    }
     if (dossierModes.includes(node.dataset.dossierMode) && ctx.page==='profile') {
       dossierMode=node.dataset.dossierMode;
       try { localStorage.setItem('openrisk:dossier-mode',dossierMode); } catch {}

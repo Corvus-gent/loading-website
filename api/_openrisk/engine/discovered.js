@@ -2651,770 +2651,1303 @@ export default [
     }
   },
   {
-    "id": "dash0",
-    "name": "Dash0",
-    "city": "Düsseldorf",
-    "sector": "AI & Machine Learning",
-    "domain": "www.dash0.com",
-    "source": "https://startupmap.one/startup/dash0_de",
-    "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/dusseldorf",
-    "asOf": "2026-11-18T07:42:18.025Z",
-    "description": "Listed in StartupMap’s Düsseldorf ecosystem directory.",
-    "signals": {
-      "founded": {
-        "value": 2023,
-        "source": "https://startupmap.one/startup/dash0_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:18.025Z"
-      },
-      "stage": {
-        "value": "Series B",
-        "source": "https://startupmap.one/startup/dash0_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:18.025Z"
-      },
-      "headcount": {
-        "value": {
-          "min": 126,
-          "max": 126
-        },
-        "source": "https://startupmap.one/startup/dash0_de",
-        "status": "scraped",
-        "confidence": "low",
-        "fetchedAt": "2026-11-18T07:42:18.025Z"
-      },
-      "website": {
-        "value": "https://www.dash0.com",
-        "source": "https://startupmap.one/startup/dash0_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:18.025Z"
-      }
-    }
-  },
-  {
-    "id": "vivenu",
-    "name": "vivenu",
-    "city": "Düsseldorf",
-    "sector": "E Commerce & Retail",
-    "domain": "vivenu.com",
-    "source": "https://startupmap.one/startup/vivenu_de",
-    "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/dusseldorf",
-    "asOf": "2026-11-18T07:42:19.283Z",
-    "description": "Listed in StartupMap’s Düsseldorf ecosystem directory.",
-    "signals": {
-      "founded": {
-        "value": 2018,
-        "source": "https://startupmap.one/startup/vivenu_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:19.283Z"
-      },
-      "stage": {
-        "value": "Series B",
-        "source": "https://startupmap.one/startup/vivenu_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:19.283Z"
-      },
-      "headcount": {
-        "value": {
-          "min": 110,
-          "max": 150
-        },
-        "source": "https://startupmap.one/startup/vivenu_de",
-        "status": "scraped",
-        "confidence": "low",
-        "fetchedAt": "2026-11-18T07:42:19.283Z"
-      },
-      "website": {
-        "value": "https://vivenu.com",
-        "source": "https://startupmap.one/startup/vivenu_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:19.283Z"
-      }
-    }
-  },
-  {
-    "id": "retraced",
-    "name": "Retraced",
-    "city": "Düsseldorf",
-    "sector": "Supply Chain & Ops Tech",
-    "domain": "www.retraced.com",
-    "source": "https://startupmap.one/startup/retraced_de",
-    "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/dusseldorf",
-    "asOf": "2026-11-18T07:42:20.515Z",
-    "description": "Listed in StartupMap’s Düsseldorf ecosystem directory.",
-    "signals": {
-      "founded": {
-        "value": 2019,
-        "source": "https://startupmap.one/startup/retraced_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:20.515Z"
-      },
-      "stage": {
-        "value": "Series A",
-        "source": "https://startupmap.one/startup/retraced_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:20.515Z"
-      },
-      "headcount": {
-        "value": {
-          "min": 60,
-          "max": 80
-        },
-        "source": "https://startupmap.one/startup/retraced_de",
-        "status": "scraped",
-        "confidence": "low",
-        "fetchedAt": "2026-11-18T07:42:20.515Z"
-      },
-      "website": {
-        "value": "https://www.retraced.com",
-        "source": "https://startupmap.one/startup/retraced_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:20.515Z"
-      }
-    }
-  },
-  {
-    "id": "harmattan-ai",
-    "name": "Harmattan AI",
-    "city": "Paris",
-    "sector": "Aerospace & Defense",
-    "domain": "www.harmattan.ai",
-    "source": "https://startupmap.one/startup/harmattan_ai_fr",
-    "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/paris",
-    "asOf": "2026-11-18T07:42:21.980Z",
-    "description": "Listed in StartupMap’s Paris ecosystem directory.",
-    "signals": {
-      "founded": {
-        "value": 2024,
-        "source": "https://startupmap.one/startup/harmattan_ai_fr",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:21.980Z"
-      },
-      "stage": {
-        "value": "Series B",
-        "source": "https://startupmap.one/startup/harmattan_ai_fr",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:21.980Z"
-      },
-      "headcount": {
-        "value": {
-          "min": 51,
-          "max": 200
-        },
-        "source": "https://startupmap.one/startup/harmattan_ai_fr",
-        "status": "scraped",
-        "confidence": "low",
-        "fetchedAt": "2026-11-18T07:42:21.980Z"
-      },
-      "website": {
-        "value": "https://www.harmattan.ai",
-        "source": "https://startupmap.one/startup/harmattan_ai_fr",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:21.980Z"
-      }
-    }
-  },
-  {
-    "id": "pigment",
-    "name": "Pigment",
-    "city": "Paris",
-    "sector": "Productivity & Collaboration",
-    "domain": "www.pigment.com",
-    "source": "https://startupmap.one/startup/pigment_fr",
-    "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/paris",
-    "asOf": "2026-11-18T07:42:23.212Z",
-    "description": "Listed in StartupMap’s Paris ecosystem directory.",
-    "signals": {
-      "founded": {
-        "value": 2019,
-        "source": "https://startupmap.one/startup/pigment_fr",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:23.212Z"
-      },
-      "stage": {
-        "value": "Series D",
-        "source": "https://startupmap.one/startup/pigment_fr",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:23.212Z"
-      },
-      "headcount": {
-        "value": {
-          "min": 500,
-          "max": 700
-        },
-        "source": "https://startupmap.one/startup/pigment_fr",
-        "status": "scraped",
-        "confidence": "low",
-        "fetchedAt": "2026-11-18T07:42:23.212Z"
-      },
-      "website": {
-        "value": "https://www.pigment.com",
-        "source": "https://startupmap.one/startup/pigment_fr",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:23.212Z"
-      }
-    }
-  },
-  {
-    "id": "aircall",
-    "name": "Aircall",
-    "city": "Paris",
-    "sector": "Productivity & Collaboration",
-    "domain": "aircall.io",
-    "source": "https://startupmap.one/startup/aircall_fr",
-    "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/paris",
-    "asOf": "2026-11-18T07:42:24.444Z",
-    "description": "Listed in StartupMap’s Paris ecosystem directory.",
-    "signals": {
-      "founded": {
-        "value": 2014,
-        "source": "https://startupmap.one/startup/aircall_fr",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:24.444Z"
-      },
-      "stage": {
-        "value": "Series D",
-        "source": "https://startupmap.one/startup/aircall_fr",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:24.444Z"
-      },
-      "headcount": {
-        "value": {
-          "min": 700,
-          "max": 800
-        },
-        "source": "https://startupmap.one/startup/aircall_fr",
-        "status": "scraped",
-        "confidence": "low",
-        "fetchedAt": "2026-11-18T07:42:24.444Z"
-      },
-      "website": {
-        "value": "https://aircall.io",
-        "source": "https://startupmap.one/startup/aircall_fr",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:24.444Z"
-      }
-    }
-  },
-  {
-    "id": "genesis-ai",
-    "name": "Genesis AI",
-    "city": "Paris",
-    "sector": "Robotics",
-    "domain": "www.genesis.ai",
-    "source": "https://startupmap.one/startup/genesis_ai_fr",
-    "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/paris",
-    "asOf": "2026-11-18T07:42:25.708Z",
-    "description": "Listed in StartupMap’s Paris ecosystem directory.",
-    "signals": {
-      "founded": {
-        "value": 2024,
-        "source": "https://startupmap.one/startup/genesis_ai_fr",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:25.708Z"
-      },
-      "stage": {
-        "value": "Seed",
-        "source": "https://startupmap.one/startup/genesis_ai_fr",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:25.708Z"
-      },
-      "headcount": {
-        "value": {
-          "min": 60,
-          "max": 80
-        },
-        "source": "https://startupmap.one/startup/genesis_ai_fr",
-        "status": "scraped",
-        "confidence": "low",
-        "fetchedAt": "2026-11-18T07:42:25.708Z"
-      },
-      "website": {
-        "value": "https://www.genesis.ai",
-        "source": "https://startupmap.one/startup/genesis_ai_fr",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:25.708Z"
-      }
-    }
-  },
-  {
-    "id": "quandela",
-    "name": "Quandela",
-    "city": "Paris",
-    "sector": "Hardware & Semiconductors",
-    "domain": "www.quandela.com",
-    "source": "https://startupmap.one/startup/quandela_fr",
-    "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/paris",
-    "asOf": "2026-11-18T07:42:26.975Z",
-    "description": "Listed in StartupMap’s Paris ecosystem directory.",
-    "signals": {
-      "founded": {
-        "value": 2017,
-        "source": "https://startupmap.one/startup/quandela_fr",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:26.975Z"
-      },
-      "stage": {
-        "value": "Series B",
-        "source": "https://startupmap.one/startup/quandela_fr",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:26.975Z"
-      },
-      "headcount": {
-        "value": {
-          "min": 101,
-          "max": 200
-        },
-        "source": "https://startupmap.one/startup/quandela_fr",
-        "status": "scraped",
-        "confidence": "low",
-        "fetchedAt": "2026-11-18T07:42:26.975Z"
-      },
-      "website": {
-        "value": "https://www.quandela.com",
-        "source": "https://startupmap.one/startup/quandela_fr",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:26.975Z"
-      }
-    }
-  },
-  {
-    "id": "skello",
-    "name": "Skello",
-    "city": "Paris",
-    "sector": "HR Tech",
-    "domain": "www.skello.io",
-    "source": "https://startupmap.one/startup/skello_fr",
-    "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/paris",
-    "asOf": "2026-11-18T07:42:28.205Z",
-    "description": "Listed in StartupMap’s Paris ecosystem directory.",
-    "signals": {
-      "founded": {
-        "value": 2016,
-        "source": "https://startupmap.one/startup/skello_fr",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:28.205Z"
-      },
-      "stage": {
-        "value": "Series B",
-        "source": "https://startupmap.one/startup/skello_fr",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:28.205Z"
-      },
-      "headcount": {
-        "value": {
-          "min": 400,
-          "max": 500
-        },
-        "source": "https://startupmap.one/startup/skello_fr",
-        "status": "scraped",
-        "confidence": "low",
-        "fetchedAt": "2026-11-18T07:42:28.205Z"
-      },
-      "website": {
-        "value": "https://www.skello.io",
-        "source": "https://startupmap.one/startup/skello_fr",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:28.205Z"
-      }
-    }
-  },
-  {
-    "id": "qonto",
-    "name": "Qonto",
-    "city": "Paris",
-    "sector": "Payments & Banking",
-    "domain": "qonto.com",
-    "source": "https://startupmap.one/startup/qonto_fr",
-    "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/paris",
-    "asOf": "2026-11-18T07:42:29.433Z",
-    "description": "Listed in StartupMap’s Paris ecosystem directory.",
-    "signals": {
-      "founded": {
-        "value": 2016,
-        "source": "https://startupmap.one/startup/qonto_fr",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:29.433Z"
-      },
-      "stage": {
-        "value": "Series D",
-        "source": "https://startupmap.one/startup/qonto_fr",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:29.433Z"
-      },
-      "headcount": {
-        "value": {
-          "min": 1001,
-          "max": 5000
-        },
-        "source": "https://startupmap.one/startup/qonto_fr",
-        "status": "scraped",
-        "confidence": "low",
-        "fetchedAt": "2026-11-18T07:42:29.433Z"
-      },
-      "website": {
-        "value": "https://qonto.com",
-        "source": "https://startupmap.one/startup/qonto_fr",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:29.433Z"
-      }
-    }
-  },
-  {
-    "id": "alice-bob",
-    "name": "Alice & Bob",
-    "city": "Paris",
-    "sector": "Hardware & Semiconductors",
-    "domain": "alice-bob.com",
-    "source": "https://startupmap.one/startup/alice_bob_fr",
-    "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/paris",
-    "asOf": "2026-11-18T07:42:30.670Z",
-    "description": "Listed in StartupMap’s Paris ecosystem directory.",
-    "signals": {
-      "founded": {
-        "value": 2020,
-        "source": "https://startupmap.one/startup/alice_bob_fr",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:30.670Z"
-      },
-      "stage": {
-        "value": "Series B",
-        "source": "https://startupmap.one/startup/alice_bob_fr",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:30.670Z"
-      },
-      "headcount": {
-        "value": {
-          "min": 150,
-          "max": 200
-        },
-        "source": "https://startupmap.one/startup/alice_bob_fr",
-        "status": "scraped",
-        "confidence": "low",
-        "fetchedAt": "2026-11-18T07:42:30.670Z"
-      },
-      "website": {
-        "value": "https://alice-bob.com",
-        "source": "https://startupmap.one/startup/alice_bob_fr",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:30.670Z"
-      }
-    }
-  },
-  {
-    "id": "alta-ares",
-    "name": "Alta Ares",
-    "city": "Paris",
-    "sector": "Aerospace & Defense",
-    "domain": "altaares.com",
-    "source": "https://startupmap.one/startup/alta_ares_fr",
-    "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/paris",
-    "asOf": "2026-11-18T07:42:31.923Z",
-    "description": "Listed in StartupMap’s Paris ecosystem directory.",
-    "signals": {
-      "founded": {
-        "value": 2024,
-        "source": "https://startupmap.one/startup/alta_ares_fr",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:31.923Z"
-      },
-      "stage": {
-        "value": "Series A",
-        "source": "https://startupmap.one/startup/alta_ares_fr",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:31.923Z"
-      },
-      "headcount": {
-        "value": {
-          "min": 51,
-          "max": 200
-        },
-        "source": "https://startupmap.one/startup/alta_ares_fr",
-        "status": "scraped",
-        "confidence": "low",
-        "fetchedAt": "2026-11-18T07:42:31.923Z"
-      },
-      "website": {
-        "value": "https://altaares.com",
-        "source": "https://startupmap.one/startup/alta_ares_fr",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:31.923Z"
-      }
-    }
-  },
-  {
-    "id": "dust",
-    "name": "Dust",
-    "city": "Paris",
-    "sector": "AI & Machine Learning",
-    "domain": "dust.tt",
-    "source": "https://startupmap.one/startup/dust_fr",
-    "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/paris",
-    "asOf": "2026-11-18T07:42:33.167Z",
-    "description": "Listed in StartupMap’s Paris ecosystem directory.",
-    "signals": {
-      "founded": {
-        "value": 2023,
-        "source": "https://startupmap.one/startup/dust_fr",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:33.167Z"
-      },
-      "stage": {
-        "value": "Series B",
-        "source": "https://startupmap.one/startup/dust_fr",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:33.167Z"
-      },
-      "headcount": {
-        "value": {
-          "min": 11,
-          "max": 50
-        },
-        "source": "https://startupmap.one/startup/dust_fr",
-        "status": "scraped",
-        "confidence": "low",
-        "fetchedAt": "2026-11-18T07:42:33.167Z"
-      },
-      "website": {
-        "value": "https://dust.tt",
-        "source": "https://startupmap.one/startup/dust_fr",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:33.167Z"
-      }
-    }
-  },
-  {
-    "id": "chapsvision",
-    "name": "ChapsVision",
-    "city": "Paris",
+    "id": "nscale",
+    "name": "Nscale",
+    "city": "London",
     "sector": "Unclassified",
     "domain": "",
-    "source": "https://startupmap.one/startup/chapsvision_fr",
+    "source": "https://startupmap.one/startup/nscale_uk",
     "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/paris",
-    "asOf": "2026-11-18T07:42:20.755Z",
-    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
     "signals": {}
   },
   {
-    "id": "spendesk",
-    "name": "Spendesk",
-    "city": "Paris",
+    "id": "fluidstack",
+    "name": "Fluidstack",
+    "city": "London",
     "sector": "Unclassified",
     "domain": "",
-    "source": "https://startupmap.one/startup/spendesk_fr",
+    "source": "https://startupmap.one/startup/fluidstack_gb",
     "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/paris",
-    "asOf": "2026-11-18T07:42:20.755Z",
-    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
     "signals": {}
   },
   {
-    "id": "swan",
-    "name": "Swan",
-    "city": "Paris",
+    "id": "sierra",
+    "name": "Sierra",
+    "city": "London",
     "sector": "Unclassified",
     "domain": "",
-    "source": "https://startupmap.one/startup/swan_fr",
+    "source": "https://startupmap.one/startup/sierra_gb",
     "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/paris",
-    "asOf": "2026-11-18T07:42:20.755Z",
-    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
     "signals": {}
   },
   {
-    "id": "hublo",
-    "name": "Hublo",
-    "city": "Paris",
+    "id": "wayve",
+    "name": "Wayve",
+    "city": "London",
     "sector": "Unclassified",
     "domain": "",
-    "source": "https://startupmap.one/startup/hublo_fr",
+    "source": "https://startupmap.one/startup/wayve_gb",
     "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/paris",
-    "asOf": "2026-11-18T07:42:20.755Z",
-    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
     "signals": {}
   },
   {
-    "id": "pasqal",
-    "name": "Pasqal",
-    "city": "Paris",
+    "id": "humanoid",
+    "name": "Humanoid",
+    "city": "London",
     "sector": "Unclassified",
     "domain": "",
-    "source": "https://startupmap.one/startup/pasqal_fr",
+    "source": "https://startupmap.one/startup/humanoid_gb",
     "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/paris",
-    "asOf": "2026-11-18T07:42:20.755Z",
-    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
     "signals": {}
   },
   {
-    "id": "h-company",
-    "name": "H Company",
-    "city": "Paris",
+    "id": "payhawk",
+    "name": "Payhawk",
+    "city": "London",
     "sector": "Unclassified",
     "domain": "",
-    "source": "https://startupmap.one/startup/h_company_fr",
+    "source": "https://startupmap.one/startup/payhawk_gb",
     "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/paris",
-    "asOf": "2026-11-18T07:42:20.755Z",
-    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
     "signals": {}
   },
   {
-    "id": "wandercraft",
-    "name": "Wandercraft",
-    "city": "Paris",
+    "id": "fuse-energy",
+    "name": "Fuse Energy",
+    "city": "London",
     "sector": "Unclassified",
     "domain": "",
-    "source": "https://startupmap.one/startup/wandercraft_fr",
+    "source": "https://startupmap.one/startup/fuse_energy_uk",
     "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/paris",
-    "asOf": "2026-11-18T07:42:20.755Z",
-    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
     "signals": {}
   },
   {
-    "id": "stoik",
-    "name": "Stoïk",
-    "city": "Paris",
+    "id": "dualentry",
+    "name": "DualEntry",
+    "city": "London",
     "sector": "Unclassified",
     "domain": "",
-    "source": "https://startupmap.one/startup/stoik_fr",
+    "source": "https://startupmap.one/startup/dualentry_uk",
     "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/paris",
-    "asOf": "2026-11-18T07:42:20.755Z",
-    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
     "signals": {}
   },
   {
-    "id": "gitguardian",
-    "name": "GitGuardian",
-    "city": "Paris",
+    "id": "omnea",
+    "name": "Omnea",
+    "city": "London",
     "sector": "Unclassified",
     "domain": "",
-    "source": "https://startupmap.one/startup/gitguardian_fr",
+    "source": "https://startupmap.one/startup/omnea_uk",
     "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/paris",
-    "asOf": "2026-11-18T07:42:20.755Z",
-    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
     "signals": {}
   },
   {
-    "id": "vocca",
-    "name": "Vocca",
-    "city": "Paris",
+    "id": "physicsx",
+    "name": "PhysicsX",
+    "city": "London",
     "sector": "Unclassified",
     "domain": "",
-    "source": "https://startupmap.one/startup/vocca_fr",
+    "source": "https://startupmap.one/startup/physicsx_gb",
     "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/paris",
-    "asOf": "2026-11-18T07:42:20.755Z",
-    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
     "signals": {}
   },
   {
-    "id": "matera",
-    "name": "Matera",
-    "city": "Paris",
+    "id": "xyz-reality",
+    "name": "XYZ Reality",
+    "city": "London",
     "sector": "Unclassified",
     "domain": "",
-    "source": "https://startupmap.one/startup/matera_fr",
+    "source": "https://startupmap.one/startup/xyz_reality_uk",
     "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/paris",
-    "asOf": "2026-11-18T07:42:20.755Z",
-    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
     "signals": {}
   },
   {
-    "id": "riot",
-    "name": "Riot",
-    "city": "Paris",
+    "id": "prolific",
+    "name": "Prolific",
+    "city": "London",
     "sector": "Unclassified",
     "domain": "",
-    "source": "https://startupmap.one/startup/riot_fr",
+    "source": "https://startupmap.one/startup/prolific_uk",
     "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/paris",
-    "asOf": "2026-11-18T07:42:20.755Z",
-    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
     "signals": {}
   },
   {
-    "id": "roundtable",
-    "name": "Roundtable",
-    "city": "Paris",
+    "id": "arq",
+    "name": "ARQ",
+    "city": "London",
     "sector": "Unclassified",
     "domain": "",
-    "source": "https://startupmap.one/startup/roundtable_fr",
+    "source": "https://startupmap.one/startup/arq_gb",
     "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/paris",
-    "asOf": "2026-11-18T07:42:20.755Z",
-    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
     "signals": {}
   },
   {
-    "id": "uma",
-    "name": "UMA",
-    "city": "Paris",
+    "id": "fractile",
+    "name": "Fractile",
+    "city": "London",
     "sector": "Unclassified",
     "domain": "",
-    "source": "https://startupmap.one/startup/uma_fr",
+    "source": "https://startupmap.one/startup/fractile_gb",
     "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/paris",
-    "asOf": "2026-11-18T07:42:20.755Z",
-    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "isomorphic-labs",
+    "name": "Isomorphic Labs",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/isomorphic_labs_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "metaview",
+    "name": "Metaview",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/metaview_uk",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "hyperexponential",
+    "name": "hyperexponential",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/hyperexponential_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "flow-engineering",
+    "name": "Flow Engineering",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/flow_engineering_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "vertice",
+    "name": "Vertice",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/vertice_uk",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "encord",
+    "name": "Encord",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/encord_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "sumsub",
+    "name": "Sumsub",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/sumsub_uk",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "incident-io",
+    "name": "incident.io",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/incident_io_uk",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "flo-health",
+    "name": "Flo Health",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/flo_health_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "gocardless",
+    "name": "GoCardless",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/gocardless_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "conduct",
+    "name": "Conduct",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/conduct_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "outpost",
+    "name": "Outpost",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/outpost_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "searchable",
+    "name": "Searchable",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/searchable_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "synthesia",
+    "name": "Synthesia",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/synthesia_uk",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "qargo",
+    "name": "Qargo",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/qargo_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "taptap-send",
+    "name": "Taptap Send",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/taptap_send_uk",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "lemfi",
+    "name": "LemFi",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/lemfi_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "olix",
+    "name": "OLIX",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/olix_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "hiya",
+    "name": "Hiya",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/hiya_us",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "tem",
+    "name": "tem",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/tem_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "attio",
+    "name": "Attio",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/attio_uk",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "elliptic",
+    "name": "Elliptic",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/elliptic_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "runware",
+    "name": "Runware",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/runware_uk",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "nevis",
+    "name": "Nevis",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/nevis_uk",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "primer",
+    "name": "Primer",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/primer_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "complyadvantage",
+    "name": "ComplyAdvantage",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/comply_advantage_uk",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "orbital",
+    "name": "Orbital",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/orbital_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "solve-intelligence",
+    "name": "Solve Intelligence",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/solve_intelligence_uk",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "claimsorted",
+    "name": "ClaimSorted",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/claimsorted_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "granola",
+    "name": "Granola",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/granola_uk",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "cognism",
+    "name": "Cognism",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/cognism_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "motorway",
+    "name": "Motorway",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/motorway_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "reedsy",
+    "name": "Reedsy",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/reedsy_uk",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "scan-com",
+    "name": "Scan.com",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/scan_com_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "scarlet",
+    "name": "Scarlet",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/scarlet_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "heidi-health",
+    "name": "Heidi Health",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/heidi_health_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "mimica",
+    "name": "Mimica",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/mimica_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "model-ml",
+    "name": "Model ML",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/model_ml_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "cleo",
+    "name": "Cleo",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/cleo_uk",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "firstwork",
+    "name": "Firstwork",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/firstwork_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "moneybox",
+    "name": "Moneybox",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/moneybox_uk",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "junction",
+    "name": "Junction",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/junction_uk",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "plum",
+    "name": "Plum",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/plum_uk",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "valarian",
+    "name": "Valarian",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/valarian_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "abound",
+    "name": "Abound",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/abound_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "accurx",
+    "name": "Accurx",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/accurx_uk",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "aries-global",
+    "name": "Aries Global",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/aries_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "callosum",
+    "name": "Callosum",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/callosum_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "mytos",
+    "name": "Mytos",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/mytos_uk",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "spaitial",
+    "name": "SpAItial",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/spaitial_uk",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "auquan",
+    "name": "Auquan",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/auquan_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "quantinuum",
+    "name": "Quantinuum",
+    "city": "Cambridge",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/quantinuum_uk",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/cambridge",
+    "asOf": "2026-11-18T08:22:30.948Z",
+    "description": "Listed in StartupMap’s Cambridge ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "cambridge-aerospace",
+    "name": "Cambridge Aerospace",
+    "city": "Cambridge",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/cambridge_aerospace_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/cambridge",
+    "asOf": "2026-11-18T08:22:30.948Z",
+    "description": "Listed in StartupMap’s Cambridge ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "riverlane",
+    "name": "Riverlane",
+    "city": "Cambridge",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/riverlane_uk",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/cambridge",
+    "asOf": "2026-11-18T08:22:30.948Z",
+    "description": "Listed in StartupMap’s Cambridge ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "cuspai",
+    "name": "CuspAI",
+    "city": "Cambridge",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/cuspai_uk",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/cambridge",
+    "asOf": "2026-11-18T08:22:30.948Z",
+    "description": "Listed in StartupMap’s Cambridge ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "gearset",
+    "name": "Gearset",
+    "city": "Cambridge",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/gearset_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/cambridge",
+    "asOf": "2026-11-18T08:22:30.948Z",
+    "description": "Listed in StartupMap’s Cambridge ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "speechmatics",
+    "name": "Speechmatics",
+    "city": "Cambridge",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/speechmatics_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/cambridge",
+    "asOf": "2026-11-18T08:22:30.948Z",
+    "description": "Listed in StartupMap’s Cambridge ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "warebee",
+    "name": "WareBee",
+    "city": "Cambridge",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/warebee_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/cambridge",
+    "asOf": "2026-11-18T08:22:30.948Z",
+    "description": "Listed in StartupMap’s Cambridge ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "coherence-neuro",
+    "name": "Coherence Neuro",
+    "city": "Cambridge",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/opto_bio_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/cambridge",
+    "asOf": "2026-11-18T08:22:30.948Z",
+    "description": "Listed in StartupMap’s Cambridge ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "constructive-bio",
+    "name": "Constructive Bio",
+    "city": "Cambridge",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/constructive_bio_uk",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/cambridge",
+    "asOf": "2026-11-18T08:22:30.948Z",
+    "description": "Listed in StartupMap’s Cambridge ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "hiverge",
+    "name": "Hiverge",
+    "city": "Cambridge",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/hiverge_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/cambridge",
+    "asOf": "2026-11-18T08:22:30.948Z",
+    "description": "Listed in StartupMap’s Cambridge ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "intellegens",
+    "name": "Intellegens",
+    "city": "Cambridge",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/intellegens_uk",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/cambridge",
+    "asOf": "2026-11-18T08:22:30.948Z",
+    "description": "Listed in StartupMap’s Cambridge ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "qureight",
+    "name": "Qureight",
+    "city": "Cambridge",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/qureight_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/cambridge",
+    "asOf": "2026-11-18T08:22:30.948Z",
+    "description": "Listed in StartupMap’s Cambridge ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "thoughtriver",
+    "name": "ThoughtRiver",
+    "city": "Cambridge",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/thoughtriver_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/cambridge",
+    "asOf": "2026-11-18T08:22:30.948Z",
+    "description": "Listed in StartupMap’s Cambridge ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "vsim-robotics",
+    "name": "Vsim Robotics",
+    "city": "Cambridge",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/vsim_robotics_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/cambridge",
+    "asOf": "2026-11-18T08:22:30.948Z",
+    "description": "Listed in StartupMap’s Cambridge ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "cmr-surgical",
+    "name": "CMR Surgical",
+    "city": "Cambridge",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/cmr_surgical_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/cambridge",
+    "asOf": "2026-11-18T08:22:30.948Z",
+    "description": "Listed in StartupMap’s Cambridge ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "street-co-uk",
+    "name": "Street.co.uk",
+    "city": "Manchester",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/street_co_uk_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/manchester",
+    "asOf": "2026-11-18T08:22:33.048Z",
+    "description": "Listed in StartupMap’s Manchester ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "nuclear-turbines",
+    "name": "Nuclear Turbines",
+    "city": "Manchester",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/nuclear_turbines_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/manchester",
+    "asOf": "2026-11-18T08:22:33.048Z",
+    "description": "Listed in StartupMap’s Manchester ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "summize",
+    "name": "Summize",
+    "city": "Manchester",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/summize_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/manchester",
+    "asOf": "2026-11-18T08:22:33.048Z",
+    "description": "Listed in StartupMap’s Manchester ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "lunio",
+    "name": "Lunio",
+    "city": "Manchester",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/lunio_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/manchester",
+    "asOf": "2026-11-18T08:22:33.048Z",
+    "description": "Listed in StartupMap’s Manchester ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "lichen-ai",
+    "name": "Lichen AI",
+    "city": "Manchester",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/lichen_ai_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/manchester",
+    "asOf": "2026-11-18T08:22:33.048Z",
+    "description": "Listed in StartupMap’s Manchester ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "revnu",
+    "name": "Revnu",
+    "city": "Manchester",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/revnu_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/manchester",
+    "asOf": "2026-11-18T08:22:33.048Z",
+    "description": "Listed in StartupMap’s Manchester ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "cytix",
+    "name": "Cytix",
+    "city": "Manchester",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/cytix_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/manchester",
+    "asOf": "2026-11-18T08:22:33.048Z",
+    "description": "Listed in StartupMap’s Manchester ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "homefans",
+    "name": "Homefans",
+    "city": "Manchester",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/homefans_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/manchester",
+    "asOf": "2026-11-18T08:22:33.048Z",
+    "description": "Listed in StartupMap’s Manchester ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "housr",
+    "name": "Housr",
+    "city": "Manchester",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/housr_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/manchester",
+    "asOf": "2026-11-18T08:22:33.048Z",
+    "description": "Listed in StartupMap’s Manchester ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "seechange",
+    "name": "Seechange",
+    "city": "Manchester",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/seechange_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/manchester",
+    "asOf": "2026-11-18T08:22:33.048Z",
+    "description": "Listed in StartupMap’s Manchester ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "immersive-labs",
+    "name": "Immersive Labs",
+    "city": "Bristol",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/immersive_labs_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/bristol",
+    "asOf": "2026-11-18T08:22:33.951Z",
+    "description": "Listed in StartupMap’s Bristol ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "astral-systems",
+    "name": "Astral Systems",
+    "city": "Bristol",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/astral_systems_uk",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/bristol",
+    "asOf": "2026-11-18T08:22:33.951Z",
+    "description": "Listed in StartupMap’s Bristol ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "kets-quantum-security",
+    "name": "KETS Quantum Security",
+    "city": "Bristol",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/kets_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/bristol",
+    "asOf": "2026-11-18T08:22:33.951Z",
+    "description": "Listed in StartupMap’s Bristol ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "circuithub",
+    "name": "CircuitHub",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/circuithub_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "muzz",
+    "name": "Muzz",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/muzz_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "aspora",
+    "name": "Aspora",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/aspora_uk",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "better-dairy",
+    "name": "Better Dairy",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/better_dairy_uk",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "flagright",
+    "name": "Flagright",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/flagright_gb",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "intropic",
+    "name": "Intropic",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/intropic_uk",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "yoto",
+    "name": "Yoto",
+    "city": "London",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/yoto_uk",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/london",
+    "asOf": "2026-11-18T08:22:29.832Z",
+    "description": "Listed in StartupMap’s London ecosystem directory.",
     "signals": {}
   },
   {
@@ -4063,6 +4596,435 @@ export default [
     "signals": {}
   },
   {
+    "id": "thorizon",
+    "name": "Thorizon",
+    "city": "Amsterdam",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/thorizon",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/amsterdam",
+    "asOf": "2026-11-18T08:22:34.883Z",
+    "description": "Listed in StartupMap’s Amsterdam ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "cape-io",
+    "name": "Cape.io",
+    "city": "Amsterdam",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/cape_io_nl",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/amsterdam",
+    "asOf": "2026-11-18T08:22:34.883Z",
+    "description": "Listed in StartupMap’s Amsterdam ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "churned",
+    "name": "Churned",
+    "city": "Amsterdam",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/churned_nl",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/amsterdam",
+    "asOf": "2026-11-18T08:22:34.883Z",
+    "description": "Listed in StartupMap’s Amsterdam ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "cutr",
+    "name": "Cutr",
+    "city": "Amsterdam",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/cutr_nl",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/amsterdam",
+    "asOf": "2026-11-18T08:22:34.883Z",
+    "description": "Listed in StartupMap’s Amsterdam ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "kaiko",
+    "name": "Kaiko",
+    "city": "Amsterdam",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/kaiko_ai",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/amsterdam",
+    "asOf": "2026-11-18T08:22:34.883Z",
+    "description": "Listed in StartupMap’s Amsterdam ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "lemni",
+    "name": "Lemni",
+    "city": "Amsterdam",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/lemni_nl",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/amsterdam",
+    "asOf": "2026-11-18T08:22:34.883Z",
+    "description": "Listed in StartupMap’s Amsterdam ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "lleverage",
+    "name": "Lleverage",
+    "city": "Amsterdam",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/lleverage",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/amsterdam",
+    "asOf": "2026-11-18T08:22:34.883Z",
+    "description": "Listed in StartupMap’s Amsterdam ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "marvelx-ai",
+    "name": "MarvelX AI",
+    "city": "Amsterdam",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/marvelx_ai",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/amsterdam",
+    "asOf": "2026-11-18T08:22:34.883Z",
+    "description": "Listed in StartupMap’s Amsterdam ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "sous",
+    "name": "SOUS",
+    "city": "Amsterdam",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/sous_nl",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/amsterdam",
+    "asOf": "2026-11-18T08:22:34.883Z",
+    "description": "Listed in StartupMap’s Amsterdam ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "skytree",
+    "name": "Skytree",
+    "city": "Amsterdam",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/skytree_nl",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/amsterdam",
+    "asOf": "2026-11-18T08:22:34.883Z",
+    "description": "Listed in StartupMap’s Amsterdam ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "stellar",
+    "name": "Stellar",
+    "city": "Amsterdam",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/stellar_nl",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/amsterdam",
+    "asOf": "2026-11-18T08:22:34.883Z",
+    "description": "Listed in StartupMap’s Amsterdam ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "teero",
+    "name": "Teero",
+    "city": "Amsterdam",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/teero",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/amsterdam",
+    "asOf": "2026-11-18T08:22:34.883Z",
+    "description": "Listed in StartupMap’s Amsterdam ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "chargetrip",
+    "name": "Chargetrip",
+    "city": "Amsterdam",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/chargetrip_nl",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/amsterdam",
+    "asOf": "2026-11-18T08:22:34.883Z",
+    "description": "Listed in StartupMap’s Amsterdam ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "cradle",
+    "name": "Cradle",
+    "city": "Amsterdam",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/cradle_bio",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/amsterdam",
+    "asOf": "2026-11-18T08:22:34.883Z",
+    "description": "Listed in StartupMap’s Amsterdam ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "dashmote",
+    "name": "Dashmote",
+    "city": "Amsterdam",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/dashmote",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/amsterdam",
+    "asOf": "2026-11-18T08:22:34.883Z",
+    "description": "Listed in StartupMap’s Amsterdam ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "momants",
+    "name": "Momants",
+    "city": "Amsterdam",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/momants_nl",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/amsterdam",
+    "asOf": "2026-11-18T08:22:34.883Z",
+    "description": "Listed in StartupMap’s Amsterdam ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "rootline",
+    "name": "Rootline",
+    "city": "Amsterdam",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/rootline_nl",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/amsterdam",
+    "asOf": "2026-11-18T08:22:34.883Z",
+    "description": "Listed in StartupMap’s Amsterdam ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "source-ag",
+    "name": "Source.ag",
+    "city": "Amsterdam",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/source_ag_nl",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/amsterdam",
+    "asOf": "2026-11-18T08:22:34.883Z",
+    "description": "Listed in StartupMap’s Amsterdam ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "spadework",
+    "name": "Spadework",
+    "city": "Amsterdam",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/spadework_nl",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/amsterdam",
+    "asOf": "2026-11-18T08:22:34.883Z",
+    "description": "Listed in StartupMap’s Amsterdam ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "weaviate",
+    "name": "Weaviate",
+    "city": "Amsterdam",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/weaviate",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/amsterdam",
+    "asOf": "2026-11-18T08:22:34.883Z",
+    "description": "Listed in StartupMap’s Amsterdam ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "mytomorrows",
+    "name": "myTomorrows",
+    "city": "Amsterdam",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/mytomorrows_nl",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/amsterdam",
+    "asOf": "2026-11-18T08:22:34.883Z",
+    "description": "Listed in StartupMap’s Amsterdam ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "airweave",
+    "name": "Airweave",
+    "city": "Amsterdam",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/airweave_ai",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/amsterdam",
+    "asOf": "2026-11-18T08:22:34.883Z",
+    "description": "Listed in StartupMap’s Amsterdam ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "altura",
+    "name": "Altura",
+    "city": "Amsterdam",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/altura",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/amsterdam",
+    "asOf": "2026-11-18T08:22:34.883Z",
+    "description": "Listed in StartupMap’s Amsterdam ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "bird",
+    "name": "Bird",
+    "city": "Amsterdam",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/bird_nl",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/amsterdam",
+    "asOf": "2026-11-18T08:22:34.883Z",
+    "description": "Listed in StartupMap’s Amsterdam ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "carbon-equity",
+    "name": "Carbon Equity",
+    "city": "Amsterdam",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/carbon_equity_nl",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/amsterdam",
+    "asOf": "2026-11-18T08:22:34.883Z",
+    "description": "Listed in StartupMap’s Amsterdam ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "elanza",
+    "name": "Elanza",
+    "city": "Amsterdam",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/elanza",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/amsterdam",
+    "asOf": "2026-11-18T08:22:34.883Z",
+    "description": "Listed in StartupMap’s Amsterdam ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "fairphone",
+    "name": "Fairphone",
+    "city": "Amsterdam",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/fairphone_nl",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/amsterdam",
+    "asOf": "2026-11-18T08:22:34.883Z",
+    "description": "Listed in StartupMap’s Amsterdam ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "fini-ai",
+    "name": "Fini AI",
+    "city": "Amsterdam",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/fini_ai_nl",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/amsterdam",
+    "asOf": "2026-11-18T08:22:34.883Z",
+    "description": "Listed in StartupMap’s Amsterdam ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "fourthline",
+    "name": "Fourthline",
+    "city": "Amsterdam",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/fourthline",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/amsterdam",
+    "asOf": "2026-11-18T08:22:34.883Z",
+    "description": "Listed in StartupMap’s Amsterdam ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "housapp",
+    "name": "HousApp",
+    "city": "Amsterdam",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/housapp_nl",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/amsterdam",
+    "asOf": "2026-11-18T08:22:34.883Z",
+    "description": "Listed in StartupMap’s Amsterdam ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "iconic",
+    "name": "Iconic",
+    "city": "Amsterdam",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/iconic_nl",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/amsterdam",
+    "asOf": "2026-11-18T08:22:34.883Z",
+    "description": "Listed in StartupMap’s Amsterdam ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "kaizo",
+    "name": "Kaizo",
+    "city": "Amsterdam",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/kaizo_nl",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/amsterdam",
+    "asOf": "2026-11-18T08:22:34.883Z",
+    "description": "Listed in StartupMap’s Amsterdam ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "langwatch",
+    "name": "LangWatch",
+    "city": "Amsterdam",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/langwatch",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/amsterdam",
+    "asOf": "2026-11-18T08:22:34.883Z",
+    "description": "Listed in StartupMap’s Amsterdam ecosystem directory.",
+    "signals": {}
+  },
+  {
     "id": "viktor",
     "name": "Viktor",
     "city": "Rotterdam",
@@ -4681,641 +5643,692 @@ export default [
     "signals": {}
   },
   {
-    "id": "qualifyze",
-    "name": "Qualifyze",
-    "city": "Frankfurt",
-    "sector": "Supply Chain & Ops Tech",
-    "domain": "www.qualifyze.com",
-    "source": "https://startupmap.one/startup/qualifyze_de",
-    "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/frankfurt",
-    "asOf": "2026-11-18T07:42:59.519Z",
-    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
-    "signals": {
-      "founded": {
-        "value": 2019,
-        "source": "https://startupmap.one/startup/qualifyze_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:59.519Z"
-      },
-      "stage": {
-        "value": "Series B",
-        "source": "https://startupmap.one/startup/qualifyze_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:59.519Z"
-      },
-      "headcount": {
-        "value": {
-          "min": 200,
-          "max": 250
-        },
-        "source": "https://startupmap.one/startup/qualifyze_de",
-        "status": "scraped",
-        "confidence": "low",
-        "fetchedAt": "2026-11-18T07:42:59.519Z"
-      },
-      "website": {
-        "value": "https://www.qualifyze.com",
-        "source": "https://startupmap.one/startup/qualifyze_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:42:59.519Z"
-      }
-    }
-  },
-  {
-    "id": "bavest",
-    "name": "Bavest",
-    "city": "Frankfurt",
-    "sector": "Fintech",
-    "domain": "www.bavest.co",
-    "source": "https://startupmap.one/startup/bavest_de",
-    "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/frankfurt",
-    "asOf": "2026-11-18T07:43:00.712Z",
-    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
-    "signals": {
-      "founded": {
-        "value": 2019,
-        "source": "https://startupmap.one/startup/bavest_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:43:00.712Z"
-      },
-      "stage": {
-        "value": "Pre Seed",
-        "source": "https://startupmap.one/startup/bavest_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:43:00.712Z"
-      },
-      "headcount": {
-        "value": {
-          "min": 10,
-          "max": 20
-        },
-        "source": "https://startupmap.one/startup/bavest_de",
-        "status": "scraped",
-        "confidence": "low",
-        "fetchedAt": "2026-11-18T07:43:00.712Z"
-      },
-      "website": {
-        "value": "https://www.bavest.co",
-        "source": "https://startupmap.one/startup/bavest_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:43:00.712Z"
-      }
-    }
-  },
-  {
-    "id": "leverest",
-    "name": "Leverest",
-    "city": "Frankfurt",
-    "sector": "Fintech",
-    "domain": "leverest.net",
-    "source": "https://startupmap.one/startup/leverest_de",
-    "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/frankfurt",
-    "asOf": "2026-11-18T07:43:01.924Z",
-    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
-    "signals": {
-      "founded": {
-        "value": 2020,
-        "source": "https://startupmap.one/startup/leverest_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:43:01.924Z"
-      },
-      "stage": {
-        "value": "Seed",
-        "source": "https://startupmap.one/startup/leverest_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:43:01.924Z"
-      },
-      "headcount": {
-        "value": {
-          "min": 11,
-          "max": 50
-        },
-        "source": "https://startupmap.one/startup/leverest_de",
-        "status": "scraped",
-        "confidence": "low",
-        "fetchedAt": "2026-11-18T07:43:01.924Z"
-      },
-      "website": {
-        "value": "https://leverest.net",
-        "source": "https://startupmap.one/startup/leverest_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:43:01.924Z"
-      }
-    }
-  },
-  {
-    "id": "fels-group",
-    "name": "FELS Group",
-    "city": "Frankfurt",
-    "sector": "Wealthtech & Insurtech",
-    "domain": "followmymoney.de",
-    "source": "https://startupmap.one/startup/fels_group_de",
-    "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/frankfurt",
-    "asOf": "2026-11-18T07:43:03.130Z",
-    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
-    "signals": {
-      "stage": {
-        "value": "Series A",
-        "source": "https://startupmap.one/startup/fels_group_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:43:03.130Z"
-      },
-      "headcount": {
-        "value": {
-          "min": 11,
-          "max": 50
-        },
-        "source": "https://startupmap.one/startup/fels_group_de",
-        "status": "scraped",
-        "confidence": "low",
-        "fetchedAt": "2026-11-18T07:43:03.130Z"
-      },
-      "website": {
-        "value": "https://followmymoney.de",
-        "source": "https://startupmap.one/startup/fels_group_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:43:03.130Z"
-      }
-    }
-  },
-  {
-    "id": "rail-flow",
-    "name": "Rail-Flow",
-    "city": "Frankfurt",
-    "sector": "Logistics",
-    "domain": "www.rail-flow.com",
-    "source": "https://startupmap.one/startup/rail_flow_de",
-    "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/frankfurt",
-    "asOf": "2026-11-18T07:43:04.340Z",
-    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
-    "signals": {
-      "founded": {
-        "value": 2020,
-        "source": "https://startupmap.one/startup/rail_flow_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:43:04.340Z"
-      },
-      "stage": {
-        "value": "Series A",
-        "source": "https://startupmap.one/startup/rail_flow_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:43:04.340Z"
-      },
-      "headcount": {
-        "value": {
-          "min": 170,
-          "max": 200
-        },
-        "source": "https://startupmap.one/startup/rail_flow_de",
-        "status": "scraped",
-        "confidence": "low",
-        "fetchedAt": "2026-11-18T07:43:04.340Z"
-      },
-      "website": {
-        "value": "https://www.rail-flow.com",
-        "source": "https://startupmap.one/startup/rail_flow_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:43:04.340Z"
-      }
-    }
-  },
-  {
-    "id": "cashlink",
-    "name": "Cashlink",
-    "city": "Frankfurt",
-    "sector": "Fintech",
-    "domain": "cashlink.de",
-    "source": "https://startupmap.one/startup/cashlink_de",
-    "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/frankfurt",
-    "asOf": "2026-11-18T07:43:05.572Z",
-    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
-    "signals": {
-      "founded": {
-        "value": 2016,
-        "source": "https://startupmap.one/startup/cashlink_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:43:05.572Z"
-      },
-      "stage": {
-        "value": "Series A",
-        "source": "https://startupmap.one/startup/cashlink_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:43:05.572Z"
-      },
-      "headcount": {
-        "value": {
-          "min": 26,
-          "max": 49
-        },
-        "source": "https://startupmap.one/startup/cashlink_de",
-        "status": "scraped",
-        "confidence": "low",
-        "fetchedAt": "2026-11-18T07:43:05.572Z"
-      },
-      "website": {
-        "value": "https://cashlink.de",
-        "source": "https://startupmap.one/startup/cashlink_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:43:05.572Z"
-      }
-    }
-  },
-  {
-    "id": "quointelligence",
-    "name": "QuoIntelligence",
-    "city": "Frankfurt",
-    "sector": "Cybersecurity",
-    "domain": "quointelligence.eu",
-    "source": "https://startupmap.one/startup/quointelligence_de",
-    "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/frankfurt",
-    "asOf": "2026-11-18T07:43:06.849Z",
-    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
-    "signals": {
-      "founded": {
-        "value": 2020,
-        "source": "https://startupmap.one/startup/quointelligence_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:43:06.849Z"
-      },
-      "stage": {
-        "value": "Seed",
-        "source": "https://startupmap.one/startup/quointelligence_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:43:06.849Z"
-      },
-      "headcount": {
-        "value": {
-          "min": 11,
-          "max": 50
-        },
-        "source": "https://startupmap.one/startup/quointelligence_de",
-        "status": "scraped",
-        "confidence": "low",
-        "fetchedAt": "2026-11-18T07:43:06.849Z"
-      },
-      "website": {
-        "value": "https://quointelligence.eu",
-        "source": "https://startupmap.one/startup/quointelligence_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:43:06.849Z"
-      }
-    }
-  },
-  {
-    "id": "equipme",
-    "name": "Equipme",
-    "city": "Frankfurt",
-    "sector": "HR Tech",
-    "domain": "equipme.io",
-    "source": "https://startupmap.one/startup/equipme_de",
-    "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/frankfurt",
-    "asOf": "2026-11-18T07:43:08.078Z",
-    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
-    "signals": {
-      "founded": {
-        "value": 2021,
-        "source": "https://startupmap.one/startup/equipme_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:43:08.078Z"
-      },
-      "stage": {
-        "value": "Seed",
-        "source": "https://startupmap.one/startup/equipme_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:43:08.078Z"
-      },
-      "headcount": {
-        "value": {
-          "min": 10,
-          "max": 50
-        },
-        "source": "https://startupmap.one/startup/equipme_de",
-        "status": "scraped",
-        "confidence": "low",
-        "fetchedAt": "2026-11-18T07:43:08.078Z"
-      },
-      "website": {
-        "value": "https://equipme.io",
-        "source": "https://startupmap.one/startup/equipme_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:43:08.078Z"
-      }
-    }
-  },
-  {
-    "id": "implify",
-    "name": "Implify",
-    "city": "Frankfurt",
-    "sector": "Medtech & Devices",
-    "domain": "implify.de",
-    "source": "https://startupmap.one/startup/implify_de",
-    "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/frankfurt",
-    "asOf": "2026-11-18T07:43:09.320Z",
-    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
-    "signals": {
-      "founded": {
-        "value": 2020,
-        "source": "https://startupmap.one/startup/implify_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:43:09.320Z"
-      },
-      "stage": {
-        "value": "Series A",
-        "source": "https://startupmap.one/startup/implify_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:43:09.320Z"
-      },
-      "headcount": {
-        "value": {
-          "min": 11,
-          "max": 50
-        },
-        "source": "https://startupmap.one/startup/implify_de",
-        "status": "scraped",
-        "confidence": "low",
-        "fetchedAt": "2026-11-18T07:43:09.320Z"
-      },
-      "website": {
-        "value": "https://implify.de",
-        "source": "https://startupmap.one/startup/implify_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:43:09.320Z"
-      }
-    }
-  },
-  {
-    "id": "spotixx",
-    "name": "spotixx",
-    "city": "Frankfurt",
-    "sector": "Fintech",
-    "domain": "spotixx.com",
-    "source": "https://startupmap.one/startup/spotixx_de",
-    "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/frankfurt",
-    "asOf": "2026-11-18T07:43:10.544Z",
-    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
-    "signals": {
-      "founded": {
-        "value": 2019,
-        "source": "https://startupmap.one/startup/spotixx_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:43:10.544Z"
-      },
-      "stage": {
-        "value": "Bootstrapped",
-        "source": "https://startupmap.one/startup/spotixx_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:43:10.544Z"
-      },
-      "headcount": {
-        "value": {
-          "min": 50,
-          "max": 60
-        },
-        "source": "https://startupmap.one/startup/spotixx_de",
-        "status": "scraped",
-        "confidence": "low",
-        "fetchedAt": "2026-11-18T07:43:10.544Z"
-      },
-      "website": {
-        "value": "https://spotixx.com",
-        "source": "https://startupmap.one/startup/spotixx_de",
-        "status": "scraped",
-        "confidence": "medium",
-        "fetchedAt": "2026-11-18T07:43:10.544Z"
-      }
-    }
-  },
-  {
-    "id": "blocksize",
-    "name": "BLOCKSIZE",
-    "city": "Frankfurt",
+    "id": "oneteam",
+    "name": "Oneteam",
+    "city": "Rotterdam",
     "sector": "Unclassified",
     "domain": "",
-    "source": "https://startupmap.one/startup/blocksize_de",
+    "source": "https://startupmap.one/startup/oneteam",
     "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/frankfurt",
-    "asOf": "2026-11-18T07:42:58.310Z",
-    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
+    "directoryUrl": "https://startupmap.one/map/rotterdam",
+    "asOf": "2026-11-18T08:22:35.596Z",
+    "description": "Listed in StartupMap’s Rotterdam ecosystem directory.",
     "signals": {}
   },
   {
-    "id": "bullfinch",
-    "name": "Bullfinch",
-    "city": "Frankfurt",
+    "id": "relive",
+    "name": "Relive",
+    "city": "Rotterdam",
     "sector": "Unclassified",
     "domain": "",
-    "source": "https://startupmap.one/startup/bullfinch_de",
+    "source": "https://startupmap.one/startup/relive",
     "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/frankfurt",
-    "asOf": "2026-11-18T07:42:58.310Z",
-    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
+    "directoryUrl": "https://startupmap.one/map/rotterdam",
+    "asOf": "2026-11-18T08:22:35.596Z",
+    "description": "Listed in StartupMap’s Rotterdam ecosystem directory.",
     "signals": {}
   },
   {
-    "id": "genow",
-    "name": "Genow",
-    "city": "Frankfurt",
+    "id": "channable",
+    "name": "Channable",
+    "city": "Utrecht",
     "sector": "Unclassified",
     "domain": "",
-    "source": "https://startupmap.one/startup/genow_de",
+    "source": "https://startupmap.one/startup/channable_nl",
     "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/frankfurt",
-    "asOf": "2026-11-18T07:42:58.310Z",
-    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
+    "directoryUrl": "https://startupmap.one/map/utrecht",
+    "asOf": "2026-11-18T08:22:36.306Z",
+    "description": "Listed in StartupMap’s Utrecht ecosystem directory.",
     "signals": {}
   },
   {
-    "id": "louco",
-    "name": "Louco",
-    "city": "Frankfurt",
+    "id": "axoniq",
+    "name": "AxonIQ",
+    "city": "Utrecht",
     "sector": "Unclassified",
     "domain": "",
-    "source": "https://startupmap.one/startup/louco_de",
+    "source": "https://startupmap.one/startup/axoniq",
     "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/frankfurt",
-    "asOf": "2026-11-18T07:42:58.310Z",
-    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
+    "directoryUrl": "https://startupmap.one/map/utrecht",
+    "asOf": "2026-11-18T08:22:36.306Z",
+    "description": "Listed in StartupMap’s Utrecht ecosystem directory.",
     "signals": {}
   },
   {
-    "id": "leonardo-impact",
-    "name": "leonardo. impact",
-    "city": "Frankfurt",
+    "id": "legionelladossier",
+    "name": "LegionellaDossier",
+    "city": "Utrecht",
     "sector": "Unclassified",
     "domain": "",
-    "source": "https://startupmap.one/startup/leonardo_impact_de",
+    "source": "https://startupmap.one/startup/legionelladossier_nl",
     "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/frankfurt",
-    "asOf": "2026-11-18T07:42:58.310Z",
-    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
+    "directoryUrl": "https://startupmap.one/map/utrecht",
+    "asOf": "2026-11-18T08:22:36.306Z",
+    "description": "Listed in StartupMap’s Utrecht ecosystem directory.",
     "signals": {}
   },
   {
-    "id": "1-cp",
-    "name": "1-CP",
-    "city": "Frankfurt",
+    "id": "medendo",
+    "name": "Medendo",
+    "city": "Utrecht",
     "sector": "Unclassified",
     "domain": "",
-    "source": "https://startupmap.one/startup/1_cp_de",
+    "source": "https://startupmap.one/startup/medendo_nl",
     "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/frankfurt",
-    "asOf": "2026-11-18T07:42:58.310Z",
-    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
+    "directoryUrl": "https://startupmap.one/map/utrecht",
+    "asOf": "2026-11-18T08:22:36.306Z",
+    "description": "Listed in StartupMap’s Utrecht ecosystem directory.",
     "signals": {}
   },
   {
-    "id": "archigas",
-    "name": "Archigas",
-    "city": "Frankfurt",
+    "id": "orderli",
+    "name": "Orderli",
+    "city": "Utrecht",
     "sector": "Unclassified",
     "domain": "",
-    "source": "https://startupmap.one/startup/archigas_de",
+    "source": "https://startupmap.one/startup/orderli_nl",
     "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/frankfurt",
-    "asOf": "2026-11-18T07:42:58.310Z",
-    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
+    "directoryUrl": "https://startupmap.one/map/utrecht",
+    "asOf": "2026-11-18T08:22:36.306Z",
+    "description": "Listed in StartupMap’s Utrecht ecosystem directory.",
     "signals": {}
   },
   {
-    "id": "bita",
-    "name": "BITA",
-    "city": "Frankfurt",
+    "id": "eye-security",
+    "name": "Eye Security",
+    "city": "The Hague",
     "sector": "Unclassified",
     "domain": "",
-    "source": "https://startupmap.one/startup/bita_de",
+    "source": "https://startupmap.one/startup/eye_security_nl",
     "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/frankfurt",
-    "asOf": "2026-11-18T07:42:58.310Z",
-    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
+    "directoryUrl": "https://startupmap.one/map/the-hague",
+    "asOf": "2026-11-18T08:22:36.989Z",
+    "description": "Listed in StartupMap’s The Hague ecosystem directory.",
     "signals": {}
   },
   {
-    "id": "desion",
-    "name": "Desion",
-    "city": "Frankfurt",
+    "id": "qphox",
+    "name": "QphoX",
+    "city": "The Hague",
     "sector": "Unclassified",
     "domain": "",
-    "source": "https://startupmap.one/startup/desion_de",
+    "source": "https://startupmap.one/startup/qphox_nl",
     "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/frankfurt",
-    "asOf": "2026-11-18T07:42:58.310Z",
-    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
+    "directoryUrl": "https://startupmap.one/map/the-hague",
+    "asOf": "2026-11-18T08:22:36.989Z",
+    "description": "Listed in StartupMap’s The Hague ecosystem directory.",
     "signals": {}
   },
   {
-    "id": "donnerstag-ai",
-    "name": "Donnerstag.ai",
-    "city": "Frankfurt",
+    "id": "vydar",
+    "name": "Vydar",
+    "city": "The Hague",
     "sector": "Unclassified",
     "domain": "",
-    "source": "https://startupmap.one/startup/donnerstag_ai_de",
+    "source": "https://startupmap.one/startup/vydar_nl",
     "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/frankfurt",
-    "asOf": "2026-11-18T07:42:58.310Z",
-    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
+    "directoryUrl": "https://startupmap.one/map/the-hague",
+    "asOf": "2026-11-18T08:22:36.989Z",
+    "description": "Listed in StartupMap’s The Hague ecosystem directory.",
     "signals": {}
   },
   {
-    "id": "embold-technologies",
-    "name": "Embold Technologies",
-    "city": "Frankfurt",
+    "id": "zander-labs",
+    "name": "Zander Labs",
+    "city": "The Hague",
     "sector": "Unclassified",
     "domain": "",
-    "source": "https://startupmap.one/startup/embold_technologies_de",
+    "source": "https://startupmap.one/startup/zander_labs_nl",
     "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/frankfurt",
-    "asOf": "2026-11-18T07:42:58.310Z",
-    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
+    "directoryUrl": "https://startupmap.one/map/the-hague",
+    "asOf": "2026-11-18T08:22:36.989Z",
+    "description": "Listed in StartupMap’s The Hague ecosystem directory.",
     "signals": {}
   },
   {
-    "id": "finanzguru",
-    "name": "Finanzguru",
-    "city": "Frankfurt",
+    "id": "oasys-now",
+    "name": "OASYS NOW",
+    "city": "The Hague",
     "sector": "Unclassified",
     "domain": "",
-    "source": "https://startupmap.one/startup/finanzguru_de",
+    "source": "https://startupmap.one/startup/oasys_now_nl",
     "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/frankfurt",
-    "asOf": "2026-11-18T07:42:58.310Z",
-    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
+    "directoryUrl": "https://startupmap.one/map/the-hague",
+    "asOf": "2026-11-18T08:22:36.989Z",
+    "description": "Listed in StartupMap’s The Hague ecosystem directory.",
     "signals": {}
   },
   {
-    "id": "green-banana-group",
-    "name": "Green Banana Group",
-    "city": "Frankfurt",
+    "id": "inspace",
+    "name": "InSpace",
+    "city": "Eindhoven",
     "sector": "Unclassified",
     "domain": "",
-    "source": "https://startupmap.one/startup/green_banana_group_de",
+    "source": "https://startupmap.one/startup/inspace_nl",
     "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/frankfurt",
-    "asOf": "2026-11-18T07:42:58.310Z",
-    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
+    "directoryUrl": "https://startupmap.one/map/eindhoven",
+    "asOf": "2026-11-18T08:22:37.690Z",
+    "description": "Listed in StartupMap’s Eindhoven ecosystem directory.",
     "signals": {}
   },
   {
-    "id": "gunzilla-games",
-    "name": "Gunzilla Games",
-    "city": "Frankfurt",
+    "id": "tibo-energy",
+    "name": "Tibo Energy",
+    "city": "Eindhoven",
     "sector": "Unclassified",
     "domain": "",
-    "source": "https://startupmap.one/startup/gunzilla_games_de",
+    "source": "https://startupmap.one/startup/tibo_energy_nl",
     "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/frankfurt",
-    "asOf": "2026-11-18T07:42:58.310Z",
-    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
+    "directoryUrl": "https://startupmap.one/map/eindhoven",
+    "asOf": "2026-11-18T08:22:37.690Z",
+    "description": "Listed in StartupMap’s Eindhoven ecosystem directory.",
     "signals": {}
   },
   {
-    "id": "legaltegrity",
-    "name": "LegalTegrity",
-    "city": "Frankfurt",
+    "id": "tweaq",
+    "name": "Tweaq",
+    "city": "Eindhoven",
     "sector": "Unclassified",
     "domain": "",
-    "source": "https://startupmap.one/startup/legaltegrity_de",
+    "source": "https://startupmap.one/startup/tweaq_nl",
     "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/frankfurt",
-    "asOf": "2026-11-18T07:42:58.310Z",
-    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
+    "directoryUrl": "https://startupmap.one/map/eindhoven",
+    "asOf": "2026-11-18T08:22:37.690Z",
+    "description": "Listed in StartupMap’s Eindhoven ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "maaind",
+    "name": "Maaind",
+    "city": "Eindhoven",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/maaind_nl",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/eindhoven",
+    "asOf": "2026-11-18T08:22:37.690Z",
+    "description": "Listed in StartupMap’s Eindhoven ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "talkjs",
+    "name": "TalkJS",
+    "city": "Eindhoven",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/talkjs_nl",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/eindhoven",
+    "asOf": "2026-11-18T08:22:37.690Z",
+    "description": "Listed in StartupMap’s Eindhoven ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "ore-energy",
+    "name": "Ore Energy",
+    "city": "Amsterdam",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/ore_energy_nl",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/amsterdam",
+    "asOf": "2026-11-18T08:22:34.883Z",
+    "description": "Listed in StartupMap’s Amsterdam ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "stark",
+    "name": "Stark",
+    "city": "Berlin",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/stark_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/berlin",
+    "asOf": "2026-11-18T08:22:38.438Z",
+    "description": "Listed in StartupMap’s Berlin ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "n8n",
+    "name": "n8n",
+    "city": "Berlin",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/n8n_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/berlin",
+    "asOf": "2026-11-18T08:22:38.438Z",
+    "description": "Listed in StartupMap’s Berlin ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "voize",
+    "name": "Voize",
+    "city": "Berlin",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/voize",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/berlin",
+    "asOf": "2026-11-18T08:22:38.438Z",
+    "description": "Listed in StartupMap’s Berlin ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "parloa",
+    "name": "Parloa",
+    "city": "Berlin",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/parloa_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/berlin",
+    "asOf": "2026-11-18T08:22:38.438Z",
+    "description": "Listed in StartupMap’s Berlin ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "taktile",
+    "name": "Taktile",
+    "city": "Berlin",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/taktile_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/berlin",
+    "asOf": "2026-11-18T08:22:38.438Z",
+    "description": "Listed in StartupMap’s Berlin ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "cloover",
+    "name": "Cloover",
+    "city": "Berlin",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/cloover_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/berlin",
+    "asOf": "2026-11-18T08:22:38.438Z",
+    "description": "Listed in StartupMap’s Berlin ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "moss",
+    "name": "Moss",
+    "city": "Berlin",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/moss_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/berlin",
+    "asOf": "2026-11-18T08:22:38.438Z",
+    "description": "Listed in StartupMap’s Berlin ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "peec-ai",
+    "name": "Peec AI",
+    "city": "Berlin",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/peec_ai_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/berlin",
+    "asOf": "2026-11-18T08:22:38.438Z",
+    "description": "Listed in StartupMap’s Berlin ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "pliant",
+    "name": "Pliant",
+    "city": "Berlin",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/pliant_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/berlin",
+    "asOf": "2026-11-18T08:22:38.438Z",
+    "description": "Listed in StartupMap’s Berlin ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "upvest",
+    "name": "Upvest",
+    "city": "Berlin",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/upvest_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/berlin",
+    "asOf": "2026-11-18T08:22:38.438Z",
+    "description": "Listed in StartupMap’s Berlin ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "lyceum",
+    "name": "Lyceum",
+    "city": "Berlin",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/lyceum_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/berlin",
+    "asOf": "2026-11-18T08:22:38.438Z",
+    "description": "Listed in StartupMap’s Berlin ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "superchat",
+    "name": "Superchat",
+    "city": "Berlin",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/superchat_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/berlin",
+    "asOf": "2026-11-18T08:22:38.438Z",
+    "description": "Listed in StartupMap’s Berlin ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "reflex-aerospace",
+    "name": "Reflex Aerospace",
+    "city": "Berlin",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/reflex_aerospace",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/berlin",
+    "asOf": "2026-11-18T08:22:38.438Z",
+    "description": "Listed in StartupMap’s Berlin ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "kombo",
+    "name": "Kombo",
+    "city": "Berlin",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/kombo_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/berlin",
+    "asOf": "2026-11-18T08:22:38.438Z",
+    "description": "Listed in StartupMap’s Berlin ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "mercanis",
+    "name": "Mercanis",
+    "city": "Berlin",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/mercanis_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/berlin",
+    "asOf": "2026-11-18T08:22:38.438Z",
+    "description": "Listed in StartupMap’s Berlin ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "workmotion",
+    "name": "WorkMotion",
+    "city": "Berlin",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/workmotion_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/berlin",
+    "asOf": "2026-11-18T08:22:38.438Z",
+    "description": "Listed in StartupMap’s Berlin ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "integral",
+    "name": "Integral",
+    "city": "Berlin",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/integral_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/berlin",
+    "asOf": "2026-11-18T08:22:38.438Z",
+    "description": "Listed in StartupMap’s Berlin ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "revel8",
+    "name": "Revel8",
+    "city": "Berlin",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/revel8_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/berlin",
+    "asOf": "2026-11-18T08:22:38.438Z",
+    "description": "Listed in StartupMap’s Berlin ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "rulemapping",
+    "name": "Rulemapping",
+    "city": "Berlin",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/rulemapping_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/berlin",
+    "asOf": "2026-11-18T08:22:38.438Z",
+    "description": "Listed in StartupMap’s Berlin ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "netbird",
+    "name": "NetBird",
+    "city": "Berlin",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/netbird_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/berlin",
+    "asOf": "2026-11-18T08:22:38.438Z",
+    "description": "Listed in StartupMap’s Berlin ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "nelly",
+    "name": "Nelly",
+    "city": "Berlin",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/nelly_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/berlin",
+    "asOf": "2026-11-18T08:22:38.438Z",
+    "description": "Listed in StartupMap’s Berlin ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "vay",
+    "name": "Vay",
+    "city": "Berlin",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/vay",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/berlin",
+    "asOf": "2026-11-18T08:22:38.438Z",
+    "description": "Listed in StartupMap’s Berlin ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "telli",
+    "name": "telli",
+    "city": "Berlin",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/telli_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/berlin",
+    "asOf": "2026-11-18T08:22:38.438Z",
+    "description": "Listed in StartupMap’s Berlin ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "augustus",
+    "name": "Augustus",
+    "city": "Berlin",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/augustus_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/berlin",
+    "asOf": "2026-11-18T08:22:38.438Z",
+    "description": "Listed in StartupMap’s Berlin ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "trawa",
+    "name": "Trawa",
+    "city": "Berlin",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/trawa_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/berlin",
+    "asOf": "2026-11-18T08:22:38.438Z",
+    "description": "Listed in StartupMap’s Berlin ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "langdock",
+    "name": "Langdock",
+    "city": "Berlin",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/langdock_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/berlin",
+    "asOf": "2026-11-18T08:22:38.438Z",
+    "description": "Listed in StartupMap’s Berlin ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "nomos",
+    "name": "Nomos",
+    "city": "Berlin",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/nomos_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/berlin",
+    "asOf": "2026-11-18T08:22:38.438Z",
+    "description": "Listed in StartupMap’s Berlin ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "lemon-markets",
+    "name": "lemon.markets",
+    "city": "Berlin",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/lemon_markets_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/berlin",
+    "asOf": "2026-11-18T08:22:38.438Z",
+    "description": "Listed in StartupMap’s Berlin ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "cortea-ai",
+    "name": "Cortea AI",
+    "city": "Berlin",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/cortea_ai_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/berlin",
+    "asOf": "2026-11-18T08:22:38.438Z",
+    "description": "Listed in StartupMap’s Berlin ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "ablefy",
+    "name": "ablefy",
+    "city": "Berlin",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/ablefy_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/berlin",
+    "asOf": "2026-11-18T08:22:38.438Z",
+    "description": "Listed in StartupMap’s Berlin ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "qdrant",
+    "name": "Qdrant",
+    "city": "Berlin",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/qdrant_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/berlin",
+    "asOf": "2026-11-18T08:22:38.438Z",
+    "description": "Listed in StartupMap’s Berlin ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "getquin",
+    "name": "getquin",
+    "city": "Berlin",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/getquin_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/berlin",
+    "asOf": "2026-11-18T08:22:38.438Z",
+    "description": "Listed in StartupMap’s Berlin ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "maze",
+    "name": "Maze",
+    "city": "Berlin",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/maze_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/berlin",
+    "asOf": "2026-11-18T08:22:38.438Z",
+    "description": "Listed in StartupMap’s Berlin ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "spread",
+    "name": "SPREAD",
+    "city": "Berlin",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/spread_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/berlin",
+    "asOf": "2026-11-18T08:22:38.438Z",
+    "description": "Listed in StartupMap’s Berlin ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "metiundo",
+    "name": "metiundo",
+    "city": "Berlin",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/metiundo_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/berlin",
+    "asOf": "2026-11-18T08:22:38.438Z",
+    "description": "Listed in StartupMap’s Berlin ecosystem directory.",
     "signals": {}
   },
   {
@@ -5938,29 +6951,2552 @@ export default [
     "signals": {}
   },
   {
-    "id": "sewts",
-    "name": "Sewts",
-    "city": "Munich",
+    "id": "qualifyze",
+    "name": "Qualifyze",
+    "city": "Frankfurt",
+    "sector": "Supply Chain & Ops Tech",
+    "domain": "www.qualifyze.com",
+    "source": "https://startupmap.one/startup/qualifyze_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/frankfurt",
+    "asOf": "2026-11-18T07:42:59.519Z",
+    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
+    "signals": {
+      "founded": {
+        "value": 2019,
+        "source": "https://startupmap.one/startup/qualifyze_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:59.519Z"
+      },
+      "stage": {
+        "value": "Series B",
+        "source": "https://startupmap.one/startup/qualifyze_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:59.519Z"
+      },
+      "headcount": {
+        "value": {
+          "min": 200,
+          "max": 250
+        },
+        "source": "https://startupmap.one/startup/qualifyze_de",
+        "status": "scraped",
+        "confidence": "low",
+        "fetchedAt": "2026-11-18T07:42:59.519Z"
+      },
+      "website": {
+        "value": "https://www.qualifyze.com",
+        "source": "https://startupmap.one/startup/qualifyze_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:59.519Z"
+      }
+    }
+  },
+  {
+    "id": "bavest",
+    "name": "Bavest",
+    "city": "Frankfurt",
+    "sector": "Fintech",
+    "domain": "www.bavest.co",
+    "source": "https://startupmap.one/startup/bavest_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/frankfurt",
+    "asOf": "2026-11-18T07:43:00.712Z",
+    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
+    "signals": {
+      "founded": {
+        "value": 2019,
+        "source": "https://startupmap.one/startup/bavest_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:43:00.712Z"
+      },
+      "stage": {
+        "value": "Pre Seed",
+        "source": "https://startupmap.one/startup/bavest_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:43:00.712Z"
+      },
+      "headcount": {
+        "value": {
+          "min": 10,
+          "max": 20
+        },
+        "source": "https://startupmap.one/startup/bavest_de",
+        "status": "scraped",
+        "confidence": "low",
+        "fetchedAt": "2026-11-18T07:43:00.712Z"
+      },
+      "website": {
+        "value": "https://www.bavest.co",
+        "source": "https://startupmap.one/startup/bavest_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:43:00.712Z"
+      }
+    }
+  },
+  {
+    "id": "leverest",
+    "name": "Leverest",
+    "city": "Frankfurt",
+    "sector": "Fintech",
+    "domain": "leverest.net",
+    "source": "https://startupmap.one/startup/leverest_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/frankfurt",
+    "asOf": "2026-11-18T07:43:01.924Z",
+    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
+    "signals": {
+      "founded": {
+        "value": 2020,
+        "source": "https://startupmap.one/startup/leverest_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:43:01.924Z"
+      },
+      "stage": {
+        "value": "Seed",
+        "source": "https://startupmap.one/startup/leverest_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:43:01.924Z"
+      },
+      "headcount": {
+        "value": {
+          "min": 11,
+          "max": 50
+        },
+        "source": "https://startupmap.one/startup/leverest_de",
+        "status": "scraped",
+        "confidence": "low",
+        "fetchedAt": "2026-11-18T07:43:01.924Z"
+      },
+      "website": {
+        "value": "https://leverest.net",
+        "source": "https://startupmap.one/startup/leverest_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:43:01.924Z"
+      }
+    }
+  },
+  {
+    "id": "fels-group",
+    "name": "FELS Group",
+    "city": "Frankfurt",
+    "sector": "Wealthtech & Insurtech",
+    "domain": "followmymoney.de",
+    "source": "https://startupmap.one/startup/fels_group_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/frankfurt",
+    "asOf": "2026-11-18T07:43:03.130Z",
+    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
+    "signals": {
+      "stage": {
+        "value": "Series A",
+        "source": "https://startupmap.one/startup/fels_group_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:43:03.130Z"
+      },
+      "headcount": {
+        "value": {
+          "min": 11,
+          "max": 50
+        },
+        "source": "https://startupmap.one/startup/fels_group_de",
+        "status": "scraped",
+        "confidence": "low",
+        "fetchedAt": "2026-11-18T07:43:03.130Z"
+      },
+      "website": {
+        "value": "https://followmymoney.de",
+        "source": "https://startupmap.one/startup/fels_group_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:43:03.130Z"
+      }
+    }
+  },
+  {
+    "id": "rail-flow",
+    "name": "Rail-Flow",
+    "city": "Frankfurt",
+    "sector": "Logistics",
+    "domain": "www.rail-flow.com",
+    "source": "https://startupmap.one/startup/rail_flow_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/frankfurt",
+    "asOf": "2026-11-18T07:43:04.340Z",
+    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
+    "signals": {
+      "founded": {
+        "value": 2020,
+        "source": "https://startupmap.one/startup/rail_flow_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:43:04.340Z"
+      },
+      "stage": {
+        "value": "Series A",
+        "source": "https://startupmap.one/startup/rail_flow_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:43:04.340Z"
+      },
+      "headcount": {
+        "value": {
+          "min": 170,
+          "max": 200
+        },
+        "source": "https://startupmap.one/startup/rail_flow_de",
+        "status": "scraped",
+        "confidence": "low",
+        "fetchedAt": "2026-11-18T07:43:04.340Z"
+      },
+      "website": {
+        "value": "https://www.rail-flow.com",
+        "source": "https://startupmap.one/startup/rail_flow_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:43:04.340Z"
+      }
+    }
+  },
+  {
+    "id": "cashlink",
+    "name": "Cashlink",
+    "city": "Frankfurt",
+    "sector": "Fintech",
+    "domain": "cashlink.de",
+    "source": "https://startupmap.one/startup/cashlink_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/frankfurt",
+    "asOf": "2026-11-18T07:43:05.572Z",
+    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
+    "signals": {
+      "founded": {
+        "value": 2016,
+        "source": "https://startupmap.one/startup/cashlink_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:43:05.572Z"
+      },
+      "stage": {
+        "value": "Series A",
+        "source": "https://startupmap.one/startup/cashlink_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:43:05.572Z"
+      },
+      "headcount": {
+        "value": {
+          "min": 26,
+          "max": 49
+        },
+        "source": "https://startupmap.one/startup/cashlink_de",
+        "status": "scraped",
+        "confidence": "low",
+        "fetchedAt": "2026-11-18T07:43:05.572Z"
+      },
+      "website": {
+        "value": "https://cashlink.de",
+        "source": "https://startupmap.one/startup/cashlink_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:43:05.572Z"
+      }
+    }
+  },
+  {
+    "id": "quointelligence",
+    "name": "QuoIntelligence",
+    "city": "Frankfurt",
+    "sector": "Cybersecurity",
+    "domain": "quointelligence.eu",
+    "source": "https://startupmap.one/startup/quointelligence_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/frankfurt",
+    "asOf": "2026-11-18T07:43:06.849Z",
+    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
+    "signals": {
+      "founded": {
+        "value": 2020,
+        "source": "https://startupmap.one/startup/quointelligence_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:43:06.849Z"
+      },
+      "stage": {
+        "value": "Seed",
+        "source": "https://startupmap.one/startup/quointelligence_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:43:06.849Z"
+      },
+      "headcount": {
+        "value": {
+          "min": 11,
+          "max": 50
+        },
+        "source": "https://startupmap.one/startup/quointelligence_de",
+        "status": "scraped",
+        "confidence": "low",
+        "fetchedAt": "2026-11-18T07:43:06.849Z"
+      },
+      "website": {
+        "value": "https://quointelligence.eu",
+        "source": "https://startupmap.one/startup/quointelligence_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:43:06.849Z"
+      }
+    }
+  },
+  {
+    "id": "equipme",
+    "name": "Equipme",
+    "city": "Frankfurt",
+    "sector": "HR Tech",
+    "domain": "equipme.io",
+    "source": "https://startupmap.one/startup/equipme_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/frankfurt",
+    "asOf": "2026-11-18T07:43:08.078Z",
+    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
+    "signals": {
+      "founded": {
+        "value": 2021,
+        "source": "https://startupmap.one/startup/equipme_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:43:08.078Z"
+      },
+      "stage": {
+        "value": "Seed",
+        "source": "https://startupmap.one/startup/equipme_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:43:08.078Z"
+      },
+      "headcount": {
+        "value": {
+          "min": 10,
+          "max": 50
+        },
+        "source": "https://startupmap.one/startup/equipme_de",
+        "status": "scraped",
+        "confidence": "low",
+        "fetchedAt": "2026-11-18T07:43:08.078Z"
+      },
+      "website": {
+        "value": "https://equipme.io",
+        "source": "https://startupmap.one/startup/equipme_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:43:08.078Z"
+      }
+    }
+  },
+  {
+    "id": "implify",
+    "name": "Implify",
+    "city": "Frankfurt",
+    "sector": "Medtech & Devices",
+    "domain": "implify.de",
+    "source": "https://startupmap.one/startup/implify_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/frankfurt",
+    "asOf": "2026-11-18T07:43:09.320Z",
+    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
+    "signals": {
+      "founded": {
+        "value": 2020,
+        "source": "https://startupmap.one/startup/implify_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:43:09.320Z"
+      },
+      "stage": {
+        "value": "Series A",
+        "source": "https://startupmap.one/startup/implify_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:43:09.320Z"
+      },
+      "headcount": {
+        "value": {
+          "min": 11,
+          "max": 50
+        },
+        "source": "https://startupmap.one/startup/implify_de",
+        "status": "scraped",
+        "confidence": "low",
+        "fetchedAt": "2026-11-18T07:43:09.320Z"
+      },
+      "website": {
+        "value": "https://implify.de",
+        "source": "https://startupmap.one/startup/implify_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:43:09.320Z"
+      }
+    }
+  },
+  {
+    "id": "spotixx",
+    "name": "spotixx",
+    "city": "Frankfurt",
+    "sector": "Fintech",
+    "domain": "spotixx.com",
+    "source": "https://startupmap.one/startup/spotixx_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/frankfurt",
+    "asOf": "2026-11-18T07:43:10.544Z",
+    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
+    "signals": {
+      "founded": {
+        "value": 2019,
+        "source": "https://startupmap.one/startup/spotixx_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:43:10.544Z"
+      },
+      "stage": {
+        "value": "Bootstrapped",
+        "source": "https://startupmap.one/startup/spotixx_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:43:10.544Z"
+      },
+      "headcount": {
+        "value": {
+          "min": 50,
+          "max": 60
+        },
+        "source": "https://startupmap.one/startup/spotixx_de",
+        "status": "scraped",
+        "confidence": "low",
+        "fetchedAt": "2026-11-18T07:43:10.544Z"
+      },
+      "website": {
+        "value": "https://spotixx.com",
+        "source": "https://startupmap.one/startup/spotixx_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:43:10.544Z"
+      }
+    }
+  },
+  {
+    "id": "blocksize",
+    "name": "BLOCKSIZE",
+    "city": "Frankfurt",
     "sector": "Unclassified",
     "domain": "",
-    "source": "https://startupmap.one/startup/sewts_de",
+    "source": "https://startupmap.one/startup/blocksize_de",
     "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/munich",
-    "asOf": "2026-11-18T07:43:10.726Z",
-    "description": "Listed in StartupMap’s Munich ecosystem directory.",
+    "directoryUrl": "https://startupmap.one/map/frankfurt",
+    "asOf": "2026-11-18T07:42:58.310Z",
+    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
     "signals": {}
   },
   {
-    "id": "filics",
-    "name": "Filics",
-    "city": "Munich",
+    "id": "bullfinch",
+    "name": "Bullfinch",
+    "city": "Frankfurt",
     "sector": "Unclassified",
     "domain": "",
-    "source": "https://startupmap.one/startup/filics_de",
+    "source": "https://startupmap.one/startup/bullfinch_de",
     "directory": "StartupMap",
-    "directoryUrl": "https://startupmap.one/map/munich",
-    "asOf": "2026-11-18T07:43:10.726Z",
-    "description": "Listed in StartupMap’s Munich ecosystem directory.",
+    "directoryUrl": "https://startupmap.one/map/frankfurt",
+    "asOf": "2026-11-18T07:42:58.310Z",
+    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "genow",
+    "name": "Genow",
+    "city": "Frankfurt",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/genow_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/frankfurt",
+    "asOf": "2026-11-18T07:42:58.310Z",
+    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "louco",
+    "name": "Louco",
+    "city": "Frankfurt",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/louco_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/frankfurt",
+    "asOf": "2026-11-18T07:42:58.310Z",
+    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "leonardo-impact",
+    "name": "leonardo. impact",
+    "city": "Frankfurt",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/leonardo_impact_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/frankfurt",
+    "asOf": "2026-11-18T07:42:58.310Z",
+    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "1-cp",
+    "name": "1-CP",
+    "city": "Frankfurt",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/1_cp_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/frankfurt",
+    "asOf": "2026-11-18T07:42:58.310Z",
+    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "archigas",
+    "name": "Archigas",
+    "city": "Frankfurt",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/archigas_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/frankfurt",
+    "asOf": "2026-11-18T07:42:58.310Z",
+    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "bita",
+    "name": "BITA",
+    "city": "Frankfurt",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/bita_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/frankfurt",
+    "asOf": "2026-11-18T07:42:58.310Z",
+    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "desion",
+    "name": "Desion",
+    "city": "Frankfurt",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/desion_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/frankfurt",
+    "asOf": "2026-11-18T07:42:58.310Z",
+    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "donnerstag-ai",
+    "name": "Donnerstag.ai",
+    "city": "Frankfurt",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/donnerstag_ai_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/frankfurt",
+    "asOf": "2026-11-18T07:42:58.310Z",
+    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "embold-technologies",
+    "name": "Embold Technologies",
+    "city": "Frankfurt",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/embold_technologies_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/frankfurt",
+    "asOf": "2026-11-18T07:42:58.310Z",
+    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "finanzguru",
+    "name": "Finanzguru",
+    "city": "Frankfurt",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/finanzguru_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/frankfurt",
+    "asOf": "2026-11-18T07:42:58.310Z",
+    "description": "Listed in StartupMap’s Frankfurt ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "dash0",
+    "name": "Dash0",
+    "city": "Düsseldorf",
+    "sector": "AI & Machine Learning",
+    "domain": "www.dash0.com",
+    "source": "https://startupmap.one/startup/dash0_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/dusseldorf",
+    "asOf": "2026-11-18T07:42:18.025Z",
+    "description": "Listed in StartupMap’s Düsseldorf ecosystem directory.",
+    "signals": {
+      "founded": {
+        "value": 2023,
+        "source": "https://startupmap.one/startup/dash0_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:18.025Z"
+      },
+      "stage": {
+        "value": "Series B",
+        "source": "https://startupmap.one/startup/dash0_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:18.025Z"
+      },
+      "headcount": {
+        "value": {
+          "min": 126,
+          "max": 126
+        },
+        "source": "https://startupmap.one/startup/dash0_de",
+        "status": "scraped",
+        "confidence": "low",
+        "fetchedAt": "2026-11-18T07:42:18.025Z"
+      },
+      "website": {
+        "value": "https://www.dash0.com",
+        "source": "https://startupmap.one/startup/dash0_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:18.025Z"
+      }
+    }
+  },
+  {
+    "id": "vivenu",
+    "name": "vivenu",
+    "city": "Düsseldorf",
+    "sector": "E Commerce & Retail",
+    "domain": "vivenu.com",
+    "source": "https://startupmap.one/startup/vivenu_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/dusseldorf",
+    "asOf": "2026-11-18T07:42:19.283Z",
+    "description": "Listed in StartupMap’s Düsseldorf ecosystem directory.",
+    "signals": {
+      "founded": {
+        "value": 2018,
+        "source": "https://startupmap.one/startup/vivenu_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:19.283Z"
+      },
+      "stage": {
+        "value": "Series B",
+        "source": "https://startupmap.one/startup/vivenu_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:19.283Z"
+      },
+      "headcount": {
+        "value": {
+          "min": 110,
+          "max": 150
+        },
+        "source": "https://startupmap.one/startup/vivenu_de",
+        "status": "scraped",
+        "confidence": "low",
+        "fetchedAt": "2026-11-18T07:42:19.283Z"
+      },
+      "website": {
+        "value": "https://vivenu.com",
+        "source": "https://startupmap.one/startup/vivenu_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:19.283Z"
+      }
+    }
+  },
+  {
+    "id": "retraced",
+    "name": "Retraced",
+    "city": "Düsseldorf",
+    "sector": "Supply Chain & Ops Tech",
+    "domain": "www.retraced.com",
+    "source": "https://startupmap.one/startup/retraced_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/dusseldorf",
+    "asOf": "2026-11-18T07:42:20.515Z",
+    "description": "Listed in StartupMap’s Düsseldorf ecosystem directory.",
+    "signals": {
+      "founded": {
+        "value": 2019,
+        "source": "https://startupmap.one/startup/retraced_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:20.515Z"
+      },
+      "stage": {
+        "value": "Series A",
+        "source": "https://startupmap.one/startup/retraced_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:20.515Z"
+      },
+      "headcount": {
+        "value": {
+          "min": 60,
+          "max": 80
+        },
+        "source": "https://startupmap.one/startup/retraced_de",
+        "status": "scraped",
+        "confidence": "low",
+        "fetchedAt": "2026-11-18T07:42:20.515Z"
+      },
+      "website": {
+        "value": "https://www.retraced.com",
+        "source": "https://startupmap.one/startup/retraced_de",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:20.515Z"
+      }
+    }
+  },
+  {
+    "id": "universal-quantum-deutschland",
+    "name": "Universal Quantum Deutschland",
+    "city": "Hamburg",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/universal_quantum_deutschland_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/hamburg",
+    "asOf": "2026-11-18T08:22:41.181Z",
+    "description": "Listed in StartupMap’s Hamburg ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "plancraft",
+    "name": "Plancraft",
+    "city": "Hamburg",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/plancraft_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/hamburg",
+    "asOf": "2026-11-18T08:22:41.181Z",
+    "description": "Listed in StartupMap’s Hamburg ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "eleqtron",
+    "name": "eleQtron",
+    "city": "Hamburg",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/eleqtron_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/hamburg",
+    "asOf": "2026-11-18T08:22:41.181Z",
+    "description": "Listed in StartupMap’s Hamburg ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "quantilope",
+    "name": "quantilope",
+    "city": "Hamburg",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/quantilope_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/hamburg",
+    "asOf": "2026-11-18T08:22:41.181Z",
+    "description": "Listed in StartupMap’s Hamburg ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "appinio",
+    "name": "Appinio",
+    "city": "Hamburg",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/appinio_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/hamburg",
+    "asOf": "2026-11-18T08:22:41.181Z",
+    "description": "Listed in StartupMap’s Hamburg ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "impossible-cloud",
+    "name": "Impossible Cloud",
+    "city": "Hamburg",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/impossible_cloud_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/hamburg",
+    "asOf": "2026-11-18T08:22:41.181Z",
+    "description": "Listed in StartupMap’s Hamburg ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "mindpeak",
+    "name": "Mindpeak",
+    "city": "Hamburg",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/mindpeak_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/hamburg",
+    "asOf": "2026-11-18T08:22:41.181Z",
+    "description": "Listed in StartupMap’s Hamburg ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "holy-technologies",
+    "name": "Holy Technologies",
+    "city": "Hamburg",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/holy_technologies_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/hamburg",
+    "asOf": "2026-11-18T08:22:41.181Z",
+    "description": "Listed in StartupMap’s Hamburg ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "buynomics",
+    "name": "Buynomics",
+    "city": "Cologne",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/buynomics_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/cologne",
+    "asOf": "2026-11-18T08:22:41.834Z",
+    "description": "Listed in StartupMap’s Cologne ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "deepl",
+    "name": "DeepL",
+    "city": "Cologne",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/deepl_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/cologne",
+    "asOf": "2026-11-18T08:22:41.834Z",
+    "description": "Listed in StartupMap’s Cologne ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "sunhat",
+    "name": "Sunhat",
+    "city": "Cologne",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/sunhat_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/cologne",
+    "asOf": "2026-11-18T08:22:41.834Z",
+    "description": "Listed in StartupMap’s Cologne ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "oniq",
+    "name": "ONIQ",
+    "city": "Cologne",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/oniq_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/cologne",
+    "asOf": "2026-11-18T08:22:41.834Z",
+    "description": "Listed in StartupMap’s Cologne ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "roofline",
+    "name": "Roofline",
+    "city": "Cologne",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/roofline_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/cologne",
+    "asOf": "2026-11-18T08:22:41.834Z",
+    "description": "Listed in StartupMap’s Cologne ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "epilot",
+    "name": "epilot",
+    "city": "Cologne",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/epilot_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/cologne",
+    "asOf": "2026-11-18T08:22:41.834Z",
+    "description": "Listed in StartupMap’s Cologne ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "alpha-sophia",
+    "name": "Alpha Sophia",
+    "city": "Cologne",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/alpha_sophia_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/cologne",
+    "asOf": "2026-11-18T08:22:41.834Z",
+    "description": "Listed in StartupMap’s Cologne ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "apheris",
+    "name": "Apheris",
+    "city": "Berlin",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/apheris_de",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/berlin",
+    "asOf": "2026-11-18T08:22:38.438Z",
+    "description": "Listed in StartupMap’s Berlin ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "harmattan-ai",
+    "name": "Harmattan AI",
+    "city": "Paris",
+    "sector": "Aerospace & Defense",
+    "domain": "www.harmattan.ai",
+    "source": "https://startupmap.one/startup/harmattan_ai_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T07:42:21.980Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {
+      "founded": {
+        "value": 2024,
+        "source": "https://startupmap.one/startup/harmattan_ai_fr",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:21.980Z"
+      },
+      "stage": {
+        "value": "Series B",
+        "source": "https://startupmap.one/startup/harmattan_ai_fr",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:21.980Z"
+      },
+      "headcount": {
+        "value": {
+          "min": 51,
+          "max": 200
+        },
+        "source": "https://startupmap.one/startup/harmattan_ai_fr",
+        "status": "scraped",
+        "confidence": "low",
+        "fetchedAt": "2026-11-18T07:42:21.980Z"
+      },
+      "website": {
+        "value": "https://www.harmattan.ai",
+        "source": "https://startupmap.one/startup/harmattan_ai_fr",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:21.980Z"
+      }
+    }
+  },
+  {
+    "id": "pigment",
+    "name": "Pigment",
+    "city": "Paris",
+    "sector": "Productivity & Collaboration",
+    "domain": "www.pigment.com",
+    "source": "https://startupmap.one/startup/pigment_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T07:42:23.212Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {
+      "founded": {
+        "value": 2019,
+        "source": "https://startupmap.one/startup/pigment_fr",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:23.212Z"
+      },
+      "stage": {
+        "value": "Series D",
+        "source": "https://startupmap.one/startup/pigment_fr",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:23.212Z"
+      },
+      "headcount": {
+        "value": {
+          "min": 500,
+          "max": 700
+        },
+        "source": "https://startupmap.one/startup/pigment_fr",
+        "status": "scraped",
+        "confidence": "low",
+        "fetchedAt": "2026-11-18T07:42:23.212Z"
+      },
+      "website": {
+        "value": "https://www.pigment.com",
+        "source": "https://startupmap.one/startup/pigment_fr",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:23.212Z"
+      }
+    }
+  },
+  {
+    "id": "aircall",
+    "name": "Aircall",
+    "city": "Paris",
+    "sector": "Productivity & Collaboration",
+    "domain": "aircall.io",
+    "source": "https://startupmap.one/startup/aircall_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T07:42:24.444Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {
+      "founded": {
+        "value": 2014,
+        "source": "https://startupmap.one/startup/aircall_fr",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:24.444Z"
+      },
+      "stage": {
+        "value": "Series D",
+        "source": "https://startupmap.one/startup/aircall_fr",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:24.444Z"
+      },
+      "headcount": {
+        "value": {
+          "min": 700,
+          "max": 800
+        },
+        "source": "https://startupmap.one/startup/aircall_fr",
+        "status": "scraped",
+        "confidence": "low",
+        "fetchedAt": "2026-11-18T07:42:24.444Z"
+      },
+      "website": {
+        "value": "https://aircall.io",
+        "source": "https://startupmap.one/startup/aircall_fr",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:24.444Z"
+      }
+    }
+  },
+  {
+    "id": "genesis-ai",
+    "name": "Genesis AI",
+    "city": "Paris",
+    "sector": "Robotics",
+    "domain": "www.genesis.ai",
+    "source": "https://startupmap.one/startup/genesis_ai_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T07:42:25.708Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {
+      "founded": {
+        "value": 2024,
+        "source": "https://startupmap.one/startup/genesis_ai_fr",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:25.708Z"
+      },
+      "stage": {
+        "value": "Seed",
+        "source": "https://startupmap.one/startup/genesis_ai_fr",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:25.708Z"
+      },
+      "headcount": {
+        "value": {
+          "min": 60,
+          "max": 80
+        },
+        "source": "https://startupmap.one/startup/genesis_ai_fr",
+        "status": "scraped",
+        "confidence": "low",
+        "fetchedAt": "2026-11-18T07:42:25.708Z"
+      },
+      "website": {
+        "value": "https://www.genesis.ai",
+        "source": "https://startupmap.one/startup/genesis_ai_fr",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:25.708Z"
+      }
+    }
+  },
+  {
+    "id": "quandela",
+    "name": "Quandela",
+    "city": "Paris",
+    "sector": "Hardware & Semiconductors",
+    "domain": "www.quandela.com",
+    "source": "https://startupmap.one/startup/quandela_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T07:42:26.975Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {
+      "founded": {
+        "value": 2017,
+        "source": "https://startupmap.one/startup/quandela_fr",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:26.975Z"
+      },
+      "stage": {
+        "value": "Series B",
+        "source": "https://startupmap.one/startup/quandela_fr",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:26.975Z"
+      },
+      "headcount": {
+        "value": {
+          "min": 101,
+          "max": 200
+        },
+        "source": "https://startupmap.one/startup/quandela_fr",
+        "status": "scraped",
+        "confidence": "low",
+        "fetchedAt": "2026-11-18T07:42:26.975Z"
+      },
+      "website": {
+        "value": "https://www.quandela.com",
+        "source": "https://startupmap.one/startup/quandela_fr",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:26.975Z"
+      }
+    }
+  },
+  {
+    "id": "skello",
+    "name": "Skello",
+    "city": "Paris",
+    "sector": "HR Tech",
+    "domain": "www.skello.io",
+    "source": "https://startupmap.one/startup/skello_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T07:42:28.205Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {
+      "founded": {
+        "value": 2016,
+        "source": "https://startupmap.one/startup/skello_fr",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:28.205Z"
+      },
+      "stage": {
+        "value": "Series B",
+        "source": "https://startupmap.one/startup/skello_fr",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:28.205Z"
+      },
+      "headcount": {
+        "value": {
+          "min": 400,
+          "max": 500
+        },
+        "source": "https://startupmap.one/startup/skello_fr",
+        "status": "scraped",
+        "confidence": "low",
+        "fetchedAt": "2026-11-18T07:42:28.205Z"
+      },
+      "website": {
+        "value": "https://www.skello.io",
+        "source": "https://startupmap.one/startup/skello_fr",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:28.205Z"
+      }
+    }
+  },
+  {
+    "id": "qonto",
+    "name": "Qonto",
+    "city": "Paris",
+    "sector": "Payments & Banking",
+    "domain": "qonto.com",
+    "source": "https://startupmap.one/startup/qonto_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T07:42:29.433Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {
+      "founded": {
+        "value": 2016,
+        "source": "https://startupmap.one/startup/qonto_fr",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:29.433Z"
+      },
+      "stage": {
+        "value": "Series D",
+        "source": "https://startupmap.one/startup/qonto_fr",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:29.433Z"
+      },
+      "headcount": {
+        "value": {
+          "min": 1001,
+          "max": 5000
+        },
+        "source": "https://startupmap.one/startup/qonto_fr",
+        "status": "scraped",
+        "confidence": "low",
+        "fetchedAt": "2026-11-18T07:42:29.433Z"
+      },
+      "website": {
+        "value": "https://qonto.com",
+        "source": "https://startupmap.one/startup/qonto_fr",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:29.433Z"
+      }
+    }
+  },
+  {
+    "id": "alice-bob",
+    "name": "Alice & Bob",
+    "city": "Paris",
+    "sector": "Hardware & Semiconductors",
+    "domain": "alice-bob.com",
+    "source": "https://startupmap.one/startup/alice_bob_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T07:42:30.670Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {
+      "founded": {
+        "value": 2020,
+        "source": "https://startupmap.one/startup/alice_bob_fr",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:30.670Z"
+      },
+      "stage": {
+        "value": "Series B",
+        "source": "https://startupmap.one/startup/alice_bob_fr",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:30.670Z"
+      },
+      "headcount": {
+        "value": {
+          "min": 150,
+          "max": 200
+        },
+        "source": "https://startupmap.one/startup/alice_bob_fr",
+        "status": "scraped",
+        "confidence": "low",
+        "fetchedAt": "2026-11-18T07:42:30.670Z"
+      },
+      "website": {
+        "value": "https://alice-bob.com",
+        "source": "https://startupmap.one/startup/alice_bob_fr",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:30.670Z"
+      }
+    }
+  },
+  {
+    "id": "alta-ares",
+    "name": "Alta Ares",
+    "city": "Paris",
+    "sector": "Aerospace & Defense",
+    "domain": "altaares.com",
+    "source": "https://startupmap.one/startup/alta_ares_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T07:42:31.923Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {
+      "founded": {
+        "value": 2024,
+        "source": "https://startupmap.one/startup/alta_ares_fr",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:31.923Z"
+      },
+      "stage": {
+        "value": "Series A",
+        "source": "https://startupmap.one/startup/alta_ares_fr",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:31.923Z"
+      },
+      "headcount": {
+        "value": {
+          "min": 51,
+          "max": 200
+        },
+        "source": "https://startupmap.one/startup/alta_ares_fr",
+        "status": "scraped",
+        "confidence": "low",
+        "fetchedAt": "2026-11-18T07:42:31.923Z"
+      },
+      "website": {
+        "value": "https://altaares.com",
+        "source": "https://startupmap.one/startup/alta_ares_fr",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:31.923Z"
+      }
+    }
+  },
+  {
+    "id": "dust",
+    "name": "Dust",
+    "city": "Paris",
+    "sector": "AI & Machine Learning",
+    "domain": "dust.tt",
+    "source": "https://startupmap.one/startup/dust_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T07:42:33.167Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {
+      "founded": {
+        "value": 2023,
+        "source": "https://startupmap.one/startup/dust_fr",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:33.167Z"
+      },
+      "stage": {
+        "value": "Series B",
+        "source": "https://startupmap.one/startup/dust_fr",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:33.167Z"
+      },
+      "headcount": {
+        "value": {
+          "min": 11,
+          "max": 50
+        },
+        "source": "https://startupmap.one/startup/dust_fr",
+        "status": "scraped",
+        "confidence": "low",
+        "fetchedAt": "2026-11-18T07:42:33.167Z"
+      },
+      "website": {
+        "value": "https://dust.tt",
+        "source": "https://startupmap.one/startup/dust_fr",
+        "status": "scraped",
+        "confidence": "medium",
+        "fetchedAt": "2026-11-18T07:42:33.167Z"
+      }
+    }
+  },
+  {
+    "id": "chapsvision",
+    "name": "ChapsVision",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/chapsvision_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T07:42:20.755Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "spendesk",
+    "name": "Spendesk",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/spendesk_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T07:42:20.755Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "swan",
+    "name": "Swan",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/swan_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T07:42:20.755Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "hublo",
+    "name": "Hublo",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/hublo_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T07:42:20.755Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "pasqal",
+    "name": "Pasqal",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/pasqal_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T07:42:20.755Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "h-company",
+    "name": "H Company",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/h_company_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T07:42:20.755Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "wandercraft",
+    "name": "Wandercraft",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/wandercraft_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T07:42:20.755Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "stoik",
+    "name": "Stoïk",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/stoik_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T07:42:20.755Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "gitguardian",
+    "name": "GitGuardian",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/gitguardian_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T07:42:20.755Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "vocca",
+    "name": "Vocca",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/vocca_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T07:42:20.755Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "matera",
+    "name": "Matera",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/matera_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T07:42:20.755Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "riot",
+    "name": "Riot",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/riot_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T07:42:20.755Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "roundtable",
+    "name": "Roundtable",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/roundtable_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T07:42:20.755Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "uma",
+    "name": "UMA",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/uma_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T07:42:20.755Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "lemlist",
+    "name": "lemlist",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/lemlist_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "greenly",
+    "name": "Greenly",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/greenly_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "padoa",
+    "name": "Padoa",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/padoa_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "pelico",
+    "name": "Pelico",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/pelico_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "spore-bio",
+    "name": "Spore.Bio",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/spore_bio_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "odaseva",
+    "name": "Odaseva",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/odaseva_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "outsight",
+    "name": "Outsight",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/outsight_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "white-circle",
+    "name": "White Circle",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/white_circle_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "adaptive-ml",
+    "name": "Adaptive ML",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/adaptive_ml_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "beamy",
+    "name": "Beamy",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/beamy_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "dashlane",
+    "name": "Dashlane",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/dashlane_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "expliseat",
+    "name": "Expliseat",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/expliseat_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "linkup",
+    "name": "Linkup",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/linkup_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "fairmat",
+    "name": "Fairmat",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/fairmat_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "implicity",
+    "name": "Implicity",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/implicity_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "maki",
+    "name": "Maki",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/maki_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "skillcorner",
+    "name": "SkillCorner",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/skillcorner_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "lucis",
+    "name": "Lucis",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/lucis_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "morpho-labs",
+    "name": "Morpho Labs",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/morpho_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "prelude",
+    "name": "Prelude",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/prelude_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "seyna",
+    "name": "Seyna",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/seyna_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "comand-ai",
+    "name": "Comand AI",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/comand_ai_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "innovorder",
+    "name": "Innovorder",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/innovorder_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "orasio",
+    "name": "Orasio",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/orasio_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "robeaute",
+    "name": "Robeauté",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/robeaute_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "zefir",
+    "name": "Zefir",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/zefir_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "filigran",
+    "name": "Filigran",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/filigran_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "koncrete",
+    "name": "Koncrete",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/koncrete_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "tomorro",
+    "name": "Tomorro",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/tomorro_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "dotfile",
+    "name": "Dotfile",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/dotfile_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "alpic",
+    "name": "Alpic",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/alpic_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "dioxycle",
+    "name": "Dioxycle",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/dioxycle_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "mooncard",
+    "name": "Mooncard",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/mooncard_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "orakl-oncology",
+    "name": "Orakl Oncology",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/orakl_oncology_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "rayon",
+    "name": "Rayon",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/rayon_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "vizzia",
+    "name": "Vizzia",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/vizzia_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "73-strings",
+    "name": "73 Strings",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/73_strings_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "ami-labs",
+    "name": "AMI Labs",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/ami_labs_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "descartes-underwriting",
+    "name": "Descartes Underwriting",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/descartes_underwriting_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "epsor",
+    "name": "Epsor",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/epsor_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "agicap",
+    "name": "Agicap",
+    "city": "Lyon",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/agicap_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/lyon",
+    "asOf": "2026-11-18T08:22:43.174Z",
+    "description": "Listed in StartupMap’s Lyon ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "indy",
+    "name": "Indy",
+    "city": "Lyon",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/indy_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/lyon",
+    "asOf": "2026-11-18T08:22:43.174Z",
+    "description": "Listed in StartupMap’s Lyon ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "traefik-labs",
+    "name": "Traefik Labs",
+    "city": "Lyon",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/traefik_labs_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/lyon",
+    "asOf": "2026-11-18T08:22:43.174Z",
+    "description": "Listed in StartupMap’s Lyon ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "aviwell",
+    "name": "Aviwell",
+    "city": "Toulouse",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/aviwell_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/toulouse",
+    "asOf": "2026-11-18T08:22:44.007Z",
+    "description": "Listed in StartupMap’s Toulouse ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "getinside",
+    "name": "GetInside",
+    "city": "Toulouse",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/getinside_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/toulouse",
+    "asOf": "2026-11-18T08:22:44.007Z",
+    "description": "Listed in StartupMap’s Toulouse ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "green-spot-technologies",
+    "name": "Green Spot Technologies",
+    "city": "Toulouse",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/green_spot_technologies_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/toulouse",
+    "asOf": "2026-11-18T08:22:44.007Z",
+    "description": "Listed in StartupMap’s Toulouse ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "deblock",
+    "name": "Deblock",
+    "city": "Lille",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/deblock_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/lille",
+    "asOf": "2026-11-18T08:22:44.740Z",
+    "description": "Listed in StartupMap’s Lille ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "karnott",
+    "name": "Karnott",
+    "city": "Lille",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/karnott_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/lille",
+    "asOf": "2026-11-18T08:22:44.740Z",
+    "description": "Listed in StartupMap’s Lille ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "lemrock",
+    "name": "Lemrock",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/lemrock_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "nabla",
+    "name": "Nabla",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/nabla_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "oneflash",
+    "name": "OneFlash",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/oneflash_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "photoroom",
+    "name": "Photoroom",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/photoroom_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "uncovr",
+    "name": "Uncovr",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/uncovr_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "veesion",
+    "name": "Veesion",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/veesion_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "wakeo",
+    "name": "Wakeo",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/wakeo_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "c12",
+    "name": "C12",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/c12_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "escape",
+    "name": "Escape",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/escape_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "hugging-face",
+    "name": "Hugging Face",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/hugging_face_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "yuka",
+    "name": "Yuka",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/yuka_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "carbonfact",
+    "name": "Carbonfact",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/carbonfact_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "deepip",
+    "name": "DeepIP",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/deepip_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "defacto",
+    "name": "Defacto",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/defacto_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "fairly-made",
+    "name": "Fairly Made",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/fairly_made_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "formance",
+    "name": "Formance",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/formance_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "karos",
+    "name": "Karos",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/karos_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "lithosquare",
+    "name": "Lithosquare",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/lithosquare_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "mindee",
+    "name": "Mindee",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/mindee_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "najar",
+    "name": "Najar",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/najar_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "payflows",
+    "name": "Payflows",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/payflows_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "pivot",
+    "name": "Pivot",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/pivot_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "probabl",
+    "name": "Probabl",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/probabl_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "scality",
+    "name": "Scality",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/scality_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "shippeo",
+    "name": "Shippeo",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/shippeo_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "shotgun",
+    "name": "Shotgun",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/shotgun_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
+    "signals": {}
+  },
+  {
+    "id": "armature",
+    "name": "Armature",
+    "city": "Paris",
+    "sector": "Unclassified",
+    "domain": "",
+    "source": "https://startupmap.one/startup/armature_fr",
+    "directory": "StartupMap",
+    "directoryUrl": "https://startupmap.one/map/paris",
+    "asOf": "2026-11-18T08:22:42.509Z",
+    "description": "Listed in StartupMap’s Paris ecosystem directory.",
     "signals": {}
   }
 ];

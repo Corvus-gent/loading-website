@@ -41,7 +41,11 @@ export async function directoryCity(name, count=25) {
   if (!key) return [];
   const path='/map/'+key;
   const html=await startupMap(path);
-  const entries=structured(html).find(entity=>entity['@type']==='ItemList')?.itemListElement;
+  const structuredEntries=structured(html).find(entity=>entity['@type']==='ItemList')?.itemListElement;
+  const entries=count<=25 ? structuredEntries : [...html.matchAll(/<a\b[^>]+href="(\/startup\/[a-z0-9_-]+)"[^>]*>([^<]+)/gi)].map(([,url,name])=>({
+    url:host+url,
+    name:name.replace(/&amp;/g,'&').replace(/&quot;/g,'"').replace(/&#39;|&apos;/g,"'").trim(),
+  }));
   if (!Array.isArray(entries)) return [];
   const asOf=new Date().toISOString();
   return entries.slice(0,count).flatMap(row=>{
