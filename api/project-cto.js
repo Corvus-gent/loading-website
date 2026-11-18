@@ -10,6 +10,7 @@ import { getState, update, apply, project, invitation, runJob, existingStartup, 
 import { signal } from './_openrisk/engine/enrich.js';
 import { runEstimate } from './_openrisk/engine/live-estimate.js';
 import { listFeedback, changeFeedback, feedbackAreas } from './_openrisk/feedback.js';
+import { marketSnapshot } from './_openrisk/market.js';
 import { score } from './_openrisk/engine/score.js';
 import { funds } from './_openrisk/engine/funds.js';
 import { subscribeResearch } from './_openrisk/engine/research.js';
@@ -157,6 +158,10 @@ export default async function handle(req, res) {
     return artwork ? send(res,200,Buffer.from(artwork[2],'base64'),artwork[1]) : send(res,404,{error:'Logo not found.'});
   }
   if (req.method === 'GET' && asset) return send(res, 200, '(' + client.toString() + ')();', 'application/javascript; charset=utf-8');
+  if (req.method==='GET' && route==='api/market') {
+    try { return send(res,200,await marketSnapshot()); }
+    catch { return send(res,503,{error:'US sector quotes are temporarily unavailable.'}); }
+  }
   if (req.method === 'GET' && route === 'api/bootstrap') return send(res, 200, { catalog: catalog.map(item => ({ ...item, summary: summary(item) })), cities, land, insets, logoIds:Object.keys(logos), funds, preloadReport, feedbackAreas, role: auth.role });
   if (req.method === 'GET' && route.startsWith('api/invite/')) {
     const target = /^api\/invite\/([0-9a-f]{32})\/([A-Za-z0-9_-]{32})$/.exec(route);

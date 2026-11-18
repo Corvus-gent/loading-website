@@ -254,6 +254,37 @@ export async function client() {
     paint();
   }
 
+  const quoteChange=value=>(value>0?'+':'')+value.toFixed(2)+'%';
+  let marketTimer;
+  async function drawMarket() {
+    clearTimeout(marketTimer);
+    const target=main.querySelector('#market-pulse');
+    if (!target) return;
+    try {
+      const {quotes,total,benchmark,stale}=await api('market');
+      if (!target.isConnected) return;
+      const leader=quotes[0];
+      const state=stale?'Last available snapshot':leader.status || 'Latest quote';
+      const score=quote=>'<strong class="'+(quote.change>=0?'gain':'gap')+'">'+quoteChange(quote.change)+'</strong>';
+      const table='<div class="scroll"><table class="rules"><thead><tr><th scope="col">Sector ETF</th><th scope="col">Change</th><th scope="col">Price</th><th scope="col">Last trade</th></tr></thead><tbody>'
+        +quotes.map(quote=>'<tr><th scope="row">'+esc(quote.sector)+' · '+link('https://www.nasdaq.com/market-activity/etf/'+quote.ticker,quote.ticker)+'</th><td>'+score(quote)+'</td><td>$'+quote.price.toFixed(2)+'</td><td>'+esc(quote.asOf)+'</td></tr>').join('')+'</tbody></table></div>';
+      const details=target.querySelector('details')?.open;
+      target.innerHTML='<div class="market-pulse-main"><div><span class="eyebrow">US market pulse</span><h1>'+esc(leader.sector)+' '+score(leader)+'</h1>'
+        +'<p>'+esc(quotes.length===total?'Leading US sector':'Top of '+quotes.length+' available sectors')+' · '+esc(leader.ticker)+' · '+esc(state)+' · '+esc(leader.asOf)+'</p></div>'
+        +'<div class="market-niche"><span class="source">Startup niche to explore</span><strong>'+esc(leader.niche)+'</strong>'
+        +button('Browse '+leader.niche,'data-market-sector="'+esc(leader.niche)+'"','accent')+'</div></div>'
+        +'<details'+(details?' open':'')+'><summary>See all '+quotes.length+' US sectors</summary>'
+        +(benchmark?'<p>S&amp;P 500 ETF · SPY '+score(benchmark)+' <small>'+esc(benchmark.asOf)+'</small></p>':'')
+        +table+'<p class="source">Regular-session ETF quotes ranked by percentage change versus the previous close. Quotes may be delayed. The startup niche is a related category and has no market-return calculation. '
+        +link('https://www.nasdaq.com/market-activity/etf/'+leader.ticker,'Quotes via Nasdaq')+' · '
+        +link('https://www.ssga.com/us/en/intermediary/capabilities/equities/sector-investing/select-sector-etfs','Sector ETF mapping')+'</p></details>';
+    } catch(error) {
+      if (target.isConnected && !target.querySelector('details')) target.innerHTML='<h1>US market pulse</h1><p class="muted">'+esc(error.message)+'</p>';
+    } finally {
+      if (target.isConnected) marketTimer=setTimeout(drawMarket,60_000);
+    }
+  }
+
   function map() {
     const cities=allCities();
     const region=ctx.countryList || cityRegion(ctx.city);
@@ -266,8 +297,11 @@ export async function client() {
     const key=region==='United States'?'bay':citySlug(region);
     const [west,south,east,north]=ctx.insets.bounds[key];
     const regionalCities=cities.filter(city=>regionIncludes(region,city) && city.lon>=west && city.lon<=east && city.lat>=south && city.lat<=north);
-    main.innerHTML = '<section class="hero"><span class="eyebrow">Startup intelligence</span><h1>Explore startup risk.</h1><p>Explore startups by city or build a risk dossier from public signals.</p><form id="search-form" class="search-wrap" role="search"><label for="company-search" hidden>Search for a startup</label><span class="search-symbol" aria-hidden="true">⌕</span><input id="company-search" placeholder="Search any startup…" maxlength="80" autocomplete="off" aria-controls="search-results" aria-expanded="false"><span class="keycap" aria-hidden="true">/</span><div id="search-results" class="results" hidden></div></form><div class="quick">Quick look ' + ['aikido-security','deliverect','stripe','odoo'].map(id => button(ctx.catalog.find(item => item.id === id).name, 'data-company="' + id + '"')).join('') + button('Browse all startups','data-browse-all aria-pressed="'+Boolean(ctx.allProfiles)+'"')+'</div></section>'
+    const home=location.pathname===root;
+    const market=home?'<section id="market-pulse" class="panel market-pulse" aria-label="US market pulse"><h1>US market pulse</h1><p class="muted">Loading US sector quotes…</p></section>':'';
+    main.innerHTML = market+'<section class="hero"><span class="eyebrow">Startup intelligence</span><'+(home?'h2':'h1')+'>Explore startup risk.</'+(home?'h2':'h1')+'><p>Explore startups by city or build a risk dossier from public signals.</p><form id="search-form" class="search-wrap" role="search"><label for="company-search" hidden>Search for a startup</label><span class="search-symbol" aria-hidden="true">⌕</span><input id="company-search" placeholder="Search any startup…" maxlength="80" autocomplete="off" aria-controls="search-results" aria-expanded="false"><span class="keycap" aria-hidden="true">/</span><div id="search-results" class="results" hidden></div></form><div class="quick">Quick look ' + ['aikido-security','deliverect','stripe','odoo'].map(id => button(ctx.catalog.find(item => item.id === id).name, 'data-company="' + id + '"')).join('') + button('Browse all startups','data-browse-all aria-pressed="'+Boolean(ctx.allProfiles)+'"')+'</div></section>'
       + '<div class="layout"><section class="panel atlas"><div class="panel-head"><h2>Ecosystem map</h2>' + '<div class="actions">' + badge(allCompanies().length + ' profiles · ' + allCities().length + ' cities') + button('Suggest startup','data-open-dialog="startup"') + button('+ Add city','data-open-dialog="city"') + feedbackButton('explore','Explore and map') + '</div></div><div class="map-stage" data-map-camera="world" tabindex="0" aria-label="World map"><div class="map-layer"><svg viewBox="0 0 900 360" preserveAspectRatio="none" aria-hidden="true"><defs><pattern id="grid" width="37.5" height="37.5" patternUnits="userSpaceOnUse"><path d="M 37.5 0 L 0 0 0 37.5" fill="none" stroke="#253751" stroke-width=".7"/></pattern></defs><rect width="900" height="360" fill="url(#grid)"/><path d="' + esc(ctx.land) + '" fill="#243855" stroke="#507096" stroke-width=".65"/></svg>' + worldRegionClusters(cities) + worldPins() + '</div><span class="map-caption">NATURAL EARTH · GLOBAL VIEW</span>' + mapControls('world map') + '</div><div class="market-grid">' + countries + inset(key,regionName(region),regionalCities) + '</div></section><section class="panel"><div class="panel-head"><h2 id="city-title"></h2>' + sortControls() + '</div>' + (ctx.allProfiles?sectorPicker():'') + nearbyForm() + (ctx.countryList?'<p id="country-scope" class="source">Selected profiles and approved suggestions across several hubs</p>':'') + '<div id="city-rows" class="rows"></div></section></div>';
+    if (home) void drawMarket();
     main.querySelector('.map-stage svg').classList.add('earth');
     const regions=main.querySelector('.atlas-regions');
     const activeRegion=regions.querySelector('[aria-pressed="true"]');
@@ -1570,7 +1604,8 @@ export async function client() {
       finally { node.disabled=false; }
       return;
     }
-    if (node.hasAttribute('data-browse-all')) {
+    if (node.hasAttribute('data-browse-all') || node.dataset.marketSector) {
+      if (node.dataset.marketSector) ctx.sectorFilter=node.dataset.marketSector;
       ctx.allProfiles=true;
       ctx.countryList=null;
       setPath('/catalog');
