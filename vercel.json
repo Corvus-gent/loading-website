@@ -170,6 +170,18 @@
   ],
   "rewrites": [
     {
+      "source": "/api/forms/:action",
+      "destination": "/api/forms?action=:action"
+    },
+    {
+      "source": "/forms/:slug([a-z0-9-]+)",
+      "destination": "/forms/index.html"
+    },
+    {
+      "source": "/forms/:slug([a-z0-9-]+)/",
+      "destination": "/forms/index.html"
+    },
+    {
       "source": "/cv",
       "destination": "/cv/index.html"
     },
@@ -492,6 +504,9 @@
     },
     "api/discord.js": {
       "includeFiles": "js/i18n/army.*.json"
+    },
+    "api/forms.js": {
+      "maxDuration": 60
     }
   },
   "headers": [
@@ -736,6 +751,15 @@
           "value": "attachment; filename=\"Gabe-Social-Media-CV.pdf\""
         }
       ]
+    },
+    {
+      "source": "/forms/:path*",
+      "headers": [
+        {
+          "key": "Referrer-Policy",
+          "value": "no-referrer"
+        }
+      ]
     }
   ],
   "crons": [
@@ -770,6 +794,10 @@
     {
       "path": "/api/stats?health=1&monitor=1",
       "schedule": "*/5 * * * *"
+    },
+    {
+      "path": "/api/forms?action=digest",
+      "schedule": "0 18,19 * * *"
     }
   ],
   "buildCommand": "node tools/site/build-all.mjs"
