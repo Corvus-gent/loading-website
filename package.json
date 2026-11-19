@@ -5,10 +5,10 @@
   "dependencies": {
     "@vercel/blob": "^2.8.2",
     "@vercel/functions": "^2.0.0",
-    "@vercel/og": "0.11.1",
     "nodemailer": "^10.6.0",
     "qrcode-generator": "2.0.4",
     "redis": "^4.7.0",
+    "satori": "0.33.5",
     "sharp": "^0.35.5",
     "stripe": "^23.1.0"
   },
@@ -41,6 +41,9 @@
     "@vercel/cli-config": {
       "zod": "^4.6.7"
     },
-    "sharp": "$sharp"
+    "sharp": "$sharp",
+    "satori": {
+      "fflate": "^0.8.2"
+    }
   }
 }

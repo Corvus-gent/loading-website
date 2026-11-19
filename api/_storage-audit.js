@@ -13,6 +13,6 @@ export default async function storageAudit(req,res) {
  const fallback=Object.entries(env).find(([key,value])=>/(?:REST_API_TOKEN|REDIS_REST_TOKEN)$/.test(key)&&value)?.[0];
  const privacySource=['PRIVACY_SECRET','SESSION_SECRET','VOTE_SECRET','REDIS_PRIVACY_SEED'].find(key=>env[key])||(env.REDIS_PRIVACY_SEED_ENV&&env[env.REDIS_PRIVACY_SEED_ENV]?env.REDIS_PRIVACY_SEED_ENV:null)||fallback||'REDIS_URL';
  const fingerprints=Object.fromEntries(Object.entries({session:sessionSecret(),language:languageVoteSecret(),music:musicVoteSecret(),game:gameSecret(),privacy:serverSecret()}).map(([name,value])=>[name,createHmac('sha256',token).update(value).digest('hex')]));
- let tls=false;try{tls=new URL(env.REDIS_URL).protocol==='rediss:';}catch{}
+ let tls=false;try{tls=new URL(env.REDIS_TLS_URL||env.REDIS_URL).protocol==='rediss:';}catch{}
  return res.status(200).json({tls,identityAnchored:Boolean(env.REDIS_IDENTITY_SEED),privacySource,fingerprints,storagePaused:maintenance(),keys:maintenance()?null:Number(await redis(['DBSIZE']))});
 }

@@ -1,6 +1,6 @@
 # Dynamic social cards
 
-This repo is static HTML + Vercel Node functions, not Next.js. Cards use Vercel's standalone `ImageResponse` from `@vercel/og`, the equivalent API for this stack: https://vercel.com/docs/og-image-generation/examples . No framework migration or new top-level function was added.
+This repo is static HTML + Vercel Node functions, not Next.js. Cards use patched Satori 0.33.5 for layout and the existing Sharp dependency for PNG rendering. Bundled TTF fonts support HarfBuzz shaping; WOFF sources remain available alongside their licenses. The Satori-scoped fflate override removes its vulnerable ZIP parser dependency. No framework migration or new top-level function was added.
 
 - `/api/og?kind=live`: live headline, Gabe's existing photo, `/live`.
 - `/api/og?kind=hack3`: newest published interview; honest robotics fallback when empty/unavailable.

@@ -4,10 +4,10 @@ import { createClient } from "redis";
 const envEnding = end => Object.entries(process.env).find(([k, v]) => k.endsWith(end) && !k.includes("READ_ONLY") && v)?.[1];
 const REST_URL = envEnding("_REST_API_URL") || envEnding("_REDIS_REST_URL");
 const REST_TOKEN = envEnding("_REST_API_TOKEN") || envEnding("_REDIS_REST_TOKEN");
-const REDIS_URL = process.env.REDIS_URL || envEnding("_REDIS_URL") || envEnding("KV_URL");
+const REDIS_URL = process.env.REDIS_TLS_URL || process.env.REDIS_URL || envEnding("_REDIS_URL") || envEnding("KV_URL");
 // An explicit migration target wins over old Marketplace REST variables. Keep
 // the previous REST preference when only an inferred/legacy TCP variable exists.
-const USE_REST = !process.env.REDIS_URL && Boolean(REST_URL && REST_TOKEN);
+const USE_REST = !process.env.REDIS_TLS_URL && !process.env.REDIS_URL && Boolean(REST_URL && REST_TOKEN);
 
 // Personal records must not travel in clear text to a remote storage service.
 export function secureEndpoint(raw, rest = false) {

@@ -2,10 +2,10 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import vm from 'node:vm';
 const source = await fs.readFile(new URL('../api/_redis.js', import.meta.url), 'utf8');
-async function fixture(mode) {
+async function fixture(mode, envOverride) {
   let created = 0, disconnected = 0, options;
   const pending = () => new Promise(() => {});
-  const context = vm.createContext({ URL, AbortController, console, setTimeout: (fn, ms) => setTimeout(fn, Math.min(ms, 15)), clearTimeout, process: { env: mode.startsWith('rest') ? { KV_REST_API_URL: 'https://fixture.invalid', KV_REST_API_TOKEN: 'fixture' } : { REDIS_URL: 'redis://127.0.0.1:16380/15' } }, fetch: (_url, { signal }) => new Promise((_, reject) => signal.addEventListener('abort', () => reject(Error('aborted')), { once: true })) });
+  const context = vm.createContext({ URL, AbortController, console, setTimeout: (fn, ms) => setTimeout(fn, Math.min(ms, 15)), clearTimeout, process: { env: envOverride || (mode.startsWith('rest') ? { KV_REST_API_URL: 'https://fixture.invalid', KV_REST_API_TOKEN: 'fixture' } : { REDIS_URL: 'redis://127.0.0.1:16380/15' }) }, fetch: (_url, { signal }) => new Promise((_, reject) => signal.addEventListener('abort', () => reject(Error('aborted')), { once: true })) });
   const redisDependency = new vm.SyntheticModule(['createClient'], function () {
     this.setExport('createClient', opts => {
       created++; options = opts;
@@ -36,3 +36,8 @@ for (const mode of ['connect', 'command', 'pipeline', 'rest-command', 'rest-pipe
   }
 }
 console.log('PASS: bounded TCP connect/command/pipeline and REST deadlines, channel cleanup and reconnect.');
+
+const target=await fixture('ready',{REDIS_TLS_URL:'rediss://target.invalid:6379',REDIS_URL:'redis://old.invalid:6379',KV_REST_API_URL:'https://old.invalid',KV_REST_API_TOKEN:'old-token'});
+assert.equal(await target.api.redis(['PING']),'PONG');assert.equal(target.state().options.url,'rediss://target.invalid:6379');
+const invalid=await fixture('ready',{REDIS_TLS_URL:'redis://remote.invalid:6379',REDIS_URL:'redis://127.0.0.1:16380/15'});await assert.rejects(invalid.api.redis(['PING']),/encrypted/);assert.equal(invalid.state().created,0);
+console.log('PASS: TLS target overrides Marketplace TCP/REST settings and never falls back after invalid transport.');

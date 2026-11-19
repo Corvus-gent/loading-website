@@ -36,6 +36,7 @@ try {
  await b.hSet('votes:test','en','999');
  let check=await compareDatabases(a,b);assert.equal(check.valueMismatch,1);assert.equal(check.ok,false);
  const resumed=await migrateRedis({sourceURL,targetURL,dryRun:false,sourcePaused:true,resume:true});assert.equal(resumed.verification.ok,true);
+ await b.pExpire('otp:test',300000);check=await compareDatabases(a,b);assert.equal(check.expiryMismatch,1,'real TTL drift must fail');
  await b.persist('otp:test');check=await compareDatabases(a,b);assert.equal(check.expiryMismatch,1);
  await b.del('session:test');await b.set('extra','wrong');check=await compareDatabases(a,b);assert.equal(check.missing,1);assert.equal(check.extra,1);
  await b.del('extra');await migrateRedis({sourceURL,targetURL,dryRun:false,sourcePaused:true,resume:true});

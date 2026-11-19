@@ -1,4 +1,4 @@
-import {ImageResponse} from '@vercel/og';
+import satori from 'satori';
 import {readFile} from 'node:fs/promises';import {fileURLToPath} from 'node:url';import sharp from 'sharp';import {countdown} from './model.js';
 const h=(type,style,children,attrs={})=>({type,props:{...attrs,style,children}}),gold='#ffd76a',white='#f1eee5';const files=new Map();
 const font=name=>{if(!files.has(name))files.set(name,readFile(new URL('./fonts/'+name,import.meta.url)));return files.get(name);};
@@ -8,8 +8,8 @@ export async function photoData(source,{fetchPhoto=fetch}={}){try{
  return 'data:image/jpeg;base64,'+(await sharp(bytes,{limitInputPixels:20000000}).rotate().resize(360,440,{fit:'cover',position:'attention'}).jpeg({quality:85}).toBuffer()).toString('base64');
  }catch{return null;}}
 export async function renderCard(card,{now=Date.now(),fetchPhoto=fetch}={}){
- const all=card.title+card.line+(card.builder||''),fonts=[{name:'Corvus',data:await font('NotoSans.woff'),weight:400,style:'normal'},{name:'Mono',data:await readFile(new URL('../../img/army/fonts/DejaVuSansMono.ttf',import.meta.url)),weight:400,style:'normal'}];
- if(/\p{Script=Han}/u.test(all))fonts.push({name:'Chinese',data:await font('NotoSansSC.woff'),weight:400,style:'normal'});
+ const all=card.title+card.line+(card.builder||''),fonts=[{name:'Corvus',data:await font('NotoSans.ttf'),weight:400,style:'normal'},{name:'Mono',data:await readFile(new URL('../../img/army/fonts/DejaVuSansMono.ttf',import.meta.url)),weight:400,style:'normal'}];
+ if(/\p{Script=Han}/u.test(all))fonts.push({name:'Chinese',data:await font('NotoSansSC.ttf'),weight:400,style:'normal'});
  const face=card.photo?await photoData(card.photo,{fetchPhoto}):null,rtl=['ar','fa'].includes(card.lang),family=rtl?'Arabic':card.lang==='zh'?'Chinese':'Corvus';
  const arabic=new Map();
  for(const [value,size,color]of [[card.title,card.title.length>50?43:56,white],[card.line,card.kind==='compound'?38:card.builder?24:28,card.kind==='compound'?white:'#c5bfae'],['built by '+(card.builder||''),29,gold]])if(/\p{Script=Arabic}/u.test(value||'')){
@@ -22,5 +22,5 @@ export async function renderCard(card,{now=Date.now(),fetchPhoto=fetch}={}){
  else content=[...(card.kind==='live'?[h('div',{display:'flex',alignItems:'center',gap:14,marginTop:25},[h('div',{width:18,height:18,borderRadius:99,background:'#ef4444'},null),label('LIVE',{color:'#ff6c6c',fontFamily:'Mono',fontSize:29})])] : []),label(card.kind==='live'?'from a robotics hackathon in SF':card.title,{fontSize:card.kind==='live'?64:card.title.length>50?43:56,lineHeight:1.12,color:white,marginTop:25,maxHeight:240,overflow:'hidden'}),...(card.builder?[label('built by '+card.builder,{fontSize:29,marginTop:18,maxHeight:75,overflow:'hidden'})]:[]),label(card.line,{fontSize:card.builder?24:28,lineHeight:1.35,color:'#c5bfae',marginTop:20,maxHeight:108,overflow:'hidden'})];
  const main=h('div',{display:'flex',flexDirection:'column',width:face?720:1080,height:470},[label(card.kicker,{fontFamily:'Mono',fontSize:19,letterSpacing:2}),...content]);
  const canvas=h('div',{display:'flex',flexDirection:'column',width:'100%',height:'100%',padding:48,background:'#08090b',color:white,fontFamily:'Corvus',border:'3px solid #66542b',position:'relative'},[h('div',{display:'flex',gap:30},[main,...(face?[h('img',{width:330,height:438,borderRadius:26,objectFit:'cover',border:'2px solid #77612d'},null,{src:face})]:[])]),h('div',{display:'flex',position:'absolute',left:48,right:48,bottom:34,justifyContent:'space-between',alignItems:'center'},[label(card.kind==='compound'?'vote the next cut →':'one-man army. many editors.',{fontSize:21}),label(card.kind==='live'?'corvus.gent/live':card.kind==='compound'?'corvus.gent/compound/v2':'corvus.gent/hack/3',{fontFamily:'Mono',fontSize:21})])]);
- const response=new ImageResponse(canvas,{width:1200,height:630,fonts});return Buffer.from(await response.arrayBuffer());
+ const svg=await satori(canvas,{width:1200,height:630,fonts});return sharp(Buffer.from(svg)).png().toBuffer();
 }
