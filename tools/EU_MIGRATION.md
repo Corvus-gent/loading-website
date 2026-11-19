@@ -156,3 +156,27 @@ sending, not email/log storage. Do not claim that setting makes storage European
 - [Resend sending regions](https://resend.com/docs/dashboard/domains/regions), [US storage and retention](https://resend.com/security/gdpr/)
 - [Redis DUMP](https://redis.io/docs/latest/commands/dump/), [RESTORE/ABSTTL](https://redis.io/docs/latest/commands/restore/)
 - [Upstash command support history](https://upstash.com/docs/redis/overall/changelog)
+
+
+## Cutover completed 2026-11-19
+
+Production uses `REDIS_TLS_URL` as an explicit TLS-only target; the old Marketplace
+`REDIS_URL` remains an inactive rollback reference. Identity/privacy anchors preserve
+all five signatures. Keep them stable when changing database credentials.
+
+Pause both Vercel writers and the Mac LaunchAgents `gent.corvus.impact-browser` and
+`gent.corvus.compound-report` before copying: the impact worker refreshes a heartbeat
+every minute outside Vercel. Resume them with updated private local env files only
+after verification. The installed worker snapshot still reads REDIS_URL, so local
+env files contain the TLS target there too and dedicated stable signing secrets.
+
+Use PEXPIRETIME rather than reconstructing absolute expiry from PTTL plus TIME.
+Comparison permits at most 100 ms cross-provider clock skew (measured maximum
+25 ms); switching persistence or larger expiry drift always fails. Normalize
+sorted-set scores numerically before comparing provider-specific representations.
+Current source data used strings, hashes, sets, lists and sorted sets. Streams were
+absent: a synthetic source stream's RDB encoding was rejected by this target, so
+stream migrations require a separate compatibility path.
+
+Rollback after new target writes requires another write pause and reconciliation;
+do not merely point the app at the old snapshot. Old source data was not deleted.

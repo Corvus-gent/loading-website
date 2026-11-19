@@ -30,6 +30,10 @@ try {
  assert.equal(await b.get('existing'),'leave-me');await b.del('existing');
  const copy=await migrateRedis({sourceURL,targetURL,dryRun:false,sourcePaused:true});
  assert.equal(copy.copied,before);assert.equal(copy.verification.ok,true,JSON.stringify(copy.verification));
+ // Providers may serialize equal sorted scores differently and have small clock skew.
+ const provider={sendCommand:async(args,options)=>{const result=await b.sendCommand(args,options);if(args[0]==='EVAL'&&Array.isArray(result)){if(String(result[0])==='zset')result[1]=Buffer.from('different RDB encoding');if(Number(result[2])>0)result[2]=Buffer.from(String(Number(result[2])+25));}if(args[0]==='ZRANGE'&&Array.isArray(result))for(let i=1;i<result.length;i+=2)result[i]=Buffer.from(Number(result[i]).toExponential());return result;}};
+ assert.equal((await compareDatabases(a,provider)).ok,true,'equivalent provider encodings and bounded 25ms skew');
+
  assert.deepEqual(await b.sendCommand(['GET',binaryKey],{returnBuffers:true}),binaryValue);
  assert.equal(await b.pTTL(binaryKey),-1);assert.ok(await b.pTTL('otp:test')>0);assert.ok(await b.pTTL('otp:test')<=120000);
  assert.deepEqual(await b.sendCommand(['XPENDING','stream:test','workers']),await a.sendCommand(['XPENDING','stream:test','workers']));
