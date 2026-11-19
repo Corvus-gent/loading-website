@@ -3,7 +3,7 @@ import vm from 'node:vm';
 import {readFile} from 'node:fs/promises';
 import {rebuildDay} from '../api/_stats-rebuild.js';
 const state=new Map(),calls=[],queries=[];const today='2026-11-06';
-const snapshot={state:'ready',final:true,checked:'2026-11-05T22:00:00Z',data:{visitors:7,outbound:{hosts:[['pidgy-ai.com',3]]}}};
+const snapshot={page:'overview',day:'2026-11-05',state:'ready',final:true,checked:'2026-11-05T22:00:00Z',data:{visitors:7,outbound:{hosts:[['pidgy-ai.com',3]]}}};
 state.set('stats:snap:overview:2026-11-05',snapshot);
 const options={today,tasks:()=>({visitors:()=>{},outbound:()=>{},counters:()=>assert.fail('historic Redis-only counters must not be rebuilt')}),
  refresh:async(page,day,opts)=>{calls.push({page,day,force:opts.force});assert.equal(opts.force,true);assert(!('counters' in opts.makeTasks(page,day)));state.set(`stats:snap:${page}:${day}`,{...snapshot,checked:new Date().toISOString()});},

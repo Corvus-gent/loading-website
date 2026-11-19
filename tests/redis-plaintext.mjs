@@ -11,7 +11,7 @@ let connections = 0;
 let sends = 0;
 const env = { REDIS_URL: raw, REDIS_PLAINTEXT_HOST: 'old.example', REDIS_PLAINTEXT_UNTIL: until };
 class Clock extends Date { static now() { return now; } }
-const context = vm.createContext({ URL, Date: Clock, process: { env }, console: { warn: text => warnings.push(text) } });
+const context = vm.createContext({ URL, setTimeout, clearTimeout, AbortController, Date: Clock, process: { env }, console: { warn: text => warnings.push(text) } });
 const dependency = new vm.SyntheticModule(['createClient'], function () {
   this.setExport('createClient', () => {
     connections++;

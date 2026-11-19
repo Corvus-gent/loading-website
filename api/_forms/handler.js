@@ -29,7 +29,10 @@ export function formHandler({ forms, store = formStore(), send = sendFormMail, e
       if (!['save', 'flush'].includes(action)) throw new FormError('Not found.', 404);
       if (req.method !== 'POST') throw new FormError('Method not allowed.', 405);
       const allowed = new Set(['https://corvus.gent', 'https://www.corvus.gent']);
-      if (env.VERCEL_URL) allowed.add('https://' + env.VERCEL_URL);
+      // Branch aliases differ from VERCEL_URL. Trust only this project's
+      // platform-provided domains, never a wildcard *.vercel.app or Host header.
+      for (const key of ['VERCEL_URL', 'VERCEL_BRANCH_URL', 'VERCEL_PROJECT_PRODUCTION_URL'])
+        if (env[key]) allowed.add('https://' + env[key]);
       if (env.NODE_ENV !== 'production') { allowed.add('http://localhost:3000'); allowed.add('http://127.0.0.1:3000'); }
       if (!allowed.has(req.headers.origin)) throw new FormError('Forbidden.', 403);
       if (!await throttle('forms:ip:' + ipHash(req, 'forms'), 180, 60)) throw new FormError('Please wait before trying again.', 429);

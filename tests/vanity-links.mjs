@@ -44,5 +44,6 @@ try{
   assert.equal(status,307);assert.equal(location,expected);
   results.push({path:slug+suffix,status,location});console.log(`${slug+suffix}: ${status} ${location}`);
  }
+ fs.mkdirSync('tests/results',{recursive:true});
  fs.writeFileSync('tests/results/vanity-redirects.json',JSON.stringify({environment:'local HTTP adapter running repository middleware; curl -sI; not a production measurement',results},null,2)+'\n');
 }finally{await new Promise(resolve=>server.close(resolve));}

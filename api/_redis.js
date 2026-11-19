@@ -41,12 +41,58 @@ export function connectionEndpoint(raw = REDIS_URL) {
   return raw;
 }
 
+const IO_TIMEOUT = 5000;
 let client, connecting;
-async function connection(){
+function deadline(work, ms, cancel) {
+  let timer;
+  const timeout = new Promise((_, reject) => {
+    timer = setTimeout(() => {
+      try { cancel?.(); } catch { /* Cleanup must not hide the timeout. */ }
+      reject(new Error('Redis request timed out'));
+    }, ms);
+  });
+  return Promise.race([work, timeout]).finally(() => clearTimeout(timer));
+}
+function discard(current) {
+  if (client === current) { client = null; connecting = null; }
+  if (current.isOpen) Promise.resolve().then(() => current.disconnect()).catch(() => {});
+}
+async function connection() {
   // Recheck the deadline on every operation, including an already-open connection.
   const url = connectionEndpoint();
-  if(!client){client=createClient({url});client.on("error",()=>{});connecting=client.connect().catch(error=>{client=null;connecting=null;throw error;});}
-  await connecting;return client;
+  if (!client) {
+    const current = createClient({
+      url, disableOfflineQueue: true,
+      socket: { connectTimeout: 3000, reconnectStrategy: retries => retries < 2 ? 100 * (retries + 1) : false }
+    });
+    client = current;
+    current.on('error', () => {});
+    connecting = deadline(current.connect(), IO_TIMEOUT, () => discard(current)).catch(error => {
+      discard(current);
+      throw error;
+    });
+  }
+  const current = client;
+  await connecting;
+  return current;
+}
+async function tcp(run) {
+  const current = await connection();
+  return deadline(Promise.resolve().then(() => run(current)), IO_TIMEOUT, () => discard(current));
+}
+async function rest(commands, batch = false) {
+  const controller = new AbortController();
+  return deadline((async () => {
+    const r = await fetch(secureEndpoint(REST_URL, true) + (batch ? '/pipeline' : ''), {
+      method: 'POST', signal: controller.signal,
+      headers: { Authorization: `Bearer ${REST_TOKEN}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(commands)
+    });
+    const data = await r.json();
+    if (!r.ok || (batch ? !Array.isArray(data) || data.some(x => x.error) : data.error))
+      throw new Error(batch ? 'Redis pipeline failed' : 'Redis command failed');
+    return batch ? data.map(x => x.result) : data.result;
+  })(), IO_TIMEOUT, () => controller.abort());
 }
 
 export const maintenance = () => process.env.REDIS_MAINTENANCE === '1';
@@ -54,21 +100,17 @@ export const connected = () => !maintenance() && Boolean(REDIS_URL || (REST_URL 
 
 export async function redis(cmd) {
   if (maintenance()) throw new Error('Redis temporarily paused');
-  if (USE_REST) {
-    const r = await fetch(secureEndpoint(REST_URL, true), {
-      method: "POST",
-      headers: { Authorization: `Bearer ${REST_TOKEN}`, "Content-Type": "application/json" },
-      body: JSON.stringify(cmd),
-    });
-    const data = await r.json();
-    if (!r.ok || data.error) throw new Error("Redis command failed");
-    return data.result;
-  }
-  return (await connection()).sendCommand(cmd.map(String));
+  if (USE_REST) return rest(cmd);
+  return tcp(current => current.sendCommand(cmd.map(String)));
 }
 
 export async function pipeline(commands) {
- if(maintenance())throw new Error('Redis temporarily paused');
- if(USE_REST){const r=await fetch(secureEndpoint(REST_URL, true)+'/pipeline',{method:'POST',headers:{Authorization:`Bearer ${REST_TOKEN}`,'Content-Type':'application/json'},body:JSON.stringify(commands)});const rows=await r.json();if(!r.ok||rows.some(x=>x.error))throw Error('Redis pipeline failed');return rows.map(x=>x.result);}
- const c=await connection();const batch=c.multi();commands.forEach(cmd=>batch.addCommand(cmd.map(String)));return batch.execAsPipeline();
+  if (maintenance()) throw new Error('Redis temporarily paused');
+  if (!commands.length) return [];
+  if (USE_REST) return rest(commands, true);
+  return tcp(current => {
+    const batch = current.multi();
+    commands.forEach(cmd => batch.addCommand(cmd.map(String)));
+    return batch.execAsPipeline();
+  });
 }

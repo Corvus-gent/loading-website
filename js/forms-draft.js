@@ -2,7 +2,7 @@
 export function createFormDraft({ slug, onStatus = () => {}, onRestore = () => {}, request = fetch, storage, allowedIds, requestTimeouts = { save: 15000, flush: 45000 } }) {
   const sessionKey = 'corvus.forms.sessionId', draftKey = 'corvus.forms.draft:' + slug;
   let sessionId, draft, timer, retry, revision = 0, disposed = false;
-  let lastSaved = '', lastStamp = 0, canPersist = true;
+  let lastSaved = '', lastStamp = 0, canPersist = true, retryDelay = 5000;
   try {
     storage ??= window.localStorage;
     sessionId = storage.getItem(sessionKey);
@@ -33,11 +33,14 @@ export function createFormDraft({ slug, onStatus = () => {}, onRestore = () => {
     onStatus('Saving…');
     try {
       await post('save', value);
-      if (version === revision) { lastSaved = encoded; onStatus(canPersist ? 'Saved automatically' : 'Saved online. This browser cannot keep a draft after refresh.'); }
+      if (version === revision) { lastSaved = encoded; retryDelay = 5000; onStatus(canPersist ? 'Saved automatically' : 'Saved online. This browser cannot keep a draft after refresh.'); }
     } catch (error) {
       const retryable = !error.status || error.status === 408 || error.status === 429 || error.status >= 500;
       onStatus(retryable ? (canPersist ? 'Saved on this device. Retrying…' : 'Could not save yet. Keep this page open; retrying…') : 'Could not sync this draft. Your answers remain on this page. Please try Done again.');
-      if (!disposed && retryable) retry = setTimeout(() => { save().catch(() => {}); }, 5000);
+      if (!disposed && retryable) {
+        retry = setTimeout(() => { save().catch(() => {}); }, retryDelay);
+        retryDelay = Math.min(60000, retryDelay * 2);
+      }
       throw error;
     }
   }
@@ -57,8 +60,13 @@ export function createFormDraft({ slug, onStatus = () => {}, onRestore = () => {
     try { queued = navigator.sendBeacon?.('/api/forms/flush', new Blob([body], { type: 'application/json' })) || false; } catch { /* Some privacy modes reject the beacon API. */ }
     if (!queued) post('flush', payload(), true).catch(() => {});
   }
-  const visibility = () => { if (document.visibilityState === 'hidden') leave(); };
-  window.addEventListener('pagehide', leave); document.addEventListener('visibilitychange', visibility);
+  const reconnect = () => {
+    if (!disposed && Object.keys(draft.answers).length && JSON.stringify(draft.answers) !== lastSaved) {
+      retryDelay = 5000; save().catch(() => {});
+    }
+  };
+  const visibility = () => { if (document.visibilityState === 'hidden') leave(); else reconnect(); };
+  window.addEventListener('pagehide', leave); window.addEventListener('online', reconnect); document.addEventListener('visibilitychange', visibility);
   onRestore(structuredClone(draft.answers));
   // Restored drafts may never have reached the server before a crash/offline exit.
   if (Object.keys(draft.answers).length) timer = setTimeout(() => { save().catch(() => {}); }, 800);
@@ -76,6 +84,6 @@ export function createFormDraft({ slug, onStatus = () => {}, onRestore = () => {
       onStatus('Sending is still in progress. Your answers are saved.');
       return result;
     },
-    destroy() { disposed = true; clearTimeout(timer); clearTimeout(retry); window.removeEventListener('pagehide', leave); document.removeEventListener('visibilitychange', visibility); }
+    destroy() { disposed = true; clearTimeout(timer); clearTimeout(retry); window.removeEventListener('pagehide', leave); window.removeEventListener('online', reconnect); document.removeEventListener('visibilitychange', visibility); }
   };
 }

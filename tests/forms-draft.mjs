@@ -38,3 +38,12 @@ const stalled = createFormDraft({ slug: 'fixture', storage: storage(), requestTi
 stalled.change({ idea: { text: 'retained offline' } });
 await assert.rejects(stalled.done(), /aborted/); stalled.destroy();
 console.log('PASS: blocked storage, stale config/future clock recovery, beacon fallback and request deadlines.');
+let networkOnline = false, attempts = 0;
+const reconnecting = createFormDraft({ slug: 'fixture', storage: storage(), request: async () => { attempts++; if (!networkOnline) throw Error('offline'); return ok({ sent: true }); } });
+reconnecting.change({ idea: { text: 'answer written offline' } });
+await assert.rejects(reconnecting.done(), /offline/);
+networkOnline = true; window.dispatchEvent(new Event('online'));
+await new Promise(resolve => setTimeout(resolve, 5));
+assert.equal(attempts, 2, 'reconnection immediately saves the draft instead of waiting for a retry timer');
+reconnecting.destroy();
+console.log('PASS: drafts recover immediately when the browser comes back online.');

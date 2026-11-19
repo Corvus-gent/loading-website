@@ -12,7 +12,8 @@ const store = {
   async release(key) { locks.delete(key); },
   async emailed(row, hash, at) { Object.assign(rows.get(row.sessionId), { lastEmailedHash: hash, lastEmailedAt: at }); }
 };
-const handler = formHandler({ forms: { fixture: form }, store, send: async email => sent.push(email), env: { NODE_ENV: 'test', ADMIN_TOKEN: 'fixture-secret' }, throttle: async () => true, ipHash: () => 'fixture' });
+const env = { NODE_ENV: 'test', ADMIN_TOKEN: 'fixture-secret', VERCEL_URL: 'deployment-fixture.vercel.app', VERCEL_BRANCH_URL: 'branch-fixture.vercel.app', VERCEL_PROJECT_PRODUCTION_URL: 'project-fixture.vercel.app' };
+const handler = formHandler({ forms: { fixture: form }, store, send: async email => sent.push(email), env, throttle: async () => true, ipHash: () => 'fixture' });
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, 'http://localhost'); req.query = { ...Object.fromEntries(url.searchParams), action: url.pathname.split('/').at(-1) };
   const chunks = []; for await (const chunk of req) chunks.push(chunk); req.body = Buffer.concat(chunks);
@@ -28,6 +29,10 @@ const post = (action, body, origin = 'http://localhost:3000') => fetch(base + '/
 try {
   assert.equal((await post('save', input)).status, 200);
   assert.equal(rows.size, 1);
+  for (const host of [env.VERCEL_URL, env.VERCEL_BRANCH_URL, env.VERCEL_PROJECT_PRODUCTION_URL]) assert.equal((await post('save', input, 'https://' + host)).status, 200, 'this project alias may save');
+  assert.equal((await post('save', input, 'https://attacker.vercel.app')).status, 403);
+  assert.equal((await post('save', { ...input, sessionId: [input.sessionId] })).status, 400);
+  assert.equal((await post('save', { ...input, updatedAt: 0 })).status, 400);
   assert.equal((await post('save', input, 'https://attacker.test')).status, 403);
   assert.equal((await post('flush', input)).status, 200);
   assert.equal(sent.length, 1);
