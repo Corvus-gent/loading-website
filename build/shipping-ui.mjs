@@ -1,4 +1,4 @@
-import { shippingDay, shippingDays } from './shipping.mjs';
+import { shippingDay, shippingDays, shippingPeriods } from './shipping.mjs';
 
 const section = document.querySelector('#shipping');
 if (location.pathname.replace(/\/$/, '') === '/built') {
@@ -10,9 +10,12 @@ const previous = section.querySelector('#shipping-prev');
 const next = section.querySelector('#shipping-next');
 const today = section.querySelector('#shipping-today');
 const chart = section.querySelector('#shipping-chart');
+const period = section.querySelector('#shipping-period');
+const chartNote = section.querySelector('#shipping-chart-note');
 const metric = section.querySelector('#shipping-metric');
 const rippleList = section.querySelector('#shipping-ripples');
 const params = new URLSearchParams(location.search);
+if (['day', 'week', 'month'].includes(params.get('period'))) period.value = params.get('period');
 const format = new Intl.NumberFormat('en-US');
 const labels = {
   added: 'lines added',
@@ -71,17 +74,26 @@ function selectDate(date, updateUrl = true) {
 
 function renderChart() {
   const key = metric.value;
-  const selectedIndex = days.findIndex(day => day.date === selected);
+  const groups = shippingPeriods(days, period.value);
+  const selectedIndex = groups.findIndex(group => group.days.some(day => day.date === selected));
   const start = Math.max(0, selectedIndex - 6);
-  const visible = days.slice(start, start + 14).reverse();
-  const peak = Math.max(1, ...visible.map(day => readValue(day, key) ?? 0));
-  chart.replaceChildren(...visible.map(day => {
-    const value = readValue(day, key);
+  const visible = groups.slice(start, start + 14).reverse();
+  const totals = visible.map(group => {
+    const values = group.days.map(day => readValue(day, key));
+    return values.includes(null) ? null : values.reduce((sum, value) => sum + value, 0);
+  });
+  const peak = Math.max(1, ...totals);
+  const unit = { day: 'day', week: 'week (Mon–Sun)', month: 'calendar month' }[period.value];
+  chartNote.textContent = 'Total ' + labels[key] + ' per ' + unit +
+    '. Select a bar to see its latest day. Edge periods can be partial. A dash means tracking was incomplete.';
+  chart.replaceChildren(...visible.map((group, index) => {
+    const value = totals[index];
+    const active = group.days.some(day => day.date === selected);
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'shipping-bar';
-    button.setAttribute('aria-pressed', String(day.date === selected));
-    button.setAttribute('aria-label', day.date + ', ' + (value === null ? 'untracked' : display(value)) + ' ' + labels[key]);
+    button.setAttribute('aria-pressed', String(active));
+    button.setAttribute('aria-label', group.start + ' to ' + group.days[0].date + ', ' + (value === null ? 'untracked' : display(value)) + ' ' + labels[key]);
     button.title = button.getAttribute('aria-label');
     const count = document.createElement('span');
     count.textContent = display(value);
@@ -89,10 +101,10 @@ function renderChart() {
     bar.className = 'shipping-bar-fill';
     bar.style.height = Math.max(2, (value ?? 0) / peak * 88) + 'px';
     const date = document.createElement('span');
-    date.textContent = day.date.slice(5);
+    date.textContent = period.value === 'month' ? group.start.slice(0, 7) : group.start.slice(5);
     button.append(count, bar, date);
     button.addEventListener('click', () => {
-      selectDate(day.date);
+      selectDate(group.days[0].date);
       chart.querySelector('[aria-pressed=true]').focus({ preventScroll: true });
     });
     return button;
@@ -107,6 +119,13 @@ next.addEventListener('click', () => selectDate(days[days.findIndex(day => day.d
 today.addEventListener('click', () => selectDate(days[0].date));
 dateInput.addEventListener('change', () => selectDate(dateInput.value));
 metric.addEventListener('change', renderChart);
+period.addEventListener('change', () => {
+  const url = new URL(location.href);
+  if (period.value === 'day') url.searchParams.delete('period');
+  else url.searchParams.set('period', period.value);
+  history.replaceState(null, '', url);
+  renderChart();
+});
 
 export function renderShipping(snapshot) {
   if (snapshot.config?.ref !== 'main') {
@@ -121,6 +140,7 @@ export function renderShipping(snapshot) {
   dateInput.min = days.at(-1).date;
   dateInput.max = days[0].date;
   metric.disabled = false;
+  period.disabled = false;
   const target = initial && !selected ? days[Number(params.get('ago'))]?.date : selected;
   selectDate(!followingLatest && days.some(day => day.date === target) ? target : days[0].date, false);
 }

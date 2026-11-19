@@ -48,3 +48,18 @@ export function shippingDays(snapshot) {
   for (let date = latest; date > earliest; date = shiftDay(date, -1)) row(date);
   return [...days.values()].sort((left, right) => right.date.localeCompare(left.date));
 }
+
+export function shippingPeriods(days, period) {
+  const groups = new Map();
+  for (const day of days) {
+    let start = day.date;
+    if (period === 'month') start = day.date.slice(0, 7) + '-01';
+    if (period === 'week') {
+      const weekday = new Date(day.date + 'T12:00:00Z').getUTCDay();
+      start = shiftDay(day.date, -((weekday + 6) % 7));
+    }
+    if (!groups.has(start)) groups.set(start, { start, days: [] });
+    groups.get(start).days.push(day);
+  }
+  return [...groups.values()];
+}
