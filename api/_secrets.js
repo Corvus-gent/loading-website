@@ -3,6 +3,8 @@ import crypto from 'node:crypto';
 // for existing installations; a dedicated SESSION_SECRET is preferred.
 export function serverSecret() {
   let value = process.env.PRIVACY_SECRET || process.env.SESSION_SECRET || process.env.VOTE_SECRET
+    || process.env.REDIS_PRIVACY_SEED
+    || (process.env.REDIS_PRIVACY_SEED_ENV && process.env[process.env.REDIS_PRIVACY_SEED_ENV])
     || Object.entries(process.env).find(([key, value]) => /(?:REST_API_TOKEN|REDIS_REST_TOKEN)$/.test(key) && value)?.[1];
   if (!value && process.env.REDIS_URL) {
     try { if (new URL(process.env.REDIS_URL).password) value = process.env.REDIS_URL; } catch {}
@@ -14,6 +16,7 @@ export function serverSecret() {
 // Dedicated values let a database move preserve every existing signature.
 const credentialSeed=()=>{
  const verified=serverSecret();
+ if(process.env.REDIS_IDENTITY_SEED)return process.env.REDIS_IDENTITY_SEED;
  try {if(process.env.REDIS_URL && new URL(process.env.REDIS_URL).password)return process.env.REDIS_URL;}catch{}
  return verified;
 };

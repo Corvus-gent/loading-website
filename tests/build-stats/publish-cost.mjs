@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import { publish } from '../../api/_build-stats.js';
+const at='2026-11-19T18:00:00.000Z', rows=new Map(), deployments=new Map(), calls=[];
+const snapshot={version:1,total:100,updated:at,commits:Array.from({length:600},(_,i)=>({sha:i.toString(16).padStart(40,'0'),date:new Date(Date.parse(at)-i*3600000).toISOString(),added:1,removed:0,files:['fixture.js']})),deployments:Array.from({length:600},(_,i)=>({id:'dpl_'+i,date:at}))};snapshot.history=snapshot.commits.map(c=>({date:c.date,lines:100}));
+const store=async command=>{calls.push(command);const[op,...args]=command;if(op==='MGET')return args.map(k=>rows.get(k)||null);if(op==='HKEYS')return[...deployments.keys()];if(op==='SET'){if(args[2]!=='NX'||!rows.has(args[0]))rows.set(args[0],args[1]);return'OK';}if(op==='HSETNX'){if(!deployments.has(args[1]))deployments.set(args[1],args[2]);return 1;}if(op==='EVAL')return 1;throw Error(op);};
+const batch=async commands=>Promise.all(commands.map(store));
+await publish(snapshot,{store,batch});assert.equal(rows.size,600);assert.equal(deployments.size,600);
+calls.length=0;await publish(snapshot,{store,batch});
+assert.equal(calls.filter(c=>c[0]==='HSETNX').length,0,'do not rewrite known deployment ids');
+assert.equal(calls.filter(c=>c[0]==='SET').length,1,'only the current hourly snapshot needs a write');
+assert(calls.length<=7,'unchanged history costs index reads and two writes, not 1200 NX writes');
+const old=rows.get('stats:build:2026-11-19-17');
+await publish({...snapshot,updated:'2026-11-19T18:01:00.000Z',deployments:[...snapshot.deployments,{id:'dpl_new',date:at}]},{store,batch});assert.equal(deployments.size,601);assert.equal(rows.get('stats:build:2026-11-19-17'),old,'historical snapshots stay immutable');
+console.log('PASS: 600 historical hours + 600 deployments re-publish in at most seven commands; new deployments still appear.');

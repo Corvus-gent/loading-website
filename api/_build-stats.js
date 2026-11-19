@@ -3,7 +3,27 @@ const seed=JSON.parse(fs.readFileSync(new URL('../build/seed.json',import.meta.u
 const latest='stats:build:latest';
 export function validSnapshot(s){return s?.version===1&&Number.isSafeInteger(s.total)&&s.total>=0&&Number.isFinite(Date.parse(s.updated))&&Array.isArray(s.commits)&&s.commits.length<20000&&s.commits.every(c=>/^[a-f0-9]{40}$/.test(c.sha)&&Number.isFinite(Date.parse(c.date))&&[c.added,c.removed].every(n=>Number.isSafeInteger(n)&&n>=0)&&Array.isArray(c.files)&&c.files.length<30000&&c.files.every(f=>typeof f==='string'))&&Array.isArray(s.history)&&s.history.length===s.commits.length&&s.history.every(h=>Number.isSafeInteger(h.lines)&&h.lines>=0&&Number.isFinite(Date.parse(h.date)));}
 function authorized(req){const expected=process.env.BUILD_INGEST_TOKEN||'',given=String(req.headers.authorization||'').replace(/^Bearer /,'');return expected.length>=32&&Buffer.byteLength(given)===Buffer.byteLength(expected)&&crypto.timingSafeEqual(Buffer.from(given),Buffer.from(expected));}
-export async function publish(s){if(!validSnapshot(s))throw Error('invalid snapshot');const hour=d=>new Date(d).toISOString().slice(0,13).replace('T','-'),buckets=new Map();for(const h of s.history)buckets.set(hour(h.date),{updated:h.date,lines:h.lines,kind:'git-backfill'});const deployments=(s.deployments||[]).map(d=>['HSETNX','stats:build:deployments',d.id,JSON.stringify(d)]);const commands=[...buckets].map(([h,v])=>['SET','stats:build:'+h,JSON.stringify(v),'NX']);commands.push(...deployments);commands.push(['SET','stats:build:'+hour(s.updated),JSON.stringify({updated:s.updated,lines:s.total,commits:s.commits.length,prs:s.prs?.length??null,deploys:s.deployments?.length??null,kind:'snapshot'})]);for(let i=0;i<commands.length;i+=100)await pipeline(commands.slice(i,i+100));await redis(['EVAL',"local old=redis.call('GET',KEYS[1]);if old and cjson.decode(old).updated>ARGV[2] then return 0 end;redis.call('SET',KEYS[1],ARGV[1]);return 1",1,latest,JSON.stringify(s),s.updated]);}
+export async function publish(s,{store=redis,batch=pipeline}={}) {
+ if(!validSnapshot(s))throw Error('invalid snapshot');
+ const hour=d=>new Date(d).toISOString().slice(0,13).replace('T','-'),buckets=new Map();
+ for(const h of s.history)buckets.set(hour(h.date),{updated:h.date,lines:h.lines,kind:'git-backfill'});
+ const entries=[...buckets],deployments=s.deployments||[];
+ // Re-publishing unchanged Git history used to issue hundreds of failed NX
+ // writes on every heartbeat. Read the existing indexes once, then write only
+ // missing records. NX still protects concurrent publishers and webhook data.
+ const commands=[];
+ for(let i=0;i<entries.length;i+=200){
+  const chunk=entries.slice(i,i+200),existing=await store(['MGET',...chunk.map(([h])=>'stats:build:'+h)]);
+  chunk.forEach(([h,v],j)=>{if(!existing[j])commands.push(['SET','stats:build:'+h,JSON.stringify(v),'NX']);});
+ }
+ if(deployments.length){
+  const known=new Set(await store(['HKEYS','stats:build:deployments']));
+  for(const d of deployments)if(!known.has(d.id))commands.push(['HSETNX','stats:build:deployments',d.id,JSON.stringify(d)]);
+ }
+ commands.push(['SET','stats:build:'+hour(s.updated),JSON.stringify({updated:s.updated,lines:s.total,commits:s.commits.length,prs:s.prs?.length??null,deploys:s.deployments?.length??null,kind:'snapshot'})]);
+ for(let i=0;i<commands.length;i+=100)await batch(commands.slice(i,i+100));
+ await store(['EVAL',"local old=redis.call('GET',KEYS[1]);if old and cjson.decode(old).updated>ARGV[2] then return 0 end;redis.call('SET',KEYS[1],ARGV[1]);return 1",1,latest,JSON.stringify(s),s.updated]);
+}
 export async function read(){let data=seed,timer;try{const [raw,events]=await Promise.race([pipeline([['GET',latest],['HVALS','stats:build:deployments']]),new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('timeout')),1600);})]);const saved=JSON.parse(raw);if(saved?.updated>=seed.updated)data=saved;const deployments=[...new Map([...(data.deployments||[]),...(events||[]).map(x=>JSON.parse(x))].map(d=>[d.id,d])).values()];return {...data,deployments};}catch{return data;}finally{clearTimeout(timer);}}
 export default async function handler(req,res){
  if(req.query.tick==='1'){res.setHeader('Cache-Control','no-store');const cron=process.env.CRON_SECRET;if(!authorized(req)&&(!cron||req.headers.authorization!=='Bearer '+cron))return res.status(401).json({error:'unauthorized'});try{return res.status(200).json(await heartbeat());}catch{return res.status(503).json({error:'snapshot heartbeat unavailable'});}}

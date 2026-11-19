@@ -3,7 +3,7 @@
 import {createClient} from 'redis';
 import {createHash} from 'node:crypto';
 import {pathToFileURL} from 'node:url';
-import {secureEndpoint} from '../api/_redis.js';
+import {secureEndpoint,connectionEndpoint} from '../api/_redis.js';
 
 const SNAPSHOT=`local ttl=redis.call('PTTL',KEYS[1]); if ttl==-2 then return nil end
 local value=redis.call('DUMP',KEYS[1]); if not value then return nil end
@@ -11,10 +11,10 @@ local now=redis.call('TIME'); local expires=0
 if ttl>=0 then expires=tonumber(now[1])*1000+math.floor(tonumber(now[2])/1000)+ttl end
 return {redis.call('TYPE',KEYS[1]).ok,value,expires}`;
 const hash=b=>createHash('sha256').update(b).digest('hex');
-const cmd=(client,args)=>client.sendCommand(args,{returnBuffers:true});
+const cmd=async(client,args)=>{let timer;try{return await Promise.race([client.sendCommand(args,{returnBuffers:true}),new Promise((_,reject)=>{timer=setTimeout(()=>{if(client.isOpen)Promise.resolve().then(()=>client.disconnect()).catch(()=>{});reject(Error('migration command timed out'));},10000);})]);}finally{clearTimeout(timer);}};
 const integer=x=>Number(Buffer.isBuffer(x)?x.toString():x);
-function endpoint(raw){
- secureEndpoint(raw);const u=new URL(raw);
+function endpoint(raw,allowSourceException=false){
+ if(allowSourceException)connectionEndpoint(raw);else secureEndpoint(raw);const u=new URL(raw);
  if(u.search||u.hash)throw Error('unsupported URL options');
  const db=u.pathname.replace(/^\//,'')||'0';if(!/^\d+$/.test(db))throw Error('invalid database');
  return `${u.hostname.toLowerCase()}:${u.port||'6379'}/${Number(db)}`;
@@ -66,9 +66,9 @@ export async function compareDatabases(source,target){
  result.ok=result.countsMatch&&!result.missing&&!result.extra&&!result.valueMismatch&&!result.expiryMismatch;
  return result;
 }
-export async function migrateRedis({sourceURL,targetURL,dryRun=true,verifyOnly=false,resume=false,sourcePaused=false}){
+export async function migrateRedis({sourceURL,targetURL,dryRun=true,verifyOnly=false,resume=false,sourcePaused=false,allowSourceException=false}){
  if(!sourceURL||!targetURL)throw Error('both URLs required');
- if(endpoint(sourceURL)===endpoint(targetURL))throw Error('same database');
+ if(endpoint(sourceURL,allowSourceException)===endpoint(targetURL))throw Error('same database');
  if(!dryRun&&!verifyOnly&&!sourcePaused)throw Error('pause source writers first');
  const clients=[sourceURL,targetURL].map(url=>createClient({url,socket:{connectTimeout:10000,reconnectStrategy:false}}).on('error',()=>{}));
  const [source,target]=clients;
@@ -78,7 +78,7 @@ export async function migrateRedis({sourceURL,targetURL,dryRun=true,verifyOnly=f
   const infos=await Promise.allSettled(clients.map(c=>cmd(c,['INFO','server'])));
   if(infos.every(r=>r.status==='fulfilled')){
    const ids=infos.map(r=>/^run_id:(.+)$/m.exec(String(r.value))?.[1].trim());
-   if(ids[0]&&ids[0]===ids[1]&&endpoint(sourceURL).split('/').at(-1)===endpoint(targetURL).split('/').at(-1))throw Error('same database alias');
+   if(ids[0]&&ids[0]===ids[1]&&endpoint(sourceURL,allowSourceException).split('/').at(-1)===endpoint(targetURL).split('/').at(-1))throw Error('same database alias');
   }
   const report={dryRun,verifyOnly,sourceBefore:integer(await cmd(source,['DBSIZE'])),targetBefore:integer(await cmd(target,['DBSIZE'])),scanned:0,copied:0,expired:0,bytes:0,types:{}};
   if(verifyOnly)return {...report,verification:await compareDatabases(source,target)};
@@ -96,10 +96,10 @@ export async function migrateRedis({sourceURL,targetURL,dryRun=true,verifyOnly=f
  }finally{await Promise.allSettled(clients.filter(c=>c.isOpen).map(c=>c.disconnect()));}
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){
- const args=process.argv.slice(2),allowed=['--dry-run','--apply','--verify','--resume','--source-paused'];
+ const args=process.argv.slice(2),allowed=['--dry-run','--apply','--verify','--resume','--source-paused','--allow-source-exception'];
  try{
   if(args.some(a=>!allowed.includes(a))||['--dry-run','--apply','--verify'].filter(a=>args.includes(a)).length>1)throw Error('arguments');
-  const report=await migrateRedis({sourceURL:process.env.OLD_REDIS_URL,targetURL:process.env.NEW_REDIS_URL,dryRun:!args.includes('--apply')&&!args.includes('--verify'),verifyOnly:args.includes('--verify'),resume:args.includes('--resume'),sourcePaused:args.includes('--source-paused')});
+  const report=await migrateRedis({sourceURL:process.env.OLD_REDIS_URL,targetURL:process.env.NEW_REDIS_URL,dryRun:!args.includes('--apply')&&!args.includes('--verify'),verifyOnly:args.includes('--verify'),resume:args.includes('--resume'),sourcePaused:args.includes('--source-paused'),allowSourceException:args.includes('--allow-source-exception')});
   console.log(JSON.stringify(report,null,2));
   if(report.verification&&!report.verification.ok){console.error('Verification differs. Keep traffic paused; do not switch databases. Values and keys are intentionally omitted.');process.exitCode=2;}
  }catch{
