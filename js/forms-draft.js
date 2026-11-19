@@ -1,23 +1,30 @@
 // Shared draft controller for every /forms/:slug page. Rendering stays in the form config/view.
-export function createFormDraft({ slug, onStatus = () => {}, onRestore = () => {}, request = fetch, storage = localStorage }) {
+export function createFormDraft({ slug, onStatus = () => {}, onRestore = () => {}, request = fetch, storage, allowedIds, requestTimeouts = { save: 15000, flush: 45000 } }) {
   const sessionKey = 'corvus.forms.sessionId', draftKey = 'corvus.forms.draft:' + slug;
   let sessionId, draft, timer, retry, revision = 0, disposed = false;
-  let lastSaved = '', lastStamp = 0;
+  let lastSaved = '', lastStamp = 0, canPersist = true;
   try {
+    storage ??= window.localStorage;
     sessionId = storage.getItem(sessionKey);
     if (!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(sessionId || '')) { sessionId = crypto.randomUUID(); storage.setItem(sessionKey, sessionId); }
     draft = JSON.parse(storage.getItem(draftKey) || 'null');
-  } catch { onStatus('This browser cannot keep a draft after closing. Please keep this page open.'); }
+  } catch { canPersist = false; onStatus('This browser cannot keep a draft after closing. Please keep this page open.'); }
   sessionId ||= crypto.randomUUID();
   if (!draft || !draft.answers || typeof draft.answers !== 'object' || Array.isArray(draft.answers) || !Number.isFinite(Date.parse(draft.updatedAt))) draft = { answers: {}, updatedAt: new Date().toISOString() };
-  lastStamp = Date.parse(draft.updatedAt);
+  if (allowedIds) draft.answers = Object.fromEntries(Object.entries(draft.answers).filter(([id]) => allowedIds.includes(id)));
+  lastStamp = Math.min(Date.parse(draft.updatedAt), Date.now());
+  draft.updatedAt = new Date(lastStamp).toISOString();
   const payload = () => ({ slug, sessionId, answers: structuredClone(draft.answers), updatedAt: draft.updatedAt });
-  const persist = () => { try { storage.setItem(draftKey, JSON.stringify(draft)); } catch { onStatus('Draft storage is full. Keep this page open until it is sent.'); } };
+  const persist = () => { try { storage.setItem(draftKey, JSON.stringify(draft)); canPersist = true; } catch { canPersist = false; onStatus('This browser cannot keep a draft. Keep this page open until it is sent.'); } };
   async function post(action, value, keepalive = false) {
-    const response = await request('/api/forms/' + action, { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(value), keepalive });
-    const result = await response.json();
-    if (!response.ok) throw Error(result.error || 'Could not save.');
-    return result;
+    const controller = new AbortController();
+    const deadline = setTimeout(() => controller.abort(), requestTimeouts[action]);
+    try {
+      const response = await request('/api/forms/' + action, { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(value), keepalive, signal: controller.signal });
+      const result = await response.json();
+      if (!response.ok) { const error = new Error(result.error || 'Could not save.'); error.status = response.status; throw error; }
+      return result;
+    } finally { clearTimeout(deadline); }
   }
   async function save() {
     clearTimeout(timer); clearTimeout(retry);
@@ -26,16 +33,19 @@ export function createFormDraft({ slug, onStatus = () => {}, onRestore = () => {
     onStatus('Saving…');
     try {
       await post('save', value);
-      if (version === revision) { lastSaved = encoded; onStatus('Saved automatically'); }
+      if (version === revision) { lastSaved = encoded; onStatus(canPersist ? 'Saved automatically' : 'Saved online. This browser cannot keep a draft after refresh.'); }
     } catch (error) {
-      onStatus('Saved on this device. Retrying…');
-      if (!disposed) retry = setTimeout(() => { save().catch(() => {}); }, 5000);
+      const retryable = !error.status || error.status === 408 || error.status === 429 || error.status >= 500;
+      onStatus(retryable ? (canPersist ? 'Saved on this device. Retrying…' : 'Could not save yet. Keep this page open; retrying…') : 'Could not sync this draft. Your answers remain on this page. Please try Done again.');
+      if (!disposed && retryable) retry = setTimeout(() => { save().catch(() => {}); }, 5000);
       throw error;
     }
   }
   function change(answers) {
     draft = { answers: structuredClone(answers), updatedAt: new Date(Math.max(Date.now(), lastStamp + 1)).toISOString() };
-    lastStamp = Date.parse(draft.updatedAt); revision++; persist();
+    if (allowedIds) draft.answers = Object.fromEntries(Object.entries(draft.answers).filter(([id]) => allowedIds.includes(id)));
+  lastStamp = Math.min(Date.parse(draft.updatedAt), Date.now());
+  draft.updatedAt = new Date(lastStamp).toISOString(); revision++; persist();
     clearTimeout(timer); timer = setTimeout(() => { save().catch(() => {}); }, 800);
   }
   function leave() {
@@ -43,7 +53,8 @@ export function createFormDraft({ slug, onStatus = () => {}, onRestore = () => {
     if (!Object.keys(draft.answers).length) return;
     // Include the current draft: the beacon can arrive before an in-flight save.
     const body = JSON.stringify(payload());
-    const queued = navigator.sendBeacon('/api/forms/flush', new Blob([body], { type: 'application/json' }));
+    let queued = false;
+    try { queued = navigator.sendBeacon?.('/api/forms/flush', new Blob([body], { type: 'application/json' })) || false; } catch { /* Some privacy modes reject the beacon API. */ }
     if (!queued) post('flush', payload(), true).catch(() => {});
   }
   const visibility = () => { if (document.visibilityState === 'hidden') leave(); };

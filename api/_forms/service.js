@@ -2,13 +2,13 @@ import { createHash, randomUUID } from 'node:crypto';
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 export class FormError extends Error { constructor(message, status = 400) { super(message); this.status = status; } }
 export function identity(input, form) {
-  if (!form || input.slug !== form.slug || !UUID.test(input.sessionId || '')) throw new FormError('Invalid form or session.');
+  if (!form || typeof input?.sessionId !== 'string' || input.slug !== form.slug || !UUID.test(input.sessionId)) throw new FormError('Invalid form or session.');
   return { slug: form.slug, sessionId: input.sessionId.toLowerCase() };
 }
 export function normalize(input, form, now = Date.now()) {
   const id = identity(input, form);
   if (!input.answers || typeof input.answers !== 'object' || Array.isArray(input.answers)) throw new FormError('Invalid answers.');
-  const at = Date.parse(input.updatedAt);
+  const at = typeof input.updatedAt === 'string' ? Date.parse(input.updatedAt) : NaN;
   if (!Number.isFinite(at) || at > now + 300000) throw new FormError('Invalid update time.');
   const allowed = new Set(form.questions.map(q => q.id));
   if (Object.keys(input.answers).some(key => !allowed.has(key))) throw new FormError('Unknown question.');
@@ -53,11 +53,13 @@ export function brusselsClock(now = new Date()) {
 export function formService({ store, send, now = () => new Date() }) {
   async function flush(form, input) {
     const { slug, sessionId } = identity(input, form);
+    // Persist BEFORE the email lease: a final beacon must survive even while
+    // an earlier version is being mailed. The hash acknowledgement below only
+    // acknowledges that earlier snapshot, leaving this update pending.
+    if (input.answers !== undefined) await store.save(normalize(input, form, now().getTime()));
     const lock = `${slug}:${sessionId}`, token = randomUUID();
     if (!await store.acquire(lock, token)) return { sent: false, pending: true };
     try {
-      // A leave beacon may carry the latest draft too, so it cannot overtake save.
-      if (input.answers) await store.save(normalize(input, form, now().getTime()));
       const row = await store.get(slug, sessionId);
       if (!row || empty(row)) return { sent: false, empty: true };
       const hash = answerHash(row);

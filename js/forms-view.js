@@ -76,7 +76,7 @@ if (!form) {
     }
     progress();
   }
-  controller = createFormDraft({ slug, onRestore(value) { answers = Object.fromEntries(Object.entries(value).filter(([id]) => form.questions.some(q => q.id === id))); render(); }, onStatus(message) { $('status').textContent = message; } });
+  controller = createFormDraft({ slug, allowedIds: form.questions.map(q => q.id), onRestore(value) { answers = Object.fromEntries(Object.entries(value).filter(([id]) => form.questions.some(q => q.id === id))); render(); }, onStatus(message) { $('status').textContent = message; } });
   $('feedback').addEventListener('submit', async event => {
     event.preventDefault();
     const controls = [...document.querySelectorAll('button,textarea')]; controls.forEach(el => el.disabled = true); $('doneBtn').textContent = 'Sending…';

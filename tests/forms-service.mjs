@@ -45,3 +45,18 @@ assert.equal(rows.get(pending.sessionId).lastEmailedHash, undefined, 'SMTP failu
 assert.equal(locks.size, 0, 'failed emails release their locks');
 assert.equal(emails.length, before);
 console.log('PASS: ordering, concurrent flushes, deduplication, empty sessions, digest, DST, validation, CSV and SMTP retry.');
+// The final beacon can arrive while a prior version is waiting on SMTP.
+let releaseMail, startedMail;
+const started = new Promise(resolve => { startedMail = resolve; });
+const mailGate = new Promise(resolve => { releaseMail = resolve; });
+const racing = formService({ store, send: async () => { startedMail(); await mailGate; }, now: () => date });
+const raceInput = { ...input, sessionId: randomUUID(), updatedAt: '2026-11-19T18:59:58.000Z' };
+const firstFlush = racing.flush(form, raceInput); await started;
+const finalBeacon = { ...raceInput, updatedAt: '2026-11-19T18:59:59.000Z', answers: { idea: { text: 'final unsaved edit before closing' } } };
+assert.equal((await racing.flush(form, finalBeacon)).pending, true);
+assert.equal(rows.get(raceInput.sessionId).answers.idea.text, finalBeacon.answers.idea.text, 'busy SMTP lease must not discard the final draft');
+releaseMail(); await firstFlush;
+assert.notEqual(rows.get(raceInput.sessionId).lastEmailedHash, answerHash(rows.get(raceInput.sessionId)), 'mailing the old snapshot must leave the latest version pending');
+assert.throws(() => normalize({ ...input, sessionId: [input.sessionId] }, form, date.getTime()), /Invalid form or session/);
+assert.throws(() => normalize({ ...input, updatedAt: 0 }, form, date.getTime()), /Invalid update time/);
+console.log('PASS: final-beacon/SMTP race and malformed identity/timestamp regression tests.');
