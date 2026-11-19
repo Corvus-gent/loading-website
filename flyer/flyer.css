@@ -1,0 +1,147 @@
+/* Open-source Google Fonts, served directly to avoid a blocking CSS round trip. */
+@font-face { font-family: 'Alfa Slab One'; font-style: normal; font-weight: 400; font-display: swap; src: url('https://fonts.gstatic.com/s/alfaslabone/v21/6NUQ8FmMKwSEKjnm5-4v-4Jh2dJhe_escmA.woff2') format('woff2'); }
+@font-face { font-family: 'Fraunces'; font-style: normal; font-weight: 400 600; font-display: swap; src: url('https://fonts.gstatic.com/s/fraunces/v38/6NUu8FyLNQOQZAnv9bYEvDiIdE9Ea92uemAk_WBq8U_9v0c2Wa0K7iN7hzFUPJH58nib14c7qv8oRcTn.woff2') format('woff2'); }
+@font-face { font-family: 'Caveat'; font-style: normal; font-weight: 600; font-display: swap; src: url('https://fonts.gstatic.com/s/caveat/v23/WnznHAc5bAfYB2QRah7pcpNvOx-pjSx6eIWpYT5Mmgo.woff2') format('woff2'); }
+/* The flyer owns its typography and layout, including after shared-shell injection. */
+#corvus-flyer {
+  --paper: #f5ecd8;
+  --ink: #29271f;
+  --red: #9e302c;
+  --accent: #285e50;
+  margin: 0;
+  padding: 0 !important;
+  min-height: 100vh;
+  height: auto;
+  background: #ded2b9;
+  color: var(--ink);
+  font: 400 18px/1.65 'Fraunces', Georgia, serif;
+  letter-spacing: 0;
+  color-scheme: light;
+}
+#corvus-flyer *, #corvus-flyer *::before, #corvus-flyer *::after { box-sizing: border-box; }
+#corvus-flyer > [data-site-shell], #corvus-flyer > [data-site-languages],
+#corvus-flyer > [data-live-banner], #corvus-flyer > .site-paths, #corvus-flyer > .plethora-footer { display: none !important; }
+#corvus-flyer .svg-library { position: absolute; width: 0; height: 0; overflow: hidden; }
+#corvus-flyer a { color: var(--accent); text-underline-offset: .2em; }
+#corvus-flyer a:hover { text-decoration-thickness: 2px; }
+#corvus-flyer a:focus-visible { outline: 3px solid var(--red); outline-offset: 5px; }
+#corvus-flyer .skip { position: absolute; top: 8px; left: 8px; transform: translateY(-180%); z-index: 50; background: var(--paper); padding: 10px; }
+#corvus-flyer .skip:focus { transform: none; }
+#corvus-flyer .paper {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 18px clamp(18px, 4vw, 58px) 28px;
+  background-color: var(--paper);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%2329271f' opacity='.045' filter='url(%23g)' d='M0 0h160v160H0z'/%3E%3C/svg%3E");
+  box-shadow: 0 0 50px #29271f18;
+}
+#corvus-flyer .edition, #corvus-flyer .strap { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 12px; line-height: 1.5; }
+#corvus-flyer .edition { padding: 9px 0; border-block: 3px double var(--ink); font-variant-numeric: lining-nums; }
+#corvus-flyer .overline { margin: 18px 0 8px; text-align: center; font-size: 12px; }
+#corvus-flyer h1 { margin: 0; font: 400 clamp(56px, 13vw, 154px)/1.1 'Alfa Slab One', Rockwell, Georgia, serif; text-align: center; letter-spacing: -.045em; color: var(--red); }
+#corvus-flyer h1 span { display: block; margin: 8px 0 18px; font: 600 16px/1.3 'Fraunces', Georgia, serif; letter-spacing: .38em; color: var(--ink); }
+#corvus-flyer .strap { border-block: 1px solid var(--ink); padding: 8px 0; flex-wrap: wrap; }
+#corvus-flyer .strap a { padding: 6px 0; }
+#corvus-flyer main { display: block; padding: 0; min-height: 0; text-align: left; }
+#corvus-flyer h2 { margin: 0 0 18px; font: 600 clamp(30px, 4vw, 46px)/1.12 'Fraunces', Georgia, serif; letter-spacing: -.035em; }
+#corvus-flyer h3 { margin: 0 0 8px; font: 600 22px/1.25 'Fraunces', Georgia, serif; }
+#corvus-flyer p { margin: 0 0 18px; }
+#corvus-flyer .eyebrow { margin-bottom: 10px; color: var(--red); font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+#corvus-flyer .lead { padding-top: 38px; }
+#corvus-flyer .dropcap::first-letter { float: left; margin: 4px 8px 0 0; font-size: 66px; line-height: .85; color: var(--red); }
+#corvus-flyer .fine { margin: 16px 0 0; font-size: 13px; }
+#corvus-flyer .stamp { display: inline-flex; justify-content: center; align-items: center; gap: 12px; max-width: 100%; min-height: 48px; padding: 11px 17px; border: 2px solid var(--ink); box-shadow: 4px 4px 0 var(--ink); background: var(--paper); color: var(--ink); font: 600 16px/1.4 'Fraunces', Georgia, serif; text-decoration: none; }
+#corvus-flyer .stamp:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 var(--ink); }
+#corvus-flyer .stamp:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); }
+#corvus-flyer .stamp.primary { background: var(--red); color: #fff8e9; }
+#corvus-flyer .margin-note { position: relative; margin: 36px 0 0; text-align: center; }
+#corvus-flyer .hand { font: 600 27px/1.15 'Caveat', cursive; color: var(--accent); }
+#corvus-flyer .sticker { display: inline-block; padding: 10px 16px; border: 2px dashed var(--red); transform: rotate(-5deg); color: var(--red); font: 600 18px/1.2 'Fraunces', Georgia, serif; }
+#corvus-flyer .doodle { display: block; width: 88px; height: 88px; margin: 0 0 18px; color: var(--ink); fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; filter: url('#flyer-wobble'); }
+#corvus-flyer .hero-crow { width: 176px; height: 176px; margin: 18px auto 10px; transform: rotate(3deg); }
+#corvus-flyer .belt { color: var(--accent); transform: rotate(-6deg); }
+#corvus-flyer .dingbat { margin: 34px 0; color: var(--red); text-align: center; font-size: 25px; }
+#corvus-flyer .columns article + article { margin-top: 28px; padding-top: 28px; border-top: 1px solid var(--ink); }
+#corvus-flyer .text-link { display: inline-block; padding-block: 8px; font-weight: 600; }
+#corvus-flyer .ranks { margin-top: 38px; padding: 28px 0; border-block: 3px double var(--ink); }
+#corvus-flyer .section-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+#corvus-flyer .section-heading .doodle { flex: 0 0 72px; width: 72px; height: 90px; color: var(--red); }
+#corvus-flyer .rank-list { margin: 22px 0; padding: 0; list-style: none; counter-reset: ranks; }
+#corvus-flyer .rank-list li { position: relative; padding: 16px 0 16px 40px; border-top: 1px solid #29271f55; counter-increment: ranks; break-inside: avoid; }
+#corvus-flyer .rank-list li::before { content: counter(ranks, upper-roman); position: absolute; top: 19px; left: 0; color: var(--red); font-size: 13px; }
+#corvus-flyer .rank-list h3 span { display: block; margin-top: 4px; color: var(--accent); font-size: 13px; font-weight: 400; }
+#corvus-flyer .rank-list p { margin: 0; font-size: 16px; }
+#corvus-flyer .invitation h3 { font-size: 20px; }
+#corvus-flyer .rank-foot { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 0; }
+#corvus-flyer .rank-foot .hand { display: inline-block; padding: 7px 12px; border: 1px dashed var(--accent); transform: rotate(-4deg); }
+#corvus-flyer .join { position: relative; padding-bottom: 12px; }
+#corvus-flyer .feather { width: 80px; height: 100px; color: var(--red); }
+#corvus-flyer .join-grid article { padding: 18px 0; }
+#corvus-flyer .join-grid p { font-size: 16px; }
+#corvus-flyer .closing-note { margin: 24px 0 0; }
+#corvus-flyer .colophon { margin-top: 32px; padding-top: 18px; border-top: 3px double var(--ink); font-size: 12px; }
+#corvus-flyer .colophon p { margin-bottom: 8px; }
+#corvus-flyer .colophon nav { display: flex; flex-wrap: wrap; gap: 0 24px; }
+#corvus-flyer .colophon nav a { display: inline-flex; align-items: center; min-height: 44px; }
+#corvus-flyer .print-address { color: var(--accent); }
+#corvus-flyer .spread > *, #corvus-flyer .columns > *, #corvus-flyer .join-grid > * { min-width: 0; }
+@media (min-width: 720px) {
+  #corvus-flyer .paper { margin-block: 28px; padding-top: 24px; }
+  #corvus-flyer .overline { font-size: 14px; }
+  #corvus-flyer .spread { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 48px; }
+  #corvus-flyer .margin-note { align-self: center; margin: 0; }
+  #corvus-flyer .columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+  #corvus-flyer .columns article + article { margin: 0; padding: 0 0 0 32px; border-top: 0; border-left: 1px solid var(--ink); }
+  #corvus-flyer .rank-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; }
+  #corvus-flyer .join-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+  #corvus-flyer .join-grid article { display: flex; flex-direction: column; align-items: flex-start; }
+  #corvus-flyer .join-grid .stamp { margin-top: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #corvus-flyer *, #corvus-flyer *::before, #corvus-flyer *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  #corvus-flyer .stamp:hover, #corvus-flyer .stamp:active { transform: none; }
+  #corvus-flyer .doodle { filter: none; }
+}
+@media print {
+  @page { size: A4; margin: 12mm; }
+  #corvus-flyer { background: white; color: #111; font-size: 11pt; }
+  #corvus-flyer .spread { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; }
+  #corvus-flyer .columns, #corvus-flyer .rank-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 20px; }
+  #corvus-flyer .columns article + article { margin: 0; padding: 0 0 0 20px; border-top: 0; border-left: 1px solid var(--ink); }
+  #corvus-flyer .join-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  #corvus-flyer .margin-note { margin: 0; }
+  #corvus-flyer .hero-crow { width: 120px; height: 120px; }
+  #corvus-flyer .paper { max-width: none; margin: 0; padding: 0; background: none; box-shadow: none; }
+  #corvus-flyer .overline { margin: 8px 0 4px; }
+  #corvus-flyer .edition, #corvus-flyer .strap { padding-block: 4px; }
+  #corvus-flyer h1 span { margin: 4px 0 8px; font-size: 10pt; }
+  #corvus-flyer h2 { margin-bottom: 10px; }
+  #corvus-flyer .doodle { width: 54px; height: 54px; margin-bottom: 8px; }
+  #corvus-flyer .feather { float: right; width: 40px; height: 50px; }
+  #corvus-flyer .join-grid article { padding-block: 10px; }
+  #corvus-flyer .closing-note { margin-top: 12px; }
+  #corvus-flyer .colophon { margin-top: 16px; padding-top: 10px; }
+  #corvus-flyer .paper { font-size: 10pt; line-height: 1.45; }
+  #corvus-flyer p { margin-bottom: 10px; }
+  #corvus-flyer .ranks { break-before: page; margin-top: 0; }
+  #corvus-flyer .rank-list { margin-block: 10px; }
+  #corvus-flyer .rank-list li { padding-block: 6px; }
+  #corvus-flyer .rank-foot .hand { padding: 3px 8px; font-size: 14pt; }
+  #corvus-flyer .rank-list li::before { top: 8px; }
+  #corvus-flyer h3, #corvus-flyer .invitation h3 { font-size: 13pt; }
+  #corvus-flyer .rank-list p, #corvus-flyer .join-grid p { font-size: 10pt; }
+  #corvus-flyer .hand { font-size: 18pt; }
+  #corvus-flyer .skip { display: none; }
+  #corvus-flyer h1 { font-size: 50pt; }
+  #corvus-flyer h2 { font-size: 20pt; }
+  #corvus-flyer .doodle { filter: none; }
+  #corvus-flyer .stamp, #corvus-flyer .stamp.primary { background: none; color: #111; box-shadow: none; flex-wrap: wrap; }
+  #corvus-flyer .stamp[href^="/"]::after { content: 'corvus.gent' attr(href); display: block; font: 9pt/1.4 Georgia, serif; overflow-wrap: anywhere; }
+  #corvus-flyer .lead, #corvus-flyer .ranks, #corvus-flyer .join { padding-top: 16px; }
+  #corvus-flyer .dingbat { margin: 8px 0; font-size: 16pt; line-height: 1.2; }
+  #corvus-flyer .ranks { padding-bottom: 12px; }
+  #corvus-flyer .stamp { min-height: 32px; padding: 6px; font-size: 10pt; }
+  #corvus-flyer .colophon nav a { min-height: 24px; }
+  #corvus-flyer h2, #corvus-flyer h3 { break-after: avoid; }
+  #corvus-flyer .join-grid article, #corvus-flyer .colophon { break-inside: avoid; }
+}
