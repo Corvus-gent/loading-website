@@ -8,7 +8,7 @@ import {referralCode} from './_pidgy.js';
 import {id,digest,readCookie,cookie,validID,validCode,rateHash,country} from './_security.js';
 import {readVoter as gameVoter} from '../_music-security.js';
 import {zeroBits} from '../_music-security.js';
-import {publicSoldier,normalizeEmail,LANGUAGES,DAY,RETENTION,dayKey} from '../../js/army/domain.js';
+import {publicSoldier,rank,activeTier,normalizeEmail,LANGUAGES,DAY,RETENTION,dayKey} from '../../js/army/domain.js';
 
 export function armyService({store=armyStore(),mailOptions={},bits=16}={}) {
   const auth=armyAuth(store),mail=armyMail(store,auth,mailOptions),publicAPI=armyPublic(store);
@@ -122,13 +122,13 @@ export function armyService({store=armyStore(),mailOptions={},bits=16}={}) {
     });
   }
   async function adminList(filters={}){
-    let rows=(await store.all()).filter(s=>s.applied&&s.status!=='deleting');
+    let rows=(await store.all()).filter(s=>(s.applied||s.username||s.email)&&s.status!=='deleting');
     if(filters.status)rows=rows.filter(s=>s.status===filters.status);
     const search=String(filters.search||'').trim().toLowerCase().slice(0,100);
     if(search)rows=rows.filter(s=>(s.username+' '+s.email).toLowerCase().includes(search));
-    rows.sort((a,b)=>a.applied.localeCompare(b.applied)||a.id.localeCompare(b.id));
+    rows.sort((a,b)=>String(a.applied||a.created||'').localeCompare(String(b.applied||b.created||''))||a.id.localeCompare(b.id));
     const page=Math.max(0,Math.min(rows.length,Math.floor(Number(filters.offset)||0)));
-    return {discordAudit:await store.get('discord:audit'),total:rows.length,rows:rows.slice(page,page+40).map(s=>({id:s.id,username:s.username,email:s.email,link:s.link,why:s.why,status:s.status,verified:!!s.verifiedAt,paid:!!s.paid,recruits:s.recruits,pidgyTrials:s.pidgyTrials||0,applied:s.applied,expires:s.expires,inviteSent:!!s.invitedAt})),mail:await store.get('mail-status'),discordReady:!!process.env.DISCORD_BOT_TOKEN,unmatched:await (await import('./_tolls.js')).bmcPayments(store).unmatched()};
+    return {discordAudit:await store.get('discord:audit'),total:rows.length,offset:page,limit:40,rows:rows.slice(page,page+40).map(s=>({id:s.id,username:s.username,email:s.email,link:s.link,why:s.why,status:s.status,verified:!!s.verifiedAt,paid:!!s.paid,recruits:s.recruits,pidgyTrials:s.pidgyTrials||0,created:s.created,applied:s.applied||null,country:s.country||null,rank:rank(s),tier:activeTier(s),expires:s.expires,inviteSent:!!s.invitedAt})),mail:await store.get('mail-status'),discordReady:!!process.env.DISCORD_BOT_TOKEN,unmatched:await (await import('./_tolls.js')).bmcPayments(store).unmatched()};
   }
   return {store,auth,mail,publicAPI,identity,self,challenge,submit,claim,admin,adminList};
 }
