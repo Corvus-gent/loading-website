@@ -29,10 +29,8 @@ tools/site/*
 !tools/site/generate-directory.mjs
 !tools/site/link-inventory.mjs
 
-# OpenRisk presenter material lives in the repository only.
-/DEMO.md
-/DECISIONS.md
-/RUST_PLAN.md
-/docs/demo-screens/
-
-/TEST_OPENRISK.md
+# Feedback form config compiler and isolated Sonar shell.
+!tools/forms
+tools/forms/*
+!tools/forms/build.mjs
+!tools/forms/page.html
