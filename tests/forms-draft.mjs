@@ -47,3 +47,14 @@ await new Promise(resolve => setTimeout(resolve, 5));
 assert.equal(attempts, 2, 'reconnection immediately saves the draft instead of waiting for a retry timer');
 reconnecting.destroy();
 console.log('PASS: drafts recover immediately when the browser comes back online.');
+// Same-millisecond edits must keep their order across save/flush requests.
+const realNow=Date.now, fixedNow=Date.now();let remoteRow;
+Date.now=()=>fixedNow;
+const rapid=createFormDraft({slug:'fixture',storage:storage(),request:async (_url,options)=>{const row=JSON.parse(options.body);if(!remoteRow||row.updatedAt>remoteRow.updatedAt)remoteRow=row;return ok({sent:true});}});
+try {
+ rapid.change({idea:{text:'first'}});await rapid.done();const firstStamp=remoteRow.updatedAt;
+ rapid.change({idea:{text:'second'}});await rapid.done();
+ assert.equal(remoteRow.answers.idea.text,'second','equal timestamps must not silently drop the newest edit');
+ assert(remoteRow.updatedAt>firstStamp,'timestamps stay strictly increasing with a coarse or frozen clock');
+}finally{rapid.destroy();Date.now=realNow;}
+console.log('PASS: same-millisecond edits retain strictly ordered timestamps and the newest answer.');

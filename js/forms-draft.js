@@ -47,8 +47,8 @@ export function createFormDraft({ slug, onStatus = () => {}, onRestore = () => {
   function change(answers) {
     draft = { answers: structuredClone(answers), updatedAt: new Date(Math.max(Date.now(), lastStamp + 1)).toISOString() };
     if (allowedIds) draft.answers = Object.fromEntries(Object.entries(draft.answers).filter(([id]) => allowedIds.includes(id)));
-  lastStamp = Math.min(Date.parse(draft.updatedAt), Date.now());
-  draft.updatedAt = new Date(lastStamp).toISOString(); revision++; persist();
+    lastStamp = Date.parse(draft.updatedAt);
+    revision++; persist();
     clearTimeout(timer); timer = setTimeout(() => { save().catch(() => {}); }, 800);
   }
   function leave() {
