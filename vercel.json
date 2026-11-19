@@ -504,7 +504,7 @@
       "includeFiles": "music.json"
     },
     "api/stats.js": {
-      "includeFiles": "{**/index.html,music.json,battle/config.json,battle/media.json,hack/3/interviews.json,public/gabe.jpg,img/army/fonts/DejaVuSansMono.ttf,api/_og/fonts/**}",
+      "includeFiles": "{**/index.html,music.json,battle/config.json,battle/media.json,hack/3/interviews.json,public/gabe.jpg,img/army/fonts/DejaVuSansMono.ttf,api/_og/fonts/**,node_modules/harfbuzzjs/hb.wasm,node_modules/satori/yoga.wasm}",
       "maxDuration": 60
     },
     "api/x-stats.js": {
