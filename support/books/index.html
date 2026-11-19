@@ -38,7 +38,8 @@
             <input type="email" name="email" required placeholder="you@email.com" aria-label="email">
             <button type="submit" data-i18n="books.request">request access</button>
           </form>
-          <p class="sub" id="access-done" style="display:none" data-i18n="books.sent">Request received. Don&#x27;t call us, we&#x27;ll call you.</p>
+          <p id="access-error" role="alert" hidden>The request did not reach the crow. Please try again.</p>
+          <p role="status" tabindex="-1" class="sub" id="access-done" style="display:none" data-i18n="books.sent">Request received. Don&#x27;t call us, we&#x27;ll call you.</p>
         </div>
       </section>
       <script>
@@ -49,17 +50,32 @@
         });
         document.getElementById("access-form").addEventListener("submit", async e => {
           e.preventDefault();
-          const email = e.target.email.value;
+          const form = e.target, button = form.querySelector('button');
+          if (button.disabled) return;
+          const error = document.getElementById("access-error");
+          error.hidden = true;
+          button.disabled = true;
+          form.setAttribute("aria-busy", "true");
           try {
-            await fetch("/api/access", {
+            const response = await fetch("/api/access", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ email }),
+              body: JSON.stringify({ email: form.email.value }),
+              signal: AbortSignal.timeout(10000),
             });
-          } catch {}
-          e.target.style.display = "none";
-          document.getElementById("access-done").style.display = "block";
-          if (window.posthog?.capture) window.posthog.capture("goodreads_access_request");
+            const data = await response.json();
+            if (!response.ok || data.ok !== true) throw new Error("request failed");
+            form.style.display = "none";
+            const done = document.getElementById("access-done");
+            done.style.display = "block";
+            done.focus();
+            if (window.posthog?.capture) window.posthog.capture("goodreads_access_request");
+          } catch {
+            error.hidden = false;
+          } finally {
+            button.disabled = false;
+            form.removeAttribute("aria-busy");
+          }
         });
       </script>
       <p><a href="/support/" data-i18n="support.back">← support</a></p>
