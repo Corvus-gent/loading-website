@@ -170,6 +170,18 @@
   ],
   "rewrites": [
     {
+      "source": "/built",
+      "destination": "/build/index.html"
+    },
+    {
+      "source": "/built/",
+      "destination": "/build/index.html"
+    },
+    {
+      "source": "/api/build/shipping.png",
+      "destination": "/api/stats?build=1&shipping=1"
+    },
+    {
       "source": "/api/forms/:action",
       "destination": "/api/forms?action=:action"
     },

@@ -10,6 +10,15 @@ export default async function handler(req,res){
  if(req.method==='POST'){res.setHeader('Cache-Control','no-store');if(!authorized(req))return res.status(401).json({error:'unauthorized'});try{const s=typeof req.body==='string'?JSON.parse(req.body):req.body;if(!validSnapshot(s))return res.status(400).json({error:'invalid snapshot'});await publish(s);return res.status(200).json({ok:true});}catch{return res.status(503).json({error:'snapshot not saved; retry'});}}
  if(req.method!=='GET'&&req.method!=='HEAD'){res.setHeader('Allow','GET, HEAD, POST');return res.status(405).end();}
  const data=await read();res.setHeader('Cache-Control','public, s-maxage=60, stale-while-revalidate=3600');
+ if(req.query.shipping==='1'){
+  if(data.config?.ref!=='main'||!Array.isArray(data.ripples)){
+   res.setHeader('Cache-Control','no-store');
+   return res.status(503).json({error:'waiting for the public main branch snapshot'});
+  }
+  const { shippingCard } = await import('../build/shipping-card.mjs');
+  res.setHeader('Content-Type','image/png');
+  return res.status(200).send(await sharp(Buffer.from(shippingCard(data))).png().toBuffer());
+ }
  if(req.query.image==='1'){const added=data.commits.filter(c=>Date.parse(c.date)>Date.parse(data.updated)-86400000).reduce((n,c)=>n+c.added,0);const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"><rect width="1200" height="630" fill="black"/><rect x="30" y="30" width="1140" height="570" fill="none" stroke="#ffd76a"/><text x="600" y="120" fill="#ffd76a" text-anchor="middle" font-family="serif" font-size="30" letter-spacing="10">CORVUS</text><text x="600" y="235" fill="#e0e0e0" text-anchor="middle" font-family="serif" font-size="65">ONE MAN. ONE ARMY.</text><text x="600" y="380" fill="#ffd76a" text-anchor="middle" font-family="serif" font-size="106">${data.total.toLocaleString('en-US')} lines</text><text x="600" y="455" fill="#e0e0e0" text-anchor="middle" font-family="serif" font-size="35">+${added.toLocaleString('en-US')} source lines added in 24h</text><text x="600" y="550" fill="#ffd76a" text-anchor="middle" font-family="serif" font-size="25">corvus.gent/build</text></svg>`;res.setHeader('Content-Type','image/png');return res.status(200).send(await sharp(Buffer.from(svg)).png().toBuffer());}
  return res.status(200).json({...data,stale:Date.now()-Date.parse(data.updated)>75*60000});
 }

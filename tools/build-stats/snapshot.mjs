@@ -20,7 +20,14 @@ const refresh=await Promise.allSettled([
 ]);
 for(const[i,r]of refresh.entries()){if(r.status==='fulfilled'){if(i===0)prs=r.value;if(i===1)activity=r.value;if(i===2)deployments=[...new Map([...(deployments||[]),...r.value].map(d=>[d.id,d])).values()];}else warnings.push(['pull requests','public activity','deployments'][i]+' refresh unavailable; last known data retained');}
 const milestones=config.milestones.map(m=>{const byFile=commits.findIndex(c=>m.file&&c.files.includes(m.file));const idx=byFile>=0?byFile:log.split('\x1e').filter(x=>x.trim()).findIndex(block=>block.split('\n')[0].toLowerCase().includes(m.match));return idx<0?null:{...m,date:commits[idx].date,lines:history[idx].lines};}).filter(Boolean);
-const data={version:1,updated:now,config,sha:git('rev-parse',ref).trim(),total,sourceFiles:git('ls-tree','-r','--name-only',ref).trim().split('\n').filter(sourceFile).length,commits,history,prs,deployments,activity,milestones,warnings,method:'First-parent Git history; merge diffs against first parent. Physical lines, including blank lines and comments. JSON, lockfiles, libraries, public assets, client-site archives, build output and minified files excluded. Successful Vercel deployments include previews; provider-retained history only.'};
+const ripples = [];
+for (const file of await fs.readdir('build/ripples')) {
+  if (!/^\d{4}-\d{2}-\d{2}-[a-z0-9-]+\.md$/.test(file)) continue;
+  const content = await fs.readFile('build/ripples/' + file, 'utf8');
+  const title = content.match(/^# (.+)$/m)?.[1];
+  if (title) ripples.push({date:file.slice(0,10),title,file});
+}
+const data={version:1,updated:now,config,ripples,sha:git('rev-parse',ref).trim(),total,sourceFiles:git('ls-tree','-r','--name-only',ref).trim().split('\n').filter(sourceFile).length,commits,history,prs,deployments,activity,milestones,warnings,method:'First-parent Git history; merge diffs against first parent. Physical lines, including blank lines and comments. JSON, lockfiles, libraries, public assets, client-site archives, build output and minified files excluded. Successful Vercel deployments include previews; provider-retained history only.'};
 const output=process.env.BUILD_OUTPUT||'build/seed.json';await fs.writeFile(output,JSON.stringify(data));
 if(output==='build/seed.json'){const page=await fs.readFile('build/index.html','utf8');await fs.writeFile('build/index.html',page.replace(/(<div class="total" id="total">)[^<]+/,(_,open)=>open+total.toLocaleString('en-US')));}
 if(!process.env.BUILD_NO_PUBLISH&&process.env.BUILD_INGEST_URL&&process.env.BUILD_INGEST_TOKEN){const r=await fetch(process.env.BUILD_INGEST_URL,{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+process.env.BUILD_INGEST_TOKEN},body:JSON.stringify(data),signal:AbortSignal.timeout(30000)});if(!r.ok)throw Error('Snapshot publish failed: '+r.status);}
