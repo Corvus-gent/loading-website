@@ -1,0 +1,36 @@
+/* Five directories: 640px of content inside the existing 24px page gutters. */
+body.calm-page main{
+  display:block;width:100%;max-width:688px;min-height:0;
+  margin:0 auto;padding:40px 24px 48px;box-sizing:border-box;
+}
+body.calm-page main>.wrap{width:100%;max-width:none;margin:0;padding:0;text-align:left}
+.calm-page main h1{font-size:clamp(34px,6vw,52px);line-height:1.1;font-weight:500;letter-spacing:-1px;text-align:left}
+.calm-page main .tag{display:block;width:auto;margin:0 0 20px;padding:0;border:0;border-radius:0;background:none;text-align:left;color:#999}
+.calm-page main .calm-primary{margin:24px 0}
+.calm-page main .site-button{min-height:44px;box-sizing:border-box}
+.calm-people .contact-list{list-style:none;padding:0;margin:28px 0}
+.calm-people .contact-list>li{padding:12px 0;border-bottom:1px solid var(--corvus-line);font-size:15px;line-height:1.65;overflow-wrap:anywhere}
+.calm-people .contact-list>li>a{display:inline-flex;align-items:center;min-height:44px;max-width:100%;color:var(--corvus-ink);text-underline-offset:4px}
+.calm-people .contact-list .sub{display:block;margin:2px 0 4px;color:#aaa;font-size:13px;line-height:1.7}
+.calm-people .contact-list .sub a{color:inherit}
+.calm-page main .calm-more,.calm-page main .calm-map-group{margin:24px 0;border-top:1px solid var(--corvus-line);border-bottom:1px solid var(--corvus-line)}
+.calm-page main summary{min-height:48px;padding:14px 0;box-sizing:border-box;cursor:pointer;color:var(--corvus-ink);font:15px/1.5 ui-monospace,monospace}
+.calm-page main summary h2{display:inline;margin:0;font:inherit;color:inherit}
+.calm-quests main .site-grid{display:block;margin:24px 0}
+.calm-quests main .site-card{display:block;padding:20px 0;border:0;border-bottom:1px solid var(--corvus-line);border-radius:0;background:none;box-shadow:none}
+.calm-quests main .site-card h2{margin:8px 0;font-size:19px;line-height:1.4}
+.calm-quests main .site-card p{margin:8px 0;font-size:13px;line-height:1.7;color:#aaa}
+.calm-quests main .site-card small{display:inline-block;margin-top:8px}
+.calm-quests main .calm-more .site-grid{margin:0}
+.calm-map .directory-search{display:block;margin:28px 0 12px;font-size:13px;line-height:1.6}
+.calm-map [data-directory-filter]{display:block;width:100%;min-height:48px;margin-top:8px;box-sizing:border-box;font-size:16px}
+.calm-map main [data-full-directory]>section{margin:0}
+.calm-map main .calm-map-group{margin:0;border-bottom:0}
+.calm-map main [data-full-directory]>section:last-child .calm-map-group{border-bottom:1px solid var(--corvus-line)}
+.calm-map .site-directory a{min-height:44px;align-items:center;gap:12px;line-height:1.6}
+.calm-map .site-directory a>span{min-width:0;overflow-wrap:anywhere}
+.calm-page main :focus-visible{outline:2px solid var(--corvus-gold);outline-offset:4px}
+.calm-page .site-section,.calm-page .site-next{max-width:688px;box-sizing:border-box}
+.calm-quests main .site-card>.site-tag{display:block;margin-bottom:8px}
+.calm-quests main .site-card>strong{display:block;font-size:19px;line-height:1.4}
+.calm-map [data-full-directory]>.site-divider{display:none}
