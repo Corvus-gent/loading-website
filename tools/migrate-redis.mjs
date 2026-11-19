@@ -50,17 +50,19 @@ export async function compareDatabases(source,target){
  const sourceKeys=new Map(),targetKeys=new Map();
  for await(const key of scan(source))sourceKeys.set(hash(key),key);
  for await(const key of scan(target))targetKeys.set(hash(key),key);
- for(const [id,key]of new Map([...sourceKeys,...targetKeys])){
-  let a=await snapshot(source,key),b=await snapshot(target,key);
+ const keys=[...new Map([...sourceKeys,...targetKeys]).values()];
+ async function check(key){
+  let [a,b]=await Promise.all([snapshot(source,key),snapshot(target,key)]);
   // Allow a key to expire between reads; never treat an actual lost key as expiry.
-  if(a&&!b){a=await snapshot(source,key);if(!a){result.expiredDuringCheck++;continue;}}
-  if(!a&&b){b=await snapshot(target,key);if(!b){result.expiredDuringCheck++;continue;}}
-  if(!a&&!b)continue;
-  if(!a){result.extra++;continue;}if(!b){result.missing++;continue;}
+  if(a&&!b){a=await snapshot(source,key);if(!a){result.expiredDuringCheck++;return;}}
+  if(!a&&b){b=await snapshot(target,key);if(!b){result.expiredDuringCheck++;return;}}
+  if(!a&&!b)return;
+  if(!a){result.extra++;return;}if(!b){result.missing++;return;}
   result.checked++;
   if(a.type!==b.type || (!a.value.equals(b.value) && await content(source,key,a)!==await content(target,key,b)))result.valueMismatch++;
   if((a.expires===0)!==(b.expires===0)||Math.abs(a.expires-b.expires)>5)result.expiryMismatch++;
  }
+ for(let i=0;i<keys.length;i+=16){const checks=await Promise.allSettled(keys.slice(i,i+16).map(check));const failed=checks.find(r=>r.status==='rejected');if(failed)throw failed.reason;}
  result.sourceCount=integer(await cmd(source,['DBSIZE']));result.targetCount=integer(await cmd(target,['DBSIZE']));
  result.countsMatch=result.sourceCount===result.targetCount;
  result.ok=result.countsMatch&&!result.missing&&!result.extra&&!result.valueMismatch&&!result.expiryMismatch;
@@ -83,13 +85,17 @@ export async function migrateRedis({sourceURL,targetURL,dryRun=true,verifyOnly=f
   const report={dryRun,verifyOnly,sourceBefore:integer(await cmd(source,['DBSIZE'])),targetBefore:integer(await cmd(target,['DBSIZE'])),scanned:0,copied:0,expired:0,bytes:0,types:{}};
   if(verifyOnly)return {...report,verification:await compareDatabases(source,target)};
   if(report.targetBefore&&!resume)throw Error('destination must be empty; use resume only for this migration');
-  for await(const key of scan(source)){
-   const data=await snapshot(source,key);if(!data){report.expired++;continue;}
+  async function copy(key){
+   const data=await snapshot(source,key);if(!data){report.expired++;return;}
    report.scanned++;report.bytes+=data.value.length;report.types[data.type]=(report.types[data.type]||0)+1;
-   if(dryRun)continue;
+   if(dryRun)return;
    const restore=['RESTORE',key,String(data.expires),data.value,'ABSTTL'];if(resume)restore.push('REPLACE');
    await cmd(target,restore);report.copied++;
   }
+  let pending=[];
+  const flush=async()=>{const results=await Promise.allSettled(pending.map(copy));pending=[];const failed=results.find(r=>r.status==='rejected');if(failed)throw failed.reason;};
+  for await(const key of scan(source)){pending.push(key);if(pending.length===16)await flush();}
+  if(pending.length)await flush();
   report.sourceAfter=integer(await cmd(source,['DBSIZE']));report.targetAfter=integer(await cmd(target,['DBSIZE']));
   report.verification=dryRun?null:await compareDatabases(source,target);
   return report;
