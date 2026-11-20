@@ -122,3 +122,11 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Verified. Five cold runs per width on a throttled connection moved median first contentful paint from 716 to 648 ms at 375px and from 724 to 628 ms at 414px. Both widths measured zero layout shift across the updated runs, with no initial portrait request. The mobile route audit passed again.
 - Next. Build and check the cannonball share card for LinkedIn and X.
 - **STEER ME:** Keep names beside the three sonar locks or show their reasons directly on the dial.
+
+## H15 · 2026-11-20 19:38 CET · Cannonball share card
+
+- Shipped an original 1200 × 630 cannonball and sonar share image. The landing and autoplay demo now carry Open Graph and X metadata with the image, dimensions, and alt text.
+- Decision. Make the cannonball the first visual hook and use the same card for the landing and both recording formats.
+- Verified. The build, route checks, and Luma parser tests passed. The generated landing and demo both contain the correct canonical, large-image card metadata, and JPEG dimensions.
+- Next. Use the capture links for rehearsal and the share card when publishing later.
+- **STEER ME:** Keep the event-day credit in the artwork or give the headline more room after Demo Day.
