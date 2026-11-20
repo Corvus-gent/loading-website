@@ -13,10 +13,22 @@ use web_sys::{
 #[derive(Default)]
 struct Admin {
     generation: u64,
+    lifetime: u64,
+    form_listeners: Vec<ui::Listener>,
     listeners: Vec<ui::Listener>,
 }
 type State = Rc<RefCell<Admin>>;
 thread_local! { static STATE:State=Rc::new(RefCell::new(Admin::default())); }
+fn listen_form(
+    state: &State,
+    target: &web_sys::EventTarget,
+    event: &str,
+    callback: impl FnMut(web_sys::Event) + 'static,
+) -> Result<(), JsValue> {
+    let listener = ui::scoped_listener(target, event, callback)?;
+    state.borrow_mut().form_listeners.push(listener);
+    Ok(())
+}
 fn field(form: &str, key: &str) -> Result<web_sys::Element, JsValue> {
     ui::element(form)?
         .query_selector(&format!("[name={key}]"))?
@@ -372,7 +384,7 @@ fn submit(id: &'static str, state: &State) -> Result<(), JsValue> {
     let form = ui::element(id)?.dyn_into::<HtmlFormElement>()?;
     let state = state.clone();
     let f = form.clone();
-    ui::listen(form.as_ref(), "submit", move |event| {
+    listen_form(&state.clone(), form.as_ref(), "submit", move |event| {
         event.prevent_default();
         let status = if id == "impact-linkedin-single" {
             "impact-linkedin-message"
@@ -390,8 +402,13 @@ fn submit(id: &'static str, state: &State) -> Result<(), JsValue> {
             let payload = body(id)?;
             button.set_disabled(true);
             let state = state.clone();
+            let lifetime = state.borrow().lifetime;
             spawn_local(async move {
-                match request(Some(payload)).await {
+                let result = request(Some(payload)).await;
+                if state.borrow().lifetime != lifetime {
+                    return;
+                }
+                match result {
                     Ok(data) => {
                         let count = data["saved"].as_array().map(Vec::len).unwrap_or(0);
                         ui::text(status,&match id{"impact-linkedin-single"=>"Saved. Original video is on the scorecard. Entered figures are self-reported; missing figures stay unknown.".into(),"impact-edit"=>"Saved. Public totals will refresh within a minute.".into(),"impact-bulk"=>format!("Saved {count} posts."),_=>format!("Imported {count} LinkedIn posts.")});
@@ -468,7 +485,7 @@ fn sync_button(
 ) -> Result<(), JsValue> {
     let b = button.clone();
     let state = state.clone();
-    ui::listen(button.as_ref(), "click", move |_| {
+    listen_form(&state.clone(), button.as_ref(), "click", move |_| {
         let Ok(button) = b.clone().dyn_into::<HtmlButtonElement>() else {
             return;
         };
@@ -478,12 +495,17 @@ fn sync_button(
         button.set_disabled(true);
         let state = state.clone();
         let platform = platform.clone();
+        let lifetime = state.borrow().lifetime;
         spawn_local(async move {
             let mut body = json!({"action":"sync"});
             if let Some(p) = &platform {
                 body["platform"] = json!(p);
             }
-            match request(Some(body)).await {
+            let result = request(Some(body)).await;
+            if state.borrow().lifetime != lifetime {
+                return;
+            }
+            match result {
                 Ok(_) => {
                     refresh(&state).await;
                     ui::text(
@@ -543,7 +565,8 @@ fn mount(state: &State) -> Result<(), JsValue> {
     ] {
         submit(id, state)?;
     }
-    ui::listen(
+    listen_form(
+        state,
         ui::element("impact-li-fill")?.as_ref(),
         "click",
         move |_| {
@@ -553,7 +576,7 @@ fn mount(state: &State) -> Result<(), JsValue> {
         },
     )?;
     let input = field("impact-edit", "post_url")?;
-    ui::listen(input.as_ref(), "input", move |_| {
+    listen_form(state, input.as_ref(), "input", move |_| {
         ui::text(
             "impact-platform",
             &format!(
@@ -564,15 +587,21 @@ fn mount(state: &State) -> Result<(), JsValue> {
     })?;
     let input = ui::element("impact-archives")?.dyn_into::<HtmlInputElement>()?;
     let i = input.clone();
-    ui::listen(input.as_ref(), "change", move |_| {
+    let archive_state = state.clone();
+    listen_form(state, input.as_ref(), "change", move |_| {
+        let state = archive_state.clone();
+        let lifetime = state.borrow().lifetime;
         let input = i.clone();
         let checked = input.checked();
         spawn_local(async move {
-            match request(Some(
+            let result = request(Some(
                 json!({"action":"settings","include_twitch_archives":checked}),
             ))
-            .await
-            {
+            .await;
+            if state.borrow().lifetime != lifetime {
+                return;
+            }
+            match result {
                 Ok(_) => ui::text("impact-message", "Twitch setting saved."),
                 Err(e) => {
                     ui::text("impact-message", &ui::message(&e));
@@ -614,4 +643,19 @@ pub async fn mount_impact_admin() -> Result<(), JsValue> {
     mount(&state)?;
     refresh(&state).await;
     Ok(())
+}
+
+/// Remove private data and invalidate pending reads when the owner logs out.
+#[wasm_bindgen]
+pub fn clear_impact_admin() {
+    STATE.with(|s| {
+        let mut s = s.borrow_mut();
+        s.generation += 1;
+        s.lifetime += 1;
+        s.listeners.clear();
+        s.form_listeners.clear();
+    });
+    if let Ok(root) = ui::element("impact-admin") {
+        root.remove();
+    }
 }

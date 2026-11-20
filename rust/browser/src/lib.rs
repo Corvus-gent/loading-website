@@ -10,6 +10,7 @@ pub mod impact;
 pub mod interviews;
 pub mod interviews_admin;
 pub mod language;
+mod legion;
 pub mod live_banner;
 mod portal;
 pub mod privacy;

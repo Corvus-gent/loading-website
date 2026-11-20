@@ -2,6 +2,14 @@
 // These contain only module wiring; all replacement behavior lives in Rust/WASM.
 const wasm='/rust/browser/pkg/corvus_browser.js';
 const bridges={
+ '/js/site/admin.js':`import init,{start_legion_admin} from '${wasm}';await init();start_legion_admin();`,
+ '/js/site/legion.js':`import init,{start_legion} from '${wasm}';await init();start_legion();`,
+ '/js/site/letters.js':`import init,{start_legion_letters} from '${wasm}';await init();start_legion_letters();`,
+ '/js/site/api.js':`import init,* as m from '${wasm}';await init();export const api=(body,query='')=>m.legion_api(body,query),el=m.legion_node,copy=m.legion_copy;`,
+ '/js/site/invite.js':`import init,{start_legion_invite} from '${wasm}';await init();start_legion_invite();`,
+ '/js/site/senate.js':`import init,* as m from '${wasm}';await init();m.start_senate();export const senate=(body,query='')=>m.senate_api(body,query),renderProfile=(p,root,{preview=false}={})=>m.render_senate_profile(p,root,preview);`,
+ '/js/site/senate-edit.js':`import init,{start_senate_editor} from '${wasm}';await init();start_senate_editor();`,
+ '/js/site/senate-admin.js':`import init,{render_senate_admin} from '${wasm}';await init();export const renderSenate=render_senate_admin;`,
  '/compound/app.js':`import '/compound/client.js';import init,{start_compound_editor} from '${wasm}';await init();start_compound_editor();`,
  '/compound/clock.js':`import('${wasm}').then(async m=>{await m.default();m.start_compound_clock();});`,
  '/compound/cuts.js':`// Cut rendering and playback now live in the Rust module.`,

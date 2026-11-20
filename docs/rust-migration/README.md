@@ -38,9 +38,9 @@ Use portable Rust with Axum, Tokio and rustls. An adapter uses the **official** 
 | Routing, gates, tiers, language state | All route aliases; protected-page negative tests; 04:02/DST; mobile/browser parity | Layer handlers and gate/language browser parity pass locally |
 | Compound/battle/interviews/impact | No lost votes; private/public field boundaries; null-vs-zero scores; code links; admin writes | Pure metrics/code rules, private live interviews, battle voting/proofs, hackathon comments and OSSMAN scores/ideas pass isolated cross-runtime tests; Compound registry/auth/import/queue/winner/reports/sync and HTTP/summary handlers verified; interview quick-add/store/photo and browser flows verified locally; interview OG pending; Impact model/storage/providers/sync/HTTP verified; Impact and Compound v2 public/admin/share Rust/WASM verified locally; original three-cut API and Stripe webhook pass isolated store/HTTP/signature contracts; original public/admin/statistics Rust/WASM pass real media/API and exact-DOM checks; latest native preview verified read-only for earlier modules; publishing browser WASM remains pending |
 | Games, Plethora, support, referrals, public statistics | Game replay fixtures; atomic counters; no duplicate tracking; historical totals | Plethora and support handlers pass cross-runtime tests; other handlers pending |
-| Legion, Senate, payments, email, uploads | Test invite claim/edit/revoke; webhook retries; stored identity compatibility; blob/image EXIF rules | Pending |
+| Legion, Senate, payments, email, uploads | Test invite claim/edit/revoke; webhook retries; stored identity compatibility; blob/image EXIF rules | Native shared membership/admission/Stripe/applications/newsletter/Senate APIs and Rust/WASM public/private/admin flows pass isolated tests; read-only preview verified. Existing Army account/jobs remain to port; actual Blob integration and durable cleanup pending |
 | Remaining APIs, research tools, build, OG, scheduled jobs | Complete file inventory; contract fixtures; single scheduled writer | Pending |
-| Browser logic, Rust build pipeline | Same content/layout; translations; keyboard/mobile; games; no legacy application JS remaining | Gate, language, live banner, arrival, support/admin, battle/admin, privacy, interview admin/grid, Compound v2 hub/admin/share and Impact/admin pass browser checks; other modules pending |
+| Browser logic, Rust build pipeline | Same content/layout; translations; keyboard/mobile; games; no legacy application JS remaining | Gate, language, live banner, arrival, support/admin, battle/admin, privacy, interview admin/grid, Compound v2 hub/admin/share, original Compound public/admin/stats, Legion/Senate visitor/admin/editor/letters and Impact/admin pass browser checks; other modules pending |
 | Canary → production | All release gates and actual rollback exercise | Not authorized by test results yet |
 
 “Not authorized by test results” means technical release criteria have not passed; it does not request new user permission. The user already authorized the migration.
@@ -73,6 +73,16 @@ node tests/rust/compound-editor-browser.mjs
 node tests/rust/compound-editor-public-render.mjs
 node tests/rust/compound-editor-public-browser.mjs
 node tests/rust/interviews-browser.mjs
+node tests/rust/legion-model.mjs
+node tests/rust/legion-store.mjs
+node tests/rust/legion-admission.mjs
+node tests/rust/legion-newsletter.mjs
+node tests/rust/legion-payments.mjs
+node tests/rust/legion-photos.mjs
+node tests/rust/legion-upload.mjs
+node tests/rust/legion-render.mjs
+node tests/rust/legion-browser.mjs
+node tests/rust/legion-letters.mjs
 node tests/rust/impact-browser.mjs
 node tests/rust/impact-render.mjs
 node tests/rust/privacy-browser.mjs
