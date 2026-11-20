@@ -1,6 +1,6 @@
-import {EVOLUTION,INSPIRATIONS,dailyBrief} from './inspiration-data.js?v=20261120evolution';
+import {STORIES,INSPIRATIONS,dailyBrief} from './inspiration-data.js?v=20261120rebirth';
 const $=id=>document.getElementById(id),grid=$('inspiration-grid');let variation=0;
-const references=[...INSPIRATIONS,EVOLUTION];
+const references=[...INSPIRATIONS,...STORIES];
 const selected=new Set(['michael','fallen']);
 try{const saved=JSON.parse(localStorage.getItem('corvus.tattoo.references.v2'));if(Array.isArray(saved)&&saved.some(id=>references.some(a=>a.id===id))){selected.clear();for(const id of saved)if(references.some(a=>a.id===id))selected.add(id);}}catch{}
 for(const art of INSPIRATIONS){
@@ -16,11 +16,13 @@ for(const art of INSPIRATIONS){
 for(const art of references){
  const label=document.createElement('label'),check=document.createElement('input');check.type='checkbox';check.value=art.id;check.checked=selected.has(art.id);check.onchange=()=>{if(check.checked)selected.add(art.id);else selected.delete(art.id);render();};label.append(check,document.createTextNode(art.name));$('brief-references').append(label);
 }
-$('include-evolution').addEventListener('click',()=>{
- selected.add(EVOLUTION.id);
- syncChecks();
- render();
-});
+for(const link of document.querySelectorAll('[data-brief-reference]')){
+ link.addEventListener('click',()=>{
+  selected.add(link.dataset.briefReference);
+  syncChecks();
+  render();
+ });
+}
 function syncChecks(){document.querySelectorAll('#brief-references input').forEach(i=>i.checked=selected.has(i.value));}
 function render(){const brief=dailyBrief({ids:[...selected],placement:$('placement').value,variation});$('brief-date').textContent=brief.day;$('brief-date').dateTime=brief.day;$('brief-text').value=brief.text;$('brief-status').textContent=selected.size?'':'No references selected: using Michael as the starting point.';try{localStorage.setItem('corvus.tattoo.references.v2',JSON.stringify([...selected]));}catch{}}
 $('placement').onchange=render;$('remix-brief').onclick=()=>{variation++;render();$('brief-status').textContent='A different composition. Same references.';};$('copy-brief').onclick=async()=>{try{await navigator.clipboard.writeText($('brief-text').value);$('brief-status').textContent='Copied. Take it to your artist or image tool.';}catch{$('brief-text').focus();$('brief-text').select();$('brief-status').textContent='Select the prompt and copy it manually.';}};

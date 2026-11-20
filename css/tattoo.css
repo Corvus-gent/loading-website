@@ -73,3 +73,25 @@
  .evolution-focus img { height: 200px; }
  .tattoo-intro > .ink-button { margin-bottom: 16px; }
 }
+
+.tattoo-story-image {
+ max-width: 660px;
+ margin: 24px 0;
+}
+.tattoo-story-image img {
+ display: block;
+ width: 100%;
+ height: auto;
+}
+.tattoo-story-image figcaption {
+ margin-top: 10px;
+ color: var(--ink-muted);
+ font: 13px/1.6 monospace;
+}
+.tattoo-evolution .tattoo-story-line {
+ color: var(--ink-gold);
+ font: italic 26px/1.4 Georgia, serif;
+}
+.tattoo-intro > .ink-button {
+ margin-right: 6px;
+}
