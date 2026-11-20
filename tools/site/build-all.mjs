@@ -9,3 +9,6 @@ execFileSync("python3", ["tools/build-search.py"], {stdio:'inherit'});
 
 // Render feedback forms after site chrome so the Sonar design stays isolated.
 execFileSync("node", ["tools/forms/build.mjs"], {stdio:'inherit'});
+
+// Localized CV output is compiled last, outside the general site chrome.
+execFileSync("node", ["tools/philosophy/build.mjs"], {stdio:'inherit'});

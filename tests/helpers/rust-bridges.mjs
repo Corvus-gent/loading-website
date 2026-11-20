@@ -2,6 +2,7 @@
 // These contain only module wiring; all replacement behavior lives in Rust/WASM.
 const wasm='/rust/browser/pkg/corvus_browser.js';
 const bridges={
+ '/js/philosophy-page.js':`import '/js/i18n/language.js';import init,{start_philosophy} from '${wasm}';await init();start_philosophy();`,
  '/js/go.js':`import {arrivalSearch} from '/js/arrival.js';import init,* as m from '${wasm}';await init();export const resolve=(path,search=arrivalSearch)=>m.resolve_short(path,search),go=m.go_short;`,
 
  '/js/analytics.js':`import('/js/arrival.js').then(()=>import('${wasm}')).then(async m=>{await m.default();m.start_analytics();}).catch(()=>{});`,

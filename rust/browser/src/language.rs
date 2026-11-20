@@ -97,8 +97,34 @@ pub(crate) fn preference() -> Option<String> {
     save_preference(code);
     Some(code.into())
 }
+fn route_languages() -> Option<serde_json::Map<String, Value>> {
+    let raw = document()?
+        .document_element()?
+        .get_attribute("data-language-routes")?;
+    let Value::Object(routes) = serde_json::from_str::<Value>(&raw).ok()? else {
+        return None;
+    };
+    routes
+        .values()
+        .all(|v| {
+            v.as_str()
+                .is_some_and(|p| p.starts_with('/') && !p.starts_with("//"))
+        })
+        .then_some(routes)
+}
+fn route_language() -> Option<String> {
+    let path = web_sys::window()?.location().pathname().ok()?;
+    let path = path.strip_suffix('/').unwrap_or(&path);
+    route_languages()?
+        .into_iter()
+        .find(|(_, p)| p.as_str() == Some(path))
+        .map(|(code, _)| code)
+}
 #[wasm_bindgen]
 pub fn get_language() -> String {
+    if let Some(lang) = route_language() {
+        return lang;
+    }
     let valid = |value: &str| languages().iter().any(|(code, _)| *code == value);
     if let Some(window) = web_sys::window() {
         if let Ok(href) = window.location().href()
@@ -204,13 +230,13 @@ pub fn apply_language(code: Option<String>) -> Result<(), JsValue> {
     })?;
     Ok(())
 }
-fn change(code: &str) -> Result<(), JsValue> {
+fn save_language_preference(code: &str) {
     let Some(window) = web_sys::window() else {
-        return Ok(());
+        return;
     };
     save_preference(code);
     if let Some(doc) = document().and_then(|d| d.dyn_into::<HtmlDocument>().ok()) {
-        let host = window.location().hostname()?;
+        let host = window.location().hostname().unwrap_or_default();
         let domain = if host == "corvus.gent" || host.ends_with(".corvus.gent") {
             "; Domain=corvus.gent"
         } else {
@@ -220,6 +246,12 @@ fn change(code: &str) -> Result<(), JsValue> {
             "corvus_lang={code}; Max-Age=31536000; Path=/; SameSite=Lax; Secure{domain}"
         ));
     }
+}
+fn change(code: &str) -> Result<(), JsValue> {
+    let Some(window) = web_sys::window() else {
+        return Ok(());
+    };
+    save_language_preference(code);
     let url = Url::new(&window.location().href()?)?;
     url.search_params().set("lang", code);
     window
@@ -285,6 +317,10 @@ pub fn render_language_switcher(callback: Option<js_sys::Function>) -> Result<()
             if let Some(code) = anchor.get_attribute("hreflang")
                 && languages().iter().any(|(c, _)| *c == code)
             {
+                if route_languages().is_some() {
+                    save_language_preference(&code);
+                    return;
+                }
                 event.prevent_default();
                 let _ = change(&code);
             }
@@ -301,7 +337,16 @@ pub fn render_language_switcher(callback: Option<js_sys::Function>) -> Result<()
     for (code, label) in languages() {
         let a = doc.create_element("a")?;
         let url = Url::new(&window.location().href()?)?;
-        url.search_params().set("lang", code);
+        if let Some(routes) = route_languages() {
+            let path = routes.get(code).and_then(Value::as_str);
+            url.set_pathname(path.unwrap_or("/"));
+            url.set_search("");
+            if path.is_none() {
+                url.search_params().set("lang", code);
+            }
+        } else {
+            url.search_params().set("lang", code);
+        }
         a.set_attribute("href", &url.href())?;
         a.set_attribute("hreflang", code)?;
         a.set_text_content(Some(label));

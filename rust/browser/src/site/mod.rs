@@ -300,3 +300,8 @@ pub fn feature_text(
 ) -> Result<String, JsValue> {
     feature::text(feature, key, values, lang)
 }
+
+#[wasm_bindgen]
+pub fn start_philosophy() -> Result<(), JsValue> {
+    effects::philosophy()
+}

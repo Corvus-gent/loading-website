@@ -11,12 +11,17 @@ export const LANGS = curiosityLanguages ? [["en","EN"],["es","ES"],["zh","中文
   ["pt", "PT"], ["de", "DE"], ["zh", "中文"],
 ];
 
+// Optional route-local translations: other languages retain the homepage switcher.
+let routeLanguages=null;
+try{const value=JSON.parse(document.documentElement.dataset.languageRoutes||'null');if(value&&typeof value==='object'&&!Array.isArray(value)&&Object.values(value).every(p=>typeof p==='string'&&p.startsWith('/')&&!p.startsWith('//')))routeLanguages=value;}catch{}
+const routeLanguage=()=>Object.entries(routeLanguages||{}).find(([,path])=>path===location.pathname.replace(/\/$/,''))?.[0];
 const callbacks = new Set();
 const load = code => import(`../locales/${["hi","ta"].includes(code)?"en":code}.js`).then(module => module.default);
 const english = await load('en');
 let strings = await load(getLang()).catch(() => english);
 
 export function getLang() {
+  const local=routeLanguage();if(local)return local;
   const codes = LANGS.map(l => l[0]);
   const q = new URLSearchParams(location.search).get("lang");
   if (codes.includes(q)) return q;
@@ -60,7 +65,7 @@ export function renderSwitcher(onChange) {
   LANGS.forEach(([code, label]) => {
     const a = document.createElement("a");
     const url = new URL(location.href);
-    url.searchParams.set('lang', code);
+    if(routeLanguages){url.pathname=routeLanguages[code]||'/';url.search='';if(!routeLanguages[code])url.searchParams.set('lang',code);}else url.searchParams.set('lang', code);
     a.href = url.href;
     a.hreflang = code;
     a.textContent = label;
@@ -70,6 +75,7 @@ export function renderSwitcher(onChange) {
     }
     a.addEventListener("click", async e => {
       if (e.ctrlKey || e.metaKey || e.altKey || e.shiftKey) return;
+      if(routeLanguages){saveLanguagePreference(code);return;}
       e.preventDefault();
       saveLanguagePreference(code);
       const currentURL = new URL(location.href);

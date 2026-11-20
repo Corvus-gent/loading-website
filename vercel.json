@@ -4,6 +4,61 @@
   ],
   "redirects": [
     {
+      "source": "/cv/philosophy/zh/",
+      "destination": "/cv/philosophy/zh",
+      "permanent": true
+    },
+    {
+      "source": "/cv/philosophy/de/",
+      "destination": "/cv/philosophy/de",
+      "permanent": true
+    },
+    {
+      "source": "/cv/philosophy/pt/",
+      "destination": "/cv/philosophy/pt",
+      "permanent": true
+    },
+    {
+      "source": "/cv/philosophy/fr/",
+      "destination": "/cv/philosophy/fr",
+      "permanent": true
+    },
+    {
+      "source": "/cv/philosophy/es/",
+      "destination": "/cv/philosophy/es",
+      "permanent": true
+    },
+    {
+      "source": "/filosofie",
+      "destination": "/cv/filosofie",
+      "permanent": true
+    },
+    {
+      "source": "/filosofie/",
+      "destination": "/cv/filosofie",
+      "permanent": true
+    },
+    {
+      "source": "/cv/filosofie/en",
+      "destination": "/cv/philosophy",
+      "permanent": true
+    },
+    {
+      "source": "/cv/filosofie/en/",
+      "destination": "/cv/philosophy",
+      "permanent": true
+    },
+    {
+      "source": "/cv/filosofie/",
+      "destination": "/cv/filosofie",
+      "permanent": true
+    },
+    {
+      "source": "/cv/philosophy/",
+      "destination": "/cv/philosophy",
+      "permanent": true
+    },
+    {
       "source": "/people",
       "has": [
         {
@@ -170,6 +225,26 @@
   ],
   "rewrites": [
     {
+      "source": "/cv/philosophy/zh",
+      "destination": "/cv/philosophy/zh/index.html"
+    },
+    {
+      "source": "/cv/philosophy/de",
+      "destination": "/cv/philosophy/de/index.html"
+    },
+    {
+      "source": "/cv/philosophy/pt",
+      "destination": "/cv/philosophy/pt/index.html"
+    },
+    {
+      "source": "/cv/philosophy/fr",
+      "destination": "/cv/philosophy/fr/index.html"
+    },
+    {
+      "source": "/cv/philosophy/es",
+      "destination": "/cv/philosophy/es/index.html"
+    },
+    {
       "source": "/built",
       "destination": "/build/index.html"
     },
@@ -206,8 +281,8 @@
       "destination": "/cv/filosofie/index.html"
     },
     {
-      "source": "/cv/filosofie/en",
-      "destination": "/cv/filosofie/en/index.html"
+      "source": "/cv/philosophy",
+      "destination": "/cv/philosophy/index.html"
     },
     {
       "source": "/cv/tech/download",

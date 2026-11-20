@@ -42,7 +42,7 @@ pub(super) fn start() -> Result<(), JsValue> {
     let main = doc.query_selector("main")?;
     let margin = arts
         .iter()
-        .filter(|a| ["fallen", "ember", "diogenes"].contains(&text(a, "id")))
+        .filter(|a| ["fallen", "diogenes"].contains(&text(a, "id")))
         .collect::<Vec<_>>();
     if margin.is_empty() {
         return Ok(());

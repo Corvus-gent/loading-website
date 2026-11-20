@@ -66,3 +66,29 @@ pub(super) fn start() -> Result<(), JsValue> {
     update();
     Ok(())
 }
+
+pub(super) fn philosophy() -> Result<(), JsValue> {
+    crate::language::start_language_bar()?;
+    let select = ui::element("reading-theme")?.dyn_into::<web_sys::HtmlSelectElement>()?;
+    let doc = ui::doc()?
+        .document_element()
+        .ok_or_else(|| JsValue::from_str("html"))?;
+    if let Ok(Some(store)) = window()?.local_storage()
+        && let Ok(Some(theme)) = store.get_item("corvus.philosophy.theme")
+        && ["system", "light", "dark"].contains(&theme.as_str())
+    {
+        doc.set_attribute("data-theme", &theme)?;
+        select.set_value(&theme);
+    }
+    let input = select.clone();
+    ui::listen(&select.into(), "change", move |_| {
+        let theme = input.value();
+        let _ = doc.set_attribute("data-theme", &theme);
+        if let Ok(w) = window()
+            && let Ok(Some(store)) = w.local_storage()
+        {
+            let _ = store.set_item("corvus.philosophy.theme", &theme);
+        }
+    })?;
+    Ok(())
+}

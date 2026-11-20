@@ -38,3 +38,5 @@ tools/forms/*
 # Local Rust outputs must never be uploaded. Rust sources remain build inputs.
 target/
 rust/browser/pkg/
+!tools/philosophy
+!tools/philosophy/build.mjs

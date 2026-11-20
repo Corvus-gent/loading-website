@@ -3,7 +3,7 @@ if(!document.querySelector('[data-inspiration-off]')&&!document.querySelector('m
  const css=document.createElement('link');css.rel='stylesheet';css.href='/css/inspiration.css?v=20261120';document.head.append(css);
  const host=location.hostname==='stats.corvus.gent'?'https://corvus.gent':'';
  const route=location.pathname.split('').reduce((n,c)=>n+c.charCodeAt(0),0);
- const marginArt=INSPIRATIONS.filter(a=>['fallen','ember','diogenes'].includes(a.id));
+ const marginArt=INSPIRATIONS.filter(a=>['fallen','diogenes'].includes(a.id));
  const pair=[INSPIRATIONS[0],marginArt[route%marginArt.length]];
  const rails=pair.map((art,i)=>{const a=document.createElement('a');a.className='inspiration-rail '+(i?'right':'left');a.href=host+'/tattoo/#'+art.id;a.setAttribute('aria-label','Explore inspiration: '+art.name);const img=new Image();img.src=art.image.replace('.webp','-margin.webp');img.alt='';img.loading='lazy';img.decoding='async';const label=document.createElement('span');label.textContent=art.name;a.append(img,label);a.hidden=true;document.body.append(a);return a;});
  const main=document.querySelector('main');
