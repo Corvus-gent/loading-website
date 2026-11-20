@@ -5,9 +5,10 @@ import path from 'node:path';
 import {wasmBridge} from './rust-bridges.mjs';
 const types={'.html':'text/html','.js':'text/javascript','.mjs':'text/javascript','.css':'text/css','.json':'application/json','.wasm':'application/wasm','.png':'image/png','.jpg':'image/jpeg','.svg':'image/svg+xml','.woff2':'font/woff2','.mp4':'video/mp4'};
 export async function rustSite(context,runtime,{ip='198.51.100.190',beforeRequest,afterResponse,browserEngine='rust'}={}){
- const origin='https://corvus.gent',root=process.cwd(),errors=[];
+ const origin='https://corvus.gent',root=process.cwd(),errors=[],pending=new Set();let closing=false;
  await context.addInitScript(()=>sessionStorage.setItem('twitch-disabled','1'));
- await context.route('**/*',async route=>{
+ const handle=async route=>{
+  if(closing)return route.abort();
   const request=route.request(),u=new URL(request.url());
   if(u.origin!==origin)return route.abort();
   if(beforeRequest&&await beforeRequest({route,request,u}))return;
@@ -24,6 +25,9 @@ export async function rustSite(context,runtime,{ip='198.51.100.190',beforeReques
    return route.fulfill({status:response.status,headers:Object.fromEntries(response.headers),body});
   }
   try{let file=u.pathname;if(!path.extname(file))file=file.replace(/\/$/,'')+'/index.html';file=path.resolve(root,'.'+decodeURIComponent(file));if(!file.startsWith(root+path.sep))throw Error('outside fixture');return route.fulfill({contentType:types[path.extname(file)]||'application/octet-stream',body:await readFile(file)});}catch{return route.fulfill({status:404,body:'Not found'});}
- });
- return{origin,errors};
+ };
+ await context.route('**/*',route=>{const task=handle(route);pending.add(task);task.then(()=>pending.delete(task),()=>pending.delete(task));return task;});
+ // Stop new work before closing without ever removing the network-deny route.
+ const drain=async()=>{closing=true;await Promise.all([...pending]);};
+ return{origin,errors,drain};
 }

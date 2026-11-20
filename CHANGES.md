@@ -417,3 +417,7 @@ Verified 67 public destinations and all seven requested flows on mobile and desk
 ### 2026-11-20 · Rust Compound public browser parity
 - Ported the shared consent/attribution client and public Compound v2 hub to opt-in Rust/WASM, preserving existing HTML/copy, route selection, voting, feedback and one-link sharing.
 - Added legacy/Rust browser contracts and a late-refresh vote race check; fixed locale formatting for large numbers. Preview remains read-only and production is unchanged.
+
+### 2026-11-20 · Rust Compound owner desk and sharing
+- Ported Compound v2 owner stats, upload queue, reports, feedback management and multilingual share/QR tools to opt-in Rust/WASM. Kept existing layout and copy.
+- Added cross-runtime share fixtures, localized DOM comparisons, independent QR decoding and private-refresh/logout checks. Stabilized the interview test's temporary network-failure fixture. Production remains unchanged.

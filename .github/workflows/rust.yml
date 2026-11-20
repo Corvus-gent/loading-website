@@ -33,6 +33,7 @@ jobs:
       - run: cargo build --locked --bins
       - run: node tools/rust/parity.mjs
       - run: node tests/rust/compound-model.mjs
+      - run: node tests/rust/compound-share.mjs
       - run: node tests/rust/interview-model.mjs
       - run: node tests/rust/impact-model.mjs
       - run: node tests/rust/impact-providers.mjs
@@ -47,6 +48,7 @@ jobs:
       - run: node tests/rust/battle-browser.mjs
       - run: node tests/rust/compound-client.mjs
       - run: node tests/rust/compound-browser.mjs
+      - run: node tests/rust/compound-admin-render.mjs
       - run: node tests/rust/interviews-browser.mjs
       - run: node tests/rust/impact-browser.mjs
       - run: node tests/rust/impact-render.mjs

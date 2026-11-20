@@ -43,3 +43,8 @@ const {runInNewContext}=await import('node:vm');
 const adminHTML=runInNewContext(template[1],{ACCOUNTS,fields:Object.keys(WEIGHTS)},{timeout:1000})+'\n';
 const file7=new URL('../../rust/migration/impact-admin.html',import.meta.url);
 if(process.argv.includes('--check')){if(readFileSync(file7,'utf8')!==adminHTML)throw Error('Rust Impact admin markup is stale');}else writeFileSync(file7,adminHTML);
+
+const {SHARE_CONFIG}=await import('../../compound/v2/share-config.js');
+const share=JSON.stringify(SHARE_CONFIG,null,2)+'\n';
+const file8=new URL('../../rust/migration/compound-share-config.json',import.meta.url);
+if(process.argv.includes('--check')){if(readFileSync(file8,'utf8')!==share)throw Error('Rust Compound share config is stale');}else writeFileSync(file8,share);

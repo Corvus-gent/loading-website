@@ -38,3 +38,5 @@ pub fn next_ritual_ms(now_ms: f64) -> f64 {
     }
     next.get_time()
 }
+
+mod compound_admin;

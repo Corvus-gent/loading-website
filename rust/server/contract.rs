@@ -96,6 +96,22 @@ async fn main() -> Result<(), corvus_server::Error> {
                 row["videos"].as_array().ok_or("videos")?,
                 row["now"].as_i64().ok_or("now")?,
             ),
+            Some("compound-share") => {
+                use corvus_core::compound_share as s;
+                let slug = row["slug"].as_str().unwrap_or("");
+                let result:Result<Value,&str>=match row["action"].as_str(){
+                    Some("copy")=>s::share_copy(slug).map(|v|json!(v)),
+                    Some("tracked")=>s::tracked(slug,row["source"].as_str().unwrap_or(""),row["medium"].as_str().unwrap_or("post")).map(|v|json!(v)),
+                    Some("reply")=>Ok(json!(s::reply_id(value))),
+                    Some("draft")=>s::draft(slug,row["platform"].as_str().unwrap_or(""),row["reply"].as_str().unwrap_or("")).map(|v|json!(v)),
+                    Some("today")=>Ok(json!(s::today(row["videos"].as_array().map(Vec::as_slice).unwrap_or(&[]),row["day"].as_str().unwrap_or("")))),
+                    _=>corvus_core::videos::parse_slug(slug).ok_or("Invalid video slug.").map(|v|json!({"code":s::code_url(&v),"full":s::full(&v,row["medium"].as_str().unwrap_or("post")),"pinned":s::pinned(&v)}))
+                };
+                match result {
+                    Ok(v) => v,
+                    Err(e) => json!({"error":e}),
+                }
+            }
             Some("compound-model") => {
                 use corvus_server::compound_v2::model;
                 let result = model::video(

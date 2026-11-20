@@ -7,3 +7,5 @@ pub mod plethora;
 pub mod routing;
 pub mod tiers;
 pub mod videos;
+
+pub mod compound_share;
