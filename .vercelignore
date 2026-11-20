@@ -37,3 +37,8 @@ tools/forms/*
 
 !tools/philosophy
 !tools/philosophy/build.mjs
+
+!tools/cv
+tools/cv/*
+!tools/cv/build.mjs
+output
