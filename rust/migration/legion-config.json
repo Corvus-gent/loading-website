@@ -1,0 +1,73 @@
+{
+  "ranks": [
+    "tiro",
+    "miles",
+    "centurio",
+    "legatus",
+    "praetor",
+    "senator",
+    "consul",
+    "imperator"
+  ],
+  "meanings": {
+    "tiro": "you are in. one dollar, once. start building with us.",
+    "miles": "you sent something worth paying attention to.",
+    "centurio": "you found a way in. keep finding ways.",
+    "legatus": "a real conversation. a shared direction.",
+    "praetor": "you met Gabe in person. anywhere in the world.",
+    "senator": "a trusted voice. by invitation.",
+    "consul": "a trusted partner. by invitation.",
+    "imperator": "lead from the front. by invitation."
+  },
+  "partners": {
+    "cardneto-demo": {
+      "label": "Cardneto · demo",
+      "url": "https://cardneto.com/en"
+    },
+    "cardneto-li": {
+      "label": "Cardneto · Dorian",
+      "url": "https://www.linkedin.com/in/dorian-lesnic/"
+    },
+    "cardneto-app": {
+      "label": "Cardneto · app",
+      "url": "https://cardneto.com/en/download"
+    },
+    "cardneto-egg": {
+      "label": "Cardneto · secret card",
+      "url": "/friends/cardneto/?found=card"
+    }
+  },
+  "simon": {
+    "slug": "simon-lorenzo",
+    "name": "Simon Lorenzo",
+    "title": "Parisian Philosopher",
+    "content": {
+      "photo": "/compound/impact/assets/simon.jpg",
+      "headline": "Co-founder of Compound.mov",
+      "bio": "Building the world's best AI video editor. Parisian Philosopher of the Corvus Senate.",
+      "links": [
+        {
+          "label": "Compound",
+          "url": "https://compound.mov/"
+        },
+        {
+          "label": "LinkedIn",
+          "url": "https://www.linkedin.com/in/simon-lorenzo/"
+        },
+        {
+          "label": "X",
+          "url": "https://x.com/parisbayarea"
+        }
+      ],
+      "highlight": {
+        "title": "",
+        "text": "",
+        "image": ""
+      },
+      "cta": {
+        "label": "Make your videos with Compound →",
+        "url": "https://compound.mov/"
+      }
+    }
+  }
+}

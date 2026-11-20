@@ -1,3 +1,4 @@
+pub mod army;
 pub mod auth;
 pub mod battle;
 pub mod compound;
@@ -6,6 +7,7 @@ pub mod config;
 pub mod crypto;
 pub mod hack;
 pub mod layers;
+pub mod legion;
 pub mod live;
 pub mod live_interviews;
 pub mod name_vote;

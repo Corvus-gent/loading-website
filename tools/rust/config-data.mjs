@@ -53,3 +53,9 @@ const {COMPOUND_LINKS}=await import('../../js/compound-links.js');
 const editor=JSON.stringify(COMPOUND_LINKS,null,2)+'\n';
 const file9=new URL('../../rust/migration/compound-links.json',import.meta.url);
 if(process.argv.includes('--check')){if(readFileSync(file9,'utf8')!==editor)throw Error('Rust original Compound links are stale');}else writeFileSync(file9,editor);
+
+const legionConfig=await import('../../js/site/legion-config.js');
+const {SIMON}=await import('../../api/_legion/senate.js');
+const legion=JSON.stringify({ranks:legionConfig.LEGION_RANKS,meanings:legionConfig.RANK_MEANING,partners:legionConfig.PARTNERS,simon:SIMON},null,2)+'\n';
+const file10=new URL('../../rust/migration/legion-config.json',import.meta.url);
+if(process.argv.includes('--check')){if(readFileSync(file10,'utf8')!==legion)throw Error('Rust Legion configuration is stale');}else writeFileSync(file10,legion);

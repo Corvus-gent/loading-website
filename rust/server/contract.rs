@@ -7,6 +7,61 @@ async fn main() -> Result<(), corvus_server::Error> {
         let row: Value = serde_json::from_str(&line?)?;
         let value = row["value"].as_str().unwrap_or("");
         let result = match row["operation"].as_str() {
+            Some("legion-model") => {
+                use corvus_server::legion::{model as m, security as s};
+                let result: Result<Value, corvus_server::Error> = (|| {
+                    let env = corvus_server::config::Settings::new(serde_json::from_value(
+                        row["env"].clone(),
+                    )?);
+                    let body = &row["body"];
+                    Ok(match row["action"].as_str() {
+                        Some("army-email") => Ok::<_, corvus_server::Error>(json!(
+                            corvus_server::army::model::email(body)?
+                        ))?,
+                        Some("army-username") => json!(corvus_server::army::model::username(body)),
+                        Some("army-valid-username") => json!(
+                            corvus_server::army::model::valid_username(body.as_str().unwrap_or(""))
+                        ),
+                        Some("army-digest") => {
+                            json!(corvus_server::army::security::digest(&env, value)?)
+                        }
+                        Some("army-prefix") => {
+                            json!(corvus_server::army::security::namespace(&env)?)
+                        }
+                        Some("stripe") => corvus_server::legion::payments::verified_event(
+                            value.as_bytes(),
+                            body.as_str().unwrap_or(""),
+                            &env,
+                            row["now"].as_i64().ok_or("now")?,
+                        )?,
+                        Some("plain") => {
+                            json!(m::plain(body, row["max"].as_u64().unwrap_or(80) as usize)?)
+                        }
+                        Some("clean") => {
+                            json!(m::clean(body, row["max"].as_u64().unwrap_or(300) as usize))
+                        }
+                        Some("https") => json!(m::https(body)?),
+                        Some("slug") => json!(m::valid_slug(body)),
+                        Some("content") => m::content(body)?,
+                        Some("public") => m::public_profile(body),
+                        Some("reserve") => m::reservation(body, value)?,
+                        Some("member") => m::member_row(body).unwrap_or(Value::Null),
+                        Some("csv") => json!(m::csv_cell(Some(body))),
+                        Some("token") => json!(s::valid_token(body)),
+                        Some("prefix") => json!(s::prefix(&env)),
+                        Some("stamp") => json!(s::password_stamp(&env)?),
+                        Some("origin") => {
+                            let mut h = axum::http::HeaderMap::new();
+                            if let Some(o) = body.as_str() {
+                                h.insert("origin", o.parse()?);
+                            }
+                            json!(s::same_origin(&env, &h))
+                        }
+                        _ => return Err("Unknown legion contract".into()),
+                    })
+                })();
+                result.unwrap_or_else(|e| json!({"error":e.to_string()}))
+            }
             Some("impact-model") => {
                 use corvus_core::impact;
                 use corvus_server::impact::{model, samples};
@@ -217,7 +272,7 @@ async fn main() -> Result<(), corvus_server::Error> {
                 }
                 json!({"authorized":security::authorized(&env,&headers,row["now"].as_i64().ok_or("now")?)?,"origin":security::same_origin(&env,&headers),"analytics":security::analytics(&row["body"],&headers)})
             }
-            Some("compound-store" | "compound-editor") => {
+            Some("compound-store" | "compound-editor" | "legion-store") => {
                 use corvus_server::compound_v2::{security, store::Registry};
                 let settings = std::sync::Arc::new(corvus_server::config::Settings::from_env());
                 if settings.production()
@@ -234,6 +289,14 @@ async fn main() -> Result<(), corvus_server::Error> {
                     live: corvus_server::live::LiveService::new()?,
                     compound_summary: Default::default(),
                 };
+                if row["operation"] == "legion-store" {
+                    let result = legion_contract(&state, &row).await;
+                    println!(
+                        "{}",
+                        result.unwrap_or_else(|e| json!({"error":e.to_string()}))
+                    );
+                    continue;
+                }
                 if row["operation"] == "compound-editor" {
                     let result = editor_contract(&state, &row).await;
                     println!(
@@ -654,5 +717,148 @@ async fn editor_contract(
         "checkout" => editor.donation_link(body, &row["journey"]).await,
         "stripe" => editor.stripe_event(body).await,
         _ => Err("unknown editor fixture".into()),
+    }
+}
+
+async fn legion_contract(
+    state: &corvus_server::AppState,
+    row: &Value,
+) -> Result<Value, corvus_server::Error> {
+    use corvus_server::legion::{security, senate::Senate};
+    let store = Senate(state);
+    let legion = corvus_server::legion::store::Legion(state);
+    let army = corvus_server::army::store::Army::new(state)?;
+    let slug = row["slug"].as_str().unwrap_or("");
+    let body = &row["body"];
+    let mut h = axum::http::HeaderMap::new();
+    if let Some(headers) = row["headers"].as_object() {
+        for (k, v) in headers {
+            h.insert(
+                axum::http::HeaderName::from_bytes(k.as_bytes())?,
+                v.as_str().ok_or("header")?.parse()?,
+            );
+        }
+    }
+    match row["action"].as_str() {
+        Some("checkout") => corvus_server::legion::payments::checkout(state, body).await,
+        Some("payment") => corvus_server::legion::payments::process(state, body).await,
+        Some("apply") => {
+            corvus_server::legion::applications::Applications(state)
+                .apply(body)
+                .await
+        }
+        Some("puzzle") => {
+            corvus_server::legion::applications::Applications(state)
+                .puzzle(body)
+                .await
+        }
+        Some("applications") => {
+            corvus_server::legion::applications::Applications(state)
+                .all()
+                .await
+        }
+        Some("decide") => {
+            corvus_server::legion::applications::Applications(state)
+                .decide(
+                    row["id"].as_str().unwrap_or(""),
+                    row["decision"].as_str().unwrap_or(""),
+                )
+                .await
+        }
+        Some("subscribe") => {
+            corvus_server::legion::newsletter::Newsletter(state)
+                .subscribe(
+                    body,
+                    row["origin"].as_str().unwrap_or("https://corvus.gent"),
+                )
+                .await
+        }
+        Some("confirm") => {
+            let r = corvus_server::legion::newsletter::Newsletter(state)
+                .confirm(row["token"].as_str().unwrap_or(""))
+                .await?;
+            Ok(json!({"body":r.body,"subscriber":r.subscriber}))
+        }
+        Some("unsubscribe") => {
+            corvus_server::legion::newsletter::Newsletter(state)
+                .unsubscribe(row["token"].as_str().unwrap_or(""))
+                .await
+        }
+        Some("subscribers") => {
+            corvus_server::legion::newsletter::Newsletter(state)
+                .subscribers()
+                .await
+        }
+        Some("create-invite") => {
+            legion
+                .create_invite(
+                    body,
+                    row["origin"].as_str().unwrap_or("https://corvus.gent"),
+                )
+                .await
+        }
+        Some("invite") => {
+            legion
+                .invite(row["token"].as_str().unwrap_or(""), row["open"] == true)
+                .await
+        }
+        Some("invitations") => legion.invitations().await,
+        Some("revoke-invite") => Ok(json!(
+            legion.revoke(row["id"].as_str().unwrap_or("")).await?
+        )),
+        Some("admit") => legion.admit(body).await,
+        Some("claim") => {
+            let result = legion.claim(&h, body).await?;
+            Ok(
+                json!({"body":result.body,"cookies":result.cookies.iter().map(|h|h.to_str().unwrap_or("")).collect::<Vec<_>>()}),
+            )
+        }
+        Some("members") => Ok(json!(legion.members().await?)),
+        Some("rank") => {
+            legion
+                .set_rank(
+                    row["id"].as_str().unwrap_or(""),
+                    &row["rank"],
+                    &row["source"],
+                )
+                .await
+        }
+        Some("army-user") => army.user(row["id"].as_str().unwrap_or("")).await,
+        Some("army-session") => army.session(&h).await,
+        Some("army-email") => army.by_email(row["email"].as_str().unwrap_or("")).await,
+        Some("army-name") => army.by_name(row["name"].as_str().unwrap_or("")).await,
+        Some("army-persist") => army.persist(body).await,
+        Some("reserve") => store.reserve(body).await,
+        Some("profile") => store.profile(slug).await,
+        Some("public") => store.public_list().await,
+        Some("editing") => store.editing(row["token"].as_str().unwrap_or("")).await,
+        Some("publish") => {
+            store
+                .publish(
+                    &row["record"],
+                    body,
+                    row["actor"].as_str(),
+                    &row["expected"],
+                    row["admin"] == true,
+                )
+                .await
+        }
+        Some("versions") => Ok(json!(store.versions(slug).await?)),
+        Some("admin") => store.admin_list().await,
+        Some("manage") => {
+            store
+                .manage(slug, row["kind"].as_str().unwrap_or(""), &row["value"])
+                .await
+        }
+        Some("count") => {
+            store
+                .count(&h, slug, row["kind"].as_str().unwrap_or(""))
+                .await?;
+            Ok(Value::Null)
+        }
+        Some("authorized") => Ok(json!(security::authorized(state, &h).await?)),
+        Some("login") => Ok(json!(security::login(state, &h, body).await?.to_str()?)),
+        Some("logout") => Ok(json!(security::logout(state, &h).await?.to_str()?)),
+        _ => Err("Unknown Senate contract".into()),
     }
 }

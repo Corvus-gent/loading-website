@@ -217,6 +217,15 @@ pub fn verified_event(
             "STRIPE_WEBHOOK_SECRET_TEST"
         })
         .ok_or("not configured")?;
+    verify_signature(payload, header, secret, now)
+}
+/// Shared raw-byte validator; each application selects its own environment-scoped secret.
+pub fn verify_signature(
+    payload: &[u8],
+    header: &str,
+    secret: &str,
+    now: i64,
+) -> Result<Value, Error> {
     if payload.len() > 128000 {
         return Err("too much data".into());
     }
