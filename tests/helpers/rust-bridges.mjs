@@ -2,6 +2,8 @@
 // These contain only module wiring; all replacement behavior lives in Rust/WASM.
 const wasm='/rust/browser/pkg/corvus_browser.js';
 const bridges={
+ '/compound/impact/admin.js':`import init,{mount_impact_admin} from '${wasm}';await init();export const mountImpact=mount_impact_admin;`,
+ '/compound/impact/app.js':`import init,{start_impact} from '${wasm}';await init();start_impact();`,
  '/hack/3/add/app.js':`import init,{start_interviews_admin} from '${wasm}';await init();start_interviews_admin();`,
  '/hack/3/interviews.js':`import init,{start_interviews} from '${wasm}';await init();start_interviews();`,
  '/js/privacy-page.js':`import {initI18n} from '/js/i18n.js?v=20261108live1';import init,{start_privacy_page,render_privacy_page} from '${wasm}';await init();start_privacy_page();initI18n(render_privacy_page);`,

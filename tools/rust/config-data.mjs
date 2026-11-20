@@ -35,3 +35,11 @@ const {WEIGHTS,SUPPORTED,LABELS}=await import('../../compound/impact/metrics.js'
 const impact=JSON.stringify({accounts:ACCOUNTS,weights:WEIGHTS,supported:SUPPORTED,labels:LABELS},null,2)+'\n';
 const file6=new URL('../../rust/migration/impact-config.json',import.meta.url);
 if(process.argv.includes('--check')){if(readFileSync(file6,'utf8')!==impact)throw Error('Rust Impact config is stale');}else writeFileSync(file6,impact);
+
+// Preserve the existing owner's static form markup verbatim. No user data enters this template.
+const adminSource=readFileSync(new URL('../../compound/impact/admin.js',import.meta.url),'utf8');
+const template=adminSource.match(/section\.innerHTML=(`[^]*?`);\n const anchor/);if(!template)throw Error('Impact admin template changed; review the Rust form migration.');
+const {runInNewContext}=await import('node:vm');
+const adminHTML=runInNewContext(template[1],{ACCOUNTS,fields:Object.keys(WEIGHTS)},{timeout:1000})+'\n';
+const file7=new URL('../../rust/migration/impact-admin.html',import.meta.url);
+if(process.argv.includes('--check')){if(readFileSync(file7,'utf8')!==adminHTML)throw Error('Rust Impact admin markup is stale');}else writeFileSync(file7,adminHTML);

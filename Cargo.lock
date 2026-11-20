@@ -278,6 +278,7 @@ version = "0.1.0"
 dependencies = [
  "corvus-core",
  "js-sys",
+ "regex",
  "serde_json",
  "url",
  "wasm-bindgen",

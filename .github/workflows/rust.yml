@@ -48,6 +48,7 @@ jobs:
       - run: node tests/rust/compound-browser.mjs
       - run: node tests/rust/interviews-browser.mjs
       - run: node tests/rust/impact-browser.mjs
+      - run: node tests/rust/impact-render.mjs
       - run: node tests/rust/privacy-browser.mjs
       - name: Keep generated parity fixtures reproducible
         run: git diff --exit-code -- rust/fixtures
