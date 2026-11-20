@@ -325,6 +325,14 @@
   ],
   "rewrites": [
     {
+      "source": "/hackersbay",
+      "destination": "/public/hackersbay/index.html"
+    },
+    {
+      "source": "/hackersbay/",
+      "destination": "/public/hackersbay/index.html"
+    },
+    {
       "source": "/cv/work/mistral",
       "destination": "/cv/work/mistral/index.html"
     },
