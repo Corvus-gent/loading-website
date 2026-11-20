@@ -23,6 +23,17 @@ const tattooCopy = [
  ),
  'Fall down, get back up.'
 ];
+const statsCopy = [
+ '{count} played today',
+ '{count} visitors today',
+ '{count} clicks',
+ '{service} response time in milliseconds',
+ '{service} daily history',
+ '{service} went down on {time} · {duration} · {state}.',
+ '{chart}. Use left and right arrow keys to inspect values.',
+ '{replies} replies · {posts} posts today in Brussels.',
+ 'SF is {hours} hours behind Brussels · {dateRelation}'
+];
 for (const lang of [...langs.slice(1), 'hi', 'ta']) {
  const file = `public/i18n/site.${lang}.json`;
  const copy = JSON.parse(await fs.readFile(file, 'utf8'));
@@ -30,8 +41,8 @@ for (const lang of [...langs.slice(1), 'hi', 'ta']) {
   assert.equal(typeof value, 'string', file + ': flat string values required');
   assert.deepEqual(tokens(value), tokens(source), file + ': placeholders differ at ' + source);
  }
- for (const text of tattooCopy) {
-  assert(copy[text]?.trim(), file + ': missing tattoo copy for ' + text);
+ for (const text of [...tattooCopy, ...statsCopy]) {
+  assert(copy[text]?.trim(), file + ': missing page copy for ' + text);
  }
  const brief = dailyBrief({
   ids: ['monferno', 'anakin-story', 'phoenix', 'creation'],
@@ -40,7 +51,7 @@ for (const lang of [...langs.slice(1), 'hi', 'ta']) {
  assert.match(brief, /Les extrêmes se touchent/);
  assert.deepEqual(tokens(brief), [], file + ': unresolved brief placeholders');
 }
-console.log('8 public page catalogs: valid strings and complete tattoo brief copy.');
+console.log('8 public page catalogs: valid strings, tattoo brief copy and live stats templates.');
 
 const worldcraftSource = JSON.parse(await fs.readFile('public/worldcraft/locales/en.json', 'utf8'));
 const worldcraftGerman = JSON.parse(await fs.readFile('public/worldcraft/locales/de.json', 'utf8'));

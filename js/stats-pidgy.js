@@ -1,4 +1,5 @@
-import { view, out, el, rows, percent } from './stats-view.js';
+import { formatPageText } from './i18n/page-copy.js';
+import { view, out, el, number, percent } from './stats-view.js';
 view((d) => {
   if (!d.all || !d.today) {
     out.textContent = 'crossing counts unavailable.';
@@ -16,7 +17,7 @@ view((d) => {
     return img;
   };
   trail.append(image('/logo.png', 'corvus'), image('/img/diogenes.svg', 'Diogenes', 'diogenes'));
-  const flight = el('div', `${d.all.clicks} clicks`, 'flight');
+  const flight = el('div', formatPageText('{count} clicks', { count: number(d.all.clicks) }), 'flight');
   flight.append(
     el(
       'div',
@@ -33,14 +34,20 @@ view((d) => {
       block = el('section', '');
     block.append(
       el('h2', period === 'all' ? 'all time' : 'today'),
-      el('p', `${s.visitors} visitors → ${s.clickers} people clicked`),
-      el('p', `${s.clicks} clicks · ${percent(s.clickers, s.visitors)} visitors → clickers`)
+      el('p', formatPageText('{visitors} visitors → {clickers} people clicked', {
+        visitors: number(s.visitors), clickers: number(s.clickers)
+      })),
+      el('p', formatPageText('{count} clicks · {percent} visitors → clickers', {
+        count: number(s.clicks), percent: percent(s.clickers, s.visitors)
+      }))
     );
     if (d.signups)
       block.append(
         el(
           'p',
-          `${d.signups[period]} signups · ${percent(d.signups[period], s.clickers)} clickers → signups`
+          formatPageText('{count} signups · {percent} clickers → signups', {
+            count: number(d.signups[period]), percent: percent(d.signups[period], s.clickers)
+          })
         )
       );
     counts.append(block);

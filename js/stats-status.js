@@ -1,3 +1,4 @@
+import { formatPageText, translatePageText } from './i18n/page-copy.js';
 import { showStorageWarning } from './storage-warning.js';
 import {
   labels,
@@ -60,15 +61,15 @@ function makeRows() {
     toggle.type = 'button';
     toggle.dataset.state = '0';
     toggle.setAttribute('aria-expanded', 'false');
-    toggle.append(dot, document.createTextNode(label));
-    const strip = svg('svg', { class: 'day-strip', 'aria-label': label + ' daily history' });
+    const nameText = document.createTextNode(label);
+    toggle.append(dot, nameText);
+    const strip = svg('svg', { class: 'day-strip' });
     const percent = text('span', '—', 'percent');
     percent.title = '30-day uptime';
     const spark = svg('svg', {
       class: 'spark',
       viewBox: '0 0 70 24',
-      role: 'img',
-      'aria-label': label + ' response time, last 24 hours'
+      role: 'img'
     });
     const tip = text('span', null, 'day-detail');
     tip.hidden = true;
@@ -88,7 +89,7 @@ function makeRows() {
     row.append(toggle, strip, percent, spark, tip);
     service.append(row, chart);
     fragment.append(service);
-    rows.set(name, { toggle, strip, percent, spark, tip, chart });
+    rows.set(name, { toggle, strip, percent, spark, tip, chart, nameText });
   }
   $('#checks').append(fragment);
 }
@@ -101,18 +102,17 @@ function checked() {
   const at = Date.parse(data?.checked_at);
   if (!Number.isFinite(at)) return data ? 'no checks recorded yet.' : 'waiting for the latest check…';
   const mins = Math.max(0, Math.floor((Date.now() - at) / 60000));
-  return (
-    'last checked ' +
-    (mins === 0 ? 'just now' : duration(mins * 60000) + ' ago') +
-    (mins > 15 ? ' · monitoring overdue' : '')
-  );
+  const relative = new Intl.RelativeTimeFormat(document.documentElement.lang, { numeric: 'auto' });
+  const now = mins === 0 ? translatePageText('just now') : relative.format(-mins, 'minute');
+  return formatPageText('last checked {time}', { time: now }) +
+    (mins > 15 ? ' · ' + translatePageText('monitoring overdue') : '');
 }
 function paint(body) {
   const start = performance.now();
   data = body;
   showStorageWarning(body.storage_plaintext_until);
   const status = body.status || 'unknown';
-  $('#health-title').textContent = titles[status] || titles.unknown;
+  $('#health-title').textContent = translatePageText(titles[status] || titles.unknown);
   $('.beacon').dataset.state = String(['unknown', 'ok', 'degraded', 'down'].indexOf(status));
   $('#checked').textContent = checked();
   document.querySelectorAll('.metrics dd').forEach((v, i) => (v.textContent = pct(body.uptime?.[i])));
@@ -122,7 +122,13 @@ function paint(body) {
     const c = checks.get(name),
       level = c?.state || 0;
     row.toggle.dataset.state = level;
-    row.toggle.setAttribute('aria-label', labels[name] + ', ' + states[level] + ', response time');
+    const service = translatePageText(labels[name]);
+    row.nameText.data = service;
+    row.toggle.setAttribute('aria-label', formatPageText('{service}, {state}, response time', {
+      service, state: translatePageText(states[level])
+    }));
+    row.strip.setAttribute('aria-label', formatPageText('{service} daily history', { service }));
+    row.spark.setAttribute('aria-label', formatPageText('{service} response time, last 24 hours', { service }));
     row.percent.textContent = pct(c?.uptime?.[2]);
     drawStrip(row.strip, body.days, c?.days, row.tip, media.matches);
     drawSpark(row.spark, c?.spark || []);
@@ -139,7 +145,12 @@ function paint(body) {
     line.append(
       dot,
       document.createTextNode(
-        `${labels[i.name]} ${i.worst === 3 ? 'went down' : 'was slow'} on ${when(i.start)} · ${duration(Math.max(0, end - i.start))} · ${state}.`
+        formatPageText(
+          i.worst === 3 ? '{service} went down on {time} · {duration} · {state}.'
+            : '{service} was slow on {time} · {duration} · {state}.',
+          { service: translatePageText(labels[i.name] || i.name), time: when(i.start),
+            duration: duration(Math.max(0, end - i.start)), state: translatePageText(state) }
+        )
       )
     );
     return line;
@@ -235,6 +246,7 @@ new ResizeObserver((entries) => {
   lastWidth = width;
 }).observe($('#overall-chart'));
 makeRows();
+window.addEventListener('corvus-page-copy-ready', () => { if (data) paint(data); });
 paint(blank());
 $('#health-title').textContent = 'reading the lantern.';
 $('#checked').textContent = 'waiting for the latest check…';
