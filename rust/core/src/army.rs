@@ -1,5 +1,48 @@
 use crate::tiers::Tier;
 use serde_json::Value;
+pub fn config() -> &'static Value {
+    static CONFIG: std::sync::OnceLock<Value> = std::sync::OnceLock::new();
+    CONFIG.get_or_init(|| {
+        serde_json::from_str(include_str!("../../migration/army-config.json"))
+            .unwrap_or(Value::Null)
+    })
+}
+pub fn includes(group: &str, value: &Value) -> bool {
+    config()[group]
+        .as_array()
+        .is_some_and(|a| a.contains(value))
+}
+pub fn active_tier(user: &Value, now: i64) -> Option<&str> {
+    if truthy(&user["general"]) && truthy(&user["verifiedAt"]) {
+        return Some("imperator");
+    }
+    let p = &user["membership"];
+    let tier = p["tier"].as_str()?;
+    (includes("TIERS", &p["tier"])
+        && tier != "imperator"
+        && p["state"] != "refunded"
+        && (includes("LIFETIME", &p["tier"])
+            || (tier == "tiro" && p["interval"] == "once")
+            || crate::impact::timestamp(&p["until"]).is_some_and(|t| t > now)))
+    .then_some(tier)
+}
+pub fn public_soldier(user: &Value, link: bool, now: i64) -> Value {
+    use serde_json::json;
+    let named =
+        (truthy(&user["verifiedAt"]) || truthy(&user["legion"])) && truthy(&user["username"]);
+    let otherwise = |k: &str, fallback: Value| {
+        if truthy(&user[k]) {
+            user[k].clone()
+        } else {
+            fallback
+        }
+    };
+    let mut p = json!({"username":if named{user["username"].clone()}else{Value::Null},"serial":otherwise("serial",Value::Null),"rank":rank(user),"points":points(user),"rankGranted":truthy(&user["legion"]),"created":user["created"].as_str().unwrap_or("").chars().take(10).collect::<String>(),"streak":otherwise("streak",json!(0)),"best":otherwise("best",json!(0)),"feathers":user["feathers"].as_array().map(Vec::len).unwrap_or(0),"recruits":otherwise("recruits",json!(0)),"approved":user["status"]=="approved","tier":active_tier(user,now),"country":otherwise("country",Value::Null),"hidden":truthy(&user["hidden"])});
+    if link && named {
+        p["link"] = otherwise("link", json!(""));
+    }
+    p
+}
 pub fn truthy(v: &Value) -> bool {
     match v {
         Value::Null => false,

@@ -7,6 +7,33 @@ async fn main() -> Result<(), corvus_server::Error> {
         let row: Value = serde_json::from_str(&line?)?;
         let value = row["value"].as_str().unwrap_or("");
         let result = match row["operation"].as_str() {
+            Some("army-model") => {
+                use corvus_server::army::{model as m, security as s};
+                let result: Result<Value, corvus_server::Error> = (|| {
+                    let env = corvus_server::config::Settings::new(serde_json::from_value(
+                        row["env"].clone(),
+                    )?);
+                    let b = &row["body"];
+                    let now = row["now"].as_i64().ok_or("time")?;
+                    Ok(match row["action"].as_str() {
+                        Some("application") => m::application(b)?,
+                        Some("link") => json!(m::link(b)?),
+                        Some("tier") => json!(m::active_tier(b, now)),
+                        Some("public") => m::public_soldier(b, row["link"] != false, now),
+                        Some("day") => json!(m::day_key(now)?),
+                        Some("week") => json!(m::week_key(now)?),
+                        Some("mission") => m::daily_mission(
+                            b["day"].as_str().unwrap_or(""),
+                            b["type"].as_str().unwrap_or(""),
+                        )?,
+                        Some("reward") => json!(m::mission_reward(b, now)?),
+                        Some("seal") => json!(s::seal(&env, b.as_str().ok_or("value")?)?),
+                        Some("open") => json!(s::open(&env, b.as_str().ok_or("value")?)?),
+                        _ => return Err("action".into()),
+                    })
+                })();
+                result.unwrap_or_else(|e| json!({"error":e.to_string()}))
+            }
             Some("legion-model") => {
                 use corvus_server::legion::{model as m, security as s};
                 let result: Result<Value, corvus_server::Error> = (|| {
@@ -282,7 +309,7 @@ async fn main() -> Result<(), corvus_server::Error> {
                 }
                 json!({"authorized":security::authorized(&env,&headers,row["now"].as_i64().ok_or("now")?)?,"origin":security::same_origin(&env,&headers),"analytics":security::analytics(&row["body"],&headers)})
             }
-            Some("compound-store" | "compound-editor" | "legion-store") => {
+            Some("compound-store" | "compound-editor" | "legion-store" | "army-store") => {
                 use corvus_server::compound_v2::{security, store::Registry};
                 let settings = std::sync::Arc::new(corvus_server::config::Settings::from_env());
                 if settings.production()
@@ -299,6 +326,14 @@ async fn main() -> Result<(), corvus_server::Error> {
                     live: corvus_server::live::LiveService::new()?,
                     compound_summary: Default::default(),
                 };
+                if row["operation"] == "army-store" {
+                    let result = army_contract(&state, &row).await;
+                    println!(
+                        "{}",
+                        result.unwrap_or_else(|e| json!({"error":e.to_string()}))
+                    );
+                    continue;
+                }
                 if row["operation"] == "legion-store" {
                     let result = legion_contract(&state, &row).await;
                     println!(
@@ -891,5 +926,102 @@ async fn legion_contract(
         Some("login") => Ok(json!(security::login(state, &h, body).await?.to_str()?)),
         Some("logout") => Ok(json!(security::logout(state, &h).await?.to_str()?)),
         _ => Err("Unknown Senate contract".into()),
+    }
+}
+
+async fn army_contract(
+    state: &corvus_server::AppState,
+    row: &Value,
+) -> Result<Value, corvus_server::Error> {
+    use corvus_server::army::store::Army;
+    let army = Army::with_now(state, row["now"].as_i64().ok_or("fixture time")?)?;
+    let uid = row["uid"].as_str().unwrap_or("");
+    let body = &row["body"];
+    let value = row["value"].as_str().unwrap_or("");
+    let ip = row["ip"].as_str().unwrap_or("fixture-ip-hash");
+    match row["action"].as_str().unwrap_or("") {
+        "create" => {
+            army.create(&body["country"], body["existingBrowser"] == true)
+                .await
+        }
+        "user" => army.user(uid).await,
+        "all" => Ok(json!(army.all().await?)),
+        "persist" => army.persist(body).await,
+        "by-code" => army.by_code(value).await,
+        "by-email" => army.by_email(value).await,
+        "by-name" => army.by_name(value).await,
+        "enlist" => army.enroll(uid, body, true).await,
+        "register" => army.enroll(uid, body, false).await,
+        "attach-email" => {
+            army.attach_email(uid, value, row["lang"].as_str().unwrap_or("en"))
+                .await
+        }
+        "verify" => army.verify(uid).await,
+        "own" => {
+            army.own(uid, value, body, row["seconds"].as_i64().unwrap_or(60))
+                .await
+        }
+        "rate" => Ok(json!(
+            army.rate(
+                value,
+                ip,
+                row["max"].as_i64().unwrap_or(3),
+                row["seconds"].as_i64().unwrap_or(60)
+            )
+            .await?
+        )),
+        "remember" => Ok(json!(army.remember_referral(uid, value, ip).await?)),
+        "qualify" => Ok(json!(army.qualify(uid, ip).await?)),
+        "complete" => army.complete(uid, body, ip).await,
+        "help" => army.approve_help(uid, body).await,
+        "feather" => army.feather(uid, &row["value"]).await,
+        "remove" => Ok(json!(army.remove(uid).await?)),
+        "export" => army.export_data(uid).await,
+        "cleanup" => Ok(json!(army.cleanup().await?)),
+        "seen" => {
+            army.seen(uid, ip).await?;
+            Ok(Value::Null)
+        }
+        "issue" => {
+            corvus_server::army::auth::Auth(&army)
+                .issue(uid, value)
+                .await
+        }
+        "queue" => Ok(json!(
+            corvus_server::army::auth::Auth(&army)
+                .queue(
+                    uid,
+                    value,
+                    body,
+                    row["seconds"].as_i64().unwrap_or(172800),
+                    row["job"].as_str()
+                )
+                .await?
+        )),
+        "consume" => {
+            let mut headers = axum::http::HeaderMap::new();
+            let body = corvus_server::army::auth::Auth(&army)
+                .consume(value, &mut headers)
+                .await?;
+            Ok(
+                json!({"body":body,"cookies":headers.get_all("set-cookie").iter().map(|s|s.to_str().unwrap_or("")).collect::<Vec<_>>()}),
+            )
+        }
+        "session" => {
+            let mut headers = axum::http::HeaderMap::new();
+            headers.insert("cookie", value.parse()?);
+            army.session(&headers).await
+        }
+        "unsubscribe-token" => Ok(json!(
+            corvus_server::army::auth::Auth(&army)
+                .unsubscribe_token(uid, value)
+                .await?
+        )),
+        "unsubscribe" => Ok(json!(
+            corvus_server::army::auth::Auth(&army)
+                .unsubscribe(value)
+                .await?
+        )),
+        _ => Err("unknown Army fixture".into()),
     }
 }

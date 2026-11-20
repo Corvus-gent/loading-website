@@ -87,3 +87,39 @@ pub fn cookie(
             .parse()?,
     )
 }
+
+/// Preserve the existing persisted envelope: base64url(12-byte nonce | 16-byte tag | body).
+/// Every seal uses a fresh random nonce; no raw token is written to the outbox.
+pub fn seal(env: &Settings, value: &str) -> Result<String, Error> {
+    use ring::aead::{Aad, Nonce};
+    let nonce = rand::random::<[u8; 12]>();
+    let mut body = value.as_bytes().to_vec();
+    let tag = mail_key(env)?
+        .seal_in_place_separate_tag(Nonce::assume_unique_for_key(nonce), Aad::empty(), &mut body)
+        .map_err(|_| "cipher")?;
+    let mut out = nonce.to_vec();
+    out.extend_from_slice(tag.as_ref());
+    out.extend_from_slice(&body);
+    Ok(URL_SAFE_NO_PAD.encode(out))
+}
+fn mail_key(env: &Settings) -> Result<ring::aead::LessSafeKey, Error> {
+    let bytes = hex::decode(digest(env, "mail-encryption")?)?;
+    let key =
+        ring::aead::UnboundKey::new(&ring::aead::AES_256_GCM, &bytes).map_err(|_| "cipher")?;
+    Ok(ring::aead::LessSafeKey::new(key))
+}
+pub fn open(env: &Settings, value: &str) -> Result<String, Error> {
+    use ring::aead::{Aad, Nonce};
+    let raw = URL_SAFE_NO_PAD.decode(value).map_err(|_| "cipher")?;
+    if raw.len() < 28 {
+        return Err("cipher".into());
+    }
+    let nonce = Nonce::try_assume_unique_for_key(&raw[..12]).map_err(|_| "cipher")?;
+    let mut body = raw[28..].to_vec();
+    body.extend_from_slice(&raw[12..28]);
+    let key = mail_key(env)?;
+    let plain = key
+        .open_in_place(nonce, Aad::empty(), &mut body)
+        .map_err(|_| "cipher")?;
+    Ok(String::from_utf8_lossy(plain).into_owned())
+}

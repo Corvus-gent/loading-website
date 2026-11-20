@@ -315,6 +315,7 @@ dependencies = [
  "redis",
  "regex",
  "reqwest",
+ "ring",
  "serde",
  "serde_json",
  "sha2",

@@ -37,6 +37,9 @@ jobs:
       - run: node tests/rust/compound-original-model.mjs
       - run: node tests/rust/compound-stripe.mjs
       - run: node tests/rust/legion-model.mjs
+      - run: node tests/rust/army-model.mjs
+      - run: node tests/rust/army-store.mjs
+      - run: node tests/rust/army-auth.mjs
       - run: node tests/rust/legion-store.mjs
       - run: node tests/rust/legion-admission.mjs
       - run: node tests/rust/legion-newsletter.mjs

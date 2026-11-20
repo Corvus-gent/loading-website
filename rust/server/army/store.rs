@@ -6,13 +6,56 @@ pub const DAY: i64 = 86400;
 pub struct Army<'a> {
     pub state: &'a AppState,
     prefix: String,
+    clock: Option<i64>,
 }
 impl<'a> Army<'a> {
     pub fn new(state: &'a AppState) -> Result<Self, Error> {
         Ok(Self {
             state,
             prefix: security::namespace(&state.settings)?,
+            clock: None,
         })
+    }
+    /// A deterministic clock for isolated compatibility contracts, never read from env.
+    pub fn with_now(state: &'a AppState, now: i64) -> Result<Self, Error> {
+        let mut store = Self::new(state)?;
+        store.clock = Some(now);
+        Ok(store)
+    }
+    pub fn now(&self) -> i64 {
+        self.clock
+            .unwrap_or_else(|| chrono::Utc::now().timestamp_millis())
+    }
+    pub fn timestamp(&self) -> Result<String, Error> {
+        super::model::iso(self.now())
+    }
+    pub fn remaining(&self, user: &Value) -> Result<i64, Error> {
+        let until = corvus_core::impact::timestamp(&user["expires"]).ok_or("expiry")?;
+        Ok(((until - self.now()) as f64 / 1000.).ceil().max(1.) as i64)
+    }
+    pub async fn run(&self, args: &[&str]) -> Result<Value, Error> {
+        Ok(self.state.store.command(command(args)).await?)
+    }
+    pub async fn locked<T, F>(&self, uid: &str, operation: F) -> Result<T, Error>
+    where
+        F: std::future::Future<Output = Result<T, Error>>,
+    {
+        let token = self.acquire(uid, 15).await?;
+        let result = operation.await;
+        let released = self.release(uid, &token).await;
+        match result {
+            Err(e) => Err(e),
+            Ok(value) => {
+                released?;
+                Ok(value)
+            }
+        }
+    }
+    pub async fn invalidate(&self) -> Result<(), Error> {
+        self.run(&["INCR", &self.key("revision")]).await?;
+        self.run(&["DEL", &self.key("public"), &self.key("legion")])
+            .await?;
+        Ok(())
     }
     pub fn key(&self, suffix: &str) -> String {
         format!("{}{suffix}", self.prefix)
@@ -81,7 +124,7 @@ impl<'a> Army<'a> {
         if owner.is_null() || owner["status"] == "deleting" {
             return Err("session".into());
         }
-        let seconds = seconds.min(Self::ttl(&owner)?);
+        let seconds = seconds.min(self.remaining(&owner)?);
         let result = self
             .state
             .store
@@ -107,7 +150,7 @@ impl<'a> Army<'a> {
             .as_str()
             .filter(|s| security::valid_id(s))
             .ok_or("session")?;
-        let seconds = Self::ttl(user)?;
+        let seconds = self.remaining(user)?;
         let mut fields = vec![
             (format!("u:{uid}"), user.clone()),
             (
@@ -156,7 +199,7 @@ impl<'a> Army<'a> {
     }
     pub async fn all(&self) -> Result<Vec<Value>, Error> {
         let mut out = vec![];
-        let now = chrono::Utc::now().timestamp_millis().to_string();
+        let now = self.now().to_string();
         let mut offset = 0;
         loop {
             let ids = self

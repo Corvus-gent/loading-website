@@ -59,3 +59,8 @@ const {SIMON}=await import('../../api/_legion/senate.js');
 const legion=JSON.stringify({ranks:legionConfig.LEGION_RANKS,meanings:legionConfig.RANK_MEANING,partners:legionConfig.PARTNERS,simon:SIMON},null,2)+'\n';
 const file10=new URL('../../rust/migration/legion-config.json',import.meta.url);
 if(process.argv.includes('--check')){if(readFileSync(file10,'utf8')!==legion)throw Error('Rust Legion configuration is stale');}else writeFileSync(file10,legion);
+
+const armyConfig=await import('../../js/army/domain.js');
+const army=JSON.stringify(Object.fromEntries(['LANGUAGES','RANKS','WEIGHTS','FEATHERS','RETENTION','DAY','TIERS','LIFETIME','CONSUL_SEATS'].map(k=>[k,armyConfig[k]])),null,2)+'\n';
+const file11=new URL('../../rust/migration/army-config.json',import.meta.url);
+if(process.argv.includes('--check')){if(readFileSync(file11,'utf8')!==army)throw Error('Rust Army configuration is stale');}else writeFileSync(file11,army);

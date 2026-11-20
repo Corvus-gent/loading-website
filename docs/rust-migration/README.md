@@ -74,6 +74,9 @@ node tests/rust/compound-editor-public-render.mjs
 node tests/rust/compound-editor-public-browser.mjs
 node tests/rust/interviews-browser.mjs
 node tests/rust/legion-model.mjs
+node tests/rust/army-model.mjs
+node tests/rust/army-store.mjs
+node tests/rust/army-auth.mjs
 node tests/rust/legion-store.mjs
 node tests/rust/legion-admission.mjs
 node tests/rust/legion-newsletter.mjs
