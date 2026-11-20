@@ -1,11 +1,12 @@
 // Pure middleware comparison. All CLI analytics requests are intercepted locally.
 import assert from 'node:assert/strict';
-import {readFileSync,writeFileSync} from 'node:fs';
+import {writeFileSync} from 'node:fs';
 import {spawnSync} from 'node:child_process';
+import {inventory} from '../site/link-inventory.mjs';
 import middleware from '../../middleware.js';
 import {COMPOUND_LINKS} from '../../js/compound-links.js';
 import {PLETHORA_PLACEMENTS} from '../../js/plethora-config.js';
-const directory=JSON.parse(readFileSync('site-directory.json','utf8'));
+const directory=await inventory();
 const paths=new Set(directory.routes.map(r=>r.path));
 for(const p of ['/','/index.html','/hack2','/hack2/index.html','/hack/the-feed/','/submission','/soldier','/soldier/santobjj/','/links/gabe/','/enlist','/join-the-army-now/a','/sidequest','/squads','/enter','/the-crow','/revived','/coffee-with-gabe','/important-call-gabe-maxxer','/project-cto','/project-cto/','/api/_openrisk','/api/_openrisk/secret.json','/rust/migration/inventory.json','/rust/','/Cargo.lock','/Cargo.toml/','/rust-toolchain.toml','/%72ust//server/lib.rs','/%72ust/file.json','/go/twitch','/go/twitter','/go/instagram','/go/compound-impact','/go/cardneto-demo','/go/roll-li','/go/cx-tt','/c/PT-BJJ-2','/c/ptbjj2','/c/%XX','/v/tt-bjj-pt-bjj2','/unknown','/statstore','/privateanything','/wiki/%63orvus/index.html','//wiki//pidgy/'])paths.add(p);
 for(const p of Object.keys(COMPOUND_LINKS))paths.add('/'+p);

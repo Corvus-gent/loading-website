@@ -22,4 +22,6 @@ Support bookings/referrals now preserve the three tiers, owner/key administratio
 
 Battle voting and shared voter security are ported: 12 redirects, blind device order/media, old/new voter-cookie interoperability, ten simultaneous votes count once, tie/close/reopen, admin validation, original 90-day vote retention and cross-runtime single-use proof-of-work challenges. 910 pure contracts and 9,324 routing decisions pass. No production vote or email was sent.
 
-Next: preserve the new upstream tattoo/inspiration additions, then continue browser/API migration. See README completion gate. No production cutover until the full required compatibility checks and rollback exercise pass.
+Merged upstream f2a5ed3 (tattoo/inspiration) without changing its content. Routing tests now discover current sources instead of trusting a stale generated catalogue: 9,468 decisions pass. The pre-existing banner test now checks the actual publishing artifact and preserves standalone canvases, the Sonar form and game admin; mobile/desktop checks pass locally. Full Feature CI must still be rerun. Support CI passed on GitHub Actions at cd79e66.
+
+Next: continue browser/API migration; the booking frontend and other browser modules remain JavaScript. See README completion gate. No production cutover until the full required compatibility checks and rollback exercise pass.

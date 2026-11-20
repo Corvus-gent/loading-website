@@ -1,3 +1,4 @@
+- 2026-11-20: Keep new tattoo/inspiration pages during migration; test banner coverage against built pages, preserving standalone views, and compare routing against fresh source discovery.
 - 2026-11-20: Port blind battle voting and signed voter/proof security to Rust, preserving prior votes, close-state atomicity and anti-spam keys.
 - 2026-11-20: Port support bookings and referral statistics to the opt-in Rust handler; verify cross-runtime idempotency, admin edits, retention and read-only email protection.
 - 2026-11-20: Rust migration now preserves 9,324 middleware decisions; exclude compiler inputs from the publishing build, public directory and search. Production routing unchanged.
