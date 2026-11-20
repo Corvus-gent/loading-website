@@ -1,5 +1,6 @@
 //! Browser migration entry point. Not injected into production until parity passes.
 use wasm_bindgen::prelude::*;
+mod army;
 pub mod arrival;
 pub mod battle;
 pub mod battle_admin;

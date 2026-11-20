@@ -2,6 +2,14 @@
 // These contain only module wiring; all replacement behavior lives in Rust/WASM.
 const wasm='/rust/browser/pkg/corvus_browser.js';
 const bridges={
+ '/js/army/profile.js':`import {initI18n} from '/js/i18n.js';import init,{start_army_profile} from '${wasm}';await init();initI18n();start_army_profile();`,
+ '/js/army/access.js':`import {initI18n} from '/js/i18n.js';import init,{start_army_access} from '${wasm}';await init();initI18n();start_army_access();`,
+ '/js/army/gate.js':`import {initI18n} from '/js/i18n.js';import init,{start_army_gate} from '${wasm}';await init();initI18n();start_army_gate();`,
+ '/js/army/war-room.js':`import {initI18n} from '/js/i18n.js';import init,{start_army_war_room} from '${wasm}';await init();initI18n();start_army_war_room();`,
+ '/js/army/legion.js':`import {initI18n} from '/js/i18n.js';import init,{start_army_wall} from '${wasm}';await init();initI18n();start_army_wall();`,
+ '/js/army/client.js':`import init,{army_submit} from '${wasm}';await init();export const submit=army_submit;`,
+ '/js/private-army.js':`import init,{mount_army_admin} from '${wasm}';await init();export const mountArmy=mount_army_admin;`,
+
  '/js/site/admin.js':`import init,{start_legion_admin} from '${wasm}';await init();start_legion_admin();`,
  '/js/site/legion.js':`import init,{start_legion} from '${wasm}';await init();start_legion();`,
  '/js/site/letters.js':`import init,{start_legion_letters} from '${wasm}';await init();start_legion_letters();`,

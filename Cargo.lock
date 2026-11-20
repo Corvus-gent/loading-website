@@ -307,6 +307,7 @@ dependencies = [
  "qrcodegen",
  "regex",
  "serde_json",
+ "sha2",
  "url",
  "wasm-bindgen",
  "wasm-bindgen-futures",

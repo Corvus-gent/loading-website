@@ -78,6 +78,8 @@ jobs:
       - run: node tests/rust/interviews-browser.mjs
       - run: node tests/rust/legion-browser.mjs
       - run: node tests/rust/legion-render.mjs
+      - run: node tests/rust/army-render.mjs
+      - run: node tests/rust/army-browser.mjs
       - run: node tests/rust/legion-letters.mjs
       - run: node tests/rust/impact-browser.mjs
       - run: node tests/rust/impact-render.mjs

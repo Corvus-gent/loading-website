@@ -82,3 +82,7 @@ for(const poster of[false,true])for(const kind of['plain','tier','lifetime']){
 }
 const armyArt=JSON.stringify(artTemplates)+'\n',file13=new URL('../../rust/migration/army-art.json',import.meta.url);
 if(process.argv.includes('--check')){if(readFileSync(file13,'utf8')!==armyArt)throw Error('Rust Army art markup is stale');}else writeFileSync(file13,armyArt);
+
+const {CURRENCIES}=await import('../../js/army/countries.js');
+const armyCountries=JSON.stringify(CURRENCIES)+'\n',file14=new URL('../../rust/migration/army-countries.json',import.meta.url);
+if(process.argv.includes('--check')){if(readFileSync(file14,'utf8')!==armyCountries)throw Error('Rust Army countries are stale');}else writeFileSync(file14,armyCountries);

@@ -14,7 +14,9 @@ export async function rustSite(context,runtime,{ip='198.51.100.190',beforeReques
   if(beforeRequest&&await beforeRequest({route,request,u}))return;
   const bridge=browserEngine==='rust'?wasmBridge(u.pathname):null;if(bridge)return route.fulfill({contentType:'text/javascript',body:bridge});
   if(u.pathname.startsWith('/api/')){
-   const module={'/api/legion':'legion','/api/compound':'compound','/api/support':'support','/api/battle':'battle','/api/compound-v2':'compound-v2'}[u.pathname];
+   const module={'/api/army':'army','/api/legion':'legion','/api/compound':'compound','/api/support':'support','/api/battle':'battle','/api/compound-v2':'compound-v2'}[u.pathname];
+   // Pure rendering fixtures have no API runtime; the shared discovery shell sees an empty Army.
+   if(module==='army'&&!runtime?.url)return route.fulfill({contentType:'application/json',body:JSON.stringify({self:null,members:[],ready:false})});
    if(!module)return route.fulfill({contentType:'application/json',body:JSON.stringify(u.pathname==='/api/live'?{live:false,session:'fixture',source:'manual'}:{ready:false})});
    const target=new URL(runtime.url);target.search=u.search;target.searchParams.set('module',module);
    const headers=await request.allHeaders();delete headers.host;delete headers['content-length'];headers['x-forwarded-for']=ip;
@@ -25,7 +27,7 @@ export async function rustSite(context,runtime,{ip='198.51.100.190',beforeReques
    const responseHeaders=Object.fromEntries(response.headers);const cookies=response.headers.getSetCookie();if(cookies.length)responseHeaders['set-cookie']=cookies.join('\n');
    return route.fulfill({status:response.status,headers:responseHeaders,body});
   }
-  try{let file=u.pathname;const senate=/^\/legion\/(join|edit|senate)\/[A-Za-z0-9_-]+\/?$/.exec(file);if(senate)file='/legion/'+senate[1]+'/index.html';if(!path.extname(file))file=file.replace(/\/$/,'')+'/index.html';file=path.resolve(root,'.'+decodeURIComponent(file));if(!file.startsWith(root+path.sep))throw Error('outside fixture');return route.fulfill({contentType:types[path.extname(file)]||'application/octet-stream',body:await readFile(file)});}catch{return route.fulfill({status:404,body:'Not found'});}
+  try{let file=u.pathname;const senate=/^\/legion\/(join|edit|senate)\/[A-Za-z0-9_-]+\/?$/.exec(file);if(senate)file='/legion/'+senate[1]+'/index.html';if(/^\/soldier\/[^/]+\/?$/.test(file))file='/soldier/index.html';if(!path.extname(file))file=file.replace(/\/$/,'')+'/index.html';file=path.resolve(root,'.'+decodeURIComponent(file));if(!file.startsWith(root+path.sep))throw Error('outside fixture');return route.fulfill({contentType:types[path.extname(file)]||'application/octet-stream',body:await readFile(file)});}catch{return route.fulfill({status:404,body:'Not found'});}
  };
  await context.route('**/*',route=>{const task=handle(route);pending.add(task);task.then(()=>pending.delete(task),()=>pending.delete(task));return task;});
  // Stop new work before closing without ever removing the network-deny route.
