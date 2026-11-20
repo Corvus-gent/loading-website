@@ -6,6 +6,18 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         let row: Value = serde_json::from_str(&line?)?;
         let value = row["value"].as_str().unwrap_or("");
         let result = match row["operation"].as_str() {
+            Some("live-form") => {
+                let result = corvus_server::live_interviews::validate(&row["body"]);
+                match result {
+                    Ok(fields) => json!({"fields":fields}),
+                    Err(message) => json!({"error":message}),
+                }
+            }
+            Some("live-challenge") => {
+                json!({"valid":corvus_server::live_interviews::valid_challenge(row["secret"].as_str().unwrap_or(""),value,row["now"].as_i64().ok_or("now")?)})
+            }
+            Some("hack-mode") => corvus_server::live::Config::embedded()?
+                .hack_mode(row["mode"].as_str(), row["now"].as_i64().ok_or("now")?),
             Some("plethora") => {
                 json!({"canonical":corvus_core::plethora::canonical(value),"url":corvus_core::plethora::official_url(value)})
             }

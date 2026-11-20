@@ -1,5 +1,7 @@
 //! Browser migration entry point. Not injected into production until parity passes.
 use wasm_bindgen::prelude::*;
+pub mod language;
+pub mod live_banner;
 mod portal;
 pub use portal::start_portal;
 

@@ -2,6 +2,8 @@ pub mod auth;
 pub mod config;
 pub mod crypto;
 pub mod layers;
+pub mod live;
+pub mod live_interviews;
 pub mod store;
 use axum::{
     Json, Router,
@@ -19,6 +21,7 @@ pub struct AppState {
     pub settings: Arc<config::Settings>,
     pub store: store::Store,
     pub http: reqwest::Client,
+    pub live: live::LiveService,
 }
 
 pub fn app() -> Result<Router, Error> {
@@ -32,6 +35,7 @@ pub fn app_with(settings: config::Settings) -> Result<Router, Error> {
         .redirect(reqwest::redirect::Policy::none())
         .build()?;
     let state = AppState {
+        live: live::LiveService::new()?,
         store: store::Store::new(settings.clone(), http.clone()),
         settings,
         http,
@@ -65,6 +69,7 @@ async fn dispatch(
     let result = match module {
         "auth" => auth::handle(&state, &method, &headers, &body).await,
         "layers" => layers::handle(&state, &method, &headers, &query, &body).await,
+        "live" => live::handle(&state, &method, &headers, &query, &body).await,
         _ => Ok((
             StatusCode::NOT_FOUND,
             Json(json!({"error":"Unknown module."})),
@@ -80,3 +85,6 @@ async fn dispatch(
             .into_response()
     })
 }
+
+#[cfg(test)]
+mod http_tests;

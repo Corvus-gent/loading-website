@@ -12,7 +12,19 @@ import {destination} from '../../api/_compound-v2/model.js';
 import {resolveCode} from '../../api/_compound-v2/codes.js';
 import {points,rank} from '../../js/army/domain.js';
 import {memberTier,localDay} from '../../api/_legion/layers.js';
+import {validate,validChallenge} from '../../api/_live-interviews.js';
+import {hackLiveMode} from '../../hack/live-mode-config.js';
 const fixtures=[];
+for(const body of [null,[],{}, {name:'  Gabe\u0000',project:'robot\nname',handle:'@gabe'}, {name:'é'.repeat(80),project:'test',handle:'@x'}, {name:'🥋'.repeat(41),project:'test',handle:'@x'}, {name:'A',project:'B',handle:'C',website:'spam'}, {name:'A',project:'B',handle:'C',website:[]}, {name:'A',project:'B',handle:'C',website:false}]){
+ let expected;try{expected={fields:validate(body)};}catch(e){expected={error:e.message};}fixtures.push({operation:'live-form',body,expected});
+}
+{
+ const secret='public-fixture-only',at=1700000000000,nonce='0123456789abcdef01234567',base=at+'.'+nonce,token=base+'.'+createHmac('sha256',secret).update('live-interview:'+base).digest('hex');
+ const saved=process.env.PRIVACY_SECRET;process.env.PRIVACY_SECRET=secret;
+ for(const value of [token,token+'x','',token.replace(nonce,nonce.toUpperCase())])for(const age of [-1,0,2999,3000,1799999,1800000])fixtures.push({operation:'live-challenge',secret,value,now:at+age,expected:{valid:validChallenge(value,at+age)}});
+ if(saved===undefined)delete process.env.PRIVACY_SECRET;else process.env.PRIVACY_SECRET=saved;
+}
+for(const mode of ['auto','on','off','ON','other'])for(const now of [1794243599999,1794243600000,1794243600001])fixtures.push({operation:'hack-mode',mode,now,expected:hackLiveMode(mode,now)});
 for(const status of ['anonymous','member','approved','deleting'])for(const value of [0,1,29,30,100,300,700,1500,3000,'10',-5,null])for(const legion of [undefined,{rank:'senator'},{rank:'centurio'}]){const user={status,missionPoints:value,legion};fixtures.push({operation:'army',user,expected:{points:points(user),rank:rank(user),tier:memberTier(user)}});}
 for(const value of ['Europe/Brussels','America/Los_Angeles','Asia/Hong_Kong','UTC','Pacific/Auckland','America/New_York'])for(const at of ['2026-11-01T09:01:59Z','2026-11-01T12:02:00Z','2026-03-29T02:01:59Z','2026-03-29T02:02:00Z','2026-11-20T04:01:59Z','2026-11-20T04:02:00Z']){const now=Date.parse(at);fixtures.push({operation:'day',value,now,expected:{day:localDay(now,value)}});}
 
