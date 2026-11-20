@@ -139,3 +139,11 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Verified. The description is within the 150–250 word range and names each lens and sponsor. The production private-mode endpoint still returns the labeled demo.
 - Next. Put the landing QR in both demo surfaces and give judges a single page with all three walkthroughs.
 - **STEER ME:** Keep the opening sentence about the travel decision or lead with the mutual intro.
+
+## H17 · 2026-11-20 20:24 CET · Judges’ page and boarding QR
+
+- Shipped a one-screen judging brief with three product differences, three walkthrough links, and sponsor credits. Added the boarding QR and visible short URL to the demo end card and the landing footer.
+- Decision. Use the same canonical landing URL in both codes. Load the footer image near the viewport and keep the end card free of playback controls.
+- Verified locally. All three actions worked at 375px and 414px, including a 375 × 667 viewport. The two recording formats and both phone sizes produced decodable QR codes. The build, lint, route checks, and Luma parser tests passed.
+- Next. Run the complete production smoke test on the new deployment.
+- **STEER ME:** Open the stage presentation on the judging brief or go directly into the autoplay demo.

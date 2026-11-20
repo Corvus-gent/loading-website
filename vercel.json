@@ -325,6 +325,10 @@
   ],
   "rewrites": [
     {
+      "source": "/hackersbay/judges",
+      "destination": "/public/hackersbay/judges.html"
+    },
+    {
       "source": "/hackersbay/demo",
       "destination": "/public/hackersbay/demo.html"
     },

@@ -14,7 +14,7 @@ const beats = [
   [28, 'Find three people who can actually help.'],
   [40, 'An introduction needs a yes from both people.'],
   [47, 'Both opted in. Now you have a time and place.'],
-  [53, 'Board the ship at corvus.gent/hackersbay.']
+  [53, 'Scan the code to board the ship.']
 ];
 const card = preset(DEFAULT_DEMO_LENS);
 const profile = 'github.com/example/dockside';

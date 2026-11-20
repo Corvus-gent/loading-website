@@ -508,3 +508,42 @@ input[type="checkbox"] { width: 17px; min-height: 17px; height: 17px; margin: 0;
 .landing-radar .blip { opacity: .66; box-shadow: 0 0 9px #3ee6c499; }
 .landing-radar .lock { font-size: 12px; }
 .landing-radar .lock small { padding-inline: 5px; font-size: 11px; color: #ffe1a3; }
+
+.boarding-address { color: var(--teal); font-family: var(--mono); }
+.footer-boarding {
+  display: inline-flex; align-items: center; gap: 12px; max-width: 100%;
+  text-decoration: none;
+}
+.footer-boarding img { flex: none; border-radius: 6px; }
+.footer-boarding strong, .footer-boarding .boarding-address { display: block; }
+.footer-boarding .boarding-address { margin-top: 3px; font-size: 12px; overflow-wrap: anywhere; }
+.footer-boarding:hover .boarding-address { text-decoration: underline; text-underline-offset: 3px; }
+
+.judges-page {
+  background: radial-gradient(ellipse 540px 400px at 50% 152px, #11384382, transparent 100%), var(--navy);
+}
+.judges-brief {
+  max-width: 680px; padding-block: clamp(24px, 5vw, 60px) 28px;
+}
+.judges-eyebrow { display: flex; align-items: center; gap: 10px; }
+.judges-brief h1 {
+  margin: 0 0 6px; font-weight: 850; font-size: clamp(36px, 8.3vw, 66px);
+  letter-spacing: -.078em; line-height: 1.02;
+}
+.judges-hook { margin: 0 0 20px; color: var(--teal); font-size: clamp(15px, 3.5vw, 19px); font-weight: 720; }
+.judges-points {
+  display: grid; gap: 10px; margin: 0 0 18px; padding: 14px 15px 14px 34px;
+  border: 1px solid #2c575d; border-radius: 11px; background: #0b1c2ed9;
+  color: #c4d4dc; font-size: 14px; line-height: 1.48;
+}
+.judges-points li::marker { color: var(--teal); }
+.judges-points strong { color: var(--ink); }
+.judges-actions { display: grid; gap: 8px; }
+.judges-sponsors {
+  margin: 15px 0 0; color: var(--muted); font-size: 13px; line-height: 1.5;
+}
+.judges-sponsors a { color: var(--ink); text-underline-offset: 3px; }
+@media (min-width: 640px) {
+  .judges-points { font-size: 16px; padding: 16px 20px 16px 39px; }
+  .judges-actions { grid-template-columns: 1.25fr 1fr 1fr; }
+}
