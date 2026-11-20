@@ -24,14 +24,39 @@ export const INSPIRATIONS = [
  {id:'diogenes',name:'Diogenes',tag:'less approval. more daylight.',group:'philosophy',image:'/public/inspiration/diogenes.webp',alt:'A study of Diogenes by Jean-Léon Gérôme.',line:'keep the lantern. lose the performance.',lore:'The philosopher behind the lantern. What I take from him: ask the uncomfortable question, need less, and stop mistaking status for substance.',detail:'a weathered philosopher, a small lantern and deliberate empty space',credit:'Jean-Léon Gérôme · public domain study',source:'https://commons.wikimedia.org/wiki/File:Gerome_%C3%A9tude_de_Diogene.jpg'},
  {id:'legion',name:'The Legion',tag:'no general without soldiers',group:'legion',image:'/img/army/napoleon-crow.svg',alt:'The Corvus crow as a tiny general.',line:'build something people can stand behind.',lore:'The general is only one figure. The standard-bearer, the soldiers and the people showing up make the story. That is the Corvus part of this board.',detail:'a worn standard, a small formation and a crow watching from above',credit:'Corvus original pixel artwork',source:'/legion/'}
 ];
-export function dailyBrief({date=new Date(),ids=['michael','fallen'],placement='shoulder / upper arm',variation=0}={}) {
+export const BRIEF_COPY = {
+ angles: [
+  'one strong silhouette, with smaller details discovered up close',
+  'an asymmetric composition that follows the body rather than a rectangle',
+  'a close-up study with the eyes as the emotional anchor',
+  'a flowing composition with one quiet area and one concentrated burst of detail'
+ ],
+ introduction: 'Create a personal tattoo concept study for {placement}.',
+ primary: 'Primary reference: {name}. {detail}.',
+ supporting: 'Supporting references: {references}.',
+ focused: 'none; keep the composition focused',
+ direction: 'Direction for today: {angle}.',
+ style: 'Style: sculptural blackwork, fine engraving and intentional skin breaks. Deep black, warm ivory and at most one restrained ember accent. Let the anatomy guide the movement. Preserve the emotional gaze and a clear focal point.',
+ originality: 'Make the composition original; interpret the references rather than tracing them or copying an existing artist’s tattoo. Do not combine every symbol literally.',
+ inscription: 'For a lettering variant, place « {quote} » below the hands and keep the gap clear.',
+ noLettering: 'Keep the study free of lettering.',
+ presentation: 'Leave out logos and rectangular frames. Show a clean artwork study, then a separate placement study. Keep fine detail readable at the intended size.',
+ meaning: 'What it should carry: purposeful strength, vulnerability without surrender, curiosity, discipline and choosing a direction. This is an inspiration brief to develop with a tattoo artist.'
+};
+
+export function dailyBrief({date=new Date(),ids=['michael','fallen'],placement='shoulder / upper arm',variation=0,translate=text=>text}={}) {
  const day=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Brussels',year:'numeric',month:'2-digit',day:'2-digit'}).format(date);
  const selected=[...STORIES,...INSPIRATIONS].filter(item=>ids.includes(item.id));
- const angles=['one strong silhouette, with smaller details discovered up close','an asymmetric composition that follows the body rather than a rectangle','a close-up study with the eyes as the emotional anchor','a flowing composition with one quiet area and one concentrated burst of detail'];
- const inscription=selected.find(item=>item.quote)?.quote;
- const lettering=inscription
-  ? `For a lettering variant, place « ${inscription} » below the hands and keep the gap clear.`
-  : 'Keep the study free of lettering.';
- const index=([...day].reduce((n,c)=>n+c.charCodeAt(0),0)+variation)%angles.length;
- return {day,text:`Create a personal tattoo concept study for ${placement}.\n\nPrimary reference: ${selected[0]?.name||'Archangel Michael'}. ${selected[0]?.detail||INSPIRATIONS[0].detail}.\nSupporting references: ${selected.slice(1).map(i=>i.name+' — '+i.detail).join('; ')||'none; keep the composition focused'}.\n\nDirection for today: ${angles[index]}.\nStyle: sculptural blackwork, fine engraving and intentional skin breaks. Deep black, warm ivory and at most one restrained ember accent. Let the anatomy guide the movement. Preserve the emotional gaze and a clear focal point.\n\nMake the composition original; interpret the references rather than tracing them or copying an existing artist’s tattoo. Do not combine every symbol literally. ${lettering} Leave out logos and rectangular frames. Show a clean artwork study, then a separate placement study. Keep fine detail readable at the intended size.\n\nWhat it should carry: purposeful strength, vulnerability without surrender, curiosity, discipline and choosing a direction. This is an inspiration brief to develop with a tattoo artist.`};
+ const primary=selected[0]??INSPIRATIONS[0];
+ const references=selected.slice(1).map(item=>translate(item.name)+' — '+translate(item.detail)).join('; ');
+ const quote=selected.find(item=>item.quote)?.quote;
+ const index=([...day].reduce((n,c)=>n+c.charCodeAt(0),0)+variation)%BRIEF_COPY.angles.length;
+ const copy=(key,values={})=>translate(BRIEF_COPY[key]).replace(/\{(\w+)\}/g,(match,name)=>values[name]??match);
+ return {day,text:[
+  copy('introduction',{placement:translate(placement)}),
+  [copy('primary',{name:translate(primary.name),detail:translate(primary.detail)}),copy('supporting',{references:references||copy('focused')})].join('\n'),
+  [copy('direction',{angle:translate(BRIEF_COPY.angles[index])}),copy('style')].join('\n'),
+  [copy('originality'),quote?copy('inscription',{quote}):copy('noLettering'),copy('presentation')].join(' '),
+  copy('meaning')
+ ].join('\n\n')};
 }
