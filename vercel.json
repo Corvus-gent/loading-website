@@ -202,6 +202,14 @@
       "destination": "/cv/index.html"
     },
     {
+      "source": "/cv/filosofie",
+      "destination": "/cv/filosofie/index.html"
+    },
+    {
+      "source": "/cv/filosofie/en",
+      "destination": "/cv/filosofie/en/index.html"
+    },
+    {
       "source": "/cv/tech/download",
       "destination": "/api/cv?dl=1"
     },
