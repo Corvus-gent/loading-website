@@ -2,7 +2,7 @@ import fs from 'node:fs/promises';import path from 'node:path';
 import {SECTIONS,ROUTES as EXISTING_ROUTES} from '../../js/site/routes.js';
 import {generate} from './generate-directory.mjs';
 let ROUTES=EXISTING_ROUTES;
-export const VERSION='20261111layers1';
+export const VERSION='20261120rustshell1';
 export const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const local=p=>p.replace(/^https:\/\/corvus.gent/,'').replace(/\/$/,'')||'/';
 export function sectionFor(file){return ROUTES.find(r=>r.file===file)?.section||(/^hack\/|^compound\/|^battle\/|^build\//.test(file)?'quests':/^games\/|^music\/|^plethora\//.test(file)?'daily':/^army\/|^legion\/|^soldier\//.test(file)?'legion':/^live\//.test(file)?'live':'gabe');}

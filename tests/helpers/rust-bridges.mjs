@@ -2,6 +2,11 @@
 // These contain only module wiring; all replacement behavior lives in Rust/WASM.
 const wasm='/rust/browser/pkg/corvus_browser.js';
 const bridges={
+ '/js/site/shell.js':`import '/js/i18n/language.js';import init,{start_site_shell} from '${wasm}';await init();start_site_shell();`,
+ '/js/site/discovery.js':`import init,* as m from '${wasm}';await init();m.start_site_discovery();export const loadRoutes=m.site_load_routes,canonical=m.site_canonical,freshPublicEntries=m.site_fresh_entries;`,
+ '/js/site/compound-links.js':`import init,* as m from '${wasm}';await init();m.start_compound_links();export const compoundTrackedURL=m.compound_tracked_url;`,
+ '/js/site/daily.js':`import init,{start_daily} from '${wasm}';await init();start_daily();`,
+ '/js/inspiration.js':`import init,{start_inspiration} from '${wasm}';await init();start_inspiration();`,
  '/js/army/profile.js':`import {initI18n} from '/js/i18n.js';import init,{start_army_profile} from '${wasm}';await init();initI18n();start_army_profile();`,
  '/js/army/access.js':`import {initI18n} from '/js/i18n.js';import init,{start_army_access} from '${wasm}';await init();initI18n();start_army_access();`,
  '/js/army/gate.js':`import {initI18n} from '/js/i18n.js';import init,{start_army_gate} from '${wasm}';await init();initI18n();start_army_gate();`,

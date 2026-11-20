@@ -46,6 +46,7 @@ jobs:
       - run: node tests/rust/army-http.mjs
       - run: node tests/rust/army-art.mjs
       - run: node tests/rust/og-model.mjs
+      - run: node tests/rust/site-model.mjs
       - run: node tests/rust/og-render.mjs
       - run: node tests/rust/og-http.mjs
       - run: node tests/rust/army-payments.mjs
@@ -83,6 +84,8 @@ jobs:
       - run: node tests/rust/legion-render.mjs
       - run: node tests/rust/army-render.mjs
       - run: node tests/rust/army-browser.mjs
+      - run: node tests/rust/site-browser.mjs
+      - run: node tests/rust/site-built.mjs
       - run: node tests/rust/legion-letters.mjs
       - run: node tests/rust/impact-browser.mjs
       - run: node tests/rust/impact-render.mjs

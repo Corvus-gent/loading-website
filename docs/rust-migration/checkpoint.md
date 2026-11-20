@@ -147,3 +147,12 @@ Army preview a220972 now verified at https://loading-website-174q1q3uu-corvus11.
 
 
 Main fe627fd is merged (31ec003), with the new /cv/filosofie and /cv/filosofie/en pages preserved byte-for-byte by the publishing fixture. The legacy and Rust guards now block /migration as well as /rust; source directories never enter map/search/shell injection. 9,504 old/new routing contracts pass after current route discovery. Both complete GitHub workflows passed at a220972 (queried via gh CLI because connector returned an empty run list). New CI pending.
+
+
+2026-11-20 shared shell: native public-directory/canonical/Compound tracking rules plus Rust/WASM search, dynamic catalogue, anonymous newsletter, Cardneto dialog, inspiration art placement and daily nested anchors. 3,735 URL contracts, exact behavioral mobile/desktop fixtures and real built home/map/navigation flows pass. New private-path guard rejects encoded capabilities and internal sources. Shared scripts remain wired only through test bridges. Scoped shell CSS raises original Compound sticky actions above the mobile bar, with actual share clicks now passing both engines' complete video/API flows; remove the earlier keyboard-only limitation. Army/Legion DOM regression suites pass.
+
+Verified native OG deployment 588d09c at https://loading-website-ajut7mx16-corvus11.vercel.app (dpl_AejKdrhYU3rnzv3kHosKQk636dAL): public JSON/8 critical routes, source guards, Army summary/wall/profile/PNG, four native OG PNG kinds and associated metadata all pass with writes disabled. One earlier a220972 repeat hit a network connect timeout, not an HTTP/app failure; new complete run passed. Feature CI passed 588d09c; Rust CI found a stale test asserting the old interview-card 501 placeholder and parsing its now-correct text 404 as JSON. Updated that test to compare native/legacy absent-interview 404 text/header contracts; full auth/HTTP regression re-run required before committing this phase. OG-specific tests were already green in CI.
+
+ETA communicated on user request: approximately another 24–48 hours for full migration plus safe production cutover/rollback, explicitly an estimate. User allows more time; keep working, do not call partially migrated previews complete. No production change.
+
+Shared-shell final regression: the complete `tests/rust/auth-parity.mjs` suite and all native workspace tests passed. This includes the corrected missing-interview OG 404 comparison, all existing auth/API suites, and no production/provider writes.

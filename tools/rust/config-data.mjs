@@ -86,3 +86,14 @@ if(process.argv.includes('--check')){if(readFileSync(file13,'utf8')!==armyArt)th
 const {CURRENCIES}=await import('../../js/army/countries.js');
 const armyCountries=JSON.stringify(CURRENCIES)+'\n',file14=new URL('../../rust/migration/army-countries.json',import.meta.url);
 if(process.argv.includes('--check')){if(readFileSync(file14,'utf8')!==armyCountries)throw Error('Rust Army countries are stale');}else writeFileSync(file14,armyCountries);
+
+const {INSPIRATIONS}=await import('../../js/inspiration-data.js');
+const inspiration=JSON.stringify(INSPIRATIONS,null,2)+'\n';
+const inspirationFile=new URL('../../rust/migration/inspiration.json',import.meta.url);
+if(process.argv.includes('--check')){if(readFileSync(inspirationFile,'utf8')!==inspiration)throw Error('Rust inspiration data is stale');}else writeFileSync(inspirationFile,inspiration);
+const shellSource=readFileSync(new URL('../../js/site/shell.js',import.meta.url),'utf8');
+for(const [name,pattern]of [['search',/dialog\.innerHTML='([^]*?)';document\.body/],['cardneto',/card\.innerHTML='([^]*?)';document\.body/]]){
+ const text=shellSource.match(pattern)?.[1];if(!text)throw Error('Shell template changed: '+name);
+ const target=new URL('../../rust/browser/site-'+name+'.html',import.meta.url),output=text+'\n';
+ if(process.argv.includes('--check')){if(readFileSync(target,'utf8')!==output)throw Error('Rust shell template stale: '+name);}else writeFileSync(target,output);
+}

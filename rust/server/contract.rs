@@ -7,6 +7,19 @@ async fn main() -> Result<(), corvus_server::Error> {
         let row: Value = serde_json::from_str(&line?)?;
         let value = row["value"].as_str().unwrap_or("");
         let result = match row["operation"].as_str() {
+            Some("site-model") => {
+                let base = row["base"].as_str().unwrap_or("https://corvus.gent/");
+                match row["action"].as_str() {
+                    Some("public") => json!(corvus_core::site::public_path(value)),
+                    Some("canonical") => json!(corvus_core::site::canonical(value, base)),
+                    Some("compound") => json!(corvus_core::site::compound_url(
+                        value,
+                        row["placement"].as_str().unwrap_or("site"),
+                        base
+                    )),
+                    _ => Value::Null,
+                }
+            }
             Some("og-model") => {
                 use corvus_server::og::model as m;
                 let result: Result<Value, corvus_server::Error> = (|| {
