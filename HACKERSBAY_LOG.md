@@ -131,3 +131,11 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Production verified at 19:41 CET. The live autoplay ran through 60 seconds and held the end card. All ten mobile paths passed again at both widths. LinkedIn and X crawler user agents received the share metadata and the JPEG.
 - Next. Use the capture links for rehearsal and the share card when publishing later.
 - **STEER ME:** Keep the event-day credit in the artwork or give the headline more room after Demo Day.
+
+## H16 · 2026-11-20 20:17 CET · Boat Hackathon submission
+
+- Shipped the dashboard-ready project write-up in SUBMISSION.md with the pitch, feature links, Mac release, and a Straight talk section.
+- Decision. Keep the featured-project copy centered on the event decision, the three matches, and mutual consent. Describe the sponsor calls as credential-gated and the on-stage data as fictional.
+- Verified. The description is within the 150–250 word range and names each lens and sponsor. The production private-mode endpoint still returns the labeled demo.
+- Next. Put the landing QR in both demo surfaces and give judges a single page with all three walkthroughs.
+- **STEER ME:** Keep the opening sentence about the travel decision or lead with the mutual intro.
