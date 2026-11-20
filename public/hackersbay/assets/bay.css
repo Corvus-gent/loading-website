@@ -214,3 +214,41 @@ h1, h2, h3, p { margin-top: 0; }
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
 }
+
+.inside { padding-block: clamp(35px, 6vw, 70px) 68px; }
+.page-heading { max-width: 760px; margin-bottom: clamp(25px, 5vw, 43px); }
+.page-heading > p:not(.eyebrow) { max-width: 58ch; margin: 14px 0 0; color: var(--muted); }
+.onboard-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 18px; align-items: start; }
+.small-heading { margin-bottom: 14px; font-size: clamp(21px, 3.5vw, 30px); letter-spacing: -.048em; line-height: 1.12; }
+.persona-choices { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.persona-choice {
+  min-width: 0; display: flex; align-items: flex-start; gap: 10px; text-align: left;
+  padding: 13px; border: 1px solid var(--line); border-radius: 10px; color: var(--ink); background: var(--panel);
+}
+.persona-choice:hover, .persona-choice[aria-pressed="true"] { border-color: var(--teal); background: #10302f; }
+.choice-icon { color: var(--teal); font: 600 21px/1.2 var(--mono); }
+.persona-choice strong, .persona-choice small { display: block; }
+.persona-choice strong { font-size: 15px; }
+.persona-choice small { font-size: 12px; line-height: 1.5; color: var(--muted); margin-top: 3px; }
+.profile-panel label, .crew-card label { display: block; font-size: 13px; font-weight: 700; }
+input, select {
+  width: 100%; min-width: 0; padding: 10px 12px; min-height: 44px; margin: 4px 0 7px;
+  font: inherit; font-size: 16px; color: var(--ink); background: #071622; border: 1px solid #365063; border-radius: 8px;
+}
+input::placeholder { color: #8aa2b3; }
+.fine { font-size: 12px; color: var(--muted); }
+.form-status { margin: 10px 0 0; color: var(--teal); }
+.form-status:empty { display: none; }
+.crew-card { max-width: 840px; margin-top: 20px; border-color: #2a6a63; }
+.card-heading { display: flex; justify-content: space-between; align-items: start; gap: 8px 14px; flex-wrap: wrap; }
+.card-heading h2 { font-size: clamp(24px, 4vw, 35px); letter-spacing: -.05em; line-height: 1.08; overflow-wrap: anywhere; margin-bottom: 17px; }
+.pill {
+  display: inline-flex; align-items: center; padding: 4px 8px; border: 1px solid #31635d;
+  border-radius: 5px; color: var(--teal); background: #103035; font: 500 10px/1.4 var(--mono);
+}
+.crew-card select { max-width: 245px; }
+.card-fields { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-bottom: 9px; }
+@media (max-width: 760px) {
+  .onboard-grid { grid-template-columns: 1fr; }
+  .card-fields { grid-template-columns: 1fr; gap: 3px; }
+}

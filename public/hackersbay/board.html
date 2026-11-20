@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#06121f">
+  <meta name="referrer" content="no-referrer">
+  <link rel="icon" href="/public/hackersbay/assets/anchor.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/public/hackersbay/assets/bay.css">
+  <title>Board the ship | The Hackers Bay</title>
+  <script type="module" src="/public/hackersbay/assets/board.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-bar wrap">
+    <a class="brand" href="/hackersbay"><img src="/public/hackersbay/assets/anchor.svg" width="34" height="34" alt=""> The Hackers Bay</a>
+    <a class="top-link" href="/hackersbay">Back to harbor <span aria-hidden="true">↗</span></a>
+  </header>
+  <main class="wrap inside" id="main">
+    <header class="page-heading">
+      <p class="eyebrow"><span class="beacon"></span> BOARD THE SHIP</p>
+      <h1>What brings you aboard?</h1>
+      <p>Pick the lens that fits, or bring one public link to draft your crew card.</p>
+    </header>
+    <div class="onboard-grid">
+      <section aria-labelledby="choose-title">
+        <h2 class="small-heading" id="choose-title">Pick a persona</h2>
+        <div class="persona-choices" id="persona-choices"></div>
+      </section>
+      <section class="panel profile-panel" aria-labelledby="link-title">
+        <p class="eyebrow">ONE LINK</p>
+        <h2 class="small-heading" id="link-title">Bring your own profile</h2>
+        <form id="profile-form">
+          <label for="profile-url">Public profile or personal site</label>
+          <input id="profile-url" name="profile" type="text" inputmode="url" autocomplete="url" spellcheck="false" required maxlength="320" placeholder="github.com/you" aria-describedby="profile-hint">
+          <p class="fine" id="profile-hint">X, GitHub, LinkedIn, or your own site. You can edit every field.</p>
+          <button class="button primary" type="submit">Draft my card <span aria-hidden="true">↗</span></button>
+          <p id="profile-status" class="fine form-status" role="status"></p>
+        </form>
+      </section>
+    </div>
+    <section class="panel crew-card" id="crew-card" aria-labelledby="card-title" hidden>
+      <div class="card-heading">
+        <div><p class="eyebrow">YOUR CREW CARD</p><h2 id="card-title" tabindex="-1"></h2></div>
+        <p class="pill" id="card-source"></p>
+      </div>
+      <form id="card-form">
+        <label for="card-type">Persona</label>
+        <select id="card-type" name="type"></select>
+        <div class="card-fields">
+          <label>Builds <input name="builds" maxlength="150" required></label>
+          <label>Wants <input name="wants" maxlength="150" required></label>
+          <label>Offers <input name="offers" maxlength="150" required></label>
+        </div>
+        <button class="button primary" type="submit">Find my 3 people <span aria-hidden="true">↗</span></button>
+        <p id="card-status" class="fine form-status" role="status"></p>
+      </form>
+    </section>
+    <noscript><p class="panel">JavaScript is needed to draft a crew card and match people in this demo.</p></noscript>
+  </main>
+  <footer class="site-footer wrap"><p>Boat Hackathon Demo Day · Pier 9, San Francisco</p></footer>
+</body>
+</html>
