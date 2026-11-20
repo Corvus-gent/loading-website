@@ -12,3 +12,5 @@ pub mod videos;
 pub mod compound_share;
 
 pub mod site;
+
+pub mod analytics;

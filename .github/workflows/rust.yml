@@ -11,7 +11,7 @@ concurrency:
 jobs:
   parity:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -47,6 +47,7 @@ jobs:
       - run: node tests/rust/army-art.mjs
       - run: node tests/rust/og-model.mjs
       - run: node tests/rust/site-model.mjs
+      - run: node tests/rust/analytics-model.mjs
       - run: node tests/rust/og-render.mjs
       - run: node tests/rust/og-http.mjs
       - run: node tests/rust/army-payments.mjs
@@ -93,5 +94,7 @@ jobs:
       - run: node tests/rust/impact-browser.mjs
       - run: node tests/rust/impact-render.mjs
       - run: node tests/rust/privacy-browser.mjs
+      - run: node tests/rust/analytics-browser.mjs
+      - run: node tests/rust/short-browser.mjs
       - name: Keep generated parity fixtures reproducible
         run: git diff --exit-code -- rust/fixtures

@@ -7,6 +7,43 @@ async fn main() -> Result<(), corvus_server::Error> {
         let row: Value = serde_json::from_str(&line?)?;
         let value = row["value"].as_str().unwrap_or("");
         let result = match row["operation"].as_str() {
+            Some("analytics-model") => {
+                use corvus_core::analytics as m;
+                let v = &row["value"];
+                let campaigns = row["campaigns"]
+                    .as_array()
+                    .into_iter()
+                    .flatten()
+                    .map(m::campaign_slug)
+                    .filter(|s| !s.is_empty())
+                    .collect::<Vec<_>>();
+                match row["action"].as_str() {
+                    Some("source") => m::source(v),
+                    Some("campaign") => m::campaign(v),
+                    Some("path") => json!(m::path(v)),
+                    Some("host") => m::host(v),
+                    Some("referrer") => m::referrer(v),
+                    Some("country") => m::country(v),
+                    Some("slug") => json!(m::campaign_slug(v)),
+                    Some("slot") => json!(m::slot(v)),
+                    Some("url") => json!(m::safe_url(
+                        row.get("value"),
+                        row["base"].as_str().unwrap_or("https://corvus.gent")
+                    )),
+                    Some("sidequest") => json!(m::sidequest(v)),
+                    Some("x") => m::x_context(
+                        v.as_str().unwrap_or(""),
+                        row["search"].as_str().unwrap_or(""),
+                    ),
+                    Some("link") => m::link_context(
+                        v.as_str().unwrap_or(""),
+                        row["search"].as_str().unwrap_or(""),
+                    ),
+                    Some("event") => m::event(v, &campaigns, row["language_valid"] == true),
+                    _ => Value::Null,
+                }
+            }
+
             Some("site-model") => {
                 let base = row["base"].as_str().unwrap_or("https://corvus.gent/");
                 match row["action"].as_str() {

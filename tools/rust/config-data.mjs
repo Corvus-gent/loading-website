@@ -109,3 +109,14 @@ const searchMatch=searchSource.match(/const INDEX = (\[[^]*?\n\]);/);if(!searchM
 const searchIndex=JSON.stringify((await import('node:vm')).runInNewContext('('+searchMatch[1]+')'),null,2)+'\n';
 const searchFile=new URL('../../rust/migration/search-index.json',import.meta.url);
 if(process.argv.includes('--check')){if(readFileSync(searchFile,'utf8')!==searchIndex)throw Error('Rust legacy search data stale');}else writeFileSync(searchFile,searchIndex);
+
+const policy=await import('../../js/analytics-policy.js');
+const policySource=readFileSync(new URL('../../js/analytics-policy.js',import.meta.url),'utf8');
+const vm=await import('node:vm');
+const policyData=Object.fromEntries(['SOURCES','CAMPAIGNS','COMMANDS','GAME_TYPES','GENRES','BROWSERS'].map(k=>[k,policy[k]]));
+policyData.EVENTS=[...policy.EVENTS];
+for(const key of ['HOSTS','EXTERNAL','ROUTES']){const source=policySource.match(new RegExp('const '+key+' = (?:new Set\\()?('+String.raw`\[[^]*?\]`+')\\)?;'))?.[1];if(!source)throw Error('Policy list changed: '+key);policyData[key]=vm.runInNewContext('('+source+')');}
+const display=new Intl.DisplayNames(['en'],{type:'region',fallback:'none'});policyData.countries={};
+for(let a=65;a<=90;a++)for(let b=65;b<=90;b++){const code=String.fromCharCode(a,b),name=display.of(code);if(name&&!['ZZ','QO','XA','XB'].includes(code)){policyData.countries[code]=code;policyData.countries[name]=code;}}
+const policyFile=new URL('../../rust/migration/analytics-policy.json',import.meta.url),policyJSON=JSON.stringify(policyData,null,2)+'\n';
+if(process.argv.includes('--check')){if(readFileSync(policyFile,'utf8')!==policyJSON)throw Error('Rust analytics policy stale');}else writeFileSync(policyFile,policyJSON);

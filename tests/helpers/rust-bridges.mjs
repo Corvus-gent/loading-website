@@ -2,6 +2,16 @@
 // These contain only module wiring; all replacement behavior lives in Rust/WASM.
 const wasm='/rust/browser/pkg/corvus_browser.js';
 const bridges={
+ '/js/go.js':`import {arrivalSearch} from '/js/arrival.js';import init,* as m from '${wasm}';await init();export const resolve=(path,search=arrivalSearch)=>m.resolve_short(path,search),go=m.go_short;`,
+
+ '/js/analytics.js':`import('/js/arrival.js').then(()=>import('${wasm}')).then(async m=>{await m.default();m.start_analytics();}).catch(()=>{});`,
+
+ '/js/analytics-policy.js':`import init,* as m from '${wasm}';await init();const config=m.analytics_config();export const {SOURCES,CAMPAIGNS,COMMANDS,GAME_TYPES,GENRES,BROWSERS}=config;export const EVENTS=new Set(config.EVENTS);export const category=(value,allowed,fallback='other')=>m.analytics_category(value,allowed,fallback),sourceCategory=m.analytics_source,campaignCategory=m.analytics_campaign,referrerCategory=m.analytics_referrer,pathCategory=m.analytics_path,hostCategory=m.analytics_host,safeURL=(value,base='https://corvus.gent')=>m.analytics_url(value,base),countryCategory=m.analytics_country,sidequestTags=m.analytics_sidequest,privacyEvent=m.analytics_privacy_event;`,
+ '/js/x-attribution.js':`import init,* as m from '${wasm}';await init();export const campaignSlug=m.analytics_slug,contentSlot=m.analytics_slot,setXCampaigns=m.set_x_campaigns,approvedCampaign=m.approved_campaign,xContext=(path,search='')=>m.analytics_x_context(path,search);`,
+ '/js/link-context.js':`import init,{analytics_link_context} from '${wasm}';await init();export const linkContext=analytics_link_context;`,
+ '/js/quest-attribution.js':`import '/js/arrival.js';import init,{quest_tags} from '${wasm}';await init();export const questTags=quest_tags,deferHomeClick=()=>false,takeHomeClick=()=>false;`,
+ '/js/outbound.js':`import init,* as m from '${wasm}';await init();m.start_outbound();export const attributedURL=m.attributed_url;`,
+
  '/js/i18n/feature.js':`import init,* as m from '${wasm}';await init();export const FEATURE_LANGS=['en','nl','es','fr','pt','de','zh'],FEATURES=['army','mail','wiki'];export const formatCopy=(text,values={})=>m.format_feature_copy(text,values),loadFeature=(feature,lang='en')=>m.load_feature(feature,lang),featureText=(feature,key,values={},lang='en')=>m.feature_text(feature,key,values,lang);`,
 
  '/js/i18n.js':`export {loadFeature,featureText} from '/js/i18n/feature.js';export {applyI18n,getLang,LANGS,pick,renderSwitcher,t} from '/js/i18n/language.js';import '/js/i18n/language.js';import init,* as m from '${wasm}';await init();m.start_i18n();export const initI18n=m.init_i18n;`,

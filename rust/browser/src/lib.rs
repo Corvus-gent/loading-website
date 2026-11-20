@@ -46,3 +46,5 @@ mod compound_admin;
 mod compound_editor;
 
 mod site;
+
+mod analytics;

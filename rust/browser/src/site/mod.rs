@@ -17,7 +17,7 @@ thread_local! {
  static TIMERS:std::cell::RefCell<std::collections::HashMap<i32,Timer>>=std::cell::RefCell::new(std::collections::HashMap::new());
  static NEXT_TIMER:std::cell::Cell<i32>=const{std::cell::Cell::new(1)};
 }
-pub(super) fn later(ms: i32, f: impl FnOnce() + 'static) -> Result<i32, JsValue> {
+pub(crate) fn later(ms: i32, f: impl FnOnce() + 'static) -> Result<i32, JsValue> {
     let id = NEXT_TIMER.with(|n| {
         let id = n.get();
         n.set(if id == i32::MAX { 1 } else { id + 1 });
@@ -39,7 +39,7 @@ pub(super) fn later(ms: i32, f: impl FnOnce() + 'static) -> Result<i32, JsValue>
     TIMERS.with_borrow_mut(|timers| timers.insert(id, (native, callback)));
     Ok(id)
 }
-pub(super) fn cancel(id: i32) {
+pub(crate) fn cancel(id: i32) {
     if let Some((handle, _callback)) = TIMERS.with_borrow_mut(|timers| timers.remove(&id))
         && let Ok(w) = window()
     {
