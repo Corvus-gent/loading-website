@@ -29,11 +29,13 @@ export function drawRadar(container, attendees, matches, onLock) {
     dial.append(blip);
   }
   for (const [index, { person }] of matches.entries()) {
-    const lock = dot(element('button', undefined, 'lock radar-lock'), ...positions[index]);
-    lock.type = 'button';
+    const lock = dot(element(onLock ? 'button' : 'span', undefined, onLock ? 'lock radar-lock' : 'lock'), ...positions[index]);
+    if (onLock) {
+      lock.type = 'button';
+      lock.addEventListener('click', () => onLock(person.id));
+    }
     lock.setAttribute('aria-label', 'View match ' + (index + 1) + ': ' + person.name);
     lock.append(element('b', '×'), element('small', String(index + 1).padStart(2, '0')));
-    lock.addEventListener('click', () => onLock(person.id));
     dial.append(lock);
   }
   container.replaceChildren(dial);

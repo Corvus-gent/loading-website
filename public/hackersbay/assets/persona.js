@@ -37,6 +37,7 @@ export const PERSONAS = {
   }
 };
 
+export const DEFAULT_DEMO_LENS = 'hacker';
 export const EVENT_PATH = '/hackersbay/e/boat-hackathon-demo-day';
 const STORAGE_KEY = 'hackersbay-persona-v1';
 

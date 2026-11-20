@@ -1,4 +1,4 @@
-import { EVENT_PATH, PERSONAS, getPersona, preset } from './persona.js';
+import { DEFAULT_DEMO_LENS, EVENT_PATH, PERSONAS, getPersona, preset } from './persona.js';
 import { loadRoom, portrait, element } from './event-data.js';
 import { matchRoom, describeMatch, lensFor } from './lens.js';
 import { drawRadar } from './radar.js';
@@ -9,7 +9,7 @@ const roomState = document.querySelector('#room-state');
 const choice = document.querySelector('#lens-choice');
 const saved = getPersona();
 const requested = new URLSearchParams(location.search).get('lens');
-const firstLens = Object.hasOwn(PERSONAS, requested) ? requested : (saved?.type || 'builder');
+const firstLens = Object.hasOwn(PERSONAS, requested) ? requested : (saved?.type || DEFAULT_DEMO_LENS);
 
 function renderMatch(match, index, type, event, attendees) {
   const card = element('article', undefined, 'panel match-card');

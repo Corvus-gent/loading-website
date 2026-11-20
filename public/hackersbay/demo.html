@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#06121f">
+  <meta name="description" content="A hands-free, 60-second Hackers Bay demo.">
+  <link rel="icon" href="/public/hackersbay/assets/anchor.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/public/hackersbay/assets/bay.css">
+  <link rel="stylesheet" href="/public/hackersbay/assets/demo.css">
+  <script>document.documentElement.dataset.format = new URLSearchParams(location.search).get('format') === 'wide' ? 'wide' : 'vertical';</script>
+  <script type="module" src="/public/hackersbay/assets/demo.js"></script>
+  <title>60-second demo | The Hackers Bay</title>
+</head>
+<body class="demo-page">
+  <main class="autoplay-deck" id="deck" aria-label="The Hackers Bay 60-second demo. Press Space to pause or play and R to replay.">
+    <section class="demo-scene" data-beat="wall" aria-labelledby="demo-wall">
+      <div class="demo-copy">
+        <p class="demo-kicker">LUMA · GUEST LIST</p>
+        <h1 id="demo-wall">Luma is <em>sinking.</em></h1>
+        <p>Sixteen faces. Who’s worth meeting?</p>
+      </div>
+      <div class="impact-board" aria-hidden="true">
+        <div class="radar demo-radar impact-sonar" id="impact-sonar"></div>
+        <div class="demo-wall" id="wall"></div>
+        <i class="cannonball"></i><i class="impact-wave"></i>
+      </div>
+    </section>
+
+    <section class="demo-scene" data-beat="board" hidden aria-labelledby="demo-board">
+      <div class="demo-copy">
+        <p class="demo-kicker">BOARD THE SHIP</p>
+        <h2 id="demo-board">One link.<br><em>One crew card.</em></h2>
+        <p>Gabe is looking for food, a place to crash, and a prize that pays.</p>
+      </div>
+      <div class="demo-card">
+        <p class="demo-kicker">PUBLIC PROFILE · SAMPLE</p>
+        <div class="demo-input" id="demo-input"></div>
+        <div class="crew-reveal" id="crew-reveal">
+          <h3>Broke hacker</h3>
+          <dl class="demo-facts" id="demo-card-fields"></dl>
+        </div>
+      </div>
+    </section>
+
+    <section class="demo-scene" data-beat="lens" hidden aria-labelledby="demo-lens">
+      <div class="demo-copy">
+        <p class="demo-kicker">BOAT HACKATHON · DEMO DAY</p>
+        <h2 id="demo-lens">Worth the <em>trip?</em></h2>
+        <p>Sat Nov 21 · 1–5 PM PT<br>Historic Klamath · Pier 9, SF</p>
+      </div>
+      <div class="demo-card">
+        <p class="demo-kicker">BROKE HACKER</p>
+        <div class="demo-score"><h3>Survival score</h3><span><strong id="demo-score">49</strong>/100</span></div>
+        <dl class="demo-facts" id="demo-logistics">
+          <div><dt>Food</dt><dd>Unconfirmed</dd></div>
+          <div><dt>Sleep</dt><dd>No sleep spot announced</dd></div>
+          <div><dt>Cash prize</dt><dd>Cash pool unannounced</dd></div>
+          <div><dt>Payout speed</dt><dd>Payout timing unannounced</dd></div>
+          <div><dt>Travel</dt><dd>Depends on your route to Pier 9</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="demo-scene" data-beat="radar" hidden aria-labelledby="demo-matches">
+      <div class="demo-copy">
+        <p class="demo-kicker" id="demo-lock-count">SCANNING THE ROOM</p>
+        <h2 id="demo-matches">Three people.<br><em>Three reasons.</em></h2>
+        <ul id="demo-crew" class="demo-crew"></ul>
+      </div>
+      <div class="radar demo-radar match-sonar" id="demo-radar" aria-label="Sonar with three match locks"></div>
+    </section>
+
+    <section class="demo-scene demo-center" data-beat="consent" hidden aria-labelledby="demo-consent">
+      <div class="demo-copy">
+        <p class="demo-kicker" id="demo-intro-name">INTRO REQUEST · FICTIONAL DEMO</p>
+        <h2 id="demo-consent">Make <em>the ask.</em></h2>
+        <p class="demo-chip" id="demo-consent-status">Intro me</p>
+        <p id="demo-consent-note">A one-to-one intro starts with you.</p>
+      </div>
+    </section>
+
+    <section class="demo-scene demo-center" data-beat="mutual" hidden aria-labelledby="demo-mutual">
+      <div class="demo-copy">
+        <p class="demo-kicker">✓ YOU OPTED IN &nbsp; ✓ THEY OPTED IN</p>
+        <img src="/public/hackersbay/assets/anchor.svg" alt="" width="104" height="104" class="demo-anchor">
+        <h2 id="demo-mutual"><em>IT’S MUTUAL ⚓</em></h2>
+        <p id="demo-moment">15:10 PT · near the demo area</p>
+      </div>
+    </section>
+
+    <section class="demo-scene demo-center" data-beat="end" hidden aria-labelledby="demo-end">
+      <div class="radar demo-radar end-sonar" id="end-sonar" aria-hidden="true"></div>
+      <div class="demo-copy">
+        <p class="demo-kicker">RSVP TO PEOPLE, NOT PLACES.</p>
+        <h2 id="demo-end">Luma is sinking.<br><em>The Hackers Bay<br>is coming.</em></h2>
+        <p class="demo-chip">corvus.gent/hackersbay</p>
+      </div>
+    </section>
+    <p class="demo-caption" id="demo-caption" aria-live="polite">A wall of faces tells you who’s going.</p>
+  </main>
+</body>
+</html>

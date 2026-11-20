@@ -325,6 +325,10 @@
   ],
   "rewrites": [
     {
+      "source": "/hackersbay/demo",
+      "destination": "/public/hackersbay/demo.html"
+    },
+    {
       "source": "/hackersbay/log",
       "destination": "/api/hackersbay?action=log"
     },

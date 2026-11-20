@@ -25,9 +25,13 @@ Then run `node tools/openrisk-import-logos.mjs` to cache missing logos.
 
 ## How to demo in 60 seconds
 
+Open the [vertical autoplay demo](https://corvus.gent/hackersbay/demo?format=vertical) at 1080 × 1920 or the [widescreen autoplay demo](https://corvus.gent/hackersbay/demo?format=wide) at 1920 × 1080. The timed sequence plays on load and holds the end card at 60 seconds. Press **R** to restart or **Space** to pause and resume.
+
+For a live walkthrough on a phone:
+
 1. **0–10s** Open [The Hackers Bay](https://corvus.gent/hackersbay) on a phone. Show the guest wall next to three people with reasons to meet.
-2. **10–20s** Tap **Board the ship**, choose **Busy builder**, and tap **Find my 3 people**. Paste a public profile if you want to show the editable crew card being drafted.
-3. **20–35s** Point to the **Worth-it score** and tap the first gold X on the sonar. Read **Why you’d meet** and **Why they’d meet**.
+2. **10–20s** Tap **Board the ship**, choose **Broke hacker**, and tap **Find my 3 people**. Paste a public profile if you want to show the editable crew card being drafted.
+3. **20–35s** Point to the **Survival score** and tap the first gold X on the sonar. Read **Why you’d meet** and **Why they’d meet**.
 4. **35–50s** Tap **Intro me**, open the fictional recipient view, and tap **Accept intro**. Show **IT’S MUTUAL ⚓** and the suggested meetup.
 5. **50–60s** Flip to [Room composer](https://corvus.gent/hackersbay/host) or [Treasure report](https://corvus.gent/hackersbay/sponsor) to show what hosts and sponsors see.
 

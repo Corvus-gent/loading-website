@@ -90,3 +90,11 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Verified at 16:56 CET. The final live smoke test passed and the release contains all six verified MP4s in 9:16 and 16:9, plus both verified Mac images.
 - Next. Run the 60-second walkthrough at Demo Day.
 - **STEER ME:** Lead the 60-second pitch with the Broke hacker or Busy builder lens. Lead the first LinkedIn post with the cannonball or the four-hour test.
+
+## H11 · 2026-11-20 19:19 CET · Autoplay demo
+
+- Shipped a hands-free 60-second sequence at /hackersbay/demo with oversized captions, an opening cannonball, a public-link crew card, a Survival score, three sonar locks, and the mutual intro. The end card holds for recording.
+- Decision. The walkthrough defaults to Broke hacker. The capture stage fits 1080 × 1920 or 1920 × 1080, plays silently, and works with the local demo roster.
+- Verified. The site build passed. Chromium checked each cue, all three locks, the end-card hold, and keyboard replay and pause at both capture sizes and at 375px and 414px.
+- Next. Add Sink a Luma using public event metadata and a labeled sample when the source is unavailable.
+- **STEER ME:** Keep the end card on screen after 60 seconds or loop directly back to the cannonball.
