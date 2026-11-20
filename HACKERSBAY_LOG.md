@@ -106,3 +106,11 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Verified. The build and parser tests passed. The public Show Boat listing imported successfully. At 375px the form handled lens switching, invalid links, and a disconnected endpoint.
 - Next. Check each Hackers Bay page and its interactive states at 375px and 414px.
 - **STEER ME:** Keep the Show Boat example beside the field or feature a different public event for the stage.
+
+## H13 · 2026-11-20 19:27 CET · Mobile QA
+
+- Shipped larger targets for navigation, event links, organizer graph nodes, checklist rows, and the Proof of Build disclosure. Increased supporting type on the phone layout.
+- Verified. Chromium in touch emulation passed ten paths at 375px and 414px, including both autoplay formats, Luma import, persona selection, both intro states, Proof of Build, host, sponsor, and the log. The audited standalone targets reached 44px, with zero horizontal overflow.
+- Decision. Reserve 44px targets for standalone controls. Keep links in continuous text inline.
+- Next. Measure first paint, defer the landing’s offscreen assets and motion, and strengthen the radar.
+- **STEER ME:** Keep sponsor credits beside the boarding action or move them below the sonar.

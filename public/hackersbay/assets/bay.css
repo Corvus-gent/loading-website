@@ -431,3 +431,27 @@ input[type="checkbox"] { width: 17px; min-height: 17px; height: 17px; margin: 0;
   .sink-entry { grid-template-columns: 1fr; }
   .sink-entry .button { justify-self: start; }
 }
+
+@media (max-width: 760px) {
+  .site-bar > a, .footer-links a, a.text-link, .event-ticket a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    min-width: 44px;
+  }
+  .top-link, .footer-links { font-size: 13px; }
+  .footer-links { gap: 0 16px; }
+  .footer-links a { padding-inline: 2px; }
+  .actions { gap: 6px 16px; }
+  .sink-example, .proof-box summary, .profile-panel .check-option, .demo-deck .check-option,
+  .draft-crew .button { min-height: 44px; }
+  .proof-box summary { padding-block: 9px; }
+  .graph-node { width: 44px; height: 44px; }
+  .fine, .crew-list small, .persona-choice small { font-size: 13px; }
+  .score-reasons dt, .score-reasons dd, .match-reasons, .event-credits,
+  .applicant > p, .report-card > p, .chart-card p:not(.eyebrow),
+  .profile-panel label, .crew-card label, .sink-layout label, .sink-lens label,
+  .applicant-heading label, .report-projects label { font-size: 14px; }
+  .radar-meta, .manifest-inner { font-size: 11px; }
+  .proof-box summary span, .pill, .powered-by { font-size: 11px; }
+}
