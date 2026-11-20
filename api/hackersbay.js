@@ -2,6 +2,8 @@ import { buildLog } from '../lib/hackersbay/build-log.js';
 import { proofOfBuild } from '../lib/hackersbay/boat.js';
 import { available, networkId } from '../lib/hackersbay/quota.js';
 import { handleIntro } from '../lib/hackersbay/intros.js';
+import { loadLumaEvent } from '../lib/hackersbay/luma.js';
+import { normalizeLumaUrl } from '../public/hackersbay/assets/luma.js';
 import { draftPersona } from '../lib/hackersbay/profile.js';
 import { normalizeProfileUrl } from '../public/hackersbay/assets/persona.js';
 
@@ -18,6 +20,14 @@ export default async function handler(req, res) {
   }
   if (req.headers['sec-fetch-site'] === 'cross-site') return res.status(403).json({ error: 'Open The Hackers Bay to continue.' });
   if (Number(req.headers['content-length']) > 2000) return res.status(413).json({ error: 'Send one public link.' });
+  if (action === 'luma') {
+    let url;
+    try { url = normalizeLumaUrl(req.body?.url); }
+    catch (error) { return res.status(400).json({ error: error.message }); }
+    const permitted = await available('luma', networkId(req), 20, 60);
+    const event = permitted ? await loadLumaEvent(url.href).catch(() => null) : null;
+    return res.status(200).json({ event });
+  }
   if (action === 'proof') return proofOfBuild(req, res);
   if (action === 'request-intro' && !await available('intro', networkId(req), 25, 300)) {
     return res.status(429).json({ error: 'Use the browser demo.' });

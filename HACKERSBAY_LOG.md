@@ -98,3 +98,11 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Verified. The site build passed. Chromium checked each cue, all three locks, the end-card hold, and keyboard replay and pause at both capture sizes and at 375px and 414px.
 - Next. Add Sink a Luma using public event metadata and a labeled sample when the source is unavailable.
 - **STEER ME:** Keep the end card on screen after 60 seconds or loop directly back to the cannonball.
+
+## H12 · 2026-11-20 19:24 CET · Sink a Luma
+
+- Shipped a Luma link field on the landing. The result shows the public title, date, place, host, and displayed Going count when available. It works with all four lenses and the saved persona.
+- Decision. The importer reads Luma’s public event metadata and visible count badge. A fictional sample keeps the flow clear when the page is unavailable or access is restricted.
+- Verified. The build and parser tests passed. The public Show Boat listing imported successfully. At 375px the form handled lens switching, invalid links, and a disconnected endpoint.
+- Next. Check each Hackers Bay page and its interactive states at 375px and 414px.
+- **STEER ME:** Keep the Show Boat example beside the field or feature a different public event for the stage.

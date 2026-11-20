@@ -14,6 +14,7 @@
   <link rel="canonical" href="https://corvus.gent/hackersbay">
   <link rel="icon" href="/public/hackersbay/assets/anchor.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/public/hackersbay/assets/bay.css">
+  <script type="module" src="/public/hackersbay/assets/sink.js"></script>
   <title>The Hackers Bay | RSVP to people, not places</title>
 </head>
 <body>
@@ -55,6 +56,37 @@
       </div>
     </section>
     <div class="manifest"><div class="wrap manifest-inner"><span><span aria-hidden="true">⚓︎</span> Historic Klamath</span><span>Sat Nov 21 · 1–5 PM PT</span><span>Pier 9, San Francisco</span><span class="manifest-end">INVITE-ONLY EVENT</span></div></div>
+    <section class="wrap sink" id="sink" aria-labelledby="sink-title">
+      <div class="sink-layout panel">
+        <div>
+          <h2 id="sink-title">Sink a Luma.</h2>
+          <p>See what a public event means for you.</p>
+        </div>
+        <form id="sink-form">
+          <label for="sink-url">Paste any Luma event link</label>
+          <div class="sink-entry">
+            <input id="sink-url" name="url" type="text" inputmode="url" spellcheck="false" autocapitalize="none" autocomplete="url" maxlength="320" required placeholder="luma.com/your-event">
+            <button class="button primary" type="submit">View through my lens <span aria-hidden="true">→</span></button>
+          </div>
+          <button class="sink-example" id="sink-example" type="button">Try Show Boat Demo Day</button>
+          <p class="fine" id="sink-status" role="status"></p>
+        </form>
+      </div>
+      <section class="sink-result panel" id="sink-result" hidden aria-labelledby="sink-event-title">
+        <div class="sink-event">
+          <p class="eyebrow" id="sink-source"></p>
+          <h3 id="sink-event-title" tabindex="-1"></h3>
+          <dl class="score-reasons" id="sink-facts"></dl>
+          <a id="sink-original" class="text-link" target="_blank" rel="noopener noreferrer">Open the Luma listing <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="sink-lens">
+          <label for="sink-lens">Read this event as</label>
+          <select id="sink-lens"></select>
+          <h3 id="sink-lens-title"></h3>
+          <dl class="score-reasons" id="sink-lens-notes"></dl>
+        </div>
+      </section>
+    </section>
     <section class="comparison wrap" id="compare" aria-labelledby="compare-title">
       <div class="section-head">
         <div><p class="eyebrow">THE SAME ROOM, TWO WAYS</p><h2 id="compare-title">Who’s worth meeting?</h2></div>
