@@ -39,5 +39,6 @@ jobs:
       - run: tools/rust/build-browser.sh
       - run: npx playwright install --with-deps chromium
       - run: node tests/rust/browser.mjs
+      - run: node tests/rust/user-flows.mjs
       - name: Keep generated parity fixtures reproducible
         run: git diff --exit-code -- rust/fixtures

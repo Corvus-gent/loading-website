@@ -36,11 +36,11 @@ Use portable Rust with Axum, Tokio and rustls. An adapter uses the **official** 
 | Inventory, baseline, Cargo workspace, native/Vercel/WASM adapters | Compile; snapshot production; no changed routes | In progress |
 | Storage, secrets, OTP sessions, consent, rate limiting | JS/Rust signature parity; bidirectional cookies; concurrent OTP use; denied preview writes | Initial auth tests pass locally |
 | Routing, gates, tiers, language state | All route aliases; protected-page negative tests; 04:02/DST; mobile/browser parity | Layer handlers and gate/language browser parity pass locally |
-| Compound/battle/interviews/impact | No lost votes; private/public field boundaries; null-vs-zero scores; code links; admin writes | Pure metrics/code rules and private live interview requests ported; other handlers pending |
+| Compound/battle/interviews/impact | No lost votes; private/public field boundaries; null-vs-zero scores; code links; admin writes | Pure metrics/code rules, private live interviews and battle voting/proofs pass isolated cross-runtime tests; Compound handlers pending |
 | Games, Plethora, support, referrals, public statistics | Game replay fixtures; atomic counters; no duplicate tracking; historical totals | Plethora and support handlers pass cross-runtime tests; other handlers pending |
 | Legion, Senate, payments, email, uploads | Test invite claim/edit/revoke; webhook retries; stored identity compatibility; blob/image EXIF rules | Pending |
 | Remaining APIs, research tools, build, OG, scheduled jobs | Complete file inventory; contract fixtures; single scheduled writer | Pending |
-| Browser logic, Rust build pipeline | Same content/layout; translations; keyboard/mobile; games; no legacy application JS remaining | Gate, language switcher and live banner pass browser parity; other modules pending |
+| Browser logic, Rust build pipeline | Same content/layout; translations; keyboard/mobile; games; no legacy application JS remaining | Gate, language switcher, live banner, arrival and support/admin pass browser checks; actual Rust booking flow verified; other modules pending |
 | Canary → production | All release gates and actual rollback exercise | Not authorized by test results yet |
 
 “Not authorized by test results” means technical release criteria have not passed; it does not request new user permission. The user already authorized the migration.
@@ -56,6 +56,9 @@ node tools/rust/parity.mjs
 node tools/rust/routing-parity.mjs
 node tests/rust/build-boundary.mjs
 node tests/rust/auth-parity.mjs
+tools/rust/build-browser.sh
+node tests/rust/browser.mjs
+node tests/rust/user-flows.mjs
 cargo check -p corvus-browser --target wasm32-unknown-unknown
 ```
 

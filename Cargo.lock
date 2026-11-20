@@ -261,6 +261,7 @@ dependencies = [
  "corvus-core",
  "js-sys",
  "serde_json",
+ "url",
  "wasm-bindgen",
  "wasm-bindgen-futures",
  "web-sys",

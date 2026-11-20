@@ -24,4 +24,8 @@ Battle voting and shared voter security are ported: 12 redirects, blind device o
 
 Merged upstream f2a5ed3 (tattoo/inspiration) without changing its content. Routing tests now discover current sources instead of trusting a stale generated catalogue: 9,468 decisions pass. The pre-existing banner test now checks the actual publishing artifact and preserves standalone canvases, the Sonar form and game admin; mobile/desktop checks pass locally. Full Feature CI must still be rerun. Support CI passed on GitHub Actions at cd79e66.
 
-Next: continue browser/API migration; the booking frontend and other browser modules remain JavaScript. See README completion gate. No production cutover until the full required compatibility checks and rollback exercise pass.
+Rust/WASM now also implements arrival attribution, the booking form and its private admin interface. Browser checks pass at 390px and 1440px, including lost-network retries, stable request IDs, required coffee confirmation, escaped admin text and failed-save rollback. A separate end-to-end test uses the actual Rust API and an ephemeral Redis instance: form → validated storage → private admin → status edit → reload. All browser traffic is intercepted locally; no production request or email is sent. The upstream hack browser test now opens its existing archive disclosures before checking the archived robotics/game content, and mocks the newer Worldcraft hero API. No product markup changed.
+
+GitHub Rust checks passed for d06b920. The full Feature workflow still needs another run after the archive-fixture correction.
+
+Next: continue browser/API migration, starting with battle browser behavior. Most application areas remain pending. See README completion gate. No production cutover until the full required compatibility checks and rollback exercise pass.

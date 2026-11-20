@@ -1,3 +1,4 @@
+- 2026-11-20: Port booking and private booking-admin browser behavior to Rust/WASM; verify the full browser-to-Rust-to-Redis flow on mobile/desktop without production requests. Preserve attribution, idempotent retries, escaped content and failed-save rollback.
 - 2026-11-20: Keep new tattoo/inspiration pages during migration; test banner coverage against built pages, preserving standalone views, and compare routing against fresh source discovery.
 - 2026-11-20: Port blind battle voting and signed voter/proof security to Rust, preserving prior votes, close-state atomicity and anti-spam keys.
 - 2026-11-20: Port support bookings and referral statistics to the opt-in Rust handler; verify cross-runtime idempotency, admin edits, retention and read-only email protection.
