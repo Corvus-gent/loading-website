@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "profiles": {
+    "tech": {
+      "inputHash": "aa17a00d05c050f933817f27dacd6fa146f938f5edb9db3dd6c73680d65bb5b2",
+      "generatorHash": "a36ce6c5f4e15ea72bd0e68817b4f7c922d75919035465981a626c62f03f5977",
+      "fileHash": "63e04310f1955700c56830f2e4ff9248dbdebe7b6c0a7c22b5605355d6021306",
+      "pages": 1
+    },
+    "social-media": {
+      "inputHash": "0a5389e8e89abe594f1f7d9365a68076d8f1cc85ad7d345aafea21f4454583dc",
+      "generatorHash": "a36ce6c5f4e15ea72bd0e68817b4f7c922d75919035465981a626c62f03f5977",
+      "fileHash": "1a3047d1badfb6eb82196d3ac8145d28cb64fe7303407cdf76482bd6e64eb34b",
+      "pages": 1
+    },
+    "stanford": {
+      "inputHash": "2279db59d7a0589386469391f542079c12b4b7e341ab1e23b9ce6706444e7761",
+      "generatorHash": "a36ce6c5f4e15ea72bd0e68817b4f7c922d75919035465981a626c62f03f5977",
+      "fileHash": "e70f423a3dc583f31a98f2eae5b0e6a608824b3bc12fa3c4a4da6fc2ab64c585",
+      "pages": 1
+    },
+    "berkeley": {
+      "inputHash": "66f5a7a318f0c5122e3df49efd3f2b2745195bcf01c75672e41143340d297d55",
+      "generatorHash": "a36ce6c5f4e15ea72bd0e68817b4f7c922d75919035465981a626c62f03f5977",
+      "fileHash": "4c4976423860093fb53d45d28ca6235a1e1cb4137592024b492e9c291ebc4c06",
+      "pages": 1
+    },
+    "harvard": {
+      "inputHash": "e2e5dbbe3b67e7478ee4b6d74bd1307412952f1527604d50f5bb67f01da0f129",
+      "generatorHash": "a36ce6c5f4e15ea72bd0e68817b4f7c922d75919035465981a626c62f03f5977",
+      "fileHash": "35ff8a10a69d28c35d2be22b7d5e4e909c11807305d63208bff9fb7875dffa47",
+      "pages": 1
+    },
+    "apple": {
+      "inputHash": "f6567ff761925983ba825d895e615bfdc2948db856daa79b867e8f905c2d1c55",
+      "generatorHash": "a36ce6c5f4e15ea72bd0e68817b4f7c922d75919035465981a626c62f03f5977",
+      "fileHash": "0368e4b59345a993619dfa94a112dc96b0ca2ac20c3c986e7f97f80379486fe8",
+      "pages": 1
+    },
+    "anthropic": {
+      "inputHash": "c81d25cc32c7930b113dc23105dfc61daeded664add9ced25ba53dd03fd05ea1",
+      "generatorHash": "a36ce6c5f4e15ea72bd0e68817b4f7c922d75919035465981a626c62f03f5977",
+      "fileHash": "9523377704957f5aa6c9ca659df0a6fe4ddb39eb6c8a208b5ceb3b2bdec3ae78",
+      "pages": 1
+    },
+    "openai": {
+      "inputHash": "5000dee04f2c3bd903fb06b4a5443892f694803ea107e3f57f18544bce02cb2f",
+      "generatorHash": "a36ce6c5f4e15ea72bd0e68817b4f7c922d75919035465981a626c62f03f5977",
+      "fileHash": "869e58d4039453caf2c9f8decc0bc37aa72e40f6c0e0bc870175ca998351ce84",
+      "pages": 1
+    },
+    "amazon": {
+      "inputHash": "c5875146d246f4ef8ed6534732d097108c13336904705aa5cdea4040350c2527",
+      "generatorHash": "a36ce6c5f4e15ea72bd0e68817b4f7c922d75919035465981a626c62f03f5977",
+      "fileHash": "3602323a7886f86c081bcc4c943d1cc7e412d620cf98a8e90c87249a3f49328c",
+      "pages": 1
+    },
+    "google": {
+      "inputHash": "e1a9893d90f171051fbac1ba8b1f29ebf759c3b1b63de4630e4abd2f5612879c",
+      "generatorHash": "a36ce6c5f4e15ea72bd0e68817b4f7c922d75919035465981a626c62f03f5977",
+      "fileHash": "5779db14e68416250f1784fae158669bcd456c9c72ac056bc484ad84347460e8",
+      "pages": 1
+    },
+    "mistral": {
+      "inputHash": "b7796c82d7a7cb437d333c8f18b2cd76b6cf134034ec099703ac2ce05a419312",
+      "generatorHash": "a36ce6c5f4e15ea72bd0e68817b4f7c922d75919035465981a626c62f03f5977",
+      "fileHash": "9dba79de3a78df26f84ffec54483db6690858ad0a6709fbb4279d11b9554d7c0",
+      "pages": 1
+    }
+  }
+}

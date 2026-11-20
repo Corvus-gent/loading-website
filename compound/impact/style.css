@@ -4,3 +4,5 @@
 .impact-post>div{min-width:0}
 
 .impact-filters{display:grid;grid-template-columns:1fr 1fr}.impact-filters .sort-field{grid-column:1/-1;max-width:240px}.impact-filters select{width:100%;min-width:0}.platform-totals{grid-template-columns:repeat(3,1fr)}@media(max-width:700px){.platform-totals{grid-template-columns:repeat(2,1fr)}.platform-total:last-child{grid-column:auto}}
+
+.skill-teaser{padding:32px;border:1px solid #375263;border-radius:16px;background:linear-gradient(135deg,#11202d,#0a1118)}.skill-teaser>p{max-width:760px;line-height:1.8;color:#b9c6cf}.skill-teaser .eyebrow,.skill-teaser .skill-status{color:var(--ice)}.skill-teaser .skill-status{font:12px/1.7 monospace;margin-top:24px}.skill-teaser .impact-actions{flex-wrap:wrap}.skill-teaser .button{white-space:normal;overflow-wrap:anywhere}@media(max-width:700px){.skill-teaser{padding:22px 18px}.skill-teaser .impact-actions{flex-direction:column;align-items:stretch}.skill-teaser .button{width:100%;box-sizing:border-box}}

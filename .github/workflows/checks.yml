@@ -34,6 +34,8 @@ jobs:
           node tools/check-locales.mjs
           node tests/realm-ritual.mjs
           node tests/routes.mjs
+      - name: CV profiles, PDF integrity and download behaviour
+        run: npm run test:cv
       - name: Official Plethora redirects and durable counters
         run: |
           node tools/plethora/verify-routes.mjs
@@ -56,6 +58,8 @@ jobs:
         run: |
           for test in store bmc mail discord pidgy-ui earned-ranks tier-rank; do node "tests/army/$test.mjs" || exit 1; done
           REDIS_URL=redis://127.0.0.1:16380/5 node tests/army/pidgy.mjs
+      - name: Build deployed pages before browser checks
+        run: npm run build
       - run: npx playwright install --with-deps chromium
       - run: node tests/live-banner-browser.mjs
       - run: node tests/live-page.mjs

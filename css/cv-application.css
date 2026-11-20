@@ -3,3 +3,9 @@
 .cv-channels{display:flex;flex-wrap:wrap;gap:12px 24px}.cv-channels a{display:inline-flex;align-items:center;min-height:44px;font-size:14px}
 
 .cv-sample img.cv-image-contain{object-fit:contain;background:#11110f;padding:12px}
+
+@media print{.cv-kicker{color:#333}.cv-metrics span{color:#444}section{scroll-margin-top:0}}
+
+.cv-secret button{font:inherit;color:inherit;background:none;border:0;min-width:64px;min-height:44px;padding:8px;cursor:pointer;border-radius:4px}.cv-secret button:hover{color:#ffe7a6}.cv-secret button:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+
+.cv-history{overflow-x:auto;max-width:100%;margin:28px 0}.cv-history table{width:100%;border-collapse:collapse;font-size:14px}.cv-history caption{text-align:left;color:var(--muted);margin-bottom:12px}.cv-history th,.cv-history td{padding:12px 10px;border-bottom:1px solid var(--line);text-align:left}.cv-history td{font-family:ui-monospace,monospace;text-align:right}.cv-history thead th{color:var(--muted);font-weight:500}.cv-history th:first-child{padding-left:0}@media(max-width:600px){.cv-history table{font-size:12px}.cv-history th,.cv-history td{padding:10px 5px}}

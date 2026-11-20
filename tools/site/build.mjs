@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';import path from 'node:path';
 import {SECTIONS,ROUTES as EXISTING_ROUTES} from '../../js/site/routes.js';
+import {hasStandaloneChrome} from './chrome-policy.mjs';
 import {generate} from './generate-directory.mjs';
 let ROUTES=EXISTING_ROUTES;
 export const VERSION='20261120rustrealm1';
@@ -62,9 +63,8 @@ function legionContent(html){
 export function usesSiteShell(file,html=''){
  const parts=file.replaceAll('\\','/').split('/');
  if(parts.some(p=>p.startsWith('.')||['node_modules','rust','migration','target','public','submission','tests','tools','test-results','playwright-report'].includes(p)))return false;
- if(file.startsWith('cv/studies/')||file.startsWith('cv/work/')||['cv/tech/index.html','cv/social-media/index.html'].includes(file))return false;
- if(!file.endsWith('.html')||(file.startsWith('cv/filosofie/')||file.startsWith('cv/philosophy/'))||file.startsWith('lab/logo/')||file.startsWith('clients/'))return false;
- if(['curiositycraft/index.html','curiositycraft/play/index.html','curiositycraft/qr/index.html','worldcraft/index.html','worldcraft/qr/index.html','worldcraft/admin/index.html','curiosity/index.html','live/overlay/index.html','forms/index.html'].includes(file))return false;
+ if(!file.endsWith('.html')||hasStandaloneChrome(file))return false;
+ if(['worldcraft/admin/index.html','forms/index.html'].includes(file))return false;
  return !/http-equiv=["']refresh/i.test(html);
 }
 async function build(){
