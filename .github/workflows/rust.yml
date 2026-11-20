@@ -14,11 +14,25 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: npm
       - run: npm ci
+      - name: Verify migration measurement rules
+        run: |
+          node tests/rust/measure-source.mjs
+          node tests/rust/performance-evidence.mjs
+      - name: Record source change ledger
+        run: node tools/rust/measure-source.mjs
+      - name: Preserve code change evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: rust-source-ledger-${{ github.sha }}
+          path: test-results/rust/measurements/source-*
+          if-no-files-found: error
       - name: Install pinned Rust toolchain and local Redis
         run: |
           rustup show

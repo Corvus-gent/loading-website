@@ -2,6 +2,8 @@
 
 This is a full application migration, not a redesign. The target is Rust server code and Rust/WebAssembly browser logic. HTML, CSS, translations, photos, videos and public datasets stay assets. Minimal generated WASM bindings and third-party hosted embeds remain browser integration boundaries. A proxy around the old Node application does **not** count as a completed migration.
 
+[Code-change and performance evidence](performance.md) defines the reproducible Git ledger, paired desktop/mobile browser measurements, regression gates and remaining production checks. No performance gain is assumed merely from changing languages.
+
 ## Frozen baseline and rollback
 
 - Repository baseline: `0a34babbba561abcffc1aa7e4356de4d8855adf7` (latest main when migration started).

@@ -1,0 +1,13 @@
+import assert from'node:assert/strict';import{quantile,summarize}from'../../tools/rust/performance.mjs';import{assess}from'../../tools/rust/performance-report.mjs';
+assert.equal(quantile([100,1,4,2,3],.5),3);assert.equal(quantile([null,NaN],.95),null);assert.equal(quantile([0],.5),0);
+const report={version:1,head:'fixture',headAfter:'fixture',wasmBuiltFromHead:'fixture',wasmChangedDuringRun:false,workingTreeDirty:false,wasm:{sha256:'fixture'},repeats:20,profiles:{desktop:{}},selectedProfiles:['desktop'],routes:['/'],samples:[]};
+for(const engine of['legacy','rust'])for(const cache of['cold-context','warm'])for(let repeat=0;repeat<20;repeat++)report.samples.push({engine,profile:'desktop',route:'/',cache,repeat,ttfb:20,fcp:100,lcp:200,ready:300,cls:0,longTaskMax:0,longTaskTotal:0,transfer:1000,jsEncoded:400,wasmEncoded:0,requests:5,actionNextFrame:16});
+assert.equal(assess(report).labPass,true);assert.equal(assess(report).productionReady,false,'passing a lab cannot authorize production');
+let bad=structuredClone(report);bad.samples[0].error='failed render';assert.equal(assess(bad).labPass,false);assert.equal(summarize(bad.samples)[0].successes,19,'failures are counted, not silently averaged away');
+bad=structuredClone(report);bad.samples.filter(x=>x.engine==='rust').forEach(x=>x.ready=3000);assert(assess(bad).problems.some(p=>p.startsWith('Regression')));
+bad=structuredClone(report);bad.samples.filter(x=>x.engine==='rust').forEach(x=>x.lcp=null);assert(assess(bad).problems.some(p=>p.startsWith('Missing metric')));
+bad=structuredClone(report);bad.samples[0].repeat=1;assert(assess(bad).problems.some(p=>p.startsWith('Duplicate')));
+bad=structuredClone(report);bad.samples[0].lcp=null;assert(assess(bad).problems.some(p=>p.startsWith('Missing or invalid raw metric')),'one absent value must not disappear from the percentiles');
+for(const patch of [{repeats:3},{repeats:undefined},{workingTreeDirty:true},{workingTreeDirty:undefined},{headAfter:'changed'},{wasmBuiltFromHead:'stale'},{wasmChangedDuringRun:true},{unknownFixtureEndpoints:{rust:['/missing']}},{assetFailures:{rust:['/bad.css']}},{wasm:null},{samples:[]}])assert.equal(assess({...report,...patch}).labPass,false);
+assert.equal(assess(report).comparisons[0].deltas.cls.p50.percent,null,'zero baseline is not an infinite improvement');
+console.log('PASS performance evidence retains failures/zero-vs-missing, requires paired provenance/repeats, rejects regressions/missing assets and never claims a lab is production proof');
