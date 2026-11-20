@@ -1,3 +1,5 @@
+import {formatPageText} from './i18n/page-copy.js';
+import {number} from './stats-view.js';
 const node = (tag, text) => { const n = document.createElement(tag); n.textContent = text; return n; };
 let showAll = false;
 export function renderSupport(d) {
@@ -5,7 +7,9 @@ export function renderSupport(d) {
   if (!out) return;
   out.replaceChildren();
   if (!d) { summary.textContent = 'support counts arrive with the next snapshot.'; return; }
-  summary.textContent = `${d.clicks} clicks on ${d.day} · ${d.total} all time · clicks, not unique people`;
+  summary.textContent = formatPageText('{count} clicks on {day} · {total} all time · clicks, not unique people', {
+    count: number(d.clicks), day: d.day, total: number(d.total)
+  });
   const table = document.createElement('table');
   table.className = 'support-stats-table';
   table.id = 'support-clicks-table';
@@ -15,7 +19,7 @@ export function renderSupport(d) {
   const zeroRows = [];
   for (const r of [...d.rows, ...d.steps]) {
     const tr = document.createElement('tr');
-    tr.append(node('td', r.label), node('td', r.day), node('td', r.total));
+    tr.append(node('td', r.label), node('td', number(r.day)), node('td', number(r.total)));
     if (Number(r.total) === 0) { tr.hidden = !showAll; zeroRows.push(tr); }
     table.append(tr);
   }

@@ -61,6 +61,7 @@ export function renderSwitcher(onChange) {
   if (onChange) callbacks.add(onChange);
   if (!box) return;
   const current = getLang();
+  const names = new Intl.DisplayNames(current, { type: 'language' });
   box.innerHTML = "";
   LANGS.forEach(([code, label]) => {
     const a = document.createElement("a");
@@ -68,6 +69,7 @@ export function renderSwitcher(onChange) {
     if(routeLanguages){url.pathname=routeLanguages[code]||'/';url.search='';if(!routeLanguages[code])url.searchParams.set('lang',code);}else url.searchParams.set('lang', code);
     a.href = url.href;
     a.hreflang = code;
+    a.setAttribute('aria-label', names.of(code));
     a.textContent = label;
     if (code === current) {
       a.className = "active";

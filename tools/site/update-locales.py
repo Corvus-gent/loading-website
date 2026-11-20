@@ -13,6 +13,7 @@ from pathlib import Path
 import re
 import subprocess
 from tempfile import NamedTemporaryFile
+import unicodedata
 
 from bs4 import BeautifulSoup, Comment
 import ctranslate2
@@ -33,15 +34,44 @@ ADDITIONAL_PAGES = (
 PUBLIC_VIEW_SCRIPTS = (
     'js/forms-view.js', 'js/forms-draft.js', 'js/games.js', 'js/live-banner.js',
     'js/live-stream.js', 'js/people.js', 'js/sf.js', 'js/site/daily.js',
-    'js/site/legion.js', 'js/site/shell.js', 'js/stats-view.js', 'js/tattoo.js',
+    'js/site/legion.js', 'js/site/shell.js', 'js/tattoo.js',
+    'js/stats.js', 'js/stats-army.js', 'js/stats-atlas.js', 'js/stats-countries.js',
+    'js/stats-data.js', 'js/stats-games.js', 'js/stats-hunt.js', 'js/stats-map.js', 'js/stats-music.js',
+    'js/stats-pidgy.js', 'js/stats-status.js', 'js/stats-support.js', 'js/stats-view.js',
+    'js/status-graph.js', 'js/x-clocks.js', 'js/stats-x.js', 'stats/linkedin/charts.js',
     'public/worldcraft/chat.js', 'public/worldcraft/projector-qr.js',
 )
 PUBLIC_TEXT_LITERAL = re.compile(
     r'''(?:\.(?:textContent|alt|placeholder|title)\s*=(?!=)|'''
-    r'''\b(?:status|formatPageText)\(|setAttribute\(['"]aria-label['"],)\s*'''
+    r'''\b(?:status|formatPageText|translatePageText|feedback)\(|setAttribute\(['"]aria-label['"],)\s*'''
     r'''('(?:\\.|[^'\\\n])*'|"(?:\\.|[^"\\\n])*")'''
 )
 PLACEHOLDER = re.compile(r'\{\w+\}')
+NUMBER_MARKER = re.compile(r'(?<!\d)\d{3}(?!\d)')
+MARKERS = ('123', '456', '789', '321', '654', '987')
+
+
+def mask_placeholders(source):
+    tokens = PLACEHOLDER.findall(source)
+    markers = [marker for marker in MARKERS if marker not in source]
+    if len(tokens) > len(markers):
+        return source, {}
+    replacements = {}
+    def mask(match):
+        number = markers[len(replacements)]
+        replacements[number] = match.group()
+        return number
+    return PLACEHOLDER.sub(mask, source), replacements
+
+
+def restore_placeholders(value, replacements):
+    if not replacements:
+        return value
+    # Some translations use their own decimal digits.
+    def restore(match):
+        digits = ''.join(str(unicodedata.decimal(c)) for c in match.group() if c.isdecimal())
+        return replacements.get(digits, match.group())
+    return NUMBER_MARKER.sub(restore, value)
 
 
 def normalize(text):
@@ -119,6 +149,62 @@ def generated_strings(routes):
     for button in BeautifulSoup(Path('curiositycraft/index.html').read_text(), 'html.parser').select('[data-starter]'):
         strings.append(button['data-starter'])
     strings.extend([
+        'preparing the first snapshot…', 'snapshot unavailable.', 'counting the arrivals…',
+        'the count is resting. try again shortly.', 'visitor count unavailable.',
+        'visitor today. just the one, so far.', 'day one. the crow came back.',
+        'counts unavailable.', 'most loved', 'new suggestions', 'plays per genre',
+        'type', 'played', 'solved', 'terminal activity', 'terminal counts unavailable.',
+        'nobody opened the terminal.', 'command-line counts unavailable.',
+        'outbound counts unavailable.', 'country counts unavailable.',
+        'partial snapshot', 'last saved snapshot', 'loading statistics', 'service status →',
+        'stats storage (redis) is unavailable.', 'a stats data source failed to respond.',
+        'showing the available figures.', 'preparing the figures…', 'loading stats…',
+        'the stats API is unavailable.', 'try again',
+        'support counts arrive with the next snapshot.', 'link / action', 'this day',
+        'show less', 'show all', 'quick', 'capitals', 'unknown location', '30-day uptime',
+        'the lantern is burning.', 'the lantern flickers.', 'the lantern is out.',
+        'waiting for the first light.', 'no checks recorded yet.', 'no recorded incidents.',
+        'no incident data yet.', 'history storage (redis) is unavailable.',
+        'history api unavailable · showing the last reading.',
+        'history api unavailable · could not load measurements.', 'overall',
+        'site pages', 'vanity slugs', 'stats pages', 'redis', 'posthog', 'resend',
+        'notion', 'buy me a coffee', 'map tiles', 'spotify', 'stats snapshots',
+        'snapshot job', 'no data', 'healthy', 'degraded / slow', 'down', 'slow',
+        'last observed', 'resolved', 'ongoing at last check', 'city unknown',
+        'no data yet', 'all time', '{count} soul', '{count} souls',
+        '{count} visitor', '{count} visitors', '{count} countries · {period} · city areas + country totals.',
+        '{count} country · {period} · city areas + country totals.',
+        '{service} went down on {time} · {duration} · {state}.',
+        '{service} was slow on {time} · {duration} · {state}.', '{date} · Brussels time',
+        'cookieless visitor counts are estimates. clicks are counted from the tracking launch.',
+        'cookieless counts are estimates. signup attribution is first-touch; these are separate aggregate counts, not tracked individual journeys.',
+        'one feather = 10 clicks · display capped at 20 feathers',
+        'counted visits', 'app opens', 'feedback', 'github clicks', 'likes', 'dislikes',
+        'comments', 'shares', 'by source', 'squad link clicks', 'Gabe · solo run',
+        '{source}: {count}', 'Stats unavailable. Please try again shortly.',
+        'Impressions', 'Engagements', 'New followers', 'Profile viewers', 'Weekly profile viewers',
+        'daily chart', 'cumulative chart', 'Metric', 'Period', 'View',
+        'Full export', 'Last 28 complete days', 'Last 7 complete days', 'Cumulative', 'Daily',
+        'Not included in this export.', 'Not available', 'Stats unavailable',
+        'Stats unavailable. Please try again later.',
+        'Manually transcribed LinkedIn weekly snapshot. The content export has no daily profile-view history; unreported weeks are not plotted.',
+        'replies, posts, and where the links lead.', 'the log is empty for now',
+        'the log is resting. try again soon.', 'the crow is syncing the log. check back in a moment.',
+        'the log is resting.', 'per voice', 'no voices logged yet.',
+        'best voice this week: waiting for a click.', 'two shores · audiences',
+        'eu is the european audience; sf is the san francisco audience. the clocks above help you think in both.',
+        'per hour · bx / brussels', 'clicks by logged hour, 00 to 23, Europe/Brussels',
+        'hourly numbers', 'all hours use bx time, for both audiences. attributed to the logged hour, not the time a visitor clicked.',
+        'top campaigns', 'no campaign clicks yet.', 'from gabe', 'read the post ↗', 'no own posts logged yet.',
+        'replies', 'posts', 'links used', 'clicks to corvus', 'clicks to pidgy', 'clicks / links',
+        'today · brussels', 'voice', 'clicks', 'region', 'links', 'hour', 'campaign', 'eu · europe', 'sf · san francisco',
+        'one crow. two clocks.', 'live now', 'plan across the pond ↔', 'bx · brussels', 'sf · san francisco',
+        'first occurrence', 'second occurrence', 'clock change', 'think in', 'date', 'time',
+        'back to now', 'csv date + hour stay on bx time. eu / sf chooses the audience, not the clock.',
+        'your planned moment', 'same date', 'previous day in sf', 'choose a valid moment',
+        'that local time does not exist. check the date or choose another time around the clock change.',
+        'choose a date and time.', 'that hour happens twice when the clocks go back. choose which occurrence.',
+        'night owl', 'first coffee', 'in the thick of it', 'after hours',
         '· license', '💬 add a comment', 'All done — thank you! 🙌',
         'Still sending…', 'Thanks, sent!', 'Total play time: {time}', 'Avg per player: {time}', 'Jump to a page', 'where do you want to go?', 'Find a page',
         'Close search', '/ to open · esc to leave · enter to go', 'Language',
@@ -147,17 +233,18 @@ def translate_missing(translator, tokenizer, catalog, strings, language):
     prefix = f'__{language}__'
     for start in range(0, len(missing), 64):
         batch = missing[start:start + 64]
-        encoded = [['__en__', *tokens, '</s>'] for tokens in tokenizer.encode(batch, out_type=str)]
+        masked, replacements = zip(*(mask_placeholders(source) for source in batch))
+        encoded = [['__en__', *tokens, '</s>'] for tokens in tokenizer.encode(list(masked), out_type=str)]
         results = translator.translate_batch(
             encoded, target_prefix=[[prefix]] * len(batch), beam_size=1,
             max_batch_size=1024, batch_type='tokens', no_repeat_ngram_size=4,
             max_decoding_length=max(32, 2 * max(map(len, encoded)) + 16),
         )
-        for source, result in zip(batch, results):
+        for source, result, mapping in zip(batch, results, replacements):
             tokens = result.hypotheses[0]
             if tokens and tokens[0] == prefix:
                 tokens = tokens[1:]
-            value = tokenizer.decode(tokens).strip()
+            value = restore_placeholders(tokenizer.decode(tokens).strip(), mapping)
             if value and sorted(PLACEHOLDER.findall(source)) == sorted(PLACEHOLDER.findall(value)):
                 catalog[source] = value
 

@@ -1,3 +1,4 @@
+import { formatPageText, translatePageText } from './i18n/page-copy.js';
 import {cityCatalog} from './data/geo-cities.generated.js?v=20261108cities1';
 // Each visitor belongs to one city per country in the selected time window.
 export function projected(point,zoom){const size=256*2**zoom,sin=Math.sin(Math.max(-85,Math.min(85,point.lat))*Math.PI/180);return{x:(point.lng+180)/360*size,y:(.5-Math.log((1+sin)/(1-sin))/(4*Math.PI))*size};}
@@ -13,13 +14,24 @@ export function mergeLocations(cities,zoom){
   }
   return [...groups.values()].map(g=>({...g,lat:g.lat/g.visitors,lng:g.lng/g.visitors,level:g.points.length>1?'cluster':g.unknown?'country':g.precision==='region'?'region':'city'}));
 }
-export function locationLabel(group){
-  const n=group.visitors.toLocaleString('en')+' '+(group.visitors===1?'soul':'souls');
-  if(group.unknown)return `${group.country} · city unknown · ${n}`.toLowerCase();
-  if(group.level==='cluster')return `${group.points.slice(0,2).map(p=>p.city||p.regionName||p.region).join(' + ')}${group.points.length>2?' + '+(group.points.length-2)+' areas':''} · ${n}`.toLowerCase();
-  if(group.precision==='region')return `${group.regionName||group.region}, ${group.country} · city unknown · ${n}`.toLowerCase();
-  const name=group.city||group[group.level]||group.country||'somewhere';
-  return `${name}${group.precision==='metro'?' area':''}${group.region?', '+group.region:''} · ${n}`.toLowerCase();
+const language = () => globalThis.document?.documentElement.lang || 'en';
+export function locationLabel(group, regions = new Intl.DisplayNames(language(), {type: 'region'})) {
+  const count = group.visitors.toLocaleString(language());
+  const n = formatPageText(group.visitors === 1 ? '{count} soul' : '{count} souls', {count});
+  const country = /^[A-Z]{2}$/.test(group.countryCode || '') ? regions.of(group.countryCode) : group.country;
+  const cityUnknown = translatePageText('city unknown');
+  if (group.unknown) return `${country} · ${cityUnknown} · ${n}`;
+  if (group.level === 'cluster') {
+    const names = group.points.slice(0, 2).map(point => point.city || point.regionName || point.region);
+    if (group.points.length > 2) names.push(formatPageText('{count} areas', {
+      count: (group.points.length - 2).toLocaleString(language())
+    }));
+    return names.join(' + ') + ' · ' + n;
+  }
+  if (group.precision === 'region') return `${group.regionName || group.region}, ${country} · ${cityUnknown} · ${n}`;
+  const name = group.city || group[group.level] || country || translatePageText('somewhere');
+  const area = group.precision === 'metro' ? formatPageText('{name} area', {name}) : name;
+  return `${area}${group.region ? ', ' + group.region : ''} · ${n}`;
 }
 export function referenceCities(zoom,bounds){
   const cells=new Set(),result=[];
@@ -158,6 +170,7 @@ async function initMap(snapshot) {
     function draw() {
       markers.clearLayers();references.clearLayers();
       const zoom=map.getZoom();
+      const regions = new Intl.DisplayNames(language(), {type: 'region'});
       (zoom>=4?referenceCities(zoom,map.getBounds()):[]).forEach((city,index)=>{
         const color=referenceColor(city.country);
         const dot=L.circleMarker([city.lat,city.lng],{radius:3,color,weight:1,fillColor:color,fillOpacity:.5,className:'reference-city-dot',interactive:false}).addTo(references);
@@ -168,7 +181,7 @@ async function initMap(snapshot) {
         const dot = document.createElement('span');
         dot.className = 'visitor-flame' + (group.unknown ? ' visitor-unknown' : '');
         dot.style.cssText = `width:${size}px;height:${size}px;animation-delay:-${index % 9}s`;
-        const label = locationLabel(group);
+        const label = locationLabel(group, regions);
         const tooltip = document.createElement('span');
         tooltip.textContent = label; // Never interpret location names as HTML.
         const marker = L.marker([group.lat, group.lng], {
@@ -188,14 +201,22 @@ async function initMap(snapshot) {
     updateTiles(data?.tiles);
     if(!Array.isArray(data?.cities)){out();return;}
     cities=data.cities;
-    if(focus){const current=focus.value;const options=[new Option('world','')];const names=new Intl.DisplayNames(['en'],{type:'region'});for(const c of data.countries||[])if(c.c!=='?'&&cityCatalog.some(p=>p[0]===c.c))options.push(new Option(names.of(c.c),c.c));focus.replaceChildren(...options);focus.value=options.some(o=>o.value===current)?current:'';}
+    if(focus){const current=focus.value;const options=[new Option(translatePageText('world'),'')];const names=new Intl.DisplayNames(language(),{type:'region'});for(const c of data.countries||[])if(c.c!=='?'&&cityCatalog.some(p=>p[0]===c.c))options.push(new Option(names.of(c.c),c.c));focus.replaceChildren(...options);focus.value=options.some(o=>o.value===current)?current:'';}
 
     if(!fitted&&cities.length){map.fitBounds(cities.map(c=>[c.lat,c.lng]),{padding:[25,25],maxZoom:3,animate:false});fitted=true;}
     draw();
     const note=document.querySelector('#visitor-map-coverage');
     const precise=cities.filter(c=>!c.unknown).reduce((n,c)=>n+c.visitors,0),coarse=cities.filter(c=>c.unknown).reduce((n,c)=>n+c.visitors,0);
-    const coarseLabel=document.querySelector('#map-country-only-count');if(coarseLabel)coarseLabel.textContent=coarse.toLocaleString('en');
-    if(note)note.textContent=`${precise.toLocaleString('en')} located to a city area or region · ${coarse.toLocaleString('en')} country only${data.unlocated ? ` · ${data.unlocated} country unknown` : ''}. gold = recorded visitors; coloured cities and corvus hotspots = reference highlights, not visitor counts.${data.cityUnavailable ? ' city details temporarily unavailable.' : ''}`;
+    const coarseLabel=document.querySelector('#map-country-only-count');if(coarseLabel)coarseLabel.textContent=coarse.toLocaleString(language());
+    if (note) note.textContent = [
+      formatPageText('{precise} located to a city area or region · {coarse} country only', {
+        precise: precise.toLocaleString(language()), coarse: coarse.toLocaleString(language())
+      }) + (data.unlocated ? ' · ' + formatPageText('{count} country unknown', {
+        count: data.unlocated.toLocaleString(language())
+      }) : '') + '.',
+      translatePageText('gold = recorded visitors; coloured cities and corvus hotspots = reference highlights, not visitor counts.'),
+      data.cityUnavailable ? translatePageText('city details temporarily unavailable.') : ''
+    ].filter(Boolean).join(' ');
     status.textContent = precise || countryToggle?.checked ? '' : 'city-level pings appear here as they arrive.';
     status.hidden = cities.length>0;
   };

@@ -94,6 +94,12 @@
     return promise;
   }
   let shown, viewDay;
+  let translatePageText = text => text;
+  let formatPageText = (text, values) => text.replace(/\{(\w+)\}/g, (key, name) => values[name] ?? key);
+  function refreshLanguage() {
+    age();
+    if (feedback?.message) feedback.text.textContent = feedback.message();
+  }
   function age() {
     const label = document.querySelector('[data-snapshot-age]');
     if (!label || !shown) return;
@@ -103,11 +109,16 @@
       return;
     }
     const mins = Math.max(0, Math.floor((Date.now() - Date.parse(s.updated)) / 60000));
-    label.textContent =
-      (s.day && s.day !== viewDay ? s.day + ' · ' : '') +
-      (s.state === 'partial' ? 'partial snapshot · ' : s.stale ? 'last saved snapshot · ' : '') +
-      'updated ' +
-      (mins ? mins + ' min ago' : 'just now');
+    const relative = new Intl.RelativeTimeFormat(document.documentElement.lang || 'en', {
+      numeric: 'auto', style: 'short'
+    });
+    const time = mins ? relative.format(-mins, 'minute') : translatePageText('just now');
+    const state = s.state === 'partial' ? 'partial snapshot' : s.stale ? 'last saved snapshot' : '';
+    label.textContent = [
+      s.day && s.day !== viewDay ? s.day : '',
+      state && translatePageText(state),
+      formatPageText('updated {time}', { time })
+    ].filter(Boolean).join(' · ');
   }
   let feedback;
   function panel() {
@@ -130,22 +141,23 @@
     };
     return feedback;
   }
+  function notice(message, suffix) {
+    return [message, suffix].filter(Boolean).map(translatePageText).join(' ');
+  }
   function describe(s, busy) {
-    if (s.reason === 'storage-and-source') return 'stats storage and a data source are unavailable.';
+    if (s.reason === 'storage-and-source') return translatePageText('stats storage and a data source are unavailable.');
     if (s.reason === 'storage') {
-      if (busy) return 'stats storage (redis) is unavailable. checking other sources…';
-      return 'stats storage (redis) is unavailable.' + (s.data ? ' showing the available figures.' : '');
+      if (busy) return translatePageText('stats storage (redis) is unavailable. checking other sources…');
+      return notice('stats storage (redis) is unavailable.', s.data && 'showing the available figures.');
     }
     if (s.reason === 'source')
-      return (
-        'a stats data source failed to respond.' + (s.data ? ' showing the available figures.' : '')
-      );
-    if (s.reason === 'timeout') return 'the stats request took too long.';
-    if (s.reason === 'offline') return 'you appear to be offline.';
-    if (s.reason === 'history') return 'there is no saved report for this day.';
-    if (!busy && !s.reason && s.stale) return 'showing the last saved figures.';
-    if (busy) return s.state === 'warming' ? 'preparing the figures…' : 'loading stats…';
-    return 'the stats API is unavailable.' + (s.data ? ' showing the last saved figures.' : '');
+      return notice('a stats data source failed to respond.', s.data && 'showing the available figures.');
+    if (s.reason === 'timeout') return translatePageText('the stats request took too long.');
+    if (s.reason === 'offline') return translatePageText('you appear to be offline.');
+    if (s.reason === 'history') return translatePageText('there is no saved report for this day.');
+    if (!busy && !s.reason && s.stale) return translatePageText('showing the last saved figures.');
+    if (busy) return translatePageText(s.state === 'warming' ? 'preparing the figures…' : 'loading stats…');
+    return notice('the stats API is unavailable.', s.data && 'showing the last saved figures.');
   }
   function watch(name, day, render) {
     const k = storageKey(name, day),
@@ -160,8 +172,9 @@
     function paint(s, busy) {
       ui.root.hidden =
         !busy && !s.reason && s.state !== 'unavailable' && s.state !== 'partial' && !s.stale;
-      if (ui.root.hidden) return;
-      ui.text.textContent = describe(s, busy);
+      ui.message = ui.root.hidden ? null : () => describe(s, busy);
+      if (!ui.message) return;
+      ui.text.textContent = ui.message();
       ui.bar.hidden = !busy;
       ui.actions.hidden = busy;
     }
@@ -224,10 +237,16 @@
       callbacks.delete(accept);
       if (!callbacks.size) listeners.delete(k);
       ui.root.hidden = true;
+      ui.message = null;
     };
   }
   let initial = selected <= today ? load(page, selected) : null;
   window.statsPage = { page, today, selected, watch, load };
+  window.addEventListener('corvus-page-copy-ready', refreshLanguage);
+  import('./i18n/page-copy.js').then(copy => {
+    ({ translatePageText, formatPageText } = copy);
+    refreshLanguage();
+  });
   const prefetch = (e) => {
     if (navigator.connection?.saveData) return;
     const a = e.target.closest?.('[data-stat],#prev');

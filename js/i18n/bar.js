@@ -7,7 +7,15 @@ const bar = document.getElementById('lang-switcher') || document.createElement('
 bar.id = 'lang-switcher';
 bar.classList.add('lang-switcher');
 bar.dataset.siteLanguages = '';
-bar.setAttribute('aria-label', 'Language');
+const names = {
+  en: 'Language', nl: 'Taal', es: 'Idioma', fr: 'Langue', pt: 'Idioma',
+  de: 'Sprache', zh: '语言', hi: 'भाषा', ta: 'மொழி'
+};
+function labelBar() {
+  bar.setAttribute('aria-label', names[getLang()] ?? names.en);
+}
+labelBar();
+window.addEventListener('corvus-language-change', labelBar);
 document.body.prepend(bar);
 
 applyI18n();

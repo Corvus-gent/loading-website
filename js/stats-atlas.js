@@ -1,6 +1,8 @@
+import { formatPageText, translatePageText } from './i18n/page-copy.js';
+import { number } from './stats-view.js';
 import { renderCountries, countryPeriod } from './stats-countries.js';
 const container=document.querySelector('#visitor-map');
-let visible=false,started=false,data,update,mode=null,daily;
+let visible=false,started=false,data,update,mode=null,daily,shownDay;
 function mount(){
   if(update){update(data);return;}
   if(!visible||started||!data)return;
@@ -10,15 +12,23 @@ function mount(){
 }
 const observer=new IntersectionObserver(entries=>{if(entries[0].isIntersecting){visible=true;observer.disconnect();mount();}});observer.observe(container);
 function show(payload,day){
-  data=payload;
+  data=payload; shownDay=day;
   const total = Number.isSafeInteger(data?.total) && data.total >= 0 ? data.total
     : Array.isArray(data?.countries) ? data.countries.reduce((sum, country) => sum + (Number.isSafeInteger(country.n) && country.n >= 0 ? country.n : 0), 0) : null;
-  document.querySelector('#map-total').textContent = total === null ? '—' : total.toLocaleString('en');
-  document.querySelector('#map-total-label').textContent = 'visitors · ' + (day === 'all' ? 'all time' : countryPeriod(day));
+  document.querySelector('#map-total').textContent = number(total);
+  document.querySelector('#map-total-label').textContent = formatPageText('visitors · {period}', {period: day === 'all' ? translatePageText('all time') : countryPeriod(day)});
 
-  document.querySelector('#countries-period').textContent=day==='all'?'all time · since 2 nov 2026':countryPeriod(day);
+  document.querySelector('#countries-period').textContent=day==='all' ? formatPageText('all time · since {date}', {date: new Date('2026-11-02T12:00Z').toLocaleDateString(document.documentElement.lang)}) : countryPeriod(day);
   const list=document.querySelector('#countries');
-  if(data?.countries){const n=data.countries.filter(c=>c.c&&c.c!=='?').length;document.querySelector('#map-count').textContent=`${n} ${n===1?'country':'countries'} · ${day==='all'?'all time':day} · city areas + country totals.`;renderCountries(list,data.countries);}
+  if (data?.countries) {
+    const n = data.countries.filter(c => c.c && c.c !== '?').length;
+    document.querySelector('#map-count').textContent = formatPageText(
+      n === 1 ? '{count} country · {period} · city areas + country totals.'
+        : '{count} countries · {period} · city areas + country totals.',
+      {count: number(n), period: day === 'all' ? translatePageText('all time') : day}
+    );
+    renderCountries(list, data.countries);
+  }
   else list.textContent='country counts are unavailable. try again shortly.';
   if(!data)document.querySelector('#visitor-map-status').textContent='the lantern is out.';
   mount();
@@ -35,6 +45,8 @@ for(const button of document.querySelectorAll('[data-map-period]'))button.addEve
   }else{mode=next;show(daily?.data,daily?.day||window.statsPage.today);}
   for(const b of document.querySelectorAll('[data-map-period]'))b.setAttribute('aria-pressed',String(b.dataset.mapPeriod===mode));
 });
+
+window.addEventListener('corvus-page-copy-ready', () => { if (shownDay) show(data, shownDay); });
 
 // Load the all-time view immediately; the daily snapshot stays ready for switching.
 document.querySelector('[data-map-period="all"]').click();
