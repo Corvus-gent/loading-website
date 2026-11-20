@@ -33,6 +33,19 @@ pub fn valid_code(v: &str) -> bool {
         && v.bytes()
             .all(|c| c.is_ascii_lowercase() || (b'2'..=b'7').contains(&c))
 }
+/// Raw-body signature, shared by BMC and Pidgy; never reserialize the request.
+pub fn verify_webhook(raw: &[u8], signature: &str, secret: &str) -> bool {
+    if secret.is_empty()
+        || signature.len() != 64
+        || !signature.bytes().all(|b| b.is_ascii_hexdigit())
+    {
+        return false;
+    }
+    crypto::safe_equal(
+        &signature.to_lowercase(),
+        &hex::encode(crypto::hmac(secret.as_bytes(), raw)),
+    )
+}
 pub fn namespace(env: &Settings) -> Result<String, Error> {
     if let Some(p) = env.get("ARMY_NAMESPACE") {
         return Ok(p.into());

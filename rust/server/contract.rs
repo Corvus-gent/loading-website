@@ -17,6 +17,35 @@ async fn main() -> Result<(), corvus_server::Error> {
                     let now = row["now"].as_i64().ok_or("time")?;
                     Ok(match row["action"].as_str() {
                         Some("application") => m::application(b)?,
+                        Some("tier-name") => json!(corvus_server::army::payments::tier_name(b)),
+                        Some("discord-plan") => corvus_server::army::discord_model::plan(b)?,
+                        Some("discord-findings") => {
+                            json!(corvus_server::army::discord_model::findings(
+                                &b["config"],
+                                b["roles"].as_array().ok_or("roles")?,
+                                b["channels"].as_array().ok_or("channels")?
+                            )?)
+                        }
+                        Some("discord-above") => json!(
+                            corvus_server::army::discord_model::role_above(&b["a"], &b["b"])?
+                        ),
+                        Some("discord-signature") => {
+                            json!(corvus_server::army::discord_model::interaction(
+                                value.as_bytes(),
+                                b["signature"].as_str().unwrap_or(""),
+                                b["timestamp"].as_str().unwrap_or(""),
+                                b["key"].as_str().unwrap_or(""),
+                                now
+                            ))
+                        }
+                        Some("pidgy-code") => {
+                            json!(corvus_server::army::pidgy::handle_from_code(b))
+                        }
+                        Some("webhook") => json!(s::verify_webhook(
+                            value.as_bytes(),
+                            b.as_str().unwrap_or(""),
+                            env.get("WEBHOOK_SECRET").unwrap_or("")
+                        )),
                         Some("link") => json!(m::link(b)?),
                         Some("tier") => json!(m::active_tier(b, now)),
                         Some("public") => m::public_soldier(b, row["link"] != false, now),
@@ -981,6 +1010,69 @@ async fn army_contract(
         "seen" => {
             army.seen(uid, ip).await?;
             Ok(Value::Null)
+        }
+        "pidgy" => army.pidgy_trial(body).await,
+        "payment-normalize" => {
+            corvus_server::army::payments::Payments(&army)
+                .normalize(body)
+                .await
+        }
+        "payment-accept" => {
+            corvus_server::army::payments::Payments(&army)
+                .accept(body)
+                .await
+        }
+        "payment-process" => {
+            corvus_server::army::payments::Payments(&army)
+                .process(value)
+                .await
+        }
+        "payment-link" => {
+            corvus_server::army::payments::Payments(&army)
+                .link(value, body)
+                .await
+        }
+        "payment-drain" => corvus_server::army::payments::Payments(&army).drain().await,
+        "payment-unmatched" => {
+            corvus_server::army::payments::Payments(&army)
+                .unmatched()
+                .await
+        }
+        action if action.starts_with("mail-") => {
+            let mail=corvus_server::army::mail::Mail::new(&army,row["fixture"].as_str())?;
+            match action {
+                "mail-quota"=>mail.quota().await,
+                "mail-compose"=>mail.compose(body,&row["user"],row["dry"]==true).await,
+                "mail-flush"=>mail.flush(row["dry"]==true,row["only"].as_str()).await,
+                _=> Err("mail fixture".into())
+            }
+        }
+        action if action.starts_with("discord-") => {
+            let discord =
+                corvus_server::army::discord::Discord::new(&army, row["fixture"].as_str())?;
+            match action {
+                "discord-config" => discord.configuration().await,
+                "discord-invite" => Ok(json!(discord.invite(body, row["dry"] == true).await?)),
+                "discord-issue" => discord.issue(body).await,
+                "discord-sync" => discord.sync(body).await,
+                "discord-claim" => {
+                    discord
+                        .claim(
+                            value,
+                            row["id"].as_str().unwrap_or(""),
+                            row["guild"].as_str().unwrap_or(""),
+                        )
+                        .await
+                }
+                "discord-audit" => discord.audit().await,
+                "discord-refresh" => discord.refresh(body.as_array().ok_or("users")?).await,
+                "discord-respond" => Ok(json!(discord.respond(body).await?)),
+                "discord-complete" => {
+                    discord.complete(body).await?;
+                    Ok(Value::Null)
+                }
+                _ => Err("discord fixture".into()),
+            }
         }
         "issue" => {
             corvus_server::army::auth::Auth(&army)

@@ -40,7 +40,13 @@ impl<'a> Army<'a> {
     where
         F: std::future::Future<Output = Result<T, Error>>,
     {
-        let token = self.acquire(uid, 15).await?;
+        self.locked_for(uid, 15, operation).await
+    }
+    pub async fn locked_for<T, F>(&self, uid: &str, seconds: i64, operation: F) -> Result<T, Error>
+    where
+        F: std::future::Future<Output = Result<T, Error>>,
+    {
+        let token = self.acquire(uid, seconds).await?;
         let result = operation.await;
         let released = self.release(uid, &token).await;
         match result {

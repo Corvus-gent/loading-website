@@ -40,6 +40,9 @@ jobs:
       - run: node tests/rust/army-model.mjs
       - run: node tests/rust/army-store.mjs
       - run: node tests/rust/army-auth.mjs
+      - run: node tests/rust/army-payments.mjs
+      - run: node tests/rust/army-discord.mjs
+      - run: node tests/rust/army-mail.mjs
       - run: node tests/rust/legion-store.mjs
       - run: node tests/rust/legion-admission.mjs
       - run: node tests/rust/legion-newsletter.mjs

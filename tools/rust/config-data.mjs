@@ -64,3 +64,7 @@ const armyConfig=await import('../../js/army/domain.js');
 const army=JSON.stringify(Object.fromEntries(['LANGUAGES','RANKS','WEIGHTS','FEATHERS','RETENTION','DAY','TIERS','LIFETIME','CONSUL_SEATS'].map(k=>[k,armyConfig[k]])),null,2)+'\n';
 const file11=new URL('../../rust/migration/army-config.json',import.meta.url);
 if(process.argv.includes('--check')){if(readFileSync(file11,'utf8')!==army)throw Error('Rust Army configuration is stale');}else writeFileSync(file11,army);
+
+const armyLocales={};for(const feature of ['army','mail']){armyLocales[feature]={};for(const lang of armyConfig.LANGUAGES)armyLocales[feature][lang]=JSON.parse(readFileSync(new URL(`../../js/i18n/${feature}.${lang}.json`,import.meta.url),'utf8'));}
+const armyCopy=JSON.stringify(armyLocales)+'\n',file12=new URL('../../rust/migration/army-locales.json',import.meta.url);
+if(process.argv.includes('--check')){if(readFileSync(file12,'utf8')!==armyCopy)throw Error('Rust Army locale copy is stale');}else writeFileSync(file12,armyCopy);
