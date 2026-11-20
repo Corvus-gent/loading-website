@@ -3,3 +3,5 @@
 .cv-channels{display:flex;flex-wrap:wrap;gap:12px 24px}.cv-channels a{display:inline-flex;align-items:center;min-height:44px;font-size:14px}
 
 .cv-sample img.cv-image-contain{object-fit:contain;background:#11110f;padding:12px}
+
+@media print{.cv-kicker{color:#333}.cv-metrics span{color:#444}section{scroll-margin-top:0}}

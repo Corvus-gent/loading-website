@@ -40,7 +40,8 @@
     "lint": "node tools/lint.mjs",
     "test:philosophy": "node --experimental-vm-modules tests/philosophy-cv.mjs",
     "build:cv": "node tools/cv/build.mjs",
-    "test:cv": "node tests/cv-profiles.mjs"
+    "test:cv": "node tests/cv-profiles.mjs",
+    "check:cv-pdfs": "node tools/cv/check-pdfs.mjs"
   },
   "overrides": {
     "@vercel/cli-config": {
