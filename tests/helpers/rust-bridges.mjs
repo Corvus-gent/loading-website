@@ -2,6 +2,9 @@
 // These contain only module wiring; all replacement behavior lives in Rust/WASM.
 const wasm='/rust/browser/pkg/corvus_browser.js';
 const bridges={
+ '/compound/app.js':`import '/compound/client.js';import init,{start_compound_editor} from '${wasm}';await init();start_compound_editor();`,
+ '/compound/clock.js':`import('${wasm}').then(async m=>{await m.default();m.start_compound_clock();});`,
+ '/compound/cuts.js':`// Cut rendering and playback now live in the Rust module.`,
  '/compound/admin.js':`import '/compound/client.js';import init,{start_compound_editor_admin} from '${wasm}';await init();start_compound_editor_admin();`,
  '/compound/stats.js':`import '/compound/client.js';import init,{start_compound_editor_stats} from '${wasm}';await init();start_compound_editor_stats();`,
  '/compound/v2/admin.js':`import '/compound/client.js';import init,{start_compound_admin} from '${wasm}';await init();start_compound_admin();`,

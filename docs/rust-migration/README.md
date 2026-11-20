@@ -36,7 +36,7 @@ Use portable Rust with Axum, Tokio and rustls. An adapter uses the **official** 
 | Inventory, baseline, Cargo workspace, native/Vercel/WASM adapters | Compile; snapshot production; no changed routes | In progress |
 | Storage, secrets, OTP sessions, consent, rate limiting | JS/Rust signature parity; bidirectional cookies; concurrent OTP use; denied preview writes | Initial auth tests pass locally |
 | Routing, gates, tiers, language state | All route aliases; protected-page negative tests; 04:02/DST; mobile/browser parity | Layer handlers and gate/language browser parity pass locally |
-| Compound/battle/interviews/impact | No lost votes; private/public field boundaries; null-vs-zero scores; code links; admin writes | Pure metrics/code rules, private live interviews, battle voting/proofs, hackathon comments and OSSMAN scores/ideas pass isolated cross-runtime tests; Compound registry/auth/import/queue/winner/reports/sync and HTTP/summary handlers verified; interview quick-add/store/photo and browser flows verified locally; interview OG pending; Impact model/storage/providers/sync/HTTP verified; Impact and Compound v2 public/admin/share Rust/WASM verified locally; original three-cut API and Stripe webhook pass isolated store/HTTP/signature contracts; original admin/statistics Rust/WASM pass real API and exact-DOM checks; latest native preview verified read-only for earlier modules; publishing browser WASM remains pending |
+| Compound/battle/interviews/impact | No lost votes; private/public field boundaries; null-vs-zero scores; code links; admin writes | Pure metrics/code rules, private live interviews, battle voting/proofs, hackathon comments and OSSMAN scores/ideas pass isolated cross-runtime tests; Compound registry/auth/import/queue/winner/reports/sync and HTTP/summary handlers verified; interview quick-add/store/photo and browser flows verified locally; interview OG pending; Impact model/storage/providers/sync/HTTP verified; Impact and Compound v2 public/admin/share Rust/WASM verified locally; original three-cut API and Stripe webhook pass isolated store/HTTP/signature contracts; original public/admin/statistics Rust/WASM pass real media/API and exact-DOM checks; latest native preview verified read-only for earlier modules; publishing browser WASM remains pending |
 | Games, Plethora, support, referrals, public statistics | Game replay fixtures; atomic counters; no duplicate tracking; historical totals | Plethora and support handlers pass cross-runtime tests; other handlers pending |
 | Legion, Senate, payments, email, uploads | Test invite claim/edit/revoke; webhook retries; stored identity compatibility; blob/image EXIF rules | Pending |
 | Remaining APIs, research tools, build, OG, scheduled jobs | Complete file inventory; contract fixtures; single scheduled writer | Pending |
@@ -70,6 +70,8 @@ node tests/rust/compound-browser.mjs
 node tests/rust/compound-admin-render.mjs
 node tests/rust/compound-editor-render.mjs
 node tests/rust/compound-editor-browser.mjs
+node tests/rust/compound-editor-public-render.mjs
+node tests/rust/compound-editor-public-browser.mjs
 node tests/rust/interviews-browser.mjs
 node tests/rust/impact-browser.mjs
 node tests/rust/impact-render.mjs

@@ -54,6 +54,8 @@ jobs:
       - run: node tests/rust/compound-admin-render.mjs
       - run: node tests/rust/compound-editor-render.mjs
       - run: node tests/rust/compound-editor-browser.mjs
+      - run: node tests/rust/compound-editor-public-render.mjs
+      - run: node tests/rust/compound-editor-public-browser.mjs
       - run: node tests/rust/interviews-browser.mjs
       - run: node tests/rust/impact-browser.mjs
       - run: node tests/rust/impact-render.mjs

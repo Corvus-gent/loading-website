@@ -1,5 +1,9 @@
 //! Original three-cut editor: same content, native browser behavior.
 mod admin;
+mod clock;
+mod cut;
+mod dom;
+mod public;
 use crate::{compound_client as client, ui};
 use serde_json::{Value, json};
 use wasm_bindgen::{JsCast, prelude::*};
@@ -103,4 +107,13 @@ pub fn start_compound_editor_admin() -> Result<(), JsValue> {
 #[wasm_bindgen]
 pub fn start_compound_editor_stats() -> Result<(), JsValue> {
     admin::start(false)
+}
+
+#[wasm_bindgen]
+pub fn start_compound_editor() -> Result<(), JsValue> {
+    public::start()
+}
+#[wasm_bindgen]
+pub fn start_compound_clock() -> Result<(), JsValue> {
+    clock::start()
 }
