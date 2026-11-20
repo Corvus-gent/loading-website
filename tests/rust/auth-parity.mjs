@@ -6,12 +6,13 @@ import {createClient} from 'redis';
 import {createHash,createHmac} from 'node:crypto';
 import {existsSync} from 'node:fs';
 import {liveContracts} from './live-parity.mjs';
+import {plethoraContracts} from './plethora-parity.mjs';
 const freePort=async()=>{const s=net.createServer();await new Promise(r=>s.listen(0,'127.0.0.1',r));const p=s.address().port;await new Promise(r=>s.close(r));return p;};
 const port=await freePort(),rustPort=await freePort();
 const redisBin=process.env.REDIS_SERVER||(existsSync('/tmp/corvus-redis-tests/source/src/redis-server')?'/tmp/corvus-redis-tests/source/src/redis-server':'redis-server');
 const redis=spawn(redisBin,['--bind','127.0.0.1','--port',String(port),'--save','','--appendonly','no'],{stdio:'ignore'});
 const secret='rust-parity-fixture-not-a-real-secret';
-const env={PATH:process.env.PATH,LANG:'en_US.UTF-8',REDIS_URL:`redis://127.0.0.1:${port}/1`,SESSION_SECRET:secret,CORVUS_RUST_MODULES:'auth,layers,live',CORVUS_RUST_WRITES:'isolated',RUST_DEV_PORT:String(rustPort)};
+const env={PATH:process.env.PATH,LANG:'en_US.UTF-8',REDIS_URL:`redis://127.0.0.1:${port}/1`,SESSION_SECRET:secret,PLETHORA_ADMIN_KEY:secret,CORVUS_RUST_MODULES:'auth,layers,live,plethora',CORVUS_RUST_WRITES:'isolated',RUST_DEV_PORT:String(rustPort)};
 const rust=spawn('target/debug/corvus-dev',[],{env,stdio:['ignore','pipe','pipe']});
 let rustOutput='';rust.stderr.on('data',d=>rustOutput+=d);
 const client=createClient({url:env.REDIS_URL,socket:{reconnectStrategy:()=>50}});client.on('error',()=>{});
@@ -20,8 +21,8 @@ try{
  await Promise.race([client.connect(),new Promise((_,j)=>setTimeout(()=>j(Error('Redis failed to start')),5000))]);
  for(const k of Object.keys(process.env))if(/REDIS|KV_|SECRET|REST_API/.test(k))delete process.env[k];
  Object.assign(process.env,env);
- const {default:handler}=await import('../../api/auth.js');const {default:legion}=await import('../../api/_legion/handler.js');const {default:live}=await import('../../api/_live.js');
- legacy=http.createServer(async(req,res)=>{try{let b='';for await(const chunk of req)b+=chunk;req.body=b?JSON.parse(b):{};req.query=Object.fromEntries(new URL(req.url,'http://localhost').searchParams);res.status=n=>(res.statusCode=n,res);res.send=v=>res.end(v);res.json=v=>{res.setHeader('Content-Type','application/json');res.end(JSON.stringify(v));};if(req.query.module==='layers')await legion(req,res);else if(req.query.module==='live')await live(req,res);else await handler(req,res);}catch{res.statusCode=503;res.end('{}');}});
+ const {default:handler}=await import('../../api/auth.js');const {default:legion}=await import('../../api/_legion/handler.js');const {default:live}=await import('../../api/_live.js');const {default:plethora}=await import('../../api/_plethora.js');
+ legacy=http.createServer(async(req,res)=>{try{let b='';for await(const chunk of req)b+=chunk;req.body=b?JSON.parse(b):{};req.query=Object.fromEntries(new URL(req.url,'http://localhost').searchParams);res.status=n=>(res.statusCode=n,res);res.send=v=>res.end(v);res.json=v=>{res.setHeader('Content-Type','application/json');res.end(JSON.stringify(v));};if(req.query.module==='layers')await legion(req,res);else if(req.query.module==='live')await live(req,res);else if(req.query.module==='plethora')await plethora(req,res);else await handler(req,res);}catch{res.statusCode=503;res.end('{}');}});
  await new Promise(r=>legacy.listen(0,'127.0.0.1',r));
  const urls={legacy:`http://127.0.0.1:${legacy.address().port}/`,rust:`http://127.0.0.1:${rustPort}/api/rust?module=auth`};
  for(let n=0;n<50;n++){try{if((await fetch(urls.rust)).ok)break;}catch{}if(n===49)throw Error('Rust did not start: '+rustOutput);await new Promise(r=>setTimeout(r,50));}
@@ -70,6 +71,7 @@ try{
  console.log('PASS: bidirectional layer cookies; shared daily allowance; pinned timezone; paid member access and immediate revocation.');
  console.log('PASS: old cookies → Rust; Rust cookies → legacy; CSRF; OTP expiry, 3-attempt limit, concurrent single use; private log retention. No mail sent.');
  await liveContracts({urls,client,secret});
+ await plethoraContracts({urls,client,secret});
 }finally{
  await client.disconnect().catch(()=>{});legacy?.closeAllConnections();legacy?.close();rust.kill('SIGTERM');redis.kill('SIGTERM');
  // The legacy module owns a Redis connection that is intentionally not exported.

@@ -113,6 +113,16 @@ impl Store {
             }
             return Ok(body["result"].clone());
         }
+        let mut conn = self.connection().await?;
+        let mut cmd = redis::cmd(&args[0]);
+        cmd.arg(&args[1..]);
+        let value: redis::Value = cmd
+            .query_async(&mut conn)
+            .await
+            .map_err(|_| StoreError::Unavailable)?;
+        convert(value)
+    }
+    async fn connection(&self) -> Result<ConnectionManager, StoreError> {
         let url = self.settings.redis_url()?.ok_or(ConfigError::Missing)?;
         self.endpoint(url, false)?;
         let connection = self
@@ -129,14 +139,59 @@ impl Store {
                     .map_err(|_| StoreError::Unavailable)
             })
             .await?;
-        let mut conn = connection.clone();
-        let mut cmd = redis::cmd(&args[0]);
-        cmd.arg(&args[1..]);
-        let value: redis::Value = cmd
+        Ok(connection.clone())
+    }
+    pub async fn pipeline(&self, commands: Vec<Vec<String>>) -> Result<Vec<Value>, StoreError> {
+        if commands.is_empty() {
+            return Ok(Vec::new());
+        }
+        if self.settings.get("REDIS_MAINTENANCE") == Some("1") || commands.iter().any(Vec::is_empty)
+        {
+            return Err(StoreError::Unavailable);
+        }
+        // Validate the whole batch before sending any command, including mixed batches.
+        if commands.iter().any(|c| !read_command(&c[0])) && !self.settings.write_enabled() {
+            return Err(StoreError::ReadOnly);
+        }
+        if let Some((url, token)) = self.settings.rest()? {
+            self.endpoint(url, true)?;
+            let response = self
+                .http
+                .post(format!("{}/pipeline", url.trim_end_matches('/')))
+                .bearer_auth(token)
+                .json(&commands)
+                .send()
+                .await
+                .map_err(|_| StoreError::Unavailable)?;
+            if !response.status().is_success() {
+                return Err(StoreError::Unavailable);
+            }
+            let rows: Value = response.json().await.map_err(|_| StoreError::Unavailable)?;
+            let rows = rows
+                .as_array()
+                .filter(|r| r.len() == commands.len())
+                .ok_or(StoreError::Unavailable)?;
+            return rows
+                .iter()
+                .map(|r| {
+                    if r.get("error").is_some_and(|e| !e.is_null()) {
+                        Err(StoreError::Unavailable)
+                    } else {
+                        r.get("result").cloned().ok_or(StoreError::Unavailable)
+                    }
+                })
+                .collect();
+        }
+        let mut conn = self.connection().await?;
+        let mut pipe = redis::pipe();
+        for args in commands {
+            pipe.cmd(&args[0]).arg(&args[1..]);
+        }
+        let rows: Vec<redis::Value> = pipe
             .query_async(&mut conn)
             .await
             .map_err(|_| StoreError::Unavailable)?;
-        convert(value)
+        rows.into_iter().map(convert).collect()
     }
     pub async fn get(&self, key: &str) -> Result<Value, StoreError> {
         self.command(vec!["GET".into(), key.into()]).await
@@ -179,5 +234,19 @@ mod tests {
         assert!(!read_command("EVAL"));
         assert!(!read_command("SET"));
         assert!(read_command("GET"));
+    }
+    #[tokio::test]
+    async fn mixed_batch_is_rejected_before_any_io() {
+        let store = Store::new(
+            Arc::new(Settings::new(Default::default())),
+            reqwest::Client::new(),
+        );
+        let result = store
+            .pipeline(vec![
+                vec!["GET".into(), "fixture".into()],
+                vec!["SET".into(), "fixture".into(), "changed".into()],
+            ])
+            .await;
+        assert!(matches!(result, Err(StoreError::ReadOnly)));
     }
 }

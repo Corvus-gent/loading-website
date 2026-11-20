@@ -49,6 +49,9 @@ impl Settings {
         Ok(first)
     }
     pub fn redis_url(&self) -> Result<Option<&str>, ConfigError> {
+        if let Some(value) = self.get("REDIS_TLS_URL") {
+            return Ok(Some(value));
+        }
         if let Some(value) = self.get("REDIS_URL") {
             return Ok(Some(value));
         }
@@ -58,7 +61,7 @@ impl Settings {
         self.suffix("KV_URL", true)
     }
     pub fn rest(&self) -> Result<Option<(&str, &str)>, ConfigError> {
-        if self.get("REDIS_URL").is_some() {
+        if self.get("REDIS_TLS_URL").is_some() || self.get("REDIS_URL").is_some() {
             return Ok(None);
         }
         let url = self
@@ -107,6 +110,30 @@ mod tests {
         );
         assert_eq!(s.redis_url().ok().flatten(), Some("redis://127.0.0.1:1/1"));
         assert_eq!(s.rest().ok().flatten(), None);
+    }
+    #[test]
+    fn explicit_tls_target_wins_without_changing_identity_seed() {
+        let s = Settings::new(
+            [
+                ("REDIS_TLS_URL".into(), "rediss://new.example:6380/1".into()),
+                (
+                    "REDIS_URL".into(),
+                    "redis://old:password@old.example:6379/1".into(),
+                ),
+                ("A_REST_API_URL".into(), "https://rest.example".into()),
+                ("A_REST_API_TOKEN".into(), "fixture".into()),
+            ]
+            .into(),
+        );
+        assert_eq!(
+            s.redis_url().ok().flatten(),
+            Some("rediss://new.example:6380/1")
+        );
+        assert_eq!(s.rest().ok().flatten(), None);
+        assert_eq!(
+            crate::crypto::credential_seed(&s).ok().as_deref(),
+            Some("redis://old:password@old.example:6379/1")
+        );
     }
     #[test]
     fn isolated_mode_never_uses_the_default_database() {

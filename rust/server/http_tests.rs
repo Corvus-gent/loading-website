@@ -65,3 +65,48 @@ async fn enabled_preview_still_cannot_write_remote_data() -> Result<(), crate::E
     assert!(response.headers().get("set-cookie").is_none());
     Ok(())
 }
+
+#[tokio::test]
+async fn public_referrals_survive_missing_storage_without_fabricating_counts()
+-> Result<(), crate::Error> {
+    use http_body_util::BodyExt;
+    let app = app_with(Settings::new(
+        [("CORVUS_RUST_MODULES".into(), "plethora,live".into())].into(),
+    ))?;
+    for module in ["plethora", "live"] {
+        let slug = if module == "plethora" {
+            "plethora-home"
+        } else {
+            "twitch"
+        };
+        let response = app
+            .clone()
+            .oneshot(
+                Request::builder()
+                    .uri(format!("/api/rust?module={module}&slug={slug}"))
+                    .body(Body::empty())?,
+            )
+            .await?;
+        assert_eq!(response.status(), StatusCode::FOUND);
+        assert!(response.headers().get("location").is_some());
+    }
+    for (action, status) in [
+        ("stats", StatusCode::OK),
+        ("csv", StatusCode::SERVICE_UNAVAILABLE),
+    ] {
+        let response = app
+            .clone()
+            .oneshot(
+                Request::builder()
+                    .uri(format!("/api/rust?module=plethora&action={action}"))
+                    .body(Body::empty())?,
+            )
+            .await?;
+        assert_eq!(response.status(), status);
+        let data: serde_json::Value =
+            serde_json::from_slice(&response.into_body().collect().await?.to_bytes())?;
+        assert_eq!(data["ready"], false);
+        assert!(data.get("total").is_none());
+    }
+    Ok(())
+}

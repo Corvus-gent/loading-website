@@ -4,6 +4,7 @@ pub mod crypto;
 pub mod layers;
 pub mod live;
 pub mod live_interviews;
+pub mod plethora;
 pub mod store;
 use axum::{
     Json, Router,
@@ -70,6 +71,7 @@ async fn dispatch(
         "auth" => auth::handle(&state, &method, &headers, &body).await,
         "layers" => layers::handle(&state, &method, &headers, &query, &body).await,
         "live" => live::handle(&state, &method, &headers, &query, &body).await,
+        "plethora" => plethora::handle(&state, &method, &headers, &query).await,
         _ => Ok((
             StatusCode::NOT_FOUND,
             Json(json!({"error":"Unknown module."})),
