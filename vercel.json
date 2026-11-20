@@ -358,11 +358,11 @@
     },
     {
       "source": "/hackersbay",
-      "destination": "/public/hackersbay/index.html"
+      "destination": "/public/hackersbay/landing.generated.html"
     },
     {
       "source": "/hackersbay/",
-      "destination": "/public/hackersbay/index.html"
+      "destination": "/public/hackersbay/landing.generated.html"
     },
     {
       "source": "/cv/work/mistral",

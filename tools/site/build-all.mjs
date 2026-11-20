@@ -14,3 +14,6 @@ execFileSync("node", ["tools/forms/build.mjs"], {stdio:'inherit'});
 
 // Localized CV output is compiled last, outside the general site chrome.
 execFileSync("node", ["tools/philosophy/build.mjs"], {stdio:'inherit'});
+
+// Inline Hackers Bay landing styles into its static deployment output.
+execFileSync("node", ["lib/hackersbay/build-landing.js"], {stdio:'inherit'});

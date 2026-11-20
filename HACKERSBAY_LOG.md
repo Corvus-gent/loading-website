@@ -114,3 +114,11 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Decision. Reserve 44px targets for standalone controls. Keep links in continuous text inline.
 - Next. Measure first paint, defer the landing’s offscreen assets and motion, and strengthen the radar.
 - **STEER ME:** Keep sponsor credits beside the boarding action or move them below the sonar.
+
+## H14 · 2026-11-20 19:35 CET · First paint and radar
+
+- Shipped a stronger sonar with bearing marks and the three Broke hacker contacts. Put Sink a Luma beside Board the ship and kept Demo Day details in the event strip.
+- Decision. Inline the shared stylesheet in the generated landing at build time. The radar paints at rest, starts moving after paint when visible, and honors reduced motion. The comparison loads its portraits near the viewport.
+- Verified. Five cold runs per width on a throttled connection moved median first contentful paint from 716 to 648 ms at 375px and from 724 to 628 ms at 414px. Both widths measured zero layout shift across the updated runs, with no initial portrait request. The mobile route audit passed again.
+- Next. Build and check the cannonball share card for LinkedIn and X.
+- **STEER ME:** Keep names beside the three sonar locks or show their reasons directly on the dial.

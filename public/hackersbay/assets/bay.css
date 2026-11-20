@@ -176,7 +176,7 @@ h1, h2, h3, p { margin-top: 0; }
 .face-grid { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 7px; max-width: 412px; }
 .portrait {
   display: inline-block; width: 100%; aspect-ratio: 1; flex: none; border-radius: 50%;
-  background: #284455 url("crew.webp") no-repeat;
+  background: #284455 var(--portrait-image, url("crew.webp")) no-repeat;
   background-size: 400% 400%;
   background-position: calc(var(--col) * 100% / 3) calc(var(--row) * 100% / 3);
   border: 1px solid #bacdcb33;
@@ -455,3 +455,56 @@ input[type="checkbox"] { width: 17px; min-height: 17px; height: 17px; margin: 0;
   .radar-meta, .manifest-inner { font-size: 11px; }
   .proof-box summary span, .pill, .powered-by { font-size: 11px; }
 }
+
+@font-face {
+  font-family: "Bay Landing Inter";
+  src: url("inter.woff2") format("woff2");
+  font-weight: 400 900;
+  font-display: optional;
+}
+@font-face {
+  font-family: "Bay Landing Mono";
+  src: url("jetbrains-mono.woff2") format("woff2");
+  font-weight: 400 700;
+  font-display: optional;
+}
+.landing {
+  --mono: "Bay Landing Mono", ui-monospace, monospace;
+  --portrait-image: none;
+  font-family: "Bay Landing Inter", system-ui, sans-serif;
+  background: radial-gradient(ellipse 55% 590px at 76% 230px, #0b293222, transparent 100%), var(--navy);
+}
+.landing .comparison[data-portraits] { --portrait-image: url("crew.webp"); }
+.manifest-link { font-family: "Bay Landing Inter", system-ui, sans-serif; font-size: 13px; }
+.manifest-link span { margin: 0 5px 0 0; }
+.landing-radar {
+  border-color: #34746d;
+  background: radial-gradient(circle at 50% 51%, #10453f 0, #0b2a33 49%, #091b2b 79%);
+  box-shadow: 0 22px 70px #020a15, inset 0 1px 0 #5ddfbd45;
+}
+.landing-radar::after {
+  content: ""; pointer-events: none; position: absolute; inset: 8px; border-radius: 11px;
+  border: 1px solid #77edc126;
+  mask: conic-gradient(from 45deg, #000 0deg 20deg, transparent 22deg 68deg, #000 70deg 110deg, transparent 112deg 158deg, #000 160deg 200deg, transparent 202deg 248deg, #000 250deg 290deg, transparent 292deg 338deg, #000 340deg);
+}
+.landing-radar .radar { width: min(100%, clamp(335px, 32vw, 435px)); }
+.landing-radar .radar::before {
+  content: ""; position: absolute; inset: 3%; border-radius: 50%;
+  background: repeating-conic-gradient(#84f2d27a 0deg .6deg, transparent .6deg 7.5deg);
+  mask: radial-gradient(circle closest-side, transparent 96%, #000 96%);
+}
+.landing-radar .dial {
+  border-color: #52ddb78c;
+  box-shadow: 0 0 54px #25a58c2b, inset 0 0 29px #3ee6c420;
+}
+.landing-radar .dial::after { inset: -7px; border-color: #589d9340; }
+.landing-radar .sweep {
+  transform: rotate(47deg);
+  background: conic-gradient(transparent 0 270deg, #3ee6c408 275deg, #3ee6c440 347deg, #82ffe0a0 360deg);
+}
+.landing-radar:not([data-animated]) :is(.sweep, .blip) { animation: none; }
+.landing-radar[data-animated] .sweep { animation-name: landing-sweep; }
+@keyframes landing-sweep { to { transform: rotate(407deg); } }
+.landing-radar .blip { opacity: .66; box-shadow: 0 0 9px #3ee6c499; }
+.landing-radar .lock { font-size: 12px; }
+.landing-radar .lock small { padding-inline: 5px; font-size: 11px; color: #ffe1a3; }
