@@ -1,0 +1,1 @@
+local a=tonumber(redis.call('HGET',KEYS[1],'codex') or '0'); local b=tonumber(redis.call('HGET',KEYS[1],'compound') or '0'); if ARGV[1]=='1' and a==b then return 'TIE' end; local winner=''; if ARGV[1]=='1' then if a>b then winner='codex' else winner='compound' end end; redis.call('HSET',KEYS[2],'closed',ARGV[1],'winner',winner,'views',ARGV[2],'updated',ARGV[3]); return 'OK'

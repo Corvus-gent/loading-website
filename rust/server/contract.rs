@@ -1,11 +1,47 @@
 use serde_json::{Value, json};
 use std::io::{self, BufRead};
 
-fn main() -> Result<(), corvus_server::Error> {
+#[tokio::main]
+async fn main() -> Result<(), corvus_server::Error> {
     for line in io::stdin().lock().lines() {
         let row: Value = serde_json::from_str(&line?)?;
         let value = row["value"].as_str().unwrap_or("");
         let result = match row["operation"].as_str() {
+            Some("voter-proof") => {
+                let settings = std::sync::Arc::new(corvus_server::config::Settings::from_env());
+                if settings.production()
+                    || settings.get("CORVUS_RUST_WRITES") != Some("isolated")
+                    || !settings.write_enabled()
+                {
+                    return Err("proof contract requires isolated local storage".into());
+                }
+                let http = reqwest::Client::new();
+                let state = corvus_server::AppState {
+                    store: corvus_server::store::Store::new(settings.clone(), http.clone()),
+                    http,
+                    settings,
+                    live: corvus_server::live::LiveService::new()?,
+                };
+                if row["make"] == true {
+                    corvus_server::voter::make_challenge(
+                        &state,
+                        value,
+                        row["action"].as_str().unwrap_or("vote"),
+                    )
+                    .await?
+                } else {
+                    json!({"valid":corvus_server::voter::verify_challenge(&state,value,&row["body"]).await?})
+                }
+            }
+            Some("voter-cookie") => {
+                let env = corvus_server::config::Settings::new(serde_json::from_value(
+                    row["env"].clone(),
+                )?);
+                json!({"music":corvus_server::voter::read_music(&env,value)?,"language":corvus_server::voter::read_language(&env,value)?,"musicSecret":corvus_server::crypto::music_vote_secret(&env)?,"languageSecret":corvus_server::crypto::language_vote_secret(&env)?,"gameSecret":corvus_server::crypto::game_secret(&env)?})
+            }
+            Some("battle-order") => {
+                json!({"order":corvus_server::battle::order(row["secret"].as_str().unwrap_or(""),value)})
+            }
             Some("routing") => match corvus_core::routing::decide(
                 value,
                 row["method"].as_str().unwrap_or("GET"),

@@ -15,6 +15,20 @@ import {memberTier,localDay} from '../../api/_legion/layers.js';
 import {validate,validChallenge} from '../../api/_live-interviews.js';
 import {hackLiveMode} from '../../hack/live-mode-config.js';
 const fixtures=[];
+{
+ const {readVoter:music}=await import('../../api/_music-security.js');const {readVoter:language}=await import('../../api/_voter.js');const {musicVoteSecret,languageVoteSecret,gameSecret}=await import('../../api/_secrets.js');
+ const keys=['PRIVACY_SECRET','SESSION_SECRET','VOTE_SECRET','MUSIC_VOTE_SECRET','LANGUAGE_VOTE_SECRET','GAME_SECRET','REDIS_URL','REDIS_IDENTITY_SEED'],saved=Object.fromEntries(keys.map(k=>[k,process.env[k]]));
+ for(const env of [{SESSION_SECRET:'fixture'},{PRIVACY_SECRET:'fixture'},{SESSION_SECRET:'fixture',VOTE_SECRET:'vote-fixture'},{SESSION_SECRET:'fixture',VOTE_SECRET:'vote-fixture',MUSIC_VOTE_SECRET:'music-fixture',LANGUAGE_VOTE_SECRET:'language-fixture',GAME_SECRET:'game-fixture'},{SESSION_SECRET:'fixture',REDIS_URL:'redis://fixture:local-password@localhost/1'},{PRIVACY_SECRET:'fixture',REDIS_IDENTITY_SEED:'keep-identities'}]){
+  for(const key of keys)delete process.env[key];Object.assign(process.env,env);
+  const id='fixture-voter-123456789',ms=createHmac('sha256',musicVoteSecret()).update(id).digest('base64url'),ls=createHmac('sha256',languageVoteSecret()).update(id).digest('base64url');
+  for(const value of ['',`mvid=${id}.${ms}`,`vid=${id}.${ls}`,`mvid=${id}.${ms}; vid=${id}.${ls}`,`mvid=${id}.${ms}broken`,`vid=${id}.${ls}broken`,`mvid=${id}.${ms}.ignored`,`vid=${id}.${ls}.ignored`,`other=1; mvid=${id}.${ms}; x=y`]){
+   const req={headers:{cookie:value}};fixtures.push({operation:'voter-cookie',value,env,expected:{music:music(req),language:language(req),musicSecret:musicVoteSecret(),languageSecret:languageVoteSecret(),gameSecret:gameSecret()}});
+  }
+ }
+ for(const key of keys){if(saved[key]===undefined)delete process.env[key];else process.env[key]=saved[key];}
+ for(const secret of ['fixture','fixture-🥋'])for(let n=0;n<40;n++){const value='device-'+String(n).padStart(16,'0');const odd=parseInt(createHmac('sha256',secret).update('battle:'+value).digest('hex').slice(0,2),16)%2;fixtures.push({operation:'battle-order',value,secret,expected:{order:odd?['compound','codex']:['codex','compound']}});}
+}
+
 const {validateRequest,configuration,shortDestination}=await import('../../api/_support.js');
 const form={name:' Fixture ',contact:'fixture@example.test',pain:'Launch\nfeedback',times:'today after 3pm PT',tier:'quick',source:'linkedin'};
 for(const body of [{},form,...['quick','coffee','meet','bogus','constructor'].flatMap(tier=>[false,true,'yes'].map(coffeePaid=>({...form,tier,coffeePaid}))),...['name','contact','pain','times'].flatMap(key=>[null,'', '  ', 'a'.repeat(601),'🥋'.repeat(41),'\uFEFFFixture\uFEFF','\u0085'].map(value=>({...form,[key]:value}))),...['x','linkedin','direct','evil'].map(source=>({...form,source}))]){

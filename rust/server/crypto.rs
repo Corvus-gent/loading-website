@@ -72,6 +72,30 @@ pub fn session_secret(env: &Settings) -> Result<String, ConfigError> {
     }
     Ok(sha(&format!("corvus{}", credential_seed(env)?)))
 }
+pub fn music_vote_secret(env: &Settings) -> Result<String, ConfigError> {
+    for key in ["MUSIC_VOTE_SECRET", "VOTE_SECRET", "SESSION_SECRET"] {
+        if let Some(v) = env.get(key) {
+            return Ok(v.into());
+        }
+    }
+    credential_seed(env)
+}
+pub fn language_vote_secret(env: &Settings) -> Result<String, ConfigError> {
+    for key in ["LANGUAGE_VOTE_SECRET", "VOTE_SECRET"] {
+        if let Some(v) = env.get(key) {
+            return Ok(v.into());
+        }
+    }
+    Ok(sha(&credential_seed(env)?))
+}
+pub fn game_secret(env: &Settings) -> Result<String, ConfigError> {
+    for key in ["GAME_SECRET", "SESSION_SECRET", "VOTE_SECRET"] {
+        if let Some(v) = env.get(key) {
+            return Ok(v.into());
+        }
+    }
+    credential_seed(env)
+}
 pub fn daily_ip_hash(secret: &str, forwarded: &str, scope: &str, day: &str) -> String {
     let address = forwarded.split(',').next().unwrap_or("").trim();
     let salt = hmac(

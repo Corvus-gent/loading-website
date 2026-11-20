@@ -20,4 +20,6 @@ Middleware decisions now match 9,324 cases across the complete catalogue, three 
 
 Support bookings/referrals now preserve the three tiers, owner/key administration, status edits with original TTLs, raw and unique counters, form challenges and email payloads. A 16-request JS/Rust race creates one booking. Tests cover shared rate limits, CSRF, private/public separation and email denial before external I/O in read-only mode. 776 pure contracts pass. No actual emails sent.
 
-Next: port battle/voter security and the remaining API/browser subsystems. See README completion gate. No production cutover until the full required compatibility checks and rollback exercise pass.
+Battle voting and shared voter security are ported: 12 redirects, blind device order/media, old/new voter-cookie interoperability, ten simultaneous votes count once, tie/close/reopen, admin validation, original 90-day vote retention and cross-runtime single-use proof-of-work challenges. 910 pure contracts and 9,324 routing decisions pass. No production vote or email was sent.
+
+Next: preserve the new upstream tattoo/inspiration additions, then continue browser/API migration. See README completion gate. No production cutover until the full required compatibility checks and rollback exercise pass.
