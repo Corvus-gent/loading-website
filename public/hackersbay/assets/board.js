@@ -56,6 +56,7 @@ profileForm.addEventListener('submit', async event => {
   try { url = normalizeProfileUrl(profileForm.elements.profile.value); }
   catch (error) { profileStatus.textContent = error.message; return; }
 
+  const privateMode = profileForm.elements.privateMode.checked;
   const id = ++requestId;
   button.disabled = true;
   profileStatus.textContent = 'Reading your public profile…';
@@ -63,14 +64,14 @@ profileForm.addEventListener('submit', async event => {
   try {
     const response = await fetch('/api/hackersbay?action=persona', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ url: url.href }), signal: AbortSignal.timeout(7000)
+      body: JSON.stringify({ url: url.href, privateMode }), signal: AbortSignal.timeout(10000)
     });
     if (response.ok) card = normalizeCard(await response.json());
   } catch { /* The same heuristic works entirely in the browser. */ }
   button.disabled = false;
   if (id !== requestId) return;
   profileStatus.textContent = card ? 'Crew card ready.' : 'Crew card ready from the link.';
-  renderCard(card || guessPersona(url));
+  renderCard(card || guessPersona(url, '', privateMode));
 });
 picker.addEventListener('click', () => {
   requestId++;

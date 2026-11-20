@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="/public/hackersbay/assets/bay.css">
   <title>Board the ship | The Hackers Bay</title>
   <script type="module" src="/public/hackersbay/assets/board.js"></script>
+  <script type="module" src="/public/hackersbay/assets/proof-view.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -34,6 +35,8 @@
           <label for="profile-url">Public profile or personal site</label>
           <input id="profile-url" name="profile" type="text" inputmode="url" autocomplete="url" spellcheck="false" required maxlength="320" placeholder="github.com/you" aria-describedby="profile-hint">
           <p class="fine" id="profile-hint">X, GitHub, LinkedIn, or your own site. You can edit every field.</p>
+          <label class="check-option"><input type="checkbox" name="privateMode"> NYTEX private mode</label>
+          <p class="fine">Private mode uses confidential inference or a local draft. Public profile reading may still contact the linked site.</p>
           <button class="button primary" type="submit">Draft my card <span aria-hidden="true">↗</span></button>
           <p id="profile-status" class="fine form-status" role="status"></p>
         </form>
@@ -55,6 +58,16 @@
         <button class="button primary" type="submit">Find my 3 people <span aria-hidden="true">↗</span></button>
         <p id="card-status" class="fine form-status" role="status"></p>
       </form>
+      <details class="proof-box" id="proof-box">
+        <summary>Proof of Build <span>Powered by Boat.dev</span></summary>
+        <form id="proof-form">
+          <label for="proof-repo">Public GitHub repository</label>
+          <input id="proof-repo" name="repo" placeholder="github.com/owner/project" inputmode="url" spellcheck="false" maxlength="230" required>
+          <button class="button" type="submit">Build a preview</button>
+        </form>
+        <p class="fine" id="proof-status" role="status"></p>
+        <a class="button proof-result" id="proof-result" target="_blank" rel="noopener noreferrer" hidden>Open preview ↗</a>
+      </details>
     </section>
     <noscript><p class="panel">JavaScript is needed to draft a crew card and match people in this demo.</p></noscript>
   </main>

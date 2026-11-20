@@ -380,3 +380,18 @@ input::placeholder { color: #8aa2b3; }
 }
 .footer-links { display: flex; gap: 10px 16px; flex-wrap: wrap; color: var(--muted); font-size: 12px; }
 .footer-links a { text-underline-offset: 3px; }
+
+.profile-panel .check-option { display: flex; align-items: center; gap: 8px; }
+input[type="checkbox"] { width: 17px; min-height: 17px; height: 17px; margin: 0; accent-color: var(--teal); }
+.check-option + .fine { margin: 4px 0 14px; }
+
+.proof-box { margin-top: 19px; border-top: 1px solid var(--line); padding-top: 13px; }
+.proof-box summary { cursor: pointer; font-weight: 750; }
+.proof-box summary span { margin-left: 5px; color: var(--muted); font: 500 10px var(--mono); }
+.proof-box form { margin-top: 12px; }
+.proof-box input { max-width: 420px; display: block; }
+.proof-box #proof-status { margin: 8px 0 0; }
+.proof-result { margin-top: 8px; }
+.proof-terminal, .demo-deck { max-width: 620px; margin-bottom: 15px; }
+.proof-terminal pre { white-space: pre-wrap; overflow-wrap: anywhere; color: var(--teal); font: 500 13px/1.6 var(--mono); }
+.demo-deck .check-option { display: flex; gap: 10px; align-items: center; min-height: 40px; cursor: pointer; }

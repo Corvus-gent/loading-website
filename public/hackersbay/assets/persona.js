@@ -84,7 +84,7 @@ export function guessPersona(url, profileText = '', privateMode = false) {
   const name = personaLabel(url);
   const signal = [url.hostname, name, profileText].join(' ').toLowerCase();
   const type = /\b(angel investor|ventures?|investment|venture capital|investing|portfolio companies)\b/.test(signal) ? 'investor'
-    : /\b(community|meetup|organizer|organiser|networking|introductions)\b/.test(signal) ? 'connector' : 'builder';
+    : /\b(founder communit(?:y|ies)|community (?:building|organizer|organiser|lead|manager|operator)|meetup (?:host|organizer)|warm introductions|event organizer)\b/.test(signal) ? 'connector' : 'builder';
   const card = preset(type);
   if (/\b(open.source|github|repositories|developer tools)\b/.test(signal)) card.builds = 'Code, experiments, and open-source projects';
   if (/\b(design|ux|product designer)\b/.test(signal)) card.offers = 'Product design and clear feedback on demos';

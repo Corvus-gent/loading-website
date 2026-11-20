@@ -53,3 +53,12 @@ Times are Paris local time. The release starts with the public Boat Hackathon De
 - Verified. The site build passed. Chromium at 375px checked room changes, persistence, graph selection, and thesis filtering.
 - Next. Add Context.dev, NYTEX private mode, and Boat.dev Proof of Build with offline fallbacks.
 - **STEER ME:** Start the host with a four-person sample or an empty draft. Lead the sponsor report with private inference or sandbox tooling.
+
+## H7 · 2026-11-20 16:31 CET · Sponsor integrations and Proof of Build
+
+- Shipped Context.dev Markdown reads, standard LLM drafting, and NYTEX confidential routing that falls back to the labeled private demo when unavailable.
+- Shipped Boat.dev Proof of Build on the crew card. Approved repositories can run in temporary VMs, with a health check and a preview URL. The same flow opens an interactive Dockside sample without keys.
+- Decision. Took the isolated VM and exposed-port pattern from luxcode, sandboxmaxxing and the Tenki cookbook. Live builds allow only configured public repos, disable account secrets and snapshots, and stop automatically after 15 minutes.
+- Verified. The build and the 375px fallback flow passed. Mocked provider requests exercised the documented APIs, including private inference and Boat provisioning, status and hosting.
+- Next. Publish this log, polish the Sonar experience, and package the macOS wrapper.
+- **STEER ME:** Pick the first allowlisted repository for the stage preview. Choose whether private mode should start enabled.
