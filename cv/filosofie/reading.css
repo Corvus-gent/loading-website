@@ -116,3 +116,28 @@ section {
   border: 1px solid var(--accent);
   border-radius: 4px;
 }
+
+header, section:last-child { position: relative; }
+
+.margin-art {
+  display: block;
+  width: min(7rem, 30%);
+  height: auto;
+  object-fit: contain;
+  opacity: .64;
+  filter: sepia(.3);
+}
+
+.diogenes { float: right; margin: 0 0 .75rem 1rem; }
+.michael { margin: 1.75rem 0 0 auto; }
+
+@media (min-width: 68rem) {
+  .margin-art {
+    position: absolute;
+    width: 9rem;
+    margin: 0;
+  }
+
+  .diogenes { top: 0; right: calc(100% + 2rem); }
+  .michael { bottom: 0; left: calc(100% + 2rem); }
+}
