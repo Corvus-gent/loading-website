@@ -1,4 +1,10 @@
 // Personal interpretations, not claims about what an artist intended.
+export const EVOLUTION = {
+ id: 'monferno',
+ name: 'Chimchar → Monferno → Infernape',
+ detail: 'use Monferno as the main silhouette, with an alert stance and a curling tail. Suggest Chimchar as a small ember and Infernape as a rising flame. Let a single sweep connect the three stages. Carry the feeling of learning to direct the fire you already have.'
+};
+
 export const INSPIRATIONS = [
  {id:'michael',name:'Archangel Michael',tag:'the protector',group:'angels',image:'/public/inspiration/michael.webp',alt:'Archangel Michael with wings and a sword, painted by Guido Reni.',line:'strength with a purpose.',lore:'The first reference. Wings, a grounded stance and a blade held with intention. For me: protect what matters, then do the work.',detail:'a wing following the shoulder, a grounded stance, a restrained blade',credit:'Guido Reni · c. 1636 · public domain',source:'https://commons.wikimedia.org/wiki/File:Guido_Reni_031.jpg'},
  {id:'fallen',name:'The Fallen Angel',tag:'the eyes say everything',group:'angels',image:'/public/inspiration/fallen.webp',alt:'The intense gaze behind a raised arm in Alexandre Cabanel’s The Fallen Angel.',line:'hurt. proud. still here.',lore:'Not just an angel: that look under the arm. The tension between vulnerability and defiance is the part I want to keep.',detail:'an intense gaze partly concealed by a forearm, one small tear, quiet tension',credit:'Alexandre Cabanel · 1847 · public domain',source:'https://commons.wikimedia.org/wiki/File:The_Fallen_Angel_-_Alexandre_Cabanel.jpg'},
@@ -12,7 +18,7 @@ export const INSPIRATIONS = [
 ];
 export function dailyBrief({date=new Date(),ids=['michael','fallen'],placement='shoulder / upper arm',variation=0}={}) {
  const day=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Brussels',year:'numeric',month:'2-digit',day:'2-digit'}).format(date);
- const selected=INSPIRATIONS.filter(item=>ids.includes(item.id));
+ const selected=[EVOLUTION,...INSPIRATIONS].filter(item=>ids.includes(item.id));
  const angles=['one strong silhouette, with smaller details discovered up close','an asymmetric composition that follows the body rather than a rectangle','a close-up study with the eyes as the emotional anchor','a flowing composition with one quiet area and one concentrated burst of detail'];
  const inscription=selected.find(item=>item.quote)?.quote;
  const lettering=inscription
