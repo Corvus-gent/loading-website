@@ -17,3 +17,7 @@ assert(researchHtml.includes('href="#research"'),'research CTA reaches research 
 const hubResearch=hub.match(/<section id="research"[\s\S]*?<\/section>/)[0];
 assert.deepEqual([...hubResearch.matchAll(/href="\/cv\/work\/([^"]+)"/g)].map(m=>m[1]),data.profiles.filter(p=>p.company).map(p=>p.slug),'employer priority is consistent');
 console.log('PASS: stale-PDF rejection, presentation-only changes, research-first evidence and employer priority.');
+
+for(const lang of ['nl','es','fr','pt','de','zh']){const copy=JSON.parse(await fs.readFile('public/i18n/site.'+lang+'.json','utf8'));for(const key of ['Apple →','Anthropic →','OpenAI →','Amazon →','Google →',data.name])assert.equal(copy[key],key,'proper name preserved in '+lang);assert(copy['See research ↓']);}
+assert(researchHtml.includes('<h1 translate="no">'+data.name+'</h1>'));
+console.log('PASS: candidate identity, company names and original paper titles survive translation.');

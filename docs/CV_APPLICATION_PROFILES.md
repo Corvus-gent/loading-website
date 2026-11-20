@@ -35,3 +35,7 @@ Location relevance: the generic European-options line is removed everywhere. Onl
 The PDF generator writes `cv/pdf-manifest.json` with source and generator hashes, PDF byte hashes, and page counts. `npm run build:cv` refuses stale or modified downloads before compiling the HTML, so editing candidate copy cannot silently publish a website with an old PDF. Run `python3 tools/cv/build-pdfs.py` before building after content changes. `npm run check:cv-pdfs` checks the existing assets without regenerating them. Card images and employer ordering are presentation-only and do not invalidate the PDFs.
 
 PDF generation is deterministic (`invariant=1`), and the author's identity and location come from the shared data. Each output must be exactly one page. The technical edition now includes the course research papers and a concise earlier-experience line; detailed experience remains on the website.
+
+The technical PDF API serves the file before optional analytics completes. Aggregate counters use the existing Redis pipeline in Vercel `waitUntil` background work. HEAD and bots do not increment counters; unsupported methods receive 405. A counter outage cannot delay the PDF response.
+
+Proper names, company marks, identity headings, social handles and original paper titles use `translate="no"`. Targeted catalog corrections preserve the exact company and candidate names, and the research CTA has authored translations.
