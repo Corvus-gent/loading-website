@@ -53,6 +53,8 @@ cargo clippy --workspace --all-targets -- -D warnings
 cargo test --workspace
 cargo build --bins
 node tools/rust/parity.mjs
+node tools/rust/routing-parity.mjs
+node tests/rust/build-boundary.mjs
 node tests/rust/auth-parity.mjs
 cargo check -p corvus-browser --target wasm32-unknown-unknown
 ```

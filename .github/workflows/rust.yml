@@ -32,7 +32,9 @@ jobs:
       - run: cargo check --locked -p corvus-browser --target wasm32-unknown-unknown
       - run: cargo build --locked --bins
       - run: node tools/rust/parity.mjs
+      - run: node tools/rust/routing-parity.mjs
       - run: node tests/rust/source-privacy.mjs
+      - run: node tests/rust/build-boundary.mjs
       - run: node tests/rust/auth-parity.mjs
       - run: tools/rust/build-browser.sh
       - run: npx playwright install --with-deps chromium

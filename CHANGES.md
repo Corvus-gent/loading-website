@@ -1,3 +1,4 @@
+- 2026-11-20: Rust migration now preserves 9,324 middleware decisions; exclude compiler inputs from the publishing build, public directory and search. Production routing unchanged.
 ## 2026-11-20 — codex/rust-migration (in progress)
 
 - Establish a separate Rust/Vercel + WebAssembly workspace, frozen baseline and explicit migration gates. Preserve existing routes and production handlers. Add compatible storage/session/layer handlers, live status and interview requests, and Rust/WASM gate, languages and banner. Cross-runtime and browser regression checks run before enabling production traffic.

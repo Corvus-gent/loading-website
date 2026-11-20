@@ -2,5 +2,6 @@
 pub mod army;
 pub mod metrics;
 pub mod plethora;
+pub mod routing;
 pub mod tiers;
 pub mod videos;

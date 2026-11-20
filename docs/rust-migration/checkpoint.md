@@ -14,4 +14,8 @@ CI from the first commit exposed a third-party Twitch iframe error in the browse
 
 CI for 674d0b1: Rust parity passed on GitHub Actions; original Feature checks still fail at the baseline standalone-page banner assertion.
 
-Next: verify a read-only preview with the new modules enabled, then port routing and the remaining API/browser subsystems. See README completion gate. No production cutover until the full required compatibility checks and rollback exercise pass.
+Read-only enabled preview https://loading-website-l5kbhsnyf-corvus11.vercel.app (07a332f): live and Plethora modules respond, writes stay disabled, and the Rust Plethora report equals the legacy report (64 preview-environment clicks, not production counts). Rust CI for 07a332f passed.
+
+Middleware decisions now match 9,324 cases across the complete catalogue, three hosts, aliases, OG metadata, gates, UTF-8 queries, private source paths and CLI analytics. Routing decisions are not wired to production traffic yet. The actual publishing build passes in a disposable copy: Rust HTML fragments remain unchanged, and Rust/target inputs never enter the directory or search.
+
+Next: port support bookings and the remaining API/browser subsystems. See README completion gate. No production cutover until the full required compatibility checks and rollback exercise pass.

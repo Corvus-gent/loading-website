@@ -6,6 +6,15 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         let row: Value = serde_json::from_str(&line?)?;
         let value = row["value"].as_str().unwrap_or("");
         let result = match row["operation"].as_str() {
+            Some("routing") => match corvus_core::routing::decide(
+                value,
+                row["method"].as_str().unwrap_or("GET"),
+                row["ua"].as_str().unwrap_or(""),
+                row["cookie"].as_str().unwrap_or(""),
+            ) {
+                Ok(result) => serde_json::to_value(result)?,
+                Err(_) => json!({"error":true}),
+            },
             Some("live-form") => {
                 let result = corvus_server::live_interviews::validate(&row["body"]);
                 match result {
