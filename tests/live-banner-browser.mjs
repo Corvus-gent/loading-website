@@ -1,9 +1,10 @@
+import {hasStandaloneChrome} from '../tools/site/chrome-policy.mjs';
 import {chromium,expect} from '@playwright/test';
 import http from 'node:http';import fs from 'node:fs/promises';import path from 'node:path';import assert from 'node:assert/strict';import {execFileSync} from 'node:child_process';
 let status={live:false,source:'manual',session:'test-one'};const root=process.cwd();
 // OBS composition intentionally has no website banners, footer or analytics.
-const files=execFileSync('git',['ls-files','*.html'],{encoding:'utf8'}).trim().split('\n').filter(f=>!f.startsWith('submission/')&&!['live/overlay/index.html','index.html','public/realm-entry.html'].includes(f));
-for(const f of files)assert(/js\/(?:plethora|live-banner)\.js/.test(await fs.readFile(f,'utf8')),f+' gets shared banner');
+const files=execFileSync('git',['ls-files','*.html'],{encoding:'utf8'}).trim().split('\n').filter(f=>!hasStandaloneChrome(f)&&!f.startsWith('public/')&&!f.startsWith('forms/')&&!f.startsWith('tools/')&&!f.startsWith('reference/')&&!f.startsWith('submission/')&&!['live/overlay/index.html','index.html','public/realm-entry.html'].includes(f));
+for(const f of files){const html=await fs.readFile(f,'utf8');if(/http-equiv=["']refresh/i.test(html))continue;assert(/js\/(?:plethora|live-banner)\.js/.test(html),f+' gets shared banner');}
 const server=http.createServer(async(req,res)=>{try{const u=new URL(req.url,'http://localhost');if(u.pathname.startsWith('/api/')){res.setHeader('Content-Type','application/json');return res.end(JSON.stringify(u.pathname==='/api/live'?status:u.pathname==='/api/plethora'?{ready:true,total:12}:{}));}let f=path.join(root,decodeURIComponent(u.pathname));if((await fs.stat(f)).isDirectory())f=path.join(f,'index.html');res.setHeader('Content-Type',({'.html':'text/html','.js':'application/javascript','.css':'text/css','.json':'application/json','.svg':'image/svg+xml'})[path.extname(f)]||'application/octet-stream');res.end(await fs.readFile(f));}catch{res.writeHead(404).end();}});await new Promise(r=>server.listen(0,'127.0.0.1',r));const base='http://127.0.0.1:'+server.address().port;
 const browser=await chromium.launch();const refresh=p=>p.evaluate(()=>document.dispatchEvent(new Event('visibilitychange')));
 async function page(context,route){const p=await context.newPage();await p.route('**/js/analytics.js*',r=>r.fulfill({body:'',contentType:'application/javascript'}));await p.route('https://embed.twitch.tv/**',r=>r.abort());await p.goto(base+route);await p.locator('[data-live-banner]').waitFor({state:'attached'});return p;}

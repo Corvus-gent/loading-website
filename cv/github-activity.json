@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-11-20T12:33:55+00:00",
+  "profile": "https://github.com/Gabriellvl",
+  "method": "Non-merge, default-branch authored source-file commits; commit-date grouping; selected public repositories; source additions are gross churn, not unique lines. HTML, JSON, notebooks, lockfiles, dependencies, generated and build output excluded.",
+  "periods": {
+    "2026-11": {
+      "commits": 355,
+      "added": 138170,
+      "deleted": 8421,
+      "sourceAdded": 127071,
+      "sourceDeleted": 8402
+    },
+    "2026": {
+      "commits": 5,
+      "added": 3896,
+      "deleted": 451,
+      "sourceAdded": 3896,
+      "sourceDeleted": 451
+    },
+    "2025": {
+      "commits": 166,
+      "added": 11379,
+      "deleted": 6470,
+      "sourceAdded": 11379,
+      "sourceDeleted": 6470
+    },
+    "2024": {
+      "commits": 20,
+      "added": 4234,
+      "deleted": 361,
+      "sourceAdded": 4234,
+      "sourceDeleted": 361
+    }
+  },
+  "repositories": [
+    {
+      "repo": "Corvus-gent/loading-website",
+      "ref": "aa5e61e012adcbd314d8190899d34d5ad3ef952a",
+      "periods": {
+        "2026-11": {
+          "commits": 351,
+          "added": 138042,
+          "deleted": 8420,
+          "sourceAdded": 126943,
+          "sourceDeleted": 8401
+        },
+        "2026": {
+          "commits": 4,
+          "added": 2463,
+          "deleted": 0,
+          "sourceAdded": 2463,
+          "sourceDeleted": 0
+        },
+        "2025": {
+          "commits": 1,
+          "added": 144,
+          "deleted": 0,
+          "sourceAdded": 144,
+          "sourceDeleted": 0
+        }
+      }
+    },
+    {
+      "repo": "Gabriellvl/homebrew-tap",
+      "ref": "8306a1581a64fcdbb515ccdc9ae55f88e1ec35d2",
+      "periods": {}
+    },
+    {
+      "repo": "Gabriellvl/stayawake",
+      "ref": "4f1b5d9027ed3a79662e7fa8b9b33cc575c7ae56",
+      "periods": {
+        "2026-11": {
+          "commits": 2,
+          "added": 34,
+          "deleted": 1,
+          "sourceAdded": 34,
+          "sourceDeleted": 1
+        }
+      }
+    },
+    {
+      "repo": "Gabriellvl/Gabriellvl",
+      "ref": "69972b223db3d2ad3181a021f6fb3039d7311843",
+      "periods": {}
+    },
+    {
+      "repo": "Corvus-gent/oxyvitale-402",
+      "ref": "d2b8b6134fdd9eabbe8ee596c8217b67c8c7f677",
+      "periods": {}
+    },
+    {
+      "repo": "Corvus-gent/hackthefeed",
+      "ref": "65269f747804ab91a724cc54051d1619a00996ef",
+      "periods": {
+        "2026-11": {
+          "commits": 1,
+          "added": 44,
+          "deleted": 0,
+          "sourceAdded": 44,
+          "sourceDeleted": 0
+        }
+      }
+    },
+    {
+      "repo": "Gabriellvl/AD3",
+      "ref": "dab8aa0baf97f0b1c1fa510996496875ec938eba",
+      "periods": {
+        "2024": {
+          "commits": 15,
+          "added": 3807,
+          "deleted": 331,
+          "sourceAdded": 3807,
+          "sourceDeleted": 331
+        }
+      }
+    },
+    {
+      "repo": "SELab-2/Dwengo-1",
+      "ref": "4dac672bf7b5516288a30b7c381c768af14ac356",
+      "periods": {
+        "2025": {
+          "commits": 165,
+          "added": 11235,
+          "deleted": 6470,
+          "sourceAdded": 11235,
+          "sourceDeleted": 6470
+        }
+      }
+    },
+    {
+      "repo": "Gabriellvl/nightjar-mcp",
+      "ref": "4269bd712392120a9cc6622d1da8ea29380753f2",
+      "periods": {
+        "2026-11": {
+          "commits": 1,
+          "added": 50,
+          "deleted": 0,
+          "sourceAdded": 50,
+          "sourceDeleted": 0
+        }
+      }
+    },
+    {
+      "repo": "Corvus-gent/aurus-website",
+      "ref": "dc0b7e20b5cfbf6403d507288945e990f6b52074",
+      "periods": {
+        "2026": {
+          "commits": 1,
+          "added": 1433,
+          "deleted": 451,
+          "sourceAdded": 1433,
+          "sourceDeleted": 451
+        }
+      }
+    },
+    {
+      "repo": "Gabriellvl/FlowSOM",
+      "ref": "5f42b72ad0df68891f5a7b1c4a8014bb60ce78f1",
+      "periods": {
+        "2024": {
+          "commits": 5,
+          "added": 427,
+          "deleted": 30,
+          "sourceAdded": 427,
+          "sourceDeleted": 30
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';import {formatCvCount,mountCvPage} from '../js/cv-page.js';
+assert.equal(formatCvCount(140469,'en'),'140,469');assert.equal(formatCvCount(140469,'nl'),'140.469');assert.equal(formatCvCount(140469,'de'),'140.469');assert.equal(formatCvCount(1053,'fr'),'1\u202f053');assert.equal(formatCvCount('bad','en'),null);assert.equal(formatCvCount(-5,'en'),null);assert.equal(formatCvCount(512,'invalid_locale'),'512');
+const handlers={},events={};let lang='en';const attrs={};const button={textContent:'',addEventListener:(name,fn)=>handlers[name]=fn,setAttribute:(name,value)=>attrs[name]=value};const metric={dataset:{cvCount:'140469'},textContent:''};
+const doc={documentElement:{lang:'en'},querySelector:()=>button,querySelectorAll:()=>[metric]};const win={addEventListener:(name,fn)=>events[name]=fn};mountCvPage(doc,win,()=>lang);
+assert.equal(button.textContent,'512');assert.equal(metric.textContent,'140,469');
+handlers.pointerenter({pointerType:'touch'});assert.equal(button.textContent,'512','touch pointerenter must not advance twice');handlers.click({pointerType:'touch'});assert.equal(button.textContent,'520');handlers.pointerenter({pointerType:'mouse'});assert.equal(button.textContent,'1314');handlers.click({pointerType:'mouse'});assert.equal(button.textContent,Number(1314).toString(2));
+handlers.keydown({key:'ArrowLeft',preventDefault(){}});assert.equal(button.textContent,'520','arrow resets binary and moves through the list');
+lang='nl';events['corvus-language-change']({detail:{lang}});assert.equal(metric.textContent,'140.469');assert.match(attrs['aria-label'],/Geheime code 520/);assert.equal(button.textContent,'520','language switch retains the selected code');
+mountCvPage({...doc,querySelector:()=>null},win,()=>lang);
+console.log('PASS: localized metric formatting, mouse/touch/keyboard secret flow, binary toggle, language switch and non-secret pages.');

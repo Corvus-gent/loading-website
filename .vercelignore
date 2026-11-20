@@ -41,4 +41,7 @@ tools/forms/*
 !tools/cv
 tools/cv/*
 !tools/cv/build.mjs
+!tools/cv/build-pdfs.py
 output
+
+!tools/site/chrome-policy.mjs
