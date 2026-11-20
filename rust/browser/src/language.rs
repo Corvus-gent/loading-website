@@ -332,6 +332,31 @@ pub fn render_language_switcher(callback: Option<js_sys::Function>) -> Result<()
     }
     container.set_text_content(None);
     let current = get_language();
+    if container.has_attribute("data-site-languages") {
+        container.set_attribute(
+            "aria-label",
+            match current.as_str() {
+                "nl" => "Taal",
+                "es" | "pt" => "Idioma",
+                "fr" => "Langue",
+                "de" => "Sprache",
+                "zh" => "语言",
+                "hi" => "भाषा",
+                "ta" => "மொழி",
+                _ => "Language",
+            },
+        )?;
+    }
+    let intl = js_sys::Reflect::get(&js_sys::global(), &"Intl".into())?;
+    let ctor =
+        js_sys::Reflect::get(&intl, &"DisplayNames".into())?.dyn_into::<js_sys::Function>()?;
+    let options = js_sys::Object::new();
+    js_sys::Reflect::set(&options, &"type".into(), &"language".into())?;
+    let names = js_sys::Reflect::construct(
+        &ctor,
+        &js_sys::Array::of2(&current.clone().into(), &options),
+    )?;
+    let of = js_sys::Reflect::get(&names, &"of".into())?.dyn_into::<js_sys::Function>()?;
     let Some(window) = web_sys::window() else {
         return Ok(());
     };
@@ -350,6 +375,9 @@ pub fn render_language_switcher(callback: Option<js_sys::Function>) -> Result<()
         }
         a.set_attribute("href", &url.href())?;
         a.set_attribute("hreflang", code)?;
+        if let Some(name) = of.call1(&names, &code.into())?.as_string() {
+            a.set_attribute("aria-label", &name)?;
+        }
         a.set_text_content(Some(label));
         if code == current {
             a.set_class_name("active");
