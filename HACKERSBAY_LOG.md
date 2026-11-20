@@ -80,3 +80,12 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Verified. The build passed and both 15-second exports contain 30 fps H.264 video and AAC audio. The 30- and 60-second files are rendering for the same release.
 - Next. Deliver the LinkedIn drafts and demo guide, then run final production QA.
 - **STEER ME:** Open the first social cut on the cannonball or on Gabe at the dock. Use the 15-second or 30-second export as the lead.
+
+## H10 · 2026-11-20 16:48 CET · Demo guide and final QA
+
+- Shipped three LinkedIn drafts and the 60-second walkthrough in the repository README. The landing now credits all three sponsors beside the main action.
+- Verified. The build and lint passed. Production checks covered seven routes at 320px, 375px and 1440px, all four lenses, host and sponsor controls, private demo mode, and the Boat sample. A second browser accepted the intro over production Redis. A local Redis run also verified duplicate and concurrent acceptance.
+- Verified. The Mac release contains both Apple Silicon and Intel disk images. The macOS runner verified the ad-hoc app signatures and disk image checksums.
+- Decision. Used the GitHub release for large binary assets so the Vercel deployment and repository stay small. Sponsor APIs were tested with mocked requests and their zero-key fallbacks.
+- Next. Verify all published motion variants and repeat the live smoke test on the final deployment.
+- **STEER ME:** Lead the 60-second pitch with the Broke hacker or Busy builder lens. Lead the first LinkedIn post with the cannonball or the four-hour test.

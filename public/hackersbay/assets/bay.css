@@ -401,3 +401,5 @@ input[type="checkbox"] { width: 17px; min-height: 17px; height: 17px; margin: 0;
 .log-entry ul { padding-left: 19px; margin: 0; color: var(--muted); }
 .log-entry li + li { margin-top: 7px; }
 .log-entry li strong { color: var(--teal); }
+.powered-by { color: var(--muted); margin: 16px 0 0; font: 500 11px/1.6 var(--mono); }
+.powered-by a { text-underline-offset: 3px; }

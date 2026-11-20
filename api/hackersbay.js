@@ -8,7 +8,7 @@ import { normalizeProfileUrl } from '../public/hackersbay/assets/persona.js';
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
   const action = req.query?.action;
-  if (req.method === 'GET' && action === 'log') {
+  if (['GET', 'HEAD'].includes(req.method) && action === 'log') {
     try { return await buildLog(res); }
     catch { return res.status(503).json({ error: 'Build log unavailable.' }); }
   }
