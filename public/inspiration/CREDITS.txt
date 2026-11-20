@@ -1,0 +1,22 @@
+Corvus personal inspiration archive
+
+michael.webp: Guido Reni, Archangel Michael defeating Satan, c. 1636.
+Public domain reproduction, resized and converted to WebP.
+https://commons.wikimedia.org/wiki/File:Guido_Reni_031.jpg
+
+fallen.webp: Alexandre Cabanel, The Fallen Angel, 1847.
+Public domain reproduction, resized and converted to WebP.
+https://commons.wikimedia.org/wiki/File:The_Fallen_Angel_-_Alexandre_Cabanel.jpg
+
+diogenes.webp: Jean-Léon Gérôme, study of Diogenes.
+Public domain reproduction, resized and converted to WebP.
+https://commons.wikimedia.org/wiki/File:Gerome_%C3%A9tude_de_Diogene.jpg
+
+anakin.webp: Doug Kline / popculturegeek.com, Anakin Skywalker costume, 2005.
+CC BY 2.0, resized and converted to WebP; grayscale presentation via CSS.
+https://commons.wikimedia.org/wiki/File:Anakin_Skywalker_costume.jpg
+https://creativecommons.org/licenses/by/2.0/
+
+ember-monkey.webp: Original AI-assisted Corvus concept illustration, generated
+20 November 2026. Not official Pokémon art and not a commissioned tattoo.
+Original generated PNG retained in the creator's local image archive.
