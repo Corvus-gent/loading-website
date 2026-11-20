@@ -1,5 +1,6 @@
 import { forms } from '/forms/generated.js';
 import { createFormDraft } from './forms-draft.js';
+import { formatPageText } from './i18n/page-copy.js';
 const $ = id => document.getElementById(id);
 const slug = location.pathname.split('/').filter(Boolean)[1];
 const form = Object.hasOwn(forms, slug || '') ? forms[slug] : null;
@@ -13,11 +14,11 @@ if (!form) {
   const views = new Map();
   function progress() {
     const n = form.questions.filter(q => { const a = answers[q.id] || {}; return a.vote || (a.comment || a.text || '').trim(); }).length;
-    const message = `${n} / ${form.questions.length} answered`;
+    const message = formatPageText('{answered} / {total} answered', { answered: n, total: form.questions.length });
     $('progT').textContent = message + (form.minutes ? ` · ~${form.minutes} min` : '');
     $('bottomProgress').textContent = message;
     for (const id of ['progF', 'bottomFill']) $(id).style.width = `${100 * n / form.questions.length}%`;
-    $('doneTxt').textContent = n === form.questions.length ? 'All done — thank you! 🙌' : `${form.questions.length - n} left`;
+    $('doneTxt').textContent = n === form.questions.length ? 'All done — thank you! 🙌' : formatPageText('{count} left', { count: form.questions.length - n });
     for (const section of form.sections) {
       const questions = form.questions.filter(q => q.section === section.id);
       const answered = questions.filter(q => { const a = answers[q.id] || {}; return a.vote || (a.comment || a.text || '').trim(); }).length;
@@ -76,6 +77,7 @@ if (!form) {
     }
     progress();
   }
+  window.addEventListener('corvus-page-copy-ready', progress);
   controller = createFormDraft({ slug, allowedIds: form.questions.map(q => q.id), onRestore(value) { answers = Object.fromEntries(Object.entries(value).filter(([id]) => form.questions.some(q => q.id === id))); render(); }, onStatus(message) { $('status').textContent = message; } });
   $('feedback').addEventListener('submit', async event => {
     event.preventDefault();

@@ -6,7 +6,7 @@ import {readLanguagePreference, saveLanguagePreference} from '../storage.js';
  */
 
 const curiosityLanguages = /^\/(?:curiositycraft(?:\/|$)|worldcraft(?:\/|$)|curiosity(?:\/|$)|quests(?:\/|$)|hack(?:\/?$|\/4(?:\/|$)))/.test(location.pathname);
-export const LANGS = curiosityLanguages ? [["en","EN"],["es","ES"],["zh","中文"],["fr","FR"],["pt","PT"],["nl","NL"],["hi","हिन्दी"],["ta","தமிழ்"]] : [
+export const LANGS = curiosityLanguages ? [["en","EN"],["es","ES"],["zh","中文"],["fr","FR"],["pt","PT"],["nl","NL"],["de","DE"],["hi","हिन्दी"],["ta","தமிழ்"]] : [
   ["en", "EN"], ["nl", "NL"], ["es", "ES"], ["fr", "FR"],
   ["pt", "PT"], ["de", "DE"], ["zh", "中文"],
 ];

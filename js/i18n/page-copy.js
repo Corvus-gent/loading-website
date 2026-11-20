@@ -1,5 +1,5 @@
 // The catalog contains published copy only. Lookup and DOM updates run locally.
-const catalogVersion = '20261120pages1';
+const catalogVersion = '20261120pages2';
 const catalogs = new Map();
 const textState = new WeakMap();
 const attributeState = new WeakMap();
@@ -17,6 +17,11 @@ export function translatePageText(text) {
   return Object.hasOwn(dictionary, key) ? dictionary[key] : text;
 }
 
+export function formatPageText(text, values) {
+  return translatePageText(text).replace(/\{(\w+)\}/g, (placeholder, key) =>
+    Object.hasOwn(values, key) ? values[key] : placeholder);
+}
+
 function translatedValue(value, previous) {
   const original = value === previous?.rendered ? previous.original : value;
   const translation = translatePageText(original);
@@ -27,7 +32,7 @@ function translatedValue(value, previous) {
 
 function updateText(node) {
   const parent = node.parentElement;
-  if (!parent || parent.closest(skipped + ', [data-i18n]')) return;
+  if (!parent || parent.closest(skipped + ', [data-i18n], [data-wc], [data-army]')) return;
   const lang = parent.closest('[lang]:not(html)')?.lang;
   if (lang && !/^en(?:-|$)/i.test(lang)) return;
   const state = translatedValue(node.data, textState.get(node));
@@ -47,6 +52,7 @@ function updateAttributes(el) {
   const states = attributeState.get(el) ?? new Map();
   for (const name of names) {
     if (name === 'placeholder' && el.hasAttribute('data-i18n-placeholder')) continue;
+    if (name === 'aria-label' && el.hasAttribute('data-army-label')) continue;
     const value = el.getAttribute(name);
     if (value === null) {
       states.delete(name);

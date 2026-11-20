@@ -7,4 +7,15 @@ const svg=document.querySelector('#qr svg');svg.setAttribute('role','img');svg.s
 async function refresh(){try{const r=await fetch('/api/worldcraft',{cache:'no-store',signal:AbortSignal.timeout(8000)});if(!r.ok)throw Error();const d=await r.json();document.querySelector('#players').textContent=new Intl.NumberFormat().format(d.scoreboard.active)+' playing now';}catch{document.querySelector('#players').textContent='Live players: —';}}
 refresh();setInterval(()=>{if(!document.hidden)refresh();},10000);
 async function fullscreen(){try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch{}}
-document.addEventListener('click',fullscreen);document.addEventListener('keydown',e=>{if(['Enter',' '].includes(e.key)){e.preventDefault();fullscreen();}});
+function isLanguageControl(event) {
+ return event.target.closest('#lang-switcher');
+}
+document.addEventListener('click', event => {
+ if (!isLanguageControl(event)) fullscreen();
+});
+document.addEventListener('keydown', event => {
+ if (!isLanguageControl(event) && ['Enter', ' '].includes(event.key)) {
+  event.preventDefault();
+  fullscreen();
+ }
+});
