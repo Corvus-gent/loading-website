@@ -310,6 +310,23 @@
         "My research experience so far is course-based: mutual manipulation between LLMs and humans, and model-based and physics-informed deep learning in medical imaging. I want to develop those interests through careful investigation, practical experiments and collaboration.",
         "Alongside research, I build Corvus and tell the stories around it through interviews, short-form content and community projects. I would welcome a research or social media opportunity that fits my current experience and the team’s needs."
       ]
+    },
+    {
+      "slug": "mistral",
+      "path": "/cv/work/mistral",
+      "kind": "hybrid",
+      "company": "Mistral AI",
+      "label": "Mistral AI · application profile",
+      "headline": "Turn a research question into something you can test.",
+      "summary": "I’m interested in research-oriented work at Mistral AI, with Paris or London as my preferred locations. I bring a computer science background, course research on human–LLM interaction and medical imaging, practical software projects and experience explaining technical work in public.",
+      "focus": "Research interests · evaluation · Paris / London",
+      "download": "/cv/work/mistral/download",
+      "pdf": "work/mistral/cv.pdf",
+      "motivationTitle": "What draws me to this next step",
+      "motivation": [
+        "I want to get closer to the process of testing and understanding AI systems: asking a clear question, building an experiment and being careful about what the results actually show. My course research on mutual manipulation between LLMs and humans is where that interest started.",
+        "I would like to develop that interest in a research or research-engineering team in Paris or London. My current evidence is a combination of course research and working software, rather than a publication record. I also enjoy communicating the work through interviews, demos and community stories."
+      ]
     }
   ],
   "channels": [

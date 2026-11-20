@@ -4,6 +4,11 @@
   ],
   "redirects": [
     {
+      "source": "/cv/work/mistral/",
+      "destination": "/cv/work/mistral",
+      "permanent": true
+    },
+    {
       "source": "/cv/work/amazon/",
       "destination": "/cv/work/amazon",
       "permanent": true
@@ -319,6 +324,14 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/cv/work/mistral",
+      "destination": "/cv/work/mistral/index.html"
+    },
+    {
+      "source": "/cv/work/mistral/download",
+      "destination": "/cv/work/mistral/cv.pdf"
+    },
     {
       "source": "/cv/work/amazon",
       "destination": "/cv/work/amazon/index.html"
@@ -764,6 +777,19 @@
     }
   },
   "headers": [
+    {
+      "source": "/cv/work/mistral/download",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/pdf"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "attachment; filename=\"Gabriel-Van-Langenhove-mistral-CV.pdf\""
+        }
+      ]
+    },
     {
       "source": "/cv/work/amazon/download",
       "headers": [
