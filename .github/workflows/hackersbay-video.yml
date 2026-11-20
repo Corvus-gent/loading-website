@@ -1,0 +1,49 @@
+name: Hackers Bay demo clips
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: hackersbay-video-release
+jobs:
+  render:
+    if: github.ref_name == 'main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {id: SonarVertical15, width: 1080, height: 1920, seconds: 15}
+          - {id: SonarWide15, width: 1920, height: 1080, seconds: 15}
+          - {id: SonarVertical30, width: 1080, height: 1920, seconds: 30}
+          - {id: SonarWide30, width: 1920, height: 1080, seconds: 30}
+          - {id: SonarVertical60, width: 1080, height: 1920, seconds: 60}
+          - {id: SonarWide60, width: 1920, height: 1080, seconds: 60}
+    defaults:
+      run:
+        working-directory: video
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: video/package-lock.json
+      - run: npm ci
+      - name: Render and verify clip
+        env:
+          CLIP: ${{ matrix.id }}
+          EXPECTED: ${{ format('h264,{0},{1},30/1,{2}.000000', matrix.width, matrix.height, matrix.seconds) }}
+        run: |
+          if command -v google-chrome >/dev/null 2>&1; then export HACKERSBAY_CHROMIUM="$(command -v google-chrome)"; fi
+          npm run render -- "$CLIP"
+          video=$(ffprobe -v error -select_streams v:0 -show_entries stream=codec_name,width,height,r_frame_rate,duration -of csv=p=0 "dist/$CLIP.mp4")
+          test "${video%,}" = "$EXPECTED"
+          audio=$(ffprobe -v error -select_streams a:0 -show_entries stream=codec_name -of csv=p=0 "dist/$CLIP.mp4")
+          test "$audio" = aac
+      - name: Publish clip to Hackers Bay demo release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CLIP: ${{ matrix.id }}
+        run: gh release upload hackersbay-demo-v0.1.0 "dist/$CLIP.mp4" --clobber
