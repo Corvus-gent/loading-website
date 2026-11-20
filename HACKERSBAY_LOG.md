@@ -147,3 +147,12 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Verified locally. All three actions worked at 375px and 414px, including a 375 × 667 viewport. The two recording formats and both phone sizes produced decodable QR codes. The build, lint, route checks, and Luma parser tests passed.
 - Next. Run the complete production smoke test on the new deployment.
 - **STEER ME:** Open the stage presentation on the judging brief or go directly into the autoplay demo.
+
+## H18 · 2026-11-20 20:26 CET · Production smoke test
+
+- Verified the deployed judging brief fits and all three actions work at 375px and 414px. Decoded the live footer QR from both phone widths and the live demo end-card QR from both recording formats and phone widths. Both codes resolve to corvus.gent/hackersbay.
+- Ran the autoplay for a full minute. It showed the Broke hacker lens, three sonar locks, and the mutual intro, then held the end card. Pause, restart, and stage bounds passed in both recording formats.
+- Checked the live Luma import and its fallback, the editable profile and private-mode demo, all four event lenses, two-browser intro acceptance, the host and sponsor pages, the share image, and the published Mac downloads. The mobile sweep found no overflow or undersized standalone controls at 375px and 414px.
+- Decision. Keep the end card visible after playback so viewers can scan the code. The submission describes the fictional roster and the current sponsor fallbacks.
+- Next. Rehearse from the judging brief or paste the draft into the builder dashboard.
+- **STEER ME:** Put the judging brief first in the submission links or lead with the live landing page.
