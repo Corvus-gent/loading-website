@@ -1,3 +1,5 @@
+import { formatPageText, translatePageText } from './i18n/page-copy.js';
+
 export const labels = {
   site: 'site pages',
   redirects: 'vanity slugs',
@@ -14,34 +16,39 @@ export const labels = {
 };
 export const states = ['no data', 'healthy', 'degraded / slow', 'down'];
 const colours = ['var(--unknown)', 'var(--healthy)', 'var(--slow)', 'var(--down)'];
-const hour = new Intl.DateTimeFormat('en-GB', {
-  timeZone: 'Europe/Brussels',
-  hour: '2-digit',
-  minute: '2-digit'
-});
-const date = new Intl.DateTimeFormat('en-GB', {
-  timeZone: 'Europe/Brussels',
-  day: 'numeric',
-  month: 'short'
-});
-const stamp = new Intl.DateTimeFormat('en-GB', {
-  timeZone: 'Europe/Brussels',
-  day: 'numeric',
-  month: 'short',
-  hour: '2-digit',
-  minute: '2-digit',
-  timeZoneName: 'shortOffset'
-});
-export const when = (t) => stamp.format(t).toLowerCase();
-export const pct = (n) => (Number.isFinite(n) ? (n === 100 ? '100' : n.toFixed(2)) + '%' : '—');
-export const duration = (ms) =>
-  ms < 60000
-    ? '<1 min'
-    : ms < 3600000
-      ? Math.floor(ms / 60000) + ' min'
-      : ms < 86400000
-        ? Math.floor(ms / 3600000) + 'h ' + Math.floor((ms % 3600000) / 60000) + 'm'
-        : Math.floor(ms / 86400000) + 'd ' + Math.floor((ms % 86400000) / 3600000) + 'h';
+let language;
+let formats;
+function localeFormats() {
+  const current = document.documentElement.lang || 'en';
+  if (language !== current) {
+    language = current;
+    const clock = { hour: '2-digit', minute: '2-digit', hourCycle: 'h23' };
+    const day = { day: 'numeric', month: 'short' };
+    const date = options => new Intl.DateTimeFormat(current, {
+      timeZone: 'Europe/Brussels', ...options
+    });
+    formats = {
+      hour: date(clock), day: date(day), stamp: date({ ...day, ...clock, timeZoneName: 'shortOffset' }),
+      percent: new Intl.NumberFormat(current, { style: 'percent', maximumFractionDigits: 2 }),
+      number: new Intl.NumberFormat(current),
+      units: Object.fromEntries(['minute', 'hour', 'day'].map(unit => [
+        unit, new Intl.NumberFormat(current, { style: 'unit', unit, unitDisplay: 'narrow' })
+      ]))
+    };
+  }
+  return formats;
+}
+export const when = t => localeFormats().stamp.format(t);
+export const pct = n => Number.isFinite(n) ? localeFormats().percent.format(n / 100) : '—';
+export function duration(ms) {
+  const { units } = localeFormats();
+  const minutes = Math.floor(ms / 60000);
+  if (minutes < 1) return '<' + units.minute.format(1);
+  if (minutes < 60) return units.minute.format(minutes);
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return units.hour.format(hours) + ' ' + units.minute.format(minutes % 60);
+  return units.day.format(Math.floor(hours / 24)) + ' ' + units.hour.format(hours % 24);
+}
 export function svg(name, attrs = {}) {
   const el = document.createElementNS('http://www.w3.org/2000/svg', name);
   for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, String(v));
@@ -107,7 +114,7 @@ export function drawGraph(host, data, name) {
   const plot = svg('svg', {
     class: 'plot',
     viewBox: `0 0 ${width} ${height}`,
-    'aria-label': (labels[name] || 'overall') + ' response time in milliseconds'
+    'aria-label': formatPageText('{service} response time in milliseconds', { service: translatePageText(labels[name] || 'overall') })
   });
   const detail = document.createElement('p');
   detail.className = 'chart-detail';
@@ -132,7 +139,7 @@ export function drawGraph(host, data, name) {
       label(
         x(t),
         height - 5,
-        (data.range === '24h' ? hour : date).format(t).toLowerCase(),
+        (data.range === '24h' ? localeFormats().hour : localeFormats().day).format(t),
         !i ? 'start' : i === ticks - 1 ? 'end' : 'middle'
       )
     );
@@ -179,7 +186,7 @@ export function drawGraph(host, data, name) {
   if (!populated.length) {
     plot.setAttribute('role', 'img');
     plot.append(
-      label((left + right) / 2, (bottom + top) / 2 - 5, 'no data yet', 'middle', 'empty-label')
+      label((left + right) / 2, (bottom + top) / 2 - 5, translatePageText('no data yet'), 'middle', 'empty-label')
     );
     detail.textContent = 'no recorded samples in this range.';
   } else {
@@ -205,12 +212,13 @@ export function drawGraph(host, data, name) {
       cursor.setAttribute('fill', colours[level]);
       const issues = (name === 'overall' ? Object.keys(labels) : [name])
         .filter((n) => data.series[n]?.[i]?.[2] > 1)
-        .map((n) => labels[n] + ' ' + (data.series[n][i][2] === 3 ? 'down' : 'slow'));
+        .map((n) => formatPageText('{service}: {state}', { service: translatePageText(labels[n]),
+          state: translatePageText(data.series[n][i][2] === 3 ? 'down' : 'slow') }));
       const message = [
         when(times[i]),
-        avg + ' ms avg',
-        ...(peak > avg ? [peak + ' ms peak'] : []),
-        issues.join(', ') || states[level]
+        formatPageText('{count} ms avg', { count: localeFormats().number.format(avg) }),
+        ...(peak > avg ? [formatPageText('{count} ms peak', { count: localeFormats().number.format(peak) })] : []),
+        issues.join(', ') || translatePageText(states[level])
       ].join(' · ');
       detail.textContent = message;
       return message;
@@ -262,8 +270,11 @@ export function drawStrip(el, dates, values, tip, mobile) {
     const value = values?.[start + i],
       date = dates?.[start + i] || '';
     tip.textContent = value
-      ? `${date} · ${states[value[0]]} · ${pct(value[1])} uptime · ${value[2]} ms avg · ${value[3]} incident${value[3] === 1 ? '' : 's'}`
-      : date + ' · no data yet';
+      ? formatPageText('{date} · {state} · {percent} uptime · {average} ms avg · incidents: {count}', {
+        date, state: translatePageText(states[value[0]]), percent: pct(value[1]),
+        average: localeFormats().number.format(value[2]), count: localeFormats().number.format(value[3])
+      })
+      : date + ' · ' + translatePageText('no data yet');
     tip.hidden = false;
     return tip.textContent;
   };

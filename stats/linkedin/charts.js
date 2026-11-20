@@ -1,9 +1,11 @@
+import {formatPageText, translatePageText} from '/js/i18n/page-copy.js';
 import {selectRows,seriesFor,sum,comparison} from './model.js';
 const dataURL=new URL('./data.json',import.meta.url),profileURL=new URL('./profile-views.json',import.meta.url);
 const labels={impressions:'Impressions',engagements:'Engagements',newFollowers:'New followers',profile:'Profile viewers'};
-const number=n=>new Intl.NumberFormat('en-US').format(n);
-const short=n=>new Intl.NumberFormat('en-US',{notation:'compact',maximumFractionDigits:1}).format(n);
-const date=(s,year=false)=>new Date(s+'T12:00:00Z').toLocaleDateString('en-GB',{day:'numeric',month:'short',...(year?{year:'numeric'}:{}),timeZone:'UTC'});
+const language=()=>document.documentElement.lang || 'en';
+const number=n=>new Intl.NumberFormat(language()).format(n);
+const short=n=>new Intl.NumberFormat(language(),{notation:'compact',maximumFractionDigits:1}).format(n);
+const date=(s,year=false)=>new Date(s+'T12:00:00Z').toLocaleDateString(language()==='en'?'en-GB':language(),{day:'numeric',month:'short',...(year?{year:'numeric'}:{}),timeZone:'UTC'});
 function el(tag,cls,text){const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=text;return e;}
 function svgEl(tag,attrs={},text){const e=document.createElementNS('http://www.w3.org/2000/svg',tag);for(const [key,value]of Object.entries(attrs))e.setAttribute(key,value);if(text!==undefined)e.textContent=text;return e;}
 function axisScale(value){const raw=Math.max(1,value/4),base=10**Math.floor(Math.log10(raw)),step=[1,2,2.5,5,10].map(n=>n*base).find(n=>n>=raw);return {step,max:Math.max(step,Math.ceil(value/step)*step)};}
@@ -12,7 +14,7 @@ function plot(root,points,{bars=false,label='',unit=''}={}){
  const valid=points.filter(p=>p.value!==null);if(!valid.length){root.append(el('p','li-note','Not included in this export.'));return;}
  const {step,max}=axisScale(Math.max(...valid.map(p=>p.value)));
  const x=i=>left+(points.length===1?w/2:i*w/(points.length-1)),y=v=>top+h-v/max*h;
- const svg=svgEl('svg',{viewBox:`0 0 ${W} ${H}`,class:'li-plot',role:'img',tabindex:'0','aria-label':label+'. Use left and right arrow keys to inspect values.'});
+ const svg=svgEl('svg',{viewBox:`0 0 ${W} ${H}`,class:'li-plot',role:'img',tabindex:'0','aria-label':formatPageText('{chart}. Use left and right arrow keys to inspect values.', {chart:label})});
  const title=svgEl('title',{},label);svg.append(title);
  for(let i=0;i<=Math.round(max/step);i++){const value=step*i;svg.append(svgEl('line',{x1:left,x2:W-right,y1:y(value),y2:y(value),class:'li-grid'}),svgEl('text',{x:left-10,y:y(value)+4,'text-anchor':'end',class:'li-axis'},short(value)));}
  const ticks=bars?points.map((_,i)=>i):[...new Set([0,Math.floor((points.length-1)/2),points.length-1])];
@@ -24,7 +26,7 @@ function plot(root,points,{bars=false,label='',unit=''}={}){
  }
  const cursor=svgEl('line',{y1:top,y2:top+h,class:'li-cursor'}),dot=svgEl('circle',{r:4,class:'li-dot'});svg.append(cursor,dot);root.append(svg);
  const readout=el('p','li-readout');root.append(readout);let index=points.length-1;
- function inspect(i){index=Math.max(0,Math.min(points.length-1,i));const p=points[index];readout.textContent=(p.label||date(p.date,true))+' · '+(p.value===null?'Not available':number(p.value))+' '+unit;cursor.setAttribute('x1',x(index));cursor.setAttribute('x2',x(index));dot.setAttribute('cx',x(index));dot.setAttribute('cy',p.value===null?top+h:y(p.value));dot.style.display=p.value===null?'none':'';}
+ function inspect(i){index=Math.max(0,Math.min(points.length-1,i));const p=points[index];readout.textContent=(p.label||date(p.date,true))+' · '+(p.value===null?translatePageText('Not available'):number(p.value))+' '+unit;cursor.setAttribute('x1',x(index));cursor.setAttribute('x2',x(index));dot.setAttribute('cx',x(index));dot.setAttribute('cy',p.value===null?top+h:y(p.value));dot.style.display=p.value===null?'none':'';}
  svg.addEventListener('pointermove',e=>{const rect=svg.getBoundingClientRect(),vx=(e.clientX-rect.left)/rect.width*W;inspect(Math.round((vx-left)/w*(points.length-1)));});
  svg.addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();inspect(e.key==='Home'?0:e.key==='End'?points.length-1:index+(e.key==='ArrowRight'?1:-1));}});inspect(index);
 }
@@ -33,33 +35,51 @@ function render(root,data,profile,metric,range,mode){
  if(metric==='profile'){
   const points=profile.snapshots.slice(-5).map(s=>({date:s.end,label:date(s.start)+'–'+date(s.end,true),value:s.viewers})),latest=profile.snapshots.at(-1);
   root.append(el('div','li-value',number(latest.viewers)),el('p','li-label','Weekly profile viewers'),el('p','li-period',date(latest.start)+'–'+date(latest.end,true)));
-  plot(root,points,{bars:true,label:'Observed weekly LinkedIn profile viewers',unit:'profile viewers'});
-  root.append(el('p','li-insight','+'+number(latest.reportedChangePercent)+'% vs. the prior 7 days, as reported by LinkedIn.'));
+  plot(root,points,{bars:true,label:translatePageText('Observed weekly LinkedIn profile viewers'),unit:translatePageText('profile viewers')});
+  root.append(el('p','li-insight',formatPageText('{percent} vs. the prior 7 days, as reported by LinkedIn.', {
+   percent:new Intl.NumberFormat(language(), {style:'percent',signDisplay:'exceptZero'}).format(latest.reportedChangePercent/100)
+  })));
   root.append(el('p','li-note','Manually transcribed LinkedIn weekly snapshot. The content export has no daily profile-view history; unreported weeks are not plotted.'));return;
  }
  const rows=selectRows(data,range),value=sum(rows,metric),points=seriesFor(rows,metric,mode);
- root.append(el('div','li-value',value===null?'Not available':number(value)),el('p','li-label',labels[metric]+(mode==='daily'?' · daily chart':' · cumulative chart')),el('p','li-period',date(rows[0].date)+'–'+date(rows.at(-1).date,true)+' · UTC'));
- plot(root,points,{label:labels[metric]+', '+mode+', '+date(rows[0].date)+' to '+date(rows.at(-1).date,true),unit:labels[metric].toLowerCase()+(mode==='cumulative'?' to date':'')});
+ const metricLabel=translatePageText(labels[metric]), start=date(rows[0].date), end=date(rows.at(-1).date,true);
+ const chartMode=translatePageText(mode==='daily'?'daily chart':'cumulative chart');
+ const period=formatPageText('{start} to {end}', {start,end});
+ root.append(el('div','li-value',value===null?translatePageText('Not available'):number(value)),el('p','li-label',metricLabel+' · '+chartMode),el('p','li-period',start+'–'+end+' · UTC'));
+ plot(root,points,{label:[metricLabel,chartMode,period].join(' · '),unit:mode==='cumulative'?formatPageText('{metric} to date',{metric:metricLabel}):metricLabel});
  if(metric==='impressions'&&range==='all'){
-  const c=comparison(data);if(c)root.append(el('p','li-insight',number(c.value)+' impressions in my first SF week (6–12 Nov). +'+number(Math.round(c.change))+'% vs. 30 Oct–5 Nov.'));
- }else if(value!==null){const complete=rows.filter(r=>r.date!==data.source.partialDate&&r[metric]!==null),peak=complete.reduce((a,b)=>!a||b[metric]>a[metric]?b:a,null);if(peak)root.append(el('p','li-insight','Peak day: '+date(peak.date,true)+' · '+number(peak[metric])+' '+labels[metric].toLowerCase()+'.'));}
- root.append(el('p','li-note','Source: LinkedIn aggregate export. '+(range==='all'&&data.source.partialDate?'The final date ('+date(data.source.partialDate)+') is partial and may still change.':'Recent ranges use complete days.')));
+  const c=comparison(data);if(c)root.append(el('p','li-insight',formatPageText('{count} impressions in my first SF week (6–12 Nov). {percent} vs. 30 Oct–5 Nov.', {
+   count:number(c.value),percent:new Intl.NumberFormat(language(), {style:'percent',signDisplay:'exceptZero'}).format(c.change/100)
+  })));
+ }else if(value!==null){const complete=rows.filter(r=>r.date!==data.source.partialDate&&r[metric]!==null),peak=complete.reduce((a,b)=>!a||b[metric]>a[metric]?b:a,null);if(peak)root.append(el('p','li-insight',formatPageText('Peak day: {date} · {count} {metric}.', {date:date(peak.date,true),count:number(peak[metric]),metric:metricLabel})));}
+ root.append(el('p','li-note',translatePageText('Source: LinkedIn aggregate export.')+' '+(range==='all'&&data.source.partialDate
+  ? formatPageText('The final date ({date}) is partial and may still change.', {date:date(data.source.partialDate)})
+  : translatePageText('Recent ranges use complete days.'))));
 }
 async function init(){
  const roots=[...document.querySelectorAll('[data-linkedin-chart]')];if(!roots.length)return;
  try{
   const [data,profile]=await Promise.all([fetch(dataURL).then(r=>{if(!r.ok)throw Error();return r.json();}),fetch(profileURL).then(r=>{if(!r.ok)throw Error();return r.json();})]);
-  document.querySelectorAll('[data-li-total]').forEach(e=>{const value=data.totals[e.dataset.liTotal];e.textContent=value===null?'Not available':number(value);});
-  document.querySelectorAll('[data-li-preview]').forEach(e=>e.textContent=e.dataset.liPreview==='profile'?number(profile.snapshots.at(-1).viewers):short(data.totals.impressions));
-  document.querySelectorAll('[data-li-updated]').forEach(e=>e.textContent='Export: '+date(data.source.start)+'–'+date(data.source.end,true)+' · Imported '+date(data.source.importedOn,true));
+  const draws=[];
+  function renderTotals(){
+   document.querySelectorAll('[data-li-total]').forEach(e=>{
+    const value=data.totals[e.dataset.liTotal];e.textContent=value===null?translatePageText('Not available'):number(value);
+   });
+   document.querySelectorAll('[data-li-preview]').forEach(e=>e.textContent=e.dataset.liPreview==='profile'?number(profile.snapshots.at(-1).viewers):short(data.totals.impressions));
+   document.querySelectorAll('[data-li-updated]').forEach(e=>e.textContent=formatPageText('Export: {start}–{end} · Imported {imported}', {
+    start:date(data.source.start),end:date(data.source.end,true),imported:date(data.source.importedOn,true)
+   }));
+  }
+  renderTotals();
+  window.addEventListener('corvus-page-copy-ready',()=>{renderTotals();draws.forEach(draw=>draw());});
   for(const root of roots){
    const fixed=root.dataset.linkedinChart;
-   if(fixed!=='interactive'){const draw=()=>render(root,data,profile,fixed,'all','cumulative');const details=root.closest('details');if(details){details.addEventListener('toggle',()=>{if(details.open&&!root.children.length)draw();});if(details.open)draw();}else draw();continue;}
+   if(fixed!=='interactive'){const draw=()=>render(root,data,profile,fixed,'all','cumulative');const details=root.closest('details');if(details){details.addEventListener('toggle',()=>{if(details.open&&!root.children.length)draw();});if(details.open)draw();}else draw();draws.push(()=>{if(!details||details.open)draw();});continue;}
    const controls=el('div','li-controls'),body=el('div');root.append(controls,body);
    function select(label,options){const holder=el('label','',label),s=el('select');for(const [value,text]of options){const opt=el('option','',text);opt.value=value;s.append(opt);}holder.append(s);controls.append(holder);return s;}
    const metric=select('Metric',Object.entries(labels)),range=select('Period',[['all','Full export'],['28','Last 28 complete days'],['7','Last 7 complete days']]),mode=select('View',[['cumulative','Cumulative'],['daily','Daily']]);
    function draw(){const snapshot=metric.value==='profile';range.disabled=mode.disabled=snapshot;range.parentElement.hidden=mode.parentElement.hidden=snapshot;render(body,data,profile,metric.value,range.value,mode.value);}
-   for(const s of [metric,range,mode])s.addEventListener('change',draw);draw();
+   for(const s of [metric,range,mode])s.addEventListener('change',draw);draws.push(draw);draw();
   }
  }catch{document.querySelectorAll('[data-li-total]').forEach(e=>e.textContent='—');document.querySelectorAll('[data-li-updated]').forEach(e=>e.textContent='Stats unavailable');for(const root of roots)root.replaceChildren(el('p','li-error','Stats unavailable. Please try again later.'));}
 }

@@ -1,3 +1,4 @@
+import {formatPageText,translatePageText} from './i18n/page-copy.js';
 import {ZONES,clockPair,localInstants} from './x-time.js';
 const el=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;};
 const phase=hour=>hour<6||hour>=22?'night owl':hour<12?'first coffee':hour<18?'in the thick of it':'after hours';
@@ -23,9 +24,12 @@ export function mountXClocks(root){
  function fields(){const c=clockPair(at)[city.value];date.value=c.date;time.value=c.time;}
  function paint(){
   const pair=clockPair(at);
-  for(const id of ['bx','sf']){const c=pair[id],p=parts[id];p.time.textContent=c.time;p.time.dateTime=new Date(at).toISOString();p.date.textContent=c.date;p.mood.textContent=phase(c.hour);p.card.dataset.daylight=String(c.hour>=7&&c.hour<20);}
+  const dateFormat=new Intl.DateTimeFormat(document.documentElement.lang || 'en', {dateStyle:'medium',timeZone:'UTC'});
+  for(const id of ['bx','sf']){const c=pair[id],p=parts[id];p.time.textContent=c.time;p.time.dateTime=new Date(at).toISOString();p.date.textContent=dateFormat.format(new Date(c.date+'T12:00:00Z'));p.mood.textContent=phase(c.hour);p.card.dataset.daylight=String(c.hour>=7&&c.hour<20);}
   mode.textContent=live?'live now':'your planned moment';
-  bridge.textContent=`sf is ${pair.gap}h behind bx · ${pair.sf.date===pair.bx.date?'same date':'previous day in sf'}`;
+  bridge.textContent=formatPageText('SF is {hours} hours behind Brussels · {dateRelation}',{
+   hours:pair.gap,dateRelation:translatePageText(pair.sf.date===pair.bx.date?'same date':'previous day in sf')
+  });
  }
  function plan(){
   live=false;const matches=localInstants(date.value,time.value,ZONES[city.value]);repeatLabel.hidden=matches.length<2;
@@ -47,6 +51,7 @@ export function mountXClocks(root){
  form.addEventListener('focusin',e=>{editing=e.target===date||e.target===time;});form.addEventListener('focusout',e=>{editing=e.relatedTarget===date||e.relatedTarget===time;});
  reset.onclick=()=>{live=true;at=Date.now();repeated.value='0';repeatLabel.hidden=true;message.textContent='';cards.hidden=false;bridge.hidden=false;fields();paint();};
  fields();paint();
+ window.addEventListener('corvus-page-copy-ready',()=>{if(!cards.hidden)paint();});
  // One light, minute-level clock update. No requests, storage or animation loop.
  const timer=setInterval(()=>{if(!root.isConnected){clearInterval(timer);return;}if(live&&!editing&&!document.hidden){at=Date.now();fields();paint();}},30000);
 }
