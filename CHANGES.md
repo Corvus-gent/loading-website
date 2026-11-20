@@ -1,3 +1,7 @@
+## 2026-11-20 — codex/rust-migration (in progress)
+
+- Establish a separate Rust/Vercel + WebAssembly workspace, frozen baseline and explicit migration gates. Preserve existing routes and production handlers. Add compatible storage/session foundations and cross-runtime regression tests before enabling any production traffic.
+
 ## 2026-11-09 — codex/corvus-hotspots
 
 - Add Brussel and Gent to the Corvus map highlights with distinct colours and city zoom buttons. Keep the highlights separate from measured visitors.

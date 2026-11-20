@@ -1,0 +1,64 @@
+# Corvus Rust migration — work in progress
+
+This is a full application migration, not a redesign. The target is Rust server code and Rust/WebAssembly browser logic. HTML, CSS, translations, photos, videos and public datasets stay assets. Minimal generated WASM bindings and third-party hosted embeds remain browser integration boundaries. A proxy around the old Node application does **not** count as a completed migration.
+
+## Frozen baseline and rollback
+
+- Repository baseline: `0a34babbba561abcffc1aa7e4356de4d8855adf7` (latest main when migration started).
+- Production at start: `https://loading-website-i0ifimei3-corvus11.vercel.app`, deployment `dpl_CkqKcDSd8XHMPfE7JcivGUYLrFtE`.
+- Branch: `codex/rust-migration`. Never push or merge main as part of migration work.
+- Keep the original handlers runnable until the replacement passes all gates. No schema rename, credential rotation, counter reset or replay of side effects.
+- Before any production promotion, re-read the current production deployment and fetch main. If either changed, integrate and re-run the relevant baseline tests. The start deployment alone is not a permanent rollback target.
+- Rollback is a Vercel deployment rollback, not a Redis restore. Old and new handlers must understand the same records and cookie signatures. Verify rollback first in a preview using synthetic data.
+
+## Runtime choice
+
+Use portable Rust with Axum, Tokio and rustls. An adapter uses the **official** `vercel_runtime` 2.x, replacing the deprecated community builder. Vercel still labels its Rust runtime beta; deployment and cold-start verification are release gates, not assumptions. Keep a local native server with the same router so application logic is not coupled to the Vercel bridge.
+
+- Official runtime: https://vercel.com/docs/functions/runtimes/rust
+- Official Axum example: https://github.com/vercel/examples/tree/main/rust/axum
+
+## Safety defaults
+
+- `CORVUS_RUST_MODULES` is empty by default. It admits exact module names only.
+- `CORVUS_RUST_WRITES` is unset by default. Storage writes are denied before network access.
+- `isolated` permits writes only to a nonzero local Redis database outside production. Tests launch their own Redis process and use no real credentials.
+- `production` permits writes only when `VERCEL_ENV=production`. Do not enable until parity, side-effect isolation, rollback and production-read checks pass.
+- The new endpoint does not automatically receive existing traffic. Merely adding Rust does not migrate a route.
+- Preview comparisons use read-only requests. Never shadow POSTs, payment webhooks, email sending, click increments or cron jobs. Use fixtures for those paths.
+- No secrets or full request headers in logs. Tokens remain environment-only. Bounded upstream timeouts and request sizes; errors returned to clients are generic.
+- Existing Redis transport preference, secret derivation, HMAC bytes, TTLs and Lua atomicity are compatibility contracts. Ambiguous suffix configuration fails closed and must be explicitly resolved.
+
+## Work order
+
+| Area | Required checks | State |
+|---|---|---|
+| Inventory, baseline, Cargo workspace, native/Vercel/WASM adapters | Compile; snapshot production; no changed routes | In progress |
+| Storage, secrets, OTP sessions, consent, rate limiting | JS/Rust signature parity; bidirectional cookies; concurrent OTP use; denied preview writes | Initial auth tests pass locally |
+| Routing, gates, tiers, language state | All route aliases; protected-page negative tests; 04:02/DST; mobile/browser parity | Pure path rules ported; handlers pending |
+| Compound/battle/interviews/impact | No lost votes; private/public field boundaries; null-vs-zero scores; code links; admin writes | Pure metrics and code rules ported; handlers pending |
+| Games, Plethora, support, referrals, public statistics | Game replay fixtures; atomic counters; no duplicate tracking; historical totals | Plethora destination rules ported; handlers pending |
+| Legion, Senate, payments, email, uploads | Test invite claim/edit/revoke; webhook retries; stored identity compatibility; blob/image EXIF rules | Pending |
+| Remaining APIs, research tools, build, OG, scheduled jobs | Complete file inventory; contract fixtures; single scheduled writer | Pending |
+| Browser logic, Rust build pipeline | Same content/layout; translations; keyboard/mobile; games; no legacy application JS remaining | WASM toolchain compiles; migration pending |
+| Canary → production | All release gates and actual rollback exercise | Not authorized by test results yet |
+
+“Not authorized by test results” means technical release criteria have not passed; it does not request new user permission. The user already authorized the migration.
+
+## Reproduce current checks
+
+```
+cargo fmt --all --check
+cargo clippy --workspace --all-targets -- -D warnings
+cargo test --workspace
+cargo build --bins
+node tools/rust/parity.mjs
+node tests/rust/auth-parity.mjs
+cargo check -p corvus-browser --target wasm32-unknown-unknown
+```
+
+`auth-parity.mjs` starts a fresh loopback-only Redis instance on a free port and deletes no existing database. Set `REDIS_SERVER` to the local redis-server executable if it is not on PATH. Existing JavaScript tests remain in CI throughout migration. Passing these initial checks is **not** evidence that the whole site has migrated.
+
+## Completion gate
+
+Do not call this migration finished while any executable application area remains legacy, any required comparison has a discrepancy, or a private/write path lacks coverage. Record the actual deployed URL, test output and rollback evidence for each cutover. Keep outstanding items explicit in `checkpoint.md`.

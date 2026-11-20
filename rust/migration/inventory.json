@@ -1,0 +1,4039 @@
+{
+  "baselineCommit": "0a34babbba561abcffc1aa7e4356de4d8855adf7",
+  "productionDeployment": "https://loading-website-i0ifimei3-corvus11.vercel.app",
+  "productionDeploymentId": "dpl_CkqKcDSd8XHMPfE7JcivGUYLrFtE",
+  "files": [
+    {
+      "path": "402/index.html",
+      "area": "inline-browser",
+      "sha256": "9edb4187916b688c5f6084f49770cc47aa0fdf0e51932e4ea8b267a684eb9d2c",
+      "lines": 215,
+      "status": "legacy"
+    },
+    {
+      "path": "airbnb-call-me-pls/index.html",
+      "area": "inline-browser",
+      "sha256": "022210216f24b34179519103b238c592eff4869a5d36c83dfa650c4e5815e9ba",
+      "lines": 53,
+      "status": "legacy"
+    },
+    {
+      "path": "airbnb/index.html",
+      "area": "inline-browser",
+      "sha256": "8b6c3d115ee64c4845900738505a785c38f1187bbcba6ff6752227093e6517e7",
+      "lines": 53,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_army/_auth.js",
+      "area": "_army",
+      "sha256": "338b6942556bdd1db572551e5ab1df971cd145e1b0cac3e42ee5dc21ad822b01",
+      "lines": 57,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_army/_copy.js",
+      "area": "_army",
+      "sha256": "58694a4efc404ee8c03541b518f60f60329222edcb4db059f716133fa508bf9b",
+      "lines": 13,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_army/_discord.js",
+      "area": "_army",
+      "sha256": "51496ff1a36c791a48e9b58e2d27f2e10398ce04ef966dc75884dbac7c87a603",
+      "lines": 133,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_army/_images.js",
+      "area": "_army",
+      "sha256": "719f31c3459cb1a206c652da4c8ae51aa18a3cdceddd54a08634ce15e823a161",
+      "lines": 20,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_army/_jobs.js",
+      "area": "_army",
+      "sha256": "9205dd567f387795a1925983a8520aecb5e1c5b495b95e00052c760642916f3f",
+      "lines": 29,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_army/_mail.js",
+      "area": "_army",
+      "sha256": "556b0260910a1165727f9476504d3ed591ace98319f3986b716abc25907bafbe",
+      "lines": 120,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_army/_pidgy.js",
+      "area": "_army",
+      "sha256": "f7891783d1d5f35c43261d49083d538e45a3d0ac7b16e1fb9c51cca9bca96a43",
+      "lines": 40,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_army/_public.js",
+      "area": "_army",
+      "sha256": "163a96945bbc43c21b604055ac8fb7cce7565cd6a32b7af71749be9d69e2109d",
+      "lines": 40,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_army/_security.js",
+      "area": "_army",
+      "sha256": "2cdbe73613c1b40c8e681ecec5c6af7de2d8c22c841d80890f3dfe0755ff7dd0",
+      "lines": 46,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_army/_service.js",
+      "area": "_army",
+      "sha256": "cc68301c7911d8effa6986353405cf448819c1330e35d689b7bd69a7bc12b3a9",
+      "lines": 134,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_army/_store.js",
+      "area": "_army",
+      "sha256": "9523cd4c0c52df868c970be2bd4a124ffbb4035e57a3cf67eec89274499d78d5",
+      "lines": 228,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_army/_tolls.js",
+      "area": "_army",
+      "sha256": "4dc480039d40135333ace0f7fbb1b829e3f35a8d45f4087317d83cccfc8fae72",
+      "lines": 111,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_battle.js",
+      "area": "api/root",
+      "sha256": "33e616214bd87ce6b8884b8580e9ef63a060a304a0bc61dfd89ff5c0d716ebf2",
+      "lines": 41,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_build-stats.js",
+      "area": "api/root",
+      "sha256": "8fef9639bc821321d6cf7d2bd18a354edadeffdd6868c948542f06b98f7cc88f",
+      "lines": 58,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_coffee.js",
+      "area": "api/root",
+      "sha256": "2d1d66cc7ece5f01158cc5cfb75ee58c5678dc30df76098664957034426fb9b7",
+      "lines": 96,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_compound-v2/codes.js",
+      "area": "_compound-v2",
+      "sha256": "b0069e91ee25341a51d0f69a1fe54b1858e642a97aa627af4b5e0f0cb8de6922",
+      "lines": 11,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_compound-v2/handler.js",
+      "area": "_compound-v2",
+      "sha256": "2bccdb1798579ab2e69e5f3b6dcf3285be22328334a0111efdba07a49d6778c2",
+      "lines": 93,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_compound-v2/impact/accounts.js",
+      "area": "_compound-v2",
+      "sha256": "c07845f2e6bae9711a50d816aa752b31fdd76550f8a1a5a39b6b58561a0e7dec",
+      "lines": 7,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_compound-v2/impact/adapters/ig.js",
+      "area": "_compound-v2",
+      "sha256": "ca8e88f7c726c436b90ea531f1fead6a7fc38727046a653bd09a62b9aa858838",
+      "lines": 2,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_compound-v2/impact/adapters/li.js",
+      "area": "_compound-v2",
+      "sha256": "c414ef410124300d5d4b9944dfaf0e69d2201d5391fc7ccf140df50a60699c5a",
+      "lines": 1,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_compound-v2/impact/adapters/oriane.js",
+      "area": "_compound-v2",
+      "sha256": "115ce2ea5649608386a7364f54433b8c5f5021b2a2ebc88079c814d0cf2600b7",
+      "lines": 12,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_compound-v2/impact/adapters/owner.js",
+      "area": "_compound-v2",
+      "sha256": "c83187b4cda44c293b44cdf6b63ff494387fb5c32152b03dc66b1a91fcf551b3",
+      "lines": 46,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_compound-v2/impact/adapters/tt.js",
+      "area": "_compound-v2",
+      "sha256": "171b73ccfbc34df88549bb5d98fbbe8ba40f1703f4720b8e78fceda7568854a1",
+      "lines": 2,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_compound-v2/impact/adapters/tw.js",
+      "area": "_compound-v2",
+      "sha256": "66ffe9f4f30291b58d1545f115e1af01680f530b6545a9122e35c66eb8d5e0a5",
+      "lines": 13,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_compound-v2/impact/adapters/with-fallback.js",
+      "area": "_compound-v2",
+      "sha256": "e3fbe140a269af6d7d77e9e224b69401564e0545dd32546d89c6d20a0515240c",
+      "lines": 7,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_compound-v2/impact/adapters/x.js",
+      "area": "_compound-v2",
+      "sha256": "0bc6a3284d2d704b62a0bf2a489cc7328543e9e8f32691111db2c503719c46d7",
+      "lines": 19,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_compound-v2/impact/adapters/yt.js",
+      "area": "_compound-v2",
+      "sha256": "2e3f188d28864292798e2caa1e1834bcbe4f9df4101f39178ec6f8fede95967b",
+      "lines": 1,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_compound-v2/impact/eligibility.js",
+      "area": "_compound-v2",
+      "sha256": "ff2e8cb2f0c8fd07cec4548a0e392f5a6e1afd5bd487e38ca8948286f08ec5a5",
+      "lines": 13,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_compound-v2/impact/handler.js",
+      "area": "_compound-v2",
+      "sha256": "fffe6d14a3756cfee1243a8d8f725d04ab7b72ed740902c78ef4768b2ffc90c9",
+      "lines": 39,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_compound-v2/impact/links.js",
+      "area": "_compound-v2",
+      "sha256": "46a91760880c04c4b0cb7e44cde38abafcebfd23d7d38844acca74c7d2166482",
+      "lines": 10,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_compound-v2/impact/model.js",
+      "area": "_compound-v2",
+      "sha256": "29a33d22276d52af554dc1638e1831958d2f3abcbc450004098c53beff74d826",
+      "lines": 62,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_compound-v2/impact/normalize.js",
+      "area": "_compound-v2",
+      "sha256": "707b36520673f5db691d7342ec9bc75698c17c1661ef13f88d26c0f77ce0571c",
+      "lines": 19,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_compound-v2/impact/samples.js",
+      "area": "_compound-v2",
+      "sha256": "6a2af81a483a6124058cc5875497f7765a283ecc5380ef008ef5ace975e724b5",
+      "lines": 15,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_compound-v2/impact/store.js",
+      "area": "_compound-v2",
+      "sha256": "aed4d5e15d370378182a2c354b56d46a1f2b5a70381fa4d0848a809afd7f4572",
+      "lines": 60,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_compound-v2/impact/sync.js",
+      "area": "_compound-v2",
+      "sha256": "1b537826df41ce1da2562b868c8380db8d4dcece2ea301c53221080db09b6c8c",
+      "lines": 35,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_compound-v2/model.js",
+      "area": "_compound-v2",
+      "sha256": "a8e17cc354f090ae979dbd71f47a4687f107cac93b40ee7fd7098d9994146a4b",
+      "lines": 44,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_compound-v2/push.js",
+      "area": "_compound-v2",
+      "sha256": "dee628fa86c947fe745b65ddad25e648b8c5730586c49bc0e6676c6b2af7d45f",
+      "lines": 22,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_compound-v2/reports.js",
+      "area": "_compound-v2",
+      "sha256": "fd8af879c4fba9f604bc38396fa419492edb9873e2e885321fa40d6a657a054a",
+      "lines": 41,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_compound-v2/security.js",
+      "area": "_compound-v2",
+      "sha256": "7f0f9b57f86ccd1c6941cbd9b823c8b9b5cdd2b3245c9195ec1aca03526d3b73",
+      "lines": 19,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_compound-v2/store.js",
+      "area": "_compound-v2",
+      "sha256": "16be6965ca447156f2eaeae0b311404e4e3626f1b86a6f59d3aa71a77e988df1",
+      "lines": 58,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_compound-v2/summary.js",
+      "area": "_compound-v2",
+      "sha256": "600677014fabfc8c5d44fa8c40f8f0bfaa0b83a3730d50ca5804c529274c40aa",
+      "lines": 24,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_compound-v2/sync.js",
+      "area": "_compound-v2",
+      "sha256": "0cea4424609e2b24e62f0391c774881d288cf1df69ee3d5d82d90efe4aa0e055",
+      "lines": 53,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_compound-v2/uploads.js",
+      "area": "_compound-v2",
+      "sha256": "19b70e73ff5a1959302a44fe37927699ca11dc367f69403c7d93ff00b18a9472",
+      "lines": 41,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_compound/handler.js",
+      "area": "_compound",
+      "sha256": "c1f4a5171123a04e7f17c7600fcf2c460f0b130119e0509d0b3cc5fa86b44d70",
+      "lines": 82,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_compound/model.js",
+      "area": "_compound",
+      "sha256": "0c022fad084f3c4e5c6b47e768175cb1728f55949ca1ed5817e112a53417f144",
+      "lines": 43,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_compound/payments.js",
+      "area": "_compound",
+      "sha256": "84c0dfa78bac5079020728275cd3ad0a57dea34f515ce0258f3c70897055bb07",
+      "lines": 43,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_compound/security.js",
+      "area": "_compound",
+      "sha256": "4be60124095ddcb70d0adc0acd7ada88a7572d8da30731ca4dd219620ef2b0a0",
+      "lines": 27,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_compound/store.js",
+      "area": "_compound",
+      "sha256": "c915f8fd23995e3907ad410856dcb404a2d13278a3a6545d0df65842da857d6d",
+      "lines": 200,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_curiosity-vision.js",
+      "area": "api/root",
+      "sha256": "1382d4270b5d8dd32d3e8d6d962b863bc5c5393a65c1f32538cf9f9541565107",
+      "lines": 29,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_curious-creature.js",
+      "area": "api/root",
+      "sha256": "be14c2118811b2c60e7a083a1a864b87e1589bda42cc3773b82106a3367895c1",
+      "lines": 39,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_cv-social.js",
+      "area": "api/root",
+      "sha256": "29977e43a7e71a1924829a931a4e59883c703e409a7471b13f7f7a26f7c3364a",
+      "lines": 36,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_forms/handler.js",
+      "area": "_forms",
+      "sha256": "30e44e4496c83b1c36fa375c4c697dc29e524ee7d30cc66b8540832b75e6aba1",
+      "lines": 60,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_forms/mail.js",
+      "area": "_forms",
+      "sha256": "001d5df1ccabd2374ee079ee8e7d475ebcd9633ed1294084181e54e1cd90ae71",
+      "lines": 14,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_forms/service.js",
+      "area": "_forms",
+      "sha256": "f30fadee0bb8b354e2c15d100096bbf523e93bafed6bbbd776415979f97ae0b7",
+      "lines": 100,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_forms/store.js",
+      "area": "_forms",
+      "sha256": "348d75871d76f734cc45a53417fc5b6b326f4163cecaf5260aec7bb642caf6d3",
+      "lines": 46,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_function-errors.js",
+      "area": "api/root",
+      "sha256": "72241f33ff486fd73f12682b9538f241e1809f22428e21cafe8b9832dea0cbb6",
+      "lines": 7,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_game-data.js",
+      "area": "api/root",
+      "sha256": "a9e9153cb62930bfa1819f92e97b23b4d5ba3a8c1ef560ccdb7b3eb763ca697d",
+      "lines": 2,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_game.js",
+      "area": "api/root",
+      "sha256": "9ac2194b9764c12244762f6feef70846e869b5d4aab5437ed119f9e2ab5414fe",
+      "lines": 90,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_geo-areas.js",
+      "area": "api/root",
+      "sha256": "a8224c7674869c9c4e1e5e0b539816d8dc63f5cd4fb7ac2e40b327f43e476a47",
+      "lines": 21,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_geo-data.js",
+      "area": "api/root",
+      "sha256": "622fc4603bbb5aa7896844818eb020ff8194de9c72fe9414e3cd24517376732f",
+      "lines": 78,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_geo-regions.generated.js",
+      "area": "api/root",
+      "sha256": "2e6ff77f17a9022f46937a0cc8f66d828bd51cb9f2a931010614281fc066190a",
+      "lines": 4582,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_hack.js",
+      "area": "api/root",
+      "sha256": "30d2761a13c23eb48b897a3347945cc4cd1aafad70e4c7bf25584f7d751a2afb",
+      "lines": 52,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_health-history.js",
+      "area": "api/root",
+      "sha256": "40abcd16f896098d99edccfa7d2c54db46d6268c1455061dfddeef37d59fd9ab",
+      "lines": 351,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_health.js",
+      "area": "api/root",
+      "sha256": "cd3d55e0f671894ee9eb86be8dd1f999fd3f10c72c00e2f56428619247aec09c",
+      "lines": 358,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_hit.js",
+      "area": "api/root",
+      "sha256": "a8565d7d359efdb56d17e7855382cfce990f398f001ea0f225d376a4b56e064a",
+      "lines": 16,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_interviews/handler.js",
+      "area": "_interviews",
+      "sha256": "78c32498ce9171c58c43d8232bb446e43bd588775b697697c4fbb6dd70c19c4f",
+      "lines": 25,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_interviews/photos.js",
+      "area": "_interviews",
+      "sha256": "c82362cd8b5bf5627f99e80a84af19dccf31bdf42041e31f8ef47cccdce0bd43",
+      "lines": 9,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_interviews/share.js",
+      "area": "_interviews",
+      "sha256": "bb7b716165907f1af3586176fb9a794a8d496b78ebd75dbf9aaff182fed803b9",
+      "lines": 5,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_interviews/store.js",
+      "area": "_interviews",
+      "sha256": "754ed4b2d7628c7851b32a18af5ccbe0423b45edceefc13a0fcc18029a5a0ca6",
+      "lines": 40,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_legion/applications.js",
+      "area": "_legion",
+      "sha256": "b3b660e65cb8487a9cbd49e26c827e190ca8166004925ec51b8566bb362a04d6",
+      "lines": 24,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_legion/handler.js",
+      "area": "_legion",
+      "sha256": "cdaa2fd2a050057e2f8ae5ff48cf506a25059b12f0e57bf89f0b02a6610c53a2",
+      "lines": 54,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_legion/layers.js",
+      "area": "_legion",
+      "sha256": "bba9ff3357866be7e487482f2212d6bf3fbcbe3bd1377be7c7a89b501ea80165",
+      "lines": 134,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_legion/mail.js",
+      "area": "_legion",
+      "sha256": "7452f1d81643e610d4c7809af0d717714cebb120b3ab95ff4a468a570ead85af",
+      "lines": 9,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_legion/newsletter.js",
+      "area": "_legion",
+      "sha256": "88319f7b15ba3cb86c46fef657e2b681c702ce462c8a6e7c9394944b12c5f90a",
+      "lines": 27,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_legion/partners.js",
+      "area": "_legion",
+      "sha256": "4615a51e765f30b34c52d3a34b7666a70b9172b499aa90239f339f764a2e3ee3",
+      "lines": 24,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_legion/payments.js",
+      "area": "_legion",
+      "sha256": "739c23c7c6147553eb9c5cfd94429e37b3d1b2d800ed816c4c6473a2572d9828",
+      "lines": 22,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_legion/security.js",
+      "area": "_legion",
+      "sha256": "46b413efa4ec797e191d4ffab1f22bc0f476c939eca8ca340f663f547c56ca33",
+      "lines": 26,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_legion/senate-handler.js",
+      "area": "_legion",
+      "sha256": "ff4b9956adfa88e96679120ffdf1d4b6aa6f8c561a7f8099dd3e61b9a672bd1b",
+      "lines": 19,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_legion/senate-upload.js",
+      "area": "_legion",
+      "sha256": "84024562a3672573ea65a9afca4f6cd7ab764b8758a9f7b68bff56f79846761e",
+      "lines": 6,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_legion/senate.js",
+      "area": "_legion",
+      "sha256": "bdda1b0e9434e88e18db3a9e393012b7fa7c7cd9ded840ab973b04d581cff1f2",
+      "lines": 24,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_legion/store.js",
+      "area": "_legion",
+      "sha256": "a9e4d9bab4f88a63d2dc7bf665a0cf095586d8f099d06fd466fee5765f5eefc0",
+      "lines": 69,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_live-interviews.js",
+      "area": "api/root",
+      "sha256": "05b1b6a9ede999eb2031c056668bfd8f4f92b3bc842108f7fa36cb5633f3ea98",
+      "lines": 65,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_live.js",
+      "area": "api/root",
+      "sha256": "43e448addbe00c2ea6135cf87d35688e75decc3e6e09c3b269ebc6b96648da59",
+      "lines": 66,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_music-security.js",
+      "area": "api/root",
+      "sha256": "72329d7a7368e559c7d6870fa19a1bda5a886bacb4899361c9d3a029396c2634",
+      "lines": 37,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_music-store.js",
+      "area": "api/root",
+      "sha256": "d3c58a333d9eaca9c838c9bf1f5d8ec25f6fd0e21b3a25e2cb22d5b481f1f2bd",
+      "lines": 75,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_name-vote.js",
+      "area": "api/root",
+      "sha256": "e7086aa9d5ed56de58840344b90674e4ae201e5d36678775b5e3810bd1fc3fd1",
+      "lines": 53,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_og/curiosity.js",
+      "area": "_og",
+      "sha256": "023209fbcef33b21711d83bb43ea58285e785b0ddd729ce8389f26e9980d96a7",
+      "lines": 19,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_og/handler.js",
+      "area": "_og",
+      "sha256": "536a091287dd197eccf0648249e43ff8b34371deeae654302da6098247240c48",
+      "lines": 8,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_og/model.js",
+      "area": "_og",
+      "sha256": "509a2493ad89d1741b07277d6697c26dc3eb87031ef90698ce6ac5e0ea1a74ea",
+      "lines": 28,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_og/render.js",
+      "area": "_og",
+      "sha256": "b5eadbf51f5960654a1e3d61008e2f1fac054d76e316339d2b98a2a9b3218052",
+      "lines": 26,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_openrisk/client.js",
+      "area": "_openrisk",
+      "sha256": "7fd3dd9d8804d9bfb09027d999e0f0b0dd91130a9a02d84876bbee1b750209e1",
+      "lines": 1874,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_openrisk/engine/catalog.js",
+      "area": "_openrisk",
+      "sha256": "5a9b5baa515fb09f6fff898db89341f6452946ee5899976ea5ce728aea62b349",
+      "lines": 226,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_openrisk/engine/cities.js",
+      "area": "_openrisk",
+      "sha256": "3cc72cdbaae48b33b7da071692c9e36191738736f7639724c3cd157602420fce",
+      "lines": 17,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_openrisk/engine/directories.js",
+      "area": "_openrisk",
+      "sha256": "463e4217aeca61e171283f1e1c9a4d64178ccb65b4c2db96b02325b1f8a98bea",
+      "lines": 152,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_openrisk/engine/directory-enrichment.js",
+      "area": "_openrisk",
+      "sha256": "e08afa70a9929ea451622281afd01c96db623eb0047a2b302f760c7964432e88",
+      "lines": 63003,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_openrisk/engine/discovered.js",
+      "area": "_openrisk",
+      "sha256": "c500aadbbfa41f17fd8664d9d9be5157b55fdd1be4933902a7af4ce69ede0bdc",
+      "lines": 17887,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_openrisk/engine/enrich.js",
+      "area": "_openrisk",
+      "sha256": "28ece431175a97b2b77be52ccf6d61fad4e48b535c764739afdd8cd338739ef7",
+      "lines": 120,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_openrisk/engine/funds.js",
+      "area": "_openrisk",
+      "sha256": "64cdc29e5719a6bbcf7b5ed9178790e65b0b00369362b6a928fd3a2aaf75dd1c",
+      "lines": 25,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_openrisk/engine/index.js",
+      "area": "_openrisk",
+      "sha256": "387b55bcb4127655bd2736cdc929dab8b0df936031d239258aec86e55e8a14c6",
+      "lines": 57,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_openrisk/engine/live-estimate.js",
+      "area": "_openrisk",
+      "sha256": "25de43aaecce4419c16f908ddd7a142122f3a794d33e5d870c944b95c108900e",
+      "lines": 60,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_openrisk/engine/location.js",
+      "area": "_openrisk",
+      "sha256": "1aeb423563ce1b51f36a9dcacaf4b1a576d5f0e56e389309fa3461156ed4381c",
+      "lines": 42,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_openrisk/engine/metrics.js",
+      "area": "_openrisk",
+      "sha256": "c131b0892aba37d4fec93005e84adb4dfd5a9e5da03095d8eb17fe1a58eb19d9",
+      "lines": 56,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_openrisk/engine/places.js",
+      "area": "_openrisk",
+      "sha256": "15cd12979dae1a326cd1cfaf5e9ef2aafd45abd01fb556484cd987f15151f355",
+      "lines": 2,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_openrisk/engine/preload-report.js",
+      "area": "_openrisk",
+      "sha256": "d19ede3d58a6b76a4d39fcb9239676123fb5d70f2fbf853d33a37ebec33f2351",
+      "lines": 146,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_openrisk/engine/premium.js",
+      "area": "_openrisk",
+      "sha256": "5cd60b7aeb4a48bf90cf59eb3627428e09a3a0aae7e13a630b8f8dfd27cfc867",
+      "lines": 52,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_openrisk/engine/prior-snapshot.js",
+      "area": "_openrisk",
+      "sha256": "68f0e21987176b580f4eae9fbe776ebc7647f37a4cbab35a59a0f00250c3775e",
+      "lines": 403,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_openrisk/engine/research.js",
+      "area": "_openrisk",
+      "sha256": "c1eca144ca34dcee11e9a3f4eeb7dfca18b4ed48995e014a108d7e1057966993",
+      "lines": 46,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_openrisk/engine/score.js",
+      "area": "_openrisk",
+      "sha256": "536eb9df2fd499c0acc95267dd5a353135ae3c994327192079f4230734494b43",
+      "lines": 78,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_openrisk/engine/snapshot.js",
+      "area": "_openrisk",
+      "sha256": "418e2b439889e8dff5730bb2b69ad881d9ad449de854f419a0630b9163b8d90d",
+      "lines": 2072,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_openrisk/engine/verified.js",
+      "area": "_openrisk",
+      "sha256": "6c66ddb30cff94351ed4481879ceb70b120a2d3fb7bbd4a1f6091aab8f8eb247",
+      "lines": 142,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_openrisk/engine/wikidata-snapshot.js",
+      "area": "_openrisk",
+      "sha256": "bcc720e3119be33281b9e7800ff4a6b167408280a80c829c891fa2ee1aa368ed",
+      "lines": 1682,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_openrisk/feedback.js",
+      "area": "_openrisk",
+      "sha256": "769a4ca6ebba4c8cb5722e7cfe5c09e095a884baa07148b86cf51f54c9ef4b41",
+      "lines": 95,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_openrisk/insets.js",
+      "area": "_openrisk",
+      "sha256": "ba5fd70885f085191a6dbbdfb9259b66aba5cc4f662fc21f41e18394d28fd46f",
+      "lines": 2,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_openrisk/land.js",
+      "area": "_openrisk",
+      "sha256": "609861d37c57bbfa27b15f55726122c36647dc5b47f5c1cc936ff8c185840919",
+      "lines": 2,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_openrisk/logos.js",
+      "area": "_openrisk",
+      "sha256": "84bb4fa56373e029ae534dc35bc969042753ad49e68cdb3e2e8625122a2eb78c",
+      "lines": 1322,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_openrisk/market.js",
+      "area": "_openrisk",
+      "sha256": "be7df94204494cc8a75346269dbef53484d1b48b3f6e40a6000e46f305fe60c8",
+      "lines": 50,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_openrisk/radar.js",
+      "area": "_openrisk",
+      "sha256": "e9f541b12d46a316181cb69f5f1861e2c0e034c3991c9ed8fcd201f32ba04dd8",
+      "lines": 96,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_openrisk/store.js",
+      "area": "_openrisk",
+      "sha256": "35748f7a794cc95fa2b90d59aee5584e73886a0d45ea1c050a0f97123e5eb9a3",
+      "lines": 300,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_openrisk/view.js",
+      "area": "_openrisk",
+      "sha256": "d853427847120e3a81b28fe3158e3687a4dc6a4ded48a731a4f9a6722fc61ec6",
+      "lines": 85,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_play-time.js",
+      "area": "api/root",
+      "sha256": "ee2dcfb31f1e3fcb3e7a04e116050845d0861a4e3bab82da13dcac5790b61828",
+      "lines": 23,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_plethora.js",
+      "area": "api/root",
+      "sha256": "77480f7532d5cea2f00d6b0cf384f20afc820fcd3ab44b0717c0aaea797a7983",
+      "lines": 102,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_posthog-config.js",
+      "area": "api/root",
+      "sha256": "d2b07e06e16c94a43bedd6385202cc236f6c4ca2a07c1605c513d3ddaa192ee4",
+      "lines": 21,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_posthog.js",
+      "area": "api/root",
+      "sha256": "6fa34c3ea13707a0048708187c65260a59453d7cfb6844ccf8d6f518518f0044",
+      "lines": 28,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_privacy.js",
+      "area": "api/root",
+      "sha256": "4a3305174aca65d26ac20a769d6ad86622bb136680916a6bdd0cb9972b4b85f4",
+      "lines": 47,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_redis.js",
+      "area": "api/root",
+      "sha256": "dc2141d6df1ee11f1e4f2c8b723f2ae4febc1ae53f7217f1364ddab1e89615d0",
+      "lines": 116,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_report.js",
+      "area": "api/root",
+      "sha256": "3fc492e4a18605bab4c817f22d2e8a90c12fd64503d7c42aa18bd51f1da96fd9",
+      "lines": 56,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_secrets.js",
+      "area": "api/root",
+      "sha256": "99cf82e95a4cb7e20d5920ff4629bf256f963d8a70173d2d42092c7fca4ac448",
+      "lines": 26,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_session.js",
+      "area": "api/root",
+      "sha256": "cec0d2ed8bdf8c5d692f5c44daecb5de7d2f1e96844906b9851cee9c390f1df9",
+      "lines": 29,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_sf-store.js",
+      "area": "api/root",
+      "sha256": "f031e1bd620e0d851ca5f18aaf54f15c098bb70abfa14ec6411e46441683d1c7",
+      "lines": 84,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_sf.js",
+      "area": "api/root",
+      "sha256": "84a4556a8b47590fb075e8636996f29afb7591274829f1e33c3ae1734f737030",
+      "lines": 62,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_stats-build.js",
+      "area": "api/root",
+      "sha256": "6c20a668dc02b43d1a40438d30ea2f5cb0972597d5ee50a0e119410b60af41cc",
+      "lines": 115,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_stats-daily.js",
+      "area": "api/root",
+      "sha256": "f831d5639baf8932d6d83baeb4a4ab63cfc6f3ebe2106f93da5fbdb589547357",
+      "lines": 96,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_stats-rebuild.js",
+      "area": "api/root",
+      "sha256": "126a52c86135bb71507a4b0ef69ca78f2736fcdc00096dae51e5c2a8ad790daa",
+      "lines": 57,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_stats-recovery.js",
+      "area": "api/root",
+      "sha256": "2859b8571f4bcb107de61c2b0fc80bc0eff9ca4b8bb20ec01bc9e444d3c396c4",
+      "lines": 123,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_stats-sections.js",
+      "area": "api/root",
+      "sha256": "ad2334f9102a896b4f248624953d1cb3ecec6841046582d3e4fa836a4ce1b85b",
+      "lines": 117,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_stats-snap.js",
+      "area": "api/root",
+      "sha256": "7bfd0b74c2b53a0d5bfede226a3fa15b1635377e8977c86f1fb5eee1d92f3544",
+      "lines": 350,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_storage-audit.js",
+      "area": "api/root",
+      "sha256": "869713319ad95f43e31e7ddc51222b07f586ac46bd822b14e0eda9fd9d8b078b",
+      "lines": 18,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_support.js",
+      "area": "api/root",
+      "sha256": "5525d0bdc3a915f1f0b3ae3ef37951c430f686cd5b1ecc4b51f87788d350738a",
+      "lines": 95,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_visitor-counts.js",
+      "area": "api/root",
+      "sha256": "dd3353f115760e715c60121b82ff6b3bd4d994d2831231e85bd4635738dc3bed",
+      "lines": 42,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_voter.js",
+      "area": "api/root",
+      "sha256": "2c81c8ae68fcc206d4ebe0360948e2a75fc6fa0891c5b0ed7e96ba8b1f12a452",
+      "lines": 14,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_worldcraft.js",
+      "area": "api/root",
+      "sha256": "80bdbee85ade4c8de884215171210a7792648f192f9780b91d947bea9235cd2d",
+      "lines": 71,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_x-data.js",
+      "area": "api/root",
+      "sha256": "2bb3a36328ca15a4a16b48bed64c8400f92d7f8bb43259ac12cb1b9dd1a3e73c",
+      "lines": 64,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_x-notion.js",
+      "area": "api/root",
+      "sha256": "116838da2cf51b18048d58cbf5e394505e39ef28d3227b4b04e4ef499c4d7067",
+      "lines": 22,
+      "status": "legacy"
+    },
+    {
+      "path": "api/_x-sync.js",
+      "area": "api/root",
+      "sha256": "5a1b249448a17a6d3533a5b2cbfdde1023c2c00c373a2374d7e3832713247fd1",
+      "lines": 122,
+      "status": "legacy"
+    },
+    {
+      "path": "api/access.js",
+      "area": "api/root",
+      "sha256": "0ccb163b8812e3c503634cc44b1d90f45e3abbc723cb104965f3901891a73e94",
+      "lines": 20,
+      "status": "legacy"
+    },
+    {
+      "path": "api/army.js",
+      "area": "api/root",
+      "sha256": "d4de0be4b474c1fffbd4fc2d487a542b08ce51733571d2b05a841c31ceff4a7b",
+      "lines": 102,
+      "status": "legacy"
+    },
+    {
+      "path": "api/auth.js",
+      "area": "api/root",
+      "sha256": "1cc79e38ccee98b4105c21fc7ad47f292aabdf755088ce1747fe00186fcfc3bc",
+      "lines": 69,
+      "status": "legacy"
+    },
+    {
+      "path": "api/bmc-webhook.js",
+      "area": "api/root",
+      "sha256": "db49b76fc74c20d196b8c280209703a60bb620b91da3aaa6ad26d386c4cddf49",
+      "lines": 34,
+      "status": "legacy"
+    },
+    {
+      "path": "api/cv.js",
+      "area": "api/root",
+      "sha256": "beb189375df4cf5210daa968db6fa9b250d1bd3e5c93df44f3670aef14c11a51",
+      "lines": 23,
+      "status": "legacy"
+    },
+    {
+      "path": "api/discord.js",
+      "area": "api/root",
+      "sha256": "15406e01b5dc0612d24687aa490980f85503b3863a184be196882bf0b9b25246",
+      "lines": 20,
+      "status": "legacy"
+    },
+    {
+      "path": "api/forms.js",
+      "area": "api/root",
+      "sha256": "83820fdbfba6b5ccfc5f55789ff6261b9cf39b86948722efd6a6904dcaa6280e",
+      "lines": 3,
+      "status": "legacy"
+    },
+    {
+      "path": "api/geo.js",
+      "area": "api/root",
+      "sha256": "b04daef0f70c9e506f698f164953caed2ff18545000acddb3e875d9fb44da243",
+      "lines": 61,
+      "status": "legacy"
+    },
+    {
+      "path": "api/guess.js",
+      "area": "api/root",
+      "sha256": "55a436f1d72a3bb44d72db28b0549b3bd0e89c2876700b4fff69c54b18be60ce",
+      "lines": 30,
+      "status": "legacy"
+    },
+    {
+      "path": "api/logo-lab.js",
+      "area": "api/root",
+      "sha256": "b22e97bd2fb94e906414003f5c46882e899fb4322852fc04183a76e7b5f2eecb",
+      "lines": 80,
+      "status": "legacy"
+    },
+    {
+      "path": "api/logo-submit.js",
+      "area": "api/root",
+      "sha256": "198afd8fc55d1c483d664ade6079c334b24c64f685d3d1c423d589a4aeb3844e",
+      "lines": 32,
+      "status": "legacy"
+    },
+    {
+      "path": "api/music-admin.js",
+      "area": "api/root",
+      "sha256": "8527765354bb78ba316126b1ca65a890acba98247c7b30ce4728e41c5ea1267a",
+      "lines": 58,
+      "status": "legacy"
+    },
+    {
+      "path": "api/music.js",
+      "area": "api/root",
+      "sha256": "59289de63199f6c92032a8b18c68644f7328c193ea775b28066fff76eca8491b",
+      "lines": 78,
+      "status": "legacy"
+    },
+    {
+      "path": "api/pidgy-trial.js",
+      "area": "api/root",
+      "sha256": "447f3523deef56b16c5739183c9abf9882c0389ca955b7018e620822e03e9713",
+      "lines": 26,
+      "status": "legacy"
+    },
+    {
+      "path": "api/private-stats.js",
+      "area": "api/root",
+      "sha256": "dfc8887aff102f5ac0cb6d607ea90c6068abb276e41eef16df304bfbdb36f4df",
+      "lines": 48,
+      "status": "legacy"
+    },
+    {
+      "path": "api/project-cto.js",
+      "area": "api/root",
+      "sha256": "2be24db28d7da608a58e568ca69758a3ea78c72ee42ed78896197bbfbbf6243a",
+      "lines": 352,
+      "status": "legacy"
+    },
+    {
+      "path": "api/stats.js",
+      "area": "api/root",
+      "sha256": "a7d62a99f7d8512564f4c0632c66d32c24440727f54fa4d89f3fc0f9a80a06e4",
+      "lines": 59,
+      "status": "legacy"
+    },
+    {
+      "path": "api/vote.js",
+      "area": "api/root",
+      "sha256": "0540d4842f76e5f9008cbee248a1f6471cc3a4491e5daa29b8638a599319037a",
+      "lines": 78,
+      "status": "legacy"
+    },
+    {
+      "path": "api/x-stats.js",
+      "area": "api/root",
+      "sha256": "f981c85e69f9a2e70d19871e33bdf75e771ebfba996b4248960924ec35eeddb3",
+      "lines": 35,
+      "status": "legacy"
+    },
+    {
+      "path": "army/access/index.html",
+      "area": "inline-browser",
+      "sha256": "ce426bbadefb99fbee6b7d155bbfc9a474ff4ad725cae211f54f4213b72e4dc5",
+      "lines": 1,
+      "status": "legacy"
+    },
+    {
+      "path": "call/index.html",
+      "area": "inline-browser",
+      "sha256": "d1e13b79eb76eaa2256a567be2f21c0bc674ede15ca2b682bc67bba11438802f",
+      "lines": 116,
+      "status": "legacy"
+    },
+    {
+      "path": "compound/impact/index.html",
+      "area": "inline-browser",
+      "sha256": "a2e4ab18d2d6a88d64f66134ed9e2ec6b1453acf8f59c6f117a23d636d8f41a8",
+      "lines": 11,
+      "status": "legacy"
+    },
+    {
+      "path": "cv/social-media/index.html",
+      "area": "inline-browser",
+      "sha256": "4f0d406618c1b42eaa07e2332f7b7c16097e8a4c1c5caee70836ed7ecd67763a",
+      "lines": 273,
+      "status": "legacy"
+    },
+    {
+      "path": "go/index.html",
+      "area": "inline-browser",
+      "sha256": "5c1f2d9a0f8f69bb2524447ef3077682f00766c43eb6171f54da8a3916d91641",
+      "lines": 21,
+      "status": "legacy"
+    },
+    {
+      "path": "hack/2/index.html",
+      "area": "inline-browser",
+      "sha256": "a3fa2131bcf116439a58b2bb8f136b24821a278ad20d660e5f7342cb10d4b9c1",
+      "lines": 22,
+      "status": "legacy"
+    },
+    {
+      "path": "hack/index.html",
+      "area": "inline-browser",
+      "sha256": "99103750f885a3a9b8c29a6fa2685eb0c3427ba4793fc7c3c89d04620ef92cd6",
+      "lines": 22,
+      "status": "legacy"
+    },
+    {
+      "path": "hack/play/index.html",
+      "area": "inline-browser",
+      "sha256": "fa931bce436241b504d12026c0c800cbdfa8244e02da5e3576c81717790878c9",
+      "lines": 105,
+      "status": "legacy"
+    },
+    {
+      "path": "hackathons/index.html",
+      "area": "inline-browser",
+      "sha256": "7cfa74b8b4e93b72ecdc3b0954a35579bd434bf930f44fea775b3d08cf96247f",
+      "lines": 8,
+      "status": "legacy"
+    },
+    {
+      "path": "join-the-army-now/index.html",
+      "area": "inline-browser",
+      "sha256": "21790932e50c484e6f11b9d6d848cc2c370a9396272a7456ebb931e4accd5f66",
+      "lines": 29,
+      "status": "legacy"
+    },
+    {
+      "path": "js/analytics-consent.js",
+      "area": "js/root",
+      "sha256": "33558191c348d51b3179ae74a835436f4625914ee076920c22842bba77a20fa9",
+      "lines": 30,
+      "status": "legacy"
+    },
+    {
+      "path": "js/analytics-policy.js",
+      "area": "js/root",
+      "sha256": "31f55859fe9352af9e14bcce8fc8772d8fc0f0ed778a6564709c93af766ba20c",
+      "lines": 154,
+      "status": "legacy"
+    },
+    {
+      "path": "js/analytics.js",
+      "area": "js/root",
+      "sha256": "f11ad7f496b9644d2ec7137a0f4d2252f922294d88fc837e365555a5f43bc053",
+      "lines": 136,
+      "status": "legacy"
+    },
+    {
+      "path": "js/army/access.js",
+      "area": "army",
+      "sha256": "33ab24ee9ca757bb760deb0876d70ad5614d2f604e5ec47db5c4ccbdf4c8e80c",
+      "lines": 34,
+      "status": "legacy"
+    },
+    {
+      "path": "js/army/art.js",
+      "area": "army",
+      "sha256": "a1efba78782ed4076280f0c2a38ca2b09a8fe1d2077dee3831fd95a60fab5682",
+      "lines": 46,
+      "status": "legacy"
+    },
+    {
+      "path": "js/army/benefits.js",
+      "area": "army",
+      "sha256": "b904063360bde6e70441fef32c98466a12bbd98b59c67e41abdd4bd7087e46d8",
+      "lines": 8,
+      "status": "legacy"
+    },
+    {
+      "path": "js/army/client.js",
+      "area": "army",
+      "sha256": "b42702597124c27f46ac7e20926b23812513a6a13a9709678cf681890af4c3bf",
+      "lines": 57,
+      "status": "legacy"
+    },
+    {
+      "path": "js/army/copy.js",
+      "area": "army",
+      "sha256": "2e25ef3d8d05b001d53cfe3b6792cf7bc38e55a95fef092c9fcaf534f479ffde",
+      "lines": 8,
+      "status": "legacy"
+    },
+    {
+      "path": "js/army/countries.js",
+      "area": "army",
+      "sha256": "97042621f960cedb329b7ba34b33dbf24448e412c0f788ce7b50608e89cd9624",
+      "lines": 2,
+      "status": "legacy"
+    },
+    {
+      "path": "js/army/country-points.js",
+      "area": "army",
+      "sha256": "94a13f151e03b9168f712f261e07b85c8dbdbeb2e3447362b5a79d991a444670",
+      "lines": 2,
+      "status": "legacy"
+    },
+    {
+      "path": "js/army/domain.js",
+      "area": "army",
+      "sha256": "6e51da8c7e4d85399084abf869f520c122f898bc1ed0ff8491e8c80cab45dbfd",
+      "lines": 79,
+      "status": "legacy"
+    },
+    {
+      "path": "js/army/gate.js",
+      "area": "army",
+      "sha256": "9feb3d9f444459a44e7c769cb474c21a916e33ef875f8a8fc2d7f06e5af12006",
+      "lines": 38,
+      "status": "legacy"
+    },
+    {
+      "path": "js/army/legion.js",
+      "area": "army",
+      "sha256": "c3facbffdcfb14b3d29713f9f876160e1931fbeef9d178445d589a604474d711",
+      "lines": 17,
+      "status": "legacy"
+    },
+    {
+      "path": "js/army/privacy-copy.js",
+      "area": "army",
+      "sha256": "da8028e8766d4879c69fa1051c7b7cc089e5db5e6cdac531d9de160d66faab4c",
+      "lines": 12,
+      "status": "legacy"
+    },
+    {
+      "path": "js/army/profile.js",
+      "area": "army",
+      "sha256": "6a02f15038802abe6488c3257176fda456d26ca68feba2554b6bad2c63bf443a",
+      "lines": 13,
+      "status": "legacy"
+    },
+    {
+      "path": "js/army/war-room.js",
+      "area": "army",
+      "sha256": "3806ca93d7ba46c3a9df05eb5ab3aff9a31ef431c20b5e7f345da883f0a7438a",
+      "lines": 9,
+      "status": "legacy"
+    },
+    {
+      "path": "js/arrival.js",
+      "area": "js/root",
+      "sha256": "501ccf3118e6333ad0b31e5e281f50657bb50329cbdc5c154eb6944ca49da963",
+      "lines": 16,
+      "status": "legacy"
+    },
+    {
+      "path": "js/clean-url.js",
+      "area": "js/root",
+      "sha256": "dbeaffa4982b88fe0e0b48d98eec327744118e67c6d7637f6d5414c3c4225463",
+      "lines": 2,
+      "status": "legacy"
+    },
+    {
+      "path": "js/components.js",
+      "area": "js/root",
+      "sha256": "b4a78ee1be7ab1ac1877ec75e85aa7d5f64ead0b5f71191c59470687474340c1",
+      "lines": 55,
+      "status": "legacy"
+    },
+    {
+      "path": "js/compound-links.js",
+      "area": "js/root",
+      "sha256": "fe1c445feeac52303c99d9fb09221b37fc2199942b18673b1a980775ca181ad7",
+      "lines": 19,
+      "status": "legacy"
+    },
+    {
+      "path": "js/data/geo-cities.generated.js",
+      "area": "data",
+      "sha256": "3c42b26179d4968b2fdebe22836f0d2a373fc75aabe1c95a9b4b1f01fb807ebf",
+      "lines": 3229,
+      "status": "legacy"
+    },
+    {
+      "path": "js/eggs.js",
+      "area": "js/root",
+      "sha256": "e8c0354bd2a17ae65f466f5d9a0ebdd8672c32c8b56565e16015033d2ef3e34a",
+      "lines": 93,
+      "status": "legacy"
+    },
+    {
+      "path": "js/forms-draft.js",
+      "area": "js/root",
+      "sha256": "762ac885a95e6dd7af9faceda4bbb85840cad16fd4621eeef26d8e311c1de8be",
+      "lines": 89,
+      "status": "legacy"
+    },
+    {
+      "path": "js/forms-view.js",
+      "area": "js/root",
+      "sha256": "27fe7ddf82a581d3b9e62976dad60fd1d7f65b56100bef4f44051879efb57d06",
+      "lines": 87,
+      "status": "legacy"
+    },
+    {
+      "path": "js/game-picker.js",
+      "area": "js/root",
+      "sha256": "deedf1f983059808217223633bee7ab20328497ec3a0e203a28541d3df9f18c9",
+      "lines": 140,
+      "status": "legacy"
+    },
+    {
+      "path": "js/games-copy.js",
+      "area": "js/root",
+      "sha256": "f51be76d64942ad0ff05b767a6daad67942b5521bbd7b6521b010178656ba6fa",
+      "lines": 17,
+      "status": "legacy"
+    },
+    {
+      "path": "js/games.js",
+      "area": "js/root",
+      "sha256": "a16c52b8ab620a26a98ae464a20c341189dba54460ea03f7aa3bdf7da0087ebb",
+      "lines": 31,
+      "status": "legacy"
+    },
+    {
+      "path": "js/go.js",
+      "area": "js/root",
+      "sha256": "6667320cfa1f80f4a5b8bd556de5b865e33787b2591fe804edfdb097e4d6286d",
+      "lines": 65,
+      "status": "legacy"
+    },
+    {
+      "path": "js/home.js",
+      "area": "js/root",
+      "sha256": "f3da72c1a16adb662ce8357dc238e6819be6123b779108e1535c1f722788cf83",
+      "lines": 9,
+      "status": "legacy"
+    },
+    {
+      "path": "js/i18n.js",
+      "area": "js/root",
+      "sha256": "e74a2746804c84f828afe86d835f005ef78b3fed6621d39bc6bc456ba33e90ff",
+      "lines": 42,
+      "status": "legacy"
+    },
+    {
+      "path": "js/i18n/bar.js",
+      "area": "i18n",
+      "sha256": "98aa7b6e4e3932bea29a820588adb0ba7faa979b8b5553ef289c4c3d69ed4407",
+      "lines": 12,
+      "status": "legacy"
+    },
+    {
+      "path": "js/i18n/feature.js",
+      "area": "i18n",
+      "sha256": "cbb6542b550cd51c3d89a35d6571c1b037ecc1f28d7a35af39e5f0f3098c5c14",
+      "lines": 18,
+      "status": "legacy"
+    },
+    {
+      "path": "js/i18n/language.js",
+      "area": "i18n",
+      "sha256": "3ab3c5da085204a7d83ca2770c76895256d7c6d08f952b9dd534d4aa3506e0c0",
+      "lines": 94,
+      "status": "legacy"
+    },
+    {
+      "path": "js/link-context.js",
+      "area": "js/root",
+      "sha256": "405dc654bf5923655d0f9a964a3b9c629eba1780c7f0e3390b8167571e8f907d",
+      "lines": 15,
+      "status": "legacy"
+    },
+    {
+      "path": "js/links.js",
+      "area": "js/root",
+      "sha256": "2c1f5ed4724b56d50b92fb3873359a812584cfbb954782fa357d08157b52c7ad",
+      "lines": 124,
+      "status": "legacy"
+    },
+    {
+      "path": "js/live-banner.js",
+      "area": "js/root",
+      "sha256": "d85bdc8fff2c089a0dd7be2cb8e8f1024212aa2a1c7935576ed311df408b3db8",
+      "lines": 32,
+      "status": "legacy"
+    },
+    {
+      "path": "js/live-stream.js",
+      "area": "js/root",
+      "sha256": "502864251ca6d65169fca653f8ee26b8128e782a7c51bb0b370ab2d4ea6a20ae",
+      "lines": 53,
+      "status": "legacy"
+    },
+    {
+      "path": "js/locales/de.js",
+      "area": "locales",
+      "sha256": "d84948b5ebe08b66869b07fe1eaa015369172608ed74b74b97d0ec5b1db91e49",
+      "lines": 1,
+      "status": "legacy"
+    },
+    {
+      "path": "js/locales/en.js",
+      "area": "locales",
+      "sha256": "4fbd121fd4ddbeb78b397f1ee745157bfb07ded94182d4891996b891166ac565",
+      "lines": 1,
+      "status": "legacy"
+    },
+    {
+      "path": "js/locales/es.js",
+      "area": "locales",
+      "sha256": "c6994a4cc0b77a0125676586ada6e2c5fb5658a336a5ba252ad4173b57107704",
+      "lines": 1,
+      "status": "legacy"
+    },
+    {
+      "path": "js/locales/fr.js",
+      "area": "locales",
+      "sha256": "1e0189ca3dde4776552456eec8c7b000670dbd18463c3b50660dbdbe3c43f671",
+      "lines": 1,
+      "status": "legacy"
+    },
+    {
+      "path": "js/locales/nl.js",
+      "area": "locales",
+      "sha256": "8849d4d2e9cdde35eed7c3331c4bf49daab74b3c6a884824621033caae92533d",
+      "lines": 1,
+      "status": "legacy"
+    },
+    {
+      "path": "js/locales/pt.js",
+      "area": "locales",
+      "sha256": "fe1dbb215a395825160650cd125ec4cc24026add2786f40d3d2b62eb2ae0f7bf",
+      "lines": 1,
+      "status": "legacy"
+    },
+    {
+      "path": "js/locales/zh.js",
+      "area": "locales",
+      "sha256": "b1451d348dbd5cfae81899e564043b5a80200813a79d8882bedd08e88308d4d8",
+      "lines": 1,
+      "status": "legacy"
+    },
+    {
+      "path": "js/music-admin.js",
+      "area": "js/root",
+      "sha256": "7438601d162be0cb9818dce6794b3e10807f3329b792ff75402b256baef23a71",
+      "lines": 84,
+      "status": "legacy"
+    },
+    {
+      "path": "js/music-map.js",
+      "area": "js/root",
+      "sha256": "bf40bac89ff0d124ac8a5afa1f9084a8d399a83aa0ab5e08f16eb75f859feba9",
+      "lines": 49,
+      "status": "legacy"
+    },
+    {
+      "path": "js/music-performance.js",
+      "area": "js/root",
+      "sha256": "daace3cb4de7d3cd9c0d5053d37a9c91dfca75ed0c97da470018315e63f391e0",
+      "lines": 7,
+      "status": "legacy"
+    },
+    {
+      "path": "js/music-proof.js",
+      "area": "js/root",
+      "sha256": "0c7693f9fbb6b55b5b23def1ddd01d7b368f24b7d202279b5098b90d83fe7a13",
+      "lines": 11,
+      "status": "legacy"
+    },
+    {
+      "path": "js/music-shared.js",
+      "area": "js/root",
+      "sha256": "07c14fa2c35ab21333704ee03b6c75bcefba1fabd547faf079b7a1397718801f",
+      "lines": 38,
+      "status": "legacy"
+    },
+    {
+      "path": "js/music.js",
+      "area": "js/root",
+      "sha256": "63cac50ef673e7ae1abbf81a22e3b254119205e6680cbcc53eae97c39c5b5fdd",
+      "lines": 193,
+      "status": "legacy"
+    },
+    {
+      "path": "js/og-routes.js",
+      "area": "js/root",
+      "sha256": "a9c62daf9ed5e7ea4ec87720a1049c1e322095f1cdb76d74b39b4d8f11e3e9f7",
+      "lines": 10,
+      "status": "legacy"
+    },
+    {
+      "path": "js/outbound.js",
+      "area": "js/root",
+      "sha256": "4715ac76c2837aa5e2abd256cb3603897c7cb8c20255b2d00115c15a3470a65a",
+      "lines": 5,
+      "status": "legacy"
+    },
+    {
+      "path": "js/people.js",
+      "area": "js/root",
+      "sha256": "472f69b621cd4f3a6586bf28138a464497fe3fc2dadcbd0410470327356872c7",
+      "lines": 96,
+      "status": "legacy"
+    },
+    {
+      "path": "js/peopleData.js",
+      "area": "js/root",
+      "sha256": "1d35fb033da1dbb9e31512833a38fa5b1fbfd76f9fd59e9a14df8732f9754a3d",
+      "lines": 29,
+      "status": "legacy"
+    },
+    {
+      "path": "js/performance.js",
+      "area": "js/root",
+      "sha256": "ebbeeb5cdae71bebf12399ee84c90a90704e675ead4970e7eab6caf3003806e1",
+      "lines": 1,
+      "status": "legacy"
+    },
+    {
+      "path": "js/personas.js",
+      "area": "js/root",
+      "sha256": "11a6a6849dc86719aa6f34bac42b0dd717a694564ad2dc0df87984223d292b77",
+      "lines": 33,
+      "status": "legacy"
+    },
+    {
+      "path": "js/plethora-config.js",
+      "area": "js/root",
+      "sha256": "f894376d352c34ff54848bf8d2a1d9cb9fde92091c312a0c940b86ee47982ee4",
+      "lines": 18,
+      "status": "legacy"
+    },
+    {
+      "path": "js/plethora.js",
+      "area": "js/root",
+      "sha256": "d09f3941180f5ab240f066003aeffaf489048ff6181a86f980b8d8c1e8980f70",
+      "lines": 30,
+      "status": "legacy"
+    },
+    {
+      "path": "js/portal.js",
+      "area": "js/root",
+      "sha256": "ffc1a4e399ec9f335f1f9e8db9c5fc08886815b437900874d9c5f0e5ccb2706b",
+      "lines": 31,
+      "status": "legacy"
+    },
+    {
+      "path": "js/privacy-locales/de.js",
+      "area": "privacy-locales",
+      "sha256": "def7a9bd05aeadf4276dd06152ce1f4d9ae73aa7fb6d0354f3c3e49f59d904bd",
+      "lines": 84,
+      "status": "legacy"
+    },
+    {
+      "path": "js/privacy-locales/en.js",
+      "area": "privacy-locales",
+      "sha256": "59f2936f7a728379141d3d24ae6d7a0644c85dda2bc764797b2412ce9caf2b1c",
+      "lines": 84,
+      "status": "legacy"
+    },
+    {
+      "path": "js/privacy-locales/es.js",
+      "area": "privacy-locales",
+      "sha256": "c5bfc7a9275b4d0b7390e5f3314f5e8279f267e850fc481ba01776a0d531cf15",
+      "lines": 84,
+      "status": "legacy"
+    },
+    {
+      "path": "js/privacy-locales/fr.js",
+      "area": "privacy-locales",
+      "sha256": "a6532bff7585891d04a15290881c8554b6d064c2cb0542081f1be62be7e7c00f",
+      "lines": 84,
+      "status": "legacy"
+    },
+    {
+      "path": "js/privacy-locales/nl.js",
+      "area": "privacy-locales",
+      "sha256": "6e742af25a1de269a12523b0d39cd412a15ca17216f6cb56359428f74f000b6b",
+      "lines": 84,
+      "status": "legacy"
+    },
+    {
+      "path": "js/privacy-locales/pt.js",
+      "area": "privacy-locales",
+      "sha256": "4cb8284266b5b45183ec2f04076e24bbd46fb4da94de1ed4e5ac8dcb02530d08",
+      "lines": 84,
+      "status": "legacy"
+    },
+    {
+      "path": "js/privacy-locales/zh.js",
+      "area": "privacy-locales",
+      "sha256": "977de4df91084dbac8fda4ab94ec848ed1f6716978eedde1c0497f5efef88c1c",
+      "lines": 84,
+      "status": "legacy"
+    },
+    {
+      "path": "js/privacy-page.js",
+      "area": "js/root",
+      "sha256": "8bac45ca4adcca5e040769b67e698423d83f7760e865900370280bea458e6232",
+      "lines": 48,
+      "status": "legacy"
+    },
+    {
+      "path": "js/privacy-stream.js",
+      "area": "js/root",
+      "sha256": "e31228a51759eddf253a5da7f4936dbc47f97512bdaf88d671d68c13bb52546f",
+      "lines": 18,
+      "status": "legacy"
+    },
+    {
+      "path": "js/privacy-strings.js",
+      "area": "js/root",
+      "sha256": "0a3f6c0014457f23e63b037ee2c13da7525e490d4dc7efba262490ab32e6c24f",
+      "lines": 2,
+      "status": "legacy"
+    },
+    {
+      "path": "js/privacy.js",
+      "area": "js/root",
+      "sha256": "397d846f90c0a355b3d6f7c1b398e552551b039fb5a7d322fdd6338ac530131b",
+      "lines": 46,
+      "status": "legacy"
+    },
+    {
+      "path": "js/private-army.js",
+      "area": "js/root",
+      "sha256": "967b7d8f54c6620470f52cf0fd35dbf561492f3909ff3cb33c8a3f1c9cd4117c",
+      "lines": 30,
+      "status": "legacy"
+    },
+    {
+      "path": "js/private-sf.js",
+      "area": "js/root",
+      "sha256": "c1560d0dd523a2605ecd47aafebd564fdd814a29b678abd6b356e876cd0c3bbd",
+      "lines": 26,
+      "status": "legacy"
+    },
+    {
+      "path": "js/private-x.js",
+      "area": "js/root",
+      "sha256": "47f5366acac3b98950aba9510822c7e90bf8256a8df8f03122ba836f802dc48b",
+      "lines": 31,
+      "status": "legacy"
+    },
+    {
+      "path": "js/private.js",
+      "area": "js/root",
+      "sha256": "84b713d48f10a3db6226df935285550446409dc91ae3f179b9b0b631a0720b8d",
+      "lines": 165,
+      "status": "legacy"
+    },
+    {
+      "path": "js/quest-attribution.js",
+      "area": "js/root",
+      "sha256": "0fa435d82ca095e915c89f599ca1be09f10d1efa6f8f4db01d7927c40ee63712",
+      "lines": 11,
+      "status": "legacy"
+    },
+    {
+      "path": "js/realm-night.js",
+      "area": "js/root",
+      "sha256": "763bd912c70e76f2cdad9cb7ab66b4af2b5ee6b2fa7ef35e9bc66d5a54f4c73f",
+      "lines": 125,
+      "status": "legacy"
+    },
+    {
+      "path": "js/realm-reset.js",
+      "area": "js/root",
+      "sha256": "6fac8080b348eabe1e8323905b95bda299f2f56b8ccf45a2fdd48b9888ea3779",
+      "lines": 6,
+      "status": "legacy"
+    },
+    {
+      "path": "js/realm.js",
+      "area": "js/root",
+      "sha256": "b1096e070b141c623b477a0dd8dc0b9fd692c91f17265fc12443a8ae8f8e00c1",
+      "lines": 12,
+      "status": "legacy"
+    },
+    {
+      "path": "js/search.js",
+      "area": "js/root",
+      "sha256": "4ffc95b66f09c39a46ec1a850ba6e7fd5ab029a6ebd17d8e1a2f8b8651c1162c",
+      "lines": 86,
+      "status": "legacy"
+    },
+    {
+      "path": "js/sf-note.js",
+      "area": "js/root",
+      "sha256": "77f4af9681f4a4653f5b59081906d6f60827a66c7aeee4a1a0792026aa28d940",
+      "lines": 34,
+      "status": "legacy"
+    },
+    {
+      "path": "js/sf-trip.js",
+      "area": "js/root",
+      "sha256": "851d1272d340a4aa8e228cbbd81d051026bbf3bc736614c94a7ffb50e8c99d5a",
+      "lines": 14,
+      "status": "legacy"
+    },
+    {
+      "path": "js/sf.js",
+      "area": "js/root",
+      "sha256": "035e33efebcffb86692d739b06cdbe23f285882a67dd7a415ddde6940b1b21b7",
+      "lines": 57,
+      "status": "legacy"
+    },
+    {
+      "path": "js/sidequests.js",
+      "area": "js/root",
+      "sha256": "65d8508c8c1fa233989008d05eddff31236392b34067fab2bb91b136db502659",
+      "lines": 36,
+      "status": "legacy"
+    },
+    {
+      "path": "js/site/admin.js",
+      "area": "site",
+      "sha256": "6b4a2b96bd0b92023ad250bfe46211d1c7d4f3712d172eb7d9a77fdc5018f3a1",
+      "lines": 19,
+      "status": "legacy"
+    },
+    {
+      "path": "js/site/api.js",
+      "area": "site",
+      "sha256": "3085d6c92b9ae502566ba649d8f6e9f8c60760fd61c51f980dc893df3262776b",
+      "lines": 5,
+      "status": "legacy"
+    },
+    {
+      "path": "js/site/cardneto.js",
+      "area": "site",
+      "sha256": "7dece9b85a9f4638b9ae1b2fb5b5bf13cca9cd28e21a97b977ced1edc8f2fab4",
+      "lines": 2,
+      "status": "legacy"
+    },
+    {
+      "path": "js/site/compound-links.js",
+      "area": "site",
+      "sha256": "8162f6306550ff4c8487eadec76fdca0708f590f2c98666033af51dee6559465",
+      "lines": 10,
+      "status": "legacy"
+    },
+    {
+      "path": "js/site/daily.js",
+      "area": "site",
+      "sha256": "7266c5511b59549b581f1446c7feb5ca6a170ea79793126896277d038219be1d",
+      "lines": 8,
+      "status": "legacy"
+    },
+    {
+      "path": "js/site/discovery.js",
+      "area": "site",
+      "sha256": "b637d46a3e694e0f89c8cee6fc9749fdbf2ddef3d6f4cbdb8fd58fad7c0ff839",
+      "lines": 15,
+      "status": "legacy"
+    },
+    {
+      "path": "js/site/invite.js",
+      "area": "site",
+      "sha256": "d468716dc420bd77fd034780d5cb7c2e2cfc9b1d5348f79f009b670b1fb95075",
+      "lines": 4,
+      "status": "legacy"
+    },
+    {
+      "path": "js/site/legion-config.js",
+      "area": "site",
+      "sha256": "45322b6af5253abb35cba9d017568a48b948c0cccc22bdad245940b43cf77929",
+      "lines": 18,
+      "status": "legacy"
+    },
+    {
+      "path": "js/site/legion.js",
+      "area": "site",
+      "sha256": "168bf5edd776c93ea941f1a583d0a572dd97445d727402e76da3ba8eba2f6bd7",
+      "lines": 18,
+      "status": "legacy"
+    },
+    {
+      "path": "js/site/letters.js",
+      "area": "site",
+      "sha256": "6259f073dbd3a046a097395a0101003197a4479487cf940870e6f4a72646d95a",
+      "lines": 3,
+      "status": "legacy"
+    },
+    {
+      "path": "js/site/page-tiers.js",
+      "area": "site",
+      "sha256": "f6f4883615cf5b68fcbb4bf6d446cc8b064b34f6dd5fd902a096b68390597d5d",
+      "lines": 17,
+      "status": "legacy"
+    },
+    {
+      "path": "js/site/routes.generated.js",
+      "area": "site",
+      "sha256": "24941ee5db76d8b9874bddc7d2b77d13d696ba9579c68eda87f6fb94b8d74c8c",
+      "lines": 2,
+      "status": "legacy"
+    },
+    {
+      "path": "js/site/routes.js",
+      "area": "site",
+      "sha256": "5dd8b8790a1ec9a90f8df80ebc6a2fd609cec25d08100c493040b02e1e3869e1",
+      "lines": 586,
+      "status": "legacy"
+    },
+    {
+      "path": "js/site/senate-admin.js",
+      "area": "site",
+      "sha256": "4ece35cc7e2d660d55ab7d76e5a3ee0c1a828bbc381ba83f547906748a74f310",
+      "lines": 2,
+      "status": "legacy"
+    },
+    {
+      "path": "js/site/senate-edit.js",
+      "area": "site",
+      "sha256": "524125d0198c84f3349b19758765d499f3276c7984b447610bf25ef5ff597104",
+      "lines": 8,
+      "status": "legacy"
+    },
+    {
+      "path": "js/site/senate.js",
+      "area": "site",
+      "sha256": "df2f356d0b0e819dc2add247e5c62c19dd99d5e0125654a08f66e08b079ee1e6",
+      "lines": 6,
+      "status": "legacy"
+    },
+    {
+      "path": "js/site/shell.js",
+      "area": "site",
+      "sha256": "b0742c6cbffb6fba107d18ebfa57ab939900eea813b5ef3de426f53913604061",
+      "lines": 20,
+      "status": "legacy"
+    },
+    {
+      "path": "js/site/taste-zone.js",
+      "area": "site",
+      "sha256": "7f40581ca86b926d7490f461c4d76f13e32c79272843ef59cb07f8e970e2cb24",
+      "lines": 7,
+      "status": "legacy"
+    },
+    {
+      "path": "js/site/taste.js",
+      "area": "site",
+      "sha256": "01a258d2631295e1871643a749d5aca533ec70ece80c1e1171cd1c22e7539d2a",
+      "lines": 34,
+      "status": "legacy"
+    },
+    {
+      "path": "js/social-attribution.js",
+      "area": "js/root",
+      "sha256": "d3536511e4b3abd1ed9bec3eedea8ecc99e9f65ed7772df9fe7b79199e1cadc6",
+      "lines": 10,
+      "status": "legacy"
+    },
+    {
+      "path": "js/squad-links.js",
+      "area": "js/root",
+      "sha256": "7ddfb30239ab2fdfcd9e9b20486adafc66a79fe20553b4728d9004afb68dcd25",
+      "lines": 19,
+      "status": "legacy"
+    },
+    {
+      "path": "js/stats-army.js",
+      "area": "js/root",
+      "sha256": "7a336d91d43a1b20d1a6e490d80c9d7ed345733fa17b16fd925e6c2ad68e6c7f",
+      "lines": 10,
+      "status": "legacy"
+    },
+    {
+      "path": "js/stats-atlas.js",
+      "area": "js/root",
+      "sha256": "0ea6c6f24f192e76ff9ceca9bff1d38d55b010d3ee3eaa454c7119b840f396b5",
+      "lines": 40,
+      "status": "legacy"
+    },
+    {
+      "path": "js/stats-coffee.js",
+      "area": "js/root",
+      "sha256": "d12cba28809a5d63ad8441708bd2a0bcec8a67f4bc649e7b188b7cb7f22a01e7",
+      "lines": 33,
+      "status": "legacy"
+    },
+    {
+      "path": "js/stats-countries.js",
+      "area": "js/root",
+      "sha256": "fbabb4791fdefd09eeff6bf4a9ee718eab62071c6b0bb46cc19c159e803a9992",
+      "lines": 41,
+      "status": "legacy"
+    },
+    {
+      "path": "js/stats-data.js",
+      "area": "js/root",
+      "sha256": "512d08593b62bec44d51bb1af2621df9790a5cd2fd0089bd31e0e6e5ccaaedc2",
+      "lines": 245,
+      "status": "legacy"
+    },
+    {
+      "path": "js/stats-games.js",
+      "area": "js/root",
+      "sha256": "b0cd280cd663193a531702c146eb709d292611eb0795cc9d70522df3fa3654ae",
+      "lines": 40,
+      "status": "legacy"
+    },
+    {
+      "path": "js/stats-hunt.js",
+      "area": "js/root",
+      "sha256": "27d759f59bb54ea4699050fd0622e579f153c095e9852114c9bdcb5d2b57c27a",
+      "lines": 13,
+      "status": "legacy"
+    },
+    {
+      "path": "js/stats-map.js",
+      "area": "js/root",
+      "sha256": "383a86a860f4fb65598117b15875deac429b3659e05db540e5a538b751900350",
+      "lines": 204,
+      "status": "legacy"
+    },
+    {
+      "path": "js/stats-music.js",
+      "area": "js/root",
+      "sha256": "02b174536fae540fa54d7e3a5ee8a14a387d515222d58f8f7cc00beea48c65f6",
+      "lines": 13,
+      "status": "legacy"
+    },
+    {
+      "path": "js/stats-nav.js",
+      "area": "js/root",
+      "sha256": "caca0aacff1ae701aba418cf33e0ca6377eb534ffab6cfef7fa57d9a63d872f6",
+      "lines": 21,
+      "status": "legacy"
+    },
+    {
+      "path": "js/stats-pidgy.js",
+      "area": "js/root",
+      "sha256": "90a54b7a670980fd5d482f22bba78a540b5ac2ca5ba1fa6db2549e04602d75ba",
+      "lines": 60,
+      "status": "legacy"
+    },
+    {
+      "path": "js/stats-status.js",
+      "area": "js/root",
+      "sha256": "5c3a431be724ac412fec3d6c8d9be55dbcf42d5628237be1e2bbae287e56f947",
+      "lines": 241,
+      "status": "legacy"
+    },
+    {
+      "path": "js/stats-support.js",
+      "area": "js/root",
+      "sha256": "486487b35b19373b3f710a125389d52453829bb6ff018c7a5d669b46658b74be",
+      "lines": 37,
+      "status": "legacy"
+    },
+    {
+      "path": "js/stats-view.js",
+      "area": "js/root",
+      "sha256": "c57601db242663b2a1123fd2dcb8844d6f96f545de7f59e4598872e930be49a7",
+      "lines": 26,
+      "status": "legacy"
+    },
+    {
+      "path": "js/stats-x.js",
+      "area": "js/root",
+      "sha256": "41e15ba1f4c4b06b261073b69b56416cd81538028fb4ee4de2f1f095c89d7a66",
+      "lines": 29,
+      "status": "legacy"
+    },
+    {
+      "path": "js/stats.js",
+      "area": "js/root",
+      "sha256": "9cc8b2058677823dd35a82efac7b7a3fb8ea2e4a9226882fa11e82ecfefa0770",
+      "lines": 150,
+      "status": "legacy"
+    },
+    {
+      "path": "js/status-graph.js",
+      "area": "js/root",
+      "sha256": "68c21e9b387d822c51547ae3605fc7178842acf3868ba8b101076cfbc8759b5e",
+      "lines": 300,
+      "status": "legacy"
+    },
+    {
+      "path": "js/storage-warning.js",
+      "area": "js/root",
+      "sha256": "bfe745cfa1cf0c6b7037342834b1947279269dce3eeb39d628db76d65189b933",
+      "lines": 11,
+      "status": "legacy"
+    },
+    {
+      "path": "js/storage.js",
+      "area": "js/root",
+      "sha256": "5a0380d46d2584de9caba91b462bbe3fbe809ba267d736b804e32f96b40c761f",
+      "lines": 36,
+      "status": "legacy"
+    },
+    {
+      "path": "js/support-config.js",
+      "area": "js/root",
+      "sha256": "e661017b3cdd1a954e89eab8cd0caa9c701ce69ff32afb1220f80f294e807985",
+      "lines": 7,
+      "status": "legacy"
+    },
+    {
+      "path": "js/support.js",
+      "area": "js/root",
+      "sha256": "d022665cbe13e30d0177356cc4a1cde703a1a5dc8d028f0f7642d406cded437e",
+      "lines": 16,
+      "status": "legacy"
+    },
+    {
+      "path": "js/terminal.js",
+      "area": "js/root",
+      "sha256": "8018b96dcb7a99fb53eee19d83ef9e8ceb24e87c4069ca11fd356f7681d52c0e",
+      "lines": 136,
+      "status": "legacy"
+    },
+    {
+      "path": "js/utils.js",
+      "area": "js/root",
+      "sha256": "88cfd151c868bd2cbe9ff8b87f498a4c8a6c1699878236716c48116bb6ec11d3",
+      "lines": 17,
+      "status": "legacy"
+    },
+    {
+      "path": "js/vendor/leaflet/leaflet.js",
+      "area": "vendor",
+      "sha256": "4f1ac3296897403e0a84881c974dbdf36d9a8488f0ef4b5626a952b1b6190d80",
+      "lines": 6,
+      "status": "legacy"
+    },
+    {
+      "path": "js/vendor/posthog-1.445.3.min.js",
+      "area": "vendor",
+      "sha256": "ceba8b65f6727211786c9653e8993ed641aa48d4908d8375acd2b2ae7b1ee9a8",
+      "lines": 2,
+      "status": "legacy"
+    },
+    {
+      "path": "js/vendor/qrcode-2.0.4.mjs",
+      "area": "vendor",
+      "sha256": "ea91d7118a5395289170da848b7c6758b996163bfbccf312591ab65a4911b7c0",
+      "lines": 2237,
+      "status": "legacy"
+    },
+    {
+      "path": "js/vendor/sortable.min.js",
+      "area": "vendor",
+      "sha256": "6d0a831fc19b4bae851797ad3393157e861afb7862459c11226359b27e2c4337",
+      "lines": 2,
+      "status": "legacy"
+    },
+    {
+      "path": "js/wiki-persona.js",
+      "area": "js/root",
+      "sha256": "d7d9a2e6916ed911bfebe35531732d1a89e1245961b22c686b9c18a5ed255672",
+      "lines": 27,
+      "status": "legacy"
+    },
+    {
+      "path": "js/x-attribution.js",
+      "area": "js/root",
+      "sha256": "326fea97267e2cc8615e596d82f5b2182a592e7893790e0336ba6bd1095168fc",
+      "lines": 17,
+      "status": "legacy"
+    },
+    {
+      "path": "js/x-clocks.js",
+      "area": "js/root",
+      "sha256": "3a9d933ee85d8208f1aa16b31805e3f2b7ca5832986771eaf259b400def23021",
+      "lines": 52,
+      "status": "legacy"
+    },
+    {
+      "path": "js/x-time.js",
+      "area": "js/root",
+      "sha256": "6b5dc10a74e1c40c695c4c2f5ed5e11af5be2a35bfbda437ff87d4b6b55cbacc",
+      "lines": 38,
+      "status": "legacy"
+    },
+    {
+      "path": "languages/index.html",
+      "area": "inline-browser",
+      "sha256": "ad66bbbb2ae9f7c45d6844f63033e6dee9b3bb3ab3ec5f1ce68a7e7eafd2972b",
+      "lines": 132,
+      "status": "legacy"
+    },
+    {
+      "path": "middleware.js",
+      "area": "routing",
+      "sha256": "18f4163bc941537dea4ae24e0c69d63d897ff5a5d095f43c08d3029d5668d364",
+      "lines": 154,
+      "status": "legacy"
+    },
+    {
+      "path": "now/index.html",
+      "area": "inline-browser",
+      "sha256": "bbd9d4d70f0f5c67c84ca3396903d9ed62b8826a95fa17d98fd83259863b57dd",
+      "lines": 51,
+      "status": "legacy"
+    },
+    {
+      "path": "people/index.html",
+      "area": "inline-browser",
+      "sha256": "64e6c4fd0bb0258f35ed35681d857304cd118f140507d60d36b4ca38df27e900",
+      "lines": 92,
+      "status": "legacy"
+    },
+    {
+      "path": "public/worldcraft/bloom-quest.html",
+      "area": "inline-browser",
+      "sha256": "b3d7f57fcdee14f1b5653645aaa50bb378710fe7a07370a1a9e32c470f49cbbe",
+      "lines": 1,
+      "status": "legacy"
+    },
+    {
+      "path": "public/worldcraft/boss-battle.html",
+      "area": "inline-browser",
+      "sha256": "8218fcbf215a12499702e85686840fafa155f9c6537f0585f6ebf097e57dc2fc",
+      "lines": 1,
+      "status": "legacy"
+    },
+    {
+      "path": "public/worldcraft/custom.html",
+      "area": "inline-browser",
+      "sha256": "f67b354a4ddef42b8f2a8f788f4b97ec7c788e3be0edb85076b5cc556dd21c84",
+      "lines": 3,
+      "status": "legacy"
+    },
+    {
+      "path": "public/worldcraft/fraction-kingdom.html",
+      "area": "inline-browser",
+      "sha256": "ce42bb36d460473205064c8378038f2fea5955ae9582350f27490856d8635bd1",
+      "lines": 1,
+      "status": "legacy"
+    },
+    {
+      "path": "public/worldcraft/leaf-commander.html",
+      "area": "inline-browser",
+      "sha256": "9d2f42aa74a88c5e8f05309fd690edcd0369a7b1eb9614e0e79571cd4ace6a2b",
+      "lines": 1,
+      "status": "legacy"
+    },
+    {
+      "path": "public/worldcraft/memory-palace.html",
+      "area": "inline-browser",
+      "sha256": "00a209fac11baabd53cedda8c8b8393eae20841d0de75053dfd868862d70333e",
+      "lines": 1,
+      "status": "legacy"
+    },
+    {
+      "path": "public/worldcraft/reef-rescue.html",
+      "area": "inline-browser",
+      "sha256": "ed7feb72b10827ba013d638e2815cf331448f9e5ac05eefaf7a4c6a2358c54b4",
+      "lines": 1,
+      "status": "legacy"
+    },
+    {
+      "path": "public/worldcraft/space-station.html",
+      "area": "inline-browser",
+      "sha256": "68237261d65b99ea313e5ef94cf69cb2ac41452ad31d1e2a2b62187900980bda",
+      "lines": 1,
+      "status": "legacy"
+    },
+    {
+      "path": "public/worldcraft/storyrealm.html",
+      "area": "inline-browser",
+      "sha256": "f0db169fbf49efa295b3c012db4f94260fd1a1f421a16075d28b4c47a1db6f88",
+      "lines": 1,
+      "status": "legacy"
+    },
+    {
+      "path": "public/worldcraft/teach-the-robot.html",
+      "area": "inline-browser",
+      "sha256": "a10236a492de4cfe260301654a25a2ccddf6090b8e7175668e9833d3c5076f85",
+      "lines": 1,
+      "status": "legacy"
+    },
+    {
+      "path": "public/worldcraft/teach-the-village.html",
+      "area": "inline-browser",
+      "sha256": "b59e0c207be8dc3404a5b006fef17d35bb2b317cf85dacb446aefd7bf2efd6f2",
+      "lines": 1,
+      "status": "legacy"
+    },
+    {
+      "path": "submission/index.html",
+      "area": "inline-browser",
+      "sha256": "647bb277e6133a65a331c8a39050ae11675f1252ad7f76b5e1152828fc27c990",
+      "lines": 69,
+      "status": "legacy"
+    },
+    {
+      "path": "support/books/index.html",
+      "area": "inline-browser",
+      "sha256": "0d94a2dd97d461415f4c69d5cb89b0b64ea6def8bf029a9518a475032ed01786",
+      "lines": 78,
+      "status": "legacy"
+    },
+    {
+      "path": "support/companies/index.html",
+      "area": "inline-browser",
+      "sha256": "ea8dc4ca347643986e2a90756f40b73464dee3d1b5ff2b6de765f5298dc6f705",
+      "lines": 46,
+      "status": "legacy"
+    },
+    {
+      "path": "support/founders/index.html",
+      "area": "inline-browser",
+      "sha256": "d5b1d2fe2f8a595f3508d6f307cc9ef25ceeb2b61ea4bbd2f8f30bda8e1f0d09",
+      "lines": 49,
+      "status": "legacy"
+    },
+    {
+      "path": "support/index.html",
+      "area": "inline-browser",
+      "sha256": "6ee035dbf6f9ffe6573dd806cbb3479259653364846344c093664aa2e19e481c",
+      "lines": 71,
+      "status": "legacy"
+    },
+    {
+      "path": "support/people/index.html",
+      "area": "inline-browser",
+      "sha256": "1f8b8d8ea50bdd866c7765abb47feb8ff263782a8df6da629f7b5b43565ebfb3",
+      "lines": 50,
+      "status": "legacy"
+    },
+    {
+      "path": "support/philosophists/index.html",
+      "area": "inline-browser",
+      "sha256": "70a6c97530f14f01b4363fb8e8534cb144f174adfc9f1d42d4a7a11c69d79ec7",
+      "lines": 53,
+      "status": "legacy"
+    },
+    {
+      "path": "support/sport-people/index.html",
+      "area": "inline-browser",
+      "sha256": "4b17e368dcaf40d1d61ad5e4ec8d1d3ada7de9b42f9cf5b2d52bd65b43c7ca26",
+      "lines": 49,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/army-admin.mjs",
+      "area": "tests",
+      "sha256": "2ab70d636299aa3e0b8530e96ab8412150ad5f885106dafc9d87a4ef92eb3ed2",
+      "lines": 18,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/army/accounts-browser.mjs",
+      "area": "tests",
+      "sha256": "e0f60f632e135c04f876728df292712475acd1a0367e65f24497b4f6f7fca0c5",
+      "lines": 15,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/army/bmc.mjs",
+      "area": "tests",
+      "sha256": "8710f7c3bc6d1bea172672eb66c90cce024ce55816f0ec03bb10e84bc11f8c53",
+      "lines": 39,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/army/discord.mjs",
+      "area": "tests",
+      "sha256": "2860c85ea90cfcc67d141869782eb8f32d4efa6460595b530cb187579430e5cc",
+      "lines": 44,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/army/earned-ranks.mjs",
+      "area": "tests",
+      "sha256": "bdf2fe1ce87807ca65a90eb236d0d2279ec980c14205283f5bb19c109c039cfa",
+      "lines": 28,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/army/feathers-browser.mjs",
+      "area": "tests",
+      "sha256": "e0424b49179f1b87f189f47f07baeab7a3f857e0f5a9476079c584a3e97f2aa7",
+      "lines": 26,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/army/knock-browser.mjs",
+      "area": "tests",
+      "sha256": "0d712d2eb82c05cafdaa1c57fecee243ce229230d5c85a1fb9479839e974428b",
+      "lines": 25,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/army/mail.mjs",
+      "area": "tests",
+      "sha256": "9af296236cd69643e0e728d834cd59e1d34c490a80320e53bd8668398b9cf3a5",
+      "lines": 40,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/army/napoleon-browser.mjs",
+      "area": "tests",
+      "sha256": "12531c8f15b73c25aae327b6779fe212bce4d98dc04871624ed8f3952c7bcbc0",
+      "lines": 41,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/army/pidgy-ui-browser.mjs",
+      "area": "tests",
+      "sha256": "59b7261505ca4aaca18deaf358f0d79c1aaa3ba0b76411aca6e887569cb08682",
+      "lines": 20,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/army/pidgy-ui.mjs",
+      "area": "tests",
+      "sha256": "5bee5b7ba30f112c4930f7333fff1c60a0e8618801ec1f0a4d87f36340bccdf7",
+      "lines": 20,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/army/pidgy.mjs",
+      "area": "tests",
+      "sha256": "ab293139cfc635bf15253e657fabd5b6ae74a013a6b49dbdc89e4093a648971e",
+      "lines": 25,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/army/server.mjs",
+      "area": "tests",
+      "sha256": "1644999c5f1b01765626ae68a1c01782fe693149a65bb34085a9d43020eddb12",
+      "lines": 28,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/army/store.mjs",
+      "area": "tests",
+      "sha256": "a4b87b350e820f18462a072a48f685cd4d2480646814335c8fd03d41f9aee39d",
+      "lines": 42,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/army/tier-rank-browser.mjs",
+      "area": "tests",
+      "sha256": "54e82d42619ea9f1d91afbb17411f033658b4b049e0795a5d6c17e3675353c69",
+      "lines": 24,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/army/tier-rank.mjs",
+      "area": "tests",
+      "sha256": "c066150f469024ea0482bb262186d0d12ccd298fd0bb74149ada584b02e931c8",
+      "lines": 12,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/build-stats/api.mjs",
+      "area": "tests",
+      "sha256": "242f74f3a3743871f8c9f50027e8475bce68afef0c7b8e729c6adba4a8418816",
+      "lines": 16,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/build-stats/publish-cost.mjs",
+      "area": "tests",
+      "sha256": "873d303070850f540f0e53df11bc925183cb169461b6e4880369226dcab58cd7",
+      "lines": 14,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/build-stats/verify.mjs",
+      "area": "tests",
+      "sha256": "574ffd53afa46b2496f847bc1d6d8b565400b1120616d89387cad4cc5b6c79fa",
+      "lines": 5,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/coffee.mjs",
+      "area": "tests",
+      "sha256": "059c98ff6bb51236c7917f6be068f0abe1ec843be44c4eeb5589a61ec41f5327",
+      "lines": 56,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/compound-browser.mjs",
+      "area": "tests",
+      "sha256": "3b939b19d122fd2d3efc548df080bbd4da262b3c399b67d6608b06f41a692018",
+      "lines": 47,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/compound-impact.mjs",
+      "area": "tests",
+      "sha256": "bf3ec094c21d795de55c1fac0d07ad78fb4f9a3c0cf0e145204753315042c8d7",
+      "lines": 41,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/compound-push-browser.mjs",
+      "area": "tests",
+      "sha256": "15f284e712202b00686f106b077a3a0b940ac7e887877e8fc445e6dc39b9b8d7",
+      "lines": 11,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/compound-push.mjs",
+      "area": "tests",
+      "sha256": "e8fd394d4f0180f9e386780b4b9594cebbb9b5416bfaf6fda54d5f56d7842c88",
+      "lines": 21,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/compound-reports.mjs",
+      "area": "tests",
+      "sha256": "1c5413f9b2473799461b252713e8a59562520bdc6013a63ddef9be28cd37dba7",
+      "lines": 14,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/compound-upload-queue.mjs",
+      "area": "tests",
+      "sha256": "573382da08f84d6d08c0575a026b4ee4afcc9caf828307b03cad93eb5df95c73",
+      "lines": 29,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/compound-v1-browser.mjs",
+      "area": "tests",
+      "sha256": "9fc8d31900d51521c782cbc420bf6228667089fcc3c709e29804d8ff7a9ea7d8",
+      "lines": 49,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/compound-v2-browser.mjs",
+      "area": "tests",
+      "sha256": "5c1a7c6aa91afedb5d04f987fc9f27f2fd88bb06c4921d3725e8f6e5493f6132",
+      "lines": 15,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/compound-v2-sync.mjs",
+      "area": "tests",
+      "sha256": "50456a44c7efbc51e03537e70d4fcb32f4d1c9b0e938fc322893eb69fb2c9b78",
+      "lines": 17,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/compound-v2.mjs",
+      "area": "tests",
+      "sha256": "fb511d6da9c0ad09735bfb8b0b2121b48093eb1e1634f8a139a77daa10f3b79f",
+      "lines": 37,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/compound.mjs",
+      "area": "tests",
+      "sha256": "a09536500d123b59b1b1aa93c3f6b41e261526e46543815dc03338309b32f5b9",
+      "lines": 106,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/counting.mjs",
+      "area": "tests",
+      "sha256": "1d74a4ff4df6806853f28ea804e6ff9e3751b9af04aab0996b4fd4c21634e73e",
+      "lines": 36,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/counting.spec.mjs",
+      "area": "tests",
+      "sha256": "195f2829744ea8781f99ee4d89f3b19a637785874d6b4a2e069e6aa036ce97f2",
+      "lines": 69,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/curiosity-hero.mjs",
+      "area": "tests",
+      "sha256": "c9735c36957b83594a68795663d66ed88f0a42584272b63f1da69f78270c8ec9",
+      "lines": 6,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/curiosity-vision.mjs",
+      "area": "tests",
+      "sha256": "f7a6946bc20a7f2dd54067dcb75f1c2c62ee2a6c22cec9283f927029376acdb2",
+      "lines": 8,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/curiosity.mjs",
+      "area": "tests",
+      "sha256": "039b2c57f4ecca36d3aed1c17d45acd43c84f0928c62263e48422fd9655a44d0",
+      "lines": 15,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/curiositycraft-routes.mjs",
+      "area": "tests",
+      "sha256": "6400bea1426047f16841e084c4e0659da4017b206ab4c7212f2801aea807cdcd",
+      "lines": 5,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/curious-creature-ui.mjs",
+      "area": "tests",
+      "sha256": "b3811c8c154b60028799cbd76b17c9a38ee8b0d9c3fa2b8e1724c34718a2a899",
+      "lines": 2,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/curious-creature.mjs",
+      "area": "tests",
+      "sha256": "65e437ad4b73b102312c76f265e3c890d9486aa3f9716c9839314eed6af2bba4",
+      "lines": 11,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/cv-social.mjs",
+      "area": "tests",
+      "sha256": "74cfcd2a2df0a4cefe9e1417e4977bcf8c1a1639f0b069071b3ceabe18a9ee25",
+      "lines": 19,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/dynamic-og.mjs",
+      "area": "tests",
+      "sha256": "9c61a154f881e0afa1e7654ee7efd817136f9613a06e6314ef811a4ab7b07250",
+      "lines": 24,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/eu-config.mjs",
+      "area": "tests",
+      "sha256": "3dc95c4467472559ecb06cb00483b9913c8b3be817f971da9aff41b028d0f665",
+      "lines": 41,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/forms-api.mjs",
+      "area": "tests",
+      "sha256": "539cdaa451c981eeefacf7541dd4c08a28beecf7ffb8d459e9af0276cc707d74",
+      "lines": 45,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/forms-draft.mjs",
+      "area": "tests",
+      "sha256": "8353eb5a1f257c4ab9a45878e2559ca15c2c7c167ff083f6e6ca1537739b2c62",
+      "lines": 60,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/forms-service.mjs",
+      "area": "tests",
+      "sha256": "a4eead5d79ae9b49aeffdd8f3b0d89b6189472ab8fb1485b9383c91000e8524c",
+      "lines": 62,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/game-picker.spec.mjs",
+      "area": "tests",
+      "sha256": "1d8885813c57882bbb204dfbafa31beba7b2d1b1989eff2d295192169aa2143e",
+      "lines": 133,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/games.mjs",
+      "area": "tests",
+      "sha256": "3537fe8dfd6163092cdd1ed6430dc07a85663578e6f546257678e1a2d0009a1d",
+      "lines": 31,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/geo.mjs",
+      "area": "tests",
+      "sha256": "d671f493a58901a888cb52362a31303171a8ef2e8f6d99d06f0fc2075f51ef5b",
+      "lines": 49,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/hack-live-mode.mjs",
+      "area": "tests",
+      "sha256": "042f2c20cb2307a92753b8316abb9b8f3b4bab851119757a85b677c4a86584c7",
+      "lines": 13,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/hack.mjs",
+      "area": "tests",
+      "sha256": "d151317dac48e6d06ea5d836f8dfd81d7dfde6edb9bde3e62c2d8d81dc4619b1",
+      "lines": 22,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/hackathon-squads-browser.mjs",
+      "area": "tests",
+      "sha256": "f7bcacde9f264cd83198c6ac6015c1e6fece6a19b6643943802be9da96ced545",
+      "lines": 56,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/hackathon-squads.mjs",
+      "area": "tests",
+      "sha256": "d04be6cb22e7207ca2fed6c2d2c768c443c81db7842b09ec3f3a6c9e76b9096a",
+      "lines": 24,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/health-posthog.mjs",
+      "area": "tests",
+      "sha256": "254b6706dbbde27380f87f4fc2258014c62e96bae3f1bb05e036ae985d500695",
+      "lines": 19,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/identity-migration.mjs",
+      "area": "tests",
+      "sha256": "afe1771ef9b0abbf74491a0b3689ce2cec2bcec3c39b375cad6221b783576996",
+      "lines": 12,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/impact-accounts.mjs",
+      "area": "tests",
+      "sha256": "f42e575968333acced91f4c5f9baf177f55efc63e17a3abf4d4a9242d605fbd6",
+      "lines": 11,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/impact-browser.mjs",
+      "area": "tests",
+      "sha256": "79293d2ff2519b4003d7ff99c1ddb35a6b102a87ace11fa26623bbbbea7f280c",
+      "lines": 6,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/impact-linkedin-browser.mjs",
+      "area": "tests",
+      "sha256": "9c23560dc6eba64d927c9f76e3d0b37e2d3d1ce32dc0fb4f968791d0b38ee62d",
+      "lines": 24,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/impact-linkedin.mjs",
+      "area": "tests",
+      "sha256": "0c1130e2e2385aaa12659544ce2db829226d1165cc7d7b56edfd3bc9d6f1fa80",
+      "lines": 32,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/impact-metrics.mjs",
+      "area": "tests",
+      "sha256": "74ce390c95bf2cab012a24ff66e2e85083dfe0b622b006abfd7dfcbfbaff5e17",
+      "lines": 29,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/interview-quick-add.mjs",
+      "area": "tests",
+      "sha256": "a96182fe0cc6d365ded2417d425fe80c866b81876a6f43fbae54ba6d2e175389",
+      "lines": 48,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/linkedin-import.py",
+      "area": "tests",
+      "sha256": "549ae069c568224b8b6ed0d4551389aa5c7b4ee3b3cbf8036b6fd99e8ad21882",
+      "lines": 12,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/linkedin-stats.mjs",
+      "area": "tests",
+      "sha256": "b24f5cbf607ca4e3b4b9519a7e71911561463a8a2d767d14c3a63acae05c6aef",
+      "lines": 17,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/live-banner-api.mjs",
+      "area": "tests",
+      "sha256": "e6029f1fb5dfc82f5ec398f7fb194b628a4cdf9b42d0ca41c032e4fcaa865d3d",
+      "lines": 15,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/live-banner-browser.mjs",
+      "area": "tests",
+      "sha256": "b5161328f04333835096ed54288890d7aa8b27312680f6ab502dc5edadecd7b6",
+      "lines": 27,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/live-overlay.mjs",
+      "area": "tests",
+      "sha256": "ff75cab39c49496fb5a0408a00a7cfb8a3ae97db2fa97d603253c21b07cb3af1",
+      "lines": 36,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/live-page.mjs",
+      "area": "tests",
+      "sha256": "3cdd6d7fe5aa696d94788a99727032c4204765a8879322e62486f442181682ca",
+      "lines": 16,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/live-stream.mjs",
+      "area": "tests",
+      "sha256": "74eff618b6e16ccba0cb10c75f97acd1a2515533dc43572dd5e3c26bb25fbcbe",
+      "lines": 18,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/mobile-audit.spec.mjs",
+      "area": "tests",
+      "sha256": "8b1233b3251efeeddad2879aa118079a67708e8a4c3a9a810adc74a2941a7403",
+      "lines": 31,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/music-api.mjs",
+      "area": "tests",
+      "sha256": "034925bdd286b76792d139d95165d2f01d40c77745641ba629fd07e3361ddf19",
+      "lines": 102,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/night-coffee.spec.mjs",
+      "area": "tests",
+      "sha256": "35cf127ad7a9684ec2427ac874ff871d177d8381b258dab89831ac575bea0026",
+      "lines": 80,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/persona-hubs.spec.mjs",
+      "area": "tests",
+      "sha256": "e36880ae4b5bc8ea3a9a5dd0e85ad1f2a00f37c04369fb2c0cb138f47f4fe52c",
+      "lines": 134,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/personas.spec.mjs",
+      "area": "tests",
+      "sha256": "a4abe61789bf183cc0329fc5c83b0607eb5f26c95365cfc76037b6a84d43faf7",
+      "lines": 26,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/play-time.mjs",
+      "area": "tests",
+      "sha256": "3c8e8c580a7b251fd992e226f67a91f64b9a6db0741a676f9baebff613dc204a",
+      "lines": 6,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/post-ready.mjs",
+      "area": "tests",
+      "sha256": "8bed7f25093b38f6c1aa26fc0997570b29acb2210df7f3f71e35d37b967d541f",
+      "lines": 38,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/posthog-ingestion.mjs",
+      "area": "tests",
+      "sha256": "f0aa1cf11997a5a2a158d736c25a3be3efbc605b86b7f335c3b1783d636368ea",
+      "lines": 15,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/privacy-data.mjs",
+      "area": "tests",
+      "sha256": "2c36bc5b1e6e6dc660476c0bcbda29fb7d5e9f7413fcac6ab20b8af2fa4e00a3",
+      "lines": 118,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/privacy.spec.mjs",
+      "area": "tests",
+      "sha256": "7c4d4af4677be644e681b1e4aa30a8759f58931c013a6a5cd18eb886eee444c0",
+      "lines": 332,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/realm-ritual-browser.mjs",
+      "area": "tests",
+      "sha256": "fe932b4950bc1d768c3efd68178ef3c00bfeb3df454df5ac4354aa2b8bbed6f1",
+      "lines": 75,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/realm-ritual.mjs",
+      "area": "tests",
+      "sha256": "8b47b91a948e7aca1fedc61e5bde5ba83e2bee437ce88849268e549e4e3f0f86",
+      "lines": 28,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/redis-migration.mjs",
+      "area": "tests",
+      "sha256": "14b413933bbc5b4efbfc41442c04ef8f2e062a3d475262a412106ff239217059",
+      "lines": 54,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/redis-plaintext.mjs",
+      "area": "tests",
+      "sha256": "9ac3bb2364ac22194d56c4328606a56e17b3d8b4e16bf5f93a8de97127e03707",
+      "lines": 67,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/redis-timeouts.mjs",
+      "area": "tests",
+      "sha256": "6d609d1d967f9bcc3b8fd17e228fecdaa39d92ed3ae5a6e1bc7f2d2e06e61f37",
+      "lines": 43,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/region-probe.mjs",
+      "area": "tests",
+      "sha256": "0dd7ceea35d544eb756d16fc50fb6efc1ff6da1cdab0819ec7806410c0ef9b73",
+      "lines": 26,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/routes.mjs",
+      "area": "tests",
+      "sha256": "952643284eae2871c8df88a396a4bad5bf0d678d37b373345331282550721179",
+      "lines": 27,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/sf-data.mjs",
+      "area": "tests",
+      "sha256": "0faba72ef9058a4077d5cc42ee8942c63744148d719a59ca0d24eea3b030f247",
+      "lines": 66,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/sf.spec.mjs",
+      "area": "tests",
+      "sha256": "3b9fbc4590a58bc5e2359f7a8cb6b5cd78ed756df51062bc347bc907d2a0c3cb",
+      "lines": 101,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/site/api.mjs",
+      "area": "tests",
+      "sha256": "24e3cabc0d96cdc5f72323b05f2ff72d595ceccb790a0185e60adcd101846587",
+      "lines": 26,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/site/browser.mjs",
+      "area": "tests",
+      "sha256": "695dd269aba77559dfec05cc70902ae83f36fe05e89ae6eb194370bce8b847ab",
+      "lines": 21,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/site/contest-vote.mjs",
+      "area": "tests",
+      "sha256": "2c653bb04106a156f22df4ae5055d8e4f43aa8e8073852a29755296e93bb8c1e",
+      "lines": 6,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/site/homepage.mjs",
+      "area": "tests",
+      "sha256": "ec7bee72ffe35ea021717de32448ae7b828131cb69f1f033ca398ff896d5c33b",
+      "lines": 10,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/site/layers.mjs",
+      "area": "tests",
+      "sha256": "b4a5627011bb18e0ea3c0c36fbf82812990ec8b3c5babe2d902bdcf6f3c2e300",
+      "lines": 85,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/site/layout.mjs",
+      "area": "tests",
+      "sha256": "c59c8321238120c6d514ca65725b9c87ef7e3996484de2e3faeb9fcbb66c000d",
+      "lines": 17,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/site/payments.mjs",
+      "area": "tests",
+      "sha256": "7bfc75fb95801b0df3da8831982c356e3efa46d3ba11d393c6fc47605386d30c",
+      "lines": 16,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/site/remote-admin.mjs",
+      "area": "tests",
+      "sha256": "a6678973fffcfbbdd06471ff0b6e9b12224c627edfd3e7c58c9aa33a4d50a363",
+      "lines": 9,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/site/routes.mjs",
+      "area": "tests",
+      "sha256": "0518ccc2ceed445812975ab3f504e5e913eeac50d185c81424e7122dffc1571b",
+      "lines": 30,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/site/senate.mjs",
+      "area": "tests",
+      "sha256": "fc958394e0d75745a06874e4c9f6826463120458a1678502f42bfa29b08d496e",
+      "lines": 16,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/smoke-ci.mjs",
+      "area": "tests",
+      "sha256": "37a1ee336ca1f08ff2fffdb865904c4ca1a391d1a5926096f6e80cf90e18b3fa",
+      "lines": 21,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/social-attribution.mjs",
+      "area": "tests",
+      "sha256": "fe90ebb6325ac2062ea7f572831f75ee18309e76181a2e7e1d0550376edea7d7",
+      "lines": 23,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/squad-member-clicks.mjs",
+      "area": "tests",
+      "sha256": "42044f374fa8d7fe908f9d1f46c9161833d55d45ec79d84f263672e343e87dff",
+      "lines": 38,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/squad-members-browser.mjs",
+      "area": "tests",
+      "sha256": "a973b947c966282c02a2715f1022d98da3310529d2dc3dea966c66d72b4e690c",
+      "lines": 46,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/stats-countries.mjs",
+      "area": "tests",
+      "sha256": "eecf6c15be9bb1b72f57b8dfaf82cb46b61dcd504d120b84453fdbf3f06ad284",
+      "lines": 45,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/stats-countries.spec.mjs",
+      "area": "tests",
+      "sha256": "33d871005dfa55a17d3b1ec614cdab3fef738eb0a77548b9d07547bf67b3d89c",
+      "lines": 91,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/stats-health.mjs",
+      "area": "tests",
+      "sha256": "6f21186732c0d205b9b11255db9f04c03f046120c2300369f3652c5e795fed2a",
+      "lines": 381,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/stats-rebuild.mjs",
+      "area": "tests",
+      "sha256": "748c6c22a5c47557192ec3b73410820f4b379f6fd5a8184becd56f206e84d8ca",
+      "lines": 35,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/stats-speed.spec.mjs",
+      "area": "tests",
+      "sha256": "69c6343361bfc9f5099b9ae7641994930ca8bb2d606b7f2fe1ceee5326ad6175",
+      "lines": 164,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/status-fixture.mjs",
+      "area": "tests",
+      "sha256": "c2705434eb9e4f2a30b455f286065d5a70d30e6d39ccceb27e13a8d85c465abb",
+      "lines": 55,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/status-history.mjs",
+      "area": "tests",
+      "sha256": "ac5a8b11fdeed6ad218693d21323a038d460a0d5d7a5fbf9f91b83017f3c57d2",
+      "lines": 167,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/status.spec.mjs",
+      "area": "tests",
+      "sha256": "b3039d8508621cd2181b47350f9e3bfdd2ac1d9f311b15b2cef60457a2058180",
+      "lines": 145,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/tiktok-slugs.mjs",
+      "area": "tests",
+      "sha256": "4994651c596298749cc4656a4e5d452e5d71c8f10256a14d45ccec26730ea201",
+      "lines": 7,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/vanity-links.mjs",
+      "area": "tests",
+      "sha256": "9151f79c07d9aab80ef00c4071d04dc0d345819db835717439af733a30284a6b",
+      "lines": 49,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/vanity-main.mjs",
+      "area": "tests",
+      "sha256": "c1b7a67987ca68731a6059999d1b67ba12e09e43d23d1f1ad41fbe9be9a979e0",
+      "lines": 2,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/video-share-drafts.mjs",
+      "area": "tests",
+      "sha256": "34cfaf69d43bb8ec10323a4331e3b68ebb2a3704db5e5ec9e7e04b3942038884",
+      "lines": 21,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/worldcraft-chat.mjs",
+      "area": "tests",
+      "sha256": "00cec737f6edc47ad1e00f8f243a508fb49fcd1b5a001193aa0a9241cbc7efe4",
+      "lines": 3,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/worldcraft-distribution.mjs",
+      "area": "tests",
+      "sha256": "46e658aa447535805486d26b16a665a31102301fac354bc261ffb8257a922854",
+      "lines": 11,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/worldcraft-server.mjs",
+      "area": "tests",
+      "sha256": "72234c900fbb34878bef62f7290e253de258d56334bdddb69facc593a16a1f4a",
+      "lines": 3,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/worldcraft-voting.mjs",
+      "area": "tests",
+      "sha256": "9a9c2e6c7897df07027860da99e10e6a2ff554f6e9b09ddc8d4ee5d732d7dfbd",
+      "lines": 2,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/worldcraft.mjs",
+      "area": "tests",
+      "sha256": "780c9768732da71d558384440732642ca8d75cf8ca4b5cd735d333ac5f85e8e9",
+      "lines": 10,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/x-stats.mjs",
+      "area": "tests",
+      "sha256": "a4157f1e042ec12e772437f4a90527ed2772fc8378f76e35bc06b18aa42c5eee",
+      "lines": 70,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/x-stats.spec.mjs",
+      "area": "tests",
+      "sha256": "cfd5fc40941eabaacdf8624a63c7e39ca69498cda39e46a6b7bcfcbeb6bc6e8d",
+      "lines": 93,
+      "status": "legacy"
+    },
+    {
+      "path": "tests/x-time.mjs",
+      "area": "tests",
+      "sha256": "40c011cbe374a89e816c78f1eaa7ef7fc1ad064a1be9ef0a8c90305e8e11293b",
+      "lines": 29,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/apply-extra-music.py",
+      "area": "build/tools",
+      "sha256": "768a73b5a6481f5e0663dcd2d877379995a175483a2ca0cdb00e693e949f92ee",
+      "lines": 24,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/apply-music-matches.py",
+      "area": "build/tools",
+      "sha256": "23935ac9b8a9afce71216cf91a965afff48d68e876507e65ef52d5f2f1fc1e34",
+      "lines": 38,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/apply-privacy-retention.mjs",
+      "area": "build/tools",
+      "sha256": "ad5828afcac721e7265d68c546719a486faeb87e788996ae63503df4ddd95f02",
+      "lines": 9,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/battle/art.mjs",
+      "area": "build/tools",
+      "sha256": "3e7876859aa5ba7f6d4a852991517d92b92ae6f9aaf49bed454f0eff3edd1361",
+      "lines": 3,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/battle/check.mjs",
+      "area": "build/tools",
+      "sha256": "18ccd4d6e7a20be8450a3d9c18e676a4fcca6e1c4685541db50371b7d0c330eb",
+      "lines": 12,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/battle/encode.mjs",
+      "area": "build/tools",
+      "sha256": "5f117d77b91effe4dbd8da54a6af3dee2f4ff2b2e441c320d019a90682530da5",
+      "lines": 6,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/battle/linkedin.mjs",
+      "area": "build/tools",
+      "sha256": "5ca5c156c0851d6b1735e12c74f252d102b887627abd3037d3ee2abb3015da0e",
+      "lines": 16,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/battle/preview-check.mjs",
+      "area": "build/tools",
+      "sha256": "e0eb77df8556ec1faea9ff156ad3267215ec5ab9471d3b06a2c41c358b484f9a",
+      "lines": 10,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/battle/replace-compound.mjs",
+      "area": "build/tools",
+      "sha256": "559f3316e0a0c1ca8c1b0d6b61b8fae9340afe33b756d7d37fb2963020811b57",
+      "lines": 12,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/battle/server.mjs",
+      "area": "build/tools",
+      "sha256": "fcc5fdec176a4aacfcceee1b17a4e6fb85c45b8a577366b150f9de20adb4d2f1",
+      "lines": 5,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/battle/share-check.mjs",
+      "area": "build/tools",
+      "sha256": "9ca433528eedddba3742242ee63543e531002afca25d3fe6435d6da9297aad0e",
+      "lines": 45,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/battle/stripe.mjs",
+      "area": "build/tools",
+      "sha256": "494e857bafa5245b418e92a83bf3a8df461ae7dc8d3b5bed56c4a598337483d9",
+      "lines": 15,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/bench-stats.mjs",
+      "area": "build/tools",
+      "sha256": "1e115ab6044b9d3afc78bffafda81ec5e85ebee3af1bf1615412a444ece7aa7e",
+      "lines": 123,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/build-battle.mjs",
+      "area": "build/tools",
+      "sha256": "d3bbdf21ee51777c15ec37293ad184250db286241918c612c241d8fea8f4ca15",
+      "lines": 4,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/build-compound-v2.mjs",
+      "area": "build/tools",
+      "sha256": "f1d9816f15641ddd73ef2c588205ab780e37ac825438eaff061143a2528b83ba",
+      "lines": 15,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/build-gabinho-rolls.mjs",
+      "area": "build/tools",
+      "sha256": "3154a9490ce309f5cb7db26db8b723f7625988574fe6d7afb6e5d6e062035133",
+      "lines": 12,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/build-game-data.mjs",
+      "area": "build/tools",
+      "sha256": "49c3550543ac77b32378c1e249eedac0e1b297a94d5d44b3a0ae6777e74deda7",
+      "lines": 4,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/build-geo-cities.mjs",
+      "area": "build/tools",
+      "sha256": "519dd472191ce4f083c1b3e9f1b59fe5cc100a5e24144d6ce5ec8a2e45341f40",
+      "lines": 27,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/build-hack-og.mjs",
+      "area": "build/tools",
+      "sha256": "af4302177b04af7633f74f521f74b3f80f518c03d3fd9f96ac8f7687ac6712f8",
+      "lines": 4,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/build-hackathons.mjs",
+      "area": "build/tools",
+      "sha256": "e33e0cb33ba69fdaba0568ce9aaddd3d9e96e1a28fdbd86fea98d46c42c4e83e",
+      "lines": 31,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/build-live.mjs",
+      "area": "build/tools",
+      "sha256": "4bb68657d0c75e09f0085a7cb181b2de4210653d93115a8c03f155bf850796eb",
+      "lines": 23,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/build-napoleon-art.mjs",
+      "area": "build/tools",
+      "sha256": "24649282e8e218e251e76da834adec92a21a9be5e3ec243d842c64965b9b6eac",
+      "lines": 17,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/build-persona-pages.mjs",
+      "area": "build/tools",
+      "sha256": "ccc08b125caedd99c34fa09a5373a903bcc612cb65d5ae1d665cd86d91126f6e",
+      "lines": 18,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/build-plethora.mjs",
+      "area": "build/tools",
+      "sha256": "b024bb2520ec4fe170c5cb0f69f549f4593ab685ab74b9f5907523f8cfd6996e",
+      "lines": 6,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/build-search.py",
+      "area": "build/tools",
+      "sha256": "3fb01cf2c186e142706a1607333dbfef3162dd7843540873f9fd3d05510d6ca4",
+      "lines": 42,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/build-stats/publish.mjs",
+      "area": "build/tools",
+      "sha256": "55523efb785cd1dade5b37cdd9b9d09c1f1053298e2a9ec8aab45d96edaeb63a",
+      "lines": 3,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/build-stats/snapshot.mjs",
+      "area": "build/tools",
+      "sha256": "b25876a4df34ab9e030da366ab716b30a3f11d1b8fce9703df90681c8b839e2a",
+      "lines": 34,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/build-stats/source.mjs",
+      "area": "build/tools",
+      "sha256": "9f012fc68cb650e344ae01a7f5f4ee3843750744f335cb00930c2772ce74d25d",
+      "lines": 3,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/check-eu-region.mjs",
+      "area": "build/tools",
+      "sha256": "995b0c244356bfe921f8355f826795c1d9605540e1cd96229aa82d4cbe679e46",
+      "lines": 49,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/check-links.py",
+      "area": "build/tools",
+      "sha256": "abee17c28c4db6014b2a7dcd292f6bf9b6ccff7c3d3410d6dc9fdd98c12519d3",
+      "lines": 46,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/check-locales.mjs",
+      "area": "build/tools",
+      "sha256": "ec7ba9d9c260c73ca318ce15e18c8895b4b62a3a4857e24da8a2d2564113c69f",
+      "lines": 15,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/compound-env.mjs",
+      "area": "build/tools",
+      "sha256": "86d87b7e9227be0af181170dbb8898340a77e55f61b31a24cae07dcdc9455306",
+      "lines": 5,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/compound-report.mjs",
+      "area": "build/tools",
+      "sha256": "7208047556715061a457ff4295db39f12a2f7af461f99e7bd938521c86857cfe",
+      "lines": 6,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/compound-stripe-setup.mjs",
+      "area": "build/tools",
+      "sha256": "86074e01255ee3cd1144bd2899c3f174761b9597eb303056b30de53dcce3285a",
+      "lines": 13,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/compound-test-server.mjs",
+      "area": "build/tools",
+      "sha256": "168dc9770bdeba9081327c0a2a8b3ae34138a561ad07d96fc37e4b8855a0dcfa",
+      "lines": 12,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/compound/feedback-browser.mjs",
+      "area": "build/tools",
+      "sha256": "e265965754ac69ded49c6c2a71608994c2cd21bb84ca2bc58429a60e66570c12",
+      "lines": 48,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/compound/preview-check.mjs",
+      "area": "build/tools",
+      "sha256": "502141e7c59272a5c0cad0fa7b808cf21df254d2701187017dd2ac4a87d904ee",
+      "lines": 24,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/delete-sf-lead.mjs",
+      "area": "build/tools",
+      "sha256": "57dc80f77950c90ef8fe4b6f442029593eb09a1269528b9fd619ffc78aa59f1e",
+      "lines": 5,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/delete-user-data.mjs",
+      "area": "build/tools",
+      "sha256": "1d37f1c343e69f0b5bd6f43ba4a28b159cbc132bc0fe10fd9885dcf0994f8be3",
+      "lines": 11,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/discord-setup.mjs",
+      "area": "build/tools",
+      "sha256": "c5352f4401da71ec83ec3d91b4d4c64acc8927b100643a2b5f64134a24fa7567",
+      "lines": 46,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/feedback-digest.mjs",
+      "area": "build/tools",
+      "sha256": "013acc4ab165d149c96d067afdcc61bd936e44d522a1112ead2b0cc48a8ce3c7",
+      "lines": 20,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/forms/build.mjs",
+      "area": "build/tools",
+      "sha256": "c0c3c3cd759f9fbd4b97a37673f622a8b978612f4a82593392c5275e5b6c72d1",
+      "lines": 16,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/forms/dev.mjs",
+      "area": "build/tools",
+      "sha256": "5dc7a6c6cf34ef895d3986d735e08b1306a7abed275ce2878d677038156ddd57",
+      "lines": 34,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/forms/page.html",
+      "area": "build/tools",
+      "sha256": "7af445e8e15b8c26ed3ce149d51623b24b7cad01d98e6554ec03ec8ece851808",
+      "lines": 1,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/gift-tier.mjs",
+      "area": "build/tools",
+      "sha256": "b3530d239d076ce48b6e91b4c2b40ce2331e0b694b42ba8b50f53e60bc75b069",
+      "lines": 34,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/impact/backfill-metrics.mjs",
+      "area": "build/tools",
+      "sha256": "643a5b3892ae195613aad7bb23489bcaa4fe93ccd79a21e9fdc37e3c390a123c",
+      "lines": 17,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/impact/browser-worker.mjs",
+      "area": "build/tools",
+      "sha256": "b6803a5975bc417df4d4fc701d6500601b29e0be8e3acd3d981c9c4497148e88",
+      "lines": 26,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/impact/install-worker.mjs",
+      "area": "build/tools",
+      "sha256": "944927ac351833c4adb0d3d44f199e978c965ca014e71aa6218e10ffa9b82efb",
+      "lines": 21,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/impact/public-profile.mjs",
+      "area": "build/tools",
+      "sha256": "5c247dfe406c5505f70f729eb4936fa3f700db14098f4b66992215d3a2cf0b82",
+      "lines": 42,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/impact/refresh-fallback.mjs",
+      "area": "build/tools",
+      "sha256": "59e8aa855374ec65209ba4e212ea8be3d3db5af989d4c155a5e42c2dc16e73ff",
+      "lines": 23,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/impact/tiktok-discovery.mjs",
+      "area": "build/tools",
+      "sha256": "319d95e851bfec476f00f362a48f2b832aae022c2214604e34bbe6cc718bb0d1",
+      "lines": 5,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/impact/ytdlp-metrics.py",
+      "area": "build/tools",
+      "sha256": "9bbf1c99e18bdda9e8e2036b99a38c11b493ada85e78fe080f8f6a599f9a2811",
+      "lines": 54,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/import-compound-exports.mjs",
+      "area": "build/tools",
+      "sha256": "ba8042ea03464984845e3d718b5181a5baf499c8d91ba9b49d986b076e6573d0",
+      "lines": 27,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/import-linkedin.py",
+      "area": "build/tools",
+      "sha256": "3c90d6bb72b6005d639fd297efb6b7ad75f1f5fe5eceae9e91f61151462a8622",
+      "lines": 70,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/install-compound-report-agent.mjs",
+      "area": "build/tools",
+      "sha256": "f980b26102b83fe61cf52ca5162c54eb38c00aaf85192078e6d0255d031e0019",
+      "lines": 5,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/lighthouse-sf.mjs",
+      "area": "build/tools",
+      "sha256": "e38478d42d3759127d1b8d317cbc9f2e1619b69be39088b897c142390a0608e0",
+      "lines": 11,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/lighthouse-stats.mjs",
+      "area": "build/tools",
+      "sha256": "db1c77f64891cde30d3f42ecf3ec90d842f0ccd025322ad792dbf681d5331511",
+      "lines": 40,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/lighthouse-x.mjs",
+      "area": "build/tools",
+      "sha256": "afae28fef97d37d023c24ef69cd6ea1d3c9d713760867492bdb31dd50a64d65b",
+      "lines": 14,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/lighthouse.mjs",
+      "area": "build/tools",
+      "sha256": "6e7f0f4598678bc77e2c0571de9e4f12320c99c7136b4049cf348532fbd7dbc3",
+      "lines": 2,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/migrate-redis.mjs",
+      "area": "build/tools",
+      "sha256": "107375f6b87542876711abaca97e7f9b0b37b239a10804eee77aaed8bc381658",
+      "lines": 116,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/openrisk-country-selection.mjs",
+      "area": "build/tools",
+      "sha256": "7db3a99ce8327952b106eb8e48a85810f71a053dc31330d5647c78faadc27a2c",
+      "lines": 48,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/openrisk-discover.mjs",
+      "area": "build/tools",
+      "sha256": "bb115df664b2d254bfc17bf2a6e3ea602e6b3bc25364303bd9a29fc39c1bc97b",
+      "lines": 31,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/openrisk-enrich-catalog.mjs",
+      "area": "build/tools",
+      "sha256": "022ac76da90999efef10776784f2d842f59f682ec390f7cc2471a1fcf10a7817",
+      "lines": 39,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/openrisk-geography.py",
+      "area": "build/tools",
+      "sha256": "35d255d8910ad84a7829da085dac97e973b55f5efc9f0a10fba0c6eec1d596fe",
+      "lines": 96,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/openrisk-import-logos.mjs",
+      "area": "build/tools",
+      "sha256": "ff74e35f344b77b362ff749327270e20779cea4cb69e756e03c7cc7751af4871",
+      "lines": 71,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/openrisk-preload.mjs",
+      "area": "build/tools",
+      "sha256": "a2cf0e49e3b513904c318dc25870a71e02ce2a278f3ed5f05329325b0b68f267",
+      "lines": 59,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/openrisk-smoke.mjs",
+      "area": "build/tools",
+      "sha256": "8b666f3b5cb966703538ada160861165ee793fa3832d97d124f37bb1726a2f49",
+      "lines": 169,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/openrisk-wikidata.mjs",
+      "area": "build/tools",
+      "sha256": "6fac91d38e35df5839de66d144797e8353fccdd21dc29a5c0af3aaa68eda6983",
+      "lines": 24,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/ossman-demo/art.mjs",
+      "area": "build/tools",
+      "sha256": "2a403a37c7a4dfbdde31556c9a8f2fb427bfa094ab7db2ce9e1c7f561bbd7a5c",
+      "lines": 18,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/ossman-demo/audio.mjs",
+      "area": "build/tools",
+      "sha256": "f9f9f8c1979f2840339ea7de16206d82c7ad719bea7055e6ad8c8c2622cc2431",
+      "lines": 14,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/ossman-demo/battle-encode.mjs",
+      "area": "build/tools",
+      "sha256": "c6ce9f24bb77c3d89cdc47373e8e1989916cb49b9b8d097bec93d08844b79fa0",
+      "lines": 12,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/ossman-demo/battle.mjs",
+      "area": "build/tools",
+      "sha256": "b78c97a884a0d5c01a1b047fd600998b6a632175abe44f4cbf9624bcbb37451f",
+      "lines": 26,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/ossman-demo/check.mjs",
+      "area": "build/tools",
+      "sha256": "e51d2320f8300f70d3371252b222953ebd13d694006315eeb4066f9cba548788",
+      "lines": 2,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/ossman-demo/edit.mjs",
+      "area": "build/tools",
+      "sha256": "14864fd31b5e238631647067da257b87e22b96c3d66f5468aaace8a7fa216299",
+      "lines": 21,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/ossman-demo/record.mjs",
+      "area": "build/tools",
+      "sha256": "1f8e7a31c801d9e8bce5247527cefdb2ab7436a65ac0478ce9350d6b2ecf3326",
+      "lines": 17,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/ossman-demo/server.mjs",
+      "area": "build/tools",
+      "sha256": "c26e47d1a18b8ea3b188301f767e8dcd779795908a6e16d877406d1616ef55dd",
+      "lines": 5,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/ossman-demo/upload-battle.mjs",
+      "area": "build/tools",
+      "sha256": "8f3b40f83115b6aba27484786b22470c5f71cfc23477c3cf9a911b514b4f1241",
+      "lines": 3,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/ossman-demo/upload-demo.mjs",
+      "area": "build/tools",
+      "sha256": "f55b78cdcc3bce4819b94e6b87d497a18f1eeb5ccc7ac72bf58ca4726887f5e7",
+      "lines": 3,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/performance.mjs",
+      "area": "build/tools",
+      "sha256": "77ceb36e4b7d80f84f0b70613286b6cee31087ae141ba679744a6d90cc25f2af",
+      "lines": 3,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/pin-redis-secrets.mjs",
+      "area": "build/tools",
+      "sha256": "6bd420c5a14fed8d3a962e3d3dec64f9d22602934820877cafc5c8b0a4793331",
+      "lines": 19,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/plethora/admin-check.mjs",
+      "area": "build/tools",
+      "sha256": "9cda3f67bf69da170a181a7a840eeaac0e8b08e29e6670fef7a0d4e05da914c0",
+      "lines": 6,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/plethora/browser.mjs",
+      "area": "build/tools",
+      "sha256": "7b3c7e964135cfc05d2321f01d9ac88ec865b177f67ff06db9dc11a99f9ba2bc",
+      "lines": 39,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/plethora/check.mjs",
+      "area": "build/tools",
+      "sha256": "23ba6bcca6b30a8ad076e8dda80fdf3987de5399014e3082c25fdca82c6c28f9",
+      "lines": 33,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/plethora/deployed-check.mjs",
+      "area": "build/tools",
+      "sha256": "b439ce1abb63e75ae58e75124b43160b0342a5302927d90dde51432a7a4fd8e4",
+      "lines": 8,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/plethora/og.mjs",
+      "area": "build/tools",
+      "sha256": "815e02b74682751dab02d332736cdf78d67298d1c2dad54538537bfb666cb3ee",
+      "lines": 7,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/plethora/server.mjs",
+      "area": "build/tools",
+      "sha256": "28024e3606edf7db1a95b1ad8adbd3ab1cb4290d9c7303e9db1ac8c633f95483",
+      "lines": 4,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/plethora/v2-browser.mjs",
+      "area": "build/tools",
+      "sha256": "afd16179f175c8bd7bd25af41dac1b790691341b4bdde2ba10f30cdf6924718d",
+      "lines": 26,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/plethora/verify-routes.mjs",
+      "area": "build/tools",
+      "sha256": "4ffe6603768c9e002c6656320e961d3a5982bf38f4507dad5e233e9c8608f768",
+      "lines": 14,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/privacy-data.mjs",
+      "area": "build/tools",
+      "sha256": "8e3fe8e4f14d751b19afb371128334dc6eb2e5e31758081a4515c258ec4e86fd",
+      "lines": 115,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/resolve-music.py",
+      "area": "build/tools",
+      "sha256": "b3dac9b657137c618fb69caa9ca7159c0efa870041cf628f18571ec0624a6091",
+      "lines": 42,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/screenshots.mjs",
+      "area": "build/tools",
+      "sha256": "c034e7f4fb4cd8bba70b6ce1fade05dd6c1769fb057e9a330edad2b2b7492949",
+      "lines": 2,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/seed-music.py",
+      "area": "build/tools",
+      "sha256": "ab1e7729b968d59af9626369f31af05afd74565b85d043855910f496418966a5",
+      "lines": 21,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/serve.mjs",
+      "area": "build/tools",
+      "sha256": "45102c16084665246bfb1403a4b6410cc905eb7fce2b184350059003c9c4356b",
+      "lines": 2,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/ship-video.mjs",
+      "area": "build/tools",
+      "sha256": "8c7c381e344802642bd9cf595e540969707d13721f0e06ea54ddea4b2059a628",
+      "lines": 27,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/site/build-all.mjs",
+      "area": "build/tools",
+      "sha256": "774fa8703540e1007a8002406e899c407d6ba6b488afd1283a079745f5f77d2e",
+      "lines": 11,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/site/build.mjs",
+      "area": "build/tools",
+      "sha256": "c3a6a8b14fc4c95cc075c2ae6f1386f6d25585a58bc8c0a1d6a9a66969164179",
+      "lines": 120,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/site/checkout-complete.mjs",
+      "area": "build/tools",
+      "sha256": "9ec813ee338547572c42dd6071823fb718fe90ce14ff2ab04c55b53a6525fc11",
+      "lines": 6,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/site/checkout-test.mjs",
+      "area": "build/tools",
+      "sha256": "259853e760783444d10f2850603e215335bbf8622747214a36c8ce4e6de0b6d6",
+      "lines": 6,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/site/compare-preview-routes.mjs",
+      "area": "build/tools",
+      "sha256": "d3f0e05069a4397371cd7f4cf4206149ccee817662175d83e1573f8d443835f7",
+      "lines": 174,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/site/contest-smoke.mjs",
+      "area": "build/tools",
+      "sha256": "8c987de37ffbaf5fb0598d4d26db4d321cd255e7b256d2f0e19e5e6fe344cc8f",
+      "lines": 9,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/site/discovery-smoke.mjs",
+      "area": "build/tools",
+      "sha256": "faa69008b3b3eeaf3a413567d657d0e16399da0aa7391950cd8c29e54924855f",
+      "lines": 5,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/site/env.mjs",
+      "area": "build/tools",
+      "sha256": "c12d49ea01f3565c873895efb5e5abf2cac34af2bde3a1a2850e287afd1afabb",
+      "lines": 3,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/site/generate-directory.mjs",
+      "area": "build/tools",
+      "sha256": "038657a6f9d8646a927e7c68ee990efc0c8c0df66765692bb6cd8095d87594f1",
+      "lines": 16,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/site/link-aliases.mjs",
+      "area": "build/tools",
+      "sha256": "7a0cb39eb40d5051bd35e181ae2fda5b8d611ee8d641db778a2b674fe640a730",
+      "lines": 11,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/site/link-analyze.mjs",
+      "area": "build/tools",
+      "sha256": "3472604516c2c4160f7ed76af9afb9cc8c1ab7f085eace8a703c48bfe44fe29a",
+      "lines": 7,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/site/link-crawl.mjs",
+      "area": "build/tools",
+      "sha256": "481d24039a6e16e83204fb7c4b66f2c0ded409a213e9049a44a109021f42e7d6",
+      "lines": 18,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/site/link-inventory.mjs",
+      "area": "build/tools",
+      "sha256": "7a40114dbf7bc45927c3c6fa87f4958206055fb5cb61d2b5feeff469448b3b05",
+      "lines": 26,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/site/link-report.mjs",
+      "area": "build/tools",
+      "sha256": "1919d8a32c636b5e66ec5bb8bb3b6ef456fb923f6f4fd29845ba72c9b23d21a8",
+      "lines": 10,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/site/pages.mjs",
+      "area": "build/tools",
+      "sha256": "f1213e4b7856dbed87129a846769c2b756caabd5b2ae56982fd2443ea093a0b3",
+      "lines": 11,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/site/server.mjs",
+      "area": "build/tools",
+      "sha256": "e759f1537084a41d2866243e35e1605e23f5a1d353d462a357bf88a6ee954ca4",
+      "lines": 30,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/site/stripe.mjs",
+      "area": "build/tools",
+      "sha256": "cba4141e14a1a074dc0b20a24d7b1ff5ad8c3236284a6c7ef42a6fc35dbc1362",
+      "lines": 12,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/smoke.mjs",
+      "area": "build/tools",
+      "sha256": "b61fc08cd1e19e886b9d2b9d95b382ec8e7994c3206e807a4c3254c912fa1593",
+      "lines": 1,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/stats-fixture.mjs",
+      "area": "build/tools",
+      "sha256": "ead310243a661523c54f1eddb9ab9b2e33eee1d0a72afe93cd348c0b14e494e5",
+      "lines": 210,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/support/browser.mjs",
+      "area": "build/tools",
+      "sha256": "21be34fb1b890881baaa07b00ac2dc62bef10b8f98a6bd689c321905c6d27192",
+      "lines": 6,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/support/check.mjs",
+      "area": "build/tools",
+      "sha256": "ef49cdeb00dbef9aa765530a79ae1031b161a9ae37023b7ba984a839dd3813ed",
+      "lines": 25,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/support/deployment-check.mjs",
+      "area": "build/tools",
+      "sha256": "e864c9244ba5f5f46bac88a66c7af1b2f31ae802ad7bd54c9a520782420212df",
+      "lines": 11,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/support/server.mjs",
+      "area": "build/tools",
+      "sha256": "e3615c9574f08ff6ad8c19fd25d5c6100e60b0f407c4568876a7880e53f2103f",
+      "lines": 7,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/update-code-pins.mjs",
+      "area": "build/tools",
+      "sha256": "6b522fead02f6a437cea4d5a13ffbbc3dda3eb9154e9eb5084b928cb9e6a89f6",
+      "lines": 3,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/verify-bmc-preview.mjs",
+      "area": "build/tools",
+      "sha256": "995094fb7c38977a0b9f48d81785331478c079117cb77e2a2dba2105ba8be879",
+      "lines": 23,
+      "status": "legacy"
+    },
+    {
+      "path": "tools/version-assets.py",
+      "area": "build/tools",
+      "sha256": "ad5be0b3825b13b4a26e28f933a35b6984147da51d1ae383b7a4db8d26a31139",
+      "lines": 11,
+      "status": "legacy"
+    },
+    {
+      "path": "wiki/corvus/namesakes/index.html",
+      "area": "inline-browser",
+      "sha256": "9a83a8f37c3c322daa96679ad806c4a6b2a75e5bc9e09331f239570a650a145a",
+      "lines": 86,
+      "status": "legacy"
+    },
+    {
+      "path": "wiki/index.html",
+      "area": "inline-browser",
+      "sha256": "77433554e13c09a8a332bd0a70ca710a6f0f6d6d53792e663d677a2f0f727cd4",
+      "lines": 29,
+      "status": "legacy"
+    }
+  ]
+}

@@ -34,3 +34,7 @@ tools/site/*
 tools/forms/*
 !tools/forms/build.mjs
 !tools/forms/page.html
+
+# Local Rust outputs must never be uploaded. Rust sources remain build inputs.
+target/
+rust/browser/pkg/

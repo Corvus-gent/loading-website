@@ -1,0 +1,66 @@
+[workspace]
+members = ["rust/core", "rust/browser"]
+resolver = "2"
+
+[package]
+name = "corvus-server"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.91"
+publish = false
+
+[lib]
+path = "rust/server/lib.rs"
+
+[[bin]]
+name = "corvus-rust"
+path = "api/rust.rs"
+
+[[bin]]
+name = "corvus-dev"
+path = "rust/server/dev.rs"
+
+[[bin]]
+name = "corvus-contract"
+path = "rust/server/contract.rs"
+
+[dependencies]
+corvus-core = { path = "rust/core" }
+axum = "0.8"
+base64 = "0.22"
+chrono = { version = "0.4", features = ["serde"] }
+chrono-tz = "0.10"
+hex = "0.4"
+hmac = "0.12"
+rand = "0.9"
+redis = { version = "0.32", features = ["tokio-rustls-comp", "connection-manager"] }
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["preserve_order"] }
+sha2 = "0.10"
+subtle = "2"
+thiserror = "2"
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "signal", "net", "fs"] }
+uuid = { version = "1", features = ["v4"] }
+tower = { version = "0.5", features = ["util"] }
+url = "2"
+vercel_runtime = { version = "2.4.1", features = ["axum"] }
+
+[dev-dependencies]
+http-body-util = "0.1"
+
+[profile.release]
+codegen-units = 1
+lto = "thin"
+strip = "symbols"
+
+[profile.release.package.corvus-browser]
+strip = false
+
+[lints.rust]
+unsafe_code = "forbid"
+
+[lints.clippy]
+unwrap_used = "deny"
+expect_used = "deny"
+panic = "deny"
