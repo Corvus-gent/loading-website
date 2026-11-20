@@ -2,6 +2,9 @@
 // These contain only module wiring; all replacement behavior lives in Rust/WASM.
 const wasm='/rust/browser/pkg/corvus_browser.js';
 const bridges={
+ '/js/privacy-page.js':`import {initI18n} from '/js/i18n.js?v=20261108live1';import init,{start_privacy_page,render_privacy_page} from '${wasm}';await init();start_privacy_page();initI18n(render_privacy_page);`,
+ '/js/analytics-consent.js':`import init,* as m from '${wasm}';await init();m.start_consent();export const privacySignal=m.privacy_signal,consentChoice=m.consent_choice,analyticsAllowed=m.analytics_allowed,noticeDismissed=m.notice_dismissed,chooseAnalytics=m.choose_analytics;`,
+ '/js/privacy.js':`import '/js/arrival.js';import init,{start_privacy} from '${wasm}';await init();start_privacy();`,
  '/battle/admin/client.js':`import init,{start_battle_admin} from '${wasm}';await init();start_battle_admin();`, 
  '/battle/client.js':`import init,{start_battle} from '${wasm}';await init();start_battle();`, 
  '/js/i18n/language.js':`import init,* as m from '${wasm}';await init();m.start_languages();export const LANGS=m.language_codes(),getLang=m.get_language,t=m.translate,pick=m.pick_language,applyI18n=m.apply_language,renderSwitcher=m.render_language_switcher;`,

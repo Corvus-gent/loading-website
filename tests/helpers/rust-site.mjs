@@ -4,14 +4,14 @@ import {readFile} from 'node:fs/promises';
 import path from 'node:path';
 import {wasmBridge} from './rust-bridges.mjs';
 const types={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.wasm':'application/wasm','.png':'image/png','.jpg':'image/jpeg','.svg':'image/svg+xml','.woff2':'font/woff2','.mp4':'video/mp4'};
-export async function rustSite(context,runtime,{ip='198.51.100.190',beforeRequest,afterResponse}={}){
+export async function rustSite(context,runtime,{ip='198.51.100.190',beforeRequest,afterResponse,browserEngine='rust'}={}){
  const origin='https://corvus.gent',root=process.cwd(),errors=[];
  await context.addInitScript(()=>sessionStorage.setItem('twitch-disabled','1'));
  await context.route('**/*',async route=>{
   const request=route.request(),u=new URL(request.url());
   if(u.origin!==origin)return route.abort();
   if(beforeRequest&&await beforeRequest({route,request,u}))return;
-  const bridge=wasmBridge(u.pathname);if(bridge)return route.fulfill({contentType:'text/javascript',body:bridge});
+  const bridge=browserEngine==='rust'?wasmBridge(u.pathname):null;if(bridge)return route.fulfill({contentType:'text/javascript',body:bridge});
   if(u.pathname.startsWith('/api/')){
    const module={'/api/support':'support','/api/battle':'battle'}[u.pathname];
    if(!module)return route.fulfill({contentType:'application/json',body:JSON.stringify(u.pathname==='/api/live'?{live:false,session:'fixture',source:'manual'}:{ready:false})});

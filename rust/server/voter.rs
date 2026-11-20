@@ -154,7 +154,7 @@ pub async fn verify_challenge(state: &AppState, voter: &str, body: &Value) -> Re
     let Some(salt) = ch["salt"].as_str() else {
         return Ok(false);
     };
-    let zeros = zero_bits(&Sha256::digest(format!("{salt}:{nonce:.0}")));
+    let zeros = zero_bits(&Sha256::digest(format!("{salt}:{}", nonce as u64)));
     Ok(ch["bits"]
         .as_u64()
         .is_some_and(|bits| u64::from(zeros) >= bits))

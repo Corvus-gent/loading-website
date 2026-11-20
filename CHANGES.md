@@ -1,3 +1,4 @@
+- 2026-11-20: Port OSSMAN score/idea and hackathon feedback APIs to opt-in Rust handlers; preserve shared records and private feedback. Port privacy preferences, notice and page to Rust/WASM with unchanged seven-language copy and legacy privacy-signal checks.
 - 2026-11-20: Port battle voting/share/admin browser behavior to Rust/WASM, block stale refreshes from undoing votes, release detached booking listeners and validate real mobile/desktop flows. Fix the link checker’s constrained-route parsing without changing routes.
 - 2026-11-20: Port booking and private booking-admin browser behavior to Rust/WASM; verify the full browser-to-Rust-to-Redis flow on mobile/desktop without production requests. Preserve attribution, idempotent retries, escaped content and failed-save rollback.
 - 2026-11-20: Keep new tattoo/inspiration pages during migration; test banner coverage against built pages, preserving standalone views, and compare routing against fresh source discovery.

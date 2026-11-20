@@ -70,7 +70,7 @@ fn save_preference(code: &str) {
         );
     }
 }
-fn preference() -> Option<String> {
+pub(crate) fn preference() -> Option<String> {
     if let Some(cookie) = document()
         .and_then(|d| d.dyn_into::<HtmlDocument>().ok())
         .and_then(|d| d.cookie().ok())

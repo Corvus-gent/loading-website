@@ -32,4 +32,8 @@ Battle browser and administration now run in Rust/WASM with real local API/Redis
 
 Rust CI passed at abb8dc6. The original Feature workflow now passes all browser/integration stages; its final link audit exposed a pre-existing parser bug for constrained Worldcraft routes. The checker now preserves parameter constraints and literal extensions, with positive/negative regression tests; 2,925 local links/assets pass. A new full CI run is pending.
 
-Next: continue browser/API migration. Most application areas remain pending. See README completion gate. No production cutover until the full required compatibility checks and rollback exercise pass.
+Both complete GitHub workflows passed at e1eb866 (original Feature checks and Rust migration contracts).
+
+OSSMAN name/ideas/run-score and hackathon feedback APIs now have native Rust handlers. Mixed JS/Rust tests preserve atomic run/reaction dedupe, high scores, score-speed checks, leaderboard expiry, owner-only feedback, sanitized comments and hidden historical teammate labels. Privacy preference, the notice and full privacy page are ported to Rust/WASM: 12 consent scenarios match the legacy module, including DNT/GPC, legacy refusal, blocked storage, gameplay visibility, withdrawal and cookie/referrer-free acknowledgement. All seven locales produce identical page content; 390px/1440px layouts pass. Privacy copy is generated unchanged from source, with a freshness check.
+
+Next: verify these modules on a read-only enabled preview and continue browser/API migration. Most application areas remain pending. See README completion gate. No production cutover until the full required compatibility checks and rollback exercise pass.

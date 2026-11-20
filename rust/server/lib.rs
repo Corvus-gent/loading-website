@@ -2,9 +2,11 @@ pub mod auth;
 pub mod battle;
 pub mod config;
 pub mod crypto;
+pub mod hack;
 pub mod layers;
 pub mod live;
 pub mod live_interviews;
+pub mod name_vote;
 pub mod plethora;
 pub mod store;
 pub mod support;
@@ -74,6 +76,8 @@ async fn dispatch(
         "auth" => auth::handle(&state, &method, &headers, &body).await,
         "layers" => layers::handle(&state, &method, &headers, &query, &body).await,
         "live" => live::handle(&state, &method, &headers, &query, &body).await,
+        "hack" => hack::handle(&state, &method, &headers, &query, &body).await,
+        "name-vote" => name_vote::handle(&state, &method, &headers, &body).await,
         "battle" => battle::handle(&state, &method, &headers, &query, &body).await,
         "support" => support::handle(&state, &method, &headers, &query, &body).await,
         "plethora" => plethora::handle(&state, &method, &headers, &query).await,
