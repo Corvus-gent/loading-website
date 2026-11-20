@@ -120,3 +120,13 @@ const display=new Intl.DisplayNames(['en'],{type:'region',fallback:'none'});poli
 for(let a=65;a<=90;a++)for(let b=65;b<=90;b++){const code=String.fromCharCode(a,b),name=display.of(code);if(name&&!['ZZ','QO','XA','XB'].includes(code)){policyData.countries[code]=code;policyData.countries[name]=code;}}
 const policyFile=new URL('../../rust/migration/analytics-policy.json',import.meta.url),policyJSON=JSON.stringify(policyData,null,2)+'\n';
 if(process.argv.includes('--check')){if(readFileSync(policyFile,'utf8')!==policyJSON)throw Error('Rust analytics policy stale');}else writeFileSync(policyFile,policyJSON);
+
+const {cityCatalog}=await import('../../js/data/geo-cities.generated.js');
+const {regionCatalog}=await import('../../api/_geo-regions.generated.js');
+const geoSource=readFileSync(new URL('../../api/_geo-data.js',import.meta.url),'utf8');
+const centroidData=geoSource.match(/const centroids = new Map\(([^]*?)\);/),overrides=geoSource.match(/Object\.entries\((\{[^]*?\})\)\) centroids\.set/);
+if(!centroidData||!overrides)throw Error('Geo centroid data changed; review migration.');
+const centroids=Object.fromEntries(vm.runInNewContext('('+centroidData[1]+')'));Object.assign(centroids,vm.runInNewContext('('+overrides[1]+')'));
+const regionNames=new Intl.DisplayNames(['en'],{type:'region'}),names={};for(let a=65;a<=90;a++)for(let b=65;b<=90;b++){const code=String.fromCharCode(a,b);names[code]=regionNames.of(code);}
+const geoFile=new URL('../../rust/migration/geo-config.json',import.meta.url),geoJSON=JSON.stringify({cities:cityCatalog,regions:regionCatalog,centroids,names})+'\n';
+if(process.argv.includes('--check')){if(readFileSync(geoFile,'utf8')!==geoJSON)throw Error('Rust geo configuration stale');}else writeFileSync(geoFile,geoJSON);

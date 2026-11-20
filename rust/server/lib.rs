@@ -15,6 +15,7 @@ pub mod og;
 pub mod plethora;
 pub mod store;
 pub mod support;
+pub mod visitors;
 pub mod voter;
 use axum::{
     Extension, Json, Router,
@@ -98,6 +99,15 @@ async fn dispatch(
             .into_response();
     }
     let result = match module {
+        "geo" => Ok(Box::pin(visitors::geo(&state, &method, &headers, &query)).await),
+        "hit" | "notice" => Ok(Box::pin(visitors::hit(
+            &state,
+            &method,
+            &headers,
+            &body,
+            module == "notice",
+        ))
+        .await),
         "og" => Ok(og::handler::handle(
             &state,
             &method,

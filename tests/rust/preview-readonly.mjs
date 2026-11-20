@@ -32,5 +32,10 @@ if(process.argv.includes('--og')){
  for(const kind of ['live','hack3','compound','curiositycraft']){const card=await request('/api/rust?module=og&kind='+kind,{png:true});assert.equal(card.status,200,kind);assert.deepEqual([card.data.readUInt32BE(16),card.data.readUInt32BE(20)],[1200,630]);if(kind!=='curiositycraft'){const page=await request('/api/rust?module=og&kind='+kind+'&ogPage=1');assert.equal(page.status,200);assert.match(page.data,/summary_large_image/);}results.push({label:'Native OG '+kind,status:200});}
  console.log('PASS native OG PNG/metadata on deployed Rust runtime');
 }
+if(process.argv.includes('--visitors')){
+ const [legacy,native]=await Promise.all([request('/api/geo?country=1',{json:true}),request('/api/rust?module=geo&country=1',{json:true})]);assert.equal(native.status,200);assert.deepEqual(native.data,legacy.data,'coarse country/header parity');
+ const totals=await request('/api/rust?module=geo',{json:true});assert.equal(totals.status,200);assert.equal(totals.data.geoVersion,6);assert.equal(totals.data.total,totals.data.countries.reduce((n,c)=>n+c.n,0));assert.equal(totals.data.mapped,totals.data.cities.reduce((n,c)=>n+c.visitors,0));assert.equal(totals.data.mapped+totals.data.unlocated,totals.data.total);for(const c of totals.data.countries.filter(c=>c.c!=='?'))assert.equal(totals.data.cities.filter(p=>p.countryCode===c.c).reduce((n,p)=>n+p.visitors,0),c.n,'mapped country total '+c.c);assert(!JSON.stringify(totals.data).includes('distinct_id'));
+ results.push({label:'Native visitor geography read-only counts/country parity',status:200,total:totals.data.total});console.log('PASS native visitor geography and country counts on deployed read-only runtime');
+}
 await mkdir('test-results/rust',{recursive:true});await writeFile('test-results/rust/impact-preview-smoke.json',JSON.stringify({origin:origin.origin,checkedAt:new Date().toISOString(),writeMode:'disabled',results},null,2));
 console.log('PASS preview parity/critical HTML/private-source boundaries/HEAD redirects. No mutating actions or provider jobs requested; Rust writes disabled.');

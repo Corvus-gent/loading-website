@@ -7,6 +7,43 @@ async fn main() -> Result<(), corvus_server::Error> {
         let row: Value = serde_json::from_str(&line?)?;
         let value = row["value"].as_str().unwrap_or("");
         let result = match row["operation"].as_str() {
+            Some("visitor-model") => {
+                use corvus_server::visitors::{self, model as m};
+                let outcome: Result<Value, corvus_server::Error> = (|| {
+                    Ok(match row["action"].as_str() {
+                        Some("rows") => m::rows(row["rows"].as_array().ok_or("rows")?)?,
+                        Some("combine") => m::combine(
+                            row["counts"].as_array().ok_or("counts")?,
+                            row["locations"].as_array().map(Vec::as_slice),
+                        )?,
+                        Some("query") => json!(m::query(value)?),
+                        Some("country-query") => json!(m::country_query(value)?),
+                        Some("region") => {
+                            json!(m::region(row["country"].as_str().unwrap_or(""), value))
+                        }
+                        Some("city") => json!(m::city_area(
+                            row["country"].as_str().unwrap_or(""),
+                            row["region"].as_str().unwrap_or(""),
+                            value,
+                            row["lat"].as_f64().unwrap_or(f64::NAN),
+                            row["lng"].as_f64().unwrap_or(f64::NAN)
+                        )),
+                        Some("day") => json!(visitors::day(row["now"].as_i64().ok_or("time")?)),
+                        Some("country") => {
+                            let mut h = axum::http::HeaderMap::new();
+                            for (k, v) in row["headers"].as_object().ok_or("headers")? {
+                                h.insert(
+                                    k.parse::<axum::http::HeaderName>()?,
+                                    v.as_str().ok_or("header")?.parse()?,
+                                );
+                            }
+                            visitors::country(&h)
+                        }
+                        _ => Value::Null,
+                    })
+                })();
+                outcome.unwrap_or_else(|e| json!({"error":e.to_string()}))
+            }
             Some("analytics-model") => {
                 use corvus_core::analytics as m;
                 let v = &row["value"];

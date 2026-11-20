@@ -10,7 +10,7 @@ export async function isolatedRuntime(modules='support,battle',fixture={}){
  const redis=spawn(executable,['--bind','127.0.0.1','--port',String(redisPort),'--save','','--appendonly','no'],{stdio:'ignore'});
  const secret='isolated-browser-fixture';
  const env={PATH:process.env.PATH,LANG:'en_US.UTF-8',REDIS_URL:`redis://127.0.0.1:${redisPort}/1`,SESSION_SECRET:secret,CALL_ADMIN_KEY:secret,BATTLE_ADMIN_KEY:secret,COMPOUND_V2_ADMIN_PASSWORD:secret,COMPOUND_ADMIN_PASSWORD:secret,COMPOUND_STATS_PASSWORD:secret,CORVUS_RUST_MODULES:modules,CORVUS_RUST_WRITES:'isolated',RUST_DEV_PORT:String(rustPort)};
- for(const k of ['CORVUS_RUST_BLOB_FIXTURE_URL','BLOB_READ_WRITE_TOKEN','ADMIN_PASSWORD','LEGION_TEST_MAIL','BMC_WEBHOOK_SECRET','PIDGY_WEBHOOK_SECRET','DISCORD_PUBLIC_KEY','DISCORD_APPLICATION_ID','CRON_SECRET'])if(fixture[k])env[k]=fixture[k];
+ for(const k of ['CORVUS_RUST_BLOB_FIXTURE_URL','BLOB_READ_WRITE_TOKEN','ADMIN_PASSWORD','LEGION_TEST_MAIL','BMC_WEBHOOK_SECRET','PIDGY_WEBHOOK_SECRET','DISCORD_PUBLIC_KEY','DISCORD_APPLICATION_ID','CRON_SECRET','POSTHOG_HOST','POSTHOG_PROJECT_ID','POSTHOG_PERSONAL_API_KEY','CARTO_BASEMAPS_KEY','CORVUS_RUST_ANALYTICS_FIXTURE_URL','CORVUS_RUST_WRITES'])if(fixture[k])env[k]=fixture[k];
  const rust=spawn('target/debug/corvus-dev',[],{env,stdio:['ignore','ignore','pipe']});let output='';rust.stderr.on('data',d=>output+=d);
  const client=createClient({url:env.REDIS_URL,socket:{reconnectStrategy:()=>50}});client.on('error',()=>{});
  const close=async()=>{if(rust.exitCode!==null||rust.signalCode)if(output.trim())console.error(output);await client.disconnect().catch(()=>{});rust.kill('SIGTERM');redis.kill('SIGTERM');};
