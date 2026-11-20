@@ -4,6 +4,36 @@
   ],
   "redirects": [
     {
+      "source": "/filosofie",
+      "destination": "/cv/filosofie",
+      "permanent": true
+    },
+    {
+      "source": "/filosofie/",
+      "destination": "/cv/filosofie",
+      "permanent": true
+    },
+    {
+      "source": "/cv/filosofie/en",
+      "destination": "/cv/philosophy",
+      "permanent": true
+    },
+    {
+      "source": "/cv/filosofie/en/",
+      "destination": "/cv/philosophy",
+      "permanent": true
+    },
+    {
+      "source": "/cv/filosofie/",
+      "destination": "/cv/filosofie",
+      "permanent": true
+    },
+    {
+      "source": "/cv/philosophy/",
+      "destination": "/cv/philosophy",
+      "permanent": true
+    },
+    {
       "source": "/people",
       "has": [
         {
@@ -206,8 +236,8 @@
       "destination": "/cv/filosofie/index.html"
     },
     {
-      "source": "/cv/filosofie/en",
-      "destination": "/cv/filosofie/en/index.html"
+      "source": "/cv/philosophy",
+      "destination": "/cv/philosophy/index.html"
     },
     {
       "source": "/cv/tech/download",

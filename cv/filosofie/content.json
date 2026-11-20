@@ -1,0 +1,206 @@
+{
+  "nl": {
+    "title": "F. Gabriel Van Langenhove — Filosofie aan KU Leuven",
+    "description": "Mijn motivatie om filosofie te studeren aan het Hoger Instituut voor Wijsbegeerte van KU Leuven, en mijn voorstel voor een eerste studietraject.",
+    "lead": "Informaticus, ondernemer en filosoof-in-wording. Ik wil filosofie studeren aan KU Leuven.",
+    "portraitLabel": "Portret van Gabriel",
+    "toggleLabel": "Taal",
+    "sections": [
+      {
+        "heading": "Wie ben ik",
+        "paragraphs": [
+          {
+            "html": "Ik ben Gabriel. Ik spreek zeven mensentalen en een paar programmeertalen. Ik heb vijf jaar informatica gestudeerd aan de Universiteit Gent en was dicht bij het afronden van mijn master. Tegenwoordig begint mijn werk vaak met een idee dat ik snel wil uitproberen. Mijn sterkste vaardigheid is hoe ik Codex en Claude inzet om van zo’n idee een werkend prototype te maken en het gericht te testen en bij te sturen. Ik programmeer onder meer in Python, Rust en C en heb met ROS 2 gewerkt.",
+            "note": false
+          },
+          {
+            "html": "Ik richtte <a href=\"https://corvus.gent/\">Corvus</a> op, een community van builders die volledig in het openbaar werkt, met aandacht voor kwaliteit. Ik stopte met mijn opleiding om bij een Gentse start-up te werken. Van begin tot midden november 2026 was ik in de Verenigde Staten: in San Francisco en New York nam ik deel aan hackathons en sprak ik met oprichters.",
+            "note": false
+          },
+          {
+            "html": "Ik had een bijlesbureau. De vakken die me vooral interesseerden, waren Intro tot programmeren, Data Science, algoritmen en basiswiskunde.",
+            "note": false
+          },
+          {
+            "html": "Ik ben topsporter in Braziliaans jiujitsu en train zes tot tien keer per week. Ik wil vaak aan wedstrijden deelnemen, onder meer binnen de IBJJF.",
+            "note": false
+          }
+        ]
+      },
+      {
+        "heading": "Waarom ik stopte met informatica",
+        "paragraphs": [
+          {
+            "html": "De opleiding prikkelde mijn nieuwsgierigheid niet meer. Het tempo lag voor mij te laag en ik kon me niet altijd vinden in de manier waarop de vakken werden gegeven. Ik had het gevoel dat ik niets meer bijleerde: ik maakte opdrachten met AI zonder er veel van op te steken en kon examens halen door nauwelijks te studeren.",
+            "note": false
+          },
+          {
+            "html": "Nu bouw ik zelf en leer ik op mijn eigen tempo veel meer over informatica. Ik wil begrijpen wat ik maak, het uitproberen en beter maken.",
+            "note": false
+          }
+        ]
+      },
+      {
+        "heading": "Waarom filosofie",
+        "paragraphs": [
+          {
+            "html": "Ik filosofeer de hele dag. Bij elke stap in mijn leven probeer ik na te denken over hoe het beter kan. Ik gebruik AI om mijn gedachten te onderzoeken, vragen scherper te stellen en mijn keuzes te doordenken.",
+            "note": false
+          },
+          {
+            "html": "Ik heb heel veel creatieve ideeën en kan ze dankzij AI eindelijk uiten en uitwerken. Ik wil ook leren hoe ik de vragen erachter grondig onderzoek, met nauwkeurige argumenten en in nauw contact met professoren. Mijn interesses liggen bij filosofie van de geest, filosofie van AI en technologie, ethiek van artificiële agenten en epistemologie.",
+            "note": false
+          }
+        ]
+      },
+      {
+        "heading": "Waarom KU Leuven",
+        "paragraphs": [
+          {
+            "html": "Voor mij is KU Leuven de meest prestigieuze universiteit van België. Voor filosofie spreekt ook de internationale reputatie van het Hoger Instituut voor Wijsbegeerte me aan. Ik ben graag in Leuven en heb er vrienden. Ik zie mezelf er één à twee dagen per week studeren, ook nu ik deel uitmaak van Wintercircus in Gent.",
+            "note": false
+          }
+        ]
+      },
+      {
+        "heading": "Mijn voorstel",
+        "timeline": [
+          {
+            "label": "Januari 2027",
+            "text": "Ik zou graag één examen afleggen, voor een opleidingsonderdeel dat we samen kiezen."
+          },
+          {
+            "label": "Tweede semester",
+            "text": "Ik zou graag 10–20 studiepunten opnemen en één à twee dagen per week in Leuven zijn."
+          },
+          {
+            "label": "Doel op langere termijn",
+            "text": "Ik wil een master in de filosofie behalen. Kom ik in aanmerking voor rechtstreekse toelating, past een voorbereidingsprogramma bij mijn vooropleiding, of begin ik best met een bachelor? Ik stel voor om in het eerste jaar met een creditcontract te starten en samen het verdere traject te bepalen."
+          }
+        ]
+      },
+      {
+        "heading": "Statuut",
+        "paragraphs": [
+          {
+            "html": "Kom ik in aanmerking voor een statuut als student-ondernemer én voor een topsportstatuut, gezien mijn trainingsschema van zes tot tien trainingen per week en mijn deelname aan wedstrijden in Braziliaans jiujitsu?",
+            "note": false
+          }
+        ]
+      },
+      {
+        "heading": "Contact",
+        "paragraphs": [
+          {
+            "html": "Ik kom graag naar Leuven voor een gesprek.",
+            "note": false
+          }
+        ],
+        "contact": true
+      }
+    ],
+    "name": "F. Gabriel Van Langenhove"
+  },
+  "en": {
+    "title": "F. Gabriel Van Langenhove — Philosophy at KU Leuven",
+    "description": "Why I want to study philosophy at KU Leuven’s Institute of Philosophy and how I propose to begin.",
+    "lead": "Computer scientist, entrepreneur and aspiring philosopher. I want to study philosophy at KU Leuven.",
+    "portraitLabel": "Portrait of Gabriel",
+    "toggleLabel": "Language",
+    "sections": [
+      {
+        "heading": "About me",
+        "paragraphs": [
+          {
+            "html": "I’m Gabriel. I speak seven human languages and a few programming languages. I studied computer science at Ghent University for five years and came close to finishing my master’s. These days, my work often starts with an idea I want to try out quickly. What I do best is use Codex and Claude to turn that idea into a working prototype, then test and refine it. I program in languages including Python, Rust and C, and have worked with ROS 2.",
+            "note": false
+          },
+          {
+            "html": "I founded <a href=\"https://corvus.gent/\">Corvus</a>, a community of builders working entirely in public, with a focus on quality. I dropped out to work at a start-up in Ghent. From early to mid-November 2026, I was in the United States: I attended hackathons and spoke with founders in San Francisco and New York.",
+            "note": false
+          },
+          {
+            "html": "I ran a tutoring business. The subjects that interested me most were Introduction to Programming, Data Science, algorithms and basic mathematics.",
+            "note": false
+          },
+          {
+            "html": "I am a competitive Brazilian jiu-jitsu athlete and train six to ten times a week. I want to compete frequently, including in IBJJF competitions.",
+            "note": false
+          }
+        ]
+      },
+      {
+        "heading": "Why I stopped studying computer science",
+        "paragraphs": [
+          {
+            "html": "The programme no longer sparked my curiosity. The pace felt too slow for me, and I did not always agree with how the courses were taught. I felt I had stopped learning: I completed assignments with AI without learning much from them and could pass exams with very little studying.",
+            "note": false
+          },
+          {
+            "html": "Now I build things myself and learn much more about computer science at my own pace. I want to understand what I make, try it out and improve it.",
+            "note": false
+          }
+        ]
+      },
+      {
+        "heading": "Why philosophy",
+        "paragraphs": [
+          {
+            "html": "I philosophise all day. At every step in my life, I think about how things could be better. I use AI to explore my thoughts, sharpen my questions and think through my choices.",
+            "note": false
+          },
+          {
+            "html": "I have many creative ideas, and AI finally lets me express and develop them. I also want to learn how to investigate the questions behind them rigorously, through careful argument and close work with professors. My interests are philosophy of mind, philosophy of AI and technology, the ethics of artificial agents, and epistemology.",
+            "note": false
+          }
+        ]
+      },
+      {
+        "heading": "Why KU Leuven",
+        "paragraphs": [
+          {
+            "html": "To me, KU Leuven is Belgium’s most prestigious university. For philosophy, I am also drawn to the international reputation of the Institute of Philosophy. I enjoy being in Leuven and have friends there. I can see myself studying there one or two days a week, even now that I am part of Wintercircus in Ghent.",
+            "note": false
+          }
+        ]
+      },
+      {
+        "heading": "My proposal",
+        "timeline": [
+          {
+            "label": "January 2027",
+            "text": "I would like to sit one exam in a course we choose together."
+          },
+          {
+            "label": "Second semester",
+            "text": "I would like to take 10–20 credits and spend one or two days a week in Leuven."
+          },
+          {
+            "label": "Long-term goal",
+            "text": "I want to earn a master’s degree in philosophy. Would I be eligible for direct admission, would a preparatory programme fit my background, or should I start with a bachelor’s? I propose starting with a credit contract in the first year and deciding on the route together."
+          }
+        ]
+      },
+      {
+        "heading": "Student status",
+        "paragraphs": [
+          {
+            "html": "Would I be eligible for both student-entrepreneur status and elite-athlete status, given my schedule of six to ten training sessions a week and my participation in Brazilian jiu-jitsu competitions?",
+            "note": false
+          }
+        ]
+      },
+      {
+        "heading": "Contact",
+        "paragraphs": [
+          {
+            "html": "I would be glad to come to Leuven for a conversation.",
+            "note": false
+          }
+        ],
+        "contact": true
+      }
+    ],
+    "name": "F. Gabriel Van Langenhove"
+  }
+}
