@@ -97,3 +97,15 @@ for(const [name,pattern]of [['search',/dialog\.innerHTML='([^]*?)';document\.bod
  const target=new URL('../../rust/browser/site-'+name+'.html',import.meta.url),output=text+'\n';
  if(process.argv.includes('--check')){if(readFileSync(target,'utf8')!==output)throw Error('Rust shell template stale: '+name);}else writeFileSync(target,output);
 }
+
+const terminalSource=readFileSync(new URL('../../js/terminal.js',import.meta.url),'utf8');
+const terminalHTML=terminalSource.match(/overlay\.innerHTML = `([^]*?)`;/)?.[1];
+if(!terminalHTML)throw Error('Terminal template changed');
+const terminalFile=new URL('../../rust/browser/site-terminal.html',import.meta.url);
+if(process.argv.includes('--check')){if(readFileSync(terminalFile,'utf8')!==terminalHTML+'\n')throw Error('Rust terminal template stale');}else writeFileSync(terminalFile,terminalHTML+'\n');
+
+const searchSource=readFileSync(new URL('../../js/search.js',import.meta.url),'utf8');
+const searchMatch=searchSource.match(/const INDEX = (\[[^]*?\n\]);/);if(!searchMatch)throw Error('Search index changed');
+const searchIndex=JSON.stringify((await import('node:vm')).runInNewContext('('+searchMatch[1]+')'),null,2)+'\n';
+const searchFile=new URL('../../rust/migration/search-index.json',import.meta.url);
+if(process.argv.includes('--check')){if(readFileSync(searchFile,'utf8')!==searchIndex)throw Error('Rust legacy search data stale');}else writeFileSync(searchFile,searchIndex);

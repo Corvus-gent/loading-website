@@ -49,3 +49,4 @@ body.site-shell:has(.site-grid[aria-label="Five doors"]){padding-top:0}
 .site-page:has(> #enlist.legion-join)>.legion-rules{clear:both}
 /* Keep the editor's actions above the shared mobile navigation. */
 @media(max-width:700px){.site-shell nav.sticky[aria-label="Get involved"]{bottom:calc(var(--site-mobile-height) + env(safe-area-inset-bottom));padding-bottom:12px}.site-shell nav.sticky[aria-label="Get involved"]~#toast{bottom:calc(164px + env(safe-area-inset-bottom))}}
+@media(max-width:700px){.site-shell>.peek{bottom:calc(var(--site-mobile-height) + env(safe-area-inset-bottom) - 70px)}.site-shell>.peek:hover{bottom:calc(var(--site-mobile-height) + env(safe-area-inset-bottom) - 10px)}}

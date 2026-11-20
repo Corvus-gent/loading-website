@@ -138,3 +138,8 @@ fn ready(key: &str) {
         let _ = b.set_attribute(&format!("data-rust-army-{key}-ready"), "");
     }
 }
+
+/// Reuse the action-bound proof and session boundary for realm feather collection.
+pub(crate) async fn submit_feather(spot: &str) -> Result<Value, JsValue> {
+    client::submit("feather", json!({"spot":spot})).await
+}

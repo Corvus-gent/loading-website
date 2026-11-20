@@ -2,9 +2,93 @@ use crate::ui;
 use serde_json::{Value, json};
 use wasm_bindgen::{JsCast, prelude::*};
 use wasm_bindgen_futures::JsFuture;
+mod corner;
 mod discovery;
+mod effects;
+mod eggs;
+mod feature;
 mod inspiration;
+mod realm;
 mod shell;
+mod terminal;
+
+type Timer = (JsValue, Closure<dyn FnMut()>);
+thread_local! {
+ static TIMERS:std::cell::RefCell<std::collections::HashMap<i32,Timer>>=std::cell::RefCell::new(std::collections::HashMap::new());
+ static NEXT_TIMER:std::cell::Cell<i32>=const{std::cell::Cell::new(1)};
+}
+pub(super) fn later(ms: i32, f: impl FnOnce() + 'static) -> Result<i32, JsValue> {
+    let id = NEXT_TIMER.with(|n| {
+        let id = n.get();
+        n.set(if id == i32::MAX { 1 } else { id + 1 });
+        id
+    });
+    let mut task = Some(f);
+    let callback = Closure::<dyn FnMut()>::new(move || {
+        if let Some(f) = task.take() {
+            f();
+        }
+        TIMERS.with_borrow_mut(|timers| timers.remove(&id));
+    });
+    let w = window()?;
+    // Keep the browser's handle intact, including instrumented clocks that use IDs
+    // above i32::MAX. Our small Rust ID owns the callback independently of that handle.
+    let native = js_sys::Reflect::get(&w, &"setTimeout".into())?
+        .dyn_into::<js_sys::Function>()?
+        .call2(&w, callback.as_ref(), &ms.into())?;
+    TIMERS.with_borrow_mut(|timers| timers.insert(id, (native, callback)));
+    Ok(id)
+}
+pub(super) fn cancel(id: i32) {
+    if let Some((handle, _callback)) = TIMERS.with_borrow_mut(|timers| timers.remove(&id))
+        && let Ok(w) = window()
+    {
+        let _ = js_sys::Reflect::get(&w, &"clearTimeout".into())
+            .ok()
+            .and_then(|f| f.dyn_into::<js_sys::Function>().ok())
+            .and_then(|f| f.call1(&w, &handle).ok());
+    }
+}
+pub(super) fn capture(name: &str, data: &Value) {
+    let _ = (|| -> Result<(), JsValue> {
+        let ph = js_sys::Reflect::get(&window()?.into(), &"posthog".into())?;
+        let f = js_sys::Reflect::get(&ph, &"capture".into())?.dyn_into::<js_sys::Function>()?;
+        f.call2(&ph, &name.into(), &js(data)?)?;
+        Ok(())
+    })();
+}
+#[wasm_bindgen]
+pub fn start_terminal() -> Result<(), JsValue> {
+    terminal::start()
+}
+#[wasm_bindgen]
+pub fn open_terminal(first_key: Option<String>) -> Result<(), JsValue> {
+    terminal::open(first_key.as_deref().unwrap_or(""))
+}
+#[wasm_bindgen]
+pub fn start_eggs() -> Result<(), JsValue> {
+    eggs::start()
+}
+#[wasm_bindgen]
+pub fn collect_realm_feather() -> Result<(), JsValue> {
+    eggs::realm()
+}
+#[wasm_bindgen]
+pub fn start_realm() -> Result<(), JsValue> {
+    realm::start()
+}
+#[wasm_bindgen]
+pub fn start_realm_night() -> Result<(), JsValue> {
+    realm::night()
+}
+#[wasm_bindgen]
+pub fn start_performance() -> Result<(), JsValue> {
+    effects::start()
+}
+#[wasm_bindgen]
+pub fn show_storage_warning(until: Option<String>) -> Result<(), JsValue> {
+    effects::storage(until.unwrap_or_default())
+}
 pub(super) fn window() -> Result<web_sys::Window, JsValue> {
     web_sys::window().ok_or_else(|| "Window unavailable".into())
 }
@@ -184,4 +268,35 @@ pub fn start_daily() -> Result<(), JsValue> {
     })?;
     reveal(&window()?.location().hash()?);
     Ok(())
+}
+
+#[wasm_bindgen]
+pub fn start_i18n() -> Result<(), JsValue> {
+    corner::start()
+}
+#[wasm_bindgen]
+pub fn init_i18n(callback: Option<js_sys::Function>) -> Result<(), JsValue> {
+    corner::init(callback)
+}
+#[wasm_bindgen]
+pub fn render_corner_search(container: web_sys::Element) -> Result<(), JsValue> {
+    corner::search(container)
+}
+
+#[wasm_bindgen]
+pub fn load_feature(feature: String, lang: String) -> js_sys::Promise {
+    feature::load(feature, lang)
+}
+#[wasm_bindgen]
+pub fn format_feature_copy(text: JsValue, values: JsValue) -> Result<String, JsValue> {
+    feature::format(text, values)
+}
+#[wasm_bindgen]
+pub fn feature_text(
+    feature: String,
+    key: String,
+    values: JsValue,
+    lang: String,
+) -> Result<String, JsValue> {
+    feature::text(feature, key, values, lang)
 }

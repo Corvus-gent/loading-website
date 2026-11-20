@@ -2,6 +2,18 @@
 // These contain only module wiring; all replacement behavior lives in Rust/WASM.
 const wasm='/rust/browser/pkg/corvus_browser.js';
 const bridges={
+ '/js/i18n/feature.js':`import init,* as m from '${wasm}';await init();export const FEATURE_LANGS=['en','nl','es','fr','pt','de','zh'],FEATURES=['army','mail','wiki'];export const formatCopy=(text,values={})=>m.format_feature_copy(text,values),loadFeature=(feature,lang='en')=>m.load_feature(feature,lang),featureText=(feature,key,values={},lang='en')=>m.feature_text(feature,key,values,lang);`,
+
+ '/js/i18n.js':`export {loadFeature,featureText} from '/js/i18n/feature.js';export {applyI18n,getLang,LANGS,pick,renderSwitcher,t} from '/js/i18n/language.js';import '/js/i18n/language.js';import init,* as m from '${wasm}';await init();m.start_i18n();export const initI18n=m.init_i18n;`,
+ '/js/search.js':`import init,{render_corner_search} from '${wasm}';await init();export const renderSearch=render_corner_search;`,
+
+ '/js/terminal.js':`import init,* as m from '${wasm}';await init();m.start_terminal();export const openTerminal=m.open_terminal;`,
+ '/js/eggs.js':`import init,* as m from '${wasm}';await init();m.start_eggs();export const collectRealmFeather=m.collect_realm_feather;`,
+ '/js/realm-night.js':`import '/js/eggs.js';import '/js/terminal.js';import init,{start_realm_night} from '${wasm}';await init();start_realm_night();`,
+ '/js/realm.js':`import {initI18n} from '/js/i18n.js';import init,{start_realm} from '${wasm}';await init();initI18n();start_realm();`,
+ '/js/performance.js':`import('${wasm}').then(async m=>{await m.default();m.start_performance();});`,
+ '/js/storage-warning.js':`import init,{show_storage_warning} from '${wasm}';await init();export const showStorageWarning=show_storage_warning;`,
+
  '/js/site/shell.js':`import '/js/i18n/language.js';import init,{start_site_shell} from '${wasm}';await init();start_site_shell();`,
  '/js/site/discovery.js':`import init,* as m from '${wasm}';await init();m.start_site_discovery();export const loadRoutes=m.site_load_routes,canonical=m.site_canonical,freshPublicEntries=m.site_fresh_entries;`,
  '/js/site/compound-links.js':`import init,* as m from '${wasm}';await init();m.start_compound_links();export const compoundTrackedURL=m.compound_tracked_url;`,
