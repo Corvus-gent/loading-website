@@ -34,3 +34,6 @@ tools/site/*
 tools/forms/*
 !tools/forms/build.mjs
 !tools/forms/page.html
+
+!tools/philosophy
+!tools/philosophy/build.mjs
