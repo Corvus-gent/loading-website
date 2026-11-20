@@ -32,7 +32,7 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 
 - Shipped a radar for the 30-person demo room. Three interactive locks jump to match cards with separate reasons for each side.
 - Shipped pending and mutual states. The requester opts in first, the fictional recipient explicitly accepts, then both see a suggested time and place within the published 1–5 PM window.
-- Decision. Corvus Redis enables shareable recipient links with a one-day lifetime. The same two-step flow works in a single browser without Redis. No email or invitations are sent.
+- Decision. Corvus Redis enables shareable recipient links with a one-day lifetime. The same two-step flow works in a single browser without Redis. The requester shares the intro link directly.
 - Verified. The build passed. Chromium completed the full flow at 375px without environment variables and with two isolated browser sessions over Redis 7.
 - Next. Deploy the core to Corvus production and run the flow against the live domain.
 - **STEER ME:** Lead the pitch with the interactive radar or with the moment the second person opts in.
@@ -87,5 +87,6 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Verified. The build and lint passed. Production checks covered seven routes at 320px, 375px and 1440px, all four lenses, host and sponsor controls, private demo mode, and the Boat sample. A second browser accepted the intro over production Redis. A local Redis run also verified duplicate and concurrent acceptance.
 - Verified. The Mac release contains both Apple Silicon and Intel disk images. The macOS runner verified the ad-hoc app signatures and disk image checksums.
 - Decision. Used the GitHub release for large binary assets so the Vercel deployment and repository stay small. Sponsor APIs were tested with mocked requests and their zero-key fallbacks.
-- Next. Verify all published motion variants and repeat the live smoke test on the final deployment.
+- Verified at 16:56 CET. The final live smoke test passed and the release contains all six verified MP4s in 9:16 and 16:9, plus both verified Mac images.
+- Next. Run the 60-second walkthrough at Demo Day.
 - **STEER ME:** Lead the 60-second pitch with the Broke hacker or Busy builder lens. Lead the first LinkedIn post with the cannonball or the four-hour test.
