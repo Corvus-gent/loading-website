@@ -155,3 +155,10 @@ const privateFactory=runInNewContext(privateFunction+';privateTasks',{hogql:capt
 for(const [key,task]of Object.entries(privateFactory())){captured=[];await task();if(captured.length!==1)throw Error('Private query boundary changed: '+key);statsQueries.private[key]=captured[0];}
 const statsText=JSON.stringify(statsQueries,null,2)+'\n',statsFile=new URL('../../rust/migration/stats-queries.json',import.meta.url);
 if(process.argv.includes('--check')){if(readFileSync(statsFile,'utf8')!==statsText)throw Error('Rust stats SQL stale');}else writeFileSync(statsFile,statsText);
+
+// Preserve the atomic health ledger protocol while projecting its data in Rust.
+const healthSource=readFileSync(new URL('../../api/_health-history.js',import.meta.url),'utf8');
+const healthIngest=healthSource.match(/const ingest = `([^]*?)`;/)?.[1];
+if(!healthIngest)throw Error('Health ingestion script changed');
+const healthLuaFile=new URL('../../rust/migration/health-ingest.lua',import.meta.url);
+if(process.argv.includes('--check')){if(readFileSync(healthLuaFile,'utf8')!==healthIngest)throw Error('Rust health ledger protocol stale');}else writeFileSync(healthLuaFile,healthIngest);

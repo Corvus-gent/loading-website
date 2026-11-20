@@ -1,5 +1,6 @@
 //! Statistics migration foundations. Section and private endpoints are opt-in; snapshot orchestration is still pending.
 pub mod handler;
+pub mod health;
 pub mod model;
 pub mod snapshot;
 pub mod view;

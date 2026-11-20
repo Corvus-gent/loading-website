@@ -53,6 +53,8 @@ jobs:
       - run: node tests/rust/stats-snapshot-view.mjs
       - run: node tests/rust/stats-snapshot-store.mjs
       - run: node tests/rust/stats-daily-http.mjs
+      - run: node tests/rust/health-model.mjs
+      - run: node tests/rust/health-store.mjs
       - run: node tests/rust/stats-model.mjs
       - run: node tests/rust/stats-store.mjs
       - run: node tests/rust/stats-http.mjs

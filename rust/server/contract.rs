@@ -7,6 +7,34 @@ async fn main() -> Result<(), corvus_server::Error> {
         let row: Value = serde_json::from_str(&line?)?;
         let value = row["value"].as_str().unwrap_or("");
         let result = match row["operation"].as_str() {
+            Some("health-model") => {
+                use corvus_server::stats::health as m;
+                let result: Result<Value, corvus_server::Error> = (|| {
+                    let now = row["now"].as_i64().ok_or("time")?;
+                    let range = row["range"].as_str().unwrap_or("24h");
+                    Ok(match row["action"].as_str() {
+                        Some("state") => json!(m::state(&row["value"])),
+                        Some("empty") => m::empty(range, now)?,
+                        Some("commands") => json!(m::read_commands(now, range)?),
+                        Some("write") => json!(m::write_command(
+                            &row["sample"],
+                            now,
+                            row["archive"] == true,
+                            row["monitor"] == true
+                        )?),
+                        Some("incidents") => json!(m::incidents(
+                            &row["live"],
+                            &row["legacy"],
+                            row["first"].as_i64().unwrap_or(0)
+                        )),
+                        Some("project") => {
+                            m::project(now, range, row["rows"].as_array().ok_or("rows")?)?
+                        }
+                        _ => Value::Null,
+                    })
+                })();
+                result.unwrap_or_else(|e| json!({"error":e.to_string()}))
+            }
             Some("stats-snapshot-model") => {
                 use corvus_server::stats::snapshot as m;
                 let result: Result<Value, corvus_server::Error> = (|| {
@@ -576,6 +604,29 @@ async fn main() -> Result<(), corvus_server::Error> {
                         Some("snapshot-build" | "snapshot-batch") => {
                             stats_snapshot_contract(&state, &row).await
                         }
+                        Some("health-record") => {
+                            corvus_server::stats::health::record(
+                                &state,
+                                &row["sample"],
+                                row["now"].as_i64().ok_or("time")?,
+                                row["monitor"] == true,
+                            )
+                            .await
+                        }
+                        Some("health-history") => {
+                            corvus_server::stats::health::history(
+                                &state,
+                                row["now"].as_i64().ok_or("time")?,
+                                row["range"].as_str().unwrap_or("24h"),
+                            )
+                            .await
+                        }
+                        Some("health-import") => corvus_server::stats::health::import_legacy(
+                            &state,
+                            row["now"].as_i64().ok_or("time")?,
+                        )
+                        .await
+                        .map(|()| Value::Null),
                         Some("counters") => {
                             corvus_server::stats::counters(
                                 &state,
