@@ -103,7 +103,9 @@
     "appearanceLabel": "Weergave",
     "systemLabel": "Systeem",
     "lightLabel": "Licht",
-    "darkLabel": "Donker"
+    "darkLabel": "Donker",
+    "backLabel": "Terug naar alle CV’s",
+    "breadcrumb": "Studies / KU Leuven · Filosofie"
   },
   "en": {
     "title": "F. Gabriel Van Langenhove — Philosophy at KU Leuven",
@@ -209,7 +211,9 @@
     "appearanceLabel": "Appearance",
     "systemLabel": "System",
     "lightLabel": "Light",
-    "darkLabel": "Dark"
+    "darkLabel": "Dark",
+    "backLabel": "Back to all CVs",
+    "breadcrumb": "Studies / KU Leuven · Philosophy"
   },
   "es": {
     "title": "F. Gabriel Van Langenhove — Filosofía en KU Leuven",
@@ -315,7 +319,9 @@
     "appearanceLabel": "Apariencia",
     "systemLabel": "Sistema",
     "lightLabel": "Claro",
-    "darkLabel": "Oscuro"
+    "darkLabel": "Oscuro",
+    "backLabel": "Volver a todos los CV",
+    "breadcrumb": "Estudios / KU Leuven · Filosofía"
   },
   "fr": {
     "title": "F. Gabriel Van Langenhove — Philosophie à la KU Leuven",
@@ -421,7 +427,9 @@
     "appearanceLabel": "Apparence",
     "systemLabel": "Système",
     "lightLabel": "Clair",
-    "darkLabel": "Sombre"
+    "darkLabel": "Sombre",
+    "backLabel": "Retour à tous les CV",
+    "breadcrumb": "Études / KU Leuven · Philosophie"
   },
   "pt": {
     "title": "F. Gabriel Van Langenhove - Filosofia na KU Leuven",
@@ -527,7 +535,9 @@
     "appearanceLabel": "Aparência",
     "systemLabel": "Sistema",
     "lightLabel": "Claro",
-    "darkLabel": "Escuro"
+    "darkLabel": "Escuro",
+    "backLabel": "Voltar a todos os CVs",
+    "breadcrumb": "Estudos / KU Leuven · Filosofia"
   },
   "de": {
     "title": "F. Gabriel Van Langenhove – Philosophie an der KU Leuven",
@@ -633,7 +643,9 @@
     "appearanceLabel": "Darstellung",
     "systemLabel": "System",
     "lightLabel": "Hell",
-    "darkLabel": "Dunkel"
+    "darkLabel": "Dunkel",
+    "backLabel": "Zurück zu allen Lebensläufen",
+    "breadcrumb": "Studium / KU Leuven · Philosophie"
   },
   "zh": {
     "title": "F. Gabriel Van Langenhove — 鲁汶大学哲学",
@@ -739,6 +751,8 @@
     "appearanceLabel": "外观",
     "systemLabel": "系统",
     "lightLabel": "浅色",
-    "darkLabel": "深色"
+    "darkLabel": "深色",
+    "backLabel": "返回简历总览",
+    "breadcrumb": "学习 / 鲁汶大学 · 哲学"
   }
 }
