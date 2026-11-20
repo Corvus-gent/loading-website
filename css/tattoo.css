@@ -3,3 +3,17 @@
 @media(max-width:390px){.inspiration-grid{grid-template-columns:1fr}.inspiration-card>img{height:350px}.tattoo-intro h1{font-size:68px}.tattoo-diptych{grid-template-columns:1fr}.michael-study{height:470px}.fallen-study{height:250px;margin-top:0}}
 
 .tattoo-ai-concepts{margin-top:80px;padding-top:40px;border-top:1px solid #37372e}.tattoo-ai-concepts>h2{font:clamp(32px,5vw,48px)/1.15 Georgia,serif;font-weight:400;margin:12px 0 18px}.tattoo-ai-concepts>p:not(.tattoo-kicker){font:14px/1.7 monospace;color:var(--ink-muted);max-width:650px}.tattoo-ai-concepts>.inspiration-grid{grid-template-columns:minmax(0,420px);margin-top:30px}.tattoo-ai-concepts .inspiration-card>img{height:480px;object-fit:contain}@media(max-width:700px){.tattoo-ai-concepts .inspiration-card>img{height:auto}}
+
+.inspiration-card .art-quote {
+ color: var(--ink-gold);
+ font: italic 20px/1.4 Georgia, serif;
+}
+.inspiration-card:is([data-id="anakin"], [data-id="vader"], [data-id="young-anakin"], [data-id="creation"]) > img {
+ height: auto;
+ display: block;
+ aspect-ratio: 4 / 3;
+ filter: saturate(.8);
+}
+.inspiration-card[data-id="creation"] > img {
+ object-fit: contain;
+}
