@@ -9,7 +9,7 @@ use std::{collections::BTreeMap, sync::LazyLock};
 use url::Url;
 const PATTERNS: &[&str] = &[
     r"/{2,}",
-    r"^/rust(?:/|$)|^/Cargo\.(?:toml|lock)$|^/rust-toolchain\.toml$",
+    r"^/(?:rust|migration)(?:/|$)|^/Cargo\.(?:toml|lock)$|^/rust-toolchain\.toml$",
     r"^/api/_openrisk(?:/|$)",
     r"^/project-cto(?:/|$)",
     r"^/(?:stats/)?(?:(?:pidgy|games|map|music|hunt|x|coffee|linkedin|status|hack|army|private)/)?index\.html$",
@@ -254,7 +254,7 @@ pub fn decide(raw_url: &str, method: &str, ua: &str, cookie: &str) -> Result<Dec
         })
         .unwrap_or(path.clone());
     if matched(
-        r"^/rust(?:/|$)|^/Cargo\.(?:toml|lock)$|^/rust-toolchain\.toml$",
+        r"^/(?:rust|migration)(?:/|$)|^/Cargo\.(?:toml|lock)$|^/rust-toolchain\.toml$",
         &source,
     ) {
         return Ok(Decision::new(

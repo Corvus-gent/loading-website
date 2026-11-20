@@ -61,7 +61,7 @@ function legionContent(html){
 // Shared publication policy: standalone canvases, templates and source inputs do not get site chrome.
 export function usesSiteShell(file,html=''){
  const parts=file.replaceAll('\\','/').split('/');
- if(parts.some(p=>p.startsWith('.')||['node_modules','rust','target','public','submission','tests','tools','test-results','playwright-report'].includes(p)))return false;
+ if(parts.some(p=>p.startsWith('.')||['node_modules','rust','migration','target','public','submission','tests','tools','test-results','playwright-report'].includes(p)))return false;
  if(!file.endsWith('.html')||file.startsWith('cv/filosofie/')||file.startsWith('lab/logo/')||file.startsWith('clients/'))return false;
  if(['curiositycraft/index.html','curiositycraft/play/index.html','curiositycraft/qr/index.html','worldcraft/index.html','worldcraft/qr/index.html','worldcraft/admin/index.html','curiosity/index.html','live/overlay/index.html','forms/index.html'].includes(file))return false;
  return !/http-equiv=["']refresh/i.test(html);
@@ -100,7 +100,7 @@ async function build(){
   await write(id+'/index.html',page(title,description,`<p class="site-eyebrow">corvus / ${id}</p><h1>${title}</h1><p class="site-lead">${description}</p>${lead}<div class="site-grid">${choices.map(card).join('')}</div>${aside}`));
  }
  await write('map/index.html',page('the whole map.','Every public corner of Corvus, grouped by where you want to go.',`<p class="site-eyebrow">no dead ends</p><h1>the whole map.</h1><p class="site-lead">Every door, in one place. Pick a section, find a name, or press /.</p><label class="directory-search">find your next rabbit hole<input type="search" data-directory-filter placeholder="a game, a cut, a person…" aria-label="Filter the public map"></label><p class="site-fine" data-directory-count>${ROUTES.length} public doors</p><div data-full-directory>${SECTIONS.map(s=>`<section id="${s.id}"><h2>${s.label}</h2>${directory(s.id)}</section>`).join('<hr class="site-divider">')}</div>`));
- const files=[];async function walk(dir='.'){for(const e of await fs.readdir(dir,{withFileTypes:true})){if(e.name.startsWith('.')||['node_modules','rust','target','public','submission','tests','tools','test-results','playwright-report'].includes(e.name))continue;const f=path.join(dir,e.name);if(e.isDirectory())await walk(f);else if(e.name.endsWith('.html'))files.push(f);}}await walk();
+ const files=[];async function walk(dir='.'){for(const e of await fs.readdir(dir,{withFileTypes:true})){if(e.name.startsWith('.')||['node_modules','rust','migration','target','public','submission','tests','tools','test-results','playwright-report'].includes(e.name))continue;const f=path.join(dir,e.name);if(e.isDirectory())await walk(f);else if(e.name.endsWith('.html'))files.push(f);}}await walk();
  for(const file of files){
   let s=await fs.readFile(file,'utf8');if(!usesSiteShell(file,s))continue;
   s=s.replace(/<!-- SITE_(HEAD|NAV|NEXT|GEMS|DIRECTORY|CRUMB) -->[\s\S]*?<!-- \/SITE_\1 -->/g,'');

@@ -5,7 +5,7 @@ import {ogRoute} from "./js/og-routes.js";
 import {COMPOUND_LINKS} from "./js/compound-links.js";
 import { rewrite, next, waitUntil } from "@vercel/functions";
 
-export const config = { matcher: ["/((?!api/|js/|img/|cv/|papers/|.*\\.(?:css|js|png|jpg|svg|pdf|json|ico)$).*)", "/project-cto/:path*", "/api/_openrisk/:path*", "/rust/:path*", "/Cargo.:extension", "/rust-toolchain.toml"] };
+export const config = { matcher: ["/((?!api/|js/|img/|cv/|papers/|.*\\.(?:css|js|png|jpg|svg|pdf|json|ico)$).*)", "/project-cto/:path*", "/api/_openrisk/:path*", "/rust/:path*", "/migration/:path*", "/Cargo.:extension", "/rust-toolchain.toml"] };
 
 const COMPANY_LINKS = {
   "/enter": "/?utm_source=linkedin&utm_medium=company-page&utm_campaign=gabe-corvus-page&utm_content=button",
@@ -35,7 +35,7 @@ export default function middleware(request) {
   // Rust build inputs are server source, never public static assets.
   let sourcePath=url.pathname;
   try { sourcePath=decodeURIComponent(sourcePath).replace(/\/{2,}/g,'/'); } catch {}
-  if (/^\/rust(?:\/|$)|^\/Cargo\.(?:toml|lock)$|^\/rust-toolchain\.toml$/.test(sourcePath)) {
+  if (/^\/(?:rust|migration)(?:\/|$)|^\/Cargo\.(?:toml|lock)$|^\/rust-toolchain\.toml$/.test(sourcePath)) {
     return new Response('Not found', {status:404,headers:{'Cache-Control':'no-store'}});
   }
 
