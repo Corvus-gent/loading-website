@@ -94,10 +94,17 @@ async fn inner(
     let store = Interviews(state);
     if [Method::GET, Method::HEAD].contains(method) {
         if truthy(&q["interviewPage"]) || truthy(&q["interviewCard"]) {
-            return Ok(error(
-                StatusCode::NOT_IMPLEMENTED,
-                "The interview OG renderer has not migrated yet.",
-            ));
+            let page = truthy(&q["interviewPage"]);
+            let n = if page {
+                &q["interviewPage"]
+            } else {
+                &q["interviewCard"]
+            };
+            let mut og = json!({"kind":"interview","n":corvus_core::impact::string(n)});
+            if page {
+                og["ogPage"] = json!("1");
+            }
+            return Ok(crate::og::handler::handle(state, method, &og).await);
         }
         if q["interviewAdmin"] == "1" {
             if !security::authorized(

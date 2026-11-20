@@ -7,6 +7,50 @@ async fn main() -> Result<(), corvus_server::Error> {
         let row: Value = serde_json::from_str(&line?)?;
         let value = row["value"].as_str().unwrap_or("");
         let result = match row["operation"].as_str() {
+            Some("og-model") => {
+                use corvus_server::og::model as m;
+                let result: Result<Value, corvus_server::Error> = (|| {
+                    Ok(match row["action"].as_str() {
+                        Some("duration") => json!(corvus_server::og::render::duration(
+                            row["seconds"].as_f64().unwrap_or(0.0),
+                            row["avg"] == true
+                        )),
+                        Some("curiosity") => {
+                            use base64::{Engine, engine::general_purpose::STANDARD};
+                            json!(
+                                STANDARD
+                                    .encode(corvus_server::og::render::curiosity(&row["body"])?)
+                            )
+                        }
+                        Some("render") => {
+                            use base64::{Engine, engine::general_purpose::STANDARD};
+                            let photo = row["photo"]
+                                .as_str()
+                                .map(|b| STANDARD.decode(b))
+                                .transpose()?;
+                            json!(STANDARD.encode(corvus_server::og::render::render(
+                                &row["body"],
+                                row["now"].as_i64().ok_or("time")?,
+                                photo.as_deref()
+                            )?))
+                        }
+                        Some("photo-url") => json!(corvus_server::og::render::allowed_photo(value)),
+                        Some("countdown") => {
+                            json!(m::countdown(row["now"].as_i64().ok_or("time")?))
+                        }
+                        Some("interview") => m::interview_card(&row["body"]),
+                        Some("image-url") => json!(m::image_url(&row["body"])?),
+                        Some("metadata") => json!(m::metadata(value, &row["body"])?),
+                        Some("resolve") => m::resolve_data(
+                            &row["query"],
+                            row["rows"].as_array().map(Vec::as_slice).unwrap_or(&[]),
+                            row.get("video").filter(|v| !v.is_null()),
+                        )?,
+                        _ => return Err("action".into()),
+                    })
+                })();
+                result.unwrap_or_else(|e| json!({"error":e.to_string()}))
+            }
             Some("army-model") => {
                 use corvus_server::army::{model as m, security as s};
                 let result: Result<Value, corvus_server::Error> = (|| {
@@ -338,7 +382,9 @@ async fn main() -> Result<(), corvus_server::Error> {
                 }
                 json!({"authorized":security::authorized(&env,&headers,row["now"].as_i64().ok_or("now")?)?,"origin":security::same_origin(&env,&headers),"analytics":security::analytics(&row["body"],&headers)})
             }
-            Some("compound-store" | "compound-editor" | "legion-store" | "army-store") => {
+            Some(
+                "compound-store" | "compound-editor" | "legion-store" | "army-store" | "og-store",
+            ) => {
                 use corvus_server::compound_v2::{security, store::Registry};
                 let settings = std::sync::Arc::new(corvus_server::config::Settings::from_env());
                 if settings.production()
@@ -355,6 +401,14 @@ async fn main() -> Result<(), corvus_server::Error> {
                     live: corvus_server::live::LiveService::new()?,
                     compound_summary: Default::default(),
                 };
+                if row["operation"] == "og-store" {
+                    let value = corvus_server::og::model::resolve(&state, &row["query"]).await;
+                    println!(
+                        "{}",
+                        value.unwrap_or_else(|e| json!({"error":e.to_string()}))
+                    );
+                    continue;
+                }
                 if row["operation"] == "army-store" {
                     let result = army_contract(&state, &row).await;
                     println!(

@@ -335,6 +335,7 @@ dependencies = [
  "chrono",
  "chrono-tz",
  "corvus-core",
+ "harfrust",
  "hex",
  "hmac",
  "http-body-util",

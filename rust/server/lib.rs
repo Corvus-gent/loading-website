@@ -11,6 +11,7 @@ pub mod legion;
 pub mod live;
 pub mod live_interviews;
 pub mod name_vote;
+pub mod og;
 pub mod plethora;
 pub mod store;
 pub mod support;
@@ -97,6 +98,12 @@ async fn dispatch(
             .into_response();
     }
     let result = match module {
+        "og" => Ok(og::handler::handle(
+            &state,
+            &method,
+            &serde_json::to_value(&query).unwrap_or_default(),
+        )
+        .await),
         "army" => {
             Box::pin(army::handler::handle(
                 &state, &method, &headers, &query, &body,
