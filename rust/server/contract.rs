@@ -7,6 +7,65 @@ async fn main() -> Result<(), corvus_server::Error> {
         let row: Value = serde_json::from_str(&line?)?;
         let value = row["value"].as_str().unwrap_or("");
         let result = match row["operation"].as_str() {
+            Some("stats-snapshot-model") => {
+                use corvus_server::stats::snapshot as m;
+                let result: Result<Value, corvus_server::Error> = (|| {
+                    let page = row["page"].as_str().unwrap_or("overview");
+                    let day = row["day"].as_str().unwrap_or("");
+                    let now = row["now"].as_i64().ok_or("time")?;
+                    Ok(match row["action"].as_str() {
+                        Some("view") => {
+                            use corvus_server::stats::view::{self, Read, Viewer};
+                            let viewer = if row["authFailed"] == true {
+                                Viewer::Unavailable
+                            } else if let Some(email) = row["email"].as_str() {
+                                Viewer::LoggedIn(email)
+                            } else {
+                                Viewer::Public
+                            };
+                            serde_json::to_value(view::project(Read {
+                                page,
+                                day,
+                                now,
+                                snapshot: row.get("snapshot").filter(|v| !v.is_null()).cloned(),
+                                storage_failed: row["storageFailed"] == true,
+                                lease: row["lease"].as_str(),
+                                viewer,
+                                part: row["part"].as_str(),
+                                plaintext_until: Value::Null,
+                            })?)?
+                        }
+                        Some("valid") => json!(m::valid(page, day, now)),
+                        Some("fresh") => json!(m::fresh(&row["snapshot"], page, day, now)),
+                        Some("shared") => {
+                            json!(m::shared_key(page, day, row["name"].as_str().unwrap_or("")))
+                        }
+                        Some("draft") => {
+                            let names = row["names"]
+                                .as_array()
+                                .ok_or("names")?
+                                .iter()
+                                .map(|v| v.as_str().map(str::to_owned).ok_or("name"))
+                                .collect::<Result<Vec<_>, _>>()?;
+                            let mut draft = m::Draft::new(page, day, &row["previous"], names, now)?;
+                            for update in row["updates"].as_array().ok_or("updates")? {
+                                draft.apply(
+                                    update["name"].as_str().ok_or("name")?,
+                                    if update["error"] == true {
+                                        None
+                                    } else {
+                                        Some(update["value"].clone())
+                                    },
+                                    update["ms"].as_u64().unwrap_or(0),
+                                );
+                            }
+                            draft.snapshot(row["saveNow"].as_i64().unwrap_or(now))
+                        }
+                        _ => Value::Null,
+                    })
+                })();
+                result.unwrap_or_else(|e| json!({"error":e.to_string()}))
+            }
             Some("stats-model") => {
                 use corvus_server::stats::model as m;
                 let day = row["day"].as_str().unwrap_or("2026-11-20");
@@ -514,6 +573,9 @@ async fn main() -> Result<(), corvus_server::Error> {
                 if row["operation"] == "stats-store" {
                     let day = row["day"].as_str().unwrap_or("");
                     let result = match row["action"].as_str() {
+                        Some("snapshot-build" | "snapshot-batch") => {
+                            stats_snapshot_contract(&state, &row).await
+                        }
                         Some("counters") => {
                             corvus_server::stats::counters(
                                 &state,
@@ -1384,4 +1446,76 @@ async fn army_contract(
         )),
         _ => Err("unknown Army fixture".into()),
     }
+}
+
+async fn stats_snapshot_contract(
+    s: &corvus_server::AppState,
+    row: &Value,
+) -> Result<Value, corvus_server::Error> {
+    use corvus_server::stats::snapshot::{self, Shared, Task};
+    let batches = if row["action"] == "snapshot-batch" {
+        row["batches"].as_array().ok_or("batches")?.clone()
+    } else {
+        vec![row.clone()]
+    };
+    let shared = Shared::default();
+    let s = if row["readonly"] == true {
+        let mut copy = s.clone();
+        copy.settings =
+            std::sync::Arc::new(corvus_server::config::Settings::new(Default::default()));
+        copy
+    } else {
+        s.clone()
+    };
+    let mut running = tokio::task::JoinSet::new();
+    for (i, batch) in batches.into_iter().enumerate() {
+        let s = s.clone();
+        let shared = shared.clone();
+        running.spawn(async move {
+            let page = batch["page"].as_str().unwrap_or("overview");
+            let day = batch["day"].as_str().ok_or("day")?;
+            let factory = || -> Result<Vec<Task>, corvus_server::Error> {
+                if batch["factoryError"] == true {
+                    return Err("fixture factory failure".into());
+                }
+                batch["tasks"]
+                    .as_array()
+                    .ok_or("tasks")?
+                    .iter()
+                    .map(|v| {
+                        let v = v.clone();
+                        let name = v["name"].as_str().ok_or("name")?.to_owned();
+                        let s = s.clone();
+                        let key = format!("fixture:snapshot:task:{name}");
+                        Ok(Task::new(name, async move {
+                            s.store.command(vec!["INCR".into(), key]).await?;
+                            tokio::time::sleep(std::time::Duration::from_millis(
+                                v["delay"].as_u64().unwrap_or(0),
+                            ))
+                            .await;
+                            if v["error"] == true {
+                                Err("private fixture exception must never be stored".into())
+                            } else {
+                                Ok(v["value"].clone())
+                            }
+                        }))
+                    })
+                    .collect()
+            };
+            let result =
+                snapshot::build(&s, page, day, batch["force"] == true, shared, factory).await?;
+            Ok::<_, corvus_server::Error>((i, result.unwrap_or(Value::Null)))
+        });
+    }
+    let mut result = Vec::new();
+    while let Some(r) = running.join_next().await {
+        result.push(r??);
+    }
+    result.sort_by_key(|(i, _)| *i);
+    let values: Vec<Value> = result.into_iter().map(|(_, v)| v).collect();
+    Ok(if row["action"] == "snapshot-batch" {
+        json!(values)
+    } else {
+        values.into_iter().next().unwrap_or(Value::Null)
+    })
 }

@@ -284,3 +284,105 @@ pub async fn private(
         Err(_) => error(StatusCode::INTERNAL_SERVER_ERROR, "stats error"),
     }
 }
+
+/// Legacy daily dashboard payload; source order and the existing v5 cache are retained.
+pub async fn daily(s: &AppState, query: &HashMap<String, String>) -> Response {
+    if !s.store.connected() || !visitors::posthog_ready(&s.settings) {
+        return (
+            StatusCode::SERVICE_UNAVAILABLE,
+            Json(json!({"error":"stats not connected yet"})),
+        )
+            .into_response();
+    }
+    let now = Utc::now().timestamp_millis();
+    let today = visitors::day(now);
+    let day = query
+        .get("day")
+        .filter(|d| {
+            visitors::model::valid_day(d)
+                && d.as_str() >= super::snapshot::FIRST_DAY
+                && d.as_str() <= today.as_str()
+        })
+        .unwrap_or(&today);
+    let cache = if day == &today {
+        "public, max-age=60"
+    } else {
+        "public, max-age=86400"
+    };
+    let result = async {
+        let key = format!("stats:v5:{day}");
+        if let Some(raw) = s.store.get(&key).await?.as_str().filter(|s| !s.is_empty()) {
+            // The original endpoint sends the cached JSON bytes without reformatting.
+            serde_json::from_str::<Value>(raw)?;
+            return Ok::<_, Error>(raw.to_owned());
+        }
+        let names = [
+            "visitors",
+            "total",
+            "hours",
+            "countries",
+            "sources",
+            "browsers",
+            "pages",
+            "feathers",
+            "terminal",
+            "counters",
+        ];
+        let mut running = tokio::task::JoinSet::new();
+        for (i, name) in names.into_iter().enumerate() {
+            let s = s.clone();
+            let day = day.to_owned();
+            running.spawn(async move {
+                let value = if name == "counters" {
+                    super::counters(&s, &day, Utc::now().timestamp_millis()).await?
+                } else {
+                    task(&s, "daily", name, &day).await?
+                };
+                Ok::<_, Error>((i, value))
+            });
+        }
+        let mut parts = Vec::new();
+        while let Some(part) = running.join_next().await {
+            parts.push(part??);
+        }
+        parts.sort_by_key(|(i, _)| *i);
+        let mut data =
+            json!({"day":day,"first":super::snapshot::FIRST_DAY,"today":today,"updated":iso()})
+                .as_object()
+                .cloned()
+                .ok_or("daily object")?;
+        for (_, part) in parts {
+            merge(&mut data, part)?;
+        }
+        let body = Value::Object(data).to_string();
+        if s.settings.write_enabled() {
+            s.store
+                .command(vec![
+                    "SET".into(),
+                    key,
+                    body.clone(),
+                    "EX".into(),
+                    if day == &today { "300" } else { "604800" }.into(),
+                ])
+                .await?;
+        }
+        Ok(body)
+    }
+    .await;
+    match result {
+        Ok(body) => (
+            StatusCode::OK,
+            [
+                ("cache-control", cache),
+                ("content-type", "application/json; charset=utf-8"),
+            ],
+            body,
+        )
+            .into_response(),
+        Err(_) => reply(
+            StatusCode::INTERNAL_SERVER_ERROR,
+            json!({"error":"stats error"}),
+            cache,
+        ),
+    }
+}

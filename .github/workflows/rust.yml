@@ -49,6 +49,10 @@ jobs:
       - run: node tests/rust/site-model.mjs
       - run: node tests/rust/analytics-model.mjs
       - run: node tests/rust/visitor-model.mjs
+      - run: node tests/rust/stats-snapshot.mjs
+      - run: node tests/rust/stats-snapshot-view.mjs
+      - run: node tests/rust/stats-snapshot-store.mjs
+      - run: node tests/rust/stats-daily-http.mjs
       - run: node tests/rust/stats-model.mjs
       - run: node tests/rust/stats-store.mjs
       - run: node tests/rust/stats-http.mjs

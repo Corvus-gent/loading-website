@@ -100,6 +100,7 @@ async fn dispatch(
             .into_response();
     }
     let result = match module {
+        "stats-daily" => Ok(Box::pin(stats::handler::daily(&state, &query)).await),
         "stats-sections" => Ok(Box::pin(stats::handler::section(&state, &method, &query)).await),
         "stats-private" => Ok(Box::pin(stats::handler::private(&state, &headers, &query)).await),
         "geo" => Ok(Box::pin(visitors::geo(&state, &method, &headers, &query)).await),
