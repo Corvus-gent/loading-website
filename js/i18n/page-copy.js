@@ -1,5 +1,5 @@
 // The catalog contains published copy only. Lookup and DOM updates run locally.
-const catalogVersion = '20261120pages2';
+const catalogVersion = '20261120phoenix';
 const catalogs = new Map();
 const textState = new WeakMap();
 const attributeState = new WeakMap();
