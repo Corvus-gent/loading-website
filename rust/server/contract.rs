@@ -96,6 +96,83 @@ async fn main() -> Result<(), corvus_server::Error> {
                 row["videos"].as_array().ok_or("videos")?,
                 row["now"].as_i64().ok_or("now")?,
             ),
+            Some("compound-stripe") => {
+                use corvus_server::compound::payments;
+                let env = corvus_server::config::Settings::new(serde_json::from_value(
+                    row["env"].clone(),
+                )?);
+                let result = if row["action"] == "checkout" {
+                    payments::checkout(
+                        &env,
+                        &row["body"],
+                        &row["journey"],
+                        "compound_fixture",
+                        row["now"].as_i64().unwrap_or(0),
+                    )
+                } else {
+                    payments::verified_event(
+                        row["payload"].as_str().unwrap_or("").as_bytes(),
+                        row["signature"].as_str().unwrap_or(""),
+                        &env,
+                        row["now"].as_i64().unwrap_or(0),
+                    )
+                };
+                match result {
+                    Ok(v) => v,
+                    Err(e) => json!({"error":e.to_string()}),
+                }
+            }
+            Some("compound-original") => {
+                use corvus_server::compound::{model as m, security as s};
+                let body = &row["body"];
+                let result: Result<Value, corvus_server::Error> = match row["action"].as_str() {
+                    Some("clean") => Ok(json!(m::clean(
+                        body,
+                        row["max"].as_u64().unwrap_or(280) as usize
+                    ))),
+                    Some("links") => Ok(json!(corvus_server::compound::links::destination(
+                        row["slug"].as_str().unwrap_or(""),
+                        &row["content"],
+                        body
+                    ))),
+                    Some("version") => Ok(json!(m::valid_version(body))),
+                    Some("source") => Ok(json!(m::source(body))),
+                    Some("attribution") => Ok(m::attribution(
+                        body,
+                        row["nested"] != false,
+                        row["now"].as_i64().unwrap_or(0),
+                    )),
+                    Some("poll") => m::poll(body),
+                    Some("cues") => m::cues(body, row["duration"].as_f64().unwrap_or(60.)),
+                    Some("cutlist") => m::cutlist(body, row["duration"].as_f64().unwrap_or(60.)),
+                    Some("bucket") => {
+                        m::time_bucket(row.get("body"), row["duration"].as_f64().unwrap_or(60.))
+                            .map(|v| json!(v))
+                    }
+                    Some("security") => {
+                        let env = corvus_server::config::Settings::new(serde_json::from_value(
+                            row["env"].clone(),
+                        )?);
+                        let mut headers = axum::http::HeaderMap::new();
+                        if let Some(h) = row["headers"].as_object() {
+                            for (k, v) in h {
+                                headers.insert(
+                                    axum::http::HeaderName::try_from(k)?,
+                                    v.as_str().unwrap_or("").parse()?,
+                                );
+                            }
+                        }
+                        Ok(
+                            json!({"authorized":s::authorized(&env,&headers,row["role"].as_str().unwrap_or("stats"),row["now"].as_i64().unwrap_or(0))?,"origin":s::same_origin(&env,&headers)}),
+                        )
+                    }
+                    _ => Err("operation".into()),
+                };
+                match result {
+                    Ok(v) => v,
+                    Err(e) => json!({"error":e.to_string()}),
+                }
+            }
             Some("compound-share") => {
                 use corvus_core::compound_share as s;
                 let slug = row["slug"].as_str().unwrap_or("");
@@ -140,7 +217,7 @@ async fn main() -> Result<(), corvus_server::Error> {
                 }
                 json!({"authorized":security::authorized(&env,&headers,row["now"].as_i64().ok_or("now")?)?,"origin":security::same_origin(&env,&headers),"analytics":security::analytics(&row["body"],&headers)})
             }
-            Some("compound-store") => {
+            Some("compound-store" | "compound-editor") => {
                 use corvus_server::compound_v2::{security, store::Registry};
                 let settings = std::sync::Arc::new(corvus_server::config::Settings::from_env());
                 if settings.production()
@@ -157,6 +234,17 @@ async fn main() -> Result<(), corvus_server::Error> {
                     live: corvus_server::live::LiveService::new()?,
                     compound_summary: Default::default(),
                 };
+                if row["operation"] == "compound-editor" {
+                    let result = editor_contract(&state, &row).await;
+                    println!(
+                        "{}",
+                        match result {
+                            Ok(v) => v,
+                            Err(e) => json!({"error":e.to_string()}),
+                        }
+                    );
+                    continue;
+                }
                 let registry = Registry(&state);
                 let slug = row["slug"].as_str().unwrap_or("");
                 let uid = row["uid"].as_str().unwrap_or("");
@@ -491,4 +579,80 @@ async fn main() -> Result<(), corvus_server::Error> {
         println!("{}", serde_json::to_string(&result)?);
     }
     Ok(())
+}
+
+async fn editor_contract(
+    state: &corvus_server::AppState,
+    row: &Value,
+) -> Result<Value, corvus_server::Error> {
+    use corvus_server::compound::store::{Editor, text};
+    let editor = Editor(state);
+    let uid = text(&row["uid"]);
+    let v = text(&row["version"]);
+    let body = &row["body"];
+    match text(&row["action"]) {
+        "get" => editor.get(text(&row["key"])).await,
+        "version" => editor.version(v).await,
+        "versions" => editor.versions().await.map(|v| json!(v)),
+        "publish" => editor.publish(body).await,
+        "rename" => editor.rename_items(v, &row["labels"]).await,
+        "summary" => editor.summary(v).await,
+        "private" => editor.private_stats(v).await,
+        "campaigns" => editor.campaign_stats().await.map(|v| json!(v)),
+        "event" => {
+            editor
+                .event(
+                    text(&row["name"]),
+                    v,
+                    body,
+                    row["visitor"].as_str(),
+                    &row["details"],
+                )
+                .await?;
+            Ok(json!({"ok":true}))
+        }
+        "profile" => editor.profile(uid, &row["value"]).await.map(|v| json!(v)),
+        "feedback" => editor.feedback(uid, v, body).await,
+        "text" => {
+            editor
+                .save_text(
+                    uid,
+                    v,
+                    &row["value"],
+                    row["category"].as_str().unwrap_or("idea"),
+                    row["points"].as_i64().unwrap_or(3),
+                )
+                .await
+        }
+        "reaction" => {
+            editor
+                .reaction(uid, v, text(&row["kind"]), row["t"].as_f64().unwrap_or(0.))
+                .await
+        }
+        "push-poll" => editor.push_poll(v, body).await,
+        "answer" => {
+            editor
+                .answer(uid, v, text(&row["id"]), &row["option"])
+                .await
+        }
+        "predict" => editor.predict(uid, body).await,
+        "watched" => editor.watched(uid, v).await,
+        "duel" => editor.duel(uid, body).await,
+        "transition" => editor.transition(uid, &row["record"], body).await,
+        "quick" => editor.quick_note(uid, v, body).await,
+        "note-text" => {
+            editor
+                .note_text(uid, v, text(&row["id"]), &row["value"])
+                .await
+        }
+        "feed" => editor
+            .feedback_feed(row["limit"].as_u64().unwrap_or(5) as usize)
+            .await
+            .map(|v| json!(v)),
+        "hide" => editor.hide_text(text(&row["id"])).await.map(|v| json!(v)),
+        "revolut" => editor.set_revolut(body).await,
+        "checkout" => editor.donation_link(body, &row["journey"]).await,
+        "stripe" => editor.stripe_event(body).await,
+        _ => Err("unknown editor fixture".into()),
+    }
 }

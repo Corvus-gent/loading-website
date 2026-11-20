@@ -48,3 +48,8 @@ const {SHARE_CONFIG}=await import('../../compound/v2/share-config.js');
 const share=JSON.stringify(SHARE_CONFIG,null,2)+'\n';
 const file8=new URL('../../rust/migration/compound-share-config.json',import.meta.url);
 if(process.argv.includes('--check')){if(readFileSync(file8,'utf8')!==share)throw Error('Rust Compound share config is stale');}else writeFileSync(file8,share);
+
+const {COMPOUND_LINKS}=await import('../../js/compound-links.js');
+const editor=JSON.stringify(COMPOUND_LINKS,null,2)+'\n';
+const file9=new URL('../../rust/migration/compound-links.json',import.meta.url);
+if(process.argv.includes('--check')){if(readFileSync(file9,'utf8')!==editor)throw Error('Rust original Compound links are stale');}else writeFileSync(file9,editor);

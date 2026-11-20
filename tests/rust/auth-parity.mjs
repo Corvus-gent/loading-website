@@ -1,3 +1,4 @@
+import {editorHttpContracts} from './compound-original-http.mjs';
 import {impactHttpContracts} from './impact-http.mjs';
 import {impactStoreContracts} from './impact-store.mjs';
 import assert from 'node:assert/strict';
@@ -22,7 +23,7 @@ const port=await freePort(),rustPort=await freePort();
 const redisBin=process.env.REDIS_SERVER||(existsSync('/tmp/corvus-redis-tests/source/src/redis-server')?'/tmp/corvus-redis-tests/source/src/redis-server':'redis-server');
 const redis=spawn(redisBin,['--bind','127.0.0.1','--port',String(port),'--save','','--appendonly','no'],{stdio:'ignore'});
 const secret='rust-parity-fixture-not-a-real-secret';
-const env={PATH:process.env.PATH,LANG:'en_US.UTF-8',REDIS_URL:`redis://127.0.0.1:${port}/1`,SESSION_SECRET:secret,PLETHORA_ADMIN_KEY:secret,CALL_ADMIN_KEY:secret,BATTLE_ADMIN_KEY:secret,COMPOUND_V2_ADMIN_PASSWORD:secret,ADMIN_PASSWORD:secret,ORIANE_API_KEY:'',CORVUS_RUST_MODULES:'auth,layers,live,plethora,support,battle,name-vote,hack,compound-v2,compound-summary',CORVUS_RUST_WRITES:'isolated',RUST_DEV_PORT:String(rustPort)};
+const env={PATH:process.env.PATH,LANG:'en_US.UTF-8',REDIS_URL:`redis://127.0.0.1:${port}/1`,SESSION_SECRET:secret,PLETHORA_ADMIN_KEY:secret,CALL_ADMIN_KEY:secret,BATTLE_ADMIN_KEY:secret,COMPOUND_V2_ADMIN_PASSWORD:secret,COMPOUND_ADMIN_PASSWORD:secret,COMPOUND_STATS_PASSWORD:'stats-fixture',STRIPE_WEBHOOK_SECRET_TEST:'whsec_fixture',ADMIN_PASSWORD:secret,ORIANE_API_KEY:'',CORVUS_RUST_MODULES:'auth,layers,live,plethora,support,battle,name-vote,hack,compound-v2,compound-summary,compound,compound-stripe',CORVUS_RUST_WRITES:'isolated',RUST_DEV_PORT:String(rustPort)};
 const rust=spawn('target/debug/corvus-dev',[],{env,stdio:['ignore','pipe','pipe']});
 let rustOutput='';rust.stderr.on('data',d=>rustOutput+=d);
 const client=createClient({url:env.REDIS_URL,socket:{reconnectStrategy:()=>50}});client.on('error',()=>{});
@@ -32,8 +33,9 @@ try{
  for(const k of Object.keys(process.env))if(/REDIS|KV_|SECRET|REST_API/.test(k))delete process.env[k];
  delete process.env.RESEND_API_KEY;
  Object.assign(process.env,env);
+ const {default:compoundEditor}=await import('../../api/_compound/handler.js');const {stripeWebhook}=await import('../../api/_compound/payments.js');
  const {default:handler}=await import('../../api/auth.js');const {default:legion}=await import('../../api/_legion/handler.js');const {default:live}=await import('../../api/_live.js');const {default:plethora}=await import('../../api/_plethora.js');const {default:support}=await import('../../api/_support.js');const {default:battle}=await import('../../api/_battle.js');const {default:nameVote}=await import('../../api/_name-vote.js');const {default:hack}=await import('../../api/_hack.js');const {default:compoundV2}=await import('../../api/_compound-v2/handler.js');const {default:compoundSummary}=await import('../../api/_compound-v2/summary.js');
- legacy=http.createServer(async(req,res)=>{try{let b='';for await(const chunk of req)b+=chunk;req.body=b?JSON.parse(b):{};req.query=Object.fromEntries(new URL(req.url,'http://localhost').searchParams);const module=req.query.module;delete req.query.module;res.status=n=>(res.statusCode=n,res);res.send=v=>res.end(v);res.json=v=>{res.setHeader('Content-Type','application/json');res.end(JSON.stringify(v));};if(module==='compound-summary')await compoundSummary(req,res);else if(module==='compound-v2')await compoundV2(req,res);else if(module==='hack')await hack(req,res);else if(module==='name-vote')await nameVote(req,res);else if(module==='layers')await legion(req,res);else if(module==='live')await live(req,res);else if(module==='battle')await battle(req,res);else if(module==='support')await support(req,res);else if(module==='plethora')await plethora(req,res);else await handler(req,res);}catch{res.statusCode=503;res.end('{}');}});
+ legacy=http.createServer(async(req,res)=>{try{let b='';for await(const chunk of req)b+=chunk;const earlyModule=new URL(req.url,'http://localhost').searchParams.get('module');if(earlyModule==='compound-stripe'){const result=await stripeWebhook(new Request('http://localhost/webhook',{method:'POST',headers:req.headers,body:b}));res.statusCode=result.status;for(const[k,v]of result.headers)res.setHeader(k,v);return res.end(Buffer.from(await result.arrayBuffer()));}req.body=b?JSON.parse(b):{};req.query=Object.fromEntries(new URL(req.url,'http://localhost').searchParams);const module=req.query.module;delete req.query.module;res.status=n=>(res.statusCode=n,res);res.send=v=>res.end(v);res.json=v=>{res.setHeader('Content-Type','application/json');res.end(JSON.stringify(v));};if(module==='compound')await compoundEditor(req,res);else if(module==='compound-summary')await compoundSummary(req,res);else if(module==='compound-v2')await compoundV2(req,res);else if(module==='hack')await hack(req,res);else if(module==='name-vote')await nameVote(req,res);else if(module==='layers')await legion(req,res);else if(module==='live')await live(req,res);else if(module==='battle')await battle(req,res);else if(module==='support')await support(req,res);else if(module==='plethora')await plethora(req,res);else await handler(req,res);}catch{res.statusCode=503;res.end('{}');}});
  await new Promise(r=>legacy.listen(0,'127.0.0.1',r));
  const urls={legacy:`http://127.0.0.1:${legacy.address().port}/`,rust:`http://127.0.0.1:${rustPort}/api/rust?module=auth`};
  for(let n=0;n<50;n++){try{if((await fetch(urls.rust)).ok)break;}catch{}if(n===49)throw Error('Rust did not start: '+rustOutput);await new Promise(r=>setTimeout(r,50));}
@@ -93,6 +95,7 @@ try{
  await interviewContracts({client,urls,secret});
  await impactStoreContracts({client,secret});
  await impactHttpContracts({urls,client,secret});
+ await editorHttpContracts({urls,client,secret});
 }finally{
  await client.disconnect().catch(()=>{});legacy?.closeAllConnections();legacy?.close();rust.kill('SIGTERM');redis.kill('SIGTERM');
  // The legacy module owns a Redis connection that is intentionally not exported.

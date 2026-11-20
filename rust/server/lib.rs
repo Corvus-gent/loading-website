@@ -1,5 +1,6 @@
 pub mod auth;
 pub mod battle;
+pub mod compound;
 pub mod compound_v2;
 pub mod config;
 pub mod crypto;
@@ -88,13 +89,22 @@ async fn dispatch(
             .into_response();
     }
     let result = match module {
+        "compound-stripe" => Ok(compound::handler::webhook(&state, &method, &headers, &body).await),
         "compound-summary" => Ok(state.compound_summary.handle(&state, &method).await),
-        "compound-v2" => {
-            let ordered = serde_json::Value::Object(
+        "compound" | "compound-v2" => {
+            let mut ordered = serde_json::Value::Object(
                 url::form_urlencoded::parse(raw_query.as_deref().unwrap_or("").as_bytes())
                     .map(|(k, v)| (k.into_owned(), json!(v)))
                     .collect(),
             );
+            if module == "compound" {
+                if let Some(q) = ordered.as_object_mut() {
+                    q.shift_remove("module");
+                }
+                return compound::handler::handle(&state, &method, &headers, &ordered, &body)
+                    .await
+                    .unwrap_or_else(|_| StatusCode::SERVICE_UNAVAILABLE.into_response());
+            }
             compound_v2::handler::handle(
                 &state,
                 &method,

@@ -27,6 +27,7 @@ pub fn read_command(command: &str) -> bool {
             | "EXISTS"
             | "TTL"
             | "PTTL"
+            | "HEXISTS"
             | "HGET"
             | "HGETALL"
             | "HMGET"

@@ -156,3 +156,54 @@ async fn compound_preview_redirects_without_tracking_or_provider_io() -> Result<
     assert!(vote.headers().get("set-cookie").is_none());
     Ok(())
 }
+
+#[tokio::test]
+async fn original_compound_preview_never_counts_or_processes_payments() -> Result<(), crate::Error>
+{
+    let app = app_with(Settings::new(
+        [
+            (
+                "CORVUS_RUST_MODULES".into(),
+                "compound,compound-stripe".into(),
+            ),
+            ("REDIS_URL".into(), "rediss://unreachable.invalid/1".into()),
+            ("COMPOUND_ADMIN_PASSWORD".into(), "fixture".into()),
+            ("STRIPE_WEBHOOK_SECRET_TEST".into(), "fixture".into()),
+        ]
+        .into(),
+    ))?;
+    let response = app
+        .clone()
+        .oneshot(
+            Request::builder()
+                .uri("/api/rust?module=compound&slug=x&utm_source=old&extra=keep")
+                .body(Body::empty())?,
+        )
+        .await?;
+    assert_eq!(response.status(), StatusCode::FOUND);
+    assert_eq!(
+        response.headers()["location"],
+        "/compound?utm_source=x&extra=keep&utm_medium=post&utm_campaign=compound-1000&utm_term=x"
+    );
+    for module in ["compound", "compound-stripe"] {
+        let response = app
+            .clone()
+            .oneshot(
+                Request::builder()
+                    .uri(format!("/api/rust?module={module}"))
+                    .method("POST")
+                    .header("authorization", "Bearer fixture")
+                    .header("origin", "https://corvus.gent")
+                    .header("content-type", "application/json")
+                    .body(Body::from(r#"{"action":"publish"}"#))?,
+            )
+            .await?;
+        assert_eq!(response.status(), StatusCode::SERVICE_UNAVAILABLE);
+        let bytes = axum::body::to_bytes(response.into_body(), 4096).await?;
+        assert_eq!(
+            serde_json::from_slice::<serde_json::Value>(&bytes)?["error"],
+            "Rust writes are disabled."
+        );
+    }
+    Ok(())
+}

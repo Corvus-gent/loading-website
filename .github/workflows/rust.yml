@@ -34,6 +34,9 @@ jobs:
       - run: node tools/rust/parity.mjs
       - run: node tests/rust/compound-model.mjs
       - run: node tests/rust/compound-share.mjs
+      - run: node tests/rust/compound-original-model.mjs
+      - run: node tests/rust/compound-stripe.mjs
+      - run: node tests/rust/compound-original-store.mjs
       - run: node tests/rust/interview-model.mjs
       - run: node tests/rust/impact-model.mjs
       - run: node tests/rust/impact-providers.mjs
