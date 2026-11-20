@@ -38,6 +38,7 @@ pub struct AppState {
     pub http: reqwest::Client,
     pub live: live::LiveService,
     pub compound_summary: compound_v2::summary::Service,
+    pub coffee: stats::coffee::Service,
 }
 
 pub fn app() -> Result<Router, Error> {
@@ -53,6 +54,7 @@ pub fn app_with(settings: config::Settings) -> Result<Router, Error> {
     let state = AppState {
         live: live::LiveService::new()?,
         compound_summary: compound_v2::summary::Service::default(),
+        coffee: Default::default(),
         store: store::Store::new(settings.clone(), http.clone()),
         settings,
         http,
@@ -100,6 +102,7 @@ async fn dispatch(
             .into_response();
     }
     let result = match module {
+        "stats-coffee" => Ok(state.coffee.handle(&state, &method).await),
         "stats-daily" => Ok(Box::pin(stats::handler::daily(&state, &query)).await),
         "stats-sections" => Ok(Box::pin(stats::handler::section(&state, &method, &query)).await),
         "stats-private" => Ok(Box::pin(stats::handler::private(&state, &headers, &query)).await),

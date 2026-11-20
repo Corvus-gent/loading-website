@@ -17,6 +17,7 @@ async fn army_futures_fit_worker_stacks() -> Result<(), crate::Error> {
         http,
         live: crate::live::LiveService::new()?,
         compound_summary: Default::default(),
+        coffee: Default::default(),
     };
     let army = crate::army::store::Army::new(&state)?;
     let s = crate::army::service::Service::new(&army, None, 16)?;

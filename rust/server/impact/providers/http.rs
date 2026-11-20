@@ -259,6 +259,7 @@ mod tests {
                 settings,
                 live: LiveService::new()?,
                 compound_summary: Default::default(),
+                coffee: Default::default(),
             };
             let provider = Provider::new(&state, None, 0)?;
             let result = provider

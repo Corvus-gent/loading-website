@@ -7,6 +7,23 @@ async fn main() -> Result<(), corvus_server::Error> {
         let row: Value = serde_json::from_str(&line?)?;
         let value = row["value"].as_str().unwrap_or("");
         let result = match row["operation"].as_str() {
+            Some("coffee-model") => {
+                let result: Result<Value, corvus_server::Error> = (|| {
+                    let mut counter = corvus_server::stats::coffee::Counter::new(
+                        row["now"].as_i64().ok_or("time")?,
+                    );
+                    let mut more = Vec::new();
+                    for page in row["pages"].as_array().ok_or("pages")? {
+                        more.push(counter.page(
+                            page["source"].as_str().ok_or("source")?,
+                            page["page"].as_u64().ok_or("page")?,
+                            &page["body"],
+                        )?);
+                    }
+                    Ok(json!({"totals":counter.finish(),"more":more}))
+                })();
+                result.unwrap_or_else(|e| json!({"error":e.to_string()}))
+            }
             Some("health-model") => {
                 use corvus_server::stats::health as m;
                 let result: Result<Value, corvus_server::Error> = (|| {
@@ -597,6 +614,7 @@ async fn main() -> Result<(), corvus_server::Error> {
                     settings,
                     live: corvus_server::live::LiveService::new()?,
                     compound_summary: Default::default(),
+                    coffee: Default::default(),
                 };
                 if row["operation"] == "stats-store" {
                     let day = row["day"].as_str().unwrap_or("");
@@ -916,6 +934,7 @@ async fn main() -> Result<(), corvus_server::Error> {
                     settings,
                     live: corvus_server::live::LiveService::new()?,
                     compound_summary: Default::default(),
+                    coffee: Default::default(),
                 };
                 if row["make"] == true {
                     corvus_server::voter::make_challenge(

@@ -144,6 +144,7 @@ mod tests {
             settings,
             live: crate::live::LiveService::new()?,
             compound_summary: Service::default(),
+            coffee: Default::default(),
         };
         let missing = state.compound_summary.handle(&state, &Method::GET).await;
         assert_eq!(missing.status(), StatusCode::SERVICE_UNAVAILABLE);

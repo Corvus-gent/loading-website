@@ -52,6 +52,7 @@ mod tests {
             http,
             live: crate::live::LiveService::new()?,
             compound_summary: Default::default(),
+            coffee: Default::default(),
         };
         assert!(
             send(
