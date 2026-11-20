@@ -145,6 +145,18 @@ async fn main() -> Result<(), corvus_server::Error> {
                 let slug = row["slug"].as_str().unwrap_or("");
                 let uid = row["uid"].as_str().unwrap_or("");
                 let output: Result<Value, corvus_server::Error> = match row["action"].as_str() {
+                    Some("impact-sync") => {
+                        corvus_server::impact::sync::run_bounded(
+                            &state,
+                            row["force"] == true,
+                            row["platform"].as_str(),
+                            if value.is_empty() { None } else { Some(value) },
+                            std::time::Duration::from_millis(
+                                row["budget"].as_u64().unwrap_or(90000),
+                            ),
+                        )
+                        .await
+                    }
                     Some("impact-provider") => {
                         use corvus_server::impact::providers::Provider;
                         match Provider::new(

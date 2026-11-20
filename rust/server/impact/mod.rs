@@ -4,3 +4,4 @@ pub mod model;
 pub mod providers;
 pub mod samples;
 pub mod store;
+pub mod sync;
