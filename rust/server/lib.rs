@@ -56,7 +56,7 @@ pub fn app_with(settings: config::Settings) -> Result<Router, Error> {
     };
     Ok(Router::new()
         .fallback(dispatch)
-        .layer(DefaultBodyLimit::max(2_500_000))
+        .layer(DefaultBodyLimit::max(4_000_000))
         .with_state(state))
 }
 async fn dispatch(
@@ -69,12 +69,18 @@ async fn dispatch(
     body: Bytes,
 ) -> Response {
     let module = query.get("module").map(String::as_str).unwrap_or("health");
-    if body.len() > 1024 * 1024
-        && !(module == "compound-v2"
-            && ["interviews", "interviewAdmin"]
-                .iter()
-                .any(|key| query.get(*key).is_some_and(|v| v == "1")))
+    let body_limit = if module == "legion" && query.get("senate").is_some_and(|v| v == "1") {
+        4_000_000
+    } else if module == "compound-v2"
+        && ["interviews", "interviewAdmin"]
+            .iter()
+            .any(|k| query.get(*k).is_some_and(|v| v == "1"))
     {
+        2_500_000
+    } else {
+        1024 * 1024
+    };
+    if body.len() > body_limit {
         return StatusCode::PAYLOAD_TOO_LARGE.into_response();
     }
     if module == "health" {
@@ -91,6 +97,8 @@ async fn dispatch(
             .into_response();
     }
     let result = match module {
+        "legion" => legion::handler::handle(&state, &method, &headers, &query, &body).await,
+        "legion-stripe" => Ok(legion::handler::webhook(&state, &method, &headers, &body).await),
         "compound-stripe" => Ok(compound::handler::webhook(&state, &method, &headers, &body).await),
         "compound-summary" => Ok(state.compound_summary.handle(&state, &method).await),
         "compound" | "compound-v2" => {
