@@ -40,7 +40,7 @@ for profile in data['profiles']:
  if args.only and profile['slug']!=args.only:continue
  social=profile['kind']=='social';academic=profile['kind']=='academic';hybrid=profile['kind']=='hybrid'
  file=out/(profile['slug']+'-cv.pdf')
- story=[para(data['name'],'CVName'),para(profile['label'],'CVRole'),href('mailto:'+data['email'],data['email']+' | Ghent, Belgium'),*([para('Preferred: '+data['preferredLocations'],'CVSmall'),para('Also interested in: '+data['otherLocations'],'CVSmall')] if not academic else []),href('https://corvus.gent'+profile['path'],'Web profile: corvus.gent'+profile['path']),para(profile['summary'])]
+ story=[para(data['name'],'CVName'),para(profile['label'],'CVRole'),href('mailto:'+data['email'],data['email']+' | Ghent, Belgium'),*([para('European options: '+data['europeanLocations'],'CVSmall'),para('Summer 2027 preference: '+data['summer2027Locations'],'CVSmall')] if not academic else []),href('https://corvus.gent'+profile['path'],'Web profile: corvus.gent'+profile['path']),para(profile['summary'])]
  if academic:
   add_section(story,'Academic interests',[para(t) for t in profile['interests']])
  if social:
