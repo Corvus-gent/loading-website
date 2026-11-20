@@ -29,3 +29,9 @@ const compoundModule=await import('../../compound/v2/config.js');
 const compound=JSON.stringify({deadline:compoundModule.DEADLINE,seeds:compoundModule.SEED_VIDEOS},null,2)+'\n';
 const file5=new URL('../../rust/migration/compound-v2-config.json',import.meta.url);
 if(process.argv.includes('--check')){if(readFileSync(file5,'utf8')!==compound)throw Error('Rust Compound v2 config is stale');}else writeFileSync(file5,compound);
+
+const {ACCOUNTS}=await import('../../compound/impact/accounts.js');
+const {WEIGHTS,SUPPORTED,LABELS}=await import('../../compound/impact/metrics.js');
+const impact=JSON.stringify({accounts:ACCOUNTS,weights:WEIGHTS,supported:SUPPORTED,labels:LABELS},null,2)+'\n';
+const file6=new URL('../../rust/migration/impact-config.json',import.meta.url);
+if(process.argv.includes('--check')){if(readFileSync(file6,'utf8')!==impact)throw Error('Rust Impact config is stale');}else writeFileSync(file6,impact);

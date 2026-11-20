@@ -7,6 +7,58 @@ async fn main() -> Result<(), corvus_server::Error> {
         let row: Value = serde_json::from_str(&line?)?;
         let value = row["value"].as_str().unwrap_or("");
         let result = match row["operation"].as_str() {
+            Some("impact-model") => {
+                use corvus_core::impact;
+                use corvus_server::impact::{model, samples};
+                let result: Result<Value, corvus_server::Error> = (|| match row["action"].as_str() {
+                    Some("target") => corvus_server::impact::links::target(
+                        &corvus_server::config::Settings::new(serde_json::from_value(
+                            row["env"].clone(),
+                        )?),
+                        value,
+                    )
+                    .map(|v| json!(v)),
+                    Some("post-info") => model::post_info(&row["body"]),
+                    Some("validate") => model::validate(&row["body"], &row["previous"]),
+                    Some("public") => Ok(model::public_post(&row["body"])),
+                    Some("bulk") => model::bulk_rows(
+                        &row["body"],
+                        row.get("made").unwrap_or(&Value::Bool(true)),
+                        row["allow_unmeasured"] == true,
+                    )
+                    .map(|v| json!(v)),
+                    Some("linkedin-bulk") => {
+                        model::linkedin_bulk(&row["body"], &row["options"]).map(|v| json!(v))
+                    }
+                    Some("linkedin-post") => model::linkedin_post(&row["body"]),
+                    Some("normalize") => Ok(impact::normalize(
+                        row["platform"].as_str().unwrap_or(""),
+                        &row["body"],
+                        row["oriane"] == true,
+                    )),
+                    Some("source") => Ok(json!(impact::source_kind(value))),
+                    Some("accounts") => Ok(
+                        json!({"platform":impact::platform_id(&row["platform"]),"account":impact::account_handle(row["platform"].as_str().unwrap_or(""),&row["account"]),"configured":impact::configured(row["platform"].as_str().unwrap_or(""),&row["account"]),"list":impact::configured_accounts()}),
+                    ),
+                    Some("filter") => Ok(json!(impact::filtered(
+                        row["body"].as_array().ok_or("posts")?,
+                        row["platform"].as_str().unwrap_or(""),
+                        row["account"].as_str().unwrap_or("")
+                    ))),
+                    Some("history") => Ok(
+                        json!({"hours":samples::hour_samples(row["body"].as_array().ok_or("history")?),"best":impact::best_sample(row["body"].as_array().ok_or("history")?)}),
+                    ),
+                    Some("refresh") => Ok(json!(impact::refresh_ms(
+                        &row["body"],
+                        row["now"].as_i64().ok_or("now")?
+                    ))),
+                    _ => Err("Unknown impact contract".into()),
+                })();
+                match result {
+                    Ok(v) => v,
+                    Err(e) => json!({"error":e.to_string()}),
+                }
+            }
             Some("interview-fields") => {
                 match corvus_server::interviews::store::fields(&row["body"]) {
                     Ok(v) => v,
@@ -93,6 +145,60 @@ async fn main() -> Result<(), corvus_server::Error> {
                 let slug = row["slug"].as_str().unwrap_or("");
                 let uid = row["uid"].as_str().unwrap_or("");
                 let output: Result<Value, corvus_server::Error> = match row["action"].as_str() {
+                    Some("impact-records") => corvus_server::impact::store::Impact(&state)
+                        .records(None)
+                        .await
+                        .map(|v| json!(v)),
+                    Some("impact-save") => {
+                        corvus_server::impact::store::Impact(&state)
+                            .save(
+                                &row["body"],
+                                corvus_server::impact::store::SaveOptions {
+                                    source: row["source"].as_str(),
+                                    expected: row.get("expected"),
+                                    seed: row["seed"] == true,
+                                    observed_at: row["at"].as_str(),
+                                    registry: None,
+                                },
+                            )
+                            .await
+                    }
+                    Some("impact-report") => {
+                        corvus_server::impact::store::Impact(&state)
+                            .report(row["private"] == true)
+                            .await
+                    }
+                    Some("impact-snapshot") => {
+                        corvus_server::impact::store::Impact(&state)
+                            .snapshot()
+                            .await
+                    }
+                    Some("impact-history") => {
+                        corvus_server::impact::store::Impact(&state)
+                            .rebuild_history(&row["body"])
+                            .await
+                    }
+                    Some("impact-clicks") => {
+                        corvus_server::impact::store::Impact(&state)
+                            .click_report()
+                            .await
+                    }
+                    Some("impact-click") => {
+                        let mut headers = axum::http::HeaderMap::new();
+                        for (k, v) in row["headers"].as_object().ok_or("headers")? {
+                            headers.insert(
+                                axum::http::HeaderName::from_bytes(k.as_bytes())?,
+                                v.as_str().ok_or("header")?.parse()?,
+                            );
+                        }
+                        corvus_server::impact::links::count(
+                            &state,
+                            &row["method"].as_str().unwrap_or("GET").parse()?,
+                            &headers,
+                            value,
+                        )
+                        .await
+                    }
                     Some("interview-save") => {
                         corvus_server::interviews::store::Interviews(&state)
                             .save(

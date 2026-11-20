@@ -22,7 +22,7 @@ pub fn applicable(platform: &str) -> &'static [&'static str] {
 pub fn count(value: &Value) -> Option<f64> {
     let number = match value {
         Value::String(s) => {
-            let s = s.trim();
+            let s = crate::impact::trimmed(s);
             if s.is_empty() || !s.bytes().all(|c| c.is_ascii_digit()) {
                 return None;
             }
@@ -127,6 +127,13 @@ pub fn first_day_sample(row: &Value) -> Option<Value> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn stored_velocity_roundtrips_exactly() {
+        // serde_json's fast float parser can lose an ULP without float_roundtrip.
+        let before = json!({"velocity": 859.0_f64 / 17.0});
+        let after: Value = serde_json::from_str(&before.to_string()).expect("valid fixture");
+        assert_eq!(before, after);
+    }
     #[test]
     fn zero_unknown_and_unsupported_stay_distinct() {
         let c = coverage(

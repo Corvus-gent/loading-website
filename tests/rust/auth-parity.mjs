@@ -1,3 +1,4 @@
+import {impactStoreContracts} from './impact-store.mjs';
 import assert from 'node:assert/strict';
 import {spawn} from 'node:child_process';
 import http from 'node:http';
@@ -89,6 +90,7 @@ try{
  await compoundStoreContracts({client,secret});
  await compoundHttpContracts({urls,client,secret});
  await interviewContracts({client,urls,secret});
+ await impactStoreContracts({client,secret});
 }finally{
  await client.disconnect().catch(()=>{});legacy?.closeAllConnections();legacy?.close();rust.kill('SIGTERM');redis.kill('SIGTERM');
  // The legacy module owns a Redis connection that is intentionally not exported.

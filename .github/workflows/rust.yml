@@ -34,6 +34,7 @@ jobs:
       - run: node tools/rust/parity.mjs
       - run: node tests/rust/compound-model.mjs
       - run: node tests/rust/interview-model.mjs
+      - run: node tests/rust/impact-model.mjs
       - run: node tools/rust/routing-parity.mjs
       - run: node tests/rust/source-privacy.mjs
       - run: node tests/rust/build-boundary.mjs

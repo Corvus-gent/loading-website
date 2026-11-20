@@ -23,6 +23,7 @@ use serde_json::json;
 use std::{collections::HashMap, sync::Arc, time::Duration};
 
 pub type Error = Box<dyn std::error::Error + Send + Sync>;
+pub mod impact;
 pub mod interviews;
 #[derive(Clone)]
 pub struct AppState {
