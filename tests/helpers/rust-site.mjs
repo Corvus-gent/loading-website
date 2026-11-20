@@ -14,7 +14,7 @@ export async function rustSite(context,runtime,{ip='198.51.100.190',beforeReques
   if(beforeRequest&&await beforeRequest({route,request,u}))return;
   const bridge=browserEngine==='rust'?wasmBridge(u.pathname):null;if(bridge)return route.fulfill({contentType:'text/javascript',body:bridge});
   if(u.pathname.startsWith('/api/')){
-   const module={'/api/support':'support','/api/battle':'battle','/api/compound-v2':'compound-v2'}[u.pathname];
+   const module={'/api/compound':'compound','/api/support':'support','/api/battle':'battle','/api/compound-v2':'compound-v2'}[u.pathname];
    if(!module)return route.fulfill({contentType:'application/json',body:JSON.stringify(u.pathname==='/api/live'?{live:false,session:'fixture',source:'manual'}:{ready:false})});
    const target=new URL(runtime.url);target.search=u.search;target.searchParams.set('module',module);
    const headers=await request.allHeaders();delete headers.host;delete headers['content-length'];headers['x-forwarded-for']=ip;

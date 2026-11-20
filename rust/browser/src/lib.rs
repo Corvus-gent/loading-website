@@ -40,3 +40,5 @@ pub fn next_ritual_ms(now_ms: f64) -> f64 {
 }
 
 mod compound_admin;
+
+mod compound_editor;

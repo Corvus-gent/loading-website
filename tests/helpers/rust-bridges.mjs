@@ -2,6 +2,8 @@
 // These contain only module wiring; all replacement behavior lives in Rust/WASM.
 const wasm='/rust/browser/pkg/corvus_browser.js';
 const bridges={
+ '/compound/admin.js':`import '/compound/client.js';import init,{start_compound_editor_admin} from '${wasm}';await init();start_compound_editor_admin();`,
+ '/compound/stats.js':`import '/compound/client.js';import init,{start_compound_editor_stats} from '${wasm}';await init();start_compound_editor_stats();`,
  '/compound/v2/admin.js':`import '/compound/client.js';import init,{start_compound_admin} from '${wasm}';await init();start_compound_admin();`,
  '/compound/v2/app.js':`import '/compound/client.js';import init,{start_compound_v2} from '${wasm}';await init();start_compound_v2();`,
  '/js/social-attribution.js':`import init,{inferred_source} from '${wasm}';await init();export const inferredSource=({search='',userAgent='',referrer=''}={})=>inferred_source(search,userAgent,referrer);`,
