@@ -36,7 +36,7 @@ Use portable Rust with Axum, Tokio and rustls. An adapter uses the **official** 
 | Inventory, baseline, Cargo workspace, native/Vercel/WASM adapters | Compile; snapshot production; no changed routes | In progress |
 | Storage, secrets, OTP sessions, consent, rate limiting | JS/Rust signature parity; bidirectional cookies; concurrent OTP use; denied preview writes | Initial auth tests pass locally |
 | Routing, gates, tiers, language state | All route aliases; protected-page negative tests; 04:02/DST; mobile/browser parity | Layer handlers and gate/language browser parity pass locally |
-| Compound/battle/interviews/impact | No lost votes; private/public field boundaries; null-vs-zero scores; code links; admin writes | Pure metrics/code rules, private live interviews, battle voting/proofs, hackathon comments and OSSMAN scores/ideas pass isolated cross-runtime tests; Compound handlers pending |
+| Compound/battle/interviews/impact | No lost votes; private/public field boundaries; null-vs-zero scores; code links; admin writes | Pure metrics/code rules, private live interviews, battle voting/proofs, hackathon comments and OSSMAN scores/ideas pass isolated cross-runtime tests; Compound registry/auth/import/queue/winner/reports/sync libraries verified; Compound HTTP handlers pending |
 | Games, Plethora, support, referrals, public statistics | Game replay fixtures; atomic counters; no duplicate tracking; historical totals | Plethora and support handlers pass cross-runtime tests; other handlers pending |
 | Legion, Senate, payments, email, uploads | Test invite claim/edit/revoke; webhook retries; stored identity compatibility; blob/image EXIF rules | Pending |
 | Remaining APIs, research tools, build, OG, scheduled jobs | Complete file inventory; contract fixtures; single scheduled writer | Pending |
@@ -53,12 +53,15 @@ cargo clippy --workspace --all-targets -- -D warnings
 cargo test --workspace
 cargo build --bins
 node tools/rust/parity.mjs
+node tests/rust/compound-model.mjs
 node tools/rust/routing-parity.mjs
 node tests/rust/build-boundary.mjs
 node tests/rust/auth-parity.mjs
 tools/rust/build-browser.sh
 node tests/rust/browser.mjs
 node tests/rust/user-flows.mjs
+node tests/rust/battle-browser.mjs
+node tests/rust/privacy-browser.mjs
 cargo check -p corvus-browser --target wasm32-unknown-unknown
 ```
 
@@ -67,3 +70,10 @@ cargo check -p corvus-browser --target wasm32-unknown-unknown
 ## Completion gate
 
 Do not call this migration finished while any executable application area remains legacy, any required comparison has a discrepancy, or a private/write path lacks coverage. Record the actual deployed URL, test output and rollback evidence for each cutover. Keep outstanding items explicit in `checkpoint.md`.
+
+## Recorded compatibility corrections
+
+- Compound v2: reject a missing Origin header instead of preserving the old undefined-origin allowlist bug. Authenticated bearer clients retain their explicit administrative exception. Cookie-only writes require an allowed origin.
+- Compound metrics refresh: compare parsed records, then CAS the original Redis bytes. Equivalent JSON property ordering between runtimes is accepted; a changed owner record is never overwritten.
+- Imported timestamps use ISO/RFC date formats, UTC date-only parsing and the host timezone for offset-free date/time inputs. Legacy nonstandard Date.parse-only input forms require a separate compatibility decision before this handler is promoted; existing saved timestamps are ISO strings.
+- Vercel background tasks must use request-scoped `AppState::wait_until`, not a detached Tokio task. Pinned 2.4.1 documents the invocation-lifetime fix; preview verification remains required before moving provider refreshes/redirect counting. Reference: https://docs.rs/vercel_runtime/2.4.1/vercel_runtime/struct.AppState.html

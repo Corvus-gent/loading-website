@@ -5,6 +5,7 @@ import net from 'node:net';
 import {createClient} from 'redis';
 import {createHash,createHmac} from 'node:crypto';
 import {existsSync} from 'node:fs';
+import {compoundStoreContracts} from './compound-store.mjs';
 import {hackContracts} from './hack-parity.mjs';
 import {nameVoteContracts} from './name-vote-parity.mjs';
 import {liveContracts} from './live-parity.mjs';
@@ -17,7 +18,7 @@ const port=await freePort(),rustPort=await freePort();
 const redisBin=process.env.REDIS_SERVER||(existsSync('/tmp/corvus-redis-tests/source/src/redis-server')?'/tmp/corvus-redis-tests/source/src/redis-server':'redis-server');
 const redis=spawn(redisBin,['--bind','127.0.0.1','--port',String(port),'--save','','--appendonly','no'],{stdio:'ignore'});
 const secret='rust-parity-fixture-not-a-real-secret';
-const env={PATH:process.env.PATH,LANG:'en_US.UTF-8',REDIS_URL:`redis://127.0.0.1:${port}/1`,SESSION_SECRET:secret,PLETHORA_ADMIN_KEY:secret,CALL_ADMIN_KEY:secret,BATTLE_ADMIN_KEY:secret,CORVUS_RUST_MODULES:'auth,layers,live,plethora,support,battle,name-vote,hack',CORVUS_RUST_WRITES:'isolated',RUST_DEV_PORT:String(rustPort)};
+const env={PATH:process.env.PATH,LANG:'en_US.UTF-8',REDIS_URL:`redis://127.0.0.1:${port}/1`,SESSION_SECRET:secret,PLETHORA_ADMIN_KEY:secret,CALL_ADMIN_KEY:secret,BATTLE_ADMIN_KEY:secret,COMPOUND_V2_ADMIN_PASSWORD:secret,ORIANE_API_KEY:'',CORVUS_RUST_MODULES:'auth,layers,live,plethora,support,battle,name-vote,hack',CORVUS_RUST_WRITES:'isolated',RUST_DEV_PORT:String(rustPort)};
 const rust=spawn('target/debug/corvus-dev',[],{env,stdio:['ignore','pipe','pipe']});
 let rustOutput='';rust.stderr.on('data',d=>rustOutput+=d);
 const client=createClient({url:env.REDIS_URL,socket:{reconnectStrategy:()=>50}});client.on('error',()=>{});
@@ -83,6 +84,7 @@ try{
  await voterContracts({client,secret});
  await nameVoteContracts({urls,client,secret});
  await hackContracts({urls,client,secret});
+ await compoundStoreContracts({client,secret});
 }finally{
  await client.disconnect().catch(()=>{});legacy?.closeAllConnections();legacy?.close();rust.kill('SIGTERM');redis.kill('SIGTERM');
  // The legacy module owns a Redis connection that is intentionally not exported.

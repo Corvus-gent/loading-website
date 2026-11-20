@@ -1,5 +1,6 @@
 pub mod auth;
 pub mod battle;
+pub mod compound_v2;
 pub mod config;
 pub mod crypto;
 pub mod hack;
