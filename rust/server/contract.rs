@@ -15,6 +15,16 @@ async fn main() -> Result<(), corvus_server::Error> {
                     )?);
                     let body = &row["body"];
                     Ok(match row["action"].as_str() {
+                        Some("photo") => {
+                            use base64::Engine;
+                            json!(base64::engine::general_purpose::STANDARD.encode(
+                                corvus_server::legion::photos::reencode(body, &row["size"])?
+                            ))
+                        }
+                        Some("photo-url") => json!(corvus_server::legion::photos::owned_url(
+                            value,
+                            body.as_str().unwrap_or("")
+                        )),
                         Some("army-email") => Ok::<_, corvus_server::Error>(json!(
                             corvus_server::army::model::email(body)?
                         ))?,
@@ -740,6 +750,27 @@ async fn legion_contract(
         }
     }
     match row["action"].as_str() {
+        Some("upload") => corvus_server::legion::photos::upload(state, &row["record"], body).await,
+        Some("partners") => {
+            corvus_server::legion::partners::Partners(state)
+                .report()
+                .await
+        }
+        Some("all-partners") => corvus_server::legion::partners::Partners(state).all().await,
+        Some("partner-count") => {
+            corvus_server::legion::partners::Partners(state)
+                .count(
+                    &row["method"].as_str().unwrap_or("GET").parse()?,
+                    &h,
+                    row["id"].as_str().unwrap_or(""),
+                )
+                .await
+        }
+        Some("short-count") => {
+            corvus_server::legion::partners::Partners(state)
+                .count_short(&h, body)
+                .await
+        }
         Some("checkout") => corvus_server::legion::payments::checkout(state, body).await,
         Some("payment") => corvus_server::legion::payments::process(state, body).await,
         Some("apply") => {

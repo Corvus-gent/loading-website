@@ -77,6 +77,19 @@ fn cookie(
     );
     Ok(())
 }
+pub fn confirm_email(
+    state: &AppState,
+    headers: &HeaderMap,
+    response: &mut Response,
+    subscriber: &str,
+) -> Result<(), Error> {
+    let secret = crypto::server_secret(&state.settings)?;
+    let now = chrono::Utc::now().timestamp_millis();
+    let mut session = read_session(headers, &secret, now);
+    session["subscriber"] = json!(subscriber);
+    session["tier"] = json!("email");
+    cookie(response, &mut session, &secret, now)
+}
 fn army_digest(secret: &str, value: &str) -> String {
     hex::encode(crypto::hmac(
         secret.as_bytes(),

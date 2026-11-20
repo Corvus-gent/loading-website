@@ -12,6 +12,9 @@ for(const [label,legacy,rust]of[
  ['Original Compound','/api/compound','/api/rust?module=compound'],
  ['Compound','/api/compound-v2','/api/rust?module=compound-v2'],
  ['Impact','/api/compound-v2?impact=1','/api/rust?module=compound-v2&impact=1'],
+ ['Legion wall','/api/legion?action=wall','/api/rust?module=legion&action=wall'],
+ ['Senate','/api/legion?senate=1','/api/rust?module=legion&senate=1'],
+ ['Legion partners','/api/legion?action=partners','/api/rust?module=legion&action=partners'],
 ]){const[a,b]=await Promise.all([request(legacy,{json:true}),request(rust,{json:true})]);assert.equal(a.status,200,label+' legacy');assert.equal(b.status,200,label+' rust');for(const data of[a.data,b.data]){delete data.updated;delete data.updated_at;delete data.server_time;}assert.deepEqual(b.data,a.data,label+' payload');results.push({label,status:200,parity:true,rows:b.data.posts?.length??b.data.videos?.length??b.data.interviews?.length});console.log('PASS read-only '+label+' JSON parity');}
 // The old interview GET schedules photo cleanup. Do not shadow it in a read-only probe.
 const interviews=await request('/api/rust?module=compound-v2&interviews=1',{json:true});assert.equal(interviews.status,200);assert(Array.isArray(interviews.data.interviews));results.push({label:'Interviews (Rust only)',status:200,rows:interviews.data.interviews.length});

@@ -142,7 +142,7 @@ impl<'a> Photos<'a> {
             .get("BLOB_READ_WRITE_TOKEN")
             .ok_or_else(|| "missing blob token".into())
     }
-    fn request(
+    pub(crate) fn request(
         &self,
         method: reqwest::Method,
         path: &str,

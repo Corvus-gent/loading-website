@@ -207,3 +207,62 @@ async fn original_compound_preview_never_counts_or_processes_payments() -> Resul
     }
     Ok(())
 }
+
+#[tokio::test]
+async fn legion_preview_blocks_claims_uploads_and_webhooks_before_io() -> Result<(), crate::Error> {
+    let app = app_with(Settings::new(
+        [
+            ("CORVUS_RUST_MODULES".into(), "legion,legion-stripe".into()),
+            ("REDIS_URL".into(), "rediss://example.invalid/1".into()),
+            ("RESEND_API_KEY".into(), "must-not-be-used".into()),
+            ("BLOB_READ_WRITE_TOKEN".into(), "must-not-be-used".into()),
+        ]
+        .into(),
+    ))?;
+    for route in [
+        "/api/rust?module=legion",
+        "/api/rust?module=legion&senate=1",
+        "/api/rust?module=legion-stripe",
+    ] {
+        let response = app
+            .clone()
+            .oneshot(
+                Request::builder()
+                    .method("POST")
+                    .uri(route)
+                    .header("origin", "https://corvus.gent")
+                    .header("content-type", "application/json")
+                    .body(Body::from(r#"{"action":"upload","token":"fixture"}"#))?,
+            )
+            .await?;
+        assert_eq!(response.status(), StatusCode::SERVICE_UNAVAILABLE);
+        assert!(response.headers().get("set-cookie").is_none());
+    }
+    let response = app
+        .clone()
+        .oneshot(
+            Request::builder()
+                .uri("/api/rust?module=legion&partner=cardneto-demo")
+                .body(Body::empty())?,
+        )
+        .await?;
+    assert_eq!(response.status(), StatusCode::FOUND);
+    assert!(response.headers().get("location").is_some());
+    for (route, size) in [
+        ("/api/rust?module=legion", 1024 * 1024 + 1),
+        ("/api/rust?module=compound-v2&interviews=1", 2_500_001),
+        ("/api/rust?module=legion&senate=1", 4_000_001),
+    ] {
+        let r = app
+            .clone()
+            .oneshot(
+                Request::builder()
+                    .method("POST")
+                    .uri(route)
+                    .body(Body::from(vec![0; size]))?,
+            )
+            .await?;
+        assert_eq!(r.status(), StatusCode::PAYLOAD_TOO_LARGE);
+    }
+    Ok(())
+}

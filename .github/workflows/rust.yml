@@ -41,6 +41,8 @@ jobs:
       - run: node tests/rust/legion-admission.mjs
       - run: node tests/rust/legion-newsletter.mjs
       - run: node tests/rust/legion-payments.mjs
+      - run: node tests/rust/legion-photos.mjs
+      - run: node tests/rust/legion-upload.mjs
       - run: node tests/rust/compound-original-store.mjs
       - run: node tests/rust/interview-model.mjs
       - run: node tests/rust/impact-model.mjs
@@ -62,6 +64,7 @@ jobs:
       - run: node tests/rust/compound-editor-public-render.mjs
       - run: node tests/rust/compound-editor-public-browser.mjs
       - run: node tests/rust/interviews-browser.mjs
+      - run: node tests/rust/legion-browser.mjs
       - run: node tests/rust/impact-browser.mjs
       - run: node tests/rust/impact-render.mjs
       - run: node tests/rust/privacy-browser.mjs
