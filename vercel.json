@@ -4,6 +4,91 @@
   ],
   "redirects": [
     {
+      "source": "/cv/studies/standford/",
+      "destination": "/cv/studies/stanford",
+      "permanent": true
+    },
+    {
+      "source": "/cv/studies/standford",
+      "destination": "/cv/studies/stanford",
+      "permanent": true
+    },
+    {
+      "source": "/cv/studies/berkley/",
+      "destination": "/cv/studies/berkeley",
+      "permanent": true
+    },
+    {
+      "source": "/cv/studies/berkley",
+      "destination": "/cv/studies/berkeley",
+      "permanent": true
+    },
+    {
+      "source": "/cv/studies/kul/",
+      "destination": "/cv/filosofie",
+      "permanent": true
+    },
+    {
+      "source": "/cv/studies/kul",
+      "destination": "/cv/filosofie",
+      "permanent": true
+    },
+    {
+      "source": "/cv/work/",
+      "destination": "/cv#work",
+      "permanent": true
+    },
+    {
+      "source": "/cv/work",
+      "destination": "/cv#work",
+      "permanent": true
+    },
+    {
+      "source": "/cv/studies/",
+      "destination": "/cv#studies",
+      "permanent": true
+    },
+    {
+      "source": "/cv/studies",
+      "destination": "/cv#studies",
+      "permanent": true
+    },
+    {
+      "source": "/cv/work/anthropic/",
+      "destination": "/cv/work/anthropic",
+      "permanent": true
+    },
+    {
+      "source": "/cv/work/openai/",
+      "destination": "/cv/work/openai",
+      "permanent": true
+    },
+    {
+      "source": "/cv/work/apple/",
+      "destination": "/cv/work/apple",
+      "permanent": true
+    },
+    {
+      "source": "/cv/work/google/",
+      "destination": "/cv/work/google",
+      "permanent": true
+    },
+    {
+      "source": "/cv/studies/harvard/",
+      "destination": "/cv/studies/harvard",
+      "permanent": true
+    },
+    {
+      "source": "/cv/studies/berkeley/",
+      "destination": "/cv/studies/berkeley",
+      "permanent": true
+    },
+    {
+      "source": "/cv/studies/stanford/",
+      "destination": "/cv/studies/stanford",
+      "permanent": true
+    },
+    {
       "source": "/cv/philosophy/zh/",
       "destination": "/cv/philosophy/zh",
       "permanent": true
@@ -224,6 +309,62 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/cv/work/anthropic/download",
+      "destination": "/cv/work/anthropic/cv.pdf"
+    },
+    {
+      "source": "/cv/work/anthropic",
+      "destination": "/cv/work/anthropic/index.html"
+    },
+    {
+      "source": "/cv/work/openai/download",
+      "destination": "/cv/work/openai/cv.pdf"
+    },
+    {
+      "source": "/cv/work/openai",
+      "destination": "/cv/work/openai/index.html"
+    },
+    {
+      "source": "/cv/work/apple/download",
+      "destination": "/cv/work/apple/cv.pdf"
+    },
+    {
+      "source": "/cv/work/apple",
+      "destination": "/cv/work/apple/index.html"
+    },
+    {
+      "source": "/cv/work/google/download",
+      "destination": "/cv/work/google/cv.pdf"
+    },
+    {
+      "source": "/cv/work/google",
+      "destination": "/cv/work/google/index.html"
+    },
+    {
+      "source": "/cv/studies/harvard/download",
+      "destination": "/cv/studies/harvard/cv.pdf"
+    },
+    {
+      "source": "/cv/studies/harvard",
+      "destination": "/cv/studies/harvard/index.html"
+    },
+    {
+      "source": "/cv/studies/berkeley/download",
+      "destination": "/cv/studies/berkeley/cv.pdf"
+    },
+    {
+      "source": "/cv/studies/berkeley",
+      "destination": "/cv/studies/berkeley/index.html"
+    },
+    {
+      "source": "/cv/studies/stanford/download",
+      "destination": "/cv/studies/stanford/cv.pdf"
+    },
+    {
+      "source": "/cv/studies/stanford",
+      "destination": "/cv/studies/stanford/index.html"
+    },
     {
       "source": "/cv/philosophy/zh",
       "destination": "/cv/philosophy/zh/index.html"
@@ -605,6 +746,97 @@
     }
   },
   "headers": [
+    {
+      "source": "/cv/work/anthropic/download",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/pdf"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "attachment; filename=\"Gabriel-Van-Langenhove-anthropic-CV.pdf\""
+        }
+      ]
+    },
+    {
+      "source": "/cv/work/openai/download",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/pdf"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "attachment; filename=\"Gabriel-Van-Langenhove-openai-CV.pdf\""
+        }
+      ]
+    },
+    {
+      "source": "/cv/work/apple/download",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/pdf"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "attachment; filename=\"Gabriel-Van-Langenhove-apple-CV.pdf\""
+        }
+      ]
+    },
+    {
+      "source": "/cv/work/google/download",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/pdf"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "attachment; filename=\"Gabriel-Van-Langenhove-google-CV.pdf\""
+        }
+      ]
+    },
+    {
+      "source": "/cv/studies/harvard/download",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/pdf"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "attachment; filename=\"Gabriel-Van-Langenhove-harvard-CV.pdf\""
+        }
+      ]
+    },
+    {
+      "source": "/cv/studies/berkeley/download",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/pdf"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "attachment; filename=\"Gabriel-Van-Langenhove-berkeley-CV.pdf\""
+        }
+      ]
+    },
+    {
+      "source": "/cv/studies/stanford/download",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/pdf"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "attachment; filename=\"Gabriel-Van-Langenhove-stanford-CV.pdf\""
+        }
+      ]
+    },
     {
       "source": "/(.*)",
       "headers": [
