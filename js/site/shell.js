@@ -1,3 +1,4 @@
+import '../inspiration.js?v=20261120';
 import '../i18n/bar.js';
 import './compound-links.js?v=20261111layers1';
 import {loadRoutes,freshPublicEntries} from './discovery.js?v=20261111layers1';

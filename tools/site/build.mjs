@@ -25,6 +25,7 @@ function gabeSections(choices){
  }).join('');
  const references=[
   {path:'/whoami',title:'whoami · the full story'},
+  {path:'/tattoo/',title:'tattoo · my inspiration book'},
   {path:'/links/gabe',title:'all my links'},
   {path:'/cv',title:'CV'},
   {path:'/realm/',title:'wander the old realm'},
@@ -36,6 +37,7 @@ function dailySections(choices){
  const links=paths=>`<ul class="daily-links">${paths.map(p=>choices.find(r=>local(r.path)===p)).filter(Boolean).map(r=>`<li><a href="${escape(r.path)}">${escape(r.title)}</a><p>${escape(r.description)}</p></li>`).join('')}</ul>`;
  const letters=newsletter().replace('class="site-button"','class="site-button secondary"');
  return `<section class="daily-group" aria-labelledby="daily-catch-up"><h2 id="daily-catch-up">Listen &amp; catch up</h2>${links(['/music','/now'])}</section>
+<section class="daily-group"><h2>A new sketch each day</h2><p>Angels, fire and a philosopher with a lantern. Make a creative brief from Gabe’s inspiration book.</p><p><a href="/tattoo/#daily-brief">Open today’s art prompt</a></p></section>
 <details class="daily-group"><summary>More to play</summary>${links(['/games','/hack/play','/games/hub'])}</details>
 <section class="daily-group daily-note" aria-label="Between builds"><figure class="site-daily-photo"><img src="/public/live/gabe-surf.jpg" alt="Gabe with his surfboard beside the ocean" width="360" height="480" loading="lazy"><figcaption>between builds, there is an ocean.</figcaption></figure><p class="site-eyebrow">one line from gabe</p><p>one-man army. many editors. leave something better than you found it.</p><p class="site-fine">Your daily-game streak lives with today’s puzzle.</p></section>
 <details class="daily-group"><summary>Letters from the crow</summary>${letters}</details>`;
@@ -117,4 +119,3 @@ async function build(){
  console.log(`Site navigation: ${files.length} pages; ${ROUTES.length} directory entries.`);
 }
 if(process.argv[1]?.endsWith('/site/build.mjs')||process.argv[1]==='tools/site/build.mjs')await build();
-
