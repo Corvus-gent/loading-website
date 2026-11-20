@@ -78,6 +78,7 @@ node tests/rust/army-model.mjs
 node tests/rust/army-store.mjs
 node tests/rust/army-auth.mjs
 node tests/rust/army-payments.mjs
+node tests/rust/army-capacity.mjs
 node tests/rust/army-discord.mjs
 node tests/rust/army-mail.mjs
 node tests/rust/legion-store.mjs
@@ -115,3 +116,5 @@ Interview photo compatibility uses native Rust `image` (orientation, dimensions 
 Impact migration libraries preserve canonical post hashes, account aliases, six-platform metric normalization, null/zero/unsupported distinctions, original-video eligibility, self-reported LinkedIn imports, partial scores and first-day history. The shared Redis transaction updates annotations and linked tracker metrics together. Provider CAS compares decoded public values and the transaction compares original raw records. Field observations keep official data from being downgraded by scrapers and prevent older observations from overwriting newer ones. Exact floating-point JSON round trips are enabled for stored velocity; empty totals use positive zero. Impact HTTP/provider/browser integration passes local compatibility checks. Production routing and full cutover remain pending.
 
 The optional Impact owner/provider adapters now exist in Rust: X, TikTok Display, Instagram Graph Insights, YouTube Data/Analytics, Twitch Helix, Oriane fallback, and LinkedIn's manual status. They use fixed first-party HTTPS origins, bounded responses/timeouts, no HTTP redirects, fixture-only network in isolated mode and no provider refresh in read-only mode. No real API credentials or quota were used during compatibility tests. X errors retain status/retry information; Twitch errors deliberately omit remote response bodies and clear cached credentials on 401. Provider sync orchestration, HTTP and browser integration are verified locally. Existing scheduled jobs and production traffic still use their current implementation.
+
+Army payment compatibility corrections: settle limited Consul seats under a shared lease with a fenced account CAS, surface capacity refusals for owner review, and apply a matching lifetime-product refund even without repeated product titles. Tests reproduce the old oversell and reject stale/expired-lock writes; no real payment is created, refunded or modified.

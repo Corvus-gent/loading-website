@@ -976,6 +976,17 @@ async fn army_contract(
         "user" => army.user(uid).await,
         "all" => Ok(json!(army.all().await?)),
         "persist" => army.persist(body).await,
+        "persist-guarded" => {
+            army.persist_guarded(
+                body,
+                Some((
+                    row["snapshot"].as_str().ok_or("snapshot")?,
+                    "entitlements",
+                    value,
+                )),
+            )
+            .await
+        }
         "by-code" => army.by_code(value).await,
         "by-email" => army.by_email(value).await,
         "by-name" => army.by_name(value).await,
@@ -1039,12 +1050,12 @@ async fn army_contract(
                 .await
         }
         action if action.starts_with("mail-") => {
-            let mail=corvus_server::army::mail::Mail::new(&army,row["fixture"].as_str())?;
+            let mail = corvus_server::army::mail::Mail::new(&army, row["fixture"].as_str())?;
             match action {
-                "mail-quota"=>mail.quota().await,
-                "mail-compose"=>mail.compose(body,&row["user"],row["dry"]==true).await,
-                "mail-flush"=>mail.flush(row["dry"]==true,row["only"].as_str()).await,
-                _=> Err("mail fixture".into())
+                "mail-quota" => mail.quota().await,
+                "mail-compose" => mail.compose(body, &row["user"], row["dry"] == true).await,
+                "mail-flush" => mail.flush(row["dry"] == true, row["only"].as_str()).await,
+                _ => Err("mail fixture".into()),
             }
         }
         action if action.starts_with("discord-") => {

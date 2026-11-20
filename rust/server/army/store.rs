@@ -57,6 +57,27 @@ impl<'a> Army<'a> {
             }
         }
     }
+    pub async fn owned_lock<T, F, Fut>(
+        &self,
+        uid: &str,
+        seconds: i64,
+        operation: F,
+    ) -> Result<T, Error>
+    where
+        F: FnOnce(String) -> Fut,
+        Fut: std::future::Future<Output = Result<T, Error>>,
+    {
+        let token = self.acquire(uid, seconds).await?;
+        let result = operation(token.clone()).await;
+        let released = self.release(uid, &token).await;
+        match result {
+            Err(e) => Err(e),
+            Ok(value) => {
+                released?;
+                Ok(value)
+            }
+        }
+    }
     pub async fn invalidate(&self) -> Result<(), Error> {
         self.run(&["INCR", &self.key("revision")]).await?;
         self.run(&["DEL", &self.key("public"), &self.key("legion")])
@@ -152,6 +173,14 @@ impl<'a> Army<'a> {
         Ok(value.clone())
     }
     pub async fn persist(&self, user: &Value) -> Result<Value, Error> {
+        self.persist_guarded(user, None).await
+    }
+    /// Fence a settlement against lease expiry and any concurrent account edit.
+    pub async fn persist_guarded(
+        &self,
+        user: &Value,
+        guard: Option<(&str, &str, &str)>,
+    ) -> Result<Value, Error> {
         let uid = user["id"]
             .as_str()
             .filter(|s| security::valid_id(s))
@@ -173,13 +202,28 @@ impl<'a> Army<'a> {
                 json!(uid),
             ));
         }
+        let script = if guard.is_some() {
+            format!(
+                "if redis.call('GET',KEYS[3])~=ARGV[1] or redis.call('GET',KEYS[4])~=ARGV[2] then return 0 end;table.remove(ARGV,1);table.remove(ARGV,1);{PERSIST}"
+            )
+        } else {
+            PERSIST.into()
+        };
         let mut args = command(&[
             "EVAL",
-            PERSIST,
-            "2",
+            &script,
+            if guard.is_some() { "4" } else { "2" },
             &self.key(&format!("owned:{uid}")),
             &self.key("users"),
         ]);
+        if let Some((expected, lock, token)) = guard {
+            args.extend([
+                self.key(&format!("u:{uid}")),
+                self.key(&format!("lock:{lock}")),
+                expected.into(),
+                token.into(),
+            ]);
+        }
         for (k, v) in fields {
             args.push(self.key(&k));
             args.push(v.to_string());
@@ -192,7 +236,9 @@ impl<'a> Army<'a> {
                 .to_string(),
             uid.into(),
         ]);
-        self.state.store.command(args).await?;
+        if self.state.store.command(args).await?.as_i64() != Some(1) {
+            return Err("busy".into());
+        }
         self.state
             .store
             .command(command(&["INCR", &self.key("revision")]))

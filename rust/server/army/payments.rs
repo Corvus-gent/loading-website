@@ -196,6 +196,9 @@ impl Payments<'_, '_> {
             } else {
                 Value::Null
             };
+            if held >= 2 {
+                row["review_reason"] = json!("consul_capacity");
+            }
         }
         Ok(row)
     }
@@ -239,22 +242,35 @@ impl Payments<'_, '_> {
             if !truthy(&user["verifiedAt"])||user["status"]=="deleting"{user=Value::Null;}
             if truthy(&p["coffees"])&&truthy(&p["object"]){self.0.run(&["EVAL",include_str!("scripts/coffee.lua"),"2",&self.0.key(&format!("bmc:coffee:{}",text(&p["object"]))),&self.0.key("bmc:coffees"),&text(&p["coffees"]),&text(&p["state"]),&(400*DAY).to_string()]).await?;}
             if let Some(uid)=user["id"].as_str(){
-                self.0.locked(uid,async {
-                    let mut current=self.0.user(uid).await?;if current.is_null()||current["status"]=="deleting"{return Ok(());}
+                // All matched entitlement changes use one short lease. The capacity check
+                // happens at settlement, not only when a webhook enters the queue.
+                let payment=&mut p;
+                self.0.owned_lock("entitlements",15,|lease|async move { let p=payment; self.0.locked(uid,async {
+                    let snapshot=self.0.state.store.get(&self.0.key(&format!("u:{uid}"))).await?;
+                    let Some(snapshot)=snapshot.as_str() else {return Ok(());};
+                    let mut current:Value=serde_json::from_str(snapshot)?;
+                    if current.is_null()||current["status"]=="deleting"{return Ok(());}
+                    if !current["feathers"].is_array(){current["feathers"]=json!([]);}
+                    if p["level"]=="consul" && p["state"]!="refunded" {
+                        let held=self.0.all().await?.iter().filter(|u|u["id"]!=uid && u["membership"]["tier"]=="consul" && u["membership"]["state"]!="refunded").count();
+                        if held>=2 {p["level"]=Value::Null;p["review_reason"]=json!("consul_capacity");}
+                    }
                     p["uid"]=json!(uid);p["username"]=current["username"].clone();
                     let last=&current["payment"];if last.is_null()||text(&p["date"])>=text(&last["date"]){current["paid"]=json!(p["state"]!="refunded");current["payment"]=json!({"date":p["date"],"amount":p["amount"],"currency":p["currency"]});}
                     let previous=&current["membership"];
-                    let level=if truthy(&p["level"]){p["level"].clone()}else if previous.is_object()&&previous["object"]==p["object"]&&(text(&p["type"]).starts_with("membership.")||(previous["tier"]=="tiro"&&previous["interval"]=="once")){previous["tier"].clone()}else{Value::Null};
+                    let level=if truthy(&p["level"]){p["level"].clone()}else if previous.is_object()&&previous["object"]==p["object"]&&(text(&p["type"]).starts_with("membership.")||(previous["tier"]=="tiro"&&previous["interval"]=="once")||(p["state"]=="refunded"&&text(&p["type"]).starts_with("extra_purchase.")&&["senator","consul"].contains(&previous["tier"].as_str().unwrap_or("")))){previous["tier"].clone()}else{Value::Null};
                     let order=|v:&Value|["active","paused","cancelled","refunded"].iter().position(|s|v==s);
                     if truthy(&level)&&(previous.is_null()||text(&p["date"])>text(&previous["updated"])||p["date"]==previous["updated"]&&order(&p["state"]).zip(order(&previous["state"])).is_some_and(|(a,b)|a>=b)){
                         current["membership"]=json!({"tier":level,"state":p["state"],"until":if truthy(&p["until"]){p["until"].clone()}else{previous["until"].clone()},"interval":if level=="tiro"&&previous["object"]==p["object"]&&previous["interval"]=="once"{json!("once")}else{p["interval"].clone()},"amount":p["amount"],"currency":p["currency"],"updated":p["date"],"object":p["object"]});
                         current["expires"]=json!(model::iso(impact::timestamp(&current["expires"]).ok_or("expiry")?.max(self.0.now()+365*DAY*1000))?);
                     }
-                    self.0.persist(&current).await?;self.0.own(uid,&format!("bmc:event:{id}"),&p,365*DAY).await?;
+                    self.0.persist_guarded(&current,Some((snapshot,"entitlements",&lease))).await?;self.0.own(uid,&format!("bmc:event:{id}"),p,365*DAY).await?;
                     if let Some(object)=p["object"].as_str(){self.0.own(uid,&format!("bmc:owner:{object}"),&json!(uid),365*DAY).await?;}
                     Ok(())
-                }).await?;
-                self.0.run(&["ZREM",&self.0.key("bmc:unmatched"),id]).await?;
+                }).await }).await?;
+                if p["review_reason"]=="consul_capacity" {
+                    self.0.run(&["ZADD",&self.0.key("bmc:unmatched"),&self.0.now().to_string(),id]).await?;
+                } else { self.0.run(&["ZREM",&self.0.key("bmc:unmatched"),id]).await?; }
             }else{
                 if let Some(object)=p["object"].as_str(){let uid=self.0.get(&format!("bmc:owner:{object}")).await?;if let Some(uid)=uid.as_str() && !self.0.user(uid).await?.is_null(){p["uid"]=json!(uid);self.0.run(&["SET",&self.0.key(&format!("bmc:event:{id}")),&p.to_string(),"EX",&(30*DAY).to_string()]).await?;self.0.run(&["ZADD",&self.0.key("bmc:pending"),&self.0.now().to_string(),id]).await?;return Ok(json!({"retry":true}));}}
                 self.0.run(&["ZADD",&self.0.key("bmc:unmatched"),&self.0.now().to_string(),id]).await?;
@@ -298,7 +314,14 @@ impl Payments<'_, '_> {
             } else {
                 let mut out = serde_json::Map::new();
                 for k in [
-                    "event", "type", "level", "amount", "currency", "date", "username",
+                    "event",
+                    "type",
+                    "level",
+                    "amount",
+                    "currency",
+                    "date",
+                    "username",
+                    "review_reason",
                 ] {
                     if let Some(v) = row.get(k) {
                         out.insert(k.into(), v.clone());
