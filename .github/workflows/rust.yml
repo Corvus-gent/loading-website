@@ -55,6 +55,7 @@ jobs:
       - run: node tests/rust/stats-daily-http.mjs
       - run: node tests/rust/coffee-model.mjs
       - run: node tests/rust/coffee-http.mjs
+      - run: node tests/rust/cv-http.mjs
       - run: node tests/rust/health-model.mjs
       - run: node tests/rust/health-store.mjs
       - run: node tests/rust/stats-model.mjs
@@ -100,6 +101,7 @@ jobs:
       - run: node tests/rust/army-browser.mjs
       - run: node tests/rust/site-browser.mjs
       - run: node tests/rust/site-built.mjs
+      - run: node tests/rust/cv-browser.mjs
       - run: node tests/rust/philosophy-browser.mjs
       - run: node tests/rust/page-copy-browser.mjs
       - run: node tests/rust/realm-browser.mjs

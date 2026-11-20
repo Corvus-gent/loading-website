@@ -1,0 +1,37 @@
+{
+  "en": [
+    "Secret code",
+    "in binary",
+    "Hover or use arrow keys for another code; click for binary."
+  ],
+  "nl": [
+    "Geheime code",
+    "in binair",
+    "Beweeg erover of gebruik de pijltjes voor een andere code; klik voor binair."
+  ],
+  "es": [
+    "Código secreto",
+    "en binario",
+    "Pasa el cursor o usa las flechas para cambiar de código; haz clic para verlo en binario."
+  ],
+  "fr": [
+    "Code secret",
+    "en binaire",
+    "Survolez ou utilisez les flèches pour changer de code ; cliquez pour le binaire."
+  ],
+  "pt": [
+    "Código secreto",
+    "em binário",
+    "Passe o cursor ou use as setas para mudar de código; clique para ver em binário."
+  ],
+  "de": [
+    "Geheimcode",
+    "binär",
+    "Mit Maus oder Pfeiltasten wechseln; für Binärdarstellung klicken."
+  ],
+  "zh": [
+    "秘密数字",
+    "二进制",
+    "悬停或使用方向键切换数字；点击查看二进制。"
+  ]
+}

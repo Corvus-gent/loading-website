@@ -6,7 +6,7 @@ const origin=new URL(process.argv[2]||'');
 assert.equal(origin.protocol,'https:');assert.match(origin.hostname,/^loading-website-[a-z0-9]+-corvus11\.vercel\.app$/);assert.equal(origin.pathname,'/');
 const bypass=(await readFile(os.homedir()+'/.secrets/site-preview-bypass.txt','utf8')).trim();
 const results=[];
-async function request(path,{method='GET',json=false,png=false}={}){const url=new URL(path,origin);assert.equal(url.origin,origin.origin);const r=await fetch(url,{method,headers:{'x-vercel-protection-bypass':bypass},redirect:'manual',signal:AbortSignal.timeout(45000)});const body=method==='HEAD'?'':png?Buffer.from(await r.arrayBuffer()):await r.text();return{status:r.status,location:r.headers.get('location'),data:json?JSON.parse(body):body};}
+async function request(path,{method='GET',json=false,png=false,bot=false}={}){const url=new URL(path,origin);assert.equal(url.origin,origin.origin);const r=await fetch(url,{method,headers:{'x-vercel-protection-bypass':bypass,...(bot?{'user-agent':'curl/Corvus-ReadOnly-Preview'}:{})},redirect:'manual',signal:AbortSignal.timeout(45000)});const body=method==='HEAD'?'':png?Buffer.from(await r.arrayBuffer()):await r.text();return{status:r.status,location:r.headers.get('location'),data:json?JSON.parse(body):body};}
 const info=await request('/api/rust',{json:true});assert.equal(info.status,200);assert.equal(info.data.writeMode,'disabled');assert.equal(info.data.runtime,'rust');
 for(const [label,legacy,rust]of[
  ['Original Compound','/api/compound','/api/rust?module=compound'],
@@ -36,6 +36,15 @@ if(process.argv.includes('--visitors')){
  const [legacy,native]=await Promise.all([request('/api/geo?country=1',{json:true}),request('/api/rust?module=geo&country=1',{json:true})]);assert.equal(native.status,200);assert.deepEqual(native.data,legacy.data,'coarse country/header parity');
  const totals=await request('/api/rust?module=geo',{json:true});assert.equal(totals.status,200);assert.equal(totals.data.geoVersion,6);assert.equal(totals.data.total,totals.data.countries.reduce((n,c)=>n+c.n,0));assert.equal(totals.data.mapped,totals.data.cities.reduce((n,c)=>n+c.visitors,0));assert.equal(totals.data.mapped+totals.data.unlocated,totals.data.total);for(const c of totals.data.countries.filter(c=>c.c!=='?'))assert.equal(totals.data.cities.filter(p=>p.countryCode===c.c).reduce((n,p)=>n+p.visitors,0),c.n,'mapped country total '+c.c);assert(!JSON.stringify(totals.data).includes('distinct_id'));
  results.push({label:'Native visitor geography read-only counts/country parity',status:200,total:totals.data.total});console.log('PASS native visitor geography and country counts on deployed read-only runtime');
+}
+if(process.argv.includes('--cv')){
+ for(const suffix of ['', '&dl=1'])for(const method of ['GET','HEAD']){
+  const old=await request('/api/cv'+(suffix?'?dl=1':''),{method,png:true,bot:true});
+  const native=await request('/api/rust?module=cv'+suffix,{method,png:true,bot:true});
+  assert.equal(old.status,200);assert.equal(native.status,200);assert.deepEqual(native.data,old.data,'same committed CV PDF');
+  if(method==='GET')assert(native.data.subarray(0,5).equals(Buffer.from('%PDF-')));
+ }
+ results.push({label:'Native CV PDF exact bytes/HEAD with bot-excluded legacy counters',status:200});console.log('PASS deployed native CV bytes and HEAD; no counters requested');
 }
 if(process.argv.includes('--stats')){
  for(const records of ['', '&records=1']){const [old,native]=await Promise.all([request('/api/private-stats'+(records?'?records=1':''),{json:true}),request('/api/rust?module=stats-private'+records,{json:true})]);assert.equal(native.status,401,'private statistics require a signed session');assert.deepEqual(native.data,old.data);}

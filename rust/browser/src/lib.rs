@@ -49,4 +49,5 @@ mod site;
 
 mod analytics;
 
+mod cv;
 mod page_copy;

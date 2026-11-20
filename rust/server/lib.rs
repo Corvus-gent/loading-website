@@ -5,6 +5,7 @@ pub mod compound;
 pub mod compound_v2;
 pub mod config;
 pub mod crypto;
+pub mod cv;
 pub mod hack;
 pub mod layers;
 pub mod legion;
@@ -102,6 +103,13 @@ async fn dispatch(
             .into_response();
     }
     let result = match module {
+        "cv" => Ok(cv::handle(
+            &state,
+            &method,
+            &headers,
+            &query,
+            context.as_ref().map(|v| &v.0),
+        )),
         "stats-coffee" => Ok(state.coffee.handle(&state, &method).await),
         "stats-daily" => Ok(Box::pin(stats::handler::daily(&state, &query)).await),
         "stats-sections" => Ok(Box::pin(stats::handler::section(&state, &method, &query)).await),

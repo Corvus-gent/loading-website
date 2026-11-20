@@ -162,3 +162,11 @@ const healthIngest=healthSource.match(/const ingest = `([^]*?)`;/)?.[1];
 if(!healthIngest)throw Error('Health ingestion script changed');
 const healthLuaFile=new URL('../../rust/migration/health-ingest.lua',import.meta.url);
 if(process.argv.includes('--check')){if(readFileSync(healthLuaFile,'utf8')!==healthIngest)throw Error('Rust health ledger protocol stale');}else writeFileSync(healthLuaFile,healthIngest);
+
+// Authored CV accessibility text remains owned by the original page module.
+const cvSource=readFileSync(new URL('../../js/cv-page.js',import.meta.url),'utf8');
+const cvHints=cvSource.match(/const hints=({[^]*?\n});/)?.[1];
+if(!cvHints)throw Error('CV hints changed; review the browser migration');
+const cvText=JSON.stringify(runInNewContext('('+cvHints+')',{}, {timeout:1000}),null,2)+'\n';
+const cvFile=new URL('../../rust/migration/cv-hints.json',import.meta.url);
+if(process.argv.includes('--check')){if(readFileSync(cvFile,'utf8')!==cvText)throw Error('Rust CV hints stale');}else writeFileSync(cvFile,cvText);
