@@ -28,4 +28,4 @@ The hub now has separate Studies, Work and Research section links. Employer prof
 
 Mistral AI has its own research-oriented profile, explicitly expressing Paris/London location preferences. No employment or vacancy eligibility is asserted.
 
-Career application profiles and PDFs distinguish Paris/London as European options from the preference to spend summer 2027 in the US or China, with San Francisco, New York, Shanghai, Hong Kong and Shenzhen named as cities of interest. These are preferences, not claims of work authorization or confirmed relocation.
+Location relevance: the generic European-options line is removed everywhere. Only the general Tech and Social Media editions show the broad summer-2027 US/China preference. Targeted institutional and company profiles omit that global travel list; role-specific location text (for example Mistral Paris/London) remains in its own introduction.
