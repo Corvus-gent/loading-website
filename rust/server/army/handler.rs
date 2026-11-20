@@ -201,9 +201,25 @@ async fn inner(
         {
             return Ok(fail(404, "missing"));
         }
-        // Image/profile HTML remain on the legacy route until the shared publishing gate.
-        if q(query, "image") == "1" || q(query, "html") == "1" {
-            return Ok(fail(501, "render_migration_pending"));
+        let soldier = public_soldier(&user, true, army.now());
+        if q(query, "image") == "1" {
+            static LIMIT: tokio::sync::Semaphore = tokio::sync::Semaphore::const_new(2);
+            let permit = LIMIT.acquire().await?;
+            let code = user["code"].as_str().ok_or("fields")?.to_owned();
+            let poster = q(query, "poster") == "1";
+            let png = tokio::task::spawn_blocking(move || {
+                let _permit = permit;
+                super::images::png(&soldier, &code, poster)
+            })
+            .await??;
+            return Ok(([("content-type", "image/png")], png).into_response());
+        }
+        if q(query, "html") == "1" {
+            return Ok((
+                [("content-type", "text/html; charset=utf-8")],
+                super::images::profile(&soldier),
+            )
+                .into_response());
         }
         return Ok(ok(
             json!({"soldier":public_soldier(&user,true,army.now()),"code":user["code"]}),

@@ -49,6 +49,7 @@ url = "2"
 unicode-normalization = "=0.1.26"
 vercel_runtime = { version = "2.4.1", features = ["axum"] }
 image = { version = "0.25.10", default-features = false, features = ["jpeg", "png", "webp"] }
+resvg = { version = "=0.50.0", default-features = false, features = ["text"] }
 
 [dev-dependencies]
 http-body-util = "0.1"

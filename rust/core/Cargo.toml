@@ -11,6 +11,7 @@ serde_json = { version = "1", features = ["preserve_order", "float_roundtrip"] }
 chrono = { version = "0.4", default-features = false, features = ["std"] }
 url = "2"
 regex = "1"
+qrcodegen = "=1.8.0"
 
 [lints.rust]
 unsafe_code = "forbid"

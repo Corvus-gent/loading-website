@@ -1031,6 +1031,23 @@ async fn army_contract(
         "public-build" => corvus_server::army::public::Public(&army).build().await,
         "public-summary" => corvus_server::army::public::Public(&army).summary().await,
         "public-legion" => corvus_server::army::public::Public(&army).legion().await,
+        "art" => Ok(json!(corvus_core::army_art::tag(
+            body,
+            value,
+            row["poster"] == true,
+            &row["labels"]
+        )?)),
+        "insignia" => Ok(json!(corvus_core::army_art::insignia(
+            value,
+            row["size"].as_u64().unwrap_or(40) as u32
+        ))),
+        "art-png" => {
+            use base64::Engine;
+            Ok(json!(base64::engine::general_purpose::STANDARD.encode(
+                corvus_server::army::images::png(body, value, row["poster"] == true)?
+            )))
+        }
+        "profile-html" => Ok(json!(corvus_server::army::images::profile(body))),
         "persist" => army.persist(body).await,
         "persist-guarded" => {
             army.persist_guarded(

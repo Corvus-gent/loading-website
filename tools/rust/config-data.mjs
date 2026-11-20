@@ -68,3 +68,17 @@ if(process.argv.includes('--check')){if(readFileSync(file11,'utf8')!==army)throw
 const armyLocales={};for(const feature of ['army','mail']){armyLocales[feature]={};for(const lang of armyConfig.LANGUAGES)armyLocales[feature][lang]=JSON.parse(readFileSync(new URL(`../../js/i18n/${feature}.${lang}.json`,import.meta.url),'utf8'));}
 const armyCopy=JSON.stringify(armyLocales)+'\n',file12=new URL('../../rust/migration/army-locales.json',import.meta.url);
 if(process.argv.includes('--check')){if(readFileSync(file12,'utf8')!==armyCopy)throw Error('Rust Army locale copy is stale');}else writeFileSync(file12,armyCopy);
+
+// Frozen markup only: the runtime fills escaped data and encodes QR bytes in Rust.
+const art=await import('../../js/army/art.js');const artTemplates={crow:art.crow,lamp:art.lamp};
+for(const poster of[false,true])for(const kind of['plain','tier','lifetime']){
+ const s={username:'__RUST_NAME__',serial:'__RUST_SERIAL__',created:'__RUST_CREATED__',rank:'__RUST_RANK__',tier:kind==='plain'?null:kind==='lifetime'?'senator':'__RUST_TIER__'};
+ const labels={rankLabel:'__RUST_RANKLABEL__',tierLabel:'__RUST_TIERLABEL__',supporterLifetime:'__RUST_LIFETIME__'};
+ let svg=art.tagSVG(s,'__RUST_CODE__',{poster,labels});
+ const qr=art.qrMarkup('https://corvus.gent/r/__RUST_CODE__',poster?790:825,poster?1025:330,poster?212:136);
+ if(!svg.includes(qr))throw Error('Army QR template changed');svg=svg.replace(qr,'__RUST_QR__');
+ const username=svg.match(/<text[^>]+>__RUST_NAME__(?: enlisted\.)?<\/text>/);if(!username)throw Error('Army name template changed');svg=svg.replace(username[0],username[0].replace(/font-size="[^"]+"/,'font-size="__RUST_FONTSIZE__"'));
+ if(kind==='lifetime')svg=svg.replace('senator','__RUST_TIER__');artTemplates[(poster?'poster':'tag')+'-'+kind]=svg;
+}
+const armyArt=JSON.stringify(artTemplates)+'\n',file13=new URL('../../rust/migration/army-art.json',import.meta.url);
+if(process.argv.includes('--check')){if(readFileSync(file13,'utf8')!==armyArt)throw Error('Rust Army art markup is stale');}else writeFileSync(file13,armyArt);

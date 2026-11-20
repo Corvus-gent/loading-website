@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import http from 'node:http';
 import crypto from 'node:crypto';
+import sharp from 'sharp';
 import {isolatedRuntime} from '../helpers/rust-runtime.mjs';
 const pair=crypto.generateKeyPairSync('ed25519'),publicKey=pair.publicKey.export({type:'spki',format:'der'}).subarray(-32).toString('hex');
 const runtime=await isolatedRuntime('army,army-bmc,army-pidgy,army-discord',{BMC_WEBHOOK_SECRET:'fixture-bmc-secret',PIDGY_WEBHOOK_SECRET:'fixture-pidgy-secret',DISCORD_PUBLIC_KEY:publicKey,DISCORD_APPLICATION_ID:'123456789012345678',CRON_SECRET:'fixture-cron-secret'}),{client,secret}=runtime;
@@ -25,7 +26,7 @@ try{
  const user=await store.byName('http_army');let jobs=await client.zRange(store.key('outbox'),0,-1);let records=await Promise.all(jobs.map(id=>store.get('mail:'+id)));const token=open(records.find(j=>j.uid===user.id&&j.kind==='claim').data.secret);
  const claimed=await call('rust',{}, {action:'claim',token},{cookie:anonymousCookie});assert.equal(claimed.status,200);assert.equal(claimed.body.self.email,'army_http@example.test');const memberCookie=cookie(claimed);await equal({},undefined,{cookie:memberCookie});await equal({}, {action:'claim',token});await equal({}, {action:'export'},{cookie:memberCookie});
  assert.equal((await call('rust',{}, {action:'export'},{cookie:anonymousCookie})).status,401);assert.equal((await call('rust',{}, {action:'profile',link:'javascript:alert(1)'},{cookie:memberCookie})).body.error,'link');
- const update=await call('rust',{}, {action:'profile',country:'PT',link:'example.test/me',hidden:true},{cookie:memberCookie});assert.equal(update.status,200);assert.equal(update.body.self.hidden,true);await equal({profile:'http_army'});await equal({view:'public'});await equal({view:'legion'});
+ const update=await call('rust',{}, {action:'profile',country:'PT',link:'example.test/me',hidden:true},{cookie:memberCookie});assert.equal(update.status,200);assert.equal(update.body.self.hidden,true);await equal({profile:'http_army'});await equal({profile:'http_army',html:'1'});const imageURL=new URL(runtime.url);imageURL.search='?module=army&profile=http_army&image=1';const imageResponse=await fetch(imageURL);assert.equal(imageResponse.status,200);assert.equal(imageResponse.headers.get('content-type'),'image/png');const imageMeta=await sharp(Buffer.from(await imageResponse.arrayBuffer())).metadata();assert.equal(imageMeta.width,1200);assert.equal(imageMeta.height,630);await equal({view:'public'});await equal({view:'legion'});
  // Real signed owner cookie, distinct from the army member session.
  const sid='owner-http-fixture',sig=crypto.createHmac('sha256',secret).update(sid).digest('base64url');await client.set('sess:'+sid,'gabriel@corvus.gent',{EX:3600});const owner={cookie:'sess='+sid+'.'+sig};await equal({admin:'1'},undefined,owner);await equal({admin:'1'}, {action:'approve',id:user.id},{...owner,origin:'https://evil.test'});
  const approved=await call('rust',{admin:'1'}, {action:'approve',id:user.id},owner);assert.equal(approved.status,200);assert.equal((await store.getUser(user.id)).status,'approved');await equal({admin:'1'},undefined,owner);await equal({job:'1'});const cron=await call('rust',{job:'1',dry:'1'},undefined,{authorization:'Bearer fixture-cron-secret'});assert.equal(cron.status,200);assert.equal(cron.body.dryRun,true);

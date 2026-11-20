@@ -5,6 +5,7 @@ pub mod copy;
 pub mod discord;
 pub mod discord_model;
 pub mod handler;
+pub mod images;
 pub mod jobs;
 pub mod lifecycle;
 pub mod mail;
