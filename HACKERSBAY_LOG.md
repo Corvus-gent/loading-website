@@ -71,3 +71,12 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Verified. The build passed and the local log rendered every milestone through H7. The release packaging and artifact checks are running separately.
 - Next. Render portrait and landscape demo clips and write the filming and Compound briefs.
 - **STEER ME:** Lead with the laptop wrapper or keep the on-stage flow entirely on a phone.
+
+## H9 · 2026-11-20 16:44 CET · Demo motion and edit brief
+
+- Shipped six Remotion compositions, the original audio bed, a shot list for Gabe, and the Compound handoff. The short prompt is 1,012 characters.
+- Shipped the cannonball and avatar-to-sonar transition, editable card animation, three locks, explicit two-step intro, and loopable end card.
+- Decision. Rendered vertical and widescreen separately to keep the phone UI readable. Use the live screen recording for the final edit where the actual controls matter.
+- Verified. The build passed and both 15-second exports contain 30 fps H.264 video and AAC audio. The 30- and 60-second files are rendering for the same release.
+- Next. Deliver the LinkedIn drafts and demo guide, then run final production QA.
+- **STEER ME:** Open the first social cut on the cannonball or on Gabe at the dock. Use the 15-second or 30-second export as the lead.
