@@ -325,6 +325,10 @@
   ],
   "rewrites": [
     {
+      "source": "/hackersbay/log",
+      "destination": "/api/hackersbay?action=log"
+    },
+    {
       "source": "/hackersbay/preview",
       "destination": "/public/hackersbay/preview.html"
     },
@@ -778,6 +782,7 @@
   ],
   "functions": {
     "api/hackersbay.js": {
+      "includeFiles": "HACKERSBAY_LOG.md",
       "maxDuration": 30
     },
     "api/project-cto.js": {

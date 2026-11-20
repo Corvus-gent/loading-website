@@ -1,6 +1,6 @@
 # The Hackers Bay build log
 
-Times are Paris local time. The release starts with the public Boat Hackathon Demo Day.
+Times are Paris local time. The demo is built around Boat Hackathon Demo Day in San Francisco.
 
 ## H1 · 2026-11-20 16:11 CET · Landing and design system
 
@@ -62,3 +62,12 @@ Times are Paris local time. The release starts with the public Boat Hackathon De
 - Verified. The build and the 375px fallback flow passed. Mocked provider requests exercised the documented APIs, including private inference and Boat provisioning, status and hosting.
 - Next. Publish this log, polish the Sonar experience, and package the macOS wrapper.
 - **STEER ME:** Pick the first allowlisted repository for the stage preview. Choose whether private mode should start enabled.
+
+## H8 · 2026-11-20 16:34 CET · Public log and Mac wrapper
+
+- Shipped the public log from this Markdown file, share artwork for the landing, and a Mac download entry.
+- Shipped an Electron wrapper and a repeatable build script for Apple Silicon and Intel macOS. The wrapper opens the production route, isolates the renderer, and hands external HTTPS links to the default browser.
+- Decision. Use an unsigned demo release so an Apple developer account is unnecessary.
+- Verified. The build passed and the local log rendered every milestone through H7. The release packaging and artifact checks are running separately.
+- Next. Render portrait and landscape demo clips and write the filming and Compound briefs.
+- **STEER ME:** Lead with the laptop wrapper or keep the on-stage flow entirely on a phone.

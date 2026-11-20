@@ -395,3 +395,9 @@ input[type="checkbox"] { width: 17px; min-height: 17px; height: 17px; margin: 0;
 .proof-terminal, .demo-deck { max-width: 620px; margin-bottom: 15px; }
 .proof-terminal pre { white-space: pre-wrap; overflow-wrap: anywhere; color: var(--teal); font: 500 13px/1.6 var(--mono); }
 .demo-deck .check-option { display: flex; gap: 10px; align-items: center; min-height: 40px; cursor: pointer; }
+
+.log-page { max-width: 830px; }
+.log-entry { margin-bottom: 12px; }
+.log-entry ul { padding-left: 19px; margin: 0; color: var(--muted); }
+.log-entry li + li { margin-top: 7px; }
+.log-entry li strong { color: var(--teal); }
