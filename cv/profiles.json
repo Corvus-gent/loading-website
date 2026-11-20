@@ -72,8 +72,9 @@
       "label": "Content workflow",
       "text": "An experiment connecting raw footage, AI-assisted editing and platform-specific cuts. Explore the workflow and examples.",
       "href": "/compound/impact/",
-      "image": "/compound/impact/assets/simon-reel.webp",
-      "imageAlt": "A frame from the Compound editing experiment"
+      "image": "/compound/impact/assets/simon.jpg",
+      "imageAlt": "Simon Lorenzo, co-founder of Compound",
+      "imageFit": "contain"
     },
     {
       "title": "LinkedIn · the underlying numbers",
@@ -291,6 +292,23 @@
       "motivation": [
         "My research interests centre on influence, agency and human judgement. I have explored mutual manipulation between LLMs and humans in course research, and I want to develop that interest through more rigorous investigation and evaluation.",
         "My other track is social media and technical storytelling: interviews, AI-assisted editing and stories about people building technology. I would welcome a conversation about which kind of contribution fits my experience."
+      ]
+    },
+    {
+      "slug": "amazon",
+      "path": "/cv/work/amazon",
+      "kind": "hybrid",
+      "company": "Amazon",
+      "label": "Amazon · application profile",
+      "headline": "Investigate a question. Build a test. Explain what you learn.",
+      "summary": "I’m interested in research or social media work that connects AI, people and useful technology. I bring a computer science background, course research on human–LLM interaction and medical imaging, software projects and experience documenting builders in public.",
+      "focus": "Research interests · applied AI · social media",
+      "download": "/cv/work/amazon/download",
+      "pdf": "work/amazon/cv.pdf",
+      "motivationTitle": "What I would bring",
+      "motivation": [
+        "My research experience so far is course-based: mutual manipulation between LLMs and humans, and model-based and physics-informed deep learning in medical imaging. I want to develop those interests through careful investigation, practical experiments and collaboration.",
+        "Alongside research, I build Corvus and tell the stories around it through interviews, short-form content and community projects. I would welcome a research or social media opportunity that fits my current experience and the team’s needs."
       ]
     }
   ],

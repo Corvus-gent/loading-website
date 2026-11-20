@@ -4,6 +4,16 @@
   ],
   "redirects": [
     {
+      "source": "/cv/work/amazon/",
+      "destination": "/cv/work/amazon",
+      "permanent": true
+    },
+    {
+      "source": "/cv/research",
+      "destination": "/cv#research",
+      "permanent": true
+    },
+    {
       "source": "/cv/studies/standford/",
       "destination": "/cv/studies/stanford",
       "permanent": true
@@ -309,6 +319,14 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/cv/work/amazon",
+      "destination": "/cv/work/amazon/index.html"
+    },
+    {
+      "source": "/cv/work/amazon/download",
+      "destination": "/cv/work/amazon/cv.pdf"
+    },
     {
       "source": "/cv/work/anthropic/download",
       "destination": "/cv/work/anthropic/cv.pdf"
@@ -746,6 +764,19 @@
     }
   },
   "headers": [
+    {
+      "source": "/cv/work/amazon/download",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/pdf"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "attachment; filename=\"Gabriel-Van-Langenhove-amazon-CV.pdf\""
+        }
+      ]
+    },
     {
       "source": "/cv/work/anthropic/download",
       "headers": [
