@@ -8,6 +8,7 @@ use web_sys::{HtmlButtonElement, HtmlElement, HtmlInputElement, HtmlSelectElemen
 struct Admin {
     key: String,
     offset: u32,
+    listeners: Vec<ui::Listener>,
 }
 type State = Rc<RefCell<Admin>>;
 fn store(key: &str) {
@@ -95,7 +96,7 @@ fn render(state: State, row: &Value) -> Result<HtmlElement, JsValue> {
     let control = select.clone();
     let s = state.clone();
     let id = text("id").to_string();
-    ui::listen(select.as_ref(), "change", move |_| {
+    let listener = ui::scoped_listener(select.as_ref(), "change", move |_| {
         control.set_disabled(true);
         let s = s.clone();
         let id = id.clone();
@@ -116,6 +117,7 @@ fn render(state: State, row: &Value) -> Result<HtmlElement, JsValue> {
             control.set_disabled(false);
         });
     })?;
+    state.borrow_mut().listeners.push(listener);
     if row["mailSent"] != true {
         let warning = node("p", "mail pending · request is saved")?;
         warning.set_class_name("mail-pending");
@@ -124,9 +126,10 @@ fn render(state: State, row: &Value) -> Result<HtmlElement, JsValue> {
         card.append_child(&retry)?;
         let button = retry.clone();
         let id = text("id").to_string();
-        ui::listen(retry.as_ref(), "click", move |_| {
+        let inner = state.clone();
+        let listener = ui::scoped_listener(retry.as_ref(), "click", move |_| {
             button.set_disabled(true);
-            let state = state.clone();
+            let state = inner.clone();
             let id = id.clone();
             let button = button.clone();
             let warning = warning.clone();
@@ -145,6 +148,7 @@ fn render(state: State, row: &Value) -> Result<HtmlElement, JsValue> {
                 button.set_disabled(false);
             });
         })?;
+        state.borrow_mut().listeners.push(listener);
     }
     Ok(card)
 }
@@ -160,6 +164,7 @@ fn refresh(state: State, append: bool) {
             ui::hidden("refresh", false);
             let target = ui::element("requests")?;
             if !append {
+                state.borrow_mut().listeners.clear();
                 target.set_text_content(None);
             }
             for row in rows {
@@ -223,7 +228,11 @@ pub fn start_support_admin() -> Result<(), JsValue> {
             .flatten()
             .unwrap_or_default();
     }
-    let state = Rc::new(RefCell::new(Admin { key, offset: 0 }));
+    let state = Rc::new(RefCell::new(Admin {
+        key,
+        offset: 0,
+        listeners: Vec::new(),
+    }));
     let s = state.clone();
     ui::listen(login.as_ref(), "submit", move |event| {
         event.prevent_default();

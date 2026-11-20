@@ -1,0 +1,29 @@
+// Route every browser request to local files or the isolated Rust runtime.
+// Production URLs are only an origin fixture for Secure cookies and CSRF checks.
+import {readFile} from 'node:fs/promises';
+import path from 'node:path';
+import {wasmBridge} from './rust-bridges.mjs';
+const types={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.wasm':'application/wasm','.png':'image/png','.jpg':'image/jpeg','.svg':'image/svg+xml','.woff2':'font/woff2','.mp4':'video/mp4'};
+export async function rustSite(context,runtime,{ip='198.51.100.190',beforeRequest,afterResponse}={}){
+ const origin='https://corvus.gent',root=process.cwd(),errors=[];
+ await context.addInitScript(()=>sessionStorage.setItem('twitch-disabled','1'));
+ await context.route('**/*',async route=>{
+  const request=route.request(),u=new URL(request.url());
+  if(u.origin!==origin)return route.abort();
+  if(beforeRequest&&await beforeRequest({route,request,u}))return;
+  const bridge=wasmBridge(u.pathname);if(bridge)return route.fulfill({contentType:'text/javascript',body:bridge});
+  if(u.pathname.startsWith('/api/')){
+   const module={'/api/support':'support','/api/battle':'battle'}[u.pathname];
+   if(!module)return route.fulfill({contentType:'application/json',body:JSON.stringify(u.pathname==='/api/live'?{live:false,session:'fixture',source:'manual'}:{ready:false})});
+   const target=new URL(runtime.url);target.search=u.search;target.searchParams.set('module',module);
+   const headers=await request.allHeaders();delete headers.host;delete headers['content-length'];headers['x-forwarded-for']=ip;
+   const response=await fetch(target,{method:request.method(),headers,body:request.postDataBuffer()||undefined,redirect:'manual'});
+   const body=Buffer.from(await response.arrayBuffer());
+   if(response.status>=500)errors.push({path:u.pathname,status:response.status});
+   if(afterResponse&&await afterResponse({route,request,u,response,body}))return;
+   return route.fulfill({status:response.status,headers:Object.fromEntries(response.headers),body});
+  }
+  try{let file=u.pathname;if(!path.extname(file))file=file.replace(/\/$/,'')+'/index.html';file=path.resolve(root,'.'+decodeURIComponent(file));if(!file.startsWith(root+path.sep))throw Error('outside fixture');return route.fulfill({contentType:types[path.extname(file)]||'application/octet-stream',body:await readFile(file)});}catch{return route.fulfill({status:404,body:'Not found'});}
+ });
+ return{origin,errors};
+}

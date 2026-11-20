@@ -28,4 +28,8 @@ Rust/WASM now also implements arrival attribution, the booking form and its priv
 
 GitHub Rust checks passed for d06b920. The full Feature workflow still needs another run after the archive-fixture correction.
 
-Next: continue browser/API migration, starting with battle browser behavior. Most application areas remain pending. See README completion gate. No production cutover until the full required compatibility checks and rollback exercise pass.
+Battle browser and administration now run in Rust/WASM with real local API/Redis checks at 390px and 1440px: blind labels, a single persisted vote, delayed-refresh race, clipboard fallback, one-link sharing, audio switching, tie/close/reopen and stored view counts. Dynamic booking rows release their listeners on refresh. Existing product markup stays unchanged.
+
+Rust CI passed at abb8dc6. The original Feature workflow now passes all browser/integration stages; its final link audit exposed a pre-existing parser bug for constrained Worldcraft routes. The checker now preserves parameter constraints and literal extensions, with positive/negative regression tests; 2,925 local links/assets pass. A new full CI run is pending.
+
+Next: continue browser/API migration. Most application areas remain pending. See README completion gate. No production cutover until the full required compatibility checks and rollback exercise pass.

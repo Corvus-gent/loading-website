@@ -7,6 +7,7 @@ import http from 'node:http';
 import path from 'node:path';
 import nl from '../../js/locales/nl.js';
 import fr from '../../js/locales/fr.js';
+let adminSaveAttempts=0;
 let bookingAttempts=[],failBooking=true,proofNotBefore=0,adminSaveFails=true,adminMailSent=false;
 const adminRow={id:'00000000-0000-0000-0000-000000000001',name:'Fixture <img src=x onerror=alert(1)>',contact:'fixture@example.test',pain:'<script>window.__unsafe=true</script>',times:'tomorrow',tier:'coffee',coffeePaid:true,source:'x',createdAt:'2026-11-20T00:00:00.000Z',status:'new',mailSent:false};
 let liveStatus={live:false,source:'manual',session:'rust-fixture-1'};
@@ -20,6 +21,7 @@ const server=http.createServer(async(req,res)=>{try{
     if(req.method==='GET')return res.end(JSON.stringify({rows:[adminRow],more:false,offset:0}));
     let text='';for await(const chunk of req)text+=chunk;const body=JSON.parse(text);
     if(body.action==='retry-mail'){const ok=adminMailSent;adminMailSent=true;return res.end(JSON.stringify({ok}));}
+    adminSaveAttempts++;
     if(adminSaveFails){adminSaveFails=false;res.statusCode=503;return res.end(JSON.stringify({error:'Fixture save failed.'}));}
     adminRow.status=body.status;return res.end(JSON.stringify({ok:true}));
   }
@@ -99,6 +101,7 @@ try{
  const adminSelect=p.locator('#requests select');await adminSelect.selectOption('scheduled');await expect(p.locator('#admin-status')).toHaveText('Fixture save failed.');await expect(adminSelect).toHaveValue('new');await expect(adminSelect).toBeEnabled();
  await adminSelect.selectOption('scheduled');await expect(p.locator('#admin-status')).toHaveText('status saved');await p.reload();await expect(p.locator('#requests select')).toHaveValue('scheduled');
  await p.getByRole('button',{name:'retry email →'}).click();await expect(p.locator('.mail-pending')).toHaveText('email still pending. retry shortly.');await p.getByRole('button',{name:'retry email →'}).click();await expect(p.locator('.mail-pending')).toHaveText('email sent');await expect(p.getByRole('button',{name:'retry email →'})).toHaveCount(0);
+ const detached=await p.locator('#requests select').elementHandle();const attempts=adminSaveAttempts;await p.locator('#refresh').click();await expect(p.locator('#requests select')).toHaveValue('scheduled');await expect.poll(()=>detached.evaluate(e=>e.isConnected)).toBe(false);await detached.evaluate(e=>{e.value='done';e.dispatchEvent(new Event('change'));});assert.equal(adminSaveAttempts,attempts);
  await p.screenshot({path:`test-results/rust/call-admin-${width}.png`});
  await p.goto(base+'/sidequests/?ref=keep&utm_source=x#archive');
  await p.evaluate(async()=>{const m=await import('/rust/browser/pkg/corvus_browser.js');await m.default();m.start_arrival(location.search,location.pathname);m.clear_tracking_url();});assert(p.url().includes('/sidequests?ref=keep#archive'));
