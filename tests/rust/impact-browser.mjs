@@ -1,0 +1,39 @@
+// The unchanged public/admin UI talks to the actual Rust handler and an isolated Redis.
+// No provider calls, emails, live writes or external embeds are made by this test.
+import assert from 'node:assert/strict';
+import {chromium,expect} from '@playwright/test';
+import {mkdir} from 'node:fs/promises';
+import {isolatedRuntime} from '../helpers/rust-runtime.mjs';
+import {rustSite} from '../helpers/rust-site.mjs';
+const runtime=await isolatedRuntime('compound-v2'),browser=await chromium.launch();
+async function save(post){const u=new URL(runtime.url);u.search='module=compound-v2&impact=1';const r=await fetch(u,{method:'POST',headers:{authorization:'Bearer '+runtime.secret,'content-type':'application/json','x-forwarded-for':'198.51.100.15'},body:JSON.stringify({action:'save',post})});assert.equal(r.status,200,await r.text());}
+try{
+ for(const width of [390,1440]){
+  await runtime.client.flushDb();
+  for(const post of [
+   {post_url:'https://www.tiktok.com/@gabinho_bjj/video/12345678',account:'gabinho_bjj',label:'Fixture <cut>',views:0,likes:99,comments:8,shares:null,saves:null},
+   {post_url:'https://www.tiktok.com/@gabriellvl/video/12345679',account:'gabriellvl',views:1200,likes:5,comments:1,shares:0,saves:0},
+   {post_url:'https://www.youtube.com/watch?v=abc123video',account:'fixture',views:100,likes:0,comments:0,shares:null},
+   {post_url:'https://x.com/gabe_maxxing/status/12345678',account:'gabe_maxxing',views:99999,likes:50,comments:4,post_type:'reply'},
+  ])await save({original_by_gabe:true,post_type:'original',media_type:'video',native_video:true,...post});
+  const context=await browser.newContext({viewport:{width,height:844},reducedMotion:'reduce'});
+  const {origin,errors:apiErrors}=await rustSite(context,runtime,{browserEngine:'legacy'});
+  const p=await context.newPage(),errors=[];p.on('pageerror',e=>errors.push(e.message));
+  await p.goto(origin+'/compound/v2/stats/');await p.locator('[name=password]').fill(runtime.secret);await p.locator('#login button').click();await expect(p.locator('#impact-admin')).toBeVisible();await expect(p.locator('#impact-admin-posts tr')).toHaveCount(5);
+  const form=p.locator('#impact-linkedin-single');await form.locator('[name=post_url]').fill('https://www.linkedin.com/posts/francisco-gabriel-van-langenhove_activity-1234567890123456789-abcd');await p.locator('#impact-li-paste').fill('1,234 impressions, 12 reactions, 3 comments, 2 reposts, 0 saves');await p.locator('#impact-li-fill').click();await expect(form.locator('[name=views]')).toHaveValue('1234');await expect(form.locator('[name=saves]')).toHaveValue('0');await form.locator('[name=original]').check();await form.locator('[name=has_video]').check();await form.getByRole('button',{name:'save LinkedIn video →'}).click();await expect(p.locator('#impact-linkedin-message')).toContainText('Saved. Original video');await expect(p.locator('#impact-admin-posts tr')).toHaveCount(6);
+  // Clearing an input must preserve a measured value rather than zero it out.
+  await form.locator('[name=views]').fill('');await form.locator('[name=likes]').fill('13');await form.getByRole('button',{name:'save LinkedIn video →'}).click();await expect(p.locator('#impact-admin-posts')).toContainText('1234');
+  await p.getByText('LinkedIn bulk import · manual',{exact:true}).click();const bulk=p.locator('#impact-linkedin');await bulk.locator('[name=text]').fill('https://www.linkedin.com/posts/francisco-gabriel-van-langenhove_activity-1234567890123456790-abcd — 0 impressions, 0 reactions, 0 comments, 0 reposts, 0 saves');await bulk.locator('[name=original]').check();await bulk.locator('[name=has_video]').check();await bulk.getByRole('button').click();await expect(p.locator('#impact-message')).toHaveText('Imported 1 LinkedIn posts.');await p.locator('#impact-archives').check();await expect(p.locator('#impact-message')).toHaveText('Twitch setting saved.');
+  assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+  await p.goto(origin+'/compound/impact/?platform=linkedin');await expect(p.locator('.impact-post')).toHaveCount(2);await expect(p.locator('#list-count')).toContainText('2 published posts');await expect(p.locator('#impact-totals')).toHaveText('1,234reported views / impressions18engagements2published videos1,317viral score');await expect(p.locator('.impact-post').first()).toContainText('self-reported (manual)');await expect(p.locator('#account')).toHaveValue('');await expect(p.locator('.impact-post').first()).toContainText('original · video');assert.equal(await p.locator('#post-list').textContent().then(s=>s.includes('99,999')),false);
+  await p.locator('#platform').selectOption('tt');await p.locator('#account').selectOption('gabinho_bjj');await expect(p.locator('.impact-post')).toHaveCount(1);await expect(p.locator('#impact-totals')).toHaveText('0reported views107engagements1published videos361score (partial)');assert.equal(new URL(p.url()).searchParams.get('platform'),'tiktok');assert.equal(new URL(p.url()).searchParams.get('account'),'gabinho_bjj');await expect(p.locator('.impact-post')).toContainText('Fixture <cut>');assert.equal(await p.locator('.impact-post cut').count(),0);await expect(p.locator('.post-numbers')).toContainText('—shares—saves361score (partial)');await p.reload();await expect(p.locator('#account')).toHaveValue('gabinho_bjj');await expect(p.locator('.impact-post')).toHaveCount(1);
+  await p.locator('.formula summary').click();await expect(p.locator('#formula')).toHaveText('views × 1 + likes × 3 + comments × 8 + shares × 10 + saves × 5 = viral score');assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+  await mkdir('test-results/rust',{recursive:true});await p.locator('#leaderboard').screenshot({path:`test-results/rust/impact-api-${width}.png`});
+  await p.locator('#platform').selectOption('yt');await expect(p.locator('.impact-post')).toHaveCount(1);await expect(p.locator('[title="not exposed by YouTube"]')).toContainText('n/asaves');
+  await p.locator('#platform').selectOption('x');await expect(p.locator('.impact-post')).toHaveCount(0);await expect(p.locator('#impact-totals')).toHaveText('0reported views0engagements0published videos0viral score');
+  await p.locator('#platform').selectOption('');await expect(p.locator('.impact-post')).toHaveCount(5);await expect(p.locator('#account-field')).toBeHidden();await expect(p.locator('#impact-totals')).toContainText('2,534');
+  // A failed refresh retains the previous figures and provides a working retry.
+  await p.route('**/api/compound-v2?impact=1',r=>r.fulfill({status:503,contentType:'application/json',body:'{}'}));await p.locator('#retry').evaluate(e=>{e.hidden=false;e.click()});await expect(p.locator('#data-status')).toHaveText('Update unavailable. Showing the last loaded figures.');await expect(p.locator('.impact-post')).toHaveCount(5);await p.unroute('**/api/compound-v2?impact=1');await p.locator('#retry').click();await expect(p.locator('#retry')).toBeHidden();assert.deepEqual(errors,[]);assert.deepEqual(apiErrors,[]);await context.close();
+  console.log(`PASS: ${width}px Impact admin login/import/update/bulk/settings → original-video-only scores; LinkedIn and TikTok account URLs, zero/unknown/partial/n/a, XSS, retry retains data; unchanged UI on isolated Rust API.`);
+ }
+}finally{await browser.close();await runtime.close();}

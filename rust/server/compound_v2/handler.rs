@@ -136,10 +136,7 @@ async fn inner(
         return crate::interviews::handler::handle(state, method, headers, q, body, context).await;
     }
     if q["impact"] == "1" {
-        return Ok(error(
-            StatusCode::NOT_IMPLEMENTED,
-            "This Compound subhandler has not migrated yet.",
-        ));
+        return crate::impact::handler::handle(state, method, headers, q, body, context).await;
     }
     let owner = if method == Method::POST
         || ["reportJob", "report", "private", "session"]
