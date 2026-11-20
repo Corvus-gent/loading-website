@@ -1,0 +1,2135 @@
+{
+  "labPass": false,
+  "productionReady": false,
+  "problems": [
+    "Exploratory sample: at least 20 repetitions per condition are required for a release comparison.",
+    "Regression: desktop|/|cold-context transfer p50 1775032.0 > 561054.9",
+    "Regression: desktop|/|cold-context transfer p95 1775032.0 > 561054.9",
+    "Regression: desktop|/|cold-context actionNextFrame p95 46.2 > 42.8",
+    "Regression: desktop|/|warm actionNextFrame p95 76.3 > 45.7",
+    "Regression: desktop|/map/|cold-context ready p50 292.2 > 263.8",
+    "Regression: desktop|/map/|cold-context ready p95 301.8 > 273.5",
+    "Regression: desktop|/map/|cold-context transfer p50 1786121.0 > 573551.0",
+    "Regression: desktop|/map/|cold-context transfer p95 1786121.0 > 573551.0",
+    "Regression: desktop|/cv/tech/|cold-context transfer p50 1370376.0 > 131491.0",
+    "Regression: desktop|/cv/tech/|cold-context transfer p95 1370376.0 > 131491.0",
+    "Regression: mobile|/|cold-context ready p50 9530.7 > 1622.7",
+    "Regression: mobile|/|cold-context ready p95 9549.4 > 1645.1",
+    "Regression: mobile|/|cold-context longTaskMax p50 129.0 > 50.0",
+    "Regression: mobile|/|cold-context longTaskMax p95 130.0 > 50.0",
+    "Regression: mobile|/|cold-context transfer p50 1749678.0 > 534433.2",
+    "Regression: mobile|/|cold-context transfer p95 1749678.0 > 534433.2",
+    "Regression: mobile|/|cold-context actionNextFrame p50 144.2 > 125.7",
+    "Regression: mobile|/|cold-context actionNextFrame p95 206.8 > 126.0",
+    "Regression: mobile|/|warm ready p50 471.2 > 440.8",
+    "Regression: mobile|/|warm ready p95 749.4 > 441.8",
+    "Regression: mobile|/|warm longTaskMax p95 57.0 > 50.0",
+    "Regression: mobile|/|warm actionNextFrame p50 103.7 > 85.6",
+    "Regression: mobile|/|warm actionNextFrame p95 103.8 > 86.9",
+    "Regression: mobile|/map/|cold-context ready p50 10145.6 > 2327.1",
+    "Regression: mobile|/map/|cold-context ready p95 10146.1 > 2338.5",
+    "Regression: mobile|/map/|cold-context transfer p50 1754255.0 > 540091.7",
+    "Regression: mobile|/map/|cold-context transfer p95 1754255.0 > 540091.7",
+    "Regression: mobile|/map/|warm ready p50 1185.9 > 1077.7",
+    "Regression: mobile|/map/|warm ready p95 1244.4 > 1078.6",
+    "Regression: mobile|/map/|warm longTaskMax p50 113.0 > 50.0",
+    "Regression: mobile|/map/|warm longTaskMax p95 116.0 > 50.0",
+    "Regression: mobile|/cv/tech/|cold-context ready p50 7233.3 > 879.6",
+    "Regression: mobile|/cv/tech/|cold-context ready p95 7236.6 > 889.2",
+    "Regression: mobile|/cv/tech/|cold-context longTaskMax p50 92.0 > 50.0",
+    "Regression: mobile|/cv/tech/|cold-context longTaskMax p95 97.0 > 50.0",
+    "Regression: mobile|/cv/tech/|cold-context transfer p50 1328858.0 > 88079.0",
+    "Regression: mobile|/cv/tech/|cold-context transfer p95 1328858.0 > 88079.0"
+  ],
+  "comparisons": [
+    {
+      "key": "desktop|/|cold-context",
+      "n": 3,
+      "deltas": {
+        "ttfb": {
+          "p50": {
+            "before": 1.100000023841858,
+            "after": 0.800000011920929,
+            "delta": -0.30000001192092896,
+            "percent": -27.27272776532763
+          },
+          "p95": {
+            "before": 1.899999976158142,
+            "after": 0.8999999761581421,
+            "delta": -1,
+            "percent": -52.63157960780771
+          }
+        },
+        "fcp": {
+          "p50": {
+            "before": 68,
+            "after": 60,
+            "delta": -8,
+            "percent": -11.76470588235294
+          },
+          "p95": {
+            "before": 96,
+            "after": 72,
+            "delta": -24,
+            "percent": -25
+          }
+        },
+        "lcp": {
+          "p50": {
+            "before": 68,
+            "after": 60,
+            "delta": -8,
+            "percent": -11.76470588235294
+          },
+          "p95": {
+            "before": 96,
+            "after": 72,
+            "delta": -24,
+            "percent": -25
+          }
+        },
+        "ready": {
+          "p50": {
+            "before": 77.40000003576279,
+            "after": 125,
+            "delta": 47.59999996423721,
+            "percent": 61.49870793571519
+          },
+          "p95": {
+            "before": 96.59999996423721,
+            "after": 128.0999999642372,
+            "delta": 31.5,
+            "percent": 32.60869566424615
+          }
+        },
+        "cls": {
+          "p50": {
+            "before": 0.05011157407407408,
+            "after": 0.05011157407407408,
+            "delta": 0,
+            "percent": 0
+          },
+          "p95": {
+            "before": 0.05216404320987655,
+            "after": 0.05011157407407408,
+            "delta": -0.0020524691358024677,
+            "percent": -3.9346435005901936
+          }
+        },
+        "longTaskMax": {
+          "p50": {
+            "before": 0,
+            "after": 0,
+            "delta": 0,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 0,
+            "delta": 0,
+            "percent": null
+          }
+        },
+        "longTaskTotal": {
+          "p50": {
+            "before": 0,
+            "after": 0,
+            "delta": 0,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 0,
+            "delta": 0,
+            "percent": null
+          }
+        },
+        "transfer": {
+          "p50": {
+            "before": 534338,
+            "after": 1775032,
+            "delta": 1240694,
+            "percent": 232.19273194120572
+          },
+          "p95": {
+            "before": 534338,
+            "after": 1775032,
+            "delta": 1240694,
+            "percent": 232.19273194120572
+          }
+        },
+        "jsEncoded": {
+          "p50": {
+            "before": 38502,
+            "after": 18730,
+            "delta": -19772,
+            "percent": -51.3531764583658
+          },
+          "p95": {
+            "before": 38502,
+            "after": 18730,
+            "delta": -19772,
+            "percent": -51.3531764583658
+          }
+        },
+        "wasmEncoded": {
+          "p50": {
+            "before": 0,
+            "after": 1265266,
+            "delta": 1265266,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 1265266,
+            "delta": 1265266,
+            "percent": null
+          }
+        },
+        "requests": {
+          "p50": {
+            "before": 35,
+            "after": 19,
+            "delta": -16,
+            "percent": -45.714285714285715
+          },
+          "p95": {
+            "before": 35,
+            "after": 19,
+            "delta": -16,
+            "percent": -45.714285714285715
+          }
+        },
+        "actionNextFrame": {
+          "p50": {
+            "before": 24.69999998807907,
+            "after": 31.899999976158142,
+            "delta": 7.199999988079071,
+            "percent": 29.149797536655864
+          },
+          "p95": {
+            "before": 26.80000001192093,
+            "after": 46.200000047683716,
+            "delta": 19.400000035762787,
+            "percent": 72.38805980273678
+          }
+        }
+      }
+    },
+    {
+      "key": "desktop|/|warm",
+      "n": 3,
+      "deltas": {
+        "ttfb": {
+          "p50": {
+            "before": 0.8999999761581421,
+            "after": 1.300000011920929,
+            "delta": 0.40000003576278687,
+            "percent": 44.44444959546326
+          },
+          "p95": {
+            "before": 1.2999999523162842,
+            "after": 1.7000000476837158,
+            "delta": 0.40000009536743164,
+            "percent": 30.76923923379602
+          }
+        },
+        "fcp": {
+          "p50": {
+            "before": 24,
+            "after": 24,
+            "delta": 0,
+            "percent": 0
+          },
+          "p95": {
+            "before": 32,
+            "after": 24,
+            "delta": -8,
+            "percent": -25
+          }
+        },
+        "lcp": {
+          "p50": {
+            "before": 24,
+            "after": 24,
+            "delta": 0,
+            "percent": 0
+          },
+          "p95": {
+            "before": 32,
+            "after": 24,
+            "delta": -8,
+            "percent": -25
+          }
+        },
+        "ready": {
+          "p50": {
+            "before": 19.19999998807907,
+            "after": 45.40000003576279,
+            "delta": 26.200000047683716,
+            "percent": 136.4583336664105
+          },
+          "p95": {
+            "before": 22.69999998807907,
+            "after": 47.30000001192093,
+            "delta": 24.600000023841858,
+            "percent": 108.3700442148043
+          }
+        },
+        "cls": {
+          "p50": {
+            "before": 0.05011157407407408,
+            "after": 0.05011157407407408,
+            "delta": 0,
+            "percent": 0
+          },
+          "p95": {
+            "before": 0.05011157407407408,
+            "after": 0.05011157407407408,
+            "delta": 0,
+            "percent": 0
+          }
+        },
+        "longTaskMax": {
+          "p50": {
+            "before": 0,
+            "after": 0,
+            "delta": 0,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 0,
+            "delta": 0,
+            "percent": null
+          }
+        },
+        "longTaskTotal": {
+          "p50": {
+            "before": 0,
+            "after": 0,
+            "delta": 0,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 0,
+            "delta": 0,
+            "percent": null
+          }
+        },
+        "transfer": {
+          "p50": {
+            "before": 2110,
+            "after": 2110,
+            "delta": 0,
+            "percent": 0
+          },
+          "p95": {
+            "before": 2110,
+            "after": 2110,
+            "delta": 0,
+            "percent": 0
+          }
+        },
+        "jsEncoded": {
+          "p50": {
+            "before": 38502,
+            "after": 18730,
+            "delta": -19772,
+            "percent": -51.3531764583658
+          },
+          "p95": {
+            "before": 38502,
+            "after": 18730,
+            "delta": -19772,
+            "percent": -51.3531764583658
+          }
+        },
+        "wasmEncoded": {
+          "p50": {
+            "before": 0,
+            "after": 1265266,
+            "delta": 1265266,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 1265266,
+            "delta": 1265266,
+            "percent": null
+          }
+        },
+        "requests": {
+          "p50": {
+            "before": 35,
+            "after": 19,
+            "delta": -16,
+            "percent": -45.714285714285715
+          },
+          "p95": {
+            "before": 35,
+            "after": 19,
+            "delta": -16,
+            "percent": -45.714285714285715
+          }
+        },
+        "actionNextFrame": {
+          "p50": {
+            "before": 25.600000023841858,
+            "after": 27.80000001192093,
+            "delta": 2.199999988079071,
+            "percent": 8.593749945430318
+          },
+          "p95": {
+            "before": 29.69999998807907,
+            "after": 76.30000001192093,
+            "delta": 46.60000002384186,
+            "percent": 156.90235704560968
+          }
+        }
+      }
+    },
+    {
+      "key": "desktop|/map/|cold-context",
+      "n": 3,
+      "deltas": {
+        "ttfb": {
+          "p50": {
+            "before": 0.5,
+            "after": 0.5,
+            "delta": 0,
+            "percent": 0
+          },
+          "p95": {
+            "before": 0.5,
+            "after": 0.699999988079071,
+            "delta": 0.19999998807907104,
+            "percent": 39.99999761581421
+          }
+        },
+        "fcp": {
+          "p50": {
+            "before": 64,
+            "after": 60,
+            "delta": -4,
+            "percent": -6.25
+          },
+          "p95": {
+            "before": 72,
+            "after": 60,
+            "delta": -12,
+            "percent": -16.666666666666664
+          }
+        },
+        "lcp": {
+          "p50": {
+            "before": 64,
+            "after": 60,
+            "delta": -4,
+            "percent": -6.25
+          },
+          "p95": {
+            "before": 72,
+            "after": 60,
+            "delta": -12,
+            "percent": -16.666666666666664
+          }
+        },
+        "ready": {
+          "p50": {
+            "before": 213.80000001192093,
+            "after": 292.19999998807907,
+            "delta": 78.39999997615814,
+            "percent": 36.66978483245405
+          },
+          "p95": {
+            "before": 223.5,
+            "after": 301.7999999523163,
+            "delta": 78.29999995231628,
+            "percent": 35.03355702564487
+          }
+        },
+        "cls": {
+          "p50": {
+            "before": 0.019416666666666665,
+            "after": 0.019416666666666665,
+            "delta": 0,
+            "percent": 0
+          },
+          "p95": {
+            "before": 0.019416666666666665,
+            "after": 0.019416666666666665,
+            "delta": 0,
+            "percent": 0
+          }
+        },
+        "longTaskMax": {
+          "p50": {
+            "before": 0,
+            "after": 0,
+            "delta": 0,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 0,
+            "delta": 0,
+            "percent": null
+          }
+        },
+        "longTaskTotal": {
+          "p50": {
+            "before": 0,
+            "after": 0,
+            "delta": 0,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 0,
+            "delta": 0,
+            "percent": null
+          }
+        },
+        "transfer": {
+          "p50": {
+            "before": 546239,
+            "after": 1786121,
+            "delta": 1239882,
+            "percent": 226.9852573690271
+          },
+          "p95": {
+            "before": 546239,
+            "after": 1786121,
+            "delta": 1239882,
+            "percent": 226.9852573690271
+          }
+        },
+        "jsEncoded": {
+          "p50": {
+            "before": 39316,
+            "after": 18732,
+            "delta": -20584,
+            "percent": -52.35527520602299
+          },
+          "p95": {
+            "before": 39316,
+            "after": 18732,
+            "delta": -20584,
+            "percent": -52.35527520602299
+          }
+        },
+        "wasmEncoded": {
+          "p50": {
+            "before": 0,
+            "after": 1265266,
+            "delta": 1265266,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 1265266,
+            "delta": 1265266,
+            "percent": null
+          }
+        },
+        "requests": {
+          "p50": {
+            "before": 41,
+            "after": 25,
+            "delta": -16,
+            "percent": -39.02439024390244
+          },
+          "p95": {
+            "before": 41,
+            "after": 25,
+            "delta": -16,
+            "percent": -39.02439024390244
+          }
+        },
+        "actionNextFrame": {
+          "p50": {
+            "before": 12.099999964237213,
+            "after": 14,
+            "delta": 1.9000000357627869,
+            "percent": 15.70247968081348
+          },
+          "p95": {
+            "before": 21.799999952316284,
+            "after": 22.899999976158142,
+            "delta": 1.100000023841858,
+            "percent": 5.045871680036316
+          }
+        }
+      }
+    },
+    {
+      "key": "desktop|/map/|warm",
+      "n": 3,
+      "deltas": {
+        "ttfb": {
+          "p50": {
+            "before": 0.800000011920929,
+            "after": 0.7999999523162842,
+            "delta": -5.960464477539063e-8,
+            "percent": -0.000007450580485901527
+          },
+          "p95": {
+            "before": 1,
+            "after": 0.800000011920929,
+            "delta": -0.19999998807907104,
+            "percent": -19.999998807907104
+          }
+        },
+        "fcp": {
+          "p50": {
+            "before": 40,
+            "after": 40,
+            "delta": 0,
+            "percent": 0
+          },
+          "p95": {
+            "before": 44,
+            "after": 44,
+            "delta": 0,
+            "percent": 0
+          }
+        },
+        "lcp": {
+          "p50": {
+            "before": 40,
+            "after": 40,
+            "delta": 0,
+            "percent": 0
+          },
+          "p95": {
+            "before": 44,
+            "after": 44,
+            "delta": 0,
+            "percent": 0
+          }
+        },
+        "ready": {
+          "p50": {
+            "before": 197.69999998807907,
+            "after": 234.5,
+            "delta": 36.80000001192093,
+            "percent": 18.614061716813303
+          },
+          "p95": {
+            "before": 206.9000000357628,
+            "after": 237,
+            "delta": 30.099999964237213,
+            "percent": 14.548090845352544
+          }
+        },
+        "cls": {
+          "p50": {
+            "before": 0.019416666666666665,
+            "after": 0.019416666666666665,
+            "delta": 0,
+            "percent": 0
+          },
+          "p95": {
+            "before": 0.019416666666666665,
+            "after": 0.019416666666666665,
+            "delta": 0,
+            "percent": 0
+          }
+        },
+        "longTaskMax": {
+          "p50": {
+            "before": 0,
+            "after": 0,
+            "delta": 0,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 0,
+            "delta": 0,
+            "percent": null
+          }
+        },
+        "longTaskTotal": {
+          "p50": {
+            "before": 0,
+            "after": 0,
+            "delta": 0,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 0,
+            "delta": 0,
+            "percent": null
+          }
+        },
+        "transfer": {
+          "p50": {
+            "before": 10732,
+            "after": 10732,
+            "delta": 0,
+            "percent": 0
+          },
+          "p95": {
+            "before": 10732,
+            "after": 10732,
+            "delta": 0,
+            "percent": 0
+          }
+        },
+        "jsEncoded": {
+          "p50": {
+            "before": 39316,
+            "after": 18732,
+            "delta": -20584,
+            "percent": -52.35527520602299
+          },
+          "p95": {
+            "before": 39316,
+            "after": 18732,
+            "delta": -20584,
+            "percent": -52.35527520602299
+          }
+        },
+        "wasmEncoded": {
+          "p50": {
+            "before": 0,
+            "after": 1265266,
+            "delta": 1265266,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 1265266,
+            "delta": 1265266,
+            "percent": null
+          }
+        },
+        "requests": {
+          "p50": {
+            "before": 41,
+            "after": 25,
+            "delta": -16,
+            "percent": -39.02439024390244
+          },
+          "p95": {
+            "before": 41,
+            "after": 25,
+            "delta": -16,
+            "percent": -39.02439024390244
+          }
+        },
+        "actionNextFrame": {
+          "p50": {
+            "before": 12.600000023841858,
+            "after": 13.100000023841858,
+            "delta": 0.5,
+            "percent": 3.9682539607451948
+          },
+          "p95": {
+            "before": 13.099999964237213,
+            "after": 13.800000011920929,
+            "delta": 0.7000000476837158,
+            "percent": 5.34351182896721
+          }
+        }
+      }
+    },
+    {
+      "key": "desktop|/cv/tech/|cold-context",
+      "n": 3,
+      "deltas": {
+        "ttfb": {
+          "p50": {
+            "before": 0.5,
+            "after": 0.699999988079071,
+            "delta": 0.19999998807907104,
+            "percent": 39.99999761581421
+          },
+          "p95": {
+            "before": 0.6000000238418579,
+            "after": 0.9000000357627869,
+            "delta": 0.30000001192092896,
+            "percent": 50
+          }
+        },
+        "fcp": {
+          "p50": {
+            "before": 68,
+            "after": 64,
+            "delta": -4,
+            "percent": -5.88235294117647
+          },
+          "p95": {
+            "before": 68,
+            "after": 64,
+            "delta": -4,
+            "percent": -5.88235294117647
+          }
+        },
+        "lcp": {
+          "p50": {
+            "before": 68,
+            "after": 64,
+            "delta": -4,
+            "percent": -5.88235294117647
+          },
+          "p95": {
+            "before": 68,
+            "after": 64,
+            "delta": -4,
+            "percent": -5.88235294117647
+          }
+        },
+        "ready": {
+          "p50": {
+            "before": 75.39999997615814,
+            "after": 93,
+            "delta": 17.600000023841858,
+            "percent": 23.34217510531441
+          },
+          "p95": {
+            "before": 78.30000001192093,
+            "after": 100.60000002384186,
+            "delta": 22.30000001192093,
+            "percent": 28.48020435316197
+          }
+        },
+        "cls": {
+          "p50": {
+            "before": 0.01840277777777778,
+            "after": 0.01840277777777778,
+            "delta": 0,
+            "percent": 0
+          },
+          "p95": {
+            "before": 0.01840277777777778,
+            "after": 0.01840277777777778,
+            "delta": 0,
+            "percent": 0
+          }
+        },
+        "longTaskMax": {
+          "p50": {
+            "before": 0,
+            "after": 0,
+            "delta": 0,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 0,
+            "delta": 0,
+            "percent": null
+          }
+        },
+        "longTaskTotal": {
+          "p50": {
+            "before": 0,
+            "after": 0,
+            "delta": 0,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 0,
+            "delta": 0,
+            "percent": null
+          }
+        },
+        "transfer": {
+          "p50": {
+            "before": 115107,
+            "after": 1370376,
+            "delta": 1255269,
+            "percent": 1090.5235997810732
+          },
+          "p95": {
+            "before": 115107,
+            "after": 1370376,
+            "delta": 1255269,
+            "percent": 1090.5235997810732
+          }
+        },
+        "jsEncoded": {
+          "p50": {
+            "before": 25978,
+            "after": 18681,
+            "delta": -7297,
+            "percent": -28.089152359688967
+          },
+          "p95": {
+            "before": 25978,
+            "after": 18681,
+            "delta": -7297,
+            "percent": -28.089152359688967
+          }
+        },
+        "wasmEncoded": {
+          "p50": {
+            "before": 0,
+            "after": 1265266,
+            "delta": 1265266,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 1265266,
+            "delta": 1265266,
+            "percent": null
+          }
+        },
+        "requests": {
+          "p50": {
+            "before": 23,
+            "after": 14,
+            "delta": -9,
+            "percent": -39.130434782608695
+          },
+          "p95": {
+            "before": 23,
+            "after": 14,
+            "delta": -9,
+            "percent": -39.130434782608695
+          }
+        },
+        "actionNextFrame": {
+          "p50": {
+            "before": 8.100000023841858,
+            "after": 8.200000047683716,
+            "delta": 0.10000002384185791,
+            "percent": 1.2345681919446163
+          },
+          "p95": {
+            "before": 12,
+            "after": 16.69999998807907,
+            "delta": 4.699999988079071,
+            "percent": 39.16666656732559
+          }
+        }
+      }
+    },
+    {
+      "key": "desktop|/cv/tech/|warm",
+      "n": 3,
+      "deltas": {
+        "ttfb": {
+          "p50": {
+            "before": 1.5,
+            "after": 1.399999976158142,
+            "delta": -0.10000002384185791,
+            "percent": -6.66666825612386
+          },
+          "p95": {
+            "before": 2.300000011920929,
+            "after": 1.4000000357627869,
+            "delta": -0.8999999761581421,
+            "percent": -39.13043354319265
+          }
+        },
+        "fcp": {
+          "p50": {
+            "before": 28,
+            "after": 28,
+            "delta": 0,
+            "percent": 0
+          },
+          "p95": {
+            "before": 28,
+            "after": 32,
+            "delta": 4,
+            "percent": 14.285714285714285
+          }
+        },
+        "lcp": {
+          "p50": {
+            "before": 28,
+            "after": 28,
+            "delta": 0,
+            "percent": 0
+          },
+          "p95": {
+            "before": 28,
+            "after": 32,
+            "delta": 4,
+            "percent": 14.285714285714285
+          }
+        },
+        "ready": {
+          "p50": {
+            "before": 21,
+            "after": 44.59999996423721,
+            "delta": 23.599999964237213,
+            "percent": 112.3809522106534
+          },
+          "p95": {
+            "before": 21,
+            "after": 46.80000001192093,
+            "delta": 25.80000001192093,
+            "percent": 122.85714291390919
+          }
+        },
+        "cls": {
+          "p50": {
+            "before": 0.01840277777777778,
+            "after": 0.01840277777777778,
+            "delta": 0,
+            "percent": 0
+          },
+          "p95": {
+            "before": 0.01840277777777778,
+            "after": 0.01840277777777778,
+            "delta": 0,
+            "percent": 0
+          }
+        },
+        "longTaskMax": {
+          "p50": {
+            "before": 0,
+            "after": 0,
+            "delta": 0,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 0,
+            "delta": 0,
+            "percent": null
+          }
+        },
+        "longTaskTotal": {
+          "p50": {
+            "before": 0,
+            "after": 0,
+            "delta": 0,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 0,
+            "delta": 0,
+            "percent": null
+          }
+        },
+        "transfer": {
+          "p50": {
+            "before": 5404,
+            "after": 5404,
+            "delta": 0,
+            "percent": 0
+          },
+          "p95": {
+            "before": 5404,
+            "after": 5404,
+            "delta": 0,
+            "percent": 0
+          }
+        },
+        "jsEncoded": {
+          "p50": {
+            "before": 25978,
+            "after": 18681,
+            "delta": -7297,
+            "percent": -28.089152359688967
+          },
+          "p95": {
+            "before": 25978,
+            "after": 18681,
+            "delta": -7297,
+            "percent": -28.089152359688967
+          }
+        },
+        "wasmEncoded": {
+          "p50": {
+            "before": 0,
+            "after": 1265266,
+            "delta": 1265266,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 1265266,
+            "delta": 1265266,
+            "percent": null
+          }
+        },
+        "requests": {
+          "p50": {
+            "before": 23,
+            "after": 14,
+            "delta": -9,
+            "percent": -39.130434782608695
+          },
+          "p95": {
+            "before": 23,
+            "after": 14,
+            "delta": -9,
+            "percent": -39.130434782608695
+          }
+        },
+        "actionNextFrame": {
+          "p50": {
+            "before": 2.699999988079071,
+            "after": 3.900000035762787,
+            "delta": 1.2000000476837158,
+            "percent": 44.444446406737285
+          },
+          "p95": {
+            "before": 4,
+            "after": 5.600000023841858,
+            "delta": 1.600000023841858,
+            "percent": 40.00000059604645
+          }
+        }
+      }
+    },
+    {
+      "key": "mobile|/|cold-context",
+      "n": 3,
+      "deltas": {
+        "ttfb": {
+          "p50": {
+            "before": 0.5,
+            "after": 0.800000011920929,
+            "delta": 0.30000001192092896,
+            "percent": 60.00000238418579
+          },
+          "p95": {
+            "before": 0.7000000476837158,
+            "after": 1.399999976158142,
+            "delta": 0.6999999284744263,
+            "percent": 99.99998297010265
+          }
+        },
+        "fcp": {
+          "p50": {
+            "before": 728,
+            "after": 724,
+            "delta": -4,
+            "percent": -0.5494505494505495
+          },
+          "p95": {
+            "before": 756,
+            "after": 736,
+            "delta": -20,
+            "percent": -2.6455026455026456
+          }
+        },
+        "lcp": {
+          "p50": {
+            "before": 728,
+            "after": 724,
+            "delta": -4,
+            "percent": -0.5494505494505495
+          },
+          "p95": {
+            "before": 756,
+            "after": 736,
+            "delta": -20,
+            "percent": -2.6455026455026456
+          }
+        },
+        "ready": {
+          "p50": {
+            "before": 1475.199999988079,
+            "after": 9530.699999988079,
+            "delta": 8055.5,
+            "percent": 546.0615509805515
+          },
+          "p95": {
+            "before": 1495.5,
+            "after": 9549.400000035763,
+            "delta": 8053.900000035763,
+            "percent": 538.5422935496999
+          }
+        },
+        "cls": {
+          "p50": {
+            "before": 0.04265402843601896,
+            "after": 0.04265402843601896,
+            "delta": 0,
+            "percent": 0
+          },
+          "p95": {
+            "before": 0.04265402843601896,
+            "after": 0.04265402843601896,
+            "delta": 0,
+            "percent": 0
+          }
+        },
+        "longTaskMax": {
+          "p50": {
+            "before": 0,
+            "after": 129,
+            "delta": 129,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 130,
+            "delta": 130,
+            "percent": null
+          }
+        },
+        "longTaskTotal": {
+          "p50": {
+            "before": 0,
+            "after": 197,
+            "delta": 197,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 201,
+            "delta": 201,
+            "percent": null
+          }
+        },
+        "transfer": {
+          "p50": {
+            "before": 508984,
+            "after": 1749678,
+            "delta": 1240694,
+            "percent": 243.75893937726923
+          },
+          "p95": {
+            "before": 508984,
+            "after": 1749678,
+            "delta": 1240694,
+            "percent": 243.75893937726923
+          }
+        },
+        "jsEncoded": {
+          "p50": {
+            "before": 38502,
+            "after": 18730,
+            "delta": -19772,
+            "percent": -51.3531764583658
+          },
+          "p95": {
+            "before": 38502,
+            "after": 18730,
+            "delta": -19772,
+            "percent": -51.3531764583658
+          }
+        },
+        "wasmEncoded": {
+          "p50": {
+            "before": 0,
+            "after": 1265266,
+            "delta": 1265266,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 1265266,
+            "delta": 1265266,
+            "percent": null
+          }
+        },
+        "requests": {
+          "p50": {
+            "before": 34,
+            "after": 18,
+            "delta": -16,
+            "percent": -47.05882352941176
+          },
+          "p95": {
+            "before": 34,
+            "after": 18,
+            "delta": -16,
+            "percent": -47.05882352941176
+          }
+        },
+        "actionNextFrame": {
+          "p50": {
+            "before": 109.69999998807907,
+            "after": 144.20000004768372,
+            "delta": 34.500000059604645,
+            "percent": 31.449407532683416
+          },
+          "p95": {
+            "before": 110,
+            "after": 206.79999995231628,
+            "delta": 96.79999995231628,
+            "percent": 87.99999995665117
+          }
+        }
+      }
+    },
+    {
+      "key": "mobile|/|warm",
+      "n": 3,
+      "deltas": {
+        "ttfb": {
+          "p50": {
+            "before": 0.6000000238418579,
+            "after": 0.7000000476837158,
+            "delta": 0.10000002384185791,
+            "percent": 16.66666997803569
+          },
+          "p95": {
+            "before": 1,
+            "after": 1.100000023841858,
+            "delta": 0.10000002384185791,
+            "percent": 10.000002384185791
+          }
+        },
+        "fcp": {
+          "p50": {
+            "before": 200,
+            "after": 196,
+            "delta": -4,
+            "percent": -2
+          },
+          "p95": {
+            "before": 216,
+            "after": 208,
+            "delta": -8,
+            "percent": -3.7037037037037033
+          }
+        },
+        "lcp": {
+          "p50": {
+            "before": 200,
+            "after": 196,
+            "delta": -4,
+            "percent": -2
+          },
+          "p95": {
+            "before": 216,
+            "after": 208,
+            "delta": -8,
+            "percent": -3.7037037037037033
+          }
+        },
+        "ready": {
+          "p50": {
+            "before": 390.80000001192093,
+            "after": 471.2000000476837,
+            "delta": 80.40000003576279,
+            "percent": 20.573183222443774
+          },
+          "p95": {
+            "before": 391.80000001192093,
+            "after": 749.3999999761581,
+            "delta": 357.5999999642372,
+            "percent": 91.27105664965718
+          }
+        },
+        "cls": {
+          "p50": {
+            "before": 0,
+            "after": 0,
+            "delta": 0,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 0,
+            "delta": 0,
+            "percent": null
+          }
+        },
+        "longTaskMax": {
+          "p50": {
+            "before": 0,
+            "after": 0,
+            "delta": 0,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 57,
+            "delta": 57,
+            "percent": null
+          }
+        },
+        "longTaskTotal": {
+          "p50": {
+            "before": 0,
+            "after": 0,
+            "delta": 0,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 57,
+            "delta": 57,
+            "percent": null
+          }
+        },
+        "transfer": {
+          "p50": {
+            "before": 27464,
+            "after": 27464,
+            "delta": 0,
+            "percent": 0
+          },
+          "p95": {
+            "before": 27464,
+            "after": 27464,
+            "delta": 0,
+            "percent": 0
+          }
+        },
+        "jsEncoded": {
+          "p50": {
+            "before": 38502,
+            "after": 18730,
+            "delta": -19772,
+            "percent": -51.3531764583658
+          },
+          "p95": {
+            "before": 38502,
+            "after": 18730,
+            "delta": -19772,
+            "percent": -51.3531764583658
+          }
+        },
+        "wasmEncoded": {
+          "p50": {
+            "before": 0,
+            "after": 1265266,
+            "delta": 1265266,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 1265266,
+            "delta": 1265266,
+            "percent": null
+          }
+        },
+        "requests": {
+          "p50": {
+            "before": 35,
+            "after": 19,
+            "delta": -16,
+            "percent": -45.714285714285715
+          },
+          "p95": {
+            "before": 35,
+            "after": 19,
+            "delta": -16,
+            "percent": -45.714285714285715
+          }
+        },
+        "actionNextFrame": {
+          "p50": {
+            "before": 69.59999996423721,
+            "after": 103.69999998807907,
+            "delta": 34.10000002384186,
+            "percent": 48.99425293299363
+          },
+          "p95": {
+            "before": 70.89999997615814,
+            "after": 103.80000001192093,
+            "delta": 32.90000003576279,
+            "percent": 46.40338511541074
+          }
+        }
+      }
+    },
+    {
+      "key": "mobile|/map/|cold-context",
+      "n": 3,
+      "deltas": {
+        "ttfb": {
+          "p50": {
+            "before": 0.5999999642372131,
+            "after": 0.699999988079071,
+            "delta": 0.10000002384185791,
+            "percent": 16.666671633720696
+          },
+          "p95": {
+            "before": 0.699999988079071,
+            "after": 1.5,
+            "delta": 0.800000011920929,
+            "percent": 114.28571793497831
+          }
+        },
+        "fcp": {
+          "p50": {
+            "before": 800,
+            "after": 796,
+            "delta": -4,
+            "percent": -0.5
+          },
+          "p95": {
+            "before": 860,
+            "after": 808,
+            "delta": -52,
+            "percent": -6.046511627906977
+          }
+        },
+        "lcp": {
+          "p50": {
+            "before": 800,
+            "after": 796,
+            "delta": -4,
+            "percent": -0.5
+          },
+          "p95": {
+            "before": 860,
+            "after": 808,
+            "delta": -52,
+            "percent": -6.046511627906977
+          }
+        },
+        "ready": {
+          "p50": {
+            "before": 2115.5,
+            "after": 10145.600000023842,
+            "delta": 8030.100000023842,
+            "percent": 379.5840226907985
+          },
+          "p95": {
+            "before": 2125.900000035763,
+            "after": 10146.100000023842,
+            "delta": 8020.199999988079,
+            "percent": 377.26139516690154
+          }
+        },
+        "cls": {
+          "p50": {
+            "before": 0.04265402843601896,
+            "after": 0.04265402843601896,
+            "delta": 0,
+            "percent": 0
+          },
+          "p95": {
+            "before": 0.04265402843601896,
+            "after": 0.04265402843601896,
+            "delta": 0,
+            "percent": 0
+          }
+        },
+        "longTaskMax": {
+          "p50": {
+            "before": 159,
+            "after": 207,
+            "delta": 48,
+            "percent": 30.18867924528302
+          },
+          "p95": {
+            "before": 201,
+            "after": 212,
+            "delta": 11,
+            "percent": 5.472636815920398
+          }
+        },
+        "longTaskTotal": {
+          "p50": {
+            "before": 232,
+            "after": 323,
+            "delta": 91,
+            "percent": 39.224137931034484
+          },
+          "p95": {
+            "before": 283,
+            "after": 338,
+            "delta": 55,
+            "percent": 19.434628975265017
+          }
+        },
+        "transfer": {
+          "p50": {
+            "before": 514373,
+            "after": 1754255,
+            "delta": 1239882,
+            "percent": 241.04725559078722
+          },
+          "p95": {
+            "before": 514373,
+            "after": 1754255,
+            "delta": 1239882,
+            "percent": 241.04725559078722
+          }
+        },
+        "jsEncoded": {
+          "p50": {
+            "before": 39316,
+            "after": 18732,
+            "delta": -20584,
+            "percent": -52.35527520602299
+          },
+          "p95": {
+            "before": 39316,
+            "after": 18732,
+            "delta": -20584,
+            "percent": -52.35527520602299
+          }
+        },
+        "wasmEncoded": {
+          "p50": {
+            "before": 0,
+            "after": 1265266,
+            "delta": 1265266,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 1265266,
+            "delta": 1265266,
+            "percent": null
+          }
+        },
+        "requests": {
+          "p50": {
+            "before": 39,
+            "after": 23,
+            "delta": -16,
+            "percent": -41.02564102564102
+          },
+          "p95": {
+            "before": 39,
+            "after": 23,
+            "delta": -16,
+            "percent": -41.02564102564102
+          }
+        },
+        "actionNextFrame": {
+          "p50": {
+            "before": 21.900000035762787,
+            "after": 21.80000001192093,
+            "delta": -0.10000002384185791,
+            "percent": -0.45662111268747707
+          },
+          "p95": {
+            "before": 24.5,
+            "after": 21.900000035762787,
+            "delta": -2.599999964237213,
+            "percent": -10.612244751988625
+          }
+        }
+      }
+    },
+    {
+      "key": "mobile|/map/|warm",
+      "n": 3,
+      "deltas": {
+        "ttfb": {
+          "p50": {
+            "before": 0.5999999642372131,
+            "after": 0.6000000238418579,
+            "delta": 5.960464477539063e-8,
+            "percent": 0.000009934108054684087
+          },
+          "p95": {
+            "before": 0.6000000238418579,
+            "after": 10,
+            "delta": 9.399999976158142,
+            "percent": 1566.6666004392862
+          }
+        },
+        "fcp": {
+          "p50": {
+            "before": 248,
+            "after": 224,
+            "delta": -24,
+            "percent": -9.67741935483871
+          },
+          "p95": {
+            "before": 252,
+            "after": 248,
+            "delta": -4,
+            "percent": -1.5873015873015872
+          }
+        },
+        "lcp": {
+          "p50": {
+            "before": 248,
+            "after": 224,
+            "delta": -24,
+            "percent": -9.67741935483871
+          },
+          "p95": {
+            "before": 252,
+            "after": 248,
+            "delta": -4,
+            "percent": -1.5873015873015872
+          }
+        },
+        "ready": {
+          "p50": {
+            "before": 979.6999999880791,
+            "after": 1185.9000000357628,
+            "delta": 206.20000004768372,
+            "percent": 21.047259370235047
+          },
+          "p95": {
+            "before": 980.5,
+            "after": 1244.3999999761581,
+            "delta": 263.89999997615814,
+            "percent": 26.914839365237953
+          }
+        },
+        "cls": {
+          "p50": {
+            "before": 0,
+            "after": 0,
+            "delta": 0,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 0,
+            "delta": 0,
+            "percent": null
+          }
+        },
+        "longTaskMax": {
+          "p50": {
+            "before": 0,
+            "after": 113,
+            "delta": 113,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 116,
+            "delta": 116,
+            "percent": null
+          }
+        },
+        "longTaskTotal": {
+          "p50": {
+            "before": 0,
+            "after": 167,
+            "delta": 167,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 169,
+            "delta": 169,
+            "percent": null
+          }
+        },
+        "transfer": {
+          "p50": {
+            "before": 36086,
+            "after": 36086,
+            "delta": 0,
+            "percent": 0
+          },
+          "p95": {
+            "before": 36086,
+            "after": 36086,
+            "delta": 0,
+            "percent": 0
+          }
+        },
+        "jsEncoded": {
+          "p50": {
+            "before": 39316,
+            "after": 18732,
+            "delta": -20584,
+            "percent": -52.35527520602299
+          },
+          "p95": {
+            "before": 39316,
+            "after": 18732,
+            "delta": -20584,
+            "percent": -52.35527520602299
+          }
+        },
+        "wasmEncoded": {
+          "p50": {
+            "before": 0,
+            "after": 1265266,
+            "delta": 1265266,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 1265266,
+            "delta": 1265266,
+            "percent": null
+          }
+        },
+        "requests": {
+          "p50": {
+            "before": 40,
+            "after": 24,
+            "delta": -16,
+            "percent": -40
+          },
+          "p95": {
+            "before": 40,
+            "after": 25,
+            "delta": -15,
+            "percent": -37.5
+          }
+        },
+        "actionNextFrame": {
+          "p50": {
+            "before": 22.599999964237213,
+            "after": 25.30000001192093,
+            "delta": 2.700000047683716,
+            "percent": 11.946902884762217
+          },
+          "p95": {
+            "before": 22.80000001192093,
+            "after": 25.900000035762787,
+            "delta": 3.100000023841858,
+            "percent": 13.596491325530833
+          }
+        }
+      }
+    },
+    {
+      "key": "mobile|/cv/tech/|cold-context",
+      "n": 3,
+      "deltas": {
+        "ttfb": {
+          "p50": {
+            "before": 0.699999988079071,
+            "after": 0.5,
+            "delta": -0.19999998807907104,
+            "percent": -28.571427355007227
+          },
+          "p95": {
+            "before": 0.800000011920929,
+            "after": 1.7999999523162842,
+            "delta": 0.9999999403953552,
+            "percent": 124.99999068677438
+          }
+        },
+        "fcp": {
+          "p50": {
+            "before": 548,
+            "after": 536,
+            "delta": -12,
+            "percent": -2.18978102189781
+          },
+          "p95": {
+            "before": 568,
+            "after": 580,
+            "delta": 12,
+            "percent": 2.112676056338028
+          }
+        },
+        "lcp": {
+          "p50": {
+            "before": 548,
+            "after": 536,
+            "delta": -12,
+            "percent": -2.18978102189781
+          },
+          "p95": {
+            "before": 568,
+            "after": 580,
+            "delta": 12,
+            "percent": 2.112676056338028
+          }
+        },
+        "ready": {
+          "p50": {
+            "before": 799.5999999642372,
+            "after": 7233.299999952316,
+            "delta": 6433.699999988079,
+            "percent": 804.614807438198
+          },
+          "p95": {
+            "before": 808.3999999761581,
+            "after": 7236.600000023842,
+            "delta": 6428.200000047684,
+            "percent": 795.175655645382
+          }
+        },
+        "cls": {
+          "p50": {
+            "before": 0,
+            "after": 0.04265402843601896,
+            "delta": 0.04265402843601896,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 0.04265402843601896,
+            "delta": 0.04265402843601896,
+            "percent": null
+          }
+        },
+        "longTaskMax": {
+          "p50": {
+            "before": 0,
+            "after": 92,
+            "delta": 92,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 97,
+            "delta": 97,
+            "percent": null
+          }
+        },
+        "longTaskTotal": {
+          "p50": {
+            "before": 0,
+            "after": 92,
+            "delta": 92,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 97,
+            "delta": 97,
+            "percent": null
+          }
+        },
+        "transfer": {
+          "p50": {
+            "before": 71695,
+            "after": 1328858,
+            "delta": 1257163,
+            "percent": 1753.487690912895
+          },
+          "p95": {
+            "before": 71695,
+            "after": 1328858,
+            "delta": 1257163,
+            "percent": 1753.487690912895
+          }
+        },
+        "jsEncoded": {
+          "p50": {
+            "before": 24684,
+            "after": 18681,
+            "delta": -6003,
+            "percent": -24.319397180359747
+          },
+          "p95": {
+            "before": 24684,
+            "after": 18681,
+            "delta": -6003,
+            "percent": -24.319397180359747
+          }
+        },
+        "wasmEncoded": {
+          "p50": {
+            "before": 0,
+            "after": 1265266,
+            "delta": 1265266,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 1265266,
+            "delta": 1265266,
+            "percent": null
+          }
+        },
+        "requests": {
+          "p50": {
+            "before": 19,
+            "after": 12,
+            "delta": -7,
+            "percent": -36.84210526315789
+          },
+          "p95": {
+            "before": 19,
+            "after": 12,
+            "delta": -7,
+            "percent": -36.84210526315789
+          }
+        },
+        "actionNextFrame": {
+          "p50": {
+            "before": 15.899999976158142,
+            "after": 6.399999976158142,
+            "delta": -9.5,
+            "percent": -59.74842776254802
+          },
+          "p95": {
+            "before": 17.5,
+            "after": 13.600000023841858,
+            "delta": -3.899999976158142,
+            "percent": -22.285714149475098
+          }
+        }
+      }
+    },
+    {
+      "key": "mobile|/cv/tech/|warm",
+      "n": 3,
+      "deltas": {
+        "ttfb": {
+          "p50": {
+            "before": 0.699999988079071,
+            "after": 0.800000011920929,
+            "delta": 0.10000002384185791,
+            "percent": 14.285717934978315
+          },
+          "p95": {
+            "before": 0.800000011920929,
+            "after": 1.0999999642372131,
+            "delta": 0.2999999523162842,
+            "percent": 37.49999348074207
+          }
+        },
+        "fcp": {
+          "p50": {
+            "before": 188,
+            "after": 180,
+            "delta": -8,
+            "percent": -4.25531914893617
+          },
+          "p95": {
+            "before": 188,
+            "after": 196,
+            "delta": 8,
+            "percent": 4.25531914893617
+          }
+        },
+        "lcp": {
+          "p50": {
+            "before": 188,
+            "after": 180,
+            "delta": -8,
+            "percent": -4.25531914893617
+          },
+          "p95": {
+            "before": 188,
+            "after": 196,
+            "delta": 8,
+            "percent": 4.25531914893617
+          }
+        },
+        "ready": {
+          "p50": {
+            "before": 221.0999999642372,
+            "after": 267.80000001192093,
+            "delta": 46.700000047683716,
+            "percent": 21.121664430229494
+          },
+          "p95": {
+            "before": 236.10000002384186,
+            "after": 281.69999998807907,
+            "delta": 45.59999996423721,
+            "percent": 19.313850046434744
+          }
+        },
+        "cls": {
+          "p50": {
+            "before": 0,
+            "after": 0,
+            "delta": 0,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 0,
+            "delta": 0,
+            "percent": null
+          }
+        },
+        "longTaskMax": {
+          "p50": {
+            "before": 0,
+            "after": 0,
+            "delta": 0,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 0,
+            "delta": 0,
+            "percent": null
+          }
+        },
+        "longTaskTotal": {
+          "p50": {
+            "before": 0,
+            "after": 0,
+            "delta": 0,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 0,
+            "delta": 0,
+            "percent": null
+          }
+        },
+        "transfer": {
+          "p50": {
+            "before": 5404,
+            "after": 5404,
+            "delta": 0,
+            "percent": 0
+          },
+          "p95": {
+            "before": 5404,
+            "after": 5404,
+            "delta": 0,
+            "percent": 0
+          }
+        },
+        "jsEncoded": {
+          "p50": {
+            "before": 25978,
+            "after": 18681,
+            "delta": -7297,
+            "percent": -28.089152359688967
+          },
+          "p95": {
+            "before": 25978,
+            "after": 18681,
+            "delta": -7297,
+            "percent": -28.089152359688967
+          }
+        },
+        "wasmEncoded": {
+          "p50": {
+            "before": 0,
+            "after": 1265266,
+            "delta": 1265266,
+            "percent": null
+          },
+          "p95": {
+            "before": 0,
+            "after": 1265266,
+            "delta": 1265266,
+            "percent": null
+          }
+        },
+        "requests": {
+          "p50": {
+            "before": 21,
+            "after": 12,
+            "delta": -9,
+            "percent": -42.857142857142854
+          },
+          "p95": {
+            "before": 21,
+            "after": 12,
+            "delta": -9,
+            "percent": -42.857142857142854
+          }
+        },
+        "actionNextFrame": {
+          "p50": {
+            "before": 13.699999988079071,
+            "after": 5.699999988079071,
+            "delta": -8,
+            "percent": -58.394160634752744
+          },
+          "p95": {
+            "before": 16.799999952316284,
+            "after": 13.199999988079071,
+            "delta": -3.599999964237213,
+            "percent": -21.428571276518763
+          }
+        }
+      }
+    }
+  ],
+  "note": "A lab pass is necessary, not sufficient: server/API percentiles, observed cold starts, consent-aware field metrics, full route/user-flow coverage and rollback still need release evidence."
+}

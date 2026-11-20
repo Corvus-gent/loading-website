@@ -43,6 +43,11 @@ The initial combined client bundle at `501cf282a96028a14d33d3b3739f9e5b4801d3c6`
 
 Next browser work must split/lazily load route-specific modules, preserve shared language/auth/consent state, and avoid making static content depend on downloading all administration/game code. Re-measure after implementation. Do not switch production browser loading with this known regression.
 
+The corrected clean-commit diagnostic at `d47c48bc4826f7931cb2b4c38a8733c3fdb8da7d` contains 72 measured runs: all expected actions succeeded, no local assets or fixture endpoints were missing, and code/WASM hashes stayed fixed. It is still exploratory (three repetitions per condition). Mobile cold-context median readiness is 1,475 → 9,531 ms on home, 2,116 → 10,146 ms on map, and 800 → 7,233 ms on CV. The report fails the no-regression gate; `--require-pass` exits 1. Static LCP is recorded separately and must not be confused with interaction readiness.
+
+- [Full browser comparison](evidence/2026-11-20-d47c48b-browser.md), [raw samples](evidence/2026-11-20-d47c48b-browser.json), [gate result](evidence/2026-11-20-d47c48b-browser.gate.json).
+- [Code ledger](evidence/2026-11-20-d47c48b-source.md) and [per-file source evidence](evidence/2026-11-20-d47c48b-source.json). Physical-line differences across languages also reflect formatting conventions; they are not a productivity measure.
+
 ## Before production
 
 The measurement tool always returns `productionReady: false`: a browser lab alone cannot approve a migration. Required evidence remains:
