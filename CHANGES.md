@@ -1,3 +1,4 @@
+- 2026-11-20: Port support bookings and referral statistics to the opt-in Rust handler; verify cross-runtime idempotency, admin edits, retention and read-only email protection.
 - 2026-11-20: Rust migration now preserves 9,324 middleware decisions; exclude compiler inputs from the publishing build, public directory and search. Production routing unchanged.
 ## 2026-11-20 — codex/rust-migration (in progress)
 

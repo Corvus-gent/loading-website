@@ -1,7 +1,7 @@
 use serde_json::{Value, json};
 use std::io::{self, BufRead};
 
-fn main() -> Result<(), Box<dyn std::error::Error>> {
+fn main() -> Result<(), corvus_server::Error> {
     for line in io::stdin().lock().lines() {
         let row: Value = serde_json::from_str(&line?)?;
         let value = row["value"].as_str().unwrap_or("");
@@ -15,6 +15,20 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 Ok(result) => serde_json::to_value(result)?,
                 Err(_) => json!({"error":true}),
             },
+            Some("support-form") => {
+                match corvus_server::support::Config::embedded()?.validate(&row["body"]) {
+                    Ok(fields) => json!({"fields":fields}),
+                    Err(message) => json!({"error":message}),
+                }
+            }
+            Some("support-config") => {
+                let env = corvus_server::config::Settings::new(serde_json::from_value(
+                    row["env"].clone(),
+                )?);
+                let c = corvus_server::support::Config::embedded()?;
+                let q = serde_json::from_value(row["query"].clone())?;
+                json!({"config":c.configuration(&env),"url":c.destination(value,&q,&env)})
+            }
             Some("live-form") => {
                 let result = corvus_server::live_interviews::validate(&row["body"]);
                 match result {

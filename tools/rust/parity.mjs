@@ -15,6 +15,20 @@ import {memberTier,localDay} from '../../api/_legion/layers.js';
 import {validate,validChallenge} from '../../api/_live-interviews.js';
 import {hackLiveMode} from '../../hack/live-mode-config.js';
 const fixtures=[];
+const {validateRequest,configuration,shortDestination}=await import('../../api/_support.js');
+const form={name:' Fixture ',contact:'fixture@example.test',pain:'Launch\nfeedback',times:'today after 3pm PT',tier:'quick',source:'linkedin'};
+for(const body of [{},form,...['quick','coffee','meet','bogus','constructor'].flatMap(tier=>[false,true,'yes'].map(coffeePaid=>({...form,tier,coffeePaid}))),...['name','contact','pain','times'].flatMap(key=>[null,'', '  ', 'a'.repeat(601),'🥋'.repeat(41),'\uFEFFFixture\uFEFF','\u0085'].map(value=>({...form,[key]:value}))),...['x','linkedin','direct','evil'].map(source=>({...form,source}))]){
+ let expected;try{expected={fields:validateRequest(body)};}catch(e){expected={error:e.message};}fixtures.push({operation:'support-form',body,expected});
+}
+{
+ const keys=['BMC_URL','LINKEDIN_PROFILE_URL','X_USER_ID'],saved=Object.fromEntries(keys.map(k=>[k,process.env[k]]));
+ for(const env of [{},{BMC_URL:'javascript:alert(1)',LINKEDIN_PROFILE_URL:'https://user:pass@example.test',X_USER_ID:'abc'},{BMC_URL:'https://example.test/coffee?utm_source=old&utm_source=again&keep=1',LINKEDIN_PROFILE_URL:'https://example.test/profile',X_USER_ID:'12345678'}]){
+  for(const k of keys)delete process.env[k];Object.assign(process.env,env);
+  for(const value of ['call-li','call-x','bmc-li','bmc-x','dinner-li','dinner-x','roll-li','roll-x','nope'])for(const query of [{},{utm_content:'valid_1',utm_term:'word',utm_id:'campaign'},{utm_content:'x&secret=bad',secret:'never-forwarded'}])fixtures.push({operation:'support-config',value,env,query,expected:{config:configuration(),url:shortDestination(value,query)}});
+ }
+ for(const k of keys){if(saved[k]===undefined)delete process.env[k];else process.env[k]=saved[k];}
+}
+
 for(const body of [null,[],{}, {name:'  Gabe\u0000',project:'robot\nname',handle:'@gabe'}, {name:'é'.repeat(80),project:'test',handle:'@x'}, {name:'🥋'.repeat(41),project:'test',handle:'@x'}, {name:'A',project:'B',handle:'C',website:'spam'}, {name:'A',project:'B',handle:'C',website:[]}, {name:'A',project:'B',handle:'C',website:false}]){
  let expected;try{expected={fields:validate(body)};}catch(e){expected={error:e.message};}fixtures.push({operation:'live-form',body,expected});
 }

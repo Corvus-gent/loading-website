@@ -18,4 +18,6 @@ Read-only enabled preview https://loading-website-l5kbhsnyf-corvus11.vercel.app 
 
 Middleware decisions now match 9,324 cases across the complete catalogue, three hosts, aliases, OG metadata, gates, UTF-8 queries, private source paths and CLI analytics. Routing decisions are not wired to production traffic yet. The actual publishing build passes in a disposable copy: Rust HTML fragments remain unchanged, and Rust/target inputs never enter the directory or search.
 
-Next: port support bookings and the remaining API/browser subsystems. See README completion gate. No production cutover until the full required compatibility checks and rollback exercise pass.
+Support bookings/referrals now preserve the three tiers, owner/key administration, status edits with original TTLs, raw and unique counters, form challenges and email payloads. A 16-request JS/Rust race creates one booking. Tests cover shared rate limits, CSRF, private/public separation and email denial before external I/O in read-only mode. 776 pure contracts pass. No actual emails sent.
+
+Next: port battle/voter security and the remaining API/browser subsystems. See README completion gate. No production cutover until the full required compatibility checks and rollback exercise pass.

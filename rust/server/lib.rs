@@ -6,6 +6,7 @@ pub mod live;
 pub mod live_interviews;
 pub mod plethora;
 pub mod store;
+pub mod support;
 use axum::{
     Json, Router,
     body::Bytes,
@@ -71,6 +72,7 @@ async fn dispatch(
         "auth" => auth::handle(&state, &method, &headers, &body).await,
         "layers" => layers::handle(&state, &method, &headers, &query, &body).await,
         "live" => live::handle(&state, &method, &headers, &query, &body).await,
+        "support" => support::handle(&state, &method, &headers, &query, &body).await,
         "plethora" => plethora::handle(&state, &method, &headers, &query).await,
         _ => Ok((
             StatusCode::NOT_FOUND,
