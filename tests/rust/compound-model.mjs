@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {spawnSync} from 'node:child_process';
 import {createHmac} from 'node:crypto';
+import {summarize} from '../../api/_compound-v2/summary.js';
 import {platformID} from '../../api/_compound-v2/sync.js';
 import {buildReport} from '../../api/_compound-v2/reports.js';
 import {validateExport} from '../../api/_compound-v2/uploads.js';
@@ -35,6 +36,11 @@ for(let round=0;round<70;round++){
  for(const samples of [[],[sample],[{...sample,at:new Date(now).toISOString()},sample]])fixtures.push({operation:'compound-report',videos,samples,now,expected:buildReport(videos,samples,new Date(now))});
 }
 for(const platform of ['tt','ig','x'])for(const post_url of ['https://tiktok.com/@gabe/video/123/','https://m.tiktok.com/@a/video/444','https://vm.tiktok.com/123','https://instagram.com/reel/Ab_c-9/','https://instagram.com/p/____________________/','https://instagram.com/tv/a2345','https://instagram.com/p/a','https://instagram.com/p/'+'a'.repeat(21),'https://x.com/gabe/status/1','not-a-url']){const body={platform,post_url};fixtures.push({operation:'compound-platform-id',body,expected:{id:platformID(body)}});}
+for(const views of [0,1,100])for(const votes of [0,1,10]){
+ const now=Date.parse(at),row={...parseSlug('x-gm-en-b1'),views,votes,is_example:false},report={videos:[row,{...parseSlug('tt-gl-nl-mom1'),views,votes:0,is_example:false},{...parseSlug('ig-gl-en-a1'),views:9999,votes:9999,is_example:true}],totals:{views:views*2,votes}};
+ const events=[...[-1,0,999,1001,-86400000,-86400001].map(delta=>({type:'vote',slug:'x-gm-en-b1',choice:'up',at:new Date(now+delta).toISOString(),handle:'PRIVATE',text:'PRIVATE'})),{type:'feedback',slug:row.slug,choice:'down',at},{type:'vote',slug:'unknown',choice:'up',at},{type:'vote',slug:'tt-gl-nl-mom1',choice:'bad',at}];
+ for(const list of [[],events,events.slice().reverse()])fixtures.push({operation:'compound-summary',report,events:list,now,expected:summarize(report,list,now)});
+}
 const keys=['SESSION_SECRET','COMPOUND_V2_ADMIN_PASSWORD','COMPOUND_ADMIN_PASSWORD','VERCEL_URL','VERCEL_BRANCH_URL','VERCEL_PROJECT_PRODUCTION_URL','NODE_ENV'];const saved=Object.fromEntries(keys.map(k=>[k,process.env[k]])),now=Date.now(),clock=Date.now;
 try{Date.now=()=>now;for(const env of [{SESSION_SECRET:'fixture'},{SESSION_SECRET:'fixture',COMPOUND_ADMIN_PASSWORD:'old-password',VERCEL_URL:'preview.example',NODE_ENV:'production'},{SESSION_SECRET:'fixture',COMPOUND_ADMIN_PASSWORD:'old-password',COMPOUND_V2_ADMIN_PASSWORD:'new-password',VERCEL_BRANCH_URL:'branch.example',VERCEL_PROJECT_PRODUCTION_URL:'prod.example'}]){
  for(const k of keys)delete process.env[k];Object.assign(process.env,env);const secret=env.COMPOUND_V2_ADMIN_PASSWORD||env.COMPOUND_ADMIN_PASSWORD;

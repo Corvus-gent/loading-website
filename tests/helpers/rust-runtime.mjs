@@ -9,7 +9,7 @@ export async function isolatedRuntime(modules='support,battle'){
  const executable=process.env.REDIS_SERVER||(existsSync('/tmp/corvus-redis-tests/source/src/redis-server')?'/tmp/corvus-redis-tests/source/src/redis-server':'redis-server');
  const redis=spawn(executable,['--bind','127.0.0.1','--port',String(redisPort),'--save','','--appendonly','no'],{stdio:'ignore'});
  const secret='isolated-browser-fixture';
- const env={PATH:process.env.PATH,LANG:'en_US.UTF-8',REDIS_URL:`redis://127.0.0.1:${redisPort}/1`,SESSION_SECRET:secret,CALL_ADMIN_KEY:secret,BATTLE_ADMIN_KEY:secret,CORVUS_RUST_MODULES:modules,CORVUS_RUST_WRITES:'isolated',RUST_DEV_PORT:String(rustPort)};
+ const env={PATH:process.env.PATH,LANG:'en_US.UTF-8',REDIS_URL:`redis://127.0.0.1:${redisPort}/1`,SESSION_SECRET:secret,CALL_ADMIN_KEY:secret,BATTLE_ADMIN_KEY:secret,COMPOUND_V2_ADMIN_PASSWORD:secret,CORVUS_RUST_MODULES:modules,CORVUS_RUST_WRITES:'isolated',RUST_DEV_PORT:String(rustPort)};
  const rust=spawn('target/debug/corvus-dev',[],{env,stdio:['ignore','ignore','pipe']});let output='';rust.stderr.on('data',d=>output+=d);
  const client=createClient({url:env.REDIS_URL,socket:{reconnectStrategy:()=>50}});client.on('error',()=>{});
  const close=async()=>{await client.disconnect().catch(()=>{});rust.kill('SIGTERM');redis.kill('SIGTERM');};

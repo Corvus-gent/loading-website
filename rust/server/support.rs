@@ -786,6 +786,7 @@ mod tests {
             http,
             settings,
             live: crate::live::LiveService::new()?,
+            compound_summary: Default::default(),
         };
         assert!(
             notify_request(&state, &Config::embedded()?, "fixture")

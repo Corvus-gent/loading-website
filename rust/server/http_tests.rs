@@ -110,3 +110,49 @@ async fn public_referrals_survive_missing_storage_without_fabricating_counts()
     }
     Ok(())
 }
+
+#[tokio::test]
+async fn compound_preview_redirects_without_tracking_or_provider_io() -> Result<(), crate::Error> {
+    let app = app_with(Settings::new(
+        [
+            (
+                "CORVUS_RUST_MODULES".into(),
+                "compound-v2,compound-summary".into(),
+            ),
+            ("ORIANE_API_KEY".into(), "fixture-must-not-be-used".into()),
+            ("REDIS_URL".into(), "rediss://example.invalid/1".into()),
+        ]
+        .into(),
+    ))?;
+    let redirect = app
+        .clone()
+        .oneshot(
+            Request::builder()
+                .uri("/api/rust?module=compound-v2&short=1&slug=tt-gl-nl-mom1&utm_source=whatsapp")
+                .header("user-agent", "ordinary-browser")
+                .body(Body::empty())?,
+        )
+        .await?;
+    assert_eq!(redirect.status(), StatusCode::FOUND);
+    assert!(
+        redirect.headers()["location"]
+            .to_str()?
+            .contains("utm_source=whatsapp")
+    );
+    assert!(redirect.headers().get("set-cookie").is_none());
+    let vote = app
+        .oneshot(
+            Request::builder()
+                .method("POST")
+                .uri("/api/rust?module=compound-v2")
+                .header("origin", "https://corvus.gent")
+                .header("content-type", "application/json")
+                .body(Body::from(
+                    r#"{"action":"vote","slug":"tt-gl-nl-mom1","choice":"up"}"#,
+                ))?,
+        )
+        .await?;
+    assert_eq!(vote.status(), StatusCode::SERVICE_UNAVAILABLE);
+    assert!(vote.headers().get("set-cookie").is_none());
+    Ok(())
+}

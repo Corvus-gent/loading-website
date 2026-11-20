@@ -7,6 +7,11 @@ async fn main() -> Result<(), corvus_server::Error> {
         let row: Value = serde_json::from_str(&line?)?;
         let value = row["value"].as_str().unwrap_or("");
         let result = match row["operation"].as_str() {
+            Some("compound-summary") => corvus_server::compound_v2::summary::summarize(
+                &row["report"],
+                row["events"].as_array().ok_or("events")?,
+                row["now"].as_i64().ok_or("now")?,
+            )?,
             Some("compound-platform-id") => {
                 json!({"id":corvus_server::compound_v2::sync::platform_id(&row["body"])})
             }
@@ -69,6 +74,7 @@ async fn main() -> Result<(), corvus_server::Error> {
                     http,
                     settings,
                     live: corvus_server::live::LiveService::new()?,
+                    compound_summary: Default::default(),
                 };
                 let registry = Registry(&state);
                 let slug = row["slug"].as_str().unwrap_or("");
@@ -164,6 +170,7 @@ async fn main() -> Result<(), corvus_server::Error> {
                     http,
                     settings,
                     live: corvus_server::live::LiveService::new()?,
+                    compound_summary: Default::default(),
                 };
                 if row["make"] == true {
                     corvus_server::voter::make_challenge(

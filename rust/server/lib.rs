@@ -13,9 +13,9 @@ pub mod store;
 pub mod support;
 pub mod voter;
 use axum::{
-    Json, Router,
+    Extension, Json, Router,
     body::Bytes,
-    extract::{DefaultBodyLimit, Query, State},
+    extract::{DefaultBodyLimit, Query, RawQuery, State},
     http::{HeaderMap, Method, StatusCode},
     response::{IntoResponse, Response},
 };
@@ -29,6 +29,7 @@ pub struct AppState {
     pub store: store::Store,
     pub http: reqwest::Client,
     pub live: live::LiveService,
+    pub compound_summary: compound_v2::summary::Service,
 }
 
 pub fn app() -> Result<Router, Error> {
@@ -43,6 +44,7 @@ pub fn app_with(settings: config::Settings) -> Result<Router, Error> {
         .build()?;
     let state = AppState {
         live: live::LiveService::new()?,
+        compound_summary: compound_v2::summary::Service::default(),
         store: store::Store::new(settings.clone(), http.clone()),
         settings,
         http,
@@ -57,6 +59,8 @@ async fn dispatch(
     method: Method,
     headers: HeaderMap,
     Query(query): Query<HashMap<String, String>>,
+    RawQuery(raw_query): RawQuery,
+    context: Option<Extension<vercel_runtime::AppState>>,
     body: Bytes,
 ) -> Response {
     let module = query.get("module").map(String::as_str).unwrap_or("health");
@@ -74,6 +78,23 @@ async fn dispatch(
             .into_response();
     }
     let result = match module {
+        "compound-summary" => Ok(state.compound_summary.handle(&state, &method).await),
+        "compound-v2" => {
+            let ordered = serde_json::Value::Object(
+                url::form_urlencoded::parse(raw_query.as_deref().unwrap_or("").as_bytes())
+                    .map(|(k, v)| (k.into_owned(), json!(v)))
+                    .collect(),
+            );
+            compound_v2::handler::handle(
+                &state,
+                &method,
+                &headers,
+                &ordered,
+                &body,
+                context.as_ref().map(|v| &v.0),
+            )
+            .await
+        }
         "auth" => auth::handle(&state, &method, &headers, &body).await,
         "layers" => layers::handle(&state, &method, &headers, &query, &body).await,
         "live" => live::handle(&state, &method, &headers, &query, &body).await,
