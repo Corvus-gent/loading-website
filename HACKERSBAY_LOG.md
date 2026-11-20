@@ -18,3 +18,12 @@ Times are Paris local time. The release starts with the public Boat Hackathon De
 - Verified. The site build passed and the 375px onboarding flow produced a card with the API disconnected.
 - Next. Build the Demo Day event page and four lens scorecards.
 - **STEER ME:** Keep cards editable before the event or jump to the radar as soon as a lens is picked.
+
+## H3 · 2026-11-20 16:19 CET · Event page and lenses
+
+- Shipped Boat Hackathon Demo Day on November 21 at the Historic Klamath, with official RSVP, public judge titles, and four distinct lens scorecards.
+- Shipped 30 fictional attendees, public event facts from the organizer and Partiful, and deterministic two-way reasons for each of three suggested meetings.
+- Decision. Food, cash prize pool, overnight lodging, and cash payout were not stated in the public listings. The Survival score displays that uncertainty.
+- Verified. The build passed. At 375px, each lens showed a distinct trio and fit the viewport.
+- Next. Put the three matches on the sonar and require both participants to accept an intro.
+- **STEER ME:** Add published food or payout details when the organizers confirm them. Choose whether to use Busy builder or Broke hacker as the default walk-through.

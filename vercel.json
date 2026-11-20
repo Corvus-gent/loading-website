@@ -325,6 +325,10 @@
   ],
   "rewrites": [
     {
+      "source": "/hackersbay/e/boat-hackathon-demo-day",
+      "destination": "/public/hackersbay/event.html"
+    },
+    {
       "source": "/hackersbay/board",
       "destination": "/public/hackersbay/board.html"
     },
