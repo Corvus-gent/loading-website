@@ -36,3 +36,11 @@ Times are Paris local time. The release starts with the public Boat Hackathon De
 - Verified. The build passed. Chromium completed the full flow at 375px without environment variables and with two isolated browser sessions over Redis 7.
 - Next. Deploy the core to Corvus production and run the flow against the live domain.
 - **STEER ME:** Lead the pitch with the interactive radar or with the moment the second person opts in.
+
+## H5 · 2026-11-20 16:25 CET · Core live on Corvus
+
+- Deployed the verified core by fast-forwarding main. Vercel finished and the production routes returned the new pages after alias propagation.
+- Verified. Chromium completed landing → boarding → radar → intro → separate recipient acceptance → suggested meetup at 375px on corvus.gent. The production API drafted a persona without a configured inference provider.
+- Decision. Kept the production site on its existing Vercel project and reused its Redis for shared intro state.
+- Next. Add the organizer Room composer and the sponsor Treasure report.
+- **STEER ME:** Show the organizer build first or keep the investor report as the next beat after the mutual intro.
