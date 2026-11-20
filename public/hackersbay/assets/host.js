@@ -1,0 +1,157 @@
+import { element, loadRoom, portrait } from './event-data.js';
+
+const STORAGE = 'hackersbay-room-composer-v1';
+const DEFAULT_CREW = ['mina-park', 'zora-quinn', 'ravi-mora', 'noor-tan'];
+const CAPACITY = 10;
+const board = document.querySelector('#host-room');
+const status = document.querySelector('#host-state');
+const graph = document.querySelector('#match-graph');
+const canvas = graph.querySelector('canvas');
+const nodes = document.querySelector('#graph-nodes');
+const graphDetail = document.querySelector('#graph-detail');
+const list = document.querySelector('#applicants');
+const filter = document.querySelector('#find-applicant');
+
+function shared(a, b) {
+  return a.filter(tag => b.includes(tag));
+}
+function relationship(a, b) {
+  return { a, b, aGets: shared(a.seeks, b.brings), bGets: shared(b.seeks, a.brings) };
+}
+function mutual(edge) {
+  return edge.aGets.length > 0 && edge.bGets.length > 0;
+}
+function rankCandidate(person, crew, tagsInRoom) {
+  const edges = crew.map(member => relationship(person, member));
+  const linked = edges.filter(mutual);
+  const adds = person.brings.filter(tag => !tagsInRoom.has(tag));
+  const touches = edges.reduce((count, edge) => count + edge.aGets.length + edge.bGets.length, 0);
+  const stage = { shipping: 3, pilot: 2, prototype: 1 }[person.stage];
+  return { person, linked, adds, score: linked.length * 8 + touches * 2 + adds.length * 3 + stage };
+}
+function readCrew() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORAGE));
+    if (Array.isArray(saved)) return saved;
+  } catch { /* Start from the sample crew. */ }
+  return DEFAULT_CREW;
+}
+function storeCrew(ids) {
+  try { localStorage.setItem(STORAGE, JSON.stringify(ids)); } catch { /* The current page keeps the draft. */ }
+}
+function label(tags) {
+  return tags.map(tag => ({ opensource: 'open source', devtools: 'dev tools', cofounder: 'co-founder' })[tag] || tag).join(', ');
+}
+
+function placeGraph(crew, edges, selected) {
+  const rect = graph.getBoundingClientRect();
+  const dpr = Math.min(devicePixelRatio, 2);
+  canvas.width = Math.round(rect.width * dpr);
+  canvas.height = Math.round(rect.height * dpr);
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+  const coordinates = new Map(crew.map((person, index) => {
+    const angle = (index / crew.length) * 2 * Math.PI - Math.PI / 2;
+    return [person.id, [50 + 36 * Math.cos(angle), 50 + 36 * Math.sin(angle)]];
+  }));
+  for (const edge of edges) {
+    const color = edge.a.id === selected || edge.b.id === selected ? '#3ee6c4' : '#387973';
+    const [aX, aY] = coordinates.get(edge.a.id);
+    const [bX, bY] = coordinates.get(edge.b.id);
+    ctx.beginPath();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = color === '#3ee6c4' ? 2 : 1;
+    ctx.moveTo(aX * rect.width / 100, aY * rect.height / 100);
+    ctx.lineTo(bX * rect.width / 100, bY * rect.height / 100);
+    ctx.stroke();
+  }
+  return coordinates;
+}
+
+async function start() {
+  const { attendees } = await loadRoom();
+  const byId = new Map(attendees.map(person => [person.id, person]));
+  let ids = [...new Set(readCrew().filter(id => byId.has(id)))].slice(0, CAPACITY);
+  let selected = ids[0];
+  let redraw = () => {};
+
+  function render(focusId) {
+    const crew = ids.map(id => byId.get(id));
+    const edges = crew.flatMap((person, index) => crew.slice(index + 1).map(member => relationship(person, member))).filter(mutual);
+    const tags = new Set(crew.flatMap(person => person.brings));
+    document.querySelector('#room-metrics').textContent = `${crew.length}/${CAPACITY} seats · ${edges.length} two-way fits · ${tags.size} skill or resource tags`;
+    redraw = () => placeGraph(crew, edges, selected);
+    const coordinates = redraw();
+    nodes.replaceChildren(...crew.map(person => {
+      const button = element('button', person.name.split(' ').map(part => part[0]).join(''), 'graph-node');
+      button.type = 'button';
+      button.setAttribute('aria-label', 'Connections for ' + person.name);
+      button.setAttribute('aria-pressed', String(person.id === selected));
+      button.dataset.node = person.id;
+      const [x, y] = coordinates.get(person.id);
+      button.style.left = x + '%';
+      button.style.top = y + '%';
+      button.addEventListener('click', () => { selected = person.id; render(person.id); });
+      return button;
+    }));
+
+    const focus = byId.get(selected);
+    const connects = edges.filter(edge => edge.a.id === selected || edge.b.id === selected);
+    graphDetail.textContent = focus
+      ? focus.name + (connects.length ? ' has two-way fit with ' + connects.map(edge => edge.a.id === selected ? edge.b.name : edge.a.name).join(', ') + '.' : ' has no two-way fit in this draft yet.')
+      : 'Add an applicant to start the graph.';
+    document.querySelector('#draft-crew').replaceChildren(...crew.map(person => {
+      const button = element('button', person.name + ' ×', 'button');
+      button.type = 'button';
+      button.setAttribute('aria-label', 'Remove ' + person.name);
+      button.addEventListener('click', () => {
+        ids = ids.filter(id => id !== person.id);
+        if (selected === person.id) selected = ids[0];
+        storeCrew(ids);
+        render(selected);
+      });
+      return button;
+    }));
+
+    const term = filter.value.trim().toLowerCase();
+    const ranked = attendees.filter(person => !ids.includes(person.id) && [person.name, person.role, person.project].join(' ').toLowerCase().includes(term))
+      .map(person => rankCandidate(person, crew, tags)).sort((a, b) => b.score - a.score || a.person.name.localeCompare(b.person.name));
+    list.replaceChildren(...ranked.map(({ person, adds, linked, score }) => {
+      const article = element('article', undefined, 'panel applicant');
+      const title = element('div');
+      title.append(element('h3', person.name), element('p', person.role + ' · ' + person.project, 'fine'));
+      const top = element('header');
+      top.append(portrait(person), title, element('span', '+' + score, 'match-mark'));
+      const contribution = element('p', 'Offers ' + person.offers + '.');
+      const reason = element('p', (adds.length ? 'Adds ' + label(adds) + '. ' : '') +
+        (linked.length ? 'Two-way fit with ' + linked.map(edge => edge.b.name).join(', ') + '.' : 'Builds ' + person.project + '.'), 'fine');
+      const add = element('button', 'Add to room', 'button');
+      add.type = 'button';
+      add.disabled = ids.length >= CAPACITY;
+      add.setAttribute('aria-label', 'Add ' + person.name + ' to room');
+      add.addEventListener('click', () => {
+        ids = [...ids, person.id];
+        selected = person.id;
+        storeCrew(ids);
+        render(person.id);
+      });
+      article.append(top, contribution, reason, add);
+      return article;
+    }));
+    if (!ranked.length) list.append(element('p', 'No applicants match that search.', 'panel'));
+    if (focusId) nodes.querySelector('[data-node="' + focusId + '"]')?.focus();
+  }
+
+  board.hidden = false;
+  status.hidden = true;
+  render();
+  new ResizeObserver(() => redraw()).observe(graph);
+  filter.addEventListener('input', () => render());
+  document.querySelector('#reset-room').addEventListener('click', () => {
+    ids = [...DEFAULT_CREW];
+    [selected] = ids;
+    storeCrew(ids);
+    render();
+  });
+}
+start().catch(() => { status.textContent = 'The demo roster is unavailable. Reload the page to try again.'; });

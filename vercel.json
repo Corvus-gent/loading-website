@@ -325,6 +325,14 @@
   ],
   "rewrites": [
     {
+      "source": "/hackersbay/host",
+      "destination": "/public/hackersbay/host.html"
+    },
+    {
+      "source": "/hackersbay/sponsor",
+      "destination": "/public/hackersbay/sponsor.html"
+    },
+    {
       "source": "/hackersbay/intro",
       "destination": "/public/hackersbay/intro.html"
     },

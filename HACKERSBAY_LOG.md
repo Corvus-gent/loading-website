@@ -44,3 +44,12 @@ Times are Paris local time. The release starts with the public Boat Hackathon De
 - Decision. Kept the production site on its existing Vercel project and reused its Redis for shared intro state.
 - Next. Add the organizer Room composer and the sponsor Treasure report.
 - **STEER ME:** Show the organizer build first or keep the investor report as the next beat after the mutual intro.
+
+## H6 · 2026-11-20 16:27 CET · Host and sponsor views
+
+- Shipped Room composer with a saved draft, applicant search, contribution ranking, and a match graph that recalculates as people move in and out.
+- Shipped the sponsor Treasure report with six fictional projects, thesis filters, and a qualified-intro → pilot → follow-through measurement plan.
+- Decision. Used Moonbase’s shared roster concept and Luma Clone’s event cover, date tile, and short registration path as references. The Corvus implementation shares one fictional roster across views and uses its own Sonar design.
+- Verified. The site build passed. Chromium at 375px checked room changes, persistence, graph selection, and thesis filtering.
+- Next. Add Context.dev, NYTEX private mode, and Boat.dev Proof of Build with offline fallbacks.
+- **STEER ME:** Start the host with a four-person sample or an empty draft. Lead the sponsor report with private inference or sandbox tooling.
