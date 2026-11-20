@@ -11,4 +11,4 @@ npm ci
 npm run build:mac
 ```
 
-The unsigned Apple Silicon and Intel disk images land in `dist/`. macOS may require opening the app from Finder and allowing it in Privacy & Security on first launch. Run `npm start` from this directory to run the wrapper during development.
+The unsigned Apple Silicon and Intel disk images land in `dist/`. The app bundles are ad-hoc signed. macOS may require opening the app from Finder and allowing it in Privacy & Security on first launch. Run `npm start` from this directory to run the wrapper during development.

@@ -22,7 +22,8 @@
     "mac": {
       "category": "public.app-category.social-networking",
       "icon": "icon.png",
-      "identity": null,
+      "identity": "-",
+      "hardenedRuntime": false,
       "notarize": false
     }
   }
