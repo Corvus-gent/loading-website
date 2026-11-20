@@ -34,3 +34,5 @@ npm run test:philosophy
 without introducing a new linter dependency. Browser QA covers NL/EN × 375/1440 px
 × light/dark, navigation through both language controls, canonical metadata, and
 homepage header geometry/fonts/colors before and after the change.
+
+The shared header now has CV translations for all seven languages. Spanish, French, Portuguese, German and Chinese use `/cv/philosophy/{es,fr,pt,de,zh}`. These are compiled static pages, with no translation service called at runtime. Each route sets its own language, canonical and reciprocal hreflang links.
