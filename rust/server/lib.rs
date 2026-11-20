@@ -13,6 +13,7 @@ pub mod live_interviews;
 pub mod name_vote;
 pub mod og;
 pub mod plethora;
+pub mod stats;
 pub mod store;
 pub mod support;
 pub mod visitors;
@@ -99,6 +100,8 @@ async fn dispatch(
             .into_response();
     }
     let result = match module {
+        "stats-sections" => Ok(Box::pin(stats::handler::section(&state, &method, &query)).await),
+        "stats-private" => Ok(Box::pin(stats::handler::private(&state, &headers, &query)).await),
         "geo" => Ok(Box::pin(visitors::geo(&state, &method, &headers, &query)).await),
         "hit" | "notice" => Ok(Box::pin(visitors::hit(
             &state,

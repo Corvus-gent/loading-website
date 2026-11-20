@@ -248,7 +248,7 @@ pub fn posthog_ready(settings: &Settings) -> bool {
                 && u.path() == "/"
         })
 }
-fn remote(s: &AppState, path: &str, host: &str) -> Result<Url, Error> {
+pub(crate) fn remote(s: &AppState, path: &str, host: &str) -> Result<Url, Error> {
     if let Some(fixture) = s.settings.get("CORVUS_RUST_ANALYTICS_FIXTURE_URL") {
         let u = Url::parse(fixture)?;
         if s.settings.production()
@@ -270,7 +270,7 @@ fn remote(s: &AppState, path: &str, host: &str) -> Result<Url, Error> {
     }
     Ok(Url::parse(host)?.join(path)?)
 }
-async fn bytes(mut response: reqwest::Response, limit: usize) -> Result<Vec<u8>, Error> {
+pub(crate) async fn bytes(mut response: reqwest::Response, limit: usize) -> Result<Vec<u8>, Error> {
     if !response.status().is_success()
         || response.content_length().is_some_and(|n| n > limit as u64)
     {
@@ -307,7 +307,11 @@ pub async fn hogql(s: &AppState, sql: &str) -> Result<Vec<Value>, Error> {
         .send()
         .await?;
     let body: Value = serde_json::from_slice(&bytes(response, 8 * 1024 * 1024).await?)?;
-    Ok(body["results"].as_array().cloned().unwrap_or_default())
+    match &body["results"] {
+        Value::Array(rows) => Ok(rows.clone()),
+        Value::Null => Ok(Vec::new()),
+        _ => Err("invalid aggregate rows".into()),
+    }
 }
 pub async fn geo_data(s: &AppState, day: &str) -> Result<Value, Error> {
     let detailed = model::query(day)?;

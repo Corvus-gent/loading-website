@@ -137,3 +137,21 @@ const copyVersion=pageCopySource.match(/const catalogVersion = '([^']+)';/)?.[1]
 if(!copyVersion)throw Error('Page-copy version changed; review Rust catalog loader');
 const copyConfig=JSON.stringify({version:copyVersion})+'\n',copyFile=new URL('../../rust/migration/page-copy-config.json',import.meta.url);
 if(process.argv.includes('--check')){if(readFileSync(copyFile,'utf8')!==copyConfig)throw Error('Rust page-copy catalog version stale');}else writeFileSync(copyFile,copyConfig);
+
+// Freeze analytics SQL as data. Legacy task projections are compared separately.
+// The VM receives only synthetic query/Redis boundaries, never env credentials or I/O.
+const {dailyTasks}=await import('../../api/_stats-daily.js');
+const statsDay='__CORVUS_STATS_DAY__',statsQueries={daily:{},sections:{},private:{}};
+let captured=[];const capture=async sql=>{captured.push(sql);return [[0,0,0,0,0,0]];};
+const real=(await import('../../api/_posthog.js')).REAL;
+for(const [key,task]of Object.entries(dailyTasks(statsDay,capture))){captured=[];await task();if(captured.length!==1)throw Error('Daily query boundary changed: '+key);statsQueries.daily[key]=captured[0];}
+const sectionsSource=readFileSync(new URL('../../api/_stats-sections.js',import.meta.url),'utf8');
+const sectionFunction=sectionsSource.slice(sectionsSource.indexOf('export function sectionTasks'),sectionsSource.indexOf('export default')).replace(/^export /,'');
+const sectionFactory=runInNewContext(sectionFunction+';sectionTasks',{hogql:capture,REAL:real,day:()=>statsDay,hostCategory:x=>x,category:x=>x,GENRES:[],Date,signups:()=>{throw Error('No provider calls in query extraction');},pipeline:()=>{throw Error('No Redis in query extraction');},redis:()=>{throw Error('No Redis in query extraction');}},{timeout:1000});
+for(const section of ['pidgy','outbound','music']){statsQueries.sections[section]={};for(const [key,task]of Object.entries(sectionFactory(section,statsDay))){if(key==='signups')continue;captured=[];await task();if(captured.length!==1)throw Error('Section query boundary changed: '+section+':'+key);statsQueries.sections[section][key]=captured[0];}}
+const privateSource=readFileSync(new URL('../../api/private-stats.js',import.meta.url),'utf8');
+const privateFunction=privateSource.slice(privateSource.indexOf('export const privateTasks='),privateSource.indexOf('async function compute')).replace(/^export /,'');
+const privateFactory=runInNewContext(privateFunction+';privateTasks',{hogql:capture,REAL:real},{timeout:1000});
+for(const [key,task]of Object.entries(privateFactory())){captured=[];await task();if(captured.length!==1)throw Error('Private query boundary changed: '+key);statsQueries.private[key]=captured[0];}
+const statsText=JSON.stringify(statsQueries,null,2)+'\n',statsFile=new URL('../../rust/migration/stats-queries.json',import.meta.url);
+if(process.argv.includes('--check')){if(readFileSync(statsFile,'utf8')!==statsText)throw Error('Rust stats SQL stale');}else writeFileSync(statsFile,statsText);

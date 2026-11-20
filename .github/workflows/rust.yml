@@ -49,6 +49,9 @@ jobs:
       - run: node tests/rust/site-model.mjs
       - run: node tests/rust/analytics-model.mjs
       - run: node tests/rust/visitor-model.mjs
+      - run: node tests/rust/stats-model.mjs
+      - run: node tests/rust/stats-store.mjs
+      - run: node tests/rust/stats-http.mjs
       - run: node tests/rust/visitor-http.mjs
       - run: node tests/rust/og-render.mjs
       - run: node tests/rust/og-http.mjs

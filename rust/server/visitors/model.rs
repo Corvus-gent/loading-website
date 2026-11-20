@@ -22,7 +22,7 @@ pub fn number(v: &Value) -> f64 {
         }
         Value::Number(n) => n.as_f64().unwrap_or(f64::NAN),
         Value::String(s) => {
-            let s = s.trim();
+            let s = corvus_core::impact::trimmed(s);
             if s.is_empty() {
                 return 0.0;
             }
@@ -35,8 +35,7 @@ pub fn number(v: &Value) -> f64 {
             }
             s.parse().unwrap_or(f64::NAN)
         }
-        Value::Array(a) if a.is_empty() => 0.0,
-        Value::Array(a) if a.len() == 1 => number(&a[0]),
+        Value::Array(_) => number(&json!(corvus_core::impact::string(v))),
         _ => f64::NAN,
     }
 }

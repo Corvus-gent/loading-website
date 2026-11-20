@@ -7,6 +7,28 @@ async fn main() -> Result<(), corvus_server::Error> {
         let row: Value = serde_json::from_str(&line?)?;
         let value = row["value"].as_str().unwrap_or("");
         let result = match row["operation"].as_str() {
+            Some("stats-model") => {
+                use corvus_server::stats::model as m;
+                let day = row["day"].as_str().unwrap_or("2026-11-20");
+                let group = row["group"].as_str().unwrap_or("daily");
+                let name = row["name"].as_str().unwrap_or("");
+                let result: Result<Value, corvus_server::Error> = (|| {
+                    Ok(match row["action"].as_str() {
+                        Some("query") => json!(m::query(group, name, day)?),
+                        Some("project") => {
+                            m::project(group, name, day, row["rows"].as_array().ok_or("rows")?)?
+                        }
+                        Some("pairs") => m::pairs(&row["value"])?,
+                        Some("counters") => m::counters(
+                            row["rows"].as_array().ok_or("rows")?,
+                            row["today"] == true,
+                            row["now"].as_i64().ok_or("time")?,
+                        )?,
+                        _ => Value::Null,
+                    })
+                })();
+                result.unwrap_or_else(|e| json!({"error":e.to_string()}))
+            }
             Some("visitor-model") => {
                 use corvus_server::visitors::{self, model as m};
                 let outcome: Result<Value, corvus_server::Error> = (|| {
@@ -470,7 +492,8 @@ async fn main() -> Result<(), corvus_server::Error> {
                 json!({"authorized":security::authorized(&env,&headers,row["now"].as_i64().ok_or("now")?)?,"origin":security::same_origin(&env,&headers),"analytics":security::analytics(&row["body"],&headers)})
             }
             Some(
-                "compound-store" | "compound-editor" | "legion-store" | "army-store" | "og-store",
+                "compound-store" | "compound-editor" | "legion-store" | "army-store" | "og-store"
+                | "stats-store",
             ) => {
                 use corvus_server::compound_v2::{security, store::Registry};
                 let settings = std::sync::Arc::new(corvus_server::config::Settings::from_env());
@@ -488,6 +511,26 @@ async fn main() -> Result<(), corvus_server::Error> {
                     live: corvus_server::live::LiveService::new()?,
                     compound_summary: Default::default(),
                 };
+                if row["operation"] == "stats-store" {
+                    let day = row["day"].as_str().unwrap_or("");
+                    let result = match row["action"].as_str() {
+                        Some("counters") => {
+                            corvus_server::stats::counters(
+                                &state,
+                                day,
+                                row["now"].as_i64().ok_or("time")?,
+                            )
+                            .await
+                        }
+                        Some("games") => corvus_server::stats::games(&state, day).await,
+                        _ => Err("unknown stats storage operation".into()),
+                    };
+                    println!(
+                        "{}",
+                        result.unwrap_or_else(|e| json!({"error":e.to_string()}))
+                    );
+                    continue;
+                }
                 if row["operation"] == "og-store" {
                     let value = corvus_server::og::model::resolve(&state, &row["query"]).await;
                     println!(
