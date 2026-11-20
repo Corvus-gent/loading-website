@@ -45,6 +45,7 @@ jobs:
       - run: node tests/rust/browser.mjs
       - run: node tests/rust/user-flows.mjs
       - run: node tests/rust/battle-browser.mjs
+      - run: node tests/rust/compound-client.mjs
       - run: node tests/rust/compound-browser.mjs
       - run: node tests/rust/interviews-browser.mjs
       - run: node tests/rust/impact-browser.mjs

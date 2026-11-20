@@ -138,10 +138,16 @@ pub fn scroll(id: &str, smooth: bool, nearest: bool) {
 
 pub fn number(value: f64) -> String {
     let n = js_sys::Number::from(value);
-    js_sys::Reflect::get(&n, &JsValue::from_str("toLocaleString"))
+    // Reflect.get requires an object; Number::from is a JavaScript primitive.
+    let format = (|| -> Result<JsValue, JsValue> {
+        let constructor = js_sys::Reflect::get(&js_sys::global(), &"Number".into())?;
+        let prototype = js_sys::Reflect::get(&constructor, &"prototype".into())?;
+        js_sys::Reflect::get(&prototype, &"toLocaleString".into())?
+            .dyn_into::<js_sys::Function>()?
+            .call0(&n)
+    })();
+    format
         .ok()
-        .and_then(|f| f.dyn_into::<js_sys::Function>().ok())
-        .and_then(|f| f.call0(&n).ok())
         .and_then(|v| v.as_string())
         .unwrap_or_else(|| value.to_string())
 }

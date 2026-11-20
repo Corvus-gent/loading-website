@@ -38,9 +38,9 @@ try{
   assert.equal(await page.locator('#bonus-videos video').count(),2);
   const cookie=(await context.cookies()).find(c=>c.name==='mvid');assert(cookie?.httpOnly&&cookie.secure&&cookie.path==='/api');
   await page.reload();await expect(page.locator('#reveal')).toBeVisible();await expect(page.locator('#total-votes')).toContainText('1 blind votes');
-  await admin.locator('#codex-x-views').fill('123');await admin.locator('#codex-x-url').fill('https://example.test/video');await admin.locator('#closed').check();await admin.locator('#save').click();await expect(admin.locator('#status')).toHaveText('Saved. Winner: '+pick.toUpperCase());
-  await page.reload();await expect(page.locator('#live-label')).toHaveText('FINAL');await expect(page.locator('#winner')).toContainText(pick.toUpperCase());await expect(page.locator('#platform-rows')).toContainText('123 / 0');
-  await admin.reload();await expect(admin.locator('#codex-x-views')).toHaveValue('123');await expect(admin.locator('#closed')).toBeChecked();await admin.locator('#closed').uncheck();await admin.locator('#save').click();await expect(admin.locator('#status')).toHaveText('Saved. Voting is open.');
+  await admin.locator('#codex-x-views').fill('12345');await admin.locator('#codex-x-url').fill('https://example.test/video');await admin.locator('#closed').check();await admin.locator('#save').click();await expect(admin.locator('#status')).toHaveText('Saved. Winner: '+pick.toUpperCase());
+  await page.reload();await expect(page.locator('#live-label')).toHaveText('FINAL');await expect(page.locator('#winner')).toContainText(pick.toUpperCase());await expect(page.locator('#platform-rows')).toContainText('12,345 / 0');
+  await admin.reload();await expect(admin.locator('#codex-x-views')).toHaveValue('12345');await expect(admin.locator('#closed')).toBeChecked();await admin.locator('#closed').uncheck();await admin.locator('#save').click();await expect(admin.locator('#status')).toHaveText('Saved. Voting is open.');
   await mkdir('test-results/rust',{recursive:true});await page.locator('.scoreboard').scrollIntoViewIfNeeded();await page.screenshot({path:`test-results/rust/battle-${width}.png`});
   assert.deepEqual(apiErrors,[]);assert.deepEqual(errors,[]);await context.close();
   console.log(`PASS: ${width}px Rust battle → real Rust API/Redis: blind labels, vote lock/reload, late-refresh race, one-link sharing + clipboard fallback, audio controls, admin auth/tie/close/reopen and persisted counts.`);

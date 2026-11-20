@@ -413,3 +413,7 @@ Verified 67 public destinations and all seven requested flows on mobile and desk
 ## 2026-11-09 — honorary Senate spotlights
 - Single-use honorary Senator invites with custom titles, claim-activated spotlights and separate hashed edit tokens. Simon’s title is Parisian Philosopher.
 - Private own-profile editor, safe text/HTTPS links, re-encoded photo uploads, publish preview, save history, owner revert/lock/revoke and aggregate spotlight counters.
+
+### 2026-11-20 · Rust Compound public browser parity
+- Ported the shared consent/attribution client and public Compound v2 hub to opt-in Rust/WASM, preserving existing HTML/copy, route selection, voting, feedback and one-link sharing.
+- Added legacy/Rust browser contracts and a late-refresh vote race check; fixed locale formatting for large numbers. Preview remains read-only and production is unchanged.

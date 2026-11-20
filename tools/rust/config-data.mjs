@@ -26,7 +26,7 @@ const file4=new URL('../../rust/migration/privacy-config.json',import.meta.url);
 if(process.argv.includes('--check')){if(readFileSync(file4,'utf8')!==privacy)throw Error('Rust privacy copy is stale');}else writeFileSync(file4,privacy);
 
 const compoundModule=await import('../../compound/v2/config.js');
-const compound=JSON.stringify({deadline:compoundModule.DEADLINE,seeds:compoundModule.SEED_VIDEOS},null,2)+'\n';
+const compound=JSON.stringify({deadline:compoundModule.DEADLINE,seeds:compoundModule.SEED_VIDEOS,platforms:compoundModule.PLATFORMS,accounts:compoundModule.ACCOUNTS,languages:compoundModule.LANGUAGES,hooks:compoundModule.HOOKS,mediums:compoundModule.MEDIUMS},null,2)+'\n';
 const file5=new URL('../../rust/migration/compound-v2-config.json',import.meta.url);
 if(process.argv.includes('--check')){if(readFileSync(file5,'utf8')!==compound)throw Error('Rust Compound v2 config is stale');}else writeFileSync(file5,compound);
 

@@ -3,6 +3,8 @@ use wasm_bindgen::prelude::*;
 pub mod arrival;
 pub mod battle;
 pub mod battle_admin;
+pub mod compound_client;
+pub mod compound_v2;
 pub mod consent;
 pub mod impact;
 pub mod interviews;
