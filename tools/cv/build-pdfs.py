@@ -1,7 +1,7 @@
 """Build text-based, single-column application CVs from the shared profile data.
 Requires reportlab and pypdf. Run after editing cv/profiles.json.
 """
-import json,re,shutil,html
+import json,re,shutil,html,argparse
 from pathlib import Path
 from reportlab.platypus import SimpleDocTemplate,Paragraph,Spacer,KeepTogether
 from reportlab.lib.styles import getSampleStyleSheet,ParagraphStyle
@@ -35,7 +35,9 @@ def footer(canvas,doc):
  canvas.setFont('Helvetica',7);canvas.setFillColor(HexColor('#62675c'))
  canvas.drawString(42,24,'F. Gabriel Van Langenhove | corvus.gent | Updated '+data['updated'])
  canvas.drawRightString(w-42,24,str(doc.page));canvas.restoreState()
+parser=argparse.ArgumentParser();parser.add_argument('--only',help='Build one profile by slug');args=parser.parse_args()
 for profile in data['profiles']:
+ if args.only and profile['slug']!=args.only:continue
  social=profile['kind']=='social';academic=profile['kind']=='academic';hybrid=profile['kind']=='hybrid'
  file=out/(profile['slug']+'-cv.pdf')
  story=[para(data['name'],'CVName'),para(profile['label'],'CVRole'),href('mailto:'+data['email'],data['email']+' | Ghent, Belgium'),href('https://corvus.gent'+profile['path'],'Web profile: corvus.gent'+profile['path']),para(profile['summary'])]
