@@ -227,23 +227,6 @@
       ]
     },
     {
-      "slug": "google",
-      "path": "/cv/work/google",
-      "kind": "hybrid",
-      "company": "Google",
-      "label": "Google · application profile",
-      "headline": "Research questions. Working prototypes. Clear stories.",
-      "summary": "I’m interested in research and social media roles that connect AI, people and useful technology. I bring a BSc in Computer Science, course research on human–LLM interaction and medical imaging, working software projects, and experience explaining the process through content and community.",
-      "focus": "Research interests · human–AI interaction · social media",
-      "download": "/cv/work/google/download",
-      "pdf": "work/google/cv.pdf",
-      "motivationTitle": "What I would bring",
-      "motivation": [
-        "My research background so far is course-based: writing on mutual manipulation between LLMs and humans, and a team project on model-based and physics-informed deep learning in medical imaging. The papers below show the questions, methods and scope I can discuss.",
-        "Alongside research, I’m interested in social media and technical storytelling: finding the human story, making the work understandable and measuring the response. A specific opening would determine which track I pursue."
-      ]
-    },
-    {
       "slug": "apple",
       "path": "/cv/work/apple",
       "kind": "hybrid",
@@ -258,23 +241,6 @@
       "motivation": [
         "I enjoy investigating a question through both writing and implementation. My course research spans human–LLM interaction and physics-informed medical imaging; my projects provide a practical way to test and explain technical ideas.",
         "For social media work, I bring interviewing, short-form editing and community experience. I want to contribute on a research or storytelling track that matches the team’s needs and my current experience."
-      ]
-    },
-    {
-      "slug": "openai",
-      "path": "/cv/work/openai",
-      "kind": "hybrid",
-      "company": "OpenAI",
-      "label": "OpenAI · application profile",
-      "headline": "Research the human side of AI. Tell its story clearly.",
-      "summary": "I’m interested in research or social media work around AI. I bring a computer science background, course research on mutual manipulation between LLMs and humans, and daily experience building with Codex and Claude while documenting what I learn.",
-      "focus": "Research interests · human–AI interaction · social media",
-      "download": "/cv/work/openai/download",
-      "pdf": "work/openai/cv.pdf",
-      "motivationTitle": "What I would bring",
-      "motivation": [
-        "My strongest research interest is human–AI interaction: how tools shape judgement, how people interpret their behaviour and how to evaluate the quality of the collaboration. My course paper on mutual manipulation between LLMs and humans is a starting point for that conversation.",
-        "I also enjoy making AI work understandable through interviews, product demos and community stories. I would like to contribute through research or social media, depending on the role and the team’s requirements."
       ]
     },
     {
@@ -295,6 +261,23 @@
       ]
     },
     {
+      "slug": "openai",
+      "path": "/cv/work/openai",
+      "kind": "hybrid",
+      "company": "OpenAI",
+      "label": "OpenAI · application profile",
+      "headline": "Research the human side of AI. Tell its story clearly.",
+      "summary": "I’m interested in research or social media work around AI. I bring a computer science background, course research on mutual manipulation between LLMs and humans, and daily experience building with Codex and Claude while documenting what I learn.",
+      "focus": "Research interests · human–AI interaction · social media",
+      "download": "/cv/work/openai/download",
+      "pdf": "work/openai/cv.pdf",
+      "motivationTitle": "What I would bring",
+      "motivation": [
+        "My strongest research interest is human–AI interaction: how tools shape judgement, how people interpret their behaviour and how to evaluate the quality of the collaboration. My course paper on mutual manipulation between LLMs and humans is a starting point for that conversation.",
+        "I also enjoy making AI work understandable through interviews, product demos and community stories. I would like to contribute through research or social media, depending on the role and the team’s requirements."
+      ]
+    },
+    {
       "slug": "amazon",
       "path": "/cv/work/amazon",
       "kind": "hybrid",
@@ -309,6 +292,23 @@
       "motivation": [
         "My research experience so far is course-based: mutual manipulation between LLMs and humans, and model-based and physics-informed deep learning in medical imaging. I want to develop those interests through careful investigation, practical experiments and collaboration.",
         "Alongside research, I build Corvus and tell the stories around it through interviews, short-form content and community projects. I would welcome a research or social media opportunity that fits my current experience and the team’s needs."
+      ]
+    },
+    {
+      "slug": "google",
+      "path": "/cv/work/google",
+      "kind": "hybrid",
+      "company": "Google",
+      "label": "Google · application profile",
+      "headline": "Research questions. Working prototypes. Clear stories.",
+      "summary": "I’m interested in research and social media roles that connect AI, people and useful technology. I bring a BSc in Computer Science, course research on human–LLM interaction and medical imaging, working software projects, and experience explaining the process through content and community.",
+      "focus": "Research interests · human–AI interaction · social media",
+      "download": "/cv/work/google/download",
+      "pdf": "work/google/cv.pdf",
+      "motivationTitle": "What I would bring",
+      "motivation": [
+        "My research background so far is course-based: writing on mutual manipulation between LLMs and humans, and a team project on model-based and physics-informed deep learning in medical imaging. The papers below show the questions, methods and scope I can discuss.",
+        "Alongside research, I’m interested in social media and technical storytelling: finding the human story, making the work understandable and measuring the response. A specific opening would determine which track I pursue."
       ]
     },
     {
