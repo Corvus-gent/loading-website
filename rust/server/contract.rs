@@ -968,6 +968,59 @@ async fn army_contract(
     let body = &row["body"];
     let value = row["value"].as_str().unwrap_or("");
     let ip = row["ip"].as_str().unwrap_or("fixture-ip-hash");
+    if row["action"] == "jobs" {
+        return corvus_server::army::jobs::Jobs {
+            army: &army,
+            fixture: row["fixture"].as_str(),
+        }
+        .bounded(
+            row["dry"] == true,
+            std::time::Duration::from_millis(row["budget"].as_u64().unwrap_or(50_000)),
+        )
+        .await;
+    }
+    if row["action"] == "service" {
+        use corvus_server::army::service::Service;
+        let service = Service::new(
+            &army,
+            row["fixture"].as_str(),
+            row["bits"].as_u64().unwrap_or(16) as u32,
+        )?;
+        let mut request = axum::http::HeaderMap::new();
+        for (key, value) in row["headers"].as_object().into_iter().flatten() {
+            request.insert(
+                axum::http::HeaderName::from_bytes(key.as_bytes())?,
+                value.as_str().ok_or("header")?.parse()?,
+            );
+        }
+        let mut response = axum::http::HeaderMap::new();
+        let result = match row["method"].as_str().unwrap_or("") {
+            "identity" => {
+                service
+                    .identity(&request, &mut response, row["create"] == true)
+                    .await?
+            }
+            "self" => {
+                service
+                    .own_profile(&army.user(uid).await?, row["logged"] == true)
+                    .await?
+            }
+            "challenge" => service.challenge(&request, &mut response, value).await?,
+            "proof" => service.verify_proof(&request, body).await?,
+            "submit" => service.submit(&request, body).await?,
+            "claim" => service.claim(&request, &mut response, value).await?,
+            "admin" => service.admin(value, uid, body).await?,
+            "admin-list" => service.admin_list(body).await?,
+            "origin" => json!(corvus_server::army::security::same_origin(
+                &state.settings,
+                &request
+            )),
+            _ => return Err("unknown service fixture".into()),
+        };
+        return Ok(
+            json!({"body":result,"cookies":response.get_all("set-cookie").iter().filter_map(|v|v.to_str().ok()).collect::<Vec<_>>()}),
+        );
+    }
     match row["action"].as_str().unwrap_or("") {
         "create" => {
             army.create(&body["country"], body["existingBrowser"] == true)
@@ -975,6 +1028,9 @@ async fn army_contract(
         }
         "user" => army.user(uid).await,
         "all" => Ok(json!(army.all().await?)),
+        "public-build" => corvus_server::army::public::Public(&army).build().await,
+        "public-summary" => corvus_server::army::public::Public(&army).summary().await,
+        "public-legion" => corvus_server::army::public::Public(&army).legion().await,
         "persist" => army.persist(body).await,
         "persist-guarded" => {
             army.persist_guarded(

@@ -6,6 +6,64 @@ use axum::{
 use tower::ServiceExt;
 
 #[tokio::test]
+async fn army_futures_fit_worker_stacks() -> Result<(), crate::Error> {
+    let settings = std::sync::Arc::new(Settings::new(
+        [("SESSION_SECRET".into(), "fixture".into())].into(),
+    ));
+    let http = reqwest::Client::new();
+    let state = crate::AppState {
+        settings: settings.clone(),
+        store: crate::store::Store::new(settings, http.clone()),
+        http,
+        live: crate::live::LiveService::new()?,
+        compound_summary: Default::default(),
+    };
+    let army = crate::army::store::Army::new(&state)?;
+    let s = crate::army::service::Service::new(&army, None, 16)?;
+    let h = axum::http::HeaderMap::new();
+    let q = std::collections::HashMap::new();
+    let b = serde_json::json!({});
+    for (name, size) in [
+        ("submit", std::mem::size_of_val(&s.submit(&h, &b))),
+        ("mail", std::mem::size_of_val(&s.mail.flush(false, None))),
+        (
+            "http",
+            std::mem::size_of_val(&crate::army::handler::handle(
+                &state,
+                &axum::http::Method::GET,
+                &h,
+                &q,
+                &[],
+            )),
+        ),
+        (
+            "bmc",
+            std::mem::size_of_val(&crate::army::webhooks::signed(
+                &state,
+                &axum::http::Method::GET,
+                &h,
+                &[],
+                true,
+                None,
+            )),
+        ),
+        (
+            "discord",
+            std::mem::size_of_val(&crate::army::webhooks::discord(
+                &state,
+                &axum::http::Method::GET,
+                &h,
+                &[],
+                None,
+            )),
+        ),
+    ] {
+        assert!(size <= 32_768, "{name} future grew to {size} bytes");
+    }
+    Ok(())
+}
+
+#[tokio::test]
 async fn default_deployment_cannot_activate_handlers() -> Result<(), crate::Error> {
     let app = app_with(Settings::new(Default::default()))?;
     let response = app

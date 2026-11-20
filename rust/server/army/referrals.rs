@@ -27,7 +27,7 @@ impl Army<'_> {
         {
             return Ok(false);
         }
-        self.locked(uid, async {
+        Box::pin(self.locked(uid, async {
             let mut latest = self.user(uid).await?;
             if latest.is_null() || truthy(&latest["referral"]) || truthy(&latest["parent"]) {
                 return Ok(false);
@@ -42,7 +42,7 @@ impl Army<'_> {
             .await?;
             self.persist(&latest).await?;
             Ok(true)
-        })
+        }))
         .await
     }
     pub async fn qualify(&self, uid: &str, ip: &str) -> Result<bool, Error> {
@@ -111,34 +111,33 @@ impl Army<'_> {
         if reward == 0 {
             return Ok(Value::Null);
         }
-        let result = self
-            .locked(uid, async {
-                let mut user = self.user(uid).await?;
-                if user.is_null() {
-                    return Ok(Value::Null);
-                }
-                let receipt = format!("mission:{uid}:{}", mission["id"].as_str().ok_or("mission")?);
-                if truthy(&self.get(&receipt).await?) {
-                    return Ok(user);
-                }
-                let streak = if truthy(&body["solved"]) {
-                    body["streak"].as_i64().unwrap_or(0).clamp(0, 3660)
-                } else {
-                    0
-                };
-                user["streak"] = json!(streak);
-                user["best"] = json!(user["best"].as_i64().unwrap_or(0).max(streak));
-                user["missionPoints"] = json!(user["missionPoints"].as_i64().unwrap_or(0) + reward);
-                self.own(
-                    uid,
-                    &receipt,
-                    &json!({"day":day,"type":kind,"reward":reward}),
-                    2 * DAY,
-                )
-                .await?;
-                self.persist(&user).await
-            })
+        let result = Box::pin(self.locked(uid, async {
+            let mut user = self.user(uid).await?;
+            if user.is_null() {
+                return Ok(Value::Null);
+            }
+            let receipt = format!("mission:{uid}:{}", mission["id"].as_str().ok_or("mission")?);
+            if truthy(&self.get(&receipt).await?) {
+                return Ok(user);
+            }
+            let streak = if truthy(&body["solved"]) {
+                body["streak"].as_i64().unwrap_or(0).clamp(0, 3660)
+            } else {
+                0
+            };
+            user["streak"] = json!(streak);
+            user["best"] = json!(user["best"].as_i64().unwrap_or(0).max(streak));
+            user["missionPoints"] = json!(user["missionPoints"].as_i64().unwrap_or(0) + reward);
+            self.own(
+                uid,
+                &receipt,
+                &json!({"day":day,"type":kind,"reward":reward}),
+                2 * DAY,
+            )
             .await?;
+            self.persist(&user).await
+        }))
+        .await?;
         if !result.is_null() {
             self.qualify(uid, ip).await?;
         }
@@ -162,7 +161,7 @@ impl Army<'_> {
             &format!("help:{}", reference.to_lowercase()),
         )?;
         let seconds = self.remaining(&user)?;
-        self.locked(uid, async {
+        Box::pin(self.locked(uid, async {
             let result = self
                 .run(&[
                     "EVAL",
@@ -188,7 +187,7 @@ impl Army<'_> {
                 return Err("unverified".into());
             }
             Ok(json!({"credited":result==1}))
-        })
+        }))
         .await
     }
 }

@@ -4,6 +4,23 @@ pub use corvus_core::army::{active_tier, public_soldier};
 use corvus_core::impact::trimmed;
 use regex::Regex;
 use serde_json::{Value, json};
+/// Default locale collation for validated ASCII IDs (punctuation, folded letters, case).
+pub fn ascii_compare(a: &str, b: &str) -> std::cmp::Ordering {
+    let key = |s: &str| {
+        s.bytes()
+            .map(|b| match b {
+                b'_' => 1,
+                b'-' => 2,
+                _ => b.to_ascii_lowercase(),
+            })
+            .collect::<Vec<_>>()
+    };
+    key(a).cmp(&key(b)).then_with(|| {
+        a.bytes()
+            .map(|b| b.is_ascii_uppercase())
+            .cmp(b.bytes().map(|b| b.is_ascii_uppercase()))
+    })
+}
 pub fn username(v: &Value) -> String {
     let s = trimmed(v.as_str().unwrap_or("")).to_lowercase();
     let mut out = String::new();

@@ -214,41 +214,40 @@ impl<'a, 's> Discord<'a, 's> {
             .await?;
         let record: Value = serde_json::from_str(raw.as_str().ok_or("expired")?)?;
         let uid = record["uid"].as_str().ok_or("expired")?;
-        self.army
-            .locked(uid, async {
-                let mut user = self.army.user(uid).await?;
-                if !truthy(&user["verifiedAt"])
-                    || user["status"] != "approved"
-                    || truthy(&user["discordId"]) && user["discordId"] != id
-                {
-                    return Err("unverified".into());
-                }
-                let suffix = format!("discord:owner:{id}");
-                let owner = self.army.get(&suffix).await?;
-                if truthy(&owner) && owner != uid {
-                    return Err("verification".into());
-                }
-                let reserved = self
-                    .army
-                    .run(&[
-                        "SET",
-                        &self.army.key(&suffix),
-                        &json!(uid).to_string(),
-                        "NX",
-                        "EX",
-                        &self.army.remaining(&user)?.min(365 * DAY).to_string(),
-                    ])
-                    .await?;
-                if reserved.is_null() && self.army.get(&suffix).await? != uid {
-                    return Err("verification".into());
-                }
-                self.army.own(uid, &suffix, &json!(uid), 365 * DAY).await?;
-                user["discordId"] = json!(id);
-                self.army.persist(&user).await?;
-                self.sync(&user).await?;
-                Ok(json!({"ok":true}))
-            })
-            .await
+        Box::pin(self.army.locked(uid, async {
+            let mut user = self.army.user(uid).await?;
+            if !truthy(&user["verifiedAt"])
+                || user["status"] != "approved"
+                || truthy(&user["discordId"]) && user["discordId"] != id
+            {
+                return Err("unverified".into());
+            }
+            let suffix = format!("discord:owner:{id}");
+            let owner = self.army.get(&suffix).await?;
+            if truthy(&owner) && owner != uid {
+                return Err("verification".into());
+            }
+            let reserved = self
+                .army
+                .run(&[
+                    "SET",
+                    &self.army.key(&suffix),
+                    &json!(uid).to_string(),
+                    "NX",
+                    "EX",
+                    &self.army.remaining(&user)?.min(365 * DAY).to_string(),
+                ])
+                .await?;
+            if reserved.is_null() && self.army.get(&suffix).await? != uid {
+                return Err("verification".into());
+            }
+            self.army.own(uid, &suffix, &json!(uid), 365 * DAY).await?;
+            user["discordId"] = json!(id);
+            self.army.persist(&user).await?;
+            self.sync(&user).await?;
+            Ok(json!({"ok":true}))
+        }))
+        .await
     }
     pub async fn audit(&self) -> Result<Value, Error> {
         if self.token().is_none() {
@@ -431,11 +430,11 @@ impl<'a, 's> Discord<'a, 's> {
             .and_then(|a| a.iter().find(|o| o["name"] == "code"))
             .and_then(|o| o["value"].as_str())
             .unwrap_or("");
-        self.claim(
+        Box::pin(self.claim(
             code,
             interaction["member"]["user"]["id"].as_str().unwrap_or(""),
             interaction["guild_id"].as_str().unwrap_or(""),
-        )
+        ))
         .await?;
         let lang = interaction["locale"]
             .as_str()
@@ -451,7 +450,7 @@ impl<'a, 's> Discord<'a, 's> {
         ))
     }
     pub async fn complete(&self, interaction: &Value) -> Result<(), Error> {
-        let content=self.respond(interaction).await.unwrap_or_else(|_|"the code expired or could not be linked. get a fresh code on corvus.gent/army/access/.".into());
+        let content=Box::pin(self.respond(interaction)).await.unwrap_or_else(|_|"the code expired or could not be linked. get a fresh code on corvus.gent/army/access/.".into());
         let id = &interaction["application_id"];
         let token = interaction["token"].as_str().unwrap_or("");
         if !model::snowflake(id)

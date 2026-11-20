@@ -40,7 +40,7 @@ impl Army<'_> {
         if self.by_email(&email).await?["id"] == uid {
             return Ok(json!({"counted":false,"reason":"self"}));
         }
-        self.locked(uid, async {
+        Box::pin(self.locked(uid, async {
             let result = self
                 .run(&[
                     "EVAL",
@@ -68,7 +68,7 @@ impl Army<'_> {
             } else {
                 json!({"counted":false,"reason":if result[0]==0{"duplicate"}else{"account"}})
             })
-        })
+        }))
         .await
     }
 }

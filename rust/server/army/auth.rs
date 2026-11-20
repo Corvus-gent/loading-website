@@ -91,14 +91,14 @@ impl Auth<'_, '_> {
         }
         let purpose = entry["purpose"].as_str().ok_or("expired")?;
         if purpose == "claim" {
-            self.0.verify(uid).await?;
+            Box::pin(self.0.verify(uid)).await?;
         } else {
             let suffix = format!("sub:{uid}:{purpose}");
             let mut sub = self.0.get(&suffix).await?;
             if sub.is_null() {
                 return Err("expired".into());
             }
-            self.0.verify(uid).await?;
+            Box::pin(self.0.verify(uid)).await?;
             sub["confirmed"] = json!(true);
             sub["confirmedAt"] = json!(self.0.timestamp()?);
             self.0.own(uid, &suffix, &sub, 365 * DAY).await?;
@@ -173,7 +173,7 @@ impl Auth<'_, '_> {
                     .await?,
             )
         {
-            self.0.remove(uid).await?;
+            Box::pin(self.0.remove(uid)).await?;
         }
         Ok(true)
     }

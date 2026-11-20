@@ -33,6 +33,25 @@ pub fn valid_code(v: &str) -> bool {
         && v.bytes()
             .all(|c| c.is_ascii_lowercase() || (b'2'..=b'7').contains(&c))
 }
+pub fn same_origin(env: &Settings, h: &HeaderMap) -> bool {
+    let origin = h.get("origin").and_then(|v| v.to_str().ok()).unwrap_or("");
+    crate::auth::ORIGINS.contains(&origin)
+        || (env.get("VERCEL_ENV") == Some("preview")
+            && h.get("host")
+                .and_then(|v| v.to_str().ok())
+                .is_some_and(|host| origin == format!("https://{host}")))
+}
+pub fn rate_hash(env: &Settings, h: &HeaderMap, scope: &str, now: i64) -> Result<String, Error> {
+    let day = super::model::iso(now)?.chars().take(10).collect::<String>();
+    Ok(crypto::daily_ip_hash(
+        &crypto::server_secret(env)?,
+        h.get("x-forwarded-for")
+            .and_then(|v| v.to_str().ok())
+            .unwrap_or(""),
+        &format!("army:{scope}"),
+        &day,
+    ))
+}
 /// Raw-body signature, shared by BMC and Pidgy; never reserialize the request.
 pub fn verify_webhook(raw: &[u8], signature: &str, secret: &str) -> bool {
     if secret.is_empty()

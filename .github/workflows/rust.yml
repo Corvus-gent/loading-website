@@ -40,6 +40,10 @@ jobs:
       - run: node tests/rust/army-model.mjs
       - run: node tests/rust/army-store.mjs
       - run: node tests/rust/army-auth.mjs
+      - run: node tests/rust/army-public.mjs
+      - run: node tests/rust/army-service.mjs
+      - run: node tests/rust/army-jobs.mjs
+      - run: node tests/rust/army-http.mjs
       - run: node tests/rust/army-payments.mjs
       - run: node tests/rust/army-capacity.mjs
       - run: node tests/rust/army-discord.mjs

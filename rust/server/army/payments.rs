@@ -235,7 +235,7 @@ impl Payments<'_, '_> {
         if id.is_empty() || id.len() > 20 || !id.bytes().all(|b| b.is_ascii_digit()) {
             return Err("payment".into());
         }
-        self.0.locked(&format!("payment:{id}"),async {
+        Box::pin(self.0.locked(&format!("payment:{id}"),async {
             let mut p=self.0.get(&format!("bmc:event:{id}")).await?;
             if p.is_null(){self.0.run(&["ZREM",&self.0.key("bmc:pending"),id]).await?;return Ok(json!({"missing":true}));}
             let mut user=if let Some(uid)=p["uid"].as_str(){self.0.user(uid).await?}else if let Some(name)=p["username"].as_str(){self.0.by_name(name).await?}else{Value::Null};
@@ -245,7 +245,7 @@ impl Payments<'_, '_> {
                 // All matched entitlement changes use one short lease. The capacity check
                 // happens at settlement, not only when a webhook enters the queue.
                 let payment=&mut p;
-                self.0.owned_lock("entitlements",15,|lease|async move { let p=payment; self.0.locked(uid,async {
+                Box::pin(self.0.owned_lock("entitlements",15,|lease|async move { let p=payment; Box::pin(self.0.locked(uid,async {
                     let snapshot=self.0.state.store.get(&self.0.key(&format!("u:{uid}"))).await?;
                     let Some(snapshot)=snapshot.as_str() else {return Ok(());};
                     let mut current:Value=serde_json::from_str(snapshot)?;
@@ -267,7 +267,7 @@ impl Payments<'_, '_> {
                     self.0.persist_guarded(&current,Some((snapshot,"entitlements",&lease))).await?;self.0.own(uid,&format!("bmc:event:{id}"),p,365*DAY).await?;
                     if let Some(object)=p["object"].as_str(){self.0.own(uid,&format!("bmc:owner:{object}"),&json!(uid),365*DAY).await?;}
                     Ok(())
-                }).await }).await?;
+                })).await })).await?;
                 if p["review_reason"]=="consul_capacity" {
                     self.0.run(&["ZADD",&self.0.key("bmc:unmatched"),&self.0.now().to_string(),id]).await?;
                 } else { self.0.run(&["ZREM",&self.0.key("bmc:unmatched"),id]).await?; }
@@ -278,7 +278,7 @@ impl Payments<'_, '_> {
             self.0.run(&["ZREM",&self.0.key("bmc:pending"),id]).await?;self.0.run(&["DEL",&self.0.key("public")]).await?;
             // Discord reconciliation belongs to the service boundary, still gated off.
             Ok(json!({"matched":!user.is_null()}))
-        }).await
+        })).await
     }
     pub async fn drain(&self) -> Result<Value, Error> {
         let ids = self
@@ -288,7 +288,7 @@ impl Payments<'_, '_> {
         let ids = ids.as_array().ok_or("payments")?;
         let mut matched = 0;
         for id in ids.iter().filter_map(Value::as_str) {
-            if self.process(id).await?["matched"] == true {
+            if Box::pin(self.process(id)).await?["matched"] == true {
                 matched += 1;
             }
         }
@@ -353,6 +353,6 @@ impl Payments<'_, '_> {
                 &(30 * DAY).to_string(),
             ])
             .await?;
-        self.process(event).await
+        Box::pin(self.process(event)).await
     }
 }

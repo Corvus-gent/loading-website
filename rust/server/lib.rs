@@ -97,10 +97,46 @@ async fn dispatch(
             .into_response();
     }
     let result = match module {
-        "legion" => legion::handler::handle(&state, &method, &headers, &query, &body).await,
-        "legion-stripe" => Ok(legion::handler::webhook(&state, &method, &headers, &body).await),
-        "compound-stripe" => Ok(compound::handler::webhook(&state, &method, &headers, &body).await),
-        "compound-summary" => Ok(state.compound_summary.handle(&state, &method).await),
+        "army" => {
+            Box::pin(army::handler::handle(
+                &state, &method, &headers, &query, &body,
+            ))
+            .await
+        }
+        "army-bmc" | "army-pidgy" => {
+            Box::pin(army::webhooks::signed(
+                &state,
+                &method,
+                &headers,
+                &body,
+                module == "army-bmc",
+                context.as_ref().map(|v| &v.0),
+            ))
+            .await
+        }
+        "army-discord" => {
+            Box::pin(army::webhooks::discord(
+                &state,
+                &method,
+                &headers,
+                &body,
+                context.as_ref().map(|v| &v.0),
+            ))
+            .await
+        }
+        "legion" => {
+            Box::pin(legion::handler::handle(
+                &state, &method, &headers, &query, &body,
+            ))
+            .await
+        }
+        "legion-stripe" => {
+            Ok(Box::pin(legion::handler::webhook(&state, &method, &headers, &body)).await)
+        }
+        "compound-stripe" => {
+            Ok(Box::pin(compound::handler::webhook(&state, &method, &headers, &body)).await)
+        }
+        "compound-summary" => Ok(Box::pin(state.compound_summary.handle(&state, &method)).await),
         "compound" | "compound-v2" => {
             let mut ordered = serde_json::Value::Object(
                 url::form_urlencoded::parse(raw_query.as_deref().unwrap_or("").as_bytes())
@@ -111,28 +147,30 @@ async fn dispatch(
                 if let Some(q) = ordered.as_object_mut() {
                     q.shift_remove("module");
                 }
-                return compound::handler::handle(&state, &method, &headers, &ordered, &body)
-                    .await
-                    .unwrap_or_else(|_| StatusCode::SERVICE_UNAVAILABLE.into_response());
+                return Box::pin(compound::handler::handle(
+                    &state, &method, &headers, &ordered, &body,
+                ))
+                .await
+                .unwrap_or_else(|_| StatusCode::SERVICE_UNAVAILABLE.into_response());
             }
-            compound_v2::handler::handle(
+            Box::pin(compound_v2::handler::handle(
                 &state,
                 &method,
                 &headers,
                 &ordered,
                 &body,
                 context.as_ref().map(|v| &v.0),
-            )
+            ))
             .await
         }
-        "auth" => auth::handle(&state, &method, &headers, &body).await,
-        "layers" => layers::handle(&state, &method, &headers, &query, &body).await,
-        "live" => live::handle(&state, &method, &headers, &query, &body).await,
-        "hack" => hack::handle(&state, &method, &headers, &query, &body).await,
-        "name-vote" => name_vote::handle(&state, &method, &headers, &body).await,
-        "battle" => battle::handle(&state, &method, &headers, &query, &body).await,
-        "support" => support::handle(&state, &method, &headers, &query, &body).await,
-        "plethora" => plethora::handle(&state, &method, &headers, &query).await,
+        "auth" => Box::pin(auth::handle(&state, &method, &headers, &body)).await,
+        "layers" => Box::pin(layers::handle(&state, &method, &headers, &query, &body)).await,
+        "live" => Box::pin(live::handle(&state, &method, &headers, &query, &body)).await,
+        "hack" => Box::pin(hack::handle(&state, &method, &headers, &query, &body)).await,
+        "name-vote" => Box::pin(name_vote::handle(&state, &method, &headers, &body)).await,
+        "battle" => Box::pin(battle::handle(&state, &method, &headers, &query, &body)).await,
+        "support" => Box::pin(support::handle(&state, &method, &headers, &query, &body)).await,
+        "plethora" => Box::pin(plethora::handle(&state, &method, &headers, &query)).await,
         _ => Ok((
             StatusCode::NOT_FOUND,
             Json(json!({"error":"Unknown module."})),

@@ -310,20 +310,17 @@ impl<'a, 's> Mail<'a, 's> {
     }
     pub async fn flush(&self, dry: bool, only: Option<&str>) -> Result<Value, Error> {
         // An invocation cannot retain this lease past its 60s TTL. Uncertain sends retain the same batch key.
-        self.army
-            .locked_for("mailer", 60, async {
-                match tokio::time::timeout(Duration::from_secs(50), self.flush_inner(dry, only))
-                    .await
-                {
-                    Ok(value) => value,
-                    Err(_) => {
-                        self.status(json!({"state":"retry","waiting":self.waiting().await?}))
-                            .await?;
-                        Ok(json!({"sent":0,"state":"retry"}))
-                    }
+        Box::pin(self.army.locked_for("mailer", 60, async {
+            match tokio::time::timeout(Duration::from_secs(50), self.flush_inner(dry, only)).await {
+                Ok(value) => value,
+                Err(_) => {
+                    self.status(json!({"state":"retry","waiting":self.waiting().await?}))
+                        .await?;
+                    Ok(json!({"sent":0,"state":"retry"}))
                 }
-            })
-            .await
+            }
+        }))
+        .await
     }
     async fn flush_inner(&self, dry: bool, only: Option<&str>) -> Result<Value, Error> {
         if self.army.state.settings.get("RESEND_API_KEY").is_none() {

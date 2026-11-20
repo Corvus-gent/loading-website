@@ -44,7 +44,7 @@ impl Army<'_> {
                 .insert("why".into(), json!("account"));
         }
         let mut data = model::application(&input)?;
-        self.locked(uid, async {
+        Box::pin(self.locked(uid, async {
             let mut user = self.user(uid).await?;
             if user.is_null() {
                 return Err(if enlist {
@@ -109,11 +109,11 @@ impl Army<'_> {
                 self.now() + if verified { 90 } else { 7 } * DAY * 1000
             )?);
             self.persist(&user).await
-        })
+        }))
         .await
     }
     pub async fn attach_email(&self, uid: &str, email: &str, lang: &str) -> Result<Value, Error> {
-        self.locked(uid, async {
+        Box::pin(self.locked(uid, async {
             let mut user = self.user(uid).await?;
             if user.is_null() {
                 return Err("session".into());
@@ -142,11 +142,11 @@ impl Army<'_> {
             user["status"] = json!("subscriber");
             user["expires"] = json!(model::iso(self.now() + 7 * DAY * 1000)?);
             self.persist(&user).await
-        })
+        }))
         .await
     }
     pub async fn verify(&self, uid: &str) -> Result<Value, Error> {
-        self.locked(uid, async {
+        Box::pin(self.locked(uid, async {
             let mut user = self.user(uid).await?;
             if !truthy(&user["email"]) {
                 return Err("expired".into());
@@ -178,7 +178,7 @@ impl Army<'_> {
                 self.persist(&user).await?;
             }
             Ok(user)
-        })
+        }))
         .await
     }
     pub async fn rate(
@@ -194,7 +194,7 @@ impl Army<'_> {
         if !corvus_core::army::includes("FEATHERS", spot) {
             return Err("feather".into());
         }
-        self.locked(uid, async {
+        Box::pin(self.locked(uid, async {
             let mut user = self.user(uid).await?;
             if user.is_null() {
                 return Err("session".into());
@@ -205,7 +205,7 @@ impl Army<'_> {
                 self.persist(&user).await?;
             }
             Ok(user)
-        })
+        }))
         .await
     }
     pub async fn seen(&self, uid: &str, ip: &str) -> Result<(), Error> {
@@ -216,7 +216,7 @@ impl Army<'_> {
         Ok(())
     }
     pub async fn remove(&self, uid: &str) -> Result<bool, Error> {
-        self.locked(uid, async {
+        Box::pin(self.locked(uid, async {
             let mut user = self.user(uid).await?;
             if user.is_object() {
                 user["status"] = json!("deleting");
@@ -247,14 +247,14 @@ impl Army<'_> {
             }
             for child in everyone.iter().filter(|s| s["parent"] == uid) {
                 let id = child["id"].as_str().ok_or("session")?;
-                self.locked(id, async {
+                Box::pin(self.locked(id, async {
                     let mut latest = self.user(id).await?;
                     if latest["parent"] == uid {
                         latest.as_object_mut().ok_or("session")?.remove("parent");
                         self.persist(&latest).await?;
                     }
                     Ok(())
-                })
+                }))
                 .await?;
             }
             let owned = self
@@ -304,7 +304,7 @@ impl Army<'_> {
                     .await?;
             }
             Ok(true)
-        })
+        }))
         .await
     }
     pub async fn export_data(&self, uid: &str) -> Result<Value, Error> {
@@ -373,7 +373,7 @@ impl Army<'_> {
             .await?;
         let ids = expired.as_array().ok_or("users")?;
         for uid in ids.iter().filter_map(Value::as_str) {
-            self.remove(uid).await?;
+            Box::pin(self.remove(uid)).await?;
         }
         Ok(ids.len())
     }
