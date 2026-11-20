@@ -27,3 +27,5 @@ The existing `/cv/tech/download` analytics API still serves `cv/gabe.pdf`; `/cv/
 The hub now has separate Studies, Work and Research section links. Employer profiles appear under Research; Tech/Social Media remain under Work. The Compound sample uses Simon Lorenzo’s existing portrait with contain sizing. To regenerate only one PDF: `python3 tools/cv/build-pdfs.py --only amazon`.
 
 Mistral AI has its own research-oriented profile, explicitly expressing Paris/London location preferences. No employment or vacancy eligibility is asserted.
+
+Career application profiles and PDFs distinguish Paris/London as European options from the preference to spend summer 2027 in the US or China, with San Francisco, New York, Shanghai, Hong Kong and Shenzhen named as cities of interest. These are preferences, not claims of work authorization or confirmed relocation.
