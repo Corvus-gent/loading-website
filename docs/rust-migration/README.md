@@ -56,6 +56,7 @@ node tools/rust/parity.mjs
 node tests/rust/compound-model.mjs
 node tests/rust/interview-model.mjs
 node tests/rust/impact-model.mjs
+node tests/rust/impact-providers.mjs
 node tools/rust/routing-parity.mjs
 node tests/rust/build-boundary.mjs
 node tests/rust/auth-parity.mjs
@@ -87,3 +88,5 @@ Compound browser coverage currently runs the unchanged JavaScript interface agai
 Interview photo compatibility uses native Rust `image` (orientation, dimensions and metadata removal) and the HTTP wire contract of the repository’s pinned `@vercel/blob` 2.8.2 (API version 13). Local provider fixtures verify authorization, path, cache/type headers and cleanup. Actual Blob integration in a preview-only namespace is a separate pending gate. References: https://docs.rs/image/0.25.10/image/struct.ImageReader.html and https://vercel.com/docs/vercel-blob/using-blob-sdk.
 
 Impact migration libraries preserve canonical post hashes, account aliases, six-platform metric normalization, null/zero/unsupported distinctions, original-video eligibility, self-reported LinkedIn imports, partial scores and first-day history. The shared Redis transaction updates annotations and linked tracker metrics together. Provider CAS compares decoded public values and the transaction compares original raw records. Field observations keep official data from being downgraded by scrapers and prevent older observations from overwriting newer ones. Exact floating-point JSON round trips are enabled for stored velocity; empty totals use positive zero. Impact HTTP/provider/browser integration remains pending.
+
+The optional Impact owner/provider adapters now exist in Rust: X, TikTok Display, Instagram Graph Insights, YouTube Data/Analytics, Twitch Helix, Oriane fallback, and LinkedIn's manual status. They use fixed first-party HTTPS origins, bounded responses/timeouts, no HTTP redirects, fixture-only network in isolated mode and no provider refresh in read-only mode. No real API credentials or quota were used during compatibility tests. X errors retain status/retry information; Twitch errors deliberately omit remote response bodies and clear cached credentials on 401. Provider scheduling/HTTP and browser integration are still pending.
