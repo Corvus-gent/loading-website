@@ -44,6 +44,10 @@
         "heading": "Waarom filosofie",
         "paragraphs": [
           {
+            "html": "Mijn AI-workflow van de afgelopen maand heeft van mij een filosoof gemaakt. Het was dus geen bewuste keuze om filosoof te worden, maar een pad waarop ik terechtkwam en dat ik met plezier bewandel.",
+            "note": false
+          },
+          {
             "html": "Ik filosofeer de hele dag. Bij elke stap in mijn leven probeer ik na te denken over hoe het beter kan. Ik gebruik AI om mijn gedachten te onderzoeken, vragen scherper te stellen en mijn keuzes te doordenken.",
             "note": false
           },
@@ -103,7 +107,9 @@
     "appearanceLabel": "Weergave",
     "systemLabel": "Systeem",
     "lightLabel": "Licht",
-    "darkLabel": "Donker"
+    "darkLabel": "Donker",
+    "backLabel": "Terug naar alle CV’s",
+    "breadcrumb": "Studies / KU Leuven · Filosofie"
   },
   "en": {
     "title": "F. Gabriel Van Langenhove — Philosophy at KU Leuven",
@@ -149,6 +155,10 @@
       {
         "heading": "Why philosophy",
         "paragraphs": [
+          {
+            "html": "My AI workflow over the past month has made me a philosopher. It wasn’t a deliberate choice to become one, but a path I found myself on—and one I enjoy taking.",
+            "note": false
+          },
           {
             "html": "I philosophise all day. At every step in my life, I think about how things could be better. I use AI to explore my thoughts, sharpen my questions and think through my choices.",
             "note": false
@@ -209,7 +219,9 @@
     "appearanceLabel": "Appearance",
     "systemLabel": "System",
     "lightLabel": "Light",
-    "darkLabel": "Dark"
+    "darkLabel": "Dark",
+    "backLabel": "Back to all CVs",
+    "breadcrumb": "Studies / KU Leuven · Philosophy"
   },
   "es": {
     "title": "F. Gabriel Van Langenhove — Filosofía en KU Leuven",
@@ -255,6 +267,10 @@
       {
         "heading": "Por qué la filosofía",
         "paragraphs": [
+          {
+            "html": "Mi forma de trabajar con IA durante el último mes me ha convertido en filósofo. No fue una decisión deliberada, sino un camino en el que me encontré y que disfruto recorrer.",
+            "note": false
+          },
           {
             "html": "Filosofo todo el día. En cada paso de mi vida, pienso en cómo podrían mejorar las cosas. Utilizo la IA para explorar mis pensamientos, afinar mis preguntas y pensar en mis elecciones.",
             "note": false
@@ -315,7 +331,9 @@
     "appearanceLabel": "Apariencia",
     "systemLabel": "Sistema",
     "lightLabel": "Claro",
-    "darkLabel": "Oscuro"
+    "darkLabel": "Oscuro",
+    "backLabel": "Volver a todos los CV",
+    "breadcrumb": "Estudios / KU Leuven · Filosofía"
   },
   "fr": {
     "title": "F. Gabriel Van Langenhove — Philosophie à la KU Leuven",
@@ -361,6 +379,10 @@
       {
         "heading": "Pourquoi la philosophie",
         "paragraphs": [
+          {
+            "html": "Ma façon de travailler avec l’IA au cours du dernier mois a fait de moi un philosophe. Ce n’était pas un choix délibéré, mais un chemin sur lequel je me suis retrouvé et que je prends plaisir à suivre.",
+            "note": false
+          },
           {
             "html": "Je philosophe toute la journée. À chaque étape de ma vie, je réfléchis à la manière dont les choses pourraient être améliorées. J'utilise l'IA pour explorer mes pensées, affiner mes questions et réfléchir à mes choix.",
             "note": false
@@ -421,7 +443,9 @@
     "appearanceLabel": "Apparence",
     "systemLabel": "Système",
     "lightLabel": "Clair",
-    "darkLabel": "Sombre"
+    "darkLabel": "Sombre",
+    "backLabel": "Retour à tous les CV",
+    "breadcrumb": "Études / KU Leuven · Philosophie"
   },
   "pt": {
     "title": "F. Gabriel Van Langenhove - Filosofia na KU Leuven",
@@ -467,6 +491,10 @@
       {
         "heading": "Por que filosofia",
         "paragraphs": [
+          {
+            "html": "A minha forma de trabalhar com IA no último mês tornou-me filósofo. Não foi uma escolha deliberada, mas um caminho em que me encontrei e que gosto de percorrer.",
+            "note": false
+          },
           {
             "html": "Filosofo o dia todo. A cada passo da minha vida, penso em como as coisas poderiam ser melhores. Eu uso IA para explorar meus pensamentos, aprimorar minhas perguntas e refletir sobre minhas escolhas.",
             "note": false
@@ -527,7 +555,9 @@
     "appearanceLabel": "Aparência",
     "systemLabel": "Sistema",
     "lightLabel": "Claro",
-    "darkLabel": "Escuro"
+    "darkLabel": "Escuro",
+    "backLabel": "Voltar a todos os CVs",
+    "breadcrumb": "Estudos / KU Leuven · Filosofia"
   },
   "de": {
     "title": "F. Gabriel Van Langenhove – Philosophie an der KU Leuven",
@@ -573,6 +603,10 @@
       {
         "heading": "Warum Philosophie",
         "paragraphs": [
+          {
+            "html": "Meine Arbeit mit KI im letzten Monat hat mich zum Philosophen gemacht. Das war keine bewusste Entscheidung, sondern ein Weg, auf dem ich mich wiedergefunden habe und den ich gerne gehe.",
+            "note": false
+          },
           {
             "html": "Ich philosophiere den ganzen Tag. Bei jedem Schritt in meinem Leben denke ich darüber nach, wie die Dinge besser werden könnten. Ich nutze KI, um meine Gedanken zu erforschen, meine Fragen zu schärfen und meine Entscheidungen zu durchdenken.",
             "note": false
@@ -633,7 +667,9 @@
     "appearanceLabel": "Darstellung",
     "systemLabel": "System",
     "lightLabel": "Hell",
-    "darkLabel": "Dunkel"
+    "darkLabel": "Dunkel",
+    "backLabel": "Zurück zu allen Lebensläufen",
+    "breadcrumb": "Studium / KU Leuven · Philosophie"
   },
   "zh": {
     "title": "F. Gabriel Van Langenhove — 鲁汶大学哲学",
@@ -679,6 +715,10 @@
       {
         "heading": "为什么是哲学",
         "paragraphs": [
+          {
+            "html": "过去一个月，我与 AI 协作的方式让我成了一名哲学思考者。这并不是一个刻意的选择，而是一条我自然而然走上的路，也是一条我乐于继续走下去的路。",
+            "note": false
+          },
           {
             "html": "我整天都在思考哲学。在我人生的每一步中，我都会思考如何让事情变得更好。我使用人工智能来探索我的想法，尖锐我的问题并思考我的选择。",
             "note": false
@@ -739,6 +779,8 @@
     "appearanceLabel": "外观",
     "systemLabel": "系统",
     "lightLabel": "浅色",
-    "darkLabel": "深色"
+    "darkLabel": "深色",
+    "backLabel": "返回简历总览",
+    "breadcrumb": "学习 / 鲁汶大学 · 哲学"
   }
 }

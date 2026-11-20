@@ -130,3 +130,10 @@ const centroids=Object.fromEntries(vm.runInNewContext('('+centroidData[1]+')'));
 const regionNames=new Intl.DisplayNames(['en'],{type:'region'}),names={};for(let a=65;a<=90;a++)for(let b=65;b<=90;b++){const code=String.fromCharCode(a,b);names[code]=regionNames.of(code);}
 const geoFile=new URL('../../rust/migration/geo-config.json',import.meta.url),geoJSON=JSON.stringify({cities:cityCatalog,regions:regionCatalog,centroids,names})+'\n';
 if(process.argv.includes('--check')){if(readFileSync(geoFile,'utf8')!==geoJSON)throw Error('Rust geo configuration stale');}else writeFileSync(geoFile,geoJSON);
+
+// Public copy is fetched as existing JSON; only the cache version is compiled.
+const pageCopySource=readFileSync(new URL('../../js/i18n/page-copy.js',import.meta.url),'utf8');
+const copyVersion=pageCopySource.match(/const catalogVersion = '([^']+)';/)?.[1];
+if(!copyVersion)throw Error('Page-copy version changed; review Rust catalog loader');
+const copyConfig=JSON.stringify({version:copyVersion})+'\n',copyFile=new URL('../../rust/migration/page-copy-config.json',import.meta.url);
+if(process.argv.includes('--check')){if(readFileSync(copyFile,'utf8')!==copyConfig)throw Error('Rust page-copy catalog version stale');}else writeFileSync(copyFile,copyConfig);

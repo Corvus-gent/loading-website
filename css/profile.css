@@ -22,3 +22,10 @@ body.whoami-page main.profile-wrap{max-width:1180px}
 @media(min-width:900px){.whoami-page section:not(.whoami-band){max-width:760px;margin-left:auto;margin-right:auto}.whoami-page .whoami-band{margin-top:42px;padding-top:32px}}
 @media(max-width:760px){.whoami-band,.whoami-band.photo-left{grid-template-columns:minmax(0,1fr);gap:22px}.whoami-band.photo-left .whoami-copy,.whoami-band.photo-left .whoami-photo{grid-column:auto;grid-row:auto}.whoami-photo{width:min(100%,280px);justify-self:center}.whoami-photo.portrait{width:160px;justify-self:start;grid-row:1;transform:rotate(1deg)}.whoami-hero{gap:18px}.whoami-hero h1{margin-top:12px}}
 @media print{.whoami-photo{display:none}.whoami-band,.whoami-band.photo-left{display:block}}
+
+/* CV hub: studies and work share the established card style. */
+.cv-study-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;margin:28px 0}.cv-study-grid .cv-choice h3{font-size:clamp(32px,5vw,48px);margin:12px 0}.cv-upcoming{display:grid;gap:16px}.cv-upcoming article{border:1px dashed #51472e;border-radius:14px;padding:22px 28px;background:#0c0c0b}.cv-upcoming h3{font-size:24px;margin:8px 0}.cv-upcoming p{color:#aaa;font-size:14px;margin:8px 0}.cv-studies .cv-choice p{min-height:0}@media(max-width:650px){.cv-study-grid{grid-template-columns:1fr}.cv-upcoming article{padding:20px 22px}}
+
+.cv-hub-tabs{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0}.cv-hub-tabs a{display:inline-flex;align-items:center;min-height:46px;padding:10px 18px;border:1px solid #51472e;border-radius:8px;text-decoration:none;font:600 13px ui-monospace,monospace}.cv-hub-tabs a:hover,.cv-hub-tabs a:focus-visible{background:#211d11;border-color:#ffd76a}.profile-wrap section[id]{scroll-margin-top:130px}
+
+#research .profile-button{gap:9px}#research .company-logo{display:block;flex:none;width:18px;height:18px;object-fit:contain}#research .company-logo-mono{filter:brightness(0) invert(.94)}

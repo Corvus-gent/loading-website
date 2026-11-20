@@ -1,6 +1,6 @@
 import '/js/i18n/bar.js';
 import {getLang} from '/js/i18n/language.js';
-export const languages={en:'🇬🇧 English',es:'🇪🇸 Español',zh:'🇨🇳 简体中文',fr:'🇫🇷 Français',pt:'🇵🇹 Português',nl:'🇳🇱 Nederlands',hi:'🇮🇳 हिन्दी',ta:'🇮🇳 தமிழ்'};
+export const languages={en:'🇬🇧 English',es:'🇪🇸 Español',zh:'🇨🇳 简体中文',fr:'🇫🇷 Français',pt:'🇵🇹 Português',nl:'🇳🇱 Nederlands',de:'🇩🇪 Deutsch',hi:'🇮🇳 हिन्दी',ta:'🇮🇳 தமிழ்'};
 let strings={},lang=getLang(),currentStats=null;
 let visitor;try{visitor=localStorage.getItem('worldcraft-visitor');if(!visitor){visitor=crypto.randomUUID();localStorage.setItem('worldcraft-visitor',visitor);}}catch{visitor=crypto.randomUUID();}
 export const currentLang=()=>lang;

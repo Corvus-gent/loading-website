@@ -90,6 +90,7 @@ jobs:
       - run: node tests/rust/site-browser.mjs
       - run: node tests/rust/site-built.mjs
       - run: node tests/rust/philosophy-browser.mjs
+      - run: node tests/rust/page-copy-browser.mjs
       - run: node tests/rust/realm-browser.mjs
       - run: node tests/rust/realm-motion-browser.mjs
       - run: node tests/rust/site-legacy-browser.mjs

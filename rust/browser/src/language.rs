@@ -32,6 +32,7 @@ fn languages() -> Vec<(&'static str, &'static str)> {
             ("fr", "FR"),
             ("pt", "PT"),
             ("nl", "NL"),
+            ("de", "DE"),
             ("hi", "हिन्दी"),
             ("ta", "தமிழ்"),
         ]
@@ -230,7 +231,7 @@ pub fn apply_language(code: Option<String>) -> Result<(), JsValue> {
     })?;
     Ok(())
 }
-fn save_language_preference(code: &str) {
+pub(crate) fn save_language_preference(code: &str) {
     let Some(window) = web_sys::window() else {
         return;
     };
@@ -394,5 +395,6 @@ pub fn start_language_bar() -> Result<(), JsValue> {
         body.prepend_with_node_1(&bar)?;
     }
     apply_language(None)?;
-    render_language_switcher(None)
+    render_language_switcher(None)?;
+    crate::page_copy::start()
 }

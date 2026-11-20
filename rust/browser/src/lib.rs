@@ -48,3 +48,5 @@ mod compound_editor;
 mod site;
 
 mod analytics;
+
+mod page_copy;

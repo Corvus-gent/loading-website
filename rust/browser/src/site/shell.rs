@@ -17,10 +17,12 @@ fn results(s: &Search) -> Result<(), JsValue> {
     s.list.set_text_content(None);
     for r in &s.routes {
         let hay = format!(
-            "{} {} {}",
+            "{} {} {} {} {}",
             text(r, "title"),
             text(r, "description"),
-            text(r, "path")
+            text(r, "path"),
+            crate::page_copy::translate(text(r, "title")),
+            crate::page_copy::translate(text(r, "description"))
         )
         .to_lowercase();
         if r["public"] == false || (!query.is_empty() && !hay.contains(&query)) {

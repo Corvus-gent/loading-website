@@ -5,7 +5,7 @@ import {rateLimit,dailyIPHash} from './_privacy.js';
 const ids=['spawn-worlds','ai-drawings','character-voices','build-challenges','multiplayer','parent-report','teacher-mode','why-monster'];
 const root=process.env.VERCEL_ENV==='preview'?'worldcraft:preview':'worldcraft';
 const prefix=root+':features:v2';
-const langs=['en','es','zh','fr','pt','nl','hi','ta'];
+const langs=['en','es','zh','fr','pt','nl','de','hi','ta'];
 const hash=s=>crypto.createHash('sha256').update(s).digest('hex');
 const object=x=>Array.isArray(x)?Object.fromEntries(Array.from({length:x.length/2},(_,i)=>[x[i*2],x[i*2+1]])):x||{};
 const cookie=req=>String(req.headers.cookie||'').match(/(?:^|;\s*)wc_visitor=([a-f0-9-]{36})(?:;|$)/)?.[1];

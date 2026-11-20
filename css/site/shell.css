@@ -24,7 +24,7 @@ body.app-page.site-shell{height:100dvh;min-height:0;display:flex;flex-direction:
 
 .site-next.site-quiet-footer{display:flex;justify-content:center;align-items:center;gap:1.25rem;flex-wrap:wrap}
 .site-quiet-footer a{display:inline-flex;align-items:center}
-body.site-shell:has(.site-grid[aria-label="Five doors"]){padding-top:0}
+body.site-shell:has(.portal-sections){padding-top:0}
 .site-company-crumb{max-width:1120px;margin:.5rem auto;padding:0 1rem;font:12px/1.6 ui-monospace,monospace}.site-company-crumb a,.company-ranking a{color:var(--corvus-gold)}
 .company-ranking li{padding:.7em .2em}.sf-photos figure{margin:0}.sf-photos img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}.sf-photos figcaption{padding:.65rem 0}.sf-photos time{display:block;font-size:.8rem}
 .layer-clock{position:sticky;bottom:0;width:fit-content;margin:1em auto;padding:.4em .75em;background:#111;color:var(--corvus-gold);border:1px solid var(--corvus-line);font:13px/1.5 ui-monospace,monospace;z-index:5}

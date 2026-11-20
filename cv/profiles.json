@@ -1,0 +1,351 @@
+{
+  "updated": "2026-11-20",
+  "name": "F. Gabriel Van Langenhove",
+  "email": "gabriel@corvus.gent",
+  "location": "Based in Ghent, Belgium",
+  "education": [
+    {
+      "title": "BSc in Computer Science · Ghent University",
+      "date": "2021–2025",
+      "text": "Completed bachelor’s degree. Academic transcript available.",
+      "href": "/cv/transcripts/bachelor.pdf"
+    },
+    {
+      "title": "MSc studies in Computer Science Engineering · Ghent University",
+      "date": "2024–2026",
+      "text": "Discontinued to work at a Ghent start-up and build independently. Coursework included Robotics, Machine Learning, AI Research Seminar, and Parallel & Distributed Software Systems.",
+      "href": "/cv/transcripts/master.pdf"
+    }
+  ],
+  "experience": [
+    {
+      "title": "Founder · Corvus",
+      "date": "November 2026–present",
+      "bullets": [
+        "Build and operate a community website with JavaScript, Node.js, Vercel serverless functions and Redis.",
+        "Connect product and community: public logo voting, user-submitted designs, feedback forms and aggregate visitor analytics.",
+        "Film and share the process through hackathon diaries, interviews, livestreams and short-form content."
+      ]
+    },
+    {
+      "title": "GTM Intern · Pidgy / Alkmist",
+      "date": "October 2026",
+      "bullets": [
+        "Researched growth, distribution and Product Hunt launches; explored scale-up strategies through academic reading and founder interviews."
+      ]
+    },
+    {
+      "title": "Founder · Web studio and tutoring business",
+      "date": "2025–2026",
+      "bullets": [
+        "Coordinated fellow students building websites and a team of student tutors; acquired tutoring clients through Facebook groups.",
+        "Taught programming, Data Science, algorithms and mathematics, adapting explanations to students and parents."
+      ]
+    },
+    {
+      "title": "Customer service · United Airlines",
+      "date": "July 2025 · Brussels Airport",
+      "bullets": [
+        "Assisted travellers in five languages in a fast-moving, public-facing environment."
+      ]
+    }
+  ],
+  "samples": [
+    {
+      "title": "Corvus · shipped product",
+      "label": "Software + community",
+      "text": "Public voting, feedback and community flows, backed by serverless APIs. Inspect the implementation and try the product.",
+      "href": "https://github.com/Corvus-gent/loading-website",
+      "secondaryHref": "/logo",
+      "secondaryLabel": "Try the logo vote"
+    },
+    {
+      "title": "SF hackathon field notes",
+      "label": "On-location storytelling",
+      "text": "A first-person account of meeting builders and documenting the San Francisco hackathon scene, with original photography.",
+      "href": "/sf/larp/",
+      "image": "/sf/larp/photos/hackathon-corgi.webp",
+      "imageAlt": "Gabe with a corgi at a San Francisco hackathon"
+    },
+    {
+      "title": "The Compound Effect",
+      "label": "Content workflow",
+      "text": "An experiment connecting raw footage, AI-assisted editing and platform-specific cuts. Explore the workflow and examples.",
+      "href": "/compound/impact/",
+      "image": "/compound/impact/assets/simon.jpg",
+      "imageAlt": "Simon Lorenzo, co-founder of Compound",
+      "imageFit": "contain"
+    },
+    {
+      "title": "LinkedIn · the underlying numbers",
+      "label": "Measurement",
+      "text": "Public charts and dated aggregate exports. Impressions and reach are reported separately, without implying sales or hires.",
+      "href": "https://stats.corvus.gent/linkedin"
+    }
+  ],
+  "projects": [
+    {
+      "title": "Corvus · product engineering",
+      "text": "JavaScript, Node.js, Redis and Vercel. Built user-facing browser flows, serverless endpoints and aggregate analytics; iterate from real feedback.",
+      "href": "https://github.com/Corvus-gent/loading-website"
+    },
+    {
+      "title": "Dwengo-1 · learning platform",
+      "text": "Led a team of seven building a platform for teachers to assign and track work. TypeScript, Node.js, Vue.js, Docker and Postgres · 2025."
+    },
+    {
+      "title": "PartyCrasher 3000 · autonomous robot",
+      "text": "A robot that drives, dances, talks and serves drinks. Python, ROS 2 and Bash · 2025."
+    }
+  ],
+  "research": [
+    {
+      "title": "Mutual Manipulation Between LLMs and Humans",
+      "text": "Course research with A. Buzogany · 2025. Questions about influence, agency and human–AI interaction.",
+      "href": "/papers/llm-human-manipulation.pdf"
+    },
+    {
+      "title": "Model-Based & Physics-Informed Deep Learning in Medical Imaging",
+      "text": "Course research in a team of five · 2025. Connecting computational models with domain constraints.",
+      "href": "/papers/model-based-dl-medical-imaging.pdf"
+    }
+  ],
+  "toolbox": [
+    "Python, JavaScript / TypeScript, Rust, C/C++, Java and SQL",
+    "Node.js, React, Vue.js, Flask, ROS 2, Docker, Postgres and Redis",
+    "scikit-learn, TensorFlow, Pandas and NumPy",
+    "Codex and Claude for implementation, investigation and iteration; Compound for AI-assisted content editing"
+  ],
+  "profiles": [
+    {
+      "slug": "tech",
+      "path": "/cv/tech/",
+      "kind": "tech",
+      "label": "Technical CV",
+      "headline": "Software builder. Curious about what comes next.",
+      "summary": "I turn ideas into working products, then test and improve them with real feedback. My background brings together computer science, full-stack development, robotics and applied AI. At Corvus, I own the path from browser interface to serverless API and community experience.",
+      "focus": "Software engineering · AI tools · product development",
+      "download": "/cv/tech/download",
+      "pdf": "gabe.pdf"
+    },
+    {
+      "slug": "social-media",
+      "path": "/cv/social-media/",
+      "kind": "social",
+      "label": "Social media & content CV",
+      "headline": "Find the story. Make it useful. Bring people in.",
+      "summary": "I build Corvus and document it: on-location interviews, hackathon diaries, livestreams and short-form content. I combine a technical background with hands-on storytelling, multilingual communication and a habit of measuring what happens after I publish.",
+      "focus": "Content production · community · social analytics",
+      "download": "/cv/socials/download",
+      "pdf": "social-media.pdf"
+    },
+    {
+      "slug": "stanford",
+      "path": "/cv/studies/stanford",
+      "kind": "social",
+      "institution": "Stanford University",
+      "label": "Stanford GSB · Social Media Manager",
+      "headline": "The next great campus story starts with a conversation.",
+      "summary": "I’m Gabriel: a builder, interviewer and community founder with a computer science background. I want to bring my curiosity, hands-on content production and analytical approach to Stanford GSB’s Social Media Manager role.",
+      "focus": "Application profile · campus storytelling & community",
+      "download": "/cv/studies/stanford/download",
+      "pdf": "studies/stanford/cv.pdf",
+      "jobUrl": "https://www.linkedin.com/jobs/view/4440338133/",
+      "motivationTitle": "Why this role",
+      "motivation": [
+        "The part that draws me in is being present: meeting people, asking good questions and noticing the story behind what they are building. In San Francisco and New York in November 2026, I attended hackathons, spoke with founders and filmed team interviews. I enjoy finding those stories in person.",
+        "Corvus lets me connect the whole journey: build a community experience, document it, publish it and inspect the response. I would bring that practical mindset to campus coverage while learning the school’s editorial standards and working closely with its communications team."
+      ],
+      "fit": [
+        {
+          "title": "Stories in the field",
+          "text": "Hackathon diaries and filmed robotics-team interviews provide a starting point for people-led event coverage.",
+          "href": "/sf/larp/"
+        },
+        {
+          "title": "From footage to distribution",
+          "text": "I use an AI-assisted workflow to create platform-specific edits and captions, then review the work before publishing.",
+          "href": "/compound/impact/"
+        },
+        {
+          "title": "Community with a feedback loop",
+          "text": "Corvus connects voting and community participation with public aggregate analytics; my tutoring business also taught me to explain clearly and coordinate people.",
+          "href": "/logo"
+        }
+      ],
+      "proposalTitle": "A first-month approach",
+      "proposal": [
+        "Listen first: meet the team and campus partners, review channel performance, voice guidelines, approvals and escalation practices.",
+        "Plan and pilot: build a small editorial calendar around real campus events; capture interviews and test accessible, platform-native formats with the team.",
+        "Review and improve: report on reach, engagement and website actions, share lessons and refine the next set of stories."
+      ]
+    },
+    {
+      "slug": "berkeley",
+      "path": "/cv/studies/berkeley",
+      "kind": "academic",
+      "institution": "UC Berkeley",
+      "label": "UC Berkeley · academic profile",
+      "headline": "Build things. Question the systems behind them.",
+      "summary": "I’m exploring a next step that brings computer science, philosophy and human–AI interaction together. I have a BSc in Computer Science, experience building products and course research on LLMs and human behaviour.",
+      "focus": "Academic interests · AI, agency & learning",
+      "download": "/cv/studies/berkeley/download",
+      "pdf": "studies/berkeley/cv.pdf",
+      "motivationTitle": "What I want to explore",
+      "motivation": [
+        "Working with AI every day has changed how I learn and what I question. I want to understand how AI influences human judgement, how people assign agency to these systems and how to evaluate the tools we build.",
+        "Berkeley is one of the places I want to explore for that next chapter. My starting point is a conversation about the right academic fit, supported by my transcripts, research writing and working projects."
+      ],
+      "interests": [
+        "Human–AI interaction: influence, agency and the quality of human judgement.",
+        "AI-assisted learning: what helps people understand, rather than simply complete a task.",
+        "Building and evaluating public-facing software with real users."
+      ],
+      "portrait": "/whoami/photos/berkeley-philosopher.webp",
+      "portraitAlt": "Gabriel seated beside a bronze statue with his laptop"
+    },
+    {
+      "slug": "harvard",
+      "path": "/cv/studies/harvard",
+      "kind": "academic",
+      "institution": "Harvard University",
+      "label": "Harvard · academic profile",
+      "headline": "From making software to thinking about its consequences.",
+      "summary": "My route into philosophy grew out of working with AI. I want to connect my computer science background and experience building a community with deeper work on judgement, agency and the social consequences of technology.",
+      "focus": "Academic interests · philosophy, AI & society",
+      "download": "/cv/studies/harvard/download",
+      "pdf": "studies/harvard/cv.pdf",
+      "motivationTitle": "The questions I want to pursue",
+      "motivation": [
+        "My AI workflow over the past month has made me think like a philosopher. It wasn’t a deliberate choice, but a path I found myself on and enjoy taking. Building tools has made questions about knowledge, responsibility and influence feel concrete.",
+        "I’m exploring Harvard as a possible next academic chapter. I would like to find the right setting to sharpen those questions through careful argument, research and conversation, while continuing to build."
+      ],
+      "interests": [
+        "How AI tools shape what we believe, decide and create.",
+        "Responsibility and agency in human–AI collaboration.",
+        "How communities learn, share knowledge and evaluate the quality of ideas."
+      ]
+    },
+    {
+      "slug": "apple",
+      "path": "/cv/work/apple",
+      "kind": "hybrid",
+      "company": "Apple",
+      "label": "Apple · application profile",
+      "headline": "Investigate the idea. Prototype it. Explain what matters.",
+      "summary": "I’m interested in research and social media opportunities where technology meets human experience. My background combines computer science, course research in AI, robotics projects and hands-on content production.",
+      "focus": "Research interests · human–AI interaction · social media",
+      "download": "/cv/work/apple/download",
+      "pdf": "work/apple/cv.pdf",
+      "motivationTitle": "What I would bring",
+      "motivation": [
+        "I enjoy investigating a question through both writing and implementation. My course research spans human–LLM interaction and physics-informed medical imaging; my projects provide a practical way to test and explain technical ideas.",
+        "For social media work, I bring interviewing, short-form editing and community experience. I want to contribute on a research or storytelling track that matches the team’s needs and my current experience."
+      ]
+    },
+    {
+      "slug": "anthropic",
+      "path": "/cv/work/anthropic",
+      "kind": "hybrid",
+      "company": "Anthropic",
+      "label": "Anthropic · application profile",
+      "headline": "Ask better questions about AI. Make the answers understandable.",
+      "summary": "I’m interested in research or social media roles centred on AI and its interaction with people. My background includes computer science, course research on human–LLM influence, software building with Claude and Codex, and communicating in public.",
+      "focus": "Research interests · human–AI interaction · social media",
+      "download": "/cv/work/anthropic/download",
+      "pdf": "work/anthropic/cv.pdf",
+      "motivationTitle": "What I would bring",
+      "motivation": [
+        "My research interests centre on influence, agency and human judgement. I have explored mutual manipulation between LLMs and humans in course research, and I want to develop that interest through more rigorous investigation and evaluation.",
+        "My other track is social media and technical storytelling: interviews, AI-assisted editing and stories about people building technology. I would welcome a conversation about which kind of contribution fits my experience."
+      ]
+    },
+    {
+      "slug": "openai",
+      "path": "/cv/work/openai",
+      "kind": "hybrid",
+      "company": "OpenAI",
+      "label": "OpenAI · application profile",
+      "headline": "Research the human side of AI. Tell its story clearly.",
+      "summary": "I’m interested in research or social media work around AI. I bring a computer science background, course research on mutual manipulation between LLMs and humans, and daily experience building with Codex and Claude while documenting what I learn.",
+      "focus": "Research interests · human–AI interaction · social media",
+      "download": "/cv/work/openai/download",
+      "pdf": "work/openai/cv.pdf",
+      "motivationTitle": "What I would bring",
+      "motivation": [
+        "My strongest research interest is human–AI interaction: how tools shape judgement, how people interpret their behaviour and how to evaluate the quality of the collaboration. My course paper on mutual manipulation between LLMs and humans is a starting point for that conversation.",
+        "I also enjoy making AI work understandable through interviews, product demos and community stories. I would like to contribute through research or social media, depending on the role and the team’s requirements."
+      ]
+    },
+    {
+      "slug": "amazon",
+      "path": "/cv/work/amazon",
+      "kind": "hybrid",
+      "company": "Amazon",
+      "label": "Amazon · application profile",
+      "headline": "Investigate a question. Build a test. Explain what you learn.",
+      "summary": "I’m interested in research or social media work that connects AI, people and useful technology. I bring a computer science background, course research on human–LLM interaction and medical imaging, software projects and experience documenting builders in public.",
+      "focus": "Research interests · applied AI · social media",
+      "download": "/cv/work/amazon/download",
+      "pdf": "work/amazon/cv.pdf",
+      "motivationTitle": "What I would bring",
+      "motivation": [
+        "My research experience so far is course-based: mutual manipulation between LLMs and humans, and model-based and physics-informed deep learning in medical imaging. I want to develop those interests through careful investigation, practical experiments and collaboration.",
+        "Alongside research, I build Corvus and tell the stories around it through interviews, short-form content and community projects. I would welcome a research or social media opportunity that fits my current experience and the team’s needs."
+      ]
+    },
+    {
+      "slug": "google",
+      "path": "/cv/work/google",
+      "kind": "hybrid",
+      "company": "Google",
+      "label": "Google · application profile",
+      "headline": "Research questions. Working prototypes. Clear stories.",
+      "summary": "I’m interested in research and social media roles that connect AI, people and useful technology. I bring a BSc in Computer Science, course research on human–LLM interaction and medical imaging, working software projects, and experience explaining the process through content and community.",
+      "focus": "Research interests · human–AI interaction · social media",
+      "download": "/cv/work/google/download",
+      "pdf": "work/google/cv.pdf",
+      "motivationTitle": "What I would bring",
+      "motivation": [
+        "My research background so far is course-based: writing on mutual manipulation between LLMs and humans, and a team project on model-based and physics-informed deep learning in medical imaging. The papers below show the questions, methods and scope I can discuss.",
+        "Alongside research, I’m interested in social media and technical storytelling: finding the human story, making the work understandable and measuring the response. A specific opening would determine which track I pursue."
+      ]
+    },
+    {
+      "slug": "mistral",
+      "path": "/cv/work/mistral",
+      "kind": "hybrid",
+      "company": "Mistral AI",
+      "label": "Mistral AI · application profile",
+      "headline": "Turn a research question into something you can test.",
+      "summary": "I’m interested in research-oriented work at Mistral AI, with Paris or London as my preferred locations. I bring a computer science background, course research on human–LLM interaction and medical imaging, practical software projects and experience explaining technical work in public.",
+      "focus": "Research interests · evaluation · Paris / London",
+      "download": "/cv/work/mistral/download",
+      "pdf": "work/mistral/cv.pdf",
+      "motivationTitle": "What draws me to this next step",
+      "motivation": [
+        "I want to get closer to the process of testing and understanding AI systems: asking a clear question, building an experiment and being careful about what the results actually show. My course research on mutual manipulation between LLMs and humans is where that interest started.",
+        "I would like to develop that interest in a research or research-engineering team in Paris or London. My current evidence is a combination of course research and working software, rather than a publication record. I also enjoy communicating the work through interviews, demos and community stories."
+      ]
+    }
+  ],
+  "channels": [
+    {
+      "title": "LinkedIn",
+      "href": "https://www.linkedin.com/in/francisco-gabriel-van-langenhove/"
+    },
+    {
+      "title": "Instagram · Gabe Maxxing",
+      "href": "https://www.instagram.com/gabe.maxxing/"
+    },
+    {
+      "title": "TikTok · Gabe Maxxing",
+      "href": "https://www.tiktok.com/@gabe.maxxing"
+    },
+    {
+      "title": "YouTube · Gabe Maxxing",
+      "href": "https://www.youtube.com/@gabe.maxxing"
+    }
+  ],
+  "summer2027Locations": "United States or China — San Francisco, New York, Shanghai, Hong Kong or Shenzhen"
+}
