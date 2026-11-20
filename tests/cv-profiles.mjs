@@ -21,3 +21,7 @@ console.log('PASS: stale-PDF rejection, presentation-only changes, research-firs
 for(const lang of ['nl','es','fr','pt','de','zh']){const copy=JSON.parse(await fs.readFile('public/i18n/site.'+lang+'.json','utf8'));for(const key of ['Apple →','Anthropic →','OpenAI →','Amazon →','Google →',data.name])assert.equal(copy[key],key,'proper name preserved in '+lang);assert(copy['See research ↓']);}
 assert(researchHtml.includes('<h1 translate="no">'+data.name+'</h1>'));
 console.log('PASS: candidate identity, company names and original paper titles survive translation.');
+
+for(const p of data.profiles){const html=renderCV(p,data,metrics);const parent=p.company?'research':p.institution?'studies':'work';assert(html.includes('href="/cv#'+parent+'"'),'return navigation reaches the relevant hub section');}
+for(const match of hub.matchAll(/aria-labelledby="([^"]+)"/g))for(const id of match[1].split(/\s+/))assert(hub.includes('id="'+id+'"'),'accessible label reference '+id+' exists');
+console.log('PASS: contextual return navigation and unique accessible card-link labels.');
