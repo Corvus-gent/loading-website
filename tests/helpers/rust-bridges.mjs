@@ -2,6 +2,8 @@
 // These contain only module wiring; all replacement behavior lives in Rust/WASM.
 const wasm='/rust/browser/pkg/corvus_browser.js';
 const bridges={
+ '/hack/3/add/app.js':`import init,{start_interviews_admin} from '${wasm}';await init();start_interviews_admin();`,
+ '/hack/3/interviews.js':`import init,{start_interviews} from '${wasm}';await init();start_interviews();`,
  '/js/privacy-page.js':`import {initI18n} from '/js/i18n.js?v=20261108live1';import init,{start_privacy_page,render_privacy_page} from '${wasm}';await init();start_privacy_page();initI18n(render_privacy_page);`,
  '/js/analytics-consent.js':`import init,* as m from '${wasm}';await init();m.start_consent();export const privacySignal=m.privacy_signal,consentChoice=m.consent_choice,analyticsAllowed=m.analytics_allowed,noticeDismissed=m.notice_dismissed,chooseAnalytics=m.choose_analytics;`,
  '/js/privacy.js':`import '/js/arrival.js';import init,{start_privacy} from '${wasm}';await init();start_privacy();`,

@@ -7,6 +7,19 @@ async fn main() -> Result<(), corvus_server::Error> {
         let row: Value = serde_json::from_str(&line?)?;
         let value = row["value"].as_str().unwrap_or("");
         let result = match row["operation"].as_str() {
+            Some("interview-fields") => {
+                match corvus_server::interviews::store::fields(&row["body"]) {
+                    Ok(v) => v,
+                    Err(e) => json!({"error":e.to_string()}),
+                }
+            }
+            Some("interview-photo") => {
+                use base64::{Engine, engine::general_purpose::STANDARD};
+                match corvus_server::interviews::photos::reencode(value) {
+                    Ok(v) => json!({"data":STANDARD.encode(v)}),
+                    Err(e) => json!({"error":e.to_string()}),
+                }
+            }
             Some("compound-summary") => corvus_server::compound_v2::summary::summarize(
                 &row["report"],
                 row["events"].as_array().ok_or("events")?,
@@ -80,6 +93,52 @@ async fn main() -> Result<(), corvus_server::Error> {
                 let slug = row["slug"].as_str().unwrap_or("");
                 let uid = row["uid"].as_str().unwrap_or("");
                 let output: Result<Value, corvus_server::Error> = match row["action"].as_str() {
+                    Some("interview-save") => {
+                        corvus_server::interviews::store::Interviews(&state)
+                            .save(
+                                &row["body"],
+                                row["photo_url"].as_str().unwrap_or(""),
+                                row["remove_photo"] == true,
+                            )
+                            .await
+                    }
+                    Some("interview-delete") => {
+                        corvus_server::interviews::store::Interviews(&state)
+                            .remove(&row["n"], &row["updated_at"])
+                            .await
+                    }
+                    Some("interview-get") => corvus_server::interviews::store::Interviews(&state)
+                        .get(&row["n"])
+                        .await
+                        .map(|v| v.unwrap_or(Value::Null)),
+                    Some("interview-list") => corvus_server::interviews::store::Interviews(&state)
+                        .list()
+                        .await
+                        .map(Value::Array),
+                    Some("photo-upload") => {
+                        match corvus_server::interviews::photos::Photos::isolated(&state, value) {
+                            Ok(photos) => photos
+                                .upload(row["data"].as_str().unwrap_or(""))
+                                .await
+                                .map(|v| json!({"url":v})),
+                            Err(e) => Err(e),
+                        }
+                    }
+                    Some("photo-delete") => {
+                        match corvus_server::interviews::photos::Photos::isolated(&state, value) {
+                            Ok(photos) => photos
+                                .delete(row["url"].as_str().unwrap_or(""))
+                                .await
+                                .map(|_| json!({"ok":true})),
+                            Err(e) => Err(e),
+                        }
+                    }
+                    Some("photo-cleanup") => {
+                        match corvus_server::interviews::photos::Photos::isolated(&state, value) {
+                            Ok(photos) => photos.cleanup().await.map(|_| json!({"ok":true})),
+                            Err(e) => Err(e),
+                        }
+                    }
                     Some("sync-status") => {
                         corvus_server::compound_v2::sync::status(&registry).await
                     }

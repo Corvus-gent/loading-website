@@ -4,6 +4,8 @@ pub mod arrival;
 pub mod battle;
 pub mod battle_admin;
 pub mod consent;
+pub mod interviews;
+pub mod interviews_admin;
 pub mod language;
 pub mod live_banner;
 mod portal;

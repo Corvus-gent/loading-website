@@ -36,7 +36,7 @@ Use portable Rust with Axum, Tokio and rustls. An adapter uses the **official** 
 | Inventory, baseline, Cargo workspace, native/Vercel/WASM adapters | Compile; snapshot production; no changed routes | In progress |
 | Storage, secrets, OTP sessions, consent, rate limiting | JS/Rust signature parity; bidirectional cookies; concurrent OTP use; denied preview writes | Initial auth tests pass locally |
 | Routing, gates, tiers, language state | All route aliases; protected-page negative tests; 04:02/DST; mobile/browser parity | Layer handlers and gate/language browser parity pass locally |
-| Compound/battle/interviews/impact | No lost votes; private/public field boundaries; null-vs-zero scores; code links; admin writes | Pure metrics/code rules, private live interviews, battle voting/proofs, hackathon comments and OSSMAN scores/ideas pass isolated cross-runtime tests; Compound registry/auth/import/queue/winner/reports/sync and HTTP/summary handlers verified; interview and Impact subhandlers pending |
+| Compound/battle/interviews/impact | No lost votes; private/public field boundaries; null-vs-zero scores; code links; admin writes | Pure metrics/code rules, private live interviews, battle voting/proofs, hackathon comments and OSSMAN scores/ideas pass isolated cross-runtime tests; Compound registry/auth/import/queue/winner/reports/sync and HTTP/summary handlers verified; interview quick-add/store/photo and browser flows verified locally; interview OG and Impact pending |
 | Games, Plethora, support, referrals, public statistics | Game replay fixtures; atomic counters; no duplicate tracking; historical totals | Plethora and support handlers pass cross-runtime tests; other handlers pending |
 | Legion, Senate, payments, email, uploads | Test invite claim/edit/revoke; webhook retries; stored identity compatibility; blob/image EXIF rules | Pending |
 | Remaining APIs, research tools, build, OG, scheduled jobs | Complete file inventory; contract fixtures; single scheduled writer | Pending |
@@ -54,6 +54,7 @@ cargo test --workspace
 cargo build --bins
 node tools/rust/parity.mjs
 node tests/rust/compound-model.mjs
+node tests/rust/interview-model.mjs
 node tools/rust/routing-parity.mjs
 node tests/rust/build-boundary.mjs
 node tests/rust/auth-parity.mjs
@@ -62,6 +63,7 @@ node tests/rust/browser.mjs
 node tests/rust/user-flows.mjs
 node tests/rust/battle-browser.mjs
 node tests/rust/compound-browser.mjs
+node tests/rust/interviews-browser.mjs
 node tests/rust/privacy-browser.mjs
 cargo check -p corvus-browser --target wasm32-unknown-unknown
 ```
@@ -80,3 +82,5 @@ Do not call this migration finished while any executable application area remain
 - Vercel background tasks must use request-scoped `AppState::wait_until`, not a detached Tokio task. Pinned 2.4.1 documents the invocation-lifetime fix; preview verification remains required before moving provider refreshes/redirect counting. Reference: https://docs.rs/vercel_runtime/2.4.1/vercel_runtime/struct.AppState.html
 
 Compound browser coverage currently runs the unchanged JavaScript interface against the actual Rust API and isolated Redis. It verifies the API boundary, not completion of the browser rewrite. The Impact admin module is excluded from that fixture because its handler has not migrated.
+
+Interview photo compatibility uses native Rust `image` (orientation, dimensions and metadata removal) and the HTTP wire contract of the repository’s pinned `@vercel/blob` 2.8.2 (API version 13). Local provider fixtures verify authorization, path, cache/type headers and cleanup. Actual Blob integration in a preview-only namespace is a separate pending gate. References: https://docs.rs/image/0.25.10/image/struct.ImageReader.html and https://vercel.com/docs/vercel-blob/using-blob-sdk.

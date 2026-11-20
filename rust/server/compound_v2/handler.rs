@@ -63,7 +63,7 @@ fn redirect(path: &str) -> Result<Response, Error> {
     r.headers_mut().insert("location", path.parse()?);
     Ok(r)
 }
-async fn defer<F>(context: Option<&vercel_runtime::AppState>, work: F)
+pub(crate) async fn defer<F>(context: Option<&vercel_runtime::AppState>, work: F)
 where
     F: Future<Output = ()> + Send + 'static,
 {
@@ -128,12 +128,14 @@ async fn inner(
 ) -> Result<Response, Error> {
     let registry = Registry(state);
     // Separate handlers are not silently treated as the video registry during migration.
-    if q["impact"] == "1"
-        || q["interviews"] == "1"
+    if q["interviews"] == "1"
         || q["interviewAdmin"] == "1"
         || truthy(&q["interviewPage"])
         || truthy(&q["interviewCard"])
     {
+        return crate::interviews::handler::handle(state, method, headers, q, body, context).await;
+    }
+    if q["impact"] == "1" {
         return Ok(error(
             StatusCode::NOT_IMPLEMENTED,
             "This Compound subhandler has not migrated yet.",

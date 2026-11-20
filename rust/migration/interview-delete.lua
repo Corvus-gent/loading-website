@@ -1,0 +1,1 @@
+local raw=redis.call('GET',KEYS[1]);if not raw then return 0 end;local old=cjson.decode(raw);if old.updated_at~=ARGV[2] then return -1 end;redis.call('DEL',KEYS[1]);redis.call('ZREM',KEYS[2],ARGV[1]);redis.call('HDEL',KEYS[3],old.slug);return 1

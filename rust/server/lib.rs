@@ -23,6 +23,7 @@ use serde_json::json;
 use std::{collections::HashMap, sync::Arc, time::Duration};
 
 pub type Error = Box<dyn std::error::Error + Send + Sync>;
+pub mod interviews;
 #[derive(Clone)]
 pub struct AppState {
     pub settings: Arc<config::Settings>,
@@ -51,7 +52,7 @@ pub fn app_with(settings: config::Settings) -> Result<Router, Error> {
     };
     Ok(Router::new()
         .fallback(dispatch)
-        .layer(DefaultBodyLimit::max(1024 * 1024))
+        .layer(DefaultBodyLimit::max(2_500_000))
         .with_state(state))
 }
 async fn dispatch(
@@ -64,6 +65,14 @@ async fn dispatch(
     body: Bytes,
 ) -> Response {
     let module = query.get("module").map(String::as_str).unwrap_or("health");
+    if body.len() > 1024 * 1024
+        && !(module == "compound-v2"
+            && ["interviews", "interviewAdmin"]
+                .iter()
+                .any(|key| query.get(*key).is_some_and(|v| v == "1")))
+    {
+        return StatusCode::PAYLOAD_TOO_LARGE.into_response();
+    }
     if module == "health" {
         if method != Method::GET && method != Method::HEAD {
             return StatusCode::METHOD_NOT_ALLOWED.into_response();

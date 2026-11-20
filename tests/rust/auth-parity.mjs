@@ -5,6 +5,7 @@ import net from 'node:net';
 import {createClient} from 'redis';
 import {createHash,createHmac} from 'node:crypto';
 import {existsSync} from 'node:fs';
+import {interviewContracts} from './interviews-parity.mjs';
 import {compoundHttpContracts} from './compound-http.mjs';
 import {compoundStoreContracts} from './compound-store.mjs';
 import {hackContracts} from './hack-parity.mjs';
@@ -87,6 +88,7 @@ try{
  await hackContracts({urls,client,secret});
  await compoundStoreContracts({client,secret});
  await compoundHttpContracts({urls,client,secret});
+ await interviewContracts({client,urls,secret});
 }finally{
  await client.disconnect().catch(()=>{});legacy?.closeAllConnections();legacy?.close();rust.kill('SIGTERM');redis.kill('SIGTERM');
  // The legacy module owns a Redis connection that is intentionally not exported.

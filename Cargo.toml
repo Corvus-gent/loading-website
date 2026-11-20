@@ -46,6 +46,7 @@ uuid = { version = "1", features = ["v4"] }
 tower = { version = "0.5", features = ["util"] }
 url = "2"
 vercel_runtime = { version = "2.4.1", features = ["axum"] }
+image = { version = "0.25.10", default-features = false, features = ["jpeg", "png", "webp"] }
 
 [dev-dependencies]
 http-body-util = "0.1"
