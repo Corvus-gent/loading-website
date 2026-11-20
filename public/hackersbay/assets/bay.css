@@ -306,3 +306,21 @@ input::placeholder { color: #8aa2b3; }
   .event-cover, .event-content { grid-template-columns: 1fr; }
   .event-ticket { width: max-content; max-width: 100%; }
 }
+
+.event-radar { margin-bottom: 12px; }
+.event-radar .radar { width: min(100%, 265px); }
+.radar-lock {
+  border: 0; background: transparent; padding: 6px; z-index: 2; min-width: 44px; min-height: 44px;
+}
+.radar-lock:hover b, .radar-lock:focus-visible b { background: var(--gold); color: var(--navy); }
+.match-card { scroll-margin-block: 12px; }
+.intro-actions { display: grid; gap: 6px; align-items: start; justify-items: start; margin-top: 12px; }
+.intro-state:empty { display: none; }
+.intro-state .fine { margin: 0 0 6px; }
+.intro-state .button { margin: 2px 6px 0 0; }
+.intro-state span { display: block; }
+.mutual-message { color: var(--teal); font: 700 15px/1.5 var(--mono); }
+.intro-inbox { max-width: 620px; margin-inline: auto; }
+.intro-inbox h1 { font-size: clamp(27px, 5vw, 49px); line-height: 1.07; letter-spacing: -.059em; margin-bottom: 12px; }
+.intro-inbox #intro-context { color: var(--muted); }
+.intro-inbox > .text-link { display: block; margin-top: 21px; }

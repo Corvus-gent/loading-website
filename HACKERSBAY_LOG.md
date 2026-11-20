@@ -27,3 +27,12 @@ Times are Paris local time. The release starts with the public Boat Hackathon De
 - Verified. The build passed. At 375px, each lens showed a distinct trio and fit the viewport.
 - Next. Put the three matches on the sonar and require both participants to accept an intro.
 - **STEER ME:** Add published food or payout details when the organizers confirm them. Choose whether to use Busy builder or Broke hacker as the default walk-through.
+
+## H4 · 2026-11-20 16:23 CET · Room sonar and mutual intros
+
+- Shipped a radar for the 30-person demo room. Three interactive locks jump to match cards with separate reasons for each side.
+- Shipped pending and mutual states. The requester opts in first, the fictional recipient explicitly accepts, then both see a suggested time and place within the published 1–5 PM window.
+- Decision. Corvus Redis enables shareable recipient links with a one-day lifetime. The same two-step flow works in a single browser without Redis. No email or invitations are sent.
+- Verified. The build passed. Chromium completed the full flow at 375px without environment variables and with two isolated browser sessions over Redis 7.
+- Next. Deploy the core to Corvus production and run the flow against the live domain.
+- **STEER ME:** Lead the pitch with the interactive radar or with the moment the second person opts in.

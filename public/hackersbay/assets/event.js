@@ -1,6 +1,8 @@
 import { EVENT_PATH, PERSONAS, getPersona, preset } from './persona.js';
 import { loadRoom, portrait, element } from './event-data.js';
 import { matchRoom, describeMatch, lensFor } from './lens.js';
+import { drawRadar } from './radar.js';
+import { introRequest, meetingFor, readIntros, recipientUrl, saveIntro } from './intros.js';
 
 const room = document.querySelector('#room');
 const roomState = document.querySelector('#room-state');
@@ -9,9 +11,11 @@ const saved = getPersona();
 const requested = new URLSearchParams(location.search).get('lens');
 const firstLens = Object.hasOwn(PERSONAS, requested) ? requested : (saved?.type || 'builder');
 
-function renderMatch(match, index) {
+function renderMatch(match, index, type, event, attendees) {
   const card = element('article', undefined, 'panel match-card');
   const person = match.person;
+  card.id = 'match-' + person.id;
+  card.tabIndex = -1;
   const { yourReason, theirReason } = describeMatch(match);
   const header = element('header');
   const info = element('div');
@@ -21,7 +25,74 @@ function renderMatch(match, index) {
   header.append(portrait(person), info, mark);
   const reasons = element('dl', undefined, 'match-reasons');
   reasons.append(element('dt', 'Why you’d meet'), element('dd', yourReason), element('dt', 'Why they’d meet'), element('dd', theirReason));
-  card.append(header, reasons);
+  const actions = element('div', undefined, 'intro-actions');
+  const notice = element('div', undefined, 'intro-state');
+  notice.setAttribute('aria-live', 'polite');
+  const request = element('button', 'Intro me', 'button primary');
+  request.type = 'button';
+  actions.append(request, notice);
+
+  function showIntro(intro) {
+    request.hidden = Boolean(intro);
+    if (!intro) return;
+    if (intro.status === 'mutual') {
+      notice.replaceChildren(
+        element('strong', 'IT’S MUTUAL ⚓', 'mutual-message'),
+        element('span', 'Suggested meetup · ' + intro.moment, 'fine')
+      );
+      return;
+    }
+    const link = element('a', 'Open recipient view', 'button');
+    link.href = recipientUrl(intro);
+    const label = element('p', 'You opted in. Waiting for the other side.', 'fine');
+    notice.replaceChildren(label, link);
+    if (intro.shared && navigator.clipboard) {
+      const copy = element('button', 'Copy intro link', 'button');
+      copy.type = 'button';
+      copy.addEventListener('click', async () => {
+        try { await navigator.clipboard.writeText(link.href); copy.textContent = 'Link copied'; }
+        catch { label.textContent = 'Open the recipient view to copy its link.'; }
+      });
+      notice.append(copy);
+    }
+  }
+
+  const latest = () => readIntros().findLast(row => row.personId === person.id && row.type === type);
+  showIntro(latest());
+  request.addEventListener('click', async () => {
+    request.disabled = true;
+    notice.textContent = 'Opening an intro request…';
+    const draft = {
+      id: crypto.randomUUID(), key: crypto.randomUUID(), personId: person.id, type,
+      status: 'pending', createdAt: Date.now()
+    };
+    let intro;
+    try {
+      const remote = await introRequest('request-intro', draft);
+      intro = { ...draft, ...remote, shared: true };
+    } catch {
+      intro = { ...draft, shared: false };
+    }
+    saveIntro(intro);
+    showIntro(intro);
+    notice.querySelector('a')?.focus();
+  });
+
+  card.updateIntro = async () => {
+    const intro = latest();
+    if (!intro) return;
+    if (intro.shared && intro.status === 'pending') {
+      try {
+        const remote = await introRequest('intro-status', { id: intro.id, key: intro.key });
+        if (remote.status === 'mutual') saveIntro({ ...intro, ...remote });
+      } catch { /* Keep the request pending until the service returns. */ }
+    }
+    const current = latest();
+    if (current?.status === 'mutual') showIntro({
+      ...current, moment: current.moment || meetingFor(event, attendees.indexOf(person))
+    });
+  };
+  card.append(header, reasons, actions);
   return card;
 }
 
@@ -45,7 +116,11 @@ async function showRoom() {
       return row;
     });
     document.querySelector('#lens-reasons').replaceChildren(...reasons);
-    document.querySelector('#match-list').replaceChildren(...matches.map(renderMatch));
+    const cards = matches.map((match, index) => renderMatch(match, index, type, event, attendees));
+    document.querySelector('#match-list').replaceChildren(...cards);
+    drawRadar(document.querySelector('#room-radar'), attendees, matches, personId => {
+      document.getElementById('match-' + personId)?.focus();
+    });
   }
 
   render(firstLens);
@@ -55,6 +130,15 @@ async function showRoom() {
   });
   roomState.hidden = true;
   room.hidden = false;
+  if (location.hash.startsWith('#match-')) document.getElementById(location.hash.slice(1))?.scrollIntoView();
+  const refresh = () => {
+    if (!document.hidden) document.querySelectorAll('.match-card').forEach(card => { void card.updateIntro(); });
+  };
+  refresh();
+  window.addEventListener('storage', refresh);
+  window.addEventListener('pageshow', refresh);
+  document.addEventListener('visibilitychange', refresh);
+  setInterval(refresh, 12000);
 }
 
 showRoom().catch(() => { roomState.textContent = 'The demo roster is unavailable. Reload the page to try again.'; });
