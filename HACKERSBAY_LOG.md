@@ -294,3 +294,11 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Verified at 375px with a stubbed Luma import and at 414px with real Redis, separate guest and organizer browser contexts, an invalid organizer key, and repeated save and acceptance requests.
 - Next. Publish the three 60-second cuts and the two-minute pitch for Demo Day.
 - **STEER ME:** Keep the initial deck at 10 seats or add a host-defined seat count.
+
+## H35 · 2026-11-21 20:53 CET · Remote pitch first
+
+- Rendered the captioned two-minute 1920 × 1080 pitch with the Deckhand lens, double opt-in, organizer flow, and sinking-rowboat bookends.
+- Decision. Publish the pitch MP4 ahead of the comparison page so Gabe can rehearse. The available chat and footage folders contained no boat-step or car clips. Gabe’s two clips and Colin’s future Klamath deck clip have visible, labeled slots.
+- Verified the file has H.264 video and AAC audio at the requested dimensions and 120 seconds. Inspected representative frames, including both bookends.
+- Next. Upload the three vertical cuts and check playback together on the live comparison page.
+- **STEER ME:** Play the captioned pitch as-is or speak over it using the live talk track.
