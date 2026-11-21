@@ -38,3 +38,26 @@ Cut The Hackers Bay demo as 9:16 and 16:9 exports, 15/30/60s each. Rank hooks: (
 Open with 0.6–1.2s cuts between water, the guest wall and cannon impact. At about 40%, drop the shanty for a breath and hard-cut to a wide sweep on the sonar. Add three pings, one per gold X. Give the pending state a beat so a second action is legible. Put the first phonk kick on the reveal of **IT’S MUTUAL ⚓**, then show **14:15 PT · near the conference center entrance**.
 
 Build with original music or cleared tracks. Use a dry cannon boom with a short low tail, narrow pings above the mix, and preserve space for Gabe’s voice. The provided Remotion renders contain an original synthesized soundbed. Place large teal captions above app controls and inside each format’s safe area. Keep the URL visible on the final card. End on the sonar pulse with a short audio fade so the loop lands back on the guest wall.
+
+# Compound handoff · The Journey + Demo
+
+Import the keepers under `video/raw/journey/` and the two captioned reference cuts from `video/out/`. In Compound, resolve media by imported filename or its actual path relative to the current Compound project root. The local Mac paths are just for finding the clips before import.
+
+## Paste-ready prompt
+
+Make two edits from the imported Hackers Bay assets. Resolve the source videos by filename in this Compound project’s Media Bin: journey_vertical.mp4 and demo_60s_vertical.mp4. Deliver a 72s Journey and a 60s Demo in 9:16 and 16:9. Journey: inbound Gabe → SF night and an earlier hackathon → anonymous guest wall → Klamath/Pier 9 and crew → live pirate builder → real departure terminal → back in Europe → blast the Luma hull → Captain Squawk’s radar, mutual intro, QR. Demo: start mid-cannon, three 1s travel/boat flashes, live Board → Parrot Race → three matches → both say yes → beak bump → Sink-a-Luma and terminal → QR. Preserve the original site’s character art and use actual UI. Hold one match reason long enough to read. Use original shanty (“RSVP to people, not places!”) into phonk at the hull split in Journey or beak bump in Demo. Let the real Gabe VO breathe at Journey 00:08. Keep captions short, high-contrast and safe from native overlays. Use the Klamath still for the missing boat step and the platform parrot plus Ghent footage for the missing car take. Use footage chronology from VIDEO_LOG.md. Finish with a three-second QR/URL hold and a cannon cue to loop. Export captioned and clean with SRT.
+
+## Cut references
+
+| Beat | Reference |
+| --- | --- |
+| Inbound and SF nights | `inbound-selfie.jpg`, `inbound-seat.jpg`, `sf-golden-gate.jpg`, `sf-walk.mov`, `sf-night.mov` |
+| First hackathon and Gabe audio | `sf-hackathon.mov` at 00:11–00:14, `sf-selfie.mov` at 00:01.64–00:04.49, `hack-room.mov`, `hack-stage.jpg` |
+| Real boat | `klamath.png`, `boat-room.jpeg`, `boat-crew.jpeg` |
+| Building the platform | `sf-laptop.mov`, `product/board-v.webm` or `board-w.webm`. The rolling dice portion is approximately 00:08–00:13. |
+| Leaving and Europe | `departure.mov` at 00:00.4, 00:09.1 and 00:17.3. `europe-table.mov` at 00:01.2. |
+| Parrot Race | `product/race-action-v.webm` or `race-action-w.webm`. Show the actual demo race and clearly retain its demo context. |
+| Cannon, classes, radar, intro and end | `product/demo-v.webm` or `demo-w.webm`. Browser capture leads product time by about 3.5s. Product timestamps are 00:00 cannon, 00:18 classes, 00:31 radar, 00:43 consent, 00:48 mutual, 00:54 QR. |
+| Sink-a-Luma | `product/sink-v.webm` or `sink-w.webm` plus `product/sink-terminal.ansi`. Exact command: `curl -L corvus.gent/hackersbay/sink/luma`. |
+
+Use the six `*_hook_*_vertical.mp4` files as A/B references. Journey defaults to the inbound selfie. Demo defaults to the explosion. For a Journey remix, test the boat exterior before the cabin flashback. For a Demo remix, hit the first class art by 00:03 and reserve the longest hold for the beak bump and QR. Keep the two edits independent so each has its own opening and payoff.
