@@ -726,3 +726,27 @@ body[data-dragging-pirate] { user-select: none; }
   :is(.board-page, .naval-landing, .event-page, .intro-page) .brand { gap: 6px; }
   .wordmark { letter-spacing: -.08em; }
 }
+
+.pixel-art { display: block; min-width: 0; }
+.pixel-art img { display: block; width: 100%; height: auto; image-rendering: pixelated; }
+.dressed-crew { aspect-ratio: 132 / 144; }
+.bay-coins {
+  display: inline-flex; width: max-content; align-items: center; gap: 5px; color: var(--gold);
+  font: 400 13px/1 var(--pixel); white-space: nowrap;
+}
+.bay-coins .pixel-art { flex: none; width: 17px; }
+.squawk-status:not(:empty) { display: flex; align-items: center; gap: 9px; }
+.squawk-status .pixel-art { flex: none; width: clamp(36px,7vw,54px); }
+.squawk-status .pixel-art img { animation: captain-bob 2s steps(1,end) infinite; }
+@keyframes captain-bob { 30%, 65% { transform: translateY(-3px); } 53% { transform: translateY(-1px); } }
+.button {
+  border-radius: 0; box-shadow: 0 3px #020a15; transition: transform .10s steps(2,end), box-shadow .10s steps(2,end);
+}
+.button.primary { box-shadow: 0 3px #1b726c, inset 0 2px #bbffe073; }
+.button:not(:disabled):active { transform: translateY(2px); box-shadow: 0 1px #020a15; }
+.button.primary:not(:disabled):active { box-shadow: 0 1px #1b726c; }
+.deck-crew li { min-height: 75px; }
+@media (prefers-reduced-motion: reduce) {
+  .squawk-status .pixel-art img { animation: none; }
+  .button { transition: none; }
+}

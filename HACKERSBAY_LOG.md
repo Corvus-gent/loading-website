@@ -222,3 +222,12 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Decision. Keep the 60-second story as a browser capture with a silent default. Six cold local runs at the two phone widths recorded zero layout shift and no initial roster fetch.
 - Next. Use the browser demo or the judging brief for Demo Day rehearsal.
 - **STEER ME:** Start the live pitch on the cannon shot or hand the phone over at the pirate builder.
+
+## H27 · 2026-11-21 15:00 CET · Captain Squawk and the wardrobe
+
+- Rebasing on main brought in all eight Recraft uploads. Shipped transparent WebP and PNG sprites for the six poses, four classes, and 20 wearables, plus the mascot, icon, ship, and mutual art.
+- Shipped the parrot-pirate creator, class presets, live apparel layers, dice and reset, Captain Squawk’s Wants bubble, and a local gold counter. The new icon is wired into the browser, web app manifest, and Mac package.
+- Decision. Keep the exact Recraft class art for the preset kits. Custom outfits use the uploaded item layers on a color-matched parrot body. Gold starts at zero and the first flag earns three coins.
+- Verified. The build passed. The 375px, 414px, and desktop creator tests passed for all classes, apparel, import fallback, and persistence.
+- Next. Animate the Recraft ship and put the Captain in the matching flow, demo, and error states.
+- **STEER ME:** Keep gold as a demo score or give it a cosmetic use later.

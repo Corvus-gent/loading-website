@@ -5,8 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#06121f">
   <meta name="referrer" content="no-referrer">
-  <meta name="description" content="Build an original pixel pirate, pick a class, and send your parrot to find your crew.">
-  <link rel="icon" href="/public/hackersbay/assets/parrot-flag.svg" type="image/svg+xml">
+  <meta name="description" content="Choose a parrot pirate, equip your kit, and find your crew with Captain Squawk.">
+  <link rel="manifest" href="/public/hackersbay/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/public/hackersbay/art/app-icon-192.png">
+  <link rel="icon" href="/public/hackersbay/art/captain-icon.png" type="image/png" sizes="128x128">
   <link rel="stylesheet" href="/public/hackersbay/assets/bay.css">
   <link rel="stylesheet" href="/public/hackersbay/assets/board.css">
   <title>Build your pirate | The Hackers Bay</title>
@@ -16,23 +18,27 @@
 <body class="board-page">
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-bar wrap">
-    <a class="brand" href="/hackersbay" aria-label="The Hackers Bay home"><img src="/public/hackersbay/assets/parrot-flag.svg" width="34" height="34" alt=""><span class="wordmark">The Hackers Bay</span></a>
+    <a class="brand" href="/hackersbay" aria-label="The Hackers Bay home"><img src="/public/hackersbay/art/captain-icon.webp" width="34" height="34" alt=""><span class="wordmark">The Hackers Bay</span></a>
     <button class="button sound-switch" id="bay-sound" type="button" aria-pressed="false">Sound off</button>
   </header>
   <main class="wrap inside" id="main">
     <header class="page-heading board-heading">
       <p class="eyebrow">The Black Commit · Boarding deck</p>
       <h1>Build your <em>pirate.</em></h1>
-      <p>Pick your kit, name your parrot, and choose what you’re after.</p>
+      <p>Choose a parrot pirate, equip your kit, and tell Captain Squawk what you’re after.</p>
     </header>
     <form id="card-form">
+      <fieldset class="creator-classes">
+        <legend>Pick your class</legend>
+        <div class="persona-choices" id="persona-choices"></div>
+      </fieldset>
       <div class="creator-grid">
         <section class="creator-preview" aria-label="Your pirate preview">
           <div class="creator-display">
             <div class="creator-gridlines" aria-hidden="true"></div>
-            <div class="creator-caption"><span id="sprite-class">DECKHAND</span><span aria-hidden="true">✦ ✦</span></div>
-            <div class="creator-sprite" id="creator-sprite"></div>
-            <div class="creator-speech"><strong id="sprite-bird-name">Patch</strong><p id="sprite-wants"></p></div>
+            <div class="creator-caption"><span id="sprite-class">DECKHAND</span><span class="bay-coins" data-bay-coins aria-label="0 gold coins">00</span></div>
+            <div class="creator-sprite" id="creator-sprite" role="img" aria-label="Your parrot pirate"></div>
+            <div class="creator-speech"><span id="wardrobe-captain"></span><div><strong>Captain Squawk</strong><p id="sprite-wants"></p></div></div>
           </div>
           <div class="creator-plaque"><strong id="sprite-name">Copper Byte</strong><button class="button" type="button" id="roll-pirate">Roll the dice 🎲</button></div>
         </section>
@@ -40,15 +46,9 @@
           <h2 id="kit-title">Pirate kit</h2>
           <label>Pirate name <input name="name" required maxlength="48" autocomplete="off" value="Copper Byte"></label>
           <div id="pirate-options" class="creator-options"></div>
-          <h3>Shoulder parrot</h3>
-          <div id="parrot-options" class="creator-options"></div>
-          <label>Parrot name <input name="birdName" required maxlength="28" autocomplete="off" value="Patch"></label>
+          <button class="button kit-reset" type="button" id="reset-kit">Restore class kit</button>
         </section>
       </div>
-      <fieldset class="creator-classes">
-        <legend>Pick your class</legend>
-        <div class="persona-choices" id="persona-choices"></div>
-      </fieldset>
       <section class="panel crew-card creator-log" id="crew-card" aria-labelledby="card-title">
         <div class="card-heading">
           <h2 id="card-title">Ship’s log</h2><p class="pill" id="card-source">Class defaults</p>
@@ -63,11 +63,11 @@
       </section>
     </form>
     <details class="panel creator-extra">
-      <summary>Let your parrot read a link <span>Optional</span></summary>
+      <summary>Let Captain Squawk read a link <span>Optional</span></summary>
       <form id="profile-form">
         <label for="profile-url">Public profile or personal site</label>
         <input id="profile-url" name="profile" type="text" inputmode="url" autocomplete="off" spellcheck="false" required maxlength="320" placeholder="github.com/you" aria-describedby="profile-hint">
-        <p class="fine" id="profile-hint">X, GitHub, LinkedIn, or your own site. Your parrot drafts Builds, Wants, and Offers for you to edit.</p>
+        <p class="fine" id="profile-hint">X, GitHub, LinkedIn, or your own site. Captain Squawk drafts Builds, Wants, and Offers for you to edit.</p>
         <label class="check-option"><input type="checkbox" name="privateMode"> NYTEX private mode</label>
         <p class="fine">Private mode uses confidential inference or a local draft. Public profile reading may still contact the linked site.</p>
         <button class="button" type="submit">Read my link <span aria-hidden="true">→</span></button>
