@@ -330,6 +330,58 @@
   ],
   "rewrites": [
     {
+      "source": "/cv/horeca",
+      "destination": "/cv/horeca/index.html"
+    },
+    {
+      "source": "/cv/bar-bassie/download",
+      "destination": "/cv/bar-bassie/cv.pdf"
+    },
+    {
+      "source": "/cv/bar-bassie",
+      "destination": "/cv/bar-bassie/index.html"
+    },
+    {
+      "source": "/cv/tribune/download",
+      "destination": "/cv/tribune/cv.pdf"
+    },
+    {
+      "source": "/cv/tribune",
+      "destination": "/cv/tribune/index.html"
+    },
+    {
+      "source": "/cv/sakas/download",
+      "destination": "/cv/sakas/cv.pdf"
+    },
+    {
+      "source": "/cv/sakas",
+      "destination": "/cv/sakas/index.html"
+    },
+    {
+      "source": "/cv/bakker-klaas/download",
+      "destination": "/cv/bakker-klaas/cv.pdf"
+    },
+    {
+      "source": "/cv/bakker-klaas",
+      "destination": "/cv/bakker-klaas/index.html"
+    },
+    {
+      "source": "/cv/studio-mario/download",
+      "destination": "/cv/studio-mario/cv.pdf"
+    },
+    {
+      "source": "/cv/studio-mario",
+      "destination": "/cv/studio-mario/index.html"
+    },
+    {
+      "source": "/cv/club-wintercircus/download",
+      "destination": "/cv/club-wintercircus/cv.pdf"
+    },
+    {
+      "source": "/cv/club-wintercircus",
+      "destination": "/cv/club-wintercircus/index.html"
+    },
+    {
       "source": "/cv/bar-bougie/download",
       "destination": "/cv/bar-bougie/cv.pdf"
     },

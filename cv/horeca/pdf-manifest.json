@@ -1,0 +1,15 @@
+{
+  "sources": {
+    "cv/bar-bougie/content.json": "dd47a7f45a154bf24a1bbad911a19731657d00e70617406f394740db46feb492",
+    "cv/horeca/venues.json": "3fd9e9745402425a180a0802604c7cabd0c4323f6460b9acbf46076845311ef3",
+    "tools/cv/build-hospitality-pdfs.py": "7831af1da0c2fe4b1b3670e1351fba81803fbfa0f348bd4d86fe8d4d6863175b"
+  },
+  "pdfs": {
+    "bar-bassie": "be1b5dcbb043ccaf0004e468abb6b574bba06b1806fed05a11c481049fbfeb3c",
+    "tribune": "1ae735d2113af5b3e3fb8e34f9c97b790d26d80f7a5949c3bda193502254d616",
+    "sakas": "36e6ec6a9accaad9d89c594f3550686c19d9ce7f2402ff230a9a7c0ea5bb04e5",
+    "bakker-klaas": "7762a577fbdf31212041c48b1260e3fb23dfb5946d450b7205852ebd64c9fef2",
+    "studio-mario": "16c6e4974ebf48bf6c81481e35e400e241c7b13ac8f8d6e6c2c1b312d8317478",
+    "club-wintercircus": "5370954ad657696465e7c40abec7fb6fa54f2a80fd8add7dd51119f9b0af303a"
+  }
+}

@@ -33,7 +33,7 @@ def para(text,x,y,width,style=body):
  p=Paragraph(html.escape(text),style);_,height=p.wrap(width,800);p.drawOn(c,x,y-height);return y-height
 # Reading column.
 x=32;w=337;y=642
-for title,text in [('WAAROM IK WIL MEEDRAAIEN',d['why'])]:
+for title,text in [('WAAROM IK WIL MEEDRAAIEN',d['why']+' '+d['partnerships'])]:
  y=para(title,x,y,w,head)-8;y=para(text,x,y,w)-14
 for item in d['experience']:
  y=para(item['title'],x,y,w,bold)-3;y=para(item['date'],x,y,w,small)-5;y=para(item['text'],x,y,w)-12
