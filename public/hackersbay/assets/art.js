@@ -42,7 +42,7 @@ export const CLASS_ART = {
 };
 export const classArt = type => 'crew-' + (CLASS_ART[type] || CLASS_ART.hacker);
 
-export const FLEET_POSES = new Set(['wave', 'typing', 'flying', 'squawk', 'thumbs-up', 'celebrate']);
+const FLEET_POSES = new Set(['wave', 'typing', 'flying', 'squawk', 'thumbs-up', 'celebrate']);
 export function captainArt(pose, options = {}) {
   const sprite = FLEET_POSES.has(pose) ? 'squawk-' + pose : pose === 'sitting' ? 'captain-squawk-sitting' : 'captain-squawk';
   const size = FLEET_POSES.has(pose) ? {width:150,height:150} : {width:192,height:230};

@@ -159,9 +159,28 @@
 .demo-page .beak-bump .mutual-bird { top: 1.25cqw; }
 .demo-page .demo-chip, .demo-page .demo-caption { border-radius: 0; }
 [data-format="wide"] .demo-creator { width: 100%; }
-[data-format="wide"] .demo-sprite-stage { width: 19cqw; }
+[data-format="wide"] .demo-sprite-stage { width: 16cqw; }
 [data-format="wide"] .demo-class-chip { min-height: 6.5cqw; }
 [data-format="wide"] .demo-crew li { grid-template-columns: 4.6cqw minmax(0,1fr); gap: .5cqw; }
 [data-format="wide"] .demo-radar .spyglass-parrot { width: 6.8cqw; }
 [data-format="wide"] .demo-page .beak-bump { --flight-span: 11cqw; --bird-size: 9cqw; }
 [data-format="wide"] .demo-page .coin-sprite { top: 4cqw; }
+
+.demo-sea { aspect-ratio: 7 / 4; overflow: hidden; }
+.demo-caption {
+  display: grid; grid-template-columns: auto minmax(0,1fr); align-items: center; gap: 1.2cqw;
+  padding: .55em .65em; text-align: left; background: var(--parchment); color: #182936; border: .25cqw solid #ad784b;
+}
+.demo-caption #demo-host { display: block; width: 8.9cqw; }
+.demo-caption .pixel-art { width: 100%; }
+.demo-caption #demo-host img { width: 100%; height: 8.9cqw; object-fit: contain; }
+.demo-caption .demo-voice strong { display: block; color: #733929; font: 400 var(--label)/1.22 var(--pixel); }
+.demo-caption .demo-voice p { margin: .22em 0 0; }
+.demo-class-chip { grid-template-columns: minmax(0,1fr) 2fr; align-items: center; gap: .45cqw; }
+.demo-class-chip .pixel-art { width: 100%; }
+.demo-class-chip strong { display: block; overflow-wrap: anywhere; }
+.demo-page .mutual-recraft { width: min(54cqw,600px); height: auto; }
+.demo-page .mutual-recraft .coin-sprite { top: 43%; }
+[data-format="wide"] .demo-caption #demo-host { width: 4.4cqw; }
+[data-format="wide"] .demo-caption #demo-host img { height: 4.4cqw; }
+[data-format="wide"] .demo-page .mutual-recraft { width: min(34cqw,585px); }

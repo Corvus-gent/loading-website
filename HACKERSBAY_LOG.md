@@ -240,3 +240,12 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Verified. Ship effects and offscreen pause passed at 375px, 414px, and desktop. The Hackers Bay 404 returned the correct status locally. The Mac workflow verified and published both new-icon disk images.
 - Next. Give the Captain a speaking part in the autoplay and build the mascot-and-ship social preview.
 - **STEER ME:** Keep the Captain’s landing line short or have it change after the cannon hit.
+
+## H29 · 2026-11-21 15:09 CET · Captain Squawk hosts the demo
+
+- Shipped the Recraft ship, class art, wearable layers, and beak bump in both autoplay formats. The Captain narrates all eight beats in speech bubbles and changes poses as the story moves.
+- Shipped the new 1200 × 630 preview for the landing and autoplay, with Captain Squawk, The Black Commit, and the original hook.
+- Decision. Keep audio opt-in and preserve the existing recording dimensions, keyboard controls, and QR end card.
+- Verified. All eight scenes fit at 1080 × 1920, 1920 × 1080, 375px, and 414px. All 40 WebP and PNG pairs matched on their visible pixels. The mobile route sweep, selector fallbacks, routes, and Luma tests passed locally.
+- Next. Verify the exact deployment on the public domain, then remove the eight raw uploads from main.
+- **STEER ME:** Keep the Captain’s parchment speech bubbles or use a darker radio-panel style next time.

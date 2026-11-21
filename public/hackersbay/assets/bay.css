@@ -806,3 +806,9 @@ body[data-dragging-pirate] { user-select: none; }
   .lost-deck p:not(.eyebrow) { margin-inline: 0; }
 }
 @media (prefers-reduced-motion: reduce) { .lost-deck > .pixel-art { animation: none; } }
+
+.brand-picture { width: 34px; flex: none; }
+.judges-eyebrow .brand-picture { width: 30px; }
+@media (max-width: 470px) {
+  :is(.board-page,.naval-landing,.event-page,.intro-page) .brand-picture { width: 28px; }
+}

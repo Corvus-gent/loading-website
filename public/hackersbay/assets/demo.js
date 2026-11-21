@@ -3,39 +3,49 @@ import { DEFAULT_DEMO_LENS, preset } from './persona.js';
 import { lensFor, matchRoom } from './lens.js';
 import { meetingFor } from './intros.js';
 import { drawRadar } from './radar.js';
-import { CLASSES, DEFAULT_PIRATE, OPTIONS, paintPirate, pixelCanvas, seededPirate } from './pirate.js';
+import { CLASSES, pixelCanvas, seededPirate } from './pirate.js';
+import { artPicture, captainArt, classArt } from './art.js';
+import { prepareDressed } from './wardrobe.js';
 import { mutualParrots, spyglassPilot } from './parrot-view.js';
-import { CANNON_BEAT, makeSea } from './sea.js';
+import { FIRE, IMPACT, makeArtworkSea } from './art-sea.js';
 import { playBaySound, wireSound } from './sound.js';
 
 const deck = document.querySelector('#deck');
-const caption = document.querySelector('#demo-caption');
+const caption = document.querySelector('#demo-caption-text');
+const host = document.querySelector('#demo-host');
 const scenes = [...deck.querySelectorAll('[data-beat]')];
 const beats = [
-  [0, 'naval', 'The Black Commit has Luma in its sights.'],
-  [8, 'build', 'Build a pirate. Give your parrot a name and something to squawk.'],
-  [18, 'class', 'Four classes. Four ways to read the same event.'],
-  [23, 'lens', 'The Deckhand checks food, a bunk, and whether the prize pays.'],
-  [31, 'radar', 'Your parrot flies to three pirates and tells you why to meet.'],
-  [43, 'consent', 'An introduction needs a yes from both pirates.'],
-  [48, 'mutual', 'Both said yes. Now you have a time and place.'],
-  [54, 'end', 'Scan the code to board the ship.']
+  [0, 'naval', 'wave', 'Ahoy! The Black Commit has Luma in its sights.'],
+  [8, 'build', 'typing', 'Let’s rig you out. Pick your kit, then tell me what you’re after.'],
+  [18, 'class', 'thumbs-up', 'Four classes, four ways to read the same room.'],
+  [23, 'lens', 'sitting', 'Deckhands check food, bunks, and whether the prize pays.'],
+  [31, 'radar', 'flying', 'I’m flying ahead. Here are three pirates worth meeting.'],
+  [43, 'consent', 'squawk', 'Two yeses before I give you a place to meet.'],
+  [48, 'mutual', 'celebrate', 'It’s mutual! I found you a time and place.'],
+  [54, 'end', 'thumbs-up', 'Scan the code and board my ship.']
 ];
 const card = preset(DEFAULT_DEMO_LENS);
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 const limit = x => Math.min(1, Math.max(0, x));
 const seaCanvas = document.querySelector('#demo-sea');
-const drawSea = makeSea(seaCanvas);
-seaCanvas.hidden = false;
+const sea = seaCanvas.parentElement;
+let drawSea;
+void makeArtworkSea(seaCanvas).then(draw => {
+  drawSea = draw;
+  draw(.5);
+  seaCanvas.hidden = false;
+}).catch(() => { /* The supplied poster still sets the scene. */ });
 wireSound(null, {shortcut:true});
 
 const copper = 'Copper Byte';
 const costumes = [
-  { ...DEFAULT_PIRATE, hat:1, coat:3, eye:2, item:3, bird:2, birdHat:0 },
-  { ...DEFAULT_PIRATE, hat:3, coat:4, eye:1, item:4, bird:1, birdHat:2 },
-  DEFAULT_PIRATE
+  [{hat:3, eyes:0, coat:0, item:3}, 'Beanie · Amber shades · Coffee flask'],
+  [{hat:0, eyes:3, coat:4, item:4}, 'Tricorn · Teal shades · Treasure map'],
+  [null, 'Deckhand kit · Bandana · Laptop']
 ];
-const builder = pixelCanvas(48, 'crew-sprite');
+const builder = pixelCanvas(132, 'crew-sprite dressed-crew');
+builder.height = 144;
+const builderCtx = builder.getContext('2d');
 document.querySelector('#demo-pirate').append(builder);
 const buildName = document.querySelector('#demo-pirate-name');
 const kit = document.querySelector('#demo-kit');
@@ -44,7 +54,9 @@ const classList = document.querySelector('#demo-class-list');
 for (const [key, value] of Object.entries(CLASSES)) {
   const chip = element('div', undefined, 'demo-class-chip');
   chip.dataset.class = key;
-  chip.append(element('strong', value.name), element('span', value.role));
+  const words = element('div');
+  words.append(element('strong',value.name),element('span',value.role));
+  chip.append(artPicture(classArt(key),{width:132,height:144,lazy:false}),words);
   classList.append(chip);
 }
 
@@ -75,7 +87,7 @@ function fact(label, value) {
 function showMatches(matches, attendees) {
   drawRadar(radar, attendees, matches);
   pilot?.stop();
-  pilot = spyglassPilot(radar, DEFAULT_PIRATE);
+  pilot = spyglassPilot(radar);
   locks = [...radar.querySelectorAll('.lock')];
   labels = matches.map(({person}) => {
     const item = element('li');
@@ -85,7 +97,7 @@ function showMatches(matches, attendees) {
     return item;
   });
   crew.replaceChildren(...labels);
-  mutual.replaceChildren(mutualParrots(DEFAULT_PIRATE, matches[0].person.pirate));
+  mutual.replaceChildren(mutualParrots());
   document.querySelector('#demo-intro-name').textContent = 'INTRO REQUEST · ' + matches[0].person.name.toUpperCase();
   lockCount = -1;
 }
@@ -117,12 +129,13 @@ let frame;
 let lastTime = 0;
 
 function naval(elapsed) {
-  const time = reduced.matches ? (elapsed < 1.8 ? .5 : 6.6) : Math.min(8.6, 1.2 + elapsed * 2.05);
+  const time = reduced.matches ? (elapsed < 1.7 ? .5 : 6.2) : Math.min(8.6, .9 + elapsed * 1.9);
   const tick = Math.floor(time * 30);
-  if (tick !== seaFrame) { drawSea(tick / 30); seaFrame = tick; }
-  if (!fired && time >= CANNON_BEAT) {
+  if (drawSea && tick !== seaFrame) { drawSea(tick / 30); seaFrame = tick; }
+  sea.toggleAttribute('data-impact', !reduced.matches && time >= IMPACT && time < IMPACT+.34);
+  if (!fired && time >= FIRE) {
     fired = true;
-    caption.textContent = 'One cannonball. Luma’s rowboat goes under.';
+    caption.textContent = 'Fire! That little grey rowboat is going under.';
     playBaySound('cannon');
   }
 }
@@ -131,13 +144,16 @@ function build(elapsed) {
   const step = elapsed < 1.4 ? 0 : elapsed < 2.75 ? 1 : 2;
   if (step !== outfit) {
     outfit = step;
-    const costume = costumes[step];
-    paintPirate(builder.getContext('2d'), costume);
-    kit.textContent = OPTIONS.hat[costume.hat] + ' · ' + OPTIONS.coat[costume.coat] + ' · ' + OPTIONS.bird[costume.bird];
+    const [look,style] = costumes[step];
+    kit.textContent = style;
+    void prepareDressed('hacker',look).then(paint => {
+      if (outfit === step) paint(builderCtx);
+    });
     if (step === 2) playBaySound('squawk');
   }
-  buildName.textContent = copper.slice(0, Math.floor(limit(elapsed / 1.55) * copper.length));
-  squawk.toggleAttribute('data-ready', elapsed >= 3.35);
+  const typed = copper.slice(0,Math.floor(limit(elapsed/1.55)*copper.length));
+  if (buildName.textContent !== typed) buildName.textContent = typed;
+  squawk.toggleAttribute('data-ready',elapsed >= 3.35);
 }
 
 function scout(elapsed) {
@@ -170,12 +186,13 @@ function requestIntro(elapsed) {
 function play(now) {
   const seconds = Math.min(60, Math.max(0, (now - started) / 1000));
   lastTime = seconds;
-  const [start, beat, description] = beats.findLast(([cue]) => seconds >= cue);
+  const [start,beat,pose,description] = beats.findLast(([cue]) => seconds >= cue);
   const elapsed = seconds - start;
   if (active !== beat) {
     active = beat;
     scenes.forEach(scene => { scene.hidden = scene.dataset.beat !== beat; });
     caption.textContent = description;
+    host.replaceChildren(captainArt(pose,{lazy:false}));
   }
   if (beat === 'naval') naval(elapsed);
   if (beat === 'build') build(elapsed);

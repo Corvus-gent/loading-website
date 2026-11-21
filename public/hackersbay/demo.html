@@ -4,22 +4,22 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#06121f">
-  <meta name="description" content="Watch The Black Commit sink a rowboat, build a pirate, and send a parrot to three matches in 60 seconds.">
+  <meta name="description" content="Watch Captain Squawk sink a rowboat, outfit a parrot pirate, and find three crewmates in 60 seconds.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="The Hackers Bay">
   <meta property="og:title" content="The Hackers Bay in 60 seconds">
-  <meta property="og:description" content="Watch The Black Commit sink a rowboat, build a pirate, and send a parrot to three matches in 60 seconds.">
+  <meta property="og:description" content="Watch Captain Squawk sink a rowboat, outfit a parrot pirate, and find three crewmates in 60 seconds.">
   <meta property="og:url" content="https://corvus.gent/hackersbay/demo">
-  <meta property="og:image" content="https://corvus.gent/public/hackersbay/assets/social-black-commit.jpg">
+  <meta property="og:image" content="https://corvus.gent/public/hackersbay/art/og-captain-squawk.jpg">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="An original pixel pirate ship fires a cannonball at a grey Luma rowboat beside the words Luma is sinking. The Hackers Bay is coming.">
+  <meta property="og:image:alt" content="Captain Squawk and The Black Commit beside the words Luma is sinking. The Hackers Bay is coming.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="The Hackers Bay in 60 seconds">
-  <meta name="twitter:description" content="Watch The Black Commit sink a rowboat, build a pirate, and send a parrot to three matches in 60 seconds.">
-  <meta name="twitter:image" content="https://corvus.gent/public/hackersbay/assets/social-black-commit.jpg">
-  <meta name="twitter:image:alt" content="An original pixel pirate ship fires a cannonball at a grey Luma rowboat beside the words Luma is sinking. The Hackers Bay is coming.">
+  <meta name="twitter:description" content="Watch Captain Squawk sink a rowboat, outfit a parrot pirate, and find three crewmates in 60 seconds.">
+  <meta name="twitter:image" content="https://corvus.gent/public/hackersbay/art/og-captain-squawk.jpg">
+  <meta name="twitter:image:alt" content="Captain Squawk and The Black Commit beside the words Luma is sinking. The Hackers Bay is coming.">
   <link rel="canonical" href="https://corvus.gent/hackersbay/demo">
   <link rel="icon" href="/public/hackersbay/art/captain-icon.png" type="image/png" sizes="128x128">
   <link rel="stylesheet" href="/public/hackersbay/assets/bay.css">
@@ -37,7 +37,7 @@
         <p>A guest list can’t tell you who to meet.</p>
       </div>
       <div class="demo-sea">
-        <img src="/public/hackersbay/assets/black-commit.png" alt="" width="208" height="120">
+        <picture class="pixel-art"><source type="image/webp" srcset="/public/hackersbay/art/hero-ship.webp"><img src="/public/hackersbay/art/hero-ship.png" alt="" width="672" height="384"></picture>
         <canvas id="demo-sea" aria-hidden="true" hidden></canvas>
       </div>
     </section>
@@ -46,16 +46,16 @@
       <div class="demo-copy">
         <p class="demo-kicker">BOARDING DECK</p>
         <h2 id="demo-board">Build your <em>pirate.</em></h2>
-        <p>Pick a kit and a parrot. Tell it what you want.</p>
+        <p>Put on your gear and tell Captain Squawk what you’re after.</p>
       </div>
       <div class="demo-card demo-creator">
         <div class="demo-sprite-stage" id="demo-pirate"></div>
         <div class="demo-pirate-info">
           <h3 id="demo-pirate-name">Copper Byte</h3>
-          <p id="demo-kit">Tricorn · Sonar teal</p>
+          <p id="demo-kit">Bandana · Laptop</p>
         </div>
         <div class="demo-squawk" id="demo-squawk">
-          <strong>Patch the macaw</strong><p>Free food, a bunk, and a prize that pays.</p>
+          <strong>Captain Squawk</strong><p>Free food, a bunk, and a prize that pays.</p>
         </div>
       </div>
     </section>
@@ -126,7 +126,13 @@
         </figure>
       </div>
     </section>
-    <p class="demo-caption" id="demo-caption" aria-live="polite">The Black Commit has Luma in its sights.</p>
+    <div class="demo-caption" id="demo-caption">
+      <span id="demo-host" aria-hidden="true"></span>
+      <div class="demo-voice">
+        <strong>Captain Squawk</strong>
+        <p id="demo-caption-text" aria-live="polite">The Black Commit has Luma in its sights.</p>
+      </div>
+    </div>
   </main>
 </body>
 </html>

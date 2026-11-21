@@ -103,8 +103,7 @@ function draw() {
 }
 
 cardForm.elements.type.value = current.type;
-if (saved && saved.source !== 'preset') cardForm.elements.name.value = saved.name;
-else if (saved?.look || saved?.pirate) cardForm.elements.name.value = saved.name;
+if (saved && (saved.source !== 'preset' || saved.look || saved.pirate)) cardForm.elements.name.value = saved.name;
 setAppearance(saved?.look);
 setDetails(current);
 draw();
