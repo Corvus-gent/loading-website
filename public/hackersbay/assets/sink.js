@@ -1,5 +1,6 @@
 import { element } from './event-data.js';
 import { DEFAULT_DEMO_LENS, getPersona, PERSONAS } from './persona.js';
+import { CLASSES } from './pirate.js';
 import { LUMA_DEMO_URL, LUMA_SAMPLE, normalizeLumaUrl } from './luma.js';
 
 const form = document.querySelector('#sink-form');
@@ -16,7 +17,7 @@ const lensTitle = document.querySelector('#sink-lens-title');
 const lensNotes = document.querySelector('#sink-lens-notes');
 let listing;
 
-for (const [type, persona] of Object.entries(PERSONAS)) lens.add(new Option(persona.title, type));
+for (const [type, crewClass] of Object.entries(CLASSES)) lens.add(new Option(crewClass.name, type));
 lens.value = getPersona()?.type || DEFAULT_DEMO_LENS;
 
 function schedule(event) {

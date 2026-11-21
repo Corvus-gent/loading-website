@@ -32,7 +32,7 @@ export default async function handler(req, res) {
   if (action === 'request-intro' && !await available('intro', networkId(req), 25, 300)) {
     return res.status(429).json({ error: 'Use the browser demo.' });
   }
-  if (['request-intro', 'intro-status', 'accept-intro'].includes(action)) return handleIntro(action, req.body, res);
+  if (['request-intro', 'intro-status', 'accept-intro', 'decline-intro'].includes(action)) return handleIntro(action, req.body, res);
   if (action !== 'persona') return res.status(404).json({ error: 'Unknown action.' });
   try { normalizeProfileUrl(req.body?.url); }
   catch (error) { return res.status(400).json({ error: error.message }); }

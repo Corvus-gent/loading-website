@@ -5,71 +5,86 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#06121f">
   <meta name="referrer" content="no-referrer">
-  <link rel="icon" href="/public/hackersbay/assets/anchor.svg" type="image/svg+xml">
+  <meta name="description" content="Build an original pixel pirate, pick a class, and send your parrot to find your crew.">
+  <link rel="icon" href="/public/hackersbay/assets/parrot-flag.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/public/hackersbay/assets/bay.css">
-  <title>Board the ship | The Hackers Bay</title>
+  <link rel="stylesheet" href="/public/hackersbay/assets/board.css">
+  <title>Build your pirate | The Hackers Bay</title>
   <script type="module" src="/public/hackersbay/assets/board.js"></script>
   <script type="module" src="/public/hackersbay/assets/proof-view.js"></script>
 </head>
-<body>
+<body class="board-page">
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-bar wrap">
-    <a class="brand" href="/hackersbay"><img src="/public/hackersbay/assets/anchor.svg" width="34" height="34" alt=""> The Hackers Bay</a>
-    <a class="top-link" href="/hackersbay">Back to harbor <span aria-hidden="true">→</span></a>
+    <a class="brand" href="/hackersbay" aria-label="The Hackers Bay home"><img src="/public/hackersbay/assets/parrot-flag.svg" width="34" height="34" alt=""><span class="wordmark">The Hackers Bay</span></a>
+    <button class="button sound-switch" id="bay-sound" type="button" aria-pressed="false">Sound off</button>
   </header>
   <main class="wrap inside" id="main">
-    <header class="page-heading">
-      <p class="eyebrow"><span class="beacon"></span> BOARD THE SHIP</p>
-      <h1>What brings you aboard?</h1>
-      <p>Pick the lens that fits, or bring one public link to draft your crew card.</p>
+    <header class="page-heading board-heading">
+      <p class="eyebrow">The Black Commit · Boarding deck</p>
+      <h1>Build your <em>pirate.</em></h1>
+      <p>Pick your kit, name your parrot, and choose what you’re after.</p>
     </header>
-    <div class="onboard-grid">
-      <section aria-labelledby="choose-title">
-        <h2 class="small-heading" id="choose-title">Pick a persona</h2>
-        <div class="persona-choices" id="persona-choices"></div>
-      </section>
-      <section class="panel profile-panel" aria-labelledby="link-title">
-        <p class="eyebrow">ONE LINK</p>
-        <h2 class="small-heading" id="link-title">Bring your own profile</h2>
-        <form id="profile-form">
-          <label for="profile-url">Public profile or personal site</label>
-          <input id="profile-url" name="profile" type="text" inputmode="url" autocomplete="url" spellcheck="false" required maxlength="320" placeholder="github.com/you" aria-describedby="profile-hint">
-          <p class="fine" id="profile-hint">X, GitHub, LinkedIn, or your own site. You can edit every field.</p>
-          <label class="check-option"><input type="checkbox" name="privateMode"> NYTEX private mode</label>
-          <p class="fine">Private mode uses confidential inference or a local draft. Public profile reading may still contact the linked site.</p>
-          <button class="button primary" type="submit">Draft my card <span aria-hidden="true">→</span></button>
-          <p id="profile-status" class="fine form-status" role="status"></p>
-        </form>
-      </section>
-    </div>
-    <section class="panel crew-card" id="crew-card" aria-labelledby="card-title" hidden>
-      <div class="card-heading">
-        <div><p class="eyebrow">YOUR CREW CARD</p><h2 id="card-title" tabindex="-1"></h2></div>
-        <p class="pill" id="card-source"></p>
+    <form id="card-form">
+      <div class="creator-grid">
+        <section class="creator-preview" aria-label="Your pirate preview">
+          <div class="creator-display">
+            <div class="creator-gridlines" aria-hidden="true"></div>
+            <div class="creator-caption"><span id="sprite-class">DECKHAND</span><span aria-hidden="true">✦ ✦</span></div>
+            <div class="creator-sprite" id="creator-sprite"></div>
+            <div class="creator-speech"><strong id="sprite-bird-name">Patch</strong><p id="sprite-wants"></p></div>
+          </div>
+          <div class="creator-plaque"><strong id="sprite-name">Copper Byte</strong><button class="button" type="button" id="roll-pirate">Roll the dice 🎲</button></div>
+        </section>
+        <section class="creator-kit" aria-labelledby="kit-title">
+          <h2 id="kit-title">Pirate kit</h2>
+          <label>Pirate name <input name="name" required maxlength="48" autocomplete="off" value="Copper Byte"></label>
+          <div id="pirate-options" class="creator-options"></div>
+          <h3>Shoulder parrot</h3>
+          <div id="parrot-options" class="creator-options"></div>
+          <label>Parrot name <input name="birdName" required maxlength="28" autocomplete="off" value="Patch"></label>
+        </section>
       </div>
-      <form id="card-form">
-        <label for="card-type">Persona</label>
-        <select id="card-type" name="type"></select>
+      <fieldset class="creator-classes">
+        <legend>Pick your class</legend>
+        <div class="persona-choices" id="persona-choices"></div>
+      </fieldset>
+      <section class="panel crew-card creator-log" id="crew-card" aria-labelledby="card-title">
+        <div class="card-heading">
+          <h2 id="card-title">Ship’s log</h2><p class="pill" id="card-source">Class defaults</p>
+        </div>
         <div class="card-fields">
           <label>Builds <input name="builds" maxlength="150" required></label>
           <label>Wants <input name="wants" maxlength="150" required></label>
           <label>Offers <input name="offers" maxlength="150" required></label>
         </div>
-        <button class="button primary" type="submit">Find my 3 people <span aria-hidden="true">→</span></button>
+        <button class="button primary raise-flag" type="submit">Raise the flag <span aria-hidden="true">→</span><small>Find my 3 people</small></button>
         <p id="card-status" class="fine form-status" role="status"></p>
+      </section>
+    </form>
+    <details class="panel creator-extra">
+      <summary>Let your parrot read a link <span>Optional</span></summary>
+      <form id="profile-form">
+        <label for="profile-url">Public profile or personal site</label>
+        <input id="profile-url" name="profile" type="text" inputmode="url" autocomplete="off" spellcheck="false" required maxlength="320" placeholder="github.com/you" aria-describedby="profile-hint">
+        <p class="fine" id="profile-hint">X, GitHub, LinkedIn, or your own site. Your parrot drafts Builds, Wants, and Offers for you to edit.</p>
+        <label class="check-option"><input type="checkbox" name="privateMode"> NYTEX private mode</label>
+        <p class="fine">Private mode uses confidential inference or a local draft. Public profile reading may still contact the linked site.</p>
+        <button class="button" type="submit">Read my link <span aria-hidden="true">→</span></button>
+        <p id="profile-status" class="fine form-status" role="status"></p>
       </form>
-      <details class="proof-box" id="proof-box">
-        <summary>Proof of Build <span>Powered by Boat.dev</span></summary>
-        <form id="proof-form">
-          <label for="proof-repo">Public GitHub repository</label>
-          <input id="proof-repo" name="repo" placeholder="github.com/owner/project" inputmode="url" spellcheck="false" maxlength="230" required>
-          <button class="button" type="submit">Build a preview</button>
-        </form>
-        <p class="fine" id="proof-status" role="status"></p>
-        <a class="button proof-result" id="proof-result" target="_blank" rel="noopener noreferrer" hidden>Open preview →</a>
-      </details>
-    </section>
-    <noscript><p class="panel">JavaScript is needed to draft a crew card and match people in this demo.</p></noscript>
+    </details>
+    <details class="panel proof-box creator-extra" id="proof-box">
+      <summary>Proof of Build <span>Powered by Boat.dev</span></summary>
+      <form id="proof-form">
+        <label for="proof-repo">Public GitHub repository</label>
+        <input id="proof-repo" name="repo" placeholder="github.com/owner/project" inputmode="url" spellcheck="false" maxlength="230" required>
+        <button class="button" type="submit">Build a preview</button>
+      </form>
+      <p class="fine" id="proof-status" role="status"></p>
+      <a class="button proof-result" id="proof-result" target="_blank" rel="noopener noreferrer" hidden>Open preview →</a>
+    </details>
+    <noscript><p class="panel">Enable JavaScript to build a pirate and find your crew.</p></noscript>
   </main>
   <footer class="site-footer wrap"><p>Boat Hackathon Demo Day · Pier 9, San Francisco</p></footer>
 </body>

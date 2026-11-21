@@ -1,4 +1,4 @@
-import { element, loadRoom, portrait } from './event-data.js';
+import { element, loadRoom, crewAvatar } from './event-data.js';
 
 const features = {
   'ari-sol': { thesis: 'infra', fit: 'Boat.dev', opportunity: 'Run the same CI jobs on disposable VMs and compare time to preview.' },
@@ -19,7 +19,12 @@ function projectCard(person) {
   const header = element('header');
   const title = element('div');
   title.append(element('h3', person.project), element('p', person.name + ' · ' + person.role, 'fine'));
-  header.append(portrait(person), title);
+  const chest = element('img', undefined, 'treasure-chest');
+  chest.src = '/public/hackersbay/assets/chest.svg';
+  chest.alt = '';
+  chest.width = 36;
+  chest.height = 29;
+  header.append(crewAvatar(person), title, chest);
   const traction = element('p', 'Demo signal · ' + person.signal, 'pill');
   const details = element('p', person.builds + '.');
   const next = element('p', fit + ' fit · ' + opportunity, 'fine');

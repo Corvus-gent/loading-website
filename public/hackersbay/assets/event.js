@@ -1,8 +1,11 @@
 import { DEFAULT_DEMO_LENS, EVENT_PATH, PERSONAS, getPersona, preset } from './persona.js';
-import { loadRoom, portrait, element } from './event-data.js';
+import { loadRoom, crewAvatar, element } from './event-data.js';
 import { matchRoom, describeMatch, lensFor } from './lens.js';
 import { drawRadar } from './radar.js';
 import { introRequest, meetingFor, readIntros, recipientUrl, saveIntro } from './intros.js';
+import { CLASSES, DEFAULT_PIRATE } from './pirate.js';
+import { flySpyglass, mutualParrots, parrotBubble } from './parrot-view.js';
+import { playBaySound, wireSound } from './sound.js';
 
 const room = document.querySelector('#room');
 const roomState = document.querySelector('#room-state');
@@ -10,6 +13,8 @@ const choice = document.querySelector('#lens-choice');
 const saved = getPersona();
 const requested = new URLSearchParams(location.search).get('lens');
 const firstLens = Object.hasOwn(PERSONAS, requested) ? requested : (saved?.type || DEFAULT_DEMO_LENS);
+const pirate = saved?.pirate || DEFAULT_PIRATE;
+wireSound(document.querySelector('#bay-sound'));
 
 function renderMatch(match, index, type, event, attendees) {
   const card = element('article', undefined, 'panel match-card');
@@ -22,9 +27,11 @@ function renderMatch(match, index, type, event, attendees) {
   info.append(element('h3', person.name), element('p', person.role + ' · ' + person.project, 'fine'));
   const mark = element('span', '× ' + String(index + 1).padStart(2, '0'), 'match-mark');
   mark.setAttribute('aria-hidden', 'true');
-  header.append(portrait(person), info, mark);
+  header.append(crewAvatar(person), info, mark);
   const reasons = element('dl', undefined, 'match-reasons');
-  reasons.append(element('dt', 'Why you’d meet'), element('dd', yourReason), element('dt', 'Why they’d meet'), element('dd', theirReason));
+  const yourReasonBubble = element('dd');
+  yourReasonBubble.append(parrotBubble(pirate, yourReason));
+  reasons.append(element('dt', 'Why you’d meet'), yourReasonBubble, element('dt', 'Why they’d meet'), element('dd', theirReason));
   const actions = element('div', undefined, 'intro-actions');
   const notice = element('div', undefined, 'intro-state');
   notice.setAttribute('aria-live', 'polite');
@@ -32,14 +39,22 @@ function renderMatch(match, index, type, event, attendees) {
   request.type = 'button';
   actions.append(request, notice);
 
+  let shown;
   function showIntro(intro) {
     request.hidden = Boolean(intro);
-    if (!intro) return;
+    if (!intro || intro.status === shown) return;
+    shown = intro.status;
     if (intro.status === 'mutual') {
       notice.replaceChildren(
         element('strong', 'IT’S MUTUAL ⚓', 'mutual-message'),
+        mutualParrots(pirate, person.pirate),
         element('span', 'Suggested meetup · ' + intro.moment, 'fine')
       );
+      setTimeout(() => { if (notice.isConnected) playBaySound('coin'); }, 670);
+      return;
+    }
+    if (intro.status === 'declined') {
+      notice.replaceChildren(element('p', 'The other pirate declined this intro.', 'fine'));
       return;
     }
     const link = element('a', 'Open recipient view', 'button');
@@ -64,7 +79,7 @@ function renderMatch(match, index, type, event, attendees) {
     notice.textContent = 'Opening an intro request…';
     const draft = {
       id: crypto.randomUUID(), key: crypto.randomUUID(), personId: person.id, type,
-      status: 'pending', createdAt: Date.now()
+      status: 'pending', createdAt: Date.now(), parrot: { bird: pirate.bird, birdHat: pirate.birdHat }
     };
     let intro;
     try {
@@ -84,13 +99,14 @@ function renderMatch(match, index, type, event, attendees) {
     if (intro.shared && intro.status === 'pending') {
       try {
         const remote = await introRequest('intro-status', { id: intro.id, key: intro.key });
-        if (remote.status === 'mutual') saveIntro({ ...intro, ...remote });
+        if (remote.status !== 'pending') saveIntro({ ...intro, ...remote });
       } catch { /* Keep the request pending until the service returns. */ }
     }
     const current = latest();
     if (current?.status === 'mutual') showIntro({
       ...current, moment: current.moment || meetingFor(event, attendees.indexOf(person))
     });
+    else showIntro(current);
   };
   card.append(header, reasons, actions);
   return card;
@@ -98,15 +114,18 @@ function renderMatch(match, index, type, event, attendees) {
 
 async function showRoom() {
   const { event, attendees } = await loadRoom();
-  for (const [type, persona] of Object.entries(PERSONAS)) choice.add(new Option(persona.title, type));
+  for (const [type, crewClass] of Object.entries(CLASSES)) choice.add(new Option(crewClass.name, type));
   choice.value = firstLens;
-  document.querySelector('#room-count').textContent = attendees.length + ' FICTIONAL ATTENDEES · 3 SUGGESTIONS';
+  document.querySelector('#room-count').textContent = attendees.length + ' FICTIONAL PIRATES · 3 SUGGESTIONS';
+  const radar = document.querySelector('#room-radar');
+  const captions = document.querySelector('#spyglass-caption');
+  let flight;
 
   function render(type) {
     const card = saved?.type === type ? saved : preset(type);
     const matches = matchRoom(card, attendees).slice(0, 3);
     const lens = lensFor(card, event, matches);
-    document.querySelector('#active-persona').textContent = PERSONAS[type].title + ' · DEMO SCORE';
+    document.querySelector('#active-persona').textContent = CLASSES[type].name + ' · DEMO SCORE';
     document.querySelector('#lens-title').textContent = lens.title;
     document.querySelector('#lens-score').textContent = lens.score;
     document.querySelector('#lens-summary').textContent = lens.summary;
@@ -118,9 +137,13 @@ async function showRoom() {
     document.querySelector('#lens-reasons').replaceChildren(...reasons);
     const cards = matches.map((match, index) => renderMatch(match, index, type, event, attendees));
     document.querySelector('#match-list').replaceChildren(...cards);
-    drawRadar(document.querySelector('#room-radar'), attendees, matches, personId => {
+    flight?.stop();
+    captions.replaceChildren();
+    drawRadar(radar, attendees, matches, personId => {
+      flight.visit(personId);
       document.getElementById('match-' + personId)?.focus();
     });
+    flight = flySpyglass(radar, pirate, captions, matches, matches.map(match => describeMatch(match).yourReason));
   }
 
   render(firstLens);

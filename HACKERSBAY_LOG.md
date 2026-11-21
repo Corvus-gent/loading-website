@@ -156,3 +156,69 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Decision. Keep the end card visible after playback so viewers can scan the code. The submission describes the fictional roster and the current sponsor fallbacks.
 - Next. Rehearse from the judging brief or paste the draft into the builder dashboard.
 - **STEER ME:** Put the judging brief first in the submission links or lead with the live landing page.
+
+## H19 · 2026-11-21 09:17 CET · Build your pirate
+
+- Shipped a 48 × 48 original pirate sprite with seven customizable layers, a named shoulder parrot, a dice roll, and four classes. The parrot previews Wants and takes an occasional flight.
+- Decision. Deckhand is the default class. A public profile can draft the ship’s log while keeping your chosen name, class, and kit. Raising the flag saves the pirate and opens the same event lens.
+- Verified. At 375px, 414px, and 1440px the layers, dice, saved state, class handoff, private-mode fallback, and reduced-motion path passed. The build, lint, route suite, and Luma parser tests passed.
+- Next. Set The Black Commit afloat and give the event crew their own pirates.
+- **STEER ME:** Keep Copper Byte as the starting pirate or start with a fresh dice roll.
+
+## H20 · 2026-11-21 09:20 CET · The Black Commit
+
+- Shipped the original pixel sea, teal sails and bracket flag, a grey Luma rowboat, cannon impact and bubbles, and three flying parrots.
+- Decision. Use a 208 × 120 poster at first paint and draw a 30 fps scene only while visible. The original poster remains visible in reduced motion. Audio starts off and only plays after opting in.
+- Verified. The creator is live. The landing has no overflow at 375px, 414px, and desktop. The scene paints at rest, animates onscreen, stops offscreen, and advances through the cannon impact and sinking. The sound toggle works.
+- Next. Replace the guest wall and portraits throughout the product, then connect the parrots to the spyglass and intro flow.
+- **STEER ME:** Keep the moonlit opening or start in sunset colors.
+
+## H21 · 2026-11-21 09:23 CET · Crew, Quartermaster and Merchant
+
+- Shipped 30 original named pirates with distinct pixel sprites and named parrots. The comparison uses sixteen identical grey guest circles opposite the crew on deck. The app and the Remotion source now use pixels or circles for people.
+- Shipped touch and mouse drag aboard in Room composer, plus a parchment map and chests in Treasure report.
+- Decision. Keep the seed IDs so saved drafts and old intro links still resolve. On phones a dock appears during a drag. The existing Add to room button also works by keyboard.
+- Verified. All 30 sprite renders and parrot names were distinct. Deck drag, keyboard add, graph updates, comparison, report filters, and the build passed.
+- Next. Send the player’s parrot to all three spyglass matches and animate mutual consent.
+- **STEER ME:** Use the three preview pirates as recurring demo characters or rotate the preview by class.
+
+## H22 · 2026-11-21 09:27 CET · Spyglass and mutual intros
+
+- Shipped the pixel spyglass. Your own parrot lands on three match masts and squawks the reason for each. The numbered locks still jump to the corresponding pirate.
+- Shipped the two-parrot beak bump, gold coin burst, and Walk the plank decline. The meetup still requires two yeses. Shared intro links carry only two visual parrot settings alongside the existing intro data.
+- Decision. Use the same browser demo when the intro service is absent. Acceptance or decline is final for each request. Reduced motion shows the perched bird and text.
+- Verified. A custom cyber parrot visited all three masts at 375px. Accepted and declined intros both reached the sender with the expected result. The 414px reduced-motion view passed.
+- Next. Retell the timed demo around pirate building and the parrot’s flight.
+- **STEER ME:** Keep the automatic spyglass flyover or start it from the first mast tap.
+
+## H23 · 2026-11-21 09:32 CET · A new 60-second demo
+
+- Shipped the eight-beat autoplay. The Black Commit fires in the opening seconds, Copper Byte builds a pirate and names Patch, the Deckhand checks the event, and the parrot explains three matches. Double opt-in ends with the beak bump, coins, and the retained QR end card.
+- Decision. Keep the Broke hacker lens as Deckhand and keep both recording formats clean. Space pauses, R replays, and M enables sound.
+- Verified. All scenes and captions fit at 1080 × 1920, 1920 × 1080, 375px, and 414px. The QR decoded in both recording formats. Pause, replay, and reduced motion passed.
+- Next. Fly the parrot Jolly Roger and publish a matching social card.
+- **STEER ME:** Keep Copper Byte and Patch as the named demo pair or cast an original Merchant in a later cut.
+
+## H24 · 2026-11-21 09:34 CET · Fly the parrot flag
+
+- Shipped the original tricorn parrot, the Silkscreen wordmark and headings, and a new 1200 × 630 share card featuring The Black Commit at cannon impact. The landing and both recording formats use the new share card.
+- Decision. The Recraft art directory was empty on disk and on production main. The hero, logo, and share card use the original procedural art.
+- Verified. The share card dimensions, route suite, Remotion asset preparation, and build passed. The judges' brief still fits at 375 × 667, and the footer and demo QR codes scan.
+- Next. Update the stage notes and run the final production smoke across phone widths and both capture formats.
+- **STEER ME:** Keep the cannon impact as the share image or feature a close-up of Copper Byte and Patch.
+
+## H25 · 2026-11-21 09:36 CET · Deck polish
+
+- Shipped the daylight pass, clearer pixel parrots in flight, and a live hero that renders on the browser’s frame clock. Updated the screenshot and share art with the sharper sprites.
+- Decision. Keep the initial night scene as the static poster. The live animation cycles through daylight only while visible. The README and 209-word submission now reflect the pirate-first walkthrough.
+- Verified. Eleven mobile paths passed at 375px and 414px with zero horizontal overflow or undersized standalone controls. The sea renderer measured 5.2 ms at the 95th percentile under a 4× CPU throttle at 375px.
+- Next. Confirm the production deployment, then test the complete flow and the one-minute capture against the live domain.
+- **STEER ME:** Keep the daylight pass after the cannon shot or open in daylight for the next event.
+
+## H26 · 2026-11-21 09:39 CET · Phase 4 production verification
+
+- Verified all eleven Hackers Bay paths at 375px and 414px. The live character creator, four lenses, 30 distinct crew sprites, touch and mouse dragging, Treasure report, public Luma import, and both intro decisions passed.
+- Verified a new two-browser intro through the shared store, including the consent gate and suggested meetup. The autoplay reached the QR after 54.4 seconds, held past one minute, and passed in both capture sizes. The QR also scans from the landing footer.
+- Decision. Keep the 60-second story as a browser capture with a silent default. Six cold local runs at the two phone widths recorded zero layout shift and no initial roster fetch.
+- Next. Use the browser demo or the judging brief for Demo Day rehearsal.
+- **STEER ME:** Start the live pitch on the cannon shot or hand the phone over at the pirate builder.

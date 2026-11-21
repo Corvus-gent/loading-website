@@ -1,3 +1,5 @@
+import { normalizePirate } from './pirate.js';
+
 export const PERSONAS = {
   hacker: {
     title: 'Broke hacker', lens: 'Survival score', icon: '◈',
@@ -100,6 +102,7 @@ export function normalizeCard(value) {
   if (Object.values(card).some(value => !value)) return null;
   card.source = ['preset', 'heuristic', 'private-demo', 'llm', 'private'].includes(value.source) ? value.source : 'heuristic';
   if (value.reader === 'context') card.reader = 'context';
+  if (value.pirate) card.pirate = normalizePirate(value.pirate);
   return card;
 }
 

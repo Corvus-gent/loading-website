@@ -4,11 +4,11 @@ Luma is sinking. The Hackers Bay is coming.
 
 ## Description
 
-The Hackers Bay helps you decide whether an event is worth the trip and gives you three people to meet once you arrive. Choose a persona or paste a public profile to draft an editable crew card. **Broke hacker** checks food, sleep, travel, and prize payouts. **Busy builder** weighs the time against potential collaborators. **Power connector** looks for a reason to make each introduction. **Investor / brand** looks for projects, traction, and sponsor fit.
+The Hackers Bay lets you build an original pixel pirate, outfit a shoulder parrot, and choose how you read an event. **Deckhand** checks food, bunks, travel, and prize payouts. **Navigator** weighs the time against possible co-founders and collaborators. **Quartermaster** looks for people worth introducing one-to-one. **Merchant** tracks projects, traction, and sponsor fit. A public profile link can help your parrot draft Builds, Wants, and Offers.
 
-**Sink a Luma** reads a public listing through any of those lenses, using its published title, date, place, host, and Going count. In the Show Boat Demo Day walkthrough, the sonar locks onto three fictional people and explains why each side might want to meet. Both sides opt in before **IT'S MUTUAL ⚓** reveals a suggested time and place.
+**Sink a Luma** applies those lenses to a public listing using its published title, date, place, host, and Going count. In the Show Boat Demo Day walkthrough, your parrot flies to three fictional pirates on the spyglass, landing to explain why each side might want to meet. Both must opt in to get **IT'S MUTUAL ⚓**, a beak bump, and a suggested moment. Organizers can draft pirates onto a ship deck and see how the room’s connections change.
 
-With credentials, **Context.dev** reads public profiles, **NYTEX TrustedRouter** routes confidential persona inference, and **Boat.dev** runs approved repos in temporary VMs for Proof of Build. Public event imports and shared intro links work on the live site. The walkthrough uses a fictional roster and sample traction. Profile drafting falls back to heuristics, private mode shows a demo label, and Proof of Build opens a labeled sample when live services are unavailable.
+With credentials, **Context.dev** reads public profiles, **NYTEX TrustedRouter** routes confidential persona inference, and **Boat.dev** runs approved repos in temporary VMs for Proof of Build. Public event imports and shared intro links work on the live site. The roster and traction are fictional. Profile drafting falls back to heuristics, private mode shows a demo label, and Proof of Build opens a labeled sample when live services are unavailable.
 
 ## Try it
 

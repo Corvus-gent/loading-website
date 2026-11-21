@@ -25,14 +25,14 @@ Then run `node tools/openrisk-import-logos.mjs` to cache missing logos.
 
 ## How to demo in 60 seconds
 
-Open the [vertical autoplay demo](https://corvus.gent/hackersbay/demo?format=vertical) at 1080 × 1920 or the [widescreen autoplay demo](https://corvus.gent/hackersbay/demo?format=wide) at 1920 × 1080. The timed sequence plays on load and holds the end card at 60 seconds. Press **R** to restart or **Space** to pause and resume.
+Open the [vertical autoplay demo](https://corvus.gent/hackersbay/demo?format=vertical) at 1080 × 1920 or the [widescreen autoplay demo](https://corvus.gent/hackersbay/demo?format=wide) at 1920 × 1080. The timed sequence plays on load and holds the end card at 60 seconds. Press **R** to restart, **Space** to pause or resume, or **M** to toggle sound.
 
 For a live walkthrough on a phone:
 
-1. **0–10s** Open [The Hackers Bay](https://corvus.gent/hackersbay) on a phone. Show the guest wall next to three people with reasons to meet.
-2. **10–20s** Tap **Board the ship**, choose **Broke hacker**, and tap **Find my 3 people**. Paste a public profile if you want to show the editable crew card being drafted.
-3. **20–35s** Point to the **Survival score** and tap the first gold X on the sonar. Read **Why you’d meet** and **Why they’d meet**.
-4. **35–50s** Tap **Intro me**, open the fictional recipient view, and tap **Accept intro**. Show **IT’S MUTUAL ⚓** and the suggested meetup.
+1. **0–10s** Open [The Hackers Bay](https://corvus.gent/hackersbay) on a phone. Show The Black Commit firing at the grey rowboat.
+2. **10–20s** Tap **Board the ship**, roll a pirate, name the shoulder parrot, choose **Deckhand**, and tap **Raise the flag**. The parrot can read a public link to draft Builds, Wants, and Offers.
+3. **20–35s** Point to the **Survival score** and the parrot flying between the three spyglass masts. Tap a gold X for both sides of the match.
+4. **35–50s** Tap **Intro me**, open the fictional recipient view, and tap **Accept intro**. Show **IT’S MUTUAL ⚓**, the parrots’ beak bump, and the suggested meetup.
 5. **50–60s** Flip to [Room composer](https://corvus.gent/hackersbay/host) or [Treasure report](https://corvus.gent/hackersbay/sponsor) to show what hosts and sponsors see.
 
 The official Demo Day is invite-only. The app links to official registration, and the in-app roster, traction, scores, and introductions are fictional. Dates and suggested times use Pacific Time.

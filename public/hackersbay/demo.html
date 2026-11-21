@@ -4,24 +4,24 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#06121f">
-  <meta name="description" content="Watch the hands-free Broke hacker demo from cannonball to three sonar locks and a mutual intro.">
+  <meta name="description" content="Watch The Black Commit sink a rowboat, build a pirate, and send a parrot to three matches in 60 seconds.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="The Hackers Bay">
   <meta property="og:title" content="The Hackers Bay in 60 seconds">
-  <meta property="og:description" content="Watch the hands-free Broke hacker demo from cannonball to three sonar locks and a mutual intro.">
+  <meta property="og:description" content="Watch The Black Commit sink a rowboat, build a pirate, and send a parrot to three matches in 60 seconds.">
   <meta property="og:url" content="https://corvus.gent/hackersbay/demo">
-  <meta property="og:image" content="https://corvus.gent/public/hackersbay/assets/social-cannonball.jpg">
+  <meta property="og:image" content="https://corvus.gent/public/hackersbay/assets/social-black-commit.jpg">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="An iron cannonball rises above teal sonar rings beside the words Luma is sinking. The Hackers Bay is coming.">
+  <meta property="og:image:alt" content="An original pixel pirate ship fires a cannonball at a grey Luma rowboat beside the words Luma is sinking. The Hackers Bay is coming.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="The Hackers Bay in 60 seconds">
-  <meta name="twitter:description" content="Watch the hands-free Broke hacker demo from cannonball to three sonar locks and a mutual intro.">
-  <meta name="twitter:image" content="https://corvus.gent/public/hackersbay/assets/social-cannonball.jpg">
-  <meta name="twitter:image:alt" content="An iron cannonball rises above teal sonar rings beside the words Luma is sinking. The Hackers Bay is coming.">
+  <meta name="twitter:description" content="Watch The Black Commit sink a rowboat, build a pirate, and send a parrot to three matches in 60 seconds.">
+  <meta name="twitter:image" content="https://corvus.gent/public/hackersbay/assets/social-black-commit.jpg">
+  <meta name="twitter:image:alt" content="An original pixel pirate ship fires a cannonball at a grey Luma rowboat beside the words Luma is sinking. The Hackers Bay is coming.">
   <link rel="canonical" href="https://corvus.gent/hackersbay/demo">
-  <link rel="icon" href="/public/hackersbay/assets/anchor.svg" type="image/svg+xml">
+  <link rel="icon" href="/public/hackersbay/assets/parrot-flag.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/public/hackersbay/assets/bay.css">
   <link rel="stylesheet" href="/public/hackersbay/assets/demo.css">
   <script>document.documentElement.dataset.format = new URLSearchParams(location.search).get('format') === 'wide' ? 'wide' : 'vertical';</script>
@@ -29,34 +29,44 @@
   <title>60-second demo | The Hackers Bay</title>
 </head>
 <body class="demo-page">
-  <main class="autoplay-deck" id="deck" aria-label="The Hackers Bay 60-second demo. Press Space to pause or play and R to replay.">
-    <section class="demo-scene" data-beat="wall" aria-labelledby="demo-wall">
+  <main class="autoplay-deck" id="deck" aria-label="The Hackers Bay 60-second demo. Press Space to pause or play, R to replay, or M to toggle sound.">
+    <section class="demo-scene" data-beat="naval" aria-labelledby="demo-naval">
       <div class="demo-copy">
-        <p class="demo-kicker">LUMA · GUEST LIST</p>
-        <h1 id="demo-wall">Luma is <em>sinking.</em></h1>
-        <p>Sixteen faces. Who’s worth meeting?</p>
+        <p class="demo-kicker">THE BLACK COMMIT</p>
+        <h1 id="demo-naval">Luma is <em>sinking.</em></h1>
+        <p>A guest list can’t tell you who to meet.</p>
       </div>
-      <div class="impact-board" aria-hidden="true">
-        <div class="radar demo-radar impact-sonar" id="impact-sonar"></div>
-        <div class="demo-wall" id="wall"></div>
-        <i class="cannonball"></i><i class="impact-wave"></i>
+      <div class="demo-sea">
+        <img src="/public/hackersbay/assets/black-commit.png" alt="" width="208" height="120">
+        <canvas id="demo-sea" aria-hidden="true" hidden></canvas>
       </div>
     </section>
 
-    <section class="demo-scene" data-beat="board" hidden aria-labelledby="demo-board">
+    <section class="demo-scene" data-beat="build" hidden aria-labelledby="demo-board">
       <div class="demo-copy">
-        <p class="demo-kicker">BOARD THE SHIP</p>
-        <h2 id="demo-board">One link.<br><em>One crew card.</em></h2>
-        <p>Gabe is looking for food, a place to crash, and a prize that pays.</p>
+        <p class="demo-kicker">BOARDING DECK</p>
+        <h2 id="demo-board">Build your <em>pirate.</em></h2>
+        <p>Pick a kit and a parrot. Tell it what you want.</p>
       </div>
-      <div class="demo-card">
-        <p class="demo-kicker">PUBLIC PROFILE · SAMPLE</p>
-        <div class="demo-input" id="demo-input"></div>
-        <div class="crew-reveal" id="crew-reveal">
-          <h3>Broke hacker</h3>
-          <dl class="demo-facts" id="demo-card-fields"></dl>
+      <div class="demo-card demo-creator">
+        <div class="demo-sprite-stage" id="demo-pirate"></div>
+        <div class="demo-pirate-info">
+          <h3 id="demo-pirate-name">Copper Byte</h3>
+          <p id="demo-kit">Tricorn · Sonar teal</p>
+        </div>
+        <div class="demo-squawk" id="demo-squawk">
+          <strong>Patch the macaw</strong><p>Free food, a bunk, and a prize that pays.</p>
         </div>
       </div>
+    </section>
+
+    <section class="demo-scene" data-beat="class" hidden aria-labelledby="demo-class">
+      <div class="demo-copy">
+        <p class="demo-kicker">SAME EVENT · FOUR LENSES</p>
+        <h2 id="demo-class">Pick your <em>class.</em></h2>
+        <p>Tonight, Copper Byte boards as a Deckhand.</p>
+      </div>
+      <div class="demo-class-list" id="demo-class-list"></div>
     </section>
 
     <section class="demo-scene" data-beat="lens" hidden aria-labelledby="demo-lens">
@@ -66,7 +76,7 @@
         <p>Sat Nov 21 · 1–5 PM PT<br>Historic Klamath · Pier 9, SF</p>
       </div>
       <div class="demo-card">
-        <p class="demo-kicker">BROKE HACKER</p>
+        <p class="demo-kicker">DECKHAND · BROKE HACKER</p>
         <div class="demo-score"><h3>Survival score</h3><span><strong id="demo-score">49</strong>/100</span></div>
         <dl class="demo-facts" id="demo-logistics">
           <div><dt>Food</dt><dd>Unconfirmed</dd></div>
@@ -81,10 +91,10 @@
     <section class="demo-scene" data-beat="radar" hidden aria-labelledby="demo-matches">
       <div class="demo-copy">
         <p class="demo-kicker" id="demo-lock-count">SCANNING THE ROOM</p>
-        <h2 id="demo-matches">Three people.<br><em>Three reasons.</em></h2>
+        <h2 id="demo-matches">Find your <em>crew.</em></h2>
         <ul id="demo-crew" class="demo-crew"></ul>
       </div>
-      <div class="radar demo-radar match-sonar" id="demo-radar" aria-label="Sonar with three match locks"></div>
+      <div class="radar demo-radar match-sonar pixel-radar" id="demo-radar" aria-label="Spyglass with three match masts"></div>
     </section>
 
     <section class="demo-scene demo-center" data-beat="consent" hidden aria-labelledby="demo-consent">
@@ -99,7 +109,7 @@
     <section class="demo-scene demo-center" data-beat="mutual" hidden aria-labelledby="demo-mutual">
       <div class="demo-copy">
         <p class="demo-kicker">✓ YOU OPTED IN &nbsp; ✓ THEY OPTED IN</p>
-        <img src="/public/hackersbay/assets/anchor.svg" alt="" width="104" height="104" class="demo-anchor">
+        <div id="demo-beak-bump"></div>
         <h2 id="demo-mutual"><em>IT’S MUTUAL ⚓</em></h2>
         <p id="demo-moment">15:10 PT · near the demo area</p>
       </div>
@@ -116,7 +126,7 @@
         </figure>
       </div>
     </section>
-    <p class="demo-caption" id="demo-caption" aria-live="polite">A wall of faces tells you who’s going.</p>
+    <p class="demo-caption" id="demo-caption" aria-live="polite">The Black Commit has Luma in its sights.</p>
   </main>
 </body>
 </html>
