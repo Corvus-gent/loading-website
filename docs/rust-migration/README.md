@@ -4,6 +4,8 @@ This is a full application migration, not a redesign. The target is Rust server 
 
 [Code-change and performance evidence](performance.md) defines the reproducible Git ledger, paired desktop/mobile browser measurements, regression gates and remaining production checks. No performance gain is assumed merely from changing languages.
 
+[Compact structure and revised work order](compact-structure.md) records the user's Sunday target, smaller page-specific browser builds and safely retired duplicate routes. Production remains unchanged until its release gates pass.
+
 ## Frozen baseline and rollback
 
 - Repository baseline: `0a34babbba561abcffc1aa7e4356de4d8855adf7` (latest main when migration started).

@@ -20,6 +20,7 @@ const server=http.createServer(async(req,res)=>{const u=new URL(req.url,'http://
  if(u.pathname==='/__test/payment'&&req.method==='POST'){const {processPayment}=await import('../../api/_legion/payments.js');return adapter.json(await processPayment(JSON.parse(bytes)));}
  if(u.pathname==='/api/live')return adapter.json({live:false,session:'local',source:'manual'});
  if(u.pathname.startsWith('/api/'))return adapter.json({ready:false});
+ if(['/hack/the-feed','/hack/the-feed/','/hack/the-feed/index.html'].includes(u.pathname)){res.writeHead(301,{Location:'/hack/1/the-feed'+u.search});res.end();return;}
  if(/^\/(enlist|join-the-army-now)(\/|$)/.test(u.pathname)){res.writeHead(301,{Location:'/legion/'+u.search});res.end();return;}
  if(u.pathname.startsWith('/legion/edit/'))u.pathname='/legion/edit/';
  if(u.pathname.startsWith('/legion/senate/'))u.pathname='/legion/senate/';

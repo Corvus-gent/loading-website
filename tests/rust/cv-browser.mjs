@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import {chromium,expect} from '@playwright/test';
 import {rustSite} from '../helpers/rust-site.mjs';
 const browser=await chromium.launch(),reference={};
-const html=secret=>`<!doctype html><html lang="en"><meta name="viewport" content="width=device-width,initial-scale=1"><body><main>${secret?'<button data-cv-secret translate="no">512</button>':''}<span data-cv-count="140469"></span><span data-cv-count="0"></span><span data-cv-count="bad">unchanged</span></main><script type="module" src="/js/cv-page.js"></script></body></html>`;
+const html=secret=>`<!doctype html><html lang="en"><head><meta name="viewport" content="width=device-width,initial-scale=1"></head><body><main>${secret?'<button data-cv-secret translate="no">512</button>':''}<span data-cv-count="140469"></span><span data-cv-count="0"></span><span data-cv-count="bad">unchanged</span></main><script type="module" src="/js/cv-page.js"></script></body></html>`;
 const snapshot=p=>p.evaluate(()=>({button:document.querySelector('button')?.outerHTML,counts:[...document.querySelectorAll('[data-cv-count]')].map(e=>e.textContent)}));
 try{for(const engine of ['legacy','rust'])for(const width of [390,1440]){
  const c=await browser.newContext({viewport:{width,height:844},hasTouch:true,locale:'en-US'}),errors=[];

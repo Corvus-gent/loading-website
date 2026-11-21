@@ -7,6 +7,19 @@ publish = false
 [lib]
 crate-type = ["cdylib", "rlib"]
 
+# One runtime per document: small public shell, opt-in page domains. No duplicate
+# locale/consent/auth state from independently initialized WASM islands.
+[features]
+default = ["full"]
+full = ["army", "battle", "compound", "impact", "interviews", "legion", "support"]
+army = []
+battle = []
+compound = ["impact"]
+impact = []
+interviews = []
+legion = ["impact"]
+support = []
+
 [dependencies]
 corvus-core = { path = "../core" }
 wasm-bindgen = "0.2"

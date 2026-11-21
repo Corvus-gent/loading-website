@@ -3,11 +3,23 @@
 import {readFile} from 'node:fs/promises';
 import path from 'node:path';
 import {wasmBridge} from './rust-bridges.mjs';
+import {browserProfileHtml} from '../../tools/rust/browser-profiles.mjs';
 const types={'.html':'text/html','.js':'text/javascript','.mjs':'text/javascript','.css':'text/css','.json':'application/json','.wasm':'application/wasm','.png':'image/png','.jpg':'image/jpeg','.svg':'image/svg+xml','.woff2':'font/woff2','.mp4':'video/mp4'};
 export async function rustSite(context,runtime,{ip='198.51.100.190',beforeRequest,afterResponse,browserEngine='rust'}={}){
  const origin='https://corvus.gent',root=process.cwd(),errors=[],pending=new Set();let closing=false;
  await context.addInitScript(()=>sessionStorage.setItem('twitch-disabled','1'));
- const handle=async route=>{
+ const handle=async originalRoute=>{
+  // Rewrite documents even when supplied by a fixture's beforeRequest hook.
+  const route=new Proxy(originalRoute,{get(target,key){
+   if(key==='fulfill')return options=>{
+    if(browserEngine==='rust'&&target.request().resourceType()==='document'&&options.body&&/text\/html/i.test(options.contentType||options.headers?.['content-type']||'')){
+     const body=Buffer.isBuffer(options.body)?options.body.toString('utf8'):options.body;
+     options={...options,body:browserProfileHtml(body,new URL(target.request().url()).pathname)};
+    }
+    return target.fulfill(options);
+   };
+   const value=Reflect.get(target,key,target);return typeof value==='function'?value.bind(target):value;
+  }});
   if(closing)return route.abort();
   const request=route.request(),u=new URL(request.url());
   if(u.origin!==origin)return route.abort();

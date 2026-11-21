@@ -1,22 +1,34 @@
 //! Browser migration entry point. Not injected into production until parity passes.
 use wasm_bindgen::prelude::*;
+#[cfg(feature = "army")]
 mod army;
+mod army_transport;
 pub mod arrival;
+#[cfg(feature = "battle")]
 pub mod battle;
+#[cfg(feature = "battle")]
 pub mod battle_admin;
+#[cfg(feature = "compound")]
 pub mod compound_client;
+#[cfg(feature = "compound")]
 pub mod compound_v2;
 pub mod consent;
+#[cfg(feature = "impact")]
 pub mod impact;
+#[cfg(feature = "interviews")]
 pub mod interviews;
+#[cfg(feature = "interviews")]
 pub mod interviews_admin;
 pub mod language;
+#[cfg(feature = "legion")]
 mod legion;
 pub mod live_banner;
 mod portal;
 pub mod privacy;
 pub mod privacy_page;
+#[cfg(feature = "support")]
 pub mod support;
+#[cfg(feature = "support")]
 pub mod support_admin;
 mod ui;
 pub use portal::start_portal;
@@ -41,8 +53,10 @@ pub fn next_ritual_ms(now_ms: f64) -> f64 {
     next.get_time()
 }
 
+#[cfg(feature = "compound")]
 mod compound_admin;
 
+#[cfg(feature = "compound")]
 mod compound_editor;
 
 mod site;

@@ -29,13 +29,6 @@ fn arr(v: &Value, k: &str) -> Vec<Value> {
 fn js(v: &Value) -> Result<JsValue, JsValue> {
     js_sys::JSON::parse(&v.to_string())
 }
-fn val(v: &JsValue) -> Result<Value, JsValue> {
-    if v.is_null() || v.is_undefined() {
-        return Ok(Value::Null);
-    }
-    serde_json::from_str(&js_sys::JSON::stringify(v)?.as_string().unwrap_or_default())
-        .map_err(|_| "fields".into())
-}
 fn node(tag: &str, label: &str, class: &str) -> Result<HtmlElement, JsValue> {
     let e = ui::doc()?.create_element(tag)?.dyn_into::<HtmlElement>()?;
     e.set_text_content(Some(label));
@@ -137,9 +130,4 @@ fn ready(key: &str) {
     if let Some(b) = ui::doc().ok().and_then(|d| d.body()) {
         let _ = b.set_attribute(&format!("data-rust-army-{key}-ready"), "");
     }
-}
-
-/// Reuse the action-bound proof and session boundary for realm feather collection.
-pub(crate) async fn submit_feather(spot: &str) -> Result<Value, JsValue> {
-    client::submit("feather", json!({"spot":spot})).await
 }

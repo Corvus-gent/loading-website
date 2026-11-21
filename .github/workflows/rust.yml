@@ -25,6 +25,7 @@ jobs:
         run: |
           node tests/rust/measure-source.mjs
           node tests/rust/performance-evidence.mjs
+          node tests/rust/retired-pages.mjs
       - name: Record source change ledger
         run: node tools/rust/measure-source.mjs
       - name: Preserve code change evidence
@@ -44,6 +45,7 @@ jobs:
       - run: cargo clippy --locked --workspace --all-targets -- -D warnings
       - run: cargo test --locked --workspace
       - run: cargo check --locked -p corvus-browser --target wasm32-unknown-unknown
+      - run: cargo clippy --locked -p corvus-browser --no-default-features --target wasm32-unknown-unknown -- -D warnings
       - run: cargo build --locked --bins
       - run: node tools/rust/parity.mjs
       - run: node tests/rust/compound-model.mjs
@@ -97,6 +99,7 @@ jobs:
       - run: node tests/rust/build-boundary.mjs
       - run: node tests/rust/auth-parity.mjs
       - run: tools/rust/build-browser.sh
+      - run: node tests/rust/browser-profiles.mjs
       - run: npx playwright install --with-deps chromium
       - run: node tests/rust/browser.mjs
       - run: node tests/rust/user-flows.mjs

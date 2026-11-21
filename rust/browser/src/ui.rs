@@ -119,6 +119,13 @@ pub async fn sleep(ms: i32) -> Result<(), JsValue> {
     JsFuture::from(promise).await?;
     Ok(())
 }
+#[cfg(any(
+    feature = "army",
+    feature = "impact",
+    feature = "interviews",
+    feature = "legion",
+    feature = "support"
+))]
 pub fn scroll(id: &str, smooth: bool, nearest: bool) {
     if let Ok(el) = element(id) {
         let options = web_sys::ScrollIntoViewOptions::new();
@@ -136,6 +143,7 @@ pub fn scroll(id: &str, smooth: bool, nearest: bool) {
     }
 }
 
+#[cfg(feature = "battle")]
 pub fn number(value: f64) -> String {
     let n = js_sys::Number::from(value);
     // Reflect.get requires an object; Number::from is a JavaScript primitive.
@@ -151,6 +159,7 @@ pub fn number(value: f64) -> String {
         .and_then(|v| v.as_string())
         .unwrap_or_else(|| value.to_string())
 }
+#[cfg(any(feature = "battle", feature = "compound", feature = "impact"))]
 pub fn date(value: &str) -> String {
     let date = js_sys::Date::new(&JsValue::from_str(value));
     js_sys::Reflect::get(&date, &JsValue::from_str("toLocaleString"))
@@ -161,6 +170,13 @@ pub fn date(value: &str) -> String {
         .unwrap_or_default()
 }
 /// Native clipboard first, selection fallback for embedded/in-app browsers.
+#[cfg(any(
+    feature = "army",
+    feature = "battle",
+    feature = "compound",
+    feature = "interviews",
+    feature = "legion"
+))]
 pub async fn copy(text: &str) -> bool {
     if let Some(w) = web_sys::window()
         && let Ok(clipboard) = js_sys::Reflect::get(&w.navigator(), &JsValue::from_str("clipboard"))
@@ -173,6 +189,13 @@ pub async fn copy(text: &str) -> bool {
     }
     copy_selection(text).unwrap_or(false)
 }
+#[cfg(any(
+    feature = "army",
+    feature = "battle",
+    feature = "compound",
+    feature = "interviews",
+    feature = "legion"
+))]
 fn copy_selection(text: &str) -> Result<bool, JsValue> {
     let doc = doc()?;
     let previous = doc.active_element();

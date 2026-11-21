@@ -63,6 +63,14 @@ strip = "symbols"
 [profile.release.package.corvus-browser]
 strip = false
 
+# Browser delivery optimizes the full dependency graph for download size while
+# leaving native server optimization unchanged. Binding metadata is kept until
+# wasm-bindgen has generated the JS boundary.
+[profile.browser-release]
+inherits = "release"
+opt-level = "s"
+lto = "fat"
+
 [lints.rust]
 unsafe_code = "forbid"
 

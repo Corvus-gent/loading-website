@@ -93,7 +93,7 @@ fn sync() {
             else {
                 break;
             };
-            match crate::army::submit_feather(&spot).await {
+            match crate::army_transport::submit("feather", json!({"spot":spot})).await {
                 Ok(v) => merge(&v["self"]),
                 Err(_) => break,
             }
