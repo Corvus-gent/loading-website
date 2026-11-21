@@ -1,0 +1,30 @@
+{
+  "name": "the-hackers-bay",
+  "version": "0.1.0",
+  "private": true,
+  "description": "The Hackers Bay desktop demo",
+  "author": "Corvus",
+  "license": "UNLICENSED",
+  "main": "main.cjs",
+  "scripts": {
+    "start": "electron .",
+    "build:mac": "electron-builder --mac dmg --arm64 --x64 --publish never"
+  },
+  "devDependencies": {
+    "electron": "45.4.1",
+    "electron-builder": "26.18.0"
+  },
+  "build": {
+    "appId": "gent.corvus.hackersbay",
+    "productName": "The Hackers Bay",
+    "artifactName": "HackersBay-${arch}.${ext}",
+    "files": ["main.cjs", "package.json", "icon.png"],
+    "mac": {
+      "category": "public.app-category.social-networking",
+      "icon": "icon.png",
+      "identity": "-",
+      "hardenedRuntime": false,
+      "notarize": false
+    }
+  }
+}

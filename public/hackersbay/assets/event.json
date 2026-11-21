@@ -1,0 +1,33 @@
+{
+  "slug": "boat-hackathon-demo-day",
+  "title": "Boat Hackathon Demo Day",
+  "edition": "ShowBoat · San Francisco",
+  "startsAt": "2026-11-21T13:00:00-08:00",
+  "endsAt": "2026-11-21T17:00:00-08:00",
+  "timezone": "America/Los_Angeles",
+  "venue": "Historic Klamath Conference Center",
+  "address": "Pier 9, San Francisco",
+  "entry": "Invite only",
+  "description": "Selected builders showcase projects they shipped aboard a boat to an audience of builders, judges, and investors.",
+  "source": "https://boathackathon.com/",
+  "rsvp": "https://partiful.com/e/574OkdF3XGK3SzsRR3QK?c=e-zc1AS7",
+  "map": "https://maps.google.com/?q=Historic+Klamath+Pier+9+San+Francisco",
+  "sponsors": ["Boat.dev", "Context.dev", "NYTEX"],
+  "judges": [
+    { "name": "Anicet", "title": "CEO, Boat.dev" },
+    { "name": "Michael Ryaboy", "title": "MTS, Context.dev" },
+    { "name": "Joseph Perla", "title": "Founder, NYTEX & Turntable.fm" }
+  ],
+  "logistics": {
+    "food": "Unconfirmed",
+    "sleep": "No sleep spot announced",
+    "prizes": "Cash pool unannounced",
+    "payout": "Payout timing unannounced",
+    "travel": "Depends on your route to Pier 9"
+  },
+  "moments": [
+    { "time": "14:15 PT", "place": "near the conference center entrance" },
+    { "time": "15:10 PT", "place": "near the demo area" },
+    { "time": "16:20 PT", "place": "near the conference center entrance" }
+  ]
+}

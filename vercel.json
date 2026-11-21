@@ -325,6 +325,50 @@
   ],
   "rewrites": [
     {
+      "source": "/hackersbay/judges",
+      "destination": "/public/hackersbay/judges.html"
+    },
+    {
+      "source": "/hackersbay/demo",
+      "destination": "/public/hackersbay/demo.html"
+    },
+    {
+      "source": "/hackersbay/log",
+      "destination": "/api/hackersbay?action=log"
+    },
+    {
+      "source": "/hackersbay/preview",
+      "destination": "/public/hackersbay/preview.html"
+    },
+    {
+      "source": "/hackersbay/host",
+      "destination": "/public/hackersbay/host.html"
+    },
+    {
+      "source": "/hackersbay/sponsor",
+      "destination": "/public/hackersbay/sponsor.html"
+    },
+    {
+      "source": "/hackersbay/intro",
+      "destination": "/public/hackersbay/intro.html"
+    },
+    {
+      "source": "/hackersbay/e/boat-hackathon-demo-day",
+      "destination": "/public/hackersbay/event.html"
+    },
+    {
+      "source": "/hackersbay/board",
+      "destination": "/public/hackersbay/board.html"
+    },
+    {
+      "source": "/hackersbay",
+      "destination": "/public/hackersbay/landing.generated.html"
+    },
+    {
+      "source": "/hackersbay/",
+      "destination": "/public/hackersbay/landing.generated.html"
+    },
+    {
       "source": "/cv/work/mistral",
       "destination": "/cv/work/mistral/index.html"
     },
@@ -745,6 +789,10 @@
     }
   ],
   "functions": {
+    "api/hackersbay.js": {
+      "includeFiles": "HACKERSBAY_LOG.md",
+      "maxDuration": 30
+    },
     "api/project-cto.js": {
       "includeFiles": "{node_modules/pdfjs-dist/legacy/build/pdf.min.mjs,node_modules/pdfjs-dist/legacy/build/pdf.worker.min.mjs,node_modules/read-excel-file/bundle/read-excel-file.min.js}",
       "maxDuration": 20
