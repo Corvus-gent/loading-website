@@ -7,7 +7,7 @@ import { CLASSES, pixelCanvas, seededPirate } from './pirate.js';
 import { artPicture, captainArt, classArt } from './art.js';
 import { prepareDressed } from './wardrobe.js';
 import { mutualParrots, spyglassPilot } from './parrot-view.js';
-import { FIRE, IMPACT, makeArtworkSea } from './art-sea.js';
+import { battlePhase, FIRE, IMPACT, IMPACT_CAPTION, makeArtworkSea, SINK_CAPTION } from './art-sea.js';
 import { playBaySound, wireSound } from './sound.js';
 
 const deck = document.querySelector('#deck');
@@ -29,6 +29,8 @@ const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 const limit = x => Math.min(1, Math.max(0, x));
 const seaCanvas = document.querySelector('#demo-sea');
 const sea = seaCanvas.parentElement;
+const opening = sea.closest('[data-beat]');
+const closing = document.querySelector('[data-beat="end"]');
 const endCanvas = document.querySelector('#demo-end-sea');
 let drawEnd;
 void makeArtworkSea(endCanvas).then(draw => {
@@ -135,13 +137,19 @@ let frame;
 let lastTime = 0;
 
 function naval(elapsed) {
-  const time = reduced.matches ? (elapsed < 1.7 ? .5 : 6.2) : Math.min(8.6, .9 + elapsed * 1.9);
+  const time = reduced.matches
+    ? (elapsed < 1.25 ? .5 : elapsed < 2.45 ? IMPACT + .35 : 6.25)
+    : Math.min(9.1, .9 + elapsed * 1.55);
   const tick = Math.floor(time * 30);
   if (drawSea && tick !== seaFrame) { drawSea(tick / 30); seaFrame = tick; }
-  sea.toggleAttribute('data-impact', !reduced.matches && time >= IMPACT && time < IMPACT+.34);
+  const phase = battlePhase(time);
+  if (phase !== opening.dataset.battlePhase) {
+    opening.dataset.battlePhase = phase;
+    if (phase !== 'aim') caption.textContent = phase === 'impact' ? IMPACT_CAPTION : SINK_CAPTION;
+  }
+  sea.toggleAttribute('data-impact', !reduced.matches && time >= IMPACT && time < IMPACT+.26);
   if (!fired && time >= FIRE) {
     fired = true;
-    caption.textContent = 'Fire! That little grey rowboat is going under.';
     playBaySound('cannon');
   }
 }
@@ -202,7 +210,11 @@ function play(now) {
   }
   if (beat === 'naval') naval(elapsed);
   if (beat === 'end' && drawEnd) {
-    const time = reduced.matches ? 5 : Math.min(8.7, 1.7 + elapsed * 1.25);
+    const time = reduced.matches
+      ? (elapsed < 1 ? .5 : elapsed < 2.45 ? IMPACT + .35 : 6.25)
+      : Math.min(9.1, 1.7 + elapsed * 1.25);
+    const phase = battlePhase(time);
+    if (phase !== closing.dataset.battlePhase) closing.dataset.battlePhase = phase;
     const tick = Math.floor(time * 30);
     if (tick !== seaFrame) { drawEnd(tick / 30); seaFrame = tick; }
   }

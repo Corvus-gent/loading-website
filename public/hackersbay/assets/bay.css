@@ -961,3 +961,12 @@ body[data-dragging-pirate] { user-select: none; }
 .klamath-timeline { display: grid; gap: 14px; list-style: none; padding: 0; }
 .klamath-timeline li { padding: clamp(14px, 4vw, 24px); }
 .klamath-timeline p { margin: 8px 0 0; color: var(--muted); }
+
+.naval-battle-caption {
+  position: absolute; z-index: 2; inset: 3% 2% auto; text-align: center; pointer-events: none;
+  color: var(--parchment); font: 400 clamp(15px,3vw,35px)/1.08 var(--pixel);
+  text-shadow: 2px 3px #06121f, -2px 3px #06121f, 0 0 9px #06121f;
+}
+.naval-battle-caption strong { display: none; background: #06121fe8; padding: .22em .4em .3em; }
+[data-battle-phase="impact"] .naval-battle-caption [data-impact-line] { display: inline-block; color: #ffe2a1; }
+[data-battle-phase="sink"] .naval-battle-caption [data-sink-line] { display: inline-block; font-size: .68em; }

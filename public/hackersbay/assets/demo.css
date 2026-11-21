@@ -195,3 +195,11 @@
 .demo-scene[data-beat="end"] .demo-copy { text-shadow: 0 2px 10px #06121f, 0 0 9px #06121f; }
 .demo-scene[data-beat="end"] .boat-credit { color: #f3e3c0; }
 [data-format="wide"] .demo-end-sea { width: 80%; justify-self: end; }
+
+.demo-scene [data-impact-line], .demo-scene [data-sink-line] { display: none; }
+.demo-scene[data-battle-phase="impact"] [data-impact-line] { display: inline; color: #ffe2a1; }
+.demo-scene[data-battle-phase="sink"] [data-sink-line] { display: inline; }
+.demo-scene:is([data-battle-phase="impact"], [data-battle-phase="sink"]) [data-aim-line],
+.demo-scene[data-battle-phase="impact"] [data-end-line] { display: none; }
+.demo-scene[data-beat="naval"] h1 { min-block-size: 3.12em; }
+[data-format="wide"] .demo-scene[data-beat="naval"] { grid-template-columns: minmax(0,.68fr) minmax(0,1.32fr); }

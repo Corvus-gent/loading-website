@@ -37,6 +37,7 @@ let elapsed = .5;
 let loopLength;
 let cannonBeat;
 let impact;
+let battlePhase;
 
 function tick(now) {
   const span = now - last;
@@ -47,7 +48,9 @@ function tick(now) {
     const departure = drawing(elapsed);
     stage.style.setProperty('--ship-shift', (departure * 100).toFixed(2) + '%');
     const age = elapsed % loopLength - impact;
-    stage.toggleAttribute('data-impact', age >= 0 && age < .32);
+    stage.toggleAttribute('data-impact', age >= 0 && age < .27);
+    const phase = battlePhase(elapsed);
+    if (phase !== stage.dataset.battlePhase) stage.dataset.battlePhase = phase;
     last = now;
   }
   frame = requestAnimationFrame(tick);
@@ -59,13 +62,16 @@ async function syncSea() {
     frame = 0;
     canvas.hidden = true;
     stage.removeAttribute('data-impact');
+    delete stage.dataset.battlePhase;
     stage.style.removeProperty('--ship-shift');
     return;
   }
   if (!drawing && !starting) {
     starting = true;
     try {
-      const {makeArtworkSea, SHIP_LOOP, FIRE, IMPACT} = await import('./art-sea.js');
+      const battle = await import('./art-sea.js');
+      const {makeArtworkSea, SHIP_LOOP, FIRE, IMPACT} = battle;
+      battlePhase = battle.battlePhase;
       drawing = await makeArtworkSea(canvas);
       loopLength = SHIP_LOOP;
       cannonBeat = FIRE;

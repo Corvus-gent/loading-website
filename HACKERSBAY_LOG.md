@@ -352,3 +352,11 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Decision. Keep the pitch captioned, the fictional roster labeled, and the three missing footage pickups explicit. The public repo contains the release sources and the zero-key fallback.
 - Next. Replace the three Proof of Boat slots when the original clips arrive.
 - **STEER ME:** Keep A as the first social cut or compare it against B and C once the clips arrive.
+
+## H42 · 2026-11-21 21:32 CET · A bigger blast for Demo Day
+
+- Replaced the small target with a full-size pixel passenger boat. Hand-built letters on the hull and flag identify LUMA. The cannonball strikes the painted hull, which splits and sinks as planks, bubbles, and grey guest-list dots scatter.
+- Added the impact caption “WE BLASTED LUMA.” and then the tagline on the landing scene and both autoplay formats. Updated the share image to show the cracked boat. The reduced-motion view uses the still art and stepped demo frames.
+- Checked the landing at 375px and 1440px, the 1080 × 1920 and 1920 × 1080 demo bookends, the QR, and the 1200 × 630 share image. Build, lint, and route tests passed.
+- Decision. Publish the web scene first. Render only Cut A and the two-minute pitch, and replace the downloads if production can serve them by 21:55 Paris.
+- **STEER ME:** Lead with the impact freeze frame or the intact boat in the next share card.

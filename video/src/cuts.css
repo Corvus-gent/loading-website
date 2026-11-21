@@ -50,3 +50,10 @@
 .hc-pitch .hc-story :is(.hc-character,.hc-mutual,.hc-radar) { grid-column: 2; grid-row: 1 / span 4; justify-self: center; max-width: 100%; }
 .hc-pitch .hc-story .hc-crew { min-height: 410px; }
 .hc-pitch .hc-mutual { width: 760px; }
+
+.hc-horizon canvas { width: 1080px; left: 0; right: auto; top: 630px; }
+.hc-copy .hc-blast { color: #ffe2a1; }
+.hc-copy .hc-sink-line { font-size: 42px; color: #3ee6c4; margin-top: 24px; }
+.hc-pitch .hc-horizon { left: 0; }
+.hc-pitch .hc-horizon canvas { width: 1740px; left: auto; right: 20px; top: 90px; }
+.hc-pitch .hc-copy h1 { font-size: 81px; }

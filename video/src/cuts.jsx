@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import { AbsoluteFill, Audio, continueRender, delayRender, Img, OffthreadVideo, Sequence, staticFile, useCurrentFrame } from 'remotion';
-import { makeArtworkSea } from '../../public/hackersbay/assets/art-sea.js';
+import { battlePhase, makeArtworkSea } from '../../public/hackersbay/assets/art-sea.js';
 import './cuts.css';
 
 export const VIDEO_FPS = 30;
@@ -29,6 +29,7 @@ function Naval({ closing = false }) {
   const paint = useRef(null);
   const time = frame / VIDEO_FPS;
   const shot = Math.min(9.6, 1.5 + time * (closing ? 1.2 : 1.62));
+  const phase = battlePhase(shot);
   const [handle] = useState(() => delayRender('Load The Black Commit'));
   useLayoutEffect(() => {
     let disposed = false;
@@ -44,7 +45,10 @@ function Naval({ closing = false }) {
     <div className="hc-horizon"><canvas ref={canvas} /></div>
     <div className="hc-copy">
       <p>THE BLACK COMMIT</p>
-      <h1>LUMA IS<br /><em>SINKING.</em></h1>
+      {phase === 'aim' ? <h1>LUMA IN<br />OUR SIGHTS.</h1> : phase === 'impact'
+        ? <h1 className="hc-blast">WE BLASTED<br />LUMA.</h1>
+        : <h1>LUMA IS<br /><em>SINKING.</em></h1>}
+      {phase === 'sink' && !closing && <p className="hc-sink-line">The Hackers Bay is coming.</p>}
     </div>
     {closing && <div className="hc-end">
       <h2>The Hackers Bay is coming.</h2>

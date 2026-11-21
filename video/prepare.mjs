@@ -72,6 +72,12 @@ function mix(seconds, cut = false) {
     if (blast >= 0 && blast < 1.1) {
       level += (.39 * sine(63 - blast * 33, blast) + .26 * noise) * Math.exp(-blast * 6);
     }
+    if (cut) {
+      const hit = time - (time >= reprise ? reprise + .6 : .815);
+      if (hit >= 0 && hit < .66) {
+        level += (.37 * sine(55 - hit * 42, hit) + .30 * noise) * Math.exp(-hit * 6);
+      }
+    }
     for (const ping of pingTimes) {
       level += .18 * pulse(time - ping, 1170, 10) + .055 * pulse(time - ping - .12, 950, 8);
     }
