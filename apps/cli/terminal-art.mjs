@@ -82,11 +82,13 @@ export function welcome(ansi = true) {
   const ship = shipArt(ansi).split('\n');
   return ship.map((row,i) => (captain[i] || ' '.repeat(26)) + '  ' + row).join('\n') + '\n' +
     (ansi ? '\x1b[1;38;5;49m' : '') + TAGLINE + (ansi ? calm : '') + '\n' +
-    'Captain Squawk aboard The Black Commit\n\n' +
+    'Captain Squawk aboard The Black Commit\n' +
+    'Follow the HTTPS redirect with curl -L corvus.gent/hackersbay\n\n' +
     'Build a pirate     /hackersbay/api/pirate?class=deckhand\n' +
     'Find three mates   /hackersbay/api/match?me=deckhand\n' +
     'Count the crew     /hackersbay/api/crew\n' +
-    'Open the logbook   /hackersbay/squawk\n' +
+    'Ask the captain    /hackersbay/squawk\n' +
+    'Salute the crew    /hackersbay/ayay\n' +
     'Sink the rowboat   /hackersbay/sink/luma\n' +
     'See Demo Day       https://corvus.gent/hackersbay/cuts\n';
 }

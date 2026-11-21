@@ -422,8 +422,17 @@
       "destination": "/api/hackersbay?action=terminal-sink"
     },
     {
+      "source": "/hackersbay/ayay",
+      "destination": "/api/hackersbay?action=terminal-ayay"
+    },
+    {
       "source": "/hackersbay",
-      "has": [{ "type": "header", "key": "user-agent", "value": "(?:curl|Curl|wget|Wget|HTTPie|httpie)(?:/.*)?" }],
+      "has": [{ "type": "header", "key": "user-agent", "value": "(?:[Cc][Uu][Rr][Ll]|[Ww][Gg][Ee][Tt]|[Hh][Tt][Tt][Pp][Ii][Ee])(?:/.*)?" }],
+      "destination": "/api/hackersbay?action=terminal-home"
+    },
+    {
+      "source": "/hackersbay/",
+      "has": [{ "type": "header", "key": "user-agent", "value": "(?:[Cc][Uu][Rr][Ll]|[Ww][Gg][Ee][Tt]|[Hh][Tt][Tt][Pp][Ii][Ee])(?:/.*)?" }],
       "destination": "/api/hackersbay?action=terminal-home"
     },
     {

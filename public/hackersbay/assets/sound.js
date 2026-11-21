@@ -45,6 +45,17 @@ export async function playShanty() {
   playBaySound('shanty', true);
 }
 
+export function playSalute() {
+  playBaySound('squawk');
+  if (!enabled || !window.speechSynthesis) return;
+  const voice = speechSynthesis.getVoices().find(candidate => candidate.localService && /^en\b/i.test(candidate.lang));
+  if (voice) {
+    const shout = new SpeechSynthesisUtterance('Aye aye!');
+    shout.voice = voice;
+    speechSynthesis.speak(shout);
+  }
+}
+
 export function wireSound(button, { shortcut = false } = {}) {
   if (!button && !shortcut) return;
   const reveal = () => {

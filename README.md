@@ -59,18 +59,23 @@ The demo works with zero new variables. Set credentials server-side in the Corvu
 
 [Build log](https://corvus.gent/hackersbay/log) · [Universal native Mac app](https://github.com/Corvus-gent/loading-website/releases/tag/hackersbay-native-v0.1.1) · [Electron fallback](https://github.com/Corvus-gent/loading-website/releases/tag/hackersbay-demo-v0.2.0) · [Earlier demo clips](https://github.com/Corvus-gent/loading-website/releases/tag/hackersbay-demo-v0.1.0) · [Remotion project](video/README.md) · [Shot list](SHOTLIST.md) · [Compound edit brief](COMPOUND_PROMPT.md) · [LinkedIn drafts](LINKEDIN.md)
 
+## First launch on macOS
+
+In Finder, right-click **HackersBay.app** and choose **Open**. If Gatekeeper blocks it, try launching once, then go to **System Settings → Privacy & Security → Open Anyway**. The builds use ad hoc signing and ship without Apple notarization.
+
 ## For terminal pirates
 
-Curl, wget, and HTTPie get Captain Squawk and The Black Commit in ANSI art at the home route. The API returns plain text by default. Add `?json` or `&json` to get structured output. Add `?color=0` to disable ANSI art.
+Curl, wget, and HTTPie get Captain Squawk and The Black Commit in ANSI art over HTTPS. Use `curl -L` with a bare hostname to follow the edge redirect. The API returns plain text by default. Add `?json` or `&json` to get structured output. Add `?color=0` to disable ANSI art.
 
 ```sh
-curl https://corvus.gent/hackersbay
+curl -L corvus.gent/hackersbay
 curl 'https://corvus.gent/hackersbay/api/pirate?class=deckhand&json'
 curl https://corvus.gent/hackersbay/api/crew
 curl 'https://corvus.gent/hackersbay/api/event/boat-hackathon?lens=navigator'
 curl 'https://corvus.gent/hackersbay/api/match?me=deckhand'
-curl https://corvus.gent/hackersbay/squawk
-curl -N https://corvus.gent/hackersbay/sink/luma
+curl -L corvus.gent/hackersbay/squawk
+curl -LN corvus.gent/hackersbay/sink/luma
+curl -L corvus.gent/hackersbay/ayay
 ```
 
 `me` accepts a class or nickname. To choose a lens for a nickname, send `class` as well. Match reasons come from the fictional Demo Day roster. The crew API reports the same live Redis counters as the website.
@@ -84,6 +89,6 @@ npx --package ./apps/cli hackersbay --class deckhand --name "Copper Byte" --quic
 
 Use the arrow keys to change the class and kit. Press Enter for your matches and a share link that opens the exact kit in the browser. The CLI falls back to the bundled Demo Day roster offline.
 
-The browser has three hidden cues. Use **↑ ↑ ↓ ↓ ← → ← → B A** for parrot rain, type **ahoy** for a one-shot sea shanty, or open the [creator with Captain Trav’s hat](https://corvus.gent/hackersbay/board?captain=trav). The [Historic Klamath’s hidden ship log](https://corvus.gent/hackersbay/klamath) traces the ferry’s history at Pier 9.
+The browser has hidden cues. Type **ayay** to get a salute from Captain Squawk, an **AYE AYE!** from the crew, and a burst of confetti. Use **↑ ↑ ↓ ↓ ← → ← → B A** for parrot rain, type **ahoy** for a one-shot sea shanty, or open the [creator with Captain Trav’s hat](https://corvus.gent/hackersbay/board?captain=trav). The [Historic Klamath’s hidden ship log](https://corvus.gent/hackersbay/klamath) traces the ferry’s history at Pier 9.
 
 The [native SwiftUI Mac app](apps/macos/) adds menu-bar Captain Squawk, mutual intro notifications, and a **Sink Luma** replay.

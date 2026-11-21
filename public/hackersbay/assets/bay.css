@@ -970,3 +970,37 @@ body[data-dragging-pirate] { user-select: none; }
 .naval-battle-caption strong { display: none; background: #06121fe8; padding: .22em .4em .3em; }
 [data-battle-phase="impact"] .naval-battle-caption [data-impact-line] { display: inline-block; color: #ffe2a1; }
 [data-battle-phase="sink"] .naval-battle-caption [data-sink-line] { display: inline-block; font-size: .68em; }
+
+.terminal-help { max-width: 100%; color: var(--muted); }
+.terminal-help summary { min-height: 44px; padding-block: 10px; cursor: pointer; }
+.terminal-help pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+.terminal-help code { font-family: var(--mono); color: var(--parchment); overflow-wrap: anywhere; }
+.crew-salute {
+  position: fixed; z-index: 92; isolation: isolate; inset: 0; pointer-events: none;
+  display: grid; place-content: center; justify-items: center; gap: 8px;
+}
+.crew-salute picture { width: min(35vw, 175px); animation: captain-salute .61s ease both; }
+.crew-salute picture img { width: 100%; height: auto; }
+.crew-salute strong {
+  display: block; background: #06121f; color: #ffe2a1; padding: .3em .45em .42em;
+  border: 3px solid #3ee6c4; box-shadow: 4px 5px 0 #8a6933;
+  font: 400 clamp(26px,7vw,68px)/1 var(--pixel);
+}
+.salute-confetti { position: absolute; z-index: -1; inset: 50% auto auto 50%; }
+.salute-confetti i {
+  display: block; position: absolute; width: 9px; height: 6px; background: var(--salute-color);
+  animation: salute-confetti 1.7s cubic-bezier(.12,.61,.36,1) both;
+}
+@keyframes captain-salute {
+  0% { transform: translateY(12px) rotate(8deg); }
+  42% { transform: translateY(-12px) rotate(-13deg); }
+  72%, 100% { transform: translateY(0) rotate(0); }
+}
+@keyframes salute-confetti {
+  from { transform: translate(0, 0) rotate(0); }
+  to { transform: translate(var(--salute-x),var(--salute-y)) rotate(var(--salute-turn)); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .crew-salute picture, .salute-confetti i { animation: none; }
+  .salute-confetti i { transform: translate(var(--salute-x),var(--salute-y)); }
+}
