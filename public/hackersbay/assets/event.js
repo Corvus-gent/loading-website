@@ -1,5 +1,5 @@
 import { DEFAULT_DEMO_LENS, EVENT_PATH, PERSONAS, getPersona, preset } from './persona.js';
-import { loadRoom, portrait, element } from './event-data.js';
+import { loadRoom, crewAvatar, element } from './event-data.js';
 import { matchRoom, describeMatch, lensFor } from './lens.js';
 import { drawRadar } from './radar.js';
 import { introRequest, meetingFor, readIntros, recipientUrl, saveIntro } from './intros.js';
@@ -22,7 +22,7 @@ function renderMatch(match, index, type, event, attendees) {
   info.append(element('h3', person.name), element('p', person.role + ' · ' + person.project, 'fine'));
   const mark = element('span', '× ' + String(index + 1).padStart(2, '0'), 'match-mark');
   mark.setAttribute('aria-hidden', 'true');
-  header.append(portrait(person), info, mark);
+  header.append(crewAvatar(person), info, mark);
   const reasons = element('dl', undefined, 'match-reasons');
   reasons.append(element('dt', 'Why you’d meet'), element('dd', yourReason), element('dt', 'Why they’d meet'), element('dd', theirReason));
   const actions = element('div', undefined, 'intro-actions');

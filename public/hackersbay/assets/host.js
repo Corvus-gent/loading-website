@@ -1,4 +1,4 @@
-import { element, loadRoom, portrait } from './event-data.js';
+import { element, loadRoom, crewAvatar } from './event-data.js';
 
 const STORAGE = 'hackersbay-room-composer-v1';
 const DEFAULT_CREW = ['mina-park', 'zora-quinn', 'ravi-mora', 'noor-tan'];
@@ -11,6 +11,49 @@ const nodes = document.querySelector('#graph-nodes');
 const graphDetail = document.querySelector('#graph-detail');
 const list = document.querySelector('#applicants');
 const filter = document.querySelector('#find-applicant');
+const dock = document.querySelector('#deck-drop');
+
+function makeDragHandle(person, boardPirate) {
+  const grip = element('button', 'Drag aboard', 'button drag-pirate');
+  grip.type = 'button';
+  grip.setAttribute('aria-label', 'Drag ' + person.name + ' aboard');
+  let drag;
+
+  function place(event) {
+    drag.ghost.style.transform = `translate(${event.clientX - 33}px,${event.clientY - 52}px)`;
+    const target = document.elementFromPoint(event.clientX, event.clientY);
+    graph.toggleAttribute('data-drop-target', graph.contains(target));
+    dock.toggleAttribute('data-drop-target', dock.contains(target));
+  }
+  function finish(event) {
+    if (!drag || event.pointerId !== drag.id) return;
+    if (event.type === 'pointerup') place(event);
+    const landed = event.type === 'pointerup' && (graph.hasAttribute('data-drop-target') || dock.hasAttribute('data-drop-target'));
+    drag.ghost.remove();
+    drag = null;
+    dock.hidden = true;
+    graph.removeAttribute('data-drop-target');
+    dock.removeAttribute('data-drop-target');
+    document.body.removeAttribute('data-dragging-pirate');
+    if (landed) boardPirate(person.id);
+  }
+  grip.addEventListener('pointerdown', event => {
+    if (grip.disabled || !event.isPrimary || event.button !== 0) return;
+    const ghost = element('div', undefined, 'drag-ghost');
+    ghost.setAttribute('aria-hidden', 'true');
+    ghost.append(crewAvatar(person));
+    document.body.append(ghost);
+    document.body.setAttribute('data-dragging-pirate', '');
+    dock.hidden = false;
+    grip.setPointerCapture(event.pointerId);
+    drag = { ghost, id: event.pointerId };
+    place(event);
+  });
+  grip.addEventListener('pointermove', event => { if (drag?.id === event.pointerId) place(event); });
+  for (const type of ['pointerup', 'pointercancel', 'lostpointercapture']) grip.addEventListener(type, finish);
+  grip.addEventListener('click', event => { if (event.detail === 0) boardPirate(person.id); });
+  return grip;
+}
 
 function shared(a, b) {
   return a.filter(tag => b.includes(tag));
@@ -75,6 +118,14 @@ async function start() {
   let selected = ids[0];
   let redraw = () => {};
 
+  function boardPirate(id) {
+    if (ids.length >= CAPACITY || ids.includes(id) || !byId.has(id)) return;
+    ids = [...ids, id];
+    selected = id;
+    storeCrew(ids);
+    render(id);
+  }
+
   function render(focusId) {
     const crew = ids.map(id => byId.get(id));
     const edges = crew.flatMap((person, index) => crew.slice(index + 1).map(member => relationship(person, member))).filter(mutual);
@@ -83,7 +134,8 @@ async function start() {
     redraw = () => placeGraph(crew, edges, selected);
     const coordinates = redraw();
     nodes.replaceChildren(...crew.map(person => {
-      const button = element('button', person.name.split(' ').map(part => part[0]).join(''), 'graph-node');
+      const button = element('button', undefined, 'graph-node');
+      button.append(crewAvatar(person));
       button.type = 'button';
       button.setAttribute('aria-label', 'Connections for ' + person.name);
       button.setAttribute('aria-pressed', String(person.id === selected));
@@ -121,7 +173,7 @@ async function start() {
       const title = element('div');
       title.append(element('h3', person.name), element('p', person.role + ' · ' + person.project, 'fine'));
       const top = element('header');
-      top.append(portrait(person), title, element('span', '+' + score, 'match-mark'));
+      top.append(crewAvatar(person), title, element('span', '+' + score, 'match-mark'));
       const contribution = element('p', 'Offers ' + person.offers + '.');
       const reason = element('p', (adds.length ? 'Adds ' + label(adds) + '. ' : '') +
         (linked.length ? 'Two-way fit with ' + linked.map(edge => edge.b.name).join(', ') + '.' : 'Builds ' + person.project + '.'), 'fine');
@@ -129,13 +181,12 @@ async function start() {
       add.type = 'button';
       add.disabled = ids.length >= CAPACITY;
       add.setAttribute('aria-label', 'Add ' + person.name + ' to room');
-      add.addEventListener('click', () => {
-        ids = [...ids, person.id];
-        selected = person.id;
-        storeCrew(ids);
-        render(person.id);
-      });
-      article.append(top, contribution, reason, add);
+      add.addEventListener('click', () => boardPirate(person.id));
+      const drag = makeDragHandle(person, boardPirate);
+      drag.disabled = add.disabled;
+      const actions = element('div', undefined, 'applicant-actions');
+      actions.append(add, drag);
+      article.append(top, contribution, reason, actions);
       return article;
     }));
     if (!ranked.length) list.append(element('p', 'No applicants match that search.', 'panel'));

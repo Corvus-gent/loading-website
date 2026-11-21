@@ -24,7 +24,6 @@
   <link rel="canonical" href="https://corvus.gent/hackersbay">
   <link rel="icon" href="/public/hackersbay/assets/anchor.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/public/hackersbay/assets/bay.css">
-  <noscript><style>.landing .comparison { --portrait-image: url("/public/hackersbay/assets/crew.webp"); }</style></noscript>
   <link rel="preload" href="/public/hackersbay/assets/inter.woff2" as="font" type="font/woff2" crossorigin>
   <script type="module" src="/public/hackersbay/assets/sink.js"></script>
   <script type="module" src="/public/hackersbay/assets/landing.js"></script>
@@ -96,19 +95,19 @@
       <div class="compare-grid">
         <article class="panel wall">
           <p class="eyebrow muted">LUMA</p><h3>The guest list</h3>
-          <div class="face-grid" role="img" aria-label="Wall of sixteen fictional guest avatars">
-            <i class="portrait" style="--col:0;--row:0"></i><i class="portrait" style="--col:1;--row:0"></i><i class="portrait" style="--col:2;--row:0"></i><i class="portrait" style="--col:3;--row:0"></i>
-            <i class="portrait" style="--col:0;--row:1"></i><i class="portrait" style="--col:1;--row:1"></i><i class="portrait" style="--col:2;--row:1"></i><i class="portrait" style="--col:3;--row:1"></i>
-            <i class="portrait" style="--col:0;--row:2"></i><i class="portrait" style="--col:1;--row:2"></i><i class="portrait" style="--col:2;--row:2"></i><i class="portrait" style="--col:3;--row:2"></i>
-            <i class="portrait" style="--col:0;--row:3"></i><i class="portrait" style="--col:1;--row:3"></i><i class="portrait" style="--col:2;--row:3"></i><i class="portrait" style="--col:3;--row:3"></i>
+          <div class="face-grid guest-wall" role="img" aria-label="Sixteen identical grey guest circles">
+            <i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i>
           </div>
         </article>
         <article class="panel target-panel">
-          <p class="eyebrow">THE HACKERS BAY · FICTIONAL DEMO</p><h3>Your three people</h3>
-          <ul class="crew-list">
-            <li><i class="portrait" style="--col:3;--row:1" aria-hidden="true"></i><span><strong>Kai Navarro</strong><small>Can share a low-cost route to Pier 9.</small></span><b aria-hidden="true">×</b></li>
-            <li><i class="portrait" style="--col:0;--row:2" aria-hidden="true"></i><span><strong>Devon Knox</strong><small>Knows what’s available from local meal shares.</small></span><b aria-hidden="true">×</b></li>
-            <li><i class="portrait" style="--col:2;--row:1" aria-hidden="true"></i><span><strong>Tess Warden</strong><small>Can help verify prize and payout terms.</small></span><b aria-hidden="true">×</b></li>
+          <p class="eyebrow">THE BLACK COMMIT · FICTIONAL DEMO</p><h3>Your crew for tonight</h3>
+          <ul class="crew-list deck-crew">
+            <li data-pirate="kai-navarro"><span class="crew-reason"><strong>Kai Compass</strong><small>Can share a low-cost route to Pier 9.</small></span><b aria-hidden="true">×</b></li>
+            <li data-pirate="devon-knox"><span class="crew-reason"><strong>Devon Lastplate</strong><small>Knows where to find a meal share.</small></span><b aria-hidden="true">×</b></li>
+            <li data-pirate="tess-warden"><span class="crew-reason"><strong>Tess Goldledger</strong><small>Can help verify prize and payout terms.</small></span><b aria-hidden="true">×</b></li>
           </ul>
         </article>
       </div>

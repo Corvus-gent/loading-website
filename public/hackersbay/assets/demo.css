@@ -81,9 +81,9 @@
 .demo-score strong { color: var(--gold); font: 720 calc(var(--body) * 1.35) var(--mono); margin-right: .15em; }
 .impact-board { position: relative; inline-size: min(100%, 67cqw); aspect-ratio: 1; margin-inline: auto; display: grid; place-items: center; }
 .demo-wall { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2cqw; width: 86%; }
-.impact-board .portrait {
+.impact-board .guest-dot {
   transform: translate(calc(var(--dx) * var(--burst, 0)), calc(var(--dy) * var(--burst, 0))) rotate(calc(var(--dr) * var(--burst, 0))) scale(calc(1 - .66 * var(--burst, 0)));
-  opacity: calc(1 - var(--burst, 0)); background-color: #254452;
+  opacity: calc(1 - var(--burst, 0)); display: block; aspect-ratio: 1; border-radius: 50%; background-color: #646c76;
 }
 .cannonball, .impact-wave { position: absolute; top: 50%; left: 49%; aspect-ratio: 1; border-radius: 50%; }
 .cannonball {
@@ -120,7 +120,7 @@
 [data-format="wide"] .demo-radar .blip { width: .43cqw; height: .43cqw; }
 [data-format="wide"] .demo-anchor { width: 6cqw; height: 6cqw; }
 @media (prefers-reduced-motion: reduce) {
-  .impact-board .portrait { transform: none; }
+  .impact-board .guest-dot { transform: none; }
   .impact-wave, .cannonball { display: none; }
 }
 .autoplay-deck[data-paused] * { animation-play-state: paused; }

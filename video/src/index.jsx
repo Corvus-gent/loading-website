@@ -17,12 +17,8 @@ function Chrome({ children, note = 'BOAT HACKATHON DEMO DAY' }) {
   </AbsoluteFill>;
 }
 
-function Face({ index, style }) {
-  return <div className="face" style={{
-    ...style,
-    backgroundImage: `url(${staticFile('crew.webp')})`,
-    backgroundPosition: `${(index % 4) * 100 / 3}% ${Math.floor(index / 4) * 100 / 3}%`
-  }} />;
+function GuestDot({ style }) {
+  return <div className="face" style={{ ...style, background: '#717883', borderRadius: '50%' }} />;
 }
 
 function Sonar({ rotation, lockCount = 0, ambient = true }) {
@@ -68,7 +64,7 @@ function ColdOpen({ duration }) {
           {Array.from({ length: 16 }, (_, index) => {
             const x = (index % 4 - 1.5) * 2;
             const y = (Math.floor(index / 4) - 1.5) * 2;
-            return <Face key={index} index={index} style={{
+            return <GuestDot key={index} style={{
               transform: `translate(${x * 61 * progress}px,${y * 59 * progress}px) rotate(${(index % 2 ? 1 : -1) * 58 * progress}deg) scale(${1 - .76 * progress})`,
               opacity: wallOpacity
             }} />;

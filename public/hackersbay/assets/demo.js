@@ -1,4 +1,4 @@
-import { element, loadRoom, portrait } from './event-data.js';
+import { element, loadRoom } from './event-data.js';
 import { DEFAULT_DEMO_LENS, preset } from './persona.js';
 import { lensFor, matchRoom } from './lens.js';
 import { meetingFor } from './intros.js';
@@ -33,7 +33,7 @@ function fact(label, value) {
 }
 
 for (let i = 0; i < 16; i++) {
-  const face = portrait({ portrait: i });
+  const face = element('span', undefined, 'guest-dot');
   face.style.setProperty('--dx', ((i % 4) - 1.5) * 11 + 'cqw');
   face.style.setProperty('--dy', (Math.floor(i / 4) - 1.5) * 11 + 'cqw');
   face.style.setProperty('--dr', (i % 2 ? 1 : -1) * 43 + 'deg');

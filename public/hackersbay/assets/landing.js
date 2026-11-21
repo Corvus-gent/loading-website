@@ -1,17 +1,26 @@
 import { wireSound, playBaySound } from './sound.js';
 
 const comparison = document.querySelector('.comparison');
+async function showDeckCrew() {
+  try {
+    const { crewAvatar, loadCrew } = await import('./event-data.js');
+    const attendees = await loadCrew();
+    const byId = new Map(attendees.map(person => [person.id, person]));
+    for (const slot of comparison.querySelectorAll('[data-pirate]')) {
+      const person = byId.get(slot.dataset.pirate);
+      if (person) slot.prepend(crewAvatar(person));
+    }
+  } catch { /* The names and match reasons are in the page HTML. */ }
+}
 
 if ('IntersectionObserver' in window) {
-  const portraits = new IntersectionObserver(([entry]) => {
+  const deck = new IntersectionObserver(([entry]) => {
     if (!entry.isIntersecting) return;
-    comparison.setAttribute('data-portraits', '');
-    portraits.disconnect();
+    void showDeckCrew();
+    deck.disconnect();
   }, { rootMargin: '180px 0px' });
-  portraits.observe(comparison);
-} else {
-  comparison.setAttribute('data-portraits', '');
-}
+  deck.observe(comparison);
+} else void showDeckCrew();
 
 wireSound(document.querySelector('#bay-sound'));
 

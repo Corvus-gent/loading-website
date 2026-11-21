@@ -82,7 +82,7 @@ function mix(seconds) {
 export async function prepare() {
   await mkdir(output, { recursive: true });
   await Promise.all([
-    ...['crew.webp', 'anchor.svg', 'inter.woff2', 'jetbrains-mono.woff2']
+    ...['anchor.svg', 'inter.woff2', 'jetbrains-mono.woff2']
       .map(file => copyFile(new URL(file, source), new URL(file, output))),
     ...DURATIONS.map(duration => writeFile(new URL('mix-' + duration + '.wav', output), mix(duration)))
   ]);

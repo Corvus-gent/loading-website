@@ -172,3 +172,12 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Verified. The creator is live. The landing has no overflow at 375px, 414px, and desktop. The scene paints at rest, animates onscreen, stops offscreen, and advances through the cannon impact and sinking. The sound toggle works.
 - Next. Replace the guest wall and portraits throughout the product, then connect the parrots to the spyglass and intro flow.
 - **STEER ME:** Keep the moonlit opening or start in sunset colors.
+
+## H21 · 2026-11-21 09:24 CET · Crew, Quartermaster and Merchant
+
+- Shipped 30 original named pirates with distinct pixel sprites and named parrots. The comparison uses sixteen identical grey guest circles opposite the crew on deck. The app and the Remotion source now use pixels or circles for people.
+- Shipped touch and mouse drag aboard in Room composer, plus a parchment map and chests in Treasure report.
+- Decision. Keep the seed IDs so saved drafts and old intro links still resolve. On phones a dock appears during a drag. The existing Add to room button also works by keyboard.
+- Verified. All 30 sprite renders and parrot names were distinct. Deck drag, keyboard add, graph updates, comparison, report filters, and the build passed.
+- Next. Send the player’s parrot to all three spyglass matches and animate mutual consent.
+- **STEER ME:** Use the three preview pirates as recurring demo characters or rotate the preview by class.
