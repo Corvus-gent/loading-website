@@ -8,7 +8,7 @@
 .hc-copy { position: absolute; top: 140px; left: 0; right: 0; text-shadow: 0 5px #06121f, 0 0 35px #06121f; }
 .hc-copy p, .hc-kicker, .hc-proof p { font: 34px CutPixel, monospace; color: #ffc66b; margin-bottom: 34px; }
 .hc-horizon { position: absolute; inset: 0; overflow: hidden; background: radial-gradient(ellipse at center,#113659,#06121f 70%); }
-.hc-horizon canvas { width: 1450px; height: auto; position: absolute; top: 520px; right: -170px; -webkit-mask-image: linear-gradient(transparent,#000 18%,#000 92%,transparent); }
+.hc-horizon canvas { width: 1080px; height: auto; position: absolute; top: 630px; left: 0; -webkit-mask-image: linear-gradient(transparent,#000 18%,#000 92%,transparent); }
 .hc-end { position: absolute; bottom: 100px; width: 100%; display: grid; justify-items: start; gap: 22px; }
 .hc-qr { width: 200px; height: 200px; background: white; }
 .hc-end small, .hc-proof small { font-size: 34px; }
@@ -29,11 +29,9 @@
 .hc-crew { display: grid; min-height: 435px; align-content: start; gap: 10px; width: 100%; }
 .hc-crew .hc-note { grid-template-columns: 95px 1fr; align-items: center; padding: 9px 18px; }
 .hc-crew img { width: 88px; }
-.hc-horizon canvas { width: 1350px; right: -125px; }
 .hc-end { bottom: 65px; text-shadow: 0 3px 14px #06121f; }
 .hc-pitch h1 { font-size: 92px; }
-.hc-pitch .hc-horizon canvas { width: 1800px; top: 20px; right: -100px; }
-.hc-pitch .hc-horizon { left: 17%; }
+.hc-pitch .hc-horizon canvas { width: 1740px; left: auto; right: 20px; top: 90px; }
 .hc-pitch .hc-copy { top: 80px; }
 .hc-pitch .hc-end { bottom: 70px; padding: 40px 80px; width: 580px; background: linear-gradient(90deg,#06121fee,#06121f70,transparent); }
 .hc-pitch .hc-end h2 { font-size: 45px; }
@@ -51,9 +49,12 @@
 .hc-pitch .hc-story .hc-crew { min-height: 410px; }
 .hc-pitch .hc-mutual { width: 760px; }
 
-.hc-horizon canvas { width: 1080px; left: 0; right: auto; top: 630px; }
 .hc-copy .hc-blast { color: #ffe2a1; }
 .hc-copy .hc-sink-line { font-size: 42px; color: #3ee6c4; margin-top: 24px; }
-.hc-pitch .hc-horizon { left: 0; }
-.hc-pitch .hc-horizon canvas { width: 1740px; left: auto; right: 20px; top: 90px; }
 .hc-pitch .hc-copy h1 { font-size: 81px; }
+.hc-pitch .hc-copy { top: 18px; padding-top: 34px; }
+.hc-pitch .hc-copy p { margin-bottom: 20px; }
+.hc-pitch .hc-copy .hc-sink-line {
+  display: inline-block; margin-top: 17px; padding: 8px 13px;
+  background: #06121fee; border-left: 4px solid #3ee6c4;
+}

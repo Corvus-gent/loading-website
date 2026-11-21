@@ -23,6 +23,6 @@ The renderer builds its asset directory from the pixel art, anchor, and fonts in
 npm run render -- CutA CutB CutC Pitch
 ```
 
-A, B, and C are 60-second, 1080 × 1920 cuts. All three open and close on the sinking rowboat. A follows the full blast, B cuts to the boat step, and C cuts to the car selfie. `Pitch` is a two-minute 1920 × 1080 cut with captions and music. [Compare the cuts and download the pitch.](https://corvus.gent/hackersbay/cuts)
+A, B, and C are 60-second, 1080 × 1920 cuts. All three open and close on the sinking rowboat. A follows the full blast as the new LUMA boat splits in two. B cuts to the boat step, and C cuts to the car selfie. `Pitch` is a two-minute 1920 × 1080 cut with captions, music, and the upgraded LUMA blast. [Compare the cuts and download the pitch.](https://corvus.gent/hackersbay/cuts)
 
 The optional raw clips go in the ignored `video/raw/` folder. Use `gabe-boat-step.mp4`, `gabe-car.mp4`, and `colin-klamath.mp4`. MOV files also work. Keep clips at least 7, 7, and 4 seconds long respectively. The renderer uses the opening of each file without its audio and crops it to the frame. Missing files produce clearly labeled footage slots.

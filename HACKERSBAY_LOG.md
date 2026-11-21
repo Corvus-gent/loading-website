@@ -360,3 +360,10 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Checked the landing at 375px and 1440px, the 1080 × 1920 and 1920 × 1080 demo bookends, the QR, and the 1200 × 630 share image. Build, lint, and route tests passed.
 - Decision. Publish the web scene first. Render only Cut A and the two-minute pitch, and replace the downloads if production can serve them by 21:55 Paris.
 - **STEER ME:** Lead with the impact freeze frame or the intact boat in the next share card.
+
+## H43 · 2026-11-21 21:45 CET · The new blast in the films
+
+- Rendered and checked Cut A at 1080 × 1920 for 60 seconds and the pitch at 1920 × 1080 for 120 seconds. Both include the direct hit and the two halves sinking.
+- The widescreen tagline now sits on a dark plate for readability. Verified H.264, AAC, duration, opening frames and playback at mobile and desktop sizes.
+- Published the two replacement MP4s and posters. The landing, both live demo formats, and the new share image passed production checks before the film render finished.
+- **STEER ME:** Keep Cut A as the opener or start the live demo at the impact beat.
