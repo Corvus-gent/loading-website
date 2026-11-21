@@ -2,6 +2,8 @@
 
 The native SwiftUI app opens the live site in WKWebView and adds Captain Squawk to the menu bar. **Sink Luma** replays the cannonball. Enable native notifications from the menu to see mutual intros while the app runs. Squawk sounds start off and can be enabled separately. Shared intro checks stay inside the site’s WebView and the Mac receives only the matched intro ID.
 
+[Download the universal Mac app](https://github.com/Corvus-gent/loading-website/releases/tag/hackersbay-native-v0.1.0).
+
 Build on macOS 13 or later with Xcode’s command-line tools and Python 3.
 
 ```sh

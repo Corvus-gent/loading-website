@@ -319,3 +319,10 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Decision. Notifications work while the app is running. Only the intro ID crosses the native bridge. The Mac build uses ad hoc signing, and Electron remains available.
 - Verified the bridge script, bundle metadata, and package script syntax on Linux. Next. Compile and package the universal DMG on the GitHub macOS runner, then publish it.
 - **STEER ME:** Keep mutual squawks opt-in, or enable them by default for desktop.
+
+## H38 · 2026-11-21 21:09 CET · Universal Mac release
+
+- GitHub’s macOS runner compiled arm64 and x86_64, verified the ad hoc signed bundle and disk image, and published both the DMG and the zipped app.
+- Downloaded the published assets and checked both SHA-256 sums. The site and submission now link to the native release and retain the Electron downloads.
+- Next. Verify the live terminal outputs and finish the browser easter eggs.
+- **STEER ME:** Pick the native app or Electron as the download you share with judges.
