@@ -48,3 +48,4 @@ output
 !tools/migration-report
 tools/migration-report/*
 !tools/migration-report/build.mjs
+!tools/migration-report/usage-schema.mjs

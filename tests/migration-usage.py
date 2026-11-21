@@ -31,6 +31,9 @@ class UsageTests(unittest.TestCase):
         self.assertNotIn("private",json.dumps(got))
     def test_missing_marker(self):
         with self.assertRaises(ValueError):self.collect([usage()])
+    def test_unclosed_window_is_not_publishable_migration_usage(self):
+        with self.assertRaisesRegex(ValueError, "end marker"):
+            self.collect([message(mod.START,"2026-11-20T00:00:00Z"),usage(),usage("later-work")])
     def test_invalid_or_conflicting_counts(self):
         for entry in [usage(input_tokens=-1),usage(cached_input_tokens=101),usage(reasoning_output_tokens=11),usage(total_tokens=999)]:
             with self.assertRaises(ValueError):self.collect([message(mod.START,"2026-11-20T00:00:00Z"),entry])

@@ -12,6 +12,8 @@ Static HTML, JavaScript application code and Vercel APIs, not an all-Next.js app
 
 ## Measured changes
 
+Aligned main baseline: 505de1997d79db19b7f61f335856b1cb8882d38a. Measured migration: 5d582b70951a0cdc310806a8839a8d54819eeb19. Later upstream changes are outside this comparison.
+
 - Source: +52733/−61 physical lines across 301 counted files; 59 branch-only commits.
 - Old app is retained for parity and rollback; additions do not equal replaced lines or percent complete.
 - Compressed Rust bundle: 1265266 → 681962 bytes, 46.1% smaller than the earlier Rust bundle. This is not a website speedup.
@@ -40,6 +42,18 @@ Ownership and explicit types can make contracts clearer; native APIs may reduce 
 ## Caching
 
 Browser warm-cache results, AI prompt cache and application/CDN caching are separate. The first two have data here. Redis TTL/key compatibility is being preserved; regional recovery transport, cache hit ratios, invalidation, origin-load and production savings still need evidence.
+
+## Spec sheet and acceptance evidence
+
+| Spec | Status | What we know | Evidence still needed |
+|---|---|---|---|
+| Browser readiness & paint | Measured locally | Paired JS/Rust samples, same pages and fixtures; the current mobile readiness result is a regression. | At least 20 paired runs per condition for a release comparison; field data after a controlled rollout. |
+| API latency: p50 / p95 / p99 | Not measured | The browser lab uses fixed 40 ms API fixtures, not deployed server latency. | Identical requests, payloads, region and load; report sample count, errors and cached versus uncached paths. |
+| Function cold starts | Not measured | A fresh browser context is not a cold Vercel function. | Record genuinely observed cold invocations separately from warm ones. |
+| CPU, memory & throughput | Not measured | Native Rust may help; this project has no comparative measurements yet. | Same workload and resource allocation; CPU time, peak memory, successful requests/second and errors. |
+| Cache effectiveness | Not measured | Browser asset reuse is measured; CDN/application hit rates and savings are not. | Hits, misses, TTLs, invalidation, origin requests and stale/error recovery for matching traffic windows. |
+| Release reliability | Incomplete | Functional CI is scoped to the recorded commit; performance and migration completion gates remain open. | Complete route/flow checks, isolated integrations, canary monitoring and a timed rollback rehearsal. |
+| Credits, cash & operating cost | Unverified | Local token records are usage evidence, not attributable credit debits or invoices. | Reconcile actual debits and hosting windows; state subscription allocation separately. |
 
 ## Proposed story structure
 

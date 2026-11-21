@@ -1,7 +1,31 @@
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {rows,lower,number,snapshotFacts} from '../build/rust/model.mjs';
+import {publicUsage} from '../tools/migration-report/usage-schema.mjs';
 const d=JSON.parse(await readFile('build/rust/data.json','utf8'));
+assert.deepEqual(publicUsage(d.usage),d.usage);
+for(const mutate of [
+ u=>{u.window_closed_at=null;},
+ u=>{u.window_closed_at=u.started;},
+ u=>{u.started='2026-02-30T00:00:00Z';},
+ u=>{u.tokens.total_tokens++;},
+ u=>{u.tokens.cached_input_tokens=u.tokens.input_tokens+1;},
+ u=>{u.tokens.reasoning_output_tokens=u.tokens.output_tokens+1;},
+ u=>{u.uncached_input_tokens++;},
+ u=>{u.responses=1.5;},
+ u=>{u.responses='1521';},
+ u=>{u.tokens.input_tokens=Number.MAX_SAFE_INTEGER+1;},
+ u=>{u.tokens.response_id='private';},
+ u=>{u.account_id='private';},
+ u=>{u.models=[{name:'gpt-6-astra',private:'metadata'}];},
+ u=>{u.models=['unreviewed-model'];},
+ u=>{u.credits=0;},
+ u=>{u.billing_evidence={account_id:'private'};}
+]){
+ const copy=structuredClone(d.usage);mutate(copy);assert.throws(()=>publicUsage(copy));
+}
+const freeText=structuredClone(d.usage);freeText.method={private:'raw prompt'};freeText.limitations=['private source path'];
+assert.deepEqual(publicUsage(freeText),d.usage,'free-form local metadata never becomes public prose');
 const sum=Object.values(d.code.groups).reduce((a,g)=>({added:a.added+g.added,removed:a.removed+g.removed,files:a.files+g.files}),{added:0,removed:0,files:0});
 assert.deepEqual(sum,{added:d.code.added,removed:d.code.removed,files:d.code.files});
 assert.equal(d.code.after-d.code.before,d.code.added-d.code.removed);
@@ -24,5 +48,9 @@ const html=await readFile('build/rust/index.html','utf8'),article=await readFile
 assert(html.includes('production has not switched to Rust'));assert(html.includes('unverified'));
 assert(article.includes('not an all-Next.js app'));assert(!article.includes("'+m."));
 assert(html.includes('name="twitter:card" content="summary_large_image"'));
+assert(html.includes('id="spec-sheet"'));
+assert(article.includes('API latency: p50 / p95 / p99 | Not measured'));
+assert(article.includes('Credits, cash & operating cost | Unverified'));
+assert(article.includes(d.code.base),'retain the actual aligned baseline, not a moving main claim');
 for(const m of d.measurements)assert(m.evidence.raw.includes('/blob/'+d.sourceHead+'/'));
-console.log('PASS reconciled source/usage totals, no cost guesses, cache/device comparisons, null versus zero, known regressions, immutable provenance and no private telemetry.');
+console.log('PASS reconciled source/usage totals, closed attribution window, nested metadata and billing boundaries, no cost guesses, cache/device comparisons, null versus zero, known regressions and immutable provenance.');

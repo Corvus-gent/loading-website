@@ -2,6 +2,7 @@
 import {execFileSync} from 'node:child_process';
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import path from 'node:path';
+import {publicUsage} from './usage-schema.mjs';
 const args=Object.fromEntries(process.argv.slice(2).map(v=>v.split(/=(.*)/s).slice(0,2)));
 const repo=args['--repo']||process.cwd(),ref=args['--ref']||'codex/rust-migration';
 const git=(...a)=>execFileSync('git',a,{cwd:repo,encoding:'utf8',maxBuffer:16*1024*1024});
@@ -18,11 +19,7 @@ const latest=records.at(-1),sourceFile=latest.file.replace('-browser.json','-sou
 if(source.head!==latest.report.head)throw Error('Source/measurement head mismatch');
 const usagePath=args['--usage'];
 const old=await readFile('build/rust/data.json','utf8').then(JSON.parse).catch(()=>null);
-const usage=usagePath?JSON.parse(await readFile(usagePath,'utf8')):old?.usage;
-if(!usage)throw Error('Supply a sanitized usage aggregate, never the raw chat log');
-const usageKeys=new Set(['status','started','through','window_closed_at','responses','duplicates_skipped','models','tokens','uncached_input_tokens','credits','usd','billing_evidence','method','limitations']);
-if(Object.keys(usage).some(k=>!usageKeys.has(k)))throw Error('Unreviewed usage fields; export only sanitized aggregates');
-if(usage.credits!==null||usage.usd!==null)throw Error('Billed costs require a separate reviewed billing import');
+const usage=publicUsage(usagePath?JSON.parse(await readFile(usagePath,'utf8')):old?.usage);
 const confirmedChecks=source.head==='5d582b70951a0cdc310806a8839a8d54819eeb19'
  ?{routingComparisons:9621,ci:'passed',ciHead:source.head,ciUrl:'https://github.com/Corvus-gent/loading-website/actions/runs/44850680697'}
  :{routingComparisons:null,ci:'unverified',ciHead:source.head,ciUrl:'https://github.com/Corvus-gent/loading-website/pull/87'};

@@ -52,6 +52,8 @@ def aggregate(lines, start_marker=START, end_marker=END):
             models.add(model)
     if not start or not seen:
         raise ValueError("No migration window or usage records found")
+    if not end:
+        raise ValueError("Migration end marker is missing; do not attribute later unrelated work")
     return {
         "status": "observed-local", "started": start, "through": last,
         "window_closed_at": end, "responses": len(seen), "duplicates_skipped": duplicates,

@@ -29,6 +29,12 @@ try{
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
   await page.screenshot({path:'test-results/migration-report/'+width+'-hero.png'});
   await page.locator('#speed').scrollIntoViewIfNeeded();await page.screenshot({path:'test-results/migration-report/'+width+'-speed.png'});
+  await page.locator('#spec-sheet summary').focus();await page.keyboard.press('Enter');
+  await expect(page.locator('#spec-sheet')).toHaveAttribute('open','');
+  await expect(page.locator('#spec-sheet .specs > div')).toHaveCount(7);
+  await expect(page.locator('#spec-sheet')).toContainText('A fresh browser context is not a cold Vercel function.');
+  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+  await page.locator('#spec-sheet').scrollIntoViewIfNeeded();await page.screenshot({path:'test-results/migration-report/'+width+'-specs.png'});
   await page.locator('#device').selectOption('desktop');await page.locator('#cache').selectOption('warm');
   await expect(page.locator('#timing-rows tr').first()).toContainText('39 ms');assert(page.url().includes('device=desktop')&&page.url().includes('cache=warm'));
   await page.reload();await expect(page.locator('#device')).toHaveValue('desktop');await expect(page.locator('#cache')).toHaveValue('warm');
@@ -39,5 +45,5 @@ try{
  }
  const offline=await browser.newContext();await offline.route('**/build/rust/data.json',r=>r.fulfill({status:503,body:'{}'}));const failed=await offline.newPage();await failed.goto(origin+'/build/rust/');await expect(failed.locator('#device')).toBeDisabled();await expect(failed.locator('#timing-rows')).toContainText('6,553 ms');await expect(failed.locator('#comparison-note')).toContainText('verified mobile table remains');await offline.close();
  const nojs=await browser.newContext({javaScriptEnabled:false});const staticPage=await nojs.newPage();await staticPage.goto(origin+'/build/rust/');await expect(staticPage.locator('#timing-rows')).toContainText('6,553 ms');await expect(staticPage.getByRole('link',{name:'Download article notes'})).toBeVisible();await nojs.close();
- console.log('PASS full publish build, discovery, 390/1440 layout, truthful charts, keyboard and URL state, article download, build-page navigation, no-JS and failed-data fallback; no console errors.');
+ console.log('PASS full publish build, discovery, 390/1440 layout, truthful charts, keyboard spec sheet and URL state, article download, build-page navigation, no-JS and failed-data fallback; no console errors.');
 }finally{await browser.close();server.closeAllConnections();await new Promise(r=>server.close(r));await fixture.close();}

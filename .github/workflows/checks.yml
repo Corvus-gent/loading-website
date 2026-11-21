@@ -36,6 +36,12 @@ jobs:
           node tests/routes.mjs
       - name: CV profiles, PDF integrity and download behaviour
         run: npm run test:cv
+      - name: Rust report facts, attribution and generated article
+        run: |
+          node tests/migration-report.mjs
+          python3 tests/migration-usage.py
+          node tools/migration-report/build.mjs
+          git diff --exit-code -- build/rust/index.html build/rust/article.md
       - name: Official Plethora redirects and durable counters
         run: |
           node tools/plethora/verify-routes.mjs

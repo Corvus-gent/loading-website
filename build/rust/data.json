@@ -7276,7 +7276,7 @@
     "ciHead": "5d582b70951a0cdc310806a8839a8d54819eeb19",
     "ciUrl": "https://github.com/Corvus-gent/loading-website/actions/runs/44850680697",
     "ci": "passed",
-    "scope": "Implementation commit: complete functional PR suite. Not a full migration or performance pass."
+    "scope": "CI evidence belongs only to the recorded implementation commit. Not a full migration or performance pass."
   },
   "pending": [
     "Mobile interaction readiness must match or beat the existing app.",

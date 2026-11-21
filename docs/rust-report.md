@@ -23,6 +23,8 @@ python3 tools/migration-report/usage.py /path/to/local-session.jsonl --out /tmp/
 
 It starts at the explicit Rust request and closes at the first report request. It selects actual per-response usage records, deduplicates response IDs, and rejects inconsistent counters. It excludes raw prompts, identities, absolute source paths and account-wide balance data from output. Earlier unrelated tasks, this report build and child/provider usage are not silently billed to the migration. For later work, select a reviewed explicit migration window; do not widen the window over unrelated work. Costs of preparing the article should be kept separately.
 
+The extractor now requires the closing marker: an unfinished attribution window must fail rather than absorbing unrelated later work. The collector and publishing build validate nested token fields, safe integer totals, timestamp order, reviewed model metadata and null billing fields. Public methodology/limitations come from source-controlled copy, never free-form local telemetry. Review newly observed models before extending the allowlist. Report facts, extraction boundaries and generated-page freshness run in the existing Feature CI workflow.
+
 **Credits and cash remain null.** Included subscription usage, purchased-credit debits and hosting charges are different quantities. No service-tier or invoice data is present in the local telemetry. Do not multiply current API/credit prices by tokens and call that actual spend. A scenario, if requested, must show dated rates and assumptions separately. A future billing import needs attributable evidence and public-safe totals, never an invoice containing private account data.
 
 ## Daily editorial work
@@ -36,3 +38,12 @@ It starts at the explicit Rust request and closes at the first report request. I
 7. Update `build/rust/article.md` via its generator; clearly separate facts, potential benefits, tradeoffs and claims we cannot make.
 
 Current result: the Rust bundle is smaller than its earlier Rust version, but first-visit mobile readiness is worse than JavaScript. Rust ownership/type contracts and the compatibility suite are reasons for the experiment. They are not proof of positive ROI or a completed migration. Vercel's Rust runtime is still Beta as of the cited documentation check.
+
+## Daily review · 21 November 2026
+
+- First scheduled review, not a new benchmark day. Migration source remains `eb87ca9`; measured runtime remains `5d582b7`. No duplicate benchmarks or raw-session rereads were needed.
+- Report PR #101's original commit `b2d307e` passed Feature CI (run `44884606725`). This validates the report branch, not a new Rust implementation or release.
+- Main advanced to `b521b2b`; the recorded comparison remains explicitly aligned to `505de19`. Later upstream features must be reconciled by the migration before a final release claim. This report does not deploy or overwrite them.
+- Added the same seven-row spec sheet to the page and downloadable article: browser performance, API percentiles, real cold starts, CPU/memory/throughput, caches, reliability and cost. Missing evidence has named acceptance criteria, not invented numbers.
+- Regression reproduced and fixed: without an end marker, usage extraction could include subsequent unrelated work. Added nested aggregate validation and CI coverage. The existing published counts already had a valid closed window and remain unchanged.
+- Actual debits and cash costs remain unverified. Wednesday 25 November is still the reporting deadline; production/cutover gates are separate.
