@@ -214,3 +214,11 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Verified. Eleven mobile paths passed at 375px and 414px with zero horizontal overflow or undersized standalone controls. The sea renderer measured 5.2 ms at the 95th percentile under a 4× CPU throttle at 375px.
 - Next. Confirm the production deployment, then test the complete flow and the one-minute capture against the live domain.
 - **STEER ME:** Keep the daylight pass after the cannon shot or open in daylight for the next event.
+
+## H26 · 2026-11-21 09:39 CET · Phase 4 production verification
+
+- Verified all eleven Hackers Bay paths at 375px and 414px. The live character creator, four lenses, 30 distinct crew sprites, touch and mouse dragging, Treasure report, public Luma import, and both intro decisions passed.
+- Verified a new two-browser intro through the shared store, including the consent gate and suggested meetup. The autoplay reached the QR after 54.4 seconds, held past one minute, and passed in both capture sizes. The QR also scans from the landing footer.
+- Decision. Keep the 60-second story as a browser capture with a silent default. Six cold local runs at the two phone widths recorded zero layout shift and no initial roster fetch.
+- Next. Use the browser demo or the judging brief for Demo Day rehearsal.
+- **STEER ME:** Start the live pitch on the cannon shot or hand the phone over at the pirate builder.
