@@ -1,4 +1,5 @@
 import { wireSound, playBaySound } from './sound.js';
+import './game.js';
 
 const comparison = document.querySelector('.comparison');
 async function showDeckCrew() {
@@ -35,6 +36,7 @@ let last = 0;
 let elapsed = .5;
 let loopLength;
 let cannonBeat;
+let impact;
 
 function tick(now) {
   const span = now - last;
@@ -43,6 +45,8 @@ function tick(now) {
     elapsed += Math.min(span, 120) / 1000;
     if (previous < cannonBeat && elapsed % loopLength >= cannonBeat) playBaySound('cannon');
     drawing(elapsed);
+    const age = elapsed % loopLength - impact;
+    stage.toggleAttribute('data-impact', age >= 0 && age < .32);
     last = now;
   }
   frame = requestAnimationFrame(tick);
@@ -53,17 +57,19 @@ async function syncSea() {
     cancelAnimationFrame(frame);
     frame = 0;
     canvas.hidden = true;
+    stage.removeAttribute('data-impact');
     return;
   }
   if (!drawing && !starting) {
     starting = true;
     try {
-      const { makeSea, SEA_LOOP, CANNON_BEAT } = await import('./sea.js');
-      drawing = makeSea(canvas);
-      loopLength = SEA_LOOP;
-      cannonBeat = CANNON_BEAT;
+      const {makeArtworkSea, SHIP_LOOP, FIRE, IMPACT} = await import('./art-sea.js');
+      drawing = await makeArtworkSea(canvas);
+      loopLength = SHIP_LOOP;
+      cannonBeat = FIRE;
+      impact = IMPACT;
       drawing(elapsed);
-    } catch { /* The original poster is the static fallback. */ }
+    } catch { /* Keep the Recraft poster when motion assets are unavailable. */ }
     finally { starting = false; }
   }
   if (!drawing || frame || !visible || motion.matches || document.hidden) return;

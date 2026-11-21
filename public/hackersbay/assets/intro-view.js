@@ -4,6 +4,7 @@ import { CLASSES } from './pirate.js';
 import { TOKEN, introRequest, meetingFor, readIntros, saveIntro } from './intros.js';
 import { mutualParrots } from './parrot-view.js';
 import { playBaySound, wireSound } from './sound.js';
+import { giveCoins, squawkStatus } from './game.js';
 
 const query = new URLSearchParams(location.search);
 const id = query.get('request');
@@ -22,16 +23,18 @@ function showDecision(result, person, moment) {
   decisions.hidden = true;
   if (result.status === 'declined') {
     heading.textContent = 'Intro declined.';
-    status.textContent = 'The other pirate won’t see a suggested meetup.';
+    squawkStatus(status,'The other pirate won’t see a suggested meetup.','wave');
     birds.replaceChildren(crewAvatar(person));
     return;
   }
   heading.textContent = 'IT’S MUTUAL ⚓';
+  status.classList.remove('squawk-status');
   status.textContent = 'Both sides accepted the introduction.';
-  birds.replaceChildren(mutualParrots(result.parrot, person.pirate));
+  birds.replaceChildren(mutualParrots());
   mutual.textContent = 'Suggested meetup · ' + (result.moment || moment);
   mutual.hidden = false;
-  setTimeout(() => playBaySound('coin'), 670);
+  giveCoins('intro-' + id,5);
+  setTimeout(() => playBaySound('coin'),450);
 }
 
 async function openIntro() {
@@ -52,6 +55,7 @@ async function openIntro() {
 
   heading.textContent = 'You’re playing ' + person.name + '.';
   birds.append(crewAvatar(person));
+  status.classList.remove('squawk-status');
   status.textContent = 'A ' + CLASSES[intro.type].name.toLowerCase() + ' wants to meet you. Accept to reveal a suggested meetup.';
   decisions.hidden = false;
   async function decide(decision) {
@@ -77,4 +81,4 @@ async function openIntro() {
   decline.addEventListener('click', () => void decide('declined'));
 }
 
-openIntro().catch(() => { status.textContent = 'This link expired or the request was made in another browser’s local demo.'; });
+openIntro().catch(() => { squawkStatus(status,'This link expired or the request was made in another browser’s local demo.'); });

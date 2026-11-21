@@ -1,3 +1,5 @@
+import { readFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
 import { buildLog } from '../lib/hackersbay/build-log.js';
 import { proofOfBuild } from '../lib/hackersbay/boat.js';
 import { available, networkId } from '../lib/hackersbay/quota.js';
@@ -10,6 +12,12 @@ import { normalizeProfileUrl } from '../public/hackersbay/assets/persona.js';
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
   const action = req.query?.action;
+  if (['GET', 'HEAD'].includes(req.method) && action === 'not-found') {
+    res.status(404);
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    const body = await readFile(resolve(process.cwd(), 'public/hackersbay/404.html'), 'utf8');
+    return res.end(req.method === 'HEAD' ? undefined : body);
+  }
   if (['GET', 'HEAD'].includes(req.method) && action === 'log') {
     try { return await buildLog(res); }
     catch { return res.status(503).json({ error: 'Build log unavailable.' }); }

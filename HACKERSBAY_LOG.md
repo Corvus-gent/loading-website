@@ -231,3 +231,12 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Verified. The build passed. The 375px, 414px, and desktop creator tests passed for all classes, apparel, import fallback, and persistence.
 - Next. Animate the Recraft ship and put the Captain in the matching flow, demo, and error states.
 - **STEER ME:** Keep gold as a demo score or give it a cosmetic use later.
+
+## H28 · 2026-11-21 15:05 CET · The Captain takes the helm
+
+- Shipped the Recraft hero with a separated rowboat, moving sky and waves, a cannon hit, shake, bubbles, and Captain Squawk’s flyover. The original upload is the static and reduced-motion poster.
+- Captain Squawk now calls out spyglass reasons and appears in loading, empty, and missing-page states. The mutual intro reveals the Recraft beak bump and awards five local coins.
+- Decision. Keep the 404 within Hackers Bay and return HTTP 404. Keep the coin rewards local and award each mutual intro once per browser.
+- Verified. Ship effects and offscreen pause passed at 375px, 414px, and desktop. The Hackers Bay 404 returned the correct status locally. The Mac workflow verified and published both new-icon disk images.
+- Next. Give the Captain a speaking part in the autoplay and build the mascot-and-ship social preview.
+- **STEER ME:** Keep the Captain’s landing line short or have it change after the cannon hit.

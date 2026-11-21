@@ -1,4 +1,5 @@
 import { element, loadRoom, crewAvatar } from './event-data.js';
+import { squawkStatus } from './game.js';
 
 const STORAGE = 'hackersbay-room-composer-v1';
 const DEFAULT_CREW = ['mina-park', 'zora-quinn', 'ravi-mora', 'noor-tan'];
@@ -189,7 +190,11 @@ async function start() {
       article.append(top, contribution, reason, actions);
       return article;
     }));
-    if (!ranked.length) list.append(element('p', 'No applicants match that search.', 'panel'));
+    if (!ranked.length) {
+      const empty = element('p',undefined,'panel');
+      squawkStatus(empty,'No pirates match that search.');
+      list.append(empty);
+    }
     if (focusId) nodes.querySelector('[data-node="' + focusId + '"]')?.focus();
   }
 
@@ -205,4 +210,4 @@ async function start() {
     render();
   });
 }
-start().catch(() => { status.textContent = 'The demo roster is unavailable. Reload the page to try again.'; });
+start().catch(() => { squawkStatus(status,'The crew couldn’t board. Reload the page to try again.'); });

@@ -40,7 +40,7 @@
       </aside>
     </header>
     <p class="fine event-notice">The event details are public. The attendee roster, match scores, and intros are part of the fictional demo. Use the official RSVP to request entry.</p>
-    <div id="room-state" class="panel" role="status">Loading the room…</div>
+    <div id="room-state" data-squawk="typing" class="panel" role="status">Loading the room…</div>
     <div class="event-content" id="room" hidden>
       <section class="panel score-panel" aria-labelledby="lens-title">
         <div class="score-heading">
@@ -59,7 +59,7 @@
           <div class="radar-meta"><span><i class="beacon"></i> SPYGLASS · ROOM SONAR</span><span>PIER 09 · SF</span></div>
           <div class="radar" id="room-radar" aria-label="Spyglass sonar with three interactive match masts"></div>
           <div id="spyglass-caption" class="spyglass-caption"></div>
-          <div class="radar-meta bottom"><span>37°47′ N · 122°23′ W</span><span class="teal">× 3 MATCHES LOCKED</span></div>
+          <div class="radar-meta bottom"><span>37°47′ N · 122°23′ W</span><span class="bay-coins" data-bay-coins aria-label="0 gold coins">00</span></div>
         </div>
         <div id="match-list" class="match-list"></div>
       </section>

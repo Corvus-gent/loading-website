@@ -51,4 +51,4 @@ The demo works with zero new variables. Set credentials server-side in the Corvu
 
 Without provider keys, profile drafting uses heuristics, Private mode shows a demo badge, and Proof of Build opens the Dockside sample. Without Redis, both intro steps work in the same browser. Live Boat previews support static sites and Vite or Next.js apps with a `dev` script. The sandbox expires after 15 minutes.
 
-[Build log](https://corvus.gent/hackersbay/log) · [Mac app and demo clips](https://github.com/Corvus-gent/loading-website/releases/tag/hackersbay-demo-v0.1.0) · [Remotion project](video/README.md) · [Shot list](SHOTLIST.md) · [Compound edit brief](COMPOUND_PROMPT.md) · [LinkedIn drafts](LINKEDIN.md)
+[Build log](https://corvus.gent/hackersbay/log) · [Mac app](https://github.com/Corvus-gent/loading-website/releases/tag/hackersbay-demo-v0.2.0) · [Earlier demo clips](https://github.com/Corvus-gent/loading-website/releases/tag/hackersbay-demo-v0.1.0) · [Remotion project](video/README.md) · [Shot list](SHOTLIST.md) · [Compound edit brief](COMPOUND_PROMPT.md) · [LinkedIn drafts](LINKEDIN.md)

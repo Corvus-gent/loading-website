@@ -750,3 +750,59 @@ body[data-dragging-pirate] { user-select: none; }
   .squawk-status .pixel-art img { animation: none; }
   .button { transition: none; }
 }
+
+.game-landing .naval-stage { aspect-ratio: 7 / 4; }
+.naval-stage > .pixel-art, .demo-sea > .pixel-art { width: 100%; height: 100%; }
+.naval-stage[data-impact] canvas, .demo-sea[data-impact] canvas { animation: cannon-shake .29s steps(1,end) both; }
+@keyframes cannon-shake {
+  18% { transform: translate(4px,-2px) scale(1.018); }
+  40% { transform: translate(-4px,2px) scale(1.018); }
+  63% { transform: translate(3px,1px) scale(1.012); }
+  80% { transform: translate(-2px,0) scale(1.009); }
+}
+.captain-invite { display: flex; align-items: center; gap: 9px; margin: -8px 0 17px; }
+.captain-invite .captain-portrait { position: relative; flex: none; width: 57px; }
+.captain-portrait picture { animation: captain-bob 2.8s steps(1,end) infinite; }
+.captain-portrait::after {
+  content: ""; position: absolute; left: 39%; top: 32%; width: 20%; height: 5%;
+  background: #123951; opacity: 0; pointer-events: none; animation: captain-blink 5.2s steps(1,end) infinite;
+}
+@keyframes captain-blink { 87%, 90% { opacity: .85; } 89%, 92% { opacity: 0; } }
+.captain-invite p { margin: 0; padding: 5px 12px; color: #182d3c; background: var(--parchment); border: 2px solid #a87e4e; font-size: 13px; line-height: 1.32; }
+.captain-invite p strong { display: block; font: 12px/1.2 var(--pixel); color: #72352b; }
+@media (prefers-reduced-motion: reduce) {
+  .captain-portrait picture, .captain-portrait::after, .naval-stage[data-impact] canvas, .demo-sea[data-impact] canvas { animation: none; }
+}
+
+.parrot-bubble .pixel-art { width: 43px; flex: none; }
+.spyglass-parrot .pixel-art + .pixel-art { position: absolute; inset: 0; opacity: 0; }
+.spyglass-parrot:is([data-flying],[data-gliding]) .pixel-art + .pixel-art { animation: spyglass-flap .15s steps(1,end) infinite; }
+.spyglass-parrot:is([data-flying],[data-gliding]) .pixel-art:first-child { visibility: hidden; }
+.spyglass-parrot:is([data-flying],[data-gliding]) .pixel-art + .pixel-art { opacity: 1; }
+.mutual-recraft {
+  width: min(100%,310px); height: auto; aspect-ratio: 480/354;
+  background: radial-gradient(ellipse at center,#2463677a,transparent 72%);
+}
+.mutual-recraft .beak-art { width: 100%; animation: mutual-stamp .52s steps(5,end) both; }
+.mutual-recraft .coin-sprite { top: 45%; }
+@keyframes mutual-stamp {
+  0% { transform: scale(.82); opacity: 0; }
+  60% { transform: scale(1.035); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .spyglass-parrot:is([data-flying],[data-gliding]) .pixel-art + .pixel-art, .mutual-recraft .beak-art { animation: none; }
+}
+
+.lost-at-sea { background: radial-gradient(ellipse at center,#142f48,transparent 70%),var(--navy); }
+.lost-deck {
+  min-height: 100svh; display: grid; align-content: center; justify-content: center; justify-items: center;
+  gap: 16px; padding-block: 30px; text-align: center;
+}
+.lost-deck > .pixel-art { width: min(50vw,180px); animation: captain-bob 2.2s steps(1,end) infinite; }
+.lost-deck h1 { color: var(--parchment); font: 400 clamp(30px,5vw,54px)/1.12 var(--pixel); letter-spacing: -.08em; }
+.lost-deck p:not(.eyebrow) { max-width: 38ch; margin-inline: auto; color: var(--muted); }
+@media (min-width: 710px) {
+  .lost-deck { grid-template-columns: 180px minmax(260px,475px); align-items: center; text-align: left; gap: 30px; }
+  .lost-deck p:not(.eyebrow) { margin-inline: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .lost-deck > .pixel-art { animation: none; } }

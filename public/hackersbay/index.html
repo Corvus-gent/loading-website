@@ -31,7 +31,7 @@
   <script type="module" src="/public/hackersbay/assets/landing.js"></script>
   <title>The Hackers Bay | RSVP to people, not places</title>
 </head>
-<body class="landing naval-landing">
+<body class="landing naval-landing game-landing">
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-bar wrap">
     <a class="brand" href="/hackersbay"><img src="/public/hackersbay/art/captain-icon.webp" width="34" height="34" alt=""><span class="wordmark">The Hackers Bay</span></a>
@@ -42,7 +42,11 @@
       <div class="hero-copy">
         <p class="eyebrow"><span class="beacon"></span> BOAT HACKATHON · DEMO DAY <span aria-hidden="true">🏴‍☠️</span></p>
         <h1 id="title">Luma is sinking. <span>The Hackers Bay is coming.</span></h1>
-        <p class="hero-lead"><strong>RSVP to people, not places.</strong> Build your pirate, pick your class, and send your parrot to find three people worth crossing the deck for.</p>
+        <p class="hero-lead"><strong>RSVP to people, not places.</strong> Build a parrot pirate, equip your kit, and find three people worth crossing the deck for.</p>
+        <div class="captain-invite">
+          <span class="captain-portrait"><picture class="pixel-art"><source type="image/webp" srcset="/public/hackersbay/art/captain-squawk.webp"><img src="/public/hackersbay/art/captain-squawk.png" alt="" width="192" height="230"></picture></span>
+          <p><strong>Captain Squawk</strong><span>Raise the flag. I’ll find your crew.</span></p>
+        </div>
         <div class="actions" id="boarding">
           <a class="button primary" href="/hackersbay/board">Board the ship <span aria-hidden="true">→</span></a>
           <a class="text-link" href="#sink">Sink a Luma <span aria-hidden="true">↓</span></a>
@@ -51,10 +55,10 @@
       </div>
       <figure class="naval-hero">
         <div class="naval-stage" id="naval-stage" role="img" aria-label="The Black Commit, a pirate ship with teal sails, cannons a grey Luma rowboat as parrots fly past.">
-          <img src="/public/hackersbay/assets/black-commit.png" width="208" height="120" alt="" fetchpriority="high">
+          <picture class="pixel-art"><source type="image/webp" srcset="/public/hackersbay/art/hero-ship.webp"><img src="/public/hackersbay/art/hero-ship.png" width="672" height="384" alt="" fetchpriority="high"></picture>
           <canvas id="naval-sea" aria-hidden="true" hidden></canvas>
         </div>
-        <figcaption><strong>The Black Commit</strong><span>BRACE FOR IMPACT <b aria-hidden="true">⟫</b></span></figcaption>
+        <figcaption><strong>The Black Commit</strong><span class="bay-coins" data-bay-coins aria-label="0 gold coins">00</span></figcaption>
       </figure>
     </section>
     <div class="manifest"><div class="wrap manifest-inner"><a class="text-link manifest-link" href="/hackersbay/e/boat-hackathon-demo-day"><span aria-hidden="true">⚓︎</span> Demo Day at the Historic Klamath</a><span>Sat Nov 21 · 1–5 PM PT</span><span>Pier 9, San Francisco</span><span class="manifest-end">INVITE-ONLY EVENT</span></div></div>
@@ -120,7 +124,7 @@
       <img src="/public/hackersbay/assets/boarding-qr.svg" width="96" height="96" alt="" loading="lazy">
       <span><strong>The Hackers Bay</strong><span class="boarding-address">corvus.gent/hackersbay</span></span>
     </a>
-    <nav class="footer-links" aria-label="Hackers Bay"><a href="/hackersbay/judges">For judges</a><a href="/hackersbay/host">Room composer</a><a href="/hackersbay/sponsor">Treasure report</a><a href="/hackersbay/log">Build log</a><a href="https://github.com/Corvus-gent/loading-website/releases/tag/hackersbay-demo-v0.1.0">Download the Mac app</a></nav>
+    <nav class="footer-links" aria-label="Hackers Bay"><a href="/hackersbay/judges">For judges</a><a href="/hackersbay/host">Room composer</a><a href="/hackersbay/sponsor">Treasure report</a><a href="/hackersbay/log">Build log</a><a href="https://github.com/Corvus-gent/loading-website/releases/tag/hackersbay-demo-v0.2.0">Download the Mac app</a></nav>
   </footer>
 </body>
 </html>

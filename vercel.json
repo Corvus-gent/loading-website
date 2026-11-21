@@ -369,6 +369,10 @@
       "destination": "/public/hackersbay/landing.generated.html"
     },
     {
+      "source": "/hackersbay/:path*",
+      "destination": "/api/hackersbay?action=not-found"
+    },
+    {
       "source": "/cv/work/mistral",
       "destination": "/cv/work/mistral/index.html"
     },
@@ -790,7 +794,7 @@
   ],
   "functions": {
     "api/hackersbay.js": {
-      "includeFiles": "HACKERSBAY_LOG.md",
+      "includeFiles": "{HACKERSBAY_LOG.md,public/hackersbay/404.html}",
       "maxDuration": 30
     },
     "api/project-cto.js": {

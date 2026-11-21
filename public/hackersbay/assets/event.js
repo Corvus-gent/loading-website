@@ -6,6 +6,7 @@ import { introRequest, meetingFor, readIntros, recipientUrl, saveIntro } from '.
 import { CLASSES, DEFAULT_PIRATE } from './pirate.js';
 import { flySpyglass, mutualParrots, parrotBubble } from './parrot-view.js';
 import { playBaySound, wireSound } from './sound.js';
+import { giveCoins, squawkStatus } from './game.js';
 
 const room = document.querySelector('#room');
 const roomState = document.querySelector('#room-state');
@@ -30,7 +31,7 @@ function renderMatch(match, index, type, event, attendees) {
   header.append(crewAvatar(person), info, mark);
   const reasons = element('dl', undefined, 'match-reasons');
   const yourReasonBubble = element('dd');
-  yourReasonBubble.append(parrotBubble(pirate, yourReason));
+  yourReasonBubble.append(parrotBubble(yourReason));
   reasons.append(element('dt', 'Why you’d meet'), yourReasonBubble, element('dt', 'Why they’d meet'), element('dd', theirReason));
   const actions = element('div', undefined, 'intro-actions');
   const notice = element('div', undefined, 'intro-state');
@@ -43,14 +44,16 @@ function renderMatch(match, index, type, event, attendees) {
   function showIntro(intro) {
     request.hidden = Boolean(intro);
     if (!intro || intro.status === shown) return;
+    notice.classList.remove('squawk-status');
     shown = intro.status;
     if (intro.status === 'mutual') {
       notice.replaceChildren(
         element('strong', 'IT’S MUTUAL ⚓', 'mutual-message'),
-        mutualParrots(pirate, person.pirate),
+        mutualParrots(),
         element('span', 'Suggested meetup · ' + intro.moment, 'fine')
       );
-      setTimeout(() => { if (notice.isConnected) playBaySound('coin'); }, 670);
+      giveCoins('intro-' + intro.id,5);
+      setTimeout(() => { if (notice.isConnected) playBaySound('coin'); }, 450);
       return;
     }
     if (intro.status === 'declined') {
@@ -76,7 +79,7 @@ function renderMatch(match, index, type, event, attendees) {
   showIntro(latest());
   request.addEventListener('click', async () => {
     request.disabled = true;
-    notice.textContent = 'Opening an intro request…';
+    squawkStatus(notice,'Opening an intro request…','typing');
     const draft = {
       id: crypto.randomUUID(), key: crypto.randomUUID(), personId: person.id, type,
       status: 'pending', createdAt: Date.now(), parrot: { bird: pirate.bird, birdHat: pirate.birdHat }
@@ -143,7 +146,7 @@ async function showRoom() {
       flight.visit(personId);
       document.getElementById('match-' + personId)?.focus();
     });
-    flight = flySpyglass(radar, pirate, captions, matches, matches.map(match => describeMatch(match).yourReason));
+    flight = flySpyglass(radar, captions, matches, matches.map(match => describeMatch(match).yourReason));
   }
 
   render(firstLens);
@@ -164,4 +167,4 @@ async function showRoom() {
   setInterval(refresh, 12000);
 }
 
-showRoom().catch(() => { roomState.textContent = 'The demo roster is unavailable. Reload the page to try again.'; });
+showRoom().catch(() => { squawkStatus(roomState,'The crew couldn’t board. Reload the page to try again.'); });

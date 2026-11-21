@@ -16,7 +16,7 @@ With credentials, **Context.dev** reads public profiles, **NYTEX TrustedRouter**
 - [Open The Hackers Bay](https://corvus.gent/hackersbay)
 - [Sink a public Luma listing](https://corvus.gent/hackersbay#sink)
 - [Watch the 60-second demo](https://corvus.gent/hackersbay/demo)
-- [Download the Mac app](https://github.com/Corvus-gent/loading-website/releases/tag/hackersbay-demo-v0.1.0)
+- [Download the Mac app](https://github.com/Corvus-gent/loading-website/releases/tag/hackersbay-demo-v0.2.0)
 
 ## Straight talk
 
