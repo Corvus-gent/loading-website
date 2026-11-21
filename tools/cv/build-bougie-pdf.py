@@ -1,5 +1,7 @@
 """Build the one-page Bar Bougie application PDF from the same copy as the web page."""
 import json,html,shutil,hashlib
+from io import BytesIO
+from PIL import Image
 from pathlib import Path
 from reportlab.pdfgen import canvas
 from reportlab.lib.colors import HexColor
@@ -40,7 +42,10 @@ y=para('UREN & AFSPRAKEN',x,y,w,head)-7;y=para(d['availability'],x,y,w,small)
 assert y>73,('Main column overflows',y)
 # Colour-block sidebar: personality, with the Corgi Cafe evidence photo.
 c.setFillColor(orange);c.roundRect(390,90,173,552,10,fill=1,stroke=0)
-c.drawImage(ImageReader(str(ROOT/'cv/bar-bougie/assets/trudy.webp')),402,442,width=149,height=186.25,mask='auto')
+photo=BytesIO()
+with Image.open(ROOT/'cv/bar-bougie/assets/trudy.webp') as original:original.convert('RGB').save(photo,format='JPEG',quality=88,optimize=True)
+photo.seek(0)
+c.drawImage(ImageReader(photo),402,442,width=149,height=186.25)
 sy=430;sw=149
 sy=para('MET TRUDY IN SAN FRANCISCO',402,sy,sw,ParagraphStyle('caption',parent=small,fontName='BougieBold',fontSize=7,leading=9))-10
 sy=para('COLLECTIVE SINDS 20/11',402,sy,sw,bold)-6
