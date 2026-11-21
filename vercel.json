@@ -4,6 +4,11 @@
   ],
   "redirects": [
     {
+      "source": "/cv/bar-bougie/",
+      "destination": "/cv/bar-bougie",
+      "permanent": true
+    },
+    {
       "source": "/cv/work/mistral/",
       "destination": "/cv/work/mistral",
       "permanent": true
@@ -324,6 +329,14 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/cv/bar-bougie/download",
+      "destination": "/cv/bar-bougie/cv.pdf"
+    },
+    {
+      "source": "/cv/bar-bougie",
+      "destination": "/cv/bar-bougie/index.html"
+    },
     {
       "source": "/science-press",
       "destination": "/science-press/index.html"
@@ -837,6 +850,19 @@
     }
   },
   "headers": [
+    {
+      "source": "/cv/bar-bougie/download",
+      "headers": [
+        {
+          "key": "Content-Disposition",
+          "value": "attachment; filename=\"Gabriel-Van-Langenhove-Bar-Bougie.pdf\""
+        },
+        {
+          "key": "Content-Type",
+          "value": "application/pdf"
+        }
+      ]
+    },
     {
       "source": "/cv/work/mistral/download",
       "headers": [
