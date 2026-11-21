@@ -2,7 +2,7 @@
 set -euo pipefail
 
 if [[ $(uname -s) != Darwin ]]; then
-  printf '%s\n' 'Build The Hackers Bay native app on macOS with the Xcode command-line tools.' >&2
+  printf '%s\n' 'Build the native HackersBay app on macOS with the Xcode command-line tools.' >&2
   exit 1
 fi
 
@@ -13,7 +13,7 @@ mkdir -p "$out"
 out=$(CDPATH='' cd -- "$out" && pwd)
 stage=$(mktemp -d)
 trap 'rm -rf "$stage"' EXIT
-app="$stage/disk/The Hackers Bay.app"
+app="$stage/disk/HackersBay.app"
 resources="$app/Contents/Resources"
 mkdir -p "$app/Contents/MacOS" "$resources" "$stage/Squawk.iconset"
 cp "$here/Info.plist" "$app/Contents/"
@@ -37,10 +37,10 @@ xcrun lipo "$app/Contents/MacOS/HackersBay" -verify_arch arm64 x86_64
 codesign --force --sign - "$app"
 codesign --verify --deep --strict "$app"
 ln -s /Applications "$stage/disk/Applications"
-hdiutil create -volname "The Hackers Bay" -srcfolder "$stage/disk" -format UDZO -ov "$out/HackersBay-native-universal.dmg"
-hdiutil verify "$out/HackersBay-native-universal.dmg"
-ditto -c -k --keepParent "$app" "$out/HackersBay-native-universal.app.zip"
+hdiutil create -volname "HackersBay" -srcfolder "$stage/disk" -format UDZO -ov "$out/HackersBay-universal.dmg"
+hdiutil verify "$out/HackersBay-universal.dmg"
+ditto -c -k --keepParent "$app" "$out/HackersBay-universal.app.zip"
 (
   cd "$out"
-  shasum -a 256 HackersBay-native-universal.dmg HackersBay-native-universal.app.zip > SHA256SUMS.txt
+  shasum -a 256 HackersBay-universal.dmg HackersBay-universal.app.zip > SHA256SUMS.txt
 )

@@ -1,4 +1,4 @@
-# The Hackers Bay for macOS
+# HackersBay for macOS
 
 This Electron wrapper opens the live demo at [corvus.gent/hackersbay](https://corvus.gent/hackersbay). External HTTPS links open in the default browser. The app keeps its own browser storage.
 
@@ -12,3 +12,7 @@ npm run build:mac
 ```
 
 The unsigned Apple Silicon and Intel disk images land in `dist/`. The app bundles are ad-hoc signed. macOS may require opening the app from Finder and allowing it in Privacy & Security on first launch. Run `npm start` from this directory to run the wrapper during development.
+
+## First launch on macOS
+
+In Finder, right-click **HackersBay.app** and choose **Open**. If Gatekeeper blocks the app, go to **System Settings → Privacy & Security → Open Anyway** after trying to launch once. These builds are distributed without Apple notarization.

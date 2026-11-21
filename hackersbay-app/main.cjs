@@ -2,6 +2,7 @@ const { app, BrowserWindow, shell } = require('electron');
 const { join } = require('node:path');
 
 const home = 'https://corvus.gent/hackersbay';
+app.setName('HackersBay');
 
 function route(value) {
   try {
@@ -20,9 +21,10 @@ function openExternal(url) {
 function createWindow() {
   const window = new BrowserWindow({
     width: 1130, height: 850, minWidth: 375, minHeight: 520,
-    title: 'The Hackers Bay', backgroundColor: '#06121f', icon: join(__dirname, 'icon.png'),
+    title: 'HackersBay', backgroundColor: '#06121f', icon: join(__dirname, 'icon.png'),
     webPreferences: { sandbox: true, contextIsolation: true, nodeIntegration: false }
   });
+  window.on('page-title-updated', event => event.preventDefault());
   const { webContents } = window;
   webContents.session.setPermissionRequestHandler((_contents, permission, callback) => {
     callback(permission === 'clipboard-sanitized-write' && route(webContents.getURL())?.internal === true);

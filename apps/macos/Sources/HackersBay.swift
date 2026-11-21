@@ -82,7 +82,7 @@ final class Skipper: NSObject, ObservableObject, WKNavigationDelegate, WKUIDeleg
 
         let contents = UNMutableNotificationContent()
         contents.title = "IT’S MUTUAL ⚓"
-        contents.body = "Captain Squawk found two yeses. Open The Hackers Bay to find your meetup."
+        contents.body = "Captain Squawk found two yeses. Open HackersBay to find your meetup."
         UNUserNotificationCenter.current().add(UNNotificationRequest(identifier: id, content: contents, trigger: nil), withCompletionHandler: nil)
     }
 
@@ -137,7 +137,7 @@ struct CaptainMenu: View {
     @Environment(\.openWindow) private var openWindow
     @ObservedObject var skipper: Skipper
     var body: some View {
-        Button("Open The Hackers Bay") {
+        Button("Open HackersBay") {
             openWindow(id: "ship")
             NSApp.activate(ignoringOtherApps: true)
             skipper.newIntros = 0
@@ -152,7 +152,7 @@ struct CaptainMenu: View {
         Toggle("Captain Squawk sounds", isOn: $skipper.squawkEnabled)
         Button("Enable native notifications") { skipper.enableNotifications() }
         Divider()
-        Button("Quit The Hackers Bay") { NSApp.terminate(nil) }.keyboardShortcut("q")
+        Button("Quit HackersBay") { NSApp.terminate(nil) }.keyboardShortcut("q")
     }
 }
 
@@ -161,7 +161,7 @@ struct HackersBayApp: App {
     @StateObject private var skipper = Skipper()
 
     var body: some Scene {
-        Window("The Hackers Bay", id: "ship") {
+        Window("HackersBay", id: "ship") {
             ShipWindow(skipper: skipper).frame(minWidth: 390, minHeight: 600)
         }
         .defaultSize(width: 1100, height: 760)
@@ -178,7 +178,7 @@ struct HackersBayApp: App {
                 }
                 if skipper.newIntros > 0 { Text(String(skipper.newIntros)) }
             }
-            .accessibilityLabel("Captain Squawk")
+            .accessibilityLabel("HackersBay · Captain Squawk")
         }
     }
 }

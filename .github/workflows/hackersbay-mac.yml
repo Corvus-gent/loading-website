@@ -1,4 +1,4 @@
-name: Hackers Bay Mac release
+name: HackersBay Electron Mac release
 on:
   workflow_dispatch:
 permissions:
@@ -26,8 +26,8 @@ jobs:
           CSC_IDENTITY_AUTO_DISCOVERY: 'false'
       - name: Verify app bundles and disk images
         run: |
-          codesign --verify --deep --strict "dist/mac-arm64/The Hackers Bay.app"
-          codesign --verify --deep --strict "dist/mac/The Hackers Bay.app"
+          codesign --verify --deep --strict "dist/mac-arm64/HackersBay.app"
+          codesign --verify --deep --strict "dist/mac/HackersBay.app"
           for image in dist/HackersBay-arm64.dmg dist/HackersBay-x64.dmg; do
             test -s "$image"
             hdiutil verify "$image"
@@ -36,8 +36,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          tag=hackersbay-demo-v0.2.0
+          version=$(node -p 'require("./package.json").version')
+          tag="hackersbay-electron-v$version"
           if ! gh release view "$tag" >/dev/null 2>&1; then
-            gh release create "$tag" --target "$GITHUB_SHA" --title 'The Hackers Bay · Captain Squawk' --prerelease --notes 'Unsigned macOS wrappers for Boat Hackathon Demo Day, with the new Captain Squawk icon. Choose arm64 for Apple Silicon or x64 for Intel. The app opens https://corvus.gent/hackersbay.'
+            gh release create "$tag" --target "$GITHUB_SHA" --title 'HackersBay · Electron Mac' --prerelease --notes 'Unsigned macOS wrappers for Boat Hackathon Demo Day, with the new Captain Squawk icon. Choose arm64 for Apple Silicon or x64 for Intel. The app opens https://corvus.gent/hackersbay.'
           fi
-          gh release upload "$tag" dist/HackersBay-arm64.dmg dist/HackersBay-x64.dmg --clobber
+          (cd dist && shasum -a 256 HackersBay-arm64.dmg HackersBay-x64.dmg > SHA256SUMS.txt)
+          gh release upload "$tag" dist/HackersBay-arm64.dmg dist/HackersBay-x64.dmg dist/SHA256SUMS.txt --clobber
