@@ -83,3 +83,7 @@ npx --package ./apps/cli hackersbay --class deckhand --name "Copper Byte" --quic
 ```
 
 Use the arrow keys to change the class and kit. Press Enter for your matches and a share link that opens the exact kit in the browser. The CLI falls back to the bundled Demo Day roster offline.
+
+The browser has three hidden cues. Use **↑ ↑ ↓ ↓ ← → ← → B A** for parrot rain, type **ahoy** for a one-shot sea shanty, or open the [creator with Captain Trav’s hat](https://corvus.gent/hackersbay/board?captain=trav). The [Historic Klamath’s hidden ship log](https://corvus.gent/hackersbay/klamath) traces the ferry’s history at Pier 9.
+
+The [native SwiftUI Mac app](apps/macos/) adds menu-bar Captain Squawk, mutual intro notifications, and a **Sink Luma** replay.

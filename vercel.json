@@ -427,6 +427,10 @@
       "destination": "/api/hackersbay?action=terminal-home"
     },
     {
+      "source": "/hackersbay/klamath",
+      "destination": "/public/hackersbay/klamath.html"
+    },
+    {
       "source": "/hackersbay/cuts",
       "destination": "/public/hackersbay/cuts.html"
     },

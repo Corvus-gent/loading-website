@@ -335,3 +335,11 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Verified browser and terminal content negotiation, all API payloads, streamed frames, share-link hydration, arrow keys through a pseudo-terminal, and npx using a packed tarball.
 - Next. Check the Vercel rewrites and ship the browser easter eggs.
 - **STEER ME:** Add a roster export command next or keep the terminal focused on building and meeting pirates.
+
+## H40 · 2026-11-21 21:13 CET · Hidden browser cues
+
+- Added the Konami parrot rain, a one-shot sea shanty when you type ahoy, and a wearable Captain Trav hat. Added the hidden Historic Klamath page using the ship operator’s history.
+- Decision. Keep the hat behind the captain link. The shanty plays on that keystroke sequence and leaves the normal sound preference alone. Reduced motion shows a still flock.
+- Verified both mobile widths, the hidden route, hat forwarding from the landing page, and exactly one shanty by instrumenting Web Audio. The native WebView bridge notified once per intro ID in an isolated browser test.
+- Next. Recheck the deployed terminal and browser routes and mirror the current source to the public submission repo.
+- **STEER ME:** Keep the Klamath page discoverable in the README or also hide a link in the ship artwork.

@@ -2,11 +2,13 @@ import { artPicture, classArt, loadArt, CLASS_ART } from './art.js';
 import { pixelCanvas, pixelPainter } from './pirate.js';
 
 export const WARDROBE = {
-  hat: [['tricorn','Tricorn'], ['captain','Captain hat'], ['bandana','Bandana'], ['beanie','Beanie'], ['crown','Crown']],
+  hat: [['tricorn','Tricorn'], ['captain','Captain hat'], ['bandana','Bandana'], ['beanie','Beanie'], ['crown','Crown'], ['trav','Captain Trav hat']],
   eyes: [['amber','Amber shades'], ['patch','Eyepatch'], ['goggles','Goggles'], ['teal','Teal shades'], ['visor','Visor']],
   coat: [['hoodie','Hoodie'], ['trench','Two-tone coat'], ['vest','Vest'], ['captain','Captain coat'], ['sonar','Sonar jacket']],
   item: [['laptop','Laptop'], ['cutlass','Cutlass'], ['spyglass','Spyglass'], ['flask','Coffee flask'], ['map','Treasure map']]
 };
+
+export const TRAV_HAT = WARDROBE.hat.length - 1;
 
 const gameClasses = Object.keys(CLASS_ART);
 const defaults = {
@@ -24,7 +26,7 @@ export function normalizeLook(value) {
 }
 
 export function rollLook(random = Math.random) {
-  return Object.fromEntries(Object.entries(WARDROBE).map(([key, options]) => [key, Math.floor(random() * options.length)]));
+  return Object.fromEntries(Object.entries(WARDROBE).map(([key, options]) => [key, Math.floor(random() * (key === 'hat' ? TRAV_HAT : options.length))]));
 }
 
 export function partArt(group, index) {
