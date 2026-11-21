@@ -16,7 +16,7 @@
 }
 /* Homepage-only display typography; other routes retain their existing fonts. */
 .home-aura{--corvus-display:"Bodoni Moda",Didot,"Bodoni MT","Times New Roman",serif}
-.home-aura .corvus-wordmark{font-family:var(--corvus-display);font-weight:700;font-optical-sizing:auto;font-size:clamp(54px,14vw,154px);line-height:1.1;letter-spacing:.13em;padding-left:.13em;color:var(--corvus-gold);margin:12px 0 28px;text-align:center;font-synthesis:none}
+.home-aura .corvus-wordmark{font-family:var(--corvus-display);font-weight:700;font-optical-sizing:auto;font-size:clamp(54px,14vw,154px);line-height:1.1;letter-spacing:.13em;padding-left:.13em;color:var(--corvus-gold,#ffdf6b);margin:12px 0 28px;text-align:center;font-synthesis:none}
 .home-aura .site-page>h1,.home-aura .site-newsletter h2,.home-aura .site-card strong{font-family:var(--corvus-display);font-weight:700;font-optical-sizing:auto;font-synthesis:none}
 .home-aura .site-page>h1{font-size:clamp(30px,5.2vw,64px);line-height:1.12;letter-spacing:.015em;max-width:980px;margin:0 auto 24px;text-align:center}
 .home-aura .site-page>.site-lead{max-width:720px;margin:0 auto 36px;text-align:center}
