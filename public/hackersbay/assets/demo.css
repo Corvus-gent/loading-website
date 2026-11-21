@@ -184,3 +184,9 @@
 [data-format="wide"] .demo-caption #demo-host { width: 4.4cqw; }
 [data-format="wide"] .demo-caption #demo-host img { height: 4.4cqw; }
 [data-format="wide"] .demo-page .mutual-recraft { width: min(34cqw,585px); }
+
+.demo-credit { margin-top: 2.4cqw; }
+.demo-credit .boat-credit { display: grid; justify-items: center; gap: .65cqw; font-size: max(6px, calc(var(--body) * .65)); }
+.demo-credit .boat-credit-badge { min-height: auto; padding: .28em .65em; }
+.demo-credit .boat-credit-links { justify-content: center; gap: .4em 1em; }
+[data-format="wide"] .demo-credit { margin-top: 1.3cqw; }

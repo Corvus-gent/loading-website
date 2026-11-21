@@ -258,3 +258,12 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Removed the eight raw uploads after verifying the served art. Decision. Keep the upload commit f1ada0e in Git history for anyone who wants to regenerate the crops.
 - Next. Use the live demo for both capture formats and the new Mac download for desktop.
 - **STEER ME:** Lead with the cannon shot or open on the Captain’s wardrobe for the next recording.
+
+## H31 · 2026-11-21 15:29 CET · Credit Boat Hackathon
+
+- Added the Boat Hackathon credit to the ship’s hull, every Hackers Bay page, both demo end cards, and the share image. The judges’ brief now credits the Historic Klamath and Boat Hackathon 2026.
+- Added new-tab links for Boat Hackathon, the Demo Day listing, the event’s X account, and the Pier 9 map. Boat.dev, Context.dev, and NYTEX link to their own sites.
+- Decision. Use the requested text badge. The organizer’s homepage renders its wordmark as text, and the standalone image assets it references are sponsor marks or event photography.
+- Verified locally. Eleven regular paths and aliases, including the 404, passed at 375px and 414px. The judging brief fits at 375 × 667. The end-card credit fits in both recording formats.
+- Next. verify production and publish the standalone source linked from the submission.
+- **STEER ME:** Keep the credit on the hull or move it to the flag if an official event mark becomes available.

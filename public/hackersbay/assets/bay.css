@@ -813,3 +813,60 @@ body[data-dragging-pirate] { user-select: none; }
 @media (max-width: 470px) {
   :is(.board-page,.naval-landing,.event-page,.intro-page) .brand-picture { width: 28px; }
 }
+
+.boat-credit {
+  flex: 1 0 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px 18px;
+  color: var(--muted);
+  font: 500 12px/1.4 Inter, system-ui, sans-serif;
+}
+.boat-credit-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .4em;
+  min-height: 33px;
+  padding: 4px 9px;
+  color: var(--parchment);
+  background: #132c3b;
+  border: 1px solid #536e69;
+  font-weight: 750;
+  text-decoration: none;
+}
+.boat-credit-badge:hover { color: var(--teal); border-color: var(--teal); }
+.boat-credit-links, .boat-credit-sponsors { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; }
+.boat-credit-links a, .boat-credit-sponsors a { text-decoration: underline; text-underline-offset: 3px; }
+.boat-credit-sponsors span { color: var(--ink); }
+.site-footer > .boat-credit {
+  margin-top: 2px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+.site-footer > .boat-credit:first-child { margin-top: 0; padding-top: 0; border: 0; }
+.hull-credit {
+  position: absolute;
+  z-index: 1;
+  top: 72%; left: 29%;
+  transform: translate(-50%, -50%);
+  padding: 1px 4px 2px;
+  color: #f3e3c0;
+  background: #151829;
+  border: 1px solid #977b61;
+  font: 550 clamp(6.5px, 1.05vw, 10px)/1.05 Inter, system-ui, sans-serif;
+  text-align: center;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.hull-credit strong { display: block; font-weight: 800; }
+.judges-event-credit { margin: -8px 0 12px; color: var(--muted); font-size: 13px; line-height: 1.4; }
+.judges-credit { margin-top: 10px; }
+.lost-at-sea .lost-deck { min-height: max(430px, calc(100svh - 142px)); }
+@media (max-width: 540px) {
+  .site-footer .boat-credit-badge { min-height: 44px; }
+  .judges-brief { padding-bottom: 14px; }
+  .judges-hook { margin-bottom: 16px; }
+  .judges-points { gap: 7px; margin-bottom: 13px; padding-block: 11px; }
+  .judges-sponsors { margin-top: 10px; }
+}

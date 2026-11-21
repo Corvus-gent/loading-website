@@ -12,6 +12,7 @@ With credentials, **Context.dev** reads public profiles, **NYTEX TrustedRouter**
 
 ## Try it
 
+- [Source code](https://github.com/Corvus-gent/the-hackers-bay)
 - [Judges’ walkthrough](https://corvus.gent/hackersbay/judges)
 - [Open The Hackers Bay](https://corvus.gent/hackersbay)
 - [Sink a public Luma listing](https://corvus.gent/hackersbay#sink)
