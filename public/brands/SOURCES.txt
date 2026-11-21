@@ -1,3 +1,4 @@
 Apple, Anthropic, OpenAI, Google, Mistral: @lobehub/icons-static-svg 1.104.0 (MIT). https://www.npmjs.com/package/@lobehub/icons-static-svg
 Amazon: simple-icons 11.15.0 (CC0). https://www.npmjs.com/package/simple-icons/v/11.15.0
 Brand marks belong to their respective owners.
+Tesla, Xiaomi, BMW, Porsche, Ferrari: simple-icons (CC0), retrieved 2026-11-21. https://github.com/simple-icons/simple-icons
