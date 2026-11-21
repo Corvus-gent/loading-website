@@ -181,3 +181,12 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Verified. All 30 sprite renders and parrot names were distinct. Deck drag, keyboard add, graph updates, comparison, report filters, and the build passed.
 - Next. Send the player’s parrot to all three spyglass matches and animate mutual consent.
 - **STEER ME:** Use the three preview pirates as recurring demo characters or rotate the preview by class.
+
+## H22 · 2026-11-21 09:27 CET · Spyglass and mutual intros
+
+- Shipped the pixel spyglass. Your own parrot lands on three match masts and squawks the reason for each. The numbered locks still jump to the corresponding pirate.
+- Shipped the two-parrot beak bump, gold coin burst, and Walk the plank decline. The meetup still requires two yeses. Shared intro links carry only two visual parrot settings alongside the existing intro data.
+- Decision. Use the same browser demo when the intro service is absent. Acceptance or decline is final for each request. Reduced motion shows the perched bird and text.
+- Verified. A custom cyber parrot visited all three masts at 375px. Accepted and declined intros both reached the sender with the expected result. The 414px reduced-motion view passed.
+- Next. Retell the timed demo around pirate building and the parrot’s flight.
+- **STEER ME:** Keep the automatic spyglass flyover or start it from the first mast tap.

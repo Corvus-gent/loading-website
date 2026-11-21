@@ -11,18 +11,25 @@
   <title>Intro request | The Hackers Bay</title>
   <script type="module" src="/public/hackersbay/assets/intro-view.js"></script>
 </head>
-<body>
+<body class="intro-page">
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-bar wrap">
     <a class="brand" href="/hackersbay"><img src="/public/hackersbay/assets/anchor.svg" width="34" height="34" alt=""> The Hackers Bay</a>
-    <a class="top-link" id="return-to-room" href="/hackersbay/e/boat-hackathon-demo-day">Return to the room</a>
+    <div class="harbor-controls">
+      <button class="button sound-switch" id="bay-sound" type="button" aria-pressed="false">Sound off</button>
+      <a class="top-link" id="return-to-room" href="/hackersbay/e/boat-hackathon-demo-day">Return to the room</a>
+    </div>
   </header>
   <main class="wrap inside" id="main">
     <div class="panel intro-inbox">
       <p class="eyebrow">FICTIONAL RECIPIENT VIEW</p>
       <h1 id="intro-title">You have an intro request.</h1>
       <p id="intro-context" role="status">Opening the request…</p>
-      <button class="button primary" id="accept-intro" type="button" hidden>Accept intro</button>
+      <div class="intro-decisions" id="intro-decisions" hidden>
+        <button class="button primary" id="accept-intro" type="button">Accept intro</button>
+        <button class="button" id="decline-intro" type="button" aria-label="Walk the plank (decline intro)">Walk the plank</button>
+      </div>
+      <div id="intro-parrots"></div>
       <p class="mutual-message" id="intro-mutual" role="status" hidden></p>
       <a class="text-link" id="intro-back" href="/hackersbay/e/boat-hackathon-demo-day">Back to the room</a>
     </div>

@@ -627,3 +627,84 @@ body[data-dragging-pirate] { user-select: none; }
 @media (min-width: 760px) {
   .treasure-map { grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr); }
 }
+
+.pixel-radar { border: 2px solid #38827d; border-radius: 0; background: #0b2932; }
+.pixel-radar .dial {
+  --radar-pixel-shape: polygon(32% 0,68% 0,68% 4%,78% 4%,78% 9%,87% 9%,87% 16%,94% 16%,94% 27%,100% 27%,100% 73%,94% 73%,94% 84%,87% 84%,87% 91%,78% 91%,78% 96%,68% 96%,68% 100%,32% 100%,32% 96%,22% 96%,22% 91%,13% 91%,13% 84%,6% 84%,6% 73%,0 73%,0 27%,6% 27%,6% 16%,13% 16%,13% 9%,22% 9%,22% 4%,32% 4%);
+  border-color: #53beaf; border-radius: 43%; overflow: visible;
+  background: repeating-linear-gradient(90deg,#62bfaf18 0 1px,transparent 1px 12px),
+    repeating-linear-gradient(0deg,#62bfaf18 0 1px,transparent 1px 12px),#0e3c41;
+}
+.pixel-radar .sweep, .pixel-radar .ring { clip-path: var(--radar-pixel-shape); }
+.pixel-radar .ring { border-radius: 33%; border-color: #489983; }
+.pixel-radar .sweep { animation-timing-function: steps(48,end); }
+.pixel-radar .blip, .pixel-radar .radar-center { border-radius: 0; }
+.pixel-radar .direction, .pixel-radar .radar-meta { font-family: var(--pixel); }
+.pixel-radar .lock b { border-radius: 0; box-shadow: 2px 2px #372b27; }
+.pixel-radar .lock[data-perched] b { background: var(--gold); color: #25212a; }
+.spyglass-parrot {
+  position: absolute; left: 50%; top: 53%; z-index: 3; width: 44px; pointer-events: none;
+  transform: translate(-50%, -85%);
+}
+.spyglass-parrot .parrot-sprite + .parrot-sprite { position: absolute; inset: 0; opacity: 0; }
+.spyglass-parrot[data-flying] { transition: left .48s ease-in-out, top .48s ease-in-out; animation: spyglass-hop .5s ease-out; }
+.spyglass-parrot[data-flying] .parrot-sprite + .parrot-sprite { animation: spyglass-flap .12s steps(1,end) infinite; }
+@keyframes spyglass-hop { 45% { transform: translate(-50%, -130%); } }
+@keyframes spyglass-flap { 50% { opacity: 1; } }
+.spyglass-caption { min-height: 80px; }
+.parrot-bubble {
+  position: relative; display: flex; align-items: center; gap: 8px; padding: 7px 8px;
+  background: var(--parchment); color: #192a32; border: 2px solid #ad783f; min-width: 0;
+}
+.parrot-bubble .parrot-sprite { width: 35px; flex: none; }
+.parrot-bubble strong { color: #6d342a; font: 12px/1.1 var(--pixel); }
+.parrot-bubble p { margin: 1px 0 0; font: 650 13px/1.38 Inter,sans-serif; overflow-wrap: anywhere; }
+.match-card .parrot-bubble { margin-top: 8px; }
+.intro-decisions { display: flex; flex-wrap: wrap; gap: 9px; }
+.beak-bump {
+  --flight-span: clamp(42px, 17vw, 98px);
+  --bird-size: clamp(37px, 15vw, 58px);
+  position: relative; width: min(100%,270px); height: calc(var(--bird-size) + 14px);
+  margin: 0 auto 7px;
+}
+.mutual-bird {
+  position: absolute; top: 12px; left: 50%; width: var(--bird-size);
+  transform: translateX(calc(var(--bird-size) * -.84));
+  animation: beak-port 1.12s steps(18,end) both;
+}
+.mutual-bird.starboard {
+  transform: translateX(calc(var(--bird-size) * -.17)) scaleX(-1);
+  animation-name: beak-starboard;
+}
+@keyframes beak-port {
+  0% { transform: translate(calc(var(--flight-span) * -1 - var(--bird-size) * .84), 0); }
+  60% { transform: translate(calc(var(--bird-size) * -.81), -7px); }
+  75% { transform: translate(calc(var(--bird-size) * -.85), -4px); }
+}
+@keyframes beak-starboard {
+  0% { transform: translate(calc(var(--flight-span) - var(--bird-size) * .17), 0) scaleX(-1); }
+  60% { transform: translate(calc(var(--bird-size) * -.2), -7px) scaleX(-1); }
+  75% { transform: translate(calc(var(--bird-size) * -.14), -4px) scaleX(-1); }
+}
+.coin-sprite {
+  position: absolute; top: 31px; left: calc(50% - 4px); width: 7px; height: 9px;
+  clip-path: polygon(30% 0,70% 0,70% 12%,100% 12%,100% 87%,70% 87%,70% 100%,30% 100%,30% 87%,0 87%,0 12%,30% 12%);
+  background: linear-gradient(90deg,#ab6938 0 18%,#ffd374 18% 73%,#ba793e 73%);
+  opacity: 0; animation: coin-burst 1.45s var(--coin-delay) steps(23,end) both;
+}
+@keyframes coin-burst {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  62% { transform: translate(var(--cx),var(--cy)) rotate(var(--spin)); }
+  100% { opacity: 0; transform: translate(calc(var(--cx) * 1.17),0) rotate(var(--spin)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .spyglass-parrot[data-flying], .spyglass-parrot[data-flying] .parrot-sprite, .mutual-bird, .coin-sprite { animation: none; transition: none; }
+}
+.intro-inbox #intro-parrots > .crew-sprite { width: 72px; margin: 8px 0; }
+.intro-inbox #intro-parrots .beak-bump { margin-block: 12px; }
+@media (max-width: 510px) {
+  :is(.event-page, .intro-page) .site-bar .brand { gap: 6px; font-size: 13px; }
+  :is(.event-page, .intro-page) .site-bar .brand img { width: 28px; height: 28px; }
+  :is(.event-page, .intro-page) .harbor-controls .top-link span { display: none; }
+}
