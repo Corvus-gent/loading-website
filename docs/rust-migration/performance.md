@@ -25,7 +25,7 @@ node tools/rust/performance-report.mjs test-results/rust/measurements/browser-TI
 
 Three repetitions are an exploratory diagnostic. Before a release comparison, run `--repeats=20` from a clean committed tree, then use the report command with `--require-pass`. A pass applies only to the recorded routes and scenarios. Keep raw JSON, Markdown and `.gate.json`, including failures and regressions. Do not select only favorable runs.
 
-The runner rebuilds WASM with the pinned lockfile, builds a disposable copy of the actual HTML/assets and compares the original browser scripts with their current native bridges. It never changes the working site's build output or calls live providers. It records code/build hashes, browser version, machine, all timing samples, asset sizes, fixture errors and conditions. The current common WASM test bundle is not the final publishing architecture.
+The runner rebuilds WASM with the pinned lockfile, builds a disposable copy of the actual HTML/assets and compares the original browser scripts with their current native bridges. It never changes the working site's build output or calls live providers. It records code/build hashes, browser version, machine, all timing samples, asset sizes, fixture errors and conditions. Known public pages now select the smaller core profile with one early import map; the report records that profile and its hash. Unknown and feature pages keep the full runtime. This fixture selection is not yet the production publishing architecture.
 
 Conditions:
 
@@ -49,6 +49,13 @@ The corrected clean-commit diagnostic at `d47c48bc4826f7931cb2b4c38a8733c3fdb8da
 - [Code ledger](evidence/2026-11-20-d47c48b-source.md) and [per-file source evidence](evidence/2026-11-20-d47c48b-source.json). Physical-line differences across languages also reflect formatting conventions; they are not a productivity measure.
 
 ## Before production
+
+The clean `5d582b70951a0cdc310806a8839a8d54819eeb19` follow-up uses the core profile, browser-specific size optimization and current main `505de19`. All 72 measured interactions passed, with no missing assets, unknown fixture endpoints, dirty files or revision drift. The core download is 681,962 bytes with Brotli quality 4, versus the previous combined bundle's 1,265,266 bytes (46% smaller). This is payload reduction, not a production speedup.
+
+Mobile cold-context readiness medians remain **1,468 → 6,553 ms** on home, **2,088 → 7,181 ms** on map and **784 → 4,291 ms** on CV, comparing the legacy and Rust clients in the same run. Home LCP is 708 ms in both, so an early static paint must not be confused with working controls. Warm readiness and every remaining metric are included in the report. The smaller runtime improves on the earlier diagnostic but still fails the no-regression gate. Three repetitions remain exploratory; increasing sample count cannot excuse the observed regression.
+
+- [Core browser comparison](evidence/2026-11-21-5d582b7-browser.md), [all raw samples](evidence/2026-11-21-5d582b7-browser.json), [gate result](evidence/2026-11-21-5d582b7-browser.gate.json).
+- [Updated code ledger](evidence/2026-11-21-5d582b7-source.md) and [per-file additions/deletions](evidence/2026-11-21-5d582b7-source.json): application +48,486/−10, verification/tooling +4,233/−51, generated compatibility +14/−0 relative to aligned main. Old implementations remain available for comparison and rollback; this is not completed replacement percentage.
 
 The measurement tool always returns `productionReady: false`: a browser lab alone cannot approve a migration. Required evidence remains:
 

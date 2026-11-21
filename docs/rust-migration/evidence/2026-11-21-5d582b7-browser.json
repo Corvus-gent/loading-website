@@ -1,0 +1,3051 @@
+{
+  "version": 1,
+  "started": "2026-11-21T01:33:46.805Z",
+  "finished": "2026-11-21T01:37:33.935Z",
+  "head": "5d582b70951a0cdc310806a8839a8d54819eeb19",
+  "headAfter": "5d582b70951a0cdc310806a8839a8d54819eeb19",
+  "workingTreeDirty": false,
+  "wasmBuiltFromHead": "5d582b70951a0cdc310806a8839a8d54819eeb19",
+  "wasmChangedDuringRun": false,
+  "browser": "156.0.8078.4",
+  "node": "v20.19.1",
+  "host": {
+    "platform": "darwin",
+    "arch": "x64",
+    "cpu": "Apple M1 Pro",
+    "logicalCpus": 8
+  },
+  "profiles": {
+    "desktop": {
+      "width": 1440,
+      "height": 1000,
+      "cpu": 1,
+      "latency": 0,
+      "down": 0,
+      "up": 0
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "cpu": 4,
+      "latency": 150,
+      "down": 200000,
+      "up": 93750
+    }
+  },
+  "selectedProfiles": [
+    "desktop",
+    "mobile"
+  ],
+  "repeats": 3,
+  "routes": [
+    "/",
+    "/map/",
+    "/cv/tech/"
+  ],
+  "fixtureLatencyMs": 40,
+  "wasm": {
+    "profile": "core",
+    "sha256": "3268504938d7b31a94992861518d4d4f15309ba12858c921429255e5fd677873",
+    "rawBytes": 2108863
+  },
+  "method": "Same built HTML/assets, same local API fixtures, paired alternating legacy JS vs current Rust/WASM bridges. One unrecorded warmup per route/profile. Cold-context means fresh browser HTTP/storage context, not a cold browser process or serverless start; warm reload retains that context. Static assets use HTTP cache/ETags and Brotli quality 4. CSP blocks external requests; no third-party analytics/embeds, real providers or mutations. Returning-visitor gate cookie and explicit analytics refusal. Ready means search/directory usable or CV interactions mounted. Action is a synthetic DOM event to two animation frames, not field INP. LCP/CLS are bounded lab observations, not real-user percentiles.",
+  "limitations": [
+    "Only listed page flows are measured; not a whole-site pass.",
+    "API/Redis, serverless cold starts, real-network CDN regions and field INP remain separate release gates.",
+    "Timing is local and hardware-specific. Fewer than 20 repetitions are exploratory; no release speedup claim.",
+    "Known public pages select the core WASM profile through an import map; feature pages still retain the full bundle until their profiles pass parity. Production publishing remains a separate gate."
+  ],
+  "summary": [
+    {
+      "engine": "legacy",
+      "profile": "desktop",
+      "route": "/",
+      "cache": "cold-context",
+      "n": 3,
+      "successes": 3,
+      "failures": [],
+      "metrics": {
+        "ttfb": {
+          "p50": 0.800000011920929,
+          "p95": 2.099999964237213
+        },
+        "fcp": {
+          "p50": 52,
+          "p95": 56
+        },
+        "lcp": {
+          "p50": 52,
+          "p95": 56
+        },
+        "ready": {
+          "p50": 59.799999952316284,
+          "p95": 61.80000001192093
+        },
+        "cls": {
+          "p50": 0.05011157407407408,
+          "p95": 0.05011157407407408
+        },
+        "longTaskMax": {
+          "p50": 0,
+          "p95": 0
+        },
+        "longTaskTotal": {
+          "p50": 0,
+          "p95": 0
+        },
+        "transfer": {
+          "p50": 534338,
+          "p95": 534338
+        },
+        "jsEncoded": {
+          "p50": 38502,
+          "p95": 38502
+        },
+        "wasmEncoded": {
+          "p50": 0,
+          "p95": 0
+        },
+        "requests": {
+          "p50": 35,
+          "p95": 35
+        },
+        "actionNextFrame": {
+          "p50": 37.299999952316284,
+          "p95": 37.90000003576279
+        }
+      }
+    },
+    {
+      "engine": "legacy",
+      "profile": "desktop",
+      "route": "/",
+      "cache": "warm",
+      "n": 3,
+      "successes": 3,
+      "failures": [],
+      "metrics": {
+        "ttfb": {
+          "p50": 1.0999999642372131,
+          "p95": 1.5
+        },
+        "fcp": {
+          "p50": 24,
+          "p95": 28
+        },
+        "lcp": {
+          "p50": 24,
+          "p95": 28
+        },
+        "ready": {
+          "p50": 18.5,
+          "p95": 18.899999976158142
+        },
+        "cls": {
+          "p50": 0.05011157407407408,
+          "p95": 0.05011157407407408
+        },
+        "longTaskMax": {
+          "p50": 0,
+          "p95": 0
+        },
+        "longTaskTotal": {
+          "p50": 0,
+          "p95": 0
+        },
+        "transfer": {
+          "p50": 2110,
+          "p95": 2110
+        },
+        "jsEncoded": {
+          "p50": 38502,
+          "p95": 38502
+        },
+        "wasmEncoded": {
+          "p50": 0,
+          "p95": 0
+        },
+        "requests": {
+          "p50": 35,
+          "p95": 35
+        },
+        "actionNextFrame": {
+          "p50": 24.69999998807907,
+          "p95": 27.100000023841858
+        }
+      }
+    },
+    {
+      "engine": "rust",
+      "profile": "desktop",
+      "route": "/",
+      "cache": "cold-context",
+      "n": 3,
+      "successes": 3,
+      "failures": [],
+      "metrics": {
+        "ttfb": {
+          "p50": 0.699999988079071,
+          "p95": 0.800000011920929
+        },
+        "fcp": {
+          "p50": 56,
+          "p95": 56
+        },
+        "lcp": {
+          "p50": 56,
+          "p95": 56
+        },
+        "ready": {
+          "p50": 110.20000004768372,
+          "p95": 113.09999996423721
+        },
+        "cls": {
+          "p50": 0.05011157407407408,
+          "p95": 0.05011157407407408
+        },
+        "longTaskMax": {
+          "p50": 0,
+          "p95": 0
+        },
+        "longTaskTotal": {
+          "p50": 0,
+          "p95": 0
+        },
+        "transfer": {
+          "p50": 1187516,
+          "p95": 1187516
+        },
+        "jsEncoded": {
+          "p50": 14450,
+          "p95": 14450
+        },
+        "wasmEncoded": {
+          "p50": 681962,
+          "p95": 681962
+        },
+        "requests": {
+          "p50": 19,
+          "p95": 19
+        },
+        "actionNextFrame": {
+          "p50": 46.60000002384186,
+          "p95": 49
+        }
+      }
+    },
+    {
+      "engine": "rust",
+      "profile": "desktop",
+      "route": "/",
+      "cache": "warm",
+      "n": 3,
+      "successes": 3,
+      "failures": [],
+      "metrics": {
+        "ttfb": {
+          "p50": 1,
+          "p95": 1.5
+        },
+        "fcp": {
+          "p50": 24,
+          "p95": 24
+        },
+        "lcp": {
+          "p50": 24,
+          "p95": 24
+        },
+        "ready": {
+          "p50": 39.19999998807907,
+          "p95": 39.59999996423721
+        },
+        "cls": {
+          "p50": 0.05011157407407408,
+          "p95": 0.05011157407407408
+        },
+        "longTaskMax": {
+          "p50": 0,
+          "p95": 0
+        },
+        "longTaskTotal": {
+          "p50": 0,
+          "p95": 0
+        },
+        "transfer": {
+          "p50": 2178,
+          "p95": 2178
+        },
+        "jsEncoded": {
+          "p50": 14450,
+          "p95": 14450
+        },
+        "wasmEncoded": {
+          "p50": 681962,
+          "p95": 681962
+        },
+        "requests": {
+          "p50": 19,
+          "p95": 19
+        },
+        "actionNextFrame": {
+          "p50": 38.89999997615814,
+          "p95": 39.19999998807907
+        }
+      }
+    },
+    {
+      "engine": "legacy",
+      "profile": "desktop",
+      "route": "/map/",
+      "cache": "cold-context",
+      "n": 3,
+      "successes": 3,
+      "failures": [],
+      "metrics": {
+        "ttfb": {
+          "p50": 0.6000000238418579,
+          "p95": 0.6000000238418579
+        },
+        "fcp": {
+          "p50": 60,
+          "p95": 64
+        },
+        "lcp": {
+          "p50": 60,
+          "p95": 64
+        },
+        "ready": {
+          "p50": 207.60000002384186,
+          "p95": 225.5
+        },
+        "cls": {
+          "p50": 0.019416666666666665,
+          "p95": 0.019416666666666665
+        },
+        "longTaskMax": {
+          "p50": 0,
+          "p95": 0
+        },
+        "longTaskTotal": {
+          "p50": 0,
+          "p95": 0
+        },
+        "transfer": {
+          "p50": 546239,
+          "p95": 546239
+        },
+        "jsEncoded": {
+          "p50": 39316,
+          "p95": 39316
+        },
+        "wasmEncoded": {
+          "p50": 0,
+          "p95": 0
+        },
+        "requests": {
+          "p50": 41,
+          "p95": 41
+        },
+        "actionNextFrame": {
+          "p50": 11.399999976158142,
+          "p95": 22.899999976158142
+        }
+      }
+    },
+    {
+      "engine": "legacy",
+      "profile": "desktop",
+      "route": "/map/",
+      "cache": "warm",
+      "n": 3,
+      "successes": 3,
+      "failures": [],
+      "metrics": {
+        "ttfb": {
+          "p50": 1.100000023841858,
+          "p95": 1.300000011920929
+        },
+        "fcp": {
+          "p50": 40,
+          "p95": 44
+        },
+        "lcp": {
+          "p50": 40,
+          "p95": 44
+        },
+        "ready": {
+          "p50": 200.60000002384186,
+          "p95": 202.80000001192093
+        },
+        "cls": {
+          "p50": 0.019416666666666665,
+          "p95": 0.019416666666666665
+        },
+        "longTaskMax": {
+          "p50": 0,
+          "p95": 0
+        },
+        "longTaskTotal": {
+          "p50": 0,
+          "p95": 0
+        },
+        "transfer": {
+          "p50": 10732,
+          "p95": 10732
+        },
+        "jsEncoded": {
+          "p50": 39316,
+          "p95": 39316
+        },
+        "wasmEncoded": {
+          "p50": 0,
+          "p95": 0
+        },
+        "requests": {
+          "p50": 41,
+          "p95": 41
+        },
+        "actionNextFrame": {
+          "p50": 11,
+          "p95": 11.5
+        }
+      }
+    },
+    {
+      "engine": "rust",
+      "profile": "desktop",
+      "route": "/map/",
+      "cache": "cold-context",
+      "n": 3,
+      "successes": 3,
+      "failures": [],
+      "metrics": {
+        "ttfb": {
+          "p50": 0.5999999642372131,
+          "p95": 0.7000000476837158
+        },
+        "fcp": {
+          "p50": 64,
+          "p95": 64
+        },
+        "lcp": {
+          "p50": 64,
+          "p95": 64
+        },
+        "ready": {
+          "p50": 295.80000001192093,
+          "p95": 300.69999998807907
+        },
+        "cls": {
+          "p50": 0.019416666666666665,
+          "p95": 0.019416666666666665
+        },
+        "longTaskMax": {
+          "p50": 0,
+          "p95": 0
+        },
+        "longTaskTotal": {
+          "p50": 0,
+          "p95": 0
+        },
+        "transfer": {
+          "p50": 1198554,
+          "p95": 1198554
+        },
+        "jsEncoded": {
+          "p50": 14452,
+          "p95": 14452
+        },
+        "wasmEncoded": {
+          "p50": 681962,
+          "p95": 681962
+        },
+        "requests": {
+          "p50": 25,
+          "p95": 25
+        },
+        "actionNextFrame": {
+          "p50": 12.900000035762787,
+          "p95": 32.19999998807907
+        }
+      }
+    },
+    {
+      "engine": "rust",
+      "profile": "desktop",
+      "route": "/map/",
+      "cache": "warm",
+      "n": 3,
+      "successes": 3,
+      "failures": [],
+      "metrics": {
+        "ttfb": {
+          "p50": 1.4000000357627869,
+          "p95": 2.300000011920929
+        },
+        "fcp": {
+          "p50": 40,
+          "p95": 44
+        },
+        "lcp": {
+          "p50": 40,
+          "p95": 44
+        },
+        "ready": {
+          "p50": 229.39999997615814,
+          "p95": 232.9000000357628
+        },
+        "cls": {
+          "p50": 0.019416666666666665,
+          "p95": 0.019416666666666665
+        },
+        "longTaskMax": {
+          "p50": 0,
+          "p95": 0
+        },
+        "longTaskTotal": {
+          "p50": 0,
+          "p95": 0
+        },
+        "transfer": {
+          "p50": 10749,
+          "p95": 10749
+        },
+        "jsEncoded": {
+          "p50": 14452,
+          "p95": 14452
+        },
+        "wasmEncoded": {
+          "p50": 681962,
+          "p95": 681962
+        },
+        "requests": {
+          "p50": 25,
+          "p95": 25
+        },
+        "actionNextFrame": {
+          "p50": 11.599999964237213,
+          "p95": 12.200000047683716
+        }
+      }
+    },
+    {
+      "engine": "legacy",
+      "profile": "desktop",
+      "route": "/cv/tech/",
+      "cache": "cold-context",
+      "n": 3,
+      "successes": 3,
+      "failures": [],
+      "metrics": {
+        "ttfb": {
+          "p50": 0.5,
+          "p95": 0.5999999642372131
+        },
+        "fcp": {
+          "p50": 64,
+          "p95": 64
+        },
+        "lcp": {
+          "p50": 64,
+          "p95": 64
+        },
+        "ready": {
+          "p50": 65.5,
+          "p95": 69.09999996423721
+        },
+        "cls": {
+          "p50": 0.01840277777777778,
+          "p95": 0.01840277777777778
+        },
+        "longTaskMax": {
+          "p50": 0,
+          "p95": 0
+        },
+        "longTaskTotal": {
+          "p50": 0,
+          "p95": 0
+        },
+        "transfer": {
+          "p50": 115107,
+          "p95": 115107
+        },
+        "jsEncoded": {
+          "p50": 25978,
+          "p95": 25978
+        },
+        "wasmEncoded": {
+          "p50": 0,
+          "p95": 0
+        },
+        "requests": {
+          "p50": 23,
+          "p95": 23
+        },
+        "actionNextFrame": {
+          "p50": 17.80000001192093,
+          "p95": 18.599999964237213
+        }
+      }
+    },
+    {
+      "engine": "legacy",
+      "profile": "desktop",
+      "route": "/cv/tech/",
+      "cache": "warm",
+      "n": 3,
+      "successes": 3,
+      "failures": [],
+      "metrics": {
+        "ttfb": {
+          "p50": 1.600000023841858,
+          "p95": 1.800000011920929
+        },
+        "fcp": {
+          "p50": 28,
+          "p95": 32
+        },
+        "lcp": {
+          "p50": 28,
+          "p95": 32
+        },
+        "ready": {
+          "p50": 21.399999976158142,
+          "p95": 24.599999964237213
+        },
+        "cls": {
+          "p50": 0.01840277777777778,
+          "p95": 0.01840277777777778
+        },
+        "longTaskMax": {
+          "p50": 0,
+          "p95": 0
+        },
+        "longTaskTotal": {
+          "p50": 0,
+          "p95": 0
+        },
+        "transfer": {
+          "p50": 5404,
+          "p95": 5404
+        },
+        "jsEncoded": {
+          "p50": 25978,
+          "p95": 25978
+        },
+        "wasmEncoded": {
+          "p50": 0,
+          "p95": 0
+        },
+        "requests": {
+          "p50": 23,
+          "p95": 23
+        },
+        "actionNextFrame": {
+          "p50": 5.399999976158142,
+          "p95": 13.600000023841858
+        }
+      }
+    },
+    {
+      "engine": "rust",
+      "profile": "desktop",
+      "route": "/cv/tech/",
+      "cache": "cold-context",
+      "n": 3,
+      "successes": 3,
+      "failures": [],
+      "metrics": {
+        "ttfb": {
+          "p50": 0.5,
+          "p95": 0.5
+        },
+        "fcp": {
+          "p50": 60,
+          "p95": 64
+        },
+        "lcp": {
+          "p50": 60,
+          "p95": 64
+        },
+        "ready": {
+          "p50": 82.19999998807907,
+          "p95": 88.69999998807907
+        },
+        "cls": {
+          "p50": 0.01840277777777778,
+          "p95": 0.01840277777777778
+        },
+        "longTaskMax": {
+          "p50": 0,
+          "p95": 0
+        },
+        "longTaskTotal": {
+          "p50": 0,
+          "p95": 0
+        },
+        "transfer": {
+          "p50": 782851,
+          "p95": 782851
+        },
+        "jsEncoded": {
+          "p50": 14401,
+          "p95": 14401
+        },
+        "wasmEncoded": {
+          "p50": 681962,
+          "p95": 681962
+        },
+        "requests": {
+          "p50": 14,
+          "p95": 14
+        },
+        "actionNextFrame": {
+          "p50": 10,
+          "p95": 19.900000035762787
+        }
+      }
+    },
+    {
+      "engine": "rust",
+      "profile": "desktop",
+      "route": "/cv/tech/",
+      "cache": "warm",
+      "n": 3,
+      "successes": 3,
+      "failures": [],
+      "metrics": {
+        "ttfb": {
+          "p50": 1.5,
+          "p95": 1.699999988079071
+        },
+        "fcp": {
+          "p50": 28,
+          "p95": 28
+        },
+        "lcp": {
+          "p50": 28,
+          "p95": 28
+        },
+        "ready": {
+          "p50": 37.30000001192093,
+          "p95": 37.39999997615814
+        },
+        "cls": {
+          "p50": 0.01840277777777778,
+          "p95": 0.01840277777777778
+        },
+        "longTaskMax": {
+          "p50": 0,
+          "p95": 0
+        },
+        "longTaskTotal": {
+          "p50": 0,
+          "p95": 0
+        },
+        "transfer": {
+          "p50": 5463,
+          "p95": 5463
+        },
+        "jsEncoded": {
+          "p50": 14401,
+          "p95": 14401
+        },
+        "wasmEncoded": {
+          "p50": 681962,
+          "p95": 681962
+        },
+        "requests": {
+          "p50": 14,
+          "p95": 14
+        },
+        "actionNextFrame": {
+          "p50": 10,
+          "p95": 10
+        }
+      }
+    },
+    {
+      "engine": "legacy",
+      "profile": "mobile",
+      "route": "/",
+      "cache": "cold-context",
+      "n": 3,
+      "successes": 3,
+      "failures": [],
+      "metrics": {
+        "ttfb": {
+          "p50": 0.5,
+          "p95": 0.6000000238418579
+        },
+        "fcp": {
+          "p50": 708,
+          "p95": 720
+        },
+        "lcp": {
+          "p50": 708,
+          "p95": 720
+        },
+        "ready": {
+          "p50": 1468.300000011921,
+          "p95": 1469.300000011921
+        },
+        "cls": {
+          "p50": 0.04265402843601896,
+          "p95": 0.04265402843601896
+        },
+        "longTaskMax": {
+          "p50": 0,
+          "p95": 0
+        },
+        "longTaskTotal": {
+          "p50": 0,
+          "p95": 0
+        },
+        "transfer": {
+          "p50": 508984,
+          "p95": 508984
+        },
+        "jsEncoded": {
+          "p50": 38502,
+          "p95": 38502
+        },
+        "wasmEncoded": {
+          "p50": 0,
+          "p95": 0
+        },
+        "requests": {
+          "p50": 34,
+          "p95": 34
+        },
+        "actionNextFrame": {
+          "p50": 89.39999997615814,
+          "p95": 91.5
+        }
+      }
+    },
+    {
+      "engine": "legacy",
+      "profile": "mobile",
+      "route": "/",
+      "cache": "warm",
+      "n": 3,
+      "successes": 3,
+      "failures": [],
+      "metrics": {
+        "ttfb": {
+          "p50": 0.699999988079071,
+          "p95": 1.300000011920929
+        },
+        "fcp": {
+          "p50": 212,
+          "p95": 216
+        },
+        "lcp": {
+          "p50": 212,
+          "p95": 216
+        },
+        "ready": {
+          "p50": 390.4000000357628,
+          "p95": 390.80000001192093
+        },
+        "cls": {
+          "p50": 0,
+          "p95": 0
+        },
+        "longTaskMax": {
+          "p50": 0,
+          "p95": 0
+        },
+        "longTaskTotal": {
+          "p50": 0,
+          "p95": 0
+        },
+        "transfer": {
+          "p50": 27464,
+          "p95": 27464
+        },
+        "jsEncoded": {
+          "p50": 38502,
+          "p95": 38502
+        },
+        "wasmEncoded": {
+          "p50": 0,
+          "p95": 0
+        },
+        "requests": {
+          "p50": 35,
+          "p95": 35
+        },
+        "actionNextFrame": {
+          "p50": 69.30000001192093,
+          "p95": 69.39999997615814
+        }
+      }
+    },
+    {
+      "engine": "rust",
+      "profile": "mobile",
+      "route": "/",
+      "cache": "cold-context",
+      "n": 3,
+      "successes": 3,
+      "failures": [],
+      "metrics": {
+        "ttfb": {
+          "p50": 0.6000000238418579,
+          "p95": 2.300000011920929
+        },
+        "fcp": {
+          "p50": 708,
+          "p95": 724
+        },
+        "lcp": {
+          "p50": 708,
+          "p95": 724
+        },
+        "ready": {
+          "p50": 6552.799999952316,
+          "p95": 6568.800000011921
+        },
+        "cls": {
+          "p50": 0.04265402843601896,
+          "p95": 0.04265402843601896
+        },
+        "longTaskMax": {
+          "p50": 88,
+          "p95": 89
+        },
+        "longTaskTotal": {
+          "p50": 164,
+          "p95": 165
+        },
+        "transfer": {
+          "p50": 1162162,
+          "p95": 1162162
+        },
+        "jsEncoded": {
+          "p50": 14450,
+          "p95": 14450
+        },
+        "wasmEncoded": {
+          "p50": 681962,
+          "p95": 681962
+        },
+        "requests": {
+          "p50": 18,
+          "p95": 18
+        },
+        "actionNextFrame": {
+          "p50": 119,
+          "p95": 119.09999996423721
+        }
+      }
+    },
+    {
+      "engine": "rust",
+      "profile": "mobile",
+      "route": "/",
+      "cache": "warm",
+      "n": 3,
+      "successes": 3,
+      "failures": [],
+      "metrics": {
+        "ttfb": {
+          "p50": 0.699999988079071,
+          "p95": 1.100000023841858
+        },
+        "fcp": {
+          "p50": 212,
+          "p95": 216
+        },
+        "lcp": {
+          "p50": 212,
+          "p95": 216
+        },
+        "ready": {
+          "p50": 469.0999999642372,
+          "p95": 475
+        },
+        "cls": {
+          "p50": 0,
+          "p95": 0
+        },
+        "longTaskMax": {
+          "p50": 52,
+          "p95": 55
+        },
+        "longTaskTotal": {
+          "p50": 52,
+          "p95": 55
+        },
+        "transfer": {
+          "p50": 27532,
+          "p95": 27532
+        },
+        "jsEncoded": {
+          "p50": 14450,
+          "p95": 14450
+        },
+        "wasmEncoded": {
+          "p50": 681962,
+          "p95": 681962
+        },
+        "requests": {
+          "p50": 19,
+          "p95": 19
+        },
+        "actionNextFrame": {
+          "p50": 92.40000003576279,
+          "p95": 93.89999997615814
+        }
+      }
+    },
+    {
+      "engine": "legacy",
+      "profile": "mobile",
+      "route": "/map/",
+      "cache": "cold-context",
+      "n": 3,
+      "successes": 3,
+      "failures": [],
+      "metrics": {
+        "ttfb": {
+          "p50": 0.5999999642372131,
+          "p95": 0.7000000476837158
+        },
+        "fcp": {
+          "p50": 764,
+          "p95": 764
+        },
+        "lcp": {
+          "p50": 764,
+          "p95": 764
+        },
+        "ready": {
+          "p50": 2088.300000011921,
+          "p95": 2095.800000011921
+        },
+        "cls": {
+          "p50": 0.04265402843601896,
+          "p95": 0.04265402843601896
+        },
+        "longTaskMax": {
+          "p50": 132,
+          "p95": 137
+        },
+        "longTaskTotal": {
+          "p50": 199,
+          "p95": 206
+        },
+        "transfer": {
+          "p50": 514373,
+          "p95": 514373
+        },
+        "jsEncoded": {
+          "p50": 39316,
+          "p95": 39316
+        },
+        "wasmEncoded": {
+          "p50": 0,
+          "p95": 0
+        },
+        "requests": {
+          "p50": 39,
+          "p95": 39
+        },
+        "actionNextFrame": {
+          "p50": 20.5,
+          "p95": 21.600000023841858
+        }
+      }
+    },
+    {
+      "engine": "legacy",
+      "profile": "mobile",
+      "route": "/map/",
+      "cache": "warm",
+      "n": 3,
+      "successes": 3,
+      "failures": [],
+      "metrics": {
+        "ttfb": {
+          "p50": 0.6000000238418579,
+          "p95": 0.800000011920929
+        },
+        "fcp": {
+          "p50": 216,
+          "p95": 216
+        },
+        "lcp": {
+          "p50": 216,
+          "p95": 216
+        },
+        "ready": {
+          "p50": 919.1000000238419,
+          "p95": 919.5
+        },
+        "cls": {
+          "p50": 0,
+          "p95": 0
+        },
+        "longTaskMax": {
+          "p50": 0,
+          "p95": 50
+        },
+        "longTaskTotal": {
+          "p50": 0,
+          "p95": 50
+        },
+        "transfer": {
+          "p50": 36086,
+          "p95": 36086
+        },
+        "jsEncoded": {
+          "p50": 39316,
+          "p95": 39316
+        },
+        "wasmEncoded": {
+          "p50": 0,
+          "p95": 0
+        },
+        "requests": {
+          "p50": 40,
+          "p95": 40
+        },
+        "actionNextFrame": {
+          "p50": 18.19999998807907,
+          "p95": 18.30000001192093
+        }
+      }
+    },
+    {
+      "engine": "rust",
+      "profile": "mobile",
+      "route": "/map/",
+      "cache": "cold-context",
+      "n": 3,
+      "successes": 3,
+      "failures": [],
+      "metrics": {
+        "ttfb": {
+          "p50": 0.6000000238418579,
+          "p95": 0.699999988079071
+        },
+        "fcp": {
+          "p50": 752,
+          "p95": 768
+        },
+        "lcp": {
+          "p50": 752,
+          "p95": 768
+        },
+        "ready": {
+          "p50": 7180.5,
+          "p95": 7197.099999964237
+        },
+        "cls": {
+          "p50": 0.04265402843601896,
+          "p95": 0.04265402843601896
+        },
+        "longTaskMax": {
+          "p50": 195,
+          "p95": 195
+        },
+        "longTaskTotal": {
+          "p50": 329,
+          "p95": 332
+        },
+        "transfer": {
+          "p50": 1166688,
+          "p95": 1166688
+        },
+        "jsEncoded": {
+          "p50": 14452,
+          "p95": 14452
+        },
+        "wasmEncoded": {
+          "p50": 681962,
+          "p95": 681962
+        },
+        "requests": {
+          "p50": 23,
+          "p95": 23
+        },
+        "actionNextFrame": {
+          "p50": 21.69999998807907,
+          "p95": 26.5
+        }
+      }
+    },
+    {
+      "engine": "rust",
+      "profile": "mobile",
+      "route": "/map/",
+      "cache": "warm",
+      "n": 3,
+      "successes": 3,
+      "failures": [],
+      "metrics": {
+        "ttfb": {
+          "p50": 0.5,
+          "p95": 0.5999999642372131
+        },
+        "fcp": {
+          "p50": 212,
+          "p95": 216
+        },
+        "lcp": {
+          "p50": 212,
+          "p95": 216
+        },
+        "ready": {
+          "p50": 1129.199999988079,
+          "p95": 1134.5999999642372
+        },
+        "cls": {
+          "p50": 0,
+          "p95": 0
+        },
+        "longTaskMax": {
+          "p50": 102,
+          "p95": 109
+        },
+        "longTaskTotal": {
+          "p50": 163,
+          "p95": 202
+        },
+        "transfer": {
+          "p50": 36103,
+          "p95": 36103
+        },
+        "jsEncoded": {
+          "p50": 14452,
+          "p95": 14452
+        },
+        "wasmEncoded": {
+          "p50": 681962,
+          "p95": 681962
+        },
+        "requests": {
+          "p50": 24,
+          "p95": 24
+        },
+        "actionNextFrame": {
+          "p50": 21.30000001192093,
+          "p95": 21.900000035762787
+        }
+      }
+    },
+    {
+      "engine": "legacy",
+      "profile": "mobile",
+      "route": "/cv/tech/",
+      "cache": "cold-context",
+      "n": 3,
+      "successes": 3,
+      "failures": [],
+      "metrics": {
+        "ttfb": {
+          "p50": 0.5999999642372131,
+          "p95": 0.5999999642372131
+        },
+        "fcp": {
+          "p50": 532,
+          "p95": 552
+        },
+        "lcp": {
+          "p50": 532,
+          "p95": 552
+        },
+        "ready": {
+          "p50": 783.8000000119209,
+          "p95": 797.5
+        },
+        "cls": {
+          "p50": 0,
+          "p95": 0
+        },
+        "longTaskMax": {
+          "p50": 0,
+          "p95": 0
+        },
+        "longTaskTotal": {
+          "p50": 0,
+          "p95": 0
+        },
+        "transfer": {
+          "p50": 71695,
+          "p95": 71695
+        },
+        "jsEncoded": {
+          "p50": 24684,
+          "p95": 24684
+        },
+        "wasmEncoded": {
+          "p50": 0,
+          "p95": 0
+        },
+        "requests": {
+          "p50": 19,
+          "p95": 19
+        },
+        "actionNextFrame": {
+          "p50": 14.600000023841858,
+          "p95": 16
+        }
+      }
+    },
+    {
+      "engine": "legacy",
+      "profile": "mobile",
+      "route": "/cv/tech/",
+      "cache": "warm",
+      "n": 3,
+      "successes": 3,
+      "failures": [],
+      "metrics": {
+        "ttfb": {
+          "p50": 0.6000000238418579,
+          "p95": 0.6000000238418579
+        },
+        "fcp": {
+          "p50": 200,
+          "p95": 204
+        },
+        "lcp": {
+          "p50": 200,
+          "p95": 204
+        },
+        "ready": {
+          "p50": 209.60000002384186,
+          "p95": 227.79999995231628
+        },
+        "cls": {
+          "p50": 0,
+          "p95": 0
+        },
+        "longTaskMax": {
+          "p50": 0,
+          "p95": 0
+        },
+        "longTaskTotal": {
+          "p50": 0,
+          "p95": 0
+        },
+        "transfer": {
+          "p50": 5404,
+          "p95": 5404
+        },
+        "jsEncoded": {
+          "p50": 25978,
+          "p95": 25978
+        },
+        "wasmEncoded": {
+          "p50": 0,
+          "p95": 0
+        },
+        "requests": {
+          "p50": 21,
+          "p95": 21
+        },
+        "actionNextFrame": {
+          "p50": 18.19999998807907,
+          "p95": 18.899999976158142
+        }
+      }
+    },
+    {
+      "engine": "rust",
+      "profile": "mobile",
+      "route": "/cv/tech/",
+      "cache": "cold-context",
+      "n": 3,
+      "successes": 3,
+      "failures": [],
+      "metrics": {
+        "ttfb": {
+          "p50": 0.5999999642372131,
+          "p95": 0.8999999761581421
+        },
+        "fcp": {
+          "p50": 548,
+          "p95": 548
+        },
+        "lcp": {
+          "p50": 548,
+          "p95": 548
+        },
+        "ready": {
+          "p50": 4291.199999988079,
+          "p95": 4292.600000023842
+        },
+        "cls": {
+          "p50": 0.04265402843601896,
+          "p95": 0.04265402843601896
+        },
+        "longTaskMax": {
+          "p50": 79,
+          "p95": 79
+        },
+        "longTaskTotal": {
+          "p50": 79,
+          "p95": 79
+        },
+        "transfer": {
+          "p50": 741333,
+          "p95": 741333
+        },
+        "jsEncoded": {
+          "p50": 14401,
+          "p95": 14401
+        },
+        "wasmEncoded": {
+          "p50": 681962,
+          "p95": 681962
+        },
+        "requests": {
+          "p50": 12,
+          "p95": 12
+        },
+        "actionNextFrame": {
+          "p50": 11.699999988079071,
+          "p95": 14.400000035762787
+        }
+      }
+    },
+    {
+      "engine": "rust",
+      "profile": "mobile",
+      "route": "/cv/tech/",
+      "cache": "warm",
+      "n": 3,
+      "successes": 3,
+      "failures": [],
+      "metrics": {
+        "ttfb": {
+          "p50": 0.699999988079071,
+          "p95": 0.800000011920929
+        },
+        "fcp": {
+          "p50": 188,
+          "p95": 196
+        },
+        "lcp": {
+          "p50": 188,
+          "p95": 196
+        },
+        "ready": {
+          "p50": 253.79999995231628,
+          "p95": 259.80000001192093
+        },
+        "cls": {
+          "p50": 0,
+          "p95": 0
+        },
+        "longTaskMax": {
+          "p50": 0,
+          "p95": 0
+        },
+        "longTaskTotal": {
+          "p50": 0,
+          "p95": 0
+        },
+        "transfer": {
+          "p50": 5463,
+          "p95": 5463
+        },
+        "jsEncoded": {
+          "p50": 14401,
+          "p95": 14401
+        },
+        "wasmEncoded": {
+          "p50": 681962,
+          "p95": 681962
+        },
+        "requests": {
+          "p50": 12,
+          "p95": 12
+        },
+        "actionNextFrame": {
+          "p50": 14.800000011920929,
+          "p95": 16.900000035762787
+        }
+      }
+    }
+  ],
+  "samples": [
+    {
+      "engine": "legacy",
+      "profile": "desktop",
+      "route": "/",
+      "cache": "cold-context",
+      "repeat": 0,
+      "ttfb": 2.099999964237213,
+      "fcp": 52,
+      "lcp": 52,
+      "cls": 0.05011157407407408,
+      "ready": 58.5,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 534338,
+      "jsEncoded": 38502,
+      "wasmEncoded": 0,
+      "requests": 35,
+      "actionNextFrame": 37.299999952316284
+    },
+    {
+      "engine": "legacy",
+      "profile": "desktop",
+      "route": "/",
+      "cache": "warm",
+      "repeat": 0,
+      "ttfb": 1.0999999642372131,
+      "fcp": 24,
+      "lcp": 24,
+      "cls": 0.05011157407407408,
+      "ready": 17.899999976158142,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 2110,
+      "jsEncoded": 38502,
+      "wasmEncoded": 0,
+      "requests": 35,
+      "actionNextFrame": 27.100000023841858
+    },
+    {
+      "engine": "rust",
+      "profile": "desktop",
+      "route": "/",
+      "cache": "cold-context",
+      "repeat": 0,
+      "ttfb": 0.800000011920929,
+      "fcp": 56,
+      "lcp": 56,
+      "cls": 0.05011157407407408,
+      "ready": 110.20000004768372,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 1187516,
+      "jsEncoded": 14450,
+      "wasmEncoded": 681962,
+      "requests": 19,
+      "actionNextFrame": 45.59999996423721
+    },
+    {
+      "engine": "rust",
+      "profile": "desktop",
+      "route": "/",
+      "cache": "warm",
+      "repeat": 0,
+      "ttfb": 0.800000011920929,
+      "fcp": 24,
+      "lcp": 24,
+      "cls": 0.05011157407407408,
+      "ready": 39.19999998807907,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 2178,
+      "jsEncoded": 14450,
+      "wasmEncoded": 681962,
+      "requests": 19,
+      "actionNextFrame": 38.69999998807907
+    },
+    {
+      "engine": "rust",
+      "profile": "desktop",
+      "route": "/",
+      "cache": "cold-context",
+      "repeat": 1,
+      "ttfb": 0.699999988079071,
+      "fcp": 52,
+      "lcp": 52,
+      "cls": 0.05011157407407408,
+      "ready": 107.5,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 1187516,
+      "jsEncoded": 14450,
+      "wasmEncoded": 681962,
+      "requests": 19,
+      "actionNextFrame": 49
+    },
+    {
+      "engine": "rust",
+      "profile": "desktop",
+      "route": "/",
+      "cache": "warm",
+      "repeat": 1,
+      "ttfb": 1.5,
+      "fcp": 24,
+      "lcp": 24,
+      "cls": 0.05011157407407408,
+      "ready": 39,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 2178,
+      "jsEncoded": 14450,
+      "wasmEncoded": 681962,
+      "requests": 19,
+      "actionNextFrame": 39.19999998807907
+    },
+    {
+      "engine": "legacy",
+      "profile": "desktop",
+      "route": "/",
+      "cache": "cold-context",
+      "repeat": 1,
+      "ttfb": 0.800000011920929,
+      "fcp": 52,
+      "lcp": 52,
+      "cls": 0.05011157407407408,
+      "ready": 59.799999952316284,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 534338,
+      "jsEncoded": 38502,
+      "wasmEncoded": 0,
+      "requests": 35,
+      "actionNextFrame": 37.90000003576279
+    },
+    {
+      "engine": "legacy",
+      "profile": "desktop",
+      "route": "/",
+      "cache": "warm",
+      "repeat": 1,
+      "ttfb": 0.9000000357627869,
+      "fcp": 28,
+      "lcp": 28,
+      "cls": 0.05011157407407408,
+      "ready": 18.899999976158142,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 2110,
+      "jsEncoded": 38502,
+      "wasmEncoded": 0,
+      "requests": 35,
+      "actionNextFrame": 18.600000023841858
+    },
+    {
+      "engine": "legacy",
+      "profile": "desktop",
+      "route": "/",
+      "cache": "cold-context",
+      "repeat": 2,
+      "ttfb": 0.6000000238418579,
+      "fcp": 56,
+      "lcp": 56,
+      "cls": 0.05011157407407408,
+      "ready": 61.80000001192093,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 534338,
+      "jsEncoded": 38502,
+      "wasmEncoded": 0,
+      "requests": 35,
+      "actionNextFrame": 28.599999964237213
+    },
+    {
+      "engine": "legacy",
+      "profile": "desktop",
+      "route": "/",
+      "cache": "warm",
+      "repeat": 2,
+      "ttfb": 1.5,
+      "fcp": 24,
+      "lcp": 24,
+      "cls": 0.05011157407407408,
+      "ready": 18.5,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 2110,
+      "jsEncoded": 38502,
+      "wasmEncoded": 0,
+      "requests": 35,
+      "actionNextFrame": 24.69999998807907
+    },
+    {
+      "engine": "rust",
+      "profile": "desktop",
+      "route": "/",
+      "cache": "cold-context",
+      "repeat": 2,
+      "ttfb": 0.5,
+      "fcp": 56,
+      "lcp": 56,
+      "cls": 0.05011157407407408,
+      "ready": 113.09999996423721,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 1187516,
+      "jsEncoded": 14450,
+      "wasmEncoded": 681962,
+      "requests": 19,
+      "actionNextFrame": 46.60000002384186
+    },
+    {
+      "engine": "rust",
+      "profile": "desktop",
+      "route": "/",
+      "cache": "warm",
+      "repeat": 2,
+      "ttfb": 1,
+      "fcp": 24,
+      "lcp": 24,
+      "cls": 0.05011157407407408,
+      "ready": 39.59999996423721,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 2178,
+      "jsEncoded": 14450,
+      "wasmEncoded": 681962,
+      "requests": 19,
+      "actionNextFrame": 38.89999997615814
+    },
+    {
+      "engine": "legacy",
+      "profile": "desktop",
+      "route": "/map/",
+      "cache": "cold-context",
+      "repeat": 0,
+      "ttfb": 0.5999999642372131,
+      "fcp": 60,
+      "lcp": 60,
+      "cls": 0.019416666666666665,
+      "ready": 225.5,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 546239,
+      "jsEncoded": 39316,
+      "wasmEncoded": 0,
+      "requests": 41,
+      "actionNextFrame": 11.399999976158142
+    },
+    {
+      "engine": "legacy",
+      "profile": "desktop",
+      "route": "/map/",
+      "cache": "warm",
+      "repeat": 0,
+      "ttfb": 1.100000023841858,
+      "fcp": 44,
+      "lcp": 44,
+      "cls": 0.019416666666666665,
+      "ready": 200.60000002384186,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 10732,
+      "jsEncoded": 39316,
+      "wasmEncoded": 0,
+      "requests": 41,
+      "actionNextFrame": 11
+    },
+    {
+      "engine": "rust",
+      "profile": "desktop",
+      "route": "/map/",
+      "cache": "cold-context",
+      "repeat": 0,
+      "ttfb": 0.7000000476837158,
+      "fcp": 64,
+      "lcp": 64,
+      "cls": 0.019416666666666665,
+      "ready": 295.80000001192093,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 1198554,
+      "jsEncoded": 14452,
+      "wasmEncoded": 681962,
+      "requests": 25,
+      "actionNextFrame": 12.800000011920929
+    },
+    {
+      "engine": "rust",
+      "profile": "desktop",
+      "route": "/map/",
+      "cache": "warm",
+      "repeat": 0,
+      "ttfb": 1.4000000357627869,
+      "fcp": 44,
+      "lcp": 44,
+      "cls": 0.019416666666666665,
+      "ready": 232.9000000357628,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 10749,
+      "jsEncoded": 14452,
+      "wasmEncoded": 681962,
+      "requests": 25,
+      "actionNextFrame": 9.300000011920929
+    },
+    {
+      "engine": "rust",
+      "profile": "desktop",
+      "route": "/map/",
+      "cache": "cold-context",
+      "repeat": 1,
+      "ttfb": 0.5,
+      "fcp": 64,
+      "lcp": 64,
+      "cls": 0.019416666666666665,
+      "ready": 300.69999998807907,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 1198554,
+      "jsEncoded": 14452,
+      "wasmEncoded": 681962,
+      "requests": 25,
+      "actionNextFrame": 12.900000035762787
+    },
+    {
+      "engine": "rust",
+      "profile": "desktop",
+      "route": "/map/",
+      "cache": "warm",
+      "repeat": 1,
+      "ttfb": 1.2999999523162842,
+      "fcp": 40,
+      "lcp": 40,
+      "cls": 0.019416666666666665,
+      "ready": 229.39999997615814,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 10749,
+      "jsEncoded": 14452,
+      "wasmEncoded": 681962,
+      "requests": 25,
+      "actionNextFrame": 11.599999964237213
+    },
+    {
+      "engine": "legacy",
+      "profile": "desktop",
+      "route": "/map/",
+      "cache": "cold-context",
+      "repeat": 1,
+      "ttfb": 0.6000000238418579,
+      "fcp": 60,
+      "lcp": 60,
+      "cls": 0.019416666666666665,
+      "ready": 207.60000002384186,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 546239,
+      "jsEncoded": 39316,
+      "wasmEncoded": 0,
+      "requests": 41,
+      "actionNextFrame": 22.899999976158142
+    },
+    {
+      "engine": "legacy",
+      "profile": "desktop",
+      "route": "/map/",
+      "cache": "warm",
+      "repeat": 1,
+      "ttfb": 1.300000011920929,
+      "fcp": 40,
+      "lcp": 40,
+      "cls": 0.019416666666666665,
+      "ready": 200.5,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 10732,
+      "jsEncoded": 39316,
+      "wasmEncoded": 0,
+      "requests": 41,
+      "actionNextFrame": 11.5
+    },
+    {
+      "engine": "legacy",
+      "profile": "desktop",
+      "route": "/map/",
+      "cache": "cold-context",
+      "repeat": 2,
+      "ttfb": 0.6000000238418579,
+      "fcp": 64,
+      "lcp": 64,
+      "cls": 0.019416666666666665,
+      "ready": 201.60000002384186,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 546239,
+      "jsEncoded": 39316,
+      "wasmEncoded": 0,
+      "requests": 41,
+      "actionNextFrame": 11
+    },
+    {
+      "engine": "legacy",
+      "profile": "desktop",
+      "route": "/map/",
+      "cache": "warm",
+      "repeat": 2,
+      "ttfb": 0.8999999761581421,
+      "fcp": 40,
+      "lcp": 40,
+      "cls": 0.019416666666666665,
+      "ready": 202.80000001192093,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 10732,
+      "jsEncoded": 39316,
+      "wasmEncoded": 0,
+      "requests": 41,
+      "actionNextFrame": 10.399999976158142
+    },
+    {
+      "engine": "rust",
+      "profile": "desktop",
+      "route": "/map/",
+      "cache": "cold-context",
+      "repeat": 2,
+      "ttfb": 0.5999999642372131,
+      "fcp": 60,
+      "lcp": 60,
+      "cls": 0.019416666666666665,
+      "ready": 287.30000001192093,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 1198554,
+      "jsEncoded": 14452,
+      "wasmEncoded": 681962,
+      "requests": 25,
+      "actionNextFrame": 32.19999998807907
+    },
+    {
+      "engine": "rust",
+      "profile": "desktop",
+      "route": "/map/",
+      "cache": "warm",
+      "repeat": 2,
+      "ttfb": 2.300000011920929,
+      "fcp": 40,
+      "lcp": 40,
+      "cls": 0.019416666666666665,
+      "ready": 228.80000001192093,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 10749,
+      "jsEncoded": 14452,
+      "wasmEncoded": 681962,
+      "requests": 25,
+      "actionNextFrame": 12.200000047683716
+    },
+    {
+      "engine": "legacy",
+      "profile": "desktop",
+      "route": "/cv/tech/",
+      "cache": "cold-context",
+      "repeat": 0,
+      "ttfb": 0.5,
+      "fcp": 64,
+      "lcp": 64,
+      "cls": 0.01840277777777778,
+      "ready": 69.09999996423721,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 115107,
+      "jsEncoded": 25978,
+      "wasmEncoded": 0,
+      "requests": 23,
+      "actionNextFrame": 9
+    },
+    {
+      "engine": "legacy",
+      "profile": "desktop",
+      "route": "/cv/tech/",
+      "cache": "warm",
+      "repeat": 0,
+      "ttfb": 1.4000000357627869,
+      "fcp": 28,
+      "lcp": 28,
+      "cls": 0.01840277777777778,
+      "ready": 21.399999976158142,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 5404,
+      "jsEncoded": 25978,
+      "wasmEncoded": 0,
+      "requests": 23,
+      "actionNextFrame": 5.399999976158142
+    },
+    {
+      "engine": "rust",
+      "profile": "desktop",
+      "route": "/cv/tech/",
+      "cache": "cold-context",
+      "repeat": 0,
+      "ttfb": 0.5,
+      "fcp": 64,
+      "lcp": 64,
+      "cls": 0.01840277777777778,
+      "ready": 88.69999998807907,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 782851,
+      "jsEncoded": 14401,
+      "wasmEncoded": 681962,
+      "requests": 14,
+      "actionNextFrame": 19.900000035762787
+    },
+    {
+      "engine": "rust",
+      "profile": "desktop",
+      "route": "/cv/tech/",
+      "cache": "warm",
+      "repeat": 0,
+      "ttfb": 1.5,
+      "fcp": 28,
+      "lcp": 28,
+      "cls": 0.01840277777777778,
+      "ready": 37.39999997615814,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 5463,
+      "jsEncoded": 14401,
+      "wasmEncoded": 681962,
+      "requests": 14,
+      "actionNextFrame": 10
+    },
+    {
+      "engine": "rust",
+      "profile": "desktop",
+      "route": "/cv/tech/",
+      "cache": "cold-context",
+      "repeat": 1,
+      "ttfb": 0.5,
+      "fcp": 60,
+      "lcp": 60,
+      "cls": 0.01840277777777778,
+      "ready": 82.19999998807907,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 782851,
+      "jsEncoded": 14401,
+      "wasmEncoded": 681962,
+      "requests": 14,
+      "actionNextFrame": 10
+    },
+    {
+      "engine": "rust",
+      "profile": "desktop",
+      "route": "/cv/tech/",
+      "cache": "warm",
+      "repeat": 1,
+      "ttfb": 1.699999988079071,
+      "fcp": 28,
+      "lcp": 28,
+      "cls": 0.01840277777777778,
+      "ready": 37.30000001192093,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 5463,
+      "jsEncoded": 14401,
+      "wasmEncoded": 681962,
+      "requests": 14,
+      "actionNextFrame": 10
+    },
+    {
+      "engine": "legacy",
+      "profile": "desktop",
+      "route": "/cv/tech/",
+      "cache": "cold-context",
+      "repeat": 1,
+      "ttfb": 0.40000003576278687,
+      "fcp": 64,
+      "lcp": 64,
+      "cls": 0.01840277777777778,
+      "ready": 65.5,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 115107,
+      "jsEncoded": 25978,
+      "wasmEncoded": 0,
+      "requests": 23,
+      "actionNextFrame": 17.80000001192093
+    },
+    {
+      "engine": "legacy",
+      "profile": "desktop",
+      "route": "/cv/tech/",
+      "cache": "warm",
+      "repeat": 1,
+      "ttfb": 1.800000011920929,
+      "fcp": 24,
+      "lcp": 24,
+      "cls": 0.01840277777777778,
+      "ready": 16.900000035762787,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 5404,
+      "jsEncoded": 25978,
+      "wasmEncoded": 0,
+      "requests": 23,
+      "actionNextFrame": 3.699999988079071
+    },
+    {
+      "engine": "legacy",
+      "profile": "desktop",
+      "route": "/cv/tech/",
+      "cache": "cold-context",
+      "repeat": 2,
+      "ttfb": 0.5999999642372131,
+      "fcp": 60,
+      "lcp": 60,
+      "cls": 0.01840277777777778,
+      "ready": 63.19999998807907,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 115107,
+      "jsEncoded": 25978,
+      "wasmEncoded": 0,
+      "requests": 23,
+      "actionNextFrame": 18.599999964237213
+    },
+    {
+      "engine": "legacy",
+      "profile": "desktop",
+      "route": "/cv/tech/",
+      "cache": "warm",
+      "repeat": 2,
+      "ttfb": 1.600000023841858,
+      "fcp": 32,
+      "lcp": 32,
+      "cls": 0.01840277777777778,
+      "ready": 24.599999964237213,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 5404,
+      "jsEncoded": 25978,
+      "wasmEncoded": 0,
+      "requests": 23,
+      "actionNextFrame": 13.600000023841858
+    },
+    {
+      "engine": "rust",
+      "profile": "desktop",
+      "route": "/cv/tech/",
+      "cache": "cold-context",
+      "repeat": 2,
+      "ttfb": 0.5,
+      "fcp": 60,
+      "lcp": 60,
+      "cls": 0.01840277777777778,
+      "ready": 79.30000001192093,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 782851,
+      "jsEncoded": 14401,
+      "wasmEncoded": 681962,
+      "requests": 14,
+      "actionNextFrame": 7
+    },
+    {
+      "engine": "rust",
+      "profile": "desktop",
+      "route": "/cv/tech/",
+      "cache": "warm",
+      "repeat": 2,
+      "ttfb": 1.399999976158142,
+      "fcp": 28,
+      "lcp": 28,
+      "cls": 0.01840277777777778,
+      "ready": 37.19999998807907,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 5463,
+      "jsEncoded": 14401,
+      "wasmEncoded": 681962,
+      "requests": 14,
+      "actionNextFrame": 8.900000035762787
+    },
+    {
+      "engine": "legacy",
+      "profile": "mobile",
+      "route": "/",
+      "cache": "cold-context",
+      "repeat": 0,
+      "ttfb": 0.5,
+      "fcp": 708,
+      "lcp": 708,
+      "cls": 0.04265402843601896,
+      "ready": 1466.7000000476837,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 508984,
+      "jsEncoded": 38502,
+      "wasmEncoded": 0,
+      "requests": 34,
+      "actionNextFrame": 83.5
+    },
+    {
+      "engine": "legacy",
+      "profile": "mobile",
+      "route": "/",
+      "cache": "warm",
+      "repeat": 0,
+      "ttfb": 0.6000000238418579,
+      "fcp": 216,
+      "lcp": 216,
+      "cls": 0,
+      "ready": 390.80000001192093,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 27464,
+      "jsEncoded": 38502,
+      "wasmEncoded": 0,
+      "requests": 35,
+      "actionNextFrame": 69.39999997615814
+    },
+    {
+      "engine": "rust",
+      "profile": "mobile",
+      "route": "/",
+      "cache": "cold-context",
+      "repeat": 0,
+      "ttfb": 0.6000000238418579,
+      "fcp": 704,
+      "lcp": 704,
+      "cls": 0.04265402843601896,
+      "ready": 6546.800000011921,
+      "longTaskMax": 88,
+      "longTaskTotal": 165,
+      "transfer": 1162162,
+      "jsEncoded": 14450,
+      "wasmEncoded": 681962,
+      "requests": 18,
+      "actionNextFrame": 119
+    },
+    {
+      "engine": "rust",
+      "profile": "mobile",
+      "route": "/",
+      "cache": "warm",
+      "repeat": 0,
+      "ttfb": 0.5,
+      "fcp": 208,
+      "lcp": 208,
+      "cls": 0,
+      "ready": 459.5,
+      "longTaskMax": 52,
+      "longTaskTotal": 52,
+      "transfer": 27532,
+      "jsEncoded": 14450,
+      "wasmEncoded": 681962,
+      "requests": 19,
+      "actionNextFrame": 92.40000003576279
+    },
+    {
+      "engine": "rust",
+      "profile": "mobile",
+      "route": "/",
+      "cache": "cold-context",
+      "repeat": 1,
+      "ttfb": 2.300000011920929,
+      "fcp": 708,
+      "lcp": 708,
+      "cls": 0.04265402843601896,
+      "ready": 6552.799999952316,
+      "longTaskMax": 85,
+      "longTaskTotal": 160,
+      "transfer": 1162162,
+      "jsEncoded": 14450,
+      "wasmEncoded": 681962,
+      "requests": 18,
+      "actionNextFrame": 117.30000001192093
+    },
+    {
+      "engine": "rust",
+      "profile": "mobile",
+      "route": "/",
+      "cache": "warm",
+      "repeat": 1,
+      "ttfb": 0.699999988079071,
+      "fcp": 216,
+      "lcp": 216,
+      "cls": 0,
+      "ready": 475,
+      "longTaskMax": 55,
+      "longTaskTotal": 55,
+      "transfer": 27532,
+      "jsEncoded": 14450,
+      "wasmEncoded": 681962,
+      "requests": 19,
+      "actionNextFrame": 93.89999997615814
+    },
+    {
+      "engine": "legacy",
+      "profile": "mobile",
+      "route": "/",
+      "cache": "cold-context",
+      "repeat": 1,
+      "ttfb": 0.40000003576278687,
+      "fcp": 708,
+      "lcp": 708,
+      "cls": 0.04265402843601896,
+      "ready": 1469.300000011921,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 508984,
+      "jsEncoded": 38502,
+      "wasmEncoded": 0,
+      "requests": 34,
+      "actionNextFrame": 89.39999997615814
+    },
+    {
+      "engine": "legacy",
+      "profile": "mobile",
+      "route": "/",
+      "cache": "warm",
+      "repeat": 1,
+      "ttfb": 1.300000011920929,
+      "fcp": 212,
+      "lcp": 212,
+      "cls": 0,
+      "ready": 390.4000000357628,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 27464,
+      "jsEncoded": 38502,
+      "wasmEncoded": 0,
+      "requests": 35,
+      "actionNextFrame": 69.30000001192093
+    },
+    {
+      "engine": "legacy",
+      "profile": "mobile",
+      "route": "/",
+      "cache": "cold-context",
+      "repeat": 2,
+      "ttfb": 0.6000000238418579,
+      "fcp": 720,
+      "lcp": 720,
+      "cls": 0.04265402843601896,
+      "ready": 1468.300000011921,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 508984,
+      "jsEncoded": 38502,
+      "wasmEncoded": 0,
+      "requests": 34,
+      "actionNextFrame": 91.5
+    },
+    {
+      "engine": "legacy",
+      "profile": "mobile",
+      "route": "/",
+      "cache": "warm",
+      "repeat": 2,
+      "ttfb": 0.699999988079071,
+      "fcp": 192,
+      "lcp": 192,
+      "cls": 0,
+      "ready": 373,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 27464,
+      "jsEncoded": 38502,
+      "wasmEncoded": 0,
+      "requests": 35,
+      "actionNextFrame": 67
+    },
+    {
+      "engine": "rust",
+      "profile": "mobile",
+      "route": "/",
+      "cache": "cold-context",
+      "repeat": 2,
+      "ttfb": 0.5,
+      "fcp": 724,
+      "lcp": 724,
+      "cls": 0.04265402843601896,
+      "ready": 6568.800000011921,
+      "longTaskMax": 89,
+      "longTaskTotal": 164,
+      "transfer": 1162162,
+      "jsEncoded": 14450,
+      "wasmEncoded": 681962,
+      "requests": 18,
+      "actionNextFrame": 119.09999996423721
+    },
+    {
+      "engine": "rust",
+      "profile": "mobile",
+      "route": "/",
+      "cache": "warm",
+      "repeat": 2,
+      "ttfb": 1.100000023841858,
+      "fcp": 212,
+      "lcp": 212,
+      "cls": 0,
+      "ready": 469.0999999642372,
+      "longTaskMax": 52,
+      "longTaskTotal": 52,
+      "transfer": 27532,
+      "jsEncoded": 14450,
+      "wasmEncoded": 681962,
+      "requests": 19,
+      "actionNextFrame": 90.5
+    },
+    {
+      "engine": "legacy",
+      "profile": "mobile",
+      "route": "/map/",
+      "cache": "cold-context",
+      "repeat": 0,
+      "ttfb": 0.5999999642372131,
+      "fcp": 764,
+      "lcp": 764,
+      "cls": 0.04265402843601896,
+      "ready": 2074.100000023842,
+      "longTaskMax": 137,
+      "longTaskTotal": 206,
+      "transfer": 514373,
+      "jsEncoded": 39316,
+      "wasmEncoded": 0,
+      "requests": 39,
+      "actionNextFrame": 20.5
+    },
+    {
+      "engine": "legacy",
+      "profile": "mobile",
+      "route": "/map/",
+      "cache": "warm",
+      "repeat": 0,
+      "ttfb": 0.6000000238418579,
+      "fcp": 216,
+      "lcp": 216,
+      "cls": 0,
+      "ready": 919.5,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 36086,
+      "jsEncoded": 39316,
+      "wasmEncoded": 0,
+      "requests": 40,
+      "actionNextFrame": 18.30000001192093
+    },
+    {
+      "engine": "rust",
+      "profile": "mobile",
+      "route": "/map/",
+      "cache": "cold-context",
+      "repeat": 0,
+      "ttfb": 0.6000000238418579,
+      "fcp": 748,
+      "lcp": 748,
+      "cls": 0.04265402843601896,
+      "ready": 7180.5,
+      "longTaskMax": 189,
+      "longTaskTotal": 328,
+      "transfer": 1166688,
+      "jsEncoded": 14452,
+      "wasmEncoded": 681962,
+      "requests": 23,
+      "actionNextFrame": 26.5
+    },
+    {
+      "engine": "rust",
+      "profile": "mobile",
+      "route": "/map/",
+      "cache": "warm",
+      "repeat": 0,
+      "ttfb": 0.5999999642372131,
+      "fcp": 212,
+      "lcp": 212,
+      "cls": 0,
+      "ready": 1129.199999988079,
+      "longTaskMax": 102,
+      "longTaskTotal": 154,
+      "transfer": 36103,
+      "jsEncoded": 14452,
+      "wasmEncoded": 681962,
+      "requests": 24,
+      "actionNextFrame": 21.19999998807907
+    },
+    {
+      "engine": "rust",
+      "profile": "mobile",
+      "route": "/map/",
+      "cache": "cold-context",
+      "repeat": 1,
+      "ttfb": 0.40000003576278687,
+      "fcp": 768,
+      "lcp": 768,
+      "cls": 0.04265402843601896,
+      "ready": 7197.099999964237,
+      "longTaskMax": 195,
+      "longTaskTotal": 332,
+      "transfer": 1166688,
+      "jsEncoded": 14452,
+      "wasmEncoded": 681962,
+      "requests": 23,
+      "actionNextFrame": 21.69999998807907
+    },
+    {
+      "engine": "rust",
+      "profile": "mobile",
+      "route": "/map/",
+      "cache": "warm",
+      "repeat": 1,
+      "ttfb": 0.5,
+      "fcp": 212,
+      "lcp": 212,
+      "cls": 0,
+      "ready": 1121.699999988079,
+      "longTaskMax": 99,
+      "longTaskTotal": 202,
+      "transfer": 36103,
+      "jsEncoded": 14452,
+      "wasmEncoded": 681962,
+      "requests": 24,
+      "actionNextFrame": 21.30000001192093
+    },
+    {
+      "engine": "legacy",
+      "profile": "mobile",
+      "route": "/map/",
+      "cache": "cold-context",
+      "repeat": 1,
+      "ttfb": 0.7000000476837158,
+      "fcp": 764,
+      "lcp": 764,
+      "cls": 0.04265402843601896,
+      "ready": 2095.800000011921,
+      "longTaskMax": 68,
+      "longTaskTotal": 68,
+      "transfer": 514373,
+      "jsEncoded": 39316,
+      "wasmEncoded": 0,
+      "requests": 39,
+      "actionNextFrame": 19.299999952316284
+    },
+    {
+      "engine": "legacy",
+      "profile": "mobile",
+      "route": "/map/",
+      "cache": "warm",
+      "repeat": 1,
+      "ttfb": 0.5,
+      "fcp": 216,
+      "lcp": 216,
+      "cls": 0,
+      "ready": 918.3000000119209,
+      "longTaskMax": 50,
+      "longTaskTotal": 50,
+      "transfer": 36086,
+      "jsEncoded": 39316,
+      "wasmEncoded": 0,
+      "requests": 40,
+      "actionNextFrame": 18.19999998807907
+    },
+    {
+      "engine": "legacy",
+      "profile": "mobile",
+      "route": "/map/",
+      "cache": "cold-context",
+      "repeat": 2,
+      "ttfb": 0.5,
+      "fcp": 756,
+      "lcp": 756,
+      "cls": 0.04265402843601896,
+      "ready": 2088.300000011921,
+      "longTaskMax": 132,
+      "longTaskTotal": 199,
+      "transfer": 514373,
+      "jsEncoded": 39316,
+      "wasmEncoded": 0,
+      "requests": 39,
+      "actionNextFrame": 21.600000023841858
+    },
+    {
+      "engine": "legacy",
+      "profile": "mobile",
+      "route": "/map/",
+      "cache": "warm",
+      "repeat": 2,
+      "ttfb": 0.800000011920929,
+      "fcp": 212,
+      "lcp": 212,
+      "cls": 0,
+      "ready": 919.1000000238419,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 36086,
+      "jsEncoded": 39316,
+      "wasmEncoded": 0,
+      "requests": 40,
+      "actionNextFrame": 17.80000001192093
+    },
+    {
+      "engine": "rust",
+      "profile": "mobile",
+      "route": "/map/",
+      "cache": "cold-context",
+      "repeat": 2,
+      "ttfb": 0.699999988079071,
+      "fcp": 752,
+      "lcp": 752,
+      "cls": 0.04265402843601896,
+      "ready": 7176.100000023842,
+      "longTaskMax": 195,
+      "longTaskTotal": 329,
+      "transfer": 1166688,
+      "jsEncoded": 14452,
+      "wasmEncoded": 681962,
+      "requests": 23,
+      "actionNextFrame": 20.80000001192093
+    },
+    {
+      "engine": "rust",
+      "profile": "mobile",
+      "route": "/map/",
+      "cache": "warm",
+      "repeat": 2,
+      "ttfb": 0.3999999761581421,
+      "fcp": 216,
+      "lcp": 216,
+      "cls": 0,
+      "ready": 1134.5999999642372,
+      "longTaskMax": 109,
+      "longTaskTotal": 163,
+      "transfer": 36103,
+      "jsEncoded": 14452,
+      "wasmEncoded": 681962,
+      "requests": 24,
+      "actionNextFrame": 21.900000035762787
+    },
+    {
+      "engine": "legacy",
+      "profile": "mobile",
+      "route": "/cv/tech/",
+      "cache": "cold-context",
+      "repeat": 0,
+      "ttfb": 0.3999999761581421,
+      "fcp": 524,
+      "lcp": 524,
+      "cls": 0,
+      "ready": 781.8999999761581,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 71695,
+      "jsEncoded": 24684,
+      "wasmEncoded": 0,
+      "requests": 19,
+      "actionNextFrame": 8.600000023841858
+    },
+    {
+      "engine": "legacy",
+      "profile": "mobile",
+      "route": "/cv/tech/",
+      "cache": "warm",
+      "repeat": 0,
+      "ttfb": 0.5999999642372131,
+      "fcp": 204,
+      "lcp": 204,
+      "cls": 0,
+      "ready": 209.60000002384186,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 5404,
+      "jsEncoded": 25978,
+      "wasmEncoded": 0,
+      "requests": 21,
+      "actionNextFrame": 18.19999998807907
+    },
+    {
+      "engine": "rust",
+      "profile": "mobile",
+      "route": "/cv/tech/",
+      "cache": "cold-context",
+      "repeat": 0,
+      "ttfb": 0.5999999642372131,
+      "fcp": 548,
+      "lcp": 548,
+      "cls": 0.04265402843601896,
+      "ready": 4292.600000023842,
+      "longTaskMax": 79,
+      "longTaskTotal": 79,
+      "transfer": 741333,
+      "jsEncoded": 14401,
+      "wasmEncoded": 681962,
+      "requests": 12,
+      "actionNextFrame": 11.600000023841858
+    },
+    {
+      "engine": "rust",
+      "profile": "mobile",
+      "route": "/cv/tech/",
+      "cache": "warm",
+      "repeat": 0,
+      "ttfb": 0.699999988079071,
+      "fcp": 184,
+      "lcp": 184,
+      "cls": 0,
+      "ready": 253.79999995231628,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 5463,
+      "jsEncoded": 14401,
+      "wasmEncoded": 681962,
+      "requests": 12,
+      "actionNextFrame": 12.599999964237213
+    },
+    {
+      "engine": "rust",
+      "profile": "mobile",
+      "route": "/cv/tech/",
+      "cache": "cold-context",
+      "repeat": 1,
+      "ttfb": 0.5999999642372131,
+      "fcp": 540,
+      "lcp": 540,
+      "cls": 0.04265402843601896,
+      "ready": 4291.199999988079,
+      "longTaskMax": 79,
+      "longTaskTotal": 79,
+      "transfer": 741333,
+      "jsEncoded": 14401,
+      "wasmEncoded": 681962,
+      "requests": 12,
+      "actionNextFrame": 14.400000035762787
+    },
+    {
+      "engine": "rust",
+      "profile": "mobile",
+      "route": "/cv/tech/",
+      "cache": "warm",
+      "repeat": 1,
+      "ttfb": 0.800000011920929,
+      "fcp": 188,
+      "lcp": 188,
+      "cls": 0,
+      "ready": 252.19999998807907,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 5463,
+      "jsEncoded": 14401,
+      "wasmEncoded": 681962,
+      "requests": 12,
+      "actionNextFrame": 16.900000035762787
+    },
+    {
+      "engine": "legacy",
+      "profile": "mobile",
+      "route": "/cv/tech/",
+      "cache": "cold-context",
+      "repeat": 1,
+      "ttfb": 0.5999999642372131,
+      "fcp": 532,
+      "lcp": 532,
+      "cls": 0,
+      "ready": 797.5,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 71695,
+      "jsEncoded": 24684,
+      "wasmEncoded": 0,
+      "requests": 19,
+      "actionNextFrame": 16
+    },
+    {
+      "engine": "legacy",
+      "profile": "mobile",
+      "route": "/cv/tech/",
+      "cache": "warm",
+      "repeat": 1,
+      "ttfb": 0.6000000238418579,
+      "fcp": 200,
+      "lcp": 200,
+      "cls": 0,
+      "ready": 208.0999999642372,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 5404,
+      "jsEncoded": 25978,
+      "wasmEncoded": 0,
+      "requests": 21,
+      "actionNextFrame": 18.899999976158142
+    },
+    {
+      "engine": "legacy",
+      "profile": "mobile",
+      "route": "/cv/tech/",
+      "cache": "cold-context",
+      "repeat": 2,
+      "ttfb": 0.5999999642372131,
+      "fcp": 552,
+      "lcp": 552,
+      "cls": 0,
+      "ready": 783.8000000119209,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 71695,
+      "jsEncoded": 24684,
+      "wasmEncoded": 0,
+      "requests": 19,
+      "actionNextFrame": 14.600000023841858
+    },
+    {
+      "engine": "legacy",
+      "profile": "mobile",
+      "route": "/cv/tech/",
+      "cache": "warm",
+      "repeat": 2,
+      "ttfb": 0.6000000238418579,
+      "fcp": 196,
+      "lcp": 196,
+      "cls": 0,
+      "ready": 227.79999995231628,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 5404,
+      "jsEncoded": 25978,
+      "wasmEncoded": 0,
+      "requests": 21,
+      "actionNextFrame": 13.400000035762787
+    },
+    {
+      "engine": "rust",
+      "profile": "mobile",
+      "route": "/cv/tech/",
+      "cache": "cold-context",
+      "repeat": 2,
+      "ttfb": 0.8999999761581421,
+      "fcp": 548,
+      "lcp": 548,
+      "cls": 0.04265402843601896,
+      "ready": 4282.800000011921,
+      "longTaskMax": 78,
+      "longTaskTotal": 78,
+      "transfer": 741333,
+      "jsEncoded": 14401,
+      "wasmEncoded": 681962,
+      "requests": 12,
+      "actionNextFrame": 11.699999988079071
+    },
+    {
+      "engine": "rust",
+      "profile": "mobile",
+      "route": "/cv/tech/",
+      "cache": "warm",
+      "repeat": 2,
+      "ttfb": 0.6000000238418579,
+      "fcp": 196,
+      "lcp": 196,
+      "cls": 0,
+      "ready": 259.80000001192093,
+      "longTaskMax": 0,
+      "longTaskTotal": 0,
+      "transfer": 5463,
+      "jsEncoded": 14401,
+      "wasmEncoded": 681962,
+      "requests": 12,
+      "actionNextFrame": 14.800000011920929
+    }
+  ],
+  "unknownFixtureEndpoints": {
+    "legacy": [],
+    "rust": []
+  },
+  "assetFailures": {
+    "legacy": [],
+    "rust": []
+  },
+  "assets": {
+    "legacy": [
+      {
+        "path": "/js/site/shell.js",
+        "raw": 5126,
+        "brotli": 2061
+      },
+      {
+        "path": "/js/portal.js",
+        "raw": 1284,
+        "brotli": 628
+      },
+      {
+        "path": "/js/privacy.js",
+        "raw": 3815,
+        "brotli": 1507
+      },
+      {
+        "path": "/js/analytics.js",
+        "raw": 8808,
+        "brotli": 3065
+      },
+      {
+        "path": "/js/inspiration.js",
+        "raw": 2366,
+        "brotli": 1091
+      },
+      {
+        "path": "/js/i18n/bar.js",
+        "raw": 1235,
+        "brotli": 628
+      },
+      {
+        "path": "/js/i18n/page-copy.js",
+        "raw": 4841,
+        "brotli": 1833
+      },
+      {
+        "path": "/js/site/compound-links.js",
+        "raw": 1387,
+        "brotli": 726
+      },
+      {
+        "path": "/js/site/discovery.js",
+        "raw": 4725,
+        "brotli": 1941
+      },
+      {
+        "path": "/js/storage.js",
+        "raw": 1546,
+        "brotli": 737
+      },
+      {
+        "path": "/js/realm-reset.js",
+        "raw": 186,
+        "brotli": 130
+      },
+      {
+        "path": "/js/arrival.js",
+        "raw": 968,
+        "brotli": 509
+      },
+      {
+        "path": "/js/privacy-strings.js",
+        "raw": 3206,
+        "brotli": 1294
+      },
+      {
+        "path": "/js/privacy-stream.js",
+        "raw": 3571,
+        "brotli": 1695
+      },
+      {
+        "path": "/js/analytics-consent.js",
+        "raw": 1855,
+        "brotli": 834
+      },
+      {
+        "path": "/js/inspiration-data.js",
+        "raw": 9325,
+        "brotli": 4075
+      },
+      {
+        "path": "/js/i18n/language.js",
+        "raw": 4972,
+        "brotli": 1986
+      },
+      {
+        "path": "/js/locales/en.js",
+        "raw": 15058,
+        "brotli": 6170
+      },
+      {
+        "path": "/js/social-attribution.js",
+        "raw": 1282,
+        "brotli": 666
+      },
+      {
+        "path": "/js/x-attribution.js",
+        "raw": 1102,
+        "brotli": 568
+      },
+      {
+        "path": "/js/analytics-policy.js",
+        "raw": 14473,
+        "brotli": 5161
+      },
+      {
+        "path": "/js/outbound.js",
+        "raw": 1283,
+        "brotli": 643
+      },
+      {
+        "path": "/js/performance.js",
+        "raw": 427,
+        "brotli": 258
+      },
+      {
+        "path": "/js/quest-attribution.js",
+        "raw": 547,
+        "brotli": 296
+      },
+      {
+        "path": "/js/live-banner.js",
+        "raw": 3066,
+        "brotli": 1400
+      },
+      {
+        "path": "/live.config.js",
+        "raw": 227,
+        "brotli": 172
+      },
+      {
+        "path": "/js/cv-page.js",
+        "raw": 2679,
+        "brotli": 1330
+      }
+    ],
+    "rust": [
+      {
+        "path": "/js/site/shell.js",
+        "raw": 136,
+        "brotli": 100
+      },
+      {
+        "path": "/js/analytics.js",
+        "raw": 151,
+        "brotli": 114
+      },
+      {
+        "path": "/js/portal.js",
+        "raw": 98,
+        "brotli": 84
+      },
+      {
+        "path": "/js/i18n/language.js",
+        "raw": 260,
+        "brotli": 181
+      },
+      {
+        "path": "/js/privacy.js",
+        "raw": 124,
+        "brotli": 95
+      },
+      {
+        "path": "/js/arrival.js",
+        "raw": 260,
+        "brotli": 179
+      },
+      {
+        "path": "/rust/browser/pkg/core/corvus_browser.js",
+        "raw": 97007,
+        "brotli": 13697
+      },
+      {
+        "path": "/rust/browser/pkg/core/corvus_browser_bg.wasm",
+        "raw": 2108863,
+        "brotli": 681962
+      },
+      {
+        "path": "/js/live-banner.js",
+        "raw": 108,
+        "brotli": 86
+      },
+      {
+        "path": "/js/i18n/bar.js",
+        "raw": 115,
+        "brotli": 82
+      },
+      {
+        "path": "/js/cv-page.js",
+        "raw": 200,
+        "brotli": 148
+      }
+    ]
+  }
+}
