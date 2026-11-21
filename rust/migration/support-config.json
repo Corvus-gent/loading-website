@@ -1,0 +1,130 @@
+{
+  "config": {
+    "spotsThisWeek": 5,
+    "weeklyCapacity": 5,
+    "coffeeUSD": 5
+  },
+  "tiers": {
+    "quick": {
+      "label": "⚡ 5 MIN · FREE",
+      "short": "5 min",
+      "paid": false
+    },
+    "coffee": {
+      "label": "☕ 15 MIN · 1 COFFEE ($5)",
+      "short": "15 min",
+      "paid": true
+    },
+    "meet": {
+      "label": "🤝 MEET IN SF · 1 COFFEE",
+      "short": "meet in SF",
+      "paid": true
+    }
+  },
+  "bmcURL": "https://buymeacoffee.com/gabe.maxxing",
+  "linkedinURL": "https://www.linkedin.com/in/francisco-gabriel-van-langenhove/",
+  "links": [
+    [
+      "call-li",
+      {
+        "kind": "call",
+        "source": "linkedin",
+        "label": "call · LinkedIn"
+      }
+    ],
+    [
+      "call-x",
+      {
+        "kind": "call",
+        "source": "x",
+        "label": "call · X"
+      }
+    ],
+    [
+      "bmc-li",
+      {
+        "kind": "bmc",
+        "source": "linkedin",
+        "label": "bmc · LinkedIn"
+      }
+    ],
+    [
+      "bmc-x",
+      {
+        "kind": "bmc",
+        "source": "x",
+        "label": "bmc · X"
+      }
+    ],
+    [
+      "dinner-li",
+      {
+        "kind": "dinner",
+        "source": "linkedin",
+        "label": "dinner · LinkedIn"
+      }
+    ],
+    [
+      "dinner-x",
+      {
+        "kind": "dinner",
+        "source": "x",
+        "label": "dinner · X"
+      }
+    ],
+    [
+      "roll-li",
+      {
+        "kind": "roll",
+        "source": "linkedin",
+        "label": "roll · LinkedIn"
+      }
+    ],
+    [
+      "roll-x",
+      {
+        "kind": "roll",
+        "source": "x",
+        "label": "roll · X"
+      }
+    ]
+  ],
+  "steps": [
+    [
+      "call-coffee",
+      "Call · Buy Me a Coffee"
+    ],
+    [
+      "request-quick",
+      "Requests · 5 min free"
+    ],
+    [
+      "request-coffee",
+      "Requests · 15 min coffee"
+    ],
+    [
+      "request-meet",
+      "Requests · meet in SF"
+    ],
+    [
+      "dinner-linkedin",
+      "Dinner · LinkedIn DM"
+    ],
+    [
+      "dinner-instagram",
+      "Dinner · Instagram DM"
+    ],
+    [
+      "dinner-x",
+      "Dinner · X DM"
+    ],
+    [
+      "roll-instagram",
+      "Roll / surf · Instagram DM"
+    ],
+    [
+      "roll-x",
+      "Roll / surf · X DM"
+    ]
+  ]
+}

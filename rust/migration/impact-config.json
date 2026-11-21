@@ -1,0 +1,115 @@
+{
+  "accounts": {
+    "tt": {
+      "name": "TikTok",
+      "query": "tiktok",
+      "handles": [
+        "gabriellvl",
+        "gabinho_bjj",
+        "gabe.maxxing"
+      ]
+    },
+    "ig": {
+      "name": "Instagram",
+      "query": "instagram",
+      "handles": [
+        "gabe.maxxing",
+        "gabinho_bjj",
+        "",
+        ""
+      ]
+    },
+    "x": {
+      "name": "X",
+      "query": "x",
+      "handles": [
+        "gabe_maxxing",
+        ""
+      ]
+    },
+    "li": {
+      "name": "LinkedIn",
+      "query": "linkedin",
+      "handles": [
+        "francisco-gabriel-van-langenhove"
+      ]
+    },
+    "tw": {
+      "name": "Twitch",
+      "query": "twitch",
+      "handles": [
+        "gabe_maxxing"
+      ]
+    },
+    "yt": {
+      "name": "YouTube",
+      "query": "youtube",
+      "handles": [
+        ""
+      ]
+    }
+  },
+  "weights": {
+    "views": 1,
+    "likes": 3,
+    "comments": 8,
+    "shares": 10,
+    "saves": 5
+  },
+  "supported": {
+    "tt": [
+      "views",
+      "likes",
+      "comments",
+      "shares",
+      "saves"
+    ],
+    "ig": [
+      "views",
+      "likes",
+      "comments",
+      "shares",
+      "saves"
+    ],
+    "x": [
+      "views",
+      "likes",
+      "comments",
+      "shares",
+      "saves"
+    ],
+    "li": [
+      "views",
+      "likes",
+      "comments",
+      "shares",
+      "saves"
+    ],
+    "yt": [
+      "views",
+      "likes",
+      "comments",
+      "shares"
+    ],
+    "tw": [
+      "views"
+    ]
+  },
+  "labels": {
+    "x": {
+      "views": "impressions",
+      "shares": "reposts + quotes",
+      "saves": "bookmarks"
+    },
+    "li": {
+      "likes": "reactions",
+      "shares": "reposts"
+    },
+    "tt": {
+      "views": "views / plays"
+    },
+    "ig": {
+      "views": "views / plays"
+    }
+  }
+}

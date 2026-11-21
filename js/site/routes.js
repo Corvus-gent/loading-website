@@ -567,14 +567,6 @@ export const CURATED_ROUTES = [
     "status": "secret"
   },
   {
-    "path": "/hack/the-feed/",
-    "file": "hack/the-feed/index.html",
-    "section": "quests",
-    "title": "HackTheFeed · original demo door",
-    "description": "The original try-page, kept intact.",
-    "status": "archive"
-  },
-  {
     "path": "/hackthefeed/2/",
     "file": "hackthefeed/2/index.html",
     "section": "quests",

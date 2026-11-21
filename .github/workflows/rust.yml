@@ -1,0 +1,134 @@
+name: Rust migration contracts
+on:
+  pull_request:
+  push:
+    branches: ['codex/rust-migration']
+permissions:
+  contents: read
+concurrency:
+  group: rust-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  parity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - name: Verify migration measurement rules
+        run: |
+          node tests/rust/measure-source.mjs
+          node tests/rust/performance-evidence.mjs
+          node tests/rust/retired-pages.mjs
+      - name: Record source change ledger
+        run: node tools/rust/measure-source.mjs
+      - name: Preserve code change evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: rust-source-ledger-${{ github.sha }}
+          path: test-results/rust/measurements/source-*
+          if-no-files-found: error
+      - name: Install pinned Rust toolchain and local Redis
+        run: |
+          rustup show
+          sudo apt-get update -qq
+          sudo apt-get install -y redis-server
+      - run: cargo fmt --all --check
+      - run: node tools/rust/locales.mjs --check
+      - run: node tools/rust/config-data.mjs --check
+      - run: cargo clippy --locked --workspace --all-targets -- -D warnings
+      - run: cargo test --locked --workspace
+      - run: cargo check --locked -p corvus-browser --target wasm32-unknown-unknown
+      - run: cargo clippy --locked -p corvus-browser --no-default-features --target wasm32-unknown-unknown -- -D warnings
+      - run: cargo build --locked --bins
+      - run: node tools/rust/parity.mjs
+      - run: node tests/rust/compound-model.mjs
+      - run: node tests/rust/compound-share.mjs
+      - run: node tests/rust/compound-original-model.mjs
+      - run: node tests/rust/compound-stripe.mjs
+      - run: node tests/rust/legion-model.mjs
+      - run: node tests/rust/army-model.mjs
+      - run: node tests/rust/army-store.mjs
+      - run: node tests/rust/army-auth.mjs
+      - run: node tests/rust/army-public.mjs
+      - run: node tests/rust/army-service.mjs
+      - run: node tests/rust/army-jobs.mjs
+      - run: node tests/rust/army-http.mjs
+      - run: node tests/rust/army-art.mjs
+      - run: node tests/rust/og-model.mjs
+      - run: node tests/rust/site-model.mjs
+      - run: node tests/rust/analytics-model.mjs
+      - run: node tests/rust/visitor-model.mjs
+      - run: node tests/rust/stats-snapshot.mjs
+      - run: node tests/rust/stats-snapshot-view.mjs
+      - run: node tests/rust/stats-snapshot-store.mjs
+      - run: node tests/rust/stats-daily-http.mjs
+      - run: node tests/rust/coffee-model.mjs
+      - run: node tests/rust/coffee-http.mjs
+      - run: node tests/rust/cv-http.mjs
+      - run: node tests/rust/health-model.mjs
+      - run: node tests/rust/health-store.mjs
+      - run: node tests/rust/stats-model.mjs
+      - run: node tests/rust/stats-store.mjs
+      - run: node tests/rust/stats-http.mjs
+      - run: node tests/rust/visitor-http.mjs
+      - run: node tests/rust/og-render.mjs
+      - run: node tests/rust/og-http.mjs
+      - run: node tests/rust/army-payments.mjs
+      - run: node tests/rust/army-capacity.mjs
+      - run: node tests/rust/army-discord.mjs
+      - run: node tests/rust/army-mail.mjs
+      - run: node tests/rust/legion-store.mjs
+      - run: node tests/rust/legion-admission.mjs
+      - run: node tests/rust/legion-newsletter.mjs
+      - run: node tests/rust/legion-payments.mjs
+      - run: node tests/rust/legion-photos.mjs
+      - run: node tests/rust/legion-upload.mjs
+      - run: node tests/rust/compound-original-store.mjs
+      - run: node tests/rust/interview-model.mjs
+      - run: node tests/rust/impact-model.mjs
+      - run: node tests/rust/impact-providers.mjs
+      - run: node tools/rust/routing-parity.mjs
+      - run: node tests/rust/source-privacy.mjs
+      - run: node tests/rust/build-boundary.mjs
+      - run: node tests/rust/auth-parity.mjs
+      - run: tools/rust/build-browser.sh
+      - run: node tests/rust/browser-profiles.mjs
+      - run: npx playwright install --with-deps chromium
+      - run: node tests/rust/browser.mjs
+      - run: node tests/rust/user-flows.mjs
+      - run: node tests/rust/battle-browser.mjs
+      - run: node tests/rust/compound-client.mjs
+      - run: node tests/rust/compound-browser.mjs
+      - run: node tests/rust/compound-admin-render.mjs
+      - run: node tests/rust/compound-editor-render.mjs
+      - run: node tests/rust/compound-editor-browser.mjs
+      - run: node tests/rust/compound-editor-public-render.mjs
+      - run: node tests/rust/compound-editor-public-browser.mjs
+      - run: node tests/rust/interviews-browser.mjs
+      - run: node tests/rust/legion-browser.mjs
+      - run: node tests/rust/legion-render.mjs
+      - run: node tests/rust/army-render.mjs
+      - run: node tests/rust/army-browser.mjs
+      - run: node tests/rust/site-browser.mjs
+      - run: node tests/rust/site-built.mjs
+      - run: node tests/rust/cv-browser.mjs
+      - run: node tests/rust/philosophy-browser.mjs
+      - run: node tests/rust/page-copy-browser.mjs
+      - run: node tests/rust/realm-browser.mjs
+      - run: node tests/rust/realm-motion-browser.mjs
+      - run: node tests/rust/site-legacy-browser.mjs
+      - run: node tests/rust/legion-letters.mjs
+      - run: node tests/rust/impact-browser.mjs
+      - run: node tests/rust/impact-render.mjs
+      - run: node tests/rust/privacy-browser.mjs
+      - run: node tests/rust/analytics-browser.mjs
+      - run: node tests/rust/short-browser.mjs
+      - name: Keep generated parity fixtures reproducible
+        run: git diff --exit-code -- rust/fixtures

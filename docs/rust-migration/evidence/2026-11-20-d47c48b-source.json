@@ -1,0 +1,4139 @@
+{
+  "version": 1,
+  "measuredAt": "2026-11-20T14:42:28.708Z",
+  "start": "0a34babbba561abcffc1aa7e4356de4d8855adf7",
+  "head": "d47c48bc4826f7931cb2b4c38a8733c3fdb8da7d",
+  "upstream": "f0f340912da6f1c7b4df2346ef3bdbf854fa917e",
+  "integrationBase": "f0f340912da6f1c7b4df2346ef3bdbf854fa917e",
+  "method": "Physical source lines, including comments and blank lines, with the existing /build source filter. JSON, lockfiles, binaries, vendored/minified code, public assets and client archives are excluded by that policy. Generated compatibility templates/SQL and verification/tooling are separated. Renames count as deletion plus addition. This is change volume, not completed migration percentage or performance.",
+  "caveat": "Original JavaScript remains until final cutover. Added Rust is staged implementation, not evidence that equivalent legacy lines have already been removed. Since-start totals also contain upstream feature work; the integration-base diff isolates the current branch contribution.",
+  "base": {
+    "sha": "f0f340912da6f1c7b4df2346ef3bdbf854fa917e",
+    "sourceFiles": 804,
+    "sourceLines": 123321,
+    "application": 114207,
+    "verificationAndTooling": 9114,
+    "generatedCompatibility": 0
+  },
+  "current": {
+    "sha": "d47c48bc4826f7931cb2b4c38a8733c3fdb8da7d",
+    "sourceFiles": 1089,
+    "sourceLines": 175878,
+    "application": 162648,
+    "verificationAndTooling": 13216,
+    "generatedCompatibility": 14
+  },
+  "migration": {
+    "base": "f0f340912da6f1c7b4df2346ef3bdbf854fa917e",
+    "head": "d47c48bc4826f7931cb2b4c38a8733c3fdb8da7d",
+    "files": [
+      {
+        "path": ".github/workflows/checks.yml",
+        "added": 1,
+        "removed": 1,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": ".github/workflows/rust.yml",
+        "added": 131,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "api/rust.rs",
+        "added": 17,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "css/site/shell.css",
+        "added": 3,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "middleware.js",
+        "added": 8,
+        "removed": 1,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/live-banner.html",
+        "added": 1,
+        "removed": 0,
+        "category": "generatedCompatibility"
+      },
+      {
+        "path": "rust/browser/privacy-notice.html",
+        "added": 1,
+        "removed": 0,
+        "category": "generatedCompatibility"
+      },
+      {
+        "path": "rust/browser/site-cardneto.html",
+        "added": 1,
+        "removed": 0,
+        "category": "generatedCompatibility"
+      },
+      {
+        "path": "rust/browser/site-search.html",
+        "added": 1,
+        "removed": 0,
+        "category": "generatedCompatibility"
+      },
+      {
+        "path": "rust/browser/site-terminal.html",
+        "added": 9,
+        "removed": 0,
+        "category": "generatedCompatibility"
+      },
+      {
+        "path": "rust/browser/src/analytics.rs",
+        "added": 244,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/analytics/runtime.rs",
+        "added": 485,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/analytics/short.rs",
+        "added": 176,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/army/access.rs",
+        "added": 404,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/army/admin.rs",
+        "added": 507,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/army/client.rs",
+        "added": 439,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/army/gate.rs",
+        "added": 410,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/army/mod.rs",
+        "added": 145,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/army/public.rs",
+        "added": 353,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/arrival.rs",
+        "added": 81,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/battle.rs",
+        "added": 519,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/battle_admin.rs",
+        "added": 193,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/compound_admin/links.rs",
+        "added": 425,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/compound_admin/mod.rs",
+        "added": 1096,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/compound_client.rs",
+        "added": 286,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/compound_editor/admin.rs",
+        "added": 852,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/compound_editor/clock.rs",
+        "added": 62,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/compound_editor/cut.html",
+        "added": 1,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/compound_editor/cut.rs",
+        "added": 955,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/compound_editor/dom.rs",
+        "added": 91,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/compound_editor/mod.rs",
+        "added": 119,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/compound_editor/public.rs",
+        "added": 1009,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/compound_v2.rs",
+        "added": 885,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/consent.rs",
+        "added": 163,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/cv.rs",
+        "added": 146,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/impact/admin.rs",
+        "added": 661,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/impact/mod.rs",
+        "added": 861,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/interviews.rs",
+        "added": 205,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/interviews_admin.rs",
+        "added": 426,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/language.rs",
+        "added": 428,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/legion/admin.rs",
+        "added": 596,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/legion/editor.rs",
+        "added": 225,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/legion/invite.rs",
+        "added": 88,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/legion/mod.rs",
+        "added": 173,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/legion/public.rs",
+        "added": 335,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/legion/senate.rs",
+        "added": 284,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/legion/senate_admin.rs",
+        "added": 216,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/lib.rs",
+        "added": 53,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/live_banner.rs",
+        "added": 241,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/page_copy.rs",
+        "added": 340,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/portal.rs",
+        "added": 137,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/privacy.rs",
+        "added": 282,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/privacy_page.rs",
+        "added": 174,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/site/corner.rs",
+        "added": 207,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/site/discovery.rs",
+        "added": 220,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/site/effects.rs",
+        "added": 94,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/site/eggs.rs",
+        "added": 227,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/site/feature.rs",
+        "added": 107,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/site/inspiration.rs",
+        "added": 159,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/site/mod.rs",
+        "added": 307,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/site/realm.rs",
+        "added": 451,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/site/shell.rs",
+        "added": 450,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/site/terminal.rs",
+        "added": 295,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/support.rs",
+        "added": 254,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/support_admin.rs",
+        "added": 263,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/ui.rs",
+        "added": 206,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/core/src/analytics.rs",
+        "added": 761,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/core/src/army.rs",
+        "added": 140,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/core/src/army_art.rs",
+        "added": 167,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/core/src/attribution.rs",
+        "added": 76,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/core/src/compound_share.rs",
+        "added": 182,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/core/src/impact.rs",
+        "added": 318,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/core/src/lib.rs",
+        "added": 16,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/core/src/metrics.rs",
+        "added": 165,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/core/src/plethora.rs",
+        "added": 59,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/core/src/routing.rs",
+        "added": 557,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/core/src/site.rs",
+        "added": 143,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/core/src/tiers.rs",
+        "added": 86,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/core/src/videos.rs",
+        "added": 225,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/migration/impact-admin.html",
+        "added": 1,
+        "removed": 0,
+        "category": "generatedCompatibility"
+      },
+      {
+        "path": "rust/server/army/auth.rs",
+        "added": 180,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/copy.rs",
+        "added": 25,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/discord.rs",
+        "added": 478,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/discord_model.rs",
+        "added": 171,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/handler.rs",
+        "added": 378,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/images.rs",
+        "added": 79,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/jobs.rs",
+        "added": 152,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/lifecycle.rs",
+        "added": 380,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/mail.rs",
+        "added": 497,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/mod.rs",
+        "added": 21,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/model.rs",
+        "added": 178,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/payments.rs",
+        "added": 358,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/pidgy.rs",
+        "added": 74,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/public.rs",
+        "added": 265,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/referrals.rs",
+        "added": 193,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/security.rs",
+        "added": 157,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/service.rs",
+        "added": 399,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/store.rs",
+        "added": 324,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/transport.rs",
+        "added": 101,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/webhooks.rs",
+        "added": 155,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/auth.rs",
+        "added": 284,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/battle.rs",
+        "added": 459,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound/admin.rs",
+        "added": 190,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound/events.rs",
+        "added": 211,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound/feedback.rs",
+        "added": 493,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound/handler.rs",
+        "added": 511,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound/links.rs",
+        "added": 42,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound/mod.rs",
+        "added": 13,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound/model.rs",
+        "added": 270,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound/payments.rs",
+        "added": 268,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound/security.rs",
+        "added": 101,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound/store.rs",
+        "added": 332,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound_v2/handler.rs",
+        "added": 472,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound_v2/mod.rs",
+        "added": 11,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound_v2/model.rs",
+        "added": 354,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound_v2/push.rs",
+        "added": 117,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound_v2/queue.rs",
+        "added": 96,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound_v2/reports.rs",
+        "added": 284,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound_v2/security.rs",
+        "added": 127,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound_v2/store.rs",
+        "added": 358,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound_v2/summary.rs",
+        "added": 165,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound_v2/sync.rs",
+        "added": 210,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound_v2/uploads.rs",
+        "added": 183,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/config.rs",
+        "added": 163,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/contract.rs",
+        "added": 1591,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/crypto.rs",
+        "added": 141,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/cv.rs",
+        "added": 114,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/dev.rs",
+        "added": 12,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/hack.rs",
+        "added": 473,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/http_tests.rs",
+        "added": 327,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/impact/handler.rs",
+        "added": 279,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/impact/links.rs",
+        "added": 98,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/impact/mod.rs",
+        "added": 8,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/impact/model.rs",
+        "added": 459,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/impact/providers/http.rs",
+        "added": 283,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/impact/providers/mod.rs",
+        "added": 84,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/impact/providers/owner.rs",
+        "added": 326,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/impact/providers/social.rs",
+        "added": 287,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/impact/samples.rs",
+        "added": 40,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/impact/store.rs",
+        "added": 574,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/impact/sync.rs",
+        "added": 308,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/interviews/handler.rs",
+        "added": 236,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/interviews/mod.rs",
+        "added": 3,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/interviews/photos.rs",
+        "added": 361,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/interviews/store.rs",
+        "added": 253,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/layers.rs",
+        "added": 413,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/legion/applications.rs",
+        "added": 136,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/legion/handler.rs",
+        "added": 602,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/legion/mail.rs",
+        "added": 70,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/legion/mod.rs",
+        "added": 12,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/legion/model.rs",
+        "added": 229,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/legion/newsletter.rs",
+        "added": 155,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/legion/partners.rs",
+        "added": 183,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/legion/payments.rs",
+        "added": 126,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/legion/photos.rs",
+        "added": 176,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/legion/security.rs",
+        "added": 134,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/legion/senate.rs",
+        "added": 289,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/legion/store.rs",
+        "added": 467,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/lib.rs",
+        "added": 223,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/live.rs",
+        "added": 309,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/live/tests.rs",
+        "added": 119,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/live_interviews.rs",
+        "added": 293,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/name_vote.rs",
+        "added": 452,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/og/handler.rs",
+        "added": 184,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/og/mod.rs",
+        "added": 3,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/og/model.rs",
+        "added": 274,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/og/render.rs",
+        "added": 591,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/plethora.rs",
+        "added": 677,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/stats/coffee.rs",
+        "added": 279,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/stats/handler.rs",
+        "added": 388,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/stats/health.rs",
+        "added": 439,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/stats/mod.rs",
+        "added": 60,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/stats/model.rs",
+        "added": 172,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/stats/snapshot.rs",
+        "added": 319,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/stats/view.rs",
+        "added": 188,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/store.rs",
+        "added": 253,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/support.rs",
+        "added": 799,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/visitors/mod.rs",
+        "added": 445,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/visitors/model.rs",
+        "added": 341,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/voter.rs",
+        "added": 172,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "tests/check_links_contracts.py",
+        "added": 15,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/hack-live-mode.mjs",
+        "added": 9,
+        "removed": 7,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/helpers/built-site.mjs",
+        "added": 16,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/helpers/rust-bridges.mjs",
+        "added": 77,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/helpers/rust-runtime.mjs",
+        "added": 47,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/helpers/rust-site.mjs",
+        "added": 36,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/interview-quick-add.mjs",
+        "added": 4,
+        "removed": 2,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/live-banner-browser.mjs",
+        "added": 9,
+        "removed": 8,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/analytics-browser.mjs",
+        "added": 34,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/analytics-model.mjs",
+        "added": 17,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/army-art.mjs",
+        "added": 25,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/army-auth.mjs",
+        "added": 34,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/army-browser.mjs",
+        "added": 28,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/army-capacity.mjs",
+        "added": 30,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/army-discord.mjs",
+        "added": 46,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/army-http.mjs",
+        "added": 42,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/army-jobs.mjs",
+        "added": 26,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/army-mail.mjs",
+        "added": 42,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/army-model.mjs",
+        "added": 21,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/army-payments.mjs",
+        "added": 39,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/army-public.mjs",
+        "added": 22,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/army-render.mjs",
+        "added": 22,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/army-service.mjs",
+        "added": 50,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/army-store.mjs",
+        "added": 60,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/auth-parity.mjs",
+        "added": 105,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/battle-browser.mjs",
+        "added": 48,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/battle-parity.mjs",
+        "added": 54,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/browser.mjs",
+        "added": 110,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/build-boundary.mjs",
+        "added": 19,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/coffee-http.mjs",
+        "added": 24,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/coffee-model.mjs",
+        "added": 15,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/compound-admin-render.mjs",
+        "added": 18,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/compound-browser.mjs",
+        "added": 46,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/compound-client.mjs",
+        "added": 28,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/compound-editor-browser.mjs",
+        "added": 26,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/compound-editor-public-browser.mjs",
+        "added": 41,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/compound-editor-public-render.mjs",
+        "added": 25,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/compound-editor-render.mjs",
+        "added": 24,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/compound-http.mjs",
+        "added": 50,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/compound-model.mjs",
+        "added": 56,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/compound-original-http.mjs",
+        "added": 49,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/compound-original-model.mjs",
+        "added": 26,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/compound-original-store.mjs",
+        "added": 82,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/compound-share.mjs",
+        "added": 16,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/compound-store.mjs",
+        "added": 85,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/compound-stripe.mjs",
+        "added": 17,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/cv-browser.mjs",
+        "added": 22,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/cv-http.mjs",
+        "added": 28,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/hack-parity.mjs",
+        "added": 39,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/health-model.mjs",
+        "added": 24,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/health-store.mjs",
+        "added": 29,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/impact-browser.mjs",
+        "added": 40,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/impact-http.mjs",
+        "added": 33,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/impact-model.mjs",
+        "added": 33,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/impact-providers.mjs",
+        "added": 99,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/impact-render.mjs",
+        "added": 37,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/impact-store.mjs",
+        "added": 53,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/interview-model.mjs",
+        "added": 18,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/interviews-browser.mjs",
+        "added": 30,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/interviews-parity.mjs",
+        "added": 42,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/legion-admission.mjs",
+        "added": 46,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/legion-browser.mjs",
+        "added": 29,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/legion-http.mjs",
+        "added": 42,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/legion-letters.mjs",
+        "added": 10,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/legion-model.mjs",
+        "added": 33,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/legion-newsletter.mjs",
+        "added": 37,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/legion-payments.mjs",
+        "added": 24,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/legion-photos.mjs",
+        "added": 17,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/legion-render.mjs",
+        "added": 25,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/legion-store.mjs",
+        "added": 30,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/legion-upload.mjs",
+        "added": 26,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/live-parity.mjs",
+        "added": 40,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/measure-source.mjs",
+        "added": 13,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/name-vote-parity.mjs",
+        "added": 52,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/og-http.mjs",
+        "added": 24,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/og-model.mjs",
+        "added": 18,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/og-render.mjs",
+        "added": 19,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/page-copy-browser.mjs",
+        "added": 40,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/performance-evidence.mjs",
+        "added": 13,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/philosophy-browser.mjs",
+        "added": 10,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/plethora-parity.mjs",
+        "added": 36,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/preview-readonly.mjs",
+        "added": 56,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/privacy-browser.mjs",
+        "added": 84,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/realm-browser.mjs",
+        "added": 33,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/realm-motion-browser.mjs",
+        "added": 14,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/short-browser.mjs",
+        "added": 16,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/site-browser.mjs",
+        "added": 25,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/site-built.mjs",
+        "added": 21,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/site-legacy-browser.mjs",
+        "added": 19,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/site-model.mjs",
+        "added": 9,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/source-privacy.mjs",
+        "added": 12,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/stats-daily-http.mjs",
+        "added": 25,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/stats-http.mjs",
+        "added": 33,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/stats-model.mjs",
+        "added": 33,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/stats-snapshot-store.mjs",
+        "added": 40,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/stats-snapshot-view.mjs",
+        "added": 31,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/stats-snapshot.mjs",
+        "added": 31,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/stats-store.mjs",
+        "added": 17,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/support-parity.mjs",
+        "added": 54,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/user-flows.mjs",
+        "added": 47,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/visitor-http.mjs",
+        "added": 27,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/visitor-model.mjs",
+        "added": 15,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/voter-parity.mjs",
+        "added": 25,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tools/check-links.py",
+        "added": 41,
+        "removed": 28,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tools/rust/build-browser.sh",
+        "added": 9,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tools/rust/config-data.mjs",
+        "added": 172,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tools/rust/locales.mjs",
+        "added": 5,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tools/rust/measure-source.mjs",
+        "added": 57,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tools/rust/parity.mjs",
+        "added": 76,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tools/rust/performance-report.mjs",
+        "added": 38,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tools/rust/performance.mjs",
+        "added": 86,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tools/rust/routing-parity.mjs",
+        "added": 31,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tools/site/build.mjs",
+        "added": 12,
+        "removed": 4,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tools/site/link-inventory.mjs",
+        "added": 1,
+        "removed": 1,
+        "category": "verificationAndTooling"
+      }
+    ],
+    "groups": {
+      "application": {
+        "files": 172,
+        "added": 48442,
+        "removed": 1,
+        "net": 48441
+      },
+      "verificationAndTooling": {
+        "files": 116,
+        "added": 4153,
+        "removed": 51,
+        "net": 4102
+      },
+      "generatedCompatibility": {
+        "files": 6,
+        "added": 14,
+        "removed": 0,
+        "net": 14
+      }
+    },
+    "added": 52609,
+    "removed": 52
+  },
+  "sinceStart": {
+    "base": "0a34babbba561abcffc1aa7e4356de4d8855adf7",
+    "head": "d47c48bc4826f7931cb2b4c38a8733c3fdb8da7d",
+    "files": [
+      {
+        "path": ".github/workflows/checks.yml",
+        "added": 5,
+        "removed": 1,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": ".github/workflows/rust.yml",
+        "added": 131,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "api/_cv-download.js",
+        "added": 27,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "api/_worldcraft.js",
+        "added": 1,
+        "removed": 1,
+        "category": "application"
+      },
+      {
+        "path": "api/cv.js",
+        "added": 12,
+        "removed": 23,
+        "category": "application"
+      },
+      {
+        "path": "api/rust.rs",
+        "added": 17,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "compound/impact/index.html",
+        "added": 2,
+        "removed": 1,
+        "category": "application"
+      },
+      {
+        "path": "compound/impact/style.css",
+        "added": 2,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "css/cv-application.css",
+        "added": 11,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "css/inspiration.css",
+        "added": 3,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "css/profile.css",
+        "added": 9,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "css/site/shell.css",
+        "added": 4,
+        "removed": 1,
+        "category": "application"
+      },
+      {
+        "path": "css/tattoo.css",
+        "added": 97,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "curiositycraft/index.html",
+        "added": 1,
+        "removed": 1,
+        "category": "application"
+      },
+      {
+        "path": "curiositycraft/qr/index.html",
+        "added": 1,
+        "removed": 1,
+        "category": "application"
+      },
+      {
+        "path": "cv/filosofie/index.html",
+        "added": 19,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "cv/filosofie/reading.css",
+        "added": 154,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "cv/index.html",
+        "added": 1,
+        "removed": 1,
+        "category": "application"
+      },
+      {
+        "path": "cv/philosophy/de/index.html",
+        "added": 19,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "cv/philosophy/es/index.html",
+        "added": 19,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "cv/philosophy/fr/index.html",
+        "added": 19,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "cv/philosophy/index.html",
+        "added": 19,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "cv/philosophy/pt/index.html",
+        "added": 19,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "cv/philosophy/zh/index.html",
+        "added": 19,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "cv/social-media/index.html",
+        "added": 16,
+        "removed": 272,
+        "category": "application"
+      },
+      {
+        "path": "cv/studies/berkeley/index.html",
+        "added": 17,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "cv/studies/harvard/index.html",
+        "added": 17,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "cv/studies/stanford/index.html",
+        "added": 17,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "cv/tech/index.html",
+        "added": 17,
+        "removed": 1,
+        "category": "application"
+      },
+      {
+        "path": "cv/work/amazon/index.html",
+        "added": 17,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "cv/work/anthropic/index.html",
+        "added": 17,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "cv/work/apple/index.html",
+        "added": 17,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "cv/work/google/index.html",
+        "added": 17,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "cv/work/mistral/index.html",
+        "added": 17,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "cv/work/openai/index.html",
+        "added": 17,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "forms/index.html",
+        "added": 1,
+        "removed": 1,
+        "category": "application"
+      },
+      {
+        "path": "hack/live-mode.js",
+        "added": 1,
+        "removed": 1,
+        "category": "application"
+      },
+      {
+        "path": "hack/stats.js",
+        "added": 58,
+        "removed": 4,
+        "category": "application"
+      },
+      {
+        "path": "js/cv-page.js",
+        "added": 40,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "js/forms-view.js",
+        "added": 4,
+        "removed": 2,
+        "category": "application"
+      },
+      {
+        "path": "js/i18n/bar.js",
+        "added": 20,
+        "removed": 2,
+        "category": "application"
+      },
+      {
+        "path": "js/i18n/language.js",
+        "added": 10,
+        "removed": 2,
+        "category": "application"
+      },
+      {
+        "path": "js/i18n/page-copy.js",
+        "added": 130,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "js/inspiration-data.js",
+        "added": 62,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "js/inspiration.js",
+        "added": 13,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "js/philosophy-page.js",
+        "added": 6,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "js/site/routes.js",
+        "added": 1,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "js/site/shell.js",
+        "added": 3,
+        "removed": 1,
+        "category": "application"
+      },
+      {
+        "path": "js/stats-army.js",
+        "added": 30,
+        "removed": 8,
+        "category": "application"
+      },
+      {
+        "path": "js/stats-atlas.js",
+        "added": 18,
+        "removed": 6,
+        "category": "application"
+      },
+      {
+        "path": "js/stats-countries.js",
+        "added": 8,
+        "removed": 5,
+        "category": "application"
+      },
+      {
+        "path": "js/stats-data.js",
+        "added": 38,
+        "removed": 19,
+        "category": "application"
+      },
+      {
+        "path": "js/stats-games.js",
+        "added": 11,
+        "removed": 6,
+        "category": "application"
+      },
+      {
+        "path": "js/stats-hunt.js",
+        "added": 11,
+        "removed": 4,
+        "category": "application"
+      },
+      {
+        "path": "js/stats-map.js",
+        "added": 32,
+        "removed": 11,
+        "category": "application"
+      },
+      {
+        "path": "js/stats-pidgy.js",
+        "added": 12,
+        "removed": 5,
+        "category": "application"
+      },
+      {
+        "path": "js/stats-status.js",
+        "added": 25,
+        "removed": 13,
+        "category": "application"
+      },
+      {
+        "path": "js/stats-support.js",
+        "added": 6,
+        "removed": 2,
+        "category": "application"
+      },
+      {
+        "path": "js/stats-view.js",
+        "added": 28,
+        "removed": 5,
+        "category": "application"
+      },
+      {
+        "path": "js/stats-x.js",
+        "added": 20,
+        "removed": 11,
+        "category": "application"
+      },
+      {
+        "path": "js/stats.js",
+        "added": 81,
+        "removed": 49,
+        "category": "application"
+      },
+      {
+        "path": "js/status-graph.js",
+        "added": 48,
+        "removed": 37,
+        "category": "application"
+      },
+      {
+        "path": "js/tattoo.js",
+        "added": 32,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "js/x-clocks.js",
+        "added": 7,
+        "removed": 2,
+        "category": "application"
+      },
+      {
+        "path": "lib/cv/github-evidence.mjs",
+        "added": 11,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "lib/cv/page.mjs",
+        "added": 33,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "lib/cv/pdf-contract.mjs",
+        "added": 39,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "lib/philosophy/page.mjs",
+        "added": 20,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "middleware.js",
+        "added": 8,
+        "removed": 1,
+        "category": "application"
+      },
+      {
+        "path": "migration/rust/filosofie.rs",
+        "added": 10,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/live-banner.html",
+        "added": 1,
+        "removed": 0,
+        "category": "generatedCompatibility"
+      },
+      {
+        "path": "rust/browser/privacy-notice.html",
+        "added": 1,
+        "removed": 0,
+        "category": "generatedCompatibility"
+      },
+      {
+        "path": "rust/browser/site-cardneto.html",
+        "added": 1,
+        "removed": 0,
+        "category": "generatedCompatibility"
+      },
+      {
+        "path": "rust/browser/site-search.html",
+        "added": 1,
+        "removed": 0,
+        "category": "generatedCompatibility"
+      },
+      {
+        "path": "rust/browser/site-terminal.html",
+        "added": 9,
+        "removed": 0,
+        "category": "generatedCompatibility"
+      },
+      {
+        "path": "rust/browser/src/analytics.rs",
+        "added": 244,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/analytics/runtime.rs",
+        "added": 485,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/analytics/short.rs",
+        "added": 176,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/army/access.rs",
+        "added": 404,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/army/admin.rs",
+        "added": 507,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/army/client.rs",
+        "added": 439,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/army/gate.rs",
+        "added": 410,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/army/mod.rs",
+        "added": 145,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/army/public.rs",
+        "added": 353,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/arrival.rs",
+        "added": 81,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/battle.rs",
+        "added": 519,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/battle_admin.rs",
+        "added": 193,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/compound_admin/links.rs",
+        "added": 425,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/compound_admin/mod.rs",
+        "added": 1096,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/compound_client.rs",
+        "added": 286,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/compound_editor/admin.rs",
+        "added": 852,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/compound_editor/clock.rs",
+        "added": 62,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/compound_editor/cut.html",
+        "added": 1,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/compound_editor/cut.rs",
+        "added": 955,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/compound_editor/dom.rs",
+        "added": 91,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/compound_editor/mod.rs",
+        "added": 119,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/compound_editor/public.rs",
+        "added": 1009,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/compound_v2.rs",
+        "added": 885,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/consent.rs",
+        "added": 163,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/cv.rs",
+        "added": 146,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/impact/admin.rs",
+        "added": 661,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/impact/mod.rs",
+        "added": 861,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/interviews.rs",
+        "added": 205,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/interviews_admin.rs",
+        "added": 426,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/language.rs",
+        "added": 428,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/legion/admin.rs",
+        "added": 596,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/legion/editor.rs",
+        "added": 225,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/legion/invite.rs",
+        "added": 88,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/legion/mod.rs",
+        "added": 173,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/legion/public.rs",
+        "added": 335,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/legion/senate.rs",
+        "added": 284,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/legion/senate_admin.rs",
+        "added": 216,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/lib.rs",
+        "added": 53,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/live_banner.rs",
+        "added": 241,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/page_copy.rs",
+        "added": 340,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/portal.rs",
+        "added": 137,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/privacy.rs",
+        "added": 282,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/privacy_page.rs",
+        "added": 174,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/site/corner.rs",
+        "added": 207,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/site/discovery.rs",
+        "added": 220,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/site/effects.rs",
+        "added": 94,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/site/eggs.rs",
+        "added": 227,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/site/feature.rs",
+        "added": 107,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/site/inspiration.rs",
+        "added": 159,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/site/mod.rs",
+        "added": 307,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/site/realm.rs",
+        "added": 451,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/site/shell.rs",
+        "added": 450,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/site/terminal.rs",
+        "added": 295,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/support.rs",
+        "added": 254,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/support_admin.rs",
+        "added": 263,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/browser/src/ui.rs",
+        "added": 206,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/core/src/analytics.rs",
+        "added": 761,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/core/src/army.rs",
+        "added": 140,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/core/src/army_art.rs",
+        "added": 167,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/core/src/attribution.rs",
+        "added": 76,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/core/src/compound_share.rs",
+        "added": 182,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/core/src/impact.rs",
+        "added": 318,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/core/src/lib.rs",
+        "added": 16,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/core/src/metrics.rs",
+        "added": 165,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/core/src/plethora.rs",
+        "added": 59,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/core/src/routing.rs",
+        "added": 557,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/core/src/site.rs",
+        "added": 143,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/core/src/tiers.rs",
+        "added": 86,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/core/src/videos.rs",
+        "added": 225,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/migration/impact-admin.html",
+        "added": 1,
+        "removed": 0,
+        "category": "generatedCompatibility"
+      },
+      {
+        "path": "rust/server/army/auth.rs",
+        "added": 180,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/copy.rs",
+        "added": 25,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/discord.rs",
+        "added": 478,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/discord_model.rs",
+        "added": 171,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/handler.rs",
+        "added": 378,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/images.rs",
+        "added": 79,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/jobs.rs",
+        "added": 152,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/lifecycle.rs",
+        "added": 380,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/mail.rs",
+        "added": 497,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/mod.rs",
+        "added": 21,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/model.rs",
+        "added": 178,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/payments.rs",
+        "added": 358,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/pidgy.rs",
+        "added": 74,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/public.rs",
+        "added": 265,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/referrals.rs",
+        "added": 193,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/security.rs",
+        "added": 157,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/service.rs",
+        "added": 399,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/store.rs",
+        "added": 324,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/transport.rs",
+        "added": 101,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/army/webhooks.rs",
+        "added": 155,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/auth.rs",
+        "added": 284,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/battle.rs",
+        "added": 459,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound/admin.rs",
+        "added": 190,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound/events.rs",
+        "added": 211,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound/feedback.rs",
+        "added": 493,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound/handler.rs",
+        "added": 511,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound/links.rs",
+        "added": 42,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound/mod.rs",
+        "added": 13,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound/model.rs",
+        "added": 270,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound/payments.rs",
+        "added": 268,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound/security.rs",
+        "added": 101,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound/store.rs",
+        "added": 332,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound_v2/handler.rs",
+        "added": 472,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound_v2/mod.rs",
+        "added": 11,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound_v2/model.rs",
+        "added": 354,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound_v2/push.rs",
+        "added": 117,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound_v2/queue.rs",
+        "added": 96,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound_v2/reports.rs",
+        "added": 284,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound_v2/security.rs",
+        "added": 127,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound_v2/store.rs",
+        "added": 358,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound_v2/summary.rs",
+        "added": 165,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound_v2/sync.rs",
+        "added": 210,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/compound_v2/uploads.rs",
+        "added": 183,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/config.rs",
+        "added": 163,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/contract.rs",
+        "added": 1591,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/crypto.rs",
+        "added": 141,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/cv.rs",
+        "added": 114,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/dev.rs",
+        "added": 12,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/hack.rs",
+        "added": 473,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/http_tests.rs",
+        "added": 327,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/impact/handler.rs",
+        "added": 279,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/impact/links.rs",
+        "added": 98,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/impact/mod.rs",
+        "added": 8,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/impact/model.rs",
+        "added": 459,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/impact/providers/http.rs",
+        "added": 283,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/impact/providers/mod.rs",
+        "added": 84,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/impact/providers/owner.rs",
+        "added": 326,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/impact/providers/social.rs",
+        "added": 287,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/impact/samples.rs",
+        "added": 40,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/impact/store.rs",
+        "added": 574,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/impact/sync.rs",
+        "added": 308,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/interviews/handler.rs",
+        "added": 236,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/interviews/mod.rs",
+        "added": 3,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/interviews/photos.rs",
+        "added": 361,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/interviews/store.rs",
+        "added": 253,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/layers.rs",
+        "added": 413,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/legion/applications.rs",
+        "added": 136,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/legion/handler.rs",
+        "added": 602,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/legion/mail.rs",
+        "added": 70,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/legion/mod.rs",
+        "added": 12,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/legion/model.rs",
+        "added": 229,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/legion/newsletter.rs",
+        "added": 155,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/legion/partners.rs",
+        "added": 183,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/legion/payments.rs",
+        "added": 126,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/legion/photos.rs",
+        "added": 176,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/legion/security.rs",
+        "added": 134,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/legion/senate.rs",
+        "added": 289,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/legion/store.rs",
+        "added": 467,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/lib.rs",
+        "added": 223,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/live.rs",
+        "added": 309,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/live/tests.rs",
+        "added": 119,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/live_interviews.rs",
+        "added": 293,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/name_vote.rs",
+        "added": 452,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/og/handler.rs",
+        "added": 184,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/og/mod.rs",
+        "added": 3,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/og/model.rs",
+        "added": 274,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/og/render.rs",
+        "added": 591,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/plethora.rs",
+        "added": 677,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/stats/coffee.rs",
+        "added": 279,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/stats/handler.rs",
+        "added": 388,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/stats/health.rs",
+        "added": 439,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/stats/mod.rs",
+        "added": 60,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/stats/model.rs",
+        "added": 172,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/stats/snapshot.rs",
+        "added": 319,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/stats/view.rs",
+        "added": 188,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/store.rs",
+        "added": 253,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/support.rs",
+        "added": 799,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/visitors/mod.rs",
+        "added": 445,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/visitors/model.rs",
+        "added": 341,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "rust/server/voter.rs",
+        "added": 172,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "stats/linkedin/charts.js",
+        "added": 37,
+        "removed": 17,
+        "category": "application"
+      },
+      {
+        "path": "stats/sections.css",
+        "added": 10,
+        "removed": 1,
+        "category": "application"
+      },
+      {
+        "path": "stats/status/status.css",
+        "added": 14,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "tattoo/index.html",
+        "added": 60,
+        "removed": 0,
+        "category": "application"
+      },
+      {
+        "path": "tests/check_links_contracts.py",
+        "added": 15,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/cv-download.mjs",
+        "added": 16,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/cv-page.mjs",
+        "added": 10,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/cv-profiles.mjs",
+        "added": 32,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/hack-live-mode.mjs",
+        "added": 9,
+        "removed": 6,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/helpers/built-site.mjs",
+        "added": 16,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/helpers/rust-bridges.mjs",
+        "added": 77,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/helpers/rust-runtime.mjs",
+        "added": 47,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/helpers/rust-site.mjs",
+        "added": 36,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/interview-quick-add.mjs",
+        "added": 4,
+        "removed": 2,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/live-banner-browser.mjs",
+        "added": 9,
+        "removed": 7,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/philosophy-cv.mjs",
+        "added": 16,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/analytics-browser.mjs",
+        "added": 34,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/analytics-model.mjs",
+        "added": 17,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/army-art.mjs",
+        "added": 25,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/army-auth.mjs",
+        "added": 34,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/army-browser.mjs",
+        "added": 28,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/army-capacity.mjs",
+        "added": 30,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/army-discord.mjs",
+        "added": 46,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/army-http.mjs",
+        "added": 42,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/army-jobs.mjs",
+        "added": 26,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/army-mail.mjs",
+        "added": 42,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/army-model.mjs",
+        "added": 21,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/army-payments.mjs",
+        "added": 39,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/army-public.mjs",
+        "added": 22,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/army-render.mjs",
+        "added": 22,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/army-service.mjs",
+        "added": 50,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/army-store.mjs",
+        "added": 60,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/auth-parity.mjs",
+        "added": 105,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/battle-browser.mjs",
+        "added": 48,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/battle-parity.mjs",
+        "added": 54,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/browser.mjs",
+        "added": 110,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/build-boundary.mjs",
+        "added": 19,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/coffee-http.mjs",
+        "added": 24,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/coffee-model.mjs",
+        "added": 15,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/compound-admin-render.mjs",
+        "added": 18,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/compound-browser.mjs",
+        "added": 46,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/compound-client.mjs",
+        "added": 28,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/compound-editor-browser.mjs",
+        "added": 26,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/compound-editor-public-browser.mjs",
+        "added": 41,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/compound-editor-public-render.mjs",
+        "added": 25,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/compound-editor-render.mjs",
+        "added": 24,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/compound-http.mjs",
+        "added": 50,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/compound-model.mjs",
+        "added": 56,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/compound-original-http.mjs",
+        "added": 49,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/compound-original-model.mjs",
+        "added": 26,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/compound-original-store.mjs",
+        "added": 82,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/compound-share.mjs",
+        "added": 16,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/compound-store.mjs",
+        "added": 85,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/compound-stripe.mjs",
+        "added": 17,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/cv-browser.mjs",
+        "added": 22,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/cv-http.mjs",
+        "added": 28,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/hack-parity.mjs",
+        "added": 39,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/health-model.mjs",
+        "added": 24,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/health-store.mjs",
+        "added": 29,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/impact-browser.mjs",
+        "added": 40,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/impact-http.mjs",
+        "added": 33,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/impact-model.mjs",
+        "added": 33,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/impact-providers.mjs",
+        "added": 99,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/impact-render.mjs",
+        "added": 37,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/impact-store.mjs",
+        "added": 53,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/interview-model.mjs",
+        "added": 18,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/interviews-browser.mjs",
+        "added": 30,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/interviews-parity.mjs",
+        "added": 42,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/legion-admission.mjs",
+        "added": 46,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/legion-browser.mjs",
+        "added": 29,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/legion-http.mjs",
+        "added": 42,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/legion-letters.mjs",
+        "added": 10,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/legion-model.mjs",
+        "added": 33,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/legion-newsletter.mjs",
+        "added": 37,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/legion-payments.mjs",
+        "added": 24,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/legion-photos.mjs",
+        "added": 17,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/legion-render.mjs",
+        "added": 25,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/legion-store.mjs",
+        "added": 30,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/legion-upload.mjs",
+        "added": 26,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/live-parity.mjs",
+        "added": 40,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/measure-source.mjs",
+        "added": 13,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/name-vote-parity.mjs",
+        "added": 52,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/og-http.mjs",
+        "added": 24,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/og-model.mjs",
+        "added": 18,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/og-render.mjs",
+        "added": 19,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/page-copy-browser.mjs",
+        "added": 40,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/performance-evidence.mjs",
+        "added": 13,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/philosophy-browser.mjs",
+        "added": 10,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/plethora-parity.mjs",
+        "added": 36,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/preview-readonly.mjs",
+        "added": 56,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/privacy-browser.mjs",
+        "added": 84,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/realm-browser.mjs",
+        "added": 33,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/realm-motion-browser.mjs",
+        "added": 14,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/short-browser.mjs",
+        "added": 16,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/site-browser.mjs",
+        "added": 25,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/site-built.mjs",
+        "added": 21,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/site-legacy-browser.mjs",
+        "added": 19,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/site-model.mjs",
+        "added": 9,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/source-privacy.mjs",
+        "added": 12,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/stats-daily-http.mjs",
+        "added": 25,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/stats-http.mjs",
+        "added": 33,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/stats-model.mjs",
+        "added": 33,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/stats-snapshot-store.mjs",
+        "added": 40,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/stats-snapshot-view.mjs",
+        "added": 31,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/stats-snapshot.mjs",
+        "added": 31,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/stats-store.mjs",
+        "added": 17,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/support-parity.mjs",
+        "added": 54,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/user-flows.mjs",
+        "added": 47,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/visitor-http.mjs",
+        "added": 27,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/visitor-model.mjs",
+        "added": 15,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/rust/voter-parity.mjs",
+        "added": 25,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/worldcraft-chat.mjs",
+        "added": 1,
+        "removed": 1,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tests/worldcraft-distribution.mjs",
+        "added": 5,
+        "removed": 5,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tools/check-links.py",
+        "added": 41,
+        "removed": 27,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tools/check-locales.mjs",
+        "added": 48,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tools/cv/build-pdfs.py",
+        "added": 77,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tools/cv/build.mjs",
+        "added": 8,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tools/cv/check-pdfs.mjs",
+        "added": 5,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tools/cv/github-activity.py",
+        "added": 44,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tools/forms/page.html",
+        "added": 1,
+        "removed": 1,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tools/lint.mjs",
+        "added": 9,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tools/philosophy/build.mjs",
+        "added": 7,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tools/rust/build-browser.sh",
+        "added": 9,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tools/rust/config-data.mjs",
+        "added": 172,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tools/rust/locales.mjs",
+        "added": 5,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tools/rust/measure-source.mjs",
+        "added": 57,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tools/rust/parity.mjs",
+        "added": 76,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tools/rust/performance-report.mjs",
+        "added": 38,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tools/rust/performance.mjs",
+        "added": 86,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tools/rust/routing-parity.mjs",
+        "added": 31,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tools/site/build-all.mjs",
+        "added": 5,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tools/site/build.mjs",
+        "added": 15,
+        "removed": 5,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tools/site/chrome-policy.mjs",
+        "added": 2,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tools/site/generate-directory.mjs",
+        "added": 1,
+        "removed": 1,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tools/site/link-inventory.mjs",
+        "added": 1,
+        "removed": 1,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "tools/site/update-locales.py",
+        "added": 307,
+        "removed": 0,
+        "category": "verificationAndTooling"
+      },
+      {
+        "path": "worldcraft/admin/index.html",
+        "added": 1,
+        "removed": 1,
+        "category": "application"
+      }
+    ],
+    "groups": {
+      "application": {
+        "files": 242,
+        "added": 50074,
+        "removed": 518,
+        "net": 49556
+      },
+      "verificationAndTooling": {
+        "files": 134,
+        "added": 4754,
+        "removed": 57,
+        "net": 4697
+      },
+      "generatedCompatibility": {
+        "files": 6,
+        "added": 14,
+        "removed": 0,
+        "net": 14
+      }
+    },
+    "added": 54842,
+    "removed": 575
+  },
+  "workingTreeDirty": false
+}

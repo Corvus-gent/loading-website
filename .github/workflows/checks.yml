@@ -80,7 +80,7 @@ jobs:
       - run: node tests/live-overlay.mjs
       - run: node tests/video-share-drafts.mjs
       - run: node tests/smoke-ci.mjs
-      - run: python3 tools/check-links.py
+      - run: python3 tests/check_links_contracts.py && python3 tools/check-links.py
       - name: Generate search index from sources
         run: python3 tools/build-search.py
       - uses: actions/upload-artifact@v4

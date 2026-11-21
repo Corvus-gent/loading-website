@@ -3,7 +3,7 @@ import {SECTIONS,ROUTES as EXISTING_ROUTES} from '../../js/site/routes.js';
 import {hasStandaloneChrome} from './chrome-policy.mjs';
 import {generate} from './generate-directory.mjs';
 let ROUTES=EXISTING_ROUTES;
-export const VERSION='20261111layers1';
+export const VERSION='20261120rustrealm1';
 export const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const local=p=>p.replace(/^https:\/\/corvus.gent/,'').replace(/\/$/,'')||'/';
 export function sectionFor(file){return ROUTES.find(r=>r.file===file)?.section||(/^hack\/|^compound\/|^battle\/|^build\//.test(file)?'quests':/^games\/|^music\/|^plethora\//.test(file)?'daily':/^army\/|^legion\/|^soldier\//.test(file)?'legion':/^live\//.test(file)?'live':'gabe');}
@@ -59,6 +59,14 @@ function legionContent(html){
  html=html.replace(/(<button\b[^>]*\bclass=")site-button(")/g,'$1site-button secondary$2');
  return html.replace(/src="\/js\/site\/legion\.js\?v=[^"]+"/,'src="/js/site/legion.js?v=20261112legion1"');
 }
+// Shared publication policy: standalone canvases, templates and source inputs do not get site chrome.
+export function usesSiteShell(file,html=''){
+ const parts=file.replaceAll('\\','/').split('/');
+ if(parts.some(p=>p.startsWith('.')||['node_modules','rust','migration','target','public','submission','tests','tools','test-results','playwright-report'].includes(p)))return false;
+ if(!file.endsWith('.html')||hasStandaloneChrome(file))return false;
+ if(['worldcraft/admin/index.html','forms/index.html'].includes(file))return false;
+ return !/http-equiv=["']refresh/i.test(html);
+}
 async function build(){
  const curiosityHero=await fs.readFile('public/worldcraft/hero.html','utf8');
  const photos=JSON.parse(await fs.readFile('sf/larp/photos.json','utf8'));
@@ -93,9 +101,9 @@ async function build(){
   await write(id+'/index.html',page(title,description,`<p class="site-eyebrow">corvus / ${id}</p><h1>${title}</h1><p class="site-lead">${description}</p>${lead}<div class="site-grid">${choices.map(card).join('')}</div>${aside}`));
  }
  await write('map/index.html',page('the whole map.','Every public corner of Corvus, grouped by where you want to go.',`<p class="site-eyebrow">no dead ends</p><h1>the whole map.</h1><p class="site-lead">Every door, in one place. Pick a section, find a name, or press /.</p><label class="directory-search">find your next rabbit hole<input type="search" data-directory-filter placeholder="a game, a cut, a person…" aria-label="Filter the public map"></label><p class="site-fine" data-directory-count>${ROUTES.length} public doors</p><div data-full-directory>${SECTIONS.map(s=>`<section id="${s.id}"><h2>${s.label}</h2>${directory(s.id)}</section>`).join('<hr class="site-divider">')}</div>`));
- const files=[];async function walk(dir='.'){for(const e of await fs.readdir(dir,{withFileTypes:true})){if(e.name.startsWith('.')||['node_modules','public','submission','tests','tools','test-results','playwright-report'].includes(e.name))continue;const f=path.join(dir,e.name);if(e.isDirectory())await walk(f);else if(e.name.endsWith('.html'))files.push(f);}}await walk();
- for(const file of files){if(hasStandaloneChrome(file))continue;
-  let s=await fs.readFile(file,'utf8');if(/http-equiv=["']refresh/i.test(s))continue;
+ const files=[];async function walk(dir='.'){for(const e of await fs.readdir(dir,{withFileTypes:true})){if(e.name.startsWith('.')||['node_modules','rust','migration','target','public','submission','tests','tools','test-results','playwright-report'].includes(e.name))continue;const f=path.join(dir,e.name);if(e.isDirectory())await walk(f);else if(e.name.endsWith('.html'))files.push(f);}}await walk();
+ for(const file of files){
+  let s=await fs.readFile(file,'utf8');if(!usesSiteShell(file,s))continue;
   s=s.replace(/<!-- SITE_(HEAD|NAV|NEXT|GEMS|DIRECTORY|CRUMB) -->[\s\S]*?<!-- \/SITE_\1 -->/g,'');
   if(file==='legion/index.html')s=legionContent(s);
   if(file==='admin/index.html'&&!s.includes('<option value="praetor">'))s=s.replace('<option value="legatus">legatus</option>','<option value="legatus">legatus</option><option value="praetor">praetor</option>');

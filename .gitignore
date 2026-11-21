@@ -33,3 +33,7 @@ tests/results/
 # Owner-only generated report mirrored locally; served behind owner auth.
 /report.md
 /report.md.tmp
+
+# Rust build artifacts and generated WebAssembly bindings.
+/target/
+/rust/browser/pkg/
