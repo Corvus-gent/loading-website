@@ -89,6 +89,7 @@ export function welcome(ansi = true) {
     'Count the crew     /hackersbay/api/crew\n' +
     'Ask the captain    /hackersbay/squawk\n' +
     'Salute the crew    /hackersbay/ayay\n' +
+    'See race scores    /hackersbay/race\n' +
     'Sink the rowboat   /hackersbay/sink/luma\n' +
     'See Demo Day       https://corvus.gent/hackersbay/cuts\n';
 }

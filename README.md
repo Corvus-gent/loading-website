@@ -48,6 +48,7 @@ The demo works with zero new variables. Set credentials server-side in the Corvu
 | Public profile reader | `CONTEXT_DEV_API_KEY` |
 | Standard AI persona drafting | `HACKERSBAY_OPENAI_API_KEY`, optionally `HACKERSBAY_OPENAI_MODEL` (default `gpt-4.1-mini`) |
 | Confidential persona drafting | `TRUSTEDROUTER_API_KEY` or `NYTEX_TRUSTEDROUTER_API_KEY`, optionally `HACKERSBAY_TRUSTEDROUTER_MODEL` (default `nyte/trusted`) |
+| Parrot race sandbox | `HACKERSBAY_RACE_PROVIDER=boat`, `BOAT_DEV_API_KEY` or `BOAT_API_KEY`, plus Redis for the race budget |
 | Live Proof of Build | `BOAT_DEV_API_KEY` or `BOAT_API_KEY`, plus `HACKERSBAY_BOAT_REPOS` (comma-separated public `owner/repo` values) |
 | Shareable intros, organizer rosters, live crew counts, and preview job cache | The existing Corvus Redis connection, such as `REDIS_TLS_URL` or `REDIS_URL` |
 
@@ -57,7 +58,9 @@ The demo works with zero new variables. Set credentials server-side in the Corvu
 - With no TrustedRouter key, Private Parrot makes a local suggestion from the link. Standard scouting uses Context.dev to read a public page, then runs a fixed excerpt-processing job in a short-lived Boat.dev VM. Live scouting uses the Redis-backed budget. The parrot log identifies provider results and demo runs.
 - Proof of Boat runs approved repos with credentials or opens a sample sandbox preview. With Redis, mutual intros can span browsers. The event details are public and the suggested crewmates, match reasons, and meetup times are staged.
 
-[Build log](https://corvus.gent/hackersbay/log) · [Universal native Mac app](https://github.com/Corvus-gent/loading-website/releases/tag/hackersbay-native-v0.1.1) · [Electron fallback](https://github.com/Corvus-gent/loading-website/releases/tag/hackersbay-demo-v0.2.0) · [Earlier demo clips](https://github.com/Corvus-gent/loading-website/releases/tag/hackersbay-demo-v0.1.0) · [Remotion project](video/README.md) · [Shot list](SHOTLIST.md) · [Compound edit brief](COMPOUND_PROMPT.md) · [LinkedIn drafts](LINKEDIN.md)
+[Build log](https://corvus.gent/hackersbay/log) · [Parrot race](https://corvus.gent/hackersbay/race) · [Earlier demo clips](https://github.com/Corvus-gent/loading-website/releases/tag/hackersbay-demo-v0.1.0) · [Remotion project](video/README.md) · [Shot list](SHOTLIST.md) · [Compound edit brief](COMPOUND_PROMPT.md) · [LinkedIn drafts](LINKEDIN.md)
+
+Native Mac app: in the repo ([apps/macos](apps/macos/)), launching later.
 
 ## First launch on macOS
 
@@ -76,6 +79,7 @@ curl 'https://corvus.gent/hackersbay/api/match?me=deckhand'
 curl -L corvus.gent/hackersbay/squawk
 curl -LN corvus.gent/hackersbay/sink/luma
 curl -L corvus.gent/hackersbay/ayay
+curl -L corvus.gent/hackersbay/race
 ```
 
 `me` accepts a class or nickname. To choose a lens for a nickname, send `class` as well. Match reasons come from the fictional Demo Day roster. The crew API reports the same live Redis counters as the website.

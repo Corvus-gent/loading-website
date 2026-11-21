@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#06121f"><meta name="referrer" content="no-referrer">
+  <link rel="icon" href="/public/hackersbay/art/captain-icon.png" type="image/png" sizes="128x128">
+  <link rel="stylesheet" href="/public/hackersbay/assets/bay.css">
+  <title>Parrot race | The Hackers Bay</title>
+  <script type="module" src="/public/hackersbay/assets/race.js"></script>
+  <script type="module" src="/public/hackersbay/assets/easter-eggs.js"></script>
+  <script type="module" src="/public/hackersbay/assets/easter-eggs.js"></script>
+</head>
+<body class="host-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-bar wrap">
+    <a class="brand" href="/hackersbay"><picture class="pixel-art brand-picture"><source type="image/webp" srcset="/public/hackersbay/art/captain-icon.webp"><img src="/public/hackersbay/art/captain-icon.png" width="34" height="34" alt=""></picture><span class="wordmark">The Hackers Bay</span></a>
+    <a class="top-link" href="/hackersbay/host">Room composer</a>
+  </header>
+  <main class="wrap inside organizer-page race-page" id="main">
+    <header class="page-heading">
+      <p class="eyebrow">FOUR SCOUTS · ONE BAY</p>
+      <h1>Parrot race.</h1>
+      <p>Four parrot pirates race the bay and rank the Demo Day crew through their own lenses. Pick the winner and its three crewmates.</p>
+    </header>
+    <form id="race-form" class="panel race-form">
+
+      <button class="button primary" type="submit">Start the race</button>
+      <p class="fine">Demo by default · fictional Demo Day roster. Score combines match fit, the reasons on both sides, and speed. Each real scout uses a private Boat.dev sandbox when available.</p>
+    </form>
+    <p id="race-status" role="status" class="fine">Four scouts on deck.</p>
+    <figure class="race-spectacle panel">
+      <canvas id="race-scene" width="672" height="350" aria-label="Four parrot scouts fly across the bay. Flight altitude shows their match confidence."></canvas>
+      <figcaption class="fine">Higher flight shows a scout’s match confidence.</figcaption>
+    </figure>
+    <h2 class="small-heading">Scout log</h2>
+    <ol class="scout-log panel" id="race-log" role="log" aria-live="polite"></ol>
+    <div id="race-lanes" class="race-lanes" aria-label="Scout lanes"></div>
+    <section id="race-winner" class="panel race-winner" hidden aria-label="Your golden feather"></section>
+    <p><a class="button" href="/hackersbay/race/leaderboard">Public leaderboard</a></p>
+    <p class="fine">Inspired by Colin Lowenberg’s side-by-side sandbox runs. <a href="https://github.com/opencolin/sandboxmaxxing">See sandboxmaxxing</a>.</p>
+  </main>
+  <footer class="site-footer wrap">
+    <p>The Hackers Bay</p>
+    <div class="boat-credit">
+      <a class="boat-credit-badge" href="https://boathackathon.com/" target="_blank" rel="noopener noreferrer">Built aboard Boat Hackathon <span aria-hidden="true">⛵</span></a>
+      <nav class="boat-credit-links" aria-label="Boat Hackathon links">
+        <a href="https://partiful.com/e/574OkdF3XGK3SzsRR3QK" target="_blank" rel="noopener noreferrer">Demo Day on Partiful</a>
+        <a href="https://x.com/BoatHackathon" target="_blank" rel="noopener noreferrer">@BoatHackathon</a>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=Historic+Klamath+Pier+9+San+Francisco" target="_blank" rel="noopener noreferrer">Historic Klamath · Pier 9</a>
+      </nav>
+      <nav class="boat-credit-sponsors" aria-label="Event sponsors">
+        <span>Event sponsors</span>
+        <a href="https://boat.dev/" target="_blank" rel="noopener noreferrer">Boat.dev</a>
+        <a href="https://www.context.dev/" target="_blank" rel="noopener noreferrer">Context.dev</a>
+        <a href="https://nytokenexchange.com/" target="_blank" rel="noopener noreferrer">NYTEX</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

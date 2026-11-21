@@ -12,7 +12,9 @@ const room = document.querySelector('#room');
 const roomState = document.querySelector('#room-state');
 const choice = document.querySelector('#lens-choice');
 const saved = getPersona();
-const requested = new URLSearchParams(location.search).get('lens');
+const query = new URLSearchParams(location.search);
+const requested = query.get('lens');
+const raceCrew = query.get('race')?.split(',') || [];
 const firstLens = Object.hasOwn(PERSONAS, requested) ? requested : (saved?.type || DEFAULT_DEMO_LENS);
 const pirate = saved?.pirate || DEFAULT_PIRATE;
 wireSound(document.querySelector('#bay-sound'));
@@ -126,8 +128,13 @@ async function showRoom() {
   let flight;
 
   function render(type) {
-    const card = saved?.type === type ? saved : preset(type);
-    const matches = matchRoom(card, attendees).slice(0, 3);
+    const race = type === requested && raceCrew.length === 3 && new Set(raceCrew).size === 3 &&
+      raceCrew.every(id => attendees.some(person => person.id === id));
+    const card = !race && saved?.type === type ? saved : preset(type);
+    const ranked = matchRoom(card, attendees);
+    const byId = new Map(ranked.map(match => [match.person.id,match]));
+    const matches = race ? raceCrew.map(id => byId.get(id)) : ranked.slice(0,3);
+    document.querySelector('#room-count').textContent = race ? 'PARROT RACE CREW · 3 SUGGESTIONS' : attendees.length + ' FICTIONAL PIRATES · 3 SUGGESTIONS';
     const lens = lensFor(card, event, matches);
     document.querySelector('#active-persona').textContent = CLASSES[type].name + ' · DEMO SCORE';
     document.querySelector('#lens-title').textContent = lens.title;
@@ -157,6 +164,7 @@ async function showRoom() {
   });
   roomState.hidden = true;
   room.hidden = false;
+  if (location.hash === '#room') room.scrollIntoView();
   if (location.hash.startsWith('#match-')) document.getElementById(location.hash.slice(1))?.scrollIntoView();
   const refresh = () => {
     if (!document.hidden) document.querySelectorAll('.match-card').forEach(card => { void card.updateIntro(); });

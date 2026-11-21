@@ -1,4 +1,5 @@
 import { EVENT_PATH, preset, getPersona, savePersona, normalizeCard, normalizeProfileUrl, guessPersona, cleanText } from './persona.js';
+import { readFeather, SCOUTS } from './race-model.js';
 import { CLASSES, pixelCanvas } from './pirate.js';
 import { artPicture, captainArt, classArt } from './art.js';
 import { normalizeLook, partArt, prepareDressed, rollLook, TRAV_HAT, WARDROBE } from './wardrobe.js';
@@ -21,6 +22,14 @@ const figure = pixelCanvas(132, 'creator-body');
 figure.height = 144;
 const ctx = figure.getContext('2d');
 stage.append(figure);
+const feather = readFeather();
+if (feather) {
+  const medal = document.createElement('span');
+  medal.className = 'pirate-feather';
+  medal.textContent = 'Golden Feather';
+  medal.title = 'Awarded by ' + SCOUTS[feather.type].name;
+  stage.append(medal);
+}
 document.querySelector('#wardrobe-captain').append(captainArt('squawk',{lazy:false}));
 
 const fields = ['builds', 'wants', 'offers'];

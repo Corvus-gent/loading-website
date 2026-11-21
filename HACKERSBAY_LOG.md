@@ -367,3 +367,20 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - The widescreen tagline now sits on a dark plate for readability. Verified H.264, AAC, duration, opening frames and playback at mobile and desktop sizes.
 - Published the two replacement MP4s and posters. The landing, both live demo formats, and the new share image passed production checks before the film render finished.
 - **STEER ME:** Keep Cut A as the opener or start the live demo at the impact beat.
+
+## H44 · 2026-11-21 21:56 CET · Tested curl and parked the desktop apps
+
+- Live shell output from `curl corvus.gent/hackersbay`: `HTTP/1.1 308 Permanent Redirect` and `Redirecting...`. The redirect targets `https://corvus.gent/hackersbay` before the application receives the request, so its body is controlled by the HTTPS edge.
+- Live shell output from `curl -L corvus.gent/hackersbay` begins `\x1b[48;5;17m  \x1b[0m`. The body includes `Luma is sinking. The Hackers Bay is coming.` and `Follow the HTTPS redirect with curl -L corvus.gent/hackersbay`. `/squawk` returned a captain’s tip, `/sink/luma` streamed 19 frames, and `/ayay` returned `\x1b[1;38;5;49mAYE AYE!\x1b[0m`.
+- Scoped CLI handling past the site-wide analytics path, kept a per-client limit on the stream, added the terminal commands to the footer, and verified the browser salute and reduced-motion confetti.
+- Released the renamed HackersBay native 0.1.2 and Electron 0.3.0 bundles. Verified both release builds and checksums. Parked the landing downloads for later and documented Gatekeeper’s first-launch options.
+- Colin’s GitHub role is currently Read. The integration returned HTTP 403 when granting Maintain and requires repository administration write permission. Four issues were opened with the `for-colin` label.
+- **STEER ME:** Keep the browser salute silent by default or play the crew voice on the command itself.
+
+## H45 · 2026-11-21 21:57 CET · Four parrots race the bay
+
+- Added a class-by-class race with boat hopping, altitude for confidence, gusts, cannonballs, and an original pixel monkey that steals Navigator’s lead coin. A scout log follows the action.
+- The score combines match fit, reasons for both sides, and speed. Picking a winner adds a Golden Feather, carries three crew picks into the existing mutual-intro flow, and lets the pirate post their score to the public board.
+- Decision. Ship the labeled demo as the default. An opt-in Boat.dev path uses separate private sandboxes with a bounded fixed ranking job. Demo timing and the sample Context.dev line are labeled.
+- Verified four lanes, the monkey event, the feather, the leaderboard, ANSI output, and IT’S MUTUAL at 375px and 414px with local Redis. The production film bytes matched the replacement files at 21:47 Paris.
+- **STEER ME:** Let the race leader auto-win after the final scout finishes or keep the explicit pick.

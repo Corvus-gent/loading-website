@@ -6,6 +6,7 @@ import { buildLog } from '../lib/hackersbay/build-log.js';
 import { proofOfBuild, runParrotScout } from '../lib/hackersbay/boat.js';
 import { available, networkId } from '../lib/hackersbay/quota.js';
 import { eventActions, handleEvent } from '../lib/hackersbay/events.js';
+import { handleRace, postFeather, readRaceBoard } from '../lib/hackersbay/race.js';
 import { handleIntro } from '../lib/hackersbay/intros.js';
 import { loadLumaEvent } from '../lib/hackersbay/luma.js';
 import { normalizeLumaUrl } from '../public/hackersbay/assets/luma.js';
@@ -29,6 +30,7 @@ export default async function handler(req, res) {
     try { return res.status(200).json(await readCrewCounts()); }
     catch { return res.status(503).json({ available: false }); }
   }
+  if (req.method === 'GET' && action === 'race-board') return res.status(200).json(await readRaceBoard());
   if (['GET', 'HEAD'].includes(req.method) && terminalActions.has(action)) return handleTerminal(action, req, res);
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
@@ -52,6 +54,14 @@ export default async function handler(req, res) {
     const limit = action === 'create-event' ? 8 : 90;
     if (!await available(action, networkId(req), limit, 300)) return res.status(429).json({ error: 'Try again in a few minutes.' });
     return handleEvent(action, req.body, res);
+  }
+  if (action === 'parrot-race') {
+    if (!await available('race-run', networkId(req), 48, 60)) return res.status(429).json({error:'Try again in a minute.'});
+    return handleRace(req,res);
+  }
+  if (action === 'race-feather') {
+    if (!await available('race-feather', networkId(req), 12, 60)) return res.status(429).json({error:'Try again in a minute.'});
+    return postFeather(req,res);
   }
   if (action === 'proof') return proofOfBuild(req, res);
   if (action === 'request-intro' && !await available('intro', networkId(req), 25, 300)) {

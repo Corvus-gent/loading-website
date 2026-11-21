@@ -436,6 +436,19 @@
       "destination": "/api/hackersbay?action=terminal-home"
     },
     {
+      "source": "/hackersbay/race",
+      "has": [{ "type": "header", "key": "user-agent", "value": "(?:[Cc][Uu][Rr][Ll]|[Ww][Gg][Ee][Tt]|[Hh][Tt][Tt][Pp][Ii][Ee])(?:/.*)?" }],
+      "destination": "/api/hackersbay?action=terminal-race"
+    },
+    {
+      "source": "/hackersbay/race/leaderboard",
+      "destination": "/public/hackersbay/race-leaderboard.html"
+    },
+    {
+      "source": "/hackersbay/race",
+      "destination": "/public/hackersbay/race.html"
+    },
+    {
       "source": "/hackersbay/klamath",
       "destination": "/public/hackersbay/klamath.html"
     },
