@@ -95,3 +95,20 @@ function watchSea() {
 const afterPaint = () => requestAnimationFrame(() => requestAnimationFrame(watchSea));
 if (document.readyState === 'complete') afterPaint();
 else window.addEventListener('load', afterPaint, {once:true});
+
+const copyCaption = document.querySelector('#copy-boat-caption');
+if (copyCaption && navigator.clipboard) {
+  copyCaption.hidden = false;
+  copyCaption.addEventListener('click', async () => {
+    const caption = document.querySelector('#boat-caption');
+    const status = document.querySelector('#copy-boat-status');
+    try {
+      await navigator.clipboard.writeText(caption.value);
+      status.textContent = 'Caption copied.';
+    } catch {
+      caption.focus();
+      caption.select();
+      status.textContent = 'Caption selected for copying.';
+    }
+  });
+}

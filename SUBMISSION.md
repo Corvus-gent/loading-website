@@ -4,11 +4,11 @@ Luma is sinking. The Hackers Bay is coming.
 
 ## Description
 
-The Hackers Bay lets you outfit a pixel parrot pirate and choose how you read an event. **Deckhand** checks food, bunks, travel, and prize payouts. **Navigator** weighs the time against possible co-founders and collaborators. **Quartermaster** looks for people worth introducing one-to-one. **Merchant** tracks projects, traction, and sponsor fit. A public profile link can help Captain Squawk draft Builds, Wants, and Offers.
+The Hackers Bay lets you outfit a pixel parrot pirate and choose how you read an event. **Deckhand** checks food, bunks, travel, and prize payouts. **Navigator** weighs the time against possible co-founders and collaborators. **Quartermaster** looks for people worth introducing one-to-one. **Merchant** tracks projects, traction, and sponsor fit. A public profile link helps Captain Squawk suggest Builds, Wants, and Offers.
 
 **Sink a Luma** applies those lenses to a public listing using its published title, date, place, host, and Going count. In the Show Boat Demo Day walkthrough, Captain Squawk flies to three fictional pirates on the spyglass, landing to explain why each side might want to meet. Both must opt in to get **IT'S MUTUAL ⚓**, a beak bump, and a suggested moment. Organizers can draft pirates onto a ship deck and see how the room’s connections change.
 
-With credentials, **Context.dev** reads public profiles, **NYTEX TrustedRouter** routes confidential persona inference, and **Boat.dev** runs approved repos in temporary VMs for Proof of Build. Public event imports and shared intro links work on the live site. The roster and traction are fictional. Profile drafting falls back to heuristics, private mode shows a demo label, and Proof of Build opens a labeled sample when live services are unavailable.
+With credentials, **Private Parrot** uses **NYTEX TrustedRouter** for confidential inference and verifies signed draft receipts when available. On the standard path, **Context.dev** reads a public page and a short-lived **Boat.dev** sandbox distills it. Proof of Boat also previews approved repos. Public event imports and shared intro links work on the live site. The roster and traction are fictional. Profile drafting falls back to heuristics, private mode shows a demo label, and Proof of Build opens a labeled sample when live services are unavailable.
 
 ## Try it
 

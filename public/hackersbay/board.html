@@ -26,6 +26,7 @@
       <p class="eyebrow">The Black Commit · Boarding deck</p>
       <h1>Build your <em>pirate.</em></h1>
       <p>Choose a parrot pirate, equip your kit, and tell Captain Squawk what you’re after.</p>
+      <a class="private-callout" href="?private=1#private-parrot"><strong>Private Parrot mode</strong><span>NYTEX TrustedRouter →</span></a>
     </header>
     <form id="card-form">
       <fieldset class="creator-classes">
@@ -62,20 +63,34 @@
         <p id="card-status" class="fine form-status" role="status"></p>
       </section>
     </form>
-    <details class="panel creator-extra">
+    <section class="panel creator-extra private-feature" id="private-parrot" aria-labelledby="private-title">
+      <p class="eyebrow">NYTEX TrustedRouter</p>
+      <h2 id="private-title" class="small-heading">Private Parrot mode</h2>
+      <p>Routes inference through TrustedRouter’s confidential gateway. A verified receipt ties the original draft to gateway attestation. Our server handles the public profile and sends the request over HTTPS.</p>
+      <p class="fine">With no keys you’ll get a demo draft. The badge shows the evidence available for each run. <a href="https://trustedrouter.com/docs/receipts" target="_blank" rel="noopener noreferrer">About receipts</a></p>
+      <a class="text-link" href="#parrot-profile" id="start-private-draft">Start a private draft →</a>
+    </section>
+    <details class="panel creator-extra" id="parrot-profile">
       <summary>Let Captain Squawk read a link <span>Optional</span></summary>
       <form id="profile-form">
         <label for="profile-url">Public profile or personal site</label>
         <input id="profile-url" name="profile" type="text" inputmode="url" autocomplete="off" spellcheck="false" required maxlength="320" placeholder="github.com/you" aria-describedby="profile-hint">
         <p class="fine" id="profile-hint">X, GitHub, LinkedIn, or your own site. Captain Squawk drafts Builds, Wants, and Offers for you to edit.</p>
-        <label class="check-option"><input type="checkbox" name="privateMode"> NYTEX private mode</label>
-        <p class="fine">Private mode uses confidential inference or a local draft. Public profile reading may still contact the linked site.</p>
+        <label class="check-option"><input type="checkbox" name="privateMode"> Private Parrot mode · NYTEX</label>
+        <p class="fine">Private Parrot uses a direct public-page read and confidential inference. Standard scouting uses Context.dev and Boat.dev when available.</p>
         <button class="button" type="submit">Read my link <span aria-hidden="true">→</span></button>
         <p id="profile-status" class="fine form-status" role="status"></p>
       </form>
+      <section class="parrot-log" aria-labelledby="parrot-log-title">
+        <div><h3 id="parrot-log-title">Parrot log</h3><span class="pill" id="parrot-attestation" role="status">Attestation · awaiting draft</span></div>
+        <ul id="parrot-log-lines" aria-live="polite">
+          <li>Context.dev · awaiting a public link</li>
+          <li>Boat.dev · awaiting a public scout</li>
+        </ul>
+      </section>
     </details>
     <details class="panel proof-box creator-extra" id="proof-box">
-      <summary>Proof of Build <span>Powered by Boat.dev</span></summary>
+      <summary>Proof of Boat <span>Powered by Boat.dev</span></summary>
       <form id="proof-form">
         <label for="proof-repo">Public GitHub repository</label>
         <input id="proof-repo" name="repo" placeholder="github.com/owner/project" inputmode="url" spellcheck="false" maxlength="230" required>

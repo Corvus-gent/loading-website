@@ -870,3 +870,46 @@ body[data-dragging-pirate] { user-select: none; }
   .judges-points { gap: 7px; margin-bottom: 13px; padding-block: 11px; }
   .judges-sponsors { margin-top: 10px; }
 }
+
+.private-callout {
+  display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 1px 10px;
+  min-height: 44px; margin: 0 0 14px; padding: 5px 10px; text-decoration: none;
+  color: var(--parchment); background: #122a37; border: 1px solid #5f978f;
+  font-size: 13px; align-content: center;
+}
+.private-callout span { color: var(--teal); font-size: 12px; }
+.straight-talk { margin: 0 auto 34px; }
+.straight-talk h2 { color: var(--parchment); margin-bottom: 16px; }
+.straight-talk dl { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px 22px; margin: 0 0 18px; }
+.straight-talk dt { font-weight: 800; margin-bottom: 3px; }
+.straight-talk dd { margin: 0; color: var(--muted); font-size: 14px; }
+.share-boat summary { cursor: pointer; }
+.share-boat[open] .actions { margin: 4px 0 2px; }
+.share-boat label { display: block; margin: 7px 0 3px; color: var(--muted); font-size: 13px; }
+.share-boat textarea {
+  display: block; width: min(100%, 530px); padding: 7px 9px; margin-bottom: 8px;
+  color: var(--ink); background: #091721; border: 1px solid var(--line); font: inherit; resize: vertical;
+}
+.private-feature { scroll-margin-top: 12px; }
+.private-feature p { margin: 8px 0; }
+.parrot-log { margin-top: 14px; padding: 11px 12px; border: 1px solid #42606c; background: #091927; }
+.parrot-log > div { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; }
+.parrot-log h3 { margin: 0; color: var(--parchment); font-size: 16px; }
+.parrot-log ul { padding-left: 15px; margin: 7px 0 0; color: var(--muted); font: 12px/1.5 var(--mono); overflow-wrap: anywhere; }
+#parrot-attestation[data-state="verified"] { color: #afffea; background: #16443e; border-color: #60bb9f; }
+.klamath-log { margin-top: 22px; }
+.klamath-log h2 { margin-bottom: 7px; }
+.klamath-log p:last-child { margin-bottom: 0; }
+.judges-ship-note, .judges-prize { color: var(--muted); font-size: 12px; line-height: 1.35; }
+.judges-ship-note { margin: -7px 0 8px; }
+.judges-prize { margin: -5px 0 8px; }
+@media (max-width: 600px) {
+  .straight-talk dl { grid-template-columns: 1fr; }
+  .judges-actions { grid-template-columns: 1fr 1fr; }
+  .judges-actions .primary { grid-column: 1 / -1; }
+  .judges-actions .button { font-size: 13px; padding-inline: 6px; }
+}
+@media (max-width: 540px) {
+  .judges-brief { padding-block: 14px 8px; }
+  .judges-eyebrow { margin-bottom: 9px; }
+}

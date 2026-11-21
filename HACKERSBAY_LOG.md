@@ -275,3 +275,13 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Verified. The credited live pages passed at 375px and 414px, and both recording formats show the badge. The standalone build, route sweep, browser-local mutual intro, private-mode and Proof of Build samples, and Vercel configuration passed with no integration keys. Remotion asset preparation passed.
 - Next. The standalone README links to the live demo and published Mac builds.
 - **STEER ME:** Keep the live demo as the first submission link or lead with the source repo.
+
+## H33 · 2026-11-21 15:54 CET · Private Parrot and judge fit
+
+- Shipped Private Parrot mode on the landing, creator, and judges’ brief. The creator shows a verified badge only when the TrustedRouter SDK verifies the signed receipt against the draft’s request and response.
+- The standard parrot scout reads a public profile through Context.dev and uses a short-lived Boat.dev VM to distill the excerpt. The log labels each provider result and fallback. The Context key stays on our server.
+- Added Straight talk, the Klamath’s WWII submarine and Andy Warhol history, the playful Luma line, and X and LinkedIn share intents. The prize copy links to the organizers’ listing.
+- Decision. The private path skips the public scout. Its receipt proves the original draft’s origin and integrity, and the site’s server still handles the public-profile data. LinkedIn has a separate copyable caption for the event tag.
+- Verified locally at 375px and 414px. The judges’ brief fits a 375 × 667 viewport. Unit tests reject bogus receipts and exercise the Boat request with mocked providers. The zero-key demo and share intents passed.
+- Next. Verify the live deployment and keep the public submission source in sync.
+- **STEER ME:** Open the judges’ demo on the receipt badge or on the public scout log.

@@ -47,6 +47,9 @@
           <span class="captain-portrait"><picture class="pixel-art"><source type="image/webp" srcset="/public/hackersbay/art/captain-squawk.webp"><img src="/public/hackersbay/art/captain-squawk.png" alt="" width="192" height="230"></picture></span>
           <p><strong>Captain Squawk</strong><span>Raise the flag. I’ll find your crew.</span></p>
         </div>
+        <a class="private-callout" href="/hackersbay/board?private=1#private-parrot">
+          <strong>Private Parrot mode</strong><span>NYTEX TrustedRouter · attestation receipts →</span>
+        </a>
         <div class="actions" id="boarding">
           <a class="button primary" href="/hackersbay/board">Board the ship <span aria-hidden="true">→</span></a>
           <a class="text-link" href="#sink">Sink a Luma <span aria-hidden="true">↓</span></a>
@@ -102,6 +105,7 @@
       <div class="compare-grid">
         <article class="panel wall">
           <p class="eyebrow muted">LUMA</p><h3>The guest list</h3>
+          <p class="luma-love">We love you, Luma, but your guest list is a wall of faces.</p>
           <div class="face-grid guest-wall" role="img" aria-label="Sixteen identical grey guest circles">
             <i></i><i></i><i></i><i></i>
             <i></i><i></i><i></i><i></i>
@@ -117,6 +121,28 @@
             <li data-pirate="tess-warden"><span class="crew-reason"><strong>Tess Goldledger</strong><small>Can help verify prize and payout terms.</small></span><b aria-hidden="true">×</b></li>
           </ul>
         </article>
+      </div>
+    </section>
+    <section class="wrap straight-talk" id="straight-talk" aria-labelledby="straight-title">
+      <div class="panel">
+        <p class="eyebrow">Ship something that makes waves 🏴‍☠️</p>
+        <h2 id="straight-title">Straight talk</h2>
+        <dl>
+          <div><dt>Private Parrot mode</dt><dd>With a key, NYTEX TrustedRouter handles inference on its confidential route. The creator checks the signed receipt for the original draft. Without a key, it drafts from the link locally.</dd></div>
+          <div><dt>Public scouting</dt><dd>On the standard path, Context.dev reads the public page and a short-lived Boat.dev sandbox distills the excerpt when both are available. The parrot log labels each demo fallback.</dd></div>
+          <div><dt>Demo Day</dt><dd>The Historic Klamath and event details are real. The crew, matches, and suggested meetups are staged. Public Luma imports use published event facts.</dd></div>
+        </dl>
+        <details class="share-boat">
+          <summary class="button">Share to #boathackathon</summary>
+          <div class="actions">
+            <a class="text-link" href="https://twitter.com/intent/tweet?text=Built+aboard+%40BoatHackathon.+Meet+your+crew+in+The+Hackers+Bay.+%23boathackathon&amp;url=https%3A%2F%2Fcorvus.gent%2Fhackersbay" target="_blank" rel="noopener noreferrer">Share on X</a>
+            <a class="text-link" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fcorvus.gent%2Fhackersbay" target="_blank" rel="noopener noreferrer">Share on LinkedIn</a>
+          </div>
+          <label for="boat-caption">Caption to paste on LinkedIn</label>
+          <textarea id="boat-caption" readonly rows="2">Built aboard @BoatHackathon. Meet your crew in The Hackers Bay. #boathackathon https://corvus.gent/hackersbay</textarea>
+          <button class="button" id="copy-boat-caption" type="button" hidden>Copy caption</button>
+          <span class="fine" id="copy-boat-status" role="status"></span>
+        </details>
       </div>
     </section>
   </main>

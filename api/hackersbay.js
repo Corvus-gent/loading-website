@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { buildLog } from '../lib/hackersbay/build-log.js';
-import { proofOfBuild } from '../lib/hackersbay/boat.js';
+import { proofOfBuild, runParrotScout } from '../lib/hackersbay/boat.js';
 import { available, networkId } from '../lib/hackersbay/quota.js';
 import { handleIntro } from '../lib/hackersbay/intros.js';
 import { loadLumaEvent } from '../lib/hackersbay/luma.js';
@@ -48,5 +48,7 @@ export default async function handler(req, res) {
   const privateMode = req.body.privateMode === true;
   const account = networkId(req);
   const integrations = await available('profile', account, 12, 300) && await available('profile', 'all', 120, 300);
-  return res.status(200).json(await draftPersona(req.body.url, { privateMode, integrations }));
+  return res.status(200).json(await draftPersona(req.body.url, {
+    privateMode, integrations, scout: excerpt => runParrotScout(excerpt, account)
+  }));
 }

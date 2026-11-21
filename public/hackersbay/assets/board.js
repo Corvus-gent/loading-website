@@ -8,6 +8,10 @@ import { playBaySound, wireSound } from './sound.js';
 const picker = document.querySelector('#persona-choices');
 const profileForm = document.querySelector('#profile-form');
 const profileStatus = document.querySelector('#profile-status');
+const profileDetails = document.querySelector('#parrot-profile');
+const privateToggle = profileForm.elements.privateMode;
+const attestation = document.querySelector('#parrot-attestation');
+const parrotLog = document.querySelector('#parrot-log-lines');
 const cardForm = document.querySelector('#card-form');
 const cardStatus = document.querySelector('#card-status');
 const cardSource = document.querySelector('#card-source');
@@ -23,6 +27,42 @@ const sources = {
   preset: 'Class defaults', heuristic: 'Heuristic draft', 'private-demo': 'Private mode (demo)',
   llm: 'AI draft', private: 'NYTEX private mode'
 };
+
+function openPrivateDraft() {
+  profileDetails.open = true;
+  privateToggle.checked = true;
+}
+
+document.querySelector('#start-private-draft').addEventListener('click', openPrivateDraft);
+if (new URLSearchParams(location.search).get('private') === '1') openPrivateDraft();
+
+function parrotStatus(badge, lines, verified = false) {
+  attestation.textContent = badge;
+  attestation.dataset.state = verified ? 'verified' : '';
+  parrotLog.replaceChildren(...lines.map(line => {
+    const entry = document.createElement('li');
+    entry.textContent = line;
+    return entry;
+  }));
+}
+
+function showParrotLog(payload, card, url, privateMode) {
+  if (privateMode) {
+    const routed = card?.source === 'private';
+    const verified = routed && payload.attestation === 'verified';
+    const badge = verified ? 'Receipt verified' : routed ? 'Routed · receipt unverified' : 'Demo · no receipt';
+    parrotStatus(badge, [
+      routed ? 'NYTEX TrustedRouter · confidential route returned a draft' : 'Private Parrot · local demo draft',
+      'Context.dev and Boat.dev · skipped for this private run'
+    ], verified);
+    return;
+  }
+  const profile = url.hostname + (url.pathname === '/' ? '' : url.pathname);
+  parrotStatus('Attestation · Private Parrot only', [
+    card?.reader === 'context' ? 'Read ' + profile + ' via Context.dev' : 'Context.dev · demo fallback for ' + profile,
+    card?.reader === 'context' && payload.scout === 'boat' ? 'Sandbox booted on Boat.dev · scout complete' : 'Boat.dev · demo scout'
+  ]);
+}
 const labels = {hat:'Hat', eyes:'Eyewear', coat:'Outfit', item:'Held item'};
 const names = ['Tide Byte', 'Salt Shard', 'Cinder Voss', 'Bit Marlow', 'Brass Wake', 'Patch Reed'];
 const saved = getPersona();
@@ -131,18 +171,28 @@ profileForm.addEventListener('submit',async event => {
   try { url = normalizeProfileUrl(profileForm.elements.profile.value); }
   catch (error) { squawkStatus(profileStatus,error.message); return; }
 
-  const privateMode = profileForm.elements.privateMode.checked;
+  const privateMode = privateToggle.checked;
   button.disabled = true;
+  privateToggle.disabled = true;
+  parrotStatus('Attestation · pending', [
+    privateMode ? 'Preparing a Private Parrot draft…' : 'Waiting for the public scout…'
+  ]);
   squawkStatus(profileStatus,'Captain Squawk is reading the public link…','typing');
+  let payload;
   let card;
   try {
     const response = await fetch('/api/hackersbay?action=persona', {
       method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({url:url.href,privateMode}),signal:AbortSignal.timeout(10000)
+      body:JSON.stringify({url:url.href,privateMode}),signal:AbortSignal.timeout(27000)
     });
-    if (response.ok) card = normalizeCard(await response.json());
+    if (response.ok) {
+      payload = await response.json();
+      card = normalizeCard(payload);
+    }
   } catch { /* The same heuristic works entirely in the browser. */ }
   button.disabled = false;
+  privateToggle.disabled = false;
+  showParrotLog(payload,card,url,privateMode);
   squawkStatus(profileStatus,'Builds, Wants, and Offers are ready in the ship’s log.','thumbs-up');
   setDetails(card || guessPersona(url,'',privateMode));
   draw();

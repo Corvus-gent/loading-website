@@ -45,10 +45,14 @@ The demo works with zero new variables. Set credentials server-side in the Corvu
 | --- | --- |
 | Public profile reader | `CONTEXT_DEV_API_KEY` |
 | Standard AI persona drafting | `HACKERSBAY_OPENAI_API_KEY`, optionally `HACKERSBAY_OPENAI_MODEL` (default `gpt-4.1-mini`) |
-| Confidential persona drafting | `TRUSTEDROUTER_API_KEY` or `NYTEX_TRUSTEDROUTER_API_KEY`, optionally `HACKERSBAY_TRUSTEDROUTER_MODEL` (default `trustedrouter/confidential`) |
+| Confidential persona drafting | `TRUSTEDROUTER_API_KEY` or `NYTEX_TRUSTEDROUTER_API_KEY`, optionally `HACKERSBAY_TRUSTEDROUTER_MODEL` (default `nyte/trusted`) |
 | Live Proof of Build | `BOAT_DEV_API_KEY` or `BOAT_API_KEY`, plus `HACKERSBAY_BOAT_REPOS` (comma-separated public `owner/repo` values) |
 | Shareable intro links and preview job cache | The existing Corvus Redis connection, such as `REDIS_TLS_URL` or `REDIS_URL` |
 
-Without provider keys, profile drafting uses heuristics, Private mode shows a demo badge, and Proof of Build opens the Dockside sample. Without Redis, both intro steps work in the same browser. Live Boat previews support static sites and Vite or Next.js apps with a `dev` script. The sandbox expires after 15 minutes.
+### Straight talk
+
+- Private Parrot mode sends the public-profile excerpt through our server over HTTPS to NYTEX TrustedRouter’s confidential inference route. The creator checks the signed receipt for the original draft with TrustedRouter’s SDK. A verified receipt establishes origin and integrity. [TrustedRouter receipt docs](https://trustedrouter.com/docs/receipts)
+- With no TrustedRouter key, Private Parrot makes a local suggestion from the link. Standard scouting uses Context.dev to read a public page, then runs a fixed excerpt-processing job in a short-lived Boat.dev VM. Live scouting uses the Redis-backed budget. The parrot log identifies provider results and demo runs.
+- Proof of Boat runs approved repos with credentials or opens a sample sandbox preview. With Redis, mutual intros can span browsers. The event details are public and the suggested crewmates, match reasons, and meetup times are staged.
 
 [Build log](https://corvus.gent/hackersbay/log) · [Mac app](https://github.com/Corvus-gent/loading-website/releases/tag/hackersbay-demo-v0.2.0) · [Earlier demo clips](https://github.com/Corvus-gent/loading-website/releases/tag/hackersbay-demo-v0.1.0) · [Remotion project](video/README.md) · [Shot list](SHOTLIST.md) · [Compound edit brief](COMPOUND_PROMPT.md) · [LinkedIn drafts](LINKEDIN.md)
