@@ -48,3 +48,6 @@ output
 
 !tools/cv/build-bougie.mjs
 !tools/cv/build-bougie-pdf.py
+
+!tools/cv/build-hospitality.mjs
+!tools/cv/build-hospitality-pdfs.py
