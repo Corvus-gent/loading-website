@@ -126,10 +126,11 @@ async function showRoom() {
   const radar = document.querySelector('#room-radar');
   const captions = document.querySelector('#spyglass-caption');
   let flight;
+  const validRaceCrew = raceCrew.length === 3 && new Set(raceCrew).size === 3 &&
+    raceCrew.every(id => attendees.some(person => person.id === id));
 
   function render(type) {
-    const race = type === requested && raceCrew.length === 3 && new Set(raceCrew).size === 3 &&
-      raceCrew.every(id => attendees.some(person => person.id === id));
+    const race = validRaceCrew && type === requested;
     const card = !race && saved?.type === type ? saved : preset(type);
     const ranked = matchRoom(card, attendees);
     const byId = new Map(ranked.map(match => [match.person.id,match]));
@@ -160,7 +161,9 @@ async function showRoom() {
   render(firstLens);
   choice.addEventListener('change', () => {
     render(choice.value);
-    history.replaceState(null, '', EVENT_PATH + '?lens=' + choice.value);
+    const next = new URLSearchParams({ lens:choice.value });
+    if (validRaceCrew && choice.value === requested) next.set('race',raceCrew.join(','));
+    history.replaceState(null, '', EVENT_PATH + '?' + next);
   });
   roomState.hidden = true;
   room.hidden = false;

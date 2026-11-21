@@ -1,5 +1,6 @@
 import { loadRoom, crewAvatar } from './event-data.js';
 import { EVENT_PATH } from './persona.js';
+import { readFeather } from './race-model.js';
 import { CLASSES } from './pirate.js';
 import { TOKEN, introRequest, meetingFor, readIntros, saveIntro } from './intros.js';
 import { mutualParrots } from './parrot-view.js';
@@ -48,7 +49,10 @@ async function openIntro() {
   const personIndex = attendees.findIndex(person => person.id === intro?.personId);
   if (personIndex < 0 || !Object.hasOwn(CLASSES, intro.type)) throw new Error('Unknown intro');
   const person = attendees[personIndex];
-  const returnUrl = EVENT_PATH + '?lens=' + intro.type + '#match-' + person.id;
+  const params = new URLSearchParams({ lens:intro.type });
+  const feather = readFeather();
+  if (feather?.type === intro.type && feather.crew.includes(person.id)) params.set('race',feather.crew.join(','));
+  const returnUrl = EVENT_PATH + '?' + params + '#match-' + person.id;
   document.querySelector('#return-to-room').href = returnUrl;
   document.querySelector('#intro-back').href = returnUrl;
   const moment = meetingFor(event, personIndex);

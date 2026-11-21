@@ -392,3 +392,10 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - The [public issues](https://github.com/Corvus-gent/the-hackers-bay/issues?q=is%3Aissue+label%3Afor-colin) cover Boat.dev, a Tenki/Luxor provider, the organizer workflow, and NYTEX receipt verification.
 - Verified four distinct mock Boat.dev sessions with the exact bounded scoring script and no credentials passed to the VM. Real runs remain opt-in. Verified the attendee CSV’s line endings, field quoting, and formula guard.
 - **STEER ME:** Prioritize the Tenki provider next or run a keyed Boat.dev pilot first.
+
+## H47 · 2026-11-21 22:01 CET · Demo Day race verification
+
+- The race and ANSI scoreboard were live at 21:59 Paris. The production scout responded `mode: demo` because live Boat.dev race credentials are unconfigured. The public leaderboard reads posted scores from Redis, including the labeled demo scores people choose to publish.
+- The four scoped issues are open as #1 Boat.dev, #2 Tenki/Luxor, #3 organizer and Luma import, and #4 NYTEX on Corvus-gent/the-hackers-bay. The public repo includes the one-command contributor guide, exact source credits, and the small README thanks.
+- Added color to the terminal squawk and kept the winning crew link when the same browser returns from a mutual intro.
+- **STEER ME:** Start the open-source pilot with Colin’s organizer workflow or the second sandbox provider.

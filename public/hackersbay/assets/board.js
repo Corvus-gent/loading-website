@@ -158,7 +158,7 @@ function draw() {
     });
   }
   document.querySelector('#sprite-class').textContent = CLASSES[type].name;
-  stage.setAttribute('aria-label', 'Your ' + CLASSES[type].name + ' parrot pirate');
+  stage.setAttribute('aria-label', 'Your ' + CLASSES[type].name + ' parrot pirate' + (feather ? ' with a Golden Feather' : ''));
   document.querySelector('#sprite-name').textContent = cleanText(cardForm.elements.name.value,48) || 'Unnamed pirate';
   document.querySelector('#sprite-wants').textContent = cleanText(cardForm.elements.wants.value) || 'What are you looking for tonight?';
 }
