@@ -1,4 +1,5 @@
 import {execFileSync} from 'node:child_process';
+execFileSync("node", ["tools/migration-report/build.mjs"], {stdio:'inherit'});
 execFileSync("node", ["tools/plethora/verify-routes.mjs"], {stdio:'inherit'});
 execFileSync("node", ["tools/build-gabinho-rolls.mjs"], {stdio:'inherit'});
 execFileSync("node", ["tools/build-battle.mjs"], {stdio:'inherit'});
