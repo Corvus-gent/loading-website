@@ -21,7 +21,7 @@
   checkPage();
 
   window.hackersBayNativeScan = async () => {
-    if (running || location.pathname.startsWith('/hackersbay/e/')) return;
+    if (running) return;
     running = true;
     try {
       const stored = JSON.parse(localStorage.getItem('hackersbay-intros-v1') || '[]');
@@ -36,7 +36,12 @@
             method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({id,key}),
             signal:AbortSignal.timeout(7000)
           });
-          if (response.ok && (await response.json()).status === 'mutual') announce(id);
+          if (response.status === 404) seen.add(id);
+          if (response.ok) {
+            const {status} = await response.json();
+            if (status === 'mutual') announce(id);
+            else if (status === 'declined') seen.add(id);
+          }
         } catch { /* Check again on the next timer. */ }
       }));
     } catch { /* The app can still open the site if browser storage is unavailable. */ }
