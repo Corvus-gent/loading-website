@@ -267,3 +267,11 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Verified locally. Eleven regular paths and aliases, including the 404, passed at 375px and 414px. The judging brief fits at 375 × 667. The end-card credit fits in both recording formats.
 - Next. verify production and publish the standalone source linked from the submission.
 - **STEER ME:** Keep the credit on the hull or move it to the flag if an official event mark becomes available.
+
+## H32 · 2026-11-21 15:33 CET · Standalone submission repo
+
+- Packaged the Hackers Bay pages, API, seed data, Recraft art, Electron app, Remotion kit, and submission materials in Corvus-gent/the-hackers-bay under the MIT license. The submission now links to that source repository.
+- Decision. Keep corvus.gent/hackersbay as the canonical live product. The standalone package uses the same route prefix and has a dependency-free local start for the zero-key demo.
+- Verified. The credited live pages passed at 375px and 414px, and both recording formats show the badge. The standalone build, route sweep, browser-local mutual intro, private-mode and Proof of Build samples, and Vercel configuration passed with no integration keys. Remotion asset preparation passed.
+- Next. The standalone README links to the live demo and published Mac builds.
+- **STEER ME:** Keep the live demo as the first submission link or lead with the source repo.
