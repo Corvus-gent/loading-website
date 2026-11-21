@@ -45,3 +45,6 @@ tools/cv/*
 output
 
 !tools/site/chrome-policy.mjs
+
+!tools/cv/build-bougie.mjs
+!tools/cv/build-bougie-pdf.py
