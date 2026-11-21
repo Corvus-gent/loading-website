@@ -3,6 +3,7 @@ import { eventLink, eventSelection, readEvent } from './organizer.js';
 import { PERSONAS } from './persona.js';
 import { personaTags } from './lens.js';
 import { CLASSES } from './pirate.js';
+import { rosterCsv } from './roster-csv.js';
 import { squawkStatus } from './game.js';
 
 const custom = eventSelection();
@@ -119,9 +120,11 @@ function placeGraph(crew, edges, selected) {
 
 async function start() {
   let attendees;
+  let exportRows;
   if (custom) {
     const key = new URLSearchParams(location.hash.slice(1)).get('key') || '';
     const room = await readEvent(custom, key);
+    exportRows = room.attendees.map(person => ({ ...person, role:CLASSES[person.type].name }));
     attendees = room.attendees.map(entry => {
       const defaults = PERSONAS[entry.type];
       const { brings, seeks } = personaTags(entry);
@@ -135,11 +138,21 @@ async function start() {
     document.querySelector('#room-refresh').hidden = false;
   } else {
     ({ attendees } = await loadRoom());
+    exportRows = attendees;
   }
   const byId = new Map(attendees.map(person => [person.id, person]));
   let ids = [...new Set(readCrew().filter(id => byId.has(id)))].slice(0, CAPACITY);
   let selected = ids[0];
   let redraw = () => {};
+  document.querySelector('#export-roster').addEventListener('click', () => {
+    const file = new Blob([rosterCsv(exportRows,new Set(ids))], {type:'text/csv;charset=utf-8'});
+    const url = URL.createObjectURL(file);
+    const download = element('a');
+    download.href = url;
+    download.download = 'hackersbay-attendee-sheet.csv';
+    download.click();
+    setTimeout(() => URL.revokeObjectURL(url),1000);
+  });
 
   function boardPirate(id) {
     if (ids.length >= CAPACITY || ids.includes(id) || !byId.has(id)) return;

@@ -139,7 +139,7 @@ form.addEventListener('submit',async event=>{
       const {card,phase,list,choose}=seats.get(type);
       card.dataset.state='done';
       phase.textContent=result.score+' points · '+(result.mode==='boat'?'Boat.dev VM':'demo score');
-      phase.title='Match quality '+result.quality+' + speed '+result.speed;
+      phase.append(document.createElement('br'),element('span',result.quality+' fit and reasons + '+result.speed+' speed','fine'));
       say(result.mode==='boat' ? scout.name+' · private Boat.dev sandbox booted and returned a ranking.' : scout.name+' · demo sandbox log, ranked three crew members.');
       const picks=result.picks.map(i=>matches.get(i));
       list.replaceChildren(...picks.map(match=>{

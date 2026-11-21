@@ -384,3 +384,11 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Decision. Ship the labeled demo as the default. An opt-in Boat.dev path uses separate private sandboxes with a bounded fixed ranking job. Demo timing and the sample Context.dev line are labeled.
 - Verified four lanes, the monkey event, the feather, the leaderboard, ANSI output, and IT’S MUTUAL at 375px and 414px with local Redis. The production film bytes matched the replacement files at 21:47 Paris.
 - **STEER ME:** Let the race leader auto-win after the final scout finishes or keep the explicit pick.
+
+## H46 · 2026-11-21 21:59 CET · Standing on Colin’s shoulders
+
+- Studied luma-clone, moonbase, sandboxmaxxing, luxcode, tenki-cookbook, and tenki-eve-sandbox. The race uses sandboxmaxxing’s same-brief fan-out, isolated seats, progressive results, and human-picked winner. The event record follows luma-clone’s slug, date, time-zone, and venue fields.
+- Room composer now exports an attendee sheet. Adapted the Moonbase CSV serializer’s formula guard and quoting, with its MIT notice. The organizer export uses the roster already authorized for that room.
+- The [public issues](https://github.com/Corvus-gent/the-hackers-bay/issues?q=is%3Aissue+label%3Afor-colin) cover Boat.dev, a Tenki/Luxor provider, the organizer workflow, and NYTEX receipt verification.
+- Verified four distinct mock Boat.dev sessions with the exact bounded scoring script and no credentials passed to the VM. Real runs remain opt-in. Verified the attendee CSV’s line endings, field quoting, and formula guard.
+- **STEER ME:** Prioritize the Tenki provider next or run a keyed Boat.dev pilot first.
