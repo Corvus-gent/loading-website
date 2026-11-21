@@ -24,14 +24,18 @@ function letters(box, pixels, color, x, y) {
   pixels.forEach((row, j) => [...row].forEach((bit, i) => { if (bit === '1') box(color,x+i,y+j,1,1); }));
 }
 
-function backdrop(canvas, dusk) {
+function backdrop(canvas, phase) {
   const ctx = canvas.getContext('2d');
   const { box, poly } = pixelPainter(ctx);
-  const sky = dusk ? ['#161a3a','#2c2548','#4a3655','#74465c','#b76562'] : ['#091629','#112341','#183354','#225072','#457587'];
-  const water = dusk ? ['#243959','#183752','#123149','#102c42','#0b2135'] : ['#17485a','#133f56','#10364d','#0e2d43','#0a2337'];
+  const dusk = phase === 'dusk';
+  const day = phase === 'day';
+  const sky = day ? ['#31567d','#3a7191','#518daa','#78a6ac','#b4c5ad']
+    : dusk ? ['#161a3a','#2c2548','#4a3655','#74465c','#b76562'] : ['#091629','#112341','#183354','#225072','#457587'];
+  const water = day ? ['#37818a','#297384','#206176','#1d536b','#19485e']
+    : dusk ? ['#243959','#183752','#123149','#102c42','#0b2135'] : ['#17485a','#133f56','#10364d','#0e2d43','#0a2337'];
   sky.forEach((color, i) => box(color, 0, i * 15, SEA_WIDTH, 15));
   water.forEach((color, i) => box(color, 0, WATER + i * 10, SEA_WIDTH, 10));
-  for (let i = 0; i < stars.length; i += 3) {
+  for (let i = 0; !day && i < stars.length; i += 3) {
     const x = Math.floor(stars[i] * SEA_WIDTH);
     const y = Math.floor(stars[i+1] * 65);
     const intensity = stars[i+2];
@@ -116,13 +120,23 @@ export function makeSea(canvas) {
   canvas.height = SEA_HEIGHT;
   const ctx = canvas.getContext('2d', {alpha:false});
   const paint = pixelPainter(ctx);
-  const plates = [false, true].map(dusk => {
+  const plates = ['night', 'dusk', 'day'].map(phase => {
     const plate = document.createElement('canvas');
     plate.width = SEA_WIDTH;
     plate.height = SEA_HEIGHT;
-    backdrop(plate, dusk);
+    backdrop(plate, phase);
     return plate;
   });
+  const flock = [[9,22,0],[111,43,1],[154,17,4]].map(([offset, altitude, palette]) => {
+    const frames = [false, true].map(flight => {
+      const bird = document.createElement('canvas');
+      bird.width = bird.height = 22;
+      paintParrot(bird.getContext('2d'), {...DEFAULT_PIRATE, bird:palette, birdHat:0}, 0, 0, flight);
+      return bird;
+    });
+    return {offset, altitude, frames};
+  });
+  ctx.imageSmoothingEnabled = false;
 
   return (seconds = 0, duskOnly = false) => {
     const t = seconds % SEA_LOOP;
@@ -131,6 +145,10 @@ export function makeSea(canvas) {
     const dusk = duskOnly ? 1 : Math.max(0, Math.sin(t / SEA_LOOP * Math.PI) - .3);
     ctx.globalAlpha = dusk;
     ctx.drawImage(plates[1], 0, 0);
+    if (!duskOnly && t > 7.5 && t < 15.5) {
+      ctx.globalAlpha = Math.max(0, 1 - Math.abs(t - 11.5) / 4);
+      ctx.drawImage(plates[2], 0, 0);
+    }
     ctx.globalAlpha = 1;
 
     const { box } = paint;
@@ -167,14 +185,10 @@ export function makeSea(canvas) {
       box('#ffeb9a',rowX+17,rowY-5,5,5);
     }
 
-    for (const [offset, altitude, palette] of [[9,22,0],[111,43,1],[154,17,4]]) {
+    for (const {offset, altitude, frames} of flock) {
       const x = Math.floor(((offset + t * 11) % 240) - 16);
       const y = Math.round(altitude + Math.sin(t * 2.3 + offset) * 3);
-      ctx.save();
-      ctx.translate(x,y);
-      ctx.scale(.55,.55);
-      paintParrot(ctx, {...DEFAULT_PIRATE, bird:palette, birdHat:0}, 0, 0, Math.floor(t*7+offset)%2===0);
-      ctx.restore();
+      ctx.drawImage(frames[Math.floor(t * 7 + offset) % 2], x, y, 12, 12);
     }
   };
 }

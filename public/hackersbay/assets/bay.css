@@ -18,7 +18,7 @@
   --ink: #eef7f6;
   --muted: #9cafbd;
   --line: #203749;
-  --gold: #f1cb84;
+  --gold: #ffc66b;
   --mono: "JetBrains Mono", monospace;
   --edge: clamp(20px, 5vw, 64px);
 }
@@ -176,7 +176,6 @@ h1, h2, h3, p { margin-top: 0; }
 .face-grid { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 7px; max-width: 412px; }
 .crew-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
 .crew-list li { display: flex; align-items: center; gap: 10px; line-height: 1.4; }
-.crew-list .crew-sprite { width: 34px; }
 .crew-list strong, .crew-list small { display: block; }
 .crew-list strong { font-size: 14px; }
 .crew-list small { font-size: 12px; color: #a8bdc4; }
@@ -282,7 +281,6 @@ input::placeholder { color: #8aa2b3; }
 .match-card header { display: flex; align-items: center; gap: 11px; }
 .match-card h3 { margin: 0; font-size: 19px; }
 .match-card header p { margin: 0; }
-.match-card .crew-sprite { width: 44px; }
 
 .match-mark { margin-left: auto; align-self: start; white-space: nowrap; color: var(--gold); font: 600 12px var(--mono); }
 .match-reasons { margin-bottom: 0; font-size: 13px; }
@@ -338,7 +336,6 @@ input::placeholder { color: #8aa2b3; }
 .applicant-heading input, .report-projects select { margin-bottom: 0; }
 .applicant, .report-card { padding: 16px; }
 .applicant header, .report-card header { display: flex; align-items: center; gap: 10px; margin: 0 0 8px; }
-.applicant .crew-sprite, .report-card .crew-sprite { width: 40px; }
 .applicant header h3, .report-card header h3 { margin: 0; font-size: 19px; }
 .applicant header p, .report-card header p { margin: 0; }
 .applicant > p, .report-card > p { font-size: 13px; margin-bottom: 7px; }
@@ -511,7 +508,6 @@ input[type="checkbox"] { width: 17px; min-height: 17px; height: 17px; margin: 0;
 }
 :root {
   --pixel: Silkscreen, "JetBrains Mono", monospace;
-  --gold: #ffc66b;
   --parrot: #ff5a4e;
   --parchment: #f3e3c0;
   --wood: #6b4426;

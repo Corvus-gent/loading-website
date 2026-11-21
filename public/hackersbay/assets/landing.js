@@ -38,7 +38,7 @@ let cannonBeat;
 
 function tick(now) {
   const span = now - last;
-  if (span >= 1000 / 30) {
+  if (span >= 15) {
     const previous = elapsed % loopLength;
     elapsed += Math.min(span, 120) / 1000;
     if (previous < cannonBeat && elapsed % loopLength >= cannonBeat) playBaySound('cannon');

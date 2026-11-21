@@ -206,3 +206,11 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Verified. The share card dimensions, route suite, Remotion asset preparation, and build passed. The judges' brief still fits at 375 × 667, and the footer and demo QR codes scan.
 - Next. Update the stage notes and run the final production smoke across phone widths and both capture formats.
 - **STEER ME:** Keep the cannon impact as the share image or feature a close-up of Copper Byte and Patch.
+
+## H25 · 2026-11-21 09:36 CET · Deck polish
+
+- Shipped the daylight pass, clearer pixel parrots in flight, and a live hero that renders on the browser’s frame clock. Updated the screenshot and share art with the sharper sprites.
+- Decision. Keep the initial night scene as the static poster. The live animation cycles through daylight only while visible. The README and 209-word submission now reflect the pirate-first walkthrough.
+- Verified. Eleven mobile paths passed at 375px and 414px with zero horizontal overflow or undersized standalone controls. The sea renderer measured 5.2 ms at the 95th percentile under a 4× CPU throttle at 375px.
+- Next. Confirm the production deployment, then test the complete flow and the one-minute capture against the live domain.
+- **STEER ME:** Keep the daylight pass after the cannon shot or open in daylight for the next event.

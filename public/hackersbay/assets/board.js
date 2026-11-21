@@ -144,7 +144,13 @@ profileForm.addEventListener('submit', async event => {
 cardForm.addEventListener('submit', event => {
   event.preventDefault();
   const { name, type, builds, wants, offers } = Object.fromEntries(new FormData(cardForm));
-  const card = savePersona({ ...current, name, type, builds, wants, offers, pirate: getAppearance() });
+  const pirate = getAppearance();
+  if (!pirate.birdName) {
+    cardStatus.textContent = 'Give your parrot a name before raising the flag.';
+    cardForm.elements.birdName.focus();
+    return;
+  }
+  const card = savePersona({ ...current, name, type, builds, wants, offers, pirate });
   if (!card) { cardStatus.textContent = 'Add a pirate name and fill in Builds, Wants, and Offers.'; return; }
   location.assign(EVENT_PATH + '?lens=' + encodeURIComponent(card.type));
 });
