@@ -249,3 +249,12 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Verified. All eight scenes fit at 1080 × 1920, 1920 × 1080, 375px, and 414px. All 40 WebP and PNG pairs matched on their visible pixels. The mobile route sweep, selector fallbacks, routes, and Luma tests passed locally.
 - Next. Verify the exact deployment on the public domain, then remove the eight raw uploads from main.
 - **STEER ME:** Keep the Captain’s parchment speech bubbles or use a darker radio-panel style next time.
+
+## H30 · 2026-11-21 15:12 CET · Production verification and art cleanup
+
+- Verified eleven live routes at 375px and 414px and the branded 404 at 375px. The creator, ship, public event import, empty states, shared intro, gold rewards, Mac links, QR codes, and crawler previews passed.
+- Watched the complete production autoplay. Captain Squawk reached the QR after 54.4 seconds and the end card held beyond one minute. Both capture formats passed.
+- Reserved space for the coin counter. Six throttled cold local runs at 375px and 414px recorded zero layout shift and no initial roster fetch.
+- Removed the eight raw uploads after verifying the served art. Decision. Keep the upload commit f1ada0e in Git history for anyone who wants to regenerate the crops.
+- Next. Use the live demo for both capture formats and the new Mac download for desktop.
+- **STEER ME:** Lead with the cannon shot or open on the Captain’s wardrobe for the next recording.

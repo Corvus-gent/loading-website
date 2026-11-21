@@ -731,7 +731,8 @@ body[data-dragging-pirate] { user-select: none; }
 .pixel-art img { display: block; width: 100%; height: auto; image-rendering: pixelated; }
 .dressed-crew { aspect-ratio: 132 / 144; }
 .bay-coins {
-  display: inline-flex; width: max-content; align-items: center; gap: 5px; color: var(--gold);
+  display: inline-flex; width: max-content; min-height: 17px; min-width: 42px;
+  align-items: center; justify-content: flex-end; gap: 5px; color: var(--gold);
   font: 400 13px/1 var(--pixel); white-space: nowrap;
 }
 .bay-coins .pixel-art { flex: none; width: 17px; }
