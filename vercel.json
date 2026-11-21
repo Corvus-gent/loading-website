@@ -414,6 +414,18 @@
       "destination": "/public/hackersbay/preview.html"
     },
     {
+      "source": "/hackersbay/crew",
+      "destination": "/public/hackersbay/crew.html"
+    },
+    {
+      "source": "/hackersbay/create",
+      "destination": "/public/hackersbay/create.html"
+    },
+    {
+      "source": "/hackersbay/invite",
+      "destination": "/public/hackersbay/invite.html"
+    },
+    {
       "source": "/hackersbay/host",
       "destination": "/public/hackersbay/host.html"
     },

@@ -285,3 +285,12 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Verified locally at 375px and 414px. The judges’ brief fits a 375 × 667 viewport. Unit tests reject bogus receipts and exercise the Boat request with mocked providers. The zero-key demo and share intents passed.
 - Next. Verify the live deployment and keep the public submission source in sync.
 - **STEER ME:** Open the judges’ demo on the receipt badge or on the public scout log.
+
+## H34 · 2026-11-21 20:43 CET · Organizer invites and live crew totals
+
+- Added public Luma import to event creation, separate guest and private organizer links, and “Build your pirate to board.” The composer ranks the event’s roster and keeps its deck draft in the organizer’s browser.
+- Added live counts from Redis. A saved browser pirate and a shared mutual intro each count once. No seed numbers were added.
+- Decision. Guest registrations share name, class, and wardrobe. The organizer can see Builds, Wants, and Offers only when a guest checks the optional box. Shared links expire after 90 days. Zero-key installs use a labeled local preview.
+- Verified at 375px with a stubbed Luma import and at 414px with real Redis, separate guest and organizer browser contexts, an invalid organizer key, and repeated save and acceptance requests.
+- Next. Publish the three 60-second cuts and the two-minute pitch for Demo Day.
+- **STEER ME:** Keep the initial deck at 10 seats or add a host-defined seat count.

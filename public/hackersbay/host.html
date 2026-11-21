@@ -12,12 +12,18 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-bar wrap">
     <a class="brand" href="/hackersbay"><picture class="pixel-art brand-picture"><source type="image/webp" srcset="/public/hackersbay/art/captain-icon.webp"><img src="/public/hackersbay/art/captain-icon.png" width="34" height="34" alt=""></picture><span class="wordmark">The Hackers Bay</span></a>
-    <a class="top-link" href="/hackersbay/sponsor">Treasure report</a>
+    <a class="top-link" href="/hackersbay/create">Create event</a>
   </header>
   <main class="wrap inside" id="main">
     <header class="page-heading">
       <p class="eyebrow"><span class="beacon"></span> THE BLACK COMMIT · QUARTERMASTER</p>
       <h1>Room composer.</h1>
+      <p id="room-event-title" class="fine"></p>
+      <div class="organizer-actions">
+        <a class="button primary" href="/hackersbay/create">Create your event</a>
+        <a class="button" id="room-invite" hidden>Open boarding invite</a>
+        <button class="button" id="room-refresh" type="button" hidden>Refresh roster</button>
+      </div>
       <p>Drag pirates onto the deck or use Add to room. Watch the match graph and applicant rankings change with your crew.</p>
     </header>
     <p class="fine" id="host-state" data-squawk="typing" role="status">Loading the fictional applicant roster…</p>
@@ -35,7 +41,7 @@
       </section>
       <section aria-labelledby="applicant-title">
         <div class="applicant-heading">
-          <div><p class="eyebrow">FICTIONAL ROSTER</p><h2 class="small-heading" id="applicant-title">Ranked applicants</h2></div>
+          <div><p class="eyebrow" id="roster-label">FICTIONAL ROSTER</p><h2 class="small-heading" id="applicant-title">Ranked applicants</h2></div>
           <label>Find an applicant <input id="find-applicant" type="search" placeholder="Name, role, or project"></label>
         </div>
         <div id="applicants" class="match-list"></div>

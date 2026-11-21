@@ -3,6 +3,7 @@ import { CLASSES, pixelCanvas } from './pirate.js';
 import { artPicture, captainArt, classArt } from './art.js';
 import { normalizeLook, partArt, prepareDressed, rollLook, WARDROBE } from './wardrobe.js';
 import { giveCoins, squawkStatus } from './game.js';
+import { boardEvent, browserPirateId, eventLink, eventSelection } from './organizer.js';
 import { playBaySound, wireSound } from './sound.js';
 
 const picker = document.querySelector('#persona-choices');
@@ -199,11 +200,47 @@ profileForm.addEventListener('submit',async event => {
   playBaySound('squawk');
 });
 
-cardForm.addEventListener('submit',event => {
+function countPirate(type) {
+  try {
+    void fetch('/api/hackersbay?action=crew-pirate', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: browserPirateId(), type }), keepalive: true
+    }).catch(() => {});
+  } catch { /* A browser with storage blocked can still board the sample event. */ }
+}
+
+const selectedEvent = eventSelection();
+if (selectedEvent) {
+  const note = document.createElement('p');
+  note.className = 'fine';
+  note.textContent = 'Boarding shares your pirate name, class, and outfit with the organizer.';
+  const label = document.createElement('label');
+  label.className = 'organizer-opt-in';
+  const share = document.createElement('input');
+  share.type = 'checkbox';
+  share.name = 'shareOrganizer';
+  label.append(share, ' Also share my Builds, Wants, and Offers for room matching.');
+  cardStatus.before(note, label);
+}
+
+cardForm.addEventListener('submit', async event => {
   event.preventDefault();
   const {name,type,builds,wants,offers} = Object.fromEntries(new FormData(cardForm));
   const card = savePersona({...current,name,type,builds,wants,offers,look:getAppearance()});
   if (!card) { squawkStatus(cardStatus,'Add a pirate name and fill in Builds, Wants, and Offers.'); return; }
+  if (selectedEvent) {
+    const submit = cardForm.querySelector('[type="submit"]');
+    submit.disabled = true;
+    try {
+      await boardEvent(selectedEvent, card, cardForm.elements.shareOrganizer.checked);
+      location.assign(eventLink('invite', selectedEvent) + '&boarded=1');
+    } catch (error) {
+      squawkStatus(cardStatus, error.message);
+      submit.disabled = false;
+    }
+    return;
+  }
+  countPirate(card.type);
   giveCoins('raised-first-flag',3);
   location.assign(EVENT_PATH + '?lens=' + encodeURIComponent(card.type));
 });

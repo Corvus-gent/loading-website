@@ -913,3 +913,24 @@ body[data-dragging-pirate] { user-select: none; }
   .judges-brief { padding-block: 14px 8px; }
   .judges-eyebrow { margin-bottom: 9px; }
 }
+
+.organizer-page { max-width: 850px; overflow-wrap: anywhere; }
+.organizer-form { display: grid; gap: 14px; margin-block: 16px; padding: clamp(16px, 4vw, 27px); }
+.organizer-form > * { margin-block: 0; }
+.organizer-form label { display: grid; gap: 6px; }
+.organizer-form input { width: 100%; min-width: 0; }
+.organizer-form .button { justify-self: start; }
+.organizer-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
+.organizer-actions .button { min-height: 44px; }
+.organizer-opt-in { display: flex; align-items: center; gap: 8px; min-height: 44px; }
+.organizer-opt-in input { flex: 0 0 auto; width: 18px; height: 18px; }
+.invite-facts { padding-left: 20px; }
+
+.crew-counts { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+.crew-counts > div { padding: clamp(12px, 3vw, 24px); }
+.crew-counts dt { font-weight: 800; }
+.crew-counts dd { margin: 0; }
+.crew-counts dd > span { display: block; }
+.crew-counts dd > span:first-child { color: var(--teal); font: clamp(29px, 7vw, 65px)/1.3 var(--pixel, monospace); margin: 0; overflow-wrap: anywhere; }
+
+.pwa-hint { margin: 0; }

@@ -1,8 +1,10 @@
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import { countPirate, readCrewCounts } from '../lib/hackersbay/crew.js';
 import { buildLog } from '../lib/hackersbay/build-log.js';
 import { proofOfBuild, runParrotScout } from '../lib/hackersbay/boat.js';
 import { available, networkId } from '../lib/hackersbay/quota.js';
+import { eventActions, handleEvent } from '../lib/hackersbay/events.js';
 import { handleIntro } from '../lib/hackersbay/intros.js';
 import { loadLumaEvent } from '../lib/hackersbay/luma.js';
 import { normalizeLumaUrl } from '../public/hackersbay/assets/luma.js';
@@ -22,6 +24,10 @@ export default async function handler(req, res) {
     try { return await buildLog(res); }
     catch { return res.status(503).json({ error: 'Build log unavailable.' }); }
   }
+  if (req.method === 'GET' && action === 'crew-counts') {
+    try { return res.status(200).json(await readCrewCounts()); }
+    catch { return res.status(503).json({ available: false }); }
+  }
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     return res.status(405).json({ error: 'Use POST.' });
@@ -35,6 +41,15 @@ export default async function handler(req, res) {
     const permitted = await available('luma', networkId(req), 20, 60);
     const event = permitted ? await loadLumaEvent(url.href).catch(() => null) : null;
     return res.status(200).json({ event });
+  }
+  if (action === 'crew-pirate') {
+    if (!await available('crew-pirate', networkId(req), 35, 300)) return res.status(429).json({ error: 'Try again in a few minutes.' });
+    return countPirate(req.body, res);
+  }
+  if (eventActions.has(action)) {
+    const limit = action === 'create-event' ? 8 : 90;
+    if (!await available(action, networkId(req), limit, 300)) return res.status(429).json({ error: 'Try again in a few minutes.' });
+    return handleEvent(action, req.body, res);
   }
   if (action === 'proof') return proofOfBuild(req, res);
   if (action === 'request-intro' && !await available('intro', networkId(req), 25, 300)) {

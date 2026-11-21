@@ -14,7 +14,7 @@ export async function loadRoom() {
 }
 
 export function crewAvatar(person) {
-  const {type,look} = seededLook(person);
+  const {type,look} = person.type ? person : seededLook(person);
   return dressedSprite(type,look);
 }
 
