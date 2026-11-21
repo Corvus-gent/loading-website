@@ -44,7 +44,8 @@ function tick(now) {
     const previous = elapsed % loopLength;
     elapsed += Math.min(span, 120) / 1000;
     if (previous < cannonBeat && elapsed % loopLength >= cannonBeat) playBaySound('cannon');
-    drawing(elapsed);
+    const departure = drawing(elapsed);
+    stage.style.setProperty('--ship-shift', (departure * 100).toFixed(2) + '%');
     const age = elapsed % loopLength - impact;
     stage.toggleAttribute('data-impact', age >= 0 && age < .32);
     last = now;
@@ -58,6 +59,7 @@ async function syncSea() {
     frame = 0;
     canvas.hidden = true;
     stage.removeAttribute('data-impact');
+    stage.style.removeProperty('--ship-shift');
     return;
   }
   if (!drawing && !starting) {

@@ -29,6 +29,13 @@ const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 const limit = x => Math.min(1, Math.max(0, x));
 const seaCanvas = document.querySelector('#demo-sea');
 const sea = seaCanvas.parentElement;
+const endCanvas = document.querySelector('#demo-end-sea');
+let drawEnd;
+void makeArtworkSea(endCanvas).then(draw => {
+  drawEnd = draw;
+  draw(5);
+  endCanvas.hidden = false;
+}).catch(() => { /* The still keeps the end card readable. */ });
 let drawSea;
 void makeArtworkSea(seaCanvas).then(draw => {
   drawSea = draw;
@@ -67,7 +74,6 @@ const brief = {
 };
 const sample = Object.entries(brief).map(([id,[name]]) => ({person:{id,name,pirate:seededPirate(id)}}));
 const dots = Array.from({length:30}, (_, id) => ({id}));
-drawRadar(document.querySelector('#end-sonar'), [], sample);
 
 const radar = document.querySelector('#demo-radar');
 const crew = document.querySelector('#demo-crew');
@@ -195,6 +201,11 @@ function play(now) {
     host.replaceChildren(captainArt(pose,{lazy:false}));
   }
   if (beat === 'naval') naval(elapsed);
+  if (beat === 'end' && drawEnd) {
+    const time = reduced.matches ? 5 : Math.min(8.7, 1.7 + elapsed * 1.25);
+    const tick = Math.floor(time * 30);
+    if (tick !== seaFrame) { drawEnd(tick / 30); seaFrame = tick; }
+  }
   if (beat === 'build') build(elapsed);
   if (beat === 'class') classList.toggleAttribute('data-picked', elapsed >= 1.15);
   if (beat === 'radar') scout(elapsed);

@@ -190,3 +190,8 @@
 .demo-credit .boat-credit-badge { min-height: auto; padding: .28em .65em; }
 .demo-credit .boat-credit-links { justify-content: center; gap: .4em 1em; }
 [data-format="wide"] .demo-credit { margin-top: 1.3cqw; }
+
+.demo-end-sea { position: absolute; width: 116%; border: 0; box-shadow: none; opacity: .62; mask-image: linear-gradient(transparent, #000 22%, #000 74%, transparent); }
+.demo-scene[data-beat="end"] .demo-copy { text-shadow: 0 2px 10px #06121f, 0 0 9px #06121f; }
+.demo-scene[data-beat="end"] .boat-credit { color: #f3e3c0; }
+[data-format="wide"] .demo-end-sea { width: 80%; justify-self: end; }

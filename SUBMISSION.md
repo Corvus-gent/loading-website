@@ -17,6 +17,7 @@ With credentials, **Private Parrot** uses **NYTEX TrustedRouter** for confidenti
 - [Open The Hackers Bay](https://corvus.gent/hackersbay)
 - [Sink a public Luma listing](https://corvus.gent/hackersbay#sink)
 - [Watch the 60-second demo](https://corvus.gent/hackersbay/demo)
+- [Watch or download the two-minute pitch](https://corvus.gent/hackersbay/cuts#pitch)
 - [Download the Mac app](https://github.com/Corvus-gent/loading-website/releases/tag/hackersbay-demo-v0.2.0)
 
 ## Straight talk

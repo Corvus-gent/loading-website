@@ -27,9 +27,10 @@ function rowboatLabel(ctx, atX, atY) {
   }
 }
 
-export async function makeArtworkSea(canvas) {
-  const [plate, boat, flier] = await Promise.all([
-    loadArt('hero-sea'), loadArt('hero-rowboat'), loadArt('squawk-flying').catch(() => null)
+export async function makeArtworkSea(canvas, load = loadArt) {
+  const [plate, boat, flier, ship, clear] = await Promise.all([
+    load('hero-sea'), load('hero-rowboat'), load('squawk-flying').catch(() => null),
+    load('black-commit-passing').catch(() => null), load('hero-sea-clear').catch(() => null)
   ]);
   canvas.width = WIDTH;
   canvas.height = HEIGHT;
@@ -38,14 +39,23 @@ export async function makeArtworkSea(canvas) {
 
   return seconds => {
     const t = seconds % SHIP_LOOP;
-    const pan = Math.round(Math.sin(t * .55) * 4);
+    const flash = t - IMPACT;
+    const shake = flash >= 0 && flash < .23 ? Math.round(Math.sin(flash * 120) * 10 * (1 - flash / .23)) : 0;
+    const pan = Math.round(Math.sin(t * .55) * 4) + shake;
     const bob = Math.round(Math.sin(t * 3.2) * 3);
     const sink = limit((t - IMPACT) / 2.1);
-    const flash = t - IMPACT;
     const shot = (t - FIRE) / (IMPACT - FIRE);
     ctx.save();
     ctx.translate(pan,0);
-    ctx.drawImage(plate,-6,0,WIDTH+12,HEIGHT);
+    ctx.drawImage(plate,-14,0,WIDTH+28,HEIGHT);
+    const passage = ship && clear ? limit((flash - .65) / 7.4) : 0;
+    if (passage > 0) {
+      ctx.save();
+      ctx.globalAlpha = Math.min(1, passage * 9);
+      ctx.drawImage(clear,-14,0,WIDTH+28,HEIGHT);
+      ctx.drawImage(ship,Math.round(-1 + 555 * passage),Math.round(Math.sin(t * 3) * 2),WIDTH,HEIGHT);
+      ctx.restore();
+    }
 
     for (const [i,[x,y]] of stars.entries()) {
       const flicker = (Math.floor(t * 4 + i * 1.6) % 8);
@@ -75,11 +85,11 @@ export async function makeArtworkSea(canvas) {
       const x = Math.round(398 + shot * 123);
       const y = Math.round(200 + shot * 82 - Math.sin(shot * Math.PI) * 45);
       ctx.fillStyle = '#ffce79';
-      ctx.fillRect(x-24,y+1,20,3);
+      ctx.fillRect(x-40,y+1,34,5);
       ctx.fillStyle = '#03091a';
-      ctx.fillRect(x-4,y-5,10,10);
+      ctx.fillRect(x-9,y-9,19,19);
       ctx.fillStyle = '#ffeab1';
-      ctx.fillRect(x-2,y-4,3,3);
+      ctx.fillRect(x-5,y-7,5,5);
     }
     if (flash >= 0 && flash < .27) {
       const radius = Math.round(12 + flash * 70);
@@ -89,15 +99,36 @@ export async function makeArtworkSea(canvas) {
       ctx.fillStyle = '#fff4bc';
       ctx.fillRect(516,269,13,14);
     }
-    if (flash > 0 && flash < 3.8) {
-      for (let i=0; i<13; i++) {
-        const life = (t * 1.45 + i * .17) % 1;
-        const x = Math.round(480 + i*8 + Math.sin(i + life*3)*7);
-        const y = Math.round(326 - life*(18 + i%5*5));
-        ctx.fillStyle = i%2 ? '#adfff5' : '#439fd0';
-        ctx.fillRect(x,y,i%3+3,2);
-        if (i%3===0) ctx.fillRect(x,y+3,2,2);
+    if (flash > 0 && flash < 1.3) {
+      for (let i = 0; i < 39; i++) {
+        const x = Math.round(523 + ((i * 67) % 186 - 93) * flash * 1.65);
+        const y = Math.round(292 - (60 + i * 29 % 155) * flash + 150 * flash ** 2);
+        if (y > 335) continue;
+        ctx.fillStyle = ['#3ee6c4','#cdfffa','#79d0ed','#fff1a4'][i % 4];
+        ctx.fillRect(x, y, 4 + i % 6, 5 + i % 8);
       }
+    }
+    if (flash > 0 && flash < 8) {
+      ctx.globalAlpha = Math.min(1, (8 - flash) / 1.2);
+      for (let i = 0; i < 18; i++) {
+        const life = (flash * 1.35 + i * .17) % 1;
+        const x = Math.round(445 + i * 10 + Math.sin(i + life * 3) * 9);
+        const y = Math.round(330 - life * (20 + i % 7 * 9));
+        const size = i % 4 * 2 + 3;
+        ctx.strokeStyle = i % 2 ? '#adfff5' : '#439fd0';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(x, y, size, size);
+      }
+      for (let i = 0; i < 12; i++) {
+        const pace = Math.max(0, flash - i * .037);
+        const x = Math.round(520 + (i % 2 ? 1 : -1) * (i * 6 + pace * (8 + i * 3)));
+        const y = Math.round(Math.max(258 - i % 4 * 12, 313 - pace * 125) + Math.sin(pace * 4 + i) * 4);
+        const size = 10 + i % 4 * 3;
+        ctx.fillStyle = i % 2 ? '#7c8695' : '#a2a8b1';
+        ctx.fillRect(x + 3, y, size - 6, size);
+        ctx.fillRect(x, y + 3, size, size - 6);
+      }
+      ctx.globalAlpha = 1;
     }
     if (flier && t > 4 && t < 8.3) {
       const flight = (t-4)/4.3;
@@ -106,5 +137,6 @@ export async function makeArtworkSea(canvas) {
       ctx.drawImage(flier,x,y,65,Math.floor(t*9)%2 ? 61 : 65);
     }
     ctx.restore();
+    return passage * 555 / WIDTH;
   };
 }

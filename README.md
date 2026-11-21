@@ -27,6 +27,8 @@ Then run `node tools/openrisk-import-logos.mjs` to cache missing logos.
 
 Open the [vertical autoplay demo](https://corvus.gent/hackersbay/demo?format=vertical) at 1080 × 1920 or the [widescreen autoplay demo](https://corvus.gent/hackersbay/demo?format=wide) at 1920 × 1080. The timed sequence plays on load and holds the end card at 60 seconds. Press **R** to restart, **Space** to pause or resume, or **M** to toggle sound.
 
+For Demo Day, [play or download the two-minute pitch and compare the three vertical cuts](https://corvus.gent/hackersbay/cuts). The [live talk track](SHOTLIST.md#two-minute-live-talk-track) follows the widescreen pitch.
+
 For a live walkthrough on a phone:
 
 1. **0–10s** Open [The Hackers Bay](https://corvus.gent/hackersbay) on a phone. Show The Black Commit firing at the grey rowboat.
@@ -47,7 +49,7 @@ The demo works with zero new variables. Set credentials server-side in the Corvu
 | Standard AI persona drafting | `HACKERSBAY_OPENAI_API_KEY`, optionally `HACKERSBAY_OPENAI_MODEL` (default `gpt-4.1-mini`) |
 | Confidential persona drafting | `TRUSTEDROUTER_API_KEY` or `NYTEX_TRUSTEDROUTER_API_KEY`, optionally `HACKERSBAY_TRUSTEDROUTER_MODEL` (default `nyte/trusted`) |
 | Live Proof of Build | `BOAT_DEV_API_KEY` or `BOAT_API_KEY`, plus `HACKERSBAY_BOAT_REPOS` (comma-separated public `owner/repo` values) |
-| Shareable intro links and preview job cache | The existing Corvus Redis connection, such as `REDIS_TLS_URL` or `REDIS_URL` |
+| Shareable intros, organizer rosters, live crew counts, and preview job cache | The existing Corvus Redis connection, such as `REDIS_TLS_URL` or `REDIS_URL` |
 
 ### Straight talk
 
