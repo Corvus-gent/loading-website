@@ -156,3 +156,11 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Decision. Keep the end card visible after playback so viewers can scan the code. The submission describes the fictional roster and the current sponsor fallbacks.
 - Next. Rehearse from the judging brief or paste the draft into the builder dashboard.
 - **STEER ME:** Put the judging brief first in the submission links or lead with the live landing page.
+
+## H19 · 2026-11-21 09:17 CET · Build your pirate
+
+- Shipped a 48 × 48 original pirate sprite with seven customizable layers, a named shoulder parrot, a dice roll, and four classes. The parrot previews Wants and takes an occasional flight.
+- Decision. Deckhand is the default class. A public profile can draft the ship’s log while keeping your chosen name, class, and kit. Raising the flag saves the pirate and opens the same event lens.
+- Verified. At 375px, 414px, and 1440px the layers, dice, saved state, class handoff, private-mode fallback, and reduced-motion path passed. The build, lint, route suite, and Luma parser tests passed.
+- Next. Set The Black Commit afloat and give the event crew their own pirates.
+- **STEER ME:** Keep Copper Byte as the starting pirate or start with a fresh dice roll.

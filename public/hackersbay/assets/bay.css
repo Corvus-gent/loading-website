@@ -547,3 +547,20 @@ input[type="checkbox"] { width: 17px; min-height: 17px; height: 17px; margin: 0;
   .judges-points { font-size: 16px; padding: 16px 20px 16px 39px; }
   .judges-actions { grid-template-columns: 1.25fr 1fr 1fr; }
 }
+
+@font-face {
+  font-family: Silkscreen;
+  src: url("silkscreen.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+:root {
+  --pixel: Silkscreen, "JetBrains Mono", monospace;
+  --gold: #ffc66b;
+  --parrot: #ff5a4e;
+  --parchment: #f3e3c0;
+  --wood: #6b4426;
+}
+.crew-sprite, .parrot-sprite { display: block; max-width: 100%; height: auto; image-rendering: pixelated; }
+.sound-switch { padding-inline: 9px; white-space: nowrap; font-size: 12px; }
+.sound-switch[aria-pressed="true"] { color: var(--gold); border-color: var(--gold); }
