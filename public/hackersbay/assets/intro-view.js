@@ -33,6 +33,7 @@ function showDecision(result, person, moment) {
   birds.replaceChildren(mutualParrots());
   mutual.textContent = 'Suggested meetup · ' + (result.moment || moment);
   mutual.hidden = false;
+  mutual.dataset.mutualId = id;
   giveCoins('intro-' + id,5);
   setTimeout(() => playBaySound('coin'),450);
 }

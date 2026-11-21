@@ -311,3 +311,11 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Verified dimensions, durations, audio, and metadata playback in Chromium. The comparison and new pages fit at 375px and 414px. The browser demo reached the final QR in both exact capture formats.
 - Next. Verify production playback, then begin the Mac and terminal work.
 - **STEER ME:** Lead with A for the pitch, or swap in B or C when the real footage is available.
+
+## H37 · 2026-11-21 21:05 CET · Native Mac wrapper
+
+- The pitch and all three cuts served as MP4 byte ranges on production at 21:02 Paris.
+- Added a SwiftUI WKWebView app, Captain Squawk’s menu-bar counter, optional squawk sound, local mutual intro notifications, and the “Sink Luma” replay.
+- Decision. Notifications work while the app is running. Only the intro ID crosses the native bridge. The Mac build uses ad hoc signing, and Electron remains available.
+- Verified the bridge script, bundle metadata, and package script syntax on Linux. Next. Compile and package the universal DMG on the GitHub macOS runner, then publish it.
+- **STEER ME:** Keep mutual squawks opt-in, or enable them by default for desktop.

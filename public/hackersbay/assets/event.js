@@ -47,6 +47,7 @@ function renderMatch(match, index, type, event, attendees) {
     notice.classList.remove('squawk-status');
     shown = intro.status;
     if (intro.status === 'mutual') {
+      notice.dataset.mutualId = intro.id;
       notice.replaceChildren(
         element('strong', 'IT’S MUTUAL ⚓', 'mutual-message'),
         mutualParrots(),
