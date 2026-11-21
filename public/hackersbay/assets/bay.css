@@ -564,3 +564,41 @@ input[type="checkbox"] { width: 17px; min-height: 17px; height: 17px; margin: 0;
 .crew-sprite, .parrot-sprite { display: block; max-width: 100%; height: auto; image-rendering: pixelated; }
 .sound-switch { padding-inline: 9px; white-space: nowrap; font-size: 12px; }
 .sound-switch[aria-pressed="true"] { color: var(--gold); border-color: var(--gold); }
+
+.naval-landing { background: linear-gradient(180deg, #0c1d31, var(--navy) 620px); }
+.naval-landing .hero { grid-template-columns: .79fr 1.21fr; gap: clamp(20px, 4vw, 58px); }
+.naval-landing .hero .eyebrow { color: var(--gold); }
+.naval-landing .hero h1 {
+  max-width: none; color: var(--parchment); font: 400 clamp(30px, 4.2vw, 63px)/1.03 var(--pixel);
+  letter-spacing: -.08em;
+}
+.naval-landing .hero h1 span { margin-top: .12em; }
+.naval-landing .hero-lead { max-width: 39ch; }
+.naval-landing .hero .button, .naval-landing .sound-switch { border-radius: 0; }
+.harbor-controls { display: flex; align-items: center; gap: 12px; }
+.harbor-controls .top-link { display: inline-flex; align-items: center; min-height: 44px; }
+.naval-hero { margin: 0; min-width: 0; border: 2px solid #3d6f73; box-shadow: 4px 4px 0 #122d40; }
+.naval-stage { position: relative; aspect-ratio: 208/120; overflow: hidden; background: #1d3550; }
+.naval-stage img, .naval-stage canvas { display: block; width: 100%; height: 100%; image-rendering: pixelated; }
+.naval-stage canvas { position: absolute; inset: 0; }
+.naval-hero figcaption {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 5px 8px;
+  padding: 8px 10px; border-top: 2px solid #437476; color: var(--gold); background: #102434;
+  font: 400 clamp(10px, 1.2vw, 13px)/1.2 var(--pixel);
+}
+.naval-hero figcaption strong { color: var(--parchment); font-weight: 400; }
+.naval-hero figcaption b { color: var(--teal); }
+@media (max-width: 780px) {
+  .naval-landing .hero { grid-template-columns: minmax(0, 1fr); padding-block: 28px 33px; }
+  .naval-landing .hero h1 { margin-bottom: 16px; }
+  .naval-landing .hero-lead { margin-bottom: 17px; }
+  .naval-landing .site-bar { gap: 8px; }
+}
+@media (max-width: 470px) {
+  .harbor-controls { gap: 7px; }
+  .harbor-controls .top-link { font-size: 11px; }
+  .harbor-controls .top-link span { display: none; }
+  .naval-landing .site-bar .brand { gap: 6px; font-size: 13px; }
+  .naval-landing .site-bar .brand img { width: 28px; height: 28px; }
+  .naval-landing .powered-by { margin-top: 12px; }
+}

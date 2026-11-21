@@ -59,7 +59,7 @@ const BIRD = [
   ['#40f5b5','#226b77','#dd68ef','#efff9c']
 ];
 
-function painter(ctx) {
+export function pixelPainter(ctx) {
   function box(color, x, y, w, h) {
     ctx.fillStyle = color;
     ctx.fillRect(x, y, w, h);
@@ -88,7 +88,7 @@ export function paintParrot(ctx, pirate, x = 0, y = 0, flight = false) {
   const [feather, shadow, wing, cheek] = BIRD[pirate.bird];
   ctx.save();
   ctx.translate(x, y);
-  const { box, poly } = painter(ctx);
+  const { box, poly } = pixelPainter(ctx);
   poly(INK, [[3,4],[9,4],[12,7],[15,7],[16,11],[12,12],[11,16],[7,18],[3,21],[1,20],[3,15],[2,10],[1,8]]);
   poly(shadow, [[4,12],[10,12],[8,16],[4,19],[3,18]]);
   poly(feather, [[4,5],[9,5],[12,8],[12,11],[10,12],[10,15],[7,17],[4,16],[3,10]]);
@@ -113,7 +113,7 @@ export function paintParrot(ctx, pirate, x = 0, y = 0, flight = false) {
 
 export function paintPirate(ctx, value, {parrot = true} = {}) {
   const pirate = normalizePirate(value);
-  const { box, poly } = painter(ctx);
+  const { box, poly } = pixelPainter(ctx);
   const [skin, skinShade, blush] = SKIN[pirate.skin];
   const [coat, coatShade, trim] = COAT[pirate.coat];
   ctx.clearRect(0, 0, 48, 48);

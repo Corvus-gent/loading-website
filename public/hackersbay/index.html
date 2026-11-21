@@ -30,43 +30,31 @@
   <script type="module" src="/public/hackersbay/assets/landing.js"></script>
   <title>The Hackers Bay | RSVP to people, not places</title>
 </head>
-<body class="landing">
+<body class="landing naval-landing">
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-bar wrap">
     <a class="brand" href="/hackersbay"><img src="/public/hackersbay/assets/anchor.svg" width="34" height="34" alt=""> The Hackers Bay</a>
-    <a class="top-link" href="/hackersbay/demo">Watch the demo <span aria-hidden="true">→</span></a>
+    <div class="harbor-controls"><a class="top-link" href="/hackersbay/demo">Watch the demo <span aria-hidden="true">→</span></a><button class="button sound-switch" id="bay-sound" type="button" aria-pressed="false">Sound off</button></div>
   </header>
   <main id="main">
     <section class="hero wrap" aria-labelledby="title">
       <div class="hero-copy">
         <p class="eyebrow"><span class="beacon"></span> BOAT HACKATHON · DEMO DAY <span aria-hidden="true">🏴‍☠️</span></p>
         <h1 id="title">Luma is sinking. <span>The Hackers Bay is coming.</span></h1>
-        <p class="hero-lead"><strong>RSVP to people, not places.</strong> See if the room is worth your time, and find three people worth crossing the deck for.</p>
+        <p class="hero-lead"><strong>RSVP to people, not places.</strong> Build your pirate, pick your class, and send your parrot to find three people worth crossing the deck for.</p>
         <div class="actions" id="boarding">
           <a class="button primary" href="/hackersbay/board">Board the ship <span aria-hidden="true">→</span></a>
           <a class="text-link" href="#sink">Sink a Luma <span aria-hidden="true">↓</span></a>
         </div>
         <p class="powered-by">Powered by <a href="https://boat.dev/">Boat.dev</a> · <a href="https://www.context.dev/">Context.dev</a> · <a href="https://nytokenexchange.com/">NYTEX</a></p>
       </div>
-      <div class="radar-panel landing-radar">
-        <div class="radar-meta"><span><i class="beacon"></i> ROOM SONAR</span><span>PIER 09 · SF</span></div>
-        <div class="radar" role="img" aria-label="Demo sonar showing Kai, Devon, and Tess in the Broke hacker lens.">
-          <div class="dial">
-            <i class="ring one"></i><i class="ring two"></i><i class="ring three"></i>
-            <i class="sweep"></i><i class="radar-center"></i>
-            <span class="direction north">N</span><span class="direction east">E</span><span class="direction south">S</span><span class="direction west">W</span>
-            <i class="blip" style="--x:22%;--y:29%;--delay:-1s"></i><i class="blip" style="--x:48%;--y:22%;--delay:-3s"></i>
-            <i class="blip" style="--x:79%;--y:34%;--delay:-.5s"></i><i class="blip" style="--x:82%;--y:58%;--delay:-2s"></i>
-            <i class="blip" style="--x:42%;--y:77%;--delay:-3s"></i><i class="blip" style="--x:19%;--y:50%;--delay:-1.5s"></i>
-            <i class="blip" style="--x:33%;--y:59%;--delay:-1.5s"></i><i class="blip" style="--x:65%;--y:52%;--delay:-2.5s"></i>
-            <i class="blip" style="--x:47%;--y:40%;--delay:-3s"></i><i class="blip" style="--x:56%;--y:83%;--delay:-1s"></i>
-            <span class="lock" style="--x:65%;--y:27%"><b>×</b><small>Kai</small></span>
-            <span class="lock" style="--x:30%;--y:42%"><b>×</b><small>Devon</small></span>
-            <span class="lock" style="--x:65%;--y:68%"><b>×</b><small>Tess</small></span>
-          </div>
+      <figure class="naval-hero">
+        <div class="naval-stage" id="naval-stage" role="img" aria-label="The Black Commit, a pirate ship with teal sails, cannons a grey Luma rowboat as parrots fly past.">
+          <img src="/public/hackersbay/assets/black-commit.png" width="208" height="120" alt="" fetchpriority="high">
+          <canvas id="naval-sea" aria-hidden="true" hidden></canvas>
         </div>
-        <div class="radar-meta bottom"><span>30 FICTIONAL ATTENDEES</span><span class="teal">× 3 MATCHES LOCKED</span></div>
-      </div>
+        <figcaption><strong>The Black Commit</strong><span>BRACE FOR IMPACT <b aria-hidden="true">⟫</b></span></figcaption>
+      </figure>
     </section>
     <div class="manifest"><div class="wrap manifest-inner"><a class="text-link manifest-link" href="/hackersbay/e/boat-hackathon-demo-day"><span aria-hidden="true">⚓︎</span> Demo Day at the Historic Klamath</a><span>Sat Nov 21 · 1–5 PM PT</span><span>Pier 9, San Francisco</span><span class="manifest-end">INVITE-ONLY EVENT</span></div></div>
     <section class="wrap sink" id="sink" aria-labelledby="sink-title">

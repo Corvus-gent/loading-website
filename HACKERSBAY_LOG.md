@@ -164,3 +164,11 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Verified. At 375px, 414px, and 1440px the layers, dice, saved state, class handoff, private-mode fallback, and reduced-motion path passed. The build, lint, route suite, and Luma parser tests passed.
 - Next. Set The Black Commit afloat and give the event crew their own pirates.
 - **STEER ME:** Keep Copper Byte as the starting pirate or start with a fresh dice roll.
+
+## H20 · 2026-11-21 09:20 CET · The Black Commit
+
+- Shipped the original pixel sea, teal sails and bracket flag, a grey Luma rowboat, cannon impact and bubbles, and three flying parrots.
+- Decision. Use a 208 × 120 poster at first paint and draw a 30 fps scene only while visible. The original poster remains visible in reduced motion. Audio starts off and only plays after opting in.
+- Verified. The creator is live. The landing has no overflow at 375px, 414px, and desktop. The scene paints at rest, animates onscreen, stops offscreen, and advances through the cannon impact and sinking. The sound toggle works.
+- Next. Replace the guest wall and portraits throughout the product, then connect the parrots to the spyglass and intro flow.
+- **STEER ME:** Keep the moonlit opening or start in sunset colors.
