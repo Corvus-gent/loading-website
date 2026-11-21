@@ -11,7 +11,7 @@ const range = (value, input, output) => interpolate(value, input, output, { extr
 
 function Chrome({ children, note = 'BOAT HACKATHON DEMO DAY' }) {
   return <AbsoluteFill className="scene">
-    <div className="video-bar"><span><Img src={staticFile('anchor.svg')} /> THE HACKERS BAY</span><span>PIER 09 · SF</span></div>
+    <div className="video-bar"><span><Img src={staticFile('parrot-flag.svg')} /> THE HACKERS BAY</span><span>PIER 09 · SF</span></div>
     {children}
     <div className="video-foot"><span>{note}</span><span className="teal">37°47′ N · 122°23′ W</span></div>
   </AbsoluteFill>;

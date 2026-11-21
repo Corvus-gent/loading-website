@@ -709,3 +709,24 @@ body[data-dragging-pirate] { user-select: none; }
   :is(.event-page, .intro-page) .site-bar .brand img { width: 28px; height: 28px; }
   :is(.event-page, .intro-page) .harbor-controls .top-link span { display: none; }
 }
+
+.wordmark {
+  color: var(--parchment); font: 400 clamp(11px, 1.9vw, 16px)/1.14 var(--pixel);
+  letter-spacing: -.065em; text-transform: uppercase;
+}
+.brand img { flex: none; image-rendering: pixelated; }
+:is(.event-page, .host-page, .sponsor-page) :is(.page-heading h1, .event-heading h1) {
+  color: var(--parchment); font: 400 clamp(26px, 5.15vw, 55px)/1.12 var(--pixel); letter-spacing: -.08em;
+}
+:is(.event-page, .host-page, .sponsor-page) .page-heading .eyebrow { color: var(--gold); }
+.naval-landing :is(.section-head h2, .sink h2) {
+  color: var(--parchment); font: 400 clamp(22px, 4.1vw, 44px)/1.12 var(--pixel); letter-spacing: -.075em;
+}
+.judges-brief h1 {
+  color: var(--parchment); font: 400 clamp(25px, 7vw, 50px)/1.13 var(--pixel); letter-spacing: -.09em;
+}
+@media (max-width: 460px) {
+  :is(.board-page, .naval-landing, .event-page, .intro-page) .brand img { width: 28px; height: 28px; }
+  :is(.board-page, .naval-landing, .event-page, .intro-page) .brand { gap: 6px; }
+  .wordmark { letter-spacing: -.08em; }
+}

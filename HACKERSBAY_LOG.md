@@ -173,7 +173,7 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Next. Replace the guest wall and portraits throughout the product, then connect the parrots to the spyglass and intro flow.
 - **STEER ME:** Keep the moonlit opening or start in sunset colors.
 
-## H21 · 2026-11-21 09:24 CET · Crew, Quartermaster and Merchant
+## H21 · 2026-11-21 09:23 CET · Crew, Quartermaster and Merchant
 
 - Shipped 30 original named pirates with distinct pixel sprites and named parrots. The comparison uses sixteen identical grey guest circles opposite the crew on deck. The app and the Remotion source now use pixels or circles for people.
 - Shipped touch and mouse drag aboard in Room composer, plus a parchment map and chests in Treasure report.
@@ -198,3 +198,11 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Verified. All scenes and captions fit at 1080 × 1920, 1920 × 1080, 375px, and 414px. The QR decoded in both recording formats. Pause, replay, and reduced motion passed.
 - Next. Fly the parrot Jolly Roger and publish a matching social card.
 - **STEER ME:** Keep Copper Byte and Patch as the named demo pair or cast an original Merchant in a later cut.
+
+## H24 · 2026-11-21 09:34 CET · Fly the parrot flag
+
+- Shipped the original tricorn parrot, the Silkscreen wordmark and headings, and a new 1200 × 630 share card featuring The Black Commit at cannon impact. The landing and both recording formats use the new share card.
+- Decision. The Recraft art directory was empty on disk and on production main. The hero, logo, and share card use the original procedural art.
+- Verified. The share card dimensions, route suite, Remotion asset preparation, and build passed. The judges' brief still fits at 375 × 667, and the footer and demo QR codes scan.
+- Next. Update the stage notes and run the final production smoke across phone widths and both capture formats.
+- **STEER ME:** Keep the cannon impact as the share image or feature a close-up of Copper Byte and Patch.
