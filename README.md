@@ -58,3 +58,28 @@ The demo works with zero new variables. Set credentials server-side in the Corvu
 - Proof of Boat runs approved repos with credentials or opens a sample sandbox preview. With Redis, mutual intros can span browsers. The event details are public and the suggested crewmates, match reasons, and meetup times are staged.
 
 [Build log](https://corvus.gent/hackersbay/log) · [Universal native Mac app](https://github.com/Corvus-gent/loading-website/releases/tag/hackersbay-native-v0.1.0) · [Electron fallback](https://github.com/Corvus-gent/loading-website/releases/tag/hackersbay-demo-v0.2.0) · [Earlier demo clips](https://github.com/Corvus-gent/loading-website/releases/tag/hackersbay-demo-v0.1.0) · [Remotion project](video/README.md) · [Shot list](SHOTLIST.md) · [Compound edit brief](COMPOUND_PROMPT.md) · [LinkedIn drafts](LINKEDIN.md)
+
+## For terminal pirates
+
+Curl, wget, and HTTPie get Captain Squawk and The Black Commit in ANSI art at the home route. The API returns plain text by default. Add `?json` or `&json` to get structured output. Add `?color=0` to disable ANSI art.
+
+```sh
+curl https://corvus.gent/hackersbay
+curl 'https://corvus.gent/hackersbay/api/pirate?class=deckhand&json'
+curl https://corvus.gent/hackersbay/api/crew
+curl 'https://corvus.gent/hackersbay/api/event/boat-hackathon?lens=navigator'
+curl 'https://corvus.gent/hackersbay/api/match?me=deckhand'
+curl https://corvus.gent/hackersbay/squawk
+curl -N https://corvus.gent/hackersbay/sink/luma
+```
+
+`me` accepts a class or nickname. To choose a lens for a nickname, send `class` as well. Match reasons come from the fictional Demo Day roster. The crew API reports the same live Redis counters as the website.
+
+The zero-dependency `hackersbay` CLI is ready to package. It has not been published to npm. Run it from the checkout with Node.js 20 or later.
+
+```sh
+npx --package ./apps/cli hackersbay
+npx --package ./apps/cli hackersbay --class deckhand --name "Copper Byte" --quick
+```
+
+Use the arrow keys to change the class and kit. Press Enter for your matches and a share link that opens the exact kit in the browser. The CLI falls back to the bundled Demo Day roster offline.

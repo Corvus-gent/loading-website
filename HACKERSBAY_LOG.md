@@ -326,3 +326,12 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Downloaded the published assets and checked both SHA-256 sums. The site and submission now link to the native release and retain the Electron downloads.
 - Next. Verify the live terminal outputs and finish the browser easter eggs.
 - **STEER ME:** Pick the native app or Electron as the download you share with judges.
+
+## H39 · 2026-11-21 21:10 CET · Terminal routes and CLI
+
+- Added ANSI art for curl, wget, and HTTPie, text and JSON views for pirates, crew counts, Demo Day lenses and matches, Captain Squawk’s tips, and a streamed 19-frame rowboat sink.
+- Added a zero-dependency CLI with arrow-key controls, an offline Demo Day roster, and a URL that opens the pirate’s kit in the browser.
+- Decision. Keep the CLI unpublished, with a local npx entry and an npm-ready package. A terminal match uses the same class lens and fictional roster as the website.
+- Verified browser and terminal content negotiation, all API payloads, streamed frames, share-link hydration, arrow keys through a pseudo-terminal, and npx using a packed tarball.
+- Next. Check the Vercel rewrites and ship the browser easter eggs.
+- **STEER ME:** Add a roster export command next or keep the terminal focused on building and meeting pirates.

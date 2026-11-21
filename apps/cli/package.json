@@ -1,0 +1,12 @@
+{
+  "name": "hackersbay",
+  "version": "0.1.0",
+  "description": "Build a parrot pirate and find three crewmates from your terminal.",
+  "type": "module",
+  "license": "MIT",
+  "bin": { "hackersbay": "hackersbay.mjs" },
+  "files": ["hackersbay.mjs", "terminal-art.mjs", "matches.json"],
+  "engines": { "node": ">=20" },
+  "repository": { "type": "git", "url": "git+https://github.com/Corvus-gent/the-hackers-bay.git", "directory": "apps/cli" },
+  "homepage": "https://corvus.gent/hackersbay"
+}

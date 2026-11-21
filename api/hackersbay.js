@@ -1,5 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import { handleTerminal, terminalActions } from '../lib/hackersbay/terminal.js';
 import { countPirate, readCrewCounts } from '../lib/hackersbay/crew.js';
 import { buildLog } from '../lib/hackersbay/build-log.js';
 import { proofOfBuild, runParrotScout } from '../lib/hackersbay/boat.js';
@@ -28,6 +29,7 @@ export default async function handler(req, res) {
     try { return res.status(200).json(await readCrewCounts()); }
     catch { return res.status(503).json({ available: false }); }
   }
+  if (['GET', 'HEAD'].includes(req.method) && terminalActions.has(action)) return handleTerminal(action, req, res);
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     return res.status(405).json({ error: 'Use POST.' });

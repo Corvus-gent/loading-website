@@ -67,7 +67,14 @@ function showParrotLog(payload, card, url, privateMode) {
 const labels = {hat:'Hat', eyes:'Eyewear', coat:'Outfit', item:'Held item'};
 const names = ['Tide Byte', 'Salt Shard', 'Cinder Voss', 'Bit Marlow', 'Brass Wake', 'Patch Reed'];
 const saved = getPersona();
-let current = saved || preset('hacker');
+const shared = new URLSearchParams(location.search);
+const sharedClass = shared.get('class');
+const sharedName = cleanText(shared.get('pirate'), 48);
+const sharedPirate = sharedName && Object.hasOwn(CLASSES, sharedClass) ? {
+  ...preset(sharedClass), name: sharedName,
+  look: normalizeLook(Object.fromEntries(Object.keys(WARDROBE).map(key => [key, shared.has(key) ? Number(shared.get(key)) : -1])))
+} : null;
+let current = sharedPirate || saved || preset('hacker');
 let drawn = '';
 const previews = {};
 
@@ -144,8 +151,8 @@ function draw() {
 }
 
 cardForm.elements.type.value = current.type;
-if (saved && (saved.source !== 'preset' || saved.look || saved.pirate)) cardForm.elements.name.value = saved.name;
-setAppearance(saved?.look);
+if (sharedPirate || (saved && (saved.source !== 'preset' || saved.look || saved.pirate))) cardForm.elements.name.value = current.name;
+setAppearance(current.look);
 setDetails(current);
 draw();
 wireSound(document.querySelector('#bay-sound'));
