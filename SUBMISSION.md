@@ -18,7 +18,7 @@ With credentials, **Private Parrot** uses **NYTEX TrustedRouter** for confidenti
 - [Sink a public Luma listing](https://corvus.gent/hackersbay#sink)
 - [Watch the 60-second demo](https://corvus.gent/hackersbay/demo)
 - [Watch or download the two-minute pitch](https://corvus.gent/hackersbay/cuts#pitch)
-- [Download the universal native Mac app](https://github.com/Corvus-gent/loading-website/releases/tag/hackersbay-native-v0.1.0) · [Electron fallback](https://github.com/Corvus-gent/loading-website/releases/tag/hackersbay-demo-v0.2.0)
+- [Download the universal native Mac app](https://github.com/Corvus-gent/loading-website/releases/tag/hackersbay-native-v0.1.1) · [Electron fallback](https://github.com/Corvus-gent/loading-website/releases/tag/hackersbay-demo-v0.2.0)
 
 ## Straight talk
 

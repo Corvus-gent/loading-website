@@ -343,3 +343,12 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Verified both mobile widths, the hidden route, hat forwarding from the landing page, and exactly one shanty by instrumenting Web Audio. The native WebView bridge notified once per intro ID in an isolated browser test.
 - Next. Recheck the deployed terminal and browser routes and mirror the current source to the public submission repo.
 - **STEER ME:** Keep the Klamath page discoverable in the README or also hide a link in the ship artwork.
+
+## H41 · 2026-11-21 21:16 CET · Production checks and Desktop 0.1.1
+
+- Confirmed all four videos on production ahead of 21:30, including playback metadata and range requests. The vertical and wide browser demos ended on the sinking rowboat and QR.
+- Ran the original mobile route sweep at 375px and 414px and verified the public footage, organizer, crew, and Klamath routes. Browser QA used local intro state so it did not inflate production totals. Verified all four terminal APIs, three user agents, the ANSI stream, and a local npx run using the production match API.
+- The native 0.1.1 build checks replies even after you switch event lenses. Its universal binary, zipped app, DMG, and checksums passed the release build.
+- Decision. Keep the pitch captioned, the fictional roster labeled, and the three missing footage pickups explicit. The public repo contains the release sources and the zero-key fallback.
+- Next. Replace the three Proof of Boat slots when the original clips arrive.
+- **STEER ME:** Keep A as the first social cut or compare it against B and C once the clips arrive.
