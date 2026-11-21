@@ -26,15 +26,16 @@ export function playBaySound(cue) {
   }
 }
 
-export function wireSound(button) {
-  if (!button) return;
+export function wireSound(button, { shortcut = false } = {}) {
+  if (!button && !shortcut) return;
   const reveal = () => {
+    if (!button) return;
     button.setAttribute('aria-pressed', String(enabled));
     button.textContent = enabled ? 'Sound on' : 'Sound off';
   };
   reveal();
   const Audio = window.AudioContext || window.webkitAudioContext;
-  if (!Audio) { button.hidden = true; return; }
+  if (!Audio) { if (button) button.hidden = true; return; }
   async function unlock() {
     try {
       if (!audio) audio = new Audio();
@@ -42,12 +43,16 @@ export function wireSound(button) {
     } catch { audio = null; }
   }
   if (enabled) window.addEventListener('pointerdown', unlock, { once: true });
-  button.addEventListener('click', async () => {
+  async function toggle() {
     enabled = !enabled;
     reveal();
     try { localStorage.setItem(key, enabled ? 'on' : 'off'); } catch { /* Use the session setting. */ }
     if (!enabled) return;
     await unlock();
     playBaySound('squawk');
+  }
+  button?.addEventListener('click', toggle);
+  if (shortcut) window.addEventListener('keydown', event => {
+    if (event.code === 'KeyM' && !event.repeat && !event.metaKey && !event.ctrlKey && !event.altKey) void toggle();
   });
 }

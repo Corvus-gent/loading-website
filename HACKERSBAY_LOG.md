@@ -190,3 +190,11 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Verified. A custom cyber parrot visited all three masts at 375px. Accepted and declined intros both reached the sender with the expected result. The 414px reduced-motion view passed.
 - Next. Retell the timed demo around pirate building and the parrot’s flight.
 - **STEER ME:** Keep the automatic spyglass flyover or start it from the first mast tap.
+
+## H23 · 2026-11-21 09:32 CET · A new 60-second demo
+
+- Shipped the eight-beat autoplay. The Black Commit fires in the opening seconds, Copper Byte builds a pirate and names Patch, the Deckhand checks the event, and the parrot explains three matches. Double opt-in ends with the beak bump, coins, and the retained QR end card.
+- Decision. Keep the Broke hacker lens as Deckhand and keep both recording formats clean. Space pauses, R replays, and M enables sound.
+- Verified. All scenes and captions fit at 1080 × 1920, 1920 × 1080, 375px, and 414px. The QR decoded in both recording formats. Pause, replay, and reduced motion passed.
+- Next. Fly the parrot Jolly Roger and publish a matching social card.
+- **STEER ME:** Keep Copper Byte and Patch as the named demo pair or cast an original Merchant in a later cut.

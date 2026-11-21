@@ -20,6 +20,7 @@ export function spyglassPilot(radar, value) {
   marker.append(parrotSprite(pirate), parrotSprite(pirate, true));
   dial.append(marker);
   let timer;
+  const position = (index, axis, fallback) => masts[index] ? parseFloat(masts[index].style.getPropertyValue('--' + axis)) : fallback;
   return {
     land(index, animate = true) {
       const mast = masts[index];
@@ -34,9 +35,20 @@ export function spyglassPilot(radar, value) {
     reset() {
       clearTimeout(timer);
       marker.removeAttribute('data-flying');
+      marker.removeAttribute('data-gliding');
       marker.style.left = '50%';
       marker.style.top = '53%';
       for (const mast of masts) mast.removeAttribute('data-perched');
+    },
+    glide(index, progress) {
+      const startX = position(index - 1, 'x', 50);
+      const startY = position(index - 1, 'y', 53);
+      const endX = position(index, 'x', 50);
+      const endY = position(index, 'y', 53);
+      marker.style.left = startX + (endX - startX) * progress + '%';
+      marker.style.top = startY + (endY - startY) * progress - 13 * Math.sin(Math.PI * progress) + '%';
+      marker.toggleAttribute('data-gliding', progress > 0 && progress < 1);
+      for (const [i, mast] of masts.entries()) mast.toggleAttribute('data-perched', i === index && progress === 1);
     },
     stop() { clearTimeout(timer); }
   };
@@ -104,8 +116,8 @@ export function mutualParrots(first, second) {
   for (let i = 0; i < 11; i++) {
     const coin = element('i', undefined, 'coin-sprite');
     const angle = Math.PI * i / 10;
-    coin.style.setProperty('--cx', Math.round(Math.cos(angle) * (44 + (i % 3) * 19)) + 'px');
-    coin.style.setProperty('--cy', Math.round(-Math.sin(angle) * (18 + (i % 4) * 11)) + 'px');
+    coin.style.setProperty('--cx', Math.round(Math.cos(angle) * (44 + (i % 3) * 19)));
+    coin.style.setProperty('--cy', Math.round(-Math.sin(angle) * (18 + (i % 4) * 11)));
     coin.style.setProperty('--spin', (i % 2 ? '-' : '') + (120 + i * 24) + 'deg');
     coin.style.setProperty('--coin-delay', (.67 + (i % 4) * .025) + 's');
     pair.append(coin);
