@@ -1,3 +1,4 @@
+import {summarizeTelemetry} from './uptime-summary.js';
 import { formatPageText, translatePageText } from './i18n/page-copy.js';
 import { showStorageWarning } from './storage-warning.js';
 import {
@@ -95,7 +96,7 @@ function makeRows() {
 }
 function feedback(message = '', retry = false, loading = false) {
   $('#load-message').textContent = message;
-  $('#retry').hidden = !retry;
+
   $('.track').hidden = !loading;
 }
 function checked() {
@@ -107,6 +108,14 @@ function checked() {
   return formatPageText('last checked {time}', { time: now }) +
     (mins > 15 ? ' · ' + translatePageText('monitoring overdue') : '');
 }
+function renderTelemetry(body) {
+  const t = summarizeTelemetry(body);
+  $('#services-healthy').textContent = t.services ? t.healthy + ' / ' + t.services : '—';
+  $('#check-latency').textContent = t.average === null ? '—' : t.average.toLocaleString() + ' ms';
+  $('#check-peak').textContent = t.peak === null ? '—' : t.peak.toLocaleString() + ' ms';
+  $('#check-coverage').textContent = t.coverage === null ? '—' : t.coverage + '%';
+  $('#coverage-note').textContent = `${t.observed} / ${t.total} expected timeline slots measured · ${body.range || '24h'}. Gaps are unknown, never healthy. Synthetic checks, not user requests.`;
+}
 function paint(body) {
   const start = performance.now();
   data = body;
@@ -116,6 +125,7 @@ function paint(body) {
   $('.beacon').dataset.state = String(['unknown', 'ok', 'degraded', 'down'].indexOf(status));
   $('#checked').textContent = checked();
   document.querySelectorAll('.metrics dd').forEach((v, i) => (v.textContent = pct(body.uptime?.[i])));
+  renderTelemetry(body);
   drawGraph($('#overall-chart'), body, 'overall');
   const checks = new Map(body.checks.map((c) => [c.name, c]));
   for (const [name, row] of rows) {
@@ -231,7 +241,7 @@ for (const button of document.querySelectorAll('[data-range]'))
     paint(cache.get(range) || { ...data, range, times: [], series: {} });
     load();
   };
-$('#retry').onclick = load;
+
 document.addEventListener('visibilitychange', () => {
   if (document.hidden) {
     sequence++;

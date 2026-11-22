@@ -3,27 +3,27 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>service status | corvus</title>
+    <title>uptime & observability | corvus</title>
     <meta
       name="description"
       content="live service checks, response times and incidents for corvus.gent."
     />
     <meta property="og:title" content="the lantern | corvus status" />
     <meta property="og:description" content="service health and uptime, by the light of the lantern." />
-    <meta property="og:url" content="https://stats.corvus.gent/status" />
-    <meta name="referrer" content="no-referrer" />
+    <meta property="og:url" content="https://stats.corvus.gent/uptime" />
+    <link rel="canonical" href="https://stats.corvus.gent/uptime"><meta name="referrer" content="no-referrer" />
     <link rel="icon" href="/img/link-crow.svg" />
     <link rel="stylesheet" href="/styles.css?v=c5cabf3f1a64" />
     <link rel="stylesheet" href="/privacy/privacy.css?v=158032e36fdb" />
-    <link rel="stylesheet" href="/stats/status/status.css?v=a67b7aa111fa" />
-    <script type="module" src="/js/stats-status.js?v=5c3a431be724"></script>
-  <!-- SITE_HEAD --><script type="module" src="/js/live-banner.js?v=20261108live1"></script><link rel="stylesheet" href="/plethora/promo.css?v=20261108live1"><link rel="stylesheet" href="/css/site/shell.css?v=20261122less1"><script type="module" src="/js/site/shell.js?v=20261122less1"></script><script type="module" src="/js/site/circus.js?v=20261122less1"></script><script type="module" src="/js/site/magic.js?v=20261122less1"></script><!-- /SITE_HEAD --></head>
+    <link rel="stylesheet" href="/stats/status/status.css?v=20261122uptime1" />
+    <script type="module" src="/js/stats-status.js?v=20261122uptime1"></script>
+  <!-- SITE_HEAD --><script type="module" src="/js/live-banner.js?v=20261108live1"></script><link rel="stylesheet" href="/plethora/promo.css?v=20261108live1"><link rel="stylesheet" href="/css/site/shell.css?v=20261122less1"><script type="module" src="/js/site/shell.js?v=20261122less1"></script><script type="module" src="/js/site/circus.js?v=20261122uptime1"></script><script type="module" src="/js/site/magic.js?v=20261122uptime1"></script><!-- /SITE_HEAD --></head>
   <body class="status-page site-shell" data-stat-page="status"><!-- SITE_NAV --><nav class="site-nav" aria-label="Corvus rooms" data-site-shell><a class="site-mark" href="/" aria-label="Corvus home">corvus</a><span class="site-nav-rooms"><a href="/legion/">Legion</a><a href="/quests/">Quests</a><a href="/daily/">Daily</a><a href="/gabe/">Gabe</a></span><button class="site-search-button" data-site-search aria-label="Find a page">/ search</button></nav><p class="site-back" data-site-shell><a href="/daily/">← daily</a></p><!-- /SITE_NAV -->
     <main>
       <header class="mast">
         <a class="brand" href="https://corvus.gent/realm/"
           ><img width="32" height="24" src="/img/link-crow.svg" alt="" />corvus.gent</a
-        ><span>/</span><a href="/">stats</a><span>/</span><strong>status</strong>
+        ><span>/</span><a href="/">stats</a><span>/</span><strong>uptime</strong>
       </header>
       <nav class="stats-tabs" aria-label="statistics">
         <a href="/" data-stat="overview" data-i18n="stats.overview">overview</a
@@ -37,7 +37,7 @@
       <a href="https://stats.corvus.gent/hack" data-stat="hack">hackthefeed</a></nav>
       <section class="beacon" data-state="0">
         <div>
-          <p class="kicker"><i class="dot"></i> service status</p>
+          <p class="kicker"><i class="dot"></i> uptime & observability</p>
           <h1 id="health-title">reading the lantern.</h1>
           <p id="checked" class="muted" aria-live="polite">waiting for the latest check…</p>
         </div>
@@ -79,11 +79,13 @@
         </div>
       </dl>
       <div class="load-state" role="status">
-        <span id="load-message"></span><button hidden type="button" id="retry">try again ↻</button
-        ><span hidden class="track" role="progressbar" aria-label="loading service history"
+        <span id="load-message"></span><a href="https://stats.corvus.gent/map">explore the visitor map</a><span hidden class="track" role="progressbar" aria-label="loading service history"
           ><i></i
         ></span>
       </div>
+      <nav class="uptime-explore" aria-label="Explore Corvus statistics"><a href="https://stats.corvus.gent/">All stats</a><a href="https://stats.corvus.gent/map">Visitor map</a><a href="https://corvus.gent/build/">Build activity</a><a href="https://stats.corvus.gent/games">Games</a></nav>
+      <dl class="observability-metrics" aria-label="Measured service telemetry"><div><dt>healthy / measured services</dt><dd id="services-healthy">—</dd></div><div><dt>average sampled latency</dt><dd id="check-latency">—</dd></div><div><dt>slowest check</dt><dd id="check-peak">—</dd></div><div><dt>recorded timeline coverage</dt><dd id="check-coverage">—</dd></div></dl>
+      <p class="footnote" id="coverage-note">Gaps are unknown, never counted as healthy. These are synthetic service checks, not user request traffic.</p>
       <section class="panel" aria-labelledby="response-heading">
         <header class="panel-head">
           <div>
@@ -124,6 +126,7 @@
         </header>
         <ol id="incidents"></ol>
       </section>
+      <section class="panel grafana-panel"><h2>Grafana</h2><p>The Corvus dashboard template covers service health, latency and monitoring freshness. A hosted Grafana connection is not configured on this page yet.</p><a href="/public/observability/corvus-grafana.json" download>Download Grafana dashboard JSON</a></section>
       <footer><button class="stat-copy" type="button">copy status link ↗</button
         >
         <div id="lang-switcher" class="lang-switcher"></div>
@@ -131,6 +134,6 @@
     </main>
     <script defer src="/js/analytics.js?v=20261109ia1"></script>
     <script type="module" src="/js/privacy.js?v=d02abbbb55c5"></script>
-    <script type="module" src="/js/stats-nav.js?v=20261108live1"></script>
+    <script type="module" src="/js/stats-nav.js?v=20261122uptime1"></script>
   <!-- SITE_NEXT --><footer class="site-next site-quiet-footer" data-site-shell><a href="/" aria-label="Corvus home"><img src="/public/wing/wing-still.png" width="32" height="32" alt="Corvus" style="image-rendering:pixelated"></a><a href="/map/">map</a><a href="/feedback/">feedback</a><a href="#lang-switcher">language</a><a href="/privacy/">privacy</a></footer><!-- /SITE_NEXT --></body>
 </html>

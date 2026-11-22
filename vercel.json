@@ -380,6 +380,10 @@
   ],
   "rewrites": [
     {
+      "source": "/api/metrics",
+      "destination": "/api/stats?healthMetrics=1"
+    },
+    {
       "source": "/og-realm.png",
       "destination": "/public/og-realm.png"
     },

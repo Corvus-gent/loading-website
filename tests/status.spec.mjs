@@ -115,10 +115,10 @@ test('one-minute refresh pauses while hidden and failed reads keep measurements'
   await expect(page.locator('#load-message')).toContainText('showing the last reading');
   await expect(page.locator('.metrics dd').first()).toHaveText('100%');
   fail = false;
-  await page.getByRole('button', { name: 'try again' }).click();
-  await expect(page.locator('#retry')).toBeHidden();
+  await expect(page.getByRole('button', { name: 'try again' })).toHaveCount(0);
+  await expect(page.locator('.uptime-explore')).toContainText('visitor map');
   await page.clock.fastForward(60010);
-  await expect.poll(() => calls).toBe(4);
+  await expect.poll(() => calls).toBe(3);
 });
 
 for (const path of ['/stats/status/', '/stats/private/']) {

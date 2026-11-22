@@ -26,6 +26,7 @@ async function handler(req, res) {
   if(req.query.hack === "1") return (await import("./_hack.js")).default(req,res);
   if(req.query.report==='1')return (await import('./_report.js')).default(req,res);
   if(req.query.notice==='1')return (await import('./_visitor-counts.js')).noticeOK(req,res);
+  if(req.query.healthMetrics==="1")return (await import('./_health-metrics.js')).default(req,res);
   if(req.query.healthHistory==="1")return (await import('./_health-history.js')).default(req,res);
   if(req.query.health==="1")return (await import('./_health.js')).default(req,res);
   if(req.query.snapJob==="1")return (await import('./_stats-snap.js')).job(req,res);
