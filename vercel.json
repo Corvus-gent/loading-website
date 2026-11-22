@@ -330,6 +330,10 @@
   ],
   "rewrites": [
     {
+      "source": "/future-studies",
+      "destination": "/future-studies/index.html"
+    },
+    {
       "source": "/cv/horeca",
       "destination": "/cv/horeca/index.html"
     },
