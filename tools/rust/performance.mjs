@@ -1,5 +1,5 @@
 // Controlled paired browser lab. No production requests, real users or serverless-cold claims.
-import{chromium}from'@playwright/test';import http from'node:http';import{readFile,writeFile,mkdir}from'node:fs/promises';import{brotliCompressSync,constants as z}from'node:zlib';import{createHash}from'node:crypto';import{execFileSync}from'node:child_process';import os from'node:os';import path from'node:path';import{fileURLToPath}from'node:url';import{buildFixture}from'../../tests/helpers/built-site.mjs';import{wasmBridge}from'../../tests/helpers/rust-bridges.mjs';
+import{chromium}from'@playwright/test';import http from'node:http';import{readFile,writeFile,mkdir}from'node:fs/promises';import{brotliCompressSync,gzipSync,constants as z}from'node:zlib';import{createHash}from'node:crypto';import{execFileSync}from'node:child_process';import os from'node:os';import path from'node:path';import{fileURLToPath}from'node:url';import{buildFixture}from'../../tests/helpers/built-site.mjs';import{wasmBridge}from'../../tests/helpers/rust-bridges.mjs';
 export const PROFILES={desktop:{width:1440,height:1000,cpu:1,latency:0,down:0,up:0},mobile:{width:390,height:844,cpu:4,latency:150,down:200000,up:93750}};
 import{browserProfileHtml,browserProfile}from'./browser-profiles.mjs';
 export const ROUTES=['/','/map/','/cv/tech/'];
@@ -17,7 +17,7 @@ const API={
  '/api/plethora':{ready:true,total:12},
  '/api/x-stats':{ready:false},
 };
-async function server(root,engine){
+async function server(root,engine,{htmlTransform,assetPath=value=>value}={}){
  const cache=new Map(),unknown=new Set(),failures=new Set(),source=process.cwd();
  const instance=http.createServer(async(req,res)=>{
   try{
@@ -26,15 +26,15 @@ async function server(root,engine){
    let entry=cache.get(u.pathname);
    if(!entry){const bridge=engine==='rust'?wasmBridge(u.pathname):null;let body,mime;
     if(bridge){body=Buffer.from(bridge);mime='text/javascript';}
-    else{let file=decodeURIComponent(u.pathname);if(file.split('/').some(p=>p.startsWith('.')||['node_modules','target'].includes(p)))throw Error('private path');if(!path.extname(file))file=file.replace(/\/$/,'')+'/index.html';const base=file.startsWith('/rust/browser/pkg/')?source:root;const full=path.resolve(base,'.'+file);if(!full.startsWith(base+path.sep))throw Error('path');body=await readFile(full);if(engine==='rust'&&file.endsWith('.html'))body=Buffer.from(browserProfileHtml(body.toString('utf8'),u.pathname));mime=types[path.extname(file)]||'application/octet-stream';}
+    else{let file=assetPath(decodeURIComponent(u.pathname));if(file.split('/').some(p=>p.startsWith('.')||['node_modules','target'].includes(p)))throw Error('private path');if(!path.extname(file))file=file.replace(/\/$/,'')+'/index.html';const base=file.startsWith('/rust/browser/pkg/')?source:root;const full=path.resolve(base,'.'+file);if(!full.startsWith(base+path.sep))throw Error('path');body=await readFile(full);if(file.endsWith('.html'))body=Buffer.from(htmlTransform?htmlTransform(body.toString('utf8'),u.pathname):engine==='rust'?browserProfileHtml(body.toString('utf8'),u.pathname):body);mime=types[path.extname(file)]||'application/octet-stream';}
     const compress=/text\/|json|wasm|svg/.test(mime),packed=compress?brotliCompressSync(body,{params:{[z.BROTLI_PARAM_QUALITY]:4}}):body;
-    entry={body,packed,mime,compressed:compress,etag:'"'+createHash('sha256').update(body).digest('hex')+'"'};cache.set(u.pathname,entry);
+    entry={body,packed,gzip:compress?gzipSync(body):body,mime,compressed:compress,etag:'"'+createHash('sha256').update(body).digest('hex')+'"'};cache.set(u.pathname,entry);
    }
    const document=entry.mime==='text/html';res.setHeader('content-type',entry.mime);res.setHeader('cache-control',document?'no-store':'public, max-age=86400');res.setHeader('etag',entry.etag);
    if(document)res.setHeader('Content-Security-Policy',"default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'");
    if(!document&&req.headers['if-none-match']===entry.etag){res.writeHead(304).end();return;}
-   const br=entry.compressed&&/\bbr\b/.test(req.headers['accept-encoding']||'');if(br){res.setHeader('content-encoding','br');res.setHeader('vary','Accept-Encoding');}
-   const body=br?entry.packed:entry.body;res.setHeader('content-length',body.length);res.end(req.method==='HEAD'?undefined:body);
+   const accept=req.headers['accept-encoding']||'',br=entry.compressed&&/\bbr\b/.test(accept),gzip=entry.compressed&&!br&&/\bgzip\b/.test(accept);if(br||gzip){res.setHeader('content-encoding',br?'br':'gzip');}if(entry.compressed)res.setHeader('vary','Accept-Encoding');
+   const body=br?entry.packed:gzip?entry.gzip:entry.body;res.setHeader('content-length',body.length);res.end(req.method==='HEAD'?undefined:body);
   }catch{failures.add(new URL(req.url,'http://fixture').pathname);res.writeHead(404).end();}
  });await new Promise(r=>instance.listen(0,'127.0.0.1',r));
  return{origin:'http://127.0.0.1:'+instance.address().port,unknown,failures,assets:()=>[...cache].filter(([p])=>/\.(?:js|wasm)$/.test(p)).map(([p,e])=>({path:p,raw:e.body.length,brotli:e.packed.length})),close:async()=>{instance.closeAllConnections();await new Promise(r=>instance.close(r));}};
@@ -85,4 +85,5 @@ export async function run({repeats=3,profiles=Object.keys(PROFILES),routes=ROUTE
   await mkdir(out,{recursive:true});const stamp=started.replace(/[:.]/g,'-'),file=path.join(out,'browser-'+stamp+'.json');await writeFile(file,JSON.stringify(report,null,2)+'\n');console.log('REPORT '+file);return{file,report};
  }finally{if(browser)await browser.close();for(const s of Object.values(servers))await s.close();await fixture.close();}
 }
+export {server as createPerformanceServer,observe as observePerformance,sample as samplePerformance};
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){const opts=Object.fromEntries(process.argv.slice(2).map(v=>v.split(/=(.*)/s).slice(0,2)));const{report}=await run({repeats:Number(opts['--repeats']||3),...(opts['--profiles']?{profiles:opts['--profiles'].split(',')}:{}),...(opts['--routes']?{routes:opts['--routes'].split(',')}:{}),...(opts['--out']?{out:opts['--out']}:{})});if(report.samples.some(s=>s.error)||Object.values(report.unknownFixtureEndpoints).some(a=>a.length)||Object.values(report.assetFailures).some(a=>a.length)||report.wasmChangedDuringRun||report.head!==report.headAfter)process.exitCode=1;}
