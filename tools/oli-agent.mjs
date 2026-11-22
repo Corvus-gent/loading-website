@@ -8,6 +8,7 @@ import { setTimeout as wait } from 'node:timers/promises';
 import { promisify } from 'node:util';
 import { put } from '@vercel/blob';
 import { blobOptions } from '../api/_oli/blob-config.js';
+import { sealMedia } from '../api/_oli/sealed-media.js';
 import { applyEdit, validateTimeline } from '../api/_oli/timeline.js';
 import { loadCompoundEnv } from './compound-env.mjs';
 
@@ -72,9 +73,14 @@ async function publish(input, variant, temp, isSeed = false) {
   const id = isSeed ? await contentId(output) : randomUUID();
   const { size } = await fs.stat(output);
   try {
-    const blob = await put(`oli/${variant}/${id}.mp4`, createReadStream(output), {
-      ...blobOptions(),
-      contentType: 'video/mp4', multipart: size > 8 * 1024 ** 2, allowOverwrite: isSeed,
+    const options = blobOptions();
+    const filename = `oli/${variant}/${id}.mp4`;
+    const input = createReadStream(output);
+    const encrypted = options.access === 'public';
+    const blob = await put(encrypted ? filename + '.enc' : filename, encrypted ? sealMedia(input, filename) : input, {
+      ...options,
+      contentType: encrypted ? 'application/octet-stream' : 'video/mp4',
+      multipart: size > 8 * 1024 ** 2, allowOverwrite: isSeed,
       abortSignal: AbortSignal.any([stop.signal, AbortSignal.timeout(180_000)])
     });
     return blob.url;
@@ -135,7 +141,7 @@ async function main() {
   await check('python3', ['-c', 'from PIL import Image'], 'Install Pillow: python3 -m pip install --user Pillow');
   try { loadCompoundEnv(); } catch (error) { throw new AgentError(error.message); }
   if (!process.env.OLI_AGENT_TOKEN || !blobOptions().token) {
-    throw new AgentError('Set OLI_AGENT_TOKEN and a private Blob token in the compound secrets file.');
+    throw new AgentError('Set OLI_AGENT_TOKEN and a Blob token in the compound secrets file.');
   }
   const origin = new URL(process.env.OLI_ORIGIN || 'https://corvus.gent');
   if (origin.protocol !== 'https:') throw new AgentError('OLI_ORIGIN must use HTTPS.');

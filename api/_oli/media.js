@@ -4,20 +4,25 @@ import { pipeline } from 'node:stream/promises';
 import { put } from '@vercel/blob';
 import sharp from 'sharp';
 import { blobOptions } from './blob-config.js';
+import { openMedia, sealMedia } from './sealed-media.js';
 
 export const imagePath = /^oli\/uploads\/[a-f0-9-]{36}\.jpg$/;
 export const videoPath = /^oli\/(?:en|zh|long)\/[a-f0-9-]{36}\.mp4$/;
 
 function blobOrigin() {
-  const store = /^vercel_blob_rw_([a-z\d]+)_/i.exec(blobOptions().token || '')?.[1];
-  return store ? `https://${store.toLowerCase()}.private.blob.vercel-storage.com` : null;
+  const { access, token } = blobOptions();
+  const store = /^vercel_blob_rw_([a-z\d]+)_/i.exec(token || '')?.[1];
+  return store ? `https://${store.toLowerCase()}.${access}.blob.vercel-storage.com` : null;
 }
 
 export function versionPath(value, variant) {
   if (typeof value !== 'string') return null;
   try {
     const url = new URL(value);
-    const path = url.pathname.slice(1);
+    const storedPath = url.pathname.slice(1);
+    const publicStore = blobOptions().access === 'public';
+    if (publicStore && !storedPath.endsWith('.enc')) return null;
+    const path = publicStore ? storedPath.slice(0, -4) : storedPath;
     if (url.origin === blobOrigin() &&
         !url.username && !url.password && !url.search && !url.hash &&
         videoPath.test(path) && (!variant || path.startsWith(`oli/${variant}/`))) return path;
@@ -41,21 +46,41 @@ export async function uploadPhoto(req, res) {
   }
   const pathname = `oli/uploads/${randomUUID()}.jpg`;
   if (!blobOptions().token) return res.status(503).json({ error: 'Photo storage is unavailable.' });
-  await put(pathname, jpeg, { ...blobOptions(), contentType: 'image/jpeg' });
+  const options = blobOptions();
+  if (options.access === 'public') {
+    await put(pathname + '.enc', sealMedia([jpeg], pathname), { ...options, contentType: 'application/octet-stream' });
+  } else {
+    await put(pathname, jpeg, { ...options, contentType: 'image/jpeg' });
+  }
   return res.status(201).json({ image: pathname });
 }
 
-function readBlob(path, signal, headers = {}) {
-  return fetch(blobOrigin() + '/' + path, {
-    signal, redirect: 'error', headers: { authorization: `Bearer ${blobOptions().token}`, ...headers }
+function readBlob(path, signal, range) {
+  const options = blobOptions();
+  const publicStore = options.access === 'public';
+  const headers = {};
+  if (range) headers.Range = range;
+  if (!publicStore) headers.authorization = `Bearer ${options.token}`;
+  return fetch(blobOrigin() + '/' + path + (publicStore ? '.enc' : ''), {
+    signal, redirect: 'error', headers
   });
+}
+
+async function readMedia(path, signal, range) {
+  if (blobOptions().access === 'public') return openMedia(value => readBlob(path, signal, value), path, range);
+  const blob = await readBlob(path, signal, range);
+  return {
+    status: blob.status, length: blob.headers.get('content-length'),
+    contentRange: blob.headers.get('content-range'),
+    stream: blob.ok && blob.body ? Readable.fromWeb(blob.body) : null
+  };
 }
 
 export async function imageForModel(path) {
   if (!blobOrigin()) throw new Error('Photo storage unavailable');
-  const blob = await readBlob(path, AbortSignal.timeout(10_000));
-  if (!blob.ok) throw new Error('Photo unavailable');
-  const bytes = Buffer.from(await blob.arrayBuffer());
+  const blob = await readMedia(path, AbortSignal.timeout(10_000));
+  if (!blob.stream) throw new Error('Photo unavailable');
+  const bytes = Buffer.from(await new Response(Readable.toWeb(blob.stream)).arrayBuffer());
   return `data:image/jpeg;base64,${bytes.toString('base64')}`;
 }
 
@@ -69,22 +94,15 @@ export async function serveMedia(req, res) {
   const stop = () => controller.abort();
   res.once('close', stop);
   try {
-    const blob = await readBlob(file, controller.signal, range ? { Range: range } : {});
-    if (blob.status === 416) {
-      const contentRange = blob.headers.get('content-range');
-      if (contentRange) res.setHeader('Content-Range', contentRange);
-      return res.status(416).end();
-    }
-    if (blob.status === 404) return res.status(404).end();
-    if (!blob.ok || !blob.body) return res.status(502).end();
+    const blob = await readMedia(file, controller.signal, range);
     res.status(blob.status);
+    if (blob.contentRange) res.setHeader('Content-Range', blob.contentRange);
+    if (!blob.stream) return res.end();
     res.setHeader('Content-Type', videoPath.test(file) ? 'video/mp4' : 'image/jpeg');
     res.setHeader('X-Content-Type-Options', 'nosniff');
-    for (const header of ['content-length', 'content-range', 'accept-ranges']) {
-      const value = blob.headers.get(header);
-      if (value) res.setHeader(header, value);
-    }
-    await pipeline(Readable.fromWeb(blob.body), res);
+    res.setHeader('Accept-Ranges', 'bytes');
+    if (blob.length != null) res.setHeader('Content-Length', blob.length);
+    await pipeline(blob.stream, res);
   } catch (error) {
     if (controller.signal.aborted || res.headersSent) return;
     throw error;

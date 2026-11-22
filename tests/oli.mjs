@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import http from 'node:http';
 import { randomUUID } from 'node:crypto';
 import { createClient } from 'redis';
+import { sealMedia } from '../api/_oli/sealed-media.js';
 import { applyEdit, validateTimeline } from '../api/_oli/timeline.js';
 
 const timeline = [
@@ -51,6 +52,15 @@ await db.flushDb();
 
 const openFetch = globalThis.fetch;
 const requests = [];
+const encryptedPath = `oli/zh/${randomUUID()}.mp4`;
+const preview = Buffer.alloc(300_000, 0x54);
+const boundary = 256 * 1024;
+preview.write('across boundary', boundary - 6);
+const sealedParts = [];
+for await (const part of sealMedia([preview], encryptedPath)) sealedParts.push(part);
+const sealed = Buffer.concat(sealedParts);
+assert.equal(sealed.includes('across boundary'), false);
+let tampered = false;
 let nextEdit = edit;
 globalThis.fetch = async (target, options) => {
   const url = String(target);
@@ -63,6 +73,13 @@ globalThis.fetch = async (target, options) => {
     assert.equal(options.headers.authorization, 'Bearer vercel_blob_rw_mockstore_test');
     assert.equal(options.headers.Range, 'bytes=0-3');
     return new Response('clip', { status: 206, headers: { 'Content-Range': 'bytes 0-3/10', 'Content-Length': '4' } });
+  }
+  if (url === `https://mockstore.public.blob.vercel-storage.com/${encryptedPath}.enc`) {
+    assert.equal(options.headers.authorization, undefined);
+    const [, from, to] = /^bytes=(\d+)-(\d+)$/.exec(options.headers.Range);
+    const bytes = Buffer.from(sealed.subarray(Number(from), Number(to) + 1));
+    if (tampered && Number(from) > 0) bytes[0] ^= 1;
+    return new Response(bytes, { status: 206, headers: { 'Content-Range': `bytes ${from}-${to}/${sealed.length}` } });
   }
   return openFetch(target, options);
 };
@@ -112,15 +129,34 @@ try {
   const seed = { variant: 'en', versionUrl: videoUrl(), timeline, label: 'v2' };
   assert.equal((await request('agent/seed', { ...seed, versionUrl: seed.versionUrl.replace('.private.', '.public.') }, bearer)).status, 400);
   assert.equal((await request('agent/seed', seed, bearer)).status, 200);
-  const dedicated = process.env.OLI_BLOB_READ_WRITE_TOKEN;
-  delete process.env.OLI_BLOB_READ_WRITE_TOKEN;
-  process.env.BLOB_READ_WRITE_TOKEN = dedicated;
   const seeded = await (await request('state?variant=en', undefined, auth)).json();
   assert.deepEqual(Object.keys(seeded.versions[0]).sort(), ['changelog', 'label', 'url']);
   const media = await request(seeded.versions[0].url.split('/api/oli/')[1], undefined, { ...auth, Range: 'bytes=0-3' });
   assert.equal(media.status, 206);
   assert.equal(media.headers.get('content-range'), 'bytes 0-3/10');
   assert.equal(await media.text(), 'clip');
+  const dedicated = process.env.OLI_BLOB_READ_WRITE_TOKEN;
+  delete process.env.OLI_BLOB_READ_WRITE_TOKEN;
+  process.env.BLOB_READ_WRITE_TOKEN = dedicated;
+  const encryptedUrl = `https://mockstore.public.blob.vercel-storage.com/${encryptedPath}`;
+  const fallbackSeed = { variant: 'zh', timeline, label: 'v2', versionUrl: encryptedUrl + '.enc' };
+  assert.equal((await request('agent/seed', { ...fallbackSeed, versionUrl: encryptedUrl }, bearer)).status, 400);
+  assert.equal((await request('agent/seed', fallbackSeed, bearer)).status, 200);
+  const track = await (await request('state?variant=zh', undefined, auth)).json();
+  const route = track.versions[0].url.split('/api/oli/')[1];
+  const range = `bytes=${boundary - 6}-${boundary + 8}`;
+  assert.equal((await request(route, undefined, { Range: range })).status, 401);
+  const fallback = await request(route, undefined, { ...auth, Range: range });
+  assert.equal(fallback.status, 206);
+  assert.equal(fallback.headers.get('content-range'), `bytes ${boundary - 6}-${boundary + 8}/${preview.length}`);
+  assert.equal(await fallback.text(), 'across boundary');
+  const suffix = await request(route, undefined, { ...auth, Range: 'bytes=-5' });
+  assert.equal(await suffix.text(), 'TTTTT');
+  const invalidRange = await request(route, undefined, { ...auth, Range: 'bytes=400000-' });
+  assert.equal(invalidRange.status, 416);
+  assert.equal(invalidRange.headers.get('content-range'), `bytes */${preview.length}`);
+  tampered = true;
+  await assert.rejects(async () => (await request(route, undefined, { ...auth, Range: range })).arrayBuffer());
   process.env.OLI_BLOB_READ_WRITE_TOKEN = dedicated;
   delete process.env.BLOB_READ_WRITE_TOKEN;
 
