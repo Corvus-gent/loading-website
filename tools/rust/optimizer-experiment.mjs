@@ -105,7 +105,10 @@ try {
           await p.locator('#lang-switcher a[hreflang=en]').click();
           await p.waitForFunction(() => document.documentElement.lang === 'en');
           await p.locator('[data-newsletter] [name=email]').fill('optimizer@example.test');
-          await p.locator('[data-site-search]').click();
+          // Home deliberately has no search button. Blur the email input before
+          // using the actual keyboard shortcut, so '/' is not typed into it.
+          await p.locator('[data-newsletter] [name=email]').blur();
+          await p.keyboard.press('/');
           assert(await p.locator('.site-search').isVisible());
           await p.keyboard.press('Escape');
           assert.equal(await p.locator('[data-newsletter] [name=email]').inputValue(), 'optimizer@example.test');
@@ -115,6 +118,7 @@ try {
           console.log('FUNCTIONAL PASS', name, profile);
         } catch (error) {
           functional.push({browser:name,profile,error:error.message});
+          console.log('FUNCTIONAL FAIL', name, profile, error.message);
         } finally { await context.close(); }
       }
     } finally { await browser.close(); }
