@@ -16,6 +16,7 @@ import { normalizeProfileUrl } from '../public/hackersbay/assets/persona.js';
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
   const action = req.query?.action;
+  if (action === 'keynote-counts') return (await import('../lib/hackersbay/keynote-counts.js')).handleKeynoteCounts(req, res);
   if (['GET', 'HEAD'].includes(req.method) && action === 'not-found') {
     res.status(404);
     res.setHeader('Content-Type', 'text/html; charset=utf-8');

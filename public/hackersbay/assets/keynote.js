@@ -98,3 +98,42 @@ linkedin.addEventListener('click', async () => {
     status.textContent = copy;
   }
 });
+
+const countEndpoint = '/api/hackersbay?action=keynote-counts';
+const arrival = params.get('utm_source') === 'x' ? 'x' : 'other';
+const sent = new Set();
+
+async function refreshCounts() {
+  try {
+    const response = await fetch(countEndpoint, { cache: 'no-store' });
+    if (!response.ok) return;
+    const counts = await response.json();
+    for (const item of document.querySelectorAll('[data-launch-count]')) {
+      const value = counts[item.dataset.launchCount];
+      item.textContent = Number.isInteger(value) ? value.toLocaleString('en-US') : '—';
+    }
+  } catch { /* Media playback remains available. */ }
+}
+
+async function count(event) {
+  const key = 'hackersbay:keynote:' + event;
+  if (sent.has(event) || navigator.globalPrivacyControl === true) return;
+  try { if (sessionStorage.getItem(key)) return; } catch { /* Storage is optional. */ }
+  sent.add(event);
+  try {
+    const response = await fetch(countEndpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ event, source: arrival }),
+      keepalive: true
+    });
+    if (!response.ok) throw new Error('Count unavailable');
+    try { sessionStorage.setItem(key, '1'); } catch { /* Storage is optional. */ }
+    await refreshCounts();
+  } catch { sent.delete(event); }
+}
+
+video.addEventListener('playing', () => count('video'));
+document.querySelector('#keynote-repo').addEventListener('click', () => count('github'));
+void refreshCounts();
+void count('visit');
