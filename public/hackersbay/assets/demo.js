@@ -231,8 +231,8 @@ function play(now) {
 }
 
 frame = requestAnimationFrame(play);
-window.addEventListener('keydown', event => {
-  if (event.repeat || event.metaKey || event.ctrlKey || event.altKey) return;
+deck.addEventListener('keydown', event => {
+  if (event.repeat || event.metaKey || event.ctrlKey || event.altKey || event.target.closest('a, button, input, select, textarea')) return;
   if (event.key.toLowerCase() === 'r') {
     cancelAnimationFrame(frame);
     started = performance.now();
