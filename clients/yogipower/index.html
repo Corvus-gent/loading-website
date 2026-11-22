@@ -7,7 +7,7 @@
 <title>Yogi Power · yoga & meditatie in Affligem</title>
 <meta name="description" content="Prototype nieuwe website en boekingsplatform voor Yogi Power, op basis van requirements v1.3.">
 <meta name="theme-color" content="#fbf6ee">
-<link rel="icon" href="data:image/svg+xml,%3Csvg viewBox='0 0 64 64' class='sun' aria-hidden='true'%3E%3Cdefs%3E%3ClinearGradient id='gg' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23f2b856'/%3E%3Cstop offset='1' stop-color='%23c8643b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='27' r='13' fill='url(%23gg)'/%3E%3Cg stroke='%23fbf1df' stroke-width='2.2' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M32 46c-6-4-9-9-9-14 4 1 7 4 9 8 2-4 5-7 9-8 0 5-3 10-9 14z' fill='%232b1e3f'/%3E%3Cpath d='M32 46c-9-1-16-5-19-11 5-1 10 0 14 3'/%3E%3Cpath d='M32 46c9-1 16-5 19-11-5-1-10 0-14 3'/%3E%3Cpath d='M14 52h36'/%3E%3C/g%3E%3Cg stroke='%23e39b2d' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M32 6v4M17 12l2.6 3M47 12l-2.6 3M10 26h4M50 26h4'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="icon" type="image/png" href="/clients/yogipower/assets/logo-original.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>:root{
@@ -32,7 +32,7 @@ h1,h2,h3,h4{font-family:var(--serif);font-weight:500;letter-spacing:-.015em;line
 /* gate */
 #gate{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;background:radial-gradient(120% 90% at 50% 110%,#5a3b72 0%,var(--plum) 55%,#170f22 100%);color:#fbf1df}
 #gate .card{width:min(420px,92vw);text-align:center;padding:40px 32px}
-#gate .sun{width:120px;height:120px;margin:0 auto 22px;animation:breathe 6s ease-in-out infinite}
+#gate .sun{display:block;width:180px;height:auto;object-fit:contain;background:#fbf6ee;border-radius:18px;padding:12px;margin:0 auto 22px;animation:breathe 6s ease-in-out infinite}
 #gate h1{font-size:34px;margin-bottom:6px}
 #gate p{color:#cdbfdc;margin:0 0 26px}
 #gate form{display:flex;gap:8px}
@@ -49,7 +49,8 @@ header.top{position:sticky;top:0;z-index:50;background:rgba(251,246,238,.82);bac
 header.top.scrolled{border-color:var(--line)}
 .nav{display:flex;align-items:center;gap:28px;height:76px}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
-.brand svg{width:42px;height:42px}
+.brand .original-logo{width:64px;height:58px;object-fit:contain;flex-shrink:0}
+.portrait .original-logo{width:80%;height:auto;background:#fbf6ee;border-radius:24px;padding:20px}
 .brand b{font:500 22px/1 var(--serif);letter-spacing:-.01em}
 .brand small{display:block;font:600 10px/1 var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:4px}
 .nav nav{display:flex;gap:4px;margin-left:auto}
@@ -303,7 +304,7 @@ html{scroll-padding-top:130px}
 <body class="grain">
 <nav id="yp-languages" aria-label="Taal" translate="no"><button type="button" data-language="nl" lang="nl" aria-label="Nederlands" aria-pressed="true">NL</button><button type="button" data-language="fr" lang="fr" aria-label="Français" aria-pressed="false">FR</button><button type="button" data-language="en" lang="en" aria-label="English" aria-pressed="false">EN</button><button type="button" data-language="es" lang="es" aria-label="Español" aria-pressed="false">ES</button></nav>
 <script type="module" src="/clients/yogipower/i18n.js?v=20261122yogi1"></script>
-<div id="gate" style="display:none"><div class="card"><svg viewBox="0 0 64 64" class="sun" aria-hidden="true"><defs><linearGradient id="gg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2b856"/><stop offset="1" stop-color="#c8643b"/></linearGradient></defs><circle cx="32" cy="27" r="13" fill="url(#gg)"/><g stroke="#fbf1df" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M32 46c-6-4-9-9-9-14 4 1 7 4 9 8 2-4 5-7 9-8 0 5-3 10-9 14z" fill="#2b1e3f"/><path d="M32 46c-9-1-16-5-19-11 5-1 10 0 14 3"/><path d="M32 46c9-1 16-5 19-11-5-1-10 0-14 3"/><path d="M14 52h36"/></g><g stroke="#e39b2d" stroke-width="2.2" stroke-linecap="round"><path d="M32 6v4M17 12l2.6 3M47 12l-2.6 3M10 26h4M50 26h4"/></g></svg><h1>Yogi Power</h1><p>Prototype · requirements v1.3<br>Voer de toegangscode in.</p><form><input type="password" placeholder="code" autocomplete="off" aria-label="Toegangscode"><button>Open</button></form><div class="err"></div></div></div>
+<div id="gate" style="display:none"><div class="card"><img class="sun" src="/clients/yogipower/assets/logo-original.png" alt="Yogi Power" width="3400" height="3074"><h1>Yogi Power</h1><p>Prototype · requirements v1.3<br>Voer de toegangscode in.</p><form><input type="password" placeholder="code" autocomplete="off" aria-label="Toegangscode"><button>Open</button></form><div class="err"></div></div></div>
 <header class="top" id="hdr"></header>
 <main id="main"></main>
 <div id="demobar"></div>
@@ -716,7 +717,7 @@ const initials=n=>n.split(/\s+/).map(x=>x[0]).slice(0,2).join('').toUpperCase();
 function toast(msg,kind=''){const t=document.createElement('div');t.className='toast '+kind;t.textContent=msg;$('#toasts').append(t);setTimeout(()=>t.remove(),4200);}
 function commit(){save();render();}
 
-const LOGO=`<svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="lg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2b856"/><stop offset="1" stop-color="#c8643b"/></linearGradient></defs><circle cx="32" cy="27" r="13" fill="url(#lg1)"/><g stroke="#2b1e3f" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M32 46c-6-4-9-9-9-14 4 1 7 4 9 8 2-4 5-7 9-8 0 5-3 10-9 14z" fill="#fbf6ee"/><path d="M32 46c-9-1-16-5-19-11 5-1 10 0 14 3"/><path d="M32 46c9-1 16-5 19-11-5-1-10 0-14 3"/><path d="M14 52h36"/></g><g stroke="#e39b2d" stroke-width="2.2" stroke-linecap="round"><path d="M32 6v4M17 12l2.6 3M47 12l-2.6 3M10 26h4M50 26h4"/></g></svg>`;
+const LOGO=`<img class="original-logo" src="/clients/yogipower/assets/logo-original.png" alt="Yogi Power" width="3400" height="3074">`;
 
 const ICON={
   clock:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
@@ -969,7 +970,7 @@ function openCancel(bookingId){
 const FIGURE=`<svg class="figure" viewBox="0 0 400 420" aria-hidden="true"><g fill="none" stroke="rgba(255,248,235,.55)" stroke-width="1.2"><circle cx="200" cy="150" r="70"/><circle cx="200" cy="150" r="98" stroke-dasharray="2 7"/><circle cx="200" cy="150" r="128" stroke="rgba(255,248,235,.25)"/></g>
 <g transform="translate(36 30) scale(.82)"><g fill="#2b1e3f"><circle cx="200" cy="138" r="24"/><path d="M200 166c-26 0-40 18-44 46l-6 44c-1 8 4 14 12 14h76c8 0 13-6 12-14l-6-44c-4-28-18-46-44-46z"/><path d="M96 316c10-30 50-46 104-46s94 16 104 46c3 10-4 18-14 18H110c-10 0-17-8-14-18z"/><path d="M158 214c-18 22-30 44-34 66l20 4c6-20 14-36 26-50zM242 214c18 22 30 44 34 66l-20 4c-6-20-14-36-26-50z"/></g>
 <g fill="#f6c97a"><circle cx="138" cy="292" r="7"/><circle cx="262" cy="292" r="7"/></g><path d="M200 112c4-10 4-18 0-26-4 8-4 16 0 26z" fill="#fff4dc" opacity=".9"/></g></svg>`;
-const FIGURE_SMALL=`<svg viewBox="0 0 64 64">${LOGO.replace(/^<svg[^>]*>|<\/svg>$/g,'')}</svg>`;
+const FIGURE_SMALL=LOGO;
 const MAP=`<svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><g stroke="#d6c4a6" stroke-width="10" fill="none" stroke-linecap="round"><path d="M-20 260C120 230 220 280 340 240S520 160 640 190"/><path d="M180 -20C200 100 240 180 230 420"/></g><g stroke="#e3d4ba" stroke-width="4" fill="none"><path d="M-20 120C100 140 300 90 640 110"/><path d="M420 -20C400 120 460 260 430 420"/><path d="M60 420C120 330 80 200 150 140"/></g><path d="M0 330q80-40 160 0t160 0 160 0 160 0v80H0z" fill="#cfdcc4" opacity=".6"/>
 <g transform="translate(300 214)"><circle r="46" fill="#e39b2d" opacity=".18"/><circle r="24" fill="#e39b2d" opacity=".3"/><path d="M0 8s-18-14-18-28a18 18 0 1 1 36 0C18-6 0 8 0 8z" fill="#2b1e3f" transform="translate(0 -12)"/><circle cy="-32" r="6" fill="#f2b856"/></g>
 <text x="300" y="268" text-anchor="middle" font-family="Fraunces,Georgia,serif" font-size="18" fill="#2b1e3f">Nieuwe Kassei 89/1</text><text x="300" y="290" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#7d705f" letter-spacing="2">1790 AFFLIGEM</text></svg>`;
