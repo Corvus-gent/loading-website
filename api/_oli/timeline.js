@@ -10,12 +10,18 @@ const fields = {
   toggle: ['seg', 'flag', 'on']
 };
 
-export function validateTimeline(timeline) {
-  const segments = timeline?.segments;
+const isCropCenter = value => Number.isFinite(value) && value >= 0 && value <= 1;
+const isLines = value => Array.isArray(value) && value.every(line => typeof line === 'string');
+const isCaption = value => value === null || isLines(value);
+const isSegment = s => s && typeof s.clip === 'string' && s.clip.trim() &&
+  Number.isFinite(s.a) && Number.isFinite(s.b) && s.a >= 0 && s.a < s.b && isCropCenter(s.cx) &&
+  isCaption(s.cap_en) && isCaption(s.cap_zh) &&
+  (s.hook_en === undefined || isLines(s.hook_en)) && (s.hook_zh === undefined || isLines(s.hook_zh));
+
+export function validateTimeline(segments) {
   if (!Array.isArray(segments) || !segments.length || segments.length > 500 ||
-      !segments.every(s => Number.isFinite(s?.a) && Number.isFinite(s.b) && s.a >= 0 && s.a < s.b) ||
-      JSON.stringify(timeline).length > 160_000) {
-    throw new Error('The timeline needs a segments array with valid a/b source times.');
+      !segments.every(isSegment) || JSON.stringify(segments).length > 160_000) {
+    throw new Error('The timeline must be an array of segments with clip, a, b, cx, cap_en and cap_zh.');
   }
 }
 
@@ -25,8 +31,7 @@ export function applyEdit(timeline, edit, variant) {
       !Array.isArray(edit.ops) || !edit.ops.length || edit.ops.length > 12) {
     throw new Error('An edit needs a short summary and 1–12 operations.');
   }
-  const next = structuredClone(timeline);
-  const segments = next.segments;
+  const segments = structuredClone(timeline);
   const original = new Map(segments.map(s => [s, { a: s.a, b: s.b }]));
   const get = i => {
     if (!Number.isInteger(i) || i < 0 || i >= segments.length) throw new Error('That clip position does not exist.');
@@ -64,28 +69,32 @@ export function applyEdit(timeline, edit, variant) {
         segments.splice(op.seg, 1);
         break;
       case 'recrop':
-        if (!Number.isFinite(op.cx) || op.cx < 0 || op.cx > 1) throw new Error('Crop center must be between 0 and 1.');
+        if (!isCropCenter(op.cx)) throw new Error('Crop center must be between 0 and 1.');
         segment.cx = op.cx;
         break;
       case 'caption':
       case 'hook': {
-        if (op.lang !== (variant === 'long' ? 'en' : variant) || !Array.isArray(op.lines) ||
-            op.lines.length > 4 || !op.lines.every(line => typeof line === 'string' && line.length <= 100)) {
+        if (op.lang !== (variant === 'long' ? 'en' : variant) || !isLines(op.lines) ||
+            op.lines.length > 4 || op.lines.some(line => line.length > 100)) {
           throw new Error('Use the current cut’s language and up to four short lines.');
         }
-        const target = segment || next;
-        const key = segment ? 'captions' : 'hook';
-        target[key] = { ...target[key], [op.lang]: op.lines };
+        if (segment) {
+          segment[`cap_${op.lang}`] = [...op.lines];
+        } else {
+          const hooks = segments.filter(s => s.hook === 1);
+          if (!hooks.length) throw new Error('This cut has no hook segments.');
+          for (const hook of hooks) hook[`hook_${op.lang}`] = [...op.lines];
+        }
         break;
       }
       case 'toggle':
         if (!['cam', 'dark'].includes(op.flag) || typeof op.on !== 'boolean') throw new Error('Invalid clip toggle.');
-        segment[op.flag] = op.on;
+        segment[op.flag] = op.on ? 1 : 0;
         break;
     }
   }
   if (variant !== 'long' && segments.reduce((seconds, s) => seconds + s.b - s.a, 0) > 40.05) {
     throw new Error('Keep the trailer to about 40 seconds or less.');
   }
-  return next;
+  return segments;
 }

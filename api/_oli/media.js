@@ -3,13 +3,13 @@ import { Readable } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
 import { put } from '@vercel/blob';
 import sharp from 'sharp';
+import { blobOptions } from './blob-config.js';
 
 export const imagePath = /^oli\/uploads\/[a-f0-9-]{36}\.jpg$/;
 export const videoPath = /^oli\/(?:en|zh|long)\/[a-f0-9-]{36}\.mp4$/;
-export const blobOptions = () => ({ access: 'private', token: process.env.OLI_BLOB_READ_WRITE_TOKEN });
 
 function blobOrigin() {
-  const store = /^vercel_blob_rw_([a-z\d]+)_/i.exec(process.env.OLI_BLOB_READ_WRITE_TOKEN || '')?.[1];
+  const store = /^vercel_blob_rw_([a-z\d]+)_/i.exec(blobOptions().token || '')?.[1];
   return store ? `https://${store.toLowerCase()}.private.blob.vercel-storage.com` : null;
 }
 

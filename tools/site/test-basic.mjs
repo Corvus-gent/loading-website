@@ -7,6 +7,7 @@ if (!['basic', 'legacy'].includes(group)) throw Error('Expected basic or legacy'
 const legacy = new Set([
   'test:personas',
   'test:privacy:browser',
+  'test:oli:browser',
   'test:sf:browser',
   'test:x:browser',
   'test:performance',

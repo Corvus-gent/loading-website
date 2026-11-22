@@ -2,16 +2,20 @@ import assert from 'node:assert/strict';
 import http from 'node:http';
 import { randomUUID } from 'node:crypto';
 import { createClient } from 'redis';
-import { applyEdit } from '../api/_oli/timeline.js';
+import { applyEdit, validateTimeline } from '../api/_oli/timeline.js';
 
-const timeline = {
-  segments: [{ a: 2, b: 5, captions: { zh: ['原文'] } }, { a: 7, b: 12 }],
-  hook: { zh: ['保留'] }
-};
+const timeline = [
+  { clip: 'opening.mp4', a: 2, b: 5, cx: 0.4, cap_en: null, cap_zh: ['原文'], hook: 1, cam: 1, split: 1 },
+  { clip: 'grip.mp4', a: 7, b: 12, cx: 0.5, cap_en: null, cap_zh: null, fight: 1 },
+  { clip: 'wake.mp4', a: 1, b: 3, cx: 0.6, cap_en: null, cap_zh: null, hook: 1, hook_en: ['Original'], hook_zh: ['保留'] }
+];
+validateTimeline(timeline);
+assert.throws(() => validateTimeline({ segments: timeline }), /must be an array/);
+assert.throws(() => validateTimeline([{ ...timeline[0], cap_en: 'invalid' }]), /must be an array/);
 const trim = { type: 'trim', seg: 0, a: 1, b: 6 };
 const edit = { summary: 'Adjust the first clip', ops: [trim] };
-assert.equal(applyEdit(timeline, edit, 'en').segments[0].a, 1);
-assert.equal(timeline.segments[0].a, 2);
+assert.equal(applyEdit(timeline, edit, 'en')[0].a, 1);
+assert.equal(timeline[0].a, 2);
 for (const [op, reason] of [
   [{ ...trim, a: 0.99 }, /1\.0 s/],
   [{ ...trim, b: 6.01 }, /1\.0 s/],
@@ -22,10 +26,18 @@ for (const [op, reason] of [
   assert.throws(() => applyEdit(timeline, { ...edit, ops: [op] }, 'en'), reason);
 }
 assert.throws(() => applyEdit(timeline, { ...edit, ops: [trim, { ...trim, a: 0.5 }] }, 'en'), /1\.0 s/);
-assert.deepEqual(applyEdit(timeline, { summary: 'Update the caption', ops: [
+const recut = applyEdit(timeline, { summary: 'Update the caption and opening', ops: [
   { type: 'reorder', from: 0, to: 1 },
-  { type: 'caption', seg: 1, lang: 'en', lines: ['New'] }
-] }, 'en').segments[1].captions, { en: ['New'], zh: ['原文'] });
+  { type: 'caption', seg: 1, lang: 'en', lines: ['New'] },
+  { type: 'hook', lang: 'en', lines: ['Updated hook'] },
+  { type: 'toggle', seg: 1, flag: 'cam', on: false }
+] }, 'en');
+assert.deepEqual(recut[1], { ...timeline[0], cap_en: ['New'], hook_en: ['Updated hook'], cam: 0 });
+assert.deepEqual(recut[2], { ...timeline[2], hook_en: ['Updated hook'] });
+assert.deepEqual(recut[0], timeline[1]);
+assert.throws(() => applyEdit([timeline[1]], {
+  summary: 'Update hook', ops: [{ type: 'hook', lang: 'en', lines: ['New'] }]
+}, 'en'), /no hook segments/);
 
 assert.equal(process.env.REDIS_URL, 'redis://127.0.0.1:16380/10', 'Use the disposable Oli database only');
 Object.assign(process.env, {
@@ -100,12 +112,17 @@ try {
   const seed = { variant: 'en', versionUrl: videoUrl(), timeline, label: 'v2' };
   assert.equal((await request('agent/seed', { ...seed, versionUrl: seed.versionUrl.replace('.private.', '.public.') }, bearer)).status, 400);
   assert.equal((await request('agent/seed', seed, bearer)).status, 200);
+  const dedicated = process.env.OLI_BLOB_READ_WRITE_TOKEN;
+  delete process.env.OLI_BLOB_READ_WRITE_TOKEN;
+  process.env.BLOB_READ_WRITE_TOKEN = dedicated;
   const seeded = await (await request('state?variant=en', undefined, auth)).json();
   assert.deepEqual(Object.keys(seeded.versions[0]).sort(), ['changelog', 'label', 'url']);
   const media = await request(seeded.versions[0].url.split('/api/oli/')[1], undefined, { ...auth, Range: 'bytes=0-3' });
   assert.equal(media.status, 206);
   assert.equal(media.headers.get('content-range'), 'bytes 0-3/10');
   assert.equal(await media.text(), 'clip');
+  process.env.OLI_BLOB_READ_WRITE_TOKEN = dedicated;
+  delete process.env.BLOB_READ_WRITE_TOKEN;
 
   assert.equal((await request('upload', { photo: Buffer.from('not a photo').toString('base64') }, auth)).status, 400);
   const payload = { variant: 'en', messages: [{ role: 'user', content: 'Adjust the first clip' }], driveLinks: [attachment], atTime: 1.5 };
@@ -113,7 +130,7 @@ try {
   assert.equal(queued.jobs[0].status, 'queued');
   assert.equal(queued.chat[0].atTime, 1.5);
   assert.deepEqual(queued.chat[0].driveLinks, [attachment]);
-  assert.match(requests[0].messages[0].content, /10x BJJ world champ.*\n[\s\S]+Current timeline.json: \{"segments":/);
+  assert.match(requests[0].messages[0].content, /10x BJJ world champ.*\n[\s\S]+Current timeline.json: \[\{"clip":/);
   assert.equal(requests[0].store, false);
   assert.equal((await (await request('chat', payload, auth)).json()).jobs.length, 1, 'Only one queued edit per timeline');
   const claimed = await Promise.all([1, 2].map(async () =>
