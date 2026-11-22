@@ -65,12 +65,12 @@
     },
     {
       "source": "/cv/studies/",
-      "destination": "/cv#studies",
+      "destination": "/future-studies",
       "permanent": true
     },
     {
       "source": "/cv/studies",
-      "destination": "/cv#studies",
+      "destination": "/future-studies",
       "permanent": true
     },
     {
