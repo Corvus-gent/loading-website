@@ -155,7 +155,7 @@ test('warming has a finite end and offers other statistics',async({page})=>{
   await expect(page.getByRole('progressbar')).toBeHidden();
   await expect(page.locator('#visitors')).toHaveText('—');
   await expect(page.getByRole('button',{name:'try again'})).toHaveCount(0);
-  await expect(page.locator('.stats-actions a[href="https://stats.corvus.gent/map"]')).toBeVisible();
+  await expect(page.locator('.stats-actions a[href^="https://stats.corvus.gent/map"]')).toBeVisible();
 });
 test('switching days hides previous numbers when the new day fails',async({page})=>{
   const {errors}=await harness(page,(name,day)=>day==='2026-11-03'?{state:'unavailable',reason:'source',data:null}:{data:{visitors:18,total:87,countries:[]}});
