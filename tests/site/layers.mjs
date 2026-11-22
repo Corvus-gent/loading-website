@@ -29,7 +29,7 @@ try{
   const ctx=await browser.newContext({viewport:{width,height:width===390?844:900},timezoneId:'Europe/Brussels'});
   const p=await ctx.newPage();
   await p.goto(origin);await p.locator('[data-site-languages]').waitFor();
-  assert.equal(await p.locator('.arena-acts > li').count(),4);assert.equal(await p.locator('.site-quiet-footer a').count(),5);
+  assert.equal(await p.locator('.arena-acts > li').count(),5);assert.equal(await p.locator('.site-quiet-footer a').count(),5);
   assert.equal(await p.locator('.arena-stats a[href^="https://stats.corvus.gent/uptime"]').count(),1);
   assert.equal(await p.locator('[data-cardneto-egg],[data-plethora-banner],[data-gem-grid]').count(),0);
   assert.equal(await p.locator('.site-nav').count(),1);

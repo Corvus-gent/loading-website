@@ -1,5 +1,5 @@
 import fs from 'node:fs/promises';import path from 'node:path';
-import {SECTIONS,ROUTES as EXISTING_ROUTES} from '../../js/site/routes.js';
+import {SECTIONS,ROOMS,ROUTES as EXISTING_ROUTES} from '../../js/site/routes.js';
 import {hasStandaloneChrome} from './chrome-policy.mjs';
 import {generate} from './generate-directory.mjs';
 let ROUTES=EXISTING_ROUTES;
@@ -9,12 +9,39 @@ const local=p=>p.replace(/^https:\/\/corvus.gent/,'').replace(/\/$/,'')||'/';
 export function sectionFor(file){return ROUTES.find(r=>r.file===file)?.section||(/^hack\/|^compound\/|^battle\/|^build\//.test(file)?'quests':/^games\/|^music\/|^plethora\//.test(file)?'daily':/^army\/|^legion\/|^soldier\//.test(file)?'legion':/^live\//.test(file)?'live':'gabe');}
 export const ARENA=['index.html','legion/index.html','quests/index.html','daily/index.html','gabe/index.html','map/index.html'];
 const ARENA_VERSION='20261122uptime1';
+const realmControls = `<div class="realm-tools">
+  <button type="button" popovertarget="realm-theme" aria-label="Theme"><span aria-hidden="true">◐</span></button>
+  <button type="button" popovertarget="realm-music" aria-label="Music"><span aria-hidden="true">♪</span></button>
+</div>
+<section id="realm-theme" class="realm-panel" popover role="dialog" aria-label="Theme">
+  <fieldset>
+    <legend>Theme</legend>
+    <label><input type="radio" name="realm-theme" value="dark"> Dark</label>
+    <label><input type="radio" name="realm-theme" value="light"> Light</label>
+  </fieldset>
+  <fieldset>
+    <legend>Accent colour</legend>
+    <div class="realm-swatches">
+      <button type="button" value="#5b3e8c" aria-label="Corvus plum" style="--swatch:#5b3e8c"></button>
+      <button type="button" value="#ffd76a" aria-label="Gold" style="--swatch:#ffd76a"></button>
+      <button type="button" value="#2a987e" aria-label="Jade" style="--swatch:#2a987e"></button>
+      <input type="color" aria-label="Custom accent colour" value="#ffd76a">
+    </div>
+  </fieldset>
+</section>
+<section id="realm-music" class="realm-panel" popover role="dialog" aria-label="Gabe’s top 10 songs">
+  <h2>Gabe’s top 10 songs</h2>
+  <ol data-realm-tracks></ol>
+  <div data-realm-player></div>
+  <p><a data-suggest-song target="_blank" rel="noopener noreferrer">Suggest a song ↗</a> <small>Spotify profile placeholder</small></p>
+</section>`;
+
 export function shell(file){const section=sectionFor(file),selected=SECTIONS.find(s=>s.id===section)||SECTIONS.find(s=>s.id==='gabe'),isHome=file==='index.html',isArena=ARENA.includes(file),isRoom=SECTIONS.some(s=>s.nav!==false&&s.path.replace(/^\//,'')+'index.html'===file)||file==='map/index.html';
  const launchVersion=isArena&&file!=='map/index.html'?'launch-polish1':null;
- const rooms=SECTIONS.filter(s=>s.nav!==false);
+ const rooms=ROOMS;
  const back=isHome?'':isRoom?'<a href="/">← corvus</a>':`<a href="${selected.nav===false?'/daily/':selected.path}">← ${selected.nav===false?'daily':selected.label.toLowerCase()}</a>`;
- return {head:`${!isHome?'<script type="module" src="/js/live-banner.js?v=20261108live1"></script><link rel="stylesheet" href="/plethora/promo.css?v=20261108live1">':''}${file.startsWith('plethora/')?'<script type="module" src="/js/plethora.js?v=20261108live1"></script>':''}<link rel="stylesheet" href="/css/site/shell.css?v=${VERSION}">${isArena?`<link rel="preload" href="/public/fonts/bodoni-moda/bodoni-moda-700-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="/css/site/arena.css?v=${launchVersion||ARENA_VERSION}"><script type="module" src="/js/site/arena.js?v=${launchVersion||ARENA_VERSION}"></script>`:''}<script type="module" src="/js/site/shell.js?v=${launchVersion||VERSION}"></script><script type="module" src="/js/site/circus.js?v=${ARENA_VERSION}"></script><script type="module" src="/js/site/magic.js?v=${ARENA_VERSION}"></script>`,
- nav:`<nav class="site-nav" aria-label="Corvus rooms" data-site-shell><a class="site-mark" href="/" aria-label="Corvus home"${isHome?' aria-current="page"':''}><img data-weekly-logo src="/logo/day-1.svg" width="24" height="24" alt="">corvus</a><span class="site-nav-rooms">${rooms.map(s=>`<a href="${s.path}"${!isHome&&s.id===section&&isRoom?' aria-current="page"':''}>${s.label}</a>`).join('')}</span><button class="site-search-button" data-site-search aria-label="Find a page">/ search</button></nav>${back?`<p class="site-back" data-site-shell>${back}</p>`:''}`,
+ return {head:`${!isHome?'<script type="module" src="/js/live-banner.js?v=20261108live1"></script><link rel="stylesheet" href="/plethora/promo.css?v=20261108live1">':''}${file.startsWith('plethora/')?'<script type="module" src="/js/plethora.js?v=20261108live1"></script>':''}<link rel="stylesheet" href="/css/site/shell.css?v=${VERSION}">${isArena?`<link rel="preload" href="/public/fonts/bodoni-moda/bodoni-moda-700-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="/css/site/arena.css?v=${launchVersion||ARENA_VERSION}"><link rel="stylesheet" href="/css/site/realm-controls.css"><script type="module" src="/js/site/realm-controls.js"></script><script type="module" src="/js/site/arena.js?v=${launchVersion||ARENA_VERSION}"></script>`:''}<script type="module" src="/js/site/shell.js?v=${launchVersion||VERSION}"></script><script type="module" src="/js/site/circus.js?v=${ARENA_VERSION}"></script><script type="module" src="/js/site/magic.js?v=${ARENA_VERSION}"></script>`,
+ nav:`<nav class="site-nav" aria-label="Corvus rooms" data-site-shell><a class="site-mark" href="/" aria-label="Corvus home"${isHome?' aria-current="page"':''}><img data-weekly-logo src="/logo/day-1.svg" width="24" height="24" alt="">corvus</a><span class="site-nav-rooms">${rooms.map(s=>`<a href="${s.path}"${!isHome&&s.id===section&&isRoom?' aria-current="page"':''}>${s.label}</a>`).join('')}</span><button class="site-search-button" data-site-search aria-label="Find a page">/ search</button>${isArena?realmControls:''}</nav>${back?`<p class="site-back" data-site-shell>${back}</p>`:''}`,
  next:`<footer class="site-next site-quiet-footer" data-site-shell><a href="/" aria-label="Corvus home"><img src="/public/wing/wing-still.png" width="32" height="32" alt="Corvus" style="image-rendering:pixelated"></a><a href="/map/">map</a><a href="/feedback/">feedback</a><a href="#lang-switcher">language</a><a href="/privacy/">privacy</a></footer>`};}
 export const card=r=>`<a class="site-card" href="${escape(r.path)}"><small>${escape(r.status)}</small><strong>${escape(r.title)}</strong><p>${escape(r.description)}</p><span class="arrow" aria-hidden="true">→</span></a>`;
 function directory(section){return `<div class="site-directory" data-directory-section="${section}">${ROUTES.filter(r=>r.section===section).map(r=>`<a href="${escape(r.path)}"><span>${escape(r.title)}</span><small>${escape(r.status)}</small></a>`).join('')}</div>`;}
@@ -125,11 +152,11 @@ function crawl(){
  return `<dialog class="crawl" id="crawl" aria-labelledby="crawl-title"><div class="crawl-sky" aria-hidden="true"><div class="crawl-stars"></div><div class="crawl-nebula"></div><div class="crawl-planet"></div></div><div class="crawl-art" aria-hidden="true">${CRAWL_ART.map(([f])=>`<img src="/public/inspiration/${f}" alt="" loading="lazy">`).join('')}</div><p class="crawl-intro">Not so long ago, in a city called Ghent…</p><p class="crawl-logo" aria-hidden="true">CORVUS</p><div class="crawl-view"><div class="crawl-text"><p class="crawl-episode">Episode I</p><h2 id="crawl-title">The Realm</h2>${CRAWL.map(t=>`<p>${crawlLine(t)}</p>`).join('')}<p class="crawl-last">Never stop <span data-crawl-word>wondering</span>…</p></div></div><img class="crawl-wing" src="/public/wing/wing-flight.webp" alt="" aria-hidden="true" width="432" height="432"><div class="crawl-end"><img class="end-wing" src="/public/wing/wing-flight.webp" alt="" width="432" height="432"><p class="end-kicker">the army is forming</p><h3 class="end-title">Your seat<br>is still empty.</h3><p class="end-sub">Quality seekers only.</p>${waitlist('crawl-wait')}</div><details class="crawl-credits"><summary aria-label="Image credits">ⓘ</summary><p>Anakin costume photo: Doug Kline, CC BY 2.0. Reni, Cabanel, Gérôme and Michelangelo: public domain.</p></details><form method="dialog" class="crawl-close"><button type="submit">skip · esc</button></form></dialog>`;
 }
 function homeContent(){
- const roman=['I','II','III','IV'];
- const rooms=SECTIONS.filter(s=>s.nav!==false);
- const acts=rooms.map((s,i)=>`<li data-reveal="act"><a href="${s.id==='legion'?s.next:s.path}"><span class="num">${roman[i]}</span><strong>${escape(s.label)}</strong><span class="line">${escape(s.line)}</span><span class="go">${escape(s.cta)} →</span></a></li>`).join('');
+ const roman=['I','II','III','IV','V'];
+ const rooms=ROOMS;
+ const acts=rooms.map((s,i)=>`<li data-reveal="act"><a href="${s.id==='legion'?s.next:s.path}"><span class="num">${roman[i]}</span><strong>${escape(s.label)}</strong><span class="line">${escape(s.line)}</span>${s.id==='stats'?'<span class="line" data-stats-act hidden></span>':''}<span class="go">${escape(s.cta)} →</span></a></li>`).join('');
  const endActs=rooms.map((s,i)=>`<li><a href="${s.path}"><span>${roman[i]}</span> ${escape(s.label)}</a></li>`).join('');
- return `<div class="arena-home"><div class="hall" data-hall data-panels="10" aria-hidden="true"><div class="hall-dome"></div><div class="hall-tilt"><div class="hall-cylinder"></div></div></div><p class="sr-only" data-hall-today>The ring in the hall says: never stop wondering.</p><section class="arena-hero" aria-labelledby="arena-title"><span class="arena-pennant" aria-hidden="true"></span>${stage()}<div class="arena-copy"><p class="arena-kicker" translate="no" data-reveal="1">the realm · gent</p><p class="arena-wordmark" translate="no" data-reveal="2">CORVUS</p><h1 class="arena-title" id="arena-title" data-reveal="3">${TAGLINE}</h1><p class="arena-ask" data-reveal="4"><button type="button" class="crawl-open" data-crawl-open aria-haspopup="dialog">what is corvus?</button></p><p class="sr-only" data-ring-live aria-live="polite"></p><div class="ring-after" data-ring-after hidden>${waitlist('ring-wait')}<ol class="crawl-acts">${endActs}</ol></div></div></section>${homeStats()}<section class="arena-programme" aria-labelledby="programme-title" data-reveal="scroll"><header><h2 id="programme-title">Tonight’s programme</h2><p>Four acts. Your guide is <a class="arena-link" href="/gabe/">Gabe</a>; Wing carries the lantern.</p></header><ol class="arena-acts">${acts}</ol><p class="arena-map">Every other door is on <a class="arena-link" href="/map/">the map</a>, or press <kbd>/</kbd> to search.</p></section><figure class="arena-poster" data-reveal="scroll"><div class="art" role="img" aria-label="Georges Seurat’s Le Cirque: a rider on a white horse, a clown and an audience in the stands."></div><div><blockquote>No enemies. Only love.</blockquote><figcaption>Why Corvus exists. On the wall: Georges Seurat, Le Cirque, 1891 · public domain.</figcaption></div></figure><section id="signup" class="site-newsletter" aria-label="Waitlist">${waitlist('home-wait')}</section>${crawl()}</div>`;
+ return `<div class="arena-home"><div class="hall" data-hall data-panels="10" aria-hidden="true"><div class="hall-dome"></div><div class="hall-tilt"><div class="hall-cylinder"></div></div></div><p class="sr-only" data-hall-today>The ring in the hall says: never stop wondering.</p><section class="arena-hero" aria-labelledby="arena-title"><span class="arena-pennant" aria-hidden="true"></span>${stage()}<div class="arena-copy"><p class="arena-kicker" translate="no" data-reveal="1">the realm · gent</p><p class="arena-wordmark" translate="no" data-reveal="2">CORVUS</p><h1 class="arena-title" id="arena-title" data-reveal="3">${TAGLINE}</h1><p class="arena-ask" data-reveal="4"><button type="button" class="crawl-open" data-crawl-open aria-haspopup="dialog">what is corvus?</button></p><p class="sr-only" data-ring-live aria-live="polite"></p><div class="ring-after" data-ring-after hidden>${waitlist('ring-wait')}<ol class="crawl-acts">${endActs}</ol></div></div></section>${homeStats()}<section class="arena-programme" aria-labelledby="programme-title" data-reveal="scroll"><header><h2 id="programme-title">Tonight’s programme</h2><p>Five acts. Your guide is <a class="arena-link" href="/gabe/">Gabe</a>; Wing carries the lantern.</p></header><ol class="arena-acts">${acts}</ol><p class="arena-map">Every other door is on <a class="arena-link" href="/map/">the map</a>, or press <kbd>/</kbd> to search.</p></section><figure class="arena-poster" data-reveal="scroll"><div class="art" role="img" aria-label="Georges Seurat’s Le Cirque: a rider on a white horse, a clown and an audience in the stands."></div><div><blockquote>No enemies. Only love.</blockquote><figcaption>Why Corvus exists. On the wall: Georges Seurat, Le Cirque, 1891 · public domain.</figcaption></div></figure><section id="signup" class="site-newsletter" aria-label="Waitlist">${waitlist('home-wait')}</section>${crawl()}</div>`;
 }
 async function gabeContent(){
  const whoami=await fs.readFile('whoami/index.html','utf8');

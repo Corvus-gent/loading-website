@@ -72,7 +72,7 @@ if (home) {
     document.addEventListener('keydown', e => { if (e.key === 'Tab') showAll(); }, {once: true});
   }
   const wingButton = home.querySelector('[data-wing]'), bubble = home.querySelector('[data-wing-bubble]');
-  const LINES = ['welcome to the realm.', 'caw. the words are shy. they come slowly.', 'four acts tonight. scroll down.', 'join the Legion waitlist. higher ranks are earned.', 'lost? press / and say where you want to go.', 'Diogenes returns at dawn with a new question.'];
+  const LINES = ['welcome to the realm.', 'caw. the words are shy. they come slowly.', 'five acts tonight. scroll down.', 'join the Legion waitlist. higher ranks are earned.', 'lost? press / and say where you want to go.', 'Diogenes returns at dawn with a new question.'];
   let said = 0, hide;
   wingButton?.addEventListener('click', () => {
     const next = steps.find(el => !el.classList.contains('on'));

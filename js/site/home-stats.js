@@ -6,7 +6,15 @@ if(root){
  .then(r=>{if(!r.ok)throw Error();return r.json();}).then(snapshot=>{
   const d=snapshot.data;if(!d)throw Error();
   const valid=n=>Number.isSafeInteger(n)&&n>=0;
-  if(valid(d.visitors))root.querySelector('[data-home-visitors]').textContent=(d.visitors+(valid(d.unseen?.day)?d.unseen.day:0)).toLocaleString();
+  if (valid(d.visitors)) {
+    const count = (d.visitors + (valid(d.unseen?.day) ? d.unseen.day : 0)).toLocaleString();
+    root.querySelector('[data-home-visitors]').textContent = count;
+    const act = document.querySelector('[data-stats-act]');
+    if (act) {
+      act.textContent = count + ' visitors · measured day';
+      act.hidden = false;
+    }
+  }
   if(valid(d.soldiers?.all))root.querySelector('[data-home-soldiers]').textContent=d.soldiers.all.toLocaleString();
   root.querySelector('[data-home-stats-note]').textContent=`Measured day: ${snapshot.day||day}${snapshot.stale||snapshot.state==='partial'?' · saved / partial snapshot':''}. Open the dashboard for context.`;
  }).catch(()=>{root.querySelector('[data-home-stats-note]').textContent='Counts are unavailable here. Explore the other statistics below.';});
