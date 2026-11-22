@@ -17,6 +17,7 @@ const server=http.createServer(async(req,res)=>{
 await new Promise(r=>server.listen(0,'127.0.0.1',r));const origin='http://127.0.0.1:'+server.address().port,browser=await chromium.launch();
 try{
  const directory=JSON.parse(await readFile(path.join(fixture.root,'site-directory.json'),'utf8'));
+ const data=JSON.parse(await readFile(path.join(fixture.root,'build/rust/data.json'),'utf8')),first=data.measurements[0],last=data.measurements.at(-1);
  assert(directory.routes.some(r=>r.path.replace(/\/$/,'')==='/build/rust'),'map/search catalogue contains the report');
  await mkdir('test-results/migration-report',{recursive:true});
  for(const width of [390,1440]){
@@ -29,6 +30,20 @@ try{
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
   await page.screenshot({path:'test-results/migration-report/'+width+'-hero.png'});
   await page.locator('#speed').scrollIntoViewIfNeeded();await page.screenshot({path:'test-results/migration-report/'+width+'-speed.png'});
+  await expect(page.locator('#checkpoint')).toHaveValue(last.head);
+  await page.evaluate(()=>{const u=new URL(location.href);u.searchParams.set('view','article');history.replaceState(null,'',u);});
+  await page.locator('#checkpoint').selectOption(first.head);
+  assert.equal(new URL(page.url()).searchParams.get('view'),'article','another page control changed the URL after initial load');
+  await expect(page.locator('#timing-rows tr').first()).toContainText('9,531 ms');
+  await expect(page.locator('#comparison-note')).toContainText(first.head.slice(0,7));
+  for(const [id,key] of [['benchmark-report','report'],['benchmark-raw','raw'],['benchmark-gate','gate']])await expect(page.locator('#'+id)).toHaveAttribute('href',first.evidence[key]);
+  assert.equal(new URL(page.url()).searchParams.get('checkpoint'),first.head);
+  await page.reload();await expect(page.locator('#checkpoint')).toHaveValue(first.head);await expect(page.locator('#timing-rows tr').first()).toContainText('9,531 ms');
+  await page.goto(origin+'/build/rust/?checkpoint=unknown&device=phone&cache=invalid&view=article&utm_source=qa#speed');
+  await expect(page.locator('#checkpoint')).toHaveValue(last.head);await expect(page.locator('#timing-rows tr').first()).toContainText('6,553 ms');
+  assert.equal(new URL(page.url()).searchParams.get('view'),'article');assert.equal(new URL(page.url()).hash,'#speed');
+  assert.equal(new URL(page.url()).searchParams.has('utm_source'),false,'site arrival cleanup remains in control of tracking parameters');
+  await page.locator('#checkpoint').focus();await page.keyboard.press('Tab');await expect(page.locator('#device')).toBeFocused();
   await page.locator('#spec-sheet summary').focus();await page.keyboard.press('Enter');
   await expect(page.locator('#spec-sheet')).toHaveAttribute('open','');
   await expect(page.locator('#spec-sheet .specs > div')).toHaveCount(7);
@@ -43,7 +58,7 @@ try{
   await page.goto(origin+'/build/');await expect(page.locator('a[href="/build/rust/"]')).toBeVisible();await page.locator('a[href="/build/rust/"]').click();await expect(page.locator('h1')).toContainText('rewrite worth it');
   assert.deepEqual(errors,[]);await context.close();
  }
- const offline=await browser.newContext();await offline.route('**/build/rust/data.json',r=>r.fulfill({status:503,body:'{}'}));const failed=await offline.newPage();await failed.goto(origin+'/build/rust/');await expect(failed.locator('#device')).toBeDisabled();await expect(failed.locator('#timing-rows')).toContainText('6,553 ms');await expect(failed.locator('#comparison-note')).toContainText('verified mobile table remains');await offline.close();
- const nojs=await browser.newContext({javaScriptEnabled:false});const staticPage=await nojs.newPage();await staticPage.goto(origin+'/build/rust/');await expect(staticPage.locator('#timing-rows')).toContainText('6,553 ms');await expect(staticPage.getByRole('link',{name:'Download article notes'})).toBeVisible();await nojs.close();
- console.log('PASS full publish build, discovery, 390/1440 layout, truthful charts, keyboard spec sheet and URL state, article download, build-page navigation, no-JS and failed-data fallback; no console errors.');
+ const offline=await browser.newContext();await offline.route('**/build/rust/data.json',r=>r.fulfill({status:503,body:'{}'}));const failed=await offline.newPage();await failed.goto(origin+'/build/rust/');for(const id of ['device','cache','checkpoint'])await expect(failed.locator('#'+id)).toBeDisabled();await expect(failed.locator('#timing-rows')).toContainText('6,553 ms');await expect(failed.locator('#comparison-note')).toContainText('verified mobile table remains');await offline.close();
+ const nojs=await browser.newContext({javaScriptEnabled:false});const staticPage=await nojs.newPage();await staticPage.goto(origin+'/build/rust/');await expect(staticPage.locator('#timing-rows')).toContainText('6,553 ms');for(const id of ['device','cache','checkpoint'])await expect(staticPage.locator('#'+id)).toBeDisabled();await expect(staticPage.getByRole('link',{name:'Download article notes'})).toBeVisible();await nojs.close();
+ console.log('PASS full publish build, discovery, 390/1440 layout, recorded checkpoint comparisons and evidence links, keyboard/URL state, article download, navigation, no-JS and failed-data fallback; no console errors.');
 }finally{await browser.close();server.closeAllConnections();await new Promise(r=>server.close(r));await fixture.close();}

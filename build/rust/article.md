@@ -29,6 +29,15 @@ Aligned main baseline: 505de1997d79db19b7f61f335856b1cb8882d38a. Measured migrat
 
 Three repeats, 390×844, CPU4×,150ms latency,1.6Mbps download, fixed40ms API fixtures. Static paint is separate. No production speed gain has been measured. See raw data for warm cache, desktop, p95, long tasks and all limitations.
 
+## Recorded checkpoints
+
+| Checkpoint | Rust bundle, Brotli bytes | Home JS readiness, ms | Home Rust readiness, ms |
+|---|---:|---:|---:|
+| 20 Nov 2026 · full · d47c48b | 1,265,266 | 1,475 | 9,531 |
+| 21 Nov 2026 · core · 5d582b7 | 681,962 | 1,468 | 6,553 |
+
+These are separate exploratory builds, each with its own JavaScript comparator. The newer Rust build improves on the earlier Rust build but still takes longer than its paired JavaScript baseline. This is not an isolated causal test of bundle size, a production speedup or a new measurement today. The page lets readers select either recorded checkpoint, including its original evidence links.
+
 ## Usage and money
 
 Recorded root-chat migration window: 2026-11-20T01:08:28.426Z to 2026-11-21T01:46:29.744Z. 1521 unique response records. Uncached input 4088183; cached input 259673216; output 1394433, including 328372 reasoning tokens (not extra). Cached input is 98.45% of all input. Earlier tasks and this report build are excluded.
