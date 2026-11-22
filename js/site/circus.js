@@ -42,14 +42,27 @@ function scatter() {
       document.body.append(s);
     }
   }
-  // Hidden emojis: invisible until a cursor wanders close.
+  // Detect proximity without intercepting clicks on the page.
+  const hiddenEmojis = [];
   for (let i = 0; i < 3; i++) {
     const e = document.createElement('span');
     e.className = 'hidden-emoji'; e.setAttribute('aria-hidden', 'true');
     e.textContent = EMOJI[Math.floor(Math.random() * EMOJI.length)];
-    e.style.cssText = `left:${rand(3, 88)}vw;top:${rand(.08, .96) * h}px`;
-    e.addEventListener('pointerenter', () => { if (!e.dataset.seen) { e.dataset.seen = '1'; record('emoji:' + e.textContent); } });
+    e.style.cssText = `left:min(${rand(3, 88)}vw, calc(100% - 48px));top:${rand(.08, .96) * h}px`;
     document.body.append(e);
+    hiddenEmojis.push(e);
   }
+  document.addEventListener('pointermove', ({clientX, clientY, pointerType}) => {
+    if (pointerType === 'touch') return;
+    for (const emoji of hiddenEmojis) {
+      const {left, right, top, bottom} = emoji.getBoundingClientRect();
+      const nearby = clientX >= left && clientX <= right && clientY >= top && clientY <= bottom;
+      emoji.classList.toggle('is-nearby', nearby);
+      if (nearby && !emoji.dataset.seen) {
+        emoji.dataset.seen = '1';
+        record('emoji:' + emoji.textContent);
+      }
+    }
+  }, {passive: true});
 }
 if (document.readyState === 'complete') scatter(); else addEventListener('load', scatter, {once: true});
