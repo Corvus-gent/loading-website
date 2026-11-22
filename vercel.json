@@ -974,6 +974,9 @@
     },
     "api/forms.js": {
       "maxDuration": 60
+    },
+    "api/rust.rs": {
+      "maxDuration": 60
     }
   },
   "headers": [

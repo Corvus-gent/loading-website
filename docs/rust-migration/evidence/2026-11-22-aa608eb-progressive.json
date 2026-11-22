@@ -1,0 +1,2362 @@
+{
+  "version": 1,
+  "started": "2026-11-22T14:00:13.654Z",
+  "finished": "2026-11-22T14:09:59.465Z",
+  "head": "aa608ebd817050e3de35c18e8227ceb43f4c0042",
+  "headAfter": "aa608ebd817050e3de35c18e8227ceb43f4c0042",
+  "workingTreeDirty": false,
+  "browser": "156.0.8078.4",
+  "repeats": 3,
+  "profiles": [
+    "mobile",
+    "desktop"
+  ],
+  "conditions": {
+    "desktop": {
+      "width": 1440,
+      "height": 1000,
+      "cpu": 1,
+      "latency": 0,
+      "down": 0,
+      "up": 0
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "cpu": 4,
+      "latency": 150,
+      "down": 200000,
+      "up": 93750
+    }
+  },
+  "wasmSha256": "3268504938d7b31a94992861518d4d4f15309ba12858c921429255e5fd677873",
+  "wasmChanged": false,
+  "productionReady": false,
+  "method": "Same built pages and 40 ms fixture APIs. Alternating Rust-everywhere, lightweight-JS-home/Rust-next, and lightweight-home with bounded prediction. One unrecorded warmup each. Fresh context per journey. Real HTTP cache/Brotli, fixed dwell independent of prefetch completion. Prediction requests included in CDP wire bytes, retaining received chunks when transfers abort; aborted response headers may be undercounted. Readiness uses unchanged functional search/directory checks. No browser request interception or production providers. Original direct-load benchmark remains unchanged.",
+  "limitations": [
+    "Exploratory; not a release gate or production speedup.",
+    "Lightweight home deliberately retains existing JS: not all-Rust browser code.",
+    "Chromium emulation, not actual iPhone/Safari or Android field data.",
+    "Direct arrivals on deeper pages still pay their cold WASM cost.",
+    "A wrong destination here shares the core bundle; totally unrelated feature pages may waste the whole prefetch.",
+    "HTML prefetch reuse depends on browser support and cache policy; WASM cache hits are recorded separately."
+  ],
+  "summary": [
+    {
+      "profile": "mobile",
+      "scenario": "early-click",
+      "mode": "rust",
+      "n": 3,
+      "failures": [],
+      "homeReadyMs": 6581.599999964237,
+      "nextReadyMs": 645.1000000238419,
+      "beforeClickBytes": 1162144,
+      "totalWireBytes": 1195545
+    },
+    {
+      "profile": "mobile",
+      "scenario": "early-click",
+      "mode": "light",
+      "n": 3,
+      "failures": [],
+      "homeReadyMs": 1484,
+      "nextReadyMs": 4458.800000011921,
+      "beforeClickBytes": 509481,
+      "totalWireBytes": 1241153
+    },
+    {
+      "profile": "mobile",
+      "scenario": "early-click",
+      "mode": "predictive",
+      "n": 3,
+      "failures": [],
+      "homeReadyMs": 1410.3999999761581,
+      "nextReadyMs": 4310,
+      "beforeClickBytes": 512066,
+      "totalWireBytes": 1246899
+    },
+    {
+      "profile": "mobile",
+      "scenario": "read-then-click",
+      "mode": "rust",
+      "n": 3,
+      "failures": [],
+      "homeReadyMs": 6578.300000011921,
+      "nextReadyMs": 637.0999999642372,
+      "beforeClickBytes": 1162833,
+      "totalWireBytes": 1195795
+    },
+    {
+      "profile": "mobile",
+      "scenario": "read-then-click",
+      "mode": "light",
+      "n": 3,
+      "failures": [],
+      "homeReadyMs": 1492.6000000238419,
+      "nextReadyMs": 4454.899999976158,
+      "beforeClickBytes": 509924,
+      "totalWireBytes": 1241403
+    },
+    {
+      "profile": "mobile",
+      "scenario": "read-then-click",
+      "mode": "predictive",
+      "n": 3,
+      "failures": [],
+      "homeReadyMs": 1402.2999999523163,
+      "nextReadyMs": 619.1000000238419,
+      "beforeClickBytes": 1214744,
+      "totalWireBytes": 1249934
+    },
+    {
+      "profile": "mobile",
+      "scenario": "wrong-prediction",
+      "mode": "rust",
+      "n": 3,
+      "failures": [],
+      "homeReadyMs": 6562.900000035763,
+      "nextReadyMs": 1357.7999999523163,
+      "beforeClickBytes": 1162833,
+      "totalWireBytes": 1201635
+    },
+    {
+      "profile": "mobile",
+      "scenario": "wrong-prediction",
+      "mode": "light",
+      "n": 3,
+      "failures": [],
+      "homeReadyMs": 1492.800000011921,
+      "nextReadyMs": 5084.300000011921,
+      "beforeClickBytes": 509924,
+      "totalWireBytes": 1247243
+    },
+    {
+      "profile": "mobile",
+      "scenario": "wrong-prediction",
+      "mode": "predictive",
+      "n": 3,
+      "failures": [],
+      "homeReadyMs": 1410.199999988079,
+      "nextReadyMs": 1394.300000011921,
+      "beforeClickBytes": 1214744,
+      "totalWireBytes": 1255774
+    },
+    {
+      "profile": "desktop",
+      "scenario": "early-click",
+      "mode": "rust",
+      "n": 3,
+      "failures": [],
+      "homeReadyMs": 107.39999997615814,
+      "nextReadyMs": 46.40000003576279,
+      "beforeClickBytes": 1187708,
+      "totalWireBytes": 1195545
+    },
+    {
+      "profile": "desktop",
+      "scenario": "early-click",
+      "mode": "light",
+      "n": 3,
+      "failures": [],
+      "homeReadyMs": 64.59999996423721,
+      "nextReadyMs": 73.89999997615814,
+      "beforeClickBytes": 534799,
+      "totalWireBytes": 1241153
+    },
+    {
+      "profile": "desktop",
+      "scenario": "early-click",
+      "mode": "predictive",
+      "n": 3,
+      "failures": [],
+      "homeReadyMs": 61.69999998807907,
+      "nextReadyMs": 74,
+      "beforeClickBytes": 537630,
+      "totalWireBytes": 1233081
+    },
+    {
+      "profile": "desktop",
+      "scenario": "read-then-click",
+      "mode": "rust",
+      "n": 3,
+      "failures": [],
+      "homeReadyMs": 113.69999998807907,
+      "nextReadyMs": 62.39999997615814,
+      "beforeClickBytes": 1188151,
+      "totalWireBytes": 1195795
+    },
+    {
+      "profile": "desktop",
+      "scenario": "read-then-click",
+      "mode": "light",
+      "n": 3,
+      "failures": [],
+      "homeReadyMs": 61.90000003576279,
+      "nextReadyMs": 89,
+      "beforeClickBytes": 535242,
+      "totalWireBytes": 1241403
+    },
+    {
+      "profile": "desktop",
+      "scenario": "read-then-click",
+      "mode": "predictive",
+      "n": 3,
+      "failures": [],
+      "homeReadyMs": 72.30000001192093,
+      "nextReadyMs": 84,
+      "beforeClickBytes": 1240062,
+      "totalWireBytes": 1249934
+    },
+    {
+      "profile": "desktop",
+      "scenario": "wrong-prediction",
+      "mode": "rust",
+      "n": 3,
+      "failures": [],
+      "homeReadyMs": 121.29999995231628,
+      "nextReadyMs": 260.4000000357628,
+      "beforeClickBytes": 1188151,
+      "totalWireBytes": 1208110
+    },
+    {
+      "profile": "desktop",
+      "scenario": "wrong-prediction",
+      "mode": "light",
+      "n": 3,
+      "failures": [],
+      "homeReadyMs": 67.30000001192093,
+      "nextReadyMs": 278.5,
+      "beforeClickBytes": 535242,
+      "totalWireBytes": 1253718
+    },
+    {
+      "profile": "desktop",
+      "scenario": "wrong-prediction",
+      "mode": "predictive",
+      "n": 3,
+      "failures": [],
+      "homeReadyMs": 63.39999997615814,
+      "nextReadyMs": 286.19999998807907,
+      "beforeClickBytes": 1240062,
+      "totalWireBytes": 1262249
+    }
+  ],
+  "samples": [
+    {
+      "profile": "mobile",
+      "scenario": "early-click",
+      "mode": "rust",
+      "repeat": 0,
+      "dwellMs": 0,
+      "homePreClickMs": 7611.5,
+      "home": {
+        "ttfb": 0.699999988079071,
+        "fcp": 720,
+        "lcp": 720,
+        "cls": 0.04265402843601896,
+        "ready": 6579.400000035763,
+        "longTaskMax": 94,
+        "longTaskTotal": 174,
+        "transfer": 1162162,
+        "jsEncoded": 14450,
+        "wasmEncoded": 681962,
+        "requests": 18,
+        "actionNextFrame": 131.5
+      },
+      "next": "/gabe/",
+      "destination": {
+        "ready": 645.4000000357628,
+        "wasm": [
+          {
+            "transfer": 0,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": null,
+      "homeWireBytes": 1162144,
+      "beforeClickBytes": 1162144,
+      "totalWireBytes": 1195545
+    },
+    {
+      "profile": "mobile",
+      "scenario": "early-click",
+      "mode": "light",
+      "repeat": 0,
+      "dwellMs": 0,
+      "homePreClickMs": 3993.600000023842,
+      "home": {
+        "ttfb": 0.5,
+        "fcp": 728,
+        "lcp": 728,
+        "cls": 0.04265402843601896,
+        "ready": 1484,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 509053,
+        "jsEncoded": 38502,
+        "wasmEncoded": 0,
+        "requests": 34,
+        "actionNextFrame": 90.19999998807907
+      },
+      "next": "/gabe/",
+      "destination": {
+        "ready": 4458.800000011921,
+        "wasm": [
+          {
+            "transfer": 682262,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": null,
+      "homeWireBytes": 509235,
+      "beforeClickBytes": 509235,
+      "totalWireBytes": 1241153
+    },
+    {
+      "profile": "mobile",
+      "scenario": "early-click",
+      "mode": "predictive",
+      "repeat": 0,
+      "dwellMs": 0,
+      "homePreClickMs": 4260.599999964237,
+      "home": {
+        "ttfb": 0.699999988079071,
+        "fcp": 720,
+        "lcp": 720,
+        "cls": 0.04265402843601896,
+        "ready": 1411.199999988079,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 511871,
+        "jsEncoded": 40864,
+        "wasmEncoded": 0,
+        "requests": 35,
+        "actionNextFrame": 92.80000001192093
+      },
+      "next": "/gabe/",
+      "destination": {
+        "ready": 4310,
+        "wasm": [
+          {
+            "transfer": 682262,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": {
+        "documents": [],
+        "assets": [],
+        "failed": [],
+        "bytes": 0
+      },
+      "homeWireBytes": 512066,
+      "beforeClickBytes": 512066,
+      "totalWireBytes": 1246899
+    },
+    {
+      "profile": "mobile",
+      "scenario": "early-click",
+      "mode": "predictive",
+      "repeat": 1,
+      "dwellMs": 0,
+      "homePreClickMs": 4227.199999988079,
+      "home": {
+        "ttfb": 0.699999988079071,
+        "fcp": 712,
+        "lcp": 712,
+        "cls": 0.04265402843601896,
+        "ready": 1410.3999999761581,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 511871,
+        "jsEncoded": 40864,
+        "wasmEncoded": 0,
+        "requests": 35,
+        "actionNextFrame": 88.59999996423721
+      },
+      "next": "/gabe/",
+      "destination": {
+        "ready": 4296.900000035763,
+        "wasm": [
+          {
+            "transfer": 682262,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": {
+        "documents": [],
+        "assets": [],
+        "failed": [],
+        "bytes": 0
+      },
+      "homeWireBytes": 512066,
+      "beforeClickBytes": 512066,
+      "totalWireBytes": 1246899
+    },
+    {
+      "profile": "mobile",
+      "scenario": "early-click",
+      "mode": "light",
+      "repeat": 1,
+      "dwellMs": 0,
+      "homePreClickMs": 4043.400000035763,
+      "home": {
+        "ttfb": 0.5,
+        "fcp": 740,
+        "lcp": 740,
+        "cls": 0.04265402843601896,
+        "ready": 1485.300000011921,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 509053,
+        "jsEncoded": 38502,
+        "wasmEncoded": 0,
+        "requests": 34,
+        "actionNextFrame": 102.59999996423721
+      },
+      "next": "/gabe/",
+      "destination": {
+        "ready": 4463,
+        "wasm": [
+          {
+            "transfer": 682262,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": null,
+      "homeWireBytes": 509235,
+      "beforeClickBytes": 509481,
+      "totalWireBytes": 1241153
+    },
+    {
+      "profile": "mobile",
+      "scenario": "early-click",
+      "mode": "rust",
+      "repeat": 1,
+      "dwellMs": 0,
+      "homePreClickMs": 7626.5,
+      "home": {
+        "ttfb": 1.199999988079071,
+        "fcp": 728,
+        "lcp": 728,
+        "cls": 0.04265402843601896,
+        "ready": 6581.599999964237,
+        "longTaskMax": 97,
+        "longTaskTotal": 176,
+        "transfer": 1162162,
+        "jsEncoded": 14450,
+        "wasmEncoded": 681962,
+        "requests": 18,
+        "actionNextFrame": 121.79999995231628
+      },
+      "next": "/gabe/",
+      "destination": {
+        "ready": 631.5999999642372,
+        "wasm": [
+          {
+            "transfer": 0,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": null,
+      "homeWireBytes": 1162144,
+      "beforeClickBytes": 1162390,
+      "totalWireBytes": 1195545
+    },
+    {
+      "profile": "mobile",
+      "scenario": "early-click",
+      "mode": "rust",
+      "repeat": 2,
+      "dwellMs": 0,
+      "homePreClickMs": 7602.400000035763,
+      "home": {
+        "ttfb": 0.699999988079071,
+        "fcp": 720,
+        "lcp": 720,
+        "cls": 0.04265402843601896,
+        "ready": 6589.900000035763,
+        "longTaskMax": 109,
+        "longTaskTotal": 192,
+        "transfer": 1162162,
+        "jsEncoded": 14450,
+        "wasmEncoded": 681962,
+        "requests": 18,
+        "actionNextFrame": 122.10000002384186
+      },
+      "next": "/gabe/",
+      "destination": {
+        "ready": 645.1000000238419,
+        "wasm": [
+          {
+            "transfer": 0,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": null,
+      "homeWireBytes": 1162144,
+      "beforeClickBytes": 1162144,
+      "totalWireBytes": 1195545
+    },
+    {
+      "profile": "mobile",
+      "scenario": "early-click",
+      "mode": "light",
+      "repeat": 2,
+      "dwellMs": 0,
+      "homePreClickMs": 4019.699999988079,
+      "home": {
+        "ttfb": 1,
+        "fcp": 724,
+        "lcp": 724,
+        "cls": 0.04265402843601896,
+        "ready": 1475.1000000238419,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 509053,
+        "jsEncoded": 38502,
+        "wasmEncoded": 0,
+        "requests": 34,
+        "actionNextFrame": 90.69999998807907
+      },
+      "next": "/gabe/",
+      "destination": {
+        "ready": 4439.100000023842,
+        "wasm": [
+          {
+            "transfer": 682262,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": null,
+      "homeWireBytes": 509235,
+      "beforeClickBytes": 509481,
+      "totalWireBytes": 1241153
+    },
+    {
+      "profile": "mobile",
+      "scenario": "early-click",
+      "mode": "predictive",
+      "repeat": 2,
+      "dwellMs": 0,
+      "homePreClickMs": 4228,
+      "home": {
+        "ttfb": 1.0999999642372131,
+        "fcp": 704,
+        "lcp": 704,
+        "cls": 0.04265402843601896,
+        "ready": 1399.9000000357628,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 511871,
+        "jsEncoded": 40864,
+        "wasmEncoded": 0,
+        "requests": 35,
+        "actionNextFrame": 87.09999996423721
+      },
+      "next": "/gabe/",
+      "destination": {
+        "ready": 4318.199999988079,
+        "wasm": [
+          {
+            "transfer": 682262,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": {
+        "documents": [],
+        "assets": [],
+        "failed": [],
+        "bytes": 0
+      },
+      "homeWireBytes": 512066,
+      "beforeClickBytes": 512066,
+      "totalWireBytes": 1246899
+    },
+    {
+      "profile": "mobile",
+      "scenario": "read-then-click",
+      "mode": "rust",
+      "repeat": 0,
+      "dwellMs": 5000,
+      "homePreClickMs": 12593.699999988079,
+      "home": {
+        "ttfb": 0.800000011920929,
+        "fcp": 728,
+        "lcp": 728,
+        "cls": 0.04265402843601896,
+        "ready": 6578.300000011921,
+        "longTaskMax": 96,
+        "longTaskTotal": 175,
+        "transfer": 1162162,
+        "jsEncoded": 14450,
+        "wasmEncoded": 681962,
+        "requests": 18,
+        "actionNextFrame": 122.89999997615814
+      },
+      "next": "/gabe/",
+      "destination": {
+        "ready": 631.8000000119209,
+        "wasm": [
+          {
+            "transfer": 0,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": null,
+      "homeWireBytes": 1162144,
+      "beforeClickBytes": 1162833,
+      "totalWireBytes": 1195795
+    },
+    {
+      "profile": "mobile",
+      "scenario": "read-then-click",
+      "mode": "light",
+      "repeat": 0,
+      "dwellMs": 5000,
+      "homePreClickMs": 9011.900000035763,
+      "home": {
+        "ttfb": 0.6000000238418579,
+        "fcp": 732,
+        "lcp": 732,
+        "cls": 0.04265402843601896,
+        "ready": 1497.2000000476837,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 509053,
+        "jsEncoded": 38502,
+        "wasmEncoded": 0,
+        "requests": 34,
+        "actionNextFrame": 92.69999998807907
+      },
+      "next": "/gabe/",
+      "destination": {
+        "ready": 4454.899999976158,
+        "wasm": [
+          {
+            "transfer": 682262,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": null,
+      "homeWireBytes": 509235,
+      "beforeClickBytes": 509924,
+      "totalWireBytes": 1241403
+    },
+    {
+      "profile": "mobile",
+      "scenario": "read-then-click",
+      "mode": "predictive",
+      "repeat": 0,
+      "dwellMs": 5000,
+      "homePreClickMs": 9261.899999976158,
+      "home": {
+        "ttfb": 0.800000011920929,
+        "fcp": 720,
+        "lcp": 720,
+        "cls": 0.04265402843601896,
+        "ready": 1402.2999999523163,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 511871,
+        "jsEncoded": 40864,
+        "wasmEncoded": 0,
+        "requests": 35,
+        "actionNextFrame": 100.69999998807907
+      },
+      "next": "/gabe/",
+      "destination": {
+        "ready": 619.1000000238419,
+        "wasm": [
+          {
+            "transfer": 0,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": {
+        "documents": [
+          "/daily/",
+          "/gabe/"
+        ],
+        "assets": [
+          "/rust/browser/pkg/core/corvus_browser.js",
+          "/rust/browser/pkg/core/corvus_browser_bg.wasm"
+        ],
+        "failed": [],
+        "bytes": 695659
+      },
+      "homeWireBytes": 512066,
+      "beforeClickBytes": 1214744,
+      "totalWireBytes": 1249934
+    },
+    {
+      "profile": "mobile",
+      "scenario": "read-then-click",
+      "mode": "predictive",
+      "repeat": 1,
+      "dwellMs": 5000,
+      "homePreClickMs": 9238.900000035763,
+      "home": {
+        "ttfb": 1.100000023841858,
+        "fcp": 708,
+        "lcp": 708,
+        "cls": 0.04265402843601896,
+        "ready": 1393.6000000238419,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 511871,
+        "jsEncoded": 40864,
+        "wasmEncoded": 0,
+        "requests": 35,
+        "actionNextFrame": 91.19999998807907
+      },
+      "next": "/gabe/",
+      "destination": {
+        "ready": 621.2000000476837,
+        "wasm": [
+          {
+            "transfer": 0,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": {
+        "documents": [
+          "/daily/",
+          "/gabe/"
+        ],
+        "assets": [
+          "/rust/browser/pkg/core/corvus_browser.js",
+          "/rust/browser/pkg/core/corvus_browser_bg.wasm"
+        ],
+        "failed": [],
+        "bytes": 695659
+      },
+      "homeWireBytes": 512066,
+      "beforeClickBytes": 1214744,
+      "totalWireBytes": 1249934
+    },
+    {
+      "profile": "mobile",
+      "scenario": "read-then-click",
+      "mode": "light",
+      "repeat": 1,
+      "dwellMs": 5000,
+      "homePreClickMs": 9029.300000011921,
+      "home": {
+        "ttfb": 0.7000000476837158,
+        "fcp": 732,
+        "lcp": 732,
+        "cls": 0.04265402843601896,
+        "ready": 1488.199999988079,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 509053,
+        "jsEncoded": 38502,
+        "wasmEncoded": 0,
+        "requests": 34,
+        "actionNextFrame": 99.19999998807907
+      },
+      "next": "/gabe/",
+      "destination": {
+        "ready": 4457.399999976158,
+        "wasm": [
+          {
+            "transfer": 682262,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": null,
+      "homeWireBytes": 509235,
+      "beforeClickBytes": 509924,
+      "totalWireBytes": 1241403
+    },
+    {
+      "profile": "mobile",
+      "scenario": "read-then-click",
+      "mode": "rust",
+      "repeat": 1,
+      "dwellMs": 5000,
+      "homePreClickMs": 12611.599999964237,
+      "home": {
+        "ttfb": 0.6000000238418579,
+        "fcp": 716,
+        "lcp": 716,
+        "cls": 0.04265402843601896,
+        "ready": 6596.199999988079,
+        "longTaskMax": 106,
+        "longTaskTotal": 190,
+        "transfer": 1162162,
+        "jsEncoded": 14450,
+        "wasmEncoded": 681962,
+        "requests": 18,
+        "actionNextFrame": 121.90000003576279
+      },
+      "next": "/gabe/",
+      "destination": {
+        "ready": 643.6999999880791,
+        "wasm": [
+          {
+            "transfer": 0,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": null,
+      "homeWireBytes": 1162144,
+      "beforeClickBytes": 1162833,
+      "totalWireBytes": 1195795
+    },
+    {
+      "profile": "mobile",
+      "scenario": "read-then-click",
+      "mode": "rust",
+      "repeat": 2,
+      "dwellMs": 5000,
+      "homePreClickMs": 12620.699999988079,
+      "home": {
+        "ttfb": 0.5999999642372131,
+        "fcp": 716,
+        "lcp": 716,
+        "cls": 0.04265402843601896,
+        "ready": 6572.099999964237,
+        "longTaskMax": 99,
+        "longTaskTotal": 180,
+        "transfer": 1162162,
+        "jsEncoded": 14450,
+        "wasmEncoded": 681962,
+        "requests": 18,
+        "actionNextFrame": 123.09999996423721
+      },
+      "next": "/gabe/",
+      "destination": {
+        "ready": 637.0999999642372,
+        "wasm": [
+          {
+            "transfer": 0,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": null,
+      "homeWireBytes": 1162144,
+      "beforeClickBytes": 1162833,
+      "totalWireBytes": 1195795
+    },
+    {
+      "profile": "mobile",
+      "scenario": "read-then-click",
+      "mode": "light",
+      "repeat": 2,
+      "dwellMs": 5000,
+      "homePreClickMs": 9011.900000035763,
+      "home": {
+        "ttfb": 0.699999988079071,
+        "fcp": 724,
+        "lcp": 724,
+        "cls": 0.04265402843601896,
+        "ready": 1492.6000000238419,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 509053,
+        "jsEncoded": 38502,
+        "wasmEncoded": 0,
+        "requests": 34,
+        "actionNextFrame": 89.10000002384186
+      },
+      "next": "/gabe/",
+      "destination": {
+        "ready": 4453.5,
+        "wasm": [
+          {
+            "transfer": 682262,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": null,
+      "homeWireBytes": 509235,
+      "beforeClickBytes": 509924,
+      "totalWireBytes": 1241403
+    },
+    {
+      "profile": "mobile",
+      "scenario": "read-then-click",
+      "mode": "predictive",
+      "repeat": 2,
+      "dwellMs": 5000,
+      "homePreClickMs": 9246.799999952316,
+      "home": {
+        "ttfb": 0.8999999761581421,
+        "fcp": 720,
+        "lcp": 720,
+        "cls": 0.04265402843601896,
+        "ready": 1409.7999999523163,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 511871,
+        "jsEncoded": 40864,
+        "wasmEncoded": 0,
+        "requests": 35,
+        "actionNextFrame": 99
+      },
+      "next": "/gabe/",
+      "destination": {
+        "ready": 615.8000000119209,
+        "wasm": [
+          {
+            "transfer": 0,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": {
+        "documents": [
+          "/daily/",
+          "/gabe/"
+        ],
+        "assets": [
+          "/rust/browser/pkg/core/corvus_browser.js",
+          "/rust/browser/pkg/core/corvus_browser_bg.wasm"
+        ],
+        "failed": [],
+        "bytes": 695659
+      },
+      "homeWireBytes": 512066,
+      "beforeClickBytes": 1214744,
+      "totalWireBytes": 1249934
+    },
+    {
+      "profile": "mobile",
+      "scenario": "wrong-prediction",
+      "mode": "rust",
+      "repeat": 0,
+      "dwellMs": 5000,
+      "homePreClickMs": 12570.400000035763,
+      "home": {
+        "ttfb": 0.6000000238418579,
+        "fcp": 696,
+        "lcp": 696,
+        "cls": 0.04265402843601896,
+        "ready": 6555.5,
+        "longTaskMax": 93,
+        "longTaskTotal": 170,
+        "transfer": 1162162,
+        "jsEncoded": 14450,
+        "wasmEncoded": 681962,
+        "requests": 18,
+        "actionNextFrame": 124.59999996423721
+      },
+      "next": "/map/",
+      "destination": {
+        "ready": 1307.699999988079,
+        "wasm": [
+          {
+            "transfer": 0,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": null,
+      "homeWireBytes": 1162144,
+      "beforeClickBytes": 1162833,
+      "totalWireBytes": 1201635
+    },
+    {
+      "profile": "mobile",
+      "scenario": "wrong-prediction",
+      "mode": "light",
+      "repeat": 0,
+      "dwellMs": 5000,
+      "homePreClickMs": 8993.900000035763,
+      "home": {
+        "ttfb": 0.699999988079071,
+        "fcp": 732,
+        "lcp": 732,
+        "cls": 0.04265402843601896,
+        "ready": 1492.800000011921,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 509053,
+        "jsEncoded": 38502,
+        "wasmEncoded": 0,
+        "requests": 34,
+        "actionNextFrame": 88.19999998807907
+      },
+      "next": "/map/",
+      "destination": {
+        "ready": 5081.599999964237,
+        "wasm": [
+          {
+            "transfer": 682262,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": null,
+      "homeWireBytes": 509235,
+      "beforeClickBytes": 509924,
+      "totalWireBytes": 1247243
+    },
+    {
+      "profile": "mobile",
+      "scenario": "wrong-prediction",
+      "mode": "predictive",
+      "repeat": 0,
+      "dwellMs": 5000,
+      "homePreClickMs": 9243.699999988079,
+      "home": {
+        "ttfb": 1,
+        "fcp": 716,
+        "lcp": 716,
+        "cls": 0.04265402843601896,
+        "ready": 1410.199999988079,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 511871,
+        "jsEncoded": 40864,
+        "wasmEncoded": 0,
+        "requests": 35,
+        "actionNextFrame": 90.5
+      },
+      "next": "/map/",
+      "destination": {
+        "ready": 1393.699999988079,
+        "wasm": [
+          {
+            "transfer": 0,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": {
+        "documents": [
+          "/daily/",
+          "/gabe/"
+        ],
+        "assets": [
+          "/rust/browser/pkg/core/corvus_browser.js",
+          "/rust/browser/pkg/core/corvus_browser_bg.wasm"
+        ],
+        "failed": [],
+        "bytes": 695659
+      },
+      "homeWireBytes": 512066,
+      "beforeClickBytes": 1214744,
+      "totalWireBytes": 1255774
+    },
+    {
+      "profile": "mobile",
+      "scenario": "wrong-prediction",
+      "mode": "predictive",
+      "repeat": 1,
+      "dwellMs": 5000,
+      "homePreClickMs": 9228.199999988079,
+      "home": {
+        "ttfb": 0.5999999642372131,
+        "fcp": 732,
+        "lcp": 732,
+        "cls": 0,
+        "ready": 1407.6000000238419,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 511871,
+        "jsEncoded": 40864,
+        "wasmEncoded": 0,
+        "requests": 35,
+        "actionNextFrame": 88.19999998807907
+      },
+      "next": "/map/",
+      "destination": {
+        "ready": 1403.7000000476837,
+        "wasm": [
+          {
+            "transfer": 0,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": {
+        "documents": [
+          "/daily/",
+          "/gabe/"
+        ],
+        "assets": [
+          "/rust/browser/pkg/core/corvus_browser.js",
+          "/rust/browser/pkg/core/corvus_browser_bg.wasm"
+        ],
+        "failed": [],
+        "bytes": 695659
+      },
+      "homeWireBytes": 512066,
+      "beforeClickBytes": 1214744,
+      "totalWireBytes": 1255774
+    },
+    {
+      "profile": "mobile",
+      "scenario": "wrong-prediction",
+      "mode": "light",
+      "repeat": 1,
+      "dwellMs": 5000,
+      "homePreClickMs": 8996,
+      "home": {
+        "ttfb": 0.699999988079071,
+        "fcp": 724,
+        "lcp": 724,
+        "cls": 0.04265402843601896,
+        "ready": 1490.199999988079,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 509053,
+        "jsEncoded": 38502,
+        "wasmEncoded": 0,
+        "requests": 34,
+        "actionNextFrame": 87.5
+      },
+      "next": "/map/",
+      "destination": {
+        "ready": 5084.300000011921,
+        "wasm": [
+          {
+            "transfer": 682262,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": null,
+      "homeWireBytes": 509235,
+      "beforeClickBytes": 509924,
+      "totalWireBytes": 1247243
+    },
+    {
+      "profile": "mobile",
+      "scenario": "wrong-prediction",
+      "mode": "rust",
+      "repeat": 1,
+      "dwellMs": 5000,
+      "homePreClickMs": 12605,
+      "home": {
+        "ttfb": 0.5,
+        "fcp": 708,
+        "lcp": 708,
+        "cls": 0.04265402843601896,
+        "ready": 6562.900000035763,
+        "longTaskMax": 93,
+        "longTaskTotal": 180,
+        "transfer": 1162162,
+        "jsEncoded": 14450,
+        "wasmEncoded": 681962,
+        "requests": 18,
+        "actionNextFrame": 128.89999997615814
+      },
+      "next": "/map/",
+      "destination": {
+        "ready": 1357.7999999523163,
+        "wasm": [
+          {
+            "transfer": 0,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": null,
+      "homeWireBytes": 1162144,
+      "beforeClickBytes": 1162833,
+      "totalWireBytes": 1201635
+    },
+    {
+      "profile": "mobile",
+      "scenario": "wrong-prediction",
+      "mode": "rust",
+      "repeat": 2,
+      "dwellMs": 5000,
+      "homePreClickMs": 12666.099999964237,
+      "home": {
+        "ttfb": 0.800000011920929,
+        "fcp": 728,
+        "lcp": 728,
+        "cls": 0.04265402843601896,
+        "ready": 6589.799999952316,
+        "longTaskMax": 102,
+        "longTaskTotal": 186,
+        "transfer": 1162162,
+        "jsEncoded": 14450,
+        "wasmEncoded": 681962,
+        "requests": 18,
+        "actionNextFrame": 160.69999998807907
+      },
+      "next": "/map/",
+      "destination": {
+        "ready": 1364.2000000476837,
+        "wasm": [
+          {
+            "transfer": 0,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": null,
+      "homeWireBytes": 1162144,
+      "beforeClickBytes": 1162833,
+      "totalWireBytes": 1201635
+    },
+    {
+      "profile": "mobile",
+      "scenario": "wrong-prediction",
+      "mode": "light",
+      "repeat": 2,
+      "dwellMs": 5000,
+      "homePreClickMs": 8993.100000023842,
+      "home": {
+        "ttfb": 0.3999999761581421,
+        "fcp": 760,
+        "lcp": 760,
+        "cls": 0.04265402843601896,
+        "ready": 1495.6000000238419,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 509053,
+        "jsEncoded": 38502,
+        "wasmEncoded": 0,
+        "requests": 34,
+        "actionNextFrame": 88.19999998807907
+      },
+      "next": "/map/",
+      "destination": {
+        "ready": 5099.699999988079,
+        "wasm": [
+          {
+            "transfer": 682262,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": null,
+      "homeWireBytes": 509235,
+      "beforeClickBytes": 509924,
+      "totalWireBytes": 1247243
+    },
+    {
+      "profile": "mobile",
+      "scenario": "wrong-prediction",
+      "mode": "predictive",
+      "repeat": 2,
+      "dwellMs": 5000,
+      "homePreClickMs": 9277.599999964237,
+      "home": {
+        "ttfb": 0.699999988079071,
+        "fcp": 720,
+        "lcp": 720,
+        "cls": 0.04265402843601896,
+        "ready": 1412.199999988079,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 511871,
+        "jsEncoded": 40864,
+        "wasmEncoded": 0,
+        "requests": 35,
+        "actionNextFrame": 97.19999998807907
+      },
+      "next": "/map/",
+      "destination": {
+        "ready": 1394.300000011921,
+        "wasm": [
+          {
+            "transfer": 0,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": {
+        "documents": [
+          "/daily/",
+          "/gabe/"
+        ],
+        "assets": [
+          "/rust/browser/pkg/core/corvus_browser.js",
+          "/rust/browser/pkg/core/corvus_browser_bg.wasm"
+        ],
+        "failed": [],
+        "bytes": 695659
+      },
+      "homeWireBytes": 512066,
+      "beforeClickBytes": 1214744,
+      "totalWireBytes": 1255774
+    },
+    {
+      "profile": "desktop",
+      "scenario": "early-click",
+      "mode": "rust",
+      "repeat": 0,
+      "dwellMs": 0,
+      "homePreClickMs": 1009.6999999880791,
+      "home": {
+        "ttfb": 0.5,
+        "fcp": 52,
+        "lcp": 52,
+        "cls": 0.05011157407407408,
+        "ready": 105.10000002384186,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 1187516,
+        "jsEncoded": 14450,
+        "wasmEncoded": 681962,
+        "requests": 19,
+        "actionNextFrame": 42.09999996423721
+      },
+      "next": "/gabe/",
+      "destination": {
+        "ready": 46.40000003576279,
+        "wasm": [
+          {
+            "transfer": 0,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": null,
+      "homeWireBytes": 1187462,
+      "beforeClickBytes": 1187708,
+      "totalWireBytes": 1195545
+    },
+    {
+      "profile": "desktop",
+      "scenario": "early-click",
+      "mode": "light",
+      "repeat": 0,
+      "dwellMs": 0,
+      "homePreClickMs": 976.1999999880791,
+      "home": {
+        "ttfb": 0.699999988079071,
+        "fcp": 56,
+        "lcp": 56,
+        "cls": 0.05011157407407408,
+        "ready": 60.39999997615814,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 534407,
+        "jsEncoded": 38502,
+        "wasmEncoded": 0,
+        "requests": 35,
+        "actionNextFrame": 41.60000002384186
+      },
+      "next": "/gabe/",
+      "destination": {
+        "ready": 71.09999996423721,
+        "wasm": [
+          {
+            "transfer": 682262,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": null,
+      "homeWireBytes": 534553,
+      "beforeClickBytes": 534799,
+      "totalWireBytes": 1241153
+    },
+    {
+      "profile": "desktop",
+      "scenario": "early-click",
+      "mode": "predictive",
+      "repeat": 0,
+      "dwellMs": 0,
+      "homePreClickMs": 979.3999999761581,
+      "home": {
+        "ttfb": 0.6000000238418579,
+        "fcp": 56,
+        "lcp": 56,
+        "cls": 0.05011157407407408,
+        "ready": 59.89999997615814,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 537225,
+        "jsEncoded": 40864,
+        "wasmEncoded": 0,
+        "requests": 36,
+        "actionNextFrame": 36.799999952316284
+      },
+      "next": "/gabe/",
+      "destination": {
+        "ready": 74,
+        "wasm": [
+          {
+            "transfer": 682262,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": {
+        "documents": [],
+        "assets": [],
+        "failed": [],
+        "bytes": 0
+      },
+      "homeWireBytes": 537384,
+      "beforeClickBytes": 537630,
+      "totalWireBytes": 1233081
+    },
+    {
+      "profile": "desktop",
+      "scenario": "early-click",
+      "mode": "predictive",
+      "repeat": 1,
+      "dwellMs": 0,
+      "homePreClickMs": 992.4000000357628,
+      "home": {
+        "ttfb": 0.7999999523162842,
+        "fcp": 52,
+        "lcp": 52,
+        "cls": 0.05011157407407408,
+        "ready": 62.5,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 537225,
+        "jsEncoded": 40864,
+        "wasmEncoded": 0,
+        "requests": 36,
+        "actionNextFrame": 46.30000001192093
+      },
+      "next": "/gabe/",
+      "destination": {
+        "ready": 72.60000002384186,
+        "wasm": [
+          {
+            "transfer": 682262,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": {
+        "documents": [],
+        "assets": [],
+        "failed": [],
+        "bytes": 0
+      },
+      "homeWireBytes": 537384,
+      "beforeClickBytes": 537823,
+      "totalWireBytes": 1233081
+    },
+    {
+      "profile": "desktop",
+      "scenario": "early-click",
+      "mode": "light",
+      "repeat": 1,
+      "dwellMs": 0,
+      "homePreClickMs": 975.5999999642372,
+      "home": {
+        "ttfb": 0.3999999761581421,
+        "fcp": 60,
+        "lcp": 60,
+        "cls": 0.05011157407407408,
+        "ready": 64.59999996423721,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 534407,
+        "jsEncoded": 38502,
+        "wasmEncoded": 0,
+        "requests": 35,
+        "actionNextFrame": 37.80000001192093
+      },
+      "next": "/gabe/",
+      "destination": {
+        "ready": 77.19999998807907,
+        "wasm": [
+          {
+            "transfer": 682262,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": null,
+      "homeWireBytes": 534553,
+      "beforeClickBytes": 534799,
+      "totalWireBytes": 1241153
+    },
+    {
+      "profile": "desktop",
+      "scenario": "early-click",
+      "mode": "rust",
+      "repeat": 1,
+      "dwellMs": 0,
+      "homePreClickMs": 1025.699999988079,
+      "home": {
+        "ttfb": 0.5,
+        "fcp": 52,
+        "lcp": 52,
+        "cls": 0.05011157407407408,
+        "ready": 107.39999997615814,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 1187516,
+        "jsEncoded": 14450,
+        "wasmEncoded": 681962,
+        "requests": 19,
+        "actionNextFrame": 46.89999997615814
+      },
+      "next": "/gabe/",
+      "destination": {
+        "ready": 46.39999997615814,
+        "wasm": [
+          {
+            "transfer": 0,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": null,
+      "homeWireBytes": 1187462,
+      "beforeClickBytes": 1187708,
+      "totalWireBytes": 1195545
+    },
+    {
+      "profile": "desktop",
+      "scenario": "early-click",
+      "mode": "rust",
+      "repeat": 2,
+      "dwellMs": 0,
+      "homePreClickMs": 1010.7000000476837,
+      "home": {
+        "ttfb": 0.5,
+        "fcp": 60,
+        "lcp": 60,
+        "cls": 0.05011157407407408,
+        "ready": 112.40000003576279,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 1187516,
+        "jsEncoded": 14450,
+        "wasmEncoded": 681962,
+        "requests": 19,
+        "actionNextFrame": 32.200000047683716
+      },
+      "next": "/gabe/",
+      "destination": {
+        "ready": 54.5,
+        "wasm": [
+          {
+            "transfer": 0,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": null,
+      "homeWireBytes": 1187462,
+      "beforeClickBytes": 1187708,
+      "totalWireBytes": 1195545
+    },
+    {
+      "profile": "desktop",
+      "scenario": "early-click",
+      "mode": "light",
+      "repeat": 2,
+      "dwellMs": 0,
+      "homePreClickMs": 976.7999999523163,
+      "home": {
+        "ttfb": 0.6000000238418579,
+        "fcp": 64,
+        "lcp": 64,
+        "cls": 0.05011157407407408,
+        "ready": 71.39999997615814,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 534407,
+        "jsEncoded": 38502,
+        "wasmEncoded": 0,
+        "requests": 35,
+        "actionNextFrame": 29.599999964237213
+      },
+      "next": "/gabe/",
+      "destination": {
+        "ready": 73.89999997615814,
+        "wasm": [
+          {
+            "transfer": 682262,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": null,
+      "homeWireBytes": 534553,
+      "beforeClickBytes": 534799,
+      "totalWireBytes": 1241153
+    },
+    {
+      "profile": "desktop",
+      "scenario": "early-click",
+      "mode": "predictive",
+      "repeat": 2,
+      "dwellMs": 0,
+      "homePreClickMs": 977.8000000119209,
+      "home": {
+        "ttfb": 0.699999988079071,
+        "fcp": 52,
+        "lcp": 52,
+        "cls": 0.05011157407407408,
+        "ready": 61.69999998807907,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 537225,
+        "jsEncoded": 40864,
+        "wasmEncoded": 0,
+        "requests": 36,
+        "actionNextFrame": 24.799999952316284
+      },
+      "next": "/gabe/",
+      "destination": {
+        "ready": 78.5,
+        "wasm": [
+          {
+            "transfer": 682262,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": {
+        "documents": [],
+        "assets": [],
+        "failed": [],
+        "bytes": 0
+      },
+      "homeWireBytes": 537384,
+      "beforeClickBytes": 537630,
+      "totalWireBytes": 1233081
+    },
+    {
+      "profile": "desktop",
+      "scenario": "read-then-click",
+      "mode": "rust",
+      "repeat": 0,
+      "dwellMs": 5000,
+      "homePreClickMs": 6030.599999964237,
+      "home": {
+        "ttfb": 0.699999988079071,
+        "fcp": 56,
+        "lcp": 56,
+        "cls": 0.05011157407407408,
+        "ready": 113.69999998807907,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 1187516,
+        "jsEncoded": 14450,
+        "wasmEncoded": 681962,
+        "requests": 19,
+        "actionNextFrame": 47.60000002384186
+      },
+      "next": "/gabe/",
+      "destination": {
+        "ready": 62,
+        "wasm": [
+          {
+            "transfer": 0,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": null,
+      "homeWireBytes": 1187462,
+      "beforeClickBytes": 1188151,
+      "totalWireBytes": 1195795
+    },
+    {
+      "profile": "desktop",
+      "scenario": "read-then-click",
+      "mode": "light",
+      "repeat": 0,
+      "dwellMs": 5000,
+      "homePreClickMs": 5994.199999988079,
+      "home": {
+        "ttfb": 0.800000011920929,
+        "fcp": 64,
+        "lcp": 64,
+        "cls": 0.05011157407407408,
+        "ready": 73.19999998807907,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 534407,
+        "jsEncoded": 38502,
+        "wasmEncoded": 0,
+        "requests": 35,
+        "actionNextFrame": 23.399999976158142
+      },
+      "next": "/gabe/",
+      "destination": {
+        "ready": 91.59999996423721,
+        "wasm": [
+          {
+            "transfer": 682262,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": null,
+      "homeWireBytes": 534553,
+      "beforeClickBytes": 535242,
+      "totalWireBytes": 1241403
+    },
+    {
+      "profile": "desktop",
+      "scenario": "read-then-click",
+      "mode": "predictive",
+      "repeat": 0,
+      "dwellMs": 5000,
+      "homePreClickMs": 6017.399999976158,
+      "home": {
+        "ttfb": 0.699999988079071,
+        "fcp": 60,
+        "lcp": 60,
+        "cls": 0.05011157407407408,
+        "ready": 72.30000001192093,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 537225,
+        "jsEncoded": 40864,
+        "wasmEncoded": 0,
+        "requests": 36,
+        "actionNextFrame": 40.19999998807907
+      },
+      "next": "/gabe/",
+      "destination": {
+        "ready": 80.59999996423721,
+        "wasm": [
+          {
+            "transfer": 0,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": {
+        "documents": [
+          "/daily/",
+          "/gabe/"
+        ],
+        "assets": [
+          "/rust/browser/pkg/core/corvus_browser.js",
+          "/rust/browser/pkg/core/corvus_browser_bg.wasm"
+        ],
+        "failed": [],
+        "bytes": 695659
+      },
+      "homeWireBytes": 537384,
+      "beforeClickBytes": 1240062,
+      "totalWireBytes": 1249934
+    },
+    {
+      "profile": "desktop",
+      "scenario": "read-then-click",
+      "mode": "predictive",
+      "repeat": 1,
+      "dwellMs": 5000,
+      "homePreClickMs": 6018.600000023842,
+      "home": {
+        "ttfb": 0.5999999642372131,
+        "fcp": 60,
+        "lcp": 60,
+        "cls": 0.051797839506172845,
+        "ready": 74.90000003576279,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 537225,
+        "jsEncoded": 40864,
+        "wasmEncoded": 0,
+        "requests": 36,
+        "actionNextFrame": 36.200000047683716
+      },
+      "next": "/gabe/",
+      "destination": {
+        "ready": 85.19999998807907,
+        "wasm": [
+          {
+            "transfer": 0,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": {
+        "documents": [
+          "/daily/",
+          "/gabe/"
+        ],
+        "assets": [
+          "/rust/browser/pkg/core/corvus_browser.js",
+          "/rust/browser/pkg/core/corvus_browser_bg.wasm"
+        ],
+        "failed": [],
+        "bytes": 695659
+      },
+      "homeWireBytes": 537384,
+      "beforeClickBytes": 1240062,
+      "totalWireBytes": 1249934
+    },
+    {
+      "profile": "desktop",
+      "scenario": "read-then-click",
+      "mode": "light",
+      "repeat": 1,
+      "dwellMs": 5000,
+      "homePreClickMs": 5996.199999988079,
+      "home": {
+        "ttfb": 0.7000000476837158,
+        "fcp": 56,
+        "lcp": 56,
+        "cls": 0.05011157407407408,
+        "ready": 61.90000003576279,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 534407,
+        "jsEncoded": 38502,
+        "wasmEncoded": 0,
+        "requests": 35,
+        "actionNextFrame": 43.5
+      },
+      "next": "/gabe/",
+      "destination": {
+        "ready": 86.09999996423721,
+        "wasm": [
+          {
+            "transfer": 682262,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": null,
+      "homeWireBytes": 534553,
+      "beforeClickBytes": 535242,
+      "totalWireBytes": 1241403
+    },
+    {
+      "profile": "desktop",
+      "scenario": "read-then-click",
+      "mode": "rust",
+      "repeat": 1,
+      "dwellMs": 5000,
+      "homePreClickMs": 6034.199999988079,
+      "home": {
+        "ttfb": 0.6000000238418579,
+        "fcp": 52,
+        "lcp": 52,
+        "cls": 0.05011157407407408,
+        "ready": 107.60000002384186,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 1187516,
+        "jsEncoded": 14450,
+        "wasmEncoded": 681962,
+        "requests": 19,
+        "actionNextFrame": 43.40000003576279
+      },
+      "next": "/gabe/",
+      "destination": {
+        "ready": 91.90000003576279,
+        "wasm": [
+          {
+            "transfer": 0,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": null,
+      "homeWireBytes": 1187462,
+      "beforeClickBytes": 1188151,
+      "totalWireBytes": 1195795
+    },
+    {
+      "profile": "desktop",
+      "scenario": "read-then-click",
+      "mode": "rust",
+      "repeat": 2,
+      "dwellMs": 5000,
+      "homePreClickMs": 6031.199999988079,
+      "home": {
+        "ttfb": 0.5,
+        "fcp": 52,
+        "lcp": 52,
+        "cls": 0.05011157407407408,
+        "ready": 115.59999996423721,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 1187516,
+        "jsEncoded": 14450,
+        "wasmEncoded": 681962,
+        "requests": 19,
+        "actionNextFrame": 47
+      },
+      "next": "/gabe/",
+      "destination": {
+        "ready": 62.39999997615814,
+        "wasm": [
+          {
+            "transfer": 0,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": null,
+      "homeWireBytes": 1187462,
+      "beforeClickBytes": 1188151,
+      "totalWireBytes": 1195795
+    },
+    {
+      "profile": "desktop",
+      "scenario": "read-then-click",
+      "mode": "light",
+      "repeat": 2,
+      "dwellMs": 5000,
+      "homePreClickMs": 5982.300000011921,
+      "home": {
+        "ttfb": 0.699999988079071,
+        "fcp": 48,
+        "lcp": 48,
+        "cls": 0.05011157407407408,
+        "ready": 60.19999998807907,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 534407,
+        "jsEncoded": 38502,
+        "wasmEncoded": 0,
+        "requests": 35,
+        "actionNextFrame": 33.19999998807907
+      },
+      "next": "/gabe/",
+      "destination": {
+        "ready": 89,
+        "wasm": [
+          {
+            "transfer": 682262,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": null,
+      "homeWireBytes": 534553,
+      "beforeClickBytes": 535242,
+      "totalWireBytes": 1241403
+    },
+    {
+      "profile": "desktop",
+      "scenario": "read-then-click",
+      "mode": "predictive",
+      "repeat": 2,
+      "dwellMs": 5000,
+      "homePreClickMs": 6002.699999988079,
+      "home": {
+        "ttfb": 2.5,
+        "fcp": 56,
+        "lcp": 56,
+        "cls": 0.05011157407407408,
+        "ready": 63,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 537225,
+        "jsEncoded": 40864,
+        "wasmEncoded": 0,
+        "requests": 36,
+        "actionNextFrame": 41.80000001192093
+      },
+      "next": "/gabe/",
+      "destination": {
+        "ready": 84,
+        "wasm": [
+          {
+            "transfer": 0,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": {
+        "documents": [
+          "/daily/",
+          "/gabe/"
+        ],
+        "assets": [
+          "/rust/browser/pkg/core/corvus_browser.js",
+          "/rust/browser/pkg/core/corvus_browser_bg.wasm"
+        ],
+        "failed": [],
+        "bytes": 695659
+      },
+      "homeWireBytes": 537384,
+      "beforeClickBytes": 1240062,
+      "totalWireBytes": 1249934
+    },
+    {
+      "profile": "desktop",
+      "scenario": "wrong-prediction",
+      "mode": "rust",
+      "repeat": 0,
+      "dwellMs": 5000,
+      "homePreClickMs": 6032.300000011921,
+      "home": {
+        "ttfb": 0.6000000238418579,
+        "fcp": 56,
+        "lcp": 56,
+        "cls": 0.05011157407407408,
+        "ready": 113.89999997615814,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 1187516,
+        "jsEncoded": 14450,
+        "wasmEncoded": 681962,
+        "requests": 19,
+        "actionNextFrame": 39.5
+      },
+      "next": "/map/",
+      "destination": {
+        "ready": 260.4000000357628,
+        "wasm": [
+          {
+            "transfer": 0,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": null,
+      "homeWireBytes": 1187462,
+      "beforeClickBytes": 1188151,
+      "totalWireBytes": 1208110
+    },
+    {
+      "profile": "desktop",
+      "scenario": "wrong-prediction",
+      "mode": "light",
+      "repeat": 0,
+      "dwellMs": 5000,
+      "homePreClickMs": 5987.699999988079,
+      "home": {
+        "ttfb": 0.9000000357627869,
+        "fcp": 56,
+        "lcp": 56,
+        "cls": 0.05011157407407408,
+        "ready": 63.19999998807907,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 534407,
+        "jsEncoded": 38502,
+        "wasmEncoded": 0,
+        "requests": 35,
+        "actionNextFrame": 27.899999976158142
+      },
+      "next": "/map/",
+      "destination": {
+        "ready": 303.5,
+        "wasm": [
+          {
+            "transfer": 682262,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": null,
+      "homeWireBytes": 534553,
+      "beforeClickBytes": 535242,
+      "totalWireBytes": 1253718
+    },
+    {
+      "profile": "desktop",
+      "scenario": "wrong-prediction",
+      "mode": "predictive",
+      "repeat": 0,
+      "dwellMs": 5000,
+      "homePreClickMs": 5998.199999988079,
+      "home": {
+        "ttfb": 0.6000000238418579,
+        "fcp": 56,
+        "lcp": 56,
+        "cls": 0.05011157407407408,
+        "ready": 63.39999997615814,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 537225,
+        "jsEncoded": 40864,
+        "wasmEncoded": 0,
+        "requests": 36,
+        "actionNextFrame": 36.5
+      },
+      "next": "/map/",
+      "destination": {
+        "ready": 286.19999998807907,
+        "wasm": [
+          {
+            "transfer": 0,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": {
+        "documents": [
+          "/daily/",
+          "/gabe/"
+        ],
+        "assets": [
+          "/rust/browser/pkg/core/corvus_browser.js",
+          "/rust/browser/pkg/core/corvus_browser_bg.wasm"
+        ],
+        "failed": [],
+        "bytes": 695659
+      },
+      "homeWireBytes": 537384,
+      "beforeClickBytes": 1240062,
+      "totalWireBytes": 1262249
+    },
+    {
+      "profile": "desktop",
+      "scenario": "wrong-prediction",
+      "mode": "predictive",
+      "repeat": 1,
+      "dwellMs": 5000,
+      "homePreClickMs": 5981.899999976158,
+      "home": {
+        "ttfb": 0.5,
+        "fcp": 56,
+        "lcp": 56,
+        "cls": 0.05011157407407408,
+        "ready": 82.39999997615814,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 537225,
+        "jsEncoded": 40864,
+        "wasmEncoded": 0,
+        "requests": 36,
+        "actionNextFrame": 24.100000023841858
+      },
+      "next": "/map/",
+      "destination": {
+        "ready": 293.4000000357628,
+        "wasm": [
+          {
+            "transfer": 0,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": {
+        "documents": [
+          "/daily/",
+          "/gabe/"
+        ],
+        "assets": [
+          "/rust/browser/pkg/core/corvus_browser.js",
+          "/rust/browser/pkg/core/corvus_browser_bg.wasm"
+        ],
+        "failed": [],
+        "bytes": 695659
+      },
+      "homeWireBytes": 537384,
+      "beforeClickBytes": 1240062,
+      "totalWireBytes": 1262249
+    },
+    {
+      "profile": "desktop",
+      "scenario": "wrong-prediction",
+      "mode": "light",
+      "repeat": 1,
+      "dwellMs": 5000,
+      "homePreClickMs": 6015.700000047684,
+      "home": {
+        "ttfb": 1.100000023841858,
+        "fcp": 60,
+        "lcp": 60,
+        "cls": 0.05011157407407408,
+        "ready": 67.30000001192093,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 534407,
+        "jsEncoded": 38502,
+        "wasmEncoded": 0,
+        "requests": 35,
+        "actionNextFrame": 24.80000001192093
+      },
+      "next": "/map/",
+      "destination": {
+        "ready": 278.5,
+        "wasm": [
+          {
+            "transfer": 682262,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": null,
+      "homeWireBytes": 534553,
+      "beforeClickBytes": 535242,
+      "totalWireBytes": 1253718
+    },
+    {
+      "profile": "desktop",
+      "scenario": "wrong-prediction",
+      "mode": "rust",
+      "repeat": 1,
+      "dwellMs": 5000,
+      "homePreClickMs": 6062.399999976158,
+      "home": {
+        "ttfb": 0.5,
+        "fcp": 64,
+        "lcp": 64,
+        "cls": 0.05011157407407408,
+        "ready": 121.29999995231628,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 1187516,
+        "jsEncoded": 14450,
+        "wasmEncoded": 681962,
+        "requests": 19,
+        "actionNextFrame": 47.59999996423721
+      },
+      "next": "/map/",
+      "destination": {
+        "ready": 258.60000002384186,
+        "wasm": [
+          {
+            "transfer": 0,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": null,
+      "homeWireBytes": 1187462,
+      "beforeClickBytes": 1188151,
+      "totalWireBytes": 1208110
+    },
+    {
+      "profile": "desktop",
+      "scenario": "wrong-prediction",
+      "mode": "rust",
+      "repeat": 2,
+      "dwellMs": 5000,
+      "homePreClickMs": 6051.100000023842,
+      "home": {
+        "ttfb": 0.7999999523162842,
+        "fcp": 60,
+        "lcp": 60,
+        "cls": 0.05011157407407408,
+        "ready": 121.80000001192093,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 1187516,
+        "jsEncoded": 14450,
+        "wasmEncoded": 681962,
+        "requests": 19,
+        "actionNextFrame": 36.30000001192093
+      },
+      "next": "/map/",
+      "destination": {
+        "ready": 289.2000000476837,
+        "wasm": [
+          {
+            "transfer": 0,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": null,
+      "homeWireBytes": 1187462,
+      "beforeClickBytes": 1188151,
+      "totalWireBytes": 1208110
+    },
+    {
+      "profile": "desktop",
+      "scenario": "wrong-prediction",
+      "mode": "light",
+      "repeat": 2,
+      "dwellMs": 5000,
+      "homePreClickMs": 6005.599999964237,
+      "home": {
+        "ttfb": 0.699999988079071,
+        "fcp": 52,
+        "lcp": 52,
+        "cls": 0.05011157407407408,
+        "ready": 76.19999998807907,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 534407,
+        "jsEncoded": 38502,
+        "wasmEncoded": 0,
+        "requests": 35,
+        "actionNextFrame": 38.299999952316284
+      },
+      "next": "/map/",
+      "destination": {
+        "ready": 276.69999998807907,
+        "wasm": [
+          {
+            "transfer": 682262,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": null,
+      "homeWireBytes": 534553,
+      "beforeClickBytes": 535242,
+      "totalWireBytes": 1253718
+    },
+    {
+      "profile": "desktop",
+      "scenario": "wrong-prediction",
+      "mode": "predictive",
+      "repeat": 2,
+      "dwellMs": 5000,
+      "homePreClickMs": 5984.600000023842,
+      "home": {
+        "ttfb": 0.800000011920929,
+        "fcp": 52,
+        "lcp": 52,
+        "cls": 0.05011157407407408,
+        "ready": 59.5,
+        "longTaskMax": 0,
+        "longTaskTotal": 0,
+        "transfer": 537225,
+        "jsEncoded": 40864,
+        "wasmEncoded": 0,
+        "requests": 36,
+        "actionNextFrame": 36.30000001192093
+      },
+      "next": "/map/",
+      "destination": {
+        "ready": 283.5,
+        "wasm": [
+          {
+            "transfer": 0,
+            "encoded": 681962
+          }
+        ]
+      },
+      "prediction": {
+        "documents": [
+          "/daily/",
+          "/gabe/"
+        ],
+        "assets": [
+          "/rust/browser/pkg/core/corvus_browser.js",
+          "/rust/browser/pkg/core/corvus_browser_bg.wasm"
+        ],
+        "failed": [],
+        "bytes": 695659
+      },
+      "homeWireBytes": 537384,
+      "beforeClickBytes": 1240062,
+      "totalWireBytes": 1262249
+    }
+  ],
+  "unknown": {
+    "rust": [],
+    "light": [],
+    "predictive": []
+  },
+  "assetFailures": {
+    "rust": [],
+    "light": [],
+    "predictive": []
+  }
+}

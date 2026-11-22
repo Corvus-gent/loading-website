@@ -1,0 +1,77 @@
+{
+  "LANGUAGES": [
+    "en",
+    "nl",
+    "es",
+    "fr",
+    "pt",
+    "de",
+    "zh"
+  ],
+  "RANKS": [
+    [
+      "tiro",
+      0
+    ],
+    [
+      "miles",
+      30
+    ],
+    [
+      "decanus",
+      100
+    ],
+    [
+      "optio",
+      300
+    ],
+    [
+      "centurio",
+      700
+    ],
+    [
+      "tribunus",
+      1500
+    ],
+    [
+      "legatus",
+      3000
+    ]
+  ],
+  "WEIGHTS": {
+    "help": 25,
+    "recruit": 100,
+    "daily": 10
+  },
+  "FEATHERS": [
+    "/",
+    "/now/",
+    "/sidequests/",
+    "/support/",
+    "/support/books/",
+    "/languages/",
+    "/call/"
+  ],
+  "RETENTION": {
+    "anonymous": 90,
+    "pending": 7,
+    "waiting": 90,
+    "rejected": 30,
+    "member": 365
+  },
+  "DAY": 86400,
+  "TIERS": [
+    "tiro",
+    "miles",
+    "centurio",
+    "legatus",
+    "senator",
+    "consul",
+    "imperator"
+  ],
+  "LIFETIME": [
+    "senator",
+    "consul"
+  ],
+  "CONSUL_SEATS": 2
+}

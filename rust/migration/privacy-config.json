@@ -1,0 +1,755 @@
+{
+  "version": "2026-11-07.twitch-auto",
+  "strings": {
+    "en": {
+      "label": "privacy",
+      "allow": "ok",
+      "deny": "don't count me",
+      "notice": "no tracking cookies. we just count visits, anonymously. almost nothing is stored.",
+      "on": "cookieless counting is on.",
+      "off": "only anonymous page hits are counted.",
+      "signal": "browser privacy signal: anonymous page hits only.",
+      "change": "your counting choice",
+      "withdraw": "don't count me",
+      "spotify": "plays via spotify, which may set cookies."
+    },
+    "nl": {
+      "label": "privacy",
+      "allow": "ok",
+      "deny": "tel mij niet mee",
+      "notice": "geen trackingcookies. we tellen bezoeken, anoniem. bijna niets wordt bewaard.",
+      "on": "cookieless tellen staat aan.",
+      "off": "enkel anonieme pagina-hits worden geteld.",
+      "signal": "privacysignaal: enkel anonieme pagina-hits.",
+      "change": "jouw telkeuze",
+      "withdraw": "tel mij niet mee",
+      "spotify": "speelt via spotify, dat cookies kan plaatsen."
+    },
+    "fr": {
+      "label": "confidentialité",
+      "allow": "ok",
+      "deny": "ne me compte pas",
+      "notice": "pas de cookies de suivi. on compte les visites, anonymement. presque rien n'est stocké.",
+      "on": "le comptage sans cookies est actif.",
+      "off": "seuls les passages anonymes sont comptés.",
+      "signal": "signal de confidentialité : passages anonymes uniquement.",
+      "change": "ton choix de comptage",
+      "withdraw": "ne me compte pas",
+      "spotify": "lecture via spotify, qui peut déposer des cookies."
+    },
+    "es": {
+      "label": "privacidad",
+      "allow": "ok",
+      "deny": "no me cuentes",
+      "notice": "sin cookies de seguimiento. contamos visitas, anónimamente. casi nada se guarda.",
+      "on": "el conteo sin cookies está activo.",
+      "off": "solo se cuentan visitas anónimas a páginas.",
+      "signal": "señal de privacidad: solo visitas anónimas.",
+      "change": "tu elección de conteo",
+      "withdraw": "no me cuentes",
+      "spotify": "se reproduce con spotify, que puede guardar cookies."
+    },
+    "pt": {
+      "label": "privacidade",
+      "allow": "ok",
+      "deny": "não me contes",
+      "notice": "sem cookies de rastreio. contamos visitas, anonimamente. quase nada fica guardado.",
+      "on": "a contagem sem cookies está ativa.",
+      "off": "só contamos acessos anónimos a páginas.",
+      "signal": "sinal de privacidade: só acessos anónimos.",
+      "change": "a tua escolha de contagem",
+      "withdraw": "não me contes",
+      "spotify": "reproduz via spotify, que pode guardar cookies."
+    },
+    "de": {
+      "label": "datenschutz",
+      "allow": "ok",
+      "deny": "zähl mich nicht",
+      "notice": "keine tracking-cookies. wir zählen besuche, anonym. fast nichts wird gespeichert.",
+      "on": "zählen ohne cookies ist aktiv.",
+      "off": "nur anonyme seitenaufrufe werden gezählt.",
+      "signal": "datenschutzsignal: nur anonyme seitenaufrufe.",
+      "change": "deine zähleinstellung",
+      "withdraw": "zähl mich nicht",
+      "spotify": "wiedergabe über spotify, das cookies setzen kann."
+    },
+    "zh": {
+      "label": "隐私",
+      "allow": "ok",
+      "deny": "别统计我",
+      "notice": "没有追踪 cookie。只做匿名访问统计，几乎不存东西。",
+      "on": "无 cookie 统计已开启。",
+      "off": "只累计匿名页面访问。",
+      "signal": "隐私信号已启用：只累计匿名访问。",
+      "change": "你的统计选择",
+      "withdraw": "别统计我",
+      "spotify": "通过 spotify 播放，可能设置 cookie。"
+    }
+  },
+  "streamNotice": {
+    "en": "visits counted without tracking cookies. live status via Twitch, which may set cookies.",
+    "nl": "bezoeken geteld zonder trackingcookies. livestatus via Twitch, dat cookies kan plaatsen.",
+    "fr": "visites comptées sans cookies de suivi. direct via Twitch, qui peut déposer des cookies.",
+    "de": "besuche ohne tracking-cookies gezählt. live-status über Twitch, das cookies setzen kann.",
+    "es": "visitas contadas sin cookies de seguimiento. directo vía Twitch, que puede guardar cookies.",
+    "pt": "visitas contadas sem cookies de rastreio. direto via Twitch, que pode guardar cookies.",
+    "zh": "访问统计不使用追踪 Cookie。直播状态由 Twitch 提供，Twitch 可能设置 Cookie。"
+  },
+  "streamPrivacy": {
+    "en": "on /, /hack and /hack/2, Twitch automatically checks whether Gabe is live and may set cookies. Twitch receives your IP address and browser information. browser privacy signals and your counting opt-out prevent automatic loading. use disable to stop Twitch for this tab (sessionStorage: twitch-disabled). closing removes the player, but Twitch controls cookies already set. Corvus stores no Twitch viewing history.",
+    "nl": "op /, /hack en /hack/2 controleert Twitch automatisch of Gabe live is en kan het cookies plaatsen. Twitch ontvangt je IP-adres en browserinformatie. privacysignalen en je telweigering voorkomen automatisch laden. met disable stop je Twitch voor dit tabblad (sessionStorage: twitch-disabled). sluiten verwijdert de speler; Twitch beheert al geplaatste cookies. Corvus bewaart geen Twitch-kijkgeschiedenis.",
+    "fr": "sur /, /hack et /hack/2, Twitch vérifie automatiquement si Gabe est en direct et peut déposer des cookies. Twitch reçoit ton IP et les informations du navigateur. les signaux de confidentialité et ton refus du comptage empêchent le chargement automatique. disable arrête Twitch pour cet onglet (sessionStorage : twitch-disabled). fermer retire le lecteur ; Twitch gère ses cookies. Corvus ne garde aucun historique Twitch.",
+    "de": "auf /, /hack und /hack/2 prüft Twitch automatisch, ob Gabe live ist, und kann cookies setzen. Twitch erhält IP und browserinformationen. datenschutzsignale und dein widerspruch verhindern automatisches laden. disable stoppt Twitch für diesen tab (sessionStorage: twitch-disabled). schließen entfernt den player; Twitch verwaltet seine cookies. Corvus speichert keinen Twitch-verlauf.",
+    "es": "en /, /hack y /hack/2, Twitch comprueba automáticamente si Gabe está en directo y puede guardar cookies. recibe tu IP y datos del navegador. las señales de privacidad y tu rechazo impiden la carga automática. disable detiene Twitch en esta pestaña (sessionStorage: twitch-disabled). cerrar quita el reproductor; Twitch gestiona sus cookies. Corvus no guarda historial Twitch.",
+    "pt": "em /, /hack e /hack/2, Twitch verifica automaticamente se Gabe está em direto e pode guardar cookies. recebe o teu IP e dados do navegador. sinais de privacidade e a tua recusa impedem o carregamento automático. disable para Twitch neste separador (sessionStorage: twitch-disabled). fechar remove o leitor; Twitch gere os seus cookies. Corvus não guarda histórico Twitch.",
+    "zh": "在 /、/hack 和 /hack/2，Twitch 自动检查 Gabe 是否正在直播，并可能设置 Cookie。Twitch 会收到你的 IP 和浏览器信息。隐私信号或拒绝统计会阻止自动加载。disable 会在此标签页停止 Twitch（sessionStorage：twitch-disabled）。关闭会移除播放器；已有 Cookie 由 Twitch 管理。Corvus 不保存 Twitch 观看记录。"
+  },
+  "army": {
+    "en": [
+      "the legion, without a dossier",
+      "an account stores your email for login, your public username, optional public link and country, join date and earned progress. an application adds a private 280-character reason for gabe. unconfirmed accounts expire in 7 days, anonymous progress in 90 days, waiting applications within 90 days, rejected applications in 30 days, and confirmed accounts after 365 days unless renewed. export or delete immediately at /army/access/. public lists can be hidden; a shared profile link remains public until deletion.",
+      "necessary signed cookies: army_id (90 days), army_session (7 days), army_ref (30 days). one-use email links last 30 minutes; bot challenges 5 minutes. daily-salted rate-limit hashes expire within 24 hours. recruitment uses a hashed child reference and disappears from personal counts when that person deletes. no raw IP or precise location is stored.",
+      "BMC sends signed payment events. we keep only the event/type, tier, amount, currency, date, optional corvus handle and matched account, plus billing period/status for expiry. payer names, messages and unknown payer emails are discarded; an email is used transiently only to match an existing verified account. unmatched records expire in 30 days; matched records follow account deletion/retention. anonymous receipt hashes expire after 400 days to prevent duplicate payment processing. counts remain anonymous.",
+      "daily and weekly mail each require a separate confirmation. unsubscribe deletes that subscription; pending confirmations expire in 7 days, confirmed subscriptions within 365 days. mail jobs expire in 2 days (login links: 30 minutes); approved invitations stay queued until Discord is connected and the account expires. Resend processes delivery and keeps its own logs. BMC handles checkout separately. account features fulfil your request; reminders use consent; minimal abuse prevention uses legitimate interest.",
+      "confirmed help/intro references are private and expire within 90 days. a deduplication hash and earned count follow your account and are erased with it. signed pidgy trials use an email hash for deduplication, never a raw email; that hash expires within 400 days or when the referring account is deleted."
+    ],
+    "nl": [
+      "het legioen, zonder dossier",
+      "je account bewaart je e-mail voor login, je publieke naam, optionele publieke link en land, startdatum en verdiende voortgang. een aanvraag voegt een privéreden van 280 tekens voor gabe toe. onbevestigde accounts vervallen na 7 dagen, anonieme voortgang na 90, wachtende aanvragen binnen 90, afgewezen aanvragen na 30 en bevestigde accounts na 365 dagen zonder vernieuwing. exporteer of verwijder direct via /army/access/. je kunt je uit lijsten verbergen; je gedeelde profiel blijft publiek tot verwijdering.",
+      "nodige ondertekende cookies: army_id (90 dagen), army_session (7 dagen), army_ref (30 dagen). eenmalige maillinks gelden 30 minuten; botcontroles 5 minuten. dagelijks anders gezouten limiethashes vervallen binnen 24 uur. rekrutering gebruikt een gehashte verwijzing; bij verwijdering verdwijnt die persoon ook uit persoonlijke tellers. geen ruwe IP’s of precieze locatie.",
+      "BMC stuurt ondertekende betalingen. we bewaren event/type, tier, bedrag, munt, datum, eventuele corvus-naam en gekoppeld account, plus betaalperiode/status voor verval. namen, berichten en onbekende betaler-e-mails worden weggegooid; e-mail wordt alleen tijdelijk gebruikt om een bestaand bevestigd account te vinden. ongekoppeld: 30 dagen; gekoppeld: accounttermijn/verwijdering. anonieme ontvangsthashes: 400 dagen tegen dubbele verwerking. totaaltellers blijven anoniem.",
+      "dagelijkse en wekelijkse mails vragen elk aparte bevestiging. uitschrijven verwijdert dat abonnement; onbevestigd maximaal 7 dagen, bevestigd 365. mailtaken vervallen na 2 dagen (loginlinks: 30 minuten); goedgekeurde invites wachten op Discord tot het account vervalt. Resend heeft eigen verzendlogs. BMC verwerkt de checkout apart. accounts voeren jouw verzoek uit; herinneringen berusten op toestemming, minimale misbruikpreventie op gerechtvaardigd belang.",
+      "bevestigde hulp- en introverwijzingen blijven privé en vervallen binnen 90 dagen. een hash tegen dubbeltelling en verdiende punten volgen je account en verdwijnen bij verwijdering. ondertekende pidgy-trials gebruiken een e-mailhash, nooit het ruwe adres; de hash vervalt binnen 400 dagen of bij verwijdering van het verwijzende account."
+    ],
+    "es": [
+      "la legión, sin expediente",
+      "guardamos email de acceso, nombre público, enlace y país opcionales, fecha y progreso. la solicitud añade 280 caracteres privados para gabe. cuentas sin confirmar: 7 días; progreso anónimo: 90; solicitudes pendientes: hasta 90; rechazadas: 30; cuentas confirmadas: 365 sin renovación. exporta o borra al instante en /army/access/. puedes ocultarte de las listas; tu perfil compartido sigue público hasta borrarlo.",
+      "cookies necesarias firmadas: army_id (90 días), army_session (7), army_ref (30). enlaces de un uso: 30 minutos; pruebas antibot: 5 minutos. hashes de límites con sal diaria: hasta 24 horas. referencias de reclutas cifradas por hash se eliminan de sus contadores al borrar la persona. sin IP ni ubicación precisa.",
+      "BMC envía eventos firmados. guardamos evento/tipo, nivel, importe, moneda, fecha, nombre corvus y cuenta asociada, período y estado. descartamos nombres, mensajes y emails desconocidos; el email solo se compara temporalmente con cuentas verificadas. sin asociar: 30 días; asociados: plazo de la cuenta o borrado. hashes anónimos de recibos: 400 días contra duplicados. totales anónimos.",
+      "correos diarios y semanales necesitan confirmaciones separadas. la baja borra la suscripción. pendiente: 7 días; confirmada: 365. cola de correo: 2 días, acceso: 30 minutos; invitaciones aprobadas esperan Discord hasta que caduque la cuenta. Resend tiene sus propios registros. BMC gestiona el pago. cuenta: tu solicitud; recordatorios: consentimiento; prevención de abuso: interés legítimo.",
+      "las referencias de ayuda o presentaciones aprobadas son privadas y caducan en 90 días. su hash antiduplicados y los puntos siguen la cuenta y se borran con ella. las pruebas pidgy firmadas usan un hash del email, nunca la dirección original; caduca en 400 días o al borrar la cuenta que recomendó."
+    ],
+    "fr": [
+      "la légion, sans dossier",
+      "on garde ton email de connexion, pseudo public, lien et pays facultatifs, date et progression. une candidature ajoute 280 caractères privés pour gabe. compte non confirmé : 7 jours ; progression anonyme : 90 ; candidature en attente : 90 maximum ; refus : 30 ; compte confirmé : 365 sans renouvellement. export ou suppression immédiate sur /army/access/. tu peux masquer ton nom des listes ; le profil partagé reste public jusqu’à suppression.",
+      "cookies nécessaires signés : army_id (90 jours), army_session (7), army_ref (30). liens uniques : 30 minutes ; défis anti-bots : 5 minutes. empreintes de limitation avec sel quotidien : 24 heures maximum. les références hachées de recrutement disparaissent des compteurs personnels après suppression. pas d’IP brute ni de position précise.",
+      "BMC envoie des événements signés. on garde événement/type, niveau, montant, devise, date, pseudo et compte associé, période et statut. noms, messages et emails inconnus sont jetés ; l’email sert temporairement à trouver un compte vérifié. sans lien : 30 jours ; associé : durée du compte ou suppression. empreintes anonymes de reçus : 400 jours contre les doublons. totaux anonymes.",
+      "mails quotidiens et hebdomadaires : confirmations séparées. se désabonner supprime cet abonnement. attente : 7 jours ; confirmé : 365. mails en attente : 2 jours, connexion : 30 minutes ; invitations approuvées attendent Discord jusqu’à expiration du compte. Resend conserve ses propres journaux. BMC gère le paiement. compte : ta demande ; rappels : consentement ; prévention minimale des abus : intérêt légitime.",
+      "les références d’aide ou de mise en relation validées restent privées, au maximum 90 jours. leur empreinte anti-doublon et les points suivent le compte et disparaissent avec lui. les essais pidgy signés utilisent une empreinte de l’email, jamais l’adresse brute, supprimée sous 400 jours ou avec le compte du parrain."
+    ],
+    "pt": [
+      "a legião, sem dossier",
+      "guardamos email de acesso, nome público, link e país opcionais, data e progresso. a candidatura acrescenta 280 caracteres privados para gabe. contas por confirmar: 7 dias; progresso anónimo: 90; candidaturas pendentes: até 90; recusadas: 30; confirmadas: 365 sem renovação. exporta ou apaga já em /army/access/. podes sair das listas; o perfil partilhado continua público até ser apagado.",
+      "cookies necessários assinados: army_id (90 dias), army_session (7), army_ref (30). links de uso único: 30 minutos; desafios antibot: 5 minutos. hashes com sal diário: até 24 horas. referências de recrutas em hash saem dos contadores pessoais quando a pessoa é apagada. sem IP bruto ou localização precisa.",
+      "BMC envia eventos assinados. guardamos evento/tipo, nível, valor, moeda, data, nome corvus e conta associada, período e estado. nomes, mensagens e emails desconhecidos são descartados; email só serve temporariamente para encontrar conta confirmada. sem associação: 30 dias; associados: duração da conta ou eliminação. hashes anónimos de recibos: 400 dias contra duplicados. totais anónimos.",
+      "emails diários e semanais exigem confirmações separadas. cancelar apaga a subscrição. por confirmar: 7 dias; confirmada: 365. fila de emails: 2 dias, login: 30 minutos; convites aprovados aguardam Discord até a conta expirar. Resend guarda os seus registos. BMC trata do pagamento. conta: o teu pedido; lembretes: consentimento; prevenção mínima de abuso: interesse legítimo.",
+      "as referências de ajuda ou apresentações aprovadas são privadas e expiram em 90 dias. o hash contra duplicados e os pontos acompanham a conta e são apagados com ela. os testes pidgy assinados usam um hash do email, nunca o endereço original; expira em 400 dias ou quando a conta que recomendou é apagada."
+    ],
+    "de": [
+      "die legion, ohne akte",
+      "gespeichert werden anmeldemail, öffentlicher name, freiwilliger link und land, datum und fortschritt. eine bewerbung ergänzt 280 private zeichen für gabe. unbestätigte konten: 7 tage; anonymer fortschritt: 90; wartende bewerbungen: höchstens 90; abgelehnte: 30; bestätigte konten: 365 ohne erneuerung. sofort exportieren oder löschen unter /army/access/. listen lassen sich ausblenden; der geteilte profillink bleibt bis zur löschung öffentlich.",
+      "notwendige signierte cookies: army_id (90 tage), army_session (7), army_ref (30). einmalige maillinks: 30 minuten; bot-prüfungen: 5 minuten. täglich neu gesalzene limit-hashes: höchstens 24 stunden. gehashte rekrutenverweise verschwinden bei löschung aus persönlichen zählern. keine rohen IPs oder genaue position.",
+      "BMC sendet signierte ereignisse. gespeichert werden ereignis/typ, stufe, betrag, währung, datum, corvus-name und zugeordnetes konto, laufzeit und status. namen, nachrichten und unbekannte zahler-mails werden verworfen; die mail dient nur vorübergehend dem abgleich mit einem bestätigten konto. unzugeordnet: 30 tage; zugeordnet: kontofrist oder löschung. anonyme beleg-hashes: 400 tage gegen doppelte verarbeitung. summen bleiben anonym.",
+      "tägliche und wöchentliche mails brauchen getrennte bestätigung. abmelden löscht das abonnement. unbestätigt: 7 tage; bestätigt: 365. mailwarteschlange: 2 tage, anmeldung: 30 minuten; genehmigte einladungen warten auf Discord bis das konto verfällt. Resend führt eigene logs. BMC verarbeitet die zahlung. konto: dein auftrag; erinnerungen: einwilligung; minimale missbrauchsabwehr: berechtigtes interesse.",
+      "bestätigte hilfe- oder kontaktverweise bleiben privat und verfallen innerhalb von 90 tagen. ein hash gegen doppelte punkte und der punktestand folgen dem konto und werden mit ihm gelöscht. signierte pidgy-tests verwenden einen e-mail-hash, nie die adresse selbst; er verfällt nach höchstens 400 tagen oder bei löschung des werbenden kontos."
+    ],
+    "zh": [
+      "军团，不建档案",
+      "账号保存登录邮箱、公开用户名、可选链接和国家、加入日期及成长进度。申请另含仅gabe可见的280字说明。未确认账号7天、匿名进度90天、待审申请最多90天、拒绝申请30天、已确认账号未续期365天后过期。在/army/access/可立即导出或删除。可隐藏名单中的名字，分享过的主页在删除前仍公开。",
+      "必要签名Cookie：army_id 90天、army_session 7天、army_ref 30天。一次性邮件链接30分钟，反机器人验证5分钟。每天换盐的限流哈希最多24小时。招募引用只保留哈希，删除用户时从个人计数中移除。不存原始IP或精确位置。",
+      "BMC发送签名付款事件。仅保存事件和类型、级别、金额、币种、日期、corvus用户名和匹配账号、付款周期及状态。付款人姓名、留言和未知邮箱都会丢弃，邮箱仅临时用于匹配已有已验证账号。未匹配记录30天；已匹配记录随账号到期或删除。匿名收据哈希保存400天防止重复处理。总数保持匿名。",
+      "每日和每周邮件分别确认。退订即删除该订阅。未确认7天，已确认365天。邮件队列2天，登录邮件30分钟；已批准邀请等Discord连接，最长不超过账号到期。Resend有自己的发送日志，BMC另行处理支付。账号功能履行你的请求，提醒基于同意，最低限度的反滥用措施基于合法利益。",
+      "已确认的帮助或介绍记录仅私下保存，最多90天。防重复哈希和积分随账号保留，并在删除账号时清除。签名pidgy试用只用邮箱哈希去重，不保存原始邮箱；哈希最多保留400天，或在推荐账号删除时清除。"
+    ]
+  },
+  "pages": {
+    "en": {
+      "title": "privacy, without the fog.",
+      "intro": [
+        "we don't want your data.",
+        "visits become anonymous totals, without tracking cookies.",
+        "the few things we store (like a vote or a login code) are listed below, and they expire."
+      ],
+      "updated": "2026-11-06",
+      "sections": [
+        [
+          "who",
+          "who holds the lantern?",
+          "Francisco Gabriel Van Langenhove is responsible for corvus.gent and stats.corvus.gent, including music and games. questions or data requests: <a href=\"mailto:gabriel@corvus.gent\">gabriel@corvus.gent</a>."
+        ],
+        [
+          "counts",
+          "what gets counted",
+          "page visits and allowlisted actions are counted by default through PostHog EU, without cookies, device storage, profiles or recordings. PostHog temporarily derives a daily pseudonym from network/browser information; only the totals are anonymous. names, emails and form contents are excluded. GPC, DNT or ‘don't count me’ prevent PostHog from loading: only a page/day counter is incremented, with no ID, hash or stored headers. those unseen hits cannot identify unique people."
+        ],
+        [
+          "why",
+          "why, and on what basis",
+          "legitimate interest is the stated basis for basic cookieless audience measurement and abuse prevention. Spotify playback requires your click. login emails, votes and bookings fulfil your request. you can object to PostHog counting here; only an anonymous hit remains. we do not sell data."
+        ],
+        [
+          "storage",
+          "what stays, and for how long",
+          "login code: 3 minutes. session: 7 days or until logout. login/access-request records and email-linked visitor-count guesses: at most 90 days. anti-abuse limits: up to 24 hours, with a different salted IP hash each day; our app does not store raw IPs. challenges: 5 minutes. game history on the server: 48 hours after use; streaks and vote deduplication: up to one year. anonymous totals and public song suggestions may stay until removed.",
+          "analytics event retention is controlled by PostHog’s project setting; our target is 90 days, with confirmation of that account setting still pending. hosting and email delivery logs/backups have their own provider retention. contact me for the current details.",
+          "Resend: US storage; 30-day email/log retention on Free/Pro/Scale, 7-day backups; Enterprise may differ. <a href=\"https://resend.com/security/gdpr/\" rel=\"noreferrer\">Resend GDPR</a>."
+        ],
+        [
+          "sf",
+          "sf trip messages",
+          "if you send the sf form, only gabe can view its name, contact, work, meeting choices, dates, place and message in the private dashboard. we use them to arrange the meeting you requested (performance of your request), not for marketing. each form record is automatically deleted from Redis 60 days after submission; marking it done does not extend this.",
+          "a copy is emailed to gabriel@corvus.gent through Resend, the documented US-storage exception. Resend has its own delivery-log retention; gabe must delete the notification from his mailbox within the same 60 days. contact gabe to request earlier deletion, including if you gave an x handle or linkedin profile instead of email.",
+          "the signed vid cookie is reused only for form abuse prevention; challenges expire after 5 minutes, rate-limit hashes change daily and expire within a day, and retry receipts expire after 24 hours. the homepage note uses sessionStorage (sf-note:2026-11) to appear once per browser tab session. optional analytics records only note/form action counts, never your fields."
+        ],
+        [
+          "browser",
+          "the small things in your browser",
+          "necessary cookies: sess keeps you logged in; vid prevents duplicate language votes; mvid remembers music votes and daily-game progress. they are signed, secure and inaccessible to page scripts. sess expires after 7 days; vid and mvid after one year. they are never used to identify you in analytics.",
+          "one local privacy-choice flag remembers ‘ok’ or ‘don't count me’. ‘ok’ also adds one soldier acknowledgement per browser/site origin; clearing site data can allow another. this flag is not sent to PostHog. analytics and campaign attribution stay in memory and do not use browser storage."
+        ],
+        [
+          "outside",
+          "when another service gets involved",
+          "Spotify receives a playback request only after play, and may then set its own cookies. our server looks up song links at Spotify or Apple when you submit one. map tiles come through our server from CARTO, without forwarding your IP. Leaflet, Sortable and the PostHog library are hosted here.",
+          "Buy Me a Coffee and Pidgy booking are links, not embedded forms. their privacy rules apply after you follow them. /links, /go and our campaign shortcuts only add campaign labels (UTMs) and count visits/clicks; they never collect form contents or visitor identities.",
+          "Notion holds my manually entered X log. public stats show totals, public campaign/voice labels and my own posts; reply text and target URLs stay behind login. approved campaign labels and region-hour slots accompany optional analytics. Corvus copies expire within 24 hours; source records follow my Notion retention. the workspace region still needs confirmation, so EU-only storage is not promised.",
+          "to count coffees, our server briefly reads Buy Me a Coffee records and recognises repeat supporters using account or email fields when available. only totals and the latest coffee date are cached for 30 minutes.",
+          "page visits and allowlisted actions are counted by default through PostHog EU, without cookies, device storage, profiles or recordings. PostHog temporarily derives a daily pseudonym from network/browser information; only the totals are anonymous. names, emails and form contents are excluded. GPC, DNT or ‘don't count me’ prevent PostHog from loading: only a page/day counter is incremented, with no ID, hash or stored headers. those unseen hits cannot identify unique people."
+        ],
+        [
+          "where",
+          "where the data travels",
+          "our Vercel functions are configured for Frankfurt (fra1). static files and request routing use a global network. PostHog EU is in Frankfurt. Frankfurt is also the Redis migration target; the current database region and the completed move still need verification.",
+          "Resend stays as a temporary exception: Ireland is the intended sending region, pending account verification, but email contents and logs are stored in the US. an Irish sending region does not change that. <a href=\"https://resend.com/docs/dashboard/domains/regions\" rel=\"noreferrer\">Resend</a>.",
+          "Vercel is a US company. its <a href=\"https://vercel.com/legal/dpa\" rel=\"noreferrer\">Vercel DPA</a> and <a href=\"https://vercel.com/security\" rel=\"noreferrer\">EU–US Data Privacy Framework</a> provide transfer safeguards; they do not mean all provider logs, support access or backups stay in the EU. we still need to confirm our account settings and applicable agreements."
+        ],
+        [
+          "rights",
+          "your data, your call",
+          "email me to request access, correction, deletion, restriction or portability, or to object to processing based on legitimate interest. you can withdraw playback consent by closing the player/page; Spotify controls cookies it already set. we normally respond within one month. we may need proportionate proof that a request concerns your data, and cannot trace anonymous totals back to you.",
+          "you can complain to the Belgian Data Protection Authority: <a href=\"https://www.gegevensbeschermingsautoriteit.be/\" rel=\"noreferrer\">gegevensbeschermingsautoriteit.be</a>."
+        ]
+      ],
+      "providersTitle": "who helps run this",
+      "providersNote": "Vercel hosts the site, PostHog EU handles counts, Resend sends login emails and a managed Redis service stores the expiring records. the deployed Redis provider and its region still need confirmation; ask me for the current details. external services may process data outside the EEA under their contracts and transfer safeguards. their policies also explain logs and backups.",
+      "roles": [
+        "hosting",
+        "analytics",
+        "login email",
+        "Redis provider, if Upstash",
+        "Redis provider, if Redis Cloud",
+        "map tiles",
+        "playback",
+        "song lookup",
+        "support payments",
+        "bookings",
+        "manual x log"
+      ],
+      "consentInfo": "counting starts by default. ‘ok’ dismisses the notice and counts one soldier acknowledgement; it is not analytics consent. ‘don't count me’, GPC and DNT switch to anonymous page-hit totals only. your choice stays until you change it or clear site data. a refusal is kept when this notice changes."
+    },
+    "nl": {
+      "title": "privacy, zonder mist.",
+      "intro": [
+        "we willen je data niet.",
+        "bezoeken worden anonieme totalen, zonder trackingcookies.",
+        "het beetje dat we bewaren (zoals een stem of inlogcode) staat hieronder en vervalt."
+      ],
+      "updated": "2026-11-06",
+      "sections": [
+        [
+          "who",
+          "wie draagt de lantaarn?",
+          "Francisco Gabriel Van Langenhove is verantwoordelijk voor corvus.gent en stats.corvus.gent, inclusief muziek en games. vragen of dataverzoeken: <a href=\"mailto:gabriel@corvus.gent\">gabriel@corvus.gent</a>."
+        ],
+        [
+          "counts",
+          "wat we tellen",
+          "PostHog EU telt standaard bezoeken en toegestane acties, zonder cookies, browseropslag, profielen of opnames. PostHog maakt tijdelijk een dagelijks pseudoniem uit netwerk- en browserinfo; enkel de totalen zijn anoniem. namen, e-mails en formulierinhoud blijven eruit. bij GPC, DNT of ‘tel mij niet mee’ laadt PostHog niet: enkel een teller per pagina/dag stijgt, zonder ID, hash of opgeslagen headers. die hits zijn geen unieke personen."
+        ],
+        [
+          "why",
+          "waarom, en op welke grond",
+          "gerechtvaardigd belang is de opgegeven basis voor eenvoudige cookieless bezoekstatistieken en misbruikpreventie. Spotify start met jouw klik. loginmails, stemmen en boekingen voeren jouw verzoek uit. je kunt hier bezwaar maken tegen PostHog; enkel een anonieme hit blijft. we verkopen geen data."
+        ],
+        [
+          "storage",
+          "wat blijft, en hoelang",
+          "inlogcode: 3 minuten. sessie: 7 dagen of tot je uitlogt. login- en toegangsaanvragen en voorspellingen gekoppeld aan je e-mail: maximaal 90 dagen. misbruiklimieten: maximaal 24 uur, met elke dag een andere gezouten IP-hash; onze app bewaart geen ruwe IP-adressen. controles tegen bots: 5 minuten. spelgeschiedenis op de server: 48 uur na gebruik; streaks en controle op dubbele stemmen: maximaal een jaar. anonieme totalen en openbare songsuggesties kunnen blijven tot ze worden verwijderd.",
+          "de bewaartermijn van analytics wordt in PostHog ingesteld; ons doel is 90 dagen, maar die accountinstelling moet nog bevestigd worden. hosting- en mailproviders hebben eigen termijnen voor logs en back-ups. vraag me gerust naar de actuele details.",
+          "Resend: opslag in de VS; mails/logs 30 dagen op Free/Pro/Scale, back-ups 7 dagen; Enterprise kan afwijken. <a href=\"https://resend.com/security/gdpr/\" rel=\"noreferrer\">Resend GDPR</a>."
+        ],
+        [
+          "sf",
+          "berichten voor de sf-trip",
+          "als je het sf-formulier verstuurt, kan alleen gabe je naam, contact, werk, plannen, datums, plaats en bericht zien in het privédashboard. we gebruiken dit om je gevraagde afspraak te regelen (uitvoering van je verzoek), niet voor marketing. elk formulierrecord verdwijnt automatisch uit Redis 60 dagen na inzending; afvinken verlengt dit niet.",
+          "een kopie gaat via Resend naar gabriel@corvus.gent, de beschreven uitzondering met opslag in de vs. Resend heeft een eigen bewaartermijn voor verzendlogs; gabe moet de melding binnen dezelfde 60 dagen uit zijn mailbox verwijderen. vraag gabe om eerdere verwijdering, ook als je een x-naam of linkedin-profiel gebruikte.",
+          "de ondertekende vid-cookie dient ook voor formulierbeveiliging; controles verlopen na 5 minuten, ip-hashes wisselen dagelijks en verlopen binnen een dag, ontvangstbewijzen voor nieuwe pogingen na 24 uur. het briefje gebruikt sessionStorage (sf-note:2026-11) om eenmaal per tabsessie te verschijnen. optionele analytics telt alleen briefje- en formulieracties, nooit je invoer."
+        ],
+        [
+          "browser",
+          "het kleine beetje in je browser",
+          "noodzakelijke cookies: sess houdt je ingelogd; vid voorkomt dubbele taalstemmen; mvid onthoudt muziekstemmen en dagelijkse spelvoortgang. ze zijn ondertekend, beveiligd en niet leesbaar door paginascripts. sess vervalt na 7 dagen, vid en mvid na een jaar. we gebruiken ze nooit om je in analytics te herkennen.",
+          "één lokale privacy-choice-vlag onthoudt ‘ok’ of ‘tel mij niet mee’. ‘ok’ telt ook één soldier per browser/site-origin; na het wissen van sitegegevens kan dat opnieuw. de vlag gaat niet naar PostHog. analytics en campagnelabels blijven in het geheugen, zonder browseropslag."
+        ],
+        [
+          "outside",
+          "wanneer een andere dienst meedoet",
+          "Spotify krijgt pas na play een afspeelverzoek en kan dan eigen cookies plaatsen. onze server zoekt een song op bij Spotify of Apple wanneer je een link indient. kaarttegels komen via onze server van CARTO, zonder je IP door te sturen. Leaflet, Sortable en de PostHog-bibliotheek staan hier lokaal.",
+          "Buy Me a Coffee en Pidgy-booking zijn links, geen ingebouwde formulieren. na doorklikken gelden hun privacyregels. /links, /go en onze campagnesnelkoppelingen voegen alleen campagnelabels (UTMs) toe en tellen bezoeken/klikken; ze verzamelen geen formulierinhoud of bezoekersidentiteiten.",
+          "Notion bevat mijn handmatig ingevulde X-log. openbare stats tonen totalen, publieke campagne- en stemlabels en mijn eigen posts; replyteksten en doel-URL’s blijven achter de login. goedgekeurde campagnes en regio-uurvakken horen bij optionele analytics. kopieën op Corvus vervallen binnen 24 uur; bronregels volgen mijn Notion-bewaarbeleid. de werkruimteregio moet nog worden bevestigd, dus uitsluitend EU-opslag wordt niet beloofd.",
+          "om koffies te tellen leest onze server kort de gegevens van Buy Me a Coffee. waar mogelijk herkennen we terugkerende supporters aan een account of e-mailadres. alleen de totalen en de datum van de laatste koffie worden 30 minuten bewaard.",
+          "PostHog EU telt standaard bezoeken en toegestane acties, zonder cookies, browseropslag, profielen of opnames. PostHog maakt tijdelijk een dagelijks pseudoniem uit netwerk- en browserinfo; enkel de totalen zijn anoniem. namen, e-mails en formulierinhoud blijven eruit. bij GPC, DNT of ‘tel mij niet mee’ laadt PostHog niet: enkel een teller per pagina/dag stijgt, zonder ID, hash of opgeslagen headers. die hits zijn geen unieke personen."
+        ],
+        [
+          "where",
+          "waar de gegevens naartoe gaan",
+          "onze Vercel-functies zijn ingesteld op Frankfurt (fra1). statische bestanden en de routering van verzoeken gebruiken een wereldwijd netwerk. PostHog EU staat in Frankfurt. ook Redis moet naar Frankfurt; de huidige databaseregio en de uitgevoerde verhuis moeten nog worden gecontroleerd.",
+          "Resend blijft tijdelijk een uitzondering: Ierland is de beoogde verzendregio, nog te controleren in het account, maar mailinhoud en logs worden in de VS opgeslagen. een Ierse verzendregio verandert dat niet. <a href=\"https://resend.com/docs/dashboard/domains/regions\" rel=\"noreferrer\">Resend</a>.",
+          "Vercel is een Amerikaans bedrijf. de <a href=\"https://vercel.com/legal/dpa\" rel=\"noreferrer\">Vercel DPA</a> en het <a href=\"https://vercel.com/security\" rel=\"noreferrer\">EU–US Data Privacy Framework</a> bieden waarborgen voor doorgifte; dat betekent niet dat alle providerlogs, ondersteuning of back-ups in de EU blijven. onze accountinstellingen en toepasselijke overeenkomsten moeten nog worden bevestigd."
+        ],
+        [
+          "rights",
+          "jouw gegevens, jouw stem",
+          "mail me voor inzage, correctie, verwijdering, beperking of overdraagbaarheid, of om bezwaar te maken tegen verwerking op basis van gerechtvaardigd belang. toestemming voor afspelen intrekken kan door de speler of pagina te sluiten; Spotify beheert cookies die het al plaatste. normaal antwoorden we binnen een maand. we kunnen beperkt bewijs vragen dat het om jouw gegevens gaat; anonieme totalen kunnen we niet naar jou herleiden.",
+          "een klacht kan bij de Belgische Gegevensbeschermingsautoriteit: <a href=\"https://www.gegevensbeschermingsautoriteit.be/\" rel=\"noreferrer\">gegevensbeschermingsautoriteit.be</a>."
+        ]
+      ],
+      "providersTitle": "wie helpt deze plek draaien",
+      "providersNote": "Vercel host de site, PostHog EU verzorgt tellingen, Resend verstuurt inlogmails en een beheerde Redis-dienst bewaart de tijdelijke gegevens. de gebruikte Redis-provider en regio moeten nog bevestigd worden; vraag me naar de actuele details. externe diensten kunnen onder hun overeenkomsten en doorgiftewaarborgen gegevens buiten de EER verwerken. hun beleid beschrijft ook logs en back-ups.",
+      "roles": [
+        "hosting",
+        "analytics",
+        "inlogmails",
+        "Redis-provider, indien Upstash",
+        "Redis-provider, indien Redis Cloud",
+        "kaarttegels",
+        "afspelen",
+        "songs opzoeken",
+        "steunbetalingen",
+        "boekingen",
+        "handmatig x-log"
+      ],
+      "consentInfo": "tellen start standaard. ‘ok’ sluit de melding en telt één soldier; het is geen toestemming voor analytics. ‘tel mij niet mee’, GPC en DNT schakelen naar enkel anonieme pagina-hits. je keuze blijft tot je ze wijzigt of sitegegevens wist. een weigering blijft gelden bij een nieuwe melding."
+    },
+    "fr": {
+      "title": "la vie privée, sans brouillard.",
+      "intro": [
+        "nous ne voulons pas de vos données.",
+        "les visites deviennent des totaux anonymes, sans cookies de suivi.",
+        "le peu que nous gardons (un vote, un code de connexion) est décrit ici et expire."
+      ],
+      "updated": "2026-11-06",
+      "sections": [
+        [
+          "who",
+          "qui tient la lanterne ?",
+          "Francisco Gabriel Van Langenhove est responsable de corvus.gent et stats.corvus.gent, musique et jeux compris. questions et demandes : <a href=\"mailto:gabriel@corvus.gent\">gabriel@corvus.gent</a>."
+        ],
+        [
+          "counts",
+          "ce qui est compté",
+          "PostHog EU compte par défaut les visites et actions autorisées, sans cookies, stockage navigateur, profils ou enregistrements. il crée temporairement un pseudonyme quotidien à partir d'informations réseau/navigateur ; seuls les totaux sont anonymes. aucun nom, email ou contenu de formulaire. GPC, DNT ou ‘ne me compte pas’ empêchent PostHog de charger : seul un compteur page/jour augmente, sans identifiant, hash ou en-têtes stockés. ces passages ne sont pas des personnes uniques."
+        ],
+        [
+          "why",
+          "pourquoi, et sur quelle base",
+          "l'intérêt légitime est la base déclarée du comptage simple sans cookies et de la prévention des abus. Spotify nécessite un clic. les emails de connexion, votes et réservations exécutent ta demande. tu peux refuser PostHog ici ; seul un passage anonyme reste. aucune vente de données."
+        ],
+        [
+          "storage",
+          "ce qui reste, et combien de temps",
+          "code : 3 minutes. session : 7 jours ou jusqu’à la déconnexion. journaux de connexion, demandes d’accès et prédictions liées à un email : 90 jours maximum. limites anti-abus : 24 heures maximum, avec un hachage IP salé différent chaque jour ; notre application ne conserve pas les IP brutes. défis anti-bots : 5 minutes. historique de jeu sur le serveur : 48 heures après utilisation ; séries et protection contre les votes doubles : un an maximum. totaux anonymes et suggestions musicales publiques : jusqu’à suppression.",
+          "la durée des événements analytics dépend du réglage PostHog ; notre objectif est 90 jours, mais ce réglage reste à confirmer. les hébergeurs et services email ont leurs propres durées pour journaux et sauvegardes. contactez-moi pour les détails actuels.",
+          "Resend : stockage aux États-Unis ; emails/journaux 30 jours sur Free/Pro/Scale, sauvegardes 7 jours ; Enterprise peut différer. <a href=\"https://resend.com/security/gdpr/\" rel=\"noreferrer\">Resend GDPR</a>."
+        ],
+        [
+          "sf",
+          "messages pour le voyage à sf",
+          "si tu envoies le formulaire sf, seul gabe peut voir ton nom, contact, activité, choix de rencontre, dates, lieu et message dans le tableau privé. ces données servent à organiser la rencontre demandée (exécution de ta demande), pas au marketing. chaque fiche est supprimée automatiquement de Redis 60 jours après l’envoi ; la marquer comme traitée ne prolonge pas ce délai.",
+          "une copie est envoyée à gabriel@corvus.gent via Resend, l’exception de stockage aux états-unis documentée ici. Resend applique sa propre conservation des journaux ; gabe doit supprimer la notification de sa boîte sous les mêmes 60 jours. contacte-le pour une suppression anticipée, même avec un pseudo x ou un profil linkedin.",
+          "le cookie signé vid sert aussi à éviter les abus du formulaire ; les défis expirent après 5 minutes, les empreintes ip changent chaque jour et expirent sous un jour, les reçus de nouvelle tentative sous 24 heures. le billet utilise sessionStorage (sf-note:2026-11) pour apparaître une fois par session d’onglet. les statistiques facultatives comptent les actions, jamais les champs."
+        ],
+        [
+          "browser",
+          "dans votre navigateur",
+          "cookies nécessaires : sess maintient la connexion ; vid évite les doubles votes de langue ; mvid conserve votes musicaux et progression quotidienne. signés, sécurisés, inaccessibles aux scripts. sess expire après 7 jours, vid et mvid après un an. jamais utilisés comme identifiants analytics.",
+          "un seul indicateur local privacy-choice retient ‘ok’ ou ‘ne me compte pas’. ‘ok’ ajoute un soldier par navigateur/origine du site ; effacer les données peut permettre un autre clic. cet indicateur n'est pas envoyé à PostHog. analytics et campagnes restent en mémoire, sans stockage navigateur."
+        ],
+        [
+          "outside",
+          "les autres services",
+          "Spotify ne reçoit une demande de lecture qu’après votre clic et peut ensuite déposer ses cookies. notre serveur recherche un morceau chez Spotify ou Apple lorsque vous proposez un lien. les tuiles CARTO passent par notre serveur sans transmettre votre IP. Leaflet, Sortable et la bibliothèque PostHog sont hébergés ici.",
+          "Buy Me a Coffee et Pidgy sont des liens, pas des formulaires intégrés. leurs règles s’appliquent après le clic. /links, /go et les raccourcis de campagne ajoutent seulement des étiquettes UTM et comptent visites/clics, sans contenu de formulaire ni identité.",
+          "Notion contient mon journal X saisi à la main. les stats publiques montrent des totaux, des noms publics de campagnes et de styles, et mes propres posts ; les réponses et URL cibles restent derrière la connexion. campagnes approuvées et créneaux région-heure accompagnent les statistiques facultatives. les copies Corvus expirent sous 24 heures ; les sources suivent ma conservation Notion. la région reste à confirmer, sans garantie de stockage exclusivement dans l’UE.",
+          "pour compter les cafés, notre serveur lit brièvement les données de Buy Me a Coffee et reconnaît les soutiens récurrents par leur compte ou courriel si disponible. seuls les totaux et la date du dernier café sont conservés 30 minutes.",
+          "PostHog EU compte par défaut les visites et actions autorisées, sans cookies, stockage navigateur, profils ou enregistrements. il crée temporairement un pseudonyme quotidien à partir d'informations réseau/navigateur ; seuls les totaux sont anonymes. aucun nom, email ou contenu de formulaire. GPC, DNT ou ‘ne me compte pas’ empêchent PostHog de charger : seul un compteur page/jour augmente, sans identifiant, hash ou en-têtes stockés. ces passages ne sont pas des personnes uniques."
+        ],
+        [
+          "where",
+          "où vont les données",
+          "nos fonctions Vercel sont configurées à Francfort (fra1). les fichiers statiques et le routage utilisent un réseau mondial. PostHog EU est à Francfort. Francfort est aussi la destination prévue pour Redis ; la région actuelle et la migration restent à vérifier.",
+          "Resend reste une exception temporaire : l’Irlande est la région d’envoi prévue, à vérifier dans le compte, mais le contenu des emails et les journaux sont stockés aux États-Unis. envoyer depuis l’Irlande ne change pas ce stockage. <a href=\"https://resend.com/docs/dashboard/domains/regions\" rel=\"noreferrer\">Resend</a>.",
+          "Vercel est une entreprise américaine. son <a href=\"https://vercel.com/legal/dpa\" rel=\"noreferrer\">Vercel DPA</a> et le <a href=\"https://vercel.com/security\" rel=\"noreferrer\">EU–US Data Privacy Framework</a> encadrent les transferts ; ils ne garantissent pas que tous les journaux, accès d’assistance et sauvegardes restent dans l’UE. nos paramètres et accords applicables restent à confirmer."
+        ],
+        [
+          "rights",
+          "vos droits",
+          "écrivez-moi pour accéder à vos données, les corriger, les supprimer, limiter leur utilisation, demander leur portabilité ou vous opposer au traitement fondé sur l’intérêt légitime. fermer le lecteur ou la page retire le consentement à la lecture ; Spotify gère ses cookies déjà déposés. réponse normalement sous un mois. une preuve proportionnée peut être nécessaire ; les totaux anonymes ne permettent pas de vous retrouver.",
+          "vous pouvez porter plainte auprès de l’Autorité belge de protection des données : <a href=\"https://www.gegevensbeschermingsautoriteit.be/\" rel=\"noreferrer\">gegevensbeschermingsautoriteit.be</a>."
+        ]
+      ],
+      "providersTitle": "qui fait fonctionner le site",
+      "providersNote": "Vercel héberge, PostHog EU compte, Resend envoie les codes et un service Redis géré garde les données temporaires. le fournisseur Redis déployé et sa région restent à confirmer ; demandez-moi les détails actuels. certains services peuvent traiter des données hors EEE sous leurs accords et garanties de transfert. leurs politiques couvrent aussi journaux et sauvegardes.",
+      "roles": [
+        "hébergement",
+        "analytics",
+        "emails de connexion",
+        "Redis, si Upstash",
+        "Redis, si Redis Cloud",
+        "tuiles cartographiques",
+        "lecture",
+        "recherche musicale",
+        "soutien financier",
+        "réservations",
+        "journal x manuel"
+      ],
+      "consentInfo": "le comptage démarre par défaut. ‘ok’ ferme la note et compte un soldier ; ce n'est pas un consentement analytics. ‘ne me compte pas’, GPC et DNT passent aux totaux anonymes de pages. ton choix reste jusqu'à modification ou effacement des données. un refus reste valable si la note change."
+    },
+    "es": {
+      "title": "privacidad, sin niebla.",
+      "intro": [
+        "no queremos tus datos.",
+        "las visitas se convierten en totales anónimos, sin cookies de seguimiento.",
+        "lo poco que guardamos (un voto o código de acceso) aparece aquí y caduca."
+      ],
+      "updated": "2026-11-06",
+      "sections": [
+        [
+          "who",
+          "¿quién lleva la linterna?",
+          "Francisco Gabriel Van Langenhove es responsable de corvus.gent y stats.corvus.gent, incluidos música y juegos. preguntas o solicitudes: <a href=\"mailto:gabriel@corvus.gent\">gabriel@corvus.gent</a>."
+        ],
+        [
+          "counts",
+          "qué contamos",
+          "PostHog EU cuenta visitas y acciones permitidas por defecto, sin cookies, almacenamiento del navegador, perfiles ni grabaciones. crea temporalmente un seudónimo diario con información de red/navegador; solo los totales son anónimos. no recibe nombres, emails ni formularios. GPC, DNT o ‘no me cuentes’ impiden cargar PostHog: solo aumenta un contador página/día, sin ID, hash ni cabeceras guardadas. esos accesos no son personas únicas."
+        ],
+        [
+          "why",
+          "por qué y con qué base",
+          "el interés legítimo es la base declarada del conteo básico sin cookies y la prevención de abusos. Spotify requiere tu clic. emails de acceso, votos y reservas cumplen tu petición. puedes rechazar PostHog aquí; solo queda un acceso anónimo. no vendemos datos."
+        ],
+        [
+          "storage",
+          "qué queda y cuánto tiempo",
+          "código: 3 minutos. sesión: 7 días o hasta cerrar sesión. registros de acceso, solicitudes y predicciones asociadas a un email: máximo 90 días. límites antiabuso: hasta 24 horas, con un hash de IP con sal distinto cada día; nuestra aplicación no guarda IP sin procesar. desafíos antibots: 5 minutos. historial del juego en el servidor: 48 horas tras el uso; rachas y control de votos duplicados: hasta un año. totales anónimos y sugerencias musicales públicas pueden permanecer hasta su eliminación.",
+          "la retención de eventos depende del ajuste de PostHog; nuestro objetivo es 90 días, pero falta confirmar ese ajuste. los proveedores de hosting y email tienen plazos propios para registros y copias de seguridad. pídeme los detalles actuales.",
+          "Resend: almacenamiento en EE. UU.; emails/registros 30 días en Free/Pro/Scale, copias 7 días; Enterprise puede variar. <a href=\"https://resend.com/security/gdpr/\" rel=\"noreferrer\">Resend GDPR</a>."
+        ],
+        [
+          "sf",
+          "mensajes del viaje a sf",
+          "si envías el formulario sf, solo gabe ve tu nombre, contacto, trabajo, planes, fechas, lugar y mensaje en el panel privado. se usan para organizar el encuentro solicitado (ejecución de tu petición), no para marketing. cada registro se borra automáticamente de Redis 60 días después del envío; marcarlo como hecho no alarga ese plazo.",
+          "se envía una copia a gabriel@corvus.gent mediante Resend, la excepción documentada de almacenamiento en ee. uu. Resend tiene su propia retención de registros; gabe debe borrar la notificación de su buzón dentro de esos mismos 60 días. puedes pedir borrarla antes, también si usaste un usuario de x o perfil de linkedin.",
+          "la cookie firmada vid también evita abusos del formulario; los retos caducan a los 5 minutos, los hashes ip cambian a diario y caducan en un día, y los recibos de reintento a las 24 horas. la nota usa sessionStorage (sf-note:2026-11) para mostrarse una vez por sesión de pestaña. las estadísticas opcionales cuentan acciones, nunca tus campos."
+        ],
+        [
+          "browser",
+          "en tu navegador",
+          "cookies necesarias: sess mantiene la sesión; vid evita votos de idioma duplicados; mvid recuerda votos musicales y progreso diario. están firmadas, protegidas y no son accesibles a scripts. sess caduca en 7 días; vid y mvid en un año. nunca las usamos para identificarte en analytics.",
+          "una sola marca local privacy-choice recuerda ‘ok’ o ‘no me cuentes’. ‘ok’ añade un soldier por navegador/origen del sitio; borrar los datos puede permitir otro. no se envía esa marca a PostHog. analytics y campañas quedan en memoria, sin almacenamiento del navegador."
+        ],
+        [
+          "outside",
+          "otros servicios",
+          "Spotify recibe la solicitud de reproducción solo tras tu clic y puede entonces guardar sus cookies. nuestro servidor consulta Spotify o Apple cuando envías el enlace de una canción. los mapas CARTO pasan por nuestro servidor sin enviar tu IP. Leaflet, Sortable y la biblioteca PostHog se alojan aquí.",
+          "Buy Me a Coffee y Pidgy son enlaces, no formularios integrados. sus políticas se aplican al visitarlos. /links, /go y nuestros atajos de campaña solo añaden etiquetas UTM y cuentan visitas/clics, sin captar formularios ni identidades.",
+          "Notion guarda mi registro manual de X. las estadísticas públicas muestran totales, etiquetas públicas de campañas y voces, y mis propios posts; los textos de respuestas y las URL de destino quedan tras el acceso privado. las campañas aprobadas y franjas región-hora acompañan la analítica opcional. las copias de Corvus caducan en 24 horas; el origen sigue mi retención en Notion. la región está pendiente de confirmar, sin promesa de almacenamiento solo en la UE.",
+          "para contar cafés, el servidor lee brevemente los registros de Buy Me a Coffee y reconoce a quienes repiten por su cuenta o correo si está disponible. solo guarda los totales y la fecha del último café durante 30 minutos.",
+          "PostHog EU cuenta visitas y acciones permitidas por defecto, sin cookies, almacenamiento del navegador, perfiles ni grabaciones. crea temporalmente un seudónimo diario con información de red/navegador; solo los totales son anónimos. no recibe nombres, emails ni formularios. GPC, DNT o ‘no me cuentes’ impiden cargar PostHog: solo aumenta un contador página/día, sin ID, hash ni cabeceras guardadas. esos accesos no son personas únicas."
+        ],
+        [
+          "where",
+          "adónde van los datos",
+          "nuestras funciones de Vercel están configuradas en Fráncfort (fra1). los archivos estáticos y el enrutamiento usan una red mundial. PostHog EU está en Fráncfort. Redis también tiene Fráncfort como destino; aún falta verificar su región actual y completar la migración.",
+          "Resend sigue como excepción temporal: Irlanda es la región de envío prevista, pendiente de comprobar en la cuenta, pero el contenido de los correos y los registros se guardan en EE. UU. enviar desde Irlanda no cambia eso. <a href=\"https://resend.com/docs/dashboard/domains/regions\" rel=\"noreferrer\">Resend</a>.",
+          "Vercel es una empresa estadounidense. su <a href=\"https://vercel.com/legal/dpa\" rel=\"noreferrer\">Vercel DPA</a> y el <a href=\"https://vercel.com/security\" rel=\"noreferrer\">EU–US Data Privacy Framework</a> ofrecen garantías para las transferencias; no significan que todos los registros, accesos de soporte o copias permanezcan en la UE. aún debemos confirmar la configuración y los acuerdos aplicables."
+        ],
+        [
+          "rights",
+          "tus derechos",
+          "escríbeme para acceder, corregir, borrar, limitar o trasladar tus datos, u oponerte al tratamiento basado en interés legítimo. cerrar el reproductor o la página retira el consentimiento de reproducción; Spotify controla las cookies ya guardadas. normalmente respondemos en un mes. podemos pedir una prueba proporcionada de que los datos son tuyos; no podemos vincularte a totales anónimos.",
+          "puedes reclamar ante la Autoridad belga de Protección de Datos: <a href=\"https://www.gegevensbeschermingsautoriteit.be/\" rel=\"noreferrer\">gegevensbeschermingsautoriteit.be</a>."
+        ]
+      ],
+      "providersTitle": "quién ayuda a mantener esto",
+      "providersNote": "Vercel aloja el sitio, PostHog EU cuenta, Resend envía códigos y un servicio Redis gestionado guarda registros temporales. falta confirmar el proveedor Redis desplegado y su región; pídeme los detalles actuales. los servicios externos pueden tratar datos fuera del EEE bajo sus contratos y garantías de transferencia. sus políticas también cubren registros y copias de seguridad.",
+      "roles": [
+        "hosting",
+        "analytics",
+        "emails de acceso",
+        "Redis, si es Upstash",
+        "Redis, si es Redis Cloud",
+        "mapas",
+        "reproducción",
+        "consulta musical",
+        "aportaciones",
+        "reservas",
+        "registro manual de x"
+      ],
+      "consentInfo": "se cuenta por defecto. ‘ok’ cierra el aviso y cuenta un soldier; no es consentimiento para analytics. ‘no me cuentes’, GPC y DNT pasan a totales anónimos de páginas. tu elección queda hasta cambiarla o borrar datos. un rechazo se conserva si cambia el aviso."
+    },
+    "pt": {
+      "title": "privacidade, sem nevoeiro.",
+      "intro": [
+        "não queremos os teus dados.",
+        "as visitas tornam-se totais anónimos, sem cookies de rastreio.",
+        "o pouco que guardamos (um voto ou código de acesso) está aqui e expira."
+      ],
+      "updated": "2026-11-06",
+      "sections": [
+        [
+          "who",
+          "quem segura a lanterna?",
+          "Francisco Gabriel Van Langenhove é responsável por corvus.gent e stats.corvus.gent, incluindo música e jogos. perguntas e pedidos: <a href=\"mailto:gabriel@corvus.gent\">gabriel@corvus.gent</a>."
+        ],
+        [
+          "counts",
+          "o que contamos",
+          "o PostHog EU conta visitas e ações permitidas por defeito, sem cookies, armazenamento no navegador, perfis ou gravações. cria temporariamente um pseudónimo diário com informação de rede/navegador; só os totais são anónimos. não recebe nomes, emails ou formulários. GPC, DNT ou ‘não me contes’ impedem o PostHog de carregar: só aumenta um contador página/dia, sem ID, hash ou cabeçalhos guardados. estes acessos não são pessoas únicas."
+        ],
+        [
+          "why",
+          "porquê e com que fundamento",
+          "o interesse legítimo é a base declarada da contagem simples sem cookies e da prevenção de abusos. o Spotify precisa do teu clique. emails de acesso, votos e reservas cumprem o teu pedido. podes recusar o PostHog aqui; fica apenas um acesso anónimo. não vendemos dados."
+        ],
+        [
+          "storage",
+          "o que fica e durante quanto tempo",
+          "código: 3 minutos. sessão: 7 dias ou até terminares a sessão. registos de acesso, pedidos e previsões associadas a email: até 90 dias. limites antiabuso: até 24 horas, com um hash de IP com sal diferente a cada dia; a aplicação não guarda IPs em bruto. desafios antibots: 5 minutos. histórico do jogo no servidor: 48 horas após utilização; séries e controlo de votos repetidos: até um ano. totais anónimos e sugestões musicais públicas podem ficar até serem removidos.",
+          "a retenção de eventos depende da definição do PostHog; pretendemos 90 dias, mas essa definição ainda precisa de confirmação. alojamento e email têm prazos próprios para registos e cópias de segurança. pede-me os detalhes atuais.",
+          "Resend: armazenamento nos EUA; emails/registos 30 dias em Free/Pro/Scale, cópias 7 dias; Enterprise pode variar. <a href=\"https://resend.com/security/gdpr/\" rel=\"noreferrer\">Resend GDPR</a>."
+        ],
+        [
+          "sf",
+          "mensagens da viagem a sf",
+          "se enviares o formulário sf, só o gabe vê nome, contacto, trabalho, planos, datas, local e mensagem no painel privado. servem para organizar o encontro pedido (execução do teu pedido), não para marketing. cada registo é apagado automaticamente do Redis 60 dias após o envio; marcar como concluído não prolonga esse prazo.",
+          "uma cópia é enviada para gabriel@corvus.gent pelo Resend, a exceção documentada de armazenamento nos eua. o Resend tem a sua própria retenção de registos; o gabe deve apagar a notificação da caixa de correio nos mesmos 60 dias. podes pedir para apagar antes, mesmo com um nome do x ou perfil do linkedin.",
+          "o cookie assinado vid também previne abusos do formulário; os desafios expiram em 5 minutos, os hashes ip mudam diariamente e expiram num dia, e os recibos de repetição em 24 horas. o bilhete usa sessionStorage (sf-note:2026-11) para surgir uma vez por sessão do separador. as estatísticas opcionais contam ações, nunca os campos."
+        ],
+        [
+          "browser",
+          "no teu navegador",
+          "cookies necessários: sess mantém a sessão; vid evita votos de idioma repetidos; mvid guarda votos musicais e progresso diário. são assinados, seguros e inacessíveis aos scripts. sess expira em 7 dias; vid e mvid num ano. nunca servem para te identificar em analytics.",
+          "uma marca local privacy-choice lembra ‘ok’ ou ‘não me contes’. ‘ok’ acrescenta um soldier por navegador/origem do site; apagar os dados pode permitir outro. a marca não vai para o PostHog. analytics e campanhas ficam em memória, sem armazenamento no navegador."
+        ],
+        [
+          "outside",
+          "outros serviços",
+          "o Spotify só recebe o pedido de reprodução depois do clique e pode então guardar os seus cookies. o nosso servidor consulta Spotify ou Apple quando envias um link musical. os mapas CARTO passam pelo nosso servidor sem enviar o teu IP. Leaflet, Sortable e a biblioteca PostHog estão alojados aqui.",
+          "Buy Me a Coffee e Pidgy são links, não formulários incorporados. aplicam-se as suas políticas após a visita. /links, /go e os atalhos de campanha só acrescentam etiquetas UTM e contam visitas/cliques, sem recolher formulários ou identidades.",
+          "o Notion guarda o meu registo manual de X. as estatísticas públicas mostram totais, nomes públicos de campanhas e vozes, e os meus próprios posts; respostas e URLs de destino ficam atrás do início de sessão. campanhas aprovadas e intervalos região-hora acompanham a análise opcional. as cópias no Corvus expiram em 24 horas; as fontes seguem a minha retenção no Notion. a região ainda precisa de confirmação, sem promessa de armazenamento só na UE.",
+          "para contar cafés, o servidor lê brevemente os registos de Buy Me a Coffee e reconhece apoiantes recorrentes pela conta ou pelo email quando disponível. só os totais e a data do último café ficam em cache por 30 minutos.",
+          "o PostHog EU conta visitas e ações permitidas por defeito, sem cookies, armazenamento no navegador, perfis ou gravações. cria temporariamente um pseudónimo diário com informação de rede/navegador; só os totais são anónimos. não recebe nomes, emails ou formulários. GPC, DNT ou ‘não me contes’ impedem o PostHog de carregar: só aumenta um contador página/dia, sem ID, hash ou cabeçalhos guardados. estes acessos não são pessoas únicas."
+        ],
+        [
+          "where",
+          "para onde vão os dados",
+          "as nossas funções Vercel estão configuradas em Frankfurt (fra1). os ficheiros estáticos e o encaminhamento usam uma rede global. o PostHog EU está em Frankfurt. Frankfurt é também o destino previsto para o Redis; a região atual e a migração ainda precisam de verificação.",
+          "o Resend continua como exceção temporária: a Irlanda é a região de envio prevista, por confirmar na conta, mas o conteúdo dos emails e os registos são guardados nos EUA. enviar pela Irlanda não altera isso. <a href=\"https://resend.com/docs/dashboard/domains/regions\" rel=\"noreferrer\">Resend</a>.",
+          "a Vercel é uma empresa americana. o seu <a href=\"https://vercel.com/legal/dpa\" rel=\"noreferrer\">Vercel DPA</a> e o <a href=\"https://vercel.com/security\" rel=\"noreferrer\">EU–US Data Privacy Framework</a> oferecem salvaguardas nas transferências; não significam que todos os registos, acessos de suporte ou cópias fiquem na UE. falta confirmar as definições da conta e os acordos aplicáveis."
+        ],
+        [
+          "rights",
+          "os teus direitos",
+          "escreve-me para aceder, corrigir, apagar, limitar ou transferir os teus dados, ou para te opores ao tratamento baseado no interesse legítimo. fechar o leitor ou a página retira o consentimento de reprodução; o Spotify gere os cookies já colocados. respondemos normalmente num mês. podemos pedir prova proporcional de que os dados são teus; não conseguimos associar totais anónimos a ti.",
+          "podes reclamar junto da Autoridade belga de Proteção de Dados: <a href=\"https://www.gegevensbeschermingsautoriteit.be/\" rel=\"noreferrer\">gegevensbeschermingsautoriteit.be</a>."
+        ]
+      ],
+      "providersTitle": "quem ajuda este lugar a funcionar",
+      "providersNote": "Vercel aloja o site, PostHog EU conta, Resend envia códigos e um serviço Redis gerido guarda registos temporários. o fornecedor Redis em uso e a região ainda precisam de confirmação; pede-me os detalhes atuais. serviços externos podem tratar dados fora do EEE ao abrigo dos seus contratos e garantias de transferência. as suas políticas também explicam registos e cópias de segurança.",
+      "roles": [
+        "alojamento",
+        "analytics",
+        "emails de acesso",
+        "Redis, se Upstash",
+        "Redis, se Redis Cloud",
+        "mapas",
+        "reprodução",
+        "consulta musical",
+        "apoios",
+        "reservas",
+        "registo manual de x"
+      ],
+      "consentInfo": "a contagem começa por defeito. ‘ok’ fecha o aviso e conta um soldier; não é consentimento para analytics. ‘não me contes’, GPC e DNT passam para totais anónimos de páginas. a escolha fica até a mudares ou apagares os dados. uma recusa mantém-se se o aviso mudar."
+    },
+    "de": {
+      "title": "datenschutz, ohne nebel.",
+      "intro": [
+        "wir wollen deine daten nicht.",
+        "besuche werden zu anonymen summen, ohne tracking-cookies.",
+        "die wenigen gespeicherten dinge (etwa eine stimme oder ein login-code) stehen hier und laufen ab."
+      ],
+      "updated": "2026-11-06",
+      "sections": [
+        [
+          "who",
+          "wer trägt die laterne?",
+          "Francisco Gabriel Van Langenhove ist für corvus.gent und stats.corvus.gent verantwortlich, einschließlich musik und spielen. fragen und datenwünsche: <a href=\"mailto:gabriel@corvus.gent\">gabriel@corvus.gent</a>."
+        ],
+        [
+          "counts",
+          "was gezählt wird",
+          "PostHog EU zählt besuche und erlaubte aktionen standardmäßig, ohne cookies, browserspeicher, profile oder aufnahmen. aus netzwerk-/browserdaten entsteht vorübergehend ein tagespseudonym; nur die summen sind anonym. keine namen, emails oder formularinhalte. GPC, DNT oder ‘zähl mich nicht’ verhindern das laden von PostHog: nur ein seiten-/tageszähler steigt, ohne ID, hash oder gespeicherte header. diese aufrufe sind keine eindeutigen personen."
+        ],
+        [
+          "why",
+          "warum und auf welcher grundlage",
+          "berechtigtes interesse ist die erklärte grundlage für einfache cookielose besuchsstatistik und missbrauchsschutz. Spotify braucht deinen klick. loginmails, stimmen und buchungen erfüllen deine anfrage. du kannst PostHog hier widersprechen; nur ein anonymer aufruf bleibt. wir verkaufen keine daten."
+        ],
+        [
+          "storage",
+          "was bleibt und wie lange",
+          "login-code: 3 minuten. sitzung: 7 tage oder bis zum abmelden. login-protokolle, zugangsanfragen und besucherprognosen mit email: höchstens 90 tage. missbrauchsgrenzen: höchstens 24 stunden, mit täglich wechselndem gesalzenem IP-hash; unsere app speichert keine rohen IP-adressen. bot-prüfungen: 5 minuten. spielverlauf auf dem server: 48 stunden nach nutzung; serien und schutz gegen doppelte stimmen: bis zu einem jahr. anonyme summen und öffentliche songvorschläge bleiben eventuell bis zur löschung.",
+          "die speicherdauer für analytics-ereignisse hängt von der PostHog-einstellung ab; unser ziel sind 90 tage, die kontoeinstellung ist noch zu bestätigen. hosting- und emailanbieter haben eigene fristen für protokolle und backups. frag mich nach den aktuellen details.",
+          "Resend: US-speicherung; emails/protokolle 30 tage bei Free/Pro/Scale, backups 7 tage; Enterprise kann abweichen. <a href=\"https://resend.com/security/gdpr/\" rel=\"noreferrer\">Resend GDPR</a>."
+        ],
+        [
+          "sf",
+          "nachrichten zur sf-reise",
+          "wenn du das sf-formular abschickst, sieht nur gabe name, kontakt, tätigkeit, treffvorschläge, daten, ort und nachricht im privaten dashboard. wir nutzen sie für das gewünschte treffen (erfüllung deiner anfrage), nicht für marketing. jeder eintrag wird 60 tage nach dem absenden automatisch aus Redis gelöscht; als erledigt markieren verlängert das nicht.",
+          "eine kopie geht über Resend an gabriel@corvus.gent, die hier beschriebene ausnahme mit us-speicherung. Resend hat eigene fristen für versandprotokolle; gabe muss die benachrichtigung innerhalb derselben 60 tage aus seinem postfach löschen. bitte ihn um frühere löschung, auch bei angabe eines x-namens oder linkedin-profils.",
+          "das signierte vid-cookie dient auch dem formularschutz; prüfungen verfallen nach 5 minuten, ip-hashes wechseln täglich und verfallen innerhalb eines tages, wiederholungsbelege nach 24 stunden. der zettel nutzt sessionStorage (sf-note:2026-11) für einmaliges erscheinen je tab-sitzung. optionale statistik zählt aktionen, niemals deine eingaben."
+        ],
+        [
+          "browser",
+          "in deinem browser",
+          "notwendige cookies: sess hält dich angemeldet; vid verhindert doppelte sprachstimmen; mvid merkt sich musikstimmen und täglichen spielfortschritt. sie sind signiert, gesichert und für seitenskripte unzugänglich. sess läuft nach 7 tagen ab, vid und mvid nach einem jahr. sie sind niemals analytics-kennungen.",
+          "ein lokaler privacy-choice-eintrag merkt sich ‘ok’ oder ‘zähl mich nicht’. ‘ok’ zählt einen soldier pro browser/website-origin; nach dem löschen der sitedaten erneut möglich. der eintrag geht nicht an PostHog. analytics und kampagnen bleiben im arbeitsspeicher, ohne browserspeicher."
+        ],
+        [
+          "outside",
+          "andere dienste",
+          "Spotify erhält erst nach play eine wiedergabeanfrage und kann dann eigene cookies setzen. unser server fragt bei Spotify oder Apple nach, wenn du einen songlink einreichst. CARTO-kartenkacheln kommen über unseren server, ohne deine IP weiterzugeben. Leaflet, Sortable und die PostHog-bibliothek liegen hier.",
+          "Buy Me a Coffee und Pidgy sind links, keine eingebetteten formulare. nach dem anklicken gelten deren regeln. /links, /go und kampagnen-kurzlinks ergänzen nur UTM-kategorien und zählen besuche/klicks; sie erfassen weder formulare noch besucheridentitäten.",
+          "Notion enthält mein manuell gepflegtes X-protokoll. öffentliche statistiken zeigen summen, öffentliche kampagnen- und stilnamen und meine eigenen posts; antworttexte und ziel-URLs bleiben hinter dem login. freigegebene kampagnen und regions-stunden begleiten die freiwillige analyse. Corvus-kopien verfallen binnen 24 stunden; quelldaten folgen meiner Notion-aufbewahrung. die region muss noch bestätigt werden; reine EU-speicherung wird nicht versprochen.",
+          "zum zählen der kaffees liest unser server kurz die daten von Buy Me a Coffee. wiederkehrende unterstützer erkennt er, wenn möglich, am konto oder an der e-mail-adresse. nur summen und das datum des letzten kaffees werden 30 minuten gespeichert.",
+          "PostHog EU zählt besuche und erlaubte aktionen standardmäßig, ohne cookies, browserspeicher, profile oder aufnahmen. aus netzwerk-/browserdaten entsteht vorübergehend ein tagespseudonym; nur die summen sind anonym. keine namen, emails oder formularinhalte. GPC, DNT oder ‘zähl mich nicht’ verhindern das laden von PostHog: nur ein seiten-/tageszähler steigt, ohne ID, hash oder gespeicherte header. diese aufrufe sind keine eindeutigen personen."
+        ],
+        [
+          "where",
+          "wohin die daten gehen",
+          "unsere Vercel-funktionen sind für Frankfurt (fra1) konfiguriert. statische dateien und die weiterleitung von anfragen nutzen ein weltweites netz. PostHog EU liegt in Frankfurt. auch Redis soll nach Frankfurt; die aktuelle datenbankregion und der erfolgte umzug müssen noch geprüft werden.",
+          "Resend bleibt vorläufig eine ausnahme: Irland ist die geplante versandregion, noch im konto zu prüfen. mailinhalte und protokolle werden jedoch in den USA gespeichert. ein versand aus Irland ändert daran nichts. <a href=\"https://resend.com/docs/dashboard/domains/regions\" rel=\"noreferrer\">Resend</a>.",
+          "Vercel ist ein US-unternehmen. das <a href=\"https://vercel.com/legal/dpa\" rel=\"noreferrer\">Vercel DPA</a> und das <a href=\"https://vercel.com/security\" rel=\"noreferrer\">EU–US Data Privacy Framework</a> bieten garantien für übermittlungen; sie bedeuten nicht, dass sämtliche anbieterprotokolle, supportzugriffe oder sicherungskopien in der EU bleiben. kontoeinstellungen und geltende vereinbarungen sind noch zu bestätigen."
+        ],
+        [
+          "rights",
+          "deine rechte",
+          "schreib mir für auskunft, berichtigung, löschung, einschränkung oder übertragbarkeit deiner daten oder einen widerspruch gegen verarbeitung auf grundlage berechtigten interesses. schließen von player oder seite widerruft die wiedergabeeinwilligung; bereits gesetzte cookies verwaltet Spotify. normalerweise antworten wir innerhalb eines monats. ein angemessener identitätsnachweis kann nötig sein; anonyme summen lassen sich dir nicht zuordnen.",
+          "beschwerden sind bei der belgischen Datenschutzbehörde möglich: <a href=\"https://www.gegevensbeschermingsautoriteit.be/\" rel=\"noreferrer\">gegevensbeschermingsautoriteit.be</a>."
+        ]
+      ],
+      "providersTitle": "wer diese seite betreibt",
+      "providersNote": "Vercel hostet, PostHog EU zählt, Resend verschickt login-emails und ein verwalteter Redis-dienst speichert vorübergehende daten. der eingesetzte Redis-anbieter und die region sind noch zu bestätigen; frag mich nach den details. externe dienste können daten außerhalb des EWR unter ihren verträgen und übermittlungsgarantien verarbeiten. ihre richtlinien erklären auch protokolle und backups.",
+      "roles": [
+        "hosting",
+        "analytics",
+        "login-emails",
+        "Redis, falls Upstash",
+        "Redis, falls Redis Cloud",
+        "kartenkacheln",
+        "wiedergabe",
+        "songabfrage",
+        "unterstützung",
+        "buchungen",
+        "manuelles x-protokoll"
+      ],
+      "consentInfo": "gezählt wird standardmäßig. ‘ok’ schließt den hinweis und zählt einen soldier; es ist keine analytics-einwilligung. ‘zähl mich nicht’, GPC und DNT wechseln zu anonymen seitenaufrufen. die wahl bleibt bis zur änderung oder zum löschen der daten. ein widerspruch bleibt bei neuen hinweisen gültig."
+    },
+    "zh": {
+      "title": "隐私，不绕弯。",
+      "intro": [
+        "我们不想要你的数据。",
+        "访问变成匿名总数，不用追踪 cookie。",
+        "少量保存的信息（例如投票或登录码）列在下方，都有期限。"
+      ],
+      "updated": "2026-11-06",
+      "sections": [
+        [
+          "who",
+          "谁提着这盏灯？",
+          "Francisco Gabriel Van Langenhove 负责 corvus.gent 和 stats.corvus.gent，包括音乐与游戏。问题或数据请求请联系：<a href=\"mailto:gabriel@corvus.gent\">gabriel@corvus.gent</a>。"
+        ],
+        [
+          "counts",
+          "统计什么",
+          "默认由 PostHog EU 统计访问和允许的操作，不用 cookie、浏览器存储、个人档案或录屏。它会用网络及浏览器信息生成临时的每日化名；只有汇总结果是匿名的。不采集姓名、邮箱或表单内容。GPC、DNT 或‘别统计我’会阻止加载 PostHog，只增加页面和日期计数，不保存 ID、哈希或请求头。这些访问次数不是独立人数。"
+        ],
+        [
+          "why",
+          "用途与法律依据",
+          "基础无 cookie 统计与防滥用以合法利益为声明依据。Spotify 需要你点击播放。登录邮件、投票和预约用于完成你的请求。可在这里反对 PostHog 统计，之后仅保留匿名访问次数。不出售数据。"
+        ],
+        [
+          "storage",
+          "保存多久",
+          "登录码：3 分钟。会话：7 天或直到退出。登录记录、访问申请及与邮箱关联的访客数竞猜：最多 90 天。防滥用记录：最多 24 小时，每天更换加盐 IP 哈希；我们的应用不保存原始 IP。机器人验证：5 分钟。服务器游戏历史：使用后 48 小时；连续游戏记录及防重复投票：最多一年。匿名总数和公开歌曲建议可保留至删除。",
+          "分析事件的期限由 PostHog 项目设置决定；目标是 90 天，但该账户设置仍待确认。托管和邮件服务商的日志及备份有自己的期限。可联系我了解当前详情。",
+          "Resend：美国存储；Free/Pro/Scale 邮件和日志保存 30 天，备份 7 天；Enterprise 可能不同。 <a href=\"https://resend.com/security/gdpr/\" rel=\"noreferrer\">Resend GDPR</a>."
+        ],
+        [
+          "sf",
+          "旧金山行程留言",
+          "提交 sf 表单后，只有 gabe 能在私人面板中查看你的姓名、联系方式、工作、活动、日期、地点和留言。这些信息用于安排你请求的见面，不用于营销。每条记录在提交 60 天后自动从 Redis 删除；标记完成不会延长保存时间。",
+          "副本会通过 Resend 发到 gabriel@corvus.gent，属于本页说明的美国存储例外。Resend 有自己的发送日志保存期限；gabe 必须在同样的 60 天内删除邮箱中的通知。你可以要求提前删除，即使用的是 x 用户名或 linkedin 主页。",
+          "签名的 vid cookie 也用于防止表单滥用；验证挑战在 5 分钟后失效，ip 哈希每天变化并在一天内到期，重试凭证在 24 小时后到期。首页纸条用 sessionStorage（sf-note:2026-11）保证每个标签页会话只出现一次。可选统计只记录操作次数，不记录表单内容。"
+        ],
+        [
+          "browser",
+          "浏览器里的少量信息",
+          "必要 cookie：sess 保持登录；vid 防止语言投票重复；mvid 保存音乐投票和每日游戏进度。它们经过签名、安全传输，页面脚本无法读取。sess 在 7 天后过期，vid 和 mvid 在一年后过期。它们从不用于分析身份识别。",
+          "只用一个本地 privacy-choice 标记记住‘ok’或‘别统计我’。点击‘ok’每个浏览器及网站源计一次 soldier；清除网站数据后可能再次计数。此标记不会发送给 PostHog。分析和活动标签仅留在内存，不用浏览器存储。"
+        ],
+        [
+          "outside",
+          "其他服务何时参与",
+          "只有点击播放后，Spotify 才收到播放请求，并可能设置自己的 cookie。你提交歌曲链接时，我们的服务器才向 Spotify 或 Apple 查询。CARTO 地图图块通过我们的服务器提供，不转发你的 IP。Leaflet、Sortable 和 PostHog 程序库均由本站托管。",
+          "Buy Me a Coffee 和 Pidgy 预约都是链接，不是嵌入式表单。点击后适用各自的隐私政策。/links、/go 及推广短链接只添加 UTM 推广标签并统计访问和点击，不采集表单内容或访客身份。",
+          "Notion 保存我手动录入的 X 记录。公开统计只显示汇总、公开的活动和语气标签，以及我自己的帖子；回复内容和目标网址仅登录后可见。获准的活动标签和地区小时段用于可选分析。Corvus 副本在 24 小时内过期，源记录遵循我的 Notion 保留规则。工作区区域仍待确认，因此不承诺仅在欧盟存储。",
+          "为了统计咖啡杯数，服务器会短暂读取 Buy Me a Coffee 的记录，并在有账号或邮箱时识别重复支持者。只缓存总数和最近一次收到咖啡的日期，时长为 30 分钟。",
+          "默认由 PostHog EU 统计访问和允许的操作，不用 cookie、浏览器存储、个人档案或录屏。它会用网络及浏览器信息生成临时的每日化名；只有汇总结果是匿名的。不采集姓名、邮箱或表单内容。GPC、DNT 或‘别统计我’会阻止加载 PostHog，只增加页面和日期计数，不保存 ID、哈希或请求头。这些访问次数不是独立人数。"
+        ],
+        [
+          "where",
+          "数据会去哪里",
+          "我们的 Vercel 函数配置在法兰克福（fra1）。静态文件和请求路由使用全球网络。PostHog EU 位于法兰克福。Redis 的迁移目标也是法兰克福；当前数据库区域和迁移结果仍需核实。",
+          "Resend 暂时保留为例外：计划从爱尔兰发送邮件，仍待核实账户设置，但邮件内容和日志存储在美国。从爱尔兰发送并不会改变存储地点。<a href=\"https://resend.com/docs/dashboard/domains/regions\" rel=\"noreferrer\">Resend</a>。",
+          "Vercel 是美国公司。其 <a href=\"https://vercel.com/legal/dpa\" rel=\"noreferrer\">Vercel DPA</a> 和 <a href=\"https://vercel.com/security\" rel=\"noreferrer\">EU–US Data Privacy Framework</a> 为跨境传输提供保障，但不代表所有供应商日志、支持访问或备份都留在欧盟。我们仍需确认账户设置和适用协议。"
+        ],
+        [
+          "rights",
+          "你的权利",
+          "你可以通过邮件请求访问、更正、删除、限制处理或转移数据，也可以反对基于合法利益的处理。关闭播放器或页面即可撤回播放同意；已设置的 cookie 由 Spotify 管理。我们通常在一个月内回复。可能需要合理证据确认请求涉及你的数据；匿名汇总无法追溯到个人。",
+          "你也可以向比利时数据保护机构投诉：<a href=\"https://www.gegevensbeschermingsautoriteit.be/\" rel=\"noreferrer\">gegevensbeschermingsautoriteit.be</a>。"
+        ]
+      ],
+      "providersTitle": "哪些服务帮助运行网站",
+      "providersNote": "Vercel 托管网站，PostHog EU 提供统计，Resend 发送登录邮件，托管的 Redis 服务保存临时记录。实际部署的 Redis 服务商及地区仍待确认，可联系我了解详情。外部服务可能依据其合同及跨境传输保障在欧洲经济区以外处理数据。它们的政策也说明日志与备份的处理方式。",
+      "roles": [
+        "网站托管",
+        "访问统计",
+        "登录邮件",
+        "Redis（若使用 Upstash）",
+        "Redis（若使用 Redis Cloud）",
+        "地图图块",
+        "播放",
+        "歌曲查询",
+        "支持付款",
+        "预约",
+        "手动 X 记录"
+      ],
+      "consentInfo": "统计默认开启。‘ok’关闭提示并计一次 soldier，不代表同意分析。‘别统计我’、GPC 和 DNT 会切换为匿名页面总数。选择保留至你更改或清除网站数据；提示更新也不会撤销拒绝。"
+    }
+  }
+}
