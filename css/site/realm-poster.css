@@ -232,6 +232,15 @@ body.arena.curiosity-priority .site-page .curiosity-play {
 @media (max-width: 767px) {
   .arena .arena-stage { width: min(36vw, 160px); }
   .arena .site-page .arena-title { margin-inline: auto; }
-  .arena .arena-acts a { grid-template-columns: 1.6rem minmax(0, 1fr); gap: 4px 8px; }
-  .arena .arena-acts :is(.line, .go) { grid-column: 2; grid-row: auto; }
+  .arena .arena-acts a {
+    grid-template-columns: 1.6rem minmax(0, 1fr);
+    gap: 10px 12px;
+    height: auto;
+    padding-block: 22px;
+  }
+  .arena .arena-acts .num { grid-column: 1; grid-row: 1; }
+  .arena .arena-acts strong { grid-column: 2; grid-row: 1; min-width: 0; }
+  .arena .arena-acts :is(.line:not([data-stats-act]), [data-stats-act]),
+  .arena .arena-acts .go { grid-column: 2; grid-row: auto; min-width: 0; }
+  .arena .arena-acts .go { margin-top: 2px; line-height: 1.4; }
 }
