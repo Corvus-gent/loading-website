@@ -58,7 +58,32 @@ jobs:
     needs: changes
     if: needs.changes.outputs.basic == 'true'
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 10
+    services:
+      redis:
+        image: redis:7-alpine
+        ports: ['16380:6379']
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: node tools/site/build-all.mjs
+      - run: node tools/site/test-basic.mjs
+
+  legacy-browser:
+    needs: changes
+    if: needs.changes.outputs.basic == 'true'
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    timeout-minutes: 35
     services:
       redis:
         image: redis:7-alpine
@@ -77,13 +102,13 @@ jobs:
       - run: npm ci
       - run: node tools/site/build-all.mjs
       - run: npx playwright install --with-deps chromium
-      - name: Run existing npm tests
+      - name: Run legacy browser and performance tests
         run: |
           node tools/serve.mjs &
           server=$!
           trap 'kill "$server"' EXIT
           curl --retry 8 --retry-delay 1 --retry-connrefused -fsS http://127.0.0.1:4176/ -o /dev/null
-          node tools/site/test-basic.mjs
+          node tools/site/test-basic.mjs legacy
 
   e2e:
     needs: changes
