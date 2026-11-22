@@ -1,0 +1,13 @@
+{
+  "name": "Corvus",
+  "short_name": "Corvus",
+  "id": "/",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f0a18",
+  "theme_color": "#0f0a18",
+  "icons": [
+    {"src": "/public/wing/icon-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "/public/wing/icon-512.png", "sizes": "512x512", "type": "image/png"}
+  ]
+}
