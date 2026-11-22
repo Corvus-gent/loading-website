@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="nl-BE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Yogi Power · yoga & meditatie in Affligem</title>
+<meta name="description" content="Prototype nieuwe website en boekingsplatform voor Yogi Power, op basis van requirements v1.3.">
+<meta name="theme-color" content="#fbf6ee">
+<link rel="icon" href="data:image/svg+xml,%3Csvg viewBox='0 0 64 64' class='sun' aria-hidden='true'%3E%3Cdefs%3E%3ClinearGradient id='gg' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23f2b856'/%3E%3Cstop offset='1' stop-color='%23c8643b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='27' r='13' fill='url(%23gg)'/%3E%3Cg stroke='%23fbf1df' stroke-width='2.2' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M32 46c-6-4-9-9-9-14 4 1 7 4 9 8 2-4 5-7 9-8 0 5-3 10-9 14z' fill='%232b1e3f'/%3E%3Cpath d='M32 46c-9-1-16-5-19-11 5-1 10 0 14 3'/%3E%3Cpath d='M32 46c9-1 16-5 19-11-5-1-10 0-14 3'/%3E%3Cpath d='M14 52h36'/%3E%3C/g%3E%3Cg stroke='%23e39b2d' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M32 6v4M17 12l2.6 3M47 12l-2.6 3M10 26h4M50 26h4'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>:root{
+  --ivory:#fbf6ee;--paper:#fffdf9;--sand:#f3e9da;--line:#e7dccb;
+  --ink:#241a33;--ink2:#5b5067;--muted:#8a7f93;
+  --plum:#2b1e3f;--plum2:#3d2b57;--saffron:#e39b2d;--saffron2:#f2b856;--terra:#c8643b;--sage:#6f8f72;--rose:#d98c7a;
+  --ok:#3f7d55;--warn:#b7791f;--bad:#b4442f;
+  --r:18px;--shadow:0 1px 2px rgba(36,26,51,.06),0 10px 30px -12px rgba(36,26,51,.18);
+  --serif:"Fraunces",Georgia,serif;--sans:"Inter",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ivory);color:var(--ink);font:16px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:500;letter-spacing:-.015em;line-height:1.1;margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.eyebrow{font:600 12px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--terra)}
+.muted{color:var(--muted)}.small{font-size:13px}.tiny{font-size:12px}
+.grain:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* gate */
+#gate{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;background:radial-gradient(120% 90% at 50% 110%,#5a3b72 0%,var(--plum) 55%,#170f22 100%);color:#fbf1df}
+#gate .card{width:min(420px,92vw);text-align:center;padding:40px 32px}
+#gate .sun{width:120px;height:120px;margin:0 auto 22px;animation:breathe 6s ease-in-out infinite}
+#gate h1{font-size:34px;margin-bottom:6px}
+#gate p{color:#cdbfdc;margin:0 0 26px}
+#gate form{display:flex;gap:8px}
+#gate input{flex:1;min-width:0;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:14px 20px;color:#fff;outline:none;letter-spacing:.2em;text-align:center}
+#gate input:focus{border-color:var(--saffron2)}
+#gate button{border:0;border-radius:999px;padding:0 22px;background:var(--saffron);color:var(--plum);font-weight:600;cursor:pointer}
+#gate .err{color:#ffb4a2;min-height:24px;margin-top:12px;font-size:14px}
+#gate.shake .card{animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+@keyframes breathe{50%{transform:scale(1.06)}}
+
+/* header */
+header.top{position:sticky;top:0;z-index:50;background:rgba(251,246,238,.82);backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid transparent;transition:border-color .2s}
+header.top.scrolled{border-color:var(--line)}
+.nav{display:flex;align-items:center;gap:28px;height:76px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand svg{width:42px;height:42px}
+.brand b{font:500 22px/1 var(--serif);letter-spacing:-.01em}
+.brand small{display:block;font:600 10px/1 var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.nav nav{display:flex;gap:4px;margin-left:auto}
+.nav nav a{text-decoration:none;padding:8px 14px;border-radius:999px;font-size:15px;color:var(--ink2)}
+.nav nav a:hover{background:var(--sand);color:var(--ink)}
+.nav nav a.on{color:var(--ink);background:var(--sand)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid transparent;border-radius:999px;padding:11px 20px;font-weight:600;font-size:15px;cursor:pointer;text-decoration:none;transition:transform .15s,background .15s,box-shadow .15s;white-space:nowrap}
+.btn:active{transform:translateY(1px)}
+.btn.primary{background:var(--plum);color:#fff}
+.btn.primary:hover{background:var(--plum2);box-shadow:var(--shadow)}
+.btn.sun{background:var(--saffron);color:var(--plum)}
+.btn.sun:hover{background:var(--saffron2)}
+.btn.ghost{background:transparent;border-color:var(--line);color:var(--ink)}
+.btn.ghost:hover{background:var(--paper)}
+.btn.sm{padding:7px 14px;font-size:13px}
+.btn.xs{padding:4px 10px;font-size:12px;font-weight:600}
+.btn.danger{background:#fbe9e4;color:var(--bad)}
+.btn.okb{background:#e6f2ea;color:var(--ok)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.mob-only{display:none}
+.burger{display:none;margin-left:auto;background:none;border:0;padding:8px;cursor:pointer}
+.acct-chip{display:flex;align-items:center;gap:8px;padding:5px 12px 5px 5px;border-radius:999px;background:var(--paper);border:1px solid var(--line);text-decoration:none;font-size:14px}
+.avatar{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--saffron);color:var(--plum);font-weight:700;font-size:13px}
+
+/* hero */
+.hero{position:relative;overflow:hidden;padding:84px 0 110px}
+.hero .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+.hero h1{font-size:clamp(44px,6.4vw,84px);font-weight:400}
+.hero h1 em{font-style:italic;color:var(--terra)}
+.hero .lead{font-size:19px;color:var(--ink2);max-width:520px;margin:26px 0 34px}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap}
+.hero .meta{display:flex;gap:28px;margin-top:44px;flex-wrap:wrap}
+.hero .meta div{font-size:13px;color:var(--muted)}
+.hero .meta b{display:block;font:500 26px/1.1 var(--serif);color:var(--ink)}
+.art{position:relative;aspect-ratio:1/1.05}
+.art .disc{position:absolute;inset:0;border-radius:48% 48% 46% 46%/52% 52% 44% 44%;background:radial-gradient(80% 70% at 50% 36%,#f7c873 0%,#ea9b45 42%,#c8643b 76%,#7b3d4d 100%);box-shadow:inset 0 -40px 80px rgba(43,30,63,.35)}
+.art svg.figure{position:absolute;inset:0;width:100%;height:100%}
+.art .quote{position:absolute;left:-28px;bottom:26px;max-width:290px;background:var(--paper);border-radius:var(--r);padding:20px 22px;box-shadow:var(--shadow);font:italic 400 17px/1.45 var(--serif)}
+.art .quote span{display:block;font:600 11px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:12px;font-style:normal}
+.art .pill{position:absolute;right:-8px;top:34px;background:var(--plum);color:#fff;border-radius:999px;padding:10px 16px;font-size:13px;box-shadow:var(--shadow)}
+.art .pill i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#7ee08f;margin-right:8px;animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.35}}
+.ring{position:absolute;border-radius:50%;border:1px solid var(--line);pointer-events:none}
+
+section{padding:96px 0}
+section.alt{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+section.dark{background:var(--plum);color:#f5ecdf}
+section.dark .eyebrow{color:var(--saffron2)}
+section.dark .muted{color:#b9abc8}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:44px;flex-wrap:wrap}
+.sec-head h2{font-size:clamp(34px,4vw,52px);margin-top:14px;max-width:680px}
+.sec-head p{max-width:420px;color:var(--ink2);margin:0}
+section.dark .sec-head p{color:#cfc2dc}
+
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.pillar{padding:30px;border-radius:var(--r);background:var(--ivory);border:1px solid var(--line)}
+.pillar .ic{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:var(--sand);margin-bottom:22px}
+.pillar h3{font-size:24px;margin-bottom:10px}
+.pillar p{margin:0;color:var(--ink2)}
+
+/* lesson cards */
+.week{display:grid;gap:12px}
+.lesson{display:grid;grid-template-columns:92px 1fr auto;gap:22px;align-items:center;padding:18px 22px;border-radius:var(--r);background:var(--paper);border:1px solid var(--line);transition:box-shadow .2s,transform .2s}
+.lesson:hover{box-shadow:var(--shadow)}
+.lesson .date{text-align:center;border-right:1px solid var(--line);padding-right:18px}
+.lesson .date b{display:block;font:500 34px/1 var(--serif)}
+.lesson .date span{font:600 11px/1.6 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.lesson h4{font-size:21px;margin-bottom:6px}
+.lesson .info{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14px;color:var(--ink2)}
+.lesson .info span{display:inline-flex;align-items:center;gap:6px}
+.lesson .right{display:flex;flex-direction:column;align-items:end;gap:8px}
+.lesson.cancelled{opacity:.6}
+.lesson.cancelled h4{text-decoration:line-through}
+.cap{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink2)}
+.cap .bar{width:72px;height:6px;border-radius:9px;background:var(--sand);overflow:hidden}
+.cap .bar i{display:block;height:100%;background:var(--sage)}
+.cap.full .bar i{background:var(--terra)}
+.tag{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:600;background:var(--sand);color:var(--ink2);white-space:nowrap}
+.tag.ok{background:#e6f2ea;color:var(--ok)}.tag.warn{background:#fbf0dc;color:var(--warn)}.tag.bad{background:#fbe9e4;color:var(--bad)}.tag.plum{background:#ece6f3;color:var(--plum2)}.tag.sun{background:#fdf0d8;color:#8a5a12}
+
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.chip{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:7px 14px;font-size:14px;cursor:pointer}
+.chip.on{background:var(--plum);color:#fff;border-color:var(--plum)}
+
+/* pricing */
+.prices{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.price{position:relative;display:flex;flex-direction:column;padding:30px;border-radius:22px;background:var(--paper);border:1px solid var(--line)}
+.price.feat{background:var(--plum);color:#f6eee2;border-color:var(--plum)}
+.price.feat .muted{color:#bcaecb}
+.price .badge{position:absolute;top:-12px;left:30px;background:var(--saffron);color:var(--plum);font-size:12px;font-weight:700;padding:5px 12px;border-radius:999px}
+.price h3{font-size:24px}
+.price .amt{font:400 54px/1 var(--serif);margin:20px 0 4px}
+.price .amt small{font:500 15px var(--sans);color:var(--muted)}
+.price ul{list-style:none;padding:0;margin:20px 0 28px;display:grid;gap:10px;font-size:15px}
+.price li{display:flex;gap:10px}
+.price li:before{content:"";flex:0 0 18px;height:18px;margin-top:3px;border-radius:50%;background:var(--sand) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3 3 7-7' fill='none' stroke='%23c8643b' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/12px no-repeat}
+.price.feat li:before{background-color:rgba(255,255,255,.12)}
+.price .btn{margin-top:auto}
+.minor-prices{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+.minor{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 22px;border-radius:16px;border:1px dashed var(--line);background:var(--ivory)}
+.minor b{font:500 19px var(--serif)}
+
+/* about */
+.about{display:grid;grid-template-columns:.85fr 1.15fr;gap:64px;align-items:center}
+.portrait{aspect-ratio:4/5;border-radius:220px 220px 26px 26px;background:linear-gradient(160deg,#3d2b57,#2b1e3f 55%,#1d1429);position:relative;overflow:hidden;display:grid;place-items:center}
+.portrait svg{width:70%}
+.portrait .cap2{position:absolute;bottom:18px;left:18px;right:18px;background:rgba(255,255,255,.08);backdrop-filter:blur(6px);color:#f3e8da;border-radius:14px;padding:12px 16px;font-size:13px}
+.creds{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0}
+.creds span{padding:7px 13px;border-radius:999px;background:var(--paper);border:1px solid var(--line);font-size:13px}
+
+.mantras{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.mantra{padding:28px;border-radius:var(--r);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)}
+.mantra .m{font:italic 400 24px/1.35 var(--serif);color:#fff;margin:14px 0}
+.mantra p{margin:0;color:#cbbdd9;font-size:15px}
+
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.contact .box{padding:32px;border-radius:22px;background:var(--paper);border:1px solid var(--line)}
+.contact dl{display:grid;grid-template-columns:110px 1fr;gap:14px;margin:22px 0 0}
+.contact dt{color:var(--muted);font-size:14px}.contact dd{margin:0}
+.map{border-radius:22px;min-height:320px;background:linear-gradient(135deg,#efe3cf,#e6d6bd);position:relative;overflow:hidden;border:1px solid var(--line)}
+.map svg{position:absolute;inset:0;width:100%;height:100%}
+
+footer{padding:56px 0 120px;border-top:1px solid var(--line)}
+footer .cols{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}
+footer a{color:var(--ink2);text-decoration:none;font-size:14px}
+footer a:hover{color:var(--ink)}
+footer .links{display:flex;gap:22px;flex-wrap:wrap}
+
+/* app pages */
+.page{padding:56px 0 100px;min-height:70vh}
+.page-head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:30px}
+.page-head h1{font-size:clamp(36px,4.5vw,56px)}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:24px}
+.panel h3{font-size:22px;margin-bottom:14px}
+.panel+.panel{margin-top:18px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.stat{padding:20px;border-radius:16px;background:var(--ivory);border:1px solid var(--line)}
+.stat b{display:block;font:500 34px/1.1 var(--serif)}
+.stat span{font-size:13px;color:var(--muted)}
+.cardvis{position:relative;padding:22px;border-radius:20px;color:#fff;background:linear-gradient(135deg,#3d2b57,#2b1e3f);overflow:hidden;min-height:190px;display:flex;flex-direction:column}
+.cardvis.trial{background:linear-gradient(135deg,#d98c4a,#b9573a)}
+.cardvis.expired{background:linear-gradient(135deg,#9a90a3,#6f6678)}
+.cardvis.private{background:linear-gradient(135deg,#55785a,#36553d)}
+.cardvis:after{content:"";position:absolute;right:-60px;top:-60px;width:200px;height:200px;border-radius:50%;border:30px solid rgba(255,255,255,.07)}
+.cardvis h4{font-size:21px}
+.cardvis .dots{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0}
+.cardvis .dots i{width:14px;height:14px;border-radius:50%;border:1.5px solid rgba(255,255,255,.6)}
+.cardvis .dots i.used{background:rgba(255,255,255,.25);border-color:transparent}
+.cardvis .dots i.res{background:var(--saffron2);border-color:var(--saffron2)}
+.cardvis .dots i.free{background:#fff;border-color:#fff}
+.cardvis .row{display:flex;justify-content:space-between;font-size:13px;opacity:.9;margin-top:auto}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;font-weight:600;color:var(--muted);font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:10px 10px;border-bottom:1px solid var(--line)}
+td{padding:11px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+.tbl-wrap{overflow-x:auto}
+.tabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:22px;padding:5px;border-radius:999px;background:var(--sand);width:max-content;max-width:100%}
+.tabs button{border:0;background:transparent;border-radius:999px;padding:8px 16px;font-size:14px;font-weight:600;color:var(--ink2);cursor:pointer;position:relative}
+.tabs button.on{background:var(--paper);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.tabs .n{display:inline-grid;place-items:center;min-width:18px;height:18px;padding:0 5px;margin-left:6px;border-radius:9px;background:var(--terra);color:#fff;font-size:11px}
+.field{display:grid;gap:6px;margin-bottom:14px}
+.field label{font-size:13px;font-weight:600;color:var(--ink2)}
+.field input,.field select,.field textarea{border:1px solid var(--line);background:#fff;border-radius:12px;padding:11px 14px;outline:none;width:100%}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--saffron);box-shadow:0 0 0 3px rgba(227,155,45,.15)}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.spread{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.empty{padding:30px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:16px}
+.auth{max-width:440px;margin:0 auto}
+.list-item{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
+.list-item:last-child{border-bottom:0}
+.note{padding:14px 16px;border-radius:14px;background:#fdf3e1;color:#7a5413;font-size:14px}
+.note.plum{background:#efe9f5;color:var(--plum2)}
+.note.bad{background:#fbe9e4;color:var(--bad)}
+.mail{padding:14px 16px;border-radius:14px;background:var(--ivory);border:1px solid var(--line);margin-bottom:10px}
+.mail b{display:block}
+.mail pre{white-space:pre-wrap;font:13px/1.5 var(--sans);margin:8px 0 0;color:var(--ink2)}
+
+/* modal */
+.modal-bg{position:fixed;inset:0;z-index:200;background:rgba(23,15,34,.5);backdrop-filter:blur(4px);display:grid;place-items:center;padding:20px;animation:fade .15s}
+.modal{width:min(560px,100%);max-height:92vh;overflow:auto;background:var(--paper);border-radius:24px;padding:30px;box-shadow:0 30px 80px -20px rgba(0,0,0,.4);animation:pop .2s}
+.modal h3{font-size:26px;margin-bottom:6px}
+.modal .actions{display:flex;justify-content:flex-end;gap:10px;margin-top:22px;flex-wrap:wrap}
+@keyframes fade{from{opacity:0}}
+@keyframes pop{from{opacity:0;transform:translateY(10px) scale(.98)}}
+.opt{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border:1px solid var(--line);border-radius:14px;cursor:pointer;margin-bottom:10px}
+.opt:has(input:checked){border-color:var(--saffron);background:#fffaf1}
+.opt input{margin-top:4px;accent-color:var(--terra)}
+.opt b{display:block}
+.paybox{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.paym{border:1px solid var(--line);border-radius:14px;padding:14px;cursor:pointer;display:flex;align-items:center;gap:10px;font-weight:600}
+.paym:has(input:checked){border-color:var(--plum);background:#f5f1fa}
+.paym input{accent-color:var(--plum)}
+
+/* toast */
+#toasts{position:fixed;right:20px;bottom:90px;z-index:300;display:grid;gap:8px}
+.toast{background:var(--plum);color:#fff;padding:12px 18px;border-radius:14px;box-shadow:var(--shadow);font-size:14px;max-width:360px;animation:pop .2s}
+.toast.bad{background:var(--bad)}.toast.ok{background:var(--ok)}
+
+/* demo bar */
+#demobar{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:150;display:flex;align-items:center;gap:10px;padding:8px 8px 8px 16px;border-radius:999px;background:rgba(36,26,51,.94);color:#efe5f6;box-shadow:0 14px 40px -10px rgba(0,0,0,.45);font-size:13px;max-width:calc(100vw - 24px);overflow-x:auto}
+#demobar .lbl{font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:10px;color:var(--saffron2);white-space:nowrap}
+#demobar select,#demobar button{white-space:nowrap;background:rgba(255,255,255,.1);border:0;color:#fff;border-radius:999px;padding:7px 12px;font-size:13px;cursor:pointer}
+#demobar select option{color:#000}
+#demobar .clock{white-space:nowrap;font-variant-numeric:tabular-nums}
+
+/* requirements */
+.req{display:grid;grid-template-columns:86px 1fr 120px;gap:16px;padding:14px 0;border-bottom:1px solid var(--line);align-items:start}
+.req code{font:600 12px/1.8 ui-monospace,Menlo,monospace;color:var(--plum2)}
+.req .t{font-size:13px;color:var(--muted);margin-top:4px}
+.testres{font:12px/1.6 ui-monospace,Menlo,monospace}
+.pass{color:var(--ok)}.fail{color:var(--bad)}
+.progress{height:10px;border-radius:9px;background:var(--sand);overflow:hidden}
+.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--sage),var(--saffron))}
+
+.fadein{animation:fadeup .5s both}
+@keyframes fadeup{from{opacity:0;transform:translateY(12px)}}
+
+@media (max-width:960px){
+  .hero .grid,.about,.contact{grid-template-columns:1fr}
+  .art{max-width:440px;margin:0 auto;width:100%}
+  .pillars,.prices,.mantras,.minor-prices,.g3{grid-template-columns:1fr}
+  .g4{grid-template-columns:1fr 1fr}
+  .g2{grid-template-columns:1fr}
+  .nav nav{display:none;position:absolute;top:76px;left:0;right:0;flex-direction:column;background:var(--ivory);padding:12px 24px 20px;border-bottom:1px solid var(--line)}
+  .nav nav.open{display:flex}
+  .nav nav .mob-only{display:block}
+  .burger{display:block}
+  .nav .acct-chip,.nav .btn.desk{display:none}
+  .lesson{grid-template-columns:64px 1fr;gap:14px}
+  .lesson .right{grid-column:1/-1;flex-direction:row;justify-content:space-between;align-items:center}
+  .art .quote{left:0}
+  .req{grid-template-columns:70px 1fr}
+  .req>div:last-child{grid-column:2}
+  section{padding:72px 0}
+  #demobar select{max-width:140px}
+  #demobar{left:12px;right:12px;transform:none}
+}
+</style>
+</head>
+<body class="grain">
+<div id="gate" style="display:none"><div class="card"><svg viewBox="0 0 64 64" class="sun" aria-hidden="true"><defs><linearGradient id="gg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2b856"/><stop offset="1" stop-color="#c8643b"/></linearGradient></defs><circle cx="32" cy="27" r="13" fill="url(#gg)"/><g stroke="#fbf1df" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M32 46c-6-4-9-9-9-14 4 1 7 4 9 8 2-4 5-7 9-8 0 5-3 10-9 14z" fill="#2b1e3f"/><path d="M32 46c-9-1-16-5-19-11 5-1 10 0 14 3"/><path d="M32 46c9-1 16-5 19-11-5-1-10 0-14 3"/><path d="M14 52h36"/></g><g stroke="#e39b2d" stroke-width="2.2" stroke-linecap="round"><path d="M32 6v4M17 12l2.6 3M47 12l-2.6 3M10 26h4M50 26h4"/></g></svg><h1>Yogi Power</h1><p>Prototype · requirements v1.3<br>Voer de toegangscode in.</p><form><input type="password" placeholder="code" autocomplete="off" aria-label="Toegangscode"><button>Open</button></form><div class="err"></div></div></div>
+<header class="top" id="hdr"></header>
+<main id="main"></main>
+<div id="demobar"></div>
+<div id="toasts"></div>
+<script>
+const REQS=[{"id": "BR-01", "d": "Businessregels", "r": "Geldigheid van beurtenkaart start op moment van bevestigde aankoop.", "p": "P0", "t": "Ingangsdatum is bevestigde aankoopdatum; bij offline aankoop wordt datum geregistreerd."}, {"id": "BR-02", "d": "Businessregels", "r": "Een beurt wordt pas verbruikt bij geregistreerde aanwezigheid, of op expliciete sanctiebeslissing beheerder.", "p": "P0", "t": "Reservatie wijzigt enkel gereserveerd saldo; aanwezigheid schrijft exact 1 beurt af."}, {"id": "BR-03", "d": "Businessregels", "r": "Kosteloos annuleren tot en met 60 minuten voor lesstart.", "p": "P0", "t": "Les 19:00: om 18:00:00 kosteloos; om 18:00:01 laattijdig."}, {"id": "BR-04", "d": "Businessregels", "r": "Laattijdige annulering/no-show wordt per geval door beheerder beoordeeld.", "p": "P0", "t": "Geen automatische sanctie; beheerder kiest afboeken of vrijgeven."}, {"id": "BR-05", "d": "Businessregels", "r": "Account is verplicht voor online lesreservatie.", "p": "P0", "t": "Niet-aangemelde bezoeker wordt naar registratie/inloggen geleid."}, {"id": "BR-06", "d": "Businessregels", "r": "Beurtenkaarten zijn persoonsgebonden en niet overdraagbaar.", "p": "P0", "t": "Andere klant kan geen kaart van eigenaar gebruiken."}, {"id": "BR-07", "d": "Businessregels", "r": "Cash, overschrijving, manuele en online betalingen worden ondersteund.", "p": "P0", "t": "Alle betaalwijzen kunnen correct geregistreerd worden."}, {"id": "BK-01", "d": "Lesplanning en reserveringen", "r": "Publieke kalender met lessen, datum, uur, duur, docent, locatie, prijs en beschikbaarheid.", "p": "P0", "t": "Informatie zichtbaar op mobiel en desktop."}, {"id": "BK-02", "d": "Lesplanning en reserveringen", "r": "Klanten reserveren specifieke les via hun account.", "p": "P0", "t": "Geldige boeking maakt lesplaats vast en bevestiging wordt verstuurd."}, {"id": "BK-03", "d": "Lesplanning en reserveringen", "r": "Capaciteitscontrole bij gelijktijdige reservaties.", "p": "P0", "t": "Laatste plaats kan niet dubbel geboekt worden."}, {"id": "BK-04", "d": "Lesplanning en reserveringen", "r": "Geldige kaart nodig voor boeking via kaart; lesdatum valt binnen kaartgeldigheid.", "p": "P0", "t": "Verlopen of niet-toepasselijke kaart geweigerd."}, {"id": "BK-05", "d": "Lesplanning en reserveringen", "r": "Klant kan losse les boeken en betalen.", "p": "P0", "t": "Succesvolle betaling en boeking zijn gekoppeld."}, {"id": "BK-06", "d": "Lesplanning en reserveringen", "r": "Beheerder kan lessen creëren, wijzigen, annuleren, verplaatsen en deelnemers beheren.", "p": "P0", "t": "Wijzigingen en communicatie blijven traceerbaar."}, {"id": "BK-07", "d": "Lesplanning en reserveringen", "r": "Klant ontvangt automatische bevestiging van reservatie of annulering.", "p": "P0", "t": "Bevestiging toont juiste les en status."}, {"id": "BK-08", "d": "Lesplanning en reserveringen", "r": "Wachtlijst optioneel bij volle les.", "p": "P1", "t": "Klant kan op wachtlijst; vrijgekomen plek volgens beleid aangeboden."}, {"id": "PK-01", "d": "Beurtenkaarten", "r": "Configureerbare kaarten met prijs, aantal beurten, geldigheid en toegelaten lessen.", "p": "P0", "t": "Admin kan kaarttype aanmaken en beheren."}, {"id": "PK-02", "d": "Beurtenkaarten", "r": "Bij reservering wordt beurt geblokkeerd, niet verbruikt.", "p": "P0", "t": "10 resterend, 2 geboekt => 8 vrij, 10 niet verbruikt."}, {"id": "PK-03", "d": "Beurtenkaarten", "r": "Bij aanwezigheid: exact één afboeking op gekozen kaart.", "p": "P0", "t": "Afboeken is atomair en idempotent."}, {"id": "PK-04", "d": "Beurtenkaarten", "r": "Dashboard toont niet-verbruikte, gereserveerde en vrij beschikbare beurten.", "p": "P0", "t": "Waarden stemmen overeen met transacties."}, {"id": "PK-05", "d": "Beurtenkaarten", "r": "Meerdere kaarten toegestaan met deterministische keuze of expliciete selectie.", "p": "P0", "t": "Klant/admin ziet welke kaart gebruikt wordt."}, {"id": "PK-06", "d": "Beurtenkaarten", "r": "Proefpakket beperken tot nieuwe klanten volgens configureerbaar beleid.", "p": "P0", "t": "Bestaande klant kan niet ongeoorloofd opnieuw proefpakket kopen."}, {"id": "PK-07", "d": "Beurtenkaarten", "r": "Beheerder corrigeert saldo met motivatie en auditspoor.", "p": "P0", "t": "Oud en nieuw saldo en uitvoerder raadpleegbaar."}, {"id": "PK-08", "d": "Beurtenkaarten", "r": "Saldoblokkering verhindert overboeking van resterende beurten.", "p": "P0", "t": "Geen negatieve vrije beurten bij gelijktijdige reservaties."}, {"id": "PK-09", "d": "Beurtenkaarten", "r": "Kaartuitbreiding of heraankoop mogelijk voor bestaande klanten.", "p": "P0", "t": "Nieuwe kaart verschijnt naast bestaande kaarten."}, {"id": "AN-01", "d": "Annulering en no-show", "r": "Online annulering tot exact 60 minuten vóór lesstart gratis, met directe vrijgave plek en kaartblokkering.", "p": "P0", "t": "18:00:00 bij les van 19:00 => vrijgave."}, {"id": "AN-02", "d": "Annulering en no-show", "r": "Laattijdige annulering geeft plaats vrij maar behoudt kaartblokkering tot review.", "p": "P0", "t": "18:00:01 bij les van 19:00 => PENDING_REVIEW."}, {"id": "AN-03", "d": "Annulering en no-show", "r": "No-show leidt niet automatisch tot verlies van een beurt.", "p": "P0", "t": "Geen boekingsafboeking zonder besluit."}, {"id": "AN-04", "d": "Annulering en no-show", "r": "Beheerder beslist bij late annulering/no-show: beurt verliezen of kwijtschelden.", "p": "P0", "t": "Bij beslissing exact één keer verwerken en blokkering verwijderen."}, {"id": "AN-05", "d": "Annulering en no-show", "r": "Beslissingen tonen datum, uitvoerder, motivatie en historiek.", "p": "P0", "t": "Auditlog toont oorspronkelijke en gecorrigeerde beslissing."}, {"id": "AN-06", "d": "Annulering en no-show", "r": "Klant krijgt inzicht in openstaande beoordeling en uitkomst.", "p": "P0", "t": "Account toont PENDING_REVIEW of definitieve uitkomst."}, {"id": "ADM-01", "d": "Handmatige en retroactieve inschrijving", "r": "Beheerder kan persoon handmatig inschrijven vóór, tijdens en NA afloop van de les.", "p": "P0", "t": "Admin opent afgelopen les en voegt deelnemer toe."}, {"id": "ADM-02", "d": "Handmatige en retroactieve inschrijving", "r": "Beheerder kan bestaande klant opzoeken of nieuwe klant aanmaken bij toevoegen.", "p": "P0", "t": "Persoon verschijnt in deelnemerslijst; profiel is gelinkt."}, {"id": "ADM-03", "d": "Handmatige en retroactieve inschrijving", "r": "Beheerder kan bij retroactieve toevoeging aanwezig/afwezig/nog te beoordelen instellen.", "p": "P0", "t": "Nieuwe deelnemer achteraf als aanwezig => aanwezigheid verwerkt."}, {"id": "ADM-04", "d": "Handmatige en retroactieve inschrijving", "r": "Bij toegevoegde aanwezige met geldige persoonlijke kaart: juiste beurt achteraf afboeken.", "p": "P0", "t": "Afboeking exact één keer; verwijst naar les, kaart en persoon."}, {"id": "ADM-05", "d": "Handmatige en retroactieve inschrijving", "r": "Bij ontbrekende kaart: losse les achteraf aanrekenen en betaling online/offline registreren.", "p": "P0", "t": "Openstaande bestelling of betaalde losse les wordt gekoppeld."}, {"id": "ADM-06", "d": "Handmatige en retroactieve inschrijving", "r": "Historische lessen blijven voor admin bewerkbaar zonder boekingsarchief te verwijderen.", "p": "P0", "t": "Afgesloten les kan handmatige toevoeging ontvangen."}, {"id": "ADM-07", "d": "Handmatige en retroactieve inschrijving", "r": "Admin kan uitzonderingen voor volle lessen of verlopen kaarten bewust overrulen.", "p": "P0", "t": "Systeem toont waarschuwing, vereist bevestiging en logt reden; geen automatische override."}, {"id": "ADM-08", "d": "Handmatige en retroactieve inschrijving", "r": "Dubbele aanwezigheid/inschrijving/betaling/afboeking voorkomen.", "p": "P0", "t": "Tweede identieke toevoeging waarschuwt; geen dubbele afboeking."}, {"id": "ADM-09", "d": "Handmatige en retroactieve inschrijving", "r": "Retroactieve inschrijving registreert feitelijke lesdatum én bewerkingstijdstip.", "p": "P0", "t": "Auditlog bevat lesdatum, created_at, operator en reden."}, {"id": "ADM-10", "d": "Handmatige en retroactieve inschrijving", "r": "Beheerder kan achteraf een verkeerde deelnemer, status of kaart herstellen met reversals.", "p": "P0", "t": "Historiek behouden, saldo en betalingen coherent."}, {"id": "ADM-11", "d": "Handmatige en retroactieve inschrijving", "r": "Historische toevoeging kan ondanks verlopen kaart na les als die kaart OP LESDATUM geldig was.", "p": "P0", "t": "Kaart geldig op lesdag, nu vervallen => toewijzing mag; geen onterechte terugwerkende creatie."}, {"id": "ADM-12", "d": "Handmatige en retroactieve inschrijving", "r": "Bij afboeking achteraf wordt de kaartboekhouding op consistentie gecontroleerd.", "p": "P0", "t": "Bij onvoldoende beschikbaar historisch saldo: exception queue voor beheerder i.p.v. stil negatief saldo."}, {"id": "ADM-13", "d": "Handmatige en retroactieve inschrijving", "r": "Handmatig toevoegen kan zonder onmiddellijke afboeking of betaling (openstaand dossier).", "p": "P0", "t": "Deelnemer kan aanwezig zijn met nog te vereffenen betaling."}, {"id": "ADM-14", "d": "Handmatige en retroactieve inschrijving", "r": "Beheerder ziet onderscheid tussen online gereserveerd en handmatig/retroactief toegevoegd.", "p": "P1", "t": "Herkomst van inschrijving zichtbaar in deelnemerslijst."}, {"id": "CH-01", "d": "Betalingen en checkout", "r": "Online checkout ondersteunt minimaal Bancontact en betaalkaart.", "p": "P0", "t": "Providerbevestiging activeert kaart of betaalde losse les."}, {"id": "CH-02", "d": "Betalingen en checkout", "r": "Geen activatie bij mislukte of openstaande betaling.", "p": "P0", "t": "Onbetaalde bestelling verleent geen kaartrecht, tenzij expliciet geautoriseerd."}, {"id": "CH-03", "d": "Betalingen en checkout", "r": "Admin kan cash/overschrijving/manuele betaling aanmaken, bevestigen en corrigeren.", "p": "P0", "t": "Bedrag, datum, methode en gebruiker gelogd."}, {"id": "CH-04", "d": "Betalingen en checkout", "r": "Betalingswebhooks en manuele bevestiging zijn idempotent.", "p": "P0", "t": "Dubbele notificatie => geen dubbele toekenning."}, {"id": "CH-05", "d": "Betalingen en checkout", "r": "Klant ontvangt aankoopbevestiging en geschikt betaalbewijs/factuur.", "p": "P0", "t": "Correspondentie en bedrag kloppen."}, {"id": "CH-06", "d": "Betalingen en checkout", "r": "Terugbetaling/terugboeking wordt aan oorspronkelijke order gekoppeld.", "p": "P0", "t": "Financiële en kaarthistoriek blijven consistent."}, {"id": "CH-07", "d": "Betalingen en checkout", "r": "Maandelijkse online videoabonnementen beheren en opzeggen.", "p": "P1", "t": "Toegang vervalt of verlengt conform betaalstatus."}, {"id": "CH-08", "d": "Betalingen en checkout", "r": "Kortingscodes en cadeaubonnen.", "p": "P2", "t": "Kortingen volgens regels verwerkt."}, {"id": "AC-01", "d": "Account, backoffice en communicatie", "r": "Klant kan account aanmaken, inloggen en account herstellen.", "p": "P0", "t": "Authenticatie en wachtwoordherstel werken."}, {"id": "AC-02", "d": "Account, backoffice en communicatie", "r": "Klant ziet kaarten, geplande lessen, historiek, betalingen en openstaande beslissingen.", "p": "P0", "t": "Gegevens consistent met boekingsadministratie."}, {"id": "AC-03", "d": "Account, backoffice en communicatie", "r": "Admin beheert lesplanning, deelnemers, kaarten, aanwezigheid, orders en betalingen.", "p": "P0", "t": "Alle P0 handelingen uitvoerbaar zonder ontwikkelaar."}, {"id": "AC-04", "d": "Account, backoffice en communicatie", "r": "Rolgebaseerde toegang: klant, docent, beheerder.", "p": "P0", "t": "Klant kan geen beheerderfuncties gebruiken."}, {"id": "AC-05", "d": "Account, backoffice en communicatie", "r": "Wijzigingen en financiële mutaties hebben audittrail.", "p": "P0", "t": "Wie/wat/wanneer plus verwijzing naar origineel object."}, {"id": "AC-06", "d": "Account, backoffice en communicatie", "r": "Automatische mailnotificaties voor boeken, annuleren, betaalstatus en reviewbesluit.", "p": "P0", "t": "Berichten bevatten juiste gegevens."}, {"id": "AC-07", "d": "Account, backoffice en communicatie", "r": "Rapportering voor aanwezigheid, omzet, kaartverkoop en lesbezetting.", "p": "P1", "t": "Totalen reconcileerbaar met boekingen en transacties."}, {"id": "WEB-01", "d": "Website en migratie", "r": "Mobiele responsive website met duidelijke routes naar lessen, prijzen en account.", "p": "P0", "t": "Belangrijkste flows op smartphone uitvoerbaar."}, {"id": "WEB-02", "d": "Website en migratie", "r": "CMS voor lessen, workshops, events, teksten, prijzen en docentinfo.", "p": "P0", "t": "Admin kan inhoud zelfstandig aanpassen."}, {"id": "WEB-03", "d": "Website en migratie", "r": "Privacy, beveiliging, toegankelijkheid en cookie-instellingen conform toepasselijke regels.", "p": "P0", "t": "Relevante compliance checks afgerond."}, {"id": "WEB-04", "d": "Website en migratie", "r": "Gongbaden/workshops als losse events met capaciteit, prijs en eigen boekingsregels.", "p": "P1", "t": "Event boekbaar met bijbehorende ticketformule."}, {"id": "MIG-01", "d": "Website en migratie", "r": "Migratie klanten, actieve kaarten, saldi, toekomstige boekingen en aankoopgeschiedenis vanuit Wix.", "p": "P0", "t": "Steekproef en reconciliatie verschillen=0 of verklaarde correctie."}, {"id": "MIG-02", "d": "Website en migratie", "r": "Migratieplan voor wachtwoorden en betaalmandaten; geen onveilige directe overname.", "p": "P0", "t": "Accounts kunnen veilig geactiveerd worden na migratie."}, {"id": "MIG-03", "d": "Website en migratie", "r": "Cutover voorkomt dubbele boekingen en saldo-mutaties tijdens overgang.", "p": "P0", "t": "Overgang heeft reconcilieerbaar transactielog."}, {"id": "OPEN-01", "d": "Open punten", "r": "Specificeer hoe een late annulering werkt als klant geen beschikbare beurt meer heeft.", "p": "P1", "t": "Afwijkende situaties gedocumenteerd."}, {"id": "OPEN-02", "d": "Open punten", "r": "Definieer maximale termijn voor retroactieve aanpassingen en eventuele goedkeuring.", "p": "P1", "t": "Beheerderspolicy formeel bevestigd."}, {"id": "OPEN-03", "d": "Open punten", "r": "Bepaal BTW/factuur- en refundprocessen en offline betaalverificatie.", "p": "P1", "t": "Accountingregels afgestemd."}, {"id": "OPEN-04", "d": "Open punten", "r": "Verifieer migratiemogelijkheden Wix-data, lopende abonnementen en integraties.", "p": "P1", "t": "Export- en importmapping gevalideerd."}];
+/* ============ Yogi Power — domeinmodel (demo, in de browser) ============ */
+const STORE_KEY='yogipower-demo-v1';
+const MIN=60e3,HOUR=36e5,DAY=864e5;
+let S=null;
+let _idc=0;
+const uid=p=>p+'_'+Date.now().toString(36)+(_idc++).toString(36)+Math.random().toString(36).slice(2,5);
+const now=()=>Date.now()+(S?S.clockOffset:0);
+const euro=n=>'€'+(Math.round(n*100)/100).toLocaleString('nl-BE',{minimumFractionDigits:n%1?2:0,maximumFractionDigits:2});
+
+/* ---------- seed ---------- */
+function atLocal(daysFromToday,h,m){const d=new Date();d.setHours(h,m,0,0);d.setDate(d.getDate()+daysFromToday);return d.getTime();}
+function nextWeekday(wd,h,m,offsetWeeks=0){const d=new Date();d.setHours(h,m,0,0);let diff=(wd-d.getDay()+7)%7;d.setDate(d.getDate()+diff+offsetWeeks*7);return d.getTime();}
+
+function seed(){
+  const st={v:1,clockOffset:0,session:null,users:[],cardTypes:[],cards:[],lessons:[],bookings:[],ledger:[],orders:[],payments:[],events:[],audit:[],mails:[],exceptions:[],waitlist:[],settings:{cancelMinutes:60,trialPolicy:'never_bought_card'}};
+  const U=(id,name,email,role,extra={})=>({id,name,email,pw:'yoga',role,createdAt:now()-120*DAY,...extra});
+  st.users.push(U('u_philip','Philip Van Langenhove','philip@yogipower.be','beheerder'));
+  st.users.push(U('u_docent','Anna (gastdocent)','anna@yogipower.be','docent'));
+  st.users.push(U('u_lies','Lies Peeters','lies@example.be','klant'));
+  st.users.push(U('u_tom','Tom De Smet','tom@example.be','klant'));
+  st.users.push(U('u_sara','Sara Janssens','sara@example.be','klant',{createdAt:now()-2*DAY}));
+  st.cardTypes=[
+    {id:'ct_trial',name:'Proefpakket',price:15,credits:3,validityDays:90,allowed:['groep'],trial:true,active:true,blurb:'3 groepslessen aan €5 — enkel voor nieuwe leden.'},
+    {id:'ct_5',name:'5-beurtenkaart',price:60,credits:5,validityDays:182,allowed:['groep'],trial:false,active:true,blurb:'Yoga & meditatie in groep, voordeliger per les.'},
+    {id:'ct_10',name:'10-beurtenkaart',price:100,credits:10,validityDays:182,allowed:['groep'],trial:false,active:true,blurb:'Onze favoriet: €10 per les, 6 maanden geldig.'},
+    {id:'ct_p1',name:'1 privésessie',price:60,credits:1,validityDays:30,allowed:['prive'],trial:false,active:true,blurb:'Yoga, meditatie, gong of healing — één op één.'},
+    {id:'ct_p5',name:'5 privésessies',price:250,credits:5,validityDays:365,allowed:['prive'],trial:false,active:true,blurb:'Persoonlijk traject, 1 jaar geldig.'},
+  ];
+  // lessen: woensdag 19:15 yoga & meditatie, verleden + toekomst
+  const L=(start,o={})=>({id:uid('les'),title:'Yoga & meditatie',type:'groep',start,durationMin:90,teacher:'Philip Van Langenhove',location:'Studio Affligem',online:true,price:13,capacity:12,status:'gepland',notes:'',...o});
+  for(let w=-4;w<=5;w++) st.lessons.push(L(nextWeekday(3,19,15,w)));
+  for(let w=-1;w<=3;w++) st.lessons.push(L(nextWeekday(1,10,0,w),{title:'Kundalini ochtendsadhana',durationMin:75,capacity:10}));
+  st.lessons.push(L(nextWeekday(5,20,0,1),{title:'Gongbad',type:'event',durationMin:75,price:25,capacity:15,online:false,notes:'Breng een matje en dekentje mee.'}));
+  st.lessons.push(L(nextWeekday(5,20,0,4),{title:'Gongbad · volle maan',type:'event',durationMin:90,price:25,capacity:15,online:false}));
+  // demo-les die over 45 minuten start → laattijdig annuleren testen
+  st.lessons.push(L(now()+45*MIN,{title:'Avondmeditatie (demo · start binnen 45 min)',durationMin:45,capacity:6}));
+  // een bijna volle les
+  const soon=L(nextWeekday(6,9,30,0)>now()?nextWeekday(6,9,30,0):nextWeekday(6,9,30,1),{title:'Zaterdag yin & breath',capacity:3});
+  st.lessons.push(soon);
+  st.lessons.sort((a,b)=>a.start-b.start);
+  return st;
+}
+
+function seedHistory(){
+  // Lies: 10-beurtenkaart gekocht 70 dagen geleden
+  const lies=user('u_lies'),tom=user('u_tom');
+  const o1=createOrder('u_lies','card','ct_10',100,'system',now()-70*DAY);
+  confirmPayment(o1.id,{method:'bancontact',providerEvent:'evt_seed_1',by:'system',at:now()-70*DAY});
+  const lc=S.cards.find(c=>c.orderId===o1.id);
+  const past=S.lessons.filter(l=>l.start<now()&&l.type==='groep'&&l.title==='Yoga & meditatie').slice(-3);
+  past.forEach(l=>{const b=bookLesson('u_lies',l.id,{cardId:lc.id,force:true,by:'u_lies',origin:'online',at:l.start-2*DAY,silent:true});if(b.ok)setAttendance(b.booking.id,'aanwezig','u_philip','',true);});
+  const fut=S.lessons.filter(l=>l.start>now()&&l.type==='groep');
+  bookLesson('u_lies',fut[1].id,{cardId:lc.id,by:'u_lies',silent:true});
+  bookLesson('u_lies',fut[3].id,{cardId:lc.id,by:'u_lies',silent:true});
+  // Tom: 5-kaart gekocht 200 dagen geleden → verlopen sinds ~18 dagen (geldig op lesdatum van 3-4 weken terug)
+  const o2=createOrder('u_tom','card','ct_5',60,'u_philip',now()-200*DAY);
+  confirmPayment(o2.id,{method:'cash',by:'u_philip',at:now()-200*DAY});
+  // Tom staat ingeschreven voor de demo-les die binnen 45 min start (losse les, betaald)
+  const demo=S.lessons.find(l=>l.title.startsWith('Avondmeditatie'));
+  const o3=createOrder('u_tom','single',demo.id,13,'u_tom');
+  confirmPayment(o3.id,{method:'kaart',providerEvent:'evt_seed_3',by:'system'});
+  // Lies boekt ook de demo-les met kaart
+  bookLesson('u_lies',demo.id,{cardId:lc.id,by:'u_lies',silent:true});
+  // bijna volle les: 2 van 3 plaatsen
+  const sat=S.lessons.find(l=>l.title.startsWith('Zaterdag'));
+  const o4=createOrder('u_tom','single',sat.id,13,'u_tom');confirmPayment(o4.id,{method:'bancontact',providerEvent:'evt_seed_4',by:'system'});
+  bookLesson('u_lies',sat.id,{cardId:lc.id,by:'u_lies',silent:true});
+  S.mails=[];S.audit=S.audit.map(a=>({...a,seed:true}));
+}
+
+function load(){
+  try{const raw=localStorage.getItem(STORE_KEY);if(raw){S=JSON.parse(raw);if(S&&S.v===1)return;}}catch(e){}
+  reset(false);
+}
+function save(){try{localStorage.setItem(STORE_KEY,JSON.stringify(S));}catch(e){}}
+function reset(doSave=true){S=seed();seedHistory();S.session=null;if(doSave)save();}
+
+/* ---------- lookups ---------- */
+const user=id=>S.users.find(u=>u.id===id);
+const lesson=id=>S.lessons.find(l=>l.id===id);
+const cardType=id=>S.cardTypes.find(c=>c.id===id);
+const card=id=>S.cards.find(c=>c.id===id);
+const booking=id=>S.bookings.find(b=>b.id===id);
+const order=id=>S.orders.find(o=>o.id===id);
+const me=()=>S.session?user(S.session):null;
+const role=()=>me()?me().role:'bezoeker';
+const isAdmin=()=>role()==='beheerder';
+const isStaff=()=>['beheerder','docent'].includes(role());
+const lessonEnd=l=>l.start+l.durationMin*MIN;
+
+/* ---------- audit, mail ---------- */
+function audit(by,action,objType,objId,detail,reason,extra={}){
+  S.audit.unshift({id:uid('aud'),at:now(),by,action,objType,objId,detail,reason:reason||'',...extra});
+}
+function mail(userId,subject,body){
+  const u=user(userId);if(!u)return;
+  S.mails.unshift({id:uid('m'),at:now(),to:u.email,userId,subject,body});
+}
+const fmtDate=t=>new Date(t).toLocaleDateString('nl-BE',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
+const fmtDT=t=>new Date(t).toLocaleString('nl-BE',{weekday:'short',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+const fmtTime=t=>new Date(t).toLocaleTimeString('nl-BE',{hour:'2-digit',minute:'2-digit'});
+const fmtFull=t=>new Date(t).toLocaleString('nl-BE',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit',second:'2-digit'});
+
+/* ---------- kaarten: saldo ---------- */
+// gereserveerd = actieve boekingen met deze kaart die (nog) niet verbruikt zijn en blokkeren
+function isBlocking(b){
+  if(!b.cardId||b.consumed||b.exceptionOpen)return false;
+  if(b.review==='kwijtgescholden')return false;
+  if(b.status==='geannuleerd')return false;
+  if(b.status==='laat_geannuleerd')return b.review==='PENDING_REVIEW';
+  return true; // actief
+}
+function cardBalance(c){
+  const used=S.ledger.filter(e=>e.cardId===c.id).reduce((s,e)=>s+(e.type==='consume'?1:e.type==='reverse'?-1:0),0);
+  const corr=S.ledger.filter(e=>e.cardId===c.id&&e.type==='correct').reduce((s,e)=>s+e.amount,0);
+  const total=c.credits+corr;
+  const reserved=S.bookings.filter(b=>b.cardId===c.id&&isBlocking(b)).length;
+  const remaining=total-used;
+  return {total,used,reserved,remaining,free:remaining-reserved};
+}
+function cardValidOn(c,t){return c.status==='actief'&&t>=c.validFrom&&t<=c.validUntil;}
+function cardAllows(c,l){const ct=cardType(c.typeId);return ct.allowed.includes(l.type==='prive'?'prive':l.type==='event'?'event':'groep');}
+function eligibleCards(userId,l,{excludeBooking}={}){
+  return S.cards.filter(c=>c.userId===userId&&cardValidOn(c,l.start)&&cardAllows(c,l)).map(c=>{
+    const bal=cardBalance(c);
+    // als deze boeking al op de kaart blokkeert, telt die plaats als beschikbaar voor dezelfde boeking
+    const own=excludeBooking&&excludeBooking.cardId===c.id&&isBlocking(excludeBooking)?1:0;
+    return {c,bal,free:bal.free+own};
+  }).filter(x=>x.free>0).sort((a,b)=>a.c.validUntil-b.c.validUntil||a.c.purchasedAt-b.c.purchasedAt);
+}
+// deterministisch: kaart die het eerst vervalt
+function defaultCard(userId,l){const e=eligibleCards(userId,l);return e[0]?e[0].c:null;}
+
+/* ---------- capaciteit ---------- */
+const seatsTaken=l=>S.bookings.filter(b=>b.lessonId===l.id&&b.status==='actief').length;
+const seatsFree=l=>Math.max(0,l.capacity-seatsTaken(l));
+
+/* ---------- orders & betalingen ---------- */
+function createOrder(userId,kind,ref,amount,by,at=now()){
+  const o={id:uid('ord'),no:'YP-'+(1000+S.orders.length+1),userId,kind,ref,amount,status:'open',createdAt:at,createdBy:by,method:null,paidAt:null,refunds:[]};
+  S.orders.push(o);
+  audit(by,'order.aangemaakt','order',o.id,`${o.no} · ${kind==='card'?cardType(ref).name:'losse les'} · ${euro(amount)}`);
+  return o;
+}
+function eventSeen(evt){return evt&&S.events.includes(evt);}
+// idempotent: dubbele webhook / dubbele manuele bevestiging → geen dubbele toekenning (CH-04)
+function confirmPayment(orderId,{method,providerEvent,by,at=now(),paidOn}){
+  const o=order(orderId);if(!o)return {ok:false,msg:'Order niet gevonden'};
+  if(providerEvent&&eventSeen(providerEvent)){audit(by,'webhook.genegeerd','order',o.id,`Dubbele notificatie ${providerEvent} genegeerd`);return {ok:true,dup:true,msg:'Dubbele notificatie genegeerd — geen dubbele toekenning.'};}
+  if(providerEvent)S.events.push(providerEvent);
+  if(o.status==='betaald'){audit(by,'betaling.dubbel','order',o.id,'Order was al betaald — geen actie');return {ok:true,dup:true,msg:'Order was al betaald — niets dubbel toegekend.'};}
+  if(o.status==='terugbetaald')return {ok:false,msg:'Order is terugbetaald'};
+  const payAt=paidOn||at;
+  o.status='betaald';o.method=method;o.paidAt=payAt;
+  S.payments.push({id:uid('pay'),orderId:o.id,amount:o.amount,method,date:payAt,registeredAt:at,by,providerEvent:providerEvent||null,kind:'betaling'});
+  audit(by,'betaling.bevestigd','order',o.id,`${o.no} · ${euro(o.amount)} · ${method}`);
+  grantOrder(o,by,payAt);
+  return {ok:true};
+}
+function failPayment(orderId,by,providerEvent){
+  const o=order(orderId);if(providerEvent&&eventSeen(providerEvent))return {ok:true,dup:true};
+  if(providerEvent)S.events.push(providerEvent);
+  if(o.status==='open'){o.status='mislukt';audit(by,'betaling.mislukt','order',o.id,o.no);mail(o.userId,'Betaling niet gelukt',`Je betaling voor bestelling ${o.no} is niet gelukt. Er werd niets geactiveerd. Je kan opnieuw proberen via je account.`);}
+  return {ok:true};
+}
+function grantOrder(o,by,at){
+  if(o.kind==='card'){
+    if(S.cards.some(c=>c.orderId===o.id))return; // nooit dubbel
+    const ct=cardType(o.ref);
+    // BR-01: geldigheid start op bevestigde aankoopdatum (bij offline: geregistreerde datum)
+    const c={id:uid('card'),userId:o.userId,typeId:ct.id,credits:ct.credits,purchasedAt:at,validFrom:at,validUntil:at+ct.validityDays*DAY,orderId:o.id,status:'actief'};
+    S.cards.push(c);
+    audit(by,'kaart.geactiveerd','card',c.id,`${ct.name} voor ${user(o.userId).name} · geldig t/m ${fmtDate(c.validUntil)}`);
+    mail(o.userId,'Aankoopbevestiging · '+ct.name,`Bedankt! Je ${ct.name} (${ct.credits} beurten) is actief.\nGeldig van ${fmtDate(c.validFrom)} t/m ${fmtDate(c.validUntil)}.\nBestelling ${o.no} · ${euro(o.amount)} · betaald via ${o.method}.\nBetaalbewijs: zie je account › Betalingen.`);
+  } else if(o.kind==='single'){
+    const existing=S.bookings.find(b=>b.orderId===o.id);
+    if(existing){ // retroactief/open dossier wordt vereffend
+      existing.settlement='losse_les';
+      audit(by,'boeking.vereffend','booking',existing.id,`Losse les betaald via ${o.no}`);
+      mail(o.userId,'Betaling ontvangen',`We ontvingen ${euro(o.amount)} voor ${lesson(existing.lessonId).title} op ${fmtDT(lesson(existing.lessonId).start)}. Bestelling ${o.no}.`);
+      return;
+    }
+    const r=bookLesson(o.userId,o.ref,{orderId:o.id,by,origin:'online'});
+    if(!r.ok){audit(by,'boeking.mislukt','order',o.id,r.msg);mail(o.userId,'Les vol — terugbetaling volgt',`Je betaling voor ${o.no} kwam binnen, maar de les was intussen vol. We betalen je terug.`);}
+  }
+}
+function refundOrder(orderId,by,reason){
+  const o=order(orderId);if(!o||o.status!=='betaald')return {ok:false,msg:'Enkel betaalde orders kunnen terugbetaald worden'};
+  if(o.kind==='card'){
+    const c=S.cards.find(x=>x.orderId===o.id);
+    if(c){const bal=cardBalance(c);if(bal.used>0||bal.reserved>0)return {ok:false,msg:`Kaart heeft ${bal.used} verbruikte en ${bal.reserved} gereserveerde beurten — eerst corrigeren`};c.status='terugbetaald';}
+  } else {
+    const b=S.bookings.find(x=>x.orderId===o.id);if(b&&b.status==='actief'){b.status='geannuleerd';b.cancelledAt=now();}
+  }
+  o.status='terugbetaald';
+  S.payments.push({id:uid('pay'),orderId:o.id,amount:-o.amount,method:o.method,date:now(),registeredAt:now(),by,kind:'terugbetaling',reason});
+  audit(by,'order.terugbetaald','order',o.id,`${o.no} · ${euro(o.amount)}`,reason);
+  mail(o.userId,'Terugbetaling '+o.no,`We betaalden ${euro(o.amount)} terug voor bestelling ${o.no}.${reason?'\nReden: '+reason:''}`);
+  return {ok:true};
+}
+
+/* ---------- trial ---------- */
+function canBuyTrial(userId){
+  const has=S.orders.some(o=>o.userId===userId&&o.kind==='card'&&['betaald','open'].includes(o.status));
+  return !has;
+}
+
+/* ---------- boeken ---------- */
+function bookLesson(userId,lessonId,opt={}){
+  const l=lesson(lessonId),u=user(userId),by=opt.by||userId,at=opt.at||now();
+  if(!u)return {ok:false,msg:'Account vereist'};
+  if(!l||l.status!=='gepland')return {ok:false,msg:'Les niet beschikbaar'};
+  if(!opt.force&&!opt.admin&&l.start<=now())return {ok:false,msg:'Deze les is al begonnen'};
+  const dup=S.bookings.find(b=>b.lessonId===l.id&&b.userId===userId&&b.status==='actief');
+  if(dup)return {ok:false,dup:true,msg:`${u.name} staat al ingeschreven voor deze les`};
+  // BK-03: check-and-set op capaciteit (atomair binnen één transactie)
+  if(seatsFree(l)<=0&&!opt.overrideFull)return {ok:false,full:true,msg:'Deze les is volzet'};
+  let cardId=null;
+  if(opt.cardId){
+    const c=card(opt.cardId);
+    if(!c||c.userId!==userId)return {ok:false,msg:'Kaart is persoonsgebonden en hoort niet bij deze klant'};
+    const validOnDate=cardValidOn(c,l.start);
+    if(!validOnDate&&!opt.overrideExpired)return {ok:false,expired:true,msg:'Kaart is niet geldig op de lesdatum'};
+    if(!cardAllows(c,l))return {ok:false,msg:'Deze kaart is niet geldig voor dit type les'};
+    if(cardBalance(c).free<=0&&!opt.retro)return {ok:false,msg:'Geen vrije beurten meer op deze kaart'};
+    cardId=c.id;
+  }
+  const b={id:uid('bk'),lessonId:l.id,userId,cardId,orderId:opt.orderId||null,status:'actief',attendance:null,review:null,consumed:false,
+    origin:opt.origin||(opt.admin?'manueel':'online'),settlement:cardId?'kaart':opt.orderId?'losse_les':'open',createdAt:at,createdBy:by,lessonDate:l.start,reason:opt.reason||''};
+  S.bookings.push(b);
+  audit(by,'boeking.aangemaakt','booking',b.id,`${u.name} → ${l.title} (${fmtDT(l.start)}) · ${cardId?'kaart '+cardType(card(cardId).typeId).name:opt.orderId?'losse les':'openstaand dossier'} · herkomst ${b.origin}`,opt.reason,{lessonDate:l.start});
+  if(opt.overrideFull&&seatsTaken(l)>l.capacity)audit(by,'override.volzet','booking',b.id,'Bewuste override volle les',opt.reason);
+  if(opt.overrideExpired)audit(by,'override.kaart','booking',b.id,'Bewuste override kaartgeldigheid',opt.reason);
+  if(!opt.silent&&l.start>now())mail(userId,'Reservatie bevestigd · '+l.title,`Je plaats is vast!\n${l.title}\n${fmtDT(l.start)} · ${l.durationMin} min · ${l.location}${l.online?' (ook online)':''}\nDocent: ${l.teacher}\n${cardId?'Er werd 1 beurt geblokkeerd op je '+cardType(card(cardId).typeId).name+' (pas verbruikt bij aanwezigheid).':'Betaald als losse les.'}\nKosteloos annuleren kan tot ${fmtDT(l.start-S.settings.cancelMinutes*MIN)}.`);
+  return {ok:true,booking:b};
+}
+
+// BR-03 / AN-01 / AN-02 — exact 60 minuten
+function cancelStatus(l,t=now()){return (l.start-t)>=S.settings.cancelMinutes*MIN?'kosteloos':'laattijdig';}
+function cancelBooking(bookingId,by,t=now()){
+  const b=booking(bookingId);if(!b||b.status!=='actief')return {ok:false,msg:'Boeking niet actief'};
+  const l=lesson(b.lessonId);
+  if(t>=l.start&&by===b.userId)return {ok:false,msg:'De les is al gestart'};
+  const kind=cancelStatus(l,t);
+  b.cancelledAt=t;
+  if(kind==='kosteloos'){
+    b.status='geannuleerd';
+    audit(by,'boeking.geannuleerd','booking',b.id,`Kosteloos geannuleerd (${Math.round((l.start-t)/MIN)} min voor start)${b.cardId?' · blokkering vrijgegeven':''}`);
+    mail(b.userId,'Annulering bevestigd · '+l.title,`Je annulering voor ${l.title} op ${fmtDT(l.start)} is bevestigd.\n${b.cardId?'De geblokkeerde beurt is opnieuw vrij.':b.orderId?'Je losse les wordt terugbetaald of als tegoed behandeld volgens de studioregels.':''}`);
+    if(b.orderId&&!b.cardId){const o=order(b.orderId);if(o&&o.status==='betaald')refundOrder(o.id,'system','Kosteloze annulering');}
+    offerWaitlist(l);
+  } else {
+    b.status='laat_geannuleerd';b.review='PENDING_REVIEW';
+    audit(by,'boeking.laat_geannuleerd','booking',b.id,`Laattijdig geannuleerd (${Math.max(0,Math.round((l.start-t)/MIN))} min voor start) · plaats vrij, ${b.cardId?'kaartblokkering blijft':'betaling blijft'} tot beoordeling`);
+    mail(b.userId,'Laattijdige annulering · in beoordeling',`Je annuleerde ${l.title} op ${fmtDT(l.start)} minder dan ${S.settings.cancelMinutes} minuten op voorhand.\nJe plaats is vrijgegeven. ${b.cardId?'De beurt blijft geblokkeerd':'Je betaling blijft staan'} tot de beheerder beslist. Je ziet de status in je account.`);
+    offerWaitlist(l);
+  }
+  return {ok:true,kind};
+}
+
+/* ---------- aanwezigheid & afboeking ---------- */
+function consume(b,by,reason){
+  if(b.consumed)return {ok:true,dup:true,msg:'Al afgeboekt — geen dubbele afboeking'};
+  if(!b.cardId)return {ok:false,msg:'Geen kaart gekoppeld'};
+  const c=card(b.cardId),l=lesson(b.lessonId);
+  // ADM-11: geldig op lesdatum volstaat
+  if(!(l.start>=c.validFrom&&l.start<=c.validUntil)&&!b.overrideExpired){return exception(b,by,`Kaart was niet geldig op lesdatum ${fmtDate(l.start)}`);}
+  const bal=cardBalance(c);
+  const avail=bal.remaining-(bal.reserved-(isBlocking(b)?1:0));
+  // ADM-12: nooit stil negatief saldo
+  if(bal.remaining<=0||avail<=0)return exception(b,by,`Onvoldoende saldo op ${cardType(c.typeId).name} (resterend ${bal.remaining}, gereserveerd ${bal.reserved})`);
+  b.consumed=true;
+  S.ledger.push({id:uid('led'),type:'consume',cardId:c.id,bookingId:b.id,lessonId:l.id,lessonDate:l.start,at:now(),by,reason:reason||''});
+  audit(by,'kaart.afgeboekt','card',c.id,`1 beurt afgeboekt · ${user(b.userId).name} · ${l.title} ${fmtDate(l.start)}`,reason,{lessonDate:l.start,bookingId:b.id});
+  return {ok:true};
+}
+function exception(b,by,msg){
+  b.exceptionOpen=true;
+  if(!S.exceptions.some(x=>x.bookingId===b.id&&x.status==='open')){
+    S.exceptions.unshift({id:uid('exc'),bookingId:b.id,at:now(),by,msg,status:'open'});
+    audit(by,'exception.aangemaakt','booking',b.id,msg);
+  }
+  return {ok:false,exception:true,msg:msg+' → uitzondering in wachtrij beheerder'};
+}
+function reverseConsume(b,by,reason){
+  if(!b.consumed)return;
+  b.consumed=false;
+  S.ledger.push({id:uid('led'),type:'reverse',cardId:b.cardId,bookingId:b.id,lessonId:b.lessonId,lessonDate:b.lessonDate,at:now(),by,reason});
+  audit(by,'kaart.reversal','card',b.cardId,`Afboeking teruggedraaid · ${user(b.userId).name}`,reason);
+}
+function setAttendance(bookingId,val,by,reason,silent){
+  const b=booking(bookingId);if(!b)return {ok:false};
+  const prev=b.attendance;
+  if(prev===val&&val==='aanwezig'&&(b.consumed||!b.cardId))return {ok:true,dup:true,msg:'Aanwezigheid was al geregistreerd'};
+  b.attendance=val;
+  audit(by,'aanwezigheid','booking',b.id,`${user(b.userId).name}: ${prev||'—'} → ${val}`,reason,{lessonDate:b.lessonDate});
+  if(val==='aanwezig'){
+    if(b.review==='PENDING_REVIEW')b.review=null;
+    if(b.cardId)return consume(b,by,reason);
+    if(b.settlement==='open'&&!silent)return {ok:true,msg:'Aanwezig · openstaand dossier (nog te vereffenen)'};
+    return {ok:true};
+  }
+  if(prev==='aanwezig'&&b.consumed)reverseConsume(b,by,reason||'Aanwezigheid gecorrigeerd');
+  if(val==='afwezig'){ // AN-03: no-show → geen automatische sanctie
+    b.review='PENDING_REVIEW';
+    mail(b.userId,'Afwezigheid genoteerd · in beoordeling',`We zagen je niet in ${lesson(b.lessonId).title} op ${fmtDT(b.lessonDate)}. Er wordt niets automatisch afgeboekt; de beheerder beoordeelt dit.`);
+  }
+  if(val==='te_beoordelen'){b.review=null;}
+  return {ok:true};
+}
+// AN-04 / AN-05: beslissing exact één keer, met motivatie, corrigeerbaar met historiek
+function decideReview(bookingId,decision,by,reason){
+  const b=booking(bookingId);if(!b)return {ok:false};
+  if(!reason)return {ok:false,msg:'Motivatie is verplicht'};
+  const before=b.review;
+  if(before===decision)return {ok:true,dup:true,msg:'Beslissing was al verwerkt'};
+  if(before==='afgeboekt'&&decision==='kwijtgescholden'){reverseConsume(b,by,'Beslissing herzien: '+reason);}
+  b.decisions=b.decisions||[];
+  b.decisions.push({at:now(),by,decision,reason,previous:before});
+  if(decision==='afgeboekt'){
+    if(b.cardId){b.review='afgeboekt';const r=consume(b,by,'Sanctie: '+reason);if(!r.ok&&!r.dup){b.review=before;b.decisions.pop();return r;}}
+    else{
+      b.review='afgeboekt';
+      if(!b.orderId){const o=createOrder(b.userId,'single',b.lessonId,lesson(b.lessonId).price,by);b.orderId=o.id;b.settlement='open';}
+    }
+  } else {b.review='kwijtgescholden';}
+  audit(by,'review.beslissing','booking',b.id,`${user(b.userId).name}: ${before||'—'} → ${decision}`,reason);
+  mail(b.userId,'Beslissing over je '+(b.status==='laat_geannuleerd'?'late annulering':'afwezigheid'),`${lesson(b.lessonId).title} · ${fmtDT(b.lessonDate)}\nBeslissing: ${decision==='afgeboekt'?'de beurt wordt aangerekend':'de beurt wordt kwijtgescholden'}.\nMotivatie: ${reason}`);
+  return {ok:true};
+}
+
+/* ---------- beheer: retroactief inschrijven (ADM-01..13) ---------- */
+function adminAdd(lessonId,{userId,attendance,settlement,cardId,payMethod,paidOn,reason,overrideFull,overrideExpired},by){
+  const l=lesson(lessonId);
+  const retro=lessonEnd(l)<now();
+  const opts={by,admin:true,origin:retro?'retroactief':'manueel',reason,overrideFull,overrideExpired,force:true,retro};
+  if(settlement==='kaart')opts.cardId=cardId;
+  const r=bookLesson(userId,lessonId,opts);
+  if(!r.ok)return r;
+  const b=r.booking;b.overrideExpired=!!overrideExpired;
+  let extra='';
+  if(settlement==='losse_les'){
+    const o=createOrder(userId,'single',lessonId,l.price,by);b.orderId=o.id;b.settlement='open';
+    if(payMethod&&payMethod!=='open'){
+      if(payMethod==='online'){extra=' · betaallink verstuurd';mail(userId,'Betaallink · '+l.title,`Gelieve ${euro(l.price)} te betalen voor ${l.title} op ${fmtDT(l.start)}. Bestelling ${o.no}.`);}
+      else confirmPayment(o.id,{method:payMethod,by,paidOn:paidOn||now()});
+    }
+  }
+  if(attendance&&attendance!=='onbekend'){const a=setAttendance(b.id,attendance,by,reason);if(a&&a.exception)extra+=' · '+a.msg;}
+  return {ok:true,booking:b,msg:(retro?'Retroactief toegevoegd':'Toegevoegd')+extra};
+}
+function changeBookingCard(bookingId,newCardId,by,reason){
+  const b=booking(bookingId);const wasConsumed=b.consumed;
+  if(wasConsumed)reverseConsume(b,by,'Kaart gewijzigd: '+reason);
+  const old=b.cardId;b.cardId=newCardId||null;b.exceptionOpen=false;S.exceptions.filter(x=>x.bookingId===b.id&&x.status==='open').forEach(x=>{x.status='opgelost';});b.settlement=newCardId?'kaart':'open';
+  audit(by,'boeking.kaart_gewijzigd','booking',b.id,`${old?cardType(card(old).typeId).name:'geen'} → ${newCardId?cardType(card(newCardId).typeId).name:'geen'}`,reason);
+  if((wasConsumed||b.attendance==='aanwezig')&&newCardId)return consume(b,by,reason);
+  return {ok:true};
+}
+function removeBooking(bookingId,by,reason){ // reversal i.p.v. delete (ADM-10)
+  const b=booking(bookingId);if(b.consumed)reverseConsume(b,by,reason);
+  b.status='verwijderd';b.removedAt=now();b.removedReason=reason;
+  audit(by,'boeking.reversal','booking',b.id,`${user(b.userId).name} uit deelnemerslijst gehaald (historiek behouden)`,reason);
+  return {ok:true};
+}
+function correctBalance(cardId,delta,by,reason){
+  const c=card(cardId);const before=cardBalance(c);
+  if(before.remaining+delta<before.reserved&&delta<0)return {ok:false,msg:'Correctie zou vrije beurten negatief maken'};
+  S.ledger.push({id:uid('led'),type:'correct',cardId,amount:delta,at:now(),by,reason});
+  const after=cardBalance(c);
+  audit(by,'kaart.saldocorrectie','card',cardId,`Saldo ${before.remaining} → ${after.remaining} (${delta>0?'+':''}${delta})`,reason,{oldValue:before.remaining,newValue:after.remaining});
+  return {ok:true};
+}
+
+/* ---------- lessen beheren (BK-06) ---------- */
+function upsertLesson(data,by){
+  if(data.id){const l=lesson(data.id);const before={...l};Object.assign(l,data);
+    const moved=before.start!==l.start;
+    audit(by,moved?'les.verplaatst':'les.gewijzigd','lesson',l.id,moved?`${fmtDT(before.start)} → ${fmtDT(l.start)}`:`${l.title} aangepast`);
+    if(moved)S.bookings.filter(b=>b.lessonId===l.id&&b.status==='actief').forEach(b=>{b.lessonDate=l.start;mail(b.userId,'Les verplaatst · '+l.title,`Let op: ${l.title} werd verplaatst van ${fmtDT(before.start)} naar ${fmtDT(l.start)}. Je reservatie blijft behouden. Past het niet? Annuleer kosteloos via je account.`);});
+    return l;}
+  const l={id:uid('les'),status:'gepland',notes:'',online:false,...data};S.lessons.push(l);S.lessons.sort((a,b)=>a.start-b.start);
+  audit(by,'les.aangemaakt','lesson',l.id,`${l.title} · ${fmtDT(l.start)}`);return l;
+}
+function cancelLesson(lessonId,by,reason){
+  const l=lesson(lessonId);l.status='geannuleerd';
+  S.bookings.filter(b=>b.lessonId===l.id&&b.status==='actief').forEach(b=>{
+    b.status='geannuleerd';b.cancelledAt=now();b.cancelledByStudio=true;
+    if(b.orderId){const o=order(b.orderId);if(o&&o.status==='betaald')refundOrder(o.id,by,'Les geannuleerd door studio');}
+    mail(b.userId,'Les geannuleerd · '+l.title,`Helaas gaat ${l.title} op ${fmtDT(l.start)} niet door.${reason?'\nReden: '+reason:''}\n${b.cardId?'Je beurt is opnieuw vrij.':'Je betaling wordt teruggestort.'}`);
+  });
+  audit(by,'les.geannuleerd','lesson',l.id,l.title+' · '+fmtDT(l.start),reason);
+}
+
+/* ---------- wachtlijst (P1) ---------- */
+function joinWaitlist(userId,lessonId){if(S.waitlist.some(w=>w.userId===userId&&w.lessonId===lessonId))return;S.waitlist.push({id:uid('wl'),userId,lessonId,at:now()});audit(userId,'wachtlijst','lesson',lessonId,user(userId).name+' op wachtlijst');}
+function offerWaitlist(l){const w=S.waitlist.filter(x=>x.lessonId===l.id).sort((a,b)=>a.at-b.at)[0];if(w&&seatsFree(l)>0){mail(w.userId,'Er is een plaats vrij · '+l.title,`Goed nieuws: er kwam een plaats vrij in ${l.title} op ${fmtDT(l.start)}. Wie eerst boekt, heeft de plaats.`);}}
+
+/* ============ Yogi Power — UI ============ */
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const initials=n=>n.split(/\s+/).map(x=>x[0]).slice(0,2).join('').toUpperCase();
+function toast(msg,kind=''){const t=document.createElement('div');t.className='toast '+kind;t.textContent=msg;$('#toasts').append(t);setTimeout(()=>t.remove(),4200);}
+function commit(){save();render();}
+
+const LOGO=`<svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="lg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2b856"/><stop offset="1" stop-color="#c8643b"/></linearGradient></defs><circle cx="32" cy="27" r="13" fill="url(#lg1)"/><g stroke="#2b1e3f" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M32 46c-6-4-9-9-9-14 4 1 7 4 9 8 2-4 5-7 9-8 0 5-3 10-9 14z" fill="#fbf6ee"/><path d="M32 46c-9-1-16-5-19-11 5-1 10 0 14 3"/><path d="M32 46c9-1 16-5 19-11-5-1-10 0-14 3"/><path d="M14 52h36"/></g><g stroke="#e39b2d" stroke-width="2.2" stroke-linecap="round"><path d="M32 6v4M17 12l2.6 3M47 12l-2.6 3M10 26h4M50 26h4"/></g></svg>`;
+
+const ICON={
+  clock:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+  pin:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>',
+  user:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>',
+  wifi:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 9a16 16 0 0 1 20 0M5 13a11 11 0 0 1 14 0M8.5 16.5a6 6 0 0 1 7 0"/><circle cx="12" cy="20" r="1"/></svg>',
+  lotus:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c8643b" stroke-width="1.8" stroke-linejoin="round"><path d="M12 19c-3-2-4.5-5-4.5-8 2 .5 3.5 2 4.5 4 1-2 2.5-3.5 4.5-4 0 3-1.5 6-4.5 8z"/><path d="M12 19c-5-.5-8.5-3-10-6 3-.5 5.5 0 7.5 1.5M12 19c5-.5 8.5-3 10-6-3-.5-5.5 0-7.5 1.5"/></svg>',
+  breath:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c8643b" stroke-width="1.8" stroke-linecap="round"><path d="M3 8h11a3 3 0 1 0-3-3M3 12h15a3 3 0 1 1-3 3M3 16h7"/></svg>',
+  gong:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c8643b" stroke-width="1.8"><circle cx="12" cy="13" r="7"/><circle cx="12" cy="13" r="3"/><path d="M5 4h14M8 4v2M16 4v2"/></svg>',
+};
+
+/* ---------- router ---------- */
+const ROUTES={'':'home','lessen':'lessen','prijzen':'prijzen','over':'over','contact':'contact','login':'login','registreren':'register','herstel':'recover','account':'account','beheer':'admin','requirements':'reqs'};
+function route(){return (location.hash.replace(/^#\/?/,'').split('?')[0])||'';}
+function go(r){location.hash='#/'+r;}
+
+function render(){
+  const r=route();const view=ROUTES[r.split('/')[0]]??'home';
+  renderHeader(r);
+  const main=$('#main');
+  const html=({home:viewHome,lessen:viewLessen,prijzen:viewPrijzen,over:viewOver,contact:viewContact,login:viewLogin,register:viewRegister,recover:viewRecover,account:viewAccount,admin:viewAdmin,reqs:viewReqs})[view]();
+  main.innerHTML=html;
+  renderDemoBar();
+  bindCommon();
+}
+
+function renderHeader(r){
+  const u=me();
+  const link=(h,t)=>`<a href="#/${h}" class="${r.split('/')[0]===h?'on':''}">${t}</a>`;
+  $('#hdr').innerHTML=`<div class="wrap nav">
+    <a class="brand" href="#/">${LOGO}<span><b>Yogi Power</b><small>Affligem · sinds 2017</small></span></a>
+    <nav id="mainnav">${link('lessen','Lessen')}${link('prijzen','Prijzen')}${link('over','Over Philip')}${link('contact','Contact')}${isStaff()?link('beheer','Beheer'):''}${u?'':`<a href="#/login" class="mob-only">Inloggen</a>`}</nav>
+    ${u?`<a class="acct-chip" href="#/${isStaff()?'beheer':'account'}"><span class="avatar">${initials(u.name)}</span>${esc(u.name.split(' ')[0])}</a>`:`<a class="btn ghost sm desk" href="#/login">Inloggen</a>`}
+    <a class="btn primary sm desk" href="#/lessen">Boek een les</a>
+    <button class="burger" aria-label="Menu" onclick="document.getElementById('mainnav').classList.toggle('open')"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>`;
+}
+
+function renderDemoBar(){
+  const opts=[['','Bezoeker'],...S.users.map(u=>[u.id,`${u.name.split(' (')[0]} · ${u.role}`])];
+  $('#demobar').innerHTML=`<span class="lbl">Demo</span>
+    <select id="as" title="Bekijk als">${opts.map(([v,t])=>`<option value="${v}" ${S.session===v||(!S.session&&!v)?'selected':''}>${esc(t)}</option>`).join('')}</select>
+    <span class="clock" title="Demo-klok (voor annuleringsregels)">🕰 ${fmtDT(now())}${S.clockOffset?' <b style="color:#f2b856">(verschoven)</b>':''}</span>
+    <button data-clock="-60">−1u</button><button data-clock="60">+1u</button><button data-clock="1440">+1d</button>${S.clockOffset?'<button data-clock="0">nu</button>':''}
+    <button onclick="go('requirements')">✓ Requirements</button>
+    <button id="resetdemo" title="Reset alle demo-data">↺</button>`;
+  $('#as').onchange=e=>{S.session=e.target.value||null;save();const r=role();if(r==='beheerder'||r==='docent')go('beheer');else if(r==='klant')go('account');else render();};
+  $$('[data-clock]').forEach(b=>b.onclick=()=>{const v=+b.dataset.clock;S.clockOffset=v===0?0:S.clockOffset+v*MIN;commit();});
+  $('#resetdemo').onclick=()=>{if(confirmModal('Alle demo-data resetten?',()=>{reset();toast('Demo gereset','ok');render();}));};
+}
+
+function bindCommon(){
+  $$('[data-book]').forEach(b=>b.onclick=()=>openBooking(b.dataset.book));
+  $$('[data-buy]').forEach(b=>b.onclick=()=>openBuy(b.dataset.buy));
+  $$('[data-cancel]').forEach(b=>b.onclick=()=>openCancel(b.dataset.cancel));
+  $$('[data-wait]').forEach(b=>b.onclick=()=>{if(!me())return needLogin();joinWaitlist(S.session,b.dataset.wait);toast('Je staat op de wachtlijst','ok');commit();});
+  $$('[data-filter]').forEach(b=>b.onclick=()=>{UI.filter=b.dataset.filter;render();});
+  $$('[data-tab]').forEach(b=>b.onclick=()=>{UI[b.dataset.tabgroup||'tab']=b.dataset.tab;render();});
+  if(typeof bindAdmin==='function')bindAdmin();
+  if(typeof bindAccount==='function')bindAccount();
+  const f=$('#loginform');if(f)f.onsubmit=e=>{e.preventDefault();const em=f.email.value.trim().toLowerCase(),pw=f.pw.value;const u=S.users.find(x=>x.email===em&&x.pw===pw);if(!u){toast('Onjuist e-mailadres of wachtwoord','bad');return;}S.session=u.id;audit(u.id,'login','user',u.id,'Ingelogd');save();toast('Welkom terug, '+u.name.split(' ')[0],'ok');go(UI.after||(u.role==='klant'?'account':'beheer'));UI.after=null;};
+  const rf=$('#regform');if(rf)rf.onsubmit=e=>{e.preventDefault();const em=rf.email.value.trim().toLowerCase();if(S.users.some(u=>u.email===em)){toast('Er bestaat al een account met dit e-mailadres','bad');return;}if(rf.pw.value.length<6){toast('Wachtwoord: minstens 6 tekens','bad');return;}const u={id:uid('u'),name:rf.name.value.trim(),email:em,pw:rf.pw.value,role:'klant',createdAt:now(),phone:rf.phone.value};S.users.push(u);S.session=u.id;audit(u.id,'account.aangemaakt','user',u.id,u.name);mail(u.id,'Welkom bij Yogi Power',`Dag ${u.name.split(' ')[0]},\nJe account is aangemaakt. Als nieuw lid kan je het proefpakket kopen: 3 groepslessen voor €15.\nSat Nam!`);save();toast('Account aangemaakt','ok');go(UI.after||'account');UI.after=null;};
+  const rc=$('#recform');if(rc)rc.onsubmit=e=>{e.preventDefault();const u=S.users.find(x=>x.email===rc.email.value.trim().toLowerCase());if(u)mail(u.id,'Wachtwoord herstellen',`Klik op de link om een nieuw wachtwoord in te stellen (demo).\nDe link is 30 minuten geldig.`);save();toast('Als dit adres bestaat, is er een herstelmail verstuurd','ok');go('login');};
+  const sy=window.scrollY>4;$('#hdr').classList.toggle('scrolled',sy);
+}
+const UI={filter:'alle',tab:'vandaag',acc:'overzicht',after:null,reqf:'alle'};
+function needLogin(){UI.after=route();toast('Log in of maak een account om te reserveren');go('login');}
+
+/* ---------- modal helpers ---------- */
+function modal(html,onMount){const bg=document.createElement('div');bg.className='modal-bg';bg.innerHTML=`<div class="modal" role="dialog">${html}</div>`;bg.onclick=e=>{if(e.target===bg)bg.remove();};document.body.append(bg);$$('[data-close]',bg).forEach(b=>b.onclick=()=>bg.remove());onMount&&onMount(bg,()=>bg.remove());return bg;}
+function confirmModal(msg,ok){modal(`<h3>Zeker?</h3><p class="muted">${esc(msg)}</p><div class="actions"><button class="btn ghost" data-close>Annuleer</button><button class="btn primary" id="cok">Bevestig</button></div>`,(bg,close)=>{$('#cok',bg).onclick=()=>{close();ok();};});}
+
+/* ---------- lesson card ---------- */
+function lessonRow(l,{compact}={}){
+  const d=new Date(l.start);const taken=seatsTaken(l),free=l.capacity-taken;const past=l.start<now();
+  const mine=me()&&S.bookings.find(b=>b.lessonId===l.id&&b.userId===S.session&&b.status==='actief');
+  let action;
+  if(l.status==='geannuleerd')action='<span class="tag bad">Geannuleerd</span>';
+  else if(past)action='<span class="tag">Afgelopen</span>';
+  else if(mine)action=`<span class="tag ok">✓ Gereserveerd</span><button class="btn ghost xs" data-cancel="${mine.id}">Annuleren</button>`;
+  else if(free<=0)action=`<span class="tag bad">Volzet</span><button class="btn ghost xs" data-wait="${l.id}">Wachtlijst</button>`;
+  else action=`<button class="btn primary sm" data-book="${l.id}">Reserveer</button>`;
+  return `<div class="lesson ${l.status==='geannuleerd'?'cancelled':''}">
+    <div class="date"><span>${d.toLocaleDateString('nl-BE',{weekday:'short'})}</span><b>${d.getDate()}</b><span>${d.toLocaleDateString('nl-BE',{month:'short'})}</span></div>
+    <div><h4>${esc(l.title)} ${l.type==='event'?'<span class="tag sun">Event</span>':''}</h4>
+      <div class="info"><span>${ICON.clock}${fmtTime(l.start)} · ${l.durationMin} min</span><span>${ICON.user}${esc(l.teacher)}</span><span>${ICON.pin}${esc(l.location)}</span>${l.online?`<span>${ICON.wifi}ook online</span>`:''}<span><b>${euro(l.price)}</b> losse les</span></div></div>
+    <div class="right">${l.status==='gepland'&&!past?`<div class="cap ${free<=0?'full':''}"><div class="bar"><i style="width:${Math.min(100,taken/l.capacity*100)}%"></i></div>${free<=0?'vol':free+' vrij'}</div>`:''}<div class="row">${action}</div></div>
+  </div>`;
+}
+
+/* ---------- PUBLIC VIEWS ---------- */
+function viewHome(){
+  const up=S.lessons.filter(l=>l.start>now()&&l.status==='gepland').slice(0,4);
+  return `
+  <section class="hero"><div class="ring" style="width:900px;height:900px;right:-300px;top:-200px"></div><div class="ring" style="width:600px;height:600px;right:-150px;top:-50px"></div>
+   <div class="wrap grid">
+    <div class="fadein">
+      <span class="eyebrow">Yoga · meditatie · gong · coaching</span>
+      <h1 style="margin-top:18px">Neem je gezondheid <em>in eigen handen.</em></h1>
+      <p class="lead">Kundalini yoga en meditatie in Affligem en online. Kleine groepen, echte aandacht, en tools die je meeneemt in je dagelijks leven.</p>
+      <div class="ctas"><a class="btn primary" href="#/lessen">Bekijk de lessen →</a><a class="btn ghost" href="#/prijzen">Proefpakket · 3 lessen €15</a></div>
+      <div class="meta"><div><b>9e jaar</b>nieuwe reeks sinds 16 sep</div><div><b>90 min</b>per groepsles</div><div><b>${S.lessons.filter(l=>l.start>now()&&l.status==='gepland').length}</b>komende lessen</div></div>
+    </div>
+    <div class="art fadein" style="animation-delay:.1s">
+      <div class="disc"></div>
+      ${FIGURE}
+      <div class="pill"><i></i>Volgende les ${up[0]?fmtDT(up[0].start):'binnenkort'}</div>
+      <div class="quote">“Your mind is your servant, your body is your vehicle, and your soul is your residence.”<span>Yogi Bhajan</span></div>
+    </div>
+   </div></section>
+
+  <section class="alt"><div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">Het aanbod</span><h2>Drie wegen naar binnen.</h2></div><p>Of je nu stress wil loslaten, beter wil slapen of dieper wil gaan: er is een vorm die bij je past.</p></div>
+    <div class="pillars">
+      <div class="pillar"><div class="ic">${ICON.lotus}</div><h3>Yoga &amp; meditatie</h3><p>Wekelijkse groepslessen Kundalini yoga: houding, adem, mantra en meditatie. In de studio of live online.</p></div>
+      <div class="pillar"><div class="ic">${ICON.breath}</div><h3>Privésessies</h3><p>Eén op één: yoga, meditatie, breathwork, Sat Nam Rasayan healing of coaching, volledig afgestemd op jou.</p></div>
+      <div class="pillar"><div class="ic">${ICON.gong}</div><h3>Gongbaden &amp; workshops</h3><p>Laat je onderdompelen in klank. Losse events met beperkte plaatsen. Boek tijdig.</p></div>
+    </div>
+  </div></section>
+
+  <section><div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">Lesplanning</span><h2>Deze week op de mat</h2></div><a class="btn ghost" href="#/lessen">Volledige kalender →</a></div>
+    <div class="week">${up.map(l=>lessonRow(l)).join('')||'<div class="empty">Geen lessen gepland.</div>'}</div>
+  </div></section>
+
+  ${pricesSection(true)}
+
+  <section class="dark"><div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">Mantras</span><h2>Zo stemmen we in.</h2></div><p>Elke les opent en sluit met dezelfde klanken. Je hoeft ze niet te kennen: je leert ze vanzelf.</p></div>
+    <div class="mantras">
+      <div class="mantra"><span class="eyebrow">Adi mantra · 3×</span><div class="m">Ong Namo Guru Dev Namo</div><p>Ik buig voor het oneindige scheppende bewustzijn en voor de wijsheid in mezelf.</p></div>
+      <div class="mantra"><span class="eyebrow">Mangala Charan · 3×</span><div class="m">Aad Guray Nameh, Jugaad Guray Nameh…</div><p>Vier buigingen voor de oorspronkelijke, tijdloze, ware en hoogste wijsheid.</p></div>
+      <div class="mantra"><span class="eyebrow">Afsluiten · 3×</span><div class="m">Sat Nam</div><p>Waarheid is mijn identiteit.</p></div>
+    </div>
+  </div></section>
+  ${footer()}`;
+}
+
+function pricesSection(home){
+  const ct=id=>cardType(id);
+  const buy=id=>`data-buy="${id}"`;
+  return `<section ${home?'class="alt"':''}><div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">Prijzen</span><h2>Eenvoudig. Eerlijk. Persoonlijk.</h2></div><p>Een beurt wordt pas verbruikt als je aanwezig bent. Kosteloos annuleren tot 60 minuten voor de les.</p></div>
+    <div class="prices">
+      <div class="price"><h3>${ct('ct_trial').name}</h3><span class="muted small">Voor nieuwe leden</span><div class="amt">€15 <small>/ 3 lessen</small></div><ul><li>3 groepslessen aan €5</li><li>3 maanden geldig</li><li>Studio of online</li></ul><button class="btn ghost" ${buy('ct_trial')}>Start je proefpakket</button></div>
+      <div class="price feat"><span class="badge">Meest gekozen</span><h3>${ct('ct_10').name}</h3><span class="muted small">€10 per les</span><div class="amt">€100 <small>/ 10 lessen</small></div><ul><li>10 groepslessen</li><li>6 maanden geldig vanaf aankoop</li><li>Beurt pas verbruikt bij aanwezigheid</li></ul><button class="btn sun" ${buy('ct_10')}>Koop 10-beurtenkaart</button></div>
+      <div class="price"><h3>${ct('ct_5').name}</h3><span class="muted small">€12 per les</span><div class="amt">€60 <small>/ 5 lessen</small></div><ul><li>5 groepslessen</li><li>6 maanden geldig</li><li>Ideaal om ritme te vinden</li></ul><button class="btn ghost" ${buy('ct_5')}>Koop 5-beurtenkaart</button></div>
+    </div>
+    <div class="minor-prices">
+      <div class="minor"><div><b>Losse groepsles</b><div class="muted small">Boek & betaal per les</div></div><span class="tag">€13</span></div>
+      <div class="minor"><div><b>Privésessie</b><div class="muted small">1× €60 · 5× €250</div></div><button class="btn ghost xs" ${buy('ct_p1')}>Koop</button></div>
+      <div class="minor"><div><b>Online videolessen</b><div class="muted small">Onbeperkt · maandelijks</div></div><span class="tag plum">€10/mnd · binnenkort</span></div>
+    </div>
+  </div></section>`;
+}
+
+function viewLessen(){
+  const f=UI.filter;
+  const ls=S.lessons.filter(l=>l.start>now()-2*HOUR).filter(l=>f==='alle'||(f==='groep'&&l.type==='groep')||(f==='event'&&l.type==='event')||(f==='online'&&l.online));
+  const byWeek={};ls.forEach(l=>{const d=new Date(l.start);const m=new Date(d);m.setDate(d.getDate()-((d.getDay()+6)%7));m.setHours(0,0,0,0);(byWeek[m.getTime()]=byWeek[m.getTime()]||[]).push(l);});
+  return `<div class="page"><div class="wrap">
+    <div class="page-head"><div><span class="eyebrow">Kalender</span><h1 style="margin-top:12px">Lessen &amp; events</h1></div><p class="muted" style="max-width:380px;margin:0">Reserveren kan met je beurtenkaart of als losse les. Een account is nodig om te reserveren.</p></div>
+    <div class="filters">${[['alle','Alles'],['groep','Groepslessen'],['event','Gongbaden & events'],['online','Ook online']].map(([k,t])=>`<button class="chip ${f===k?'on':''}" data-filter="${k}">${t}</button>`).join('')}</div>
+    ${Object.entries(byWeek).map(([wk,arr])=>`<h3 style="font-size:18px;margin:28px 0 12px" class="muted">Week van ${new Date(+wk).toLocaleDateString('nl-BE',{day:'numeric',month:'long'})}</h3><div class="week">${arr.map(l=>lessonRow(l)).join('')}</div>`).join('')||'<div class="empty">Geen lessen gevonden.</div>'}
+  </div></div>${footer()}`;
+}
+function viewPrijzen(){return `<div style="padding-top:20px"></div>${pricesSection(false)}<section class="alt"><div class="wrap g2">
+  <div class="panel"><h3>Hoe werkt een beurtenkaart?</h3><ol style="margin:0;padding-left:18px;color:var(--ink2)"><li>Je kaart is geldig vanaf het moment van bevestigde aankoop.</li><li>Bij reservatie wordt een beurt <b>geblokkeerd</b>, niet verbruikt.</li><li>Pas bij aanwezigheid wordt exact één beurt afgeboekt.</li><li>Kaarten zijn persoonlijk en niet overdraagbaar.</li></ol></div>
+  <div class="panel"><h3>Annuleren</h3><p style="margin:0;color:var(--ink2)">Kosteloos tot en met <b>60 minuten</b> voor de les: je plaats en beurt komen meteen vrij. Later annuleren of niet komen? Dan beoordeelt Philip dit persoonlijk, er gebeurt niets automatisch.</p><p class="muted small" style="margin-bottom:0">Betalen kan met Bancontact, betaalkaart, overschrijving of cash in de studio.</p></div>
+</div></section>${footer()}`;}
+function viewOver(){return `<section><div class="wrap about">
+  <div class="portrait">${FIGURE_SMALL}<div class="cap2">Philip Van Langenhove · bezieler van Yogi Power</div></div>
+  <div><span class="eyebrow">Over Philip</span><h2 style="font-size:clamp(34px,4vw,52px);margin-top:14px">Twintig jaar zoeken, en nu delen.</h2>
+  <p style="font-size:18px;color:var(--ink2);margin-top:22px">Philip bestudeert al meer dan twintig jaar yoga, meditatie, filosofie en symboliek. Yogi Power wil mensen tools geven om hun innerlijke kracht te vinden en de uitdagingen van het moderne leven aan te gaan. Tools die zijn eigen leven positief veranderden.</p>
+  <div class="creds">${['Gecertificeerd Kundalini yoga leraar','Sat Nam Rasayan · niveau 2','Merkaba healing · niveau 5+','Gongtherapie','Access Bars','Hypnose & regressie','Breathwork','NLP master practitioner','Bestuurslid Belgische Kundalini Yoga federatie'].map(c=>`<span>${c}</span>`).join('')}</div>
+  <p class="muted small">Daarnaast: twee masterdiploma's in business en finance (KU Leuven en University of London) en gecertificeerd Enterprise Architect.</p>
+  <div class="row" style="margin-top:22px"><a class="btn primary" href="#/lessen">Kom een les proberen</a><a class="btn ghost" href="#/contact">Privésessie aanvragen</a></div></div>
+</div></section>${footer()}`;}
+function viewContact(){return `<section><div class="wrap">
+  <div class="sec-head"><div><span class="eyebrow">Contact</span><h2>Kom langs in Affligem.</h2></div></div>
+  <div class="contact"><div class="box"><h3 style="font-size:26px">Yogi Power</h3><dl><dt>Adres</dt><dd>Nieuwe Kassei 89/1<br>1790 Affligem</dd><dt>Telefoon</dt><dd><a href="tel:+32473910293">0473 91 02 93</a></dd><dt>E-mail</dt><dd><a href="mailto:philip@yogipower.be">philip@yogipower.be</a></dd><dt>Socials</dt><dd><a href="https://instagram.com/true_yogi_power" target="_blank" rel="noopener">Instagram</a> · <a href="https://facebook.com/GyanCharan4" target="_blank" rel="noopener">Facebook</a></dd></dl>
+  <form class="panel" style="margin-top:24px;background:var(--ivory)" onsubmit="event.preventDefault();toast('Bedankt! Philip neemt snel contact op.','ok');this.reset()"><div class="field"><label>Naam</label><input required></div><div class="field"><label>Bericht</label><textarea rows="3" required></textarea></div><button class="btn primary">Verstuur</button></form></div>
+  <div class="map">${MAP}</div></div>
+</div></section>${footer()}`;}
+
+function footer(){return `<footer><div class="wrap cols"><div><a class="brand" href="#/">${LOGO}<span><b>Yogi Power</b><small>yoga · meditatie · coaching</small></span></a><p class="muted small" style="max-width:320px">Nieuwe Kassei 89/1, 1790 Affligem · 0473 91 02 93</p></div>
+<div class="links"><a href="#/lessen">Lessen</a><a href="#/prijzen">Prijzen</a><a href="#/over">Over</a><a href="#/contact">Contact</a><a href="#/account">Mijn account</a><a href="#/requirements">Requirements v1.3</a><a href="#" onclick="event.preventDefault();openPrivacy()">Privacy &amp; cookies</a></div></div>
+<div class="wrap"><p class="tiny muted" style="margin-top:28px">© ${new Date().getFullYear()} Yogi Power · Prototype door <a href="https://corvus.gent" target="_blank" rel="noopener">Corvus</a> · demo-data, geen echte betalingen</p></div></footer>`;}
+function openPrivacy(){modal(`<h3>Privacy &amp; cookies</h3><p class="muted">Deze site gebruikt enkel functionele opslag (je login en demo-data in je browser). Geen tracking-cookies, geen advertenties. Je gegevens worden enkel gebruikt voor reservaties, betalingen en communicatie over je lessen. Je kan inzage, correctie of verwijdering vragen via philip@yogipower.be.</p><div class="actions"><button class="btn primary" data-close>OK</button></div>`);}
+
+/* ---------- AUTH ---------- */
+function viewLogin(){return `<div class="page"><div class="wrap auth fadein"><div class="panel" style="padding:34px"><span class="eyebrow">Mijn Yogi Power</span><h1 style="font-size:40px;margin:12px 0 6px">Welkom terug</h1><p class="muted" style="margin-top:0">Log in om lessen te reserveren en je kaarten te bekijken.</p>
+<form id="loginform"><div class="field"><label>E-mail</label><input name="email" type="email" required autocomplete="email" placeholder="jij@voorbeeld.be"></div><div class="field"><label>Wachtwoord</label><input name="pw" type="password" required autocomplete="current-password"></div><button class="btn primary" style="width:100%">Inloggen</button></form>
+<div class="spread small" style="margin-top:16px"><a href="#/herstel">Wachtwoord vergeten?</a><a href="#/registreren"><b>Account aanmaken →</b></a></div>
+<div class="note plum small" style="margin-top:20px">Demo: <b>lies@example.be</b> (klant) of <b>philip@yogipower.be</b> (beheerder) · wachtwoord <b>yoga</b>. Of wissel via de demobalk onderaan.</div></div></div></div>`;}
+function viewRegister(){return `<div class="page"><div class="wrap auth fadein"><div class="panel" style="padding:34px"><span class="eyebrow">Nieuw hier?</span><h1 style="font-size:40px;margin:12px 0 6px">Maak je account</h1><p class="muted" style="margin-top:0">Nodig om online te reserveren. Nieuwe leden kunnen het proefpakket kopen.</p>
+<form id="regform"><div class="field"><label>Naam</label><input name="name" required></div><div class="field"><label>E-mail</label><input name="email" type="email" required></div><div class="field"><label>Telefoon (optioneel)</label><input name="phone"></div><div class="field"><label>Wachtwoord</label><input name="pw" type="password" required minlength="6"></div><label class="small muted" style="display:flex;gap:8px;margin-bottom:16px"><input type="checkbox" required> Ik ga akkoord met de privacyverklaring.</label><button class="btn primary" style="width:100%">Account aanmaken</button></form>
+<p class="small" style="text-align:center;margin-bottom:0">Al een account? <a href="#/login">Inloggen</a></p></div></div></div>`;}
+function viewRecover(){return `<div class="page"><div class="wrap auth"><div class="panel" style="padding:34px"><h1 style="font-size:36px;margin-bottom:6px">Wachtwoord herstellen</h1><p class="muted">We sturen je een link om een nieuw wachtwoord in te stellen.</p><form id="recform"><div class="field"><label>E-mail</label><input name="email" type="email" required></div><button class="btn primary" style="width:100%">Stuur herstellink</button></form></div></div></div>`;}
+
+/* ---------- BOEKEN ---------- */
+function openBooking(lessonId){
+  const l=lesson(lessonId);if(!me())return needLogin();
+  if(seatsFree(l)<=0){toast('Deze les is volzet','bad');return;}
+  const cards=eligibleCards(S.session,l);
+  const def=cards[0];
+  const allCards=S.cards.filter(c=>c.userId===S.session&&c.status==='actief');
+  const invalid=allCards.filter(c=>!cards.some(x=>x.c.id===c.id));
+  modal(`<span class="eyebrow">Reserveren</span><h3 style="margin-top:10px">${esc(l.title)}</h3><p class="muted" style="margin-top:0">${fmtDT(l.start)} · ${l.durationMin} min · ${esc(l.location)}</p>
+   <form id="bkf">${cards.map((x,i)=>`<label class="opt"><input type="radio" name="how" value="card:${x.c.id}" ${i===0?'checked':''}><div><b>${cardType(x.c.typeId).name} ${i===0?'<span class="tag ok">Aanbevolen</span>':''}</b><span class="small muted">${x.free} vrij · geldig t/m ${fmtDate(x.c.validUntil)}${i===0&&cards.length>1?' · vervalt eerst':''}</span></div></label>`).join('')}
+   <label class="opt"><input type="radio" name="how" value="single" ${!def?'checked':''}><div><b>Losse les · ${euro(l.price)}</b><span class="small muted">Online betalen met Bancontact of betaalkaart</span></div></label>
+   ${invalid.length?`<p class="tiny muted">Niet bruikbaar voor deze les: ${invalid.map(c=>`${cardType(c.typeId).name} (${!cardValidOn(c,l.start)?'niet geldig op lesdatum':!cardAllows(c,l)?'ander lestype':'geen vrije beurten'})`).join(', ')}</p>`:''}
+   <div class="note small">Met een kaart wordt 1 beurt <b>geblokkeerd</b>; die wordt pas verbruikt als je aanwezig bent. Kosteloos annuleren tot ${fmtDT(l.start-S.settings.cancelMinutes*MIN)}.</div>
+   <div class="actions"><button type="button" class="btn ghost" data-close>Annuleer</button><button class="btn primary">Bevestig</button></div></form>`,
+  (bg,close)=>{$('#bkf',bg).onsubmit=e=>{e.preventDefault();const v=new FormData(e.target).get('how');
+    if(v==='single'){close();checkout({kind:'single',ref:l.id,amount:l.price,title:`${l.title} · ${fmtDT(l.start)}`});return;}
+    const r=bookLesson(S.session,l.id,{cardId:v.split(':')[1]});
+    if(r.ok){close();toast('Gereserveerd! Bevestiging verstuurd.','ok');commit();}else{toast(r.msg,'bad');}
+  };});
+}
+function openBuy(typeId){
+  if(!me())return needLogin();
+  const ct=cardType(typeId);
+  if(ct.trial&&!canBuyTrial(S.session)){toast('Het proefpakket is enkel voor nieuwe klanten','bad');return;}
+  checkout({kind:'card',ref:typeId,amount:ct.price,title:`${ct.name} · ${ct.credits} beurten`});
+}
+function checkout({kind,ref,amount,title}){
+  if(kind==='single'&&seatsFree(lesson(ref))<=0){toast('Deze les is intussen volzet','bad');return;}
+  const o=createOrder(S.session,kind,ref,amount,S.session);save();
+  modal(`<span class="eyebrow">Afrekenen · ${o.no}</span><h3 style="margin-top:10px">${esc(title)}</h3><div class="spread" style="margin:16px 0;padding:16px;border-radius:14px;background:var(--ivory)"><span>Totaal</span><b style="font:500 28px var(--serif)">${euro(amount)}</b></div>
+  <div class="paybox"><label class="paym"><input type="radio" name="pm" value="bancontact" checked> Bancontact</label><label class="paym"><input type="radio" name="pm" value="kaart"> Visa / Mastercard</label></div>
+  <p class="tiny muted">Demo-checkout: er wordt niets aangerekend. Je kaart of les wordt pas geactiveerd na bevestiging door de betaalprovider.</p>
+  <div class="actions"><button class="btn danger" id="pfail">Simuleer mislukte betaling</button><button class="btn primary" id="pok">Betaal ${euro(amount)}</button></div>`,
+  (bg,close)=>{
+    $('#pok',bg).onclick=()=>{const pm=$('input[name=pm]:checked',bg).value;const evt='evt_'+o.id;const r=confirmPayment(o.id,{method:pm,providerEvent:evt,by:'provider'});close();
+      const b=S.bookings.find(x=>x.orderId===o.id);
+      if(kind==='single'&&!b)toast('Betaald, maar de les was net volzet — terugbetaling volgt','bad');else toast(kind==='card'?'Betaald! Je kaart is actief.':'Betaald en gereserveerd!','ok');commit();};
+    $('#pfail',bg).onclick=()=>{failPayment(o.id,'provider','evt_fail_'+o.id);close();toast('Betaling mislukt — er werd niets geactiveerd','bad');commit();};
+  });
+}
+function openCancel(bookingId){
+  const b=booking(bookingId),l=lesson(b.lessonId);const kind=cancelStatus(l);const mins=Math.round((l.start-now())/MIN);
+  modal(`<h3>Reservatie annuleren?</h3><p class="muted" style="margin-top:4px">${esc(l.title)} · ${fmtDT(l.start)}</p>
+  ${kind==='kosteloos'?`<div class="note plum">Kosteloos: nog ${mins>120?Math.round(mins/60)+' uur':mins+' min'} tot de les. ${b.cardId?'Je beurt komt meteen vrij.':'Je betaling wordt teruggestort.'}</div>`:`<div class="note bad"><b>Laattijdige annulering</b> (minder dan ${S.settings.cancelMinutes} min voor start). Je plaats komt vrij, maar ${b.cardId?'de beurt blijft geblokkeerd':'je betaling blijft staan'} tot Philip beslist. Er gebeurt niets automatisch.</div>`}
+  <div class="actions"><button class="btn ghost" data-close>Toch niet</button><button class="btn primary" id="cc">Annuleer reservatie</button></div>`,
+  (bg,close)=>{$('#cc',bg).onclick=()=>{const r=cancelBooking(b.id,S.session);close();toast(r.ok?(r.kind==='kosteloos'?'Geannuleerd — beurt vrijgegeven':'Laattijdig geannuleerd — in beoordeling'):r.msg,r.ok?'ok':'bad');commit();};});
+}
+
+/* ---------- ILLUSTRATIONS ---------- */
+const FIGURE=`<svg class="figure" viewBox="0 0 400 420" aria-hidden="true"><g fill="none" stroke="rgba(255,248,235,.55)" stroke-width="1.2"><circle cx="200" cy="150" r="70"/><circle cx="200" cy="150" r="98" stroke-dasharray="2 7"/><circle cx="200" cy="150" r="128" stroke="rgba(255,248,235,.25)"/></g>
+<g transform="translate(36 30) scale(.82)"><g fill="#2b1e3f"><circle cx="200" cy="138" r="24"/><path d="M200 166c-26 0-40 18-44 46l-6 44c-1 8 4 14 12 14h76c8 0 13-6 12-14l-6-44c-4-28-18-46-44-46z"/><path d="M96 316c10-30 50-46 104-46s94 16 104 46c3 10-4 18-14 18H110c-10 0-17-8-14-18z"/><path d="M158 214c-18 22-30 44-34 66l20 4c6-20 14-36 26-50zM242 214c18 22 30 44 34 66l-20 4c-6-20-14-36-26-50z"/></g>
+<g fill="#f6c97a"><circle cx="138" cy="292" r="7"/><circle cx="262" cy="292" r="7"/></g><path d="M200 112c4-10 4-18 0-26-4 8-4 16 0 26z" fill="#fff4dc" opacity=".9"/></g></svg>`;
+const FIGURE_SMALL=`<svg viewBox="0 0 64 64">${LOGO.replace(/^<svg[^>]*>|<\/svg>$/g,'')}</svg>`;
+const MAP=`<svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice"><g stroke="#d6c4a6" stroke-width="10" fill="none" stroke-linecap="round"><path d="M-20 260C120 230 220 280 340 240S520 160 640 190"/><path d="M180 -20C200 100 240 180 230 420"/></g><g stroke="#e3d4ba" stroke-width="4" fill="none"><path d="M-20 120C100 140 300 90 640 110"/><path d="M420 -20C400 120 460 260 430 420"/><path d="M60 420C120 330 80 200 150 140"/></g><path d="M0 330q80-40 160 0t160 0 160 0 160 0v80H0z" fill="#cfdcc4" opacity=".6"/>
+<g transform="translate(300 214)"><circle r="46" fill="#e39b2d" opacity=".18"/><circle r="24" fill="#e39b2d" opacity=".3"/><path d="M0 8s-18-14-18-28a18 18 0 1 1 36 0C18-6 0 8 0 8z" fill="#2b1e3f" transform="translate(0 -12)"/><circle cy="-32" r="6" fill="#f2b856"/></g>
+<text x="300" y="268" text-anchor="middle" font-family="Fraunces,Georgia,serif" font-size="18" fill="#2b1e3f">Nieuwe Kassei 89/1</text><text x="300" y="290" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#7d705f" letter-spacing="2">1790 AFFLIGEM</text></svg>`;
+
+/* ============ Account (klant) ============ */
+function bookingStatusTag(b){
+  if(b.status==='verwijderd')return '<span class="tag">Verwijderd (reversal)</span>';
+  if(b.review==='PENDING_REVIEW')return '<span class="tag warn">PENDING_REVIEW</span>';
+  if(b.review==='afgeboekt')return '<span class="tag bad">Beurt aangerekend</span>';
+  if(b.review==='kwijtgescholden')return '<span class="tag ok">Kwijtgescholden</span>';
+  if(b.status==='geannuleerd')return `<span class="tag">${b.cancelledByStudio?'Les geannuleerd':'Kosteloos geannuleerd'}</span>`;
+  if(b.attendance==='aanwezig')return `<span class="tag ok">Aanwezig${b.consumed?' · 1 beurt':''}</span>`;
+  if(lesson(b.lessonId).start>now())return '<span class="tag plum">Gereserveerd</span>';
+  return '<span class="tag">Aanwezigheid te registreren</span>';
+}
+function cardVis(c){
+  const ct=cardType(c.typeId),bal=cardBalance(c);const expired=c.validUntil<now();
+  const dots=[];for(let i=0;i<bal.total;i++)dots.push(i<bal.used?'used':i<bal.used+bal.reserved?'res':'free');
+  return `<div class="cardvis ${ct.trial?'trial':''} ${ct.allowed.includes('prive')?'private':''} ${expired||c.status!=='actief'?'expired':''}">
+    <div class="spread"><h4>${ct.name}</h4>${expired?'<span class="tag">Verlopen</span>':c.status!=='actief'?`<span class="tag">${c.status}</span>`:''}</div>
+    <div class="dots">${dots.map(d=>`<i class="${d}"></i>`).join('')}</div>
+    <div class="g3" style="gap:8px;font-size:13px"><div><b style="font:500 22px var(--serif)">${Math.max(0,bal.free)}</b><br>vrij</div><div><b style="font:500 22px var(--serif)">${bal.reserved}</b><br>gereserveerd</div><div><b style="font:500 22px var(--serif)">${bal.remaining}</b><br>niet verbruikt</div></div>
+    <div class="row" style="margin-top:12px"><span>geldig ${fmtDate(c.validFrom)} – ${fmtDate(c.validUntil)}</span></div></div>`;
+}
+function viewAccount(){
+  const u=me();if(!u){UI.after='account';return viewLogin();}
+  if(u.role!=='klant'&&!UI.forceAccount)return viewAdmin();
+  const cards=S.cards.filter(c=>c.userId===u.id).sort((a,b)=>b.purchasedAt-a.purchasedAt);
+  const bks=S.bookings.filter(b=>b.userId===u.id).sort((a,b)=>lesson(a.lessonId).start-lesson(b.lessonId).start);
+  const upcoming=bks.filter(b=>b.status==='actief'&&lesson(b.lessonId).start>now());
+  const pending=bks.filter(b=>b.review==='PENDING_REVIEW');
+  const orders=S.orders.filter(o=>o.userId===u.id).sort((a,b)=>b.createdAt-a.createdAt);
+  const openOrders=orders.filter(o=>o.status==='open'&&S.bookings.some(b=>b.orderId===o.id));
+  const mails=S.mails.filter(m=>m.userId===u.id);
+  const tab=UI.acc;
+  const tabs=[['overzicht','Overzicht'],['historiek','Historiek'],['betalingen','Betalingen'],['mails','Mails',mails.length]];
+  let body='';
+  if(tab==='overzicht')body=`
+    ${pending.length?`<div class="note" style="margin-bottom:18px"><b>${pending.length} openstaande beoordeling${pending.length>1?'en':''}.</b> Philip bekijkt je late annulering of afwezigheid persoonlijk: ${pending.map(b=>`${lesson(b.lessonId).title} (${fmtDate(b.lessonDate)})`).join(', ')}.</div>`:''}
+    ${openOrders.length?`<div class="note bad" style="margin-bottom:18px">Openstaande betaling: ${openOrders.map(o=>`${o.no} · ${euro(o.amount)} <button class="btn xs primary" data-payopen="${o.id}">Betaal nu</button>`).join(' ')}</div>`:''}
+    <div class="spread" style="margin-bottom:14px"><h3 style="font-size:24px">Mijn kaarten</h3><a class="btn ghost sm" href="#/prijzen">+ Kaart kopen</a></div>
+    ${cards.length?`<div class="g3">${cards.map(cardVis).join('')}</div>`:`<div class="empty">Nog geen beurtenkaart. ${canBuyTrial(u.id)?'<br><button class="btn sun sm" style="margin-top:12px" data-buy="ct_trial">Start met het proefpakket · €15</button>':''}</div>`}
+    <h3 style="font-size:24px;margin:34px 0 14px">Geplande lessen</h3>
+    <div class="week">${upcoming.map(b=>lessonRow(lesson(b.lessonId))).join('')||'<div class="empty">Geen geplande lessen. <a href="#/lessen">Bekijk de kalender →</a></div>'}</div>`;
+  if(tab==='historiek')body=`<div class="panel tbl-wrap"><table><tr><th>Les</th><th>Datum</th><th>Via</th><th>Status</th></tr>${bks.slice().reverse().map(b=>{const l=lesson(b.lessonId);return `<tr><td>${esc(l.title)}</td><td>${fmtDT(l.start)}</td><td>${b.cardId?cardType(card(b.cardId).typeId).name:b.orderId?'Losse les':'Open dossier'}</td><td>${bookingStatusTag(b)}${b.decisions&&b.decisions.length?`<div class="tiny muted">${esc(b.decisions.at(-1).reason)}</div>`:''}</td></tr>`;}).join('')||'<tr><td colspan="4" class="muted">Nog geen historiek</td></tr>'}</table></div>`;
+  if(tab==='betalingen')body=`<div class="panel tbl-wrap"><table><tr><th>Bestelling</th><th>Omschrijving</th><th>Bedrag</th><th>Status</th><th></th></tr>${orders.map(o=>`<tr><td><b>${o.no}</b><div class="tiny muted">${fmtDate(o.createdAt)}</div></td><td>${o.kind==='card'?cardType(o.ref).name:'Losse les · '+esc(lesson(o.ref).title)}</td><td>${euro(o.amount)}</td><td>${orderTag(o)}</td><td>${o.status==='betaald'||o.status==='terugbetaald'?`<button class="btn ghost xs" data-receipt="${o.id}">Betaalbewijs</button>`:o.status!=='terugbetaald'?`<button class="btn primary xs" data-payopen="${o.id}">Betaal</button>`:''}</td></tr>`).join('')||'<tr><td colspan="5" class="muted">Nog geen betalingen</td></tr>'}</table></div>`;
+  if(tab==='mails')body=mailList(mails);
+  return `<div class="page"><div class="wrap">
+    <div class="page-head"><div><span class="eyebrow">Mijn account</span><h1 style="margin-top:12px">Sat Nam, ${esc(u.name.split(' ')[0])}.</h1></div><div class="row"><a class="btn primary" href="#/lessen">Reserveer een les</a><button class="btn ghost" id="logout">Uitloggen</button></div></div>
+    <div class="tabs">${tabs.map(([k,t,n])=>`<button class="${tab===k?'on':''}" data-tab="${k}" data-tabgroup="acc">${t}${n?`<span class="n">${n}</span>`:''}</button>`).join('')}</div>
+    ${body}</div></div>${footer()}`;
+}
+function orderTag(o){return {open:'<span class="tag warn">Open</span>',betaald:`<span class="tag ok">Betaald · ${o.method}</span>`,mislukt:'<span class="tag bad">Mislukt</span>',terugbetaald:'<span class="tag">Terugbetaald</span>'}[o.status];}
+function mailList(mails){return mails.length?mails.map(m=>`<div class="mail"><div class="spread"><b>${esc(m.subject)}</b><span class="tiny muted">${fmtDT(m.at)} → ${esc(m.to)}</span></div><pre>${esc(m.body)}</pre></div>`).join(''):'<div class="empty">Nog geen mails verstuurd.</div>';}
+function receipt(o){const u=user(o.userId);modal(`<span class="eyebrow">Betaalbewijs</span><h3 style="margin-top:10px">${o.no}</h3><table><tr><td>Klant</td><td>${esc(u.name)}<br><span class="muted small">${esc(u.email)}</span></td></tr><tr><td>Omschrijving</td><td>${o.kind==='card'?cardType(o.ref).name:'Losse les · '+esc(lesson(o.ref).title)}</td></tr><tr><td>Bedrag</td><td>${euro(o.amount)} <span class="muted small">(incl. btw volgens regime — OPEN-03)</span></td></tr><tr><td>Betaald op</td><td>${o.paidAt?fmtFull(o.paidAt):'—'} via ${o.method||'—'}</td></tr><tr><td>Status</td><td>${orderTag(o)}</td></tr></table><p class="tiny muted">Yogi Power · Nieuwe Kassei 89/1, 1790 Affligem</p><div class="actions"><button class="btn ghost" onclick="window.print()">Afdrukken</button><button class="btn primary" data-close>Sluiten</button></div>`);}
+function bindAccount(){
+  const lo=$('#logout');if(lo)lo.onclick=()=>{S.session=null;save();go('');};
+  $$('[data-receipt]').forEach(b=>b.onclick=()=>receipt(order(b.dataset.receipt)));
+  $$('[data-payopen]').forEach(b=>b.onclick=()=>{const o=order(b.dataset.payopen);
+    modal(`<span class="eyebrow">Afrekenen · ${o.no}</span><h3 style="margin-top:10px">${euro(o.amount)}</h3><div class="paybox"><label class="paym"><input type="radio" name="pm" value="bancontact" checked> Bancontact</label><label class="paym"><input type="radio" name="pm" value="kaart"> Visa / Mastercard</label></div><div class="actions"><button class="btn ghost" data-close>Later</button><button class="btn primary" id="pok">Betaal</button></div>`,(bg,close)=>{$('#pok',bg).onclick=()=>{if(o.status==='mislukt')o.status='open';confirmPayment(o.id,{method:$('input[name=pm]:checked',bg).value,providerEvent:'evt_'+o.id+'_'+Date.now(),by:'provider'});close();toast('Betaald','ok');commit();};});});
+}
+
+/* ============ Beheer ============ */
+const ADMIN_TABS=[['vandaag','Lessen'],['reviews','Beoordelingen'],['exceptions','Uitzonderingen'],['klanten','Klanten'],['orders','Orders & betalingen'],['kaarttypes','Kaarttypes'],['audit','Audittrail'],['mails','Mails'],['rapport','Rapport']];
+function viewAdmin(){
+  const u=me();if(!u){UI.after='beheer';return viewLogin();}
+  if(!isStaff())return `<div class="page"><div class="wrap"><div class="empty"><h3>Geen toegang</h3><p>Deze pagina is enkel voor beheerders en docenten (AC-04).</p><a class="btn primary" href="#/account">Naar mijn account</a></div></div></div>`;
+  const tabs=isAdmin()?ADMIN_TABS:ADMIN_TABS.filter(([k])=>['vandaag'].includes(k));
+  if(!tabs.some(([k])=>k===UI.tab))UI.tab='vandaag';
+  const counts={reviews:S.bookings.filter(b=>b.review==='PENDING_REVIEW').length,exceptions:S.exceptions.filter(x=>x.status==='open').length};
+  let body=({vandaag:admLessons,reviews:admReviews,exceptions:admExceptions,klanten:admClients,orders:admOrders,kaarttypes:admCardTypes,audit:admAudit,mails:()=>mailList(S.mails),rapport:admReport})[UI.tab]();
+  if(UI.lessonId&&UI.tab==='vandaag')body=admLessonDetail(lesson(UI.lessonId));
+  return `<div class="page"><div class="wrap">
+    <div class="page-head"><div><span class="eyebrow">Backoffice · ${u.role}</span><h1 style="margin-top:12px">Dag ${esc(u.name.split(' ')[0])}.</h1></div><div class="row">${isAdmin()?'<button class="btn primary" id="newlesson">+ Nieuwe les</button>':''}<button class="btn ghost" id="logout">Uitloggen</button></div></div>
+    ${isAdmin()?`<div class="g4" style="margin-bottom:26px">
+      <div class="stat"><b>${S.lessons.filter(l=>l.start>now()&&l.status==='gepland').length}</b><span>komende lessen</span></div>
+      <div class="stat"><b>${counts.reviews}</b><span>te beoordelen</span></div>
+      <div class="stat"><b>${S.cards.filter(c=>c.status==='actief'&&c.validUntil>now()).length}</b><span>actieve kaarten</span></div>
+      <div class="stat"><b>${euro(S.payments.filter(p=>p.date>now()-30*DAY).reduce((s,p)=>s+p.amount,0))}</b><span>omzet 30 dagen</span></div></div>`:''}
+    <div class="tabs">${tabs.map(([k,t])=>`<button class="${UI.tab===k?'on':''}" data-tab="${k}">${t}${counts[k]?`<span class="n">${counts[k]}</span>`:''}</button>`).join('')}</div>
+    ${body}</div></div>`;
+}
+
+function admLessons(){
+  const w=UI.lw||'komend';
+  const ls=S.lessons.filter(l=>w==='komend'?lessonEnd(l)>=now():lessonEnd(l)<now());
+  if(w==='afgelopen')ls.reverse();
+  return `<div class="filters"><button class="chip ${w==='komend'?'on':''}" data-lw="komend">Komend</button><button class="chip ${w==='afgelopen'?'on':''}" data-lw="afgelopen">Afgelopen (retroactief bewerken)</button></div>
+  <div class="panel tbl-wrap"><table><tr><th>Les</th><th>Datum</th><th>Bezetting</th><th>Aanwezig</th><th>Status</th><th></th></tr>
+  ${ls.map(l=>{const bs=S.bookings.filter(b=>b.lessonId===l.id&&b.status==='actief');return `<tr><td><b>${esc(l.title)}</b><div class="tiny muted">${esc(l.location)} · ${esc(l.teacher)}</div></td><td>${fmtDT(l.start)}</td><td>${bs.length}/${l.capacity}</td><td>${bs.filter(b=>b.attendance==='aanwezig').length}</td><td>${l.status==='geannuleerd'?'<span class="tag bad">Geannuleerd</span>':lessonEnd(l)<now()?'<span class="tag">Afgelopen</span>':l.start<now()?'<span class="tag warn">Bezig</span>':'<span class="tag ok">Gepland</span>'}</td><td><button class="btn ghost xs" data-openlesson="${l.id}">Deelnemers →</button></td></tr>`;}).join('')}</table></div>`;
+}
+function admLessonDetail(l){
+  const bs=S.bookings.filter(b=>b.lessonId===l.id).sort((a,b)=>a.createdAt-b.createdAt);
+  const past=lessonEnd(l)<now();
+  return `<button class="btn ghost sm" id="backlessons" style="margin-bottom:18px">← Alle lessen</button>
+  <div class="panel"><div class="spread"><div><span class="eyebrow">${past?'Afgelopen les · retroactief bewerkbaar':l.start<now()?'Les bezig':'Komende les'}</span><h3 style="font-size:30px;margin:10px 0 4px">${esc(l.title)}</h3><div class="muted">${fmtDT(l.start)} · ${l.durationMin} min · ${esc(l.location)} · ${seatsTaken(l)}/${l.capacity} plaatsen · ${euro(l.price)}</div></div>
+  <div class="row">${isAdmin()?`<button class="btn sun" data-addp="${l.id}">+ Persoon toevoegen</button>${l.status==='gepland'&&!past?`<button class="btn ghost sm" data-editlesson="${l.id}">Wijzigen / verplaatsen</button><button class="btn danger sm" data-cancellesson="${l.id}">Les annuleren</button>`:''}`:''}</div></div></div>
+  <div class="panel tbl-wrap"><h3>Deelnemers</h3><table><tr><th>Naam</th><th>Herkomst</th><th>Afrekening</th><th>Aanwezigheid</th><th>Status</th><th></th></tr>
+  ${bs.map(b=>{const u=user(b.userId);const settle=b.cardId?`${cardType(card(b.cardId).typeId).name}${b.consumed?' · <b>afgeboekt</b>':isBlocking(b)?' · geblokkeerd':''}`:b.orderId?`Losse les · ${orderTag(order(b.orderId))}`:'<span class="tag warn">Open dossier</span>';
+   const active=b.status==='actief';
+   return `<tr style="${!active?'opacity:.55':''}"><td><b>${esc(u.name)}</b><div class="tiny muted">${esc(u.email)}</div></td><td><span class="tag ${b.origin==='online'?'plum':b.origin==='retroactief'?'sun':''}">${b.origin}</span><div class="tiny muted">${fmtDT(b.createdAt)}</div></td><td class="small">${settle}</td>
+   <td>${active?`<div class="row" style="gap:4px"><button class="btn xs ${b.attendance==='aanwezig'?'okb':'ghost'}" data-att="aanwezig" data-b="${b.id}">Aanwezig</button><button class="btn xs ${b.attendance==='afwezig'?'danger':'ghost'}" data-att="afwezig" data-b="${b.id}">Afwezig</button></div>`:'—'}</td>
+   <td>${bookingStatusTag(b)}</td><td>${isAdmin()?`<button class="btn ghost xs" data-fix="${b.id}">Herstel…</button>`:''}</td></tr>`;}).join('')||'<tr><td colspan="6" class="muted">Nog geen deelnemers</td></tr>'}</table>
+  <p class="tiny muted" style="margin-bottom:0">Aanwezig = exact 1 beurt afboeken (idempotent). Afwezig = PENDING_REVIEW, geen automatische sanctie. Herkomst toont online / manueel / retroactief (ADM-14).</p></div>
+  <div class="panel"><h3>Historiek van deze les</h3>${auditTable(S.audit.filter(a=>!a.seed).filter(a=>a.objId===l.id||bs.some(b=>b.id===a.objId||a.bookingId===b.id)).slice(0,30))}</div>`;
+}
+function admReviews(){
+  const rs=S.bookings.filter(b=>b.review==='PENDING_REVIEW');
+  const done=S.bookings.filter(b=>b.decisions&&b.decisions.length).sort((a,b)=>b.decisions.at(-1).at-a.decisions.at(-1).at).slice(0,15);
+  return `<div class="panel"><h3>Te beoordelen · late annulering &amp; no-show</h3>${rs.length?rs.map(b=>{const u=user(b.userId),l=lesson(b.lessonId);return `<div class="list-item"><div><b>${esc(u.name)}</b> · ${esc(l.title)} <span class="muted">${fmtDT(l.start)}</span><div class="small muted">${b.status==='laat_geannuleerd'?`Laattijdig geannuleerd op ${fmtFull(b.cancelledAt)} (${Math.max(0,Math.round((l.start-b.cancelledAt)/MIN))} min voor start)`:'No-show'} · ${b.cardId?'beurt geblokkeerd op '+cardType(card(b.cardId).typeId).name:b.orderId?'losse les betaald':'geen kaart'}</div></div><div class="row"><button class="btn okb sm" data-decide="kwijtgescholden" data-b="${b.id}">Kwijtschelden</button><button class="btn danger sm" data-decide="afgeboekt" data-b="${b.id}">Beurt aanrekenen</button></div></div>`;}).join(''):'<div class="empty">Niets te beoordelen 🙏</div>'}</div>
+  <div class="panel"><h3>Recente beslissingen</h3>${done.length?`<table><tr><th>Klant</th><th>Les</th><th>Beslissing</th><th>Door · wanneer</th><th>Motivatie</th><th></th></tr>${done.map(b=>{const d=b.decisions.at(-1);return `<tr><td>${esc(user(b.userId).name)}</td><td>${esc(lesson(b.lessonId).title)}<div class="tiny muted">${fmtDate(b.lessonDate)}</div></td><td>${bookingStatusTag(b)}${b.decisions.length>1?`<div class="tiny muted">gecorrigeerd (was ${b.decisions.at(-2).decision})</div>`:''}</td><td class="small">${esc(user(d.by)?.name||d.by)}<br>${fmtDT(d.at)}</td><td class="small">${esc(d.reason)}</td><td><button class="btn ghost xs" data-decide="${b.review==='afgeboekt'?'kwijtgescholden':'afgeboekt'}" data-b="${b.id}">Herzien</button></td></tr>`;}).join('')}</table>`:'<div class="empty">Nog geen beslissingen</div>'}</div>`;
+}
+function admExceptions(){
+  const xs=S.exceptions;
+  return `<div class="panel"><h3>Uitzonderingen (ADM-12)</h3><p class="muted small" style="margin-top:-6px">Afboekingen die het systeem niet stil uitvoert: onvoldoende historisch saldo of kaart niet geldig op lesdatum.</p>${xs.length?xs.map(x=>{const b=booking(x.bookingId),u=user(b.userId),l=lesson(b.lessonId);return `<div class="list-item"><div><b>${esc(u.name)}</b> · ${esc(l.title)} ${fmtDate(l.start)}<div class="small muted">${esc(x.msg)} · ${fmtDT(x.at)}</div></div><div class="row">${x.status==='open'?`<button class="btn ghost sm" data-fix="${b.id}">Andere kaart / losse les</button><button class="btn ghost sm" data-excdone="${x.id}">Markeer opgelost</button>`:'<span class="tag ok">Opgelost</span>'}</div></div>`;}).join(''):'<div class="empty">Geen uitzonderingen.</div>'}</div>`;
+}
+function admClients(){
+  const q=(UI.q||'').toLowerCase();const cl=S.users.filter(u=>u.role==='klant'&&(!q||u.name.toLowerCase().includes(q)||u.email.includes(q)));
+  const sel=UI.client&&user(UI.client);
+  return `<div class="g2" style="grid-template-columns:.8fr 1.2fr;align-items:start"><div class="panel"><div class="field"><input id="cq" placeholder="Zoek klant op naam of e-mail" value="${esc(UI.q||'')}"></div>
+   ${cl.map(u=>`<div class="list-item" style="cursor:pointer" data-client="${u.id}"><div class="row"><span class="avatar">${initials(u.name)}</span><div><b>${esc(u.name)}</b><div class="tiny muted">${esc(u.email)}</div></div></div><span class="tag">${S.cards.filter(c=>c.userId===u.id&&c.status==='actief'&&c.validUntil>now()).length} kaart(en)</span></div>`).join('')}
+   <button class="btn ghost sm" id="newclient" style="margin-top:12px">+ Nieuwe klant</button></div>
+   <div>${sel?clientDetail(sel):'<div class="empty">Selecteer een klant</div>'}</div></div>`;
+}
+function clientDetail(u){
+  const cards=S.cards.filter(c=>c.userId===u.id);
+  return `<div class="panel"><div class="spread"><div><h3 style="margin:0">${esc(u.name)}</h3><span class="muted small">${esc(u.email)} · klant sinds ${fmtDate(u.createdAt)}</span></div><button class="btn sun sm" data-sellcard="${u.id}">Kaart verkopen (offline)</button></div></div>
+  <div class="g2">${cards.map(c=>`<div>${cardVis(c)}<div class="row" style="margin-top:8px"><button class="btn ghost xs" data-correct="${c.id}">Saldo corrigeren</button><button class="btn ghost xs" data-ledger="${c.id}">Kaarthistoriek</button></div></div>`).join('')||'<div class="empty">Geen kaarten</div>'}</div>
+  <div class="panel"><h3>Boekingen</h3><table>${S.bookings.filter(b=>b.userId===u.id).sort((a,b)=>b.lessonDate-a.lessonDate).map(b=>`<tr><td>${esc(lesson(b.lessonId).title)}<div class="tiny muted">${fmtDT(b.lessonDate)}</div></td><td><span class="tag">${b.origin}</span></td><td>${bookingStatusTag(b)}</td></tr>`).join('')||'<tr><td class="muted">Geen</td></tr>'}</table></div>`;
+}
+function admOrders(){
+  const os=S.orders.slice().sort((a,b)=>b.createdAt-a.createdAt);
+  return `<div class="panel tbl-wrap"><div class="spread"><h3>Orders</h3><span class="tiny muted">Webhooks en manuele bevestiging zijn idempotent (CH-04)</span></div><table><tr><th>Order</th><th>Klant</th><th>Omschrijving</th><th>Bedrag</th><th>Status</th><th>Acties</th></tr>
+  ${os.map(o=>`<tr><td><b>${o.no}</b><div class="tiny muted">${fmtDate(o.createdAt)}</div></td><td>${esc(user(o.userId).name)}</td><td class="small">${o.kind==='card'?cardType(o.ref).name:'Losse les · '+esc(lesson(o.ref).title)+' '+fmtDate(lesson(o.ref).start)}</td><td>${euro(o.amount)}</td><td>${orderTag(o)}</td>
+  <td><div class="row" style="gap:4px">${o.status==='open'||o.status==='mislukt'?`<button class="btn okb xs" data-manualpay="${o.id}">Offline betaling</button>`:''}${o.status==='betaald'?`<button class="btn ghost xs" data-dupwebhook="${o.id}">Simuleer dubbele webhook</button><button class="btn danger xs" data-refund="${o.id}">Terugbetalen</button>`:''}<button class="btn ghost xs" data-receipt="${o.id}">Bewijs</button></div></td></tr>`).join('')}</table></div>
+  <div class="panel tbl-wrap"><h3>Betalingen &amp; terugbetalingen</h3><table><tr><th>Datum</th><th>Order</th><th>Methode</th><th>Bedrag</th><th>Geregistreerd door</th></tr>${S.payments.slice().reverse().map(p=>`<tr><td>${fmtDate(p.date)}</td><td>${order(p.orderId).no}</td><td>${p.method}</td><td style="color:${p.amount<0?'var(--bad)':'inherit'}">${euro(p.amount)}</td><td class="small">${esc(user(p.by)?.name||p.by)}<div class="tiny muted">${fmtFull(p.registeredAt)}</div></td></tr>`).join('')}</table></div>`;
+}
+function admCardTypes(){
+  return `<div class="panel tbl-wrap"><div class="spread"><h3>Kaarttypes (PK-01)</h3><button class="btn primary sm" id="newct">+ Nieuw kaarttype</button></div><table><tr><th>Naam</th><th>Prijs</th><th>Beurten</th><th>Geldigheid</th><th>Toegelaten</th><th>Proef</th><th></th></tr>
+  ${S.cardTypes.map(c=>`<tr><td><b>${esc(c.name)}</b></td><td>${euro(c.price)}</td><td>${c.credits}</td><td>${c.validityDays} dagen</td><td>${c.allowed.join(', ')}</td><td>${c.trial?'<span class="tag sun">enkel nieuwe klanten</span>':''}</td><td><button class="btn ghost xs" data-editct="${c.id}">Wijzig</button></td></tr>`).join('')}</table>
+  <p class="tiny muted">Proefbeleid (PK-06): enkel klanten zonder eerdere (betaalde of openstaande) kaartaankoop.</p></div>`;
+}
+function auditTable(rows){return rows.length?`<div class="tbl-wrap"><table><tr><th>Wanneer</th><th>Wie</th><th>Actie</th><th>Detail</th><th>Reden</th></tr>${rows.map(a=>`<tr><td class="small">${fmtFull(a.at)}${a.lessonDate?`<div class="tiny muted">lesdatum ${fmtDate(a.lessonDate)}</div>`:''}</td><td class="small">${esc(user(a.by)?.name||a.by)}</td><td><code class="tiny">${a.action}</code></td><td class="small">${esc(a.detail)}</td><td class="small muted">${esc(a.reason)}</td></tr>`).join('')}</table></div>`:'<div class="empty">Geen items</div>';}
+function admAudit(){return `<div class="panel"><h3>Audittrail (AC-05)</h3><p class="muted small" style="margin-top:-6px">Wie, wat, wanneer, met verwijzing naar het originele object. Retroactieve acties tonen zowel lesdatum als bewerkingstijdstip.</p>${auditTable(S.audit.filter(a=>!a.seed).slice(0,150))}</div>`;}
+function admReport(){
+  const past=S.lessons.filter(l=>l.start<now()&&l.status==='gepland');
+  const att=S.bookings.filter(b=>b.attendance==='aanwezig').length;
+  const rev=S.payments.reduce((s,p)=>s+p.amount,0);
+  return `<div class="g4"><div class="stat"><b>${att}</b><span>aanwezigheden</span></div><div class="stat"><b>${euro(rev)}</b><span>netto omzet (totaal)</span></div><div class="stat"><b>${S.cards.length}</b><span>kaarten verkocht</span></div><div class="stat"><b>${past.length?Math.round(past.reduce((s,l)=>s+S.bookings.filter(b=>b.lessonId===l.id&&b.status==='actief').length/l.capacity,0)/past.length*100):0}%</b><span>gem. bezetting</span></div></div>
+  <div class="panel" style="margin-top:18px"><h3>Kaartverkoop per type</h3><table>${S.cardTypes.map(ct=>{const n=S.cards.filter(c=>c.typeId===ct.id).length;return `<tr><td>${ct.name}</td><td>${n}</td><td>${euro(n*ct.price)}</td></tr>`;}).join('')}</table><p class="tiny muted">Rapportering is P1 (AC-07) — eerste versie.</p></div>`;
+}
+
+function bindAdmin(){
+  const lo=$('#logout');if(lo)lo.onclick=()=>{S.session=null;save();go('');};
+  $$('[data-lw]').forEach(b=>b.onclick=()=>{UI.lw=b.dataset.lw;render();});
+  $$('[data-openlesson]').forEach(b=>b.onclick=()=>{UI.lessonId=b.dataset.openlesson;render();window.scrollTo(0,0);});
+  const bl=$('#backlessons');if(bl)bl.onclick=()=>{UI.lessonId=null;render();};
+  $$('[data-tab]').forEach(b=>b.addEventListener('click',()=>{UI.lessonId=null;}));
+  const nl=$('#newlesson');if(nl)nl.onclick=()=>lessonForm();
+  $$('[data-editlesson]').forEach(b=>b.onclick=()=>lessonForm(lesson(b.dataset.editlesson)));
+  $$('[data-cancellesson]').forEach(b=>b.onclick=()=>reasonModal('Les annuleren','Alle deelnemers krijgen een mail; kaartblokkeringen worden vrijgegeven en losse lessen terugbetaald.',r=>{cancelLesson(b.dataset.cancellesson,S.session,r);toast('Les geannuleerd','ok');commit();}));
+  $$('[data-att]').forEach(b=>b.onclick=()=>{const r=setAttendance(b.dataset.b,b.dataset.att,S.session,'');if(r.msg)toast(r.msg,r.exception?'bad':r.dup?'':'ok');else toast(b.dataset.att==='aanwezig'?'Aanwezig geregistreerd':'Afwezig · naar beoordeling','ok');commit();});
+  $$('[data-addp]').forEach(b=>b.onclick=()=>addParticipant(b.dataset.addp));
+  $$('[data-fix]').forEach(b=>b.onclick=()=>fixBooking(b.dataset.fix));
+  $$('[data-decide]').forEach(b=>b.onclick=()=>reasonModal(b.dataset.decide==='afgeboekt'?'Beurt aanrekenen':'Kwijtschelden','Motivatie is verplicht en wordt getoond aan de klant en in de audittrail.',r=>{const x=decideReview(b.dataset.b,b.dataset.decide,S.session,r);toast(x.ok?(x.dup?x.msg:'Beslissing verwerkt'):x.msg,x.ok?'ok':'bad');commit();}));
+  $$('[data-excdone]').forEach(b=>b.onclick=()=>{const x=S.exceptions.find(e=>e.id===b.dataset.excdone);x.status='opgelost';audit(S.session,'exception.opgelost','booking',x.bookingId,'');commit();});
+  const cq=$('#cq');if(cq){cq.oninput=()=>{UI.q=cq.value;const pos=cq.selectionStart;render();const n=$('#cq');n.focus();n.setSelectionRange(pos,pos);};}
+  $$('[data-client]').forEach(b=>b.onclick=()=>{UI.client=b.dataset.client;render();});
+  const nc=$('#newclient');if(nc)nc.onclick=()=>newClientModal(u=>{UI.client=u.id;commit();});
+  $$('[data-sellcard]').forEach(b=>b.onclick=()=>sellCard(b.dataset.sellcard));
+  $$('[data-correct]').forEach(b=>b.onclick=()=>correctModal(b.dataset.correct));
+  $$('[data-ledger]').forEach(b=>b.onclick=()=>ledgerModal(b.dataset.ledger));
+  $$('[data-manualpay]').forEach(b=>b.onclick=()=>manualPay(b.dataset.manualpay));
+  $$('[data-dupwebhook]').forEach(b=>b.onclick=()=>{const o=order(b.dataset.dupwebhook);const p=S.payments.find(p=>p.orderId===o.id&&p.providerEvent);const r=confirmPayment(o.id,{method:o.method,providerEvent:p?p.providerEvent:'evt_'+o.id,by:'provider'});toast(r.msg||'Verwerkt',r.dup?'ok':'');commit();});
+  $$('[data-refund]').forEach(b=>b.onclick=()=>reasonModal('Terugbetalen','Wordt gekoppeld aan de oorspronkelijke order (CH-06).',r=>{const x=refundOrder(b.dataset.refund,S.session,r);toast(x.ok?'Terugbetaald':x.msg,x.ok?'ok':'bad');commit();}));
+  $$('[data-receipt]').forEach(b=>b.onclick=()=>receipt(order(b.dataset.receipt)));
+  const nct=$('#newct');if(nct)nct.onclick=()=>ctForm();
+  $$('[data-editct]').forEach(b=>b.onclick=()=>ctForm(cardType(b.dataset.editct)));
+}
+
+function reasonModal(title,help,ok){modal(`<h3>${esc(title)}</h3><p class="muted small">${esc(help)}</p><div class="field"><label>Motivatie</label><textarea id="rsn" rows="3" required placeholder="bv. Ziek gemeld, eerste keer"></textarea></div><div class="actions"><button class="btn ghost" data-close>Annuleer</button><button class="btn primary" id="rok">Bevestig</button></div>`,(bg,close)=>{$('#rok',bg).onclick=()=>{const r=$('#rsn',bg).value.trim();if(!r){toast('Motivatie is verplicht','bad');return;}close();ok(r);};});}
+function dtLocal(t){const d=new Date(t);d.setMinutes(d.getMinutes()-d.getTimezoneOffset());return d.toISOString().slice(0,16);}
+function lessonForm(l){
+  const n=!l;l=l||{title:'Yoga & meditatie',type:'groep',start:now()+7*DAY,durationMin:90,teacher:'Philip Van Langenhove',location:'Studio Affligem',price:13,capacity:12,online:true};
+  modal(`<h3>${n?'Nieuwe les':'Les wijzigen'}</h3><form id="lf"><div class="field"><label>Titel</label><input name="title" value="${esc(l.title)}" required></div>
+  <div class="g2" style="gap:12px"><div class="field"><label>Type</label><select name="type">${['groep','event','prive'].map(t=>`<option ${l.type===t?'selected':''}>${t}</option>`).join('')}</select></div><div class="field"><label>Start</label><input type="datetime-local" name="start" value="${dtLocal(l.start)}" required></div>
+  <div class="field"><label>Duur (min)</label><input type="number" name="durationMin" value="${l.durationMin}"></div><div class="field"><label>Capaciteit</label><input type="number" name="capacity" value="${l.capacity}"></div>
+  <div class="field"><label>Prijs losse les (€)</label><input type="number" step="0.5" name="price" value="${l.price}"></div><div class="field"><label>Docent</label><input name="teacher" value="${esc(l.teacher)}"></div></div>
+  <div class="field"><label>Locatie</label><input name="location" value="${esc(l.location)}"></div><label class="small"><input type="checkbox" name="online" ${l.online?'checked':''}> Ook online te volgen</label>
+  ${!n?'<p class="tiny muted">Bij een nieuw tijdstip krijgen deelnemers automatisch een mail.</p>':''}
+  <div class="actions"><button type="button" class="btn ghost" data-close>Annuleer</button><button class="btn primary">Opslaan</button></div></form>`,(bg,close)=>{$('#lf',bg).onsubmit=e=>{e.preventDefault();const f=e.target;const d={title:f.title.value,type:f.type.value,start:new Date(f.start.value).getTime(),durationMin:+f.durationMin.value,capacity:+f.capacity.value,price:+f.price.value,teacher:f.teacher.value,location:f.location.value,online:f.online.checked};if(!n)d.id=l.id;
+    if(!n&&d.capacity<seatsTaken(l)){toast('Capaciteit lager dan aantal inschrijvingen','bad');return;}upsertLesson(d,S.session);close();toast('Les opgeslagen','ok');commit();};});
+}
+function newClientModal(done){modal(`<h3>Nieuwe klant</h3><form id="ncf"><div class="field"><label>Naam</label><input name="name" required></div><div class="field"><label>E-mail</label><input name="email" type="email" required></div><p class="tiny muted">De klant krijgt een activatiemail om zelf een wachtwoord in te stellen.</p><div class="actions"><button type="button" class="btn ghost" data-close>Annuleer</button><button class="btn primary">Aanmaken</button></div></form>`,(bg,close)=>{$('#ncf',bg).onsubmit=e=>{e.preventDefault();const em=e.target.email.value.trim().toLowerCase();if(S.users.some(u=>u.email===em)){toast('Bestaat al','bad');return;}const u={id:uid('u'),name:e.target.name.value.trim(),email:em,pw:Math.random().toString(36),role:'klant',createdAt:now()};S.users.push(u);audit(S.session,'klant.aangemaakt','user',u.id,u.name);mail(u.id,'Activeer je Yogi Power account','Philip maakte een account voor je aan. Stel hier je wachtwoord in (demo-link).');close();done(u);};});}
+
+function addParticipant(lessonId){
+  const l=lesson(lessonId);const past=lessonEnd(l)<now();const started=l.start<now();
+  const clients=S.users.filter(u=>u.role==='klant');
+  modal(`<span class="eyebrow">${past?'Retroactief toevoegen':'Manueel toevoegen'}</span><h3 style="margin-top:10px">${esc(l.title)}</h3><p class="muted small" style="margin-top:0">Lesdatum ${fmtDT(l.start)} · bewerking nu (${fmtDT(now())})</p>
+  <form id="apf"><div class="field"><label>Persoon</label><div class="row" style="flex-wrap:nowrap"><select name="userId" style="flex:1">${clients.map(u=>`<option value="${u.id}">${esc(u.name)} · ${esc(u.email)}</option>`).join('')}</select><button type="button" class="btn ghost sm" id="apnew">+ Nieuw</button></div></div>
+  <div class="field"><label>Aanwezigheid</label><select name="attendance"><option value="${started?'aanwezig':'onbekend'}">${started?'Aanwezig':'Nog niet (gewone inschrijving)'}</option>${started?'<option value="afwezig">Afwezig</option>':''}<option value="te_beoordelen">Nog te beoordelen</option>${!started?'':'<option value="onbekend">Onbekend</option>'}</select></div>
+  <div class="field"><label>Afrekening</label><select name="settlement" id="apset"></select></div>
+  <div id="apcard"></div>
+  <div id="appay" class="field" style="display:none"><label>Betaling losse les (${euro(l.price)})</label><select name="payMethod"><option value="open">Nog te vereffenen (open dossier)</option><option value="cash">Cash ontvangen</option><option value="overschrijving">Overschrijving ontvangen</option><option value="manueel">Manuele betaling</option><option value="online">Stuur online betaallink</option></select><input type="date" name="paidOn" value="${new Date(now()).toISOString().slice(0,10)}" style="margin-top:6px" title="Betaaldatum"></div>
+  <div id="apwarn"></div>
+  <div class="field"><label>Reden / notitie ${past?'(verplicht bij retroactief)':''}</label><input name="reason" ${past?'required':''} placeholder="${past?'bv. Vergeten in te schrijven, was aanwezig':'optioneel'}"></div>
+  <div class="actions"><button type="button" class="btn ghost" data-close>Annuleer</button><button class="btn primary">Toevoegen</button></div></form>`,
+  (bg,close)=>{
+    const f=$('#apf',bg);
+    const refresh=()=>{
+      const uId=f.userId.value;
+      const all=S.cards.filter(c=>c.userId===uId&&c.status==='actief'&&cardAllows(c,l));
+      const prevSet=f.settlement.value;
+      $('#apset',bg).innerHTML=`${all.length?'<option value="kaart">Beurtenkaart</option>':''}<option value="losse_les">Losse les</option><option value="open">Open dossier (later vereffenen)</option>`;
+      if(prevSet&&[...f.settlement.options].some(o=>o.value===prevSet))f.settlement.value=prevSet;
+      const isCard=f.settlement.value==='kaart';
+      $('#apcard',bg).innerHTML=isCard?`<div class="field"><label>Kaart</label><select name="cardId">${all.map(c=>{const b=cardBalance(c);const ok=cardValidOn(c,l.start);return `<option value="${c.id}">${cardType(c.typeId).name} · ${b.free} vrij · ${ok?'geldig op lesdatum':'NIET geldig op lesdatum'}${c.validUntil<now()&&ok?' (nu verlopen)':''}</option>`;}).join('')}</select></div>`:'';
+      $('#appay',bg).style.display=f.settlement.value==='losse_les'?'grid':'none';
+      // waarschuwingen
+      const w=[];const dup=S.bookings.find(b=>b.lessonId===l.id&&b.userId===uId&&b.status==='actief');
+      if(dup)w.push(`<div class="note bad small">⚠ ${esc(user(uId).name)} staat al op de lijst — dubbele inschrijving wordt geweigerd (ADM-08).</div>`);
+      if(seatsFree(l)<=0)w.push(`<label class="note small" style="display:block"><input type="checkbox" name="overrideFull"> ⚠ Les is volzet. Bewust overrulen (wordt gelogd met reden).</label>`);
+      if(isCard&&f.cardId){const c=card(f.cardId.value);if(c&&!cardValidOn(c,l.start))w.push(`<label class="note small" style="display:block"><input type="checkbox" name="overrideExpired"> ⚠ Kaart was niet geldig op de lesdatum. Bewust overrulen (wordt gelogd).</label>`);else if(c&&c.validUntil<now())w.push('<div class="note plum small">Kaart is nu verlopen maar was geldig op de lesdatum → toewijzing toegestaan (ADM-11).</div>');if(c&&cardBalance(c).free<=0)w.push('<div class="note bad small">Geen vrije beurten: afboeking gaat naar de uitzonderingen-wachtrij i.p.v. negatief saldo (ADM-12).</div>');}
+      $('#apwarn',bg).innerHTML=w.join('');
+      const cs=f.cardId;if(cs)cs.onchange=refresh;
+    };
+    f.userId.onchange=refresh;f.settlement.onchange=refresh;refresh();
+    $('#apnew',bg).onclick=()=>newClientModal(u=>{f.userId.insertAdjacentHTML('beforeend',`<option value="${u.id}">${esc(u.name)} · ${esc(u.email)}</option>`);f.userId.value=u.id;refresh();save();});
+    f.onsubmit=e=>{e.preventDefault();
+      if(f.overrideFull&&!f.overrideFull.checked){toast('Les is volzet — vink de bewuste override aan','bad');return;}
+      if(f.overrideExpired&&!f.overrideExpired.checked){toast('Kaart niet geldig op lesdatum — vink override aan of kies andere afrekening','bad');return;}
+      if((f.overrideFull?.checked||f.overrideExpired?.checked)&&!f.reason.value.trim()){toast('Reden is verplicht bij override','bad');return;}
+      const r=adminAdd(l.id,{userId:f.userId.value,attendance:f.attendance.value,settlement:f.settlement.value,cardId:f.cardId?.value,payMethod:f.payMethod.value,paidOn:f.paidOn.value?new Date(f.paidOn.value+'T12:00').getTime():null,reason:f.reason.value.trim(),overrideFull:f.overrideFull?.checked,overrideExpired:f.overrideExpired?.checked},S.session);
+      if(!r.ok){toast(r.msg,'bad');return;}close();toast(r.msg,r.msg.includes('uitzondering')?'bad':'ok');commit();};
+  });
+}
+function fixBooking(bookingId){
+  const b=booking(bookingId),l=lesson(b.lessonId),u=user(b.userId);
+  const cards=S.cards.filter(c=>c.userId===b.userId&&c.status==='actief'&&cardAllows(c,l));
+  modal(`<span class="eyebrow">Herstellen met reversal (ADM-10)</span><h3 style="margin-top:10px">${esc(u.name)}</h3><p class="muted small" style="margin-top:0">${esc(l.title)} · ${fmtDT(l.start)} · historiek blijft behouden</p>
+  <div class="field"><label>Kaart wijzigen</label><select id="fxcard"><option value="">— geen kaart (open dossier) —</option>${cards.map(c=>`<option value="${c.id}" ${b.cardId===c.id?'selected':''}>${cardType(c.typeId).name} · ${cardBalance(c).free} vrij · ${cardValidOn(c,l.start)?'geldig op lesdatum':'niet geldig op lesdatum'}</option>`).join('')}</select></div>
+  <div class="field"><label>Aanwezigheid</label><select id="fxatt"><option value="">— ongewijzigd (${b.attendance||'onbekend'}) —</option><option value="aanwezig">Aanwezig</option><option value="afwezig">Afwezig</option><option value="te_beoordelen">Nog te beoordelen</option></select></div>
+  ${!b.orderId&&!b.cardId?`<label class="small"><input type="checkbox" id="fxbill"> Losse les aanrekenen (${euro(l.price)}) en betaling registreren</label>`:''}
+  <div class="field" style="margin-top:12px"><label>Reden (verplicht)</label><input id="fxr" placeholder="bv. Verkeerde kaart gekozen"></div>
+  <div class="actions"><button class="btn danger" id="fxdel">Verkeerde deelnemer: verwijderen</button><button class="btn primary" id="fxok">Herstel toepassen</button></div>`,
+  (bg,close)=>{
+    $('#fxok',bg).onclick=()=>{const r=$('#fxr',bg).value.trim();if(!r){toast('Reden is verplicht','bad');return;}
+      const nc=$('#fxcard',bg).value||null;let msg='Hersteld';
+      if(nc!==(b.cardId||null)){const x=changeBookingCard(b.id,nc,S.session,r);if(x&&!x.ok)msg=x.msg;}
+      const a=$('#fxatt',bg).value;if(a){const x=setAttendance(b.id,a,S.session,r);if(x&&x.msg)msg=x.msg;}
+      if($('#fxbill',bg)?.checked){const o=createOrder(b.userId,'single',l.id,l.price,S.session);b.orderId=o.id;b.settlement='open';close();commit();manualPay(o.id);return;}
+      close();toast(msg,msg.includes('uitzondering')?'bad':'ok');commit();};
+    $('#fxdel',bg).onclick=()=>{const r=$('#fxr',bg).value.trim();if(!r){toast('Reden is verplicht','bad');return;}removeBooking(b.id,S.session,r);close();toast('Verwijderd via reversal — historiek behouden','ok');commit();};
+  });
+}
+function sellCard(userId){
+  const types=S.cardTypes.filter(c=>c.active);
+  modal(`<h3>Kaart verkopen</h3><p class="muted small">${esc(user(userId).name)} · offline aankoop (BR-01: geldigheid start op geregistreerde aankoopdatum)</p>
+  <div class="field"><label>Kaarttype</label><select id="sct">${types.map(c=>`<option value="${c.id}" ${c.trial&&!canBuyTrial(userId)?'disabled':''}>${c.name} · ${euro(c.price)}${c.trial&&!canBuyTrial(userId)?' (niet toegestaan: geen nieuwe klant)':''}</option>`).join('')}</select></div>
+  <div class="g2" style="gap:12px"><div class="field"><label>Betaalwijze</label><select id="spm"><option>cash</option><option>overschrijving</option><option>manueel</option><option value="open">Nog niet betaald (geen activatie)</option></select></div><div class="field"><label>Aankoopdatum</label><input type="date" id="sdt" value="${new Date(now()).toISOString().slice(0,10)}"></div></div>
+  <div class="actions"><button class="btn ghost" data-close>Annuleer</button><button class="btn primary" id="sok">Registreer</button></div>`,(bg,close)=>{$('#sok',bg).onclick=()=>{const ct=cardType($('#sct',bg).value);if(ct.trial&&!canBuyTrial(userId)){toast('Proefpakket enkel voor nieuwe klanten','bad');return;}
+    const o=createOrder(userId,'card',ct.id,ct.price,S.session);const pm=$('#spm',bg).value;
+    if(pm!=='open')confirmPayment(o.id,{method:pm,by:S.session,paidOn:new Date($('#sdt',bg).value+'T12:00').getTime()});
+    close();toast(pm==='open'?'Order open — kaart wordt pas actief na betaling (CH-02)':'Kaart geactiveerd','ok');commit();};});
+}
+function manualPay(orderId){const o=order(orderId);modal(`<h3>Offline betaling registreren</h3><p class="muted small">${o.no} · ${euro(o.amount)} · ${esc(user(o.userId).name)}</p><div class="g2" style="gap:12px"><div class="field"><label>Methode</label><select id="mpm"><option>cash</option><option>overschrijving</option><option>manueel</option></select></div><div class="field"><label>Betaaldatum</label><input type="date" id="mpd" value="${new Date(now()).toISOString().slice(0,10)}"></div></div><div class="actions"><button class="btn ghost" data-close>Annuleer</button><button class="btn primary" id="mpok">Bevestig betaling</button></div>`,(bg,close)=>{$('#mpok',bg).onclick=()=>{if(o.status==='mislukt')o.status='open';const r=confirmPayment(o.id,{method:$('#mpm',bg).value,by:S.session,paidOn:new Date($('#mpd',bg).value+'T12:00').getTime()});close();toast(r.msg||'Betaling geregistreerd','ok');commit();};});}
+function correctModal(cardId){const c=card(cardId),b=cardBalance(c);modal(`<h3>Saldo corrigeren</h3><p class="muted small">${cardType(c.typeId).name} · ${esc(user(c.userId).name)} · nu ${b.remaining} niet verbruikt, ${b.reserved} gereserveerd</p><div class="field"><label>Aanpassing (+/− beurten)</label><input type="number" id="cd" value="1"></div><div class="field"><label>Motivatie</label><input id="cr" placeholder="bv. Compensatie geannuleerde les"></div><div class="actions"><button class="btn ghost" data-close>Annuleer</button><button class="btn primary" id="cok2">Corrigeer</button></div>`,(bg,close)=>{$('#cok2',bg).onclick=()=>{const d=+$('#cd',bg).value,r=$('#cr',bg).value.trim();if(!d||!r){toast('Aanpassing en motivatie verplicht','bad');return;}const x=correctBalance(cardId,d,S.session,r);toast(x.ok?'Saldo gecorrigeerd':x.msg,x.ok?'ok':'bad');close();commit();};});}
+function ledgerModal(cardId){const es=S.ledger.filter(e=>e.cardId===cardId);modal(`<h3>Kaarthistoriek</h3><table><tr><th>Wanneer</th><th>Type</th><th>Les</th><th>Door</th><th>Reden</th></tr>${es.map(e=>`<tr><td class="small">${fmtFull(e.at)}</td><td><span class="tag ${e.type==='consume'?'bad':e.type==='reverse'?'ok':'sun'}">${e.type}${e.amount?' '+(e.amount>0?'+':'')+e.amount:''}</span></td><td class="small">${e.lessonId?esc(lesson(e.lessonId).title)+' '+fmtDate(e.lessonDate):''}</td><td class="small">${esc(user(e.by)?.name||e.by)}</td><td class="small muted">${esc(e.reason||'')}</td></tr>`).join('')||'<tr><td colspan="5" class="muted">Nog geen mutaties</td></tr>'}</table><div class="actions"><button class="btn primary" data-close>Sluiten</button></div>`);}
+function ctForm(c){const n=!c;c=c||{name:'',price:0,credits:10,validityDays:182,allowed:['groep'],trial:false,active:true};modal(`<h3>${n?'Nieuw':'Wijzig'} kaarttype</h3><form id="ctf"><div class="field"><label>Naam</label><input name="name" value="${esc(c.name)}" required></div><div class="g3" style="gap:10px"><div class="field"><label>Prijs</label><input type="number" name="price" value="${c.price}"></div><div class="field"><label>Beurten</label><input type="number" name="credits" value="${c.credits}"></div><div class="field"><label>Geldig (dagen)</label><input type="number" name="validityDays" value="${c.validityDays}"></div></div><div class="row small">${['groep','event','prive'].map(a=>`<label><input type="checkbox" name="al" value="${a}" ${c.allowed.includes(a)?'checked':''}> ${a}</label>`).join('')}<label><input type="checkbox" name="trial" ${c.trial?'checked':''}> enkel nieuwe klanten</label><label><input type="checkbox" name="active" ${c.active?'checked':''}> actief</label></div><div class="actions"><button type="button" class="btn ghost" data-close>Annuleer</button><button class="btn primary">Opslaan</button></div></form>`,(bg,close)=>{$('#ctf',bg).onsubmit=e=>{e.preventDefault();const f=e.target;const d={name:f.name.value,price:+f.price.value,credits:+f.credits.value,validityDays:+f.validityDays.value,allowed:$$('[name=al]:checked',f).map(x=>x.value),trial:f.trial.checked,active:f.active.checked};if(n){d.id=uid('ct');S.cardTypes.push(d);}else Object.assign(c,d);audit(S.session,'kaarttype.'+(n?'aangemaakt':'gewijzigd'),'cardType',d.id||c.id,d.name);close();commit();};});}
+
+/* ============ Requirements & automatische acceptatietests ============ */
+const IMPL={ // waar zit het in de demo
+  'BR-01':'Kaart geactiveerd op bevestigde betaaldatum; offline met geregistreerde datum','BR-02':'Reserveren blokkeert; aanwezigheid boekt exact 1 af','BR-03':'Demo-klok + exacte 60-minutengrens','BR-04':'Beoordelingen-tab','BR-05':'Reserveren vraagt login/registratie','BR-06':'Kaart gekoppeld aan eigenaar','BR-07':'Bancontact, kaart, cash, overschrijving, manueel',
+  'BK-01':'Kalender met alle info, responsive','BK-02':'Reserveren + bevestigingsmail','BK-03':'Atomaire check-and-set op capaciteit','BK-04':'Kaartgeldigheid op lesdatum gecontroleerd','BK-05':'Losse les + checkout','BK-06':'Beheer › nieuwe les / wijzigen / verplaatsen / annuleren','BK-07':'Mails-tab','BK-08':'Wachtlijst bij volle les',
+  'PK-01':'Beheer › Kaarttypes','PK-02':'Saldo: gereserveerd vs. verbruikt','PK-03':'Idempotente afboeking','PK-04':'Kaartweergave: vrij / gereserveerd / niet verbruikt','PK-05':'Aanbevolen kaart = vervalt eerst, of zelf kiezen','PK-06':'Proefpakket enkel nieuwe klanten','PK-07':'Saldo corrigeren met motivatie','PK-08':'Geen negatieve vrije beurten','PK-09':'Nieuwe kaart naast bestaande',
+  'AN-01':'Kosteloze annulering geeft plaats + beurt vrij','AN-02':'Laat: plaats vrij, blokkering blijft, PENDING_REVIEW','AN-03':'No-show → beoordeling, geen afboeking','AN-04':'Afboeken of kwijtschelden, exact één keer','AN-05':'Beslissingen met motivatie, herzienbaar','AN-06':'Klant ziet PENDING_REVIEW of uitkomst',
+  'CH-01':'Demo-checkout Bancontact/kaart','CH-02':'Geen activatie bij mislukte/open betaling','CH-03':'Offline betaling registreren','CH-04':'Dubbele webhook genegeerd','CH-05':'Aankoopmail + betaalbewijs','CH-06':'Terugbetaling gekoppeld aan order','CH-07':'Videoabonnement: aangekondigd (P1)','CH-08':'—',
+  'AC-01':'Registreren, inloggen, wachtwoordherstel','AC-02':'Mijn account','AC-03':'Backoffice','AC-04':'Rollen: klant, docent, beheerder','AC-05':'Audittrail','AC-06':'Automatische mails','AC-07':'Rapport-tab (eerste versie)',
+  'WEB-01':'Responsive site','WEB-02':'Lessen, prijzen, kaarttypes bewerkbaar in beheer (teksten: volgende fase)','WEB-03':'Privacy & cookies: enkel functionele opslag','WEB-04':'Gongbaden als events met capaciteit en prijs',
+  'MIG-01':'Migratieplan nodig (Wix-export)','MIG-02':'Wachtwoorden niet overnemen: activatiemail','MIG-03':'Cutover-plan','OPEN-01':'Open punt','OPEN-02':'Open punt','OPEN-03':'Open punt','OPEN-04':'Open punt',
+};
+for(let i=1;i<=14;i++)IMPL['ADM-'+String(i).padStart(2,'0')]=['','Afgelopen les › + Persoon toevoegen','Klant zoeken of nieuw aanmaken','Aanwezig / afwezig / te beoordelen','Juiste kaart achteraf afgeboekt','Losse les achteraf + betaling','Afgelopen lessen bewerkbaar','Override met waarschuwing + reden','Dubbele inschrijving/afboeking geweigerd','Lesdatum + bewerkingstijdstip in audit','Herstel… met reversals','Kaart geldig op lesdatum volstaat','Uitzonderingen-wachtrij','Open dossier','Herkomst-label in deelnemerslijst'][i];
+const STATUS={'MIG-01':'plan','MIG-02':'plan','MIG-03':'plan','OPEN-01':'open','OPEN-02':'open','OPEN-03':'open','OPEN-04':'open','CH-07':'later','CH-08':'later','WEB-02':'deels','CH-01':'demo','AC-07':'demo'};
+
+/* --- testharnas --- */
+function withFresh(fn){
+  const keep=S;S=seed();S.clockOffset=0;
+  try{return fn();}finally{S=keep;}
+}
+const assert=(c,m)=>{if(!c)throw new Error(m);};
+function mkCard(userId,typeId,{boughtDaysAgo=1}={}){const o=createOrder(userId,'card',typeId,cardType(typeId).price,'t',now()-boughtDaysAgo*DAY);confirmPayment(o.id,{method:'cash',by:'t',paidOn:now()-boughtDaysAgo*DAY});return S.cards.find(c=>c.orderId===o.id);}
+function mkLesson(o={}){return upsertLesson({title:'Test',type:'groep',start:now()+2*DAY,durationMin:60,teacher:'T',location:'X',price:13,capacity:10,...o},'t');}
+
+const TESTS=[
+ ['BR-03','Les 19:00: om 18:00:00 kosteloos, om 18:00:01 laattijdig',()=>{const l=mkLesson();assert(cancelStatus(l,l.start-60*MIN)==='kosteloos','18:00:00 moet kosteloos zijn');assert(cancelStatus(l,l.start-60*MIN+1000)==='laattijdig','18:00:01 moet laattijdig zijn');}],
+ ['AN-01','18:00:00 → vrijgave plaats én kaartblokkering',()=>{const l=mkLesson(),c=mkCard('u_sara','ct_10');const b=bookLesson('u_sara',l.id,{cardId:c.id}).booking;assert(cardBalance(c).reserved===1);cancelBooking(b.id,'u_sara',l.start-60*MIN);assert(b.status==='geannuleerd'&&cardBalance(c).reserved===0&&seatsTaken(l)===0,'niet vrijgegeven');}],
+ ['AN-02','18:00:01 → PENDING_REVIEW, plaats vrij, blokkering blijft',()=>{const l=mkLesson(),c=mkCard('u_sara','ct_10');const b=bookLesson('u_sara',l.id,{cardId:c.id}).booking;cancelBooking(b.id,'u_sara',l.start-60*MIN+1000);assert(b.review==='PENDING_REVIEW','geen review');assert(seatsTaken(l)===0,'plaats niet vrij');assert(cardBalance(c).reserved===1,'blokkering weg');}],
+ ['PK-02','10 resterend, 2 geboekt ⇒ 8 vrij, 10 niet verbruikt',()=>{const c=mkCard('u_sara','ct_10');const l1=mkLesson(),l2=mkLesson({start:now()+3*DAY});bookLesson('u_sara',l1.id,{cardId:c.id});bookLesson('u_sara',l2.id,{cardId:c.id});const b=cardBalance(c);assert(b.free===8&&b.remaining===10&&b.used===0,JSON.stringify(b));}],
+ ['PK-03','Aanwezigheid: exact één afboeking, idempotent',()=>{const c=mkCard('u_sara','ct_10'),l=mkLesson();const b=bookLesson('u_sara',l.id,{cardId:c.id}).booking;setAttendance(b.id,'aanwezig','t');setAttendance(b.id,'aanwezig','t');consume(b,'t');assert(cardBalance(c).used===1,'used='+cardBalance(c).used);assert(cardBalance(c).reserved===0);}],
+ ['BK-03','Laatste plaats kan niet dubbel geboekt worden',()=>{const l=mkLesson({capacity:1});const c1=mkCard('u_sara','ct_10'),c2=mkCard('u_tom','ct_10');const r1=bookLesson('u_sara',l.id,{cardId:c1.id}),r2=bookLesson('u_tom',l.id,{cardId:c2.id});assert(r1.ok&&!r2.ok&&r2.full,'dubbel geboekt');assert(seatsTaken(l)===1);}],
+ ['PK-08','Geen negatieve vrije beurten bij gelijktijdige reservaties',()=>{const c=mkCard('u_sara','ct_trial');const ls=[1,2,3,4].map(i=>mkLesson({start:now()+i*DAY}));const rs=ls.map(l=>bookLesson('u_sara',l.id,{cardId:c.id}));assert(rs.filter(r=>r.ok).length===3,'meer dan 3 geboekt');assert(cardBalance(c).free===0);}],
+ ['BK-04','Verlopen kaart geweigerd bij boeking',()=>{const c=mkCard('u_sara','ct_5',{boughtDaysAgo:200});const l=mkLesson();const r=bookLesson('u_sara',l.id,{cardId:c.id});assert(!r.ok&&r.expired,'verlopen kaart aanvaard');}],
+ ['BR-06','Andere klant kan kaart van eigenaar niet gebruiken',()=>{const c=mkCard('u_sara','ct_10');const r=bookLesson('u_tom',mkLesson().id,{cardId:c.id});assert(!r.ok,'kaart overdraagbaar');}],
+ ['AN-03','No-show leidt niet automatisch tot verlies van een beurt',()=>{const c=mkCard('u_sara','ct_10'),l=mkLesson();const b=bookLesson('u_sara',l.id,{cardId:c.id}).booking;setAttendance(b.id,'afwezig','t');assert(cardBalance(c).used===0&&b.review==='PENDING_REVIEW');}],
+ ['AN-04','Beslissing exact één keer verwerkt, blokkering verwijderd',()=>{const c=mkCard('u_sara','ct_10'),l=mkLesson();const b=bookLesson('u_sara',l.id,{cardId:c.id}).booking;setAttendance(b.id,'afwezig','t');decideReview(b.id,'afgeboekt','t','test');decideReview(b.id,'afgeboekt','t','test');const bal=cardBalance(c);assert(bal.used===1&&bal.reserved===0,JSON.stringify(bal));}],
+ ['AN-05','Auditlog toont oorspronkelijke én gecorrigeerde beslissing',()=>{const c=mkCard('u_sara','ct_10'),l=mkLesson();const b=bookLesson('u_sara',l.id,{cardId:c.id}).booking;setAttendance(b.id,'afwezig','t');decideReview(b.id,'afgeboekt','t','eerst');decideReview(b.id,'kwijtgescholden','t','herzien');assert(b.decisions.length===2&&cardBalance(c).used===0,'correctie niet coherent');assert(S.audit.filter(a=>a.action==='review.beslissing').length===2);}],
+ ['ADM-01','Admin voegt deelnemer toe aan afgelopen les',()=>{const l=mkLesson({start:now()-3*DAY});const c=mkCard('u_sara','ct_10',{boughtDaysAgo:10});const r=adminAdd(l.id,{userId:'u_sara',attendance:'aanwezig',settlement:'kaart',cardId:c.id,reason:'vergeten'},'u_philip');assert(r.ok&&r.booking.origin==='retroactief','niet retroactief');}],
+ ['ADM-04','Achteraf aanwezig ⇒ exact één afboeking met verwijzing',()=>{const l=mkLesson({start:now()-3*DAY});const c=mkCard('u_sara','ct_10',{boughtDaysAgo:10});const r=adminAdd(l.id,{userId:'u_sara',attendance:'aanwezig',settlement:'kaart',cardId:c.id,reason:'x'},'u_philip');const e=S.ledger.filter(x=>x.type==='consume'&&x.bookingId===r.booking.id);assert(e.length===1&&e[0].lessonId===l.id&&e[0].cardId===c.id);}],
+ ['ADM-05','Geen kaart ⇒ losse les achteraf + offline betaling gekoppeld',()=>{const l=mkLesson({start:now()-2*DAY});const r=adminAdd(l.id,{userId:'u_sara',attendance:'aanwezig',settlement:'losse_les',payMethod:'cash',reason:'x'},'u_philip');const o=order(r.booking.orderId);assert(o&&o.status==='betaald'&&r.booking.settlement==='losse_les');}],
+ ['ADM-08','Tweede identieke toevoeging geweigerd, geen dubbele afboeking',()=>{const l=mkLesson({start:now()-2*DAY});const c=mkCard('u_sara','ct_10',{boughtDaysAgo:10});adminAdd(l.id,{userId:'u_sara',attendance:'aanwezig',settlement:'kaart',cardId:c.id,reason:'x'},'u_philip');const r2=adminAdd(l.id,{userId:'u_sara',attendance:'aanwezig',settlement:'kaart',cardId:c.id,reason:'x'},'u_philip');assert(!r2.ok&&r2.dup&&cardBalance(c).used===1);}],
+ ['ADM-09','Audit bevat lesdatum, created_at, operator en reden',()=>{const l=mkLesson({start:now()-5*DAY});adminAdd(l.id,{userId:'u_sara',attendance:'onbekend',settlement:'open',reason:'papieren lijst'},'u_philip');const a=S.audit.find(x=>x.action==='boeking.aangemaakt');assert(a.lessonDate===l.start&&a.at>l.start&&a.by==='u_philip'&&a.reason==='papieren lijst');}],
+ ['ADM-11','Kaart geldig op lesdag, nu vervallen ⇒ toewijzing mag',()=>{const c=mkCard('u_sara','ct_5',{boughtDaysAgo:190});const l=mkLesson({start:now()-20*DAY});const r=adminAdd(l.id,{userId:'u_sara',attendance:'aanwezig',settlement:'kaart',cardId:c.id,reason:'x'},'u_philip');assert(r.ok&&r.booking.consumed,'niet toegewezen');const l2=mkLesson({start:now()-195*DAY});const r2=adminAdd(l2.id,{userId:'u_sara',attendance:'aanwezig',settlement:'kaart',cardId:c.id,reason:'x'},'u_philip');assert(!r2.ok,'onterechte terugwerkende toewijzing');}],
+ ['ADM-12','Onvoldoende historisch saldo ⇒ exception queue, geen negatief saldo',()=>{const c=mkCard('u_sara','ct_trial',{boughtDaysAgo:10});const ls=[1,2,3,4].map(i=>mkLesson({start:now()-i*DAY}));const rs=ls.map(l=>adminAdd(l.id,{userId:'u_sara',attendance:'aanwezig',settlement:'kaart',cardId:c.id,reason:'x'},'u_philip'));assert(cardBalance(c).remaining===0,'negatief: '+cardBalance(c).remaining);assert(S.exceptions.length===1,'geen exception');}],
+ ['ADM-13','Aanwezig met nog te vereffenen betaling (open dossier)',()=>{const l=mkLesson({start:now()-1*DAY});const r=adminAdd(l.id,{userId:'u_sara',attendance:'aanwezig',settlement:'open',reason:'x'},'u_philip');assert(r.ok&&r.booking.attendance==='aanwezig'&&r.booking.settlement==='open');}],
+ ['ADM-10','Verkeerde kaart herstellen met reversal, saldo coherent',()=>{const c1=mkCard('u_sara','ct_10',{boughtDaysAgo:10}),c2=mkCard('u_sara','ct_5',{boughtDaysAgo:5});const l=mkLesson({start:now()-1*DAY});const r=adminAdd(l.id,{userId:'u_sara',attendance:'aanwezig',settlement:'kaart',cardId:c1.id,reason:'x'},'u_philip');changeBookingCard(r.booking.id,c2.id,'u_philip','verkeerde kaart');assert(cardBalance(c1).used===0&&cardBalance(c2).used===1);assert(S.ledger.some(e=>e.type==='reverse'));}],
+ ['ADM-07','Volle les: geen automatische override',()=>{const l=mkLesson({capacity:1,start:now()-1*DAY});adminAdd(l.id,{userId:'u_tom',attendance:'aanwezig',settlement:'open',reason:'x'},'u_philip');const r=adminAdd(l.id,{userId:'u_sara',attendance:'aanwezig',settlement:'open',reason:'x'},'u_philip');assert(!r.ok,'automatische override');const r2=adminAdd(l.id,{userId:'u_sara',attendance:'aanwezig',settlement:'open',reason:'bewust',overrideFull:true},'u_philip');assert(r2.ok&&S.audit.some(a=>a.action==='override.volzet'));}],
+ ['PK-06','Bestaande klant kan geen proefpakket meer kopen',()=>{mkCard('u_sara','ct_5');assert(!canBuyTrial('u_sara'));assert(canBuyTrial('u_tom'));}],
+ ['PK-07','Saldocorrectie: oud en nieuw saldo + uitvoerder',()=>{const c=mkCard('u_sara','ct_10');correctBalance(c.id,2,'u_philip','compensatie');const a=S.audit.find(x=>x.action==='kaart.saldocorrectie');assert(a.oldValue===10&&a.newValue===12&&a.by==='u_philip');}],
+ ['CH-02','Mislukte/open betaling verleent geen kaartrecht',()=>{const o=createOrder('u_sara','card','ct_10',100,'u_sara');assert(!S.cards.some(c=>c.orderId===o.id));failPayment(o.id,'p','e1');assert(!S.cards.some(c=>c.orderId===o.id));}],
+ ['CH-04','Dubbele notificatie ⇒ geen dubbele toekenning',()=>{const o=createOrder('u_sara','card','ct_10',100,'u_sara');confirmPayment(o.id,{method:'bancontact',providerEvent:'e9',by:'p'});confirmPayment(o.id,{method:'bancontact',providerEvent:'e9',by:'p'});confirmPayment(o.id,{method:'cash',by:'u_philip'});assert(S.cards.filter(c=>c.orderId===o.id).length===1&&S.payments.filter(p=>p.orderId===o.id).length===1);}],
+ ['CH-06','Terugbetaling gekoppeld aan order, historiek consistent',()=>{const o=createOrder('u_sara','card','ct_5',60,'u_sara');confirmPayment(o.id,{method:'kaart',by:'p'});refundOrder(o.id,'u_philip','test');assert(o.status==='terugbetaald'&&S.payments.some(p=>p.orderId===o.id&&p.amount===-60)&&S.cards.find(c=>c.orderId===o.id).status==='terugbetaald');}],
+ ['BR-01','Geldigheid start op bevestigde (offline) aankoopdatum',()=>{const t=now()-7*DAY;const o=createOrder('u_sara','card','ct_10',100,'u_philip');confirmPayment(o.id,{method:'cash',by:'u_philip',paidOn:t});const c=S.cards.find(x=>x.orderId===o.id);assert(c.validFrom===t&&c.validUntil===t+182*DAY);}],
+ ['PK-05','Deterministische kaartkeuze: vervalt eerst',()=>{const a=mkCard('u_sara','ct_10',{boughtDaysAgo:100}),b=mkCard('u_sara','ct_10',{boughtDaysAgo:2});assert(defaultCard('u_sara',mkLesson()).id===a.id);}],
+];
+function runTests(){return withFresh(()=>TESTS.map(([id,name,fn])=>{const keep=S;S=seed();try{fn();return {id,name,pass:true};}catch(e){return {id,name,pass:false,err:e.message};}finally{S=keep;}}));}
+
+function viewReqs(){
+  const res=UI.testRes;
+  const byId={};(res||[]).forEach(r=>{(byId[r.id]=byId[r.id]||[]).push(r);});
+  const groups={};REQS.forEach(r=>{(groups[r.d]=groups[r.d]||[]).push(r);});
+  const p0=REQS.filter(r=>r.p==='P0');const p0done=p0.filter(r=>!['plan','open','later'].includes(STATUS[r.id]||'')).length;
+  const f=UI.reqf;
+  const pass=res?res.filter(r=>r.pass).length:0;
+  return `<div class="page"><div class="wrap">
+  <div class="page-head"><div><span class="eyebrow">Yogi Power · requirements v1.3 · 22 nov 2026</span><h1 style="margin-top:12px">Wat zit er in deze demo?</h1></div><button class="btn sun" id="runtests">▶ Draai ${TESTS.length} acceptatietests</button></div>
+  <div class="g3" style="margin-bottom:22px"><div class="stat"><b>${p0done}/${p0.length}</b><span>P0-requirements uitgewerkt in het prototype</span><div class="progress" style="margin-top:10px"><i style="width:${p0done/p0.length*100}%"></i></div></div>
+  <div class="stat"><b>${res?`${pass}/${res.length}`:'—'}</b><span>automatische acceptatietests ${res?(pass===res.length?'<span class="pass">✓ allemaal groen</span>':'<span class="fail">deels rood</span>'):'(klik ▶)'}</span></div>
+  <div class="stat"><b>${REQS.length}</b><span>requirements · ${REQS.filter(r=>r.p==='P1').length}× P1 · ${REQS.filter(r=>r.p==='P2').length}× P2</span></div></div>
+  <div class="note plum" style="margin-bottom:22px"><b>Kernregel v1.3:</b> de beheerder kan personen toevoegen aan een les vóór, tijdens én na afloop; aanwezigheid, kaartverbruik en offline betaling kunnen achteraf worden geregistreerd, met volledige historiek. → probeer het: log in als beheerder › Lessen › Afgelopen › Deelnemers › + Persoon toevoegen.</div>
+  <div class="filters">${['alle','P0','P1','P2'].map(k=>`<button class="chip ${f===k?'on':''}" data-reqf="${k}">${k==='alle'?'Alles':k}</button>`).join('')}</div>
+  ${Object.entries(groups).map(([g,rs])=>{rs=rs.filter(r=>f==='alle'||r.p===f);if(!rs.length)return '';return `<div class="panel"><h3>${esc(g)}</h3>${rs.map(r=>{const t=byId[r.id];const st=STATUS[r.id];return `<div class="req"><div><code>${r.id}</code><br><span class="tag ${r.p==='P0'?'plum':r.p==='P1'?'sun':''}">${r.p}</span></div><div><div>${esc(r.r)}</div><div class="t">Test: ${esc(r.t)}</div><div class="t" style="color:var(--sage)">↳ ${esc(IMPL[r.id]||'')}</div>${t?t.map(x=>`<div class="testres ${x.pass?'pass':'fail'}">${x.pass?'✓':'✗'} ${esc(x.name)}${x.err?' — '+esc(x.err):''}</div>`).join(''):''}</div><div>${st==='open'?'<span class="tag warn">Open punt</span>':st==='plan'?'<span class="tag sun">Migratieplan</span>':st==='later'?'<span class="tag">Later</span>':st==='deels'?'<span class="tag sun">Deels</span>':st==='demo'?'<span class="tag plum">Demo</span>':'<span class="tag ok">In demo</span>'}${t?`<br><span class="tag ${t.every(x=>x.pass)?'ok':'bad'}" style="margin-top:6px">${t.every(x=>x.pass)?'test ✓':'test ✗'}</span>`:''}</div></div>`;}).join('')}</div>`;}).join('')}
+  </div></div>${footer()}`;
+}
+document.addEventListener('click',e=>{const t=e.target.closest('#runtests');if(t){UI.testRes=runTests();render();const p=UI.testRes.filter(r=>r.pass).length;toast(`${p}/${UI.testRes.length} tests geslaagd`,p===UI.testRes.length?'ok':'bad');}const rf=e.target.closest('[data-reqf]');if(rf){UI.reqf=rf.dataset.reqf;render();}});
+
+/* ============ Boot + code gate ============ */
+const GATE_HASH='2a4feef3d6502727446657de7c746f8f0ec31e529663780e1a5c1f0fa3c88459';
+async function sha(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');}
+function boot(){load();render();window.addEventListener('hashchange',()=>{render();window.scrollTo(0,0);});window.addEventListener('scroll',()=>$('#hdr').classList.toggle('scrolled',window.scrollY>4),{passive:true});setInterval(()=>{const c=$('#demobar .clock');if(c&&!document.querySelector('.modal-bg'))renderDemoBar();},30000);}
+(async function(){
+  let ok=false;try{ok=sessionStorage.getItem('yp-gate')===GATE_HASH||localStorage.getItem('yp-gate')===GATE_HASH;}catch(e){}
+  const q=new URLSearchParams(location.search).get('code');
+  if(!ok&&q&&await sha(q.trim().toLowerCase())===GATE_HASH)ok=true;
+  if(ok){try{localStorage.setItem('yp-gate',GATE_HASH);}catch(e){}$('#gate').remove();boot();return;}
+  $('#gate').style.display='grid';const inp=$('#gate input');inp.focus();
+  $('#gate form').onsubmit=async e=>{e.preventDefault();if(await sha(inp.value.trim().toLowerCase())===GATE_HASH){try{localStorage.setItem('yp-gate',GATE_HASH);}catch(x){}const g=$('#gate');g.style.transition='opacity .5s';g.style.opacity='0';setTimeout(()=>g.remove(),500);boot();}else{const g=$('#gate');g.classList.remove('shake');void g.offsetWidth;g.classList.add('shake');$('#gate .err').textContent='Onjuiste code';inp.select();}};
+})();
+
+</script>
+</body>
+</html>
