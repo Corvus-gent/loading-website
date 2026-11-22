@@ -32,7 +32,7 @@ const waitSubmit = scope => scope.getByRole('button', {name: 'join the waitlist'
 
 async function openHome(page, baseURL) {
   await page.context().addCookies([{name: 'corvus_realm', value: '1', url: baseURL}]);
-  expect((await page.goto('/')).status()).toBe(200);
+  expect((await page.goto('/', {waitUntil: 'domcontentloaded'})).status()).toBe(200);
 }
 
 async function expectLit(locator) {
@@ -116,7 +116,7 @@ test('entering sets the realm cookie and opens the ring home', async ({page}) =>
 
 test('crawl skips to a focusable waitlist and validates email', async ({page, baseURL}, info) => {
   await openHome(page, baseURL);
-  await page.getByRole('button', {name: 'what is corvus?'}).click();
+  await page.getByRole('button', {name: 'what is corvus?'}).press('Enter');
   const crawl = page.locator('#crawl');
   await expect(crawl).toBeVisible();
   if (info.project.name === 'desktop') await page.keyboard.press('Escape');
@@ -127,7 +127,7 @@ test('crawl skips to a focusable waitlist and validates email', async ({page, ba
   await page.keyboard.press('Tab');
   await expectFocus(waitSubmit(crawl));
   await waitEmail(crawl).fill('invalid');
-  await waitSubmit(crawl).click();
+  await waitSubmit(crawl).press('Enter');
   await expect(crawl.getByRole('status')).toHaveText('Enter a valid email address.');
   await waitEmail(crawl).fill('builder@example.com');
   const request = page.waitForRequest(r => new URL(r.url()).pathname === '/api/legion' && r.method() === 'POST', {timeout: 5000});
