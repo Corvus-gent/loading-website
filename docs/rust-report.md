@@ -39,6 +39,16 @@ The extractor now requires the closing marker: an unfinished attribution window 
 
 Current result: the Rust bundle is smaller than its earlier Rust version, but first-visit mobile readiness is worse than JavaScript. Rust ownership/type contracts and the compatibility suite are reasons for the experiment. They are not proof of positive ROI or a completed migration. Vercel's Rust runtime is still Beta as of the cited documentation check.
 
+## Confirmed blog brief · 22 November 2026
+
+Gabriel explicitly wants the mobile-startup investigation written up as a blog at migration time. Keep collecting the actual problem, elapsed iteration history, failed measurements, source/tool commits and architectural decisions now; publish the conclusion only after the selected approach passes the migration gates. Do not describe a lengthy conversation as measured engineering hours or invent a cost allocation.
+
+His decision preference is to try the Switch2-style Rust/WASM size/compression approach first, compare a lighter browser interface if it is faster, and prioritize both actual speed and Lighthouse performance. No framework is preselected by someone else's 98/100 or 100/100 score. See `docs/rust-migration/performance.md` on `codex/rust-migration` for the controlled optimizer experiment and original source links. That branch's existing progressive-loading evidence is at `4dc8354`; it has not yet been folded into this report's historical comparison schema. Do not overwrite the existing source-paired data or silently equate the two experiments.
+
+Required blog chapter: why a fast native server and early HTML paint did not make mobile controls ready; the cost of downloading/starting browser WASM; what compiler optimization, route splitting and predictive loading each changed; all-Rust versus Rust-server/light-browser tradeoffs; the selected solution and deployed checks. Show mobile and desktop side by side. Label direct entry, early click, read-then-click and warm reload separately. Retain the failed mobile baseline. Lighthouse is a weighted lab score, not proof that the search/form works, and cannot replace functional readiness or eventual real-device data. The user's <=800 ms average next-page target is not the same as the median of three selected runs.
+
+Source leads checked by the migration work: Switch2's first-party Leptos account reports 100/100 but no separate mobile protocol; Lance's Rust/Svelte blog publishes mobile 98 with 1.9 s LCP and desktop 100 with 0.5 s LCP; Leptos documents interactive-island payload reduction. Attribute their results to them and avoid presenting them as Corvus results. Runtime/production remain unchanged until separately verified.
+
 ## Daily review · 21 November 2026
 
 - First scheduled review, not a new benchmark day. Migration source remains `eb87ca9`; measured runtime remains `5d582b7`. No duplicate benchmarks or raw-session rereads were needed.
