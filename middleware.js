@@ -44,6 +44,14 @@ export default function middleware(request) {
     return next();
   }
   const cleanPath=url.pathname.replace(/\/index\.html$/,'').replace(/\/$/,'')||'/';
+  // Uptime has its own canonical URL; keep old bookmarks and language queries.
+  if (['/status', '/status/', '/service', '/service/'].includes(url.pathname) && url.hostname === 'stats.corvus.gent') {
+    url.pathname = '/uptime'; return Response.redirect(url, 308);
+  }
+  if (['/uptime', '/uptime/'].includes(url.pathname)) {
+    if (url.hostname !== 'stats.corvus.gent') { url.hostname = 'stats.corvus.gent'; url.pathname = '/uptime'; return Response.redirect(url, 308); }
+    url.pathname = '/stats/status/index.html'; return rewrite(url);
+  }
   // File-form stats links must reach the same clean routes as directory links.
   if (url.hostname === 'stats.corvus.gent' && /^\/(?:stats\/)?(?:(?:pidgy|games|map|music|hunt|x|coffee|linkedin|status|hack|army|private)\/)?index\.html$/.test(url.pathname)) {
     url.pathname = url.pathname.replace(/index\.html$/, '');

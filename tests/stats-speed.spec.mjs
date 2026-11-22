@@ -123,7 +123,7 @@ test('authenticated scrolling fetches each table once and keeps it out of tab st
  expect(await page.evaluate(()=>Object.keys(sessionStorage).some(k=>k.includes(':private:')))).toBe(false);
 });
 
-test('a slow request shows a bar, reports the failing service and recovers on retry', async ({page})=>{
+test('a slow request reports the failing service, offers stats links and recovers on reload', async ({page})=>{
   let release,healthy=false;
   const held=new Promise(resolve=>{release=resolve;});
   const {errors}=await harness(page,async()=>{
@@ -136,11 +136,13 @@ test('a slow request shows a bar, reports the failing service and recovers on re
   await expect(page.locator('.stats-feedback')).toContainText('stats storage (redis) is unavailable');
   await expect(page.getByRole('progressbar')).toBeHidden();
   await expect(page.locator('#overview-details')).toBeHidden();
-  healthy=true;await page.getByRole('button',{name:'try again'}).click();
+  await expect(page.getByRole('button',{name:'try again'})).toHaveCount(0);
+  await expect(page.locator('.stats-actions a')).toHaveCount(3);
+  healthy=true;await page.reload();
   await expect(page.locator('#visitors')).toHaveText('17');
   await expect(page.locator('.stats-feedback')).toBeHidden();expect(errors).toEqual([]);
 });
-test('warming has a finite end and retry starts a new attempt',async({page})=>{
+test('warming has a finite end and offers other statistics',async({page})=>{
   await page.clock.install();
   let calls=0;
   await harness(page,()=>{calls++;return {state:'warming',data:null};});
@@ -152,7 +154,8 @@ test('warming has a finite end and retry starts a new attempt',async({page})=>{
   await expect(page.locator('.stats-feedback')).toContainText('took too long');
   await expect(page.getByRole('progressbar')).toBeHidden();
   await expect(page.locator('#visitors')).toHaveText('—');
-  await page.getByRole('button',{name:'try again'}).click();await expect(page.getByRole('progressbar')).toBeVisible();
+  await expect(page.getByRole('button',{name:'try again'})).toHaveCount(0);
+  await expect(page.locator('.stats-actions a[href^="https://stats.corvus.gent/map"]')).toBeVisible();
 });
 test('switching days hides previous numbers when the new day fails',async({page})=>{
   const {errors}=await harness(page,(name,day)=>day==='2026-11-03'?{state:'unavailable',reason:'source',data:null}:{data:{visitors:18,total:87,countries:[]}});

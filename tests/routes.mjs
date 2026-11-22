@@ -6,7 +6,10 @@ const request=url=>middleware(new Request(url,{headers:{'user-agent':'Mozilla/5.
 for(const page of ['', 'pidgy', 'games', 'map', 'music', 'hunt', 'x', 'coffee', 'status', 'private']){
   const route=page?`/${page}/`:'/';
   const result=request(`https://stats.corvus.gent${route}`);
-  assert.equal(result.headers.get('x-middleware-rewrite'),`https://stats.corvus.gent/stats/${page?`${page}/`:''}`);
+  if(page==='status'){
+    assert.equal(result.status,308);
+    assert.equal(result.headers.get('location'),'https://stats.corvus.gent/uptime');
+  }else assert.equal(result.headers.get('x-middleware-rewrite'),`https://stats.corvus.gent/stats/${page?`${page}/`:''}`);
   const redirect=request(`https://corvus.gent/stats${route}?lang=fr`);
   assert.equal(redirect.status,308);
   assert.equal(redirect.headers.get('location'),`https://stats.corvus.gent${route}?lang=fr`);

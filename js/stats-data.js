@@ -127,17 +127,14 @@
     root.className = 'stats-feedback';
     root.hidden = true;
     root.innerHTML =
-      '<p role="status" aria-live="polite"></p><div class="stats-track" role="progressbar" aria-label="loading statistics"><i></i></div><div class="stats-actions"><button type="button">try again</button><a>service status →</a></div>';
+      '<p role="status" aria-live="polite"></p><div class="stats-track" role="progressbar" aria-label="loading statistics"><i></i></div><div class="stats-actions"><a href="https://stats.corvus.gent/map">visitor map →</a><a href="https://stats.corvus.gent/">all stats →</a><a href="https://stats.corvus.gent/uptime">uptime →</a></div>';
     const anchor = document.querySelector('#visitors, #private-pending, [data-snapshot-age]');
     anchor.before(root);
-    const link = root.querySelector('a');
-    link.href = page === 'status' ? '/api/health' : 'https://stats.corvus.gent/status';
     feedback = {
       root,
       text: root.querySelector('p'),
       bar: root.querySelector('[role=progressbar]'),
-      actions: root.querySelector('.stats-actions'),
-      button: root.querySelector('button')
+      actions: root.querySelector('.stats-actions')
     };
     return feedback;
   }
@@ -218,12 +215,6 @@
         if (active) paint({ state: 'loading' }, true);
       }, 350);
     }
-    ui.button.onclick = () => {
-      tries = 0;
-      clearTimeout(timer);
-      paint({ state: 'loading' }, true);
-      load(name, day, true);
-    };
     const first = name === page && day === selected && initial ? initial : load(name, day);
     if (first === initial) initial = null;
     if (!old) start();
