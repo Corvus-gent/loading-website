@@ -380,6 +380,14 @@
   ],
   "rewrites": [
     {
+      "source": "/yogipower",
+      "destination": "/clients/yogipower/index.html"
+    },
+    {
+      "source": "/yogipower/",
+      "destination": "/clients/yogipower/index.html"
+    },
+    {
       "source": "/bjj/oli",
       "destination": "/bjj/oli/index.html"
     },
