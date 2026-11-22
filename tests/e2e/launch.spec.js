@@ -32,7 +32,7 @@ const waitSubmit = scope => scope.getByRole('button', {name: 'join the waitlist'
 
 async function openHome(page, baseURL) {
   await page.context().addCookies([{name: 'corvus_realm', value: '1', url: baseURL}]);
-  expect((await page.goto('/')).status()).toBe(200);
+  expect((await page.goto('/', {waitUntil: 'domcontentloaded'})).status()).toBe(200);
 }
 
 async function expectLit(locator) {
@@ -116,7 +116,7 @@ test('entering sets the realm cookie and opens the ring home', async ({page}) =>
 
 test('crawl skips to a focusable waitlist and validates email', async ({page, baseURL}, info) => {
   await openHome(page, baseURL);
-  await page.getByRole('button', {name: 'what is corvus?'}).click();
+  await page.getByRole('button', {name: 'what is corvus?'}).press('Enter');
   const crawl = page.locator('#crawl');
   await expect(crawl).toBeVisible();
   if (info.project.name === 'desktop') await page.keyboard.press('Escape');
@@ -127,11 +127,11 @@ test('crawl skips to a focusable waitlist and validates email', async ({page, ba
   await page.keyboard.press('Tab');
   await expectFocus(waitSubmit(crawl));
   await waitEmail(crawl).fill('invalid');
-  await waitSubmit(crawl).click();
+  await waitSubmit(crawl).press('Enter');
   await expect(crawl.getByRole('status')).toHaveText('Enter a valid email address.');
   await waitEmail(crawl).fill('builder@example.com');
-  const request = page.waitForRequest(r => new URL(r.url()).pathname === '/api/legion' && r.method() === 'POST');
-  await waitSubmit(crawl).click();
+  const request = page.waitForRequest(r => new URL(r.url()).pathname === '/api/legion' && r.method() === 'POST', {timeout: 5000});
+  await waitSubmit(crawl).press('Enter');
   expect((await request).postDataJSON()).toMatchObject({action: 'subscribe', email: 'builder@example.com', consent: true});
   await expect(crawl.getByRole('status')).toHaveText('Check your email.');
 });
@@ -260,3 +260,22 @@ test('the music panel loads ten tracks without autoplay and stays off the entran
   await page.keyboard.press('Escape');
   await expect(music.locator('iframe')).toHaveCount(0);
 });
+
+for (const reduced of [false, true]) {
+  test(reduced ? 'reduced motion skips the GPU canvas' : 'the hall renders without WebGPU', async ({page, baseURL}) => {
+    await page.emulateMedia({reducedMotion: reduced ? 'reduce' : 'no-preference'});
+    await page.addInitScript(hasGpu => {
+      Object.defineProperty(navigator, 'gpu', {value: hasGpu ? {} : undefined});
+    }, reduced);
+    const shaderRequests = [];
+    page.on('request', request => {
+      if (new URL(request.url()).pathname === '/public/site/hall-shader.js') shaderRequests.push(request.url());
+    });
+    await openHome(page, baseURL);
+    await expect(page.locator('.hall-dome')).toBeVisible();
+    await expect(page.locator('.hall-panel.is-today')).toHaveText(/never\s+stop\s+debating/i);
+    await page.clock.runFor(2000);
+    await expect(page.locator('.hall canvas')).toHaveCount(0);
+    expect(shaderRequests).toEqual([]);
+  });
+}

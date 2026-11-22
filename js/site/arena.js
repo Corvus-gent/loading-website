@@ -1,3 +1,4 @@
+import './hall-shader-loader.js';
 import './never-stop.js?v=20261122less1';
 // Home only: "get in touch" reveals the contact links in reserved space.
 const toggle = document.querySelector('[data-arena-touch]');
