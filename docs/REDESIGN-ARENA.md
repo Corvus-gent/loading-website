@@ -41,7 +41,7 @@ An alternative to the crawl, with fewer Star Wars references and more Wintercirc
 
 ## v7: centred realm, quality seekers, a real Star Wars crawl (22 Nov)
 
-- **Centred:** the ring, Wing in the spotlight, CORVUS, "one man. an army of quality seekers." and the button, all on one axis. On mobile: a shorter hall, no kicker and no pennant, and no notice on the realm.
+- **Centred:** the ring, Wing in the spotlight, CORVUS, "one man, right now. an army of quality seekers, tomorrow." and the button, all on one axis. On mobile: a shorter hall, no kicker and no pennant, and no notice on the realm.
 - **Crawl in Star Wars colours:** a blue opening line, an outlined yellow CORVUS flying away, yellow News Gothic-style text tilting away, and a twinkling starfield with plum nebulae. The last line is today's ring word ("Never stop …").
 - **Art in the dark:** images from Gabe's inspiration book (the Anakin costume photo, Michael, the Fallen Angel, Diogenes, the ember monkey, the Creation of Adam) drift in left and right, tilted at random and tinted plum. Two show on mobile. Credits are on the end card.
 - **Ending:** Wing flies across like a starship, the camera pans down to a plum planet, then "your move".
@@ -120,7 +120,7 @@ The site had 913 public routes (806 of them Compound video cuts) behind five equ
 | Page | Decision | Reason to exist / destination |
 | --- | --- | --- |
 | `/` | Keep, rebuilt | Says what Corvus is, one main action, the four rooms. |
-| `/legion` | Keep (room 01) | Join for $1, ranks, the wall. Main conversion. |
+| `/legion` | Keep (room 01) | join the waitlist, ranks, the wall. Main conversion. |
 | `/quests` | Keep (room 02) | Everything built, hackathon by hackathon. |
 | `/daily` | Keep (room 03), absorbs Live | Reasons to come back: puzzle, music, live and now. |
 | `/gabe` | Keep (room 04), absorbs whoami | Who is behind it, how to meet him, who he vouches for. |
@@ -166,7 +166,7 @@ A wins because the crow, the ring and the red make it feel like Corvus, and a ne
 
 ```
 /            the arena: what Corvus is + the programme
-├─ /legion   01 join for $1, ranks, the wall        (+ /people)
+├─ /legion   01 join the waitlist, ranks, the wall        (+ /people)
 ├─ /quests   02 the work, hackathon by hackathon     (+ /hackthefeed) → /hack/*, /compound/*, /battle, /build
 ├─ /daily    03 puzzle, music, live & now            → /games, /music, /live, /now, stats
 ├─ /gabe     04 story, meet, vouch, elsewhere        (+ /whoami, /sidequests, /support) → /call, /cv, /support/*

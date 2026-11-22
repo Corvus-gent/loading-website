@@ -53,3 +53,39 @@ body > #lang-switcher[data-site-languages]:has(~ header.header) {
   background: #080808;
 }
 body > [data-site-languages] ~ header.header { top: 36px; }
+
+/* Muted flag colours keep the smallest lettering readable on the dark rail. */
+.arena > #lang-switcher[data-site-languages] {
+  gap: 0 8px;
+  padding: 0 8px;
+  font-size: 11px;
+}
+.arena > #lang-switcher a { min-height: 26px; }
+.arena > #lang-switcher a[aria-current] { text-decoration: underline; text-underline-offset: 3px; }
+.arena > #lang-switcher a:focus-visible { outline: 2px solid #ffd76a; outline-offset: 2px; }
+
+.arena [data-flag="uk"] { --flag: linear-gradient(135deg, #9eb6f2 29%, #f4ebdf 30% 45%, #f68b91 46% 58%, #f4ebdf 59% 68%, #9eb6f2 69%); }
+.arena [data-flag="usa"] { --flag: linear-gradient(90deg, #9eb6f2 52%, transparent 52%) top / 100% 45% no-repeat, repeating-linear-gradient(#f68b91 0 2px, #f4ebdf 2px 4px); }
+.arena [data-flag="netherlands"] { --flag: linear-gradient(#f68b91 33%, #f4ebdf 33% 66%, #9eb6f2 66%); }
+.arena [data-flag="flanders"] { --flag: linear-gradient(155deg, #f5d66a 68%, #27211b 68% 80%, #f5d66a 80%); }
+.arena [data-flag="spain"] { --flag: linear-gradient(#f68b91 24%, #f5d66a 24% 76%, #f68b91 76%); }
+.arena [data-flag="bolivia"] { --flag: linear-gradient(#f68b91 33%, #f5d66a 33% 66%, #92cd99 66%); }
+.arena [data-flag="france"] { --flag: linear-gradient(90deg, #9eb6f2 33%, #f4ebdf 33% 66%, #f68b91 66%); }
+.arena [data-flag="brazil"] { --flag: linear-gradient(135deg, #92cd99 28%, #f5d66a 28% 45%, #9eb6f2 45% 57%, #f5d66a 57% 74%, #92cd99 74%); }
+.arena [data-flag="portugal"] { --flag: linear-gradient(90deg, #92cd99 32%, #f5d66a 32% 48%, #f68b91 48%); }
+.arena [data-flag="germany"] { --flag: linear-gradient(#77716d 30%, #f68b91 30% 64%, #f5d66a 64%); }
+.arena [data-flag="china"] { --flag: linear-gradient(140deg, #f5d66a 25%, #f68b91 25%); }
+.arena [data-flag="hong-kong"] { --flag: radial-gradient(circle, #f4ebdf 26%, #f68b91 28%); }
+
+@media (forced-colors: none) {
+  @supports (background-clip: text) {
+    .arena #lang-switcher [data-flag] {
+      background: var(--flag);
+      background-clip: text;
+      color: transparent;
+    }
+  }
+}
+@media (min-width: 701px) {
+  body.site-shell.arena:has(> [data-site-languages]) { --language-row: 28px; }
+}

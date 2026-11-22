@@ -58,7 +58,7 @@ if (hall) {
   }).catch(() => {});
   // Story mode: the ring itself tells what Corvus is, one line at a time,
   // turning each new line to the front like a rotating sign.
-  const LINES = ['it is a time of noise', 'feeds full, rooms empty', 'builders ship alone', 'in the dark', 'then, in ghent', 'a banner went up', 'over an old circus', 'its name: corvus', 'build in public', 'help each other win', 'no enemies', 'only love', 'anyone may enter', 'every rank earned', 'the doors are open', 'for now'];
+  const LINES = ['it is a time of noise', 'feeds full, rooms empty', 'builders ship alone', 'in the dark', 'then, in ghent', 'a banner went up', 'over an old circus', 'its name: corvus', 'build in public', 'help each other win', 'no enemies', 'only love', 'join the waitlist', 'higher ranks earned', 'the doors will open', 'soon'];
   let storyTimer = null;
   const setText = (panel, text, width) => { panel.textContent = text; panel.style.fontSize = Math.min(22, width / (Math.max(text.length, 12) * 0.86)) + 'px'; };
   function endStory(skipped) {

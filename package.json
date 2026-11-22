@@ -44,7 +44,8 @@
     "test:cv": "node tests/cv-profiles.mjs && node tests/cv-download.mjs && node tests/cv-page.mjs",
     "check:cv-pdfs": "node tools/cv/check-pdfs.mjs",
     "test:diogenes": "node tests/diogenes.mjs",
-    "test:feedback": "node tests/feedback.mjs"
+    "test:feedback": "node tests/feedback.mjs",
+    "test:e2e": "playwright test -c playwright.e2e.config.mjs"
   },
   "overrides": {
     "@vercel/cli-config": {

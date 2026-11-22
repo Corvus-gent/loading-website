@@ -1,5 +1,7 @@
 # corvus.gent
 
+one man, right now. an army of quality seekers, tomorrow.
+
 Gabriel’s personal site brings together daily browser games, a community music ranking and a public dashboard for traffic and service health. The frontend uses plain HTML, CSS and JavaScript. Vercel Functions handle the APIs, Redis stores game and voting data, and PostHog supplies traffic statistics.
 
 - [Visit corvus.gent](https://corvus.gent)

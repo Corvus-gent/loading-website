@@ -185,7 +185,7 @@ body.arena ::selection{background:var(--gold);color:var(--night)}
    flying away, yellow text tilting into the stars, a little Corvus plum in the sky. */
 .crawl{position:fixed;inset:0;width:100vw;height:100svh;max-width:none;max-height:none;margin:0;padding:0;border:0;background:#000;color:#ffe81f;overflow:hidden}
 .crawl::backdrop{background:#000}
-.crawl-sky{position:absolute;inset:0;transition:transform 3s cubic-bezier(.5,0,.2,1)}
+.crawl-sky{position:absolute;pointer-events:none;inset:0;transition:transform 3s cubic-bezier(.5,0,.2,1)}
 .crawl-stars{position:absolute;inset:-10% 0 -40%}
 .crawl-stars i{position:absolute;width:var(--s,1px);height:var(--s,1px);border-radius:50%;background:#fff;opacity:.85;animation:twinkle var(--t,4s) ease-in-out var(--d,0s) infinite}
 .crawl-stars i.lilac{background:#d9ccff}
@@ -231,7 +231,7 @@ body.arena ::selection{background:var(--gold);color:var(--night)}
 .crawl.static .crawl-view{position:static;-webkit-mask:none;mask:none;perspective:none}
 .crawl.static .crawl-text{position:static;transform:none;margin:8vh auto 0;font-size:20px}
 .crawl.static.ended .crawl-view{display:block}
-.crawl.static .crawl-end{position:static;opacity:1;visibility:visible;padding:20px 24px 80px}
+.crawl.static .crawl-end{position:relative;opacity:1;visibility:visible;padding:20px 24px 80px}
 .crawl.static .crawl-art,.crawl.static .crawl-planet{display:none}
 .crawl.static{overflow:auto}
 @media(max-width:700px){.crawl-art img:nth-child(n+3){display:none}.crawl-art img{--w:84px!important}}
@@ -291,7 +291,7 @@ body.ring-story .hall{transform:scale(1.18);transform-origin:50% 30%;transition:
 .end-wait-form{width:min(520px,90vw);text-align:center}
 .end-wait-row{display:flex;align-items:center;gap:6px;border:1px solid #ffd76a40;border-radius:999px;background:radial-gradient(ellipse at 85% 50%,#ffb84a14,transparent 55%),#0d0a12;padding:5px 5px 5px 20px;box-shadow:0 0 0 6px #ffd76a08;transition:border-color .4s,box-shadow .4s}
 .end-wait-row:focus-within{border-color:#ffd76a99;box-shadow:0 0 0 6px #ffd76a10,0 0 46px #8b6fd033}
-.end-wait-row input{flex:1;min-width:0;background:none!important;border:0!important;color:var(--ivory)!important;font:16px var(--text)!important;outline:none!important;padding:11px 0!important}
+.end-wait-row input{flex:1;min-width:0;background:none!important;border:0!important;color:var(--ivory)!important;font:16px var(--text)!important;padding:11px 0!important}
 .end-wait-row input::placeholder{color:#a49c8b}
 .end-cta{display:inline-flex;align-items:center;gap:9px;white-space:nowrap;padding:12px 20px;border:1px solid #ffd76a33;border-radius:999px!important;background:#ffd76a10;color:#efe3c6;font:italic 700 clamp(16px,1.5vw,19px)/1 var(--serif);cursor:pointer;transition:background .4s,color .4s,border-color .4s}
 .end-cta:hover,.end-cta:focus-visible{background:#ffd76a22;color:#fff6dc;border-color:#ffd76a77}
@@ -314,4 +314,15 @@ body.ring-story .hall{transform:scale(1.18);transform-origin:50% 30%;transition:
 .crawl-credits summary::-webkit-details-marker{display:none}
 .crawl-credits p{margin:8px 0 0}
 .crawl:not(.ended) .crawl-credits{display:none}
+
+.end-wait-form :is(input, button, a):focus-visible {
+  outline: 2px solid #ffd76a;
+  outline-offset: 3px;
+}
+.end-wait-row:has([aria-invalid="true"]) { border-color: #f68b91; }
+.site-newsletter .end-wait { margin-inline: 0; }
+.end-wait-note { margin: 10px 0 0; font-size: 12px; }
+.legion-backers { margin-block: 3rem; }
+.legion-backers .site-card h3 { margin-block: .4rem; }
+
 .arena-stats{max-width:1020px;margin:70px auto;padding:36px clamp(20px,4vw,42px);border:1px solid #43354d;border-radius:18px;background:linear-gradient(125deg,#18101fbb,#110f12bb);display:grid;grid-template-columns:1fr 1.3fr;gap:24px;text-align:left}.arena-stats h2{font:700 clamp(32px,5vw,52px)/1.08 'Bodoni Moda',Georgia,serif;color:#ffdf6b;margin:12px 0}.arena-stats p{font-size:14px;color:#beb4c8;line-height:1.6}.arena-stats-numbers{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center}.arena-stats-numbers a{text-decoration:none;display:flex;flex-direction:column;gap:12px;color:#beb4c8}.arena-stats-numbers strong{font:700 clamp(42px,7vw,76px)/1 'Bodoni Moda',Georgia,serif;color:#ffdf6b;font-variant-numeric:tabular-nums}.arena-stats-numbers span{font:13px/1.4 ui-monospace,monospace}.arena-stats-links{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:12px}.arena-stats-links a{padding:12px 16px;border:1px solid #55425e;border-radius:8px;text-decoration:none;color:#ffdf6b;font-size:14px;min-height:44px}.arena-stats-links a:hover{background:#392743}@media(max-width:650px){.arena-stats{grid-template-columns:1fr;margin:42px 16px}.arena-stats-numbers{gap:12px}.arena-stats-links a{padding:10px 12px}}

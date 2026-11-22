@@ -5,9 +5,9 @@ export const SECTIONS = [
     "id": "legion",
     "label": "Legion",
     "path": "/legion/",
-    "line": "Join for $1. Every higher rank is earned.",
-    "next": "/legion/#enlist",
-    "cta": "Enlist"
+    "line": "The Legion is forming. Higher ranks are earned.",
+    "next": "/legion/#waitlist",
+    "cta": "join the waitlist"
   },
   {
     "id": "quests",

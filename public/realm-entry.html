@@ -8,9 +8,9 @@
   <script>document.documentElement.classList.add('js')</script>
   <link rel="icon" type="image/png" href="/logo.png" />
   <link rel="stylesheet" href="/styles.css?v=c5cabf3f1a64" />
-  <meta name="description" content="corvus: a hand-picked army of people who build, in any field. we share what we know, open doors for each other and ship." />
+  <meta name="description" content="one man, right now. an army of quality seekers, tomorrow." />
   <meta property="og:title" content="corvus.gent" />
-  <meta property="og:description" content="The army is forming. Your seat is still empty." />
+  <meta property="og:description" content="one man, right now. an army of quality seekers, tomorrow." />
   <meta property="og:url" content="https://corvus.gent/" />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://corvus.gent/og-realm.png" />
@@ -21,10 +21,12 @@
 <link rel="stylesheet" href="/privacy/privacy.css?v=158032e36fdb"><meta name="referrer" content="no-referrer">
 <link rel="stylesheet" href="/sf/note.css?v=ed9d5f6d5d7f">
 <link rel="canonical" href="https://corvus.gent/">
-<link rel="stylesheet" href="/css/site/languages.css"><script type="module" src="/js/i18n/bar.js"></script><link rel="preload" href="/public/inspiration/diogenes.webp" as="image"><link rel="preload" href="/public/fonts/bodoni-moda/bodoni-moda-700-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="/css/site/realm-entry.css?v=20261122entry3"></head>
-<body class="portal entry-page" data-realm-gate><nav class="lang-switcher" id="lang-switcher" aria-label="Language"></nav>
+<script type="module" src="/js/i18n/bar.js"></script><link rel="preload" href="/public/inspiration/diogenes.webp" as="image"><link rel="preload" href="/public/fonts/bodoni-moda/bodoni-moda-700-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="/css/site/realm-entry.css?v=launch-polish1"></head>
+<body class="portal entry-page" data-realm-gate>
 <div class="entry-curtain closed" aria-hidden="true"><i></i><i></i></div>
 <main class="entry" id="entry">
+  <button type="button" class="lantern" id="lantern" aria-label="Lantern. Drag it, or use the arrow keys, to light up the dark."><span class="lantern-glow" aria-hidden="true"></span><span class="lantern-body" aria-hidden="true"></span></button>
+  <a class="dark-thing dark-door realm-enter" href="/" data-dark><span class="door-mark" aria-hidden="true">✦</span><span class="door-word"><span data-i18n="realm.enter">enter the realm</span></span></a>
   <h1 class="sr-only">Corvus. Find the way in with the lantern.</h1>
   <p class="location" id="loc"><span data-i18n="location.label">📍 currently in:</span> <span id="city">Gent</span></p>
 
@@ -42,7 +44,7 @@
     </form>
   </div>
 
-  <a class="dark-thing dark-door realm-enter" href="/" data-dark><span class="door-mark" aria-hidden="true">✦</span><span class="door-word"><span data-i18n="realm.enter">enter the realm</span></span></a>
+
 
   <button type="button" class="dark-thing dark-echo" id="dio-swap" data-dark>or ask Gabe’s echo</button>
 
@@ -54,7 +56,7 @@
   <span class="dark-thing dark-tent" style="left:22vw;bottom:20vh" data-dark aria-hidden="true"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M16 3v4" stroke="#ffd76a" stroke-width="1.5"/><path d="M16 3l6 2-6 2z" fill="#ffd76a"/><path d="M16 7L3 19h26z" fill="#5a4386"/><path d="M16 7l-4.3 12h2.9zM16 7l4.3 12h-2.9zM16 7l-10.5 12h3zM16 7l10.5 12h-3z" fill="#2c1f45"/><path d="M5 19h22v9H5z" fill="#3d2b5e"/><path d="M13 28v-6a3 3 0 0 1 6 0v6z" fill="#120d1a"/></svg></span>
   <span class="dark-thing dark-tent" style="right:4vw;top:52vh;--size:18px" data-dark aria-hidden="true"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M16 3v4" stroke="#ffd76a" stroke-width="1.5"/><path d="M16 3l6 2-6 2z" fill="#ffd76a"/><path d="M16 7L3 19h26z" fill="#5a4386"/><path d="M16 7l-4.3 12h2.9zM16 7l4.3 12h-2.9zM16 7l-10.5 12h3zM16 7l10.5 12h-3z" fill="#2c1f45"/><path d="M5 19h22v9H5z" fill="#3d2b5e"/><path d="M13 28v-6a3 3 0 0 1 6 0v6z" fill="#120d1a"/></svg></span>
 
-  <button type="button" class="lantern" id="lantern" aria-label="Lantern. Drag it, or use the arrow keys, to light up the dark."><span class="lantern-glow" aria-hidden="true"></span><span class="lantern-body" aria-hidden="true"></span></button>
+
 
   <div class="entry-wing" id="entry-wing" hidden aria-live="polite"><img src="/public/wing/wing-flight.webp" width="432" height="432" alt=""><p class="wing-say">don’t know how to get in?<br>maybe use the lantern.</p></div>
   <noscript><p class="noscript-door"><a href="/">enter the realm →</a></p></noscript>

@@ -65,7 +65,7 @@ jobs:
       - run: node tests/live-banner-browser.mjs
       - run: node tests/live-page.mjs
       - run: node tests/hack-live-mode.mjs
-      - name: Legion reading layers and five-door homepage
+      - name: Legion reading layers and arena homepage
         env:
           REDIS_URL: redis://127.0.0.1:16380/4
           SITE_TEST_PORT: 4477
