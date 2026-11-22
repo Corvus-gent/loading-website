@@ -34,6 +34,7 @@ jobs:
           node tools/check-locales.mjs
           node tests/realm-ritual.mjs
           node tests/routes.mjs
+          node tests/uptime-integration.mjs
       - name: CV profiles, PDF integrity and download behaviour
         run: npm run test:cv
       - name: Official Plethora redirects and durable counters
