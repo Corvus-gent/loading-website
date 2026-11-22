@@ -8,5 +8,5 @@ export function summarizeTelemetry(body){
  const total=Math.ceil(window/step);
  const observed=new Set(measured.filter(x=>Number.isFinite(x.t)).map(x=>Math.floor(x.t/step))).size;
  const values=measured.map(x=>x.v[0]);
- return {healthy:checks.filter(c=>c.state===1).length,services:checks.length,average:values.length?Math.round(values.reduce((a,b)=>a+b,0)/values.length):null,peak:measured.length?Math.max(...measured.map(x=>Number.isFinite(x.v[1])?x.v[1]:x.v[0])):null,observed,total,coverage:observed?Math.min(100,Math.round(observed/total*100)):null};
+ return {healthy:checks.filter(c=>c.state===1).length,services:checks.length,average:values.length?Math.round(values.reduce((a,b)=>a+b,0)/values.length):null,peak:measured.length?Math.max(...measured.map(x=>Number.isFinite(x.v[1])?x.v[1]:x.v[0])):null,observed,total,coverage:observed?Math.min(100,Math.round(observed/total*1000)/10):null};
 }

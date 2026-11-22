@@ -23,3 +23,5 @@ for(const path of ['/status','/service/']){
 }
 assert.equal(middleware(new Request('https://stats.corvus.gent/uptime?lang=en')).headers.get('x-middleware-rewrite'),'https://stats.corvus.gent/stats/status/index.html?lang=en');
 console.log('PASS: canonical uptime routes preserve language.');
+
+assert.equal(summarizeTelemetry({range:'24h',step:300000,times:Array.from({length:287},(_,i)=>i*300000),series:{overall:Array.from({length:287},()=>[1,1,1])}}).coverage,99.7,'one missing slot must not round to full coverage');
