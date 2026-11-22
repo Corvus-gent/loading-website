@@ -67,3 +67,7 @@ The measurement tool always returns `productionReady: false`: a browser lab alon
 6. After an approved canary, collect consent-aware aggregate field performance without adding personal data. Keep before/after windows and error counts. Claim a speedup only for the metrics, pages and conditions that actually improved.
 
 No release can guarantee zero bugs. Record unresolved failures and keep the old implementation available until the relevant gates pass.
+
+## Separate architecture experiment (22 November)
+
+[Lightweight home and bounded prediction](evidence/2026-11-22-aa608eb-progressive.md) compares three treatments from clean aa608eb: Rust throughout; existing lightweight JS on home with Rust on the next page; and the same hybrid with speculative downloads. All 54 exploratory journeys pass. The original Rust-only baseline and failing direct-entry gate above remain unchanged. Improvements from retaining JS or moving downloads into reading time are explicitly labelled; they are not Rust execution-speed gains.

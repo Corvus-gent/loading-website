@@ -45,3 +45,7 @@ The existing direct-entry mobile regression and original no-regression threshold
 - [Loading WASM efficiently](https://web.dev/articles/loading-wasm): asynchronous streaming. Already enabled in the core treatment; not counted as a new improvement here.
 
 The fixture now offers gzip when Brotli is not advertised. WebKit over local HTTP previously received the 2.1 MB uncompressed module, correctly rejected by the prediction budget. With gzip (~758 kB WASM plus bindings), the same policy fits the budget. Chromium keeps the identical Brotli payload. This fixture correction is not evidence of a production Safari problem.
+
+## Recorded result
+
+[22 November exploratory results](evidence/2026-11-22-aa608eb-progressive.md) retain all 54 successful journeys and raw byte accounting. Lightweight home: ~1.4–1.5 s versus Rust ~6.58 s mobile readiness. After five additional seconds of dwell (about nine seconds total on home), the next page is ~0.62 s with prediction versus ~4.45 s without. Early-click next-page latency remains ~4.31 s. Unused prediction can spend ~705 kB extra. These results support a bounded hybrid experiment, not a full migration or universal speedup.
