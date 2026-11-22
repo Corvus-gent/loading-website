@@ -130,8 +130,8 @@ test('crawl skips to a focusable waitlist and validates email', async ({page, ba
   await waitSubmit(crawl).click();
   await expect(crawl.getByRole('status')).toHaveText('Enter a valid email address.');
   await waitEmail(crawl).fill('builder@example.com');
-  const request = page.waitForRequest(r => new URL(r.url()).pathname === '/api/legion' && r.method() === 'POST');
-  await waitSubmit(crawl).click();
+  const request = page.waitForRequest(r => new URL(r.url()).pathname === '/api/legion' && r.method() === 'POST', {timeout: 5000});
+  await waitSubmit(crawl).press('Enter');
   expect((await request).postDataJSON()).toMatchObject({action: 'subscribe', email: 'builder@example.com', consent: true});
   await expect(crawl.getByRole('status')).toHaveText('Check your email.');
 });
