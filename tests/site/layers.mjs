@@ -31,7 +31,8 @@ try{
   await p.goto(origin);await p.locator('[data-site-languages]').waitFor();
   assert.equal(await p.locator('.arena-acts > li').count(),4);assert.equal(await p.locator('.site-quiet-footer a').count(),5);
   assert.equal(await p.locator('.arena-stats a[href^="https://stats.corvus.gent/uptime"]').count(),1);
-  assert.equal(await p.locator('[data-cardneto-egg],[data-plethora-banner],[data-gem-grid],.site-nav').count(),0);
+  assert.equal(await p.locator('[data-cardneto-egg],[data-plethora-banner],[data-gem-grid]').count(),0);
+  assert.equal(await p.locator('.site-nav').count(),1);
   assert(await p.locator('.site-newsletter [data-newsletter]').isVisible());assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
   await p.screenshot({path:'test-results/layers/home-'+width+'.png',fullPage:true});
   await p.goto(origin+'/sf/larp/');await p.locator('.sf-photos img').last().scrollIntoViewIfNeeded();
