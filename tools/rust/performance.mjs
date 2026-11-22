@@ -8,7 +8,7 @@ export function summarize(samples){
  const groups=new Map();for(const s of samples){const key=[s.engine,s.profile,s.route,s.cache].join('|');if(!groups.has(key))groups.set(key,[]);groups.get(key).push(s);}
  return [...groups].map(([key,rows])=>{const[engine,profile,route,cache]=key.split('|'),ok=rows.filter(r=>!r.error);return{engine,profile,route,cache,n:rows.length,successes:ok.length,failures:rows.filter(r=>r.error).map(r=>r.error),metrics:Object.fromEntries(['ttfb','fcp','lcp','ready','cls','longTaskMax','longTaskTotal','transfer','jsEncoded','wasmEncoded','requests','actionNextFrame'].map(k=>[k,{p50:quantile(ok.map(r=>r[k]),.5),p95:quantile(ok.map(r=>r[k]),.95)}]))};});
 }
-const types={'.html':'text/html','.js':'text/javascript','.mjs':'text/javascript','.json':'application/json','.css':'text/css','.wasm':'application/wasm','.svg':'image/svg+xml','.jpg':'image/jpeg','.png':'image/png','.webp':'image/webp','.woff2':'font/woff2','.woff':'font/woff'};
+const types={'.html':'text/html','.txt':'text/plain','.js':'text/javascript','.mjs':'text/javascript','.json':'application/json','.css':'text/css','.wasm':'application/wasm','.svg':'image/svg+xml','.jpg':'image/jpeg','.png':'image/png','.webp':'image/webp','.woff2':'font/woff2','.woff':'font/woff'};
 const API={
  '/api/live':{live:false,session:'performance-fixture',platforms:{twitch:false},source:'manual'},
  '/api/legion':{profiles:[],members:[],total:0,tiers:{},applications:0},
