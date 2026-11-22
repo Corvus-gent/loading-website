@@ -114,6 +114,19 @@ export function renderSwitcher(onChange) {
   const stats = document.createElement("a");
   stats.href = location.hostname === 'stats.corvus.gent' ? 'https://corvus.gent/languages/' : '/languages/';
   stats.className = "stats";
-  stats.textContent = "· " + (arena ? "polyglot stats" : t("lang.title"));
+  if (arena) {
+    const label = document.createElement('span');
+    for (const [flag, text] of [
+      ['spain', '· poly'], ['china', 'glot '], ['portugal', 'st'], ['france', 'ats'],
+    ]) {
+      const part = document.createElement('span');
+      part.dataset.flag = flag;
+      part.textContent = text;
+      label.append(part);
+    }
+    stats.append(label);
+  } else {
+    stats.textContent = '· ' + t('lang.title');
+  }
   box.appendChild(stats);
 }

@@ -107,8 +107,11 @@ test('entering sets the realm cookie and opens the ring home', async ({page}) =>
   const languages = page.locator('#lang-switcher');
   await expect(languages).toBeVisible();
   await expect(languages.locator('a[hreflang]')).toHaveCount(7);
-  await expect(languages.getByRole('link', {name: /polyglot stats/})).toBeVisible();
-  await expect(languages.locator('[data-flag]')).toHaveCount(14);
+  const stats = languages.getByRole('link', {name: '· polyglot stats'});
+  await expect(stats).toBeVisible();
+  await expect(languages.locator('a[hreflang] [data-flag]')).toHaveCount(14);
+  expect(await stats.locator('[data-flag]').evaluateAll(parts => parts.map(part => part.dataset.flag)))
+    .toEqual(['spain', 'china', 'portugal', 'france']);
 });
 
 test('crawl skips to a focusable waitlist and validates email', async ({page, baseURL}, info) => {
