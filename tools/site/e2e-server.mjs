@@ -41,7 +41,8 @@ const server = http.createServer(async (req, res) => {
   try {
     const entered = req.headers.cookie?.split(';').some(value => value.trim() === 'corvus_realm=1');
     const pathname = url.pathname === '/' && !entered ? '/public/realm-entry.html' : url.pathname;
-    file = path.resolve(root, '.' + decodeURIComponent(pathname));
+    const asset = /^\/logo\/[^/]+\.svg$/.test(pathname) ? '/public' + pathname : pathname;
+    file = path.resolve(root, '.' + decodeURIComponent(asset));
     if (file !== root && !file.startsWith(root + path.sep)) throw new Error('Invalid path');
     if ((await stat(file)).isDirectory()) file = path.join(file, 'index.html');
     await stat(file);

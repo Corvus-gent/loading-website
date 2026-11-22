@@ -187,3 +187,14 @@ test('an unknown path renders a real 404', async ({page}) => {
   expect((await page.goto('/launch-test-missing/')).status()).toBe(404);
   await expect(page.getByRole('heading', {name: '404'})).toBeVisible();
 });
+
+
+test('header and favicon use the Brussels weekday', async ({page, baseURL}) => {
+  await page.clock.setFixedTime(new Date('2032-02-09T23:30:00Z'));
+  await openHome(page, baseURL);
+  const mark = page.locator('.site-nav img[data-weekly-logo]');
+  await expect(mark).toBeVisible();
+  await expect(mark).toHaveAttribute('src', '/logo/day-2.svg');
+  await expect(page.locator('link[data-weekly-favicon]')).toHaveAttribute('href', '/logo/day-2.svg');
+  await expect.poll(() => mark.evaluate(img => img.naturalWidth)).toBeGreaterThan(0);
+});

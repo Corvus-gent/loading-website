@@ -62,3 +62,15 @@ body.site-shell:has(.portal-sections){padding-top:0}
 .circus-pop{position:fixed;z-index:60;font-size:20px;pointer-events:none;animation:pop 1.2s ease-out forwards}
 @keyframes pop{to{transform:translate(var(--dx),var(--dy)) rotate(25deg);opacity:0}}
 @media(prefers-reduced-motion:reduce){.circus-tent.is-secret{transition:none}.circus-pop{display:none}}
+
+.site-nav .site-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+@media (max-width: 700px) {
+  .site-nav .site-mark { margin-right: 0; padding-inline: 4px; font-size: 11px; }
+  .site-nav .site-mark img { width: 22px; height: 22px; }
+  .arena .site-nav a.site-mark { font-size: 11px; letter-spacing: .04em; }
+}

@@ -380,6 +380,10 @@
   ],
   "rewrites": [
     {
+      "source": "/logo/:asset.svg",
+      "destination": "/public/logo/:asset.svg"
+    },
+    {
       "source": "/api/metrics",
       "destination": "/api/stats?healthMetrics=1"
     },

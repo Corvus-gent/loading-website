@@ -1,3 +1,4 @@
+import './logo-week.js';
 import '../inspiration.js?v=20261120';
 import '../i18n/bar.js';
 import {translatePageText} from '../i18n/page-copy.js';
