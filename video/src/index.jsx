@@ -2,6 +2,7 @@ import React from 'react';
 import { AbsoluteFill, Audio, Composition, Img, interpolate, registerRoot, Sequence, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
 import { DURATIONS, FPS, timeline } from './timing.mjs';
 import './sonar.css';
+import { Cut, CUTS, NavalBookend, Pitch, VIDEO_FPS } from './cuts.jsx';
 
 const names = ['Mina Park', 'Lena Moss', 'Noor Tan'];
 const reasons = ['Find a design co-founder', 'Run a customer interview', 'Meet your first design partners'];
@@ -15,10 +16,6 @@ function Chrome({ children, note = 'BOAT HACKATHON DEMO DAY' }) {
     {children}
     <div className="video-foot"><span>{note}</span><span className="teal">37°47′ N · 122°23′ W</span></div>
   </AbsoluteFill>;
-}
-
-function GuestDot({ style }) {
-  return <div className="face" style={{ ...style, background: '#717883', borderRadius: '50%' }} />;
 }
 
 function Sonar({ rotation, lockCount = 0, ambient = true }) {
@@ -40,41 +37,6 @@ function Sonar({ rotation, lockCount = 0, ambient = true }) {
       <b>×</b><small>{String(index + 1).padStart(2, '0')}</small>
     </span>)}
   </div>;
-}
-
-function ColdOpen({ duration }) {
-  const frame = useCurrentFrame();
-  const hit = frames(timeline(duration).cannon);
-  const progress = range(frame, [hit, hit + 27], [0, 1]);
-  const shot = range(frame, [1, hit], [-520, 0]);
-  const impact = range(frame, [hit, hit + 16], [.65, 0]);
-  const wallOpacity = range(frame, [hit + 11, hit + 26], [1, 0]);
-  const sonarOpacity = range(frame, [hit + 7, hit + 32], [0, 1]);
-  const introDone = frame > hit + 19;
-  return <Chrome note="THE SAME ROOM, TWO WAYS">
-    <div className="split stage">
-      <div className="stage-copy">
-        <p className="eyebrow">{introDone ? 'ROOM SONAR' : 'LUMA · GUEST LIST'}</p>
-        <h1>{introDone ? <>Meet the <em>right three.</em></> : <>Luma is <em>sinking.</em></>}</h1>
-        <p className="sub">{introDone ? 'RSVP to people, not places.' : 'Which of these people is worth your time?'}</p>
-      </div>
-      <div className="impact-board">
-        <div className="sonar-emergence" style={{ opacity: sonarOpacity }}><Sonar rotation={frame * 3} /></div>
-        <div className="avatar-wall">
-          {Array.from({ length: 16 }, (_, index) => {
-            const x = (index % 4 - 1.5) * 2;
-            const y = (Math.floor(index / 4) - 1.5) * 2;
-            return <GuestDot key={index} style={{
-              transform: `translate(${x * 61 * progress}px,${y * 59 * progress}px) rotate(${(index % 2 ? 1 : -1) * 58 * progress}deg) scale(${1 - .76 * progress})`,
-              opacity: wallOpacity
-            }} />;
-          })}
-        </div>
-        {frame <= hit && <div className="ball" style={{ transform: `translate(${shot}px, -50%) scale(${range(frame, [1, hit], [.75, 1.1])})` }} />}
-        <div className="impact-ring" style={{ opacity: frame >= hit ? impact : 0, transform: `translate(-50%, -50%) scale(${1 + progress * 3})` }} />
-      </div>
-    </div>
-  </Chrome>;
 }
 
 function typed(text, frame, begin, perFrame = 1) {
@@ -146,29 +108,16 @@ function Mutual() {
   </Chrome>;
 }
 
-function EndCard({ duration }) {
-  const frame = useCurrentFrame();
-  const length = frames(duration * .2);
-  const opacity = range(frame, [length - 11, length - 1], [1, .18]);
-  return <Chrome note="SHOWBOAT · NOV 21 · 1–5 PM PT">
-    <div className="stage end-card" style={{ opacity }}>
-      <div className="end-sonar"><Sonar rotation={frame * 1.4} lockCount={3} ambient={false} /></div>
-      <div><p className="eyebrow">RSVP TO PEOPLE, NOT PLACES</p><h1>Luma is sinking.<br /><em>The Hackers Bay<br />is coming.</em></h1>
-        <div className="end-cta">corvus.gent/hackersbay</div></div>
-    </div>
-  </Chrome>;
-}
-
 function Film({ seconds }) {
-  const { durationInFrames } = useVideoConfig();
+  const { durationInFrames, width, height } = useVideoConfig();
   const cue = timeline(seconds);
   const entries = [
-    [0, cue.board, <ColdOpen duration={seconds} />],
+    [0, cue.board, <NavalBookend wide={width > height} />],
     [cue.board, cue.sonar, <Boarding />],
     [cue.sonar, cue.consent, <Matches />],
     [cue.consent, cue.mutual, <Consent />],
     [cue.mutual, cue.end, <Mutual />],
-    [cue.end, cue.total, <EndCard duration={seconds} />]
+    [cue.end, cue.total, <NavalBookend wide={width > height} closing />]
   ];
   return <AbsoluteFill className="film">
     <style>{`@font-face{font-family:Inter;src:url("${staticFile('inter.woff2')}");font-weight:400 900}@font-face{font-family:JetBrains;src:url("${staticFile('jetbrains-mono.woff2')}");font-weight:400 700}`}</style>
@@ -178,10 +127,10 @@ function Film({ seconds }) {
 }
 
 function Root() {
-  return DURATIONS.flatMap(seconds => [
+  return [...DURATIONS.flatMap(seconds => [
     <Composition key={'vertical' + seconds} id={'SonarVertical' + seconds} component={Film} defaultProps={{ seconds }} fps={FPS} durationInFrames={frames(seconds)} width={1080} height={1920} />,
     <Composition key={'wide' + seconds} id={'SonarWide' + seconds} component={Film} defaultProps={{ seconds }} fps={FPS} durationInFrames={frames(seconds)} width={1920} height={1080} />
-  ]);
+  ]), <Composition key="pitch" id="Pitch" component={Pitch} defaultProps={{footage:{}}} fps={VIDEO_FPS} durationInFrames={120 * VIDEO_FPS} width={1920} height={1080} />, ...CUTS.map(({id, hook}) => <Composition key={id} id={id} component={Cut} defaultProps={{hook, footage:{}}} fps={VIDEO_FPS} durationInFrames={60 * VIDEO_FPS} width={1080} height={1920} />)];
 }
 
 registerRoot(Root);

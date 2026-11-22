@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Blader door de artikels, foto’s en documentaires van Science Press.">
+<link rel="canonical" href="https://corvus.gent/science-press">
+<title>Science Press — Het archief</title>
+<link rel="icon" href="/science-press/assets/archive.jpg">
+<link rel="stylesheet" href="/science-press/style.css">
+<script src="/science-press/timeline.js" defer></script>
+</head>
+<body>
+<header class="masthead">
+  <div class="wrap topbar">
+    <a class="brand" href="/science-press"><span aria-hidden="true"></span> Science Press</a>
+    <a href="https://sciencepress.news.blog/">Originele website</a>
+  </div>
+</header>
+<main>
+  <section class="hero wrap" aria-labelledby="site-title">
+    <div class="introduction">
+      <p class="kicker">Oog voor het echte</p>
+      <h1 id="site-title">Science<br>Press<span>.</span></h1>
+      <p class="lede">Een tijdlijn van artikels, foto’s en documentaires van Science Press vzw.</p>
+      <a class="hero-link" href="#archief">Bekijk de tijdlijn</a>
+    </div>
+    <figure>
+      <img src="/science-press/assets/archive.jpg" width="512" height="512" alt="Kunstwerk met vissen, gefotografeerd door Jean-Pierre Dubois">
+      <figcaption>Tien vissen wachtten op betere tijden · Foto Jean-Pierre Dubois</figcaption>
+    </figure>
+  </section>
+  <section class="archive" id="archief" aria-labelledby="archive-title">
+    <div class="wrap">
+      <div class="archive-head">
+        <h2 id="archive-title">Het archief</h2>
+        <p id="summary"></p>
+      </div>
+      <div class="archive-grid">
+        <nav aria-label="Filter op rubriek" id="years" hidden>
+          <h3>Rubriek</h3>
+          <div id="filters"></div>
+        </nav>
+        <div>
+          <div id="timeline" aria-label="Tijdlijn"></div>
+          <div class="pagination">
+            <p id="status" role="status"></p>
+            <button id="retry" type="button" hidden>Opnieuw proberen</button>
+          </div>
+        </div>
+      </div>
+      <noscript><p><a href="https://sciencepress.news.blog/">Blader door het originele archief van Science Press.</a></p></noscript>
+    </div>
+  </section>
+</main>
+<footer class="wrap"><strong>Science Press</strong><a href="https://sciencepress.news.blog/over-science-press-vzw/">Over Science Press vzw</a></footer>
+<dialog id="reader" aria-labelledby="post-title">
+  <div class="reader-top">
+    <time id="post-date"></time>
+    <form method="dialog"><button autofocus type="submit" aria-label="Sluiten">×</button></form>
+  </div>
+  <h2 id="post-title"></h2>
+  <div id="post-photo"></div>
+  <p id="post-preview"></p>
+  <a class="hero-link" id="post-link" target="_blank" rel="noopener">Lees het originele artikel <span class="sr-only">(opent in een nieuw tabblad)</span></a>
+</dialog>
+</body>
+</html>

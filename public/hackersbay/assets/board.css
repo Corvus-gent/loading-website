@@ -24,22 +24,7 @@
   color: var(--gold); font: 13px/1 var(--pixel);
 }
 .creator-sprite { position: relative; width: 188px; aspect-ratio: 1; justify-self: center; margin-top: -3px; max-width: 74%; }
-.creator-body, .creator-bird, .creator-wings { display: block; width: 100%; height: auto; image-rendering: pixelated; }
-.creator-bird-group {
-  position: absolute; left: 66.667%; top: 31.25%; width: 45.833%;
-  animation: shoulder-flight 12s steps(18, end) infinite;
-}
-.creator-wings { position: absolute; inset: 0; animation: wings-frame 12s steps(1, end) infinite; }
-.creator-bird { animation: perched-frame 12s steps(1, end) infinite; }
-@keyframes shoulder-flight {
-  0%, 6%, 54%, 61%, 67%, 95%, 100% { transform: none; }
-  10%, 33%, 58%, 64% { transform: translateY(-4%); }
-  73% { transform: translate(18%, -60%); }
-  81% { transform: translate(-105%, -99%) scaleX(-1); }
-  87% { transform: translate(-163%, -52%); }
-}
-@keyframes wings-frame { 0%, 70%, 94%, 100% { opacity: 0; } 73%, 78%, 83%, 88%, 91% { opacity: 1; } 76%, 81%, 86%, 90%, 93% { opacity: 0; } }
-@keyframes perched-frame { 0%, 70%, 94%, 100% { opacity: 1; } 73%, 78%, 83%, 88%, 91% { opacity: 0; } 76%, 81%, 86%, 90%, 93% { opacity: 1; } }
+.creator-body { display: block; width: 100%; height: auto; image-rendering: pixelated; }
 .creator-speech {
   position: relative; margin: -5px 12px 12px; padding: 7px 11px;
   border: 2px solid var(--ink); background: var(--parchment); color: #172b38; overflow-wrap: anywhere;
@@ -92,7 +77,26 @@
   .creator-sprite { width: 250px; }
   .creator-classes .persona-choices { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
-@media (prefers-reduced-motion: reduce) {
-  .creator-bird-group, .creator-bird, .creator-wings { animation: none; }
-  .creator-wings { display: none; }
+
+.creator-choice { align-items: center; }
+.creator-choice .class-preset { width: clamp(35px, 10vw, 72px); flex: none; margin-inline-start: -5px; }
+.creator-choice .class-preset img { width: 100%; }
+.creator-choice strong { overflow-wrap: anywhere; }
+.creator-display { background: radial-gradient(ellipse at 51% 58%, #27596b, #13283f 56%, #091c30 87%); }
+.creator-sprite { aspect-ratio: 132/144; width: 156px; }
+.creator-speech { display: flex; gap: 10px; align-items: center; padding-block: 4px; }
+.creator-speech .pixel-art { width: 42px; flex: none; }
+.creator-speech strong { display: block; }
+.kit-tile {
+  min-height: 66px; display: grid; place-items: center;
+  border: 1px solid #34526a; background: repeating-linear-gradient(0deg,#18374b 0 1px,transparent 1px 8px), #102737;
+}
+.kit-tile img { width: auto; height: auto; max-width: 62px; max-height: 58px; }
+.kit-reset { margin-top: 4px; }
+@media (max-width: 478px) {
+  .creator-choice { align-items: flex-start; flex-direction: column; }
+  .creator-choice .class-preset { width: 52px; margin: -2px auto 0; }
+}
+@media (min-width: 760px) {
+  .creator-sprite { width: 235px; }
 }

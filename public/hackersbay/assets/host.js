@@ -1,6 +1,13 @@
 import { element, loadRoom, crewAvatar } from './event-data.js';
+import { eventLink, eventSelection, readEvent } from './organizer.js';
+import { PERSONAS } from './persona.js';
+import { personaTags } from './lens.js';
+import { CLASSES } from './pirate.js';
+import { rosterCsv } from './roster-csv.js';
+import { squawkStatus } from './game.js';
 
-const STORAGE = 'hackersbay-room-composer-v1';
+const custom = eventSelection();
+const STORAGE = 'hackersbay-room-composer-v1' + (custom ? ':' + custom.id : '');
 const DEFAULT_CREW = ['mina-park', 'zora-quinn', 'ravi-mora', 'noor-tan'];
 const CAPACITY = 10;
 const board = document.querySelector('#host-room');
@@ -77,7 +84,7 @@ function readCrew() {
     const saved = JSON.parse(localStorage.getItem(STORAGE));
     if (Array.isArray(saved)) return saved;
   } catch { /* Start from the sample crew. */ }
-  return DEFAULT_CREW;
+  return custom ? [] : DEFAULT_CREW;
 }
 function storeCrew(ids) {
   try { localStorage.setItem(STORAGE, JSON.stringify(ids)); } catch { /* The current page keeps the draft. */ }
@@ -112,11 +119,40 @@ function placeGraph(crew, edges, selected) {
 }
 
 async function start() {
-  const { attendees } = await loadRoom();
+  let attendees;
+  let exportRows;
+  if (custom) {
+    const key = new URLSearchParams(location.hash.slice(1)).get('key') || '';
+    const room = await readEvent(custom, key);
+    exportRows = room.attendees.map(person => ({ ...person, role:CLASSES[person.type].name }));
+    attendees = room.attendees.map(entry => {
+      const defaults = PERSONAS[entry.type];
+      const { brings, seeks } = personaTags(entry);
+      return { ...entry, role: CLASSES[entry.type].name, brings, seeks, offers: entry.offers || defaults.offers, project: entry.builds, stage: 'prototype' };
+    });
+    document.querySelector('#room-event-title').textContent = room.event.title;
+    document.querySelector('#roster-label').textContent = custom.local ? 'LOCAL PREVIEW ROSTER' : 'EVENT ROSTER';
+    const invite = document.querySelector('#room-invite');
+    invite.href = eventLink('invite', custom);
+    invite.hidden = false;
+    document.querySelector('#room-refresh').hidden = false;
+  } else {
+    ({ attendees } = await loadRoom());
+    exportRows = attendees;
+  }
   const byId = new Map(attendees.map(person => [person.id, person]));
   let ids = [...new Set(readCrew().filter(id => byId.has(id)))].slice(0, CAPACITY);
   let selected = ids[0];
   let redraw = () => {};
+  document.querySelector('#export-roster').addEventListener('click', () => {
+    const file = new Blob([rosterCsv(exportRows,new Set(ids))], {type:'text/csv;charset=utf-8'});
+    const url = URL.createObjectURL(file);
+    const download = element('a');
+    download.href = url;
+    download.download = 'hackersbay-attendee-sheet.csv';
+    download.click();
+    setTimeout(() => URL.revokeObjectURL(url),1000);
+  });
 
   function boardPirate(id) {
     if (ids.length >= CAPACITY || ids.includes(id) || !byId.has(id)) return;
@@ -171,12 +207,12 @@ async function start() {
     list.replaceChildren(...ranked.map(({ person, adds, linked, score }) => {
       const article = element('article', undefined, 'panel applicant');
       const title = element('div');
-      title.append(element('h3', person.name), element('p', person.role + ' · ' + person.project, 'fine'));
+      title.append(element('h3', person.name), element('p', person.project ? person.role + ' · ' + person.project : person.role, 'fine'));
       const top = element('header');
       top.append(crewAvatar(person), title, element('span', '+' + score, 'match-mark'));
       const contribution = element('p', 'Offers ' + person.offers + '.');
       const reason = element('p', (adds.length ? 'Adds ' + label(adds) + '. ' : '') +
-        (linked.length ? 'Two-way fit with ' + linked.map(edge => edge.b.name).join(', ') + '.' : 'Builds ' + person.project + '.'), 'fine');
+        (linked.length ? 'Two-way fit with ' + linked.map(edge => edge.b.name).join(', ') + '.' : person.project ? 'Builds ' + person.project + '.' : 'Fit uses this pirate’s class defaults.'), 'fine');
       const add = element('button', 'Add to room', 'button');
       add.type = 'button';
       add.disabled = ids.length >= CAPACITY;
@@ -189,7 +225,11 @@ async function start() {
       article.append(top, contribution, reason, actions);
       return article;
     }));
-    if (!ranked.length) list.append(element('p', 'No applicants match that search.', 'panel'));
+    if (!ranked.length) {
+      const empty = element('p',undefined,'panel');
+      squawkStatus(empty, attendees.length ? 'No pirates match that search.' : 'No one has boarded yet. Share your event invite, then refresh the roster.');
+      list.append(empty);
+    }
     if (focusId) nodes.querySelector('[data-node="' + focusId + '"]')?.focus();
   }
 
@@ -199,10 +239,13 @@ async function start() {
   new ResizeObserver(() => redraw()).observe(graph);
   filter.addEventListener('input', () => render());
   document.querySelector('#reset-room').addEventListener('click', () => {
-    ids = [...DEFAULT_CREW];
+    ids = (custom ? [] : DEFAULT_CREW).filter(id => byId.has(id));
     [selected] = ids;
     storeCrew(ids);
     render();
   });
 }
-start().catch(() => { status.textContent = 'The demo roster is unavailable. Reload the page to try again.'; });
+if (custom) status.textContent = 'Loading your event roster…';
+start().catch(error => { squawkStatus(status, custom ? error.message : 'The crew couldn’t board. Reload the page to try again.'); });
+
+document.querySelector('#room-refresh').addEventListener('click', () => location.reload());

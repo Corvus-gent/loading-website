@@ -1,4 +1,5 @@
 import { normalizePirate } from './pirate.js';
+import { normalizeLook } from './wardrobe.js';
 
 export const PERSONAS = {
   hacker: {
@@ -103,6 +104,7 @@ export function normalizeCard(value) {
   card.source = ['preset', 'heuristic', 'private-demo', 'llm', 'private'].includes(value.source) ? value.source : 'heuristic';
   if (value.reader === 'context') card.reader = 'context';
   if (value.pirate) card.pirate = normalizePirate(value.pirate);
+  if (value.look) card.look = normalizeLook(value.look);
   return card;
 }
 

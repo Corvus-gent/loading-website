@@ -1,4 +1,5 @@
 import { element, loadRoom, crewAvatar } from './event-data.js';
+import { squawkStatus } from './game.js';
 
 const features = {
   'ari-sol': { thesis: 'infra', fit: 'Boat.dev', opportunity: 'Run the same CI jobs on disposable VMs and compare time to preview.' },
@@ -37,8 +38,9 @@ loadRoom().then(({ attendees }) => {
   function render() {
     const shown = Object.keys(features).filter(id => filter.value === 'all' || features[id].thesis === filter.value);
     projects.replaceChildren(...shown.map(id => projectCard(byId.get(id))));
+    state.classList.remove('squawk-status');
     state.textContent = shown.length + ' fictional projects shown.';
   }
   filter.addEventListener('change', render);
   render();
-}).catch(() => { state.textContent = 'The demo report is unavailable. Reload the page to try again.'; });
+}).catch(() => { squawkStatus(state,'The treasure map is missing. Reload the page to try again.'); });

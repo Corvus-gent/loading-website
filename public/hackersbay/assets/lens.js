@@ -58,12 +58,17 @@ function textTags(value) {
 
 const overlap = (a, b) => a.filter(tag => b.includes(tag));
 
-export function matchRoom(card, people) {
+export function personaTags(card) {
   const persona = PERSONAS[card.type];
   const wanted = textTags(card.wants);
-  const offered = textTags(card.offers + ' ' + card.builds);
+  const offered = textTags((card.offers || '') + ' ' + (card.builds || ''));
   const seeks = [...new Set([...wanted, ...persona.seeks])];
   const brings = [...new Set([...offered, ...persona.brings])];
+  return { wanted, offered, seeks, brings };
+}
+
+export function matchRoom(card, people) {
+  const { wanted, offered, seeks, brings } = personaTags(card);
   const priorities = card.type === 'hacker' ? ['logistics', 'travel', 'prizes']
     : card.type === 'builder' ? ['cofounder', 'design']
     : card.type === 'connector' ? ['builders', 'traction'] : ['traction', 'pilots', 'privacy'];

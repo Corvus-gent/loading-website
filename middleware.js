@@ -123,7 +123,7 @@ export default function middleware(request) {
   const ua = request.headers.get("user-agent") || "";
   const hit = CLI.find(([re]) => re.test(ua));
 
-  if (hit) {
+  if (hit && !/^\/hackersbay(?:\/|$)/.test(cleanPath)) {
     waitUntil(fetch(new URL("/api/hit", url), {
       method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ tool: hit[1] }),
     }).catch(() => {}));

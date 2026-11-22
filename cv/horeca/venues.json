@@ -1,0 +1,191 @@
+{
+  "updated": "2026-11-21",
+  "venues": [
+    {
+      "slug": "bar-bassie",
+      "name": "Bar Bassie",
+      "category": "Rooftop · bar & bites",
+      "url": "https://barbassie.be/en",
+      "email": "hello@barbassie.be",
+      "theme": "bassie",
+      "bg": "#f5f2ea",
+      "ink": "#1a0708",
+      "accent": "#a31a1a",
+      "headline": [
+        "Een extra paar handen.",
+        "Tot op het dak."
+      ],
+      "role": "Zaal- en barondersteuning",
+      "why": "Een rooftop waar mensen samenkomen voor een drankje en iets om te delen: daar zou ik graag mee voor een goeie avond zorgen. Ik ontvang graag gasten, blijf rustig als het druk wordt en steek zonder omwegen de handen uit de mouwen.",
+      "skills": [
+        [
+          "Internationale gasten",
+          "Bij United Airlines hielp ik reizigers in een drukke omgeving. Mensen ontvangen en schakelen tussen talen voelt vertrouwd."
+        ],
+        [
+          "Goesting in eten",
+          "Ik kook graag en maak er TikTok-video’s over, vooral over steak. Goed eten en gastvrijheid interesseren me."
+        ],
+        [
+          "Team boven ego",
+          "Als jiujitsusporter ben ik gewend om door te zetten, aanwijzingen te volgen en bij te leren."
+        ]
+      ]
+    },
+    {
+      "slug": "tribune",
+      "name": "Tribune",
+      "category": "Restaurant · seizoenskeuken",
+      "url": "https://tribunegent.be/",
+      "email": "hello@tribunegent.be",
+      "theme": "tribune",
+      "bg": "#f4f1e9",
+      "ink": "#252721",
+      "accent": "#515c42",
+      "headline": [
+        "Aandacht voor de gast.",
+        "Goesting voor de zaal."
+      ],
+      "role": "Zaalondersteuning",
+      "why": "Bij Tribune spreekt de aandacht voor seizoensgerechten en een verzorgde ervaring me aan. Ik kook zelf graag en wil met diezelfde aandacht gasten ontvangen, mee opdienen en de zaalploeg praktisch ondersteunen.",
+      "skills": [
+        [
+          "Rust in klantcontact",
+          "Drie maanden klantendienst bij United Airlines leerden me helder communiceren en kalm blijven als mensen iets nodig hebben."
+        ],
+        [
+          "Opdienen met aandacht",
+          "Tijdens mijn middelbare schooljaren hielp ik elk jaar mee op de eetfestijnen van Zwemclub Neptunus Aalst."
+        ],
+        [
+          "Interesse in smaak",
+          "Ik kook vaak, met een bijzondere zwak voor steak. Die nieuwsgierigheid neem ik graag mee naar een restaurantomgeving."
+        ]
+      ]
+    },
+    {
+      "slug": "sakas",
+      "name": "Sākas",
+      "category": "Japanse keuken · Chef Yoshi",
+      "url": "https://www.sakaswintercircusbe.eu/",
+      "email": null,
+      "theme": "sakas",
+      "bg": "#eeeae1",
+      "ink": "#25231f",
+      "accent": "#843b31",
+      "headline": [
+        "Gastvrijheid.",
+        "Met aandacht."
+      ],
+      "role": "Onthaal en zaalondersteuning",
+      "why": "De combinatie van Japanse gerechten en een ontspannen bar spreekt me aan. Ik kook graag en leer graag bij over eten. Bij Sākas wil ik vooral praktisch helpen: gasten ontvangen, mee opdienen en luisteren naar wat de ploeg nodig heeft.",
+      "skills": [
+        [
+          "Zeven mensentalen",
+          "Ik spreek zeven mensentalen en vind het leuk om internationale gasten op hun gemak te stellen."
+        ],
+        [
+          "Ervaring met mensen",
+          "Bij United Airlines draaide ik mee in een drukke, internationale klantendienst. Ook bij de jaarlijkse eetfestijnen van mijn zwemclub hielp ik opdienen."
+        ],
+        [
+          "Nieuwsgierig naar eten",
+          "Koken is een echte hobby. Ik wil graag bijleren over de gerechten en de manier van werken bij jullie."
+        ]
+      ]
+    },
+    {
+      "slug": "bakker-klaas",
+      "name": "Bakker Klaas",
+      "category": "Bakkerij · ontbijt, lunch & koffie",
+      "url": "https://www.bakkerklaas.be/",
+      "email": "info@bakkerklaas.be",
+      "theme": "klaas",
+      "bg": "#fcd8cc",
+      "ink": "#121617",
+      "accent": "#6e382b",
+      "headline": [
+        "Goeiemorgen.",
+        "Ik draai graag mee."
+      ],
+      "role": "Onthaal, bediening en toonbankondersteuning",
+      "why": "Vers brood, koffie en mensen die even binnenvallen: die dagelijkse warmte trekt me aan bij Bakker Klaas. Ik help graag met onthaal, bediening en het praktische werk rond ontbijt en lunch.",
+      "skills": [
+        [
+          "Koffie én thee",
+          "Een goeie kop en een warm welkom doen veel. Ik hou van allebei en leer graag hoe jullie ze serveren."
+        ],
+        [
+          "Een vlot onthaal",
+          "Bij United Airlines ontving en hielp ik internationale reizigers. Ik schakel graag tussen mensen en talen."
+        ],
+        [
+          "Handen uit de mouwen",
+          "Jaar na jaar hielp ik mee opdienen op de eetfestijnen van mijn zwemclub. Samen de drukte opvangen vind ik fijn."
+        ]
+      ]
+    },
+    {
+      "slug": "studio-mario",
+      "name": "Studio Mario",
+      "category": "Zuurdesem · pizza & aperitivo",
+      "url": "https://www.studiomario.be/",
+      "email": "info@studiomario.be",
+      "theme": "mario",
+      "bg": "#f4f2e3",
+      "ink": "#121617",
+      "accent": "#8e3c27",
+      "headline": [
+        "Pizza op tafel.",
+        "Gabriel in de zaal."
+      ],
+      "role": "Zaalondersteuning",
+      "why": "Bij Studio Mario spreekt de combinatie van ambacht, pizza en een ontspannen avond me aan. Ik kook graag en zou met plezier mee opdienen, gasten ontvangen en helpen om de zaal vlot te laten draaien.",
+      "skills": [
+        [
+          "Eten als interesse",
+          "Ik kook graag en deel kookvideo’s op TikTok. Vooral steak krijgt aandacht, maar mijn nieuwsgierigheid stopt daar niet."
+        ],
+        [
+          "Vlot met gasten",
+          "Internationale reizigers helpen bij United Airlines en opdienen op zwemclubeetfestijnen: mensenwerk heb ik al gedaan."
+        ],
+        [
+          "Samen de service dragen",
+          "Ik neem verantwoordelijkheid voor mijn werk en leer graag van mensen die de zaak door en door kennen."
+        ]
+      ]
+    },
+    {
+      "slug": "club-wintercircus",
+      "name": "Club Wintercircus",
+      "category": "Concerten · nightlife & events",
+      "url": "https://www.clubwintercircus.be/",
+      "email": null,
+      "theme": "club",
+      "bg": "#171717",
+      "ink": "#faf8ed",
+      "accent": "#d6f86b",
+      "headline": [
+        "Goeie avond.",
+        "Ik help wel even."
+      ],
+      "role": "Bar- en eventondersteuning",
+      "why": "Een plek waar concerten, nightlife en mensen samenkomen past bij mijn energie. Ik zou graag praktisch ondersteunen achter of rond de bar en bij de ontvangst, op de momenten die we samen kunnen afspreken.",
+      "skills": [
+        [
+          "Rust in de drukte",
+          "Bij United Airlines werkte ik met veel reizigers en uiteenlopende vragen. Helder blijven communiceren is daar essentieel."
+        ],
+        [
+          "Mensen samenbrengen",
+          "Ik bouw Corvus en organiseer een hackathon. Een groep ontvangen en mensen aanspreken hoort bij wat ik graag doe."
+        ],
+        [
+          "Discipline en inzet",
+          "Ik train zes tot tien keer per week Braziliaans jiujitsu. Inzet en blijven bijleren zijn voor mij dagelijkse gewoontes."
+        ]
+      ]
+    }
+  ]
+}

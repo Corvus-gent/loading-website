@@ -3,15 +3,16 @@
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#06121f"><meta name="referrer" content="no-referrer">
-  <link rel="icon" href="/public/hackersbay/assets/parrot-flag.svg" type="image/svg+xml">
+  <link rel="icon" href="/public/hackersbay/art/captain-icon.png" type="image/png" sizes="128x128">
   <link rel="stylesheet" href="/public/hackersbay/assets/bay.css">
   <title>Treasure report | The Hackers Bay</title>
   <script type="module" src="/public/hackersbay/assets/sponsor.js"></script>
+  <script type="module" src="/public/hackersbay/assets/easter-eggs.js"></script>
 </head>
 <body class="sponsor-page">
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-bar wrap">
-    <a class="brand" href="/hackersbay"><img src="/public/hackersbay/assets/parrot-flag.svg" width="34" height="34" alt=""><span class="wordmark">The Hackers Bay</span></a>
+    <a class="brand" href="/hackersbay"><picture class="pixel-art brand-picture"><source type="image/webp" srcset="/public/hackersbay/art/captain-icon.webp"><img src="/public/hackersbay/art/captain-icon.png" width="34" height="34" alt=""></picture><span class="wordmark">The Hackers Bay</span></a>
     <a class="top-link" href="/hackersbay/host">Room composer</a>
   </header>
   <main class="wrap inside" id="main">
@@ -37,7 +38,7 @@
           </select>
         </label>
       </div>
-      <p class="fine" id="report-state" role="status">Loading demo projects…</p>
+      <p class="fine" id="report-state" data-squawk="typing" role="status">Loading demo projects…</p>
       <div class="report-grid" id="report-projects"></div>
     </section>
     <section class="panel roi" aria-labelledby="roi-title">
@@ -50,6 +51,16 @@
       <p class="fine">The roster and traction above are fictional examples. Results and sponsor ROI have yet to be measured.</p>
     </section>
   </main>
-  <footer class="site-footer wrap"><p>Featured event sponsors · <a href="https://boat.dev/">Boat.dev</a> · <a href="https://www.context.dev/">Context.dev</a> · <a href="https://nytokenexchange.com/">NYTEX</a></p></footer>
+  <footer class="site-footer wrap">
+    <p>Featured event sponsors · <a href="https://boat.dev/" target="_blank" rel="noopener noreferrer">Boat.dev</a> · <a href="https://www.context.dev/" target="_blank" rel="noopener noreferrer">Context.dev</a> · <a href="https://nytokenexchange.com/" target="_blank" rel="noopener noreferrer">NYTEX</a></p>
+    <div class="boat-credit">
+      <a class="boat-credit-badge" href="https://boathackathon.com/" target="_blank" rel="noopener noreferrer">Built aboard Boat Hackathon <span aria-hidden="true">⛵</span></a>
+      <nav class="boat-credit-links" aria-label="Boat Hackathon links">
+        <a href="https://partiful.com/e/574OkdF3XGK3SzsRR3QK" target="_blank" rel="noopener noreferrer">Demo Day on Partiful</a>
+        <a href="https://x.com/BoatHackathon" target="_blank" rel="noopener noreferrer">@BoatHackathon</a>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=Historic+Klamath+Pier+9+San+Francisco" target="_blank" rel="noopener noreferrer">Historic Klamath · Pier 9</a>
+      </nav>
+    </div>
+  </footer>
 </body>
 </html>

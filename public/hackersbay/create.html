@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#06121f"><meta name="referrer" content="no-referrer">
+  <link rel="icon" href="/public/hackersbay/art/captain-icon.png" type="image/png" sizes="128x128">
+  <link rel="stylesheet" href="/public/hackersbay/assets/bay.css">
+  <title>Create your event | The Hackers Bay</title>
+  <script type="module" src="/public/hackersbay/assets/create.js"></script>
+  <script type="module" src="/public/hackersbay/assets/easter-eggs.js"></script>
+</head>
+<body class="host-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-bar wrap">
+    <a class="brand" href="/hackersbay"><picture class="pixel-art brand-picture"><source type="image/webp" srcset="/public/hackersbay/art/captain-icon.webp"><img src="/public/hackersbay/art/captain-icon.png" width="34" height="34" alt=""></picture><span class="wordmark">The Hackers Bay</span></a>
+    <a class="top-link" href="/hackersbay/host">Room composer</a>
+  </header>
+  <main class="wrap inside organizer-page" id="main">
+    <header class="page-heading">
+      <p class="eyebrow">QUARTERMASTER · NEW EVENT</p>
+      <h1>Create your event.</h1>
+      <p>Set the course, then send guests an invite to build their pirate and board.</p>
+    </header>
+    <form id="import-event" class="panel organizer-form">
+      <h2 class="small-heading">Import from Luma</h2>
+      <label>Public Luma event link <input name="url" inputmode="url" spellcheck="false" maxlength="320" placeholder="https://luma.com/your-event" required></label>
+      <button class="button" type="submit">Import public details</button>
+      <p class="fine" id="import-status" role="status">Imports the name, schedule, venue, and host when available.</p>
+    </form>
+    <form id="event-form" class="panel organizer-form">
+      <h2 class="small-heading">Event details</h2>
+      <label>Event name <input name="title" maxlength="90" required></label>
+      <label>When <input name="startsAt" maxlength="100" placeholder="Nov 21 · 1 pm PT"></label>
+      <label>Where <input name="place" maxlength="100"></label>
+      <label>Host <input name="host" maxlength="70"></label>
+      <button class="button primary" type="submit">Create boarding invite</button>
+    </form>
+    <p class="fine" id="event-status" role="status"></p>
+    <section id="event-created" class="panel organizer-form" hidden>
+      <h2 class="small-heading" tabindex="-1">Your invite is ready.</h2>
+      <p id="share-note"></p>
+      <div class="organizer-actions">
+        <a id="public-invite" class="button primary">Open boarding invite</a>
+        <button id="copy-invite" class="button" type="button">Copy invite link</button>
+        <a id="organizer-link" class="button">Open private room composer</a>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer wrap">
+    <p>The Hackers Bay</p>
+    <div class="boat-credit">
+      <a class="boat-credit-badge" href="https://boathackathon.com/" target="_blank" rel="noopener noreferrer">Built aboard Boat Hackathon <span aria-hidden="true">⛵</span></a>
+      <nav class="boat-credit-links" aria-label="Boat Hackathon links">
+        <a href="https://partiful.com/e/574OkdF3XGK3SzsRR3QK" target="_blank" rel="noopener noreferrer">Demo Day on Partiful</a>
+        <a href="https://x.com/BoatHackathon" target="_blank" rel="noopener noreferrer">@BoatHackathon</a>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=Historic+Klamath+Pier+9+San+Francisco" target="_blank" rel="noopener noreferrer">Historic Klamath · Pier 9</a>
+      </nav>
+      <nav class="boat-credit-sponsors" aria-label="Event sponsors">
+        <span>Event sponsors</span>
+        <a href="https://boat.dev/" target="_blank" rel="noopener noreferrer">Boat.dev</a>
+        <a href="https://www.context.dev/" target="_blank" rel="noopener noreferrer">Context.dev</a>
+        <a href="https://nytokenexchange.com/" target="_blank" rel="noopener noreferrer">NYTEX</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

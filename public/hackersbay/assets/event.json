@@ -10,8 +10,8 @@
   "entry": "Invite only",
   "description": "Selected builders showcase projects they shipped aboard a boat to an audience of builders, judges, and investors.",
   "source": "https://boathackathon.com/",
-  "rsvp": "https://partiful.com/e/574OkdF3XGK3SzsRR3QK?c=e-zc1AS7",
-  "map": "https://maps.google.com/?q=Historic+Klamath+Pier+9+San+Francisco",
+  "rsvp": "https://partiful.com/e/574OkdF3XGK3SzsRR3QK",
+  "map": "https://www.google.com/maps/search/?api=1&query=Historic+Klamath+Pier+9+San+Francisco",
   "sponsors": ["Boat.dev", "Context.dev", "NYTEX"],
   "judges": [
     { "name": "Anicet", "title": "CEO, Boat.dev" },

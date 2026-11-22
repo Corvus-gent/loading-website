@@ -5,6 +5,8 @@ execFileSync("node", ["tools/build-gabinho-rolls.mjs"], {stdio:'inherit'});
 execFileSync("node", ["tools/build-battle.mjs"], {stdio:'inherit'});
 execFileSync("node", ["tools/build-hackathons.mjs"], {stdio:'inherit'});
 execFileSync("node", ["tools/build-plethora.mjs"], {stdio:'inherit'});
+execFileSync('node', ['tools/cv/build-bougie.mjs'], {stdio:'inherit'});
+execFileSync('node', ['tools/cv/build-hospitality.mjs'], {stdio:'inherit'});
 // Compile CV profiles before discovery scans the static routes.
 execFileSync("node", ["tools/cv/build.mjs"], {stdio:'inherit'});
 execFileSync("node", ["tools/site/build.mjs"], {stdio:'inherit'});

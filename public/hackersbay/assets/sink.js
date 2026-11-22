@@ -1,5 +1,6 @@
 import { element } from './event-data.js';
 import { DEFAULT_DEMO_LENS, getPersona, PERSONAS } from './persona.js';
+import { squawkStatus } from './game.js';
 import { CLASSES } from './pirate.js';
 import { LUMA_DEMO_URL, LUMA_SAMPLE, normalizeLumaUrl } from './luma.js';
 

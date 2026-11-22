@@ -3,24 +3,31 @@
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#06121f"><meta name="referrer" content="no-referrer">
-  <link rel="icon" href="/public/hackersbay/assets/parrot-flag.svg" type="image/svg+xml">
+  <link rel="icon" href="/public/hackersbay/art/captain-icon.png" type="image/png" sizes="128x128">
   <link rel="stylesheet" href="/public/hackersbay/assets/bay.css">
   <title>Room composer | The Hackers Bay</title>
   <script type="module" src="/public/hackersbay/assets/host.js"></script>
+  <script type="module" src="/public/hackersbay/assets/easter-eggs.js"></script>
 </head>
 <body class="host-page">
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-bar wrap">
-    <a class="brand" href="/hackersbay"><img src="/public/hackersbay/assets/parrot-flag.svg" width="34" height="34" alt=""><span class="wordmark">The Hackers Bay</span></a>
-    <a class="top-link" href="/hackersbay/sponsor">Treasure report</a>
+    <a class="brand" href="/hackersbay"><picture class="pixel-art brand-picture"><source type="image/webp" srcset="/public/hackersbay/art/captain-icon.webp"><img src="/public/hackersbay/art/captain-icon.png" width="34" height="34" alt=""></picture><span class="wordmark">The Hackers Bay</span></a>
+    <a class="top-link" href="/hackersbay/create">Create event</a>
   </header>
   <main class="wrap inside" id="main">
     <header class="page-heading">
       <p class="eyebrow"><span class="beacon"></span> THE BLACK COMMIT · QUARTERMASTER</p>
       <h1>Room composer.</h1>
+      <p id="room-event-title" class="fine"></p>
+      <div class="organizer-actions">
+        <a class="button primary" href="/hackersbay/create">Create your event</a>
+        <a class="button" id="room-invite" hidden>Open boarding invite</a>
+        <button class="button" id="room-refresh" type="button" hidden>Refresh roster</button>
+      </div>
       <p>Drag pirates onto the deck or use Add to room. Watch the match graph and applicant rankings change with your crew.</p>
     </header>
-    <p class="fine" id="host-state" role="status">Loading the fictional applicant roster…</p>
+    <p class="fine" id="host-state" data-squawk="typing" role="status">Loading the fictional applicant roster…</p>
     <div class="host-grid" id="host-room" hidden>
       <section class="panel composer" aria-labelledby="graph-title">
         <p class="eyebrow">MATCH GRAPH · SHIP DECK</p>
@@ -31,11 +38,14 @@
         </div>
         <p class="fine ship-notice" id="graph-detail"></p>
         <div class="draft-crew" id="draft-crew"></div>
-        <button class="button" id="reset-room" type="button">Reset room</button>
+        <div class="organizer-actions">
+          <button class="button" id="reset-room" type="button">Reset room</button>
+          <button class="button" id="export-roster" type="button">Download attendee sheet</button>
+        </div>
       </section>
       <section aria-labelledby="applicant-title">
         <div class="applicant-heading">
-          <div><p class="eyebrow">FICTIONAL ROSTER</p><h2 class="small-heading" id="applicant-title">Ranked applicants</h2></div>
+          <div><p class="eyebrow" id="roster-label">FICTIONAL ROSTER</p><h2 class="small-heading" id="applicant-title">Ranked applicants</h2></div>
           <label>Find an applicant <input id="find-applicant" type="search" placeholder="Name, role, or project"></label>
         </div>
         <div id="applicants" class="match-list"></div>
@@ -48,6 +58,22 @@
     </section>
   </main>
   <div class="deck-drop" id="deck-drop" hidden>Drop pirate aboard</div>
-  <footer class="site-footer wrap"><p>Boat Hackathon Demo Day · Organizer preview</p></footer>
+  <footer class="site-footer wrap">
+    <p>Boat Hackathon Demo Day · Organizer preview</p>
+    <div class="boat-credit">
+      <a class="boat-credit-badge" href="https://boathackathon.com/" target="_blank" rel="noopener noreferrer">Built aboard Boat Hackathon <span aria-hidden="true">⛵</span></a>
+      <nav class="boat-credit-links" aria-label="Boat Hackathon links">
+        <a href="https://partiful.com/e/574OkdF3XGK3SzsRR3QK" target="_blank" rel="noopener noreferrer">Demo Day on Partiful</a>
+        <a href="https://x.com/BoatHackathon" target="_blank" rel="noopener noreferrer">@BoatHackathon</a>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=Historic+Klamath+Pier+9+San+Francisco" target="_blank" rel="noopener noreferrer">Historic Klamath · Pier 9</a>
+      </nav>
+      <nav class="boat-credit-sponsors" aria-label="Event sponsors">
+        <span>Event sponsors</span>
+        <a href="https://boat.dev/" target="_blank" rel="noopener noreferrer">Boat.dev</a>
+        <a href="https://www.context.dev/" target="_blank" rel="noopener noreferrer">Context.dev</a>
+        <a href="https://nytokenexchange.com/" target="_blank" rel="noopener noreferrer">NYTEX</a>
+      </nav>
+    </div>
+  </footer>
 </body>
 </html>

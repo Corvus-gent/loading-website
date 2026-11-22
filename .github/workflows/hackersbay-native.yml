@@ -1,0 +1,30 @@
+name: HackersBay native Mac release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: hackersbay-native-mac-release
+
+jobs:
+  package:
+    if: github.ref_name == 'main'
+    runs-on: macos-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and verify the universal app
+        run: ./apps/macos/build.sh
+      - name: Publish the macOS prerelease
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version=$(/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" apps/macos/Info.plist)
+          tag="hackersbay-native-v$version"
+          if ! gh release view "$tag" >/dev/null 2>&1; then
+            gh release create "$tag" --target "$GITHUB_SHA" --title 'HackersBay · Native Mac' --prerelease --notes 'Universal native SwiftUI and WKWebView build for Apple Silicon and Intel on macOS 13 or later. Captain Squawk lives in the menu bar. The bundle is ad hoc signed and has no Developer ID signature or Apple notarization.'
+          fi
+          gh release upload "$tag" apps/macos/dist/HackersBay-universal.dmg apps/macos/dist/HackersBay-universal.app.zip apps/macos/dist/SHA256SUMS.txt --clobber

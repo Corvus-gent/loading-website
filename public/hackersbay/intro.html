@@ -6,15 +6,16 @@
   <meta name="theme-color" content="#06121f">
   <meta name="referrer" content="no-referrer">
   <meta name="robots" content="noindex">
-  <link rel="icon" href="/public/hackersbay/assets/parrot-flag.svg" type="image/svg+xml">
+  <link rel="icon" href="/public/hackersbay/art/captain-icon.png" type="image/png" sizes="128x128">
   <link rel="stylesheet" href="/public/hackersbay/assets/bay.css">
   <title>Intro request | The Hackers Bay</title>
   <script type="module" src="/public/hackersbay/assets/intro-view.js"></script>
+  <script type="module" src="/public/hackersbay/assets/easter-eggs.js"></script>
 </head>
 <body class="intro-page">
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-bar wrap">
-    <a class="brand" href="/hackersbay"><img src="/public/hackersbay/assets/parrot-flag.svg" width="34" height="34" alt=""><span class="wordmark">The Hackers Bay</span></a>
+    <a class="brand" href="/hackersbay"><picture class="pixel-art brand-picture"><source type="image/webp" srcset="/public/hackersbay/art/captain-icon.webp"><img src="/public/hackersbay/art/captain-icon.png" width="34" height="34" alt=""></picture><span class="wordmark">The Hackers Bay</span></a>
     <div class="harbor-controls">
       <button class="button sound-switch" id="bay-sound" type="button" aria-pressed="false">Sound off</button>
       <a class="top-link" id="return-to-room" href="/hackersbay/e/boat-hackathon-demo-day">Return to the room</a>
@@ -22,9 +23,9 @@
   </header>
   <main class="wrap inside" id="main">
     <div class="panel intro-inbox">
-      <p class="eyebrow">FICTIONAL RECIPIENT VIEW</p>
+      <p class="eyebrow">FICTIONAL RECIPIENT VIEW</p><p class="bay-coins" data-bay-coins aria-label="0 gold coins">00</p>
       <h1 id="intro-title">You have an intro request.</h1>
-      <p id="intro-context" role="status">Opening the request…</p>
+      <p id="intro-context" data-squawk="typing" role="status">Opening the request…</p>
       <div class="intro-decisions" id="intro-decisions" hidden>
         <button class="button primary" id="accept-intro" type="button">Accept intro</button>
         <button class="button" id="decline-intro" type="button" aria-label="Walk the plank (decline intro)">Walk the plank</button>
@@ -34,5 +35,21 @@
       <a class="text-link" id="intro-back" href="/hackersbay/e/boat-hackathon-demo-day">Back to the room</a>
     </div>
   </main>
+  <footer class="site-footer wrap">
+    <div class="boat-credit">
+      <a class="boat-credit-badge" href="https://boathackathon.com/" target="_blank" rel="noopener noreferrer">Built aboard Boat Hackathon <span aria-hidden="true">⛵</span></a>
+      <nav class="boat-credit-links" aria-label="Boat Hackathon links">
+        <a href="https://partiful.com/e/574OkdF3XGK3SzsRR3QK" target="_blank" rel="noopener noreferrer">Demo Day on Partiful</a>
+        <a href="https://x.com/BoatHackathon" target="_blank" rel="noopener noreferrer">@BoatHackathon</a>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=Historic+Klamath+Pier+9+San+Francisco" target="_blank" rel="noopener noreferrer">Historic Klamath · Pier 9</a>
+      </nav>
+      <nav class="boat-credit-sponsors" aria-label="Event sponsors">
+        <span>Event sponsors</span>
+        <a href="https://boat.dev/" target="_blank" rel="noopener noreferrer">Boat.dev</a>
+        <a href="https://www.context.dev/" target="_blank" rel="noopener noreferrer">Context.dev</a>
+        <a href="https://nytokenexchange.com/" target="_blank" rel="noopener noreferrer">NYTEX</a>
+      </nav>
+    </div>
+  </footer>
 </body>
 </html>

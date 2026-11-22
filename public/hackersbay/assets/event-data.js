@@ -1,4 +1,4 @@
-import { crewSprite, seededPirate } from './pirate.js';
+import { dressedSprite, seededLook } from './wardrobe.js';
 
 async function get(file) {
   const response = await fetch(new URL(file, import.meta.url), { signal: AbortSignal.timeout(4500) });
@@ -14,7 +14,8 @@ export async function loadRoom() {
 }
 
 export function crewAvatar(person) {
-  return crewSprite(person.pirate || seededPirate(person.id));
+  const {type,look} = person.type ? person : seededLook(person);
+  return dressedSprite(type,look);
 }
 
 export function element(tag, value, className) {

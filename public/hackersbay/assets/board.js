@@ -1,46 +1,112 @@
 import { EVENT_PATH, preset, getPersona, savePersona, normalizeCard, normalizeProfileUrl, guessPersona, cleanText } from './persona.js';
-import { CLASSES, OPTIONS, DEFAULT_PIRATE, seededPirate, normalizePirate, pixelCanvas, paintPirate, paintParrot } from './pirate.js';
+import { readFeather, SCOUTS } from './race-model.js';
+import { CLASSES, pixelCanvas } from './pirate.js';
+import { artPicture, captainArt, classArt } from './art.js';
+import { normalizeLook, partArt, prepareDressed, rollLook, TRAV_HAT, WARDROBE } from './wardrobe.js';
+import { giveCoins, squawkStatus } from './game.js';
+import { boardEvent, browserPirateId, eventLink, eventSelection } from './organizer.js';
 import { playBaySound, wireSound } from './sound.js';
 
 const picker = document.querySelector('#persona-choices');
 const profileForm = document.querySelector('#profile-form');
 const profileStatus = document.querySelector('#profile-status');
+const profileDetails = document.querySelector('#parrot-profile');
+const privateToggle = profileForm.elements.privateMode;
+const attestation = document.querySelector('#parrot-attestation');
+const parrotLog = document.querySelector('#parrot-log-lines');
 const cardForm = document.querySelector('#card-form');
 const cardStatus = document.querySelector('#card-status');
 const cardSource = document.querySelector('#card-source');
 const stage = document.querySelector('#creator-sprite');
-const figure = pixelCanvas(48, 'creator-body');
-const parrot = pixelCanvas(22, 'creator-bird');
-const wings = pixelCanvas(22, 'creator-wings');
-const birdGroup = document.createElement('div');
-birdGroup.className = 'creator-bird-group';
-birdGroup.append(parrot, wings);
-stage.append(figure, birdGroup);
+const figure = pixelCanvas(132, 'creator-body');
+figure.height = 144;
+const ctx = figure.getContext('2d');
+stage.append(figure);
+const feather = readFeather();
+if (feather) {
+  const medal = document.createElement('span');
+  medal.className = 'pirate-feather';
+  medal.textContent = 'Golden Feather';
+  medal.title = 'Awarded by ' + SCOUTS[feather.type].name;
+  stage.append(medal);
+}
+document.querySelector('#wardrobe-captain').append(captainArt('squawk',{lazy:false}));
 
 const fields = ['builds', 'wants', 'offers'];
 const sources = {
   preset: 'Class defaults', heuristic: 'Heuristic draft', 'private-demo': 'Private mode (demo)',
   llm: 'AI draft', private: 'NYTEX private mode'
 };
-const labels = {
-  skin: 'Skin palette', hat: 'Hat', coat: 'Coat color', eye: 'Eyewear',
-  item: 'Held item', bird: 'Species / color', birdHat: 'Parrot hat'
-};
+
+function openPrivateDraft() {
+  profileDetails.open = true;
+  privateToggle.checked = true;
+}
+
+document.querySelector('#start-private-draft').addEventListener('click', openPrivateDraft);
+if (new URLSearchParams(location.search).get('private') === '1') openPrivateDraft();
+
+function parrotStatus(badge, lines, verified = false) {
+  attestation.textContent = badge;
+  attestation.dataset.state = verified ? 'verified' : '';
+  parrotLog.replaceChildren(...lines.map(line => {
+    const entry = document.createElement('li');
+    entry.textContent = line;
+    return entry;
+  }));
+}
+
+function showParrotLog(payload, card, url, privateMode) {
+  if (privateMode) {
+    const routed = card?.source === 'private';
+    const verified = routed && payload.attestation === 'verified';
+    const badge = verified ? 'Receipt verified' : routed ? 'Routed · receipt unverified' : 'Demo · no receipt';
+    parrotStatus(badge, [
+      routed ? 'NYTEX TrustedRouter · confidential route returned a draft' : 'Private Parrot · local demo draft',
+      'Context.dev and Boat.dev · skipped for this private run'
+    ], verified);
+    return;
+  }
+  const profile = url.hostname + (url.pathname === '/' ? '' : url.pathname);
+  parrotStatus('Attestation · Private Parrot only', [
+    card?.reader === 'context' ? 'Read ' + profile + ' via Context.dev' : 'Context.dev · demo fallback for ' + profile,
+    card?.reader === 'context' && payload.scout === 'boat' ? 'Sandbox booted on Boat.dev · scout complete' : 'Boat.dev · demo scout'
+  ]);
+}
+const labels = {hat:'Hat', eyes:'Eyewear', coat:'Outfit', item:'Held item'};
 const names = ['Tide Byte', 'Salt Shard', 'Cinder Voss', 'Bit Marlow', 'Brass Wake', 'Patch Reed'];
 const saved = getPersona();
-let current = saved || preset('hacker');
+const shared = new URLSearchParams(location.search);
+const sharedClass = shared.get('class');
+const sharedName = cleanText(shared.get('pirate'), 48);
+const sharedPirate = sharedName && Object.hasOwn(CLASSES, sharedClass) ? {
+  ...preset(sharedClass), name: sharedName,
+  look: normalizeLook(Object.fromEntries(Object.keys(WARDROBE).map(key => [key, shared.has(key) ? Number(shared.get(key)) : -1])))
+} : null;
+const trav = shared.get('captain') === 'trav';
+const unlockedTrav = trav || (sharedPirate || saved)?.look?.hat === TRAV_HAT;
+let current = sharedPirate || saved || preset('hacker');
+let drawn = '';
+const previews = {};
 
-for (const [key, options] of Object.entries(OPTIONS)) {
+for (const [key, options] of Object.entries(WARDROBE)) {
   const label = document.createElement('label');
   const caption = document.createElement('span');
   caption.id = 'kit-' + key;
   caption.textContent = labels[key];
   const select = document.createElement('select');
   select.name = key;
-  select.setAttribute('aria-labelledby', caption.id);
-  options.forEach((option, index) => select.add(new Option(option, index)));
-  label.append(caption, select);
-  document.querySelector(key.startsWith('bird') ? '#parrot-options' : '#pirate-options').append(label);
+  select.setAttribute('aria-labelledby',caption.id);
+  select.add(new Option('Class kit',-1));
+  options.forEach(([, name], index) => {
+    if (key !== 'hat' || index !== TRAV_HAT || unlockedTrav) select.add(new Option(name,index));
+  });
+  const tile = document.createElement('span');
+  tile.className = 'kit-tile';
+  tile.setAttribute('aria-hidden','true');
+  previews[key] = tile;
+  label.append(caption,tile,select);
+  document.querySelector('#pirate-options').append(label);
 }
 
 for (const [type, crewClass] of Object.entries(CLASSES)) {
@@ -50,10 +116,6 @@ for (const [type, crewClass] of Object.entries(CLASSES)) {
   input.type = 'radio';
   input.name = 'type';
   input.value = type;
-  const mark = document.createElement('span');
-  mark.className = 'choice-icon';
-  mark.setAttribute('aria-hidden', 'true');
-  mark.textContent = crewClass.mark;
   const text = document.createElement('span');
   const title = document.createElement('strong');
   title.textContent = crewClass.name;
@@ -62,8 +124,8 @@ for (const [type, crewClass] of Object.entries(CLASSES)) {
   role.textContent = crewClass.role;
   const pitch = document.createElement('small');
   pitch.textContent = crewClass.pitch;
-  text.append(title, role, pitch);
-  choice.append(input, mark, text);
+  text.append(title,role,pitch);
+  choice.append(input,artPicture(classArt(type),{width:132,height:144,lazy:false,className:'class-preset'}),text);
   picker.append(choice);
 }
 
@@ -73,84 +135,132 @@ function setDetails(card) {
   cardSource.textContent = sources[card.source] + (card.reader === 'context' ? ' · Context.dev' : '');
 }
 
-function setAppearance(pirate) {
-  for (const key of Object.keys(OPTIONS)) cardForm.elements.namedItem(key).value = pirate[key];
-  cardForm.elements.birdName.value = pirate.birdName;
+function setAppearance(look) {
+  for (const [key, index] of Object.entries(normalizeLook(look))) cardForm.elements.namedItem(key).value = index;
 }
 
 function getAppearance() {
-  const pirate = Object.fromEntries(Object.keys(OPTIONS).map(key => [key, Number(cardForm.elements.namedItem(key).value)]));
-  return normalizePirate({ ...pirate, birdName: cardForm.elements.birdName.value });
+  return normalizeLook(Object.fromEntries(Object.keys(WARDROBE).map(key => [key,Number(cardForm.elements.namedItem(key).value)])));
 }
 
 function draw() {
-  const pirate = getAppearance();
-  paintPirate(figure.getContext('2d'), pirate, { parrot: false });
-  for (const [canvas, flying] of [[parrot, false], [wings, true]]) {
-    const ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, 22, 22);
-    paintParrot(ctx, pirate, 0, 0, flying);
+  const type = cardForm.elements.type.value;
+  const look = getAppearance();
+  const signature = type + JSON.stringify(look);
+  if (signature !== drawn) {
+    drawn = signature;
+    for (const [key, index] of Object.entries(look)) {
+      const art = partArt(key,index);
+      previews[key].replaceChildren(art ? artPicture(art,{lazy:false}) : artPicture(classArt(type),{lazy:false,width:132,height:144}));
+    }
+    void prepareDressed(type,look).then(paint => {
+      if (drawn === signature) paint(ctx);
+    });
   }
-  document.querySelector('#sprite-class').textContent = CLASSES[cardForm.elements.type.value].name;
-  document.querySelector('#sprite-name').textContent = cleanText(cardForm.elements.name.value, 48) || 'Unnamed pirate';
-  document.querySelector('#sprite-bird-name').textContent = pirate.birdName || 'Parrot';
-  document.querySelector('#sprite-wants').textContent = cleanText(cardForm.elements.wants.value) || 'Squawk!';
+  document.querySelector('#sprite-class').textContent = CLASSES[type].name;
+  stage.setAttribute('aria-label', 'Your ' + CLASSES[type].name + ' parrot pirate' + (feather ? ' with a Golden Feather' : ''));
+  document.querySelector('#sprite-name').textContent = cleanText(cardForm.elements.name.value,48) || 'Unnamed pirate';
+  document.querySelector('#sprite-wants').textContent = cleanText(cardForm.elements.wants.value) || 'What are you looking for tonight?';
 }
 
 cardForm.elements.type.value = current.type;
-if (saved?.pirate) cardForm.elements.name.value = saved.name;
-setAppearance(saved?.pirate || DEFAULT_PIRATE);
+if (sharedPirate || (saved && (saved.source !== 'preset' || saved.look || saved.pirate))) cardForm.elements.name.value = current.name;
+setAppearance(trav ? {...current.look, hat:TRAV_HAT} : current.look);
 setDetails(current);
 draw();
 wireSound(document.querySelector('#bay-sound'));
 
-cardForm.addEventListener('input', event => {
+cardForm.addEventListener('input',event => {
   if (event.target.name === 'type' && current.source === 'preset') setDetails(preset(event.target.value));
   draw();
 });
-
-document.querySelector('#roll-pirate').addEventListener('click', () => {
-  setAppearance(seededPirate(crypto.getRandomValues(new Uint32Array(1))[0]));
+document.querySelector('#reset-kit').addEventListener('click',() => { setAppearance(); draw(); });
+document.querySelector('#roll-pirate').addEventListener('click',() => {
+  const previous = JSON.stringify(getAppearance());
+  let next = rollLook();
+  if (previous === JSON.stringify(next)) next = {...next, item:(next.item+1)%WARDROBE.item.length};
+  setAppearance(next);
   cardForm.elements.name.value = names[Math.floor(Math.random() * names.length)];
   draw();
   playBaySound('squawk');
 });
 
-profileForm.addEventListener('submit', async event => {
+profileForm.addEventListener('submit',async event => {
   event.preventDefault();
   const button = profileForm.querySelector('button[type="submit"]');
   let url;
   try { url = normalizeProfileUrl(profileForm.elements.profile.value); }
-  catch (error) { profileStatus.textContent = error.message; return; }
+  catch (error) { squawkStatus(profileStatus,error.message); return; }
 
-  const privateMode = profileForm.elements.privateMode.checked;
+  const privateMode = privateToggle.checked;
   button.disabled = true;
-  profileStatus.textContent = 'Your parrot is reading the public link…';
+  privateToggle.disabled = true;
+  parrotStatus('Attestation · pending', [
+    privateMode ? 'Preparing a Private Parrot draft…' : 'Waiting for the public scout…'
+  ]);
+  squawkStatus(profileStatus,'Captain Squawk is reading the public link…','typing');
+  let payload;
   let card;
   try {
     const response = await fetch('/api/hackersbay?action=persona', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ url: url.href, privateMode }), signal: AbortSignal.timeout(10000)
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({url:url.href,privateMode}),signal:AbortSignal.timeout(27000)
     });
-    if (response.ok) card = normalizeCard(await response.json());
+    if (response.ok) {
+      payload = await response.json();
+      card = normalizeCard(payload);
+    }
   } catch { /* The same heuristic works entirely in the browser. */ }
   button.disabled = false;
-  profileStatus.textContent = 'Builds, Wants, and Offers are ready in the ship’s log.';
-  setDetails(card || guessPersona(url, '', privateMode));
+  privateToggle.disabled = false;
+  showParrotLog(payload,card,url,privateMode);
+  squawkStatus(profileStatus,'Builds, Wants, and Offers are ready in the ship’s log.','thumbs-up');
+  setDetails(card || guessPersona(url,'',privateMode));
   draw();
   playBaySound('squawk');
 });
 
-cardForm.addEventListener('submit', event => {
+function countPirate(type) {
+  try {
+    void fetch('/api/hackersbay?action=crew-pirate', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: browserPirateId(), type }), keepalive: true
+    }).catch(() => {});
+  } catch { /* A browser with storage blocked can still board the sample event. */ }
+}
+
+const selectedEvent = eventSelection();
+if (selectedEvent) {
+  const note = document.createElement('p');
+  note.className = 'fine';
+  note.textContent = 'Boarding shares your pirate name, class, and outfit with the organizer.';
+  const label = document.createElement('label');
+  label.className = 'organizer-opt-in';
+  const share = document.createElement('input');
+  share.type = 'checkbox';
+  share.name = 'shareOrganizer';
+  label.append(share, ' Also share my Builds, Wants, and Offers for room matching.');
+  cardStatus.before(note, label);
+}
+
+cardForm.addEventListener('submit', async event => {
   event.preventDefault();
-  const { name, type, builds, wants, offers } = Object.fromEntries(new FormData(cardForm));
-  const pirate = getAppearance();
-  if (!pirate.birdName) {
-    cardStatus.textContent = 'Give your parrot a name before raising the flag.';
-    cardForm.elements.birdName.focus();
+  const {name,type,builds,wants,offers} = Object.fromEntries(new FormData(cardForm));
+  const card = savePersona({...current,name,type,builds,wants,offers,look:getAppearance()});
+  if (!card) { squawkStatus(cardStatus,'Add a pirate name and fill in Builds, Wants, and Offers.'); return; }
+  if (selectedEvent) {
+    const submit = cardForm.querySelector('[type="submit"]');
+    submit.disabled = true;
+    try {
+      await boardEvent(selectedEvent, card, cardForm.elements.shareOrganizer.checked);
+      location.assign(eventLink('invite', selectedEvent) + '&boarded=1');
+    } catch (error) {
+      squawkStatus(cardStatus, error.message);
+      submit.disabled = false;
+    }
     return;
   }
-  const card = savePersona({ ...current, name, type, builds, wants, offers, pirate });
-  if (!card) { cardStatus.textContent = 'Add a pirate name and fill in Builds, Wants, and Offers.'; return; }
+  countPirate(card.type);
+  giveCoins('raised-first-flag',3);
   location.assign(EVENT_PATH + '?lens=' + encodeURIComponent(card.type));
 });

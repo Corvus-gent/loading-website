@@ -1,0 +1,70 @@
+{
+  "hacker": [
+    {
+      "name": "Kai Compass",
+      "forYou": "They offer a low-cost Pier 9 route and map code. Relevant to your interest in event logistics and getting there.",
+      "forThem": "They’re looking for someone to improve low-connectivity mode. Your card has a signal for engineering."
+    },
+    {
+      "name": "Devon Lastplate",
+      "forYou": "They offer local low-cost meal options and volunteer contacts. Relevant to your interest in event logistics.",
+      "forThem": "They’re looking for someone to help build the volunteer check-in. Your card has a signal for engineering."
+    },
+    {
+      "name": "Tess Goldledger",
+      "forYou": "They offer a prize checklist and payout questions to ask. Relevant to your interest in prize logistics.",
+      "forThem": "They’re looking for help verifying organizer pages. Your card has a signal for engineering."
+    }
+  ],
+  "builder": [
+    {
+      "name": "Mina Moonglass",
+      "forYou": "They offer a prototype and five customer interviews. Relevant to your interest in co-founder fit and design.",
+      "forThem": "They’re looking for a technical co-founder to build sync. Your card has a signal for engineering and developer tools."
+    },
+    {
+      "name": "Lena Pilotlamp",
+      "forYou": "They offer UX facilitation and landing-page critique. Relevant to your interest in design and pilot testing.",
+      "forThem": "They’re looking for a small software team to run a customer interview. Your card has a signal for engineering and traction."
+    },
+    {
+      "name": "Noor Goldtide",
+      "forYou": "They offer pilot budget and early buyer introductions. Relevant to your interest in pilot testing.",
+      "forThem": "They’re looking for founders testing technical B2B products. Your card has a signal for developer tools and traction."
+    }
+  ],
+  "connector": [
+    {
+      "name": "Cleo Gullwing",
+      "forYou": "They offer a working scheduling demo and spare volunteer hours. Relevant to your interest in active builders and community.",
+      "forThem": "They’re looking for a pilot with a community organizer. Your card has a signal for warm intros and community."
+    },
+    {
+      "name": "Hana Watchtower",
+      "forYou": "They offer open-source incident tooling and fast feedback. Relevant to your interest in active builders and traction.",
+      "forThem": "They’re looking for a dozen developers to test on-call handoffs. Your card has a signal for pilot testing and warm intros."
+    },
+    {
+      "name": "Jules Ledgerlight",
+      "forYou": "They offer a real workflow to test and a product demo. Relevant to your interest in active builders and traction.",
+      "forThem": "They’re looking for intro to community operators who manage budgets. Your card has a signal for warm intros and community."
+    }
+  ],
+  "investor": [
+    {
+      "name": "Zora Moonwake",
+      "forYou": "They offer working meeting capture and product feedback. Relevant to your interest in traction and pilot testing.",
+      "forThem": "They’re looking for a pilot team to try a live build. Your card has a signal for pilot testing and distribution."
+    },
+    {
+      "name": "Jay Steadywake",
+      "forYou": "They offer inference observability and profiling help. Relevant to your interest in traction and developer tools.",
+      "forThem": "They’re looking for operators who can benchmark its latency. Your card has a signal for pilot testing and distribution."
+    },
+    {
+      "name": "Hana Watchtower",
+      "forYou": "They offer open-source incident tooling and fast feedback. Relevant to your interest in traction and developer tools.",
+      "forThem": "They’re looking for a dozen developers to test on-call handoffs. Your card has a signal for pilot testing and distribution."
+    }
+  ]
+}

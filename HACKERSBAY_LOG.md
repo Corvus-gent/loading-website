@@ -222,3 +222,180 @@ Times are Paris local time. The demo is built around Boat Hackathon Demo Day in 
 - Decision. Keep the 60-second story as a browser capture with a silent default. Six cold local runs at the two phone widths recorded zero layout shift and no initial roster fetch.
 - Next. Use the browser demo or the judging brief for Demo Day rehearsal.
 - **STEER ME:** Start the live pitch on the cannon shot or hand the phone over at the pirate builder.
+
+## H27 · 2026-11-21 15:00 CET · Captain Squawk and the wardrobe
+
+- Rebasing on main brought in all eight Recraft uploads. Shipped transparent WebP and PNG sprites for the six poses, four classes, and 20 wearables, plus the mascot, icon, ship, and mutual art.
+- Shipped the parrot-pirate creator, class presets, live apparel layers, dice and reset, Captain Squawk’s Wants bubble, and a local gold counter. The new icon is wired into the browser, web app manifest, and Mac package.
+- Decision. Keep the exact Recraft class art for the preset kits. Custom outfits use the uploaded item layers on a color-matched parrot body. Gold starts at zero and the first flag earns three coins.
+- Verified. The build passed. The 375px, 414px, and desktop creator tests passed for all classes, apparel, import fallback, and persistence.
+- Next. Animate the Recraft ship and put the Captain in the matching flow, demo, and error states.
+- **STEER ME:** Keep gold as a demo score or give it a cosmetic use later.
+
+## H28 · 2026-11-21 15:05 CET · The Captain takes the helm
+
+- Shipped the Recraft hero with a separated rowboat, moving sky and waves, a cannon hit, shake, bubbles, and Captain Squawk’s flyover. The original upload is the static and reduced-motion poster.
+- Captain Squawk now calls out spyglass reasons and appears in loading, empty, and missing-page states. The mutual intro reveals the Recraft beak bump and awards five local coins.
+- Decision. Keep the 404 within Hackers Bay and return HTTP 404. Keep the coin rewards local and award each mutual intro once per browser.
+- Verified. Ship effects and offscreen pause passed at 375px, 414px, and desktop. The Hackers Bay 404 returned the correct status locally. The Mac workflow verified and published both new-icon disk images.
+- Next. Give the Captain a speaking part in the autoplay and build the mascot-and-ship social preview.
+- **STEER ME:** Keep the Captain’s landing line short or have it change after the cannon hit.
+
+## H29 · 2026-11-21 15:09 CET · Captain Squawk hosts the demo
+
+- Shipped the Recraft ship, class art, wearable layers, and beak bump in both autoplay formats. The Captain narrates all eight beats in speech bubbles and changes poses as the story moves.
+- Shipped the new 1200 × 630 preview for the landing and autoplay, with Captain Squawk, The Black Commit, and the original hook.
+- Decision. Keep audio opt-in and preserve the existing recording dimensions, keyboard controls, and QR end card.
+- Verified. All eight scenes fit at 1080 × 1920, 1920 × 1080, 375px, and 414px. All 40 WebP and PNG pairs matched on their visible pixels. The mobile route sweep, selector fallbacks, routes, and Luma tests passed locally.
+- Next. Verify the exact deployment on the public domain, then remove the eight raw uploads from main.
+- **STEER ME:** Keep the Captain’s parchment speech bubbles or use a darker radio-panel style next time.
+
+## H30 · 2026-11-21 15:12 CET · Production verification and art cleanup
+
+- Verified eleven live routes at 375px and 414px and the branded 404 at 375px. The creator, ship, public event import, empty states, shared intro, gold rewards, Mac links, QR codes, and crawler previews passed.
+- Watched the complete production autoplay. Captain Squawk reached the QR after 54.4 seconds and the end card held beyond one minute. Both capture formats passed.
+- Reserved space for the coin counter. Six throttled cold local runs at 375px and 414px recorded zero layout shift and no initial roster fetch.
+- Removed the eight raw uploads after verifying the served art. Decision. Keep the upload commit f1ada0e in Git history for anyone who wants to regenerate the crops.
+- Next. Use the live demo for both capture formats and the new Mac download for desktop.
+- **STEER ME:** Lead with the cannon shot or open on the Captain’s wardrobe for the next recording.
+
+## H31 · 2026-11-21 15:29 CET · Credit Boat Hackathon
+
+- Added the Boat Hackathon credit to the ship’s hull, every Hackers Bay page, both demo end cards, and the share image. The judges’ brief now credits the Historic Klamath and Boat Hackathon 2026.
+- Added new-tab links for Boat Hackathon, the Demo Day listing, the event’s X account, and the Pier 9 map. Boat.dev, Context.dev, and NYTEX link to their own sites.
+- Decision. Use the requested text badge. The organizer’s homepage renders its wordmark as text, and the standalone image assets it references are sponsor marks or event photography.
+- Verified locally. Eleven regular paths and aliases, including the 404, passed at 375px and 414px. The judging brief fits at 375 × 667. The end-card credit fits in both recording formats.
+- Next. verify production and publish the standalone source linked from the submission.
+- **STEER ME:** Keep the credit on the hull or move it to the flag if an official event mark becomes available.
+
+## H32 · 2026-11-21 15:33 CET · Standalone submission repo
+
+- Packaged the Hackers Bay pages, API, seed data, Recraft art, Electron app, Remotion kit, and submission materials in Corvus-gent/the-hackers-bay under the MIT license. The submission now links to that source repository.
+- Decision. Keep corvus.gent/hackersbay as the canonical live product. The standalone package uses the same route prefix and has a dependency-free local start for the zero-key demo.
+- Verified. The credited live pages passed at 375px and 414px, and both recording formats show the badge. The standalone build, route sweep, browser-local mutual intro, private-mode and Proof of Build samples, and Vercel configuration passed with no integration keys. Remotion asset preparation passed.
+- Next. The standalone README links to the live demo and published Mac builds.
+- **STEER ME:** Keep the live demo as the first submission link or lead with the source repo.
+
+## H33 · 2026-11-21 15:54 CET · Private Parrot and judge fit
+
+- Shipped Private Parrot mode on the landing, creator, and judges’ brief. The creator shows a verified badge only when the TrustedRouter SDK verifies the signed receipt against the draft’s request and response.
+- The standard parrot scout reads a public profile through Context.dev and uses a short-lived Boat.dev VM to distill the excerpt. The log labels each provider result and fallback. The Context key stays on our server.
+- Added Straight talk, the Klamath’s WWII submarine and Andy Warhol history, the playful Luma line, and X and LinkedIn share intents. The prize copy links to the organizers’ listing.
+- Decision. The private path skips the public scout. Its receipt proves the original draft’s origin and integrity, and the site’s server still handles the public-profile data. LinkedIn has a separate copyable caption for the event tag.
+- Verified locally at 375px and 414px. The judges’ brief fits a 375 × 667 viewport. Unit tests reject bogus receipts and exercise the Boat request with mocked providers. The zero-key demo and share intents passed.
+- Next. Verify the live deployment and keep the public submission source in sync.
+- **STEER ME:** Open the judges’ demo on the receipt badge or on the public scout log.
+
+## H34 · 2026-11-21 20:43 CET · Organizer invites and live crew totals
+
+- Added public Luma import to event creation, separate guest and private organizer links, and “Build your pirate to board.” The composer ranks the event’s roster and keeps its deck draft in the organizer’s browser.
+- Added live counts from Redis. A saved browser pirate and a shared mutual intro each count once. No seed numbers were added.
+- Decision. Guest registrations share name, class, and wardrobe. The organizer can see Builds, Wants, and Offers only when a guest checks the optional box. Shared links expire after 90 days. Zero-key installs use a labeled local preview.
+- Verified at 375px with a stubbed Luma import and at 414px with real Redis, separate guest and organizer browser contexts, an invalid organizer key, and repeated save and acceptance requests.
+- Next. Publish the three 60-second cuts and the two-minute pitch for Demo Day.
+- **STEER ME:** Keep the initial deck at 10 seats or add a host-defined seat count.
+
+## H35 · 2026-11-21 20:53 CET · Remote pitch first
+
+- Rendered the captioned two-minute 1920 × 1080 pitch with the Deckhand lens, double opt-in, organizer flow, and sinking-rowboat bookends.
+- Decision. Publish the pitch MP4 ahead of the comparison page so Gabe can rehearse. The available chat and footage folders contained no boat-step or car clips. Gabe’s two clips and Colin’s future Klamath deck clip have visible, labeled slots.
+- Verified the file has H.264 video and AAC audio at the requested dimensions and 120 seconds. Inspected representative frames, including both bookends.
+- Next. Upload the three vertical cuts and check playback together on the live comparison page.
+- **STEER ME:** Play the captioned pitch as-is or speak over it using the live talk track.
+
+## H36 · 2026-11-21 21:01 CET · Three vertical cuts and cannonball bookends
+
+- Added the phone-friendly comparison with A (Luma sinks), B (boat-step slot), C (car slot), and the widescreen pitch. Each vertical file is 1080 × 1920, 60 seconds, and available to download.
+- The rowboat now takes a bigger hit. Grey guest-list dots drift away, pixel bubbles rise, and The Black Commit sails past. The autoplay demo ends on the same scene in both orientations.
+- Decision. B and C share the opening two seconds of the cannon shot before their respective hooks. All cuts return to the sinking rowboat and QR. The live talk track is in the shot list.
+- Verified dimensions, durations, audio, and metadata playback in Chromium. The comparison and new pages fit at 375px and 414px. The browser demo reached the final QR in both exact capture formats.
+- Next. Verify production playback, then begin the Mac and terminal work.
+- **STEER ME:** Lead with A for the pitch, or swap in B or C when the real footage is available.
+
+## H37 · 2026-11-21 21:05 CET · Native Mac wrapper
+
+- The pitch and all three cuts served as MP4 byte ranges on production at 21:02 Paris.
+- Added a SwiftUI WKWebView app, Captain Squawk’s menu-bar counter, optional squawk sound, local mutual intro notifications, and the “Sink Luma” replay.
+- Decision. Notifications work while the app is running. Only the intro ID crosses the native bridge. The Mac build uses ad hoc signing, and Electron remains available.
+- Verified the bridge script, bundle metadata, and package script syntax on Linux. Next. Compile and package the universal DMG on the GitHub macOS runner, then publish it.
+- **STEER ME:** Keep mutual squawks opt-in, or enable them by default for desktop.
+
+## H38 · 2026-11-21 21:09 CET · Universal Mac release
+
+- GitHub’s macOS runner compiled arm64 and x86_64, verified the ad hoc signed bundle and disk image, and published both the DMG and the zipped app.
+- Downloaded the published assets and checked both SHA-256 sums. The site and submission now link to the native release and retain the Electron downloads.
+- Next. Verify the live terminal outputs and finish the browser easter eggs.
+- **STEER ME:** Pick the native app or Electron as the download you share with judges.
+
+## H39 · 2026-11-21 21:10 CET · Terminal routes and CLI
+
+- Added ANSI art for curl, wget, and HTTPie, text and JSON views for pirates, crew counts, Demo Day lenses and matches, Captain Squawk’s tips, and a streamed 19-frame rowboat sink.
+- Added a zero-dependency CLI with arrow-key controls, an offline Demo Day roster, and a URL that opens the pirate’s kit in the browser.
+- Decision. Keep the CLI unpublished, with a local npx entry and an npm-ready package. A terminal match uses the same class lens and fictional roster as the website.
+- Verified browser and terminal content negotiation, all API payloads, streamed frames, share-link hydration, arrow keys through a pseudo-terminal, and npx using a packed tarball.
+- Next. Check the Vercel rewrites and ship the browser easter eggs.
+- **STEER ME:** Add a roster export command next or keep the terminal focused on building and meeting pirates.
+
+## H40 · 2026-11-21 21:13 CET · Hidden browser cues
+
+- Added the Konami parrot rain, a one-shot sea shanty when you type ahoy, and a wearable Captain Trav hat. Added the hidden Historic Klamath page using the ship operator’s history.
+- Decision. Keep the hat behind the captain link. The shanty plays on that keystroke sequence and leaves the normal sound preference alone. Reduced motion shows a still flock.
+- Verified both mobile widths, the hidden route, hat forwarding from the landing page, and exactly one shanty by instrumenting Web Audio. The native WebView bridge notified once per intro ID in an isolated browser test.
+- Next. Recheck the deployed terminal and browser routes and mirror the current source to the public submission repo.
+- **STEER ME:** Keep the Klamath page discoverable in the README or also hide a link in the ship artwork.
+
+## H41 · 2026-11-21 21:16 CET · Production checks and Desktop 0.1.1
+
+- Confirmed all four videos on production ahead of 21:30, including playback metadata and range requests. The vertical and wide browser demos ended on the sinking rowboat and QR.
+- Ran the original mobile route sweep at 375px and 414px and verified the public footage, organizer, crew, and Klamath routes. Browser QA used local intro state so it did not inflate production totals. Verified all four terminal APIs, three user agents, the ANSI stream, and a local npx run using the production match API.
+- The native 0.1.1 build checks replies even after you switch event lenses. Its universal binary, zipped app, DMG, and checksums passed the release build.
+- Decision. Keep the pitch captioned, the fictional roster labeled, and the three missing footage pickups explicit. The public repo contains the release sources and the zero-key fallback.
+- Next. Replace the three Proof of Boat slots when the original clips arrive.
+- **STEER ME:** Keep A as the first social cut or compare it against B and C once the clips arrive.
+
+## H42 · 2026-11-21 21:32 CET · A bigger blast for Demo Day
+
+- Replaced the small target with a full-size pixel passenger boat. Hand-built letters on the hull and flag identify LUMA. The cannonball strikes the painted hull, which splits and sinks as planks, bubbles, and grey guest-list dots scatter.
+- Added the impact caption “WE BLASTED LUMA.” and then the tagline on the landing scene and both autoplay formats. Updated the share image to show the cracked boat. The reduced-motion view uses the still art and stepped demo frames.
+- Checked the landing at 375px and 1440px, the 1080 × 1920 and 1920 × 1080 demo bookends, the QR, and the 1200 × 630 share image. Build, lint, and route tests passed.
+- Decision. Publish the web scene first. Render only Cut A and the two-minute pitch, and replace the downloads if production can serve them by 21:55 Paris.
+- **STEER ME:** Lead with the impact freeze frame or the intact boat in the next share card.
+
+## H43 · 2026-11-21 21:45 CET · The new blast in the films
+
+- Rendered and checked Cut A at 1080 × 1920 for 60 seconds and the pitch at 1920 × 1080 for 120 seconds. Both include the direct hit and the two halves sinking.
+- The widescreen tagline now sits on a dark plate for readability. Verified H.264, AAC, duration, opening frames and playback at mobile and desktop sizes.
+- Published the two replacement MP4s and posters. The landing, both live demo formats, and the new share image passed production checks before the film render finished.
+- **STEER ME:** Keep Cut A as the opener or start the live demo at the impact beat.
+
+## H44 · 2026-11-21 21:56 CET · Tested curl and parked the desktop apps
+
+- Live shell output from `curl corvus.gent/hackersbay`: `HTTP/1.1 308 Permanent Redirect` and `Redirecting...`. The redirect targets `https://corvus.gent/hackersbay` before the application receives the request, so its body is controlled by the HTTPS edge.
+- Live shell output from `curl -L corvus.gent/hackersbay` begins `\x1b[48;5;17m  \x1b[0m`. The body includes `Luma is sinking. The Hackers Bay is coming.` and `Follow the HTTPS redirect with curl -L corvus.gent/hackersbay`. `/squawk` returned a captain’s tip, `/sink/luma` streamed 19 frames, and `/ayay` returned `\x1b[1;38;5;49mAYE AYE!\x1b[0m`.
+- Scoped CLI handling past the site-wide analytics path, kept a per-client limit on the stream, added the terminal commands to the footer, and verified the browser salute and reduced-motion confetti.
+- Released the renamed HackersBay native 0.1.2 and Electron 0.3.0 bundles. Verified both release builds and checksums. Parked the landing downloads for later and documented Gatekeeper’s first-launch options.
+- Colin’s GitHub role is currently Read. The integration returned HTTP 403 when granting Maintain and requires repository administration write permission. Four issues were opened with the `for-colin` label.
+- **STEER ME:** Keep the browser salute silent by default or play the crew voice on the command itself.
+
+## H45 · 2026-11-21 21:57 CET · Four parrots race the bay
+
+- Added a class-by-class race with boat hopping, altitude for confidence, gusts, cannonballs, and an original pixel monkey that steals Navigator’s lead coin. A scout log follows the action.
+- The score combines match fit, reasons for both sides, and speed. Picking a winner adds a Golden Feather, carries three crew picks into the existing mutual-intro flow, and lets the pirate post their score to the public board.
+- Decision. Ship the labeled demo as the default. An opt-in Boat.dev path uses separate private sandboxes with a bounded fixed ranking job. Demo timing and the sample Context.dev line are labeled.
+- Verified four lanes, the monkey event, the feather, the leaderboard, ANSI output, and IT’S MUTUAL at 375px and 414px with local Redis. The production film bytes matched the replacement files at 21:47 Paris.
+- **STEER ME:** Let the race leader auto-win after the final scout finishes or keep the explicit pick.
+
+## H46 · 2026-11-21 21:59 CET · Standing on Colin’s shoulders
+
+- Studied luma-clone, moonbase, sandboxmaxxing, luxcode, tenki-cookbook, and tenki-eve-sandbox. The race uses sandboxmaxxing’s same-brief fan-out, isolated seats, progressive results, and human-picked winner. The event record follows luma-clone’s slug, date, time-zone, and venue fields.
+- Room composer now exports an attendee sheet. Adapted the Moonbase CSV serializer’s formula guard and quoting, with its MIT notice. The organizer export uses the roster already authorized for that room.
+- The [public issues](https://github.com/Corvus-gent/the-hackers-bay/issues?q=is%3Aissue+label%3Afor-colin) cover Boat.dev, a Tenki/Luxor provider, the organizer workflow, and NYTEX receipt verification.
+- Verified four distinct mock Boat.dev sessions with the exact bounded scoring script and no credentials passed to the VM. Real runs remain opt-in. Verified the attendee CSV’s line endings, field quoting, and formula guard.
+- **STEER ME:** Prioritize the Tenki provider next or run a keyed Boat.dev pilot first.
+
+## H47 · 2026-11-21 22:01 CET · Demo Day race verification
+
+- The race and ANSI scoreboard were live at 21:59 Paris. The production scout responded `mode: demo` because live Boat.dev race credentials are unconfigured. The public leaderboard reads posted scores from Redis, including the labeled demo scores people choose to publish.
+- The four scoped issues are open as #1 Boat.dev, #2 Tenki/Luxor, #3 organizer and Luma import, and #4 NYTEX on Corvus-gent/the-hackers-bay. The public repo includes the one-command contributor guide, exact source credits, and the small README thanks.
+- Added color to the terminal squawk and kept the winning crew link when the same browser returns from a mutual intro.
+- **STEER ME:** Start the open-source pilot with Colin’s organizer workflow or the second sandbox provider.

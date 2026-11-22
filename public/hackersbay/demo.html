@@ -4,40 +4,96 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#06121f">
-  <meta name="description" content="Watch The Black Commit sink a rowboat, build a pirate, and send a parrot to three matches in 60 seconds.">
-  <meta property="og:type" content="website">
+  <meta name="description" content="Every event has one person who could change your year. We help you find them.">
+  <meta property="og:type" content="video.other">
   <meta property="og:site_name" content="The Hackers Bay">
-  <meta property="og:title" content="The Hackers Bay in 60 seconds">
-  <meta property="og:description" content="Watch The Black Commit sink a rowboat, build a pirate, and send a parrot to three matches in 60 seconds.">
+  <meta property="og:title" content="We blasted Luma. Meet The Hackers Bay.">
+  <meta property="og:description" content="Every event has one person who could change your year. We help you find them.">
   <meta property="og:url" content="https://corvus.gent/hackersbay/demo">
-  <meta property="og:image" content="https://corvus.gent/public/hackersbay/assets/social-black-commit.jpg">
+  <meta property="og:image" content="https://corvus.gent/public/hackersbay/art/keynote/keynote_poster.jpg">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="An original pixel pirate ship fires a cannonball at a grey Luma rowboat beside the words Luma is sinking. The Hackers Bay is coming.">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="The Hackers Bay in 60 seconds">
-  <meta name="twitter:description" content="Watch The Black Commit sink a rowboat, build a pirate, and send a parrot to three matches in 60 seconds.">
-  <meta name="twitter:image" content="https://corvus.gent/public/hackersbay/assets/social-black-commit.jpg">
-  <meta name="twitter:image:alt" content="An original pixel pirate ship fires a cannonball at a grey Luma rowboat beside the words Luma is sinking. The Hackers Bay is coming.">
+  <meta property="og:image:alt" content="The Black Commit blasts the Luma boat.">
+  <meta property="og:video" content="https://github.com/Corvus-gent/the-hackers-bay/releases/download/compound-keynote-v1/keynote_wide.mp4">
+  <meta property="og:video:secure_url" content="https://github.com/Corvus-gent/the-hackers-bay/releases/download/compound-keynote-v1/keynote_wide.mp4">
+  <meta property="og:video:type" content="video/mp4">
+  <meta property="og:video:width" content="1920">
+  <meta property="og:video:height" content="1080">
+  <meta name="twitter:card" content="player">
+  <meta name="twitter:title" content="We blasted Luma. Meet The Hackers Bay.">
+  <meta name="twitter:description" content="Every event has one person who could change your year. We help you find them.">
+  <meta name="twitter:image" content="https://corvus.gent/public/hackersbay/art/keynote/keynote_poster.jpg">
+  <meta name="twitter:image:alt" content="The Black Commit blasts the Luma boat.">
+  <meta name="twitter:player" content="https://corvus.gent/public/hackersbay/demo-player.html">
+  <meta name="twitter:player:width" content="1280">
+  <meta name="twitter:player:height" content="720">
+  <meta name="twitter:player:stream" content="https://github.com/Corvus-gent/the-hackers-bay/releases/download/compound-keynote-v1/keynote_wide.mp4">
+  <meta name="twitter:player:stream:content_type" content="video/mp4">
   <link rel="canonical" href="https://corvus.gent/hackersbay/demo">
-  <link rel="icon" href="/public/hackersbay/assets/parrot-flag.svg" type="image/svg+xml">
+  <link rel="icon" href="/public/hackersbay/art/captain-icon.png" type="image/png" sizes="128x128">
   <link rel="stylesheet" href="/public/hackersbay/assets/bay.css">
   <link rel="stylesheet" href="/public/hackersbay/assets/demo.css">
-  <script>document.documentElement.dataset.format = new URLSearchParams(location.search).get('format') === 'wide' ? 'wide' : 'vertical';</script>
-  <script type="module" src="/public/hackersbay/assets/demo.js"></script>
-  <title>60-second demo | The Hackers Bay</title>
+  <link rel="stylesheet" href="/public/hackersbay/assets/keynote.css">
+  <script type="module" src="/public/hackersbay/assets/keynote.js"></script>
+  <title>We blasted Luma. Meet The Hackers Bay.</title>
+  <script type="module" src="/public/hackersbay/assets/easter-eggs.js"></script>
 </head>
-<body class="demo-page">
-  <main class="autoplay-deck" id="deck" aria-label="The Hackers Bay 60-second demo. Press Space to pause or play, R to replay, or M to toggle sound.">
+<body class="keynote-page">
+  <main class="wrap keynote">
+    <dl class="keynote-counts" aria-label="Launch activity">
+      <div><dt>Demo visits</dt><dd data-launch-count="visits">—</dd></div>
+      <div><dt>Video starts</dt><dd data-launch-count="videoPlays">—</dd></div>
+      <div><dt>GitHub clicks</dt><dd data-launch-count="githubClicks">—</dd></div>
+      <div><dt>GitHub stars</dt><dd data-launch-count="stars">—</dd></div>
+    </dl>
+    <dl class="keynote-counts keynote-deck-log" aria-label="Captain Squawk’s deck log">
+      <div><dt>Parrots aboard 🦜</dt><dd data-launch-count="parrots">—</dd></div>
+      <div><dt>Parrot races 🏁</dt><dd data-launch-count="races">—</dd></div>
+      <div><dt>Golden feathers 🪶</dt><dd data-launch-count="feathers">—</dd></div>
+      <div><dt>Monkeys at the helm 🐒</dt><dd>0 <small>(allegedly)</small></dd></div>
+      <div><dt>Luma boats sunk on screen ⚓</dt><dd>1</dd></div>
+    </dl>
+    <header class="keynote-heading">
+      <h1>We blasted Luma. Meet The Hackers Bay.</h1>
+      <p>Every event has one person who could change your year. We help you find them.</p>
+    </header>
+    <section class="keynote-hero" aria-label="The Hackers Bay keynote video">
+      <video id="keynote-video" controls autoplay muted loop playsinline preload="metadata" poster="/public/hackersbay/art/keynote/keynote_poster.jpg" aria-label="The Hackers Bay one-minute keynote"></video>
+      <button class="button primary keynote-sound" id="keynote-sound" type="button">▶ Sound on</button>
+      <noscript><a href="https://github.com/Corvus-gent/the-hackers-bay/releases/download/compound-keynote-v1/keynote_wide.mp4">Watch the keynote MP4</a></noscript>
+    </section>
+    <ol class="keynote-beats">
+      <li>Drop any event link</li>
+      <li>Your parrot scouts the room: 3 names, 3 reasons</li>
+      <li>Two yeses, a time and a place: IT'S MUTUAL ⚓</li>
+    </ol>
+    <p class="keynote-vision">Luma tells you where to be. We tell you who to meet. <strong>RSVP to people, not places.</strong></p>
+    <p class="keynote-credits">Built aboard <a href="https://boathackathon.com/">Boat Hackathon ⛵</a> with <a href="https://boat.dev/">Boat.dev</a> · <a href="https://www.context.dev/">Context.dev</a> · <a href="https://nytokenexchange.com/">NYTEX</a></p>
+    <nav class="organizer-actions keynote-actions" aria-label="Explore The Hackers Bay">
+      <a class="button primary" href="/hackersbay/board">Build your pirate</a>
+      <a class="button" href="/hackersbay/race">Watch the Parrot Race</a>
+      <a class="button" href="https://github.com/Corvus-gent/the-hackers-bay" id="keynote-repo">Star the repo</a>
+      <a class="button" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fcorvus.gent%2Fhackersbay%2Fdemo" id="keynote-linkedin" target="_blank" rel="noopener noreferrer" data-share="We blasted Luma. Meet The Hackers Bay. RSVP to people, not places. #boathackathon @BoatHackathon">Share on LinkedIn</a>
+      <a class="button" href="https://twitter.com/intent/tweet?text=We+blasted+Luma.+Meet+The+Hackers+Bay.+RSVP+to+people%2C+not+places.+%23boathackathon+%40BoatHackathon&amp;url=https%3A%2F%2Fcorvus.gent%2Fhackersbay%2Fdemo" target="_blank" rel="noopener noreferrer">Share on X</a>
+    </nav>
+    <p class="fine" id="keynote-share-status" role="status"></p>
+    <section class="keynote-live" id="play-live" aria-labelledby="live-heading">
+      <h2 id="live-heading">Play it live</h2>
+      <button class="button" type="button" id="keynote-play-live" aria-controls="deck">Start the interactive demo</button>
+      <div class="autoplay-deck" id="deck" hidden tabindex="0" aria-label="Interactive demo. Press Space to pause or play, R to replay, or M to toggle sound.">
     <section class="demo-scene" data-beat="naval" aria-labelledby="demo-naval">
       <div class="demo-copy">
         <p class="demo-kicker">THE BLACK COMMIT</p>
-        <h1 id="demo-naval">Luma is <em>sinking.</em></h1>
+        <h2 id="demo-naval">
+          <span data-aim-line>Luma in<br>our sights.</span>
+          <span data-impact-line>WE BLASTED<br>LUMA.</span>
+          <span data-sink-line>Luma is sinking.<br><em>The Hackers Bay is coming.</em></span>
+        </h2>
         <p>A guest list can’t tell you who to meet.</p>
       </div>
       <div class="demo-sea">
-        <img src="/public/hackersbay/assets/black-commit.png" alt="" width="208" height="120">
+        <picture class="pixel-art"><source type="image/webp" srcset="/public/hackersbay/art/hero-luma-battle.webp"><img src="/public/hackersbay/art/hero-luma-battle.png" alt="" width="672" height="384"></picture>
         <canvas id="demo-sea" aria-hidden="true" hidden></canvas>
       </div>
     </section>
@@ -46,16 +102,16 @@
       <div class="demo-copy">
         <p class="demo-kicker">BOARDING DECK</p>
         <h2 id="demo-board">Build your <em>pirate.</em></h2>
-        <p>Pick a kit and a parrot. Tell it what you want.</p>
+        <p>Put on your gear and tell Captain Squawk what you’re after.</p>
       </div>
       <div class="demo-card demo-creator">
         <div class="demo-sprite-stage" id="demo-pirate"></div>
         <div class="demo-pirate-info">
           <h3 id="demo-pirate-name">Copper Byte</h3>
-          <p id="demo-kit">Tricorn · Sonar teal</p>
+          <p id="demo-kit">Bandana · Laptop</p>
         </div>
         <div class="demo-squawk" id="demo-squawk">
-          <strong>Patch the macaw</strong><p>Free food, a bunk, and a prize that pays.</p>
+          <strong>Captain Squawk</strong><p>Free food, a bunk, and a prize that pays.</p>
         </div>
       </div>
     </section>
@@ -116,17 +172,66 @@
     </section>
 
     <section class="demo-scene demo-center" data-beat="end" hidden aria-labelledby="demo-end">
-      <div class="radar demo-radar end-sonar" id="end-sonar" aria-hidden="true"></div>
+      <div class="demo-sea demo-end-sea" aria-hidden="true">
+        <img src="/public/hackersbay/art/hero-luma-battle.png" width="672" height="384" alt="">
+        <canvas id="demo-end-sea" hidden></canvas>
+      </div>
       <div class="demo-copy">
         <p class="demo-kicker">RSVP TO PEOPLE, NOT PLACES.</p>
-        <h2 id="demo-end">Luma is sinking.<br><em>The Hackers Bay<br>is coming.</em></h2>
+        <h2 id="demo-end">
+          <span data-impact-line>WE BLASTED<br>LUMA.</span>
+          <span data-end-line>Luma is sinking.<br><em>The Hackers Bay<br>is coming.</em></span>
+        </h2>
         <figure class="demo-boarding">
           <img src="/public/hackersbay/assets/boarding-qr.svg" width="180" height="180" alt="">
           <figcaption class="boarding-address">corvus.gent/hackersbay</figcaption>
         </figure>
+        <footer class="demo-credit">
+          <div class="boat-credit">
+            <a class="boat-credit-badge" href="https://boathackathon.com/" target="_blank" rel="noopener noreferrer">Built aboard Boat Hackathon <span aria-hidden="true">⛵</span></a>
+            <nav class="boat-credit-links" aria-label="Boat Hackathon links">
+              <a href="https://partiful.com/e/574OkdF3XGK3SzsRR3QK" target="_blank" rel="noopener noreferrer">Demo Day on Partiful</a>
+              <a href="https://x.com/BoatHackathon" target="_blank" rel="noopener noreferrer">@BoatHackathon</a>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=Historic+Klamath+Pier+9+San+Francisco" target="_blank" rel="noopener noreferrer">Historic Klamath · Pier 9</a>
+            </nav>
+          </div>
+        </footer>
       </div>
     </section>
-    <p class="demo-caption" id="demo-caption" aria-live="polite">The Black Commit has Luma in its sights.</p>
+    <div class="demo-caption" id="demo-caption">
+      <span id="demo-host" aria-hidden="true"></span>
+      <div class="demo-voice">
+        <strong>Captain Squawk</strong>
+        <p id="demo-caption-text" aria-live="polite">The Black Commit has Luma in its sights.</p>
+      </div>
+    </div>
+      </div>
+    </section>
+    <details class="keynote-cuts">
+      <summary>Alternate openings and downloads</summary>
+      <div class="keynote-hooks">
+        <figure>
+          <figcaption>Hook A</figcaption>
+          <video controls playsinline preload="none" width="1080" height="1920" src="https://github.com/Corvus-gent/the-hackers-bay/releases/download/compound-keynote-v1/keynote_hook_a.mp4" aria-label="Hook A"></video>
+        </figure>
+        <figure>
+          <figcaption>Hook B</figcaption>
+          <video controls playsinline preload="none" width="1080" height="1920" src="https://github.com/Corvus-gent/the-hackers-bay/releases/download/compound-keynote-v1/keynote_hook_b.mp4" aria-label="Hook B"></video>
+        </figure>
+        <figure>
+          <figcaption>Hook C</figcaption>
+          <video controls playsinline preload="none" width="1080" height="1920" src="https://github.com/Corvus-gent/the-hackers-bay/releases/download/compound-keynote-v1/keynote_hook_c.mp4" aria-label="Hook C"></video>
+        </figure>
+      </div>
+      <nav class="organizer-actions" aria-label="Download keynote formats">
+        <a class="button" href="https://github.com/Corvus-gent/the-hackers-bay/releases/download/compound-keynote-v1/keynote_vertical.mp4">Vertical MP4</a>
+        <a class="button" href="https://github.com/Corvus-gent/the-hackers-bay/releases/download/compound-keynote-v1/keynote_wide.mp4">Wide MP4</a>
+        <a class="button" href="https://github.com/Corvus-gent/the-hackers-bay/releases/download/compound-keynote-v1/keynote_vertical.webm">Vertical WebM</a>
+        <a class="button" href="https://github.com/Corvus-gent/the-hackers-bay/releases/download/compound-keynote-v1/keynote_wide.webm">Wide WebM</a>
+        <a class="button" href="https://github.com/Corvus-gent/the-hackers-bay/releases/download/compound-keynote-v1/keynote_mobile_720p.mp4">Mobile MP4</a>
+        <a class="button" href="https://github.com/Corvus-gent/the-hackers-bay/releases/tag/compound-keynote-v1">Captions and posters</a>
+      </nav>
+    </details>
   </main>
 </body>
 </html>

@@ -4,6 +4,11 @@
   ],
   "redirects": [
     {
+      "source": "/cv/bar-bougie/",
+      "destination": "/cv/bar-bougie",
+      "permanent": true
+    },
+    {
       "source": "/cv/work/mistral/",
       "destination": "/cv/work/mistral",
       "permanent": true
@@ -325,6 +330,133 @@
   ],
   "rewrites": [
     {
+      "source": "/cv/horeca",
+      "destination": "/cv/horeca/index.html"
+    },
+    {
+      "source": "/cv/bar-bassie/download",
+      "destination": "/cv/bar-bassie/cv.pdf"
+    },
+    {
+      "source": "/cv/bar-bassie",
+      "destination": "/cv/bar-bassie/index.html"
+    },
+    {
+      "source": "/cv/tribune/download",
+      "destination": "/cv/tribune/cv.pdf"
+    },
+    {
+      "source": "/cv/tribune",
+      "destination": "/cv/tribune/index.html"
+    },
+    {
+      "source": "/cv/sakas/download",
+      "destination": "/cv/sakas/cv.pdf"
+    },
+    {
+      "source": "/cv/sakas",
+      "destination": "/cv/sakas/index.html"
+    },
+    {
+      "source": "/cv/bakker-klaas/download",
+      "destination": "/cv/bakker-klaas/cv.pdf"
+    },
+    {
+      "source": "/cv/bakker-klaas",
+      "destination": "/cv/bakker-klaas/index.html"
+    },
+    {
+      "source": "/cv/studio-mario/download",
+      "destination": "/cv/studio-mario/cv.pdf"
+    },
+    {
+      "source": "/cv/studio-mario",
+      "destination": "/cv/studio-mario/index.html"
+    },
+    {
+      "source": "/cv/club-wintercircus/download",
+      "destination": "/cv/club-wintercircus/cv.pdf"
+    },
+    {
+      "source": "/cv/club-wintercircus",
+      "destination": "/cv/club-wintercircus/index.html"
+    },
+    {
+      "source": "/cv/bar-bougie/download",
+      "destination": "/cv/bar-bougie/cv.pdf"
+    },
+    {
+      "source": "/cv/bar-bougie",
+      "destination": "/cv/bar-bougie/index.html"
+    },
+    {
+      "source": "/science-press",
+      "destination": "/science-press/index.html"
+    },
+    {
+      "source": "/science-press/",
+      "destination": "/science-press/index.html"
+    },
+    {
+      "source": "/hackersbay/api/pirate",
+      "destination": "/api/hackersbay?action=terminal-pirate"
+    },
+    {
+      "source": "/hackersbay/api/crew",
+      "destination": "/api/hackersbay?action=terminal-crew"
+    },
+    {
+      "source": "/hackersbay/api/event/boat-hackathon",
+      "destination": "/api/hackersbay?action=terminal-event"
+    },
+    {
+      "source": "/hackersbay/api/match",
+      "destination": "/api/hackersbay?action=terminal-match"
+    },
+    {
+      "source": "/hackersbay/squawk",
+      "destination": "/api/hackersbay?action=terminal-squawk"
+    },
+    {
+      "source": "/hackersbay/sink/luma",
+      "destination": "/api/hackersbay?action=terminal-sink"
+    },
+    {
+      "source": "/hackersbay/ayay",
+      "destination": "/api/hackersbay?action=terminal-ayay"
+    },
+    {
+      "source": "/hackersbay",
+      "has": [{ "type": "header", "key": "user-agent", "value": "(?:[Cc][Uu][Rr][Ll]|[Ww][Gg][Ee][Tt]|[Hh][Tt][Tt][Pp][Ii][Ee])(?:/.*)?" }],
+      "destination": "/api/hackersbay?action=terminal-home"
+    },
+    {
+      "source": "/hackersbay/",
+      "has": [{ "type": "header", "key": "user-agent", "value": "(?:[Cc][Uu][Rr][Ll]|[Ww][Gg][Ee][Tt]|[Hh][Tt][Tt][Pp][Ii][Ee])(?:/.*)?" }],
+      "destination": "/api/hackersbay?action=terminal-home"
+    },
+    {
+      "source": "/hackersbay/race",
+      "has": [{ "type": "header", "key": "user-agent", "value": "(?:[Cc][Uu][Rr][Ll]|[Ww][Gg][Ee][Tt]|[Hh][Tt][Tt][Pp][Ii][Ee])(?:/.*)?" }],
+      "destination": "/api/hackersbay?action=terminal-race"
+    },
+    {
+      "source": "/hackersbay/race/leaderboard",
+      "destination": "/public/hackersbay/race-leaderboard.html"
+    },
+    {
+      "source": "/hackersbay/race",
+      "destination": "/public/hackersbay/race.html"
+    },
+    {
+      "source": "/hackersbay/klamath",
+      "destination": "/public/hackersbay/klamath.html"
+    },
+    {
+      "source": "/hackersbay/cuts",
+      "destination": "/public/hackersbay/cuts.html"
+    },
+    {
       "source": "/hackersbay/judges",
       "destination": "/public/hackersbay/judges.html"
     },
@@ -339,6 +471,18 @@
     {
       "source": "/hackersbay/preview",
       "destination": "/public/hackersbay/preview.html"
+    },
+    {
+      "source": "/hackersbay/crew",
+      "destination": "/public/hackersbay/crew.html"
+    },
+    {
+      "source": "/hackersbay/create",
+      "destination": "/public/hackersbay/create.html"
+    },
+    {
+      "source": "/hackersbay/invite",
+      "destination": "/public/hackersbay/invite.html"
     },
     {
       "source": "/hackersbay/host",
@@ -367,6 +511,10 @@
     {
       "source": "/hackersbay/",
       "destination": "/public/hackersbay/landing.generated.html"
+    },
+    {
+      "source": "/hackersbay/:path*",
+      "destination": "/api/hackersbay?action=not-found"
     },
     {
       "source": "/cv/work/mistral",
@@ -790,7 +938,7 @@
   ],
   "functions": {
     "api/hackersbay.js": {
-      "includeFiles": "HACKERSBAY_LOG.md",
+      "includeFiles": "{HACKERSBAY_LOG.md,public/hackersbay/404.html}",
       "maxDuration": 30
     },
     "api/project-cto.js": {
@@ -825,6 +973,19 @@
     }
   },
   "headers": [
+    {
+      "source": "/cv/bar-bougie/download",
+      "headers": [
+        {
+          "key": "Content-Disposition",
+          "value": "attachment; filename=\"Gabriel-Van-Langenhove-Bar-Bougie.pdf\""
+        },
+        {
+          "key": "Content-Type",
+          "value": "application/pdf"
+        }
+      ]
+    },
     {
       "source": "/cv/work/mistral/download",
       "headers": [

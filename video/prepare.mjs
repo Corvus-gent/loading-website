@@ -1,9 +1,10 @@
-import { mkdir, copyFile, writeFile } from 'node:fs/promises';
+import { mkdir, copyFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { DURATIONS, timeline } from './src/timing.mjs';
 
 const output = new URL('./public/', import.meta.url);
 const source = new URL('../public/hackersbay/assets/', import.meta.url);
+const art = new URL('../public/hackersbay/art/', import.meta.url);
 const rate = 44100;
 const tau = 2 * Math.PI;
 const melody = [57, 57, 60, 64, 62, 60, 57, 55, 57, 60, 65, 64, 62, 60, 55, 57];
@@ -17,8 +18,9 @@ function pulse(time, frequency, decay) {
   return sine(frequency, time) * Math.exp(-time * decay);
 }
 
-function mix(seconds) {
-  const cues = timeline(seconds);
+function mix(seconds, cut = false) {
+  const cues = cut === 'pitch' ? {cannon: .55, sonar: 62, mutual: 71, reprise: 110.5} : cut ? {cannon: .4, sonar: 33, mutual: 44, reprise: 52.5} : timeline(seconds);
+  const reprise = cues.reprise ?? cues.end + .55;
   const sampleCount = rate * seconds;
   const file = Buffer.alloc(44 + sampleCount * 2);
   file.write('RIFF', 0);
@@ -66,9 +68,15 @@ function mix(seconds) {
       level += .16 * pulse(sinceDrop, 77, 4);
     }
 
-    const blast = time - cues.cannon;
+    const blast = time - (time >= reprise ? reprise : cues.cannon);
     if (blast >= 0 && blast < 1.1) {
       level += (.39 * sine(63 - blast * 33, blast) + .26 * noise) * Math.exp(-blast * 6);
+    }
+    if (cut) {
+      const hit = time - (time >= reprise ? reprise + .6 : .815);
+      if (hit >= 0 && hit < .66) {
+        level += (.37 * sine(55 - hit * 42, hit) + .30 * noise) * Math.exp(-hit * 6);
+      }
     }
     for (const ping of pingTimes) {
       level += .18 * pulse(time - ping, 1170, 10) + .055 * pulse(time - ping - .12, 950, 8);
@@ -81,11 +89,31 @@ function mix(seconds) {
 
 export async function prepare() {
   await mkdir(output, { recursive: true });
+  const sprites = (await readdir(art)).filter(name => name.endsWith('.webp'));
   await Promise.all([
-    ...['anchor.svg', 'parrot-flag.svg', 'inter.woff2', 'jetbrains-mono.woff2']
+    ...['anchor.svg', 'parrot-flag.svg', 'inter.woff2', 'jetbrains-mono.woff2', 'silkscreen.woff2', 'boarding-qr.svg']
       .map(file => copyFile(new URL(file, source), new URL(file, output))),
+    ...sprites.map(file => copyFile(new URL(file, art), new URL(file, output))),
+    writeFile(new URL('mix-cuts.wav', output), mix(60, true)),
+    writeFile(new URL('mix-pitch.wav', output), mix(120, 'pitch')),
     ...DURATIONS.map(duration => writeFile(new URL('mix-' + duration + '.wav', output), mix(duration)))
   ]);
+  return Object.fromEntries((await Promise.all(Object.entries({
+    boat: 'gabe-boat-step', car: 'gabe-car', deck: 'colin-klamath'
+  }).map(async ([slot, stem]) => {
+    for (const format of ['mp4', 'mov']) {
+      const file = stem + '.' + format;
+      const dest = new URL(file, output);
+      try {
+        await copyFile(new URL('./raw/' + file, import.meta.url), dest);
+        return [slot, file];
+      } catch (error) {
+        if (error.code !== 'ENOENT') throw error;
+        await rm(dest, { force: true });
+      }
+    }
+    return [slot, null];
+  }))).filter(([, file]) => file));
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) await prepare();

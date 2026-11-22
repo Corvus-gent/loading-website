@@ -1,23 +1,21 @@
-import { DEFAULT_PIRATE, parrotSprite, normalizePirate } from './pirate.js';
+import { artPicture, captainArt } from './art.js';
 import { element } from './event-data.js';
 import { playBaySound } from './sound.js';
 
-export function parrotBubble(value, reason) {
-  const pirate = value || DEFAULT_PIRATE;
+export function parrotBubble(reason) {
   const bubble = element('div', undefined, 'parrot-bubble');
   const copy = element('div');
-  copy.append(element('strong', pirate.birdName || 'Your parrot'), element('p', reason));
-  bubble.append(parrotSprite(pirate), copy);
+  copy.append(element('strong', 'Captain Squawk'), element('p', reason));
+  bubble.append(captainArt('squawk',{lazy:false}), copy);
   return bubble;
 }
 
-export function spyglassPilot(radar, value) {
-  const pirate = value || DEFAULT_PIRATE;
+export function spyglassPilot(radar) {
   const dial = radar.querySelector('.dial');
   const masts = [...dial.querySelectorAll('.lock')];
   const marker = element('div', undefined, 'spyglass-parrot');
   marker.setAttribute('aria-hidden', 'true');
-  marker.append(parrotSprite(pirate), parrotSprite(pirate, true));
+  marker.append(captainArt('wave',{lazy:false}), captainArt('flying',{lazy:false}));
   dial.append(marker);
   let timer;
   const position = (index, axis, fallback) => masts[index] ? parseFloat(masts[index].style.getPropertyValue('--' + axis)) : fallback;
@@ -54,8 +52,8 @@ export function spyglassPilot(radar, value) {
   };
 }
 
-export function flySpyglass(radar, value, captions, matches, reasons) {
-  const pilot = spyglassPilot(radar, value);
+export function flySpyglass(radar, captions, matches, reasons) {
+  const pilot = spyglassPilot(radar);
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   let timer;
   let arrival;
@@ -67,7 +65,7 @@ export function flySpyglass(radar, value, captions, matches, reasons) {
     pilot.land(index, animate);
     const message = matches[index].person.name + ' — ' + reasons[index];
     const settle = () => {
-      captions.replaceChildren(parrotBubble(value, message));
+      captions.replaceChildren(parrotBubble(message));
       if (animate) playBaySound('squawk');
     };
     clearTimeout(arrival);
@@ -105,14 +103,10 @@ export function flySpyglass(radar, value, captions, matches, reasons) {
   };
 }
 
-export function mutualParrots(first, second) {
-  const pair = element('div', undefined, 'beak-bump');
+export function mutualParrots() {
+  const pair = element('div', undefined, 'beak-bump mutual-recraft');
   pair.setAttribute('aria-hidden', 'true');
-  for (const [side, pirate] of [['port', normalizePirate(first || DEFAULT_PIRATE)], ['starboard', normalizePirate(second || DEFAULT_PIRATE)]]) {
-    const bird = element('div', undefined, 'mutual-bird ' + side);
-    bird.append(parrotSprite(pirate, true));
-    pair.append(bird);
-  }
+  pair.append(artPicture('mutual-beak-bump',{width:480,height:354,lazy:false,className:'beak-art'}));
   for (let i = 0; i < 11; i++) {
     const coin = element('i', undefined, 'coin-sprite');
     const angle = Math.PI * i / 10;

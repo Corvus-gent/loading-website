@@ -1,4 +1,5 @@
 import { wireSound, playBaySound } from './sound.js';
+import './game.js';
 
 const comparison = document.querySelector('.comparison');
 async function showDeckCrew() {
@@ -35,6 +36,8 @@ let last = 0;
 let elapsed = .5;
 let loopLength;
 let cannonBeat;
+let impact;
+let battlePhase;
 
 function tick(now) {
   const span = now - last;
@@ -42,7 +45,12 @@ function tick(now) {
     const previous = elapsed % loopLength;
     elapsed += Math.min(span, 120) / 1000;
     if (previous < cannonBeat && elapsed % loopLength >= cannonBeat) playBaySound('cannon');
-    drawing(elapsed);
+    const departure = drawing(elapsed);
+    stage.style.setProperty('--ship-shift', (departure * 100).toFixed(2) + '%');
+    const age = elapsed % loopLength - impact;
+    stage.toggleAttribute('data-impact', age >= 0 && age < .27);
+    const phase = battlePhase(elapsed);
+    if (phase !== stage.dataset.battlePhase) stage.dataset.battlePhase = phase;
     last = now;
   }
   frame = requestAnimationFrame(tick);
@@ -53,17 +61,23 @@ async function syncSea() {
     cancelAnimationFrame(frame);
     frame = 0;
     canvas.hidden = true;
+    stage.removeAttribute('data-impact');
+    delete stage.dataset.battlePhase;
+    stage.style.removeProperty('--ship-shift');
     return;
   }
   if (!drawing && !starting) {
     starting = true;
     try {
-      const { makeSea, SEA_LOOP, CANNON_BEAT } = await import('./sea.js');
-      drawing = makeSea(canvas);
-      loopLength = SEA_LOOP;
-      cannonBeat = CANNON_BEAT;
+      const battle = await import('./art-sea.js');
+      const {makeArtworkSea, SHIP_LOOP, FIRE, IMPACT} = battle;
+      battlePhase = battle.battlePhase;
+      drawing = await makeArtworkSea(canvas);
+      loopLength = SHIP_LOOP;
+      cannonBeat = FIRE;
+      impact = IMPACT;
       drawing(elapsed);
-    } catch { /* The original poster is the static fallback. */ }
+    } catch { /* Keep the Recraft poster when motion assets are unavailable. */ }
     finally { starting = false; }
   }
   if (!drawing || frame || !visible || motion.matches || document.hidden) return;
@@ -89,3 +103,20 @@ function watchSea() {
 const afterPaint = () => requestAnimationFrame(() => requestAnimationFrame(watchSea));
 if (document.readyState === 'complete') afterPaint();
 else window.addEventListener('load', afterPaint, {once:true});
+
+const copyCaption = document.querySelector('#copy-boat-caption');
+if (copyCaption && navigator.clipboard) {
+  copyCaption.hidden = false;
+  copyCaption.addEventListener('click', async () => {
+    const caption = document.querySelector('#boat-caption');
+    const status = document.querySelector('#copy-boat-status');
+    try {
+      await navigator.clipboard.writeText(caption.value);
+      status.textContent = 'Caption copied.';
+    } catch {
+      caption.focus();
+      caption.select();
+      status.textContent = 'Caption selected for copying.';
+    }
+  });
+}

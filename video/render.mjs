@@ -9,7 +9,7 @@ const directory = dirname(fileURLToPath(import.meta.url));
 const output = process.env.HACKERSBAY_VIDEO_OUTPUT || resolve(directory, 'dist');
 const browserExecutable = process.env.HACKERSBAY_CHROMIUM;
 const selected = process.argv.slice(2);
-await prepare();
+const footage = await prepare();
 await mkdir(output, { recursive: true });
 const serveUrl = await bundle({ entryPoint: resolve(directory, 'src/index.jsx'), publicDir: resolve(directory, 'public') });
 const compositions = await getCompositions(serveUrl, { browserExecutable });
@@ -20,11 +20,19 @@ for (const composition of compositions) {
   if (selected.length && !selected.includes(composition.id)) continue;
   const file = resolve(output, composition.id + '.mp4');
   console.log('Rendering ' + file);
+  const cut = /^(?:Cut[ABC]|Pitch)$/.test(composition.id);
+  let lastMilestone = 0;
   await renderMedia({
     composition, serveUrl, outputLocation: file, browserExecutable,
-    codec: 'h264', crf: 21, pixelFormat: 'yuv420p', concurrency: 4,
+    codec: 'h264', crf: cut ? 26 : 21, pixelFormat: 'yuv420p', concurrency: 4,
+    ...(cut && { inputProps: { ...composition.defaultProps, footage } }),
     onProgress: ({ progress }) => {
-      if (progress === 1) console.log('Rendered ' + composition.id);
+      const milestone = Math.floor(progress * 4) * 25;
+      if (milestone > lastMilestone && milestone < 100) {
+        lastMilestone = milestone;
+        console.log(composition.id + ' ' + milestone + '%');
+      }
     }
   });
+  console.log('Rendered ' + composition.id);
 }
