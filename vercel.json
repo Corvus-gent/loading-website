@@ -380,6 +380,18 @@
   ],
   "rewrites": [
     {
+      "source": "/bjj/oli",
+      "destination": "/bjj/oli/index.html"
+    },
+    {
+      "source": "/api/oli/:action(access|chat|state|upload|media)",
+      "destination": "/api/stats?oli=:action"
+    },
+    {
+      "source": "/api/oli/agent/:action(next|result|seed)",
+      "destination": "/api/stats?oli=:action"
+    },
+    {
       "source": "/logo/:asset.svg",
       "destination": "/public/logo/:asset.svg"
     },
@@ -1057,6 +1069,13 @@
     }
   },
   "headers": [
+    {
+      "source": "/bjj/oli/:path*",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" },
+        { "key": "Cache-Control", "value": "private, no-store" }
+      ]
+    },
     {
       "source": "/cv/bar-bougie/download",
       "headers": [
