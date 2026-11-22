@@ -56,6 +56,12 @@ export function applyI18n(lang = getLang()) {
   });
 }
 
+const flags = {
+  en: ['uk', 'usa'], nl: ['netherlands', 'flanders'], es: ['spain', 'bolivia'],
+  fr: ['france', 'france'], pt: ['brazil', 'portugal'], de: ['germany', 'germany'],
+  zh: ['china', 'hong-kong'],
+};
+
 export function renderSwitcher(onChange) {
   const box = document.getElementById("lang-switcher");
   if (onChange) callbacks.add(onChange);
@@ -63,14 +69,25 @@ export function renderSwitcher(onChange) {
   const current = getLang();
   const names = new Intl.DisplayNames(current, { type: 'language' });
   box.innerHTML = "";
-  LANGS.forEach(([code, label]) => {
+  const arena = box.matches?.(".arena > [data-site-languages]") ?? false;
+  const languages = arena ? Object.keys(flags).map(code => LANGS.find(([lang]) => lang === code)) : LANGS;
+  languages.forEach(([code, label]) => {
     const a = document.createElement("a");
     const url = new URL(location.href);
     if(routeLanguages){url.pathname=routeLanguages[code]||'/';url.search='';if(!routeLanguages[code])url.searchParams.set('lang',code);}else url.searchParams.set('lang', code);
     a.href = url.href;
     a.hreflang = code;
     a.setAttribute('aria-label', names.of(code));
-    a.textContent = label;
+    if (arena) {
+      [...label].forEach((letter, index) => {
+        const glyph = document.createElement('span');
+        glyph.dataset.flag = flags[code][index];
+        glyph.textContent = letter;
+        a.append(glyph);
+      });
+    } else {
+      a.textContent = label;
+    }
     if (code === current) {
       a.className = "active";
       a.setAttribute('aria-current', 'true');
@@ -97,6 +114,19 @@ export function renderSwitcher(onChange) {
   const stats = document.createElement("a");
   stats.href = location.hostname === 'stats.corvus.gent' ? 'https://corvus.gent/languages/' : '/languages/';
   stats.className = "stats";
-  stats.textContent = "· " + t("lang.title");
+  if (arena) {
+    const label = document.createElement('span');
+    for (const [flag, text] of [
+      ['spain', '· poly'], ['china', 'glot '], ['portugal', 'st'], ['france', 'ats'],
+    ]) {
+      const part = document.createElement('span');
+      part.dataset.flag = flag;
+      part.textContent = text;
+      label.append(part);
+    }
+    stats.append(label);
+  } else {
+    stats.textContent = '· ' + t('lang.title');
+  }
   box.appendChild(stats);
 }

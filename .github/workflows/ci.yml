@@ -1,0 +1,146 @@
+name: CI
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      basic: ${{ steps.filter.outputs.basic }}
+      e2e: ${{ steps.filter.outputs.e2e }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            basic:
+              - '.github/workflows/ci.yml'
+              - '**/*.html'
+              - 'site*'
+              - 'public/**'
+              - 'js/**'
+              - 'css/**'
+              - 'styles.css'
+              - 'api/**'
+              - 'lib/**'
+              - 'tools/**'
+              - 'tests/**'
+              - 'playwright*.config.mjs'
+              - 'middleware.js'
+              - 'vercel.json'
+              - 'package*.json'
+            e2e:
+              - '.github/workflows/ci.yml'
+              - 'public/realm-entry*'
+              - 'index.html'
+              - 'legion/index.html'
+              - 'js/site/**'
+              - 'js/i18n/**'
+              - 'css/site/**'
+              - 'js/realm-*.js'
+              - 'js/portal.js'
+              - 'tools/site/**'
+              - 'middleware.js'
+              - 'api/diogenes.js'
+              - 'api/feedback.js'
+              - 'tests/e2e/**'
+              - 'playwright.e2e.config.mjs'
+              - 'package*.json'
+
+  basic:
+    needs: changes
+    if: needs.changes.outputs.basic == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      redis:
+        image: redis:7-alpine
+        ports: ['16380:6379']
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: node tools/site/build-all.mjs
+      - run: node tools/site/test-basic.mjs
+
+  legacy-browser:
+    needs: changes
+    if: needs.changes.outputs.basic == 'true'
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    timeout-minutes: 35
+    services:
+      redis:
+        image: redis:7-alpine
+        ports: ['16380:6379']
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: node tools/site/build-all.mjs
+      - run: npx playwright install --with-deps chromium
+      - name: Run legacy browser and performance tests
+        run: |
+          node tools/serve.mjs &
+          server=$!
+          trap 'kill "$server"' EXIT
+          curl --retry 8 --retry-delay 1 --retry-connrefused -fsS http://127.0.0.1:4176/ -o /dev/null
+          node tools/site/test-basic.mjs legacy
+
+  e2e:
+    needs: changes
+    if: needs.changes.outputs.e2e == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: node tools/site/build-all.mjs
+      - run: npm run test:e2e
+
+  ci-ok:
+    if: always()
+    needs: [changes, basic, e2e]
+    runs-on: ubuntu-latest
+    env:
+      CHANGES: ${{ needs.changes.result }}
+      BASIC: ${{ needs.basic.result }}
+      E2E: ${{ needs.e2e.result }}
+    steps:
+      - name: Require successful or skipped tests
+        run: |
+          test "$CHANGES" = success
+          for result in "$BASIC" "$E2E"; do
+            case "$result" in
+              success|skipped) ;;
+              *) exit 1 ;;
+            esac
+          done

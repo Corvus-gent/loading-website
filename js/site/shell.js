@@ -19,4 +19,49 @@ for(const button of document.querySelectorAll('[data-cardneto-egg]'))button.addE
  try{await fetch('/go/cardneto-egg',{credentials:'same-origin',redirect:'follow',signal:AbortSignal.timeout(5000)});}catch{}
 });
 // Only functional form submissions create records. No persistent analytics ID.
-for(const form of document.querySelectorAll('[data-newsletter]'))form.addEventListener('submit',async e=>{e.preventDefault();if(!form.reportValidity())return;const button=form.querySelector('button[type=submit]'),status=form.querySelector('[role=status]');button.disabled=true;status.textContent='sending the signal…';try{const r=await fetch('/api/legion',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'subscribe',email:form.email.value,consent:form.consent.checked,website:form.website.value})}),d=await r.json();if(!r.ok)throw Error(d.error);status.textContent=d.message;form.reset();}catch(err){status.textContent=err.message||'Please retry shortly.';}finally{button.disabled=false;}});
+for (const form of document.querySelectorAll('[data-newsletter]')) {
+ const {email, consent, website} = form.elements;
+ const status = form.querySelector('[role=status]');
+ const button = form.querySelector('button[type=submit]');
+ if (consent.type === 'hidden') {
+  email.addEventListener('invalid', () => {
+   status.textContent = 'Enter a valid email address.';
+   email.setAttribute('aria-invalid', 'true');
+  });
+  email.addEventListener('input', () => {
+   if (!email.hasAttribute('aria-invalid')) return;
+   email.removeAttribute('aria-invalid');
+   status.textContent = '';
+  });
+ }
+ form.addEventListener('submit', async event => {
+  event.preventDefault();
+  if (!form.reportValidity()) return;
+  button.disabled = true;
+  status.textContent = 'sending the signal…';
+  try {
+   const response = await fetch('/api/legion', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+     action: 'subscribe',
+     email: email.value,
+     consent: consent.type === 'hidden' ? consent.value === 'true' : consent.checked,
+     website: website.value,
+    }),
+   });
+   const result = await response.json();
+   if (!response.ok) throw Error(result.error);
+   status.textContent = result.message;
+   form.reset();
+  } catch (error) {
+   status.textContent = error.message || 'Please retry shortly.';
+  } finally {
+   button.disabled = false;
+  }
+ });
+}
+
+if (!document.getElementById('lang-switcher')) {
+ document.querySelector('.site-quiet-footer a[href$="#lang-switcher"]')?.remove();
+}

@@ -7,6 +7,9 @@ const clean = (value, max) => typeof value === 'string' ? value.replace(/[\x00-\
 export function createHandler({send = fetch, limit = rateLimit, ip = dailyIPHash, key = () => process.env.DIOGENES_OPENAI_API_KEY || process.env.OPENAI_API_KEY, model = () => process.env.DIOGENES_MODEL || 'gpt-4.1-mini'} = {}) {
   return async function handler(req, res) {
     res.setHeader('Cache-Control', 'no-store');
+    if (req.method === 'GET' && req.query?.health === '1') {
+      return res.status(200).json({configured: Boolean(key()), model: model()});
+    }
     if (req.method !== 'POST') { res.setHeader('Allow', 'POST'); return res.status(405).json({error: 'Speak with a POST.'}); }
     const origins = ['https://corvus.gent', 'https://www.corvus.gent', ...['VERCEL_URL', 'VERCEL_BRANCH_URL'].map(k => process.env[k] && 'https://' + process.env[k])];
     if (!origins.includes(req.headers.origin) || !String(req.headers['content-type'] || '').startsWith('application/json')) return res.status(403).json({error: 'Diogenes only talks at the curtain.'});
