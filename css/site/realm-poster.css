@@ -1,0 +1,237 @@
+@import url('/css/site/realm-type.css');
+
+/* Night-circus programme: ink, paper and one lantern signal. */
+:root:has(body.arena) {
+  --night: #140e1c;
+  --night-2: #21172b;
+}
+:root:has(body.people-page) {
+  --poster-paper: #140e1c;
+  --poster-ink: #f1e9d4;
+  --poster-muted: #c4b8c8;
+  --poster-rule: #4a3d52;
+  --poster-signal: #ffd76a;
+  --bg: var(--poster-paper);
+  --fg: var(--poster-ink);
+}
+
+body.arena {
+  --poster-paper: var(--night);
+  --poster-ink: var(--ivory);
+  --poster-muted: var(--muted);
+  --poster-rule: var(--line);
+  --poster-signal: var(--realm-accent, #ffd76a);
+  --gold: var(--poster-ink);
+  --corvus-gold: var(--poster-ink);
+}
+
+body:is(.arena, .people-page) {
+  --poster-display: clamp(3.6rem, 8vw, 7.2rem);
+  --poster-title: clamp(1.75rem, 2.8vw, 2.75rem);
+  --poster-serif: 'Bodoni Moda', Didot, 'Times New Roman', serif;
+  --poster-text: 'Instrument Sans', system-ui, sans-serif;
+  background: var(--poster-paper);
+  color: var(--poster-ink);
+  font-family: var(--poster-text);
+}
+
+body:is(.arena, .people-page) :focus-visible {
+  outline: 2px solid var(--poster-ink);
+  outline-offset: 4px;
+}
+
+body:is(.arena, .people-page) .site-nav, body.arena .site-nav:has(.realm-tools) {
+  background: var(--poster-paper);
+  border: 0;
+  box-shadow: none;
+  font-family: var(--poster-text);
+}
+body:is(.arena, .people-page) .site-nav :is(.site-mark, a[aria-current]) { color: var(--poster-ink); }
+body:is(.arena, .people-page) .site-nav a[aria-current] {
+  background: none;
+  text-decoration: underline;
+  text-underline-offset: .3em;
+}
+.arena .site-nav :is(a:hover, .site-search-button, .realm-tools button) {
+  color: var(--poster-ink);
+  background: transparent;
+  border-color: transparent;
+}
+.arena .site-nav :is(.site-search-button, .realm-tools button):hover { border-color: var(--poster-rule); }
+body.arena > #lang-switcher[data-site-languages] { background: var(--poster-paper); }
+.arena .site-back a, .arena .site-quiet-footer a { color: var(--poster-muted); }
+
+.arena .site-page :is(h1, h2, h3), .people-page .st :is(h1, h2) {
+  color: var(--poster-ink);
+  font-family: var(--poster-serif);
+}
+.arena .site-page > h1,
+.arena .site-page .whoami-hero h1,
+.people-page .st :is(#visitors, .map-total-heading) {
+  max-width: 13ch;
+  margin-block: .12em .3em;
+  font: 700 var(--poster-display)/.92 var(--poster-serif);
+  letter-spacing: -.055em;
+  text-wrap: balance;
+}
+.arena .site-page h2, .people-page .st .st-sec h2 {
+  font: 700 var(--poster-title)/1.05 var(--poster-serif);
+  letter-spacing: -.025em;
+}
+.arena .site-eyebrow, .arena .profile-wrap .eyebrow {
+  color: var(--poster-muted);
+  letter-spacing: .14em;
+}
+
+.arena :is(.hall, .arena-stage, .crawl) { --gold: var(--poster-signal); }
+.arena .hall-panel.is-today {
+  animation: none;
+  color: #f1e9d4;
+  text-shadow: none;
+}
+.arena .arena-hero {
+  min-height: auto;
+  padding-block: clamp(22px, 4vw, 56px);
+  gap: clamp(12px, 3vw, 44px);
+}
+.arena .arena-stage { width: min(24vw, 240px); margin-top: 0; }
+.arena .arena-copy .arena-wordmark {
+  font-size: clamp(3.65rem, 10vw, 9rem);
+  line-height: .91;
+  letter-spacing: -.055em;
+  color: var(--poster-ink);
+}
+.arena .site-page .arena-title {
+  max-width: 32ch;
+  font: 400 clamp(1.125rem, 2vw, 1.55rem)/1.35 var(--poster-text);
+  margin-block: 18px 22px;
+}
+.arena .crawl-open {
+  padding: 8px 0;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  border-radius: 0;
+  color: var(--poster-ink);
+  box-shadow: none;
+}
+.arena .arena-pennant, .arena .arena-programme::before { display: none; }
+.arena .arena-programme {
+  padding-block-start: 24px;
+  border: 0;
+}
+.arena .arena-acts {
+  display: block;
+  border: 0;
+}
+.arena .arena-acts li { border: 0; border-bottom: 1px solid var(--poster-rule); }
+.arena .arena-acts a {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(8rem, 1fr) minmax(12rem, 2fr) auto;
+  align-items: baseline;
+  gap: 8px 16px;
+  padding: 15px 0;
+}
+.arena .arena-acts a:hover, .arena .arena-acts a:focus-visible { background: none; text-decoration: underline; }
+.arena .arena-acts .num, .arena .arena-acts .go { color: var(--poster-muted); }
+.arena .arena-acts :is(.line:not([data-stats-act]), [data-stats-act]) { grid-column: 3; }
+.arena .arena-acts [data-stats-act] { grid-row: 2; }
+.arena .arena-acts .go { grid-column: 4; grid-row: 1; }
+.arena .arena-acts a[href="/legion/#waitlist"] .go { color: var(--poster-signal); }
+
+.arena .site-page .site-grid { display: block; margin-block: 18px 40px; }
+.arena .site-page .site-grid > .site-card {
+  display: block;
+  background: transparent;
+  padding: 16px 0;
+  border: 0;
+  border-bottom: 1px solid var(--poster-rule);
+  border-radius: 0;
+  color: var(--poster-ink);
+}
+.arena .site-page .site-card :is(strong, h3) {
+  color: var(--poster-ink);
+  font: 700 clamp(1.3rem, 2.4vw, 1.85rem)/1.15 var(--poster-serif);
+}
+.arena .site-page .site-card small { color: var(--poster-muted); margin-bottom: 6px; }
+.arena .site-page .site-card .arrow { margin: 4px 0 0; color: var(--poster-muted); }
+.arena .site-page .site-card:hover strong { text-decoration: underline; }
+body.arena .site-page .arena-home .arena-stats {
+  display: block;
+  padding: 22px 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+}
+.arena .arena-stats-numbers { margin-block: 16px; }
+.arena .arena-stats-numbers a { padding: 6px 16px 6px 0; background: none; border: 0; color: var(--poster-ink); }
+
+.arena .site-page :is(.site-button, .profile-button) {
+  background: transparent;
+  color: var(--poster-ink);
+  border: 1px solid var(--poster-rule);
+}
+:root .arena .site-page :is(.site-newsletter, .legion-join, .ring-after) .end-wait .end-cta,
+.arena .site-page :is(a.site-button[href="#waitlist"], a.site-button[href="/games/"], a.profile-button[href="/cv/"], a.profile-button[href="/cv"]),
+.people-page .st .country-map-link {
+  background: var(--poster-signal);
+  border: 1px solid var(--poster-signal);
+  color: var(--poster-paper);
+}
+.arena .site-page .end-cta:hover, .people-page .st .country-map-link:hover { filter: contrast(1.12); }
+.arena .site-page .crawl .end-cta { color: #0d0a12; background: #ffd76a; }
+.arena .site-page .end-cta-mark { color: inherit; }
+.arena .end-wait-row { background: var(--night-2); border-color: var(--poster-rule); box-shadow: none; }
+.arena .end-wait-row:focus-within { border-color: var(--poster-ink); box-shadow: none; }
+.arena .inspiration-rail img { max-height: 27vh; }
+.arena .inspiration-rail { opacity: .88; }
+.arena .whoami-photo { padding: 0; border: 0; background: transparent; box-shadow: none; }
+body.arena.curiosity-priority .site-page .curiosity-hero {
+  padding: 24px 0;
+  background: none;
+  border: 0;
+  border-top: 1px solid var(--poster-rule);
+  border-radius: 0;
+  box-shadow: none;
+}
+body.arena.curiosity-priority .site-page .curiosity-hero-title {
+  font: 700 clamp(2rem, 4.8vw, 4rem)/1 var(--poster-serif);
+  color: var(--poster-ink);
+  text-shadow: none;
+}
+body.arena.curiosity-priority .site-page .curiosity-hero :is(p, .curiosity-counters, .curiosity-counters strong, a:not(.curiosity-play)) {
+  color: var(--poster-muted);
+}
+body.arena.curiosity-priority .site-page .curiosity-play {
+  background: var(--poster-signal);
+  color: var(--poster-paper);
+  border-color: transparent;
+  border-radius: 4px;
+  box-shadow: none;
+  min-height: 48px;
+  font: 650 1rem/1.1 var(--poster-text);
+}
+
+.people-page .st .stats-tabs [aria-current] { color: var(--poster-ink); }
+.people-page .st :is(.st-sec, .stats-hero) {
+  padding-inline: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  border-top: 1px solid var(--poster-rule);
+}
+.people-page .st :is(.tag, .sub) { color: var(--poster-muted); }
+.people-page .st .tag { border: 0; background: none; padding: 0; }
+.people-page .st .country-map-link .country-map-emoji { font-size: 1em; }
+.people-page .st .stat-copy { border-color: transparent; color: var(--poster-muted); }
+
+@media (min-width: 768px) {
+  .arena .arena-hero { grid-template-columns: minmax(0, 2fr) minmax(0, 5fr); text-align: left; }
+  .arena .arena-copy { justify-self: start; }
+}
+
+@media (max-width: 767px) {
+  .arena .arena-stage { width: min(36vw, 160px); }
+  .arena .site-page .arena-title { margin-inline: auto; }
+  .arena .arena-acts a { grid-template-columns: 1.6rem minmax(0, 1fr); gap: 4px 8px; }
+  .arena .arena-acts :is(.line, .go) { grid-column: 2; grid-row: auto; }
+}
