@@ -65,12 +65,12 @@
     },
     {
       "source": "/cv/studies/",
-      "destination": "/cv#studies",
+      "destination": "/future-studies",
       "permanent": true
     },
     {
       "source": "/cv/studies",
-      "destination": "/cv#studies",
+      "destination": "/future-studies",
       "permanent": true
     },
     {
@@ -329,6 +329,10 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/future-studies",
+      "destination": "/future-studies/index.html"
+    },
     {
       "source": "/cv/horeca",
       "destination": "/cv/horeca/index.html"
