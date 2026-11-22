@@ -97,9 +97,10 @@ try {
             const result = await samplePerformance(p, route, 'cold-context', servers.optimized.origin);
             assert(!result.error, result.error);
             await p.keyboard.press('Escape');
-            // CV's own readiness precedes its background directory fetch. Drain
-            // that fixture before the next functional document, outside timing.
-            await p.waitForFunction(() => window.__corvusMeasure?.directoryReady, {}, {timeout:15000});
+            // Drain background fixture requests before changing documents in
+            // this functional check. CV pages need not mount a site directory.
+            // This wait is outside every recorded readiness measurement.
+            await p.waitForLoadState('networkidle', {timeout:15000});
           }
           await p.goto(servers.optimized.origin+'/');
           await p.waitForFunction(() => window.__corvusMeasure.ready !== null);
