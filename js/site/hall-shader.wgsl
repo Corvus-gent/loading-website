@@ -7,32 +7,42 @@ struct Hall {
 }
 @group(0) @binding(0) var<uniform> hall: Hall;
 
-fn hash(p: vec2f) -> f32 {
-  let v = fract(p * vec2f(123.34, 456.21));
-  return fract((v.x + dot(v, v + 45.32)) * v.y);
+// A surface-anchored ordered pattern: lighting moves, dots do not shimmer.
+fn bayer2(p: vec2u) -> f32 {
+  return f32(((p.x ^ p.y) & 1u) * 2u + (p.y & 1u));
+}
+fn threshold(p: vec2f) -> f32 {
+  let cell = vec2u(floor(max(p, vec2f(0.0))));
+  return (4.0 * bayer2(cell) + bayer2(cell / 2u) + 0.5) / 16.0;
+}
+fn water(p: vec2f, t: f32) -> f32 {
+  let swell = sin(p.x * 1.9 + p.y * 2.7 - t * 0.32);
+  let ripples = sin(p.x * 4.1 - p.y * 3.3 + swell * 1.1 + t * 0.24);
+  let detail = sin(p.x * 8.7 + p.y * 7.2 + ripples * 0.6 - t * 0.18);
+  return swell * 0.57 + ripples * 0.29 + detail * 0.14;
 }
 
 @fragment
 fn fs_main(@location(0) uv: vec2f) -> @location(0) vec4f {
   let t = hall.time;
   let pixel = uv * hall.size;
-  let grid = pixel / 13.0;
-  let spread = grid - hall.size / 26.0;
-  let wave = sin(length(spread * vec2f(0.44, 1.0)) * 0.57 - t * 0.65);
-  let halftone = 1.0 - smoothstep(0.10 + 0.071 * wave, 0.18 + 0.071 * wave, length(fract(grid) - 0.5));
-
-  let lantern = vec2f(0.5 + sin(t * 0.16) * 0.24, 0.44 + cos(t * 0.19) * 0.15);
-  let ray = (uv - lantern) * vec2f(3.4, 1.8);
-  let glow = 1.0 / (1.0 + 9.0 * dot(ray, ray));
-  let moteGrid = (pixel + vec2f(t * 5.0, t * -2.8)) / 42.0;
-  let cell = floor(moteGrid);
-  let seed = hash(cell);
-  let jitter = vec2f(seed, hash(cell + 7.0)) * 0.7 + 0.15;
-  let flicker = sin(t * 1.5 + seed * 19.0);
-  let grain = (1.0 - smoothstep(0.013, 0.036, distance(fract(moteGrid), jitter)))
-    * step(0.69, seed) * (0.43 + 0.57 * flicker * flicker);
-
-  var colour = mix(hall.night, hall.plum, 0.12 + halftone * (0.26 + 0.18 * glow));
-  colour = mix(colour, hall.light, glow * 0.30 + grain * (0.23 + glow * 0.33));
-  return vec4f(colour, 1.0);
+  let aspect = hall.size.x / max(hall.size.y, 1.0);
+  let surface = (uv - 0.5) * vec2f(aspect, 1.0);
+  let height = water(surface, t);
+  let normal = normalize(vec3f(
+    (height - water(surface + vec2f(0.025, 0.0), t)) * 12.0,
+    (height - water(surface + vec2f(0.0, 0.025), t)) * 12.0,
+    1.0
+  ));
+  let light = normalize(vec3f(-0.5, -0.6, 1.0));
+  let diffuse = max(0.0, dot(normal, light));
+  let crest = pow(diffuse, 9.0);
+  let edge = smoothstep(0.0, 0.22, uv.y) * (1.0 - smoothstep(0.65, 1.0, uv.y));
+  let brightness = clamp((0.14 + diffuse * 0.42 + crest * 0.38) * edge, 0.0, 1.0);
+  // Four tonal levels in the current Corvus palette, never a screen-sized texture.
+  let levels = brightness * 3.0;
+  let tone = (floor(levels) + step(threshold(pixel / 1.7), fract(levels))) / 3.0;
+  let ink = mix(hall.night, hall.plum, 0.12);
+  let highlight = mix(hall.plum, hall.light, 0.42);
+  return vec4f(mix(ink, highlight, tone * 0.66), 1.0);
 }

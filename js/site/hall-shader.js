@@ -46,7 +46,7 @@ export async function mountHallShader(hall, onFailure) {
     hall.querySelector('.hall-dome').after(canvas);
     const mobile = matchMedia('(pointer: coarse)').matches;
     const target = surface(gpu, canvas, {dpr: [1, mobile ? 1 : 1.5], depth: false, msaa: false});
-    wave = effect(gpu, shader, {label: 'Hall halftone'});
+    wave = effect(gpu, shader, {label: 'Hall surface dither'});
     palette.observe(document.documentElement, {attributes: true, attributeFilter: ['style', 'data-realm-theme']});
     await wave.compile(target);
 
@@ -54,7 +54,7 @@ export async function mountHallShader(hall, onFailure) {
       if (!active || disposed) return;
       time += lastFrame === null ? 0 : Math.min(50, now - lastFrame) / 1000;
       lastFrame = now;
-      if (lastDraw === null || now - lastDraw >= 15.5) {
+      if (lastDraw === null || now - lastDraw >= 32) {
         lastDraw = now;
         try {
           if (dirtyPalette) {
