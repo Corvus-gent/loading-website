@@ -260,3 +260,22 @@ test('the music panel loads ten tracks without autoplay and stays off the entran
   await page.keyboard.press('Escape');
   await expect(music.locator('iframe')).toHaveCount(0);
 });
+
+for (const reduced of [false, true]) {
+  test(reduced ? 'reduced motion skips the GPU canvas' : 'the hall renders without WebGPU', async ({page, baseURL}) => {
+    await page.emulateMedia({reducedMotion: reduced ? 'reduce' : 'no-preference'});
+    await page.addInitScript(hasGpu => {
+      Object.defineProperty(navigator, 'gpu', {value: hasGpu ? {} : undefined});
+    }, reduced);
+    const shaderRequests = [];
+    page.on('request', request => {
+      if (new URL(request.url()).pathname === '/public/site/hall-shader.js') shaderRequests.push(request.url());
+    });
+    await openHome(page, baseURL);
+    await expect(page.locator('.hall-dome')).toBeVisible();
+    await expect(page.locator('.hall-panel.is-today')).toHaveText(/never\s+stop\s+debating/i);
+    await page.clock.runFor(2000);
+    await expect(page.locator('.hall canvas')).toHaveCount(0);
+    expect(shaderRequests).toEqual([]);
+  });
+}
