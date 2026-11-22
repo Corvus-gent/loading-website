@@ -32,6 +32,9 @@ try{
    const wireBytes=()=>[...wire.values()].reduce((sum,bytes)=>sum+bytes,0);
    try{
     const home=await samplePerformance(p,'/','cold-context',s.origin);if(home.error)throw Error(home.error);
+    // The readiness helper verifies search by opening its modal. Close it before
+    // normal navigation, just as a visitor would; never click through overlays.
+    await p.keyboard.press('Escape');
     const homeWireBytes=wireBytes();
     const target=p.locator('.site-card[href="/gabe/"]');await target.scrollIntoViewIfNeeded();
     // Same explicit dwell for every treatment; never wait for preload completion.
