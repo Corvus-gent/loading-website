@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><meta name="referrer" content="no-referrer">
+<title>feedback · corvus</title>
+<meta name="description" content="See every page of corvus.gent on one board. Drop a pin, suggest new words, and get credited as a contributor.">
+<meta property="og:title" content="Help shape corvus.gent"><meta property="og:description" content="Every page on one board. Drop feedback anywhere, publicly."><meta property="og:image" content="https://corvus.gent/og.png">
+<link rel="icon" href="/logo.png">
+<link rel="stylesheet" href="/css/site/feedback.css?v=20261122fb2">
+</head>
+<body class="fb">
+<header class="fb-bar">
+  <a class="fb-mark" href="/">corvus</a><span class="fb-sep">/</span><strong>feedback</strong>
+  <nav class="fb-tabs" aria-label="Views"><button type="button" data-view="board" aria-pressed="true">board</button><button type="button" data-view="people" aria-pressed="false">contributors</button></nav>
+  <span class="fb-grow"></span>
+  <button type="button" class="fb-me" id="fb-me">who are you?</button>
+</header>
+
+<main id="fb-main">
+  <section class="fb-board" id="fb-board" aria-label="Every page of corvus.gent">
+    <div class="fb-board-help"><p><strong>Every page, on one board.</strong> Drag to move, scroll or pinch to zoom, click a page to open it. Pins show where people left feedback.</p><label class="fb-search">find a page<input type="search" id="fb-filter" placeholder="legion, quests, gabe…"></label></div>
+    <div class="fb-canvas" id="fb-canvas"><div class="fb-world" id="fb-world"></div></div>
+    <div class="fb-zoom"><button type="button" data-zoom="-1" aria-label="Zoom out">−</button><button type="button" data-zoom="0" aria-label="Reset zoom">fit</button><button type="button" data-zoom="1" aria-label="Zoom in">+</button></div>
+  </section>
+
+  <section class="fb-people" id="fb-people" hidden aria-labelledby="people-title">
+    <h1 id="people-title">The people shaping corvus.gent</h1>
+    <p class="fb-lead">Everyone who left feedback, in public. Sign in to get a verified spotlight as a contributor.</p>
+    <p><a class="fb-map-link" href="https://stats.corvus.gent/map?contributors=1">✦ view on the map</a> <span class="fb-fine">every contributor lights up where their flag points</span></p>
+    <ol class="fb-people-list" id="fb-people-list"></ol>
+    <h2>Latest feedback</h2>
+    <ol class="fb-feed" id="fb-feed"></ol>
+  </section>
+</main>
+
+<section class="fb-review" id="fb-review" hidden aria-label="Page review">
+  <header class="fb-review-bar">
+    <button type="button" class="fb-back" id="fb-back">← board</button>
+    <span class="fb-review-path" id="fb-path">/</span>
+    <span class="fb-grow"></span>
+    <button type="button" class="fb-mode" id="fb-mode" aria-pressed="true">💬 comment mode · on</button>
+    <span class="fb-hint">click anything to leave feedback · switch off to browse the site</span>
+  </header>
+  <div class="fb-review-body">
+    <div class="fb-frame-wrap"><iframe id="fb-frame" title="corvus.gent page under review"></iframe></div>
+    <aside class="fb-side"><h2>On this page</h2><ol class="fb-side-list" id="fb-side-list"></ol><p class="fb-empty" id="fb-empty">No feedback yet. Be the first.</p></aside>
+  </div>
+</section>
+
+<dialog class="fb-dialog" id="fb-compose" aria-labelledby="compose-title">
+  <form method="dialog" id="fb-compose-form">
+    <h2 id="compose-title">Leave feedback here</h2>
+    <p class="fb-quote" id="fb-quote" hidden></p>
+    <label>What should change? <textarea name="note" maxlength="600" rows="3" placeholder="This is confusing, I expected…"></textarea></label>
+    <label id="fb-suggest-wrap" hidden>Suggest new text <span class="fb-fine">edit the words right here</span><textarea name="suggestion" maxlength="600" rows="3"></textarea></label>
+    <p class="fb-as" id="fb-as"></p>
+    <p class="fb-fine">Public: your name, flag and words appear on this board for everyone.</p>
+    <div class="fb-actions"><button type="button" value="cancel" id="fb-cancel" class="fb-secondary">cancel</button><button type="submit" value="send" class="fb-primary">drop it</button></div>
+    <p class="fb-status" role="status"></p>
+  </form>
+</dialog>
+
+<dialog class="fb-dialog" id="fb-who" aria-labelledby="who-title">
+  <form method="dialog" id="fb-who-form">
+    <h2 id="who-title">Who are you?</h2>
+    <p class="fb-fine">A public name and a flag. No email needed.</p>
+    <label>Public username <input name="name" required minlength="2" maxlength="24" autocomplete="nickname" placeholder="ada_builds"></label>
+    <label>Flag <select name="flag" id="fb-flag"></select></label>
+    <p class="fb-fine">Want a verified contributor spotlight? <a href="/army/access/" id="fb-signin">Sign in with an email link</a>, then come back here.</p>
+    <div class="fb-actions"><button type="submit" class="fb-primary">save</button></div>
+  </form>
+</dialog>
+
+<script type="module" src="/js/site/feedback.js?v=20261122fb1"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import {createHandler, validName, validPage} from '../api/feedback.js';
+const res=()=>{const r={s:0,b:null,setHeader(){},status(c){r.s=c;return r},json(b){r.b=b;return r}};return r};
+const store=new Map(),z=new Map(),sets=new Map();
+const db=async c=>{const [op,k,...a]=c;if(op==='ZREVRANGE')return [...(z.get(k)||[])].reverse();if(op==='HGET')return store.get(k+'|'+a[0])||null;if(op==='HSET'){store.set(k+'|'+a[0],a[1]);return 1}if(op==='SMEMBERS')return [...(sets.get(k)||[])];return null};
+const many=async cmds=>Promise.all(cmds.map(async c=>{const [op,k,...a]=c;if(op==='ZADD'){z.set(k,[...(z.get(k)||[]),a[1]]);return 1}if(op==='SADD'){sets.set(k,new Set([...(sets.get(k)||[]),a[0]]));return 1}if(op==='HSET'&&a.length>2)return 1;if(op==='HINCRBY')return 1;if(op==='HGETALL')return {};return db(c)}));
+const h=createHandler({db,many,limit:async()=>true,ip:()=>'x',session:async()=>null});
+const post=b=>({method:'POST',headers:{origin:'https://corvus.gent','content-type':'application/json'},body:b});
+let r=res();await h(post({page:'/legion',name:'ada_builds',flag:'🇧🇪',note:'<b>bigger</b>',x:50,y:12}),r);assert.equal(r.s,200);assert.equal(r.b.item.note,'<b>bigger</b>');assert.equal(r.b.item.verified,false);
+r=res();await h(post({page:'/legion',name:'x',note:'hi'}),r);assert.equal(r.s,400);
+r=res();await h(post({page:'javascript:alert(1)',name:'ada_builds',note:'hi'}),r);assert.equal(r.s,400);
+r=res();await h({...post({page:'/legion',name:'ada_builds',note:'hi'}),headers:{origin:'https://evil.example','content-type':'application/json'}},r);assert.equal(r.s,403);
+r=res();await h(post({action:'hide',id:'0123456789abcdef'}),r);assert.equal(r.s,403);
+r=res();await h({method:'GET',query:{page:'/legion'},headers:{}},r);assert.equal(r.b.items.length,1);
+assert.ok(validName('Ada Lovelace'));assert.ok(!validName('<script>'));assert.ok(validPage('/hack/3'));assert.ok(!validPage('/../x'));
+console.log('feedback api: add, validation, origin, owner-only hide, page list passed');

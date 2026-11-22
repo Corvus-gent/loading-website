@@ -172,7 +172,7 @@
           "value": "(?:gabe|gabriel)"
         }
       ],
-      "destination": "/whoami",
+      "destination": "/gabe/",
       "permanent": false
     },
     {
@@ -184,17 +184,17 @@
           "value": "(?:gabe|gabriel)"
         }
       ],
-      "destination": "/whoami",
+      "destination": "/gabe/",
       "permanent": false
     },
     {
       "source": "/about/gabe",
-      "destination": "/whoami",
+      "destination": "/gabe/",
       "permanent": false
     },
     {
       "source": "/about/gabe/",
-      "destination": "/whoami",
+      "destination": "/gabe/",
       "permanent": false
     },
     {
@@ -326,9 +326,63 @@
       "source": "/self",
       "destination": "/?utm_source=self&utm_medium=share&utm_campaign=home-share",
       "permanent": false
+    },
+    {
+      "source": "/whoami",
+      "destination": "/gabe/",
+      "permanent": false
+    },
+    {
+      "source": "/whoami/",
+      "destination": "/gabe/",
+      "permanent": false
+    },
+    {
+      "source": "/sidequests",
+      "destination": "/gabe/",
+      "permanent": false
+    },
+    {
+      "source": "/sidequests/",
+      "destination": "/gabe/",
+      "permanent": false
+    },
+    {
+      "source": "/support",
+      "destination": "/gabe/#vouch",
+      "permanent": false
+    },
+    {
+      "source": "/support/",
+      "destination": "/gabe/#vouch",
+      "permanent": false
+    },
+    {
+      "source": "/people",
+      "destination": "/legion/#wall",
+      "permanent": false
+    },
+    {
+      "source": "/people/",
+      "destination": "/legion/#wall",
+      "permanent": false
+    },
+    {
+      "source": "/hackthefeed",
+      "destination": "/quests/#run",
+      "permanent": false
+    },
+    {
+      "source": "/hackthefeed/",
+      "destination": "/quests/#run",
+      "permanent": false
     }
   ],
   "rewrites": [
+    {
+      "source": "/og-realm.png",
+      "destination": "/public/og-realm.png"
+    },
     {
       "source": "/future-studies",
       "destination": "/future-studies/index.html"
@@ -431,17 +485,35 @@
     },
     {
       "source": "/hackersbay",
-      "has": [{ "type": "header", "key": "user-agent", "value": "(?:[Cc][Uu][Rr][Ll]|[Ww][Gg][Ee][Tt]|[Hh][Tt][Tt][Pp][Ii][Ee])(?:/.*)?" }],
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": "(?:[Cc][Uu][Rr][Ll]|[Ww][Gg][Ee][Tt]|[Hh][Tt][Tt][Pp][Ii][Ee])(?:/.*)?"
+        }
+      ],
       "destination": "/api/hackersbay?action=terminal-home"
     },
     {
       "source": "/hackersbay/",
-      "has": [{ "type": "header", "key": "user-agent", "value": "(?:[Cc][Uu][Rr][Ll]|[Ww][Gg][Ee][Tt]|[Hh][Tt][Tt][Pp][Ii][Ee])(?:/.*)?" }],
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": "(?:[Cc][Uu][Rr][Ll]|[Ww][Gg][Ee][Tt]|[Hh][Tt][Tt][Pp][Ii][Ee])(?:/.*)?"
+        }
+      ],
       "destination": "/api/hackersbay?action=terminal-home"
     },
     {
       "source": "/hackersbay/race",
-      "has": [{ "type": "header", "key": "user-agent", "value": "(?:[Cc][Uu][Rr][Ll]|[Ww][Gg][Ee][Tt]|[Hh][Tt][Tt][Pp][Ii][Ee])(?:/.*)?" }],
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": "(?:[Cc][Uu][Rr][Ll]|[Ww][Gg][Ee][Tt]|[Hh][Tt][Tt][Pp][Ii][Ee])(?:/.*)?"
+        }
+      ],
       "destination": "/api/hackersbay?action=terminal-race"
     },
     {

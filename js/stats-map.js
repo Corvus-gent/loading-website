@@ -220,6 +220,31 @@ async function initMap(snapshot) {
     status.textContent = precise || countryToggle?.checked ? '' : 'city-level pings appear here as they arrive.';
     status.hidden = cities.length>0;
   };
-  update(snapshot);return update;
+  update(snapshot);
+  if (new URLSearchParams(location.search).has('contributors')) contributorLights(L, map, reduced);
+  return update;
+}
+// Feedback contributors light up where their flag points: the biggest city of that country.
+async function contributorLights(L, map, reduced) {
+  let people = [];
+  try { people = (await (await fetch('/api/feedback', {cache: 'no-store'})).json()).contributors || []; } catch { return; }
+  const capital = {};
+  for (const [cc, , , lat, lng, pop] of cityCatalog) if (!capital[cc] || pop > capital[cc][2]) capital[cc] = [lat, lng, pop];
+  const code = flag => { const cps = [...(flag || '')].map(c => c.codePointAt(0) - 0x1f1e6); return cps.length === 2 && cps.every(n => n >= 0 && n < 26) ? String.fromCharCode(65 + cps[0], 65 + cps[1]) : null; };
+  if (!map.getPane('corvusContributors')) { map.createPane('corvusContributors'); map.getPane('corvusContributors').style.zIndex = 660; }
+  const style = document.createElement('style');
+  style.textContent = '.contributor-light span{display:block;width:100%;height:100%;border-radius:50%;background:radial-gradient(circle,#fff8dd 0,#ffd76a 30%,#ffd76a00 70%);animation:clight 2.6s ease-in-out infinite}.contributor-light.guest span{background:radial-gradient(circle,#f3ecff 0,#b9a3ff 30%,#b9a3ff00 70%)}@keyframes clight{50%{transform:scale(1.35);opacity:.7}}@media(prefers-reduced-motion:reduce){.contributor-light span{animation:none}}';
+  document.head.append(style);
+  const bounds = [];
+  people.forEach((p, i) => {
+    const cc = code(p.flag), at = cc && capital[cc]; if (!at) return;
+    const jitter = (n) => ((Math.sin((i + 1) * n) * 10000) % 1) * 1.6;
+    const lat = at[0] + jitter(12.9898), lng = at[1] + jitter(78.233), size = Math.min(54, 22 + p.count * 4);
+    L.marker([lat, lng], {pane: 'corvusContributors', icon: L.divIcon({className: 'contributor-light' + (p.verified ? '' : ' guest'), html: '<span></span>', iconSize: [size, size], iconAnchor: [size / 2, size / 2]}), title: `${p.flag} ${p.name} · ${p.count} contribution${p.count === 1 ? '' : 's'}${p.verified ? ' · verified' : ''}`, keyboard: true}).addTo(map);
+    bounds.push([lat, lng]);
+  });
+  if (bounds.length) map.fitBounds(bounds, {padding: [60, 60], maxZoom: 5, animate: !reduced});
+  const status = document.getElementById('visitor-map-status');
+  if (status) { status.hidden = false; status.textContent = bounds.length ? `${bounds.length} feedback contributor${bounds.length === 1 ? '' : 's'} light up the map: gold = verified, lilac = guest.` : 'No contributors with a flag yet.'; }
 }
 export {initMap};

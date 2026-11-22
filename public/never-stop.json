@@ -1,0 +1,4 @@
+{
+  "about": "The words on the ring in the main hall. One per day, in order, as a circular linked list: after the last word the ring starts again. The first five are the words on the LED ring in the Wintercircus arena in Ghent. Add your own at the end.",
+  "words": ["wondering", "debating", "giving", "shining", "listening"]
+}

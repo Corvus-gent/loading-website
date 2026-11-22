@@ -47,3 +47,18 @@ body.site-shell:has(.portal-sections){padding-top:0}
   pointer-events:none;
 }
 .site-page:has(> #enlist.legion-join)>.legion-rules{clear:both}
+
+/* Arena redesign: rooms wrapper is invisible on legacy pages; every page gets one back link. */
+.site-nav-rooms{display:contents}.site-back{max-width:1120px;margin:18px auto 0;padding:0 24px;font:13px/1.4 ui-monospace,SFMono-Regular,monospace;color:#999}.site-back a{color:inherit;text-decoration:none;display:inline-block;padding:8px 0}.site-back a:hover,.site-back a:focus-visible{color:var(--corvus-gold);text-decoration:underline;text-underline-offset:4px}
+
+/* Tiny circuses and hidden emojis. */
+.circus-tent{position:absolute;z-index:3;width:var(--size,20px);height:var(--size,20px);transform:rotate(var(--tilt,0deg));opacity:.45;pointer-events:none}
+.circus-tent svg{width:100%;height:100%;display:block}
+.circus-tent.is-secret{--size:22px;pointer-events:auto;padding:0;border:0;background:none;cursor:pointer;opacity:.55;transition:opacity .2s,transform .2s}
+.circus-tent.is-secret:hover,.circus-tent.is-secret:focus-visible{opacity:1;transform:rotate(0) scale(1.25)}
+.circus-tent.found{opacity:.9}
+.hidden-emoji{position:absolute;z-index:3;font-size:16px;opacity:0;transition:opacity .6s;padding:14px;cursor:default;user-select:none}
+.hidden-emoji:hover{opacity:.9}
+.circus-pop{position:fixed;z-index:60;font-size:20px;pointer-events:none;animation:pop 1.2s ease-out forwards}
+@keyframes pop{to{transform:translate(var(--dx),var(--dy)) rotate(25deg);opacity:0}}
+@media(prefers-reduced-motion:reduce){.circus-tent.is-secret{transition:none}.circus-pop{display:none}}

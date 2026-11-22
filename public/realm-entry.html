@@ -5,49 +5,67 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="color-scheme" content="dark" />
   <title>corvus.gent</title>
+  <script>document.documentElement.classList.add('js')</script>
   <link rel="icon" type="image/png" href="/logo.png" />
   <link rel="stylesheet" href="/styles.css?v=c5cabf3f1a64" />
   <meta name="description" content="corvus: a hand-picked army of people who build, in any field. we share what we know, open doors for each other and ship." />
   <meta property="og:title" content="corvus.gent" />
-  <meta property="og:description" content="The crow died. The domain didn't." />
+  <meta property="og:description" content="The army is forming. Your seat is still empty." />
   <meta property="og:url" content="https://corvus.gent/" />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://corvus.gent/og.png" />
+  <meta property="og:image" content="https://corvus.gent/og-realm.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:image" content="https://corvus.gent/og.png" />
+  <meta name="twitter:image" content="https://corvus.gent/og-realm.png" />
 <link rel="stylesheet" href="/privacy/privacy.css?v=158032e36fdb"><meta name="referrer" content="no-referrer">
 <link rel="stylesheet" href="/sf/note.css?v=ed9d5f6d5d7f">
-<link rel="stylesheet" href="/css/live-stream.css?v=20261107live2">
-<script type="module" src="/js/live-stream.js?v=20261107live2"></script>
 <link rel="canonical" href="https://corvus.gent/">
-<link rel="stylesheet" href="/css/site/languages.css"><script type="module" src="/js/i18n/bar.js"></script><link rel="preload" href="/public/fonts/bodoni-moda/bodoni-moda-700-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="/css/site/home-aura.css?v=20261121aura2"></head>
-<body class="portal home-aura" data-realm-gate><nav class="lang-switcher" id="lang-switcher" aria-label="Language"></nav>
+<link rel="stylesheet" href="/css/site/languages.css"><script type="module" src="/js/i18n/bar.js"></script><link rel="preload" href="/public/inspiration/diogenes.webp" as="image"><link rel="preload" href="/public/fonts/bodoni-moda/bodoni-moda-700-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="/css/site/realm-entry.css?v=20261122entry3"></head>
+<body class="portal entry-page" data-realm-gate><nav class="lang-switcher" id="lang-switcher" aria-label="Language"></nav>
+<div class="entry-curtain closed" aria-hidden="true"><i></i><i></i></div>
+<main class="entry" id="entry">
+  <h1 class="sr-only">Corvus. Find the way in with the lantern.</h1>
+  <p class="location" id="loc"><span data-i18n="location.label">📍 currently in:</span> <span id="city">Gent</span></p>
 
-<live-stream channel="gabe_maxxing" badge-only auto></live-stream>
-  <main>
-    <div class="wrap home">
+  <figure class="entry-scene" id="hero" title="?">
+    <img src="/public/inspiration/diogenes.webp" width="768" height="555" alt="Diogenes in his barrel, holding up a lantern, with three dogs beside him.">
+  </figure>
 
-      <img class="hero" id="hero" width="600" height="340" src="/img/diogenes.svg" title="?" alt="A crow flying towards Diogenes in his barrel, lantern in hand">
-      <p class="location" id="loc"><span data-i18n="location.label">📍 currently in:</span> <span id="city">Gent</span></p>
+  <!-- Hidden in the dark: the lantern finds them. -->
+  <div class="dark-thing dark-question" data-dark>
+    <p class="dio-who" id="dio-who">Diogenes</p>
+    <p class="dio-line" id="dio-line">I’m looking for an honest builder. Are you one?</p>
+    <form class="dio-form" id="dio-form" autocomplete="off">
+      <label class="sr-only" for="dio-input">Answer Diogenes</label>
+      <input id="dio-input" maxlength="400" placeholder="answer him…" enterkeyhint="send">
+    </form>
+  </div>
 
+  <a class="dark-thing dark-door realm-enter" href="/" data-dark><span class="door-mark" aria-hidden="true">✦</span><span class="door-word"><span data-i18n="realm.enter">enter the realm</span></span></a>
 
+  <button type="button" class="dark-thing dark-echo" id="dio-swap" data-dark>or ask Gabe’s echo</button>
 
-<h1 class="corvus-wordmark" translate="no">CORVUS</h1><p class="portal-what">for people who build, in any field.</p><a class="realm-enter" href="/realm/" data-i18n="realm.enter">enter the realm</a>
-<noscript><p><a href="/realm/">Continue to the realm →</a></p></noscript>
+  <!-- Small things for whoever wanders with the light. -->
+  <span class="dark-thing dark-emoji" style="left:9vw;top:24vh" data-dark aria-hidden="true">🎪</span>
+  <span class="dark-thing dark-emoji" style="left:46vw;top:8vh" data-dark aria-hidden="true">🃏</span>
+  <span class="dark-thing dark-emoji" style="left:58vw;bottom:9vh" data-dark aria-hidden="true">🐘</span>
+  <span class="dark-thing dark-emoji" style="right:30vw;top:44vh" data-dark aria-hidden="true">🎩</span>
+  <span class="dark-thing dark-tent" style="left:22vw;bottom:20vh" data-dark aria-hidden="true"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M16 3v4" stroke="#ffd76a" stroke-width="1.5"/><path d="M16 3l6 2-6 2z" fill="#ffd76a"/><path d="M16 7L3 19h26z" fill="#5a4386"/><path d="M16 7l-4.3 12h2.9zM16 7l4.3 12h-2.9zM16 7l-10.5 12h3zM16 7l10.5 12h-3z" fill="#2c1f45"/><path d="M5 19h22v9H5z" fill="#3d2b5e"/><path d="M13 28v-6a3 3 0 0 1 6 0v6z" fill="#120d1a"/></svg></span>
+  <span class="dark-thing dark-tent" style="right:4vw;top:52vh;--size:18px" data-dark aria-hidden="true"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M16 3v4" stroke="#ffd76a" stroke-width="1.5"/><path d="M16 3l6 2-6 2z" fill="#ffd76a"/><path d="M16 7L3 19h26z" fill="#5a4386"/><path d="M16 7l-4.3 12h2.9zM16 7l4.3 12h-2.9zM16 7l-10.5 12h3zM16 7l10.5 12h-3z" fill="#2c1f45"/><path d="M5 19h22v9H5z" fill="#3d2b5e"/><path d="M13 28v-6a3 3 0 0 1 6 0v6z" fill="#120d1a"/></svg></span>
 
+  <button type="button" class="lantern" id="lantern" aria-label="Lantern. Drag it, or use the arrow keys, to light up the dark."><span class="lantern-glow" aria-hidden="true"></span><span class="lantern-body" aria-hidden="true"></span></button>
 
-      <!-- secret-start --><p class="term-hint"><a href="#" data-terminal>&gt;_ <span data-i18n="term.hint">press any key</span></a> <a class="term-what" href="https://en.wikipedia.org/wiki/Terminal_emulator" target="_blank" rel="noopener noreferrer" lang="en">(for non devs: this is the terminal)</a></p><!-- secret-end -->
-
-    </div>
-  </main>
+  <div class="entry-wing" id="entry-wing" hidden aria-live="polite"><img src="/public/wing/wing-flight.webp" width="432" height="432" alt=""><p class="wing-say">don’t know how to get in?<br>maybe use the lantern.</p></div>
+  <noscript><p class="noscript-door"><a href="/">enter the realm →</a></p></noscript>
+</main>
 
   <script type="module" src="/js/home.js?v=20261108live1"></script>
   <script type="module" src="/js/portal.js?v=20261111ritual"></script>
   <script type="module" src="/js/terminal.js?v=20261108live1"></script>
+  <script type="module" src="/js/realm-entry.js?v=20261122entry3"></script>
+  <script type="module" src="/js/site/magic.js?v=20261122magic1"></script>
   <script src="/js/analytics.js?v=20261108cities1"></script>
-
 <script type="module" src="/js/privacy.js?v=20261107live2"></script>
-<footer class="portal-foot"><a href="/" aria-label="Corvus home"><img src="/logo.png" width="22" height="22" alt="Corvus"></a> · <a href="/map/">map</a> · <a href="#lang-switcher">language</a> · <a href="/privacy/">privacy</a></footer></body>
+</body>
 </html>

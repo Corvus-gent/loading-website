@@ -2,28 +2,36 @@ import {GENERATED_ROUTES} from './routes.generated.js';
 // Single source for navigation, hubs, the directory and the command palette.
 export const SECTIONS = [
   {
+    "id": "legion",
+    "label": "Legion",
+    "path": "/legion/",
+    "line": "Join for $1. Every higher rank is earned.",
+    "next": "/legion/#enlist",
+    "cta": "Enlist"
+  },
+  {
     "id": "quests",
     "label": "Quests",
     "path": "/quests/",
-    "line": "things built. lessons earned.",
-    "next": "/hack/3/",
-    "cta": "Meet the robots"
+    "line": "What we built, won and learned, hackathon by hackathon.",
+    "next": "/hack/",
+    "cta": "See the work"
   },
   {
     "id": "daily",
     "label": "Daily",
     "path": "/daily/",
-    "line": "a small reason to come back.",
+    "line": "Today’s puzzle, the live stream and the music vote.",
     "next": "/games/",
     "cta": "Play today"
   },
   {
-    "id": "legion",
-    "label": "Legion",
-    "path": "/legion/",
-    "line": "different worlds. one shared standard.",
-    "next": "/legion/#enlist",
-    "cta": "Enlist"
+    "id": "gabe",
+    "label": "Gabe",
+    "path": "/gabe/",
+    "line": "The person behind the crow, and how to reach him.",
+    "next": "/call/",
+    "cta": "Meet Gabe"
   },
   {
     "id": "live",
@@ -31,15 +39,8 @@ export const SECTIONS = [
     "path": "/live/",
     "line": "one-man army. many editors.",
     "next": "/live/",
-    "cta": "Watch live"
-  },
-  {
-    "id": "gabe",
-    "label": "Gabe",
-    "path": "/gabe/",
-    "line": "builder. fighter. sidequest collector.",
-    "next": "/call/",
-    "cta": "Book a call"
+    "cta": "Watch live",
+    "nav": false
   }
 ];
 export const CURATED_ROUTES = [
