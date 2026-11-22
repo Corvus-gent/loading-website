@@ -43,6 +43,7 @@ export const SECTIONS = [
   }
 ];
 export const CURATED_ROUTES = [
+  {path:"/build/rust/",file:"build/rust/index.html",section:"quests",title:"Rust migration / the receipts",description:"Code changes, AI usage, performance, caching and the honest cost of rewriting Corvus.",status:"in progress",public:true},
   {path:"/tattoo/",file:"tattoo/index.html",section:"gabe",title:"tattoo / inspiration book",description:"Michael, the Fallen Angel, fire, philosophy and a new creative brief each day.",status:"open",public:true},
   {"path":"/compound/impact/","file":"compound/impact/index.html","title":"Compound impact 💎","description":"The videos, the numbers and the clicks sent back. Gabe’s public scorecard.","section":"quests","status":"live","public":true},
   {
