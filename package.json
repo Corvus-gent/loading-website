@@ -51,7 +51,8 @@
     "oli-agent": "node tools/oli-agent.mjs",
     "test:oli": "REDIS_URL=redis://127.0.0.1:16380/10 node tests/oli.mjs",
     "test:oli:browser": "node tests/oli-browser.mjs",
-    "test:e2e": "playwright test -c playwright.e2e.config.mjs"
+    "test:e2e": "playwright test -c playwright.e2e.config.mjs",
+    "test:yogipower": "node tests/yogipower-i18n.mjs"
   },
   "overrides": {
     "@vercel/cli-config": {

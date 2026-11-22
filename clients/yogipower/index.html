@@ -289,9 +289,20 @@ tr:last-child td{border-bottom:0}
   #demobar select{max-width:140px}
   #demobar{left:12px;right:12px;transform:none}
 }
+/* The language bar remains available on the gate and every app screen. */
+#yp-languages{position:sticky;top:0;z-index:1100;height:44px;display:flex;align-items:center;justify-content:flex-end;gap:4px;padding:0 16px;background:var(--plum);color:var(--ivory)}
+#yp-languages button{min-width:44px;min-height:40px;border:0;border-radius:8px;background:transparent;color:inherit;cursor:pointer;font-size:13px;font-weight:600}
+#yp-languages button[aria-pressed="true"]{background:var(--saffron);color:var(--ink)}
+#yp-languages button:focus-visible{outline:2px solid var(--saffron2);outline-offset:-3px}
+#yp-languages[aria-busy="true"]{opacity:.75}
+#yp-languages[data-error]::after{content:attr(data-error);position:absolute;right:8px;top:100%;max-width:calc(100vw - 16px);background:var(--plum);padding:10px;font-size:13px}
+.top{top:44px}
+html{scroll-padding-top:130px}
 </style>
 </head>
 <body class="grain">
+<nav id="yp-languages" aria-label="Taal" translate="no"><button type="button" data-language="nl" lang="nl" aria-label="Nederlands" aria-pressed="true">NL</button><button type="button" data-language="fr" lang="fr" aria-label="Français" aria-pressed="false">FR</button><button type="button" data-language="en" lang="en" aria-label="English" aria-pressed="false">EN</button><button type="button" data-language="es" lang="es" aria-label="Español" aria-pressed="false">ES</button></nav>
+<script type="module" src="/clients/yogipower/i18n.js?v=20261122yogi1"></script>
 <div id="gate" style="display:none"><div class="card"><svg viewBox="0 0 64 64" class="sun" aria-hidden="true"><defs><linearGradient id="gg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2b856"/><stop offset="1" stop-color="#c8643b"/></linearGradient></defs><circle cx="32" cy="27" r="13" fill="url(#gg)"/><g stroke="#fbf1df" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M32 46c-6-4-9-9-9-14 4 1 7 4 9 8 2-4 5-7 9-8 0 5-3 10-9 14z" fill="#2b1e3f"/><path d="M32 46c-9-1-16-5-19-11 5-1 10 0 14 3"/><path d="M32 46c9-1 16-5 19-11-5-1-10 0-14 3"/><path d="M14 52h36"/></g><g stroke="#e39b2d" stroke-width="2.2" stroke-linecap="round"><path d="M32 6v4M17 12l2.6 3M47 12l-2.6 3M10 26h4M50 26h4"/></g></svg><h1>Yogi Power</h1><p>Prototype · requirements v1.3<br>Voer de toegangscode in.</p><form><input type="password" placeholder="code" autocomplete="off" aria-label="Toegangscode"><button>Open</button></form><div class="err"></div></div></div>
 <header class="top" id="hdr"></header>
 <main id="main"></main>
@@ -1011,7 +1022,7 @@ function viewAccount(){
     <div class="tabs">${tabs.map(([k,t,n])=>`<button class="${tab===k?'on':''}" data-tab="${k}" data-tabgroup="acc">${t}${n?`<span class="n">${n}</span>`:''}</button>`).join('')}</div>
     ${body}</div></div>${footer()}`;
 }
-function orderTag(o){return {open:'<span class="tag warn">Open</span>',betaald:`<span class="tag ok">Betaald · ${o.method}</span>`,mislukt:'<span class="tag bad">Mislukt</span>',terugbetaald:'<span class="tag">Terugbetaald</span>'}[o.status];}
+function orderTag(o){return {open:'<span class="tag warn">In afwachting</span>',betaald:`<span class="tag ok">Betaald · ${o.method}</span>`,mislukt:'<span class="tag bad">Mislukt</span>',terugbetaald:'<span class="tag">Terugbetaald</span>'}[o.status];}
 function mailList(mails){return mails.length?mails.map(m=>`<div class="mail"><div class="spread"><b>${esc(m.subject)}</b><span class="tiny muted">${fmtDT(m.at)} → ${esc(m.to)}</span></div><pre>${esc(m.body)}</pre></div>`).join(''):'<div class="empty">Nog geen mails verstuurd.</div>';}
 function receipt(o){const u=user(o.userId);modal(`<span class="eyebrow">Betaalbewijs</span><h3 style="margin-top:10px">${o.no}</h3><table><tr><td>Klant</td><td>${esc(u.name)}<br><span class="muted small">${esc(u.email)}</span></td></tr><tr><td>Omschrijving</td><td>${o.kind==='card'?cardType(o.ref).name:'Losse les · '+esc(lesson(o.ref).title)}</td></tr><tr><td>Bedrag</td><td>${euro(o.amount)} <span class="muted small">(incl. btw volgens regime — OPEN-03)</span></td></tr><tr><td>Betaald op</td><td>${o.paidAt?fmtFull(o.paidAt):'—'} via ${o.method||'—'}</td></tr><tr><td>Status</td><td>${orderTag(o)}</td></tr></table><p class="tiny muted">Yogi Power · Nieuwe Kassei 89/1, 1790 Affligem</p><div class="actions"><button class="btn ghost" onclick="window.print()">Afdrukken</button><button class="btn primary" data-close>Sluiten</button></div>`);}
 function bindAccount(){
