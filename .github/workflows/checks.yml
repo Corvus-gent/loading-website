@@ -43,6 +43,7 @@ jobs:
           REDIS_URL=redis://127.0.0.1:16380/7 node tools/plethora/check.mjs
       - name: Compound v2 storage and privacy contracts
         run: node tests/compound-v2.mjs && node tests/compound-v2-sync.mjs && node tests/compound-upload-queue.mjs
+      - run: npm run test:oli
       - name: Live banner state and safe redirects
         run: node tests/live-banner-api.mjs
       - name: Map totals and city privacy
@@ -62,6 +63,11 @@ jobs:
       - name: Build deployed pages before browser checks
         run: npm run build
       - run: npx playwright install --with-deps chromium
+      - run: npm run test:oli:browser
+      - uses: actions/upload-artifact@v4
+        with:
+          name: oli-phone
+          path: test-results/oli/phone.png
       - run: node tests/live-banner-browser.mjs
       - run: node tests/live-page.mjs
       - run: node tests/hack-live-mode.mjs

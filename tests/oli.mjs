@@ -1,0 +1,158 @@
+import assert from 'node:assert/strict';
+import http from 'node:http';
+import { randomUUID } from 'node:crypto';
+import { createClient } from 'redis';
+import { applyEdit } from '../api/_oli/timeline.js';
+
+const timeline = {
+  segments: [{ a: 2, b: 5, captions: { zh: ['原文'] } }, { a: 7, b: 12 }],
+  hook: { zh: ['保留'] }
+};
+const trim = { type: 'trim', seg: 0, a: 1, b: 6 };
+const edit = { summary: 'Adjust the first clip', ops: [trim] };
+assert.equal(applyEdit(timeline, edit, 'en').segments[0].a, 1);
+assert.equal(timeline.segments[0].a, 2);
+for (const [op, reason] of [
+  [{ ...trim, a: 0.99 }, /1\.0 s/],
+  [{ ...trim, b: 6.01 }, /1\.0 s/],
+  [{ ...trim, seg: 8 }, /position/],
+  [{ ...trim, type: 'upload' }, /unsupported/],
+  [{ type: 'caption', seg: 0, lang: 'zh', lines: ['a'] }, /language/]
+]) {
+  assert.throws(() => applyEdit(timeline, { ...edit, ops: [op] }, 'en'), reason);
+}
+assert.throws(() => applyEdit(timeline, { ...edit, ops: [trim, { ...trim, a: 0.5 }] }, 'en'), /1\.0 s/);
+assert.deepEqual(applyEdit(timeline, { summary: 'Update the caption', ops: [
+  { type: 'reorder', from: 0, to: 1 },
+  { type: 'caption', seg: 1, lang: 'en', lines: ['New'] }
+] }, 'en').segments[1].captions, { en: ['New'], zh: ['原文'] });
+
+assert.equal(process.env.REDIS_URL, 'redis://127.0.0.1:16380/10', 'Use the disposable Oli database only');
+Object.assign(process.env, {
+  SESSION_SECRET: 'oli-session-test', OLI_REVIEW_CODE: 'oli-passcode-test', OLI_AGENT_TOKEN: 'oli-agent-test',
+  OLI_BLOB_READ_WRITE_TOKEN: 'vercel_blob_rw_mockstore_test', OPENAI_API_KEY: 'oli-openai-test'
+});
+const { default: handler } = await import('../api/stats.js');
+const db = createClient({ url: process.env.REDIS_URL });
+await db.connect();
+await db.flushDb();
+
+const openFetch = globalThis.fetch;
+const requests = [];
+let nextEdit = edit;
+globalThis.fetch = async (target, options) => {
+  const url = String(target);
+  assert.ok(!url.includes('drive.google.com'), 'Drive links stay unfetched');
+  if (url === 'https://api.openai.com/v1/chat/completions') {
+    requests.push(JSON.parse(options.body));
+    return Response.json({ choices: [{ message: { tool_calls: [{ function: { name: 'propose_edit', arguments: JSON.stringify(nextEdit) } }] } }] });
+  }
+  if (url.startsWith('https://mockstore.private.blob.vercel-storage.com/')) {
+    assert.equal(options.headers.authorization, 'Bearer vercel_blob_rw_mockstore_test');
+    assert.equal(options.headers.Range, 'bytes=0-3');
+    return new Response('clip', { status: 206, headers: { 'Content-Range': 'bytes 0-3/10', 'Content-Length': '4' } });
+  }
+  return openFetch(target, options);
+};
+
+const server = http.createServer(async (req, res) => {
+  const url = new URL(req.url, 'http://localhost');
+  const action = url.pathname.split('/').at(-1);
+  req.query = { ...Object.fromEntries(url.searchParams), oli: action };
+  let raw = '';
+  for await (const chunk of req) raw += chunk;
+  req.body = raw ? JSON.parse(raw) : undefined;
+  res.status = code => { res.statusCode = code; return res; };
+  res.json = data => { res.setHeader('Content-Type', 'application/json'); res.end(JSON.stringify(data)); };
+  await handler(req, res);
+});
+await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+const root = `http://127.0.0.1:${server.address().port}/api/oli/`;
+const request = (route, body, headers) => fetch(root + route, {
+  method: body === undefined ? 'GET' : 'POST',
+  headers: { 'Content-Type': 'application/json', ...headers },
+  body: body === undefined ? undefined : JSON.stringify(body)
+});
+const bearer = { Authorization: 'Bearer oli-agent-test' };
+const videoUrl = () => `https://mockstore.private.blob.vercel-storage.com/oli/en/${randomUUID()}.mp4`;
+const attachment = 'https://drive.google.com/file/d/123/view';
+
+try {
+  for (const [route, body] of [
+    ['agent/next'], ['agent/result', {}], ['agent/seed', {}], ['state?variant=en'],
+    ['chat', {}], ['upload', {}], ['media?file=oli/en/' + randomUUID() + '.mp4']
+  ]) assert.equal((await request(route, body)).status, 401, route);
+  assert.equal((await request('agent/next', undefined, { Authorization: 'Bearer not-the-token' })).status, 401);
+  assert.equal((await request('access', { passcode: 'wrong' })).status, 401);
+  const gate = await request('access', { passcode: 'oli-passcode-test' });
+  assert.equal(gate.status, 200);
+  const signed = gate.headers.get('set-cookie');
+  assert.match(signed, /HttpOnly; Secure; SameSite=Strict/);
+  const auth = { Cookie: signed.split(';')[0] };
+  assert.equal((await request('state?variant=en', undefined, { Cookie: auth.Cookie + 'tampered' })).status, 401);
+  process.env.OLI_REVIEW_CODE = 'rotated-code';
+  assert.equal((await request('state?variant=en', undefined, auth)).status, 401);
+  process.env.OLI_REVIEW_CODE = 'oli-passcode-test';
+  const blank = await request('state?variant=long', undefined, auth);
+  assert.equal(blank.headers.get('x-robots-tag'), 'noindex, nofollow');
+  assert.equal(blank.headers.get('cache-control'), 'private, no-store');
+  assert.deepEqual(await blank.json(), { versions: [], chat: [], jobs: [] });
+  const seed = { variant: 'en', versionUrl: videoUrl(), timeline, label: 'v2' };
+  assert.equal((await request('agent/seed', { ...seed, versionUrl: seed.versionUrl.replace('.private.', '.public.') }, bearer)).status, 400);
+  assert.equal((await request('agent/seed', seed, bearer)).status, 200);
+  const seeded = await (await request('state?variant=en', undefined, auth)).json();
+  assert.deepEqual(Object.keys(seeded.versions[0]).sort(), ['changelog', 'label', 'url']);
+  const media = await request(seeded.versions[0].url.split('/api/oli/')[1], undefined, { ...auth, Range: 'bytes=0-3' });
+  assert.equal(media.status, 206);
+  assert.equal(media.headers.get('content-range'), 'bytes 0-3/10');
+  assert.equal(await media.text(), 'clip');
+
+  assert.equal((await request('upload', { photo: Buffer.from('not a photo').toString('base64') }, auth)).status, 400);
+  const payload = { variant: 'en', messages: [{ role: 'user', content: 'Adjust the first clip' }], driveLinks: [attachment], atTime: 1.5 };
+  const queued = await (await request('chat', payload, auth)).json();
+  assert.equal(queued.jobs[0].status, 'queued');
+  assert.equal(queued.chat[0].atTime, 1.5);
+  assert.deepEqual(queued.chat[0].driveLinks, [attachment]);
+  assert.match(requests[0].messages[0].content, /10x BJJ world champ.*\n[\s\S]+Current timeline.json: \{"segments":/);
+  assert.equal(requests[0].store, false);
+  assert.equal((await (await request('chat', payload, auth)).json()).jobs.length, 1, 'Only one queued edit per timeline');
+  const claimed = await Promise.all([1, 2].map(async () =>
+    (await (await request('agent/next', undefined, bearer)).json()).job
+  ));
+  assert.equal(claimed.filter(Boolean).length, 1, 'Only one worker can claim the job');
+  const job = claimed.find(Boolean);
+  assert.equal(job.status, 'rendering');
+  assert.deepEqual(job.timeline, timeline);
+  const result = {
+    id: job.id, claim: job.claim, status: 'live', versionUrl: videoUrl(), changelog: job.summary,
+    timeline: applyEdit(job.timeline, job, 'en')
+  };
+  assert.equal((await request('agent/result', { ...result, claim: randomUUID() }, bearer)).status, 409);
+  assert.equal((await request('agent/result', { ...result, versionUrl: result.versionUrl.replace('/en/', '/zh/') }, bearer)).status, 409);
+  assert.equal((await request('agent/result', result, bearer)).status, 200);
+  assert.equal((await request('agent/result', result, bearer)).status, 200, 'Retry is idempotent');
+  assert.equal((await request('agent/seed', seed, bearer)).status, 200, 'Retry seeding preserves later versions');
+  const live = await (await request('state?variant=en', undefined, auth)).json();
+  assert.deepEqual(live.versions.map(v => v.label), ['v3', 'v2']);
+  assert.equal(live.jobs[0].status, 'live');
+  assert.equal(live.jobs[0].label, 'v3');
+  nextEdit = { ...edit, ops: [{ ...trim, b: 7.1 }] };
+  const rejected = await (await request('chat', payload, auth)).json();
+  assert.match(rejected.chat.at(-1).content, /1\.0 s/);
+  assert.equal(rejected.jobs.length, 1, 'Invalid tools never queue');
+  nextEdit = edit;
+  await request('chat', payload, auth);
+  const second = (await (await request('agent/next', undefined, bearer)).json()).job;
+  assert.equal((await request('agent/result', { id: second.id, claim: second.claim, status: 'failed', reason: 'Fixture render failed.' }, bearer)).status, 200);
+  const failed = await (await request('state?variant=en', undefined, auth)).json();
+  assert.equal(failed.jobs[0].reason, 'Fixture render failed.');
+  assert.equal(failed.versions[0].label, 'v3');
+  console.log('Oli API, trim validation and queue lifecycle passed.');
+} finally {
+  globalThis.fetch = openFetch;
+  await new Promise(resolve => server.close(resolve));
+  await db.flushDb();
+  await db.quit();
+  // The deployed Redis helper keeps its connection open.
+  setImmediate(() => process.exit(process.exitCode || 0));
+}

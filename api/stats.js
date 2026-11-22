@@ -7,6 +7,7 @@ const FIRST = "2026-11-02";
 const tzDay = (d = new Date()) => new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Brussels" }).format(d);
 
 async function handler(req, res) {
+  if (req.query.oli) return (await import("./_oli/handler.js")).default(req, res);
   if(req.query.storageAudit==="1")return (await import('./_storage-audit.js')).default(req,res);
   if(req.query.cvSocial === "1") return (await import("./_cv-social.js")).default(req,res);
   if(req.query.creature === "1") return (await import("./_curious-creature.js")).default(req,res);
