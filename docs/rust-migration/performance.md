@@ -68,6 +68,38 @@ The measurement tool always returns `productionReady: false`: a browser lab alon
 
 No release can guarantee zero bugs. Record unresolved failures and keep the old implementation available until the relevant gates pass.
 
+## Optimization decision and migration blog · 22 November
+
+Gabriel requested trying the successful Switch2 approach first, comparing a lighter browser interface, and selecting for actual speed and Lighthouse performance. Preserve this investigation as a central chapter of the migration blog at cutover; do not publish a solved-problem story before the result exists.
+
+Switch2 reports three Leptos applications, optimized/compressed WASM and Lighthouse 100/100, but does not publish a mobile timing protocol. Lance publishes Rust-server/Svelte-client Lighthouse results: mobile 98, LCP 1.9 s; desktop 100, LCP 0.5 s. Neither is an equivalent Corvus benchmark or a promise of sub-800 ms mobile controls. Leptos's islands demonstration reduces an interactive example from 355 to 166 kB uncompressed by shipping only interactive code. These are candidate techniques, not a reason to replace the current stack without comparative evidence.
+
+The current Corvus browser build already has size-oriented Cargo optimization, fat LTO, removed name/producers sections, compressed delivery and a reduced public profile. First isolate the remaining compiler optimization opportunity with Binaryen `wasm-opt -Oz`, preserving the original artifact and every exported/imported binding. Compare that treatment against the unchanged Rust core and existing lightweight JS. This experiment does **not** install Leptos/Svelte, change application behavior, prefetch downloads or promote a runtime.
+
+```sh
+node tools/rust/optimizer-experiment.mjs --wasm-opt=/absolute/path/to/wasm-opt --repeats=3
+```
+
+Use the official WebAssembly/binaryen release, verify its published SHA-256, and record the optimizer version. The experiment uses a separate ignored package directory, paired fresh/warm interaction measurements, standard mobile/desktop Lighthouse settings retained in the raw reports, and Chromium/WebKit functional checks. It never contacts production or real provider APIs. Report every sample, warning and failure. Three repetitions are exploratory; the existing release/no-regression criteria still apply.
+
+Selection priorities:
+
+1. Keep all existing content, accessibility, privacy and functional behavior. No fake readiness marker, hidden content, delayed required scripts or Lighthouse-specific treatment.
+2. Prioritize actual mobile first-entry and click-to-working-controls latency. Keep direct entry, early click, reading then navigation, and warm reload separate. The user's <=800 ms **mean** next-page target is distinct from a median; a representative weighted mean requires a stated journey mix. Record p50/p95 as well; no small-sample maximum is a guaranteed worst case.
+3. Aim for Lighthouse 100 on mobile and desktop, reporting repeated-run medians/ranges and underlying LCP, TBT and CLS. Lighthouse does not validate whether application controls work and cannot replace the action measurement. Do not select a prettier score if actual use regresses.
+4. If compiler compression still leaves a large startup download, test smaller interactive units and a Rust-server/light-browser architecture. Existing JS is the immediate comparator; a future Svelte/Astro candidate needs its own equivalent-page measurement. Predictive loading is an additional, explicitly costed treatment, not the first-visit fix.
+
+Blog evidence to retain: original assumption; actual starting stack; failed mobile runs; raw/compressed bytes; static paint versus working controls; what size optimization and predictive loading did/did not solve; controlled architecture comparison; final decision; deployed verification and rollback; actual effort/cost evidence with unknowns preserved. Attribute each gain to the measured change rather than to the word Rust. Keep source commit, tool/device/cache settings, all samples and caveats alongside each chart.
+
+Primary sources checked 22 November 2026:
+
+- https://tech.switch2.co.uk/blog/rust-on-the-frontend-at-switch2
+- https://lance.hk/p/how-i-built-this-blog/
+- https://book.leptos.dev/islands.html
+- https://book.leptos.dev/deployment/binary_size.html
+- https://github.com/WebAssembly/binaryen
+- https://developer.chrome.com/docs/lighthouse/performance/performance-scoring
+
 ## Separate architecture experiment (22 November)
 
 [Lightweight home and bounded prediction](evidence/2026-11-22-aa608eb-progressive.md) compares three treatments from clean aa608eb: Rust throughout; existing lightweight JS on home with Rust on the next page; and the same hybrid with speculative downloads. All 54 exploratory journeys pass. The original Rust-only baseline and failing direct-entry gate above remain unchanged. Improvements from retaining JS or moving downloads into reading time are explicitly labelled; they are not Rust execution-speed gains.
