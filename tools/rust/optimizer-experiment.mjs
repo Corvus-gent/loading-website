@@ -15,9 +15,11 @@ import {createPerformanceServer, observePerformance, samplePerformance, PROFILES
 const options = Object.fromEntries(process.argv.slice(2).map(s => s.split(/=(.*)/s).slice(0, 2)));
 const optimizer = options['--wasm-opt'];
 const repeats = Number(options['--repeats'] || 3);
+const suite = options['--suite'] || 'all';
 if (!optimizer || !Number.isInteger(repeats) || repeats < 1 || repeats > 20) {
   throw Error('Use --wasm-opt=/absolute/path/to/wasm-opt --repeats=3');
 }
+if (!['all','lighthouse'].includes(suite)) throw Error('Unknown experiment suite');
 const git = (...args) => execFileSync('git', args, {encoding:'utf8'}).trim();
 const head = git('rev-parse', 'HEAD'), dirty = !!git('status', '--porcelain');
 const started = new Date().toISOString();
@@ -36,6 +38,10 @@ const exports = bytes => WebAssembly.Module.exports(new WebAssembly.Module(bytes
 assert.deepEqual(imports(optimized), imports(original), 'optimizer must preserve the binding imports');
 assert.deepEqual(exports(optimized), exports(original), 'optimizer must preserve every public binding');
 const fixture = await buildFixture(), servers = {}, samples = [], audits = [], functional = [];
+// A text-document seed causes Chrome to request /favicon.ico even though the
+// actual site declares its own icon. Avoid that harness-only 404 without warming
+// any real application asset or ignoring missing assets from the measured page.
+await writeFile(fixture.root+'/__benchmark_setup.html', '<!doctype html><html><head><meta charset="utf-8"><title>Fixture setup</title><link rel="icon" href="data:,"></head><body></body></html>');
 const out = 'test-results/rust/measurements/optimizer-'+started.replace(/[:.]/g, '-');
 await mkdir(out, {recursive:true});
 
@@ -57,7 +63,7 @@ async function audit(mode, profile, repeat) {
     const context = connection.contexts()[0], origin = servers[mode].origin;
     await context.addCookies([{name:'corvus_realm', value:'1', url:origin}]);
     const seed = await context.newPage();
-    await seed.goto(origin+'/robots.txt');
+    await seed.goto(origin+'/__benchmark_setup.html');
     await seed.evaluate(() => {
       localStorage.setItem('privacy-choice', JSON.stringify({choice:'deny'}));
       sessionStorage.setItem('twitch-disabled', '1');
@@ -127,6 +133,7 @@ try {
       }
     } finally { await browser.close(); }
   }
+  if (suite === 'all') {
   const browser = await chromium.launch();
   try {
     for (const profile of ['mobile','desktop']) for (let repeat=-1; repeat<repeats; repeat++) {
@@ -144,6 +151,7 @@ try {
       }
     }
   } finally { await browser.close(); }
+  }
   // Sequential audits: never compete for CPU/network with another measurement.
   for (const profile of ['mobile','desktop']) for (let repeat=0; repeat<repeats; repeat++) {
     for (const mode of repeat%2 ? [...modes].reverse() : modes) await audit(mode,profile,repeat);
@@ -154,7 +162,7 @@ try {
     const scoring = audits.filter(s => s.profile===profile && s.mode===mode);
     summary.push({profile,mode,readyMedianMs:quantile(timing.map(s=>s.ready),.5),lighthouseMedian:quantile(scoring.map(s=>s.score),.5),lcpMedianMs:quantile(scoring.map(s=>s.lcp),.5),tbtMedianMs:quantile(scoring.map(s=>s.tbt),.5)});
   }
-  const report = {version:1,head,headAfter:git('rev-parse','HEAD'),workingTreeDirty:dirty||!!git('status','--porcelain'),started,finished:new Date().toISOString(),productionReady:false,optimizer:{version:optimizerVersion,flags:['-Oz']},bundles:{rust:{sha256:sha(original),raw:original.length,brotli:packed(original)},optimized:{sha256:sha(optimized),raw:optimized.length,brotli:packed(optimized)}},originalChanged:sha(original)!==sha(await readFile('rust/browser/pkg/core/corvus_browser_bg.wasm')),conditions:PROFILES,repeats,summary,functional,samples,audits,unknown:Object.fromEntries(Object.entries(servers).map(([k,s])=>[k,[...s.unknown]])),assetFailures:Object.fromEntries(Object.entries(servers).map(([k,s])=>[k,[...s.failures]])),method:'Same disposable built HTML, CSS, content and 40 ms fixture APIs. No prediction. Same returning-visitor ritual cookie and analytics refusal. Functional readiness uses existing real search action. Sequential alternating paired samples plus one unrecorded timing warmup. Lighthouse uses its installed standard mobile/desktop simulation profiles (settings retained), fresh Chrome profile per audit; its scores are separate from the readiness protocol. Rust optimized treatment differs only by Binaryen -Oz on a separate artifact. All failures retained.',limitations:['Three runs are exploratory, not a release decision or field percentiles.','Lighthouse runs localhost with APIs/third parties isolated, not deployed user traffic.','Only home is performance-audited; other pages have scoped functional checks.','No real iPhone or Android measurements; WebKit is functional desktop-engine emulation.','Static content may score well while search/form controls still wait for WASM.','The legacy comparator is the existing lightweight JS, not a newly built Svelte app.']};
+  const report = {version:1,suite,head,headAfter:git('rev-parse','HEAD'),workingTreeDirty:dirty||!!git('status','--porcelain'),started,finished:new Date().toISOString(),productionReady:false,optimizer:{version:optimizerVersion,flags:['-Oz']},bundles:{rust:{sha256:sha(original),raw:original.length,brotli:packed(original)},optimized:{sha256:sha(optimized),raw:optimized.length,brotli:packed(optimized)}},originalChanged:sha(original)!==sha(await readFile('rust/browser/pkg/core/corvus_browser_bg.wasm')),conditions:PROFILES,repeats,summary,functional,samples,audits,unknown:Object.fromEntries(Object.entries(servers).map(([k,s])=>[k,[...s.unknown]])),assetFailures:Object.fromEntries(Object.entries(servers).map(([k,s])=>[k,[...s.failures]])),method:'Same disposable built HTML, CSS, content and 40 ms fixture APIs. No prediction. Same returning-visitor ritual cookie and analytics refusal. Functional readiness uses existing real search action. Sequential alternating paired samples plus one unrecorded timing warmup when suite=all. Suite=lighthouse intentionally does not repeat or populate readiness samples. Lighthouse uses its installed standard mobile/desktop simulation profiles (settings retained), fresh Chrome profile per audit; its scores are separate from the readiness protocol. Rust optimized treatment differs only by Binaryen -Oz on a separate artifact. All failures retained.',limitations:['Three runs are exploratory, not a release decision or field percentiles.','Lighthouse runs localhost with APIs/third parties isolated, not deployed user traffic.','Only home is performance-audited; other pages have scoped functional checks.','No real iPhone or Android measurements; WebKit is functional desktop-engine emulation.','Static content may score well while search/form controls still wait for WASM.','The legacy comparator is the existing lightweight JS, not a newly built Svelte app.']};
   await writeFile(out+'/report.json',JSON.stringify(report,null,2)+'\n');
   console.log('REPORT',out+'/report.json');
   console.log(JSON.stringify(summary,null,2));
