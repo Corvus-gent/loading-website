@@ -1,0 +1,125 @@
+:root:has(body.arena) {
+  --realm-surface: #181220;
+  --realm-nav: #0a0908;
+  --realm-control-border: #82768e;
+}
+
+:root[data-realm-theme]:has(body.arena) {
+  --gold: var(--realm-accent);
+  --corvus-gold: var(--realm-accent);
+}
+
+:root[data-realm-theme="light"]:has(body.arena) {
+  color-scheme: light;
+  --night: #fcf8f3;
+  --night-2: #f4ece5;
+  --ivory: #251b2f;
+  --muted: #54485d;
+  --dim: #62536c;
+  --line: #c5b3c9;
+  --realm-surface: #f4ece5;
+  --realm-nav: #fcf8f3;
+  --realm-control-border: #82708c;
+  --bg: var(--night);
+  --fg: var(--ivory);
+  --corvus-ink: var(--ivory);
+}
+:root[data-realm-theme="light"] body.arena { color-scheme: light; }
+.arena .site-nav:has(.realm-tools) { background: var(--realm-nav); }
+
+.realm-tools { display: flex; gap: 4px; align-items: center; }
+.realm-tools button,
+.realm-panel button,
+.realm-panel input[type="color"] {
+  font: inherit;
+  color: var(--ivory);
+  background: var(--realm-surface);
+  border: 1px solid var(--realm-control-border);
+  border-radius: 6px;
+  cursor: pointer;
+}
+.realm-tools button { width: 32px; height: 32px; padding: 0; font-size: 17px; }
+.realm-tools button:hover,
+.realm-panel button:hover { color: var(--gold); }
+
+.realm-panel {
+  position: fixed;
+  inset: 92px 12px auto auto;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 16px;
+  width: min(360px, calc(100% - 24px));
+  max-height: calc(100dvh - 110px);
+  overflow: auto;
+  color: var(--ivory);
+  background: var(--realm-surface);
+  border: 1px solid var(--realm-control-border);
+  border-radius: 12px;
+  box-shadow: 0 12px 35px #0004;
+  font: 14px/1.45 var(--text);
+}
+.realm-panel h2 { margin: 0 0 10px; font-size: 18px; }
+.realm-panel fieldset { margin: 0 0 10px; padding: 8px 10px; border: 1px solid var(--realm-control-border); }
+.realm-panel label { display: inline-flex; align-items: center; gap: 4px; margin-right: 12px; min-height: 32px; }
+.realm-panel input[type="radio"] { accent-color: var(--gold); }
+.realm-swatches { display: flex; gap: 10px; padding-block: 4px; }
+.realm-swatches button,
+.realm-swatches input { width: 33px; height: 33px; }
+.realm-swatches button { background: var(--swatch); }
+.realm-swatches button[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--realm-surface), 0 0 0 3px var(--ivory); }
+.realm-panel ol { margin: 0 0 12px; padding-inline-start: 24px; }
+.realm-panel li :is(button, a) { display: inline-block; padding: 5px 6px; min-height: 28px; text-align: left; }
+.realm-panel li button { border-color: transparent; }
+.realm-panel li button:hover { border-color: var(--realm-control-border); }
+.realm-panel iframe { display: block; width: 100%; border: 0; }
+.realm-panel a { color: var(--gold); }
+.realm-panel small { display: block; color: var(--muted); }
+
+@media (max-width: 700px) {
+  .arena .realm-tools { position: fixed; top: 28px; right: 8px; }
+  .arena .realm-tools button { min-width: 35px; min-height: 35px; }
+  .arena .site-nav:has(.realm-tools) .site-nav-rooms { gap: 0; }
+  .arena .site-nav:has(.realm-tools) .site-nav-rooms a { padding-inline: 5px; white-space: nowrap; }
+  .arena .site-nav:has(.realm-tools) .site-mark { font-size: 0; }
+  .realm-panel { top: 70px; max-height: calc(100dvh - 88px); }
+  .arena:has(.realm-tools) main.site-page { padding-top: max(35px, 3vw); }
+}
+
+:root[data-realm-theme="light"] .arena :is(.site-card, .arena-stats, .site-search, .whoami-photo) {
+  background: var(--realm-surface);
+  border-color: var(--line);
+  color: var(--ivory);
+}
+:root[data-realm-theme="light"] .arena :is(.site-card strong, .site-card h3, .site-directory a, .site-search-results a, .site-search input) { color: var(--ivory); }
+:root[data-realm-theme="light"] .arena :is(.site-card small, .site-fine, .site-form label, .whoami-photo figcaption, .site-directory small, .daily-links p, .site-search small, .site-search-foot, .site-search button, .site-search-button) { color: var(--dim); }
+:root[data-realm-theme="light"] .arena :is(.site-form input, .site-form textarea, .site-form select, .site-input) {
+  color: var(--ivory);
+  background: var(--night);
+  border-color: var(--realm-control-border);
+}
+:root[data-realm-theme="light"] .arena :is(input, textarea)::placeholder { color: var(--dim); }
+:root[data-realm-theme="light"] .arena :is(.site-page, .site-quiet-footer) a:not(:where(.site-button, .profile-button, .curiosity-hero a, .crawl a)) { color: var(--gold); }
+:root[data-realm-theme="light"] .arena .site-button:not(.secondary) { color: var(--night); }
+:root[data-realm-theme="light"] .arena #lang-switcher { background: var(--realm-nav); }
+:root[data-realm-theme="light"] .arena #lang-switcher [data-flag] { filter: brightness(.4); }
+:root[data-realm-theme="light"] .arena :is(.legion-rules > div, .site-directory a, .site-search header) { border-color: var(--line); }
+:root[data-realm-theme="light"] .arena :not(.crawl) > .end-wait .end-wait-row { background: var(--realm-surface); border-color: var(--realm-control-border); }
+:root[data-realm-theme="light"] .arena :not(.crawl) > .end-wait :is(.end-cta, .site-status) { color: var(--ivory); }
+:root[data-realm-theme="light"] .arena .crawl {
+  --ivory: #f1e9d4;
+  --dim: #b4ab99;
+  --gold: #ffd76a;
+  --night: #0a0809;
+  color-scheme: dark;
+}
+:root[data-realm-theme="light"] .arena .crawl .end-wait-row { background: #0d0a12; }
+:root[data-realm-theme="light"] .arena .crawl .end-cta { color: #efe3c6; }
+
+
+:root[data-realm-theme="light"] .arena :is(.profile-facts, .profile-wrap li, .profile-wrap .muted) {
+  color: var(--muted);
+}
+:root[data-realm-theme="light"] .arena .profile-button.secondary { color: var(--gold); }
+:root[data-realm-theme="light"] .arena .inspiration-rail { color: var(--dim) !important; opacity: 1; }
+:root[data-realm-theme="light"] .arena .inspiration-rail img { opacity: .62; }
+:root[data-realm-theme="light"] .arena .site-page .curiosity-sub { color: #f6edff; }

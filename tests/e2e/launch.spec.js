@@ -138,8 +138,8 @@ test('crawl skips to a focusable waitlist and validates email', async ({page, ba
 
 test('room navigation, back link and feedback board', async ({page, baseURL}) => {
   await openHome(page, baseURL);
-  for (const room of ['Legion', 'Quests', 'Daily', 'Gabe']) {
-    const response = page.waitForResponse(r => r.request().isNavigationRequest() && new URL(r.url()).pathname === '/' + room.toLowerCase() + '/');
+  for (const [room, path] of [['Gabe', '/gabe/'], ['Legion', '/legion/'], ['(Side) Quests', '/quests/'], ['Daily', '/daily/']]) {
+    const response = page.waitForResponse(r => r.request().isNavigationRequest() && new URL(r.url()).pathname === path);
     await nav(page).getByRole('link', {name: room}).click();
     expect((await response).status()).toBe(200);
     await expect(page.locator('h1').first()).toBeVisible();
@@ -177,7 +177,7 @@ test('keyboard reaches the lantern, door, room links and home waitlist in order'
   await expectFocus(door(page));
   await page.keyboard.press('Enter');
   await expect(page.getByRole('heading', {name: tagline})).toBeVisible();
-  for (const room of ['Legion', 'Quests', 'Daily', 'Gabe']) {
+  for (const room of ['Gabe', 'Legion', '(Side) Quests', 'Daily', 'Stats']) {
     await tabTo(page, nav(page).getByRole('link', {name: room}));
   }
   await tabTo(page, waitEmail(page.locator('#signup')));
@@ -197,4 +197,66 @@ test('header and favicon use the Brussels weekday', async ({page, baseURL}) => {
   await expect(mark).toHaveAttribute('src', '/logo/day-2.svg');
   await expect(page.locator('link[data-weekly-favicon]')).toHaveAttribute('href', '/logo/day-2.svg');
   await expect.poll(() => mark.evaluate(img => img.naturalWidth)).toBeGreaterThan(0);
+});
+
+test('the nav and programme share their order and Stats shows the measured count', async ({page, baseURL}) => {
+  await page.route('**/api/stats?page=overview&*', route => route.fulfill({
+    json: {day: '2032-02-10', data: {visitors: 132, unseen: {day: 5}}},
+  }));
+  await openHome(page, baseURL);
+  const order = ['Gabe', 'Legion', '(Side) Quests', 'Daily', 'Stats'];
+  await expect(nav(page).locator('.site-nav-rooms > a')).toHaveText(order);
+  await expect(page.locator('.arena-acts strong')).toHaveText(order);
+  await expect(nav(page).getByRole('link', {name: 'Stats'})).toHaveAttribute('href', '/stats/map/');
+  await expect(page.locator('.arena-acts [data-stats-act]')).toHaveText('137 visitors · measured day');
+});
+
+test('the theme follows the system once and saves keyboard and accent changes', async ({page, baseURL}) => {
+  await page.emulateMedia({colorScheme: 'light'});
+  await openHome(page, baseURL);
+  const root = page.locator('html');
+  await expect(root).toHaveAttribute('data-realm-theme', 'light');
+  const toggle = page.getByRole('button', {name: 'Theme'});
+  await toggle.focus();
+  await page.keyboard.press('Enter');
+  const theme = page.getByRole('dialog', {name: 'Theme'});
+  await expect(theme).toBeVisible();
+  await theme.getByRole('radio', {name: 'Dark'}).check();
+  await theme.getByRole('button', {name: 'Corvus plum'}).click();
+  const accent = await root.evaluate(el => el.style.getPropertyValue('--realm-accent'));
+  expect(accent).toMatch(/^rgb/);
+  await page.reload();
+  await expect(root).toHaveAttribute('data-realm-theme', 'dark');
+  expect(await root.evaluate(el => el.style.getPropertyValue('--realm-accent'))).toBe(accent);
+  await toggle.click();
+  await expect(theme.getByRole('button', {name: 'Corvus plum'})).toHaveAttribute('aria-pressed', 'true');
+  await theme.getByRole('radio', {name: 'Light'}).check();
+  await page.keyboard.press('Escape');
+  for (const path of ['/legion/', '/quests/', '/daily/', '/gabe/']) {
+    await page.goto(path);
+    await expect(root).toHaveAttribute('data-realm-theme', 'light');
+    await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(252, 248, 243)');
+  }
+});
+
+test('the music panel loads ten tracks without autoplay and stays off the entrance', async ({page, baseURL}) => {
+  const mediaRequests = [];
+  page.on('request', request => {
+    if (/https:\/\/(?:open\.spotify\.com|embed\.music\.apple\.com)\//.test(request.url())) mediaRequests.push(request.url());
+  });
+  await page.goto('/');
+  await expect(page.getByRole('button', {name: 'Theme', exact: true})).toHaveCount(0);
+  await expect(page.getByRole('button', {name: 'Music', exact: true})).toHaveCount(0);
+  await openHome(page, baseURL);
+  await page.getByRole('button', {name: 'Music', exact: true}).click();
+  const music = page.getByRole('dialog', {name: 'Gabe’s top 10 songs'});
+  await expect(music).toBeVisible();
+  await expect(music.getByRole('listitem')).toHaveCount(10);
+  await expect(music.locator('iframe, audio, video')).toHaveCount(0);
+  expect(mediaRequests).toEqual([]);
+  await music.getByRole('button', {name: /Dance With the Devil/}).click();
+  await expect(music.locator('iframe')).toHaveAttribute('src', /^https:\/\/open\.spotify\.com\/embed\/track\//);
+  await expect(music.locator('iframe')).toHaveAttribute('allow', 'encrypted-media');
+  await page.keyboard.press('Escape');
+  await expect(music.locator('iframe')).toHaveCount(0);
 });
