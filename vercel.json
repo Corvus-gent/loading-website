@@ -4,6 +4,16 @@
   ],
   "redirects": [
     {
+      "source": "/shark",
+      "destination": "/salesforce",
+      "permanent": false
+    },
+    {
+      "source": "/shark/",
+      "destination": "/salesforce",
+      "permanent": false
+    },
+    {
       "source": "/gamedev",
       "destination": "/game-dev",
       "permanent": false
@@ -1110,8 +1120,14 @@
     {
       "source": "/bjj/oli/:path*",
       "headers": [
-        { "key": "X-Robots-Tag", "value": "noindex, nofollow" },
-        { "key": "Cache-Control", "value": "private, no-store" }
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "private, no-store"
+        }
       ]
     },
     {
@@ -1363,8 +1379,14 @@
     {
       "source": "/admin/:path*",
       "headers": [
-        { "key": "X-Robots-Tag", "value": "noindex, nofollow" },
-        { "key": "Cache-Control", "value": "private, no-store" }
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "private, no-store"
+        }
       ]
     },
     {
