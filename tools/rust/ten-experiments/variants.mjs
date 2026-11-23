@@ -4,6 +4,7 @@ import path from 'node:path';
 import {createHash} from 'node:crypto';
 import {brotliCompressSync,gzipSync,constants as z} from 'node:zlib';
 import {browserProfileHtml} from '../browser-profiles.mjs';
+import {localeHintSource} from './locale-hints.mjs';
 
 export const MODES = ['js-control','rust-control','01-size-z','02-brotli-11','03-wasm-preload','04-page-wasm','05-js-bundle','06-module-preload','07-inline-directory','08-parallel-api','09-inline-css','10-combined'];
 export const PAGES = ['/','/map/','/gabe/','/daily/','/languages/','/privacy/','/cv/tech/'];
@@ -82,6 +83,16 @@ export async function prepareVariants(root, {esbuildPath='/tmp/corvus-perf-tools
    if(!entries.some(e=>e.tag===tag))return tag;if(!first)return'';first=false;return`<script type="module" src="${url}"></script>`;
   });
  }
+ let earlyLocale = '';
+ if (combined.includes('locale-hints')) {
+  const source = await localeHintSource(root);
+  const p = plugin('js-control'), setup = p.setup;
+  p.setup = b => {setup(b); b.onLoad({filter:/.*/,namespace:'entry'}, () => ({contents:source,loader:'js'}));};
+  const result = await build({entryPoints:['corvus-entry'],plugins:[p],bundle:true,minify:true,format:'iife',target:['es2022'],write:false,legalComments:'none',logLevel:'silent'});
+  const bytes = result.outputFiles[0].contents;
+  earlyLocale = Buffer.from(bytes).toString().replaceAll('</script', '<\\/script');
+  records.push({mode:'10-combined',kind:'locale-hints',bytes:bytes.length,sha256:hash(bytes)});
+ }
  async function preloadModules(html){
   const seen=new Set(),walk=async url=>{
    if(seen.has(url))return;seen.add(url);
@@ -138,6 +149,7 @@ export async function prepareVariants(root, {esbuildPath='/tmp/corvus-perf-tools
     if(mode==='09-inline-css'||combo&&(combined.includes('css')||combined.includes('css-flat')))value=await inlineCss(value,combo&&combined.includes('css-flat'));
     if(mode==='06-module-preload'||combo&&combined.includes('preload'))value=await preloadModules(value);
     if(mode==='05-js-bundle'||combo&&combined.includes('bundle'))value=await bundle(value,mode,slug);
+    if(combo&&earlyLocale)value=inject(value,`<script data-experiment-locale-hints>${earlyLocale}</script>`);
    }
    byMode.set(mode,value);
   }
