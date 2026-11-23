@@ -1,9 +1,179 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>game-dev --loading · Corvus</title><meta name="description" content="The Corvus game-development playground opens at 15:40 Gent time. Meanwhile, explore Gabe’s GitHub and Corvus."><link rel="canonical" href="https://corvus.gent/game-dev/"><meta property="og:title" content="gabe@corvus:~$ ./game-dev --loading"><meta property="og:description" content="Opens at 15:40 Gent time. Meanwhile: github.com/gabe-maxxing"><meta property="og:image" content="https://corvus.gent/og-realm.png"><style>
-*{box-sizing:border-box}html{background:#100b19;color:#efe7d2}body{margin:0;min-height:100svh;display:grid;place-items:center;font:16px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace;background:radial-gradient(ellipse at 50% 40%,#3d2b5e66,transparent 65%)}main{width:min(700px,100%);padding:32px 24px}h1{font:inherit;font-size:clamp(14px,2.4vw,19px);font-weight:600;color:#ffd76a;margin:0 0 40px;overflow-wrap:anywhere}.cursor{display:inline-block;width:.55em;height:1em;vertical-align:-.12em;background:#ffd76a;animation:blink 1.2s steps(1) infinite}#countdown{display:block;font-size:clamp(50px,12vw,90px);line-height:1.2;letter-spacing:.04em;color:#ffd76a;margin:0 0 28px}#countdown.dropping{font-size:clamp(22px,5vw,34px);letter-spacing:0}.muted{color:#b9afc5}nav{display:flex;flex-direction:column;align-items:flex-start;gap:12px;margin:30px 0}a{color:#ffd76a;text-underline-offset:5px;overflow-wrap:anywhere;min-height:44px;display:inline-flex;align-items:center}a:focus-visible{outline:2px solid #ffd76a;outline-offset:5px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}@keyframes blink{50%{opacity:0}}@media(prefers-reduced-motion:reduce){.cursor{animation:none}}@media(max-width:400px){body{font-size:14px}}
-</style></head><body><main aria-live="off"><h1>gabe@corvus:~$ ./game-dev --loading <span class="cursor" aria-hidden="true"></span></h1><span id="countdown" aria-hidden="true">--:--</span><span class="sr-only">Opens at 15:40 Gent time</span><p class="muted">The next world is loading.<br>Meanwhile, explore what’s already out there.</p><nav aria-label="Meanwhile"><a href="https://github.com/gabe-maxxing">github.com/gabe-maxxing ↗</a><a href="https://corvus.gent">corvus.gent →</a><a href="mailto:gabriel@corvus.gent">gabriel@corvus.gent</a></nav></main><script>
-const OPEN_AT=Date.parse('2026-11-23T14:40:00Z');
-const counter=document.getElementById('countdown');let reloadScheduled=false;
-function tick(){const seconds=Math.max(0,Math.ceil((OPEN_AT-Date.now())/1000));if(seconds===0){counter.textContent='dropping any second…';counter.classList.add('dropping');if(!reloadScheduled){reloadScheduled=true;setTimeout(()=>location.reload(),20000);}return;}counter.textContent=String(Math.floor(seconds/60)).padStart(2,'0')+':'+String(seconds%60).padStart(2,'0');}
-tick();setInterval(tick,1000);
-</script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>game dev · loading · corvus.gent</title>
+<meta name="description" content="Something is loading. corvus.gent/game-dev">
+<meta property="og:title" content="corvus.gent/game-dev">
+<meta property="og:description" content="Loading…">
+<meta property="og:image" content="https://corvus.gent/og-realm.png">
+<style>
+*{box-sizing:border-box}main{min-height:100svh;width:100%}.foot a:focus-visible{outline:2px solid #ffd76a;outline-offset:3px}#canvas-fallback{position:fixed;top:40%;left:20px;right:20px;text-align:center;color:#ffd76a;font-size:24px}
+html,body{margin:0;height:100%;background:#0d0a12;color:#e9e2f5;font:14px/1.5 ui-monospace,"SF Mono",Menlo,Consolas,monospace;overflow:hidden}
+#field{position:fixed;inset:0;width:100%;height:100%;display:block;cursor:crosshair}
+#wing{position:fixed;width:96px;height:96px;image-rendering:pixelated;pointer-events:none;z-index:2;left:-140px;top:30%;transition:none}
+.foot{position:fixed;left:0;right:0;bottom:0;padding:40px 0 22px;background:linear-gradient(rgba(13,10,18,0),#0d0a12 55%);z-index:3;text-align:center;color:#8f84a8;font-size:13px}
+.foot a{color:#c9b6ff;text-decoration:none;margin:0 8px;padding:6px 2px}
+.foot a:hover,.foot a:focus-visible{color:#ffd76a;outline:none;text-decoration:underline}
+.foot .when{display:block;margin-bottom:6px;color:#c9b6ff;letter-spacing:.12em}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media (max-width:640px){#wing{width:64px;height:64px}}
+</style>
+</head>
+<body><main aria-live="off">
+<p id="canvas-fallback" hidden>Game-dev is loading.</p><canvas id="field" aria-hidden="true"></canvas>
+<picture><source media="(prefers-reduced-motion: reduce)" srcset="data:image/png;base64,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"><img id="wing" alt="" aria-hidden="true" src="data:image/webp;base64,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"></picture>
+<h1 class="sr">corvus.gent game dev, loading</h1>
+<p class="sr" id="sr-time">Opens soon.</p>
+<div class="foot">
+  <span class="when" id="when">gabe@corvus:~$ ./game-dev --loading</span>
+  <a href="https://github.com/gabe-maxxing">github</a>·<a href="https://corvus.gent">corvus.gent</a>·<a href="mailto:gabriel@corvus.gent">gabriel@corvus.gent</a>
+</div>
+<script>
+(()=>{
+/* ===== config ===== */
+const TARGET = Date.parse('2026-11-23T14:50:00Z');           // set at deploy: deploy time + 10 min
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ===== 5x7 pixel font ===== */
+const F={
+'0':['01110','10001','10011','10101','11001','10001','01110'],'1':['00100','01100','00100','00100','00100','00100','01110'],
+'2':['01110','10001','00001','00010','00100','01000','11111'],'3':['11110','00001','00001','01110','00001','00001','11110'],
+'4':['00010','00110','01010','10010','11111','00010','00010'],'5':['11111','10000','11110','00001','00001','10001','01110'],
+'6':['00110','01000','10000','11110','10001','10001','01110'],'7':['11111','00001','00010','00100','01000','01000','01000'],
+'8':['01110','10001','10001','01110','10001','10001','01110'],'9':['01110','10001','10001','01111','00001','00010','01100'],
+':':['00000','00100','00100','00000','00100','00100','00000'],'-':['00000','00000','00000','11111','00000','00000','00000'],
+'G':['01110','10001','10000','10111','10001','10001','01111'],'A':['01110','10001','10001','11111','10001','10001','10001'],
+'M':['10001','11011','10101','10101','10001','10001','10001'],'E':['11111','10000','10000','11110','10000','10000','11111'],
+'D':['11110','10001','10001','10001','10001','10001','11110'],'V':['10001','10001','10001','10001','10001','01010','00100'],
+'L':['10000','10000','10000','10000','10000','10000','11111'],'I':['01110','00100','00100','00100','00100','00100','01110'],
+'S':['01111','10000','10000','01110','00001','00001','11110'],'O':['01110','10001','10001','10001','10001','10001','01110'],
+'N':['10001','11001','10101','10011','10001','10001','10001'],' ':['00000','00000','00000','00000','00000','00000','00000']};
+
+/* ===== glyph grid ===== */
+const cv=document.getElementById('field'); let ctx; try{ctx=cv.getContext('2d');}catch{} if(!ctx){document.getElementById('canvas-fallback').hidden=false; return;}
+const SPARSE=" .'`,:", MID="-~=+*ix", DENSE="o#%@&$8B", SCR="!<>/\\|[]{}?=+*#%@01";
+const COL={bg:['#1c1429','#2a1f3d','#3d2b5e'],mid:['#5b3e8c','#7a5cb0'],title:'#c9b6ff',digit:['#c99a3e','#ffd76a','#fff1c4'],hot:'#ffd76a'};
+let W,H,cw,ch,cols,rows,mask,maskKind,prevG,prevC,noise,scramble,mx=-1e3,my=-1e3,lastMove=-1e5;
+function resize(){
+  const dpr=Math.min(devicePixelRatio||1,1.5); W=innerWidth; H=innerHeight;
+  cv.width=W*dpr; cv.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+  cw = W<640 ? 8 : 10; ch=Math.round(cw*1.5); cols=Math.ceil(W/cw); rows=Math.ceil(H/ch);
+  prevG=new Array(cols*rows).fill(''); prevC=new Array(cols*rows).fill('');
+  noise=new Float32Array(cols*rows).map(()=>Math.random()); scramble=new Float32Array(cols*rows);
+  ctx.font=`600 ${Math.round(ch*.82)}px ui-monospace,Menlo,monospace`; ctx.textBaseline='top';
+  ctx.fillStyle='#0d0a12'; ctx.fillRect(0,0,W,H);
+  layoutText(lastText, true);
+}
+// stamp text into mask: 1=title, 2=digit
+let lastText='', titleText='GAME-DEV';
+function stamp(str, cy, scaleX, scaleY, kind){
+  const w=str.length*6-1, x0=Math.floor(cols/2 - w*scaleX/2);
+  for(let k=0;k<str.length;k++){ const g=F[str[k]]||F[' '];
+    for(let fy=0;fy<7;fy++) for(let fx=0;fx<5;fx++) if(g[fy][fx]==='1')
+      for(let sy=0;sy<scaleY;sy++) for(let sx=0;sx<scaleX;sx++){
+        const c=x0+(k*6+fx)*scaleX+sx, r=cy+fy*scaleY+sy; if(c>=0&&r>=0&&c<cols&&r<rows) mask[r*cols+c]=kind; } }
+  return {x0, w:w*scaleX};
+}
+let digitBox={x0:0,w:0,y:0,h:0};
+function layoutText(text, force){
+  if(!force && text===lastText) return; lastText=text;
+  mask=new Uint8Array(cols*rows);
+  const sx=Math.max(1,Math.floor(cols*0.74/29)), sy=Math.max(1,Math.round(sx*cw/ch));   // 5 chars of 6 = 29 font px wide
+  const dh=7*sy, ty=Math.floor(rows*0.47 - dh/2);
+  const tsx=Math.max(1,Math.floor(sx/3)), tsy=Math.max(1,Math.round(tsx*cw/ch));
+  const twoLines = titleText.length*6*tsx > cols*.9;
+  const titleTop = ty - (twoLines?2:1)*7*tsy - (twoLines?2:0) - Math.max(3,sy*2);
+  if(twoLines){ stamp('GAME', titleTop, tsx, tsy, 1); stamp('DEV', titleTop+7*tsy+2, tsx, tsy, 1); }
+  else stamp(titleText, titleTop, tsx, tsy, 1);
+  const b=stamp(text, ty, sx, sy, 2);
+  // dark halo (kind 3) around title + digits so the numbers read clearly
+  const pad=Math.max(2,sx), top=titleTop-pad, bot=ty+dh+pad, l=b.x0-pad*2, rr=b.x0+b.w+pad*2;
+  for(let r=Math.max(0,top);r<Math.min(rows,bot);r++) for(let c=Math.max(0,l);c<Math.min(cols,rr);c++){ const i=r*cols+c; if(!mask[i]) mask[i]=3; }
+  digitBox={x0:b.x0*cw, w:b.w*cw, y:ty*ch, h:dh*ch};
+}
+
+/* ===== countdown ===== */
+const when=document.getElementById('when'), sr=document.getElementById('sr-time');
+const fmtGent=new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',timeZone:'Europe/Brussels'});
+let reloadAt=0;
+function countdown(){
+  const left=TARGET-Date.now();
+  if(isNaN(TARGET)) return 'LOADING';
+  if(left<=0){ if(!reloadAt) reloadAt=Date.now()+20000; if(Date.now()>reloadAt) location.reload(); return 'SOON'; }
+  const s=Math.ceil(left/1000), m=Math.floor(s/60), ss=s%60;
+  return (m>99?'99':String(m).padStart(2,'0'))+':'+String(ss).padStart(2,'0');
+}
+function updateTexts(){
+  const t=countdown();
+  if(!isNaN(TARGET)){
+    when.textContent = TARGET>Date.now() ? `gabe@corvus:~$ ./game-dev --opens ${fmtGent.format(TARGET)} gent` : 'gabe@corvus:~$ dropping any second…';
+    sr.textContent = TARGET>Date.now() ? `Opens at ${fmtGent.format(TARGET)} Gent time.` : 'Opening any second now.';
+  }
+  layoutText(t==='SOON'?'SOON':t==='LOADING'?'LOAD':t);
+}
+
+/* ===== mouse = lantern + scramble ===== */
+function onMove(e){ const p=e.touches?e.touches[0]:e; if(!p||(!p.clientX&&!p.clientY)) return;
+  const nx=p.clientX/cw, ny=p.clientY/ch, speed=Math.hypot(nx-mx,ny-my); mx=nx; my=ny; lastMove=performance.now();
+  if(reduced) return;
+  const R=Math.min(10,3+speed*1.5);
+  for(let r=Math.max(0,Math.floor(my-R));r<Math.min(rows,my+R);r++) for(let c=Math.max(0,Math.floor(mx-R*1.5));c<Math.min(cols,mx+R*1.5);c++){
+    const d=Math.hypot((c-mx)/1.5,r-my); if(d<R) scramble[r*cols+c]=Math.max(scramble[r*cols+c], 1-d/R); }
+}
+addEventListener('pointermove',onMove,{passive:true}); addEventListener('touchmove',onMove,{passive:true});
+addEventListener('resize',resize);
+
+/* ===== render ===== */
+function frame(now){
+  const t=now/1000, idle=now-lastMove>2500;
+  if(idle && !reduced){ mx=cols*(.5+.32*Math.sin(t*.21)); my=rows*(.5+.3*Math.sin(t*.29)); }   // lantern drifts when idle
+  const R=Math.max(cols,rows)*.11;
+  for(let r=0;r<rows;r++) for(let c=0;c<cols;c++){
+    const i=r*cols+c, k=mask[i], dx=(c-mx)/1.5, dy=r-my, light=Math.exp(-(dx*dx+dy*dy)/(R*R));
+    let g, col;
+    const sc=scramble[i]; if(sc>0) scramble[i]=Math.max(0,sc-.06);
+    if(sc>.15){ g=SCR[(Math.random()*SCR.length)|0]; col= k===2?COL.digit[2]:COL.hot; }
+    else if(k===2){ const n=noise[i]; g=DENSE[(n*DENSE.length)|0]; col=COL.digit[light>.35?2:(n>.5?1:0)]; }
+    else if(k===1){ g=DENSE[(noise[i]*DENSE.length)|0]; col=light>.4?'#e9e2f5':COL.title; }
+    else {
+      if(k===3){ g=' '; col=''; }
+      else {
+      const v=noise[i]*noise[i]*.22 + light*.62 + (reduced?0:.03*Math.sin(t*.7+noise[i]*20));
+      if(v<.2){ g=v<.08?' ':SPARSE[(v/.2*SPARSE.length)|0]; col=COL.bg[(noise[i]*3)|0]; }
+      else if(v<.5){ g=MID[((v-.2)/.3*MID.length)|0]; col=COL.mid[v>.38?1:0]; }
+      else { g=MID[MID.length-1-((noise[i]*2)|0)]; col=COL.title; }
+      }
+    }
+    if(g===prevG[i]&&col===prevC[i]) continue;
+    prevG[i]=g; prevC[i]=col;
+    ctx.fillStyle='#0d0a12'; ctx.fillRect(c*cw,r*ch,cw,ch);
+    if(g!==' '){ ctx.fillStyle=col; ctx.fillText(g,c*cw,r*ch+1); }
+  }
+}
+
+/* ===== Wing flies in, then perches above the countdown ===== */
+const wing=document.getElementById('wing'); const t0=performance.now();
+function wingPos(now){
+  const ww=wing.offsetWidth, tx=digitBox.x0+digitBox.w-ww*.7, ty=digitBox.y-ww*1.05;
+  const u=reduced?1:Math.min(1,(now-t0)/2200), e=1-Math.pow(1-u,3);
+  const sx=-ww*1.5, sy=H*.15;
+  const x=sx+(tx-sx)*e, y=sy+(ty-sy)*e - Math.sin(u*Math.PI)*H*.12 + (u>=1&&!reduced?Math.sin(now/420)*4:0);
+  wing.style.transform=`translate(${x}px,${y}px)`; wing.style.left='0'; wing.style.top='0';
+}
+
+/* ===== loop: 30 fps, pause when hidden ===== */
+let last=0, raf=0;
+function loop(now){
+  raf=0;
+  if(!document.hidden && now-last>=33){ last=now; updateTexts(); frame(now); wingPos(now); }
+  if(!reduced&&!document.hidden) raf=requestAnimationFrame(loop);
+}
+resize(); updateTexts(); frame(performance.now()); wingPos(performance.now());
+if(reduced) setInterval(()=>{if(!document.hidden){updateTexts(); frame(performance.now()); wingPos(performance.now());}},1000); else raf=requestAnimationFrame(loop);
+document.addEventListener('visibilitychange',()=>{cancelAnimationFrame(raf);raf=0;if(!document.hidden){if(reduced){updateTexts();frame(performance.now());wingPos(performance.now());}else raf=requestAnimationFrame(loop);}});
+})();
+</script>
+</main></body>
+</html>
