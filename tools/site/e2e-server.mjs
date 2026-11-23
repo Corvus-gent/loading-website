@@ -37,14 +37,28 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  // Production serves these dynamic/profile routes through Vercel rewrites.
+  // Feedback-board previews need a deterministic SSR response, not a live DB.
+  if (/^\/soldier\/[^/]+\/?$/.test(url.pathname)) {
+    res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
+    res.end('<!doctype html><html lang="en"><title>Soldier profile fixture</title><h1>Soldier profile</h1></html>');
+    return;
+  }
   let file;
   try {
     const entered = req.headers.cookie?.split(';').some(value => value.trim() === 'corvus_realm=1');
     const pathname = url.pathname === '/' && !entered ? '/public/realm-entry.html' : url.pathname;
-    const asset = /^\/logo\/[^/]+\.svg$/.test(pathname) ? '/public' + pathname : pathname;
+    const asset = /^\/logo\/[^/]+\.svg$/.test(pathname) ? '/public' + pathname
+      : /^\/links\/[^/]+$/.test(pathname) ? '/links/index.html' : pathname;
     file = path.resolve(root, '.' + decodeURIComponent(asset));
     if (file !== root && !file.startsWith(root + path.sep)) throw new Error('Invalid path');
-    if ((await stat(file)).isDirectory()) file = path.join(file, 'index.html');
+    if ((await stat(file)).isDirectory()) {
+      // Preserve the browser's relative asset base, like production directory URLs.
+      if (!url.pathname.endsWith('/')) {
+        res.writeHead(308, {Location: url.pathname + '/' + url.search}); res.end(); return;
+      }
+      file = path.join(file, 'index.html');
+    }
     await stat(file);
   } catch {
     res.statusCode = 404;
