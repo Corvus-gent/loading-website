@@ -2,7 +2,7 @@
 import {readFile, writeFile, mkdir} from 'node:fs/promises';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
-import {brotliCompressSync,constants as z} from 'node:zlib';
+import {brotliCompressSync,gzipSync,constants as z} from 'node:zlib';
 import {browserProfileHtml} from '../browser-profiles.mjs';
 
 export const MODES = ['js-control','rust-control','01-size-z','02-brotli-11','03-wasm-preload','04-page-wasm','05-js-bundle','06-module-preload','07-inline-directory','08-parallel-api','09-inline-css','10-combined'];
@@ -25,12 +25,12 @@ export function directoryOverlay(source,{inline=false,parallel=false}={}) {
  return source;
 }
 
-export async function prepareVariants(root, {esbuildPath='/tmp/corvus-perf-tools/node_modules/esbuild/lib/main.js', combined=['bundle','parallel'],pageWasm='page'}={}) {
+export async function prepareVariants(root, {esbuildPath='/tmp/corvus-perf-tools/node_modules/esbuild/lib/main.js', combined=['bundle','parallel'],pageWasm='page',rustBest=false}={}) {
  if(!['page','shell'].includes(pageWasm))throw Error('Unknown page WASM experiment');
  const {build}=await import(esbuildPath), pages=new Map(), records=[], prefix='/__experiments';
  const originalDiscovery=await readFile(path.join(root,'js/site/discovery.js'),'utf8');
  const catalogue=JSON.stringify(JSON.parse(await readFile(path.join(root,'site-directory.json'),'utf8'))).replaceAll('<','\\u003c');
- if(combined.includes('footer-logo')){
+ if(combined.includes('footer-logo')||rustBest){
   // A generated delivery derivative, never a redrawn logo. Original retained;
   // 84 px covers the existing 28 CSS px footer mark at 3x pixel density.
   const {default:sharp}=await import('sharp');
@@ -38,6 +38,7 @@ export async function prepareVariants(root, {esbuildPath='/tmp/corvus-perf-tools
   await mkdir(path.join(root,prefix),{recursive:true});await writeFile(path.join(root,prefix,'footer-logo.png'),bytes);
   records.push({mode:'10-combined',kind:'footer-logo',url:prefix+'/footer-logo.png',bytes:bytes.length,sha256:hash(bytes),source:'logo.png',displayWidth:28,displayHeight:28,pixelDensity:3});
  }
+ const footerLogo=html=>html.replace(/<img\b[^>]*>/gi,tag=>{const a=attributes(tag);return a.src==='/logo.png'&&a.width==='28'&&a.height==='28'?tag.replace('/logo.png',prefix+'/footer-logo.png'):tag;});
  const overlay=(mode,source)=>directoryOverlay(source,{inline:mode==='07-inline-directory'||mode==='10-combined'&&combined.includes('directory'),parallel:mode==='08-parallel-api'||mode==='10-combined'&&combined.includes('parallel')});
  const assetTransform=mode=>(body,url)=>url==='/js/site/discovery.js'?overlay(mode,body.toString()):body;
  const plugin=(mode)=>({name:'same-origin-modules',setup(b){
@@ -66,9 +67,9 @@ export async function prepareVariants(root, {esbuildPath='/tmp/corvus-perf-tools
   const entries=scripts(html),entry=entries.map(e=>`import ${JSON.stringify(e.src)};`).join('\n');
   const p=plugin(mode);const setup=p.setup;p.setup=b=>{setup(b);b.onLoad({filter:/.*/,namespace:'entry'},()=>({contents:entry,loader:'js'}));};
   const result=await build({entryPoints:['corvus-entry'],plugins:[p],bundle:true,minify:true,format:'esm',target:['es2022'],write:false,metafile:true,legalComments:'none',logLevel:'silent'});
-  const bytes=result.outputFiles[0].contents,url=`${prefix}/${mode}/${slug}.js`,file=path.join(root,url);
+  const bytes=result.outputFiles[0].contents,url=`${prefix}/${mode}/${slug}-${hash(bytes).slice(0,12)}.js`,file=path.join(root,url);
   await mkdir(path.dirname(file),{recursive:true});await writeFile(file,bytes);
-  records.push({mode,route:slug,url,bytes:bytes.length,brotli:brotliCompressSync(bytes,{params:{[z.BROTLI_PARAM_QUALITY]:mode==='10-combined'&&combined.includes('brotli')?11:4}}).length,sha256:hash(bytes),inputs:Object.keys(result.metafile.inputs)});
+  records.push({mode,route:slug,url,bytes:bytes.length,brotli:brotliCompressSync(bytes,{params:{[z.BROTLI_PARAM_QUALITY]:mode==='10-combined'&&combined.includes('brotli')?11:4}}).length,gzip:gzipSync(bytes).length,sha256:hash(bytes),inputs:Object.keys(result.metafile.inputs)});
   let first=true;return html.replace(/<script\b[^>]*\bsrc=["'][^"']+["'][^>]*>\s*<\/script>/gi,tag=>{
    if(!entries.some(e=>e.tag===tag))return tag;if(!first)return'';first=false;return`<script type="module" src="${url}"></script>`;
   });
@@ -104,10 +105,11 @@ export async function prepareVariants(root, {esbuildPath='/tmp/corvus-perf-tools
    if(mode==='rust-control'||/^0[1-4]-/.test(mode)){
     value=browserProfileHtml(value,route);
     if(mode==='04-page-wasm'&&pageWasm==='shell'&&['/','/map/'].includes(route))value=value.replace('/rust/browser/pkg/core/corvus_browser.js','/rust/browser/pkg/ten/shell/corvus_browser.js');
+    if(mode==='04-page-wasm'&&rustBest){const profile=pageWasm==='shell'&&['/','/map/'].includes(route)?'ten/shell':'core';value=footerLogo(inject(value,`<link rel="modulepreload" href="/rust/browser/pkg/${profile}/corvus_browser.js"><link rel="preload" href="/rust/browser/pkg/${profile}/corvus_browser_bg.wasm" as="fetch" type="application/wasm" crossorigin>`));}
     if(mode==='03-wasm-preload')value=inject(value,'<link rel="modulepreload" href="/rust/browser/pkg/core/corvus_browser.js"><link rel="preload" href="/rust/browser/pkg/core/corvus_browser_bg.wasm" as="fetch" type="application/wasm" crossorigin>');
    }else{
     const combo=mode==='10-combined';
-    if(combo&&combined.includes('footer-logo'))value=value.replace(/<img\b[^>]*>/gi,tag=>{const a=attributes(tag);return a.src==='/logo.png'&&a.width==='28'&&a.height==='28'?tag.replace('/logo.png',prefix+'/footer-logo.png'):tag;});
+    if(combo&&combined.includes('footer-logo'))value=footerLogo(value);
     if(mode==='07-inline-directory'||combo&&combined.includes('directory'))value=inject(value,`<script type="application/json" id="corvus-public-directory">${catalogue}</script>`);
     if(mode==='09-inline-css'||combo&&combined.includes('css'))value=await inlineCss(value);
     if(mode==='06-module-preload'||combo&&combined.includes('preload'))value=await preloadModules(value);
@@ -121,17 +123,17 @@ export async function prepareVariants(root, {esbuildPath='/tmp/corvus-perf-tools
   const policy={routes:{},maxRoutes:2,maxBytes:120000,settleMs:500,visibleMs:800};
   for(const route of ['/gabe/','/daily/','/languages/','/privacy/']){
    const bundle=records.find(r=>r.mode==='10-combined'&&r.route===route.replaceAll('/','_'));
-   if(bundle)policy.routes[route]=[{url:bundle.url,bytes:bundle.brotli}];
+   if(bundle)policy.routes[route]=[{url:bundle.url,bytes:Math.max(bundle.brotli,bundle.gzip),encodings:{br:bundle.brotli,gzip:bundle.gzip}}];
   }
   await mkdir(path.join(root,prefix),{recursive:true});
   await writeFile(path.join(root,prefix,'predict.js'),await readFile('tools/rust/ten-experiments/predict.mjs'));
   const home=pages.get('/');home.set('10-combined',home.get('10-combined').replace('</body>',`<script type="application/json" id="corvus-experiment-prediction">${JSON.stringify(policy)}</script><script type="module" src="${prefix}/predict.js"></script></body>`));
  }
- return{records,combined,pageWasm,options(mode){
+ return{records,combined,pageWasm,rustBest,options(mode){
   const rust=mode==='rust-control'||/^0[1-4]-/.test(mode);
   return{engine:rust?'rust':'legacy',server:{
    htmlTransform:(html,route)=>pages.get(route.replace(/\/index\.html$/,'/').replace(/\/+$/,'')+'/')?.get(mode)??(rust?browserProfileHtml(html,route):html),
-   compressionQuality:mode==='02-brotli-11'||mode==='10-combined'&&combined.includes('brotli')?11:4,
+   compressionQuality:mode==='02-brotli-11'||mode==='04-page-wasm'&&rustBest||mode==='10-combined'&&combined.includes('brotli')?11:4,
    assetPath:url=>mode==='01-size-z'?url.replace('/rust/browser/pkg/core/','/rust/browser/pkg/ten/opt-z/'):mode==='04-page-wasm'&&pageWasm==='page'?url.replace('/rust/browser/pkg/core/','/rust/browser/pkg/ten/page/'):url,
    assetTransform:assetTransform(mode)
   }};

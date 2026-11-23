@@ -11,7 +11,7 @@ const root=process.cwd(),temp=await mkdtemp(path.join(os.tmpdir(),'corvus-home-w
 const changes=[];
 function disable(text,needle){if(!text.includes(needle))throw Error('Source changed: '+needle);changes.push(needle);return text.replace(needle,'#[cfg(any())]\n'+needle);}
 try{
- await copyFile('Cargo.toml',temp+'/Cargo.toml');await copyFile('Cargo.lock',temp+'/Cargo.lock');
+ await copyFile('Cargo.toml',temp+'/Cargo.toml');await copyFile('Cargo.lock',temp+'/Cargo.lock');await copyFile('rust-toolchain.toml',temp+'/rust-toolchain.toml');
  await cp('rust',temp+'/rust',{recursive:true,filter:src=>!src.includes('/pkg')});await mkdir(temp+'/api');await copyFile('api/rust.rs',temp+'/api/rust.rs');
  let lib=await readFile(temp+'/rust/browser/src/lib.rs','utf8');
  for(const declaration of ['mod army_transport;','pub mod live_banner;','pub mod privacy_page;','mod cv;'])lib=disable(lib,declaration);

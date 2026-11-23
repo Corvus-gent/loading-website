@@ -25,10 +25,10 @@ export function predictPublicAssets(policy,win=window){
    const c=new AbortController();controllers.add(c);const timeout=win.setTimeout(()=>c.abort(),10000);
    try{
     const response=await win.fetch(asset.url,{cache:'force-cache',credentials:'same-origin',redirect:'error',priority:'low',signal:c.signal});
-    const bytes=Number(response.headers.get('content-length'));
-    if(!response.ok||bytes!==asset.bytes||!response.headers.get('content-type')?.includes('javascript'))throw Error('artifact changed');
+    const bytes=Number(response.headers.get('content-length')),encoding=response.headers.get('content-encoding');
+    if(!response.ok||bytes!==asset.encodings?.[encoding]||bytes>asset.bytes||!response.headers.get('content-type')?.includes('javascript'))throw Error('artifact/encoding changed: '+encoding+' '+bytes);
     await response.arrayBuffer();state.assets.push(asset.url);state.completedBytes+=bytes;
-   }catch{state.failed.push(asset.url);}finally{win.clearTimeout(timeout);controllers.delete(c);}
+   }catch(error){c.abort();state.failed.push({url:asset.url,error:String(error.message)});}finally{win.clearTimeout(timeout);controllers.delete(c);}
   }
  }
  const cancel=a=>{win.clearTimeout(timers.get(a));timers.delete(a);};

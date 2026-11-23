@@ -6,7 +6,7 @@ import {createPerformanceServer,observePerformance,samplePerformance,PROFILES,qu
 import {prepareVariants} from './variants.mjs';
 const args=Object.fromEntries(process.argv.slice(2).map(s=>s.split(/=(.*)/s).slice(0,2))),repeats=Number(args['--repeats']||5);
 if(!Number.isInteger(repeats)||repeats<1||repeats>30)throw Error('Invalid repeats');
-const combined=(args['--combined']||'bundle,parallel,directory,brotli,locale,predict').split(',');
+const combined=(args['--combined']||'bundle,parallel,directory,brotli,locale,predict,footer-logo').split(',');
 const started=new Date().toISOString(),out=args['--out']||'test-results/rust/measurements/journeys-'+started.replace(/[:.]/g,'-');await mkdir(out,{recursive:true});
 const fixture=await buildFixture(),variants=await prepareVariants(fixture.root,{combined}),servers={},samples=[],errors=[];
 const modes=['js-control','rust-control','combined-static','combined-predictive'];
