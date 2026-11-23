@@ -4,6 +4,8 @@ This is a full application migration, not a redesign. The target is Rust server 
 
 [Code-change and performance evidence](performance.md) defines the reproducible Git ledger, paired desktop/mobile browser measurements, regression gates and remaining production checks. No performance gain is assumed merely from changing languages.
 
+[23 November: ten performance experiments](evidence/2026-11-23-ten-experiments.md) records the successful and failed alternatives, including a light-browser candidate that outperforms the Rust/WASM browser. The architecture recommendation and the remaining mobile/translation limits are explicit; production and the migration completion criteria remain unchanged.
+
 [Compact structure and revised work order](compact-structure.md) records the user's Sunday target, smaller page-specific browser builds and safely retired duplicate routes. Production remains unchanged until its release gates pass.
 
 ## Frozen baseline and rollback

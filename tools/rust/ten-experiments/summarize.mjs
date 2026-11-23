@@ -4,7 +4,7 @@ import path from 'node:path';
 import {createHash} from 'node:crypto';
 
 const args=Object.fromEntries(process.argv.slice(2).map(s=>s.split(/=(.*)/s).slice(0,2)));
-const names=(args['--runs']||'ten-independent,ten-combined,ten-refined,ten-final,ten-confirmation,ten-fresh,ten-journeys,ten-languages').split(',');
+const names=(args['--runs']||'ten-independent,ten-combined,ten-refined,ten-final,ten-confirmation,ten-fresh,ten-journeys,ten-languages,ten-language-hints,ten-hints-final,ten-hints-english,ten-hints-french').split(',');
 const out=args['--out']||'docs/rust-migration/evidence/2026-11-23-ten-experiments.json';
 const round=v=>Number.isFinite(v)?Math.round(v*100)/100:null;
 function stats(values) {
@@ -32,9 +32,10 @@ for(const name of names){
  const duplicates=sampleKeys.length-new Set(sampleKeys).size;
  const expectedSamples=journey?4*2*4*r.repeats:localized?r.modes.length*2*r.locales.length*2*r.repeats:['all','timing'].includes(r.suite)?r.modes.length*2*r.routes.length*2*r.repeats:0;
  const expectedAudits=['all','lighthouse'].includes(r.suite)?r.modes.length*2*r.repeats:0;
+ if(duplicates || expectedSamples!==(r.samples?.length??0) || expectedAudits!==(r.audits?.length??0))throw Error('Missing or duplicate evidence: '+name);
  runs.push({name,file,sha256:createHash('sha256').update(raw).digest('hex'),head:r.head,headAfter:r.headAfter,started:r.started,finished:r.finished,
   dirty:r.workingTreeDirty,host:r.host,browser:r.browser,conditions:r.conditions,fixtureLatencyMs:r.fixtureLatencyMs??40,
-  modes:r.modes,repeats:r.repeats,routes:r.routes,locales:r.locales,combined:r.combined,pageWasm:r.pageWasm,rustBest:r.rustBest,
+  modes:r.modes,repeats:r.repeats,routes:r.routes,auditRoute:r.auditRoute,locales:r.locales,combined:r.combined,pageWasm:r.pageWasm,rustBest:r.rustBest,
   freshBrowserProcessPerPair:r.freshBrowserProcessPerPair??false,
   completeness:{expectedSamples,actualSamples:r.samples?.length??0,duplicateSamples:duplicates,expectedAudits,actualAudits:r.audits?.length??0},
   timing:groups(r.samples||[],journey?['mode','profile','scenario']:localized?['mode','profile','locale','cache']:['mode','profile','route','cache'],journey?['homeReady','nextReady','clickToReady','homeBeforeClick','preClickBytes','predictionWireBytes','totalBytes']:['ready','allReady','pageCopyReady','fcp','lcp','cls','transfer','jsEncoded','wasmEncoded','requests','actionNextFrame']),
@@ -46,9 +47,15 @@ for(const name of names){
   bundles:r.bundles?.map(({mode,route,kind,url,bytes,brotli,gzip,sha256})=>({mode,route,kind,url,bytes,brotli,gzip,sha256})),
  });
 }
+const verification=[];
+for(const name of ['ten-flows-flat-final','ten-flows-hints','ten-layout','ten-gate']){
+ const file=`test-results/rust/measurements/${name}/report.json`,raw=await readFile(file),r=JSON.parse(raw);
+ if(!r.finished)throw Error('Incomplete functional verification: '+name);
+ verification.push({name,file,sha256:createHash('sha256').update(raw).digest('hex'),finished:r.finished,combined:r.combined,transport:r.transport,results:r.results});
+}
 const evidence={version:1,generated:new Date().toISOString(),productionChanged:false,
  method:'Local Node fixture with identical static HTML/content and 40 ms mock APIs. Entered-ritual cookie and analytics refusal. Cold context is empty HTTP cache/storage; ordinary runs share a Chromium process. Fresh-process runs launch Chrome per cold/warm pair. Mobile readiness: 390x844, 4x CPU, 150 ms latency, 200000 bytes/s down, 93750 up. Desktop: 1440x1000, native CPU, unshaped local network. Lighthouse uses its own standard simulated mobile/desktop settings; it does not measure application controls readiness. Static representations warmed on server before all measurements. All runs and failures retained.',
- caveats:['Not physical-phone, field, CDN, Rust-server or serverless-cold measurements.','Not a whole-site speed or release claim. Home readiness means directory event plus usable search; map includes dynamic public enrichment.','Sample min/max are observed bounds, not promised best/worst cases. P95 from small samples is descriptive only.','Lighthouse and readiness use different network simulation settings; report both.','Browser privacy refusal disables third-party analytics/embeds; first ritual entry is functionally tested separately.','Journey prediction is tested on scripted intentions, not a measured real-user hit rate. Aborted response headers can be undercounted in CDP byte totals.'],runs};
+ caveats:['Not physical-phone, field, CDN, Rust-server or serverless-cold measurements.','Not a whole-site speed or release claim. Home readiness means directory event plus usable search; map includes dynamic public enrichment.','Sample min/max are observed bounds, not promised best/worst cases. P95 from small samples is descriptive only.','Lighthouse and readiness use different network simulation settings; report both.','Browser privacy refusal disables third-party analytics/embeds; first ritual entry is functionally tested separately.','Journey prediction is tested on scripted intentions, not a measured real-user hit rate. Aborted response headers can be undercounted in CDP byte totals.','The main comparison uses English; the separate locale follow-up includes completion of actual page-copy translation.'],runs,verification};
 await mkdir(path.dirname(out),{recursive:true});await writeFile(out,JSON.stringify(evidence,null,2)+'\n');
 console.log(out);
 for(const r of runs){console.log(`\n${r.name}: ${r.timing.reduce((n,g)=>n+g.attempted,0)} timings, ${r.lighthouse.reduce((n,g)=>n+g.attempted,0)} audits`);for(const g of r.timing.filter(g=>g.cache==='cold-context'&&g.route==='/'))console.log(g.mode,g.profile,g.metrics.ready);}

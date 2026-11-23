@@ -2,6 +2,12 @@
 
 The migration must preserve the site's behavior and show measured performance, not assume that Rust is faster. Code volume is not progress, correctness or speed. No production improvement has been established yet. Production continues to use the existing implementation.
 
+## Latest investigation · 23 November
+
+[Ten measured approaches and their follow-ups](evidence/2026-11-23-ten-experiments.md) compares compiler size, compression, preload, true route splitting, lightweight bundles, public data, parallel reads, CSS delivery and bounded prediction. It retains failed attempts, mobile/desktop timings, Lighthouse ranges and specific next variants. The English homepage reaches a 0.712 s mean in 20 cold-context repetitions with the combined light interface; the smaller Rust browser remains at 3.090 s. Fully translated Dutch/French and cold map remain above 0.8 s. These are local pinned-branch browser measurements, not current production or Rust-server results; no runtime was promoted.
+
+The report recommends testing a Rust-server/light-browser architecture against the all-WASM target. It does not silently change that target or mark the migration complete. Source and release gates below still apply.
+
 ## Code change ledger
 
 Run from the repository root:
