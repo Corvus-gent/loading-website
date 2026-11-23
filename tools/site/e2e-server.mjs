@@ -31,6 +31,9 @@ function apiFixture(url, method) {
 
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, 'http://127.0.0.1');
+  if (['/gamedev', '/gd', '/game'].includes(url.pathname.replace(/\/$/, ''))) {
+    res.writeHead(307, {Location: '/game-dev'}); res.end(); return;
+  }
   if (url.pathname.startsWith('/api/')) {
     res.writeHead(200, {'Content-Type': 'application/json'});
     res.end(JSON.stringify(apiFixture(url, req.method)));
@@ -69,4 +72,4 @@ const server = http.createServer(async (req, res) => {
   createReadStream(file).on('error', () => res.destroy()).pipe(res);
 });
 
-server.listen(4184, '127.0.0.1');
+server.listen(Number(process.env.E2E_PORT || 4184), '127.0.0.1');
