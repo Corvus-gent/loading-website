@@ -1,8 +1,158 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><meta name="color-scheme" content="dark"><title>The shark is coming · corvus.gent</title><style>
-:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;min-height:100svh;background:#061824;color:#cfeef3;font:16px/1.6 ui-monospace,monospace;display:grid;place-items:center;padding:28px}main{width:min(700px,100%)}.prompt{color:#56d7d2;font-size:clamp(12px,2.5vw,16px)}h1{font-size:clamp(34px,8vw,76px);line-height:1.05;letter-spacing:-.05em;margin:.5em 0}.shark{font-size:clamp(20px,5vw,38px);color:#56d7d2;margin:32px 0}#countdown{font-size:clamp(68px,20vw,140px);line-height:1.2;color:#ffdc7c;font-variant-numeric:tabular-nums}p{max-width:48ch;color:#92afb9}a{color:#56d7d2;text-underline-offset:5px}nav{display:flex;flex-wrap:wrap;gap:18px;margin-top:34px}a:focus-visible{outline:2px solid #ffdc7c;outline-offset:6px}.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}@media(prefers-reduced-motion:no-preference){.shark{animation:swim 5s ease-in-out infinite}@keyframes swim{50%{transform:translateX(15px)}}}body[data-hidden=true] .shark{animation-play-state:paused}
-</style></head><body><main><div class="prompt">gabe@corvus:~$ ./salesforce --loading</div><div class="shark" aria-hidden="true">&lt;°)))&gt;&lt;</div><h1>The shark is coming.</h1><div id="countdown" aria-live="off">20:00</div><span class="sr">Opens at 21:17 Gent time, 23 November 2026.</span><p>A little water. A little ambition. Dive back in when the timer hits zero.</p><nav aria-label="Meanwhile"><a href="https://github.com/gabe-maxxing">GitHub</a><a href="https://corvus.gent">corvus.gent</a><a href="mailto:gabriel@corvus.gent">gabriel@corvus.gent</a></nav></main><script>
-const TARGET=Date.parse('2026-11-23T20:17:32Z'),display=document.getElementById('countdown');let reloadAt=0;
-function tick(){if(document.hidden)return;const left=Math.max(0,Math.ceil((TARGET-Date.now())/1000));display.textContent=left?String(Math.floor(left/60)).padStart(2,'0')+':'+String(left%60).padStart(2,'0'):'dropping any second…';if(!left){display.style.fontSize='clamp(26px,7vw,54px)';if(!reloadAt)reloadAt=Date.now()+20000;else if(Date.now()>=reloadAt){reloadAt=Date.now()+20000;location.reload();}}}
-tick();setInterval(tick,1000);document.addEventListener('visibilitychange',()=>{document.body.dataset.hidden=String(document.hidden);tick();});
-</script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Your next shark, Salesforce · Gabriel · corvus.gent</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="Why Gabriel is the next shark: energy, sales, building, seven languages.">
+<style>
+:root{--deep:#020b1a;--sea:#06223f;--teal:#19c3e6;--foam:#bdefff;--gold:#ffd76a;--ink:#eaf6ff;--dim:#7fa4c4}
+*{box-sizing:border-box}
+html{background:var(--deep);scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;color:var(--ink);font:17px/1.6 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Inter,sans-serif}
+#sea{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0}
+main{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 20px 120px}
+.hero{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 0 12vh}
+.k{font:600 12px/1 ui-monospace,Menlo,monospace;letter-spacing:.3em;color:var(--teal);text-transform:uppercase}
+h1{font:800 clamp(44px,10vw,104px)/.92 ui-sans-serif,system-ui,sans-serif;letter-spacing:-.035em;margin:.25em 0 .2em;text-shadow:0 4px 40px rgba(2,11,26,.9)}
+h1 em{font-style:normal;color:var(--gold)}
+.lead{font-size:clamp(18px,2.4vw,22px);color:var(--foam);max-width:600px;text-shadow:0 2px 20px rgba(2,11,26,.95)}
+.card{background:rgba(2,11,26,.78);border:1px solid rgba(25,195,230,.28);border-radius:14px;padding:22px 22px 18px;margin:18px 0;backdrop-filter:blur(3px)}
+.card h2{font:800 clamp(24px,4vw,34px)/1.1 ui-sans-serif,system-ui,sans-serif;margin:.2em 0 .45em;letter-spacing:-.02em}
+.card h2 span{color:var(--teal);font:600 13px ui-monospace,Menlo,monospace;letter-spacing:.2em;display:block;margin-bottom:6px}
+.card p{margin:0 0 .7em;color:#d5e9f7}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:22px 0}
+.grid div{background:rgba(2,11,26,.78);border:1px solid rgba(25,195,230,.28);border-radius:12px;padding:14px}
+.grid b{display:block;font:800 clamp(26px,5vw,38px)/1 ui-sans-serif,system-ui,sans-serif;color:var(--gold)}
+.grid small{color:var(--dim);font-size:13px}
+.cta{text-align:center;padding:60px 0 20px}
+.cta h2{font:800 clamp(34px,7vw,64px)/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:-.03em;margin:0 0 18px}
+.btn{display:inline-block;margin:6px;padding:14px 22px;border-radius:999px;font-weight:700;text-decoration:none}
+.btn.p{background:var(--gold);color:#1a1202}.btn.s{border:1.5px solid var(--teal);color:var(--teal)}
+.btn:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.small{color:var(--dim);font-size:14px}
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .8s,transform .8s}.reveal.on{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.reveal{opacity:1;transform:none;transition:none}}
+@media (max-width:640px){.grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<canvas id="sea" aria-hidden="true"></canvas>
+<main>
+  <section class="hero">
+    <div class="k">gabriel@corvus:~$ ./next-shark</div>
+    <h1>Your next<br><em>shark</em> just<br>walked in.</h1>
+    <p class="lead"><strong style="color:#fff">Young talent. Forward deployed engineer.</strong> You felt the energy in the room, Salesforce. Here is what is behind it, in one scroll.</p>
+  </section>
+
+  <div class="card reveal"><h2><span>TONIGHT · HOW I GOT HERE</span>A train, a café and a tip.</h2>
+    <p>I took the train to London to meet Archie at Corgi. I didn't get to see him. So I networked my way through the café instead, and someone there said: go to this Salesforce event tonight.</p>
+    <p>Best tip of the trip. Great pizza, great wine, and a talk that was anything but boring. And yes, I'm still vibe coding in the back row. You're looking at the result.</p></div>
+
+  <div class="grid reveal">
+    <div><b>7</b><small>languages, for every market</small></div>
+    <div><b>700+</b><small>commits shipped last month</small></div>
+    <div><b>200k+</b><small>lines of code, solo, in public</small></div>
+    <div><b>10</b><small>days in SF + NYC, every door</small></div>
+  </div>
+
+  <div class="card reveal"><h2><span>00 · FORWARD DEPLOYED</span>Half engineer, half closer.</h2>
+    <p>I sit with the customer, find the real problem, build the prototype in the same week and stay until it is live. Code in one hand, the deal in the other. That's what a forward deployed engineer is, and it's how I already work.</p></div>
+
+  <div class="card reveal"><h2><span>01 · SELL</span>I've sold where it's hard.</h2>
+    <p>Go-to-market at Pidgy: growth, distribution channels and launches. I still sell their product on commission, because the relationship outlived the job. I'm also booked to sell EVs for BYD at the Brussels Motor Show.</p></div>
+
+  <div class="card reveal"><h2><span>02 · BUILD</span>I understand what I sell.</h2>
+    <p>Computer science at Ghent University. Last month I rebuilt corvus.gent on my own: 700+ commits and 200k+ lines of code, built with AI agents, shipped daily. I can demo, prototype and talk to engineers in their own language.</p></div>
+
+  <div class="card reveal"><h2><span>03 · OPEN DOORS</span>I go where the customers are.</h2>
+    <p>Seven languages. Ten days in San Francisco and New York on a shoestring, just to meet the builders. Back in Gent as part of the Wintercircus Collective, hosting hack nights and watch parties. Sharks keep moving. So do I.</p></div>
+
+  <div class="card reveal"><h2><span>04 · YOUNG TALENT</span>Early, hungry, compounding.</h2>
+    <p>I'm at the start of my career, which means you get the energy you noticed today at full speed, and you get to shape where it goes. I learn in public, I ship daily and I don't wait for permission.</p></div>
+
+  <div class="card reveal"><h2><span>05 · ENERGY</span>The thing you noticed today.</h2>
+    <p>You can't train it and you can't fake it for long. I bring it to every call, every booth and every room. Point me at a quota, a territory or a customer who needs something built, and watch the water move.</p></div>
+
+  <section class="cta reveal">
+    <h2>Let me <span style="color:var(--gold)">swim</span> for Salesforce.</h2>
+    <a class="btn p" href="mailto:gabriel@corvus.gent?subject=Your%20next%20shark">gabriel@corvus.gent</a>
+    <a class="btn s" href="https://www.linkedin.com/in/francisco-gabriel-van-langenhove/">LinkedIn</a>
+    <a class="btn s" href="https://corvus.gent/">corvus.gent</a>
+    <p class="small">Gabriel Van Langenhove · Gent, Belgium · move your cursor and the shark follows</p>
+  </section>
+</main>
+<script>
+(()=>{
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const cv=document.getElementById('sea'), ctx=cv.getContext('2d');
+const WATER=" .·-~≈", SHARK=" .:-=+*#%@", BUB="o°.";
+let W,H,cw,ch,cols,rows,prev,noise,scene,sctx,lx,ly;
+const shark={x:.3,y:.55,a:0,tx:.7,ty:.5,manual:0};
+function resize(){
+  const dpr=Math.min(devicePixelRatio||1,1.5); W=innerWidth; H=innerHeight; cv.width=W*dpr; cv.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+  cw=W<640?9:10; ch=Math.round(cw*1.5); cols=Math.ceil(W/cw); rows=Math.ceil(H/ch);
+  prev=new Array(cols*rows).fill(''); noise=new Float32Array(cols*rows).map(()=>Math.random());
+  scene=document.createElement('canvas'); scene.width=cols; scene.height=rows; sctx=scene.getContext('2d',{willReadFrequently:true});
+  ctx.fillStyle='#020b1a'; ctx.fillRect(0,0,W,H); ctx.font=`600 ${Math.round(ch*.8)}px ui-monospace,Menlo,monospace`; ctx.textBaseline='top';
+}
+// draw a shark silhouette (in cell units) into the low-res scene; returns nothing
+function drawShark(t){
+  const s=Math.min(cols*1.05,rows*1.6*1.05)*.78;            // length in cells
+  const x=shark.x*cols, y=shark.y*rows, a=shark.a, wag=Math.sin(t*6)*.28;
+  sctx.save(); sctx.translate(x,y); sctx.scale(1,1/1.5); sctx.rotate(a); sctx.fillStyle='#fff';
+  // body
+  sctx.beginPath(); sctx.moveTo(s*.5,0);
+  sctx.bezierCurveTo(s*.42,-s*.09, s*.05,-s*.13, -s*.32,-s*.05);
+  sctx.lineTo(-s*.32,s*.05); sctx.bezierCurveTo(s*.05,s*.12, s*.4,s*.07, s*.5,0); sctx.fill();
+  // dorsal fin
+  sctx.beginPath(); sctx.moveTo(s*.08,-s*.1); sctx.lineTo(-s*.06,-s*.27); sctx.lineTo(-s*.1,-s*.08); sctx.fill();
+  // pectoral fin
+  sctx.beginPath(); sctx.moveTo(s*.18,s*.07); sctx.lineTo(s*.02,s*.22); sctx.lineTo(s*.05,s*.07); sctx.fill();
+  // tail (wags)
+  sctx.save(); sctx.translate(-s*.3,0); sctx.rotate(wag);
+  sctx.beginPath(); sctx.moveTo(0,-s*.03); sctx.lineTo(-s*.2,-s*.2); sctx.lineTo(-s*.12,0); sctx.lineTo(-s*.18,s*.15); sctx.lineTo(0,s*.03); sctx.fill(); sctx.restore();
+  // eye + gills (dark)
+  sctx.fillStyle='#000'; sctx.beginPath(); sctx.arc(s*.38,-s*.025,Math.max(.6,s*.012),0,7); sctx.fill();
+  sctx.fillRect(s*.25,-s*.04,Math.max(.6,s*.008),s*.07); sctx.fillRect(s*.22,-s*.04,Math.max(.6,s*.008),s*.07);
+  sctx.restore();
+}
+let bubbles=[];
+function frame(now){
+  const t=now/1000;
+  // steer: follow pointer, otherwise patrol in a figure eight
+  if(now>shark.manual && !reduced){ shark.tx=.5+.28*Math.sin(t*.2); shark.ty=.52+.12*Math.sin(t*.4); }
+  const dx=shark.tx-shark.x, dy=shark.ty-shark.y, want=Math.atan2(dy*rows*1.5,dx*cols);
+  let da=want-shark.a; da=Math.atan2(Math.sin(da),Math.cos(da)); shark.a+=da*.06;
+  const sp=reduced?0:Math.min(.0045,Math.hypot(dx,dy)*.04+.001);
+  shark.x+=Math.cos(shark.a)*sp; shark.y+=Math.sin(shark.a)*sp*cols/(rows*1.5);
+  sctx.clearRect(0,0,cols,rows); drawShark(t);
+  const d=sctx.getImageData(0,0,cols,rows).data;
+  if(!reduced && Math.random()<.35) bubbles.push({x:shark.x*cols+Math.cos(shark.a)*cols*.08, y:shark.y*rows, life:1});
+  bubbles=bubbles.filter(b=>(b.life-=.02)>0&&(b.y-=.25)>0);
+  const bset=new Map(bubbles.map(b=>[((b.y|0)*cols+(b.x|0)),b]));
+  for(let r=0;r<rows;r++) for(let c=0;c<cols;c++){
+    const i=r*cols+c, a=d[i*4]/255, depth=r/rows;
+    // god rays from the surface
+    const ray=Math.max(0,Math.sin(c*.06+t*.3+Math.sin(r*.02)*2))**8*(1-depth)*.6;
+    const wave=.5+.5*Math.sin(c*.18+t*1.2+r*.25)*Math.sin(c*.05-t*.6);
+    let g,col;
+    if(a>.08){ const L=a*(.75+.25*Math.sin(c*.4-t*8)); g=SHARK[Math.min(SHARK.length-1,(L*SHARK.length)|0)]; col= a>.7?'#bdefff':'#19c3e6'; }
+    else if(bset.has(i)){ g=BUB[(noise[i]*3)|0]; col='#bdefff'; }
+    else { const v=noise[i]*.18+wave*.18+ray; if(v<.12){g=' ';col='';} else { g=WATER[Math.min(WATER.length-1,(v*WATER.length*1.6)|0)]; col= ray>.25?'#ffd76a':(v>.3?'#1b6fa8':'#0d3a66'); } }
+    const key=g+col; if(key===prev[i]) continue; prev[i]=key;
+    ctx.fillStyle='#020b1a'; ctx.fillRect(c*cw,r*ch,cw,ch); if(g!==' '){ ctx.fillStyle=col; ctx.fillText(g,c*cw,r*ch+1); }
+  }
+}
+const follow=e=>{const p=e.touches?e.touches[0]:e; if(!p||(!p.clientX&&!p.clientY)) return; shark.tx=p.clientX/innerWidth; shark.ty=p.clientY/innerHeight; shark.manual=performance.now()+2500;};
+addEventListener('pointermove',follow,{passive:true}); addEventListener('touchmove',follow,{passive:true}); addEventListener('resize',resize);
+let last=0; function loop(now){ if(!document.hidden && now-last>=40){ last=now; frame(now);} requestAnimationFrame(loop); }
+resize(); frame(performance.now()); if(!reduced) requestAnimationFrame(loop);
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+})();
+</script>
+</body>
+</html>
