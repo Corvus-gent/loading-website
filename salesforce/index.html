@@ -44,6 +44,7 @@ h1 em{font-style:normal;color:var(--gold)}
 .hire-pill{position:fixed;z-index:5;bottom:max(16px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);max-width:calc(100% - 24px);width:max-content;display:flex;flex-wrap:wrap;justify-content:center;gap:4px 8px;padding:12px 20px;border-radius:999px;background:var(--gold);color:#102438;text-decoration:none;box-shadow:0 8px 35px #0008;border:1px solid #fff6;font:700 13px/1.5 ui-sans-serif,system-ui,sans-serif;text-align:center}.hire-pill[hidden]{display:none}.hire-pill span{font-size:12px}.hire-pill:focus-visible{outline:3px solid var(--foam);outline-offset:4px}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}body[data-hidden="true"] *{animation-play-state:paused!important}
 .hero .k{background:rgba(2,11,26,.78);border-radius:4px;width:fit-content}.cta .small,.live-age{background:rgba(2,11,26,.84);border-radius:8px}.live-age{width:fit-content;max-width:100%;padding:8px 12px;margin:24px auto 0}body[data-hidden="true"] *{transition:none!important}
+.cta .btn.s{background:rgba(2,11,26,.94)}
 </style>
 </head>
 <body>
@@ -114,7 +115,7 @@ const FIRST_V1=Date.parse('2026-11-23T20:18:26Z');
 const cv=document.getElementById('sea'),ctx=cv.getContext('2d');
 if(!ctx){document.querySelectorAll('.reveal').forEach(el=>el.classList.add('on'));return;}
 const pill=document.querySelector('.hire-pill');let pendingMail=null,dive=0,regions=[],pointerSpeed=0,lastPointer=0,lastX=.5,lastY=.5,animationTime=0,previousFrame=0;
-function measure(){dive=Math.min(1,Math.max(0,scrollY/Math.max(1,document.documentElement.scrollHeight-innerHeight)));regions=[...document.querySelectorAll('.hero h1,.hero .lead,.hero .k')].map(el=>el.getBoundingClientRect());pill.hidden=scrollY<32;document.body.style.setProperty('--dive',String(dive));}
+function measure(){dive=Math.min(1,Math.max(0,scrollY/Math.max(1,document.documentElement.scrollHeight-innerHeight)));regions=[...document.querySelectorAll('.hero h1,.hero .lead,.hero .k,.cta h2,.cta .small,.live-age')].map(el=>el.getBoundingClientRect());pill.hidden=scrollY<32;document.body.style.setProperty('--dive',String(dive));}
 addEventListener('scroll',measure,{passive:true});
 
 const WATER=" .·-~≈", SHARK=" .:-=+*#%@", BUB="o°.";
