@@ -26,6 +26,8 @@ jobs:
           node tests/rust/measure-source.mjs
           node tests/rust/performance-evidence.mjs
           node tests/rust/retired-pages.mjs
+          node tests/rust/ten-experiments.mjs
+          node tests/rust/ten-locale-hints.mjs
       - name: Record source change ledger
         run: node tools/rust/measure-source.mjs
       - name: Preserve code change evidence
