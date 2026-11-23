@@ -14,6 +14,7 @@ import {MODES,prepareVariants} from './variants.mjs';
 
 const opts=Object.fromEntries(process.argv.slice(2).map(s=>s.split(/=(.*)/s).slice(0,2)));
 const modes=opts['--modes']?.split(',')||MODES,repeats=Number(opts['--repeats']||3),suite=opts['--suite']||'all',routes=opts['--routes']?.split(',')||['/','/map/'];
+const freshProcess=opts['--fresh-process']==='1';
 assert(modes.every(m=>MODES.includes(m))&&Number.isInteger(repeats)&&repeats>=1&&repeats<=30);
 assert(['all','prepare','functional','timing','lighthouse'].includes(suite));
 const started=new Date().toISOString(),git=(...a)=>execFileSync('git',a,{encoding:'utf8'}).trim(),head=git('rev-parse','HEAD');
@@ -24,6 +25,7 @@ const prepared=await prepareVariants(fixture.root,{combined:opts['--combined']?.
 const servers={},samples=[],audits=[],functional=[],warmups=[],errors=[],content={};
 const manifest=JSON.parse(await readFile('rust/browser/pkg/ten/manifest.json','utf8'));
 const report={version:1,started,head,workingTreeDirty:!!git('status','--porcelain'),suite,repeats,modes,routes,combined:prepared.combined,pageWasm:prepared.pageWasm,conditions:PROFILES,fixtureLatencyMs:40,host:{node:process.version,os:os.platform(),arch:os.arch(),cpu:os.cpus()[0]?.model},productionReady:false,artifacts:manifest,bundles:prepared.records,samples,audits,functional,warmups,errors};
+report.freshBrowserProcessPerPair=freshProcess;
 if(prepared.pageWasm.startsWith('shell'))report.pageWasmArtifact=JSON.parse(await readFile(`rust/browser/pkg/ten/${prepared.pageWasm}/experiment.json`,'utf8'));
 report.rustBest=prepared.rustBest;
 async function checkpoint(){
@@ -91,11 +93,12 @@ try{
  await checkpoint();log('PREPARED',{out,fixture:fixture.root});
  if(['all','functional'].includes(suite))for(const[browserName,type]of Object.entries({chromium,webkit})){const b=await type.launch();try{for(const profile of ['mobile','desktop'])for(const mode of modes)await check(b,browserName,mode,profile);}finally{await b.close();}}
  if(['all','timing'].includes(suite)){
-  const b=await chromium.launch();report.browser=b.version();
+  const b=freshProcess?null:await chromium.launch();if(b)report.browser=b.version();
   try{for(const profile of ['mobile','desktop'])for(const route of routes)for(let repeat=0;repeat<repeats;repeat++)for(const mode of repeat%2?[...modes].reverse():modes){
-   const{context,page}=await contextFor(b,mode,profile,true);
-   try{for(const cache of ['cold-context','warm']){const value=await samplePerformance(page,route,cache,servers[mode].origin);const row={mode,profile,route,repeat,cache,...value};samples.push(row);log('TIMING',{mode,profile,route,repeat,cache,ready:row.ready,error:row.error});await page.keyboard.press('Escape');await page.waitForLoadState('networkidle',{timeout:15000});}}catch(e){errors.push({mode,profile,route,repeat,error:e.message});}finally{await context.close();await checkpoint();}
-  }}finally{await b.close();}
+   const measuredBrowser=b||await chromium.launch();report.browser=measuredBrowser.version();
+   const{context,page}=await contextFor(measuredBrowser,mode,profile,true);
+   try{for(const cache of ['cold-context','warm']){const value=await samplePerformance(page,route,cache,servers[mode].origin);const row={mode,profile,route,repeat,cache,...value};samples.push(row);log('TIMING',{mode,profile,route,repeat,cache,ready:row.ready,error:row.error});await page.keyboard.press('Escape');await page.waitForLoadState('networkidle',{timeout:15000});}}catch(e){errors.push({mode,profile,route,repeat,error:e.message});}finally{await context.close();if(!b)await measuredBrowser.close();await checkpoint();}
+  }}finally{if(b)await b.close();}
  }
  if(['all','lighthouse'].includes(suite))for(const profile of ['mobile','desktop'])for(let repeat=0;repeat<repeats;repeat++)for(const mode of repeat%2?[...modes].reverse():modes)await audit(mode,profile,repeat);
  report.finished=new Date().toISOString();report.headAfter=git('rev-parse','HEAD');

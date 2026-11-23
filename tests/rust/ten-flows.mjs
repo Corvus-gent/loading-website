@@ -95,6 +95,7 @@ try {
     // A separate first-visit context exercises the actual privacy UI, with no
     // benchmark initializer silently preselecting a privacy choice.
     const fresh=await browser.newContext({viewport:{width,height:844},locale:'en-US',reducedMotion:'reduce'});
+    await fresh.route('**/api/geo*',r=>r.fulfill({contentType:'application/json',body:JSON.stringify({countryCode:'BE',city:'',region:''})}));
     const p=await fresh.newPage(),privacyErrors=[];p.on('pageerror',e=>privacyErrors.push(e.message));
     await p.goto(server.origin+'/');
     await expect(p.locator('[data-deny]')).toBeVisible({timeout:15000});
@@ -105,10 +106,12 @@ try {
     // A failed language chunk must retain usable privacy content, and recover
     // on a new document when the network is available again.
     await fresh.route('**/js/privacy-locales/nl.js',r=>r.fulfill({status:503,body:'temporarily unavailable'}));
+    await fresh.route('**/public/i18n/site.nl.json*',r=>r.fulfill({status:503,body:'temporarily unavailable'}));
     await p.goto(server.origin+'/privacy/?lang=nl');
     await expect(p.locator('#privacy-title')).toHaveText(privacyEnglish.title);
     await expect(p.locator('#privacy-sections section').first()).toBeVisible();
     await fresh.unroute('**/js/privacy-locales/nl.js');
+    await fresh.unroute('**/public/i18n/site.nl.json*');
     await p.reload();
     await expect(p.locator('#privacy-title')).toHaveText(privacyDutch.title);
     assert.deepEqual(privacyErrors,[]);
