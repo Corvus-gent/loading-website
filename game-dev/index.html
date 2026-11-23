@@ -101,7 +101,7 @@ let reloadAt=0;
 function countdown(){
   const left=TARGET-Date.now();
   if(isNaN(TARGET)) return 'LOADING';
-  if(left<=0){ if(!reloadAt) reloadAt=Date.now()+20000; if(Date.now()>reloadAt) location.reload(); return 'SOON'; }
+  if(left<=0){ if(!reloadAt) reloadAt=Date.now()+20000; if(Date.now()>reloadAt){reloadAt=Date.now()+20000;location.reload();} return 'SOON'; }
   const s=Math.ceil(left/1000), m=Math.floor(s/60), ss=s%60;
   return (m>99?'99':String(m).padStart(2,'0'))+':'+String(ss).padStart(2,'0');
 }
