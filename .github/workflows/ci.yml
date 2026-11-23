@@ -76,6 +76,8 @@ jobs:
           cache: npm
       - run: npm ci
       - run: node tools/site/build-all.mjs
+      - name: Verify Corgi deployed source bytes
+        run: sha256sum -c tests/corgi.sha256
       - run: node tools/site/test-basic.mjs
 
   legacy-browser:
