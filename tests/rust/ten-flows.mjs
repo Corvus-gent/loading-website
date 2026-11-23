@@ -6,6 +6,8 @@ import {chromium,webkit,expect} from '@playwright/test';
 import {buildFixture} from '../helpers/built-site.mjs';
 import {createPerformanceServer} from '../../tools/rust/performance.mjs';
 import {prepareVariants} from '../../tools/rust/ten-experiments/variants.mjs';
+import privacyEnglish from '../../js/privacy-locales/en.js';
+import privacyDutch from '../../js/privacy-locales/nl.js';
 
 const combined=(process.env.COMBINED||'bundle,parallel,directory,brotli,locale,predict,footer-logo').split(',');
 const out=process.env.FLOW_OUT||'test-results/rust/measurements/ten-flows';
@@ -100,8 +102,17 @@ try {
     await expect(p.locator('[data-deny]')).toHaveCount(0);
     await p.reload();await p.waitForFunction(()=>window.corvusDiscoveryReady);
     await expect(p.locator('[data-deny]')).toHaveCount(0);
+    // A failed language chunk must retain usable privacy content, and recover
+    // on a new document when the network is available again.
+    await fresh.route('**/js/privacy-locales/nl.js',r=>r.fulfill({status:503,body:'temporarily unavailable'}));
+    await p.goto(server.origin+'/privacy/?lang=nl');
+    await expect(p.locator('#privacy-title')).toHaveText(privacyEnglish.title);
+    await expect(p.locator('#privacy-sections section').first()).toBeVisible();
+    await fresh.unroute('**/js/privacy-locales/nl.js');
+    await p.reload();
+    await expect(p.locator('#privacy-title')).toHaveText(privacyDutch.title);
     assert.deepEqual(privacyErrors,[]);
-    results.push({browser:name,width,privacyDenialPersists:true});
+    results.push({browser:name,width,privacyDenialPersists:true,privacyLocaleFallbackAndRecovery:true});
     await fresh.close();
     console.log('PASS',name,width,'newsletter validation/retry, four language pages, map/search, privacy');
    }

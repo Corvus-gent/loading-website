@@ -3,7 +3,8 @@ import {chromium,webkit,expect} from '@playwright/test';
 import {buildFixture} from '../helpers/built-site.mjs';
 import {createPerformanceServer,observePerformance} from '../../tools/rust/performance.mjs';
 import {prepareVariants} from '../../tools/rust/ten-experiments/variants.mjs';
-const fixture=await buildFixture(),variants=await prepareVariants(fixture.root,{combined:['bundle','parallel','directory','brotli','locale','predict','footer-logo']}),v=variants.options('10-combined'),server=await createPerformanceServer(fixture.root,v.engine,v.server);
+const combined=(process.env.COMBINED||'bundle,parallel,directory,brotli,locale,predict,footer-logo,css-flat,stable-language').split(',');
+const fixture=await buildFixture(),variants=await prepareVariants(fixture.root,{combined}),v=variants.options('10-combined'),server=await createPerformanceServer(fixture.root,v.engine,v.server);
 try{
  for(const [name,type]of Object.entries({chromium,webkit})){
   if(process.env.PREDICTIVE_BROWSER&&process.env.PREDICTIVE_BROWSER!==name)continue;
