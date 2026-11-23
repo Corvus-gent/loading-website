@@ -20,10 +20,11 @@ const started=new Date().toISOString(),git=(...a)=>execFileSync('git',a,{encodin
 const out=opts['--out']||'test-results/rust/measurements/ten-'+started.replace(/[:.]/g,'-');await mkdir(out,{recursive:true});
 const fixture=await buildFixture();
 await writeFile(fixture.root+'/__benchmark_setup.html','<!doctype html><html><head><meta charset="utf-8"><title>Fixture setup</title><link rel="icon" href="data:,"></head><body></body></html>');
-const prepared=await prepareVariants(fixture.root,{combined:opts['--combined']?.split(',')||['bundle','parallel']});
+const prepared=await prepareVariants(fixture.root,{combined:opts['--combined']?.split(',')||['bundle','parallel'],pageWasm:opts['--page-wasm']||'page'});
 const servers={},samples=[],audits=[],functional=[],warmups=[],errors=[],content={};
 const manifest=JSON.parse(await readFile('rust/browser/pkg/ten/manifest.json','utf8'));
-const report={version:1,started,head,workingTreeDirty:!!git('status','--porcelain'),suite,repeats,modes,routes,combined:prepared.combined,conditions:PROFILES,fixtureLatencyMs:40,host:{node:process.version,os:os.platform(),arch:os.arch(),cpu:os.cpus()[0]?.model},productionReady:false,artifacts:manifest,bundles:prepared.records,samples,audits,functional,warmups,errors};
+const report={version:1,started,head,workingTreeDirty:!!git('status','--porcelain'),suite,repeats,modes,routes,combined:prepared.combined,pageWasm:prepared.pageWasm,conditions:PROFILES,fixtureLatencyMs:40,host:{node:process.version,os:os.platform(),arch:os.arch(),cpu:os.cpus()[0]?.model},productionReady:false,artifacts:manifest,bundles:prepared.records,samples,audits,functional,warmups,errors};
+if(prepared.pageWasm==='shell')report.pageWasmArtifact=JSON.parse(await readFile('rust/browser/pkg/ten/shell/experiment.json','utf8'));
 async function checkpoint(){
  report.updated=new Date().toISOString();
  report.summary=modes.flatMap(mode=>Object.keys(PROFILES).flatMap(profile=>routes.map(route=>{
@@ -75,7 +76,7 @@ async function audit(mode,profile,repeat,route='/'){
   await writeFile(out+`/lighthouse-${mode}-${profile}-${repeat}.json`,JSON.stringify(lhr));if(lhr.runtimeError)throw Error(lhr.runtimeError.message);
   const metric=n=>lhr.audits[n]?.numericValue??null;
   const row={mode,profile,repeat,route,score:lhr.categories.performance.score*100,fcp:metric('first-contentful-paint'),lcp:metric('largest-contentful-paint'),tbt:metric('total-blocking-time'),cls:metric('cumulative-layout-shift'),speedIndex:metric('speed-index'),settings:lhr.configSettings,version:lhr.lighthouseVersion,warnings:lhr.runWarnings};
-  assert([row.score,row.lcp,row.tbt,row.cls].every(Number.isFinite));audits.push(row);log('LIGHTHOUSE',row);
+  assert([row.score,row.lcp,row.tbt,row.cls].every(Number.isFinite));audits.push(row);log('LIGHTHOUSE',{mode,profile,repeat,route,score:row.score,lcp:row.lcp,tbt:row.tbt});
  }catch(e){audits.push({mode,profile,repeat,route,error:e.message});log('LIGHTHOUSE FAIL',{mode,profile,repeat,error:e.message});}
  finally{if(connection)await connection.close();await chrome.kill();await checkpoint();}
 }
