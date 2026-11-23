@@ -14,12 +14,20 @@ jobs:
     outputs:
       basic: ${{ steps.filter.outputs.basic }}
       e2e: ${{ steps.filter.outputs.e2e }}
+      salesforce_only: ${{ steps.filter.outputs.all_count == steps.filter.outputs.salesforce_count && steps.filter.outputs.salesforce_count != '0' }}
     steps:
       - uses: actions/checkout@v4
       - uses: dorny/paths-filter@v3
         id: filter
         with:
           filters: |
+            all:
+              - '**'
+            salesforce:
+              - 'salesforce/**'
+              - 'tests/e2e/salesforce*.spec.js'
+              - 'tests/salesforce.sha256'
+              - 'docs/SALESFORCE*'
             basic:
               - '.github/workflows/ci.yml'
               - '**/*.html'
@@ -116,7 +124,7 @@ jobs:
 
   e2e:
     needs: changes
-    if: needs.changes.outputs.e2e == 'true'
+    if: needs.changes.outputs.e2e == 'true' || needs.changes.outputs.salesforce_only == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -128,7 +136,12 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps chromium
       - run: node tools/site/build-all.mjs
-      - run: npm run test:e2e
+      - name: Salesforce static-page browser smoke
+        if: needs.changes.outputs.salesforce_only == 'true'
+        run: npm run test:e2e -- salesforce
+      - name: Full browser suite for shared changes
+        if: needs.changes.outputs.salesforce_only != 'true'
+        run: npm run test:e2e
 
   ci-ok:
     if: always()
