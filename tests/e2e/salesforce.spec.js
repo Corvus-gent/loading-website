@@ -1,0 +1,2 @@
+import {test,expect} from '@playwright/test';
+test('Salesforce page is standalone and responsive',async({page})=>{const errors=[];page.on('pageerror',e=>errors.push(e.message));await page.goto('/salesforce/');await expect(page.locator('h1')).toBeVisible();await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content',/noindex/);await expect(page.locator('a[href^="mailto:gabriel@corvus.gent"]')).toBeVisible();expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);expect(errors).toEqual([]);});
