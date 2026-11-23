@@ -1,0 +1,23 @@
+import {execFileSync} from 'node:child_process';
+import {readFile,writeFile,cp,mkdir} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {brotliCompressSync,constants} from 'node:zlib';
+const opts=Object.fromEntries(process.argv.slice(2).map(s=>s.split(/=(.*)/s).slice(0,2)));
+if(!opts['--metadce'])throw Error('Pass --metadce=/absolute/path/to/wasm-metadce');
+const base='rust/browser/pkg/ten';await mkdir(base,{recursive:true});
+// Separate outputs: never replace the default profile with a test treatment.
+execFileSync('cargo',['build','--locked','-p','corvus-browser','--target','wasm32-unknown-unknown','--profile','browser-release','--no-default-features'],{stdio:'inherit',env:{...process.env,CARGO_PROFILE_BROWSER_RELEASE_OPT_LEVEL:'z'}});
+execFileSync('wasm-bindgen',['--target','web','--remove-name-section','--remove-producers-section','--out-dir',base+'/opt-z','target/wasm32-unknown-unknown/browser-release/corvus_browser.wasm'],{stdio:'inherit'});
+execFileSync('bash',['tools/rust/build-browser.sh','core'],{stdio:'inherit'});
+await cp('rust/browser/pkg/core',base+'/page',{recursive:true});
+const original=await readFile('rust/browser/pkg/core/corvus_browser_bg.wasm');
+const required=new Set(`memory analytics_allowed analytics_campaign analytics_category analytics_config analytics_country analytics_host analytics_link_context analytics_path analytics_privacy_event analytics_referrer analytics_sidequest analytics_slot analytics_slug analytics_source analytics_url analytics_x_context apply_language apply_page_copy arrival_search attributed_url choose_analytics clear_tracking_url compound_tracked_url consent_choice format_cv_count format_page_text get_language go_short init_i18n language_codes next_ritual_ms notice_dismissed pick_language privacy_signal quest_tags render_corner_search render_language_switcher render_privacy_page resolve_short set_x_campaigns show_storage_warning sidequests_page site_canonical site_fresh_entries site_load_routes start_analytics start_arrival start_compound_links start_consent start_cv start_daily start_i18n start_inspiration start_language_bar start_languages start_live_banner start_outbound start_performance start_portal start_privacy start_privacy_page start_site_discovery start_site_shell translate translate_page_text`.split(' '));
+const all=WebAssembly.Module.exports(new WebAssembly.Module(original));
+const roots=all.filter(e=>required.has(e.name)||e.name.startsWith('__')||e.name.startsWith('wasm_bindgen'));
+await writeFile(base+'/page-roots.json',JSON.stringify(roots.map(e=>({name:e.name,export:e.name,root:true})),null,2));
+execFileSync(opts['--metadce'],[base+'/page/corvus_browser_bg.wasm','--graph-file='+base+'/page-roots.json','-o',base+'/page/corvus_browser_bg.wasm'],{stdio:'pipe'});
+const page=await readFile(base+'/page/corvus_browser_bg.wasm'),after=new Set(WebAssembly.Module.exports(new WebAssembly.Module(page)).map(e=>e.name));
+for(const {name}of roots)if(!after.has(name))throw Error('Lost required export '+name);
+const artifact=async(dir)=>{const b=await readFile(dir+'/corvus_browser_bg.wasm');return{dir,sha256:createHash('sha256').update(b).digest('hex'),raw:b.length,br4:brotliCompressSync(b,{params:{[constants.BROTLI_PARAM_QUALITY]:4}}).length,br11:brotliCompressSync(b,{params:{[constants.BROTLI_PARAM_QUALITY]:11}}).length};};
+const report={head:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),at:new Date().toISOString(),compiler:execFileSync('rustc',['--version'],{encoding:'utf8'}).trim(),bindgen:execFileSync('wasm-bindgen',['--version'],{encoding:'utf8'}).trim(),metadce:execFileSync(opts['--metadce'],['--version'],{encoding:'utf8'}).trim(),artifacts:await Promise.all(['rust/browser/pkg/core',base+'/opt-z',base+'/page'].map(artifact)),retained:roots.map(e=>e.name),removed:all.map(e=>e.name).filter(n=>!after.has(n))};
+await writeFile(base+'/manifest.json',JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report.artifacts,null,2));

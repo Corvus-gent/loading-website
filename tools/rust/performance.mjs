@@ -17,7 +17,8 @@ const API={
  '/api/plethora':{ready:true,total:12},
  '/api/x-stats':{ready:false},
 };
-async function server(root,engine,{htmlTransform,assetPath=value=>value}={}){
+async function server(root,engine,{htmlTransform,assetPath=value=>value,assetTransform,compressionQuality=4}={}){
+ if(!Number.isInteger(compressionQuality)||compressionQuality<0||compressionQuality>11)throw Error('Invalid Brotli quality');
  const cache=new Map(),unknown=new Set(),failures=new Set(),source=process.cwd();
  const instance=http.createServer(async(req,res)=>{
   try{
@@ -27,7 +28,8 @@ async function server(root,engine,{htmlTransform,assetPath=value=>value}={}){
    if(!entry){const bridge=engine==='rust'?wasmBridge(u.pathname):null;let body,mime;
     if(bridge){body=Buffer.from(bridge);mime='text/javascript';}
     else{let file=assetPath(decodeURIComponent(u.pathname));if(file.split('/').some(p=>p.startsWith('.')||['node_modules','target'].includes(p)))throw Error('private path');if(!path.extname(file))file=file.replace(/\/$/,'')+'/index.html';const base=file.startsWith('/rust/browser/pkg/')?source:root;const full=path.resolve(base,'.'+file);if(!full.startsWith(base+path.sep))throw Error('path');body=await readFile(full);if(file.endsWith('.html'))body=Buffer.from(htmlTransform?htmlTransform(body.toString('utf8'),u.pathname):engine==='rust'?browserProfileHtml(body.toString('utf8'),u.pathname):body);mime=types[path.extname(file)]||'application/octet-stream';}
-    const compress=/text\/|json|wasm|svg/.test(mime),packed=compress?brotliCompressSync(body,{params:{[z.BROTLI_PARAM_QUALITY]:4}}):body;
+    if(assetTransform)body=Buffer.from(await assetTransform(body,u.pathname,mime));
+    const compress=/text\/|json|wasm|svg/.test(mime),packed=compress?brotliCompressSync(body,{params:{[z.BROTLI_PARAM_QUALITY]:compressionQuality}}):body;
     entry={body,packed,gzip:compress?gzipSync(body):body,mime,compressed:compress,etag:'"'+createHash('sha256').update(body).digest('hex')+'"'};cache.set(u.pathname,entry);
    }
    const document=entry.mime==='text/html';res.setHeader('content-type',entry.mime);res.setHeader('cache-control',document?'no-store':'public, max-age=86400');res.setHeader('etag',entry.etag);
