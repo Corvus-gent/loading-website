@@ -15,6 +15,8 @@ const test = base.extend({
       return route.fulfill({status: 200, contentType: 'application/json', body: '{}'});
     });
     // Fix the daily panel and question while allowing animation and hint timers to run.
+    // Keep the baseline lantern regressions pinned to the original entrance.
+    await page.addInitScript(() => { try { localStorage.setItem('corvus-entry-choice', 'mon'); } catch {} });
     const date = new Date('2032-02-10T12:00:00Z');
     await page.clock.install({time: date});
     await page.clock.setFixedTime(date);

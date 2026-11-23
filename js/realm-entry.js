@@ -1,6 +1,7 @@
 // The entrance: only the lantern is lit. Drag it to find Diogenes, his question
 // and the way in. Wing drops by with a hint if you hesitate, then leaves.
-const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const entryMotion = matchMedia('(prefers-reduced-motion: reduce)');
+let still = entryMotion.matches;
 const $ = s => document.querySelector(s);
 const stage = $('#entry'), scene = $('#hero'), lantern = $('#lantern'), curtain = $('.entry-curtain');
 const things = [...document.querySelectorAll('[data-dark]')];
@@ -35,11 +36,13 @@ function light() {
   scene.style.setProperty('--r', r + 'px');
   for (const el of things) {
     const b = el.getBoundingClientRect();
+    if (!b.width || !b.height) continue;
     const dx = Math.max(b.left - x, 0, x - b.right), dy = Math.max(b.top - y, 0, y - b.bottom);
     const lit = Math.max(0, Math.min(1, 1.25 - Math.hypot(dx, dy) / r));
     if (lit > .7) found.add(el);
     el.style.setProperty('--seen', Math.max(lit, found.has(el) ? .62 : 0).toFixed(2));
   }
+  stage.dispatchEvent(new Event('entrylight'));
 }
 function place(nx, ny) {
   x = Math.max(16, Math.min(innerWidth - 16, nx));
@@ -57,7 +60,7 @@ addEventListener('resize', () => light());
 // Drag anywhere on the dark (inputs and links keep working normally).
 let dragging = false;
 stage.addEventListener('pointerdown', e => {
-  if (e.target.closest('input,a,button:not(#lantern)')) return;
+  if (e.target.closest('input,a,button:not(#lantern),.entry-picker')) return;
   dragging = true; stage.setPointerCapture?.(e.pointerId);
   firstMove(); place(e.clientX, e.clientY);
 });
@@ -71,7 +74,9 @@ lantern.addEventListener('keydown', e => {
 });
 // Moving through by keyboard: the lantern follows focus, so nothing stays hidden.
 for (const el of things) el.addEventListener('focusin', () => {
-  const b = el.getBoundingClientRect(); firstMove(); place(b.left + b.width / 2, b.top + b.height / 2);
+  const b = el.getBoundingClientRect();
+  // Light the control from beside it; the draggable lantern must not cover it.
+  firstMove(); place(b.left - 40, b.top + b.height / 2);
 });
 function firstMove() {
   if (moved) return; moved = true; lantern.classList.add('moved');
@@ -156,4 +161,17 @@ form.addEventListener('submit', async e => {
   history.push({role: 'assistant', content: reply});
   await type(reply); linkify(reply);
   input.placeholder = 'answer him…'; busy = false;
+});
+
+// The original Monday entrance owns interaction and chat. Daily art is optional.
+entryMotion.addEventListener('change', () => {
+  still = entryMotion.matches;
+  curtain.classList.remove('closed');
+  if (still) things.forEach(el => { found.add(el); el.style.setProperty('--seen', '1'); });
+});
+import('./entry-days/picker.js').then(({mountPicker}) => mountPicker(stage, () => ({x, y, radius: radius()}))).catch(() => {
+  document.body.dataset.entry = 'mon';
+  document.body.dataset.entryReady = 'fallback';
+  const toggle = document.getElementById('entry-picker-toggle');
+  if (toggle) { toggle.textContent = 'entrance: Lantern'; toggle.disabled = true; }
 });

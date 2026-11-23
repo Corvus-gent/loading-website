@@ -11,9 +11,9 @@ export default defineConfig({
   reporter: 'list',
   use: {baseURL, browserName: 'chromium', timezoneId: 'Europe/Brussels', trace: 'retain-on-failure'},
   projects: [
-    {name: 'desktop', use: {viewport: {width: 1280, height: 800}}},
+    {name: 'desktop', use: {viewport: {width: 1440, height: 900}}},
     {name: 'mobile', use: {viewport: {width: 375, height: 812}, isMobile: true, hasTouch: true}},
-    {name: 'reduced motion', use: {viewport: {width: 1280, height: 800}, reducedMotion: 'reduce'}},
+    {name: 'reduced motion', use: {viewport: {width: 1440, height: 900}, reducedMotion: 'reduce'}},
   ],
   webServer: {command: 'node tools/site/e2e-server.mjs', url: baseURL, timeout: 10_000},
 });

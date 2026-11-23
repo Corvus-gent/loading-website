@@ -23,7 +23,7 @@
 <link rel="stylesheet" href="/privacy/privacy.css?v=158032e36fdb"><meta name="referrer" content="no-referrer">
 <link rel="stylesheet" href="/sf/note.css?v=ed9d5f6d5d7f">
 <link rel="canonical" href="https://corvus.gent/">
-<script type="module" src="/js/i18n/bar.js"></script><link rel="preload" href="/public/inspiration/diogenes.webp" as="image"><link rel="preload" href="/public/fonts/bodoni-moda/bodoni-moda-700-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="/css/site/realm-entry.css?v=launch-polish1"></head>
+<script type="module" src="/js/i18n/bar.js"></script><link rel="preload" href="/public/inspiration/diogenes.webp" as="image"><link rel="preload" href="/public/fonts/bodoni-moda/bodoni-moda-700-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="/css/site/realm-entry.css?v=daily-entrances1"></head>
 <body class="portal entry-page" data-realm-gate>
 <div class="entry-curtain closed" aria-hidden="true"><i></i><i></i></div>
 <main class="entry" id="entry">
@@ -61,13 +61,33 @@
 
 
   <div class="entry-wing" id="entry-wing" hidden aria-live="polite"><img src="/public/wing/wing-flight.webp" width="432" height="432" alt=""><p class="wing-say">don’t know how to get in?<br>maybe use the lantern.</p></div>
+  <nav id="entry-room-doors" class="entry-room-doors" aria-label="Doors in the circus" hidden>
+    <a href="/legion/" class="dark-thing" data-dark>Legion →</a>
+    <a href="/quests/" class="dark-thing" data-dark>(Side) Quests →</a>
+    <a href="/daily/" class="dark-thing" data-dark>Daily →</a>
+  </nav>
+  <p id="entry-caption" class="entry-caption" hidden></p>
+  <div class="entry-picker">
+    <button type="button" id="entry-picker-toggle" aria-haspopup="listbox" aria-expanded="false" aria-controls="entry-options" aria-describedby="entry-day-status">entrance: today ▾</button>
+    <div id="entry-options" role="listbox" aria-label="Choose an entrance" hidden>
+      <button type="button" role="option" data-choice="today" aria-selected="true" tabindex="-1">Today · automatic</button>
+      <button type="button" role="option" data-choice="mon" aria-selected="false" tabindex="-1">Mon · Lantern</button>
+      <button type="button" role="option" data-choice="tue" aria-selected="false" tabindex="-1">Tue · Glyphs</button>
+      <button type="button" role="option" data-choice="wed" aria-selected="false" tabindex="-1">Wed · Ink</button>
+      <button type="button" role="option" data-choice="thu" aria-selected="false" tabindex="-1">Thu · Water</button>
+      <button type="button" role="option" data-choice="fri" aria-selected="false" tabindex="-1">Fri · Room</button>
+      <button type="button" role="option" data-choice="sat" aria-selected="false" tabindex="-1">Sat · Mirror</button>
+      <button type="button" role="option" data-choice="sun" aria-selected="false" tabindex="-1">Sun · Night</button>
+    </div>
+    <span id="entry-day-status" class="sr-only" role="status"></span>
+  </div>
   <noscript><p class="noscript-door"><a href="/">enter the realm →</a></p></noscript>
 </main>
 
   <script type="module" src="/js/home.js?v=20261108live1"></script>
   <script type="module" src="/js/portal.js?v=20261111ritual"></script>
   <script type="module" src="/js/terminal.js?v=20261108live1"></script>
-  <script type="module" src="/js/realm-entry.js?v=20261122entry3"></script>
+  <script type="module" src="/js/realm-entry.js?v=daily-entrances1"></script>
   <script type="module" src="/js/site/magic.js?v=20261122magic1"></script>
   <script src="/js/analytics.js?v=20261108cities1"></script>
 <script type="module" src="/js/privacy.js?v=20261107live2"></script>
