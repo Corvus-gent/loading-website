@@ -4,7 +4,7 @@ import path from 'node:path';
 import {createHash} from 'node:crypto';
 
 const args=Object.fromEntries(process.argv.slice(2).map(s=>s.split(/=(.*)/s).slice(0,2)));
-const names=(args['--runs']||'ten-independent,ten-combined,ten-refined,ten-final,ten-confirmation,ten-fresh,ten-journeys').split(',');
+const names=(args['--runs']||'ten-independent,ten-combined,ten-refined,ten-final,ten-confirmation,ten-fresh,ten-journeys,ten-languages').split(',');
 const out=args['--out']||'docs/rust-migration/evidence/2026-11-23-ten-experiments.json';
 const round=v=>Number.isFinite(v)?Math.round(v*100)/100:null;
 function stats(values) {
@@ -27,16 +27,23 @@ for(const name of names){
  const file=`test-results/rust/measurements/${name}/report.json`,raw=await readFile(file),r=JSON.parse(raw);
  if(!r.finished)throw Error(`Incomplete run: ${name}`);
  const journey=!!r.samples?.some(s=>Object.hasOwn(s,'scenario'));
+ const localized=!!r.locales;
+ const sampleKeys=(r.samples||[]).map(s=>JSON.stringify([s.mode,s.profile,s.route??s.scenario??s.locale,s.repeat,s.cache??null]));
+ const duplicates=sampleKeys.length-new Set(sampleKeys).size;
+ const expectedSamples=journey?4*2*4*r.repeats:localized?r.modes.length*2*r.locales.length*2*r.repeats:['all','timing'].includes(r.suite)?r.modes.length*2*r.routes.length*2*r.repeats:0;
+ const expectedAudits=['all','lighthouse'].includes(r.suite)?r.modes.length*2*r.repeats:0;
  runs.push({name,file,sha256:createHash('sha256').update(raw).digest('hex'),head:r.head,headAfter:r.headAfter,started:r.started,finished:r.finished,
   dirty:r.workingTreeDirty,host:r.host,browser:r.browser,conditions:r.conditions,fixtureLatencyMs:r.fixtureLatencyMs??40,
-  modes:r.modes,repeats:r.repeats,routes:r.routes,combined:r.combined,pageWasm:r.pageWasm,rustBest:r.rustBest,
+  modes:r.modes,repeats:r.repeats,routes:r.routes,locales:r.locales,combined:r.combined,pageWasm:r.pageWasm,rustBest:r.rustBest,
   freshBrowserProcessPerPair:r.freshBrowserProcessPerPair??false,
-  timing:groups(r.samples||[],journey?['mode','profile','scenario']:['mode','profile','route','cache'],journey?['homeReady','nextReady','clickToReady','homeBeforeClick','preClickBytes','predictionWireBytes','totalBytes']:['ready','fcp','lcp','cls','transfer','jsEncoded','wasmEncoded','requests','actionNextFrame']),
+  completeness:{expectedSamples,actualSamples:r.samples?.length??0,duplicateSamples:duplicates,expectedAudits,actualAudits:r.audits?.length??0},
+  timing:groups(r.samples||[],journey?['mode','profile','scenario']:localized?['mode','profile','locale','cache']:['mode','profile','route','cache'],journey?['homeReady','nextReady','clickToReady','homeBeforeClick','preClickBytes','predictionWireBytes','totalBytes']:['ready','allReady','pageCopyReady','fcp','lcp','cls','transfer','jsEncoded','wasmEncoded','requests','actionNextFrame']),
   lighthouse:groups(r.audits||[],['mode','profile','route'],['score','fcp','lcp','tbt','cls','speedIndex']),
   lighthouseSettings:[...new Map((r.audits||[]).filter(a=>a.settings).map(a=>[a.profile,{profile:a.profile,version:a.version,settings:a.settings}])).values()],
   functional:(r.functional||[]).map(({mode,browser,profile,passed,error,faults})=>({mode,browser,profile,passed:passed??false,error,faults})),
   errors:r.errors,assetFailures:r.assetFailures,unknownAPIs:r.unknownAPIs,
-  artifacts:r.artifacts,pageWasmArtifact:r.pageWasmArtifact,bundleHashesAfter:r.bundleHashesAfter,bundles:r.bundles,
+  artifacts:r.artifacts,pageWasmArtifact:r.pageWasmArtifact,bundleHashesAfter:r.bundleHashesAfter,
+  bundles:r.bundles?.map(({mode,route,kind,url,bytes,brotli,gzip,sha256})=>({mode,route,kind,url,bytes,brotli,gzip,sha256})),
  });
 }
 const evidence={version:1,generated:new Date().toISOString(),productionChanged:false,
