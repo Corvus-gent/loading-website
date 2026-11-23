@@ -3,6 +3,7 @@
     "fra1"
   ],
   "redirects": [
+{"source": "/gamedev", "destination": "/game-dev", "permanent": false},{"source": "/gamedev/", "destination": "/game-dev", "permanent": false},{"source": "/gd", "destination": "/game-dev", "permanent": false},{"source": "/gd/", "destination": "/game-dev", "permanent": false},
     {
       "source": "/cv/bar-bougie/",
       "destination": "/cv/bar-bougie",
