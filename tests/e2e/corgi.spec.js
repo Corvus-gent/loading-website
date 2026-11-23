@@ -3,7 +3,8 @@ import {readFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import sharp from 'sharp';
 
-test('Corgi exact artifact, responsive screenshots and private chrome',async({page,context},testInfo)=>{
+test('Corgi source integrity, responsive screenshots and private chrome',async({page,context},testInfo)=>{
+  await page.clock.setFixedTime(new Date('2026-11-23T11:34:00Z'));
   const source=await readFile('corgi/index.html');
   const expected=(await readFile('tests/corgi.sha256','utf8')).split(/\s/)[0];
   expect(createHash('sha256').update(source).digest('hex')).toBe(expected);
@@ -16,6 +17,7 @@ test('Corgi exact artifact, responsive screenshots and private chrome',async({pa
   await expect(page.locator('.seal')).toHaveAttribute('href',/^mailto:gabriel@corvus.gent/);
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   const reference=await context.newPage();
+  await reference.clock.setFixedTime(new Date('2026-11-23T11:34:00Z'));
   await reference.route('**/__corgi-reference',route=>route.fulfill({body:source,contentType:'text/html'}));
   await reference.goto('/__corgi-reference');await reference.evaluate(()=>document.fonts.ready);await reference.waitForTimeout(2500);
   for(const [name,selector] of [['hero','header'],['courier','.paper-wrap'],['seal','.seal']]){
