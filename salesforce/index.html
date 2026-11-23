@@ -37,6 +37,14 @@ h1 em{font-style:normal;color:var(--gold)}
 @media (prefers-reduced-motion: reduce){.reveal{opacity:1;transform:none;transition:none}}
 @media (max-width:640px){.grid{grid-template-columns:1fr 1fr}}
 .live-age{text-align:center;color:var(--dim);font:12px/1.8 ui-monospace,monospace;margin:24px 0 0;font-variant-numeric:tabular-nums}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+
+#sea{pointer-events:none}.hero .lead{background:rgba(2,11,26,.72);border-radius:10px;padding:10px 12px;margin-left:-12px}.cta{background:radial-gradient(ellipse,rgba(2,11,26,.9),transparent 75%)}
+.grid>div{transition:box-shadow .7s,border-color .7s}.grid>div.bio{border-color:var(--teal);box-shadow:0 0 24px #19c3e633,inset 0 0 18px #19c3e612}
+.proof pre{white-space:pre-wrap;overflow-wrap:anywhere;margin:0;min-height:8em;color:var(--foam);font:clamp(10px,2.7vw,12.5px)/2 ui-monospace,monospace;font-variant-ligatures:none}
+.hire-pill{position:fixed;z-index:5;bottom:max(16px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);max-width:calc(100% - 24px);width:max-content;display:flex;flex-wrap:wrap;justify-content:center;gap:4px 8px;padding:12px 20px;border-radius:999px;background:var(--gold);color:#102438;text-decoration:none;box-shadow:0 8px 35px #0008;border:1px solid #fff6;font:700 13px/1.5 ui-sans-serif,system-ui,sans-serif;text-align:center}.hire-pill[hidden]{display:none}.hire-pill span{font-size:12px}.hire-pill:focus-visible{outline:3px solid var(--foam);outline-offset:4px}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}body[data-hidden="true"] *{animation-play-state:paused!important}
+.hero .k{background:rgba(2,11,26,.78);border-radius:4px;width:fit-content}.cta .small,.live-age{background:rgba(2,11,26,.84);border-radius:8px}.live-age{width:fit-content;max-width:100%;padding:8px 12px;margin:24px auto 0}body[data-hidden="true"] *{transition:none!important}
+.cta .btn.s{background:rgba(2,11,26,.94)}
 </style>
 </head>
 <body>
@@ -58,6 +66,14 @@ h1 em{font-style:normal;color:var(--gold)}
     <div><b>200k+</b><small>lines of code, solo, in public</small></div>
     <div><b>10</b><small>days in SF + NYC, every door</small></div>
   </div>
+
+  <div class="card proof reveal" role="region" aria-label="Live terminal"><span class="sr-only">$ git log --oneline | wc -l  → 700+
+$ languages --count → 7
+$ trip --cities → SF, NYC, London, Gent
+$ status → vibe coding in the back row</span><pre id="proof-terminal" aria-hidden="true">$ git log --oneline | wc -l  → 700+
+$ languages --count → 7
+$ trip --cities → SF, NYC, London, Gent
+$ status → vibe coding in the back row</pre></div>
 
   <div class="card reveal"><h2><span>00 · FORWARD DEPLOYED</span>Half engineer, half closer.</h2>
     <p>I sit with the customer, find the real problem, build the prototype in the same week and stay until it is live. Code in one hand, the deal in the other. That's what a forward deployed engineer is, and it's how I already work.</p></div>
@@ -86,6 +102,7 @@ h1 em{font-style:normal;color:var(--gold)}
   </section>
 <p class="live-age"><span id="live-age" aria-hidden="true"></span><span class="sr-only">First version published on 23 November 2026 at 20:18:26 UTC.</span></p>
 </main>
+<a class="hire-pill" href="mailto:gabriel@corvus.gent?subject=Your%20next%20shark" hidden>Hire the shark → <span>gabriel@corvus.gent</span></a>
 <script>
 (()=>{
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -95,7 +112,12 @@ const FIRST_V1=Date.parse('2026-11-23T20:18:26Z');
   function sync(){clearInterval(timer);if(!document.hidden){update();timer=setInterval(update,reduced?60000:1000);}}
   document.addEventListener('visibilitychange',sync);sync();
 })();
-const cv=document.getElementById('sea'), ctx=cv.getContext('2d');
+const cv=document.getElementById('sea'),ctx=cv.getContext('2d');
+if(!ctx){document.querySelectorAll('.reveal').forEach(el=>el.classList.add('on'));return;}
+const pill=document.querySelector('.hire-pill');let pendingMail=null,dive=0,regions=[],pointerSpeed=0,lastPointer=0,lastX=.5,lastY=.5,animationTime=0,previousFrame=0;
+function measure(){dive=Math.min(1,Math.max(0,scrollY/Math.max(1,document.documentElement.scrollHeight-innerHeight)));regions=[...document.querySelectorAll('.hero h1,.hero .lead,.hero .k,.cta h2,.cta .small,.live-age')].map(el=>el.getBoundingClientRect());pill.hidden=scrollY<32;document.body.style.setProperty('--dive',String(dive));}
+addEventListener('scroll',measure,{passive:true});
+
 const WATER=" .·-~≈", SHARK=" .:-=+*#%@", BUB="o°.";
 let W,H,cw,ch,cols,rows,prev,noise,scene,sctx,lx,ly;
 const shark={x:.3,y:.55,a:0,tx:.7,ty:.5,manual:0};
@@ -104,7 +126,7 @@ function resize(){
   cw=W<640?9:10; ch=Math.round(cw*1.5); cols=Math.ceil(W/cw); rows=Math.ceil(H/ch);
   prev=new Array(cols*rows).fill(''); noise=new Float32Array(cols*rows).map(()=>Math.random());
   scene=document.createElement('canvas'); scene.width=cols; scene.height=rows; sctx=scene.getContext('2d',{willReadFrequently:true});
-  ctx.fillStyle='#020b1a'; ctx.fillRect(0,0,W,H); ctx.font=`600 ${Math.round(ch*.8)}px ui-monospace,Menlo,monospace`; ctx.textBaseline='top';
+  ctx.fillStyle='#020b1a'; ctx.fillRect(0,0,W,H); ctx.font=`600 ${Math.round(ch*.8)}px ui-monospace,Menlo,monospace`; ctx.textBaseline='top'; measure();
 }
 // draw a shark silhouette (in cell units) into the low-res scene; returns nothing
 function drawShark(t){
@@ -122,46 +144,59 @@ function drawShark(t){
   // tail (wags)
   sctx.save(); sctx.translate(-s*.3,0); sctx.rotate(wag);
   sctx.beginPath(); sctx.moveTo(0,-s*.03); sctx.lineTo(-s*.2,-s*.2); sctx.lineTo(-s*.12,0); sctx.lineTo(-s*.18,s*.15); sctx.lineTo(0,s*.03); sctx.fill(); sctx.restore();
-  // eye + gills (dark)
+  // A friendly original face: a small smile, eye and gills, not a brand mascot.
   sctx.fillStyle='#000'; sctx.beginPath(); sctx.arc(s*.38,-s*.025,Math.max(.6,s*.012),0,7); sctx.fill();
   sctx.fillRect(s*.25,-s*.04,Math.max(.6,s*.008),s*.07); sctx.fillRect(s*.22,-s*.04,Math.max(.6,s*.008),s*.07);
+  sctx.strokeStyle='#000';sctx.lineWidth=Math.max(.7,s*.009);sctx.beginPath();sctx.moveTo(s*.35,s*.025);sctx.quadraticCurveTo(s*.41,s*.06,s*.46,s*.008);sctx.stroke();
   sctx.restore();
 }
 let bubbles=[];
 function frame(now){
-  const t=now/1000;
+  const dt=previousFrame?Math.min(50,Math.max(0,now-previousFrame)):0;previousFrame=now;animationTime+=dt;const t=reduced?0:animationTime/1000;
   // steer: follow pointer, otherwise patrol in a figure eight
-  if(now>shark.manual && !reduced){ shark.tx=.5+.28*Math.sin(t*.2); shark.ty=.52+.12*Math.sin(t*.4); }
+  if(performance.now()>shark.manual&&!reduced){shark.tx=.5+.2*Math.cos(t*.24);shark.ty=.5+.15*Math.sin(t*.24);pointerSpeed*=.92;}
   const dx=shark.tx-shark.x, dy=shark.ty-shark.y, want=Math.atan2(dy*rows*1.5,dx*cols);
   let da=want-shark.a; da=Math.atan2(Math.sin(da),Math.cos(da)); shark.a+=da*.06;
-  const sp=reduced?0:Math.min(.0045,Math.hypot(dx,dy)*.04+.001);
+  const sp=reduced?0:Math.min(.0045+Math.min(1,pointerSpeed)*.009,Math.hypot(dx,dy)*.04+.001);
   shark.x+=Math.cos(shark.a)*sp; shark.y+=Math.sin(shark.a)*sp*cols/(rows*1.5);
   sctx.clearRect(0,0,cols,rows); drawShark(t);
   const d=sctx.getImageData(0,0,cols,rows).data;
-  if(!reduced && Math.random()<.35) bubbles.push({x:shark.x*cols+Math.cos(shark.a)*cols*.08, y:shark.y*rows, life:1});
-  bubbles=bubbles.filter(b=>(b.life-=.02)>0&&(b.y-=.25)>0);
+  if(!reduced&&bubbles.length<90&&(Math.random()<.35||pointerSpeed>.55))bubbles.push({x:shark.x*cols-Math.cos(shark.a)*cols*.12,y:shark.y*rows,life:1,vx:-Math.cos(shark.a)*.25,vy:-.16});
+  if(!reduced)bubbles=bubbles.filter(b=>{b.life-=.025;b.x+=b.vx||0;b.y+=b.vy??-.2;return b.life>0&&b.y>0;});
+  const background=`rgb(${Math.round(2*(1-dive*.5))},${Math.round(11*(1-dive*.5))},${Math.round(26*(1-dive*.5))})`;
+
   const bset=new Map(bubbles.map(b=>[((b.y|0)*cols+(b.x|0)),b]));
   for(let r=0;r<rows;r++) for(let c=0;c<cols;c++){
     const i=r*cols+c, a=d[i*4]/255, depth=r/rows;
     // god rays from the surface
-    const ray=Math.max(0,Math.sin(c*.06+t*.3+Math.sin(r*.02)*2))**8*(1-depth)*.6;
+    const ray=Math.max(0,Math.sin(c*.06+t*.3+Math.sin(r*.02)*2))**8*(1-depth)*.6*(1-dive*.9);
     const wave=.5+.5*Math.sin(c*.18+t*1.2+r*.25)*Math.sin(c*.05-t*.6);
     let g,col;
     if(a>.08){ const L=a*(.75+.25*Math.sin(c*.4-t*8)); g=SHARK[Math.min(SHARK.length-1,(L*SHARK.length)|0)]; col= a>.7?'#bdefff':'#19c3e6'; }
     else if(bset.has(i)){ g=BUB[(noise[i]*3)|0]; col='#bdefff'; }
-    else { const v=noise[i]*.18+wave*.18+ray; if(v<.12){g=' ';col='';} else { g=WATER[Math.min(WATER.length-1,(v*WATER.length*1.6)|0)]; col= ray>.25?'#ffd76a':(v>.3?'#1b6fa8':'#0d3a66'); } }
-    const key=g+col; if(key===prev[i]) continue; prev[i]=key;
-    ctx.fillStyle='#020b1a'; ctx.fillRect(c*cw,r*ch,cw,ch); if(g!==' '){ ctx.fillStyle=col; ctx.fillText(g,c*cw,r*ch+1); }
+    else { const v=(noise[i]*.18+wave*.18)*(1-dive*.55)+ray; if(v<.12){g=' ';col='';} else { g=WATER[Math.min(WATER.length-1,(v*WATER.length*1.6)|0)]; col= ray>.25?'#ffd76a':(v>.3?'#1b6fa8':'#0d3a66'); } }
+    const dim=a>.08&&regions.some(rect=>c*cw>=rect.left&&c*cw<=rect.right&&r*ch>=rect.top&&r*ch<=rect.bottom);
+    const key=g+col+background+dim;if(key===prev[i])continue;prev[i]=key;
+    ctx.globalAlpha=1;ctx.fillStyle=background;ctx.fillRect(c*cw,r*ch,cw,ch);if(g!==' '){ctx.globalAlpha=dim?.5:1;ctx.fillStyle=col;ctx.fillText(g,c*cw,r*ch+1);}ctx.globalAlpha=1;
   }
+  if(pendingMail){pendingMail.elapsed+=dt;if(pendingMail.elapsed>=450){const href=pendingMail.href;pendingMail=null;location.href=href;}}
 }
-const follow=e=>{const p=e.touches?e.touches[0]:e; if(!p||(!p.clientX&&!p.clientY)) return; shark.tx=p.clientX/innerWidth; shark.ty=p.clientY/innerHeight; shark.manual=performance.now()+2500;};
+const follow=e=>{if(reduced)return;const p=e.touches?e.touches[0]:e;if(!p)return;const x=p.clientX/innerWidth,y=p.clientY/innerHeight,now=performance.now();pointerSpeed=Math.min(1,Math.hypot(x-lastX,y-lastY)/Math.max(16,now-lastPointer)*100);lastX=x;lastY=y;lastPointer=now;shark.tx=Math.max(.1,Math.min(.9,x));shark.ty=Math.max(.1,Math.min(.9,y));shark.manual=now+2500;};
 addEventListener('pointermove',follow,{passive:true}); addEventListener('touchmove',follow,{passive:true}); addEventListener('resize',()=>{resize();frame(reduced?0:performance.now());});
-let last=0,raf=0;function loop(now){raf=0;if(document.hidden)return;if(now-last>=40){last=now;frame(now);}raf=requestAnimationFrame(loop);}
-function syncMotion(){if(raf)cancelAnimationFrame(raf);raf=0;if(!reduced&&!document.hidden)raf=requestAnimationFrame(loop);}
+let last=0,raf=0;function loop(now){raf=0;if(document.hidden)return;if(now-last>=1000/30){last=now-(now-last)%(1000/30);frame(now);}raf=requestAnimationFrame(loop);}
+function syncMotion(){document.body.dataset.hidden=String(document.hidden);if(raf)cancelAnimationFrame(raf);raf=0;if(!reduced&&!document.hidden)raf=requestAnimationFrame(loop);}
 document.addEventListener('visibilitychange',syncMotion);
 resize();frame(reduced?0:performance.now());syncMotion();
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}}),{threshold:.15});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+const statsObserver=new IntersectionObserver(entries=>entries.forEach(e=>e.target.classList.toggle('bio',e.isIntersecting)),{threshold:.4});document.querySelectorAll('.grid>div').forEach(el=>statsObserver.observe(el));
+pill.addEventListener('click',e=>{if(reduced)return;e.preventDefault();if(pendingMail)return;const r=pill.getBoundingClientRect();for(let i=0;i<48;i++){const a=Math.random()*Math.PI*2,v=1+Math.random()*2;bubbles.push({x:(r.left+r.width/2)/cw,y:(r.top+r.height/2)/ch,life:1,vx:Math.cos(a)*v,vy:Math.sin(a)*v});}pendingMail={href:pill.href,elapsed:0};});
+(()=>{if(reduced)return;const pre=document.getElementById('proof-terminal'),text=pre.textContent;let visible=false,index=0,id=0,last=0;pre.textContent='';
+  function tick(now){id=0;if(document.hidden||!visible)return;if(now-last>=33){last=now;index+=2;pre.textContent=text.slice(0,index);}if(index<text.length)id=requestAnimationFrame(tick);else{observer.disconnect();document.removeEventListener('visibilitychange',sync);}}
+  function sync(){if(id)cancelAnimationFrame(id);id=0;if(visible&&!document.hidden&&index<text.length)id=requestAnimationFrame(tick);}
+  const observer=new IntersectionObserver(es=>{visible=es[0].isIntersecting;sync();},{threshold:.2});observer.observe(pre);document.addEventListener('visibilitychange',sync);
+})();
+measure();
 })();
 </script>
 </body>
