@@ -24,7 +24,7 @@ const prepared=await prepareVariants(fixture.root,{combined:opts['--combined']?.
 const servers={},samples=[],audits=[],functional=[],warmups=[],errors=[],content={};
 const manifest=JSON.parse(await readFile('rust/browser/pkg/ten/manifest.json','utf8'));
 const report={version:1,started,head,workingTreeDirty:!!git('status','--porcelain'),suite,repeats,modes,routes,combined:prepared.combined,pageWasm:prepared.pageWasm,conditions:PROFILES,fixtureLatencyMs:40,host:{node:process.version,os:os.platform(),arch:os.arch(),cpu:os.cpus()[0]?.model},productionReady:false,artifacts:manifest,bundles:prepared.records,samples,audits,functional,warmups,errors};
-if(prepared.pageWasm==='shell')report.pageWasmArtifact=JSON.parse(await readFile('rust/browser/pkg/ten/shell/experiment.json','utf8'));
+if(prepared.pageWasm.startsWith('shell'))report.pageWasmArtifact=JSON.parse(await readFile(`rust/browser/pkg/ten/${prepared.pageWasm}/experiment.json`,'utf8'));
 report.rustBest=prepared.rustBest;
 async function checkpoint(){
  report.updated=new Date().toISOString();

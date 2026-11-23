@@ -26,7 +26,7 @@ export function directoryOverlay(source,{inline=false,parallel=false}={}) {
 }
 
 export async function prepareVariants(root, {esbuildPath='/tmp/corvus-perf-tools/node_modules/esbuild/lib/main.js', combined=['bundle','parallel'],pageWasm='page',rustBest=false}={}) {
- if(!['page','shell'].includes(pageWasm))throw Error('Unknown page WASM experiment');
+ if(!['page','shell','shell-fixed','shell-small'].includes(pageWasm))throw Error('Unknown page WASM experiment');
  const {build}=await import(esbuildPath), pages=new Map(), records=[], prefix='/__experiments';
  const originalDiscovery=await readFile(path.join(root,'js/site/discovery.js'),'utf8');
  const catalogue=JSON.stringify(JSON.parse(await readFile(path.join(root,'site-directory.json'),'utf8'))).replaceAll('<','\\u003c');
@@ -104,8 +104,8 @@ export async function prepareVariants(root, {esbuildPath='/tmp/corvus-perf-tools
    let value=html;
    if(mode==='rust-control'||/^0[1-4]-/.test(mode)){
     value=browserProfileHtml(value,route);
-    if(mode==='04-page-wasm'&&pageWasm==='shell'&&['/','/map/'].includes(route))value=value.replace('/rust/browser/pkg/core/corvus_browser.js','/rust/browser/pkg/ten/shell/corvus_browser.js');
-    if(mode==='04-page-wasm'&&rustBest){const profile=pageWasm==='shell'&&['/','/map/'].includes(route)?'ten/shell':'core';value=footerLogo(inject(value,`<link rel="modulepreload" href="/rust/browser/pkg/${profile}/corvus_browser.js"><link rel="preload" href="/rust/browser/pkg/${profile}/corvus_browser_bg.wasm" as="fetch" type="application/wasm" crossorigin>`));}
+    if(mode==='04-page-wasm'&&pageWasm.startsWith('shell')&&['/','/map/'].includes(route))value=value.replace('/rust/browser/pkg/core/corvus_browser.js',`/rust/browser/pkg/ten/${pageWasm}/corvus_browser.js`);
+    if(mode==='04-page-wasm'&&rustBest){const profile=pageWasm.startsWith('shell')&&['/','/map/'].includes(route)?'ten/'+pageWasm:'core';value=footerLogo(inject(value,`<link rel="modulepreload" href="/rust/browser/pkg/${profile}/corvus_browser.js"><link rel="preload" href="/rust/browser/pkg/${profile}/corvus_browser_bg.wasm" as="fetch" type="application/wasm" crossorigin>`));}
     if(mode==='03-wasm-preload')value=inject(value,'<link rel="modulepreload" href="/rust/browser/pkg/core/corvus_browser.js"><link rel="preload" href="/rust/browser/pkg/core/corvus_browser_bg.wasm" as="fetch" type="application/wasm" crossorigin>');
    }else{
     const combo=mode==='10-combined';
