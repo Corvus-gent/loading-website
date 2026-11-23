@@ -36,6 +36,7 @@ h1 em{font-style:normal;color:var(--gold)}
 .reveal{opacity:0;transform:translateY(16px);transition:opacity .8s,transform .8s}.reveal.on{opacity:1;transform:none}
 @media (prefers-reduced-motion: reduce){.reveal{opacity:1;transform:none;transition:none}}
 @media (max-width:640px){.grid{grid-template-columns:1fr 1fr}}
+.live-age{text-align:center;color:var(--dim);font:12px/1.8 ui-monospace,monospace;margin:24px 0 0;font-variant-numeric:tabular-nums}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
 </style>
 </head>
 <body>
@@ -83,10 +84,17 @@ h1 em{font-style:normal;color:var(--gold)}
     <a class="btn s" href="https://corvus.gent/">corvus.gent</a>
     <p class="small">Gabriel Van Langenhove · Gent, Belgium · move your cursor and the shark follows</p>
   </section>
+<p class="live-age"><span id="live-age" aria-hidden="true"></span><span class="sr-only">First version published on 23 November 2026 at 20:18:26 UTC.</span></p>
 </main>
 <script>
 (()=>{
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const FIRST_V1=Date.parse('2026-11-23T20:18:26Z');
+(()=>{const el=document.getElementById('live-age');let timer;
+  function update(){const s=Math.max(0,Math.floor((Date.now()-FIRST_V1)/1000)),pad=n=>String(n).padStart(2,'0');el.textContent=`v1 live for ${Math.floor(s/86400)}d ${pad(Math.floor(s/3600)%24)}h ${pad(Math.floor(s/60)%60)}m ${pad(s%60)}s`;}
+  function sync(){clearInterval(timer);if(!document.hidden){update();timer=setInterval(update,reduced?60000:1000);}}
+  document.addEventListener('visibilitychange',sync);sync();
+})();
 const cv=document.getElementById('sea'), ctx=cv.getContext('2d');
 const WATER=" .·-~≈", SHARK=" .:-=+*#%@", BUB="o°.";
 let W,H,cw,ch,cols,rows,prev,noise,scene,sctx,lx,ly;
@@ -147,9 +155,11 @@ function frame(now){
   }
 }
 const follow=e=>{const p=e.touches?e.touches[0]:e; if(!p||(!p.clientX&&!p.clientY)) return; shark.tx=p.clientX/innerWidth; shark.ty=p.clientY/innerHeight; shark.manual=performance.now()+2500;};
-addEventListener('pointermove',follow,{passive:true}); addEventListener('touchmove',follow,{passive:true}); addEventListener('resize',resize);
-let last=0; function loop(now){ if(!document.hidden && now-last>=40){ last=now; frame(now);} requestAnimationFrame(loop); }
-resize(); frame(performance.now()); if(!reduced) requestAnimationFrame(loop);
+addEventListener('pointermove',follow,{passive:true}); addEventListener('touchmove',follow,{passive:true}); addEventListener('resize',()=>{resize();frame(reduced?0:performance.now());});
+let last=0,raf=0;function loop(now){raf=0;if(document.hidden)return;if(now-last>=40){last=now;frame(now);}raf=requestAnimationFrame(loop);}
+function syncMotion(){if(raf)cancelAnimationFrame(raf);raf=0;if(!reduced&&!document.hidden)raf=requestAnimationFrame(loop);}
+document.addEventListener('visibilitychange',syncMotion);
+resize();frame(reduced?0:performance.now());syncMotion();
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}}),{threshold:.15});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 })();
