@@ -17,6 +17,8 @@ try {
    const views={};
    for(const mode of Object.keys(servers)){
     const context=await browser.newContext({viewport:{width,height:844},isMobile:width===390,locale:'en-US',timezoneId:'Europe/Brussels',reducedMotion:'reduce'});
+    await context.route('**/api/vote',r=>r.fulfill({contentType:'application/json',body:JSON.stringify({votes:{nl:2,en:1},challenge:null})}));
+    await context.route('**/api/geo*',r=>r.fulfill({contentType:'application/json',body:JSON.stringify({countryCode:'BE'})}));
     await context.addCookies([{name:'corvus_realm',value:'1',url:servers[mode].origin}]);await context.addInitScript(observePerformance);
     const page=await context.newPage();
     try{
