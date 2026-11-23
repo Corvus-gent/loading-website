@@ -3,7 +3,36 @@
     "fra1"
   ],
   "redirects": [
-{"source": "/gamedev", "destination": "/game-dev", "permanent": false},{"source": "/gamedev/", "destination": "/game-dev", "permanent": false},{"source": "/gd", "destination": "/game-dev", "permanent": false},{"source": "/gd/", "destination": "/game-dev", "permanent": false},
+    {
+      "source": "/gamedev",
+      "destination": "/game-dev",
+      "permanent": false
+    },
+    {
+      "source": "/gamedev/",
+      "destination": "/game-dev",
+      "permanent": false
+    },
+    {
+      "source": "/gd",
+      "destination": "/game-dev",
+      "permanent": false
+    },
+    {
+      "source": "/gd/",
+      "destination": "/game-dev",
+      "permanent": false
+    },
+    {
+      "source": "/game/",
+      "destination": "/game-dev",
+      "permanent": false
+    },
+    {
+      "source": "/game",
+      "destination": "/game-dev",
+      "permanent": false
+    },
     {
       "source": "/cv/bar-bougie/",
       "destination": "/cv/bar-bougie",
@@ -1334,14 +1363,8 @@
     {
       "source": "/admin/:path*",
       "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "private, no-store"
-        }
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" },
+        { "key": "Cache-Control", "value": "private, no-store" }
       ]
     },
     {

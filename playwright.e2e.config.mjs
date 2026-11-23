@@ -1,6 +1,6 @@
 import {defineConfig} from '@playwright/test';
 
-const baseURL = 'http://127.0.0.1:4184';
+const baseURL = `http://127.0.0.1:${process.env.E2E_PORT || 4184}`;
 export default defineConfig({
   testDir: './tests/e2e',
   outputDir: 'test-results/launch-e2e',
