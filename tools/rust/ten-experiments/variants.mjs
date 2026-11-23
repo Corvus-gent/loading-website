@@ -39,6 +39,10 @@ export async function prepareVariants(root, {esbuildPath='/tmp/corvus-perf-tools
   records.push({mode:'10-combined',kind:'footer-logo',url:prefix+'/footer-logo.png',bytes:bytes.length,sha256:hash(bytes),source:'logo.png',displayWidth:28,displayHeight:28,pixelDensity:3});
  }
  const footerLogo=html=>html.replace(/<img\b[^>]*>/gi,tag=>{const a=attributes(tag);return a.src==='/logo.png'&&a.width==='28'&&a.height==='28'?tag.replace('/logo.png',prefix+'/footer-logo.png'):tag;});
+ // The existing bar is 36px at the tested widths. Reserve that same space in
+ // HTML; the unchanged language renderer fills this node with the chosen locale.
+ // This neither hides the heading nor marks controls ready before they work.
+ const languageSlot=html=>/<(?:nav|div)\b[^>]*\bid=["']lang-switcher["']/i.test(html)?html:html.replace(/<body\b[^>]*>/i,tag=>tag+'<nav id="lang-switcher" class="lang-switcher" data-site-languages style="min-height:36px" aria-label="Language"></nav>');
  const overlay=(mode,source)=>directoryOverlay(source,{inline:mode==='07-inline-directory'||mode==='10-combined'&&combined.includes('directory'),parallel:mode==='08-parallel-api'||mode==='10-combined'&&combined.includes('parallel')});
  const assetTransform=mode=>(body,url)=>url==='/js/site/discovery.js'?overlay(mode,body.toString()):body;
  const plugin=(mode)=>({name:'same-origin-modules',setup(b){
@@ -60,6 +64,9 @@ export async function prepareVariants(root, {esbuildPath='/tmp/corvus-perf-tools
     source="import __experimentEnglish from '/js/locales/en.js';\n"+mustReplace(source,'const load = code => import(new URL(`/js/locales/${["hi","ta"].includes(code)?"en":code}.js`,location.origin).href).then(module => module.default);','const load = code => ["en","hi","ta"].includes(code)?Promise.resolve(__experimentEnglish):import(new URL(`/js/locales/${code}.js`,location.origin).href).then(module=>module.default);');
    }
    if(url.pathname==='/js/privacy-page.js')source=mustReplace(source,'import(`./privacy-locales/${getLang()}.js`)','import(new URL(`/js/privacy-locales/${getLang()}.js`,location.origin).href)');
+   if(mode==='10-combined'&&url.pathname==='/js/privacy-page.js'){
+    source="import __privacyEnglish from '/js/privacy-locales/en.js';\n"+mustReplace(source,'copy=(await import(new URL(`/js/privacy-locales/${getLang()}.js`,location.origin).href)).default','copy=await import(new URL(`/js/privacy-locales/${getLang()}.js`,location.origin).href).then(module=>module.default).catch(()=>__privacyEnglish)');
+   }
    return{contents:url.pathname==='/js/site/discovery.js'?overlay(mode,source):source,loader:'js'};
   });
  }});
@@ -110,6 +117,7 @@ export async function prepareVariants(root, {esbuildPath='/tmp/corvus-perf-tools
    }else{
     const combo=mode==='10-combined';
     if(combo&&combined.includes('footer-logo'))value=footerLogo(value);
+    if(combo&&combined.includes('stable-language'))value=languageSlot(value);
     if(mode==='07-inline-directory'||combo&&combined.includes('directory'))value=inject(value,`<script type="application/json" id="corvus-public-directory">${catalogue}</script>`);
     if(mode==='09-inline-css'||combo&&combined.includes('css'))value=await inlineCss(value);
     if(mode==='06-module-preload'||combo&&combined.includes('preload'))value=await preloadModules(value);

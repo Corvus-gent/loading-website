@@ -17,9 +17,11 @@ const server=await createPerformanceServer(fixture.root,v.engine,v.server);
 const results=[];
 try {
  for(const [name,type] of Object.entries({chromium,webkit})) {
+  if(process.env.FLOW_BROWSER&&process.env.FLOW_BROWSER!==name)continue;
   const browser=await type.launch();
   try {
    for(const width of [390,1440]) {
+    if(process.env.FLOW_WIDTH&&Number(process.env.FLOW_WIDTH)!==width)continue;
     const context=await browser.newContext({viewport:{width,height:844},isMobile:width===390,hasTouch:width===390,locale:'en-US',reducedMotion:'reduce'});
     await context.addCookies([{name:'corvus_realm',value:'1',url:server.origin}]);
     await context.addInitScript(()=>{localStorage.setItem('privacy-choice',JSON.stringify({choice:'deny'}));sessionStorage.setItem('twitch-disabled','1');});
@@ -34,7 +36,9 @@ try {
      submissions.push(body);
      await route.fulfill({status:fail?503:200,contentType:'application/json',body:JSON.stringify(fail?{error:'Please retry shortly.'}:{message:'Check your inbox.'})});
     });
-    const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));
+    const page=await context.newPage();
+    page.on('pageerror',e=>{errors.push(e.message);console.log('PAGE ERROR',name,width,page.url(),e.stack);});
+    page.on('requestfailed',r=>console.log('FAILED REQUEST',name,width,page.url(),r.url(),r.failure()?.errorText));
     await page.goto(server.origin+'/');
     await page.waitForFunction(()=>window.corvusDiscoveryReady&&document.querySelector('.site-search'));
     const form=page.locator('[data-newsletter]');
