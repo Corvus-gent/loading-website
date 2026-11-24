@@ -28,6 +28,18 @@ try{
   await page.goto(origin+'/build/rust/');await expect(page.locator('#readiness-chart .chart-row')).toHaveCount(3);
   await expect(page.locator('#timing-rows tr').first()).toContainText('6,553 ms');
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+  await expect(page.locator('#experiments')).toContainText('0.712 s');
+  await expect(page.locator('#experiments')).toContainText('1.060 s');
+  await expect(page.locator('#experiments')).toContainText('not a live-site speedup');
+  await page.locator('#ten-attempts summary').focus();await page.keyboard.press('Enter');
+  await expect(page.locator('#ten-attempts tbody tr')).toHaveCount(10);
+  await expect(page.locator('#ten-attempts thead')).toContainText('Lighthouse mobile');
+  await expect(page.locator('#ten-attempts thead')).toContainText('Lighthouse desktop');
+  await page.locator('#ten-attempts summary').press('Enter');
+  await page.locator('#experiment-title').evaluate(el=>el.scrollIntoView({block:'start'}));
+  await page.evaluate(()=>scrollBy(0,-90));
+  await page.screenshot({path:'test-results/migration-report/'+width+'-experiments.png'});
+  await page.evaluate(()=>scrollTo(0,0));
   await page.screenshot({path:'test-results/migration-report/'+width+'-hero.png'});
   await page.locator('#speed').scrollIntoViewIfNeeded();await page.screenshot({path:'test-results/migration-report/'+width+'-speed.png'});
   await expect(page.locator('#checkpoint')).toHaveValue(last.head);
@@ -59,6 +71,6 @@ try{
   assert.deepEqual(errors,[]);await context.close();
  }
  const offline=await browser.newContext();await offline.route('**/build/rust/data.json',r=>r.fulfill({status:503,body:'{}'}));const failed=await offline.newPage();await failed.goto(origin+'/build/rust/');for(const id of ['device','cache','checkpoint'])await expect(failed.locator('#'+id)).toBeDisabled();await expect(failed.locator('#timing-rows')).toContainText('6,553 ms');await expect(failed.locator('#comparison-note')).toContainText('verified mobile table remains');await offline.close();
- const nojs=await browser.newContext({javaScriptEnabled:false});const staticPage=await nojs.newPage();await staticPage.goto(origin+'/build/rust/');await expect(staticPage.locator('#timing-rows')).toContainText('6,553 ms');for(const id of ['device','cache','checkpoint'])await expect(staticPage.locator('#'+id)).toBeDisabled();await expect(staticPage.getByRole('link',{name:'Download article notes'})).toBeVisible();await nojs.close();
+ const nojs=await browser.newContext({javaScriptEnabled:false});const staticPage=await nojs.newPage();await staticPage.goto(origin+'/build/rust/');await expect(staticPage.locator('#timing-rows')).toContainText('6,553 ms');await expect(staticPage.locator('#experiments')).toContainText('0.712 s');for(const id of ['device','cache','checkpoint'])await expect(staticPage.locator('#'+id)).toBeDisabled();await expect(staticPage.getByRole('link',{name:'Download article notes'})).toBeVisible();await nojs.close();
  console.log('PASS full publish build, discovery, 390/1440 layout, recorded checkpoint comparisons and evidence links, keyboard/URL state, article download, navigation, no-JS and failed-data fallback; no console errors.');
 }finally{await browser.close();server.closeAllConnections();await new Promise(r=>server.close(r));await fixture.close();}

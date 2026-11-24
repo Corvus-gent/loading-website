@@ -49,6 +49,7 @@ output
 tools/migration-report/*
 !tools/migration-report/build.mjs
 !tools/migration-report/usage-schema.mjs
+!tools/migration-report/experiment-copy.mjs
 
 !tools/cv/build-bougie.mjs
 !tools/cv/build-bougie-pdf.py

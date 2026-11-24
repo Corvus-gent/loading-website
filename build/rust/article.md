@@ -1,10 +1,55 @@
 # Was the Corvus Rust rewrite worth it?
 
-Working evidence pack · 21 Nov 2026, 09:13 Paris time
+Working evidence pack · 24 Nov 2026, 10:08 Paris time
 
 ## Current answer
 
-The migration is in progress. Production has not switched. Functional-check status: passed at 5d582b70951a0cdc310806a8839a8d54819eeb19, but mobile interaction readiness is worse than the existing JavaScript client. Cost and ROI are not established. Do not publish an unqualified speedup or completion claim.
+The migration is in progress. Production has not switched. Functional-check status: passed at 5d582b70951a0cdc310806a8839a8d54819eeb19, while the all-WASM browser remains slower than JavaScript. The separate 23 November light-browser experiment has a measured local gain; it is not a production or native-server result. Cost and ROI are not established. Do not publish an unqualified speedup or completion claim.
+
+## 23 November: ten performance approaches
+
+The combined light browser reaches 0.712 s on mobile (0.708 s–0.717 s), about 52% faster than its paired JavaScript control. This is an English homepage lab result, not a live-site speedup or a Rust-server benchmark.
+
+| Browser candidate | Mobile ready, mean | Desktop ready, mean | Lighthouse mobile | Lighthouse desktop |
+|---|---|---|---|---|
+| Existing JavaScript | 1.478 s | 0.058 s | 99 | 99–100 |
+| Original Rust browser | 6.563 s | 0.106 s | 99 | 97–99 |
+| Smaller Rust + delivery changes | 3.090 s | 0.101 s | 90 | 99 |
+| Combined light browser | 0.712 s | 0.053 s | 100 | 100 |
+
+Twenty cold-context repetitions per candidate/device; existing controls must work. Lighthouse performance is a separate three-run audit using its own standard simulation; ranges are shown, not an all-category score. Mobile: 390×844, CPU 4×, 150 ms latency and 200 kB/s. Desktop: 1440×1000, unthrottled local network. The daily gate was already entered; analytics were refused. Dynamic collections were empty fixtures with 40 ms API delay. These are not physical-phone, full-production-data or serverless-cold results.
+
+The smaller Rust/WASM browser still misses the target. Cold map takes 0.882 s mobile. Fully translated Dutch/French also remain above 0.8 s, even with earlier selected-language loading. English Lighthouse 100 does not certify every locale or route. A Rust-server/light-browser architecture is a recommendation to evaluate; the migration is not complete.
+
+| Fully translated home | Mobile JS control | Mobile candidate | Desktop candidate | Lighthouse mobile / desktop |
+|---|---|---|---|---|
+| Dutch | 2.794 s | 1.060 s | 0.072 s | 99–100 / 100 |
+| French | 2.845 s | 1.070 s | 0.074 s | 99–100 / 100 |
+
+### Every attempt
+
+Attempts 1–4 compare with the original Rust browser; 5–9 compare with existing JavaScript. These are independent three-run medians. Attempt 10 uses the 20-run confirmation median. Do not add the gains together. Later compile-time splitting and CSS refinements are described in the outcomes and linked report.
+
+| Attempt | Mobile ready | Desktop ready | Lighthouse mobile | Lighthouse desktop | Outcome |
+|---|---|---|---|---|---|
+| 1. Compile Rust for size | 6.380 s | 0.116 s | 78–99 | 97–98 | Small improvement; insufficient for the mobile target. |
+| 2. Precompute stronger compression | 5.815 s | 0.113 s | 80–99 | 99–100 | Useful improvement; keep compression off the request path. |
+| 3. Preload WASM | 6.497 s | 0.113 s | 78 | 96–97 | Little readiness gain and worse paint scores; rejected alone. |
+| 4. Split the Rust browser | 6.579 s | 0.112 s | 78–99 | 97–99 | Export pruning failed; a later compile-time split helps, but remains too slow. |
+| 5. Bundle the existing browser scripts | 1.282 s | 0.093 s | 99–100 | 99–100 | Useful mobile improvement without a new framework. |
+| 6. Discover critical modules earlier | 1.304 s | 0.099 s | 99 | 99–100 | Useful mobile improvement. |
+| 7. Include the public page catalogue | 1.383 s | 0.086 s | 99 | 99–100 | Modest home gain; the map benefits more. |
+| 8. Run independent API reads together | 1.476 s | 0.090 s | 99 | 100 | Map improves; fixes the observed old-document refresh failure. |
+| 9. Inline existing CSS | 1.567 s | 0.088 s | 99–100 | 99–100 | Earlier paint, later controls; rejected alone and refined in the combination. |
+| 10. Combine the useful changes | 0.712 s | 0.053 s | 100 | 100 | English homepage target passes locally; map and full translations still miss it. |
+
+After 2.5 s of reading, mobile next-page readiness improves from 0.587 s to 0.357 s with bounded prediction. An early click is 0.588 s / 0.590 s without/with prediction. A wrong turn is 0.843 s / 0.842 s. Unused or wrong predictions download 47,097 extra asset bytes, plus predictor overhead. The cold-home win does not depend on warming another page. No real-user hit rate is known.
+
+1,256 timing attempts and 162 Lighthouse audits are retained. 12 early timing failures belong to the rejected incomplete Rust shell. Earlier functional failures remain in the source report; the corrected candidate passed Chromium/WebKit mobile and desktop flows. Final source commit, test outcomes and all failed attempts remain auditable.
+
+The source-code ledger below remains paired with its original measured commit. These new browser experiments do not measure additional billed cost or native-server performance.
+
+[Full experiment report](https://github.com/Corvus-gent/loading-website/blob/01739b7142fdbc2f78836685470d887f57657828/docs/rust-migration/evidence/2026-11-23-ten-experiments.md) · [All samples and settings](https://github.com/Corvus-gent/loading-website/blob/01739b7142fdbc2f78836685470d887f57657828/docs/rust-migration/evidence/2026-11-23-ten-experiments.json)
 
 ## The real starting stack
 
@@ -19,7 +64,7 @@ Aligned main baseline: 505de1997d79db19b7f61f335856b1cb8882d38a. Measured migrat
 - Compressed Rust bundle: 1265266 → 681962 bytes, 46.1% smaller than the earlier Rust bundle. This is not a website speedup.
 - 9621 route comparisons; 72/72 measured interactions succeeded.
 
-## Mobile first-visit readiness (median ms)
+## Earlier paired mobile readiness (median ms)
 
 | Page | Current JS | Rust |
 |---|---:|---:|
@@ -36,7 +81,7 @@ Three repeats, 390×844, CPU4×,150ms latency,1.6Mbps download, fixed40ms API fi
 | 20 Nov 2026 · full · d47c48b | 1,265,266 | 1,475 | 9,531 |
 | 21 Nov 2026 · core · 5d582b7 | 681,962 | 1,468 | 6,553 |
 
-These are separate exploratory builds, each with its own JavaScript comparator. The newer Rust build improves on the earlier Rust build but still takes longer than its paired JavaScript baseline. This is not an isolated causal test of bundle size, a production speedup or a new measurement today. The page lets readers select either recorded checkpoint, including its original evidence links.
+These are separate exploratory builds, each with its own JavaScript comparator. The newer Rust build improves on the earlier Rust build but still takes longer than its paired JavaScript baseline. This is not an isolated causal test of bundle size, a production speedup. The separate dated architecture experiment above must not be confused with this earlier code-ledger comparison. The page lets readers select either recorded checkpoint, including its original evidence links.
 
 ## Usage and money
 
@@ -56,7 +101,7 @@ Browser warm-cache results, AI prompt cache and application/CDN caching are sepa
 
 | Spec | Status | What we know | Evidence still needed |
 |---|---|---|---|
-| Browser readiness & paint | Measured locally | Paired JS/Rust samples, same pages and fixtures; the current mobile readiness result is a regression. | At least 20 paired runs per condition for a release comparison; field data after a controlled rollout. |
+| Browser readiness & paint | Measured locally | The all-WASM browser regresses. The 23 November light-browser candidate improves English home locally; full translations and cold map still miss 0.8 s. | Twenty English-home repetitions now exist for the separate candidate comparison. Current-main, real-data and physical-phone checks, other routes and a controlled rollout remain. |
 | API latency: p50 / p95 / p99 | Not measured | The browser lab uses fixed 40 ms API fixtures, not deployed server latency. | Identical requests, payloads, region and load; report sample count, errors and cached versus uncached paths. |
 | Function cold starts | Not measured | A fresh browser context is not a cold Vercel function. | Record genuinely observed cold invocations separately from warm ones. |
 | CPU, memory & throughput | Not measured | Native Rust may help; this project has no comparative measurements yet. | Same workload and resource allocation; CPU time, peak memory, successful requests/second and errors. |
@@ -101,5 +146,5 @@ Browser warm-cache results, AI prompt cache and application/CDN caching are sepa
 - [Vercel Rust runtime (Beta)](https://vercel.com/docs/functions/runtimes/rust)
 - [Vercel Runtime Cache: regional cache, TTLs and tags](https://vercel.com/docs/runtime-cache)
 - [OpenAI usage and credit pricing](https://learn.chatgpt.com/docs/pricing)
-- [Raw benchmark](https://github.com/Corvus-gent/loading-website/blob/eb87ca9f1cba9b177f9a42cc168691a5d0ec5ef0/docs/rust-migration/evidence/2026-11-21-5d582b7-browser.json)
-- [Per-file source ledger](https://github.com/Corvus-gent/loading-website/blob/eb87ca9f1cba9b177f9a42cc168691a5d0ec5ef0/docs/rust-migration/evidence/2026-11-21-5d582b7-source.json)
+- [Raw benchmark](https://github.com/Corvus-gent/loading-website/blob/01739b7142fdbc2f78836685470d887f57657828/docs/rust-migration/evidence/2026-11-21-5d582b7-browser.json)
+- [Per-file source ledger](https://github.com/Corvus-gent/loading-website/blob/01739b7142fdbc2f78836685470d887f57657828/docs/rust-migration/evidence/2026-11-21-5d582b7-source.json)

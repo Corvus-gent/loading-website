@@ -39,6 +39,7 @@ jobs:
       - name: Rust report facts, attribution and generated article
         run: |
           node tests/migration-report.mjs
+          node tests/migration-experiments.mjs
           python3 tests/migration-usage.py
           node tools/migration-report/build.mjs
           git diff --exit-code -- build/rust/index.html build/rust/article.md

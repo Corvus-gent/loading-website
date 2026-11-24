@@ -3,6 +3,7 @@ import {execFileSync} from 'node:child_process';
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import path from 'node:path';
 import {publicUsage} from './usage-schema.mjs';
+import {publicExperiments} from './experiments.mjs';
 const args=Object.fromEntries(process.argv.slice(2).map(v=>v.split(/=(.*)/s).slice(0,2)));
 const repo=args['--repo']||process.cwd(),ref=args['--ref']||'codex/rust-migration';
 const git=(...a)=>execFileSync('git',a,{cwd:repo,encoding:'utf8',maxBuffer:16*1024*1024});
@@ -16,6 +17,8 @@ for(const {report:r} of records){
  if(r.workingTreeDirty||r.head!==r.headAfter||r.head!==r.wasmBuiltFromHead||r.wasmChangedDuringRun||r.samples.some(s=>s.error))throw Error('Unverified measurement provenance');
 }
 const latest=records.at(-1),sourceFile=latest.file.replace('-browser.json','-source.json'),source=json(sourceFile);
+const experimentFile=files.filter(f=>f.endsWith('-ten-experiments.json')).sort().at(-1);
+const experiments=experimentFile?publicExperiments(json(experimentFile),refSha,experimentFile):null;
 if(source.head!==latest.report.head)throw Error('Source/measurement head mismatch');
 const usagePath=args['--usage'];
 const old=await readFile('build/rust/data.json','utf8').then(JSON.parse).catch(()=>null);
@@ -38,7 +41,7 @@ const snapshot={
  version:1,published:new Date().toISOString(),sourceRef:ref,sourceHead:refSha,measuredHead:source.head,
  status:'in-progress',productionMigrated:false,
  code:{base:source.integrationBase,head:source.head,commits,groups:source.migration.groups,added:source.migration.added,removed:source.migration.removed,files:source.migration.files.length,method:source.method,caveat:source.caveat,before:source.base.sourceLines,after:source.current.sourceLines,evidence:evidenceBase+sourceFile},
- usage,measurements,
+ usage,measurements,experiments,
  checks:{...confirmedChecks,measuredInteractions:latest.report.samples.length,failedInteractions:latest.report.samples.filter(s=>s.error).length,scope:'CI evidence belongs only to the recorded implementation commit. Not a full migration or performance pass.'},
  pending:['Mobile interaction readiness must match or beat the existing app.','Complete remaining runtime modules, publishing, hydration and failure behavior.','Verify real isolated uploads, provider access and regional recovery.','Measure deployed API p50/p95/p99, cold starts, CPU, memory, cache hit rates and cost.','Reconcile production, crawl every route, test protected flows and rehearse rollback.'],
  sources:[
