@@ -3,7 +3,8 @@ import {createHash} from 'node:crypto';
 import assert from 'node:assert/strict';
 const html=readFileSync('corgi/index.html','utf8');
 const letter=html.split('<body>')[1].split('<script>')[0]
-  .replace('<p><a href="/corgi/gallery">Field notes: photos from SF, New York &amp; London →</a></p>','')
+  .replace(/<aside class="corgi-travel-strip"[\s\S]*?<\/aside>/,'')
+  .replace('<p class="corgi-photo-link"><a href="/corgi/gallery">See the photos: three Corgi cafés, with dates →</a></p>','')
   .replace(/<p class="colophon">[\s\S]*?<\/p>/,'')
   .replace(/<aside class="secret-note"[\s\S]*?<\/aside>/,'')
   .replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim();
