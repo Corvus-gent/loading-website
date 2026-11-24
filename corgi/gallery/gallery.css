@@ -17,3 +17,7 @@ dialog form{text-align:right;margin:0 0 8px}dialog img{display:block;margin:auto
 button{font:inherit;padding:6px 10px;color:var(--ink);background:#422d25;border:1px solid #936451;cursor:pointer}
 @media(min-width:650px){.grid,.cards{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(min-width:1050px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
+.ferry-countdown{margin:12px 0;color:var(--ink);font-size:.875rem;line-height:1.4}
+.ferry-countdown p{margin:0 0 4px}
+.ferry-digits{color:var(--red);font-family:monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
