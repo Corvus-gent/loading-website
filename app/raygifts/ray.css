@@ -53,8 +53,8 @@ h3 { font-size: clamp(1.45rem, 4vw, 2rem); }
 .pencil { width: 108px; height: 14px; }
 .pick { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .pick select { max-width: 100%; }
-.pick label:not(.single) { display: grid; gap: 4px; }
-.single, .visually-hidden { position: absolute; width: 1px; height: 1px; clip-path: inset(50%); overflow: hidden; white-space: nowrap; }
+.pick label { display: grid; gap: 4px; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; clip-path: inset(50%); overflow: hidden; white-space: nowrap; }
 .price { font: .875rem var(--mono); border-left: 3px solid var(--ember); padding: 4px 8px; }
 .trust { background: var(--plum); color: var(--cream); }
 .night { position: relative; isolation: isolate; background: var(--night-sky); color: var(--cream); min-height: 100svh; display: grid; align-items: center; }

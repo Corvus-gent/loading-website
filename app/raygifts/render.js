@@ -32,8 +32,9 @@ export function card(product, currency, detail = false) {
   return `<article class="flyer${detail ? ' detail' : ''}">
     ${source ? `<img src="${escape(source.href)}" width="${image.width}" height="${image.height}" ${detail ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async" alt="${escape(image.alt || name)}">` : ''}
     <div class="flyer-copy">${heading}${pencil}<p>${escape(moment)}</p>
-    ${picks.length ? `<form class="pick" data-add><label class="${picks.length === 1 ? 'single' : ''}"><span>Option</span><select name="variant">${options}</select></label>
-      ${picks.length === 1 ? `<span class="price">${prices.format(picks[0].price)}</span>` : ''}
+    ${picks.length ? `<form class="pick" data-add>${picks.length === 1
+      ? `<input type="hidden" name="variant" value="${picks[0].id}"><span class="price">${prices.format(picks[0].price)}</span>`
+      : `<label><span>Option</span><select name="variant">${options}</select></label>`}
       <button type="submit">Add to bag</button></form>` : '<p>Sold out</p>'}</div>
   </article>`;
 }
