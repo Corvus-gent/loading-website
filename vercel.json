@@ -420,6 +420,18 @@
   ],
   "rewrites": [
     {
+      "source": "/raygifts/share.png",
+      "destination": "/app/raygifts/share.png"
+    },
+    {
+      "source": "/raygifts",
+      "destination": "/api/raygifts"
+    },
+    {
+      "source": "/raygifts/:handle",
+      "destination": "/api/raygifts?handle=:handle"
+    },
+    {
       "source": "/yogipower",
       "destination": "/clients/yogipower/index.html"
     },
