@@ -2,3 +2,5 @@ User-agent: *
 Disallow: /project-cto
 Disallow: /api/project-cto
 Disallow: /api/_openrisk
+
+Sitemap: https://corvus.gent/sitemap.xml
