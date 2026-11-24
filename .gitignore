@@ -36,3 +36,5 @@ tests/results/
 
 # Optional WebGPU browser bundle built by build-all.
 /public/site/hall-shader.js
+
+/app/raygifts/client.js

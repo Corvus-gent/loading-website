@@ -420,6 +420,18 @@
   ],
   "rewrites": [
     {
+      "source": "/raygifts/share.png",
+      "destination": "/api/raygifts?handle=share.png"
+    },
+    {
+      "source": "/raygifts",
+      "destination": "/api/raygifts"
+    },
+    {
+      "source": "/raygifts/:handle",
+      "destination": "/api/raygifts?handle=:handle"
+    },
+    {
       "source": "/yogipower",
       "destination": "/clients/yogipower/index.html"
     },
@@ -1114,6 +1126,9 @@
     },
     "api/forms.js": {
       "maxDuration": 60
+    },
+    "api/raygifts.js": {
+      "includeFiles": "app/raygifts/{share.png,ray.css}"
     }
   },
   "headers": [
