@@ -11,7 +11,7 @@ export default async function handler(req, res) {
     return res.status(405).end();
   }
   const handle = typeof req.query.handle === 'string' ? req.query.handle : '';
-  const mode = handle === 'quiz' || handle === 'box' ? handle : 'home';
+  const mode = handle === 'quiz' || handle === 'box' || handle === 'scan' ? handle : 'home';
   const result = resultCode(req.query.r);
   const path = handle ? '/' + encodeURIComponent(handle) : '';
   try {

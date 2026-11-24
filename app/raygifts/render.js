@@ -42,9 +42,10 @@ export function card(product, currency, detail = false) {
 export function render({ products, currency, product, missing, unavailable, path = '', mode = 'home', result = '' }) {
   const box = mode === 'box';
   const quiz = mode === 'quiz';
-  const landing = !product && !missing && !box && !quiz;
+  const scan = mode === 'scan';
+  const landing = !product && !missing && !box && !quiz && !scan;
   const pageTitle = product ? `${product.name} · Ray` : missing ? 'Gift not found · Ray'
-    : quiz ? resultTitle(result) + ' · Ray' : box ? 'Build a gift box · Ray' : title;
+    : scan ? 'Quiet-hour scan · Ray' : quiz ? resultTitle(result) + ' · Ray' : box ? 'Build a gift box · Ray' : title;
   const productImage = product?.images[0]?.src;
   const canonical = 'https://corvus.gent/raygifts' + path + (result ? '?r=' + result : '');
   const shareImage = result ? 'https://corvus.gent/raygifts/share.png?r=' + result : 'https://corvus.gent/raygifts/share.png';
@@ -71,10 +72,12 @@ export function render({ products, currency, product, missing, unavailable, path
     <header class="shell"><a class="mark" href="/raygifts" aria-label="Ray home">Ray<span aria-hidden="true"></span></a><nav aria-label="Ray"><a href="/raygifts#gifts">Gifts</a><a href="/raygifts/quiz">Quiz</a><a href="/raygifts/box">Box</a><a href="#bag">Bag <span id="bag-count">0</span></a></nav><button id="lights" type="button" role="switch" aria-label="Night mode" aria-checked="false"><span class="cord" aria-hidden="true"></span><span>Lights off</span></button></header>
     <main id="main">${product ? `<section class="room">${card(product, currency, true)}</section>`
     : missing ? '<section class="room"><h1>This gift has gone quiet.</h1><a href="/raygifts#gifts">See all gifts</a></section>'
+    : scan ? `<section class="room quiet-room"><p class="eyebrow">A 20-second check-in</p><h1>How’s your quiet hour?</h1>
+      <p>A playful wellness scan that stays on your phone.</p><div id="ray-feature"></div><noscript><p>Enable JavaScript to use the scan.</p></noscript></section>`
     : quiz || box ? `<section class="room quiet-room"><p class="eyebrow">Gifts for the quiet hour</p><h1>${quiz ? 'Find your ritual.' : 'Give someone a good night.'}</h1>
       ${box ? '<p>Choose three things for their quiet hour. Tap a gift or drag it into the box.</p>' : ''}
       <div id="ray-feature"></div><noscript><p>Enable JavaScript to use this tool.</p></noscript></section>`
-    : `<section class="hero room"><p class="eyebrow reveal">Gifts for the quiet hour</p><h1><span class="reveal">Put the day</span><span class="reveal">down.</span></h1><p class="reveal">Small gifts for the hour when the world can wait.</p><a class="action reveal" href="#gifts">Come in</a>
+    : `<section class="hero room"><p class="eyebrow reveal">Gifts for the quiet hour</p><h1><span class="reveal">Put the day</span><span class="reveal">down.</span></h1><p class="reveal">Small gifts for the hour when the world can wait.</p><span class="inline reveal"><a class="action" href="#gifts">Come in</a><a class="action lit" href="/raygifts/scan">Try the 20s scan</a></span>
       <div class="horizon" aria-hidden="true"><div class="sun"></div></div></section>
     <section class="room" id="gifts"><p class="eyebrow">The gift shelf</p><h2>Give someone a good night.</h2>
       ${unavailable ? `<p>The shelf is taking a moment. <a href="${store}">Visit the Shopify store</a>.</p>` :

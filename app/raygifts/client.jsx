@@ -6,6 +6,7 @@ import { availableChoices, calendarFile, nextBedtime, questions, recommendation,
 import { Pause, Sound, useAtmosphere } from './atmosphere.jsx';
 import { FaceCamera } from './face-camera.jsx';
 import { createFaceDetector } from './face-detector.js';
+import { Scan } from './scan.jsx';
 
 const { products, currency, mode, initialResult } = JSON.parse(document.querySelector('#ray-data').textContent);
 const choices = availableChoices(products);
@@ -236,7 +237,7 @@ function App() {
 
   return <>
     {feature && createPortal(
-      mode === 'quiz' ? <Quiz add={add} /> : mode === 'box' ? <Box add={add} /> : <Bedtime add={add} />,
+      mode === 'scan' ? <Scan products={products} currency={currency} /> : mode === 'quiz' ? <Quiz add={add} /> : mode === 'box' ? <Box add={add} /> : <Bedtime add={add} />,
       feature
     )}
     {document.querySelector('#ray-pause') && createPortal(

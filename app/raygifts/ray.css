@@ -134,3 +134,17 @@ button:disabled { text-decoration: line-through; cursor: default; }
 
 .camera-check { margin-top: 16px; }
 .camera-check video { display: block; width: min(100%, 26rem); margin-top: 8px; border-radius: 20px; }
+.scan-card { max-width: 36rem; display: grid; gap: 16px; }
+.scan-promises { padding-left: 1.2em; margin: 0; display: grid; gap: 8px; }
+.scan-photo { cursor: pointer; margin-top: 16px; }
+.scan-error, .scan-warning { margin: 0; padding: 8px 16px; border-radius: 6px; border: 1px solid var(--ember); }
+.scan-warning { border-color: var(--lantern); background: color-mix(in srgb, var(--lantern) 18%, transparent); }
+.scan-stage { position: relative; aspect-ratio: 3 / 4; max-height: 70svh; border-radius: 20px; overflow: hidden; background: var(--night-sky); }
+.scan-stage video, .scan-stage img { width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); display: block; }
+.scan-stage img { transform: none; }
+.scan-ring { position: absolute; inset: 8%; width: 84%; height: 84%; transform: rotate(-90deg); fill: none; stroke-width: 1.5; stroke: rgba(246,238,223,.35); }
+.scan-ring-fill { stroke: var(--lantern); stroke-linecap: round; transition: stroke-dashoffset .25s linear; }
+.scan-hint { position: absolute; left: 16px; right: 16px; bottom: 16px; margin: 0; padding: 8px 16px; border-radius: 6px; background: rgba(27,22,48,.72); color: #F6EEDF; text-align: center; }
+.scan-badge { display: inline-block; justify-self: start; padding: 4px 8px; border: 1px dashed currentColor; border-radius: 6px; }
+.scan-recs li { display: grid; gap: 4px; padding: 16px 0; border-bottom: 1px solid var(--hairline); }
+.scan-recs .lit { justify-self: start; margin-top: 8px; }
