@@ -36,3 +36,7 @@ button{font:inherit;padding:6px 10px;color:var(--ink);background:#422d25;border:
 .timeline li{position:relative;display:grid;gap:2px;padding:6px 0;border-block-start:1px solid #936451}
 .timeline li:not(:last-child)::after{content:"→";position:absolute;right:4px;top:6px;color:var(--red)}
 .timeline li span{color:#d8b9a8}
+
+.viewer-description{display:grid;gap:2px;font-size:.875rem}
+.viewer-description time,.viewer-description [data-viewer-count]{color:#d8b9a8;font-size:.8rem}
+.viewer-description [data-viewer-count]{font-variant-numeric:tabular-nums}
