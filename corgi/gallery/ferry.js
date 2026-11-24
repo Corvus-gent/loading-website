@@ -26,5 +26,20 @@
     setTimeout(tick, remaining % 1000 || 1000);
   }
 
+  function updateStories() {
+    const stories = document.querySelector('[data-stories]');
+    if (!stories) return;
+
+    const remaining = departure + 24 * 60 * 60 * 1000 - Date.now();
+    if (remaining > 0) {
+      setTimeout(updateStories, remaining);
+      return;
+    }
+
+    stories.querySelector('[data-stories-live]').hidden = true;
+    stories.querySelector('[data-stories-highlights]').hidden = false;
+  }
+
   tick();
+  updateStories();
 })();
