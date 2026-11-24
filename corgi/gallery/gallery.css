@@ -46,3 +46,6 @@ button{font:inherit;padding:6px 10px;color:var(--ink);background:#422d25;border:
 .city-dates,.timeline time,main time{font-variant-numeric:tabular-nums}
 
 figure a:focus-visible,.card:focus-visible{outline-offset:-3px}
+
+button{min-height:36px;border-color:#b78570}
+.stories-profile{display:inline-flex;align-items:center;min-height:28px}
