@@ -21,3 +21,13 @@ button{font:inherit;padding:6px 10px;color:var(--ink);background:#422d25;border:
 .ferry-countdown{margin:12px 0;color:var(--ink);font-size:.875rem;line-height:1.4}
 .ferry-countdown p{margin:0 0 4px}
 .ferry-digits{color:var(--red);font-family:monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+.stories{margin:16px 0;color:var(--ink);font-size:.875rem}
+.stories p{margin:0 0 6px}
+.stories-pill{display:inline-block;padding:2px 7px;border-radius:999px;background:#32221d;font-size:.75rem;font-weight:700}
+.stories-dot{color:var(--red);animation:stories-pulse 2s ease-in-out infinite}
+.stories-links{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
+.stories-button{padding:8px 12px;font-weight:700}
+.stories-profile{font-size:.8rem}
+@keyframes stories-pulse{50%{opacity:.45}}
+@media(prefers-reduced-motion:reduce){.stories-dot{animation:none}}
