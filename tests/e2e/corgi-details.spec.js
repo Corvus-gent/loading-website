@@ -20,10 +20,16 @@ test('Corgi language bar and Plura links', async ({page}) => {
   const bar = page.locator('#lang-switcher');
   await expect(bar).toBeVisible();
   await expect(bar.locator('[hreflang="nl"] [data-flag]').first()).toHaveCSS('background-image', /gradient/);
-  expect(await bar.evaluate(element =>
-    element === document.body.firstElementChild &&
-    Number(getComputedStyle(element).zIndex) > Number(getComputedStyle(document.querySelector('#glyphs')).zIndex)
-  )).toBe(true);
+  const strip = page.locator('.corgi-travel-strip');
+  await expect(strip.getByRole('link', {name: /field notes/i})).toHaveAttribute('href', '/corgi/gallery');
+  await expect(strip.locator('[data-ferry-digits]')).toHaveText(/^\d{2}:\d{2}:\d{2}$/);
+  expect(await bar.evaluate(element => {
+    const top = element.closest('.corgi-top');
+    const strip = top.querySelector('.corgi-travel-strip');
+    return top === document.body.firstElementChild &&
+      strip.getBoundingClientRect().bottom <= element.getBoundingClientRect().top &&
+      Number(getComputedStyle(top).zIndex) > Number(getComputedStyle(document.querySelector('#glyphs')).zIndex);
+  })).toBe(true);
   await bar.locator('[hreflang="nl"]').click();
   await expect(page).toHaveURL(/lang=nl/);
   await expect(bar.locator('[hreflang="nl"]')).toHaveAttribute('aria-current', 'true');
