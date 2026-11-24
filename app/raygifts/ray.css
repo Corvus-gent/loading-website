@@ -131,3 +131,6 @@ button:disabled { text-decoration: line-through; cursor: default; }
 @media (prefers-reduced-motion: reduce) {
   .breath { transform: none; }
 }
+
+.camera-check { margin-top: 16px; }
+.camera-check video { display: block; width: min(100%, 26rem); margin-top: 8px; border-radius: 20px; }

@@ -4,6 +4,8 @@ import { createRoot } from 'react-dom/client';
 import { permalink } from './catalog.js';
 import { availableChoices, calendarFile, nextBedtime, questions, recommendation, resultCode, resultTitle, timeline } from './ritual.js';
 import { Pause, Sound, useAtmosphere } from './atmosphere.jsx';
+import { FaceCamera } from './face-camera.jsx';
+import { createFaceDetector } from './face-detector.js';
 
 const { products, currency, mode, initialResult } = JSON.parse(document.querySelector('#ray-data').textContent);
 const choices = availableChoices(products);
@@ -237,7 +239,10 @@ function App() {
       mode === 'quiz' ? <Quiz add={add} /> : mode === 'box' ? <Box add={add} /> : <Bedtime add={add} />,
       feature
     )}
-    {document.querySelector('#ray-pause') && createPortal(<Pause />, document.querySelector('#ray-pause'))}
+    {document.querySelector('#ray-pause') && createPortal(
+      <><Pause />{createFaceDetector && <FaceCamera createDetector={createFaceDetector} />}</>,
+      document.querySelector('#ray-pause')
+    )}
     {document.querySelector('#ray-sound') && createPortal(<Sound />, document.querySelector('#ray-sound'))}
     <div className="cart" aria-label="Bag contents">
       {count ? <>
