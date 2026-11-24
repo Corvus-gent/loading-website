@@ -78,7 +78,8 @@ h3 { font-size: clamp(1.45rem, 4vw, 2rem); }
 .skip:focus { transform: none; }
 .hero { min-height: max(31rem, calc(100svh - 61px)); }
 .hero h1 span { display: block; }
-.hero h1 span:first-child { animation-delay: .15s; }
+.hero h1 span:first-child { animation: first-line .7s ease-out both; }
+@keyframes first-line { from { transform: translateY(12px); } }
 .hero h1 span:last-child { animation-delay: .35s; }
 .hero p:nth-of-type(2) { animation-delay: .55s; }
 .hero .action { animation-delay: .7s; }
