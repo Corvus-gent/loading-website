@@ -19,7 +19,7 @@ if (!document.body.hasAttribute('data-realm-gate') && (existingBar || document.b
   const labelBar = () => bar.setAttribute('aria-label', names[getLang()] ?? names.en);
   labelBar();
   window.addEventListener('corvus-language-change', labelBar);
-  if (!bar.hasAttribute('data-keep-position')) document.body.prepend(bar);
+  document.body.prepend(bar);
 }
 
 applyI18n();
