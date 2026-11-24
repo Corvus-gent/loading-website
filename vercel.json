@@ -421,7 +421,7 @@
   "rewrites": [
     {
       "source": "/raygifts/share.png",
-      "destination": "/app/raygifts/share.png"
+      "destination": "/api/raygifts?handle=share.png"
     },
     {
       "source": "/raygifts",
@@ -1126,6 +1126,9 @@
     },
     "api/forms.js": {
       "maxDuration": 60
+    },
+    "api/raygifts.js": {
+      "includeFiles": "app/raygifts/{share.png,ray.css}"
     }
   },
   "headers": [

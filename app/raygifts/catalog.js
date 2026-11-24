@@ -8,18 +8,21 @@ function cleanTitle(value) {
 
 export async function catalog() {
   const options = { signal: AbortSignal.timeout(6000) };
+  const pageSize = 250;
+  const feedUrl = store + '/products.json?limit=' + pageSize;
   const [feed, cart] = await Promise.all([
-    fetch(store + '/products.json', options),
+    fetch(feedUrl, options),
     fetch(store + '/cart.js', options),
   ]);
   if (!feed.ok || !cart.ok) throw new Error('Shopify catalogue unavailable');
   const [{ products }, { currency }] = await Promise.all([feed.json(), cart.json()]);
   if (!Array.isArray(products) || !/^[A-Z]{3}$/.test(currency)) throw new Error('Invalid Shopify catalogue');
-  for (let page = 2; products.length >= (page - 1) * 30; page++) {
-    const response = await fetch(store + '/products.json?page=' + page, options);
+  for (let page = 2; products.length === (page - 1) * pageSize; page++) {
+    const response = await fetch(feedUrl + '&page=' + page, options);
     if (!response.ok) throw new Error('Shopify catalogue page unavailable');
     const next = (await response.json()).products;
-    if (!next.length) break;
+    if (!Array.isArray(next)) throw new Error('Invalid Shopify catalogue page');
+    if (!next.length || next[0].id === products[0].id) break;
     products.push(...next);
   }
   const byTitle = new Map();
@@ -37,6 +40,9 @@ export async function catalog() {
     const key = name.toLowerCase();
     const existing = byTitle.get(key);
     if (!existing || (!existing.variants.some(variant => variant.available) && item.variants.some(variant => variant.available))) byTitle.set(key, item);
+  }
+  for (const [handle, product] of byHandle) {
+    byHandle.set(handle, byTitle.get(product.name.toLowerCase()));
   }
   return { currency, products: [...byTitle.values()], byHandle };
 }

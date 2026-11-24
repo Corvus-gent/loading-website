@@ -20,3 +20,6 @@ execFileSync("node", ["tools/philosophy/build.mjs"], {stdio:'inherit'});
 
 // Inline Hackers Bay landing styles into its static deployment output.
 execFileSync("node", ["lib/hackersbay/build-landing.js"], {stdio:'inherit'});
+
+// Bundle the isolated Ray storefront interactions without changing site chrome.
+execFileSync("node", ["app/raygifts/build.mjs"], {stdio:'inherit'});
