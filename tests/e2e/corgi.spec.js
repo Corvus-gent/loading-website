@@ -18,8 +18,8 @@ test('Corgi source integrity, responsive screenshots and private chrome',async({
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   const reference=await context.newPage();
   await reference.clock.setFixedTime(new Date('2026-11-23T11:34:00Z'));
-  await reference.route('**/__corgi-reference',route=>route.fulfill({body:source,contentType:'text/html'}));
-  await reference.goto('/__corgi-reference');await reference.evaluate(()=>document.fonts.ready);await reference.waitForTimeout(2500);
+  await reference.route('**/corgi/',route=>route.fulfill({body:source,contentType:'text/html'}));
+  await reference.goto('/corgi/');await reference.evaluate(()=>document.fonts.ready);await reference.waitForTimeout(2500);
   for(const [name,selector] of [['hero','header'],['courier','.paper-wrap'],['seal','.seal']]){
     for(const tab of [page,reference]){await tab.locator(selector).scrollIntoViewIfNeeded();await tab.waitForTimeout(700);}
     const options={animations:'disabled',mask:await page.locator('canvas').all()};

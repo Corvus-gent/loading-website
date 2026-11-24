@@ -69,8 +69,8 @@ export function renderSwitcher(onChange) {
   const current = getLang();
   const names = new Intl.DisplayNames(current, { type: 'language' });
   box.innerHTML = "";
-  const arena = box.matches?.(".arena > [data-site-languages]") ?? false;
-  const languages = arena ? Object.keys(flags).map(code => LANGS.find(([lang]) => lang === code)) : LANGS;
+  const flagLetters = box.matches?.(".arena > [data-site-languages], [data-flag-languages]") ?? false;
+  const languages = flagLetters ? Object.keys(flags).map(code => LANGS.find(([lang]) => lang === code)) : LANGS;
   languages.forEach(([code, label]) => {
     const a = document.createElement("a");
     const url = new URL(location.href);
@@ -78,7 +78,7 @@ export function renderSwitcher(onChange) {
     a.href = url.href;
     a.hreflang = code;
     a.setAttribute('aria-label', names.of(code));
-    if (arena) {
+    if (flagLetters) {
       [...label].forEach((letter, index) => {
         const glyph = document.createElement('span');
         glyph.dataset.flag = flags[code][index];
@@ -114,7 +114,7 @@ export function renderSwitcher(onChange) {
   const stats = document.createElement("a");
   stats.href = location.hostname === 'stats.corvus.gent' ? 'https://corvus.gent/languages/' : '/languages/';
   stats.className = "stats";
-  if (arena) {
+  if (flagLetters) {
     const label = document.createElement('span');
     for (const [flag, text] of [
       ['spain', '· poly'], ['china', 'glot '], ['portugal', 'st'], ['france', 'ats'],

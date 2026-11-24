@@ -9,6 +9,9 @@ if (!document.body.hasAttribute('data-realm-gate') && (existingBar || document.b
   bar.id = 'lang-switcher';
   bar.classList.add('lang-switcher');
   bar.dataset.siteLanguages = '';
+  if (/^\/corgi(?:\/index\.html|\/)?$/.test(location.pathname)) {
+    bar.dataset.flagLanguages = '';
+  }
   const names = {
     en: 'Language', nl: 'Taal', es: 'Idioma', fr: 'Langue', pt: 'Idioma',
     de: 'Sprache', zh: '语言', hi: 'भाषा', ta: 'மொழி'
