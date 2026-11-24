@@ -35,10 +35,15 @@ if (dialog?.showModal && links.length) {
     button.addEventListener('click', () => show(index + Number(button.dataset.step)));
   });
   dialog.addEventListener('keydown', event => {
-    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
-      event.preventDefault();
-      show(index + (event.key === 'ArrowLeft' ? -1 : 1));
-    }
+    const positions = {
+      ArrowLeft: index - 1,
+      ArrowRight: index + 1,
+      Home: 0,
+      End: links.length - 1,
+    };
+    if (!Object.hasOwn(positions, event.key)) return;
+    event.preventDefault();
+    show(positions[event.key]);
   });
   image.addEventListener('pointerdown', event => {
     if (event.pointerType === 'touch') {
