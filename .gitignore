@@ -38,3 +38,7 @@ tests/results/
 /public/site/hall-shader.js
 
 /app/raygifts/client.js
+
+# Private leadhunter runtime snapshots and API Anything state
+.runtime/
+output/
