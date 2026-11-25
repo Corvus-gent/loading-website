@@ -8,7 +8,7 @@ Add a warm contact, specify budget/need and next action, review the single fixed
 
 ## Contract
 
-`lib/leads/schema.ts` is the exported v1 source of truth. `npm run build:leads` emits the shared Node/browser-compatible module into `api/_leads/model`; both collectors and API import that generated contract. Fields/status changes after merge require a new schema version, an explicit Redis/seed migration and compatibility fixtures. `data/warm-contacts.json` is an empty versioned seed, not a public contact database. Live edits use KV, avoiding commits for every sales update. Configured offer ranges and scopes live in `config/offers.json`.
+`lib/leads/schema.ts` is the exported v1 source of truth. `npm run build:leads` emits the shared Node/browser-compatible module into `api/_leads/model`; both collectors and API import that generated contract. Fields/status changes after merge require a new schema version, an explicit Redis/seed migration and compatibility fixtures. `data/warm-contacts.json` is an empty versioned seed, not a public contact database. Keep it empty in this public repository; real contacts belong only in KV. Live edits use KV, avoiding commits for every sales update. Configured offer ranges and scopes live in `config/offers.json`.
 
 ## Ranking
 
@@ -18,7 +18,7 @@ FX: Frankfurter's ECB-based latest EUR rates, read through API Anything; maximum
 
 ## Runner and schedule
 
-Node 22.13+: `npm ci --ignore-scripts`, `npm run build:leads`, then `npm exec -- leadhunter run` (or `node tools/leadhunter/bin/leadhunter.mjs run`). Optional `--publish` uploads the generated JSON snapshot with `LEADS_INGEST_TOKEN`. The same protected snapshot is served as `data.json`; it is kept as one private Redis value rather than a publicly downloadable file. Repeated runs dedupe stable IDs; expired public requests disappear after 24 hours. Warm contacts and edited statuses are separate and cannot be overwritten by ingestion.
+Node 22.13+: `npm ci --ignore-scripts`, `npm run build:leads`, then `node tools/leadhunter/bin/leadhunter.mjs run` (or `npm link --ignore-scripts` once, then `leadhunter run`). Optional `--publish` uploads the generated JSON snapshot with `LEADS_INGEST_TOKEN`. The same protected snapshot is served as `data.json`; it is kept as one private Redis value rather than a publicly downloadable file. Repeated runs dedupe stable IDs; expired public requests disappear after 24 hours. Warm contacts and edited statuses are separate and cannot be overwritten by ingestion.
 
 `.github/workflows/leadhunter-refresh.yml` runs every 15 minutes plus workflow_dispatch. GitHub scheduling is best effort. Two Places city/category queries rotate per run to bound cost; social pagination is capped and marked partial. No browser, CAPTCHA workaround or credential borrowing: API Anything 0.5.0 performs every external read at tier 1, call-only, no sharing/learning. On auth/block/rate errors stop that source and show status. Workflow failure preserves the prior snapshot; stale scans are labelled.
 
