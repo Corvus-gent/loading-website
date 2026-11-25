@@ -16,7 +16,9 @@ test('A native touch swipe scrolls the entrance instead of dragging its backgrou
   test.skip(browserName!=='chromium'||page.viewportSize().width>760,'Chromium touch gesture protocol');
   await page.goto('/?entry=mon');await expect(page.locator('body')).toHaveAttribute('data-entry-ready','true');
   const session=await page.context().newCDPSession(page);
-  await session.send('Input.synthesizeScrollGesture',{x:50,y:400,yDistance:-300,gestureSourceType:'touch',speed:500});
+  await session.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:20,y:560}]});
+  for(let y=520;y>=200;y-=40){await session.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:20,y}]});await page.waitForTimeout(20);}
+  await session.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
   await expect.poll(()=>page.evaluate(()=>scrollY)).toBeGreaterThan(0);
   const lantern=page.locator('#lantern'),b=await lantern.boundingBox(),x=b.x+b.width/2,y=b.y+b.height/2;
   await session.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x,y}]});
