@@ -14,6 +14,10 @@ const equal=(a,b)=>crypto.timingSafeEqual(hash(a),hash(b));
 const html=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function failureKind(error){const m=String(error?.message||'');if(/temporarily paused/i.test(m))return 'storage-maintenance';if(/encrypted transport/i.test(m))return 'storage-tls-required';if(/certificate|SSL|TLS/i.test(m))return 'storage-tls-error';if(/WRONGPASS|NOAUTH|NOPERM/i.test(m))return 'storage-auth-error';if(/timeout|timed out/i.test(m))return 'storage-timeout';return /^[A-Z_]{3,40}$/.test(error?.code||'')?error.code:'request-error';}
 export function safeFailureMessage(error,env){let message=String(error?.message||'');for(const raw of Object.values(env)){if(typeof raw!=='string'||raw.length<8)continue;message=message.replaceAll(raw,'[redacted]');try{const u=new URL(raw);if(u.password)message=message.replaceAll(u.password,'[redacted]');}catch{}}return message.replace(/(?:https?|rediss?):\/\/\S+/g,'[endpoint]').replace(/[A-Za-z0-9_-]{32,}/g,'[redacted]').slice(0,180);}
+// Browsers send `Origin: null` on POSTs from a page with a no-referrer policy (form logins included),
+// so an exact Origin match alone locked everyone out. Accept a matching Origin, or else the
+// browser-set Sec-Fetch-Site: same-origin. Anything cross-site or unlabelled stays blocked.
+export function sameOrigin(req){const o=req.headers.origin,site=req.headers['sec-fetch-site'];if(o&&o!=='null')return o===`https://${req.headers.host}`&&(!site||site==='same-origin');return site==='same-origin';}
 export function session(password,now=Date.now()){const token=`${now+12*3600000}.${crypto.randomBytes(16).toString('hex')}`;return token+'.'+crypto.createHmac('sha256','leadhunter:'+password).update(token).digest('hex');}
 export function authenticated(req,password,now=Date.now()){
  const value=String(req.headers.cookie||'').split(';').map(s=>s.trim()).find(s=>s.startsWith('leadhunter='))?.slice(11)||'';
@@ -34,7 +38,7 @@ export function createHandler({db=redis,env=process.env,clock=Date.now}={}) {
  row.outreach={body,subject:'Your website',url:cfg.cal&&cfg.revolut?draftLink(row.contact,row.contact_kind||'',body):'',ready:Boolean(cfg.cal&&cfg.revolut&&draftLink(row.contact,row.contact_kind||'',body)),missing:[!cfg.cal&&'CAL_LINK',!cfg.revolut&&'REVOLUT_LINK'].filter(Boolean)};
  row.offer_draft=cfg.revolut?draftLink(row.contact,row.contact_kind||'',row.offer.text):'';return row;}));return {...snap,schema_version:SCHEMA_VERSION,leads,config:cfg};}
  return async(req,res)=>{
-  res.setHeader('Cache-Control','private, no-store');res.setHeader('Vercel-CDN-Cache-Control','no-store');res.setHeader('X-Robots-Tag','noindex, nofollow, noarchive');res.setHeader('X-Content-Type-Options','nosniff');res.setHeader('Referrer-Policy','no-referrer');res.setHeader('X-Frame-Options','DENY');res.setHeader('Content-Security-Policy',"default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'; frame-ancestors 'none'");
+  res.setHeader('Cache-Control','private, no-store');res.setHeader('Vercel-CDN-Cache-Control','no-store');res.setHeader('X-Robots-Tag','noindex, nofollow, noarchive');res.setHeader('X-Content-Type-Options','nosniff');res.setHeader('Referrer-Policy','same-origin');res.setHeader('X-Frame-Options','DENY');res.setHeader('Content-Security-Policy',"default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'; frame-ancestors 'none'");
   const action=String(req.query?.leadsAction||'page'),method=req.method,password=env.LEADS_PASSWORD;
   const json=(code,data)=>res.status(code).json(data),send=(code,type,data)=>{res.setHeader('Content-Type',type+'; charset=utf-8');return res.status(code).send(data);};
   if(!password||password.length<16)return send(503,'text/html',login('Private access is being configured.'));
@@ -50,7 +54,7 @@ export function createHandler({db=redis,env=process.env,clock=Date.now}={}) {
     await db(['SET',KEY+'snapshot',JSON.stringify(next),'EX','108000']);return json(200,{ok:true,count:next.leads.length});
    }
    if(action==='login'&&method==='POST'){
-    const origin=req.headers.origin,host=req.headers.host;if(!origin||origin!==`https://${host}`)return json(403,{error:'Same-origin login required'});
+    if(!sameOrigin(req))return json(403,{error:'Same-origin login required'});
     const ip=String(req.headers['x-forwarded-for']||'unknown').split(',')[0];const key=KEY+'login:'+crypto.createHmac('sha256',password).update(ip).digest('hex');
     const count=Number(await db(['EVAL',"local n=redis.call('INCR',KEYS[1]); if n==1 then redis.call('EXPIRE',KEYS[1],900) end; return n",'1',key]));
     if(count>10)return send(429,'text/html',login('Too many attempts. Try again in 15 minutes.'));
@@ -66,7 +70,7 @@ export function createHandler({db=redis,env=process.env,clock=Date.now}={}) {
     return json(404,{error:'Not found'});
    }
    if(method!=='POST')return json(405,{error:'Method not allowed'});
-   if(req.headers.origin!==`https://${req.headers.host}`)return json(403,{error:'Same-origin request required'});
+   if(!sameOrigin(req))return json(403,{error:'Same-origin request required'});
    if(action==='logout'){res.setHeader('Set-Cookie',`leadhunter=; HttpOnly; Secure; SameSite=Strict; Path=${BASE}; Max-Age=0`);res.setHeader('Location',BASE);return res.status(303).end();}
    const input=body(req);
    if(action==='settings'){const config={cal:validHttps(input.cal),revolut:validHttps(input.revolut)};if((input.cal&&!config.cal)||(input.revolut&&!config.revolut))throw Error('Use full HTTPS links');await db(['SET',KEY+'settings',JSON.stringify(config)]);return json(200,{ok:true});}
