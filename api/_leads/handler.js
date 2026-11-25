@@ -12,6 +12,7 @@ const BASE='/scraper/fiverr-leads',KEY='leadhunter:v1:';
 const hash=s=>crypto.createHash('sha256').update(String(s)).digest();
 const equal=(a,b)=>crypto.timingSafeEqual(hash(a),hash(b));
 const html=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function failureKind(error){const m=String(error?.message||'');if(/temporarily paused/i.test(m))return 'storage-maintenance';if(/encrypted transport/i.test(m))return 'storage-tls-required';if(/certificate|SSL|TLS/i.test(m))return 'storage-tls-error';if(/WRONGPASS|NOAUTH|NOPERM/i.test(m))return 'storage-auth-error';if(/timeout|timed out/i.test(m))return 'storage-timeout';return /^[A-Z_]{3,40}$/.test(error?.code||'')?error.code:'request-error';}
 export function session(password,now=Date.now()){const token=`${now+12*3600000}.${crypto.randomBytes(16).toString('hex')}`;return token+'.'+crypto.createHmac('sha256','leadhunter:'+password).update(token).digest('hex');}
 export function authenticated(req,password,now=Date.now()){
  const value=String(req.headers.cookie||'').split(';').map(s=>s.trim()).find(s=>s.startsWith('leadhunter='))?.slice(11)||'';
@@ -85,7 +86,7 @@ export function createHandler({db=redis,env=process.env,clock=Date.now}={}) {
     return json(200,{ok:true,id:next.id});
    }
    return json(404,{error:'Not found'});
-  }catch(error){if(/Invalid|Name and|Budget|Use |Add an|Runner cannot|Payload/.test(error.message))return json(400,{error:error.message});console.error('leadhunter request failed',action,error.name);return json(503,{error:'Could not save or load right now. Your last saved data is unchanged.'});}
+  }catch(error){if(/Invalid|Name and|Budget|Use |Add an|Runner cannot|Payload/.test(error.message))return json(400,{error:error.message});console.error('leadhunter request failed',action,error.name,failureKind(error));return json(503,{error:'Could not save or load right now. Your last saved data is unchanged.'});}
  };
 }
 export default createHandler();
