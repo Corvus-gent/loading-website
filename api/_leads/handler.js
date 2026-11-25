@@ -14,10 +14,14 @@ const equal=(a,b)=>crypto.timingSafeEqual(hash(a),hash(b));
 const html=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function failureKind(error){const m=String(error?.message||'');if(/temporarily paused/i.test(m))return 'storage-maintenance';if(/encrypted transport/i.test(m))return 'storage-tls-required';if(/certificate|SSL|TLS/i.test(m))return 'storage-tls-error';if(/WRONGPASS|NOAUTH|NOPERM/i.test(m))return 'storage-auth-error';if(/timeout|timed out/i.test(m))return 'storage-timeout';return /^[A-Z_]{3,40}$/.test(error?.code||'')?error.code:'request-error';}
 export function safeFailureMessage(error,env){let message=String(error?.message||'');for(const raw of Object.values(env)){if(typeof raw!=='string'||raw.length<8)continue;message=message.replaceAll(raw,'[redacted]');try{const u=new URL(raw);if(u.password)message=message.replaceAll(u.password,'[redacted]');}catch{}}return message.replace(/(?:https?|rediss?):\/\/\S+/g,'[endpoint]').replace(/[A-Za-z0-9_-]{32,}/g,'[redacted]').slice(0,180);}
-// Browsers send `Origin: null` on POSTs from a page with a no-referrer policy (form logins included),
-// so an exact Origin match alone locked everyone out. Accept a matching Origin, or else the
-// browser-set Sec-Fetch-Site: same-origin. Anything cross-site or unlabelled stays blocked.
-export function sameOrigin(req){const o=req.headers.origin,site=req.headers['sec-fetch-site'];if(o&&o!=='null')return [req.headers.host,req.headers['x-forwarded-host']].filter(Boolean).some(h=>o===`https://${String(h).split(',')[0].trim()}`)&&(!site||site==='same-origin');return site==='same-origin';}
+// CSRF guard that only rejects requests that are provably cross-site. Real browsers (DuckDuckGo,
+// Safari, in-app webviews) send `Origin: null` under no-referrer pages and some omit Sec-Fetch-*,
+// so requiring an exact Origin locked Gabe out. Data-changing POSTs also need the SameSite=Strict
+// cookie, which cross-site requests never carry; login is rate-limited.
+export function sameOrigin(req){const o=req.headers.origin,site=req.headers['sec-fetch-site'];
+ if(site&&site!=='same-origin'&&site!=='none')return false;
+ if(!o||o==='null')return true;
+ return [req.headers.host,req.headers['x-forwarded-host']].filter(Boolean).some(h=>o===`https://${String(h).split(',')[0].trim()}`);}
 export function session(password,now=Date.now()){const token=`${now+12*3600000}.${crypto.randomBytes(16).toString('hex')}`;return token+'.'+crypto.createHmac('sha256','leadhunter:'+password).update(token).digest('hex');}
 export function authenticated(req,password,now=Date.now()){
  const value=String(req.headers.cookie||'').split(';').map(s=>s.trim()).find(s=>s.startsWith('leadhunter='))?.slice(11)||'';
