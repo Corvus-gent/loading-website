@@ -46,8 +46,8 @@ function light() {
   stage.dispatchEvent(new Event('entrylight'));
 }
 function place(nx, ny) {
-  x = Math.max(16, Math.min(innerWidth - 16, nx));
-  y = Math.max(16, Math.min(innerHeight - 16, ny));
+  x = Math.max(16, Math.min((window.visualViewport?.width||innerWidth) - 16, nx));
+  y = Math.max(16, Math.min((window.visualViewport?.height||innerHeight) - 16, ny));
   light();
 }
 function start() {
@@ -55,7 +55,7 @@ function start() {
   const box = scene.getBoundingClientRect();
   place(box.left + box.width * .306, box.top + box.height * .475);
 }
-function viewportSize(){stage.style.setProperty('--entry-height',`${Math.round(window.visualViewport?.height||innerHeight)}px`);light();}
+function viewportSize(){stage.style.setProperty('--entry-height',`${Math.round(window.visualViewport?.height||innerHeight)}px`);place(x,y);}
 viewportSize();start();
 addEventListener('resize',viewportSize);
 window.visualViewport?.addEventListener('resize',viewportSize);
