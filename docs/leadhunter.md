@@ -1,6 +1,6 @@
 # leadhunter
 
-Private dashboard: https://corvus.gent/scraper/fiverr-leads. Login uses `LEADS_PASSWORD` (minimum 16 characters), a signed 12-hour HttpOnly/Secure cookie, origin checks and login throttling. No navigation/search links. Both HTML and generated JSON are protected; robots disallows the route. The warm seed file is also behind authentication.
+Private dashboard: https://corvus.gent/scraper/fiverr-leads. Login uses `LEADS_PASSWORD` (minimum 16 characters), a signed 12-hour HttpOnly/Secure cookie, origin checks and login throttling. No navigation/search links. Both HTML and generated JSON are protected; robots disallows the route. Direct access to the warm seed file and private templates is blocked at the edge.
 
 ## Use
 
