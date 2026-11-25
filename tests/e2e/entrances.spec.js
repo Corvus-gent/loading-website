@@ -16,7 +16,8 @@ test.beforeEach(async ({page, baseURL}) => {
 test.afterEach(async ({page}) => { expect(page.__entranceErrors).toEqual([]); });
 
 for (const [i, day] of DAYS.entries()) test(`${day}: Brussels date, lazy scene, usable door and cookie`, async ({page, baseURL}, info) => {
-  const date = new Date(`2026-11-${23 + i}T12:00:00Z`);
+  // Cookie expiry uses the browser's wall clock, which Playwright does not mock.
+  const date = new Date(Date.UTC(2032,1,9+i,12));
   await page.clock.install({time: date}); await page.clock.setFixedTime(date);
   const loaded = [];
   page.on('request', r => { if (/\/entry-days\/(glyphs|ink|water|room|mirror|night)\.js/.test(r.url())) loaded.push(new URL(r.url()).pathname.split('/').pop()); });
