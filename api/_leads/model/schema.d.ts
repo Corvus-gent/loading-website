@@ -69,8 +69,6 @@ export interface Tier {
 }
 export declare function validHttps(value: unknown): string;
 export declare function validateLead(input: Partial<Lead>, now?: string): Lead;
-export declare function group(lead: Lead): number;
-export declare function rank(leads: Lead[]): Lead[];
 export declare function makeOffer(lead: Lead, tiers: Tier[], payLink?: string): Offer;
 export declare function canStartBuild(lead: Lead): boolean;
 export declare function draftLink(contact: string, kind: string, body: string, subject?: string): string;

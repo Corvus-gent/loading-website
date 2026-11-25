@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import {readFileSync} from 'node:fs';
 import {redis} from '../_redis.js';
-import {SCHEMA_VERSION,validateLead,rank,makeOffer,draftLink,validHttps} from './model/schema.js';
+import {SCHEMA_VERSION,validateLead,makeOffer,draftLink,validHttps} from './model/schema.js';
 import {assess,rankByValue} from './model/score.js';
 const PAGE=readFileSync(new URL('./page.html',import.meta.url),'utf8');
 const APP=readFileSync(new URL('./app.js',import.meta.url),'utf8');

@@ -48,7 +48,8 @@ export function assess(lead:Lead,tiers:Tier[],fx?:Fx,now=Date.now()):Assessment 
  if((e.past_hires||0)>0)trust+=5;if(e.payment_verified||(/\bpayment verified\b/i.test(text)&&! /\b(?:not|no) payment verified\b/i.test(text)))trust+=5;
  if(validBusiness(e.business_url))trust+=4;if(/^https:\/\/(?:www\.)?linkedin\.com\//i.test(e.linkedin_url||''))trust+=3;
  const fit=/\b(website|landing|web |page|shop|store|cms|app|saas|platform|seo|fix|section)\b/i.test(text)?10:3;
- const reach=(lead.contact?8:0)+(e.responded_in_thread?2:0),penalties=flags.reduce((n,x)=>n+x.penalty,0);
+ const reachable=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lead.contact)||/^\+?[1-9]\d{6,14}$/.test(lead.contact)||/^https:\/\/(?:www\.)?(?:x\.com|twitter\.com|reddit\.com|instagram\.com|linkedin\.com|wa\.me)\//.test(lead.contact)||(['reddit','x'].includes(lead.contact_kind||'')&&Boolean(lead.contact));
+ const reach=(reachable?8:0)+(e.responded_in_thread?2:0),penalties=flags.reduce((n,x)=>n+x.penalty,0);
  const breakdown={pay:bound(pay,30),urgency:bound(urgency,25),trust:bound(trust,25),fit:bound(fit,10),reachability:bound(reach,10),penalties};
  const score=bound(breakdown.pay+breakdown.urgency+breakdown.trust+breakdown.fit+breakdown.reachability-penalties,100);
  const rawClose=.04+.20*breakdown.urgency/25+.26*breakdown.trust/25+(lead.warm?.30:0);

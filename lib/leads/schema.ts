@@ -36,15 +36,6 @@ export function validateLead(input:Partial<Lead>,now=new Date().toISOString()):L
  const evidence:Record<string,unknown>={};for(const key of ['account_created_at','karma','followers','past_hires','payment_verified','business_url','linkedin_url','responded_in_thread','copy_paste_spam','origin_platform','hourly']){const v=input.evidence?.[key];if(['string','number','boolean'].includes(typeof v))evidence[key]=typeof v==='string'?plain(v,500):v;}
  return {evidence,id:input.id!,source:input.source!,name,contact,need,budget_min,budget_max,currency,urgency:input.urgency!,warm:input.warm===true||input.source==='warm',next_action:plain(input.next_action||'Review and open a draft',300),status:input.status!,offer:null,url:validHttps(input.url),snippet:plain(input.snippet,1400),score:Math.max(0,Math.min(100,Number(input.score)||0)),posted_at:input.posted_at&&Number.isFinite(Date.parse(input.posted_at))?new Date(input.posted_at).toISOString():null,first_seen_at:input.first_seen_at&&Number.isFinite(Date.parse(input.first_seen_at))?input.first_seen_at:now,expires_at:input.expires_at&&Number.isFinite(Date.parse(input.expires_at))?input.expires_at:undefined,updated_at:now,revision:Number.isInteger(input.revision)?input.revision:0,contact_kind:plain(input.contact_kind,20),handle:plain(input.handle,80),reasons:(input.reasons||[]).slice(0,5).map(x=>({label:plain(x.label,40),points:Number(x.points)||0})),note:plain(input.note,300),city:plain(input.city,80)};
 }
-export function group(lead:Lead):number {
- if(lead.warm)return 0;
- if(lead.source==='places')return 4;
- const urgent=lead.urgency==='urgent'||lead.urgency==='this_week';
- return urgent&&((lead.budget_max??lead.budget_min??0)>0)?1:urgent?2:3;
-}
-export function rank(leads:Lead[]):Lead[] {
- return [...leads].sort((a,b)=>group(a)-group(b)||(group(a)===1?(a.currency.localeCompare(b.currency)||(b.budget_max??b.budget_min??0)-(a.budget_max??a.budget_min??0)):0)||(b.score||0)-(a.score||0)||(Date.parse(b.posted_at||'')||0)-(Date.parse(a.posted_at||'')||0)||a.id.localeCompare(b.id));
-}
 export function makeOffer(lead:Lead,tiers:Tier[],payLink=''):Offer {
  const need=lead.need.toLowerCase();
  const target=/\b(app|platform|full custom|marketplace|saas)\b/.test(need)?4:/\b(shop|store|ecommerce|e-commerce|cms|custom design)\b/.test(need)?3:/\b(5 pages|multi.page|business website|company website)\b/.test(need)?2:/\b(fix|bug|section|broken|repair)\b/.test(need)?0:1;

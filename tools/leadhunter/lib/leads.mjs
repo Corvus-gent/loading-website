@@ -44,7 +44,8 @@ export function normalize(row,cfg,now=Date.now()) {
  if(business&&(!row.website_checked||row.website))return null;
  const email=row.email||text.match(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i)?.[0];
  const contact=contactFor({...row,email});
- const need=business?`a website for ${clean(row.name)}`:/landing page/i.test(text)?'a landing page':/web developer/i.test(text)?'a web developer':'a website';
+ let need=business?`a website for ${clean(row.name)}`:/landing page/i.test(text)?'a landing page':/web developer/i.test(text)?'a web developer':'a website';
+ if(!business){if(/\b(shop|store|ecommerce|e-commerce)\b/i.test(text))need='an online shop';else if(/\bCMS\b/.test(text))need='a website with a CMS';else if(/\b(app|saas|marketplace)\b/i.test(text))need='a custom app';else if(/\b(5 pages|multi.page|company website|business website)\b/i.test(text))need='a business website';else if(/\b(fix|broken|bug|repair)\b/i.test(text))need='a website fix';const businessType=text.match(/\b(bakery|salon|gym|restaurant|caf[eé]|plumbing business|photography business)\b/i)?.[0];if(businessType)need+=' for your '+businessType.toLowerCase();}
  const id=createHash('sha256').update(business?`place:${row.place_id}`:url.split('?')[0].replace(/\/$/,'')).digest('hex').slice(0,24);
  const result={id,source:row.source,url,name:clean(row.name||row.handle||'there').slice(0,100),handle:clean(row.handle).slice(0,80),need,snippet:text.slice(0,1400),posted_at:business?null:new Date(time).toISOString(),first_seen_at:new Date(now).toISOString(),expires_at:new Date(business?now+24*HOUR:time+24*HOUR).toISOString(),contact,city:clean(row.city),...scoreLead({text,posted_at:row.posted_at,contact},now)};
  if(business)result.note='No website listed; demand and urgency are unconfirmed.';
