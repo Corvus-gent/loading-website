@@ -2,5 +2,7 @@ User-agent: *
 Disallow: /project-cto
 Disallow: /api/project-cto
 Disallow: /api/_openrisk
+Disallow: /scraper
+Disallow: /api/leads
 
 Sitemap: https://corvus.gent/sitemap.xml

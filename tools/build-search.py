@@ -15,7 +15,7 @@ pages = []
 for f in sorted(glob.glob("**/index.html", recursive=True)):
     if f.split("/", 1)[0] not in PUBLIC_ROOTS and f not in PUBLIC_FILES: continue
     if f == "sf/larp/index.html": continue
-    if f.startswith(("clients/", "go/", "node_modules/", "music/admin/", "call/admin/", "plethora/admin/", "402/", "stats/private/", "stats/hunt/")): continue
+    if f.startswith(("clients/", "scraper/", "go/", "node_modules/", "music/admin/", "call/admin/", "plethora/admin/", "402/", "stats/private/", "stats/hunt/")): continue
     url = "/" + f[:-len("index.html")]
     if url == "/people/": url_title = "army · join the people"
     src = open(f, encoding="utf-8").read()

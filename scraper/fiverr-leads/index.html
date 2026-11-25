@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>Leads</title>
+<style>
+:root{color-scheme:dark;--bg:#0d0f12;--card:#161a20;--line:#262c35;--fg:#e8ebef;--mute:#8b94a1;--acc:#7cc4ff;--hot:#ff7a59;--ok:#5fd38d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.45 ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:920px;margin:0 auto;padding:20px 16px 80px}h1{font-size:20px;margin:0 0 14px}h2{font-size:15px;margin:0 0 10px;color:var(--mute);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+section{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:0 0 16px}
+input,textarea,select,button{font:inherit;color:inherit;background:#0f1216;border:1px solid var(--line);border-radius:8px;padding:9px 11px}
+textarea{width:100%;min-height:150px;resize:vertical}button{background:var(--acc);color:#04121f;border:0;font-weight:650;cursor:pointer}button.ghost{background:transparent;color:var(--fg);border:1px solid var(--line)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;margin:10px 0}.grid label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--mute)}
+.flag{color:var(--hot)}.draft{font-size:13px;color:var(--mute);margin:6px 0;padding:8px;border-left:2px solid var(--line)}.rank{font-weight:700;color:var(--acc);min-width:1.6em}
+.lead{border-top:1px solid var(--line);padding:12px 0}.lead:first-child{border-top:0}.meta{font-size:12px;color:var(--mute);display:flex;gap:10px;flex-wrap:wrap}.need{margin:6px 0;white-space:pre-wrap;word-break:break-word}
+.tag{font-size:11px;padding:2px 7px;border-radius:99px;border:1px solid var(--line)}.high{color:var(--hot);border-color:var(--hot)}.medium{color:#ffc65c;border-color:#ffc65c}.budget{color:var(--ok)}
+a{color:var(--acc)}.hidden{display:none!important}#msg{font-size:13px;color:var(--mute);min-height:1.2em}
+</style>
+</head>
+<body>
+<main>
+  <h1>Leads</h1>
+  <section id="gate">
+    <form id="login" class="row"><input id="pw" type="password" placeholder="Password" autocomplete="current-password" required><button>Open</button></form>
+  </section>
+
+  <div id="app" class="hidden">
+    <section>
+      <div class="row" style="justify-content:space-between;margin-bottom:6px"><h2 style="margin:0">Top 15 — contact now</h2><button class="ghost" id="md" type="button">top-leads.md</button></div>
+      <p class="meta">Drafts only — you click send. Score: pay 30 · urgency 25 · trust 25 · fit 10 · reach 10. Sorted by expected value.</p>
+      <div id="top"></div>
+    </section>
+    <section>
+      <h2>Paste Fiverr brief</h2>
+      <textarea id="brief" placeholder="Paste the raw Fiverr brief / buyer message here…"></textarea>
+      <div class="row" style="margin-top:8px"><button id="parse" type="button">Preview</button><span id="msg"></span></div>
+      <form id="preview" class="hidden">
+        <div class="grid">
+          <label>Name<input name="name"></label>
+          <label>Budget min<input name="budget_min" type="number" min="0"></label>
+          <label>Budget max<input name="budget_max" type="number" min="0"></label>
+          <label>Currency<input name="currency" maxlength="3"></label>
+          <label>Budget type<select name="budget_period"><option value="fixed">fixed</option><option value="hour">per hour</option></select></label>
+          <label>Urgency<select name="urgency"><option>high</option><option>medium</option><option>low</option></select></label>
+        </div>
+        <label style="font-size:12px;color:var(--mute)">Need<textarea name="need" style="min-height:80px"></textarea></label>
+        <div class="meta" id="deadline"></div>
+        <div class="row" style="margin-top:8px"><button>Save lead</button><button class="ghost" type="button" id="cancel">Cancel</button></div>
+      </form>
+    </section>
+
+    <section>
+      <div class="row" style="justify-content:space-between;margin-bottom:6px">
+        <h2 style="margin:0">Leads <span id="count"></span></h2>
+        <div class="row"><select id="src"><option value="">All sources</option><option>fiverr</option><option>reddit</option><option>x</option><option>maps</option><option>warm</option><option>manual</option></select><button class="ghost" id="reload" type="button">Refresh</button></div>
+      </div>
+      <div class="meta" id="updated"></div>
+      <div id="list"></div>
+    </section>
+  </div>
+</main>
+<script type="module">
+import { parseFiverrBrief } from '/js/leads/parse.js';
+const $ = s => document.querySelector(s);
+let pw = sessionStorage.getItem('leads-pw') || '';
+let leads = [], top = [];
+const api = (opts = {}) => fetch('/api/leads', { ...opts, headers: { 'Content-Type': 'application/json', 'x-leads-password': pw, ...(opts.headers || {}) } });
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const money = l => l.budget_max == null ? '' : `${l.currency || ''} ${l.budget_min === l.budget_max ? l.budget_max : `${l.budget_min}–${l.budget_max}`}${l.budget_period === 'hour' ? '/h' : ''}`.trim();
+const ago = iso => { const m = Math.round((Date.now() - Date.parse(iso)) / 6e4); return !Number.isFinite(m) ? '' : m < 60 ? `${m}m ago` : m < 2880 ? `${Math.round(m / 60)}h ago` : `${Math.round(m / 1440)}d ago`; };
+// Neutral fallback order until Codex's ranking module lands: warm, urgent+budget, urgent, rest; newest first.
+const U = { high: 2, medium: 1, low: 0 };
+const score = l => (l.warm ? 1e9 : 0) + (U[l.urgency] ? (l.budget_max != null ? 2e8 + Math.min(l.budget_max, 1e7) : 1e8) : 0) + (U[l.urgency] || 0) * 1e7;
+const order = (a, b) => score(b) - score(a) || (Date.parse(b.created_at) || 0) - (Date.parse(a.created_at) || 0);
+
+async function load() {
+  const r = await api();
+  if (r.status === 401) { sessionStorage.removeItem('leads-pw'); $('#gate').classList.remove('hidden'); $('#app').classList.add('hidden'); return; }
+  const data = await r.json();
+  leads = data.leads || []; top = data.top || [];
+  $('#gate').classList.add('hidden'); $('#app').classList.remove('hidden');
+  $('#updated').textContent = data.updated ? `Sources refreshed ${ago(data.updated)}` : '';
+  render();
+}
+function renderTop() {
+  $('#top').innerHTML = top.map(t => { const l = t.lead, f = l.signals?.red_flags || [];
+    return `<div class="lead"><div class="row"><span class="rank">${t.rank}</span><div style="flex:1">
+    <div class="meta"><span class="tag">${esc(l.source)}</span>${l.urgency !== 'low' ? `<span class="tag ${esc(l.urgency)}">${esc(l.urgency)}</span>` : ''}${money(l) ? `<span class="budget">${esc(money(l))}</span>` : ''}<span>${esc(l.name)}</span><span>${esc(ago(l.created_at))}</span><span>trust ${Math.round(t.parts.trust * 100)}</span>${f.length ? `<span class="flag">⚠ ${esc(f.join(', '))}</span>` : ''}<span>score ${t.score} · EV €${t.expected_value}</span></div>
+    <div class="need">${esc(l.need.slice(0, 260))}</div>
+    <div class="meta"><b>${esc(t.offer.name)} €${esc(t.offer.price)}</b><span>${esc(t.offer.delivery)}</span><span>${esc(t.why_now)}</span></div>
+    <div class="draft">${esc(t.draft)}</div>
+    <div class="meta">${l.url ? `<a href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">Open</a>` : ''}${t.draft_link ? `<a href="${esc(t.draft_link)}" target="_blank" rel="noopener noreferrer"><b>Open draft →</b></a>` : `<a href="#" data-copy="${t.rank}">Copy draft</a>`}</div>
+    </div></div></div>`; }).join('') || '<p class="meta">No open leads yet — sources refresh every 15 min.</p>';
+}
+function render() {
+  renderTop();
+  const src = $('#src').value;
+  const shown = leads.filter(l => !src || l.source === src).sort(order);
+  $('#count').textContent = `(${shown.length})`;
+  $('#list').innerHTML = shown.map(l => `<div class="lead">
+    <div class="meta"><span class="tag">${esc(l.source)}</span>${l.urgency !== 'low' ? `<span class="tag ${esc(l.urgency)}">${esc(l.urgency)}</span>` : ''}${money(l) ? `<span class="budget">${esc(money(l))}</span>` : ''}<span>${esc(l.name)}</span><span>${esc(ago(l.created_at))}</span><span>${esc(l.status)}</span></div>
+    <div class="need">${esc(l.need)}</div>
+    <div class="meta">${l.url ? `<a href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">Open</a>` : ''}${l.contact && /^https:/.test(l.contact) && l.contact !== l.url ? `<a href="${esc(l.contact)}" target="_blank" rel="noopener noreferrer">Message</a>` : ''}<span>${esc(l.next_action)}</span></div>
+  </div>`).join('') || '<p class="meta">No leads yet.</p>';
+}
+$('#login').addEventListener('submit', e => { e.preventDefault(); pw = $('#pw').value; sessionStorage.setItem('leads-pw', pw); load(); });
+$('#reload').addEventListener('click', load);
+$('#top').addEventListener('click', e => { const n = e.target.dataset?.copy; if (!n) return; e.preventDefault(); navigator.clipboard.writeText(top[n - 1].draft); e.target.textContent = 'Copied'; });
+$('#md').addEventListener('click', async () => { const r = await fetch('/api/leads?format=md', { headers: { 'x-leads-password': pw } }); const a = document.createElement('a'); a.href = URL.createObjectURL(await r.blob()); a.download = 'top-leads.md'; a.click(); });
+$('#src').addEventListener('change', render);
+$('#parse').addEventListener('click', () => {
+  const text = $('#brief').value.trim();
+  if (!text) { $('#msg').textContent = 'Paste a brief first.'; return; }
+  const p = parseFiverrBrief(text);
+  const f = $('#preview');
+  for (const k of ['name', 'budget_min', 'budget_max', 'currency', 'urgency', 'need']) f[k].value = p[k] ?? '';
+  f.budget_period.value = p.budget_period || 'fixed';
+  $('#deadline').textContent = p.deadline ? `Deadline: ${p.deadline}` : 'No deadline found';
+  f.classList.remove('hidden'); $('#msg').textContent = 'Check the preview, then save.';
+});
+$('#cancel').addEventListener('click', () => $('#preview').classList.add('hidden'));
+$('#preview').addEventListener('submit', async e => {
+  e.preventDefault();
+  const f = e.target;
+  const lead = { source: 'fiverr', contact: null, next_action: 'Reply with offer on Fiverr' };
+  for (const k of ['name', 'budget_min', 'budget_max', 'currency', 'urgency', 'need', 'budget_period']) lead[k] = f[k].value || null;
+  const r = await api({ method: 'POST', body: JSON.stringify({ action: 'add', lead }) });
+  if (!r.ok) { $('#msg').textContent = 'Save failed: ' + (await r.json().catch(() => ({}))).error; return; }
+  $('#msg').textContent = 'Saved.'; f.classList.add('hidden'); $('#brief').value = ''; load();
+});
+if (pw) load();
+</script>
+</body>
+</html>

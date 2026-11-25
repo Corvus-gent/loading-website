@@ -1,0 +1,29 @@
+name: Leadhunter refresh
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: leadhunter-refresh
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Collect Reddit + X leads and publish to the private store
+        env:
+          LEADS_INGEST_URL: https://corvus.gent/api/leads
+          LEADS_INGEST_TOKEN: ${{ secrets.LEADS_INGEST_TOKEN || secrets.BUILD_INGEST_TOKEN }}
+          LEADS_X_SITE: ${{ vars.LEADS_X_SITE }}
+          LEADS_X_OP: ${{ vars.LEADS_X_OP }}
+          LEADS_X_ARGS: ${{ vars.LEADS_X_ARGS }}
+        run: node tools/leads/refresh.mjs
