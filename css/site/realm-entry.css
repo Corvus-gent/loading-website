@@ -135,3 +135,13 @@ html:not(.js) .entry-picker{display:none}
 .entry-page[data-entry]:not([data-entry="mon"]) .dark-door{background:#07060ae8;padding:12px 16px;border-radius:4px}
 .entry-page[data-entry]:not([data-entry="mon"]) .dark-question{background:#07060ae8;padding:12px;border-radius:4px}
 .entry-caption{left:50%;right:auto;transform:translateX(-50%);width:max-content;max-width:calc(100% - 48px);padding:6px 10px;background:#07060ae8;border-radius:4px}
+
+/* Mobile browser bars and the keyboard must never lock the way into the realm. */
+@media(max-width:760px),(pointer:coarse){
+  html:has(body.entry-page){height:auto;min-height:100%;overflow-x:hidden;overflow-y:auto}
+  body.entry-page{height:auto;min-height:100%;overflow:visible;padding-bottom:calc(140px + env(safe-area-inset-bottom,0px))}
+  body.entry-page main.entry{height:var(--entry-height,100svh);min-height:640px;touch-action:pan-y}
+  .entry-page .dark-door{--seen:1!important;opacity:1;bottom:calc(72px + env(safe-area-inset-bottom,0px));min-height:48px;z-index:9}
+  .dark-echo{bottom:calc(24px + env(safe-area-inset-bottom,0px))}
+  .entry-caption{bottom:180px}
+}

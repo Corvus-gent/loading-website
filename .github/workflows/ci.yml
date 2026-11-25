@@ -14,6 +14,7 @@ jobs:
     outputs:
       basic: ${{ steps.filter.outputs.basic }}
       e2e: ${{ steps.filter.outputs.e2e }}
+      mobile_entry: ${{ steps.filter.outputs.mobile_entry }}
       salesforce_only: ${{ steps.filter.outputs.all_count == steps.filter.outputs.salesforce_count && steps.filter.outputs.salesforce_count != '0' }}
     steps:
       - uses: actions/checkout@v4
@@ -21,6 +22,15 @@ jobs:
         id: filter
         with:
           filters: |
+            mobile_entry:
+              - 'public/realm-entry.html'
+              - 'css/site/realm-entry.css'
+              - 'js/realm-entry.js'
+              - 'js/entry-days/**'
+              - 'tests/e2e/mobile-entry-scroll.spec.js'
+              - 'playwright.mobile-entry.config.mjs'
+              - 'tools/site/mobile-entry-server.mjs'
+              - '.github/workflows/ci.yml'
             all:
               - '**'
             salesforce:
@@ -143,19 +153,48 @@ jobs:
         if: needs.changes.outputs.salesforce_only != 'true'
         run: npm run test:e2e
 
+  mobile-entry:
+    needs: changes
+    if: needs.changes.outputs.mobile_entry == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - browser: chromium
+            project: Chrome Android
+          - browser: webkit
+            project: WebKit iPhone
+          - browser: firefox
+            project: Firefox mobile layout
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps ${{ matrix.browser }}
+      - run: node tools/site/build-all.mjs
+      - run: npx playwright test -c playwright.mobile-entry.config.mjs --project="$MOBILE_PROJECT"
+        env:
+          MOBILE_PROJECT: ${{ matrix.project }}
+
   ci-ok:
     if: always()
-    needs: [changes, basic, e2e]
+    needs: [changes, basic, e2e, mobile-entry]
     runs-on: ubuntu-latest
     env:
       CHANGES: ${{ needs.changes.result }}
       BASIC: ${{ needs.basic.result }}
       E2E: ${{ needs.e2e.result }}
+      MOBILE: ${{ needs.mobile-entry.result }}
     steps:
       - name: Require successful or skipped tests
         run: |
           test "$CHANGES" = success
-          for result in "$BASIC" "$E2E"; do
+          for result in "$BASIC" "$E2E" "$MOBILE"; do
             case "$result" in
               success|skipped) ;;
               *) exit 1 ;;
