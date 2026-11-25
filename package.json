@@ -13,14 +13,16 @@
     "redis": "^4.7.0",
     "satori": "0.33.5",
     "sharp": "^0.35.5",
-    "stripe": "^23.1.0"
+    "stripe": "^23.1.0",
+    "api-anything": "0.5.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.64.1",
     "@vgpu/wgsl": "0.6.0",
     "esbuild": "0.27.4",
     "lighthouse": "^12.8.2",
-    "vgpu": "0.6.0"
+    "vgpu": "0.6.0",
+    "typescript": "~5.9.3"
   },
   "scripts": {
     "test:games": "REDIS_URL=redis://127.0.0.1:16380/15 SESSION_SECRET=local-test-only node tests/games.mjs",
@@ -55,7 +57,9 @@
     "test:oli:browser": "node tests/oli-browser.mjs",
     "test:e2e": "playwright test -c playwright.e2e.config.mjs",
     "test:entrances": "node tests/entry-calendar.mjs",
-    "test:yogipower": "node tests/yogipower-i18n.mjs"
+    "test:yogipower": "node tests/yogipower-i18n.mjs",
+    "build:leads": "tsc -p lib/leads/tsconfig.json",
+    "test:leads": "npm run build:leads && node --test tests/leads/*.test.mjs"
   },
   "overrides": {
     "@vercel/cli-config": {
@@ -65,5 +69,8 @@
     "satori": {
       "fflate": "^0.8.2"
     }
+  },
+  "bin": {
+    "leadhunter": "tools/leadhunter/bin/leadhunter.mjs"
   }
 }

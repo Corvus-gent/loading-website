@@ -420,6 +420,26 @@
   ],
   "rewrites": [
     {
+      "source": "/api/_leads/:path*",
+      "destination": "/api/stats?leadhunter=1&leadsAction=page"
+    },
+    {
+      "source": "/data/warm-contacts.json",
+      "destination": "/api/stats?leadhunter=1&leadsAction=data.json"
+    },
+    {
+      "source": "/scraper/fiverr-leads",
+      "destination": "/api/stats?leadhunter=1&leadsAction=page"
+    },
+    {
+      "source": "/scraper/fiverr-leads/",
+      "destination": "/api/stats?leadhunter=1&leadsAction=page"
+    },
+    {
+      "source": "/scraper/fiverr-leads/:leadsAction",
+      "destination": "/api/stats?leadhunter=1&leadsAction=:leadsAction"
+    },
+    {
       "source": "/raygifts/share.png",
       "destination": "/api/raygifts?handle=share.png"
     },
@@ -1111,7 +1131,7 @@
       "includeFiles": "music.json"
     },
     "api/stats.js": {
-      "includeFiles": "{**/index.html,music.json,battle/config.json,battle/media.json,hack/3/interviews.json,public/gabe.jpg,img/army/fonts/DejaVuSansMono.ttf,api/_og/fonts/**,node_modules/harfbuzzjs/hb.wasm,node_modules/satori/yoga.wasm}",
+      "includeFiles": "{**/index.html,music.json,battle/config.json,battle/media.json,hack/3/interviews.json,public/gabe.jpg,img/army/fonts/DejaVuSansMono.ttf,api/_og/fonts/**,node_modules/harfbuzzjs/hb.wasm,node_modules/satori/yoga.wasm,api/_leads/**,config/offers.json,data/warm-contacts.json}",
       "maxDuration": 60
     },
     "api/x-stats.js": {
@@ -1132,6 +1152,19 @@
     }
   },
   "headers": [
+    {
+      "source": "/scraper/fiverr-leads/:path*",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "private, no-store"
+        }
+      ]
+    },
     {
       "source": "/bjj/oli/:path*",
       "headers": [

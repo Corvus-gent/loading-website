@@ -1,4 +1,6 @@
 User-agent: *
+Disallow: /scraper/fiverr-leads
+Disallow: /api/_leads
 Disallow: /project-cto
 Disallow: /api/project-cto
 Disallow: /api/_openrisk
