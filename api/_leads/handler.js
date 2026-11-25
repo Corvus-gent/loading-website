@@ -17,7 +17,7 @@ export function safeFailureMessage(error,env){let message=String(error?.message|
 // Browsers send `Origin: null` on POSTs from a page with a no-referrer policy (form logins included),
 // so an exact Origin match alone locked everyone out. Accept a matching Origin, or else the
 // browser-set Sec-Fetch-Site: same-origin. Anything cross-site or unlabelled stays blocked.
-export function sameOrigin(req){const o=req.headers.origin,site=req.headers['sec-fetch-site'];if(o&&o!=='null')return o===`https://${req.headers.host}`&&(!site||site==='same-origin');return site==='same-origin';}
+export function sameOrigin(req){const o=req.headers.origin,site=req.headers['sec-fetch-site'];if(o&&o!=='null')return [req.headers.host,req.headers['x-forwarded-host']].filter(Boolean).some(h=>o===`https://${String(h).split(',')[0].trim()}`)&&(!site||site==='same-origin');return site==='same-origin';}
 export function session(password,now=Date.now()){const token=`${now+12*3600000}.${crypto.randomBytes(16).toString('hex')}`;return token+'.'+crypto.createHmac('sha256','leadhunter:'+password).update(token).digest('hex');}
 export function authenticated(req,password,now=Date.now()){
  const value=String(req.headers.cookie||'').split(';').map(s=>s.trim()).find(s=>s.startsWith('leadhunter='))?.slice(11)||'';
