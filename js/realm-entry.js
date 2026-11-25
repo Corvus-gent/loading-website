@@ -27,8 +27,9 @@ const found = new WeakSet();
 let x = 0, y = 0, moved = false;
 const radius = () => Math.max(130, Math.min(innerWidth, innerHeight) * 0.24);
 function light() {
-  lantern.style.setProperty('--x', x + 'px');
-  lantern.style.setProperty('--y', y + 'px');
+  const stageBox=stage.getBoundingClientRect();
+  lantern.style.setProperty('--x',(x-stageBox.left)+'px');
+  lantern.style.setProperty('--y',(y-stageBox.top)+'px');
   lantern.style.setProperty('--glow', radius() * 2.3 + 'px');
   const box = scene.getBoundingClientRect(), r = radius();
   scene.style.setProperty('--lx', (x - box.left) + 'px');
@@ -54,12 +55,16 @@ function start() {
   const box = scene.getBoundingClientRect();
   place(box.left + box.width * .306, box.top + box.height * .475);
 }
-start();
-addEventListener('resize', () => light());
+function viewportSize(){stage.style.setProperty('--entry-height',`${Math.round(window.visualViewport?.height||innerHeight)}px`);light();}
+viewportSize();start();
+addEventListener('resize',viewportSize);
+window.visualViewport?.addEventListener('resize',viewportSize);
+addEventListener('scroll',light,{passive:true});
 
 // Drag anywhere on the dark (inputs and links keep working normally).
 let dragging = false;
 stage.addEventListener('pointerdown', e => {
+  if(e.pointerType==='touch'&&!e.target.closest('#lantern'))return;
   if (e.target.closest('input,a,button:not(#lantern),.entry-picker')) return;
   dragging = true; stage.setPointerCapture?.(e.pointerId);
   firstMove(); place(e.clientX, e.clientY);

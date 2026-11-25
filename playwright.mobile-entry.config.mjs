@@ -1,0 +1,3 @@
+import {defineConfig} from '@playwright/test';
+const baseURL='https://localhost:8443';
+export default defineConfig({testDir:'./tests/e2e',testMatch:'mobile-entry-scroll.spec.js',timeout:30000,workers:3,use:{baseURL,ignoreHTTPSErrors:true,viewport:{width:390,height:640},hasTouch:true,trace:'retain-on-failure'},projects:[{name:'Chrome Android',use:{browserName:'chromium',isMobile:true}},{name:'WebKit iPhone',use:{browserName:'webkit',isMobile:true}},{name:'Firefox mobile layout',use:{browserName:'firefox'}}],webServer:{command:'node tools/site/mobile-entry-server.mjs',url:baseURL,ignoreHTTPSErrors:true}});
