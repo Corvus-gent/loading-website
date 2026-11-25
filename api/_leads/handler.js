@@ -26,7 +26,7 @@ export function createHandler({db=redis,env=process.env,clock=Date.now}={}) {
  const snapshot=async()=>JSON.parse(await db(['GET',KEY+'snapshot'])||'{"leads":[],"statuses":[],"generated_at":null}');
  async function records(){const rows=await db(['HGETALL',KEY+'records']);if(Array.isArray(rows)){const out=[];for(let i=1;i<rows.length;i+=2)out.push(JSON.parse(rows[i]));return out;}return Object.values(rows||{}).map(x=>JSON.parse(x));}
  async function load(){for(const row of SEED.contacts){const lead=validateLead({...row,source:'warm',warm:true});await db(['HSETNX',KEY+'records',lead.id,JSON.stringify(lead)]);}const snap=await snapshot(),settings=await setting(),overrides=await records();const cfg={cal:validHttps(settings.cal||env.CAL_LINK||snap.config?.cal),revolut:validHttps(settings.revolut||env.REVOLUT_LINK||snap.config?.revolut)};
- const map=new Map((snap.leads||[]).filter(x=>!x.expires_at||Date.parse(x.expires_at)>clock()).map(x=>[x.id,x]));for(const row of overrides)if(row.source==='warm'||map.has(row.id))map.set(row.id,row);
+ const map=new Map((snap.leads||[]).filter(x=>!x.expires_at||Date.parse(x.expires_at)>clock()).map(x=>[x.id,x]));for(const row of overrides)if(row.source==='warm'||row.warm||row.status!=='new'||map.has(row.id))map.set(row.id,row);
  const leads=rankByValue([...map.values()].map(raw=>{const row=validateLead(raw);row.updated_at=raw.updated_at;row.assessment=assess(row,OFFERS,snap.fx,clock());row.score=row.assessment.score;const b=row.assessment.budget_eur;row.offer=makeOffer(b?{...row,budget_min:b.min,budget_max:b.max,currency:'EUR'}:row,OFFERS,cfg.revolut);const o=raw.outreach;
  const body=o?.body?o.body.replaceAll('{CAL_LINK}',cfg.cal||'{CAL_LINK}').replaceAll('{REVOLUT_LINK}',cfg.revolut||'{REVOLUT_LINK}'):`Hey ${row.name}, I can help with ${row.need}. I'm Gabe. Want to talk it through for 10 minutes? ${cfg.cal||'{CAL_LINK}'}`;
  row.outreach={body,subject:'Your website',url:cfg.cal&&cfg.revolut?draftLink(row.contact,row.contact_kind||'',body):'',ready:Boolean(cfg.cal&&cfg.revolut&&draftLink(row.contact,row.contact_kind||'',body)),missing:[!cfg.cal&&'CAL_LINK',!cfg.revolut&&'REVOLUT_LINK'].filter(Boolean)};
@@ -68,6 +68,12 @@ export function createHandler({db=redis,env=process.env,clock=Date.now}={}) {
    if(action==='logout'){res.setHeader('Set-Cookie',`leadhunter=; HttpOnly; Secure; SameSite=Strict; Path=${BASE}; Max-Age=0`);res.setHeader('Location',BASE);return res.status(303).end();}
    const input=body(req);
    if(action==='settings'){const config={cal:validHttps(input.cal),revolut:validHttps(input.revolut)};if((input.cal&&!config.cal)||(input.revolut&&!config.revolut))throw Error('Use full HTTPS links');await db(['SET',KEY+'settings',JSON.stringify(config)]);return json(200,{ok:true});}
+   if(action==='delete'){
+    const row=(await records()).find(x=>x.id===input.id);if(!row||row.source!=='warm')return json(404,{error:'Warm contact not found'});
+    if(Number(input.revision)!==row.revision)return json(409,{error:'This contact changed. Refresh before deleting.'});
+    const script="local old=redis.call('HGET',KEYS[1],ARGV[1]); if not old or (cjson.decode(old).revision or 0)~=tonumber(ARGV[2]) then return 0 end; redis.call('HDEL',KEYS[1],ARGV[1]); return 1";
+    const deleted=await db(['EVAL',script,'1',KEY+'records',row.id,String(row.revision)]);return json(deleted?200:409,{ok:Boolean(deleted)});
+   }
    if(action==='save'){
     const all=await load();const existing=all.leads.find(x=>x.id===input.id);if(input.id&&!existing)return json(404,{error:'Lead expired or not found'});
     const changes=Object.fromEntries(fields.filter(k=>Object.hasOwn(input,k)).map(k=>[k,input[k]]));
