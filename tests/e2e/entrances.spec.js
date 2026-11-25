@@ -2,6 +2,11 @@ import {test, expect} from '@playwright/test';
 const DAYS = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 const MODULES = {tue: 'glyphs', wed: 'ink', thu: 'water', fri: 'room', sat: 'mirror', sun: 'night'};
 const LABELS = ['Mon · Lantern', 'Tue · Glyphs', 'Wed · Ink', 'Thu · Water', 'Fri · Room', 'Sat · Mirror', 'Sun · Night'];
+// Playwright's JS clock does not move Chromium's cookie-expiry clock.
+// Keep the ritual dates in the future so Expires survives the navigation.
+const FUTURE_MONDAY = new Date();
+FUTURE_MONDAY.setUTCHours(12, 0, 0, 0);
+FUTURE_MONDAY.setUTCDate(FUTURE_MONDAY.getUTCDate() + (8 - FUTURE_MONDAY.getUTCDay()) % 7 + 7);
 
 test.beforeEach(async ({page, baseURL}) => {
   const errors = [];
@@ -16,8 +21,8 @@ test.beforeEach(async ({page, baseURL}) => {
 test.afterEach(async ({page}) => { expect(page.__entranceErrors).toEqual([]); });
 
 for (const [i, day] of DAYS.entries()) test(`${day}: Brussels date, lazy scene, usable door and cookie`, async ({page, baseURL}, info) => {
-  // Cookie expiry uses the browser's wall clock, which Playwright does not mock.
-  const date = new Date(Date.UTC(2032,1,9+i,12));
+  const date = new Date(FUTURE_MONDAY);
+  date.setUTCDate(date.getUTCDate() + i);
   await page.clock.install({time: date}); await page.clock.setFixedTime(date);
   const loaded = [];
   page.on('request', r => { if (/\/entry-days\/(glyphs|ink|water|room|mirror|night)\.js/.test(r.url())) loaded.push(new URL(r.url()).pathname.split('/').pop()); });

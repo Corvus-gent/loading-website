@@ -53,3 +53,8 @@ output
 !tools/cv/build-hospitality-pdfs.py
 
 !tools/site/build-hall-shader.mjs
+
+# Private leadhunter credentials and scrape snapshots never ship as assets.
+.env*
+.runtime/
+output/

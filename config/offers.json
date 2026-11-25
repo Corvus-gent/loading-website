@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "tiers": [
+    {"id":"quick_fix","name":"Quick Fix","min":75,"max":150,"price":125,"currency":"EUR","scope":"One agreed fix or section on your existing website","delivery":"same day","upfront_percent":0},
+    {"id":"landing","name":"Landing","min":300,"max":500,"price":400,"currency":"EUR","scope":"One responsive page with your content and one clear contact CTA","delivery":"24 hours","upfront_percent":0},
+    {"id":"business","name":"Business","min":800,"max":1500,"price":1200,"currency":"EUR","scope":"Up to 5 responsive pages, a contact form and basic SEO","delivery":"3 days","upfront_percent":0},
+    {"id":"pro","name":"Pro","min":2500,"max":5000,"price":3500,"currency":"EUR","scope":"An agreed custom design with a CMS or shop; exact pages and integrations confirmed on our call","delivery":"1–2 weeks","upfront_percent":50},
+    {"id":"premium","name":"Premium","min":5000,"max":10000,"price":7500,"currency":"EUR","scope":"A custom build or app with a written scope agreed on our call","delivery":"scoped on call","upfront_percent":50}
+  ]
+}

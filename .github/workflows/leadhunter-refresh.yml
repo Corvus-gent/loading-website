@@ -1,0 +1,34 @@
+name: Refresh leads
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: leadhunter-refresh
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Read approved sources and publish private JSON snapshot
+        run: node tools/leadhunter/bin/leadhunter.mjs run --publish
+        env:
+          CAL_LINK: ${{ vars.CAL_LINK }}
+          REVOLUT_LINK: ${{ vars.REVOLUT_LINK }}
+          CITIES: ${{ vars.CITIES }}
+          REDDIT_COMMERCIAL_APPROVED: ${{ vars.REDDIT_COMMERCIAL_APPROVED }}
+          REDDIT_ACCESS_TOKEN: ${{ secrets.REDDIT_ACCESS_TOKEN }}
+          X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
+          GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
+          PLACES_STORAGE_APPROVED: ${{ vars.PLACES_STORAGE_APPROVED }}
+          LEADS_INGEST_URL: https://corvus.gent/scraper/fiverr-leads/ingest
+          LEADS_INGEST_TOKEN: ${{ secrets.LEADS_INGEST_TOKEN }}
