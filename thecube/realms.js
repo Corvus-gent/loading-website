@@ -288,14 +288,38 @@ function setup(cv, fn, still) {
   cv._paint = s => { c.clearRect(0, 0, b.width, b.height); fn(c, b.width, b.height, s); };
   cv._paint(0); cv._still = still;
 }
-const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? live.add(e.target) : live.delete(e.target)));
-function all() {
-  document.querySelectorAll('canvas[data-prev]').forEach(cv => { setup(cv, draw[cv.dataset.prev], cv.dataset.prev === 'note'); io.observe(cv); });
-  const sun = document.getElementById('sun'); if (sun) setup(sun, sunflower, true);
+const previews = new Map();
+for (const canvas of document.querySelectorAll('canvas[data-prev]')) {
+  previews.set(canvas, {draw: draw[canvas.dataset.prev], still: canvas.dataset.prev === 'note'});
 }
-function loop(ts) { live.forEach(cv => !cv._still && cv._paint(ts / 1000)); if (!reduce) requestAnimationFrame(loop); }
-addEventListener('resize', all);
-render(); all(); requestAnimationFrame(loop);
+const sun = document.getElementById('sun');
+if (sun) previews.set(sun, {draw: sunflower, still: true});
+
+const observer = new IntersectionObserver(entries => {
+  for (const {target, isIntersecting} of entries) {
+    if (isIntersecting) {
+      const {draw, still} = previews.get(target);
+      if (!target._paint) setup(target, draw, still);
+      live.add(target);
+    } else {
+      live.delete(target);
+    }
+  }
+});
+for (const canvas of previews.keys()) observer.observe(canvas);
+
+function loop(ts) {
+  live.forEach(canvas => { if (!canvas._still) canvas._paint(ts / 1000); });
+  if (!reduce) requestAnimationFrame(loop);
+}
+
+addEventListener('resize', () => {
+  for (const [canvas, {draw, still}] of previews) {
+    if (canvas._paint) setup(canvas, draw, still);
+  }
+});
+render();
+if (!reduce) requestAnimationFrame(loop);
 
 // ---- new lines in all seven languages ----
 const MORE = {

@@ -57,3 +57,10 @@ test('language selection survives navigation and the lab solves the proof and ru
   await expect(page.locator('#e-meta')).toContainText(/live in your browser/i, {timeout: 15_000});
   expect(errors).toEqual([]);
 });
+
+test('portal draws realm previews when they enter the viewport', async ({page}) => {
+  await enter(page);
+  const preview = page.locator('canvas[data-prev="lab"]');
+  await preview.scrollIntoViewIfNeeded();
+  await expect.poll(() => preview.evaluate(canvas => Boolean(canvas._paint))).toBe(true);
+});
