@@ -1,0 +1,29 @@
+name: The Cube browser flows
+on:
+  pull_request:
+  push:
+    branches: ['main', 'cube/**']
+permissions:
+  contents: read
+concurrency:
+  group: cube-browser-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: node tests/e2e/cube-redirects.mjs
+      - run: npx playwright install --with-deps chromium firefox webkit
+      - run: npx playwright test -c playwright.cube.config.mjs
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cube-browser-traces
+          path: test-results/cube/

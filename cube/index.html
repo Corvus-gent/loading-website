@@ -3,44 +3,125 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#101416">
-  <meta name="description" content="Een speelbare Rubiks kubus met negen ringen, een begeleide oplossing en een interactieve beslisboom.">
+  <meta name="theme-color" content="#0d0a12">
+  <meta name="description" content="Een speelbare Rubiks kubus als onderzoeksinstrument: twee paden, één eindstand, en een reproduceerbaar scramble-experiment.">
   <title>Cube · Corvus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/cube/style.css">
   <script type="module" src="/cube/cube.js"></script>
+  <script type="module" src="/js/site/logo-week.js"></script>
 </head>
 <body>
   <main>
-    <header><a href="/">Corvus</a><a href="#boom">Beslisboom ↘</a></header>
-    <div class="intro"><h1>Cube<span>.</span></h1><p>54 stickers. Negen ringen. Elke draai verandert welke sticker waar zit.</p></div>
-    <div class="workspace">
+    <header>
+      <a class="brand" href="/"><img data-weekly-logo src="/logo/day-1.svg" alt="" width="30" height="30"><span>Corvus</span></a>
+      <nav aria-label="Taal" id="lang"></nav>
+    </header>
+
+    <div class="intro">
+      <h1>Cube<span>.</span></h1>
+      <p data-i18n="intro"></p>
+    </div>
+
+    <section id="proof" class="panel" aria-labelledby="proof-title">
+      <div class="section-head">
+        <div><p class="eyebrow">§1</p><h2 id="proof-title" data-i18n="proof_title"></h2></div>
+        <button class="primary" id="compare" type="button" data-i18n="compare"></button>
+      </div>
+      <div class="lanes" id="lanes">
+        <figure class="lane a">
+          <figcaption><span data-i18n="lane_a"></span> <ol class="chips" id="chips-a"></ol></figcaption>
+          <canvas id="lane-a" width="520" height="420" role="img" aria-labelledby="sum-a"></canvas>
+          <p class="sig" id="sum-a"></p>
+        </figure>
+        <div class="equals" aria-hidden="true">=</div>
+        <figure class="lane b">
+          <figcaption><span data-i18n="lane_b"></span> <ol class="chips" id="chips-b"></ol></figcaption>
+          <canvas id="lane-b" width="520" height="420" role="img" aria-labelledby="sum-b"></canvas>
+          <p class="sig" id="sum-b"></p>
+        </figure>
+      </div>
+      <dl class="verdict" id="verdict" aria-live="polite">
+        <div><dt data-i18n="v_turns"></dt><dd id="v-turns">3 vs 1</dd></div>
+        <div><dt data-i18n="v_dist"></dt><dd id="v-dist">—</dd></div>
+        <div><dt data-i18n="v_sig"></dt><dd id="v-sig">—</dd></div>
+      </dl>
+      <div class="row proof-controls">
+        <button id="p-replay" type="button" data-i18n="replay"></button>
+        <button id="p-step" type="button" data-i18n="step"></button>
+        <label class="scrub"><span data-i18n="scrub"></span><input id="p-scrub" type="range" min="0" max="300" value="0" step="1"></label>
+        <output id="p-at" class="mono"></output>
+        <button id="p-take" type="button" data-i18n="take"></button>
+        <button id="p-tree" type="button" data-i18n="in_tree"></button>
+      </div>
+      <details><summary data-i18n="why"></summary><p data-i18n="why_body"></p></details>
+    </section>
+
+    <section id="experiment" class="panel" aria-labelledby="exp-title">
+      <div class="section-head">
+        <div><p class="eyebrow">§2</p><h2 id="exp-title" data-i18n="exp_title"></h2></div>
+      </div>
+      <p class="lede" data-i18n="exp_lede"></p>
+      <form class="exp-form" id="exp-form">
+        <label><span data-i18n="steps"></span><select id="e-steps"><option>2</option><option>4</option><option>8</option></select></label>
+        <label><span>seed</span><input id="e-seed" inputmode="numeric" value="1729" maxlength="10"></label>
+        <label><span data-i18n="samples"></span><select id="e-n"><option>1000</option><option selected>10000</option><option>20000</option></select></label>
+        <button class="primary" id="e-run" type="submit" data-i18n="run"></button>
+        <button id="e-cancel" type="button" data-i18n="cancel" disabled></button>
+        <button id="e-csv" type="button" data-i18n="csv"></button>
+        <button id="e-share" type="button" data-i18n="share"></button>
+      </form>
+      <p class="meta mono" id="e-meta" aria-live="polite"></p>
+      <div class="hists" id="hists"></div>
+      <p class="summary" id="e-summary"></p>
+      <div class="inspect" id="inspect" hidden></div>
+      <div class="table-wrap"><table id="e-table"></table></div>
+      <details open><summary data-i18n="rules"></summary>
+        <ul class="rules">
+          <li data-i18n-html="rule_uniform"></li>
+          <li data-i18n-html="rule_distinct"></li>
+          <li data-i18n-html="rule_radius"></li>
+          <li data-i18n-html="rule_seed"></li>
+        </ul>
+        <p data-i18n="why_further"></p>
+        <p class="mono repro" id="e-repro"></p>
+      </details>
+    </section>
+
+    <div class="workspace" id="simulator">
       <section class="stage" aria-labelledby="cube-label">
-        <div class="stage-top"><h2 id="cube-label">Kubus</h2><output id="status" aria-live="polite"></output></div>
-        <canvas id="cube" width="640" height="520" role="img" aria-label="Kubusstand als gekleurde stickers op negen ringen">Dezelfde kubusstand staat in het stickeroverzicht onder de bediening.</canvas>
-        <div class="stage-bottom"><span id="last">—</span><button id="view" type="button">Andere kijkhoek</button></div>
+        <div class="stage-top"><h2 id="cube-label" data-i18n="cube"></h2><output id="status" aria-live="polite"></output></div>
+        <a class="backlink" id="backlink" href="#experiment" hidden></a>
+        <canvas id="cube" width="640" height="520" role="img"></canvas>
+        <dl class="facts mono" id="facts"></dl>
+        <div class="stage-bottom"><span id="last">—</span><button id="view" type="button"></button></div>
       </section>
       <section class="controls" aria-labelledby="play-label">
-        <h2 id="play-label">Spelen</h2>
-        <div class="row setup"><label for="length">Scramble</label><select id="length"><option value="4">4 draaien</option><option value="8" selected>8 draaien</option><option value="16">16 draaien</option></select></div>
-        <div class="row"><button class="primary" id="scramble">↻ Scramble</button><button id="reset">Reset</button></div>
-        <div id="moves" aria-label="Draai een vlak"></div>
-        <p class="hint">Letters kiezen een vlak. <strong>′</strong> draait tegen de klok in, <strong>2</strong> draait 180°. Op je toetsenbord gebruik je U, R, F, D, L of B, eventueel met Shift voor de omgekeerde draai.</p>
-        <div class="guide"><h2>Oplossen</h2><p id="instruction" aria-live="polite"></p>
-        <div class="row"><button class="primary" id="step">Volgende stap</button><button id="auto">Speel oplossing</button></div>
-        <ol id="solution" aria-label="Resterende oplossingsdraaien"></ol>
-        <details><summary>Hoe werkt de oplossing?</summary><p>Een draai is een permutatie van de stickers. Om deze scramble terug te draaien, doorloop je de zetten in omgekeerde volgorde en keer je elke draai om. Eigen zetten tellen mee. Twee opeenvolgende draaien van hetzelfde vlak worden samengevoegd.</p></details></div>
+        <h2 id="play-label" data-i18n="play"></h2>
+        <div class="row setup"><label for="length" data-i18n="scramble_len"></label><select id="length"><option value="4">4</option><option value="8" selected>8</option><option value="16">16</option></select></div>
+        <div class="row"><button class="primary" id="scramble" type="button" data-i18n="scramble"></button><button id="reset" type="button" data-i18n="reset"></button></div>
+        <div id="moves" role="group"></div>
+        <p class="hint" data-i18n-html="hint"></p>
+        <div class="guide"><h2 data-i18n="history_title"></h2><p class="hint" data-i18n="history_note"></p><p id="instruction" aria-live="polite"></p>
+          <div class="row"><button class="primary" id="step" type="button" data-i18n="next_step"></button><button id="auto" type="button"></button></div>
+          <ol id="solution"></ol>
+        </div>
       </section>
     </div>
-    <details class="net"><summary>Stickeroverzicht per vlak</summary><div id="net"></div></details>
+    <details class="net"><summary data-i18n="net"></summary><div id="net"></div></details>
+
     <section id="boom" aria-labelledby="tree-label">
-      <div class="tree-heading"><div><h2 id="tree-label">Beslisboom</h2><p>Open een kubusstand om de 18 volgende draaien te zien. Elke tak is bereikbaar via zijn zetten.</p></div><button id="replay">↻ Animeer takken</button></div>
-      <nav id="trail" aria-label="Pad in de beslisboom"></nav>
+      <div class="tree-heading"><div><p class="eyebrow">§3</p><h2 id="tree-label" data-i18n="tree"></h2><p data-i18n="tree_body"></p></div><button id="replay" type="button" data-i18n="animate"></button></div>
+      <nav id="trail"></nav>
       <div class="tree-root" id="root"></div>
       <div class="tree-branches" id="branches"></div>
-      <div class="row tree-actions"><button id="back">← Vorige vertakking</button><button class="primary" id="load">Speel deze stand</button></div>
-      <details><summary>Draaien als lijst</summary><ol id="permutations"></ol></details>
+      <div class="row tree-actions"><button id="back" type="button" data-i18n="back"></button><button class="primary" id="load" type="button" data-i18n="load"></button></div>
+      <div class="graph" id="graph"></div>
+      <details><summary data-i18n="as_list"></summary><ol id="permutations"></ol></details>
     </section>
-    <footer><a href="https://www.instagram.com/reel/DeBrTWChFxy/">Ringvisualisatie geïnspireerd door Math Visualizations ↗</a></footer>
+    <footer><a href="https://www.instagram.com/reel/DeBrTWChFxy/" data-i18n="credit"></a><span class="mono" id="version"></span></footer>
   </main>
 </body>
 </html>

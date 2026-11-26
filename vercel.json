@@ -4,6 +4,46 @@
   ],
   "redirects": [
     {
+      "source": "/thecube",
+      "destination": "/the6cube/",
+      "statusCode": 301
+    },
+    {
+      "source": "/thecube/",
+      "destination": "/the6cube/",
+      "statusCode": 301
+    },
+    {
+      "source": "/cube",
+      "destination": "/the6cube/",
+      "statusCode": 301
+    },
+    {
+      "source": "/cube/",
+      "destination": "/the6cube/",
+      "statusCode": 301
+    },
+    {
+      "source": "/the-cube",
+      "destination": "/the6cube/",
+      "statusCode": 301
+    },
+    {
+      "source": "/the-cube/",
+      "destination": "/the6cube/",
+      "statusCode": 301
+    },
+    {
+      "source": "/the_cube",
+      "destination": "/the6cube/",
+      "statusCode": 301
+    },
+    {
+      "source": "/the_cube/",
+      "destination": "/the6cube/",
+      "statusCode": 301
+    },
+    {
       "source": "/shark",
       "destination": "/salesforce",
       "permanent": false
@@ -419,14 +459,6 @@
     }
   ],
   "rewrites": [
-    {
-      "source": "/cube",
-      "destination": "/cube/index.html"
-    },
-    {
-      "source": "/cube/",
-      "destination": "/cube/index.html"
-    },
     {
       "source": "/api/_leads/:path*",
       "destination": "/api/stats?leadhunter=1&leadsAction=page"

@@ -3,6 +3,8 @@ import {createReadStream} from 'node:fs';
 import {stat} from 'node:fs/promises';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {Readable} from 'node:stream';
+import {cubeGate} from '../../thecube-gate.js';
 
 const root = path.resolve(fileURLToPath(new URL('../..', import.meta.url)));
 const types = {
@@ -31,6 +33,17 @@ function apiFixture(url, method) {
 
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, 'http://127.0.0.1');
+  if (process.env.THECUBE_ACCESS_CODE) {
+    const headers = new Headers();
+    if (req.headers.cookie) headers.set('cookie', req.headers.cookie);
+    const gated = await cubeGate(new Request(url, {headers}));
+    if (gated) {
+      res.writeHead(gated.status, Object.fromEntries(gated.headers));
+      if (gated.body && req.method !== 'HEAD') Readable.fromWeb(gated.body).pipe(res);
+      else res.end();
+      return;
+    }
+  }
   if (['/gamedev', '/gd', '/game'].includes(url.pathname.replace(/\/$/, ''))) {
     res.writeHead(307, {Location: '/game-dev'}); res.end(); return;
   }

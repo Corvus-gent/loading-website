@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#08060c">
+<title>Monte Carlo × Corvus · Cube</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;1,6..96,500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE  a casino at 3 a.m. that turns out to be a statistics lecture — Corvus after dark
+   IDEA   the Monte Carlo method was named after a casino; so we built the casino, and let the house prove the law of large numbers
+   PICTURE a roulette wheel whose 54 pockets are the cube's sticker slots, a betting felt, the house's bankroll as a random walk
+   COLOUR  black-plum night, Corvus violet felt, gold leaf, one neon rose for the sign
+   TYPE    Bodoni Moda (sign + numbers), Instrument Sans, mono for odds and data */
+:root{--bg:#08060c;--felt:#1b1230;--felt2:#24183d;--line:#3d2b5e;--violet:#7a5cb0;--lav:#b4a0d6;--gold:#ffd76a;--gold2:#c9a54a;--cream:#efe7d2;--mute:rgba(239,231,210,.6);--neon:#ff5c9a;
+  --serif:'Bodoni Moda',Didot,Georgia,serif;--sans:'Instrument Sans',system-ui,sans-serif;--mono:ui-monospace,SFMono-Regular,Menlo,monospace}
+*{box-sizing:border-box;min-width:0}
+html{background:var(--bg);color:var(--cream);font:16px/1.55 var(--sans)}
+body{margin:0;overflow-x:clip;background:radial-gradient(1100px 700px at 70% 10%,rgba(122,92,176,.18),transparent 60%),var(--bg)}
+a{color:inherit}
+.wrap{width:min(1240px,100% - 32px);margin:0 auto}
+header{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid rgba(61,43,94,.6);font:13px var(--mono);flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--serif);letter-spacing:.38em;text-transform:uppercase;font-size:14px}
+.brand img{width:28px;height:28px;border-radius:50%}
+.portal{color:var(--lav);text-decoration:none}
+#lang button{background:none;border:0;color:var(--mute);font:12px var(--mono);min-height:36px;padding:4px 8px;cursor:pointer}
+#lang button[aria-pressed=true]{color:var(--gold)}
+button,select,input{font:inherit;color:inherit}
+.hero{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:32px;align-items:center;padding:40px 0 20px}
+.sign{display:inline-flex;flex-direction:column;gap:2px;padding:14px 22px 12px;border:1px solid rgba(255,215,106,.35);border-radius:14px;position:relative;margin-bottom:22px}
+.sign::before{content:"";position:absolute;inset:-7px;border-radius:18px;background:radial-gradient(circle,var(--gold) 1.4px,transparent 2px) 0 0/14px 14px;mask:linear-gradient(#000,#000) content-box exclude,linear-gradient(#000,#000);padding:3px;opacity:.75;animation:bulbs 1.6s steps(2) infinite;pointer-events:none}
+@keyframes bulbs{50%{background-position:7px 0}}
+.sign b{font:700 clamp(30px,4vw,46px)/1 var(--serif);letter-spacing:.06em;color:#ffe3ef;text-shadow:0 0 6px var(--neon),0 0 22px rgba(255,92,154,.7)}
+.sign span{font:12px var(--mono);letter-spacing:.32em;color:var(--gold);text-transform:uppercase}
+h1{font:400 clamp(38px,4.6vw,60px)/1.05 var(--serif);margin:0;text-wrap:balance}
+h1 em,h2 em{color:var(--gold);font-style:italic}
+h2{font:400 clamp(28px,3.2vw,42px)/1.1 var(--serif);margin:0;text-wrap:balance}
+.lead{color:var(--mute);max-width:52ch;font-size:17px}
+.wheelbox{position:relative;aspect-ratio:1/1;width:100%;max-width:600px;justify-self:center}
+.wheelbox canvas{position:absolute;inset:0;width:100%;height:100%}
+.plaque{position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);font:13px var(--mono);color:var(--mute);background:rgba(8,6,12,.8);padding:6px 12px;border-radius:999px;border:1px solid var(--line);white-space:nowrap}
+.plaque b{color:var(--gold);font-weight:500}
+.felt{background:radial-gradient(ellipse at 50% 0,var(--felt2),var(--felt) 70%);border:1px solid var(--line);border-radius:22px;padding:clamp(16px,2.6vw,30px);box-shadow:inset 0 0 0 6px rgba(201,165,74,.08),inset 0 0 0 7px rgba(201,165,74,.25)}
+.feltrow{display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.seg{display:flex;gap:4px;border:1px solid var(--line);border-radius:999px;padding:3px}
+.seg button{border:0;background:none;border-radius:999px;padding:8px 14px;min-height:40px;cursor:pointer;color:var(--mute);font-size:14px}
+.seg button[aria-pressed=true]{background:var(--violet);color:var(--cream)}
+.lbl{font:12px var(--mono);color:var(--mute);margin-right:6px}
+.bets{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin:18px 0}
+.bet{position:relative;border:1px solid rgba(201,165,74,.45);border-radius:12px;background:rgba(8,6,12,.25);padding:14px 8px 12px;text-align:center;cursor:pointer;min-height:96px;display:grid;gap:4px;align-content:center;transition:.15s}
+.bet:hover{border-color:var(--gold)}
+.bet[aria-pressed=true]{background:rgba(255,215,106,.12);border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
+.bet .d{font:400 26px/1 var(--serif)}
+.bet .o{font:13px var(--mono);color:var(--gold)}
+.bet .p{font:11px var(--mono);color:var(--mute)}
+.bet.win{animation:win .9s 2}
+@keyframes win{50%{background:rgba(255,215,106,.35)}}
+.bet[disabled]{opacity:.35;cursor:not-allowed}
+.chipbet{position:absolute;top:-12px;right:-8px;width:30px;height:30px;border-radius:50%;background:radial-gradient(circle,var(--gold) 40%,var(--gold2) 41% 60%,var(--gold) 61%);border:2px dashed #fff8;display:none;font:10px var(--mono);color:#1a1206;place-items:center}
+.bet[aria-pressed=true] .chipbet{display:grid}
+.btn{border:1px solid var(--line);background:rgba(36,24,61,.8);border-radius:999px;padding:12px 20px;min-height:46px;cursor:pointer;font-size:15px}
+.btn:hover:not(:disabled){border-color:var(--lav)}
+.btn.gold{background:var(--gold);color:#1a1206;border-color:var(--gold);font-weight:600}
+.btn:disabled{opacity:.45;cursor:default}
+.bank{font:400 clamp(26px,3vw,36px) var(--serif)}
+.bank small{font:12px var(--mono);color:var(--mute);display:block}
+.log{display:flex;gap:4px;flex-wrap:wrap;margin-top:12px;min-height:22px}
+.log i{font:11px/20px var(--mono);font-style:normal;width:22px;height:22px;text-align:center;border-radius:50%;background:rgba(122,92,176,.3)}
+.log i.w{background:var(--gold);color:#1a1206}
+.msg{font:14px var(--mono);color:var(--cream);min-height:1.6em;margin-top:8px}
+section.house{padding:70px 0 30px}
+.charts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:20px}
+.chart{border:1px solid var(--line);border-radius:16px;padding:14px;background:rgba(27,18,48,.45)}
+.chart h3{margin:0 0 6px;font:600 14px var(--sans)}
+.chart .fig{position:relative;height:300px}.chart svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.cap{font:12px var(--mono);color:var(--mute);margin-top:8px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:16px}
+.stats div{border-left:2px solid var(--gold2);padding-left:12px}
+.stats dt{font:12px var(--mono);color:var(--mute)}.stats dd{margin:2px 0 0;font:400 24px var(--serif)}
+.ctrl{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin-top:18px}
+.ctrl label{display:grid;gap:4px;font:12px var(--mono);color:var(--mute)}
+.ctrl input,.ctrl select{background:var(--felt);border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-height:46px;width:9em;font-family:var(--mono)}
+.story{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;padding:40px 0 70px;border-top:1px solid rgba(61,43,94,.6);margin-top:50px}
+.story b{display:block;font:400 22px var(--serif);color:var(--cream);margin-bottom:6px}
+.story p{color:var(--mute);margin:0;font-size:15px}
+footer{padding:30px 0 50px;color:var(--mute);font:12px var(--mono);border-top:1px solid rgba(61,43,94,.6)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+@media(max-width:900px){.hero{grid-template-columns:minmax(0,1fr)}.charts{grid-template-columns:minmax(0,1fr)}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.story{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:560px){.bets{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="brand" href="/"><img src="/thecube/assets/day-1.svg" alt=""><span>Corvus</span></a>
+    <a class="portal" href="/thecube/" data-i18n="portal"></a>
+
+  </header>
+  <div class="hero">
+    <div>
+      <div class="sign" aria-label="Monte Carlo × Corvus"><b>MONTE CARLO</b><span><i id="bean" style="font-style:normal;cursor:pointer">×</i> Corvus · casino</span></div>
+      <h1 data-i18n-html="title"></h1>
+      <p class="lead" data-i18n="lead"></p>
+    </div>
+    <div class="wheelbox"><canvas id="wheel" aria-label="Roulettewiel met de 54 stickerplaatsen van de kubus"></canvas><div class="plaque" id="plaque"></div></div>
+  </div>
+
+  <div class="felt" id="table">
+    <div class="feltrow">
+      <div><span class="lbl" data-i18n="turns"></span><span class="seg" id="ksel"></span></div>
+      <div><span class="lbl" data-i18n="stake"></span><span class="seg" id="ssel"></span></div>
+      <div class="bank"><small data-i18n="bankroll"></small><span id="bank">1 000</span></div>
+    </div>
+    <div class="bets" id="bets" role="group"></div>
+    <div class="feltrow">
+      <div>
+        <button class="btn gold" id="spin" data-i18n="spin"></button>
+        <button class="btn" id="reset" data-i18n="reset"></button>
+      </div>
+      <p class="cap" id="oddsnote" style="margin:0;max-width:60ch"></p>
+    </div>
+    <div class="msg" id="msg" aria-live="polite"></div>
+    <div class="log" id="log"></div>
+  </div>
+
+  <section class="house" id="house">
+    <h2 data-i18n-html="house_title"></h2>
+    <p class="lead" data-i18n="house_lead"></p>
+    <div class="ctrl">
+      <label>seed<input id="seed" value="1729" inputmode="numeric"></label>
+      <label><span data-i18n="hands"></span><select id="hands"><option>1000</option><option selected>10000</option><option>50000</option></select></label>
+      <button class="btn gold" id="play" data-i18n="house_play"></button>
+    </div>
+    <dl class="stats" id="stats"></dl>
+    <div class="charts">
+      <div class="chart"><h3 data-i18n="c1"></h3><div class="fig"><svg id="conv"></svg></div><p class="cap" data-i18n="c1cap"></p></div>
+      <div class="chart"><h3 data-i18n="c2"></h3><div class="fig"><svg id="walk"></svg></div><p class="cap" data-i18n="c2cap"></p></div>
+    </div>
+  </section>
+
+  <div class="story">
+    <div><b data-i18n="s1t"></b><p data-i18n="s1"></p></div>
+    <div><b data-i18n="s2t"></b><p data-i18n="s2"></p></div>
+    <div><b data-i18n="s3t"></b><p data-i18n="s3"></p></div>
+  </div>
+  <footer id="foot"></footer>
+</div>
+<script type="module" src="/thecube/monte-carlo/mc.js"></script>
+<script type="module" src="/thecube/coffee.js"></script>
+</body>
+</html>

@@ -1,0 +1,3 @@
+/thecube /404.html 404!
+/thecube/* /404.html 404!
+/thecube-gate.js /404.html 404!
