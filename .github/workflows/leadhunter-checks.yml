@@ -19,4 +19,4 @@ jobs:
       - run: npm run test:leads
       - run: sudo apt-get update && sudo apt-get install -y redis-server
       - run: npx playwright install --with-deps chromium webkit
-      - run: npm run test:leads:flows
+      - run: npm run e2e:leads

@@ -60,7 +60,7 @@
     "test:yogipower": "node tests/yogipower-i18n.mjs",
     "build:leads": "tsc -p lib/leads/tsconfig.json",
     "test:leads": "npm run build:leads && node --test tests/leads/*.test.mjs",
-    "test:leads:flows": "playwright test -c playwright.leads.config.mjs"
+    "e2e:leads": "playwright test -c playwright.leads.config.mjs"
   },
   "overrides": {
     "@vercel/cli-config": {
