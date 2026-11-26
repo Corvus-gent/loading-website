@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Same URL, two pages · Gabriel × Aikido · corvus.gent</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="A question about evaluating phishing detection when the page can tell who is looking. And who is asking.">
+<meta name="theme-color" content="#0c0b14">
+<link rel="icon" href="/favicon-32.png">
+<style>
+:root{--bg:#0c0b14;--panel:#14121f;--line:#26233a;--ink:#ecebf5;--dim:#9a97b0;--acc:#7b6cff;--acc2:#b4abff;--ok:#5fd38a;--bad:#ff6b7a;--warn:#e6c34d}
+*{box-sizing:border-box}
+html{background:var(--bg);scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;color:var(--ink);font:17px/1.65 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Inter,sans-serif;-webkit-font-smoothing:antialiased}
+main{max-width:720px;margin:0 auto;padding:0 22px 96px}
+a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--acc);text-underline-offset:3px;text-decoration-thickness:1.5px}
+a:hover{color:var(--acc2)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--acc2);outline-offset:3px;border-radius:4px}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.k{font:500 12px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--acc2)}
+.top{display:flex;justify-content:space-between;align-items:center;padding:22px 0;font:13px ui-monospace,Menlo,monospace;color:var(--dim)}
+.top a{color:var(--dim);text-decoration:none}
+.hero{padding:48px 0 18px}
+h1{font:750 clamp(40px,8.5vw,72px)/.98 ui-sans-serif,system-ui,sans-serif;letter-spacing:-.035em;margin:14px 0 18px}
+h1 em{font-style:normal;color:var(--acc)}
+.lead{font-size:clamp(18px,2.4vw,20px);color:#cfcde0;max-width:600px;margin:0}
+.comment{margin:28px 0 0;padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:var(--panel);font:14px/1.55 ui-monospace,Menlo,monospace;color:#d8d6ea}
+.comment small{display:block;color:var(--dim);font-size:12px;margin-bottom:6px}
+h2{font:700 clamp(26px,4.6vw,36px)/1.12 ui-sans-serif,system-ui,sans-serif;letter-spacing:-.02em;margin:10px 0 14px}
+section{padding:56px 0 0}
+p{margin:0 0 14px}
+.dim{color:var(--dim)}
+ul.pts{list-style:none;padding:0;margin:18px 0 0}
+ul.pts li{padding:16px 0;border-top:1px solid var(--line)}
+ul.pts li:last-child{border-bottom:1px solid var(--line)}
+ul.pts b{display:block;margin-bottom:4px}
+
+/* demo */
+.demo{margin:26px 0 0;border:1px solid var(--line);border-radius:14px;background:var(--panel);overflow:hidden}
+.tabs{display:flex;gap:6px;padding:10px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.tabs button{flex:1 1 0;cursor:pointer;background:transparent;color:var(--dim);border:1px solid var(--line);border-radius:999px;padding:9px 12px;font:500 13px ui-monospace,Menlo,monospace}
+.tabs button[aria-selected="true"]{background:var(--acc);border-color:var(--acc);color:#fff}
+.bar{display:flex;align-items:center;gap:8px;padding:10px 14px;font:12px ui-monospace,Menlo,monospace;color:var(--dim);border-bottom:1px solid var(--line)}
+.bar i{width:9px;height:9px;border-radius:50%;background:var(--line);display:inline-block}
+.bar span{margin-left:6px;background:#0c0b14;border:1px solid var(--line);border-radius:6px;padding:4px 10px;flex:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.view{padding:22px;min-height:270px;display:none}
+.view.on{display:block}
+.site{background:#f6f5f1;color:#222;border-radius:10px;padding:22px;max-width:360px;margin:0 auto}
+.site h4{margin:0 0 4px;font:700 18px/1.2 Georgia,serif}
+.site p{font-size:14px;margin:0 0 10px;color:#555}
+.site .f{display:block;width:100%;border:1px solid #ccc;border-radius:6px;padding:9px 10px;margin:8px 0;font-size:14px;color:#999;background:#fff}
+.site .b{display:block;text-align:center;background:#1f4fd8;color:#fff;border-radius:6px;padding:10px;font-weight:600;font-size:14px;margin-top:10px}
+.site .ev{border-top:1px solid #ddd;padding:8px 0;font-size:14px}
+.code{font:13px/1.7 ui-monospace,Menlo,monospace;color:#d8d6ea;background:#0c0b14;border:1px solid var(--line);border-radius:10px;padding:16px;white-space:pre-wrap;margin:0}
+.code .c{color:var(--dim)}
+.verdict{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 14px;border-top:1px solid var(--line);font:12.5px ui-monospace,Menlo,monospace}
+.verdict b{font-weight:600}
+.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+.note{font-size:13px;color:var(--dim);margin:10px 2px 0}
+
+/* plan */
+.tag{display:inline-block;font:600 11px/1 ui-monospace,Menlo,monospace;letter-spacing:.08em;text-transform:uppercase;padding:5px 8px;border-radius:5px;border:1px solid #5a4a00;color:var(--warn);vertical-align:4px}
+.tag.g{border-color:#1f4d2e;color:var(--ok)}
+table{width:100%;border-collapse:collapse;font-size:15px;margin:16px 0}
+th,td{text-align:left;vertical-align:top;padding:11px 8px;border-top:1px solid var(--line)}
+th{width:28%;color:var(--dim);font:500 12px/1.6 ui-monospace,Menlo,monospace;text-transform:uppercase;letter-spacing:.08em;padding-top:13px}
+.hyp{counter-reset:h;list-style:none;padding:0;margin:14px 0}
+.hyp li{counter-increment:h;position:relative;padding:0 0 12px 44px}
+.hyp li:before{content:"H" counter(h);position:absolute;left:0;top:1px;font:600 12px ui-monospace,Menlo,monospace;color:var(--acc2);border:1px solid var(--line);border-radius:5px;padding:3px 6px}
+
+/* me */
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}
+.facts div{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--panel)}
+.facts b{display:block;font-size:15px;margin-bottom:2px}
+.facts span{font-size:14px;color:var(--dim)}
+.ev{list-style:none;padding:0;margin:16px 0 0}
+.ev li{padding:12px 0;border-top:1px solid var(--line);font-size:15.5px}
+.ev li span{color:var(--dim)}
+.cta{margin:64px 0 0;padding:28px 22px;border:1px solid var(--acc);border-radius:16px;background:linear-gradient(160deg,#1a1630,#0c0b14 70%)}
+.cta h2{margin-top:0}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.btn{display:inline-block;padding:12px 18px;border-radius:999px;font-weight:650;font-size:15px;text-decoration:none}
+.btn.p{background:var(--acc);color:#fff}.btn.p:hover{background:#8f82ff;color:#fff}
+.btn.s{border:1.5px solid var(--line);color:var(--ink)}.btn.s:hover{border-color:var(--acc2)}
+footer{margin-top:44px;font-size:13px;color:var(--dim)}
+@media (max-width:560px){.facts{grid-template-columns:1fr}th{width:34%}.view{padding:16px}}
+</style>
+<script defer src="/js/analytics.js"></script>
+</head>
+<body>
+<main>
+  <div class="top"><a href="/">corvus ↟</a><span>/aikido</span></div>
+
+  <header class="hero">
+    <div class="k">for Louis &amp; the Aikido research team</div>
+    <h1>Same URL.<br><em>Two pages.</em></h1>
+    <p class="lead">One of the operators in your Hugging Face write-up asked the AI builder to hide the phishing page from bots. That one detail is a detection problem. It's also an evaluation problem, and the second one interests me more.</p>
+    <div class="comment"><small>my comment under the post</small>AI FBI shit hahaha. how do you benchmark an agent against pages built to hide from agents?</div>
+  </header>
+
+  <section aria-labelledby="s1">
+    <div class="k">01 · what the detector sees</div>
+    <h2 id="s1">Pick a visitor.</h2>
+    <p>A fictional page, three ways of looking at it: a person clicking a link in an email, a scanner that renders the link, an agent that reads the code. The page itself never changes. Only who's looking does.</p>
+
+    <div class="demo">
+      <div class="tabs" role="tablist" aria-label="Visitor">
+        <button role="tab" id="t-h" aria-controls="v-h" aria-selected="true">👤 person</button>
+        <button role="tab" id="t-b" aria-controls="v-b" aria-selected="false" tabindex="-1">🤖 scanner</button>
+        <button role="tab" id="t-s" aria-controls="v-s" aria-selected="false" tabindex="-1">📄 source</button>
+      </div>
+      <div class="bar"><i></i><i></i><i></i><span>https://northwind-portal.example.space/</span></div>
+
+      <div class="view on" id="v-h" role="tabpanel" aria-labelledby="t-h">
+        <div class="site" aria-label="Mock sign-in page for a fictional brand">
+          <h4>Northwind 365</h4>
+          <p>Your session expired. Sign in to keep reading the shared document.</p>
+          <span class="f">name@company.com</span>
+          <span class="f">••••••••</span>
+          <span class="b">Sign in</span>
+        </div>
+      </div>
+      <div class="view" id="v-b" role="tabpanel" aria-labelledby="t-b" hidden>
+        <div class="site" aria-label="Harmless-looking page shown to automated visitors">
+          <h4>Northwind Garden Club</h4>
+          <p>Welcome! Seasonal tips and our next meetups.</p>
+          <div class="ev">🌱 Spring seed swap · Sat 10:00</div>
+          <div class="ev">🍂 Composting 101 · Thu 19:00</div>
+          <div class="ev">📸 Members' photo wall</div>
+        </div>
+      </div>
+      <div class="view" id="v-s" role="tabpanel" aria-labelledby="t-s" hidden>
+<pre class="code"><span class="c">// what a source-reading agent can see (simplified, fictional)</span>
+if (visitorLooksAutomated()) {
+  show(gardenClub);
+} else {
+  show(signInForm);
+  onSubmit → <span class="bad">send credentials to a chat-bot webhook</span>
+}</pre>
+      </div>
+
+      <div class="verdict" aria-live="polite">
+        <span>what this visitor sees: <b id="seen">sign-in form</b></span>
+        <span>a classifier on this view says: <b id="say" class="bad">phishing</b></span>
+      </div>
+    </div>
+    <p class="note">Fictional brand, no real code. The write-up says an operator asked for this kind of filtering against crawlers, headless browsers, curl and wget. It doesn't say whether it actually beat any scanner, and I don't claim it did.</p>
+  </section>
+
+  <section aria-labelledby="s2">
+    <div class="k">02 · why it's an evaluation problem</div>
+    <h2 id="s2">The page doesn't know it's being benchmarked. It doesn't have to.</h2>
+    <p>Recognising an automated visitor is enough. Your detector scores an <em>observation</em>, and the attacker gets a say in what that observation is.</p>
+    <ul class="pts">
+      <li><b>Two systems, two exposures.</b>The discovery agent searched repo code (exfiltration to Telegram, Discord and form services, brand-named repos). On Spaces that source is public, so visitor cloaking barely touches it. A detonator that renders the link and judges a screenshot, which is how Noon is described, is exactly what this trick aims at.</li>
+      <li><b>Your test set inherits the blind spot.</b>If labelled examples come from pages you <em>could</em> see, the pages that hid well are under-represented. The benchmark looks better for the wrong reason.</li>
+      <li><b>42 is a count, not a recall.</b>The search was scoped by exfiltration pattern and every hit was checked by hand, so the finds are solid. The misses are unmeasured, and the write-up says so itself. That honesty is a big part of why I wanted to write this.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="s3">
+    <div class="k">03 · what I'd run first</div>
+    <h2 id="s3">A benchmark that changes who's looking, not just what's there. <span class="tag">planned · not run yet</span></h2>
+    <p>Small, local and defensive. The question: how much does a detector's score depend on the observation conditions, and does a cheap source-level check catch what rendering misses?</p>
+    <ol class="hyp">
+      <li>Screenshot-based detection drops measurably on pages that serve automated visitors something else. A source-level baseline drops much less.</li>
+      <li>A test set built only from pages a scanner could render overstates detection, compared with one where the hiding is known by construction.</li>
+      <li>Combining both views beats either one alone, but less than you'd hope. The gap is the interesting number.</li>
+    </ol>
+    <table>
+      <tr><th>pages</th><td>Synthetic, fictional brands, forms that post dummy data to localhost. A known fraction behave differently for automated visitors, so ground truth is fixed by construction.</td></tr>
+      <tr><th>conditions</th><td>The same set seen as: plain HTTP fetch · headless browser · full browser profile · source only.</td></tr>
+      <tr><th>detectors</th><td>A vision-model screenshot judge, and a simple static-source rule baseline with no agent.</td></tr>
+      <tr><th>report</th><td>Detection rate per condition with bootstrap intervals. The headline is the gap between conditions, not the best score. Plus failure cases: what the detector saw next to what a person saw.</td></tr>
+      <tr><th>wrong if</th><td>Scores barely move across conditions. Then the hiding doesn't matter for this class of detector, and I'll say so.</td></tr>
+      <tr><th>limits</th><td>No live sites, no real brands, no credential collection, no evasion techniques published. Code and data public once it runs, including the parts that didn't work.</td></tr>
+    </table>
+    <p class="dim">If this turns out to be obvious on your side, I'd much rather hear which part is actually hard.</p>
+  </section>
+
+  <section aria-labelledby="s4">
+    <div class="k">04 · who's asking</div>
+    <h2 id="s4">Gabriel. Ghent. I build things, then try to break my own conclusions.</h2>
+    <p>Francisco Gabriel Van Langenhove. I run <a href="/">Corvus</a>, a small studio and community where I build in public. I'm not a security researcher (yet), and I won't pretend otherwise. What I can show is how I build and how I reason about evaluation.</p>
+    <div class="facts">
+      <div><b>BSc Computer Science</b><span>Ghent University, 2021–2025</span></div>
+      <div><b>MSc Computer Science Engineering</b><span>Ghent, 2024–2026. Robotics, ML, AI research seminar. Stopped to build.</span></div>
+      <div><b>Stack</b><span>TypeScript, Node.js, Postgres, Docker, Python, Rust, C</span></div>
+      <div><b>AI-native</b><span>Claude and Codex every day, including on this page. The question and the judgement are mine.</span></div>
+    </div>
+    <ul class="ev">
+      <li><a href="/papers/llm-human-manipulation.pdf">Mutual Manipulation Between LLMs and Humans</a> <span>· course research, 2025. Influence and agency between people and models.</span></li>
+      <li><a href="/papers/model-based-dl-medical-imaging.pdf">Model-Based &amp; Physics-Informed Deep Learning in Medical Imaging</a> <span>· course research in a team of five, 2025.</span></li>
+      <li><a href="https://github.com/SELab-2/Dwengo-1">Dwengo-1</a> <span>· led a team of seven building a learning platform. TypeScript, Node.js, Vue, Docker, Postgres.</span></li>
+      <li><a href="https://github.com/Gabriellvl/nightjar-mcp">nightjar-mcp</a> <span>· a small hostable MCP server over streamable HTTP.</span></li>
+      <li><a href="https://github.com/gabe-maxxing/corvus-noctis">Corvus Noctis</a> <span>· a bare-metal ARM64 hobby OS in Rust, built with coding agents.</span></li>
+      <li><a href="/privacy">corvus.gent/privacy</a> <span>· cookieless, consent-respecting analytics I designed for my own site.</span></li>
+      <li>PartyCrasher 3000 <span>· an autonomous ROS 2 robot that drives, talks and serves drinks.</span></li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="s5">
+    <div class="k">05 · why aikido</div>
+    <h2 id="s5">Research that ships as product. In Ghent.</h2>
+    <p>The Hugging Face investigation went from one flagged notebook to 42 confirmed pages, a takedown and a product argument in the same week. That loop of finding something real, measuring it honestly and shipping the defence is the work I want to do.</p>
+    <p>There's no AI research role open in Ghent right now. The closest fit I see is <a href="https://aikidosecurity.recruitee.com/o/full-stack-developer-noon">Full Stack Developer – Noon</a>, the team this question belongs to, on a stack I've led a project in. I'm just as happy to talk about research or evaluation work if that's ever on the table.</p>
+  </section>
+
+  <div class="cta">
+    <div class="k">next step</div>
+    <h2>Coffee in Ghent?</h2>
+    <p class="dim">Happy to walk through the plan, or get told which part I've got wrong.</p>
+    <div class="btns">
+      <a class="btn p" href="mailto:gabriel@corvus.gent?subject=Same%20URL%2C%20two%20pages">gabriel@corvus.gent</a>
+      <a class="btn s" href="/cv/tech/download">CV (PDF) ↓</a>
+      <a class="btn s" href="https://www.linkedin.com/in/francisco-gabriel-van-langenhove/">LinkedIn ↗</a>
+      <a class="btn s" href="https://github.com/Gabriellvl">GitHub ↗</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>Facts about the case come from Aikido's public write-up, <a href="https://www.aikido.dev/blog/hugging-face-phishing-pages">Attackers use Hugging Face's AI to make phishing pages</a>. Anything about Noon's internals is my reading of public descriptions, not knowledge of the implementation.</p>
+    <p class="mono">corvus.gent/aikido · written 26 Nov 2026</p>
+  </footer>
+</main>
+
+<script>
+(()=>{
+  const tabs=[...document.querySelectorAll('[role=tab]')];
+  const seen=document.getElementById('seen'),say=document.getElementById('say');
+  const info={'t-h':['sign-in form','phishing','bad'],'t-b':['garden club page','benign','ok'],'t-s':['both branches','suspicious: credential exfil','warn']};
+  function pick(t,focus){
+    tabs.forEach(x=>{const on=x===t;x.setAttribute('aria-selected',on);x.tabIndex=on?0:-1;const v=document.getElementById(x.getAttribute('aria-controls'));v.hidden=!on;v.classList.toggle('on',on)});
+    const [a,b,c]=info[t.id];seen.textContent=a;say.textContent=b;say.className=c;if(focus)t.focus();
+  }
+  tabs.forEach((t,i)=>{
+    t.addEventListener('click',()=>pick(t));
+    t.addEventListener('keydown',e=>{const d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;if(d){e.preventDefault();pick(tabs[(i+d+tabs.length)%tabs.length],true)}});
+  });
+})();
+</script>
+</body>
+</html>
