@@ -1,0 +1,37 @@
+name: Leadhunter live login
+# Logs in to https://corvus.gent/scraper/fiverr-leads with the real password in
+# WebKit (DuckDuckGo/Safari engine), Chromium and an iPhone after every production
+# deploy and every 30 minutes. Red = you cannot log in right now.
+on:
+  deployment_status:
+  schedule:
+    - cron: '7,37 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: leadhunter-live-login
+  cancel-in-progress: true
+jobs:
+  login:
+    if: github.event_name != 'deployment_status' || (github.event.deployment_status.state == 'success' && github.event.deployment.environment == 'Production')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npx playwright install --with-deps chromium webkit
+      - name: Real browser login on corvus.gent
+        env:
+          LEADS_PASSWORD: ${{ secrets.LEADS_PASSWORD }}
+        run: npm run live:leads
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: leadhunter-live-login-trace
+          path: test-results/leadhunter-prod
+          retention-days: 7

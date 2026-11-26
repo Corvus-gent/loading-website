@@ -1,0 +1,3 @@
+import {defineConfig,devices} from '@playwright/test';
+// Live production login check. WebKit is DuckDuckGo's and Safari's engine on macOS/iOS.
+export default defineConfig({testDir:'./tests/leads/prod',outputDir:'test-results/leadhunter-prod',timeout:60000,retries:1,workers:1,reporter:[['list']],use:{baseURL:process.env.LEADS_BASE_URL||'https://corvus.gent',trace:'retain-on-failure',screenshot:'only-on-failure'},projects:[{name:'WebKit desktop (DuckDuckGo, Safari)',use:{browserName:'webkit',viewport:{width:1365,height:900}}},{name:'Chromium desktop',use:{browserName:'chromium',viewport:{width:1365,height:900}}},{name:'iPhone (WebKit)',use:{...devices['iPhone 13']}}]});
