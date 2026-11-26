@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#060509">
+<title>Stats · Cube · Corvus</title>
+<style>
+/* VOICE  a lab bench readout: every number measured, nothing decorative
+   IDEA   the page measures itself while you read it, then measures your machine running the cube's maths
+   PICTURE a waterfall of this visit's load phases, live frame-time strip, benchmark bars against our reference
+   COLOUR  near-black, violet hairlines, gold for "this visit", cream for reference
+   TYPE    mono for every number, Bodoni only for section titles */
+:root{--bg:#060509;--line:#2c1f45;--violet:#7a5cb0;--lav:#b4a0d6;--gold:#ffd76a;--cream:#efe7d2;--dim:rgba(239,231,210,.55);--mono:ui-monospace,SFMono-Regular,Menlo,monospace;--serif:'Bodoni Moda',Didot,Georgia,serif}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--cream);font:14px/1.55 system-ui,sans-serif;padding-top:28px}
+.wrap{width:min(1180px,100% - 32px);margin:0 auto;padding:28px 0 60px}
+header{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:14px}
+h1{font:400 clamp(30px,4vw,46px)/1.05 var(--serif);margin:0}
+h1 em{color:var(--gold)}
+h2{font:400 22px var(--serif);margin:34px 0 10px}
+.sub{font:12px var(--mono);color:var(--dim)}
+a{color:var(--lav)}
+.kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-top:18px}
+.kpi{border:1px solid var(--line);border-radius:12px;padding:12px}
+.kpi dt{font:11px var(--mono);color:var(--dim)}.kpi dd{margin:4px 0 0;font:500 22px var(--mono);color:var(--gold)}
+.kpi small{display:block;font:10.5px var(--mono);color:var(--dim)}
+.wf{display:grid;gap:6px;margin-top:8px}
+.wf div{display:grid;grid-template-columns:9em minmax(0,1fr) 6em;gap:10px;align-items:center;font:12px var(--mono)}
+.wf .track{position:relative;height:12px;background:rgba(122,92,176,.1);border-radius:3px}
+.wf .seg{position:absolute;top:0;bottom:0;background:var(--violet);border-radius:3px}
+.wf span:last-child{text-align:right}
+canvas{width:100%;height:90px;display:block;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;font:12.5px var(--mono);width:100%}
+th,td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}th:first-child,td:first-child{text-align:left;white-space:normal}
+th{color:var(--lav);font-weight:400}
+.scroll{overflow-x:auto}
+button{font:13px var(--mono);background:var(--gold);color:#1a1206;border:0;border-radius:999px;padding:10px 18px;min-height:44px;cursor:pointer}
+button:disabled{opacity:.5}
+.bench{display:grid;gap:8px;margin-top:12px}
+.bench div{display:grid;grid-template-columns:minmax(0,16em) minmax(0,1fr) 7em;gap:10px;align-items:center;font:12px var(--mono)}
+.bench .track{position:relative;height:12px;background:rgba(122,92,176,.1);border-radius:3px}
+.bench .me{position:absolute;top:0;bottom:0;background:var(--gold);border-radius:3px}
+.bench .ref{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--cream)}
+.note{font:12px var(--mono);color:var(--dim);margin-top:8px;max-width:90ch}
+.oss td:nth-child(2){color:var(--gold)}
+@media(max-width:820px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.wf div,.bench div{grid-template-columns:7em minmax(0,1fr) 5em}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><h1>The Cube, <em>measured.</em></h1><span class="sub"><a href="/thecube/">← cube</a> · every number on this page is measured, not typed</span></header>
+
+  <h2>This visit</h2>
+  <dl class="kpis" id="kpis"></dl>
+  <div class="wf" id="wf"></div>
+  <p class="note" id="device"></p>
+
+  <h2>Frame time, live</h2>
+  <canvas id="frames" aria-label="Frame times of the last seconds"></canvas>
+  <p class="note" id="fps"></p>
+
+  <h2>Your machine vs. the cube</h2>
+  <button id="run">Run benchmark</button>
+  <div class="bench" id="bench"></div>
+  <p class="note">Gold = your browser, now, on the main thread. White tick = our reference run (headless Chrome, Linux container, single run). Shorter is faster.</p>
+
+  <h2>Page weight</h2>
+  <div class="scroll"><table id="weights"></table></div>
+  <p class="note">Measured on the build (cube-lab/1). Fonts load from Google Fonts and are not included. Budget: every page under 35 kB gzip before images.</p>
+
+  <h2>Recorded on our bench</h2>
+  <div class="scroll"><table id="evidence"></table></div>
+
+  <h2>On the shoulders of</h2>
+  <div class="scroll"><table class="oss" id="oss"></table></div>
+  <p class="note">Stars as read from GitHub on 26 Nov 2026. None of this code is copied into the cube; these projects are the bar.</p>
+</div>
+<script type="module">
+import { mountPolyglot } from '../polyglot.js';
+import { buildBall, runExperiment, exactDistribution, applyMove, identity } from '../lab.js';
+import { moves } from '../model.js';
+mountPolyglot();
+const $ = id => document.getElementById(id);
+const ms = v => v == null || !isFinite(v) ? '—' : v < 10 ? v.toFixed(1) + ' ms' : Math.round(v) + ' ms';
+const kb = b => (b / 1024).toFixed(1) + ' kB';
+
+/* ---- this visit: navigation timing + vitals ---- */
+const vit = { fcp: null, lcp: null, cls: 0, inp: null, longTasks: 0 };
+try { new PerformanceObserver(l => l.getEntries().forEach(e => { if (e.name === 'first-contentful-paint') vit.fcp = e.startTime; })).observe({ type: 'paint', buffered: true }); } catch {}
+try { new PerformanceObserver(l => { const e = l.getEntries().at(-1); if (e) vit.lcp = e.startTime; }).observe({ type: 'largest-contentful-paint', buffered: true }); } catch {}
+try { new PerformanceObserver(l => l.getEntries().forEach(e => { if (!e.hadRecentInput) vit.cls += e.value; })).observe({ type: 'layout-shift', buffered: true }); } catch {}
+try { new PerformanceObserver(l => l.getEntries().forEach(e => { if (e.interactionId) vit.inp = Math.max(vit.inp || 0, e.duration); })).observe({ type: 'event', buffered: true, durationThreshold: 16 }); } catch {}
+try { new PerformanceObserver(l => { vit.longTasks += l.getEntries().length; }).observe({ type: 'longtask', buffered: true }); } catch {}
+function visit() {
+  const n = performance.getEntriesByType('navigation')[0] || {};
+  const k = [['TTFB', n.responseStart, 'server answered'], ['FCP', vit.fcp, 'first paint'], ['LCP', vit.lcp, 'largest paint'], ['CLS', vit.cls, 'layout shift', 3], ['INP', vit.inp, 'slowest interaction'], ['load', n.loadEventEnd, 'all done']];
+  $('kpis').innerHTML = k.map(([a, v, d, dig]) => `<div class="kpi"><dt>${a}</dt><dd>${dig ? (v ?? 0).toFixed(dig) : ms(v)}</dd><small>${d}</small></div>`).join('');
+  const phases = [['redirect', n.redirectStart, n.redirectEnd], ['dns', n.domainLookupStart, n.domainLookupEnd], ['tcp + tls', n.connectStart, n.connectEnd], ['request', n.requestStart, n.responseStart], ['download', n.responseStart, n.responseEnd], ['dom parse', n.responseEnd, n.domInteractive], ['dom ready', n.domInteractive, n.domContentLoadedEventEnd], ['load', n.domContentLoadedEventEnd, n.loadEventEnd]];
+  const end = Math.max(1, n.loadEventEnd || performance.now());
+  $('wf').innerHTML = phases.map(([a, s, e]) => { const d = (e || 0) - (s || 0); return `<div><span>${a}</span><span class="track"><span class="seg" style="left:${100 * (s || 0) / end}%;width:${Math.max(.3, 100 * Math.max(0, d) / end)}%"></span></span><span>${ms(Math.max(0, d))}</span></div>`; }).join('');
+  const c = navigator.connection;
+  $('device').textContent = `${navigator.hardwareConcurrency || '?'} cores · ${navigator.deviceMemory ? navigator.deviceMemory + ' GB' : 'memory hidden'} · DPR ${devicePixelRatio} · ${innerWidth}×${innerHeight} · ${c ? c.effectiveType + ', ' + (c.rtt ?? '?') + ' ms rtt' : 'network hidden'} · long tasks ${vit.longTasks} · transfer ${n.transferSize ? kb(n.transferSize) : 'cached'}`;
+}
+addEventListener('load', () => setTimeout(visit, 50)); setInterval(visit, 2000);
+
+/* ---- live frame time ---- */
+const frames = []; let lastF = performance.now();
+const fc = $('frames'), fg = fc.getContext('2d');
+(function tick(t) { frames.push(t - lastF); lastF = t; if (frames.length > 240) frames.shift();
+  const d = devicePixelRatio || 1, W = fc.clientWidth * d, H = fc.clientHeight * d; if (fc.width !== W) { fc.width = W; fc.height = H; }
+  fg.clearRect(0, 0, W, H); fg.strokeStyle = 'rgba(255,215,106,.3)'; fg.beginPath(); fg.moveTo(0, H - 16.7 / 50 * H); fg.lineTo(W, H - 16.7 / 50 * H); fg.stroke();
+  fg.fillStyle = '#b4a0d6'; frames.forEach((f, i) => { const h = Math.min(H, f / 50 * H); fg.fillRect(i / 240 * W, H - h, W / 240 - 1, h); });
+  if (frames.length > 30) { const s = [...frames].sort((a, b) => a - b); $('fps').textContent = `median ${(1000 / s[s.length >> 1]).toFixed(0)} fps · p95 frame ${s[Math.floor(s.length * .95)].toFixed(1)} ms · gold line = 16.7 ms (60 fps)`; }
+  requestAnimationFrame(tick); })(lastF);
+
+/* ---- benchmark: the cube's own kernels ---- */
+const REF = { ball: 95, sample8: 66, exact4: 82, perms: 4.0 };   // measured: headless Chrome 130 on a Linux container, single run, cube-lab/1
+$('run').onclick = async () => {
+  $('run').disabled = true; $('bench').innerHTML = '';
+  const rows = [];
+  const time = async (label, key, fn) => { await new Promise(r => setTimeout(r, 30)); const t0 = performance.now(); const out = fn(); const t = performance.now() - t0; rows.push([label, t, REF[key], out]); draw(); };
+  const draw = () => { const max = Math.max(...rows.flatMap(r => [r[1], r[2]])) * 1.1;
+    $('bench').innerHTML = rows.map(([l, t, r, o]) => `<div><span>${l}</span><span class="track"><span class="me" style="width:${100 * t / max}%"></span><span class="ref" style="left:${100 * r / max}%"></span></span><span>${ms(t)}</span></div>`).join(''); };
+  let ball;
+  await time('BFS radius 4 · 46,741 states', 'ball', () => (ball = buildBall(4)).layers.join('·'));
+  await time('10,000 random walks · 8 turns', 'sample8', () => runExperiment({ generator: 'uniform', steps: 8, samples: 10000, seed: 1729, ball }).bins.join('·'));
+  await time('exact enumeration · 104,976 sequences', 'exact4', () => exactDistribution('uniform', 4, ball).bins.join('·'));
+  await time('18,519 face turns · 1M sticker updates', 'perms', () => { let p = identity(); for (let i = 0; i < 1e6 / 54; i++) p = applyMove(p, moves[i % 18]); return p[0]; });
+  $('run').disabled = false; $('run').textContent = 'Run again';
+};
+
+/* ---- static measured data ---- */
+const W = {"index.html": {"raw": 31358, "gzip": 12839}, "lab.html": {"raw": 66871, "gzip": 22510}, "monte-carlo.html": {"raw": 32020, "gzip": 12839}, "licht.html": {"raw": 76925, "gzip": 28349}, "nota.html": {"raw": 85873, "gzip": 31561}, "ab.html": {"raw": 4613, "gzip": 2184}, "assets/wing-flight.webp": {"raw": 4808, "gzip": 4005}, "assets/diogenes.webp": {"raw": 57670, "gzip": 57708}, "assets/day-1.svg": {"raw": 2082, "gzip": 799}};   // regenerate with tools/cube/weights.py after every build
+$('weights').innerHTML = '<tr><th>file</th><th>raw</th><th>gzip</th></tr>' + Object.entries(W).map(([f, { raw, gzip }]) => `<tr><td>${f}</td><td>${kb(raw)}</td><td>${kb(gzip)}</td></tr>`).join('');
+const E = [
+  ['first load to first results (390 px, CPU 4× slower, headless Chrome)', '1.46 s'],
+  ['search table build, same device', '88 ms'],
+  ['10,000 samples × 2 generators, 8 steps, same device', '212 ms'],
+  ['warm rerun, same device', '238 ms'],
+  ['largest frame gap while the worker runs', '33 ms'],
+  ['browser checks passing', '24 / 24'], ['Node invariant tests passing', '13 / 13'],
+];
+$('evidence').innerHTML = '<tr><th>measurement (cube-lab/1, single run)</th><th>value</th></tr>' + E.map(([a, b]) => `<tr><td>${a}</td><td>${b}</td></tr>`).join('');
+const OSS = [
+  ['mrdoob/three.js', 119443, 'the web\'s 3D standard; our next renderer candidate'],
+  ['d3/d3', 114017, 'the grammar of data on the web'],
+  ['3b1b/manim', 96985, 'the reason a generation wants to learn maths'],
+  ['grafana/grafana', 78198, 'observability; a public cube dashboard someday'],
+  ['bevyengine/bevy', 50018, 'Rust game engine: ECS + wgpu, a model for a Rust cube'],
+  ['pixijs/pixijs', 48909, 'fastest 2D WebGL renderer'],
+  ['ManimCommunity/manim', 42929, 'community manim'],
+  ['PostHog/posthog', 41140, 'experiments + analytics; the A/B pipe for this page'],
+  ['evanw/esbuild', 40185, 'the bundler that makes every page here one file'],
+  ['GoogleChrome/lighthouse', 31209, 'how "fast" gets proven'],
+  ['BabylonJS/Babylon.js', 26456, 'WebGPU engine'],
+  ['processing/p5.js', 24434, 'creative coding for everyone'],
+  ['google/filament', 20796, 'physically based rendering, wasm'],
+  ['KaTeX/KaTeX', 20543, 'fast maths typesetting'],
+  ['gfx-rs/wgpu', 18644, 'Rust WebGPU; the path to a Rust/wasm cube renderer'],
+  ['GoogleChrome/web-vitals', 8701, 'the metrics at the top of this page'],
+  ['regl-project/regl', 5604, 'functional WebGL'],
+  ['observablehq/plot', 5436, 'exploratory charts'],
+  ['hkociemba/RubiksCube-TwophaseSolver', 766, 'Kociemba\'s two-phase algorithm, by Kociemba'],
+  ['muodov/kociemba', 645, 'C/Python two-phase port'],
+  ['cubing/cubing.js', 372, 'twisty puzzles on the web; Twizzle'],
+  ['ldez/cubejs', 358, 'JS cube model and solver'],
+  ['cs0x7f/min2phase', 344, 'optimised two-phase solver (also in Rust: min2phase_rust)'],
+  ['rokicki/cube20src', 36, 'the source behind God\'s number = 20'],
+];
+$('oss').innerHTML = '<tr><th>project</th><th>★</th><th>why it matters here</th></tr>' + OSS.map(([r, s, w]) => `<tr><td><a href="https://github.com/${r}">${r}</a></td><td>${s.toLocaleString('en')}</td><td style="text-align:left;white-space:normal">${w}</td></tr>`).join('');
+</script>
+<script type="module" src="../coffee.js"></script>
+</body>
+</html>

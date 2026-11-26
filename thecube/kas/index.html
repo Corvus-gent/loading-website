@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#060509">
+<meta name="description" content="De kassa van de Nar. Corvus × The Cube.">
+<title>De Kassa · Cube · Corvus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;1,6..96,400&display=swap" rel="stylesheet">
+<style>
+/* VOICE  a casino at 3 a.m. where the jester owns the table: laughed at, quietly right
+   IDEA   the fool's cashbox: we count people, never money; the chips are votes for what he builds next
+   PICTURE the Nar in halftone with ringing gold bells, a circus ring of 54 lights around one number
+   COLOUR  near-black, Corvus violet felt, lantern gold for bells and the number, one neon rose for the marquee
+   TYPE    Bodoni Moda for the number and the line, mono for every small truth */
+:root{--bg:#060509;--felt:#1b1230;--line:#2c1f45;--violet:#7a5cb0;--lav:#b4a0d6;--gold:#ffd76a;--cream:#efe7d2;--dim:rgba(239,231,210,.55);--neon:#ff5c9a;--serif:'Bodoni Moda',Didot,Georgia,serif;--mono:ui-monospace,SFMono-Regular,Menlo,monospace}
+*{box-sizing:border-box;min-width:0}
+html{background:var(--bg);color:var(--cream);font:15px/1.55 system-ui,sans-serif}
+body{margin:0;padding-top:28px;overflow-x:clip}
+a{color:inherit}
+.wrap{width:min(1180px,100% - 32px);margin:0 auto}
+header{display:flex;justify-content:space-between;align-items:center;padding:14px 0;font:11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+header a{text-decoration:none}
+.stage{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:24px;align-items:center;min-height:calc(100svh - 100px)}
+.nar{position:relative;aspect-ratio:3/4;width:100%;max-width:520px;justify-self:center}
+.nar canvas{position:absolute;inset:0;width:100%;height:100%}
+.marquee{display:inline-block;font:12px var(--mono);letter-spacing:.34em;text-transform:uppercase;color:#ffe3ef;text-shadow:0 0 6px var(--neon),0 0 18px rgba(255,92,154,.6);padding:8px 16px;border-radius:999px;position:relative;margin-bottom:22px}
+.marquee::before{content:"";position:absolute;inset:0;border-radius:999px;padding:2px;background:radial-gradient(circle,var(--gold) 1.3px,transparent 1.8px) 0 0/12px 12px;-webkit-mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);animation:bulbs 1.4s steps(2) infinite;pointer-events:none}
+@keyframes bulbs{50%{background-position:6px 0}}
+.count{position:relative;display:grid;place-items:center;aspect-ratio:1/1;width:min(380px,80vw);margin:6px 0 18px}
+.count canvas{position:absolute;inset:0;width:100%;height:100%}
+.count .n{font:700 clamp(64px,9vw,112px)/1 var(--serif);color:var(--gold);text-shadow:0 0 30px rgba(255,215,106,.25);position:relative}
+.count .l{position:absolute;bottom:22%;left:0;right:0;text-align:center;font:italic 400 clamp(15px,1.5vw,18px) var(--serif);color:var(--cream)}
+.line{font:italic 400 clamp(22px,2.6vw,32px)/1.25 var(--serif);margin:0 0 22px;text-wrap:balance}
+.line em{color:var(--gold);font-style:italic}
+.acts{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:12px 20px;min-height:48px;font:600 15px system-ui,sans-serif;text-decoration:none;border:1px solid var(--violet);color:var(--cream);background:rgba(27,18,48,.7);cursor:pointer}
+.btn.gold{background:var(--gold);color:#1a1206;border-color:var(--gold)}
+.btn[aria-disabled=true]{opacity:.45;pointer-events:none}
+.mock{display:inline-block;font:10.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--neon);border:1px solid rgba(255,92,154,.5);border-radius:6px;padding:2px 8px;margin-left:8px;vertical-align:middle}
+section{padding:56px 0;border-top:1px solid var(--line)}
+h2{font:400 clamp(24px,2.6vw,32px)/1.15 var(--serif);margin:0 0 6px}
+.sub{font:12px var(--mono);color:var(--dim);margin:0 0 18px}
+.goal{position:relative;height:14px;border-radius:999px;background:rgba(122,92,176,.18);margin:34px 0 54px}
+.goal .fill{position:absolute;inset:0 auto 0 0;border-radius:999px;background:linear-gradient(90deg,var(--violet),var(--gold));transition:width 1.2s cubic-bezier(.2,.7,.2,1)}
+.goal .ms{position:absolute;top:-6px;width:2px;height:26px;background:var(--line)}
+.goal .ms.on{background:var(--gold)}
+.goal .ms span{position:absolute;top:30px;left:50%;transform:translateX(-50%);white-space:nowrap;font:11px var(--mono);color:var(--dim);text-align:center}
+.goal .ms.on span{color:var(--gold)}
+.goal .ms b{display:block;font:500 14px var(--mono);color:var(--cream)}
+.felt{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;padding:16px;border-radius:20px;background:radial-gradient(ellipse at 50% 0,#24183d,var(--felt) 70%);box-shadow:inset 0 0 0 6px rgba(201,165,74,.08),inset 0 0 0 7px rgba(201,165,74,.25)}
+.spot{position:relative;border:1px solid rgba(201,165,74,.45);border-radius:14px;background:rgba(6,5,9,.3);padding:16px 12px;min-height:150px;display:grid;align-content:space-between;gap:10px;text-align:left;color:var(--cream);font:inherit;cursor:pointer}
+.spot:hover,.spot:focus-visible{border-color:var(--gold);outline:none}
+.spot[aria-pressed=true]{background:rgba(255,215,106,.1);border-color:var(--gold)}
+.spot b{font:400 20px/1.15 var(--serif)}
+.spot small{font:12px var(--mono);color:var(--dim)}
+.spot .chips{display:flex;gap:3px;flex-wrap:wrap;min-height:18px}
+.spot .chips i{width:14px;height:14px;border-radius:50%;background:radial-gradient(circle,var(--gold) 38%,#c9a54a 40% 62%,var(--gold) 64%);border:1px dashed #fff8}
+.spot .v{font:12px var(--mono);color:var(--gold)}
+.ticker{display:flex;gap:26px;overflow:hidden;white-space:nowrap;font:13px var(--mono);color:var(--dim);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.ticker div{display:flex;gap:26px;flex:none;animation:tick 40s linear infinite}
+.ticker span{flex:none}
+@keyframes tick{to{transform:translateX(-50%)}}
+.wall{display:flex;flex-wrap:wrap;gap:8px 18px;font:italic 400 18px var(--serif);color:var(--cream)}
+.wall span{opacity:.85}
+.story p{font:italic 400 clamp(18px,1.9vw,22px)/1.5 var(--serif);max-width:52ch;margin:0 0 16px}
+.story p em{color:var(--gold)}
+.where{list-style:none;padding:0;margin:0;display:grid;gap:6px;font:13px var(--mono);color:var(--dim)}
+.where b{color:var(--cream);font-weight:500}
+.legal{font:11.5px/1.6 var(--mono);color:var(--dim);max-width:90ch}
+footer{padding:30px 0 50px;font:12px var(--mono);color:var(--dim);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid var(--line)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+@media(max-width:860px){.stage{grid-template-columns:minmax(0,1fr);min-height:0;padding-top:10px}.nar{max-width:300px;order:2}.felt{grid-template-columns:repeat(2,minmax(0,1fr))}.goal .ms span{font-size:9.5px}.goal .ms b{font-size:12px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><a href="/thecube/" data-i18n="back"></a><span>Corvus × The Cube</span></header>
+
+  <div class="stage">
+    <div class="nar"><canvas id="nar" role="img" aria-label="De Nar"></canvas></div>
+    <div>
+      <div class="marquee">Corvus Grand Casino · Cirque Corvus</div>
+      <div class="count"><canvas id="ring" aria-hidden="true"></canvas><span class="n" id="n">·</span><span class="l" id="nl"></span></div>
+      <p class="line" data-i18n-html="line"></p>
+      <div class="acts">
+        <a class="btn gold" id="revolut" target="_blank" rel="noopener"></a>
+        <a class="btn" id="coffee" target="_blank" rel="noopener"></a>
+        <a class="btn" id="stripe" target="_blank" rel="noopener"></a>
+        <a class="btn" href="/join-the-army-now" data-i18n="army"></a>
+        <span class="mock" id="mock" hidden></span>
+      </div>
+    </div>
+  </div>
+
+  <section class="story">
+    <h2 data-i18n="story_t"></h2>
+    <p data-i18n-html="story"></p>
+    <ul class="where"><li data-i18n-html="w1"></li><li data-i18n-html="w2"></li></ul>
+  </section>
+
+  <section>
+    <h2 data-i18n="goal_t"></h2>
+    <p class="sub" data-i18n="goal_s"></p>
+    <div class="goal" id="goal"><div class="fill" id="fill"></div></div>
+  </section>
+
+  <section>
+    <h2 data-i18n="table_t"></h2>
+    <p class="sub" data-i18n="table_s"></p>
+    <div class="felt" id="felt" role="group"></div>
+  </section>
+
+  <section>
+    <h2 data-i18n="recent_t"></h2>
+    <div class="ticker" id="ticker" aria-live="off"></div>
+  </section>
+
+  <section>
+    <h2 data-i18n="wall_t"></h2>
+    <p class="sub" data-i18n="wall_s"></p>
+    <div class="wall" id="wall"></div>
+  </section>
+
+  <section><p class="legal" data-i18n="legal"></p></section>
+  <footer><span>Corvus × The Cube · <span data-i18n="evil"></span></span><span><a href="/thecube/brein/" style="text-decoration:none;margin-right:14px">东方议会 · the brain</a><a href="/thecube/">corvus.gent/thecube</a></span></footer>
+</div>
+<script type="module">
+import { mountPolyglot, currentLang } from '../polyglot.js';
+
+/* Links come from one config (same as coffee.js). Codex fills them from the repo. */
+const SUPPORT = Object.assign({ revolut: 'https://revolut.me/gabe6maxxing', coffee: 'https://buymeacoffee.com/gabe.maxxing', stripe: null }, window.CUBE_SUPPORT || {});   // revolut first: straight to Gabriel
+/* Milestones count PEOPLE, never money. Gabriel confirms the unlocks (INSTRUCTIES §9). */
+const MILESTONES = [[10, 'm10'], [50, 'm50'], [100, 'm100'], [500, 'm500']];
+const PROPOSALS = ['p_door', 'p_rust', 'p_china', 'p_film'];
+/* Mock data, shown only when /api/donations is unreachable, and labelled as such on the page. */
+const MOCK = { supporters: 37, recent: [{ where: 'Gent', ago_s: 120 }, { where: 'Leuven', ago_s: 860 }, { where: 'London', ago_s: 2400 }, { where: 'New York', ago_s: 5400 }, { where: 'Shanghai', ago_s: 9100 }], names: ['Ada', 'Ramanujan', 'Ulam', 'Noether', 'Diogenes'] };
+
+const T = {
+  nl: { revolut: 'Revolut, rechtstreeks', story_t: 'Waar je koffie naartoe gaat', story: 'Ik verkocht mijn PlayStation 5 om Codex (€200), Claude (€20) en Grok (€30) te betalen. Alles hier draait op een refurbished MacBook M1. Elke koffie gaat meteen naar meer rekenkracht voor de agents. <em>GTA VI moet nog even wachten.</em>', w1: '<b>Buy Me a Coffee · Stripe</b> → Corvus, de studio', w2: '<b>Revolut</b> → rechtstreeks naar Gabriel, meteen herbelegd in credits', back: '← 🏛️ de kubus', line: 'Ze lachten om de nar. <em>De nar deed de wiskunde.</em>', people: 'mensen trakteerden de Nar', coffee: '☕ Trakteer de Nar', stripe: 'Vrije bijdrage', army: 'Join the army', soon: 'link volgt', mock: 'voorbeelddata',
+    goal_t: 'Wat jullie ontgrendelen', goal_s: 'We tellen mensen, geen geld. Elke drempel ontgrendelt iets dat de Nar bouwt.', m10: 'deur 5', m50: 'Rust-kern', m100: 'China-versie', m500: 'de Nar-film',
+    table_t: 'Zet een fiche op morgen', table_s: 'Gratis stem. Eén fiche per persoon per voorstel. Wat de meeste fiches krijgt, bouwt de Nar eerst.',
+    p_door: 'Deur 5', p_door_s: 'een vijfde kamer in het orakel', p_rust: 'De Rust-kern', p_rust_s: 'dezelfde wiskunde, tien keer sneller', p_china: 'De China-versie', p_china_s: 'Genghis Gabe, 九连环, 洛书', p_film: 'De Nar-film', p_film_s: '60 seconden, alles echt',
+    voted: 'jouw fiche ligt hier', chips: 'fiches', recent_t: 'Net getrakteerd', ago: '{w} · {t} geleden', min: 'min', h: 'u', just: 'net',
+    wall_t: 'De muur', wall_s: 'Alleen wie zelf koos om genoemd te worden. Nooit wat iemand gaf.',
+    legal: 'Vrijwillige steun aan Corvus. Je krijgt er geen prijs voor en er is geen kansspel: de fiches op deze pagina zijn gratis stemmen, geen inzet. Bedragen worden nergens getoond of opgeslagen op deze site. Buy Me a Coffee en Stripe gaan naar Corvus en verwerken die betalingen; Revolut is een vrijwillige gift rechtstreeks aan Gabriel. Terugbetaling alleen bij een fout.', evil: 'we tonen nooit bedragen' },
+  en: { revolut: 'Revolut, direct', story_t: 'Where your coffee goes', story: 'I sold my PlayStation 5 to pay for Codex (€200), Claude (€20) and Grok (€30). Everything here runs on a refurbished MacBook M1. Every coffee goes straight into more compute for the agents. <em>GTA VI will have to wait.</em>', w1: '<b>Buy Me a Coffee · Stripe</b> → Corvus, the studio', w2: '<b>Revolut</b> → straight to Gabriel, reinvested in credits right away', back: '← 🏛️ the cube', line: 'They laughed at the fool. <em>The fool did the maths.</em>', people: 'people treated the Fool', coffee: '☕ Treat the Fool', stripe: 'Any amount', army: 'Join the army', soon: 'link coming', mock: 'sample data',
+    goal_t: 'What you unlock', goal_s: 'We count people, not money. Every threshold unlocks something the Fool builds.', m10: 'door 5', m50: 'Rust core', m100: 'China edition', m500: 'the Fool film',
+    table_t: 'Put a chip on tomorrow', table_s: 'Free vote. One chip per person per proposal. Whatever gets the most chips, the Fool builds first.',
+    p_door: 'Door 5', p_door_s: 'a fifth room in the oracle', p_rust: 'The Rust core', p_rust_s: 'the same maths, ten times faster', p_china: 'The China edition', p_china_s: 'Genghis Gabe, 九连环, 洛书', p_film: 'The Fool film', p_film_s: '60 seconds, all real',
+    voted: 'your chip is here', chips: 'chips', recent_t: 'Just treated', ago: '{w} · {t} ago', min: 'min', h: 'h', just: 'now',
+    wall_t: 'The wall', wall_s: 'Only those who chose to be named. Never what anyone gave.',
+    legal: 'Voluntary support for Corvus. There is no prize and no game of chance: the chips on this page are free votes, not stakes. Amounts are never shown or stored on this site. Buy Me a Coffee and Stripe go to Corvus and process those payments; Revolut is a voluntary gift directly to Gabriel. Refunds only in case of error.', evil: 'we never show amounts' },
+  es: { revolut: 'Revolut, directo', story_t: 'A dónde va tu café', story: 'Vendí mi PlayStation 5 para pagar Codex (200 €), Claude (20 €) y Grok (30 €). Todo esto corre en un MacBook M1 reacondicionado. Cada café va directo a más cómputo para los agentes. <em>GTA VI tendrá que esperar.</em>', w1: '<b>Buy Me a Coffee · Stripe</b> → Corvus, el estudio', w2: '<b>Revolut</b> → directo a Gabriel, reinvertido en créditos al instante', back: '← 🏛️ el cubo', line: 'Se rieron del bufón. <em>El bufón hizo las matemáticas.</em>', people: 'personas invitaron al Bufón', coffee: '☕ Invita al Bufón', stripe: 'Cualquier cantidad', army: 'Únete al ejército', soon: 'enlace pronto', mock: 'datos de ejemplo',
+    goal_t: 'Lo que desbloqueáis', goal_s: 'Contamos personas, no dinero.', m10: 'puerta 5', m50: 'núcleo Rust', m100: 'edición China', m500: 'la película',
+    table_t: 'Pon una ficha en mañana', table_s: 'Voto gratuito. Una ficha por persona y propuesta.', p_door: 'Puerta 5', p_door_s: 'una quinta sala', p_rust: 'El núcleo Rust', p_rust_s: 'las mismas matemáticas, diez veces más rápido', p_china: 'La edición China', p_china_s: 'Genghis Gabe, 九连环, 洛书', p_film: 'La película del Bufón', p_film_s: '60 segundos, todo real',
+    voted: 'tu ficha está aquí', chips: 'fichas', recent_t: 'Recién invitado', ago: '{w} · hace {t}', min: 'min', h: 'h', just: 'ahora', wall_t: 'El muro', wall_s: 'Solo quien eligió ser nombrado. Nunca cuánto dio.', evil: 'nunca mostramos cantidades' },
+  fr: { revolut: 'Revolut, en direct', story_t: 'Où va ton café', story: 'J’ai vendu ma PlayStation 5 pour payer Codex (200 €), Claude (20 €) et Grok (30 €). Tout ici tourne sur un MacBook M1 reconditionné. Chaque café part directement en puissance de calcul pour les agents. <em>GTA VI attendra.</em>', w1: '<b>Buy Me a Coffee · Stripe</b> → Corvus, le studio', w2: '<b>Revolut</b> → directement à Gabriel, réinvesti aussitôt en crédits', back: '← 🏛️ le cube', line: 'Ils ont ri du fou. <em>Le fou a fait les maths.</em>', people: 'personnes ont offert un café au Fou', coffee: '☕ Offrir un café au Fou', stripe: 'Montant libre', army: "Rejoindre l'armée", soon: 'lien à venir', mock: 'données exemple',
+    goal_t: 'Ce que vous débloquez', goal_s: "On compte des personnes, pas de l'argent.", m10: 'porte 5', m50: 'noyau Rust', m100: 'édition Chine', m500: 'le film',
+    table_t: 'Misez un jeton sur demain', table_s: 'Vote gratuit. Un jeton par personne et par proposition.', p_door: 'Porte 5', p_door_s: 'une cinquième salle', p_rust: 'Le noyau Rust', p_rust_s: 'les mêmes maths, dix fois plus vite', p_china: "L'édition Chine", p_china_s: 'Genghis Gabe, 九连环, 洛书', p_film: 'Le film du Fou', p_film_s: '60 secondes, tout est vrai',
+    voted: 'votre jeton est ici', chips: 'jetons', recent_t: 'À l’instant', ago: '{w} · il y a {t}', min: 'min', h: 'h', just: 'maintenant', wall_t: 'Le mur', wall_s: 'Seulement ceux qui ont choisi d’être nommés. Jamais le montant.', evil: 'nous ne montrons jamais de montants' },
+  pt: { revolut: 'Revolut, direto', story_t: 'Para onde vai o teu café', story: 'Vendi a minha PlayStation 5 para pagar o Codex (200 €), o Claude (20 €) e o Grok (30 €). Tudo aqui corre num MacBook M1 recondicionado. Cada café vai direto para mais computação para os agentes. <em>O GTA VI vai ter de esperar.</em>', w1: '<b>Buy Me a Coffee · Stripe</b> → Corvus, o estúdio', w2: '<b>Revolut</b> → direto para o Gabriel, reinvestido em créditos de imediato', back: '← 🏛️ o cubo', line: 'Riram-se do bobo. <em>O bobo fez as contas.</em>', people: 'pessoas pagaram um café ao Bobo', coffee: '☕ Paga um café ao Bobo', stripe: 'Qualquer valor', army: 'Junta-te ao exército', soon: 'link em breve', mock: 'dados de exemplo',
+    goal_t: 'O que desbloqueiam', goal_s: 'Contamos pessoas, não dinheiro.', m10: 'porta 5', m50: 'núcleo Rust', m100: 'edição China', m500: 'o filme',
+    table_t: 'Aposta uma ficha no amanhã', table_s: 'Voto grátis. Uma ficha por pessoa e proposta.', p_door: 'Porta 5', p_door_s: 'uma quinta sala', p_rust: 'O núcleo Rust', p_rust_s: 'a mesma matemática, dez vezes mais rápida', p_china: 'A edição China', p_china_s: 'Genghis Gabe, 九连环, 洛书', p_film: 'O filme do Bobo', p_film_s: '60 segundos, tudo real',
+    voted: 'a tua ficha está aqui', chips: 'fichas', recent_t: 'Acabou de pagar', ago: '{w} · há {t}', min: 'min', h: 'h', just: 'agora', wall_t: 'O mural', wall_s: 'Só quem escolheu ser nomeado. Nunca quanto deu.', evil: 'nunca mostramos valores' },
+  de: { revolut: 'Revolut, direkt', story_t: 'Wohin dein Kaffee geht', story: 'Ich habe meine PlayStation 5 verkauft, um Codex (200 €), Claude (20 €) und Grok (30 €) zu bezahlen. Alles hier läuft auf einem generalüberholten MacBook M1. Jeder Kaffee geht direkt in mehr Rechenleistung für die Agents. <em>GTA VI muss noch warten.</em>', w1: '<b>Buy Me a Coffee · Stripe</b> → Corvus, das Studio', w2: '<b>Revolut</b> → direkt an Gabriel, sofort in Credits reinvestiert', back: '← 🏛️ der Würfel', line: 'Sie lachten über den Narren. <em>Der Narr rechnete.</em>', people: 'Menschen spendierten dem Narren einen Kaffee', coffee: '☕ Spendier dem Narren einen Kaffee', stripe: 'Freier Betrag', army: 'Tritt der Armee bei', soon: 'Link folgt', mock: 'Beispieldaten',
+    goal_t: 'Was ihr freischaltet', goal_s: 'Wir zählen Menschen, kein Geld.', m10: 'Tür 5', m50: 'Rust-Kern', m100: 'China-Edition', m500: 'der Film',
+    table_t: 'Setz einen Chip auf morgen', table_s: 'Kostenlose Stimme. Ein Chip pro Person und Vorschlag.', p_door: 'Tür 5', p_door_s: 'ein fünfter Raum', p_rust: 'Der Rust-Kern', p_rust_s: 'dieselbe Mathematik, zehnmal schneller', p_china: 'Die China-Edition', p_china_s: 'Genghis Gabe, 九连环, 洛书', p_film: 'Der Narrenfilm', p_film_s: '60 Sekunden, alles echt',
+    voted: 'dein Chip liegt hier', chips: 'Chips', recent_t: 'Gerade spendiert', ago: '{w} · vor {t}', min: 'Min', h: 'Std', just: 'jetzt', wall_t: 'Die Wand', wall_s: 'Nur wer genannt werden wollte. Nie der Betrag.', evil: 'wir zeigen nie Beträge' },
+  zh: { revolut: 'Revolut，直接转给我', story_t: '你的咖啡去了哪里', story: '我卖掉了我的 PlayStation 5，用来支付 Codex（200 欧元）、Claude（20 欧元）和 Grok（30 欧元）。这里的一切都运行在一台翻新的 MacBook M1 上。每一杯咖啡都会直接变成智能体的算力。<em>GTA VI 只能再等等了。</em>', w1: '<b>Buy Me a Coffee · Stripe</b> → Corvus 工作室', w2: '<b>Revolut</b> → 直接给 Gabriel，立刻再投入算力', back: '← 🏛️ 魔方', line: '他们笑那个小丑。<em>小丑做了数学。</em>', people: '人请小丑喝了咖啡', coffee: '☕ 请小丑喝咖啡', stripe: '任意金额', army: '加入军团', soon: '链接即将上线', mock: '示例数据',
+    goal_t: '你们解锁的东西', goal_s: '我们只数人，不数钱。', m10: '第五扇门', m50: 'Rust 内核', m100: '中国版', m500: '小丑电影',
+    table_t: '为明天下一枚筹码', table_s: '免费投票。每人每个提案一枚筹码。', p_door: '第五扇门', p_door_s: '神谕中的第五个房间', p_rust: 'Rust 内核', p_rust_s: '同样的数学，快十倍', p_china: '中国版', p_china_s: 'Genghis Gabe，九连环，洛书', p_film: '小丑电影', p_film_s: '60 秒，全部真实',
+    voted: '你的筹码在这里', chips: '枚筹码', recent_t: '刚刚请客', ago: '{w} · {t}前', min: '分钟', h: '小时', just: '刚刚', wall_t: '留名墙', wall_s: '只显示自愿署名的人。从不显示金额。', evil: '我们从不显示金额' },
+};
+let lang = currentLang(Object.keys(T), 'en');
+const t = (k, v = {}) => (T[lang][k] ?? T.en[k] ?? T.nl[k] ?? k).replace(/\{(\w+)\}/g, (_, n) => v[n] ?? '');
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $ = id => document.getElementById(id);
+
+/* ---------------- data: count people only ---------------- */
+let data = null, isMock = false;
+async function load() {
+  try {
+    const r = await fetch('/api/donations', { headers: { accept: 'application/json' } });
+    if (!r.ok) throw 0;
+    const j = await r.json();
+    // Defence in depth: keep only the three public fields, whatever the server sends.
+    data = { supporters: Number(j.supporters) || 0, recent: (j.recent || []).slice(0, 12).map(x => ({ where: String(x.where || ''), ago_s: Number(x.ago_s) || 0 })), names: (j.names || []).slice(0, 200).map(String) };
+    isMock = false;
+  } catch { data = MOCK; isMock = true; }
+  render();
+}
+
+/* ---------------- votes: free, one per person per proposal (local until a backend exists) ---------------- */
+const BASE_VOTES = { p_door: 12, p_rust: 9, p_china: 15, p_film: 7 };       // part of the mock, labelled as sample data
+const myVotes = () => { try { return new Set(JSON.parse(localStorage.getItem('cube-kas-votes') || '[]')); } catch { return new Set(); } };
+function vote(p) { const s = myVotes(); s.has(p) ? s.delete(p) : s.add(p); try { localStorage.setItem('cube-kas-votes', JSON.stringify([...s])); } catch {} render(); window.dispatchEvent(new CustomEvent('cube-ab', { detail: { type: 'kas-vote', door: p } })); }
+
+/* ---------------- render ---------------- */
+let shown = 0;
+function ago(s) { return s < 60 ? t('just') : s < 3600 ? Math.round(s / 60) + ' ' + t('min') : Math.round(s / 3600) + ' ' + t('h'); }
+function render() {
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(e => e.textContent = t(e.dataset.i18n));
+  document.querySelectorAll('[data-i18n-html]').forEach(e => e.innerHTML = t(e.dataset.i18nHtml));
+  const link = (el, href, label) => { el.textContent = href ? label : label + ' · ' + t('soon'); if (href) { el.href = href; el.removeAttribute('aria-disabled'); } else { el.removeAttribute('href'); el.setAttribute('aria-disabled', 'true'); } };
+  link($('revolut'), SUPPORT.revolut, t('revolut')); link($('coffee'), SUPPORT.coffee, t('coffee')); link($('stripe'), SUPPORT.stripe, t('stripe')); $('stripe').hidden = !SUPPORT.stripe;
+  $('mock').hidden = !isMock; $('mock').textContent = t('mock');
+  if (!data) return;
+  // the number counts up once
+  const target = data.supporters, fmt = new Intl.NumberFormat(lang);
+  if (shown !== target) { const from = shown, t0 = performance.now(), D = reduced ? 0 : 1400;
+    (function step(now) { const k = D ? Math.min(1, (now - t0) / D) : 1, e = 1 - (1 - k) ** 3; shown = Math.round(from + (target - from) * e); $('n').textContent = fmt.format(shown); if (k < 1) requestAnimationFrame(step); })(t0); }
+  else $('n').textContent = fmt.format(shown);
+  $('nl').textContent = t('people');
+  // goal in people
+  const max = MILESTONES.at(-1)[0], pos = v => Math.min(100, 100 * Math.log1p(v) / Math.log1p(max));   // log scale so 10 is visible next to 500
+  $('fill').style.width = pos(target) + '%';
+  $('goal').querySelectorAll('.ms').forEach(e => e.remove());
+  MILESTONES.forEach(([v, k]) => { const m = document.createElement('div'); m.className = 'ms' + (target >= v ? ' on' : ''); m.style.left = pos(v) + '%'; m.innerHTML = `<span><b>${fmt.format(v)}</b>${t(k)}</span>`; $('goal').append(m); });
+  $('goal').setAttribute('aria-label', `${fmt.format(target)} ${t('people')}`);
+  // the felt
+  const mine = myVotes();
+  $('felt').replaceChildren(...PROPOSALS.map(p => {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'spot'; b.setAttribute('aria-pressed', mine.has(p));
+    const n = (isMock ? BASE_VOTES[p] : 0) + (mine.has(p) ? 1 : 0);
+    b.innerHTML = `<span><b>${t(p)}</b><br><small>${t(p + '_s')}</small></span><span class="chips">${'<i></i>'.repeat(Math.min(n, 18))}</span><span class="v">${fmt.format(n)} ${t('chips')}${mine.has(p) ? ' · ' + t('voted') : ''}</span>`;
+    b.onclick = () => vote(p); return b;
+  }));
+  // ticker: where and when, never how much
+  const items = data.recent.map(r => `<span>☕ ${t('ago', { w: r.where.replace(/[<>&]/g, ''), t: ago(r.ago_s) })}</span>`).join('');
+  $('ticker').innerHTML = items ? `<div>${items}${items}</div>` : '';
+  $('wall').replaceChildren(...data.names.map(n => { const s = document.createElement('span'); s.textContent = n; return s; }));
+}
+
+/* ---------------- the Nar: an original jester, drawn then printed as halftone ---------------- */
+function drawNar() {
+  const c = $('nar'), d = Math.min(2, devicePixelRatio || 1), W = c.clientWidth * d, H = c.clientHeight * d; if (!W) return;
+  c.width = W; c.height = H;
+  const off = document.createElement('canvas'); off.width = W; off.height = H; const o = off.getContext('2d');
+  const s = Math.min(W / 370, H / 450), X = x => W / 2 + x * s, Y = y => H * .54 + y * s;   // horns and bells fit inside the frame
+  const lum = (v) => `rgb(${v},${v},${v})`;
+  // body + motley diamonds
+  o.fillStyle = lum(70); o.beginPath(); o.moveTo(X(-95), Y(190)); o.quadraticCurveTo(X(-80), Y(40), X(0), Y(30)); o.quadraticCurveTo(X(80), Y(40), X(95), Y(190)); o.fill();
+  for (let i = -3; i <= 3; i++) for (let j = 0; j < 4; j++) { if ((i + j) % 2) continue; o.fillStyle = lum(140); o.beginPath(); const cx = X(i * 26), cy = Y(70 + j * 34); o.moveTo(cx, cy - 16 * s); o.lineTo(cx + 13 * s, cy); o.lineTo(cx, cy + 16 * s); o.lineTo(cx - 13 * s, cy); o.fill(); }
+  // collar points
+  o.fillStyle = lum(210); o.beginPath(); for (let i = 0; i <= 8; i++) { const a = Math.PI * (1.05 + i * .1125), r = i % 2 ? 46 : 78; o.lineTo(X(Math.cos(a) * -r * .95), Y(28 + Math.abs(Math.sin(a)) * r * .5)); } o.fill();
+  // face
+  const g = o.createRadialGradient(X(-10), Y(-34), 4 * s, X(0), Y(-20), 52 * s); g.addColorStop(0, lum(235)); g.addColorStop(1, lum(120));
+  o.fillStyle = g; o.beginPath(); o.ellipse(X(0), Y(-22), 40 * s, 48 * s, 0, 0, 7); o.fill();
+  o.fillStyle = lum(20); o.beginPath(); o.ellipse(X(-14), Y(-30), 4 * s, 6 * s, 0, 0, 7); o.ellipse(X(14), Y(-30), 4 * s, 6 * s, 0, 0, 7); o.fill();
+  o.strokeStyle = lum(30); o.lineWidth = 3 * s; o.beginPath(); o.arc(X(0), Y(-12), 18 * s, .15 * Math.PI, .85 * Math.PI); o.stroke();       // the knowing smile
+  // the cap: three horns
+  const horn = (dir) => { o.beginPath(); o.moveTo(X(-34 * (dir === 0 ? .6 : 1) + (dir === 1 ? 50 : 0)), Y(-62)); };
+  o.fillStyle = lum(95);
+  [[-1, -150, -125], [0, 0, -190], [1, 150, -125]].forEach(([k, tx, ty]) => { o.beginPath(); o.moveTo(X(-38 + k * 6), Y(-58)); o.quadraticCurveTo(X(tx * .4), Y(ty * .55), X(tx), Y(ty)); o.quadraticCurveTo(X(tx * .5 + 10 * k), Y(ty * .45), X(38 + k * 6), Y(-58)); o.closePath(); o.fill(); });
+  o.fillStyle = lum(170); o.fillRect(X(-42), Y(-66), 84 * s, 12 * s);                                                                          // band
+  const data = o.getImageData(0, 0, W, H).data, x = c.getContext('2d'), step = Math.round(5 * d);
+  for (let y = step / 2; y < H; y += step) for (let xx = step / 2; xx < W; xx += step) {
+    const i = (Math.floor(y) * W + Math.floor(xx)) * 4, a = data[i + 3] / 255; if (!a) continue; const l = data[i] / 255;
+    x.fillStyle = l > .6 ? `rgba(239,231,210,${.45 + .5 * l})` : `rgba(${Math.round(91 + 60 * l)},${Math.round(62 + 50 * l)},${Math.round(140 + 60 * l)},${.5 + .5 * l})`;   // Corvus violet shadows, cream light
+    x.beginPath(); x.arc(xx, y, Math.max(.6, l * step * .55), 0, 7); x.fill();
+  }
+  nar.bells = [[-150, -125], [0, -190], [150, -125]].map(([bx, by]) => [X(bx), Y(by), 11 * s]);
+  nar.base = x.getImageData(0, 0, W, H);
+}
+const nar = { bells: [], base: null };
+function bells(tm) {
+  const c = $('nar'), x = c.getContext('2d'); if (!nar.base) return requestAnimationFrame(bells);
+  x.putImageData(nar.base, 0, 0);
+  nar.bells.forEach(([bx, by, r], i) => { const sw = reduced ? 0 : Math.sin(tm * .006 + i * 1.7) * r * .5;
+    const g = x.createRadialGradient(bx + sw, by, 0, bx + sw, by, r * 3); g.addColorStop(0, 'rgba(255,215,106,.85)'); g.addColorStop(.35, 'rgba(255,215,106,.25)'); g.addColorStop(1, 'transparent');
+    x.fillStyle = g; x.beginPath(); x.arc(bx + sw, by, r * 3, 0, 7); x.fill(); x.fillStyle = '#ffe9a8'; x.beginPath(); x.arc(bx + sw, by, r, 0, 7); x.fill(); });
+  if (!reduced) requestAnimationFrame(bells);
+}
+
+/* ---------------- the ring: 54 lights, a circus ring around one number ---------------- */
+function ring(tm) {
+  const c = $('ring'), d = Math.min(2, devicePixelRatio || 1), W = c.clientWidth * d; if (c.width !== W) { c.width = W; c.height = W; }
+  const x = c.getContext('2d'), R = W * .46, cx = W / 2; x.clearRect(0, 0, W, W);
+  const lit = data ? Math.min(54, data.supporters) : 0;
+  for (let i = 0; i < 54; i++) { const a = -Math.PI / 2 + i / 54 * Math.PI * 2 + (reduced ? 0 : tm * .00008), on = i < lit, blink = on && !reduced && Math.sin(tm * .004 + i) > .6;
+    x.fillStyle = on ? (blink ? '#fff3c4' : '#ffd76a') : 'rgba(122,92,176,.35)'; x.beginPath(); x.arc(cx + Math.cos(a) * R, cx + Math.sin(a) * R, (on ? 3.4 : 2.4) * d, 0, 7); x.fill(); }
+  x.strokeStyle = 'rgba(122,92,176,.3)'; x.lineWidth = d; x.beginPath(); x.arc(cx, cx, R * .9, 0, 7); x.stroke();
+  requestAnimationFrame(ring);
+}
+
+mountPolyglot(code => { lang = code; render(); });
+render(); load(); setInterval(load, 10000);
+drawNar(); requestAnimationFrame(bells); requestAnimationFrame(ring);
+addEventListener('resize', () => { clearTimeout(drawNar.t); drawNar.t = setTimeout(drawNar, 150); });
+</script>
+<script type="module" src="../coffee.js"></script>
+</body>
+</html>

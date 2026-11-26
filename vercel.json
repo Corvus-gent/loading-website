@@ -4,6 +4,36 @@
   ],
   "redirects": [
     {
+      "source": "/cube",
+      "destination": "/thecube",
+      "statusCode": 301
+    },
+    {
+      "source": "/cube/",
+      "destination": "/thecube",
+      "statusCode": 301
+    },
+    {
+      "source": "/the-cube",
+      "destination": "/thecube",
+      "statusCode": 301
+    },
+    {
+      "source": "/the-cube/",
+      "destination": "/thecube",
+      "statusCode": 301
+    },
+    {
+      "source": "/the_cube",
+      "destination": "/thecube",
+      "statusCode": 301
+    },
+    {
+      "source": "/the_cube/",
+      "destination": "/thecube",
+      "statusCode": 301
+    },
+    {
       "source": "/shark",
       "destination": "/salesforce",
       "permanent": false
@@ -420,12 +450,12 @@
   ],
   "rewrites": [
     {
-      "source": "/cube",
-      "destination": "/cube/index.html"
+      "source": "/thecube",
+      "destination": "/thecube/index.html"
     },
     {
-      "source": "/cube/",
-      "destination": "/cube/index.html"
+      "source": "/thecube/",
+      "destination": "/thecube/index.html"
     },
     {
       "source": "/api/_leads/:path*",

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>A/B · Cube · Corvus</title>
+<style>
+:root{--bg:#060509;--line:#2c1f45;--gold:#ffd76a;--cream:#efe7d2;--dim:rgba(239,231,210,.55);--mono:ui-monospace,SFMono-Regular,Menlo,monospace}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--cream);font:14px/1.5 system-ui,sans-serif;padding:18px}
+h1{font:400 22px Georgia,serif;margin:0 0 4px}
+p{color:var(--dim);margin:0 0 14px;max-width:90ch}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+figure{margin:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#000}
+figcaption{display:flex;justify-content:space-between;gap:8px;padding:10px 12px;font:12px var(--mono);border-bottom:1px solid var(--line)}
+figcaption b{color:var(--gold);font-weight:500}
+iframe{display:block;width:100%;height:min(560px,62vh);border:0}
+.phone iframe{width:min(390px,100%);height:min(780px,78vh);margin:0 auto}
+.bar{display:flex;gap:8px;margin:0 0 12px;flex-wrap:wrap}
+button{font:12px var(--mono);background:#120d1a;color:var(--cream);border:1px solid var(--line);border-radius:8px;padding:8px 12px;min-height:40px;cursor:pointer}
+button[aria-pressed=true]{border-color:var(--gold);color:var(--gold)}
+table{border-collapse:collapse;font:12.5px var(--mono);margin-top:16px;min-width:min(720px,100%)}
+th,td{padding:6px 12px;border-bottom:1px solid var(--line);text-align:right}th:first-child,td:first-child{text-align:left}th{color:#b4a0d6;font-weight:400}
+@media(max-width:900px){.grid{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head>
+<body>
+<h1>Portaal · A/B/C</h1>
+<p>Drie varianten, elk één verandering. Bezoekers krijgen er willekeurig één (blijvend per browser; <code>?v=a|b|c</code> forceert). Elke variant logt exposure, hover en keuze; de tabel telt wat in deze browser gebeurde. Zodra er een PostHog- of Vercel-endpoint is, gaan dezelfde events daarheen.</p>
+<div class="bar"><button id="desk" aria-pressed="true">desktop</button><button id="phone" aria-pressed="false">telefoon</button><button id="reload">herlaad alle drie</button><button id="clear">wis log</button></div>
+<div class="grid" id="grid"></div>
+<table id="tbl"></table>
+<script>
+const BASE = window.CUBE_PORTAL || '/thecube/';
+const V = [['a', 'orakel', 'Delphi + Diogenes fluistert + vraag over chaos'], ['b', 'stilte', 'geen Diogenes, geen Grieks: alleen kubus en "Wat zoek je?"'], ['c', 'diogenes', 'Diogenes groot, hij stelt de vraag; kubus kleiner']];
+const grid = document.getElementById('grid');
+function draw() { grid.innerHTML = V.map(([k, n, d]) => `<figure><figcaption><span><b>${k.toUpperCase()}</b> · ${n}</span><span>${d}</span></figcaption><iframe src="${BASE}?v=${k}&lang=nl" title="variant ${k}" loading="lazy"></iframe></figure>`).join(''); }
+function mode(phone) { grid.classList.toggle('phone', phone); document.getElementById('desk').setAttribute('aria-pressed', !phone); document.getElementById('phone').setAttribute('aria-pressed', phone); }
+document.getElementById('desk').onclick = () => mode(false);
+document.getElementById('phone').onclick = () => mode(true);
+document.getElementById('reload').onclick = draw;
+document.getElementById('clear').onclick = () => { try { localStorage.removeItem('cube-ab-log'); } catch {} stats(); };
+function stats() {
+  let log = []; try { log = JSON.parse(localStorage.getItem('cube-ab-log') || '[]'); } catch {}
+  const rows = V.map(([k, n]) => { const e = log.filter(x => x.variant === k), ex = e.filter(x => x.type === 'exposure').length, ho = e.filter(x => x.type === 'hover').length, ch = e.filter(x => x.type === 'choose');
+    const t = ch.map(x => x.ms).sort((a, b) => a - b), med = t.length ? Math.round(t[Math.floor(t.length / 2)] / 100) / 10 + ' s' : '—';
+    const doors = ['lab', 'casino', 'show', 'note'].map(d => ch.filter(x => x.door === d).length).join(' / ');
+    return `<tr><td>${k.toUpperCase()} · ${n}</td><td>${ex}</td><td>${ho}</td><td>${ch.length}</td><td>${ex ? Math.round(100 * ch.length / ex) + ' %' : '—'}</td><td>${med}</td><td>${doors}</td></tr>`; });
+  document.getElementById('tbl').innerHTML = '<tr><th>variant</th><th>exposures</th><th>hovers</th><th>keuzes</th><th>keuze/exposure</th><th>mediane tijd tot keuze</th><th>patroon / geluk / voorstelling / waarheid</th></tr>' + rows.join('');
+}
+addEventListener('storage', stats); setInterval(stats, 1500);
+draw(); stats();
+</script>
+</body>
+</html>

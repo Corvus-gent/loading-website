@@ -1,0 +1,415 @@
+{
+ "version": "cube-lab/1",
+ "radius": 4,
+ "layers": [
+  1,
+  18,
+  243,
+  3240,
+  43239
+ ],
+ "generatedBy": "node tools/cube/experiment.mjs --snapshot",
+ "runs": [
+  {
+   "steps": 2,
+   "seed": 1729,
+   "samples": 10000,
+   "results": [
+    {
+     "generator": "uniform",
+     "bins": [
+      559,
+      1101,
+      8340,
+      0,
+      0,
+      0
+     ],
+     "examples": [
+      {
+       "trial": 25,
+       "sequence": [
+        "D2",
+        "D2"
+       ]
+      },
+      {
+       "trial": 0,
+       "sequence": [
+        "U'",
+        "U'"
+       ]
+      },
+      {
+       "trial": 1,
+       "sequence": [
+        "D'",
+        "B2"
+       ]
+      },
+      null,
+      null,
+      null
+     ]
+    },
+    {
+     "generator": "distinct",
+     "bins": [
+      0,
+      0,
+      10000,
+      0,
+      0,
+      0
+     ],
+     "examples": [
+      null,
+      null,
+      {
+       "trial": 0,
+       "sequence": [
+        "U'",
+        "R"
+       ]
+      },
+      null,
+      null,
+      null
+     ]
+    }
+   ],
+   "exact": [
+    {
+     "generator": "uniform",
+     "steps": 2,
+     "bins": [
+      18,
+      36,
+      270,
+      0,
+      0,
+      0
+     ],
+     "denominator": 324
+    },
+    {
+     "generator": "distinct",
+     "steps": 2,
+     "bins": [
+      0,
+      0,
+      270,
+      0,
+      0,
+      0
+     ],
+     "denominator": 270
+    }
+   ]
+  },
+  {
+   "steps": 4,
+   "seed": 1729,
+   "samples": 10000,
+   "results": [
+    {
+     "generator": "uniform",
+     "bins": [
+      71,
+      352,
+      1777,
+      2434,
+      5366,
+      0
+     ],
+     "examples": [
+      {
+       "trial": 136,
+       "sequence": [
+        "U2",
+        "U2",
+        "L'",
+        "L"
+       ]
+      },
+      {
+       "trial": 7,
+       "sequence": [
+        "B",
+        "F",
+        "B'",
+        "F2"
+       ]
+      },
+      {
+       "trial": 9,
+       "sequence": [
+        "U2",
+        "L",
+        "L'",
+        "R2"
+       ]
+      },
+      {
+       "trial": 0,
+       "sequence": [
+        "U'",
+        "U'",
+        "D'",
+        "B2"
+       ]
+      },
+      {
+       "trial": 3,
+       "sequence": [
+        "D2",
+        "R2",
+        "D2",
+        "R'"
+       ]
+      },
+      null
+     ]
+    },
+    {
+     "generator": "distinct",
+     "bins": [
+      9,
+      33,
+      242,
+      437,
+      9279,
+      0
+     ],
+     "examples": [
+      {
+       "trial": 690,
+       "sequence": [
+        "U2",
+        "D2",
+        "U2",
+        "D2"
+       ]
+      },
+      {
+       "trial": 192,
+       "sequence": [
+        "B2",
+        "F2",
+        "B2",
+        "F"
+       ]
+      },
+      {
+       "trial": 102,
+       "sequence": [
+        "U",
+        "D'",
+        "U",
+        "D'"
+       ]
+      },
+      {
+       "trial": 3,
+       "sequence": [
+        "D2",
+        "R'",
+        "L",
+        "R'"
+       ]
+      },
+      {
+       "trial": 0,
+       "sequence": [
+        "U'",
+        "R",
+        "D2",
+        "B2"
+       ]
+      },
+      null
+     ]
+    }
+   ],
+   "exact": null
+  },
+  {
+   "steps": 8,
+   "seed": 1729,
+   "samples": 10000,
+   "results": [
+    {
+     "generator": "uniform",
+     "bins": [
+      4,
+      20,
+      105,
+      310,
+      843,
+      8718
+     ],
+     "examples": [
+      {
+       "trial": 4805,
+       "sequence": [
+        "R",
+        "F",
+        "F'",
+        "B2",
+        "B2",
+        "D2",
+        "D2",
+        "R'"
+       ]
+      },
+      {
+       "trial": 68,
+       "sequence": [
+        "U2",
+        "U2",
+        "L'",
+        "L",
+        "F",
+        "F",
+        "D",
+        "D'"
+       ]
+      },
+      {
+       "trial": 180,
+       "sequence": [
+        "L2",
+        "B'",
+        "B",
+        "L2",
+        "F",
+        "R",
+        "R2",
+        "R2"
+       ]
+      },
+      {
+       "trial": 43,
+       "sequence": [
+        "L2",
+        "L2",
+        "B2",
+        "R2",
+        "R2",
+        "B",
+        "D'",
+        "F"
+       ]
+      },
+      {
+       "trial": 60,
+       "sequence": [
+        "U",
+        "L'",
+        "U'",
+        "B",
+        "B2",
+        "D2",
+        "D'",
+        "D'"
+       ]
+      },
+      {
+       "trial": 0,
+       "sequence": [
+        "U'",
+        "U'",
+        "D'",
+        "B2",
+        "L2",
+        "L'",
+        "D'",
+        "F'"
+       ]
+      }
+     ]
+    },
+    {
+     "generator": "distinct",
+     "bins": [
+      0,
+      2,
+      6,
+      14,
+      55,
+      9923
+     ],
+     "examples": [
+      null,
+      {
+       "trial": 9349,
+       "sequence": [
+        "B2",
+        "R'",
+        "U",
+        "D",
+        "U",
+        "D'",
+        "U2",
+        "R"
+       ]
+      },
+      {
+       "trial": 1142,
+       "sequence": [
+        "R'",
+        "L2",
+        "R",
+        "D'",
+        "U",
+        "D",
+        "U'",
+        "F"
+       ]
+      },
+      {
+       "trial": 1074,
+       "sequence": [
+        "B",
+        "F",
+        "B",
+        "F'",
+        "B2",
+        "L2",
+        "U'",
+        "D"
+       ]
+      },
+      {
+       "trial": 253,
+       "sequence": [
+        "L",
+        "R",
+        "L'",
+        "D'",
+        "U2",
+        "D'",
+        "U",
+        "L'"
+       ]
+      },
+      {
+       "trial": 0,
+       "sequence": [
+        "U'",
+        "R",
+        "D2",
+        "B2",
+        "D2",
+        "L2",
+        "D",
+        "F"
+       ]
+      }
+     ]
+    }
+   ],
+   "exact": null
+  }
+ ]
+}
