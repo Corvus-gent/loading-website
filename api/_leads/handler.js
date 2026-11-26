@@ -24,6 +24,10 @@ const login=message=>`<!doctype html><html lang="en"><meta charset="utf-8"><meta
 function body(req){if(typeof req.body==='object'&&req.body!==null)return req.body;const raw=String(req.body||'');if(raw.length>2000000)throw Error('Payload too large');return String(req.headers['content-type']).includes('application/x-www-form-urlencoded')?Object.fromEntries(new URLSearchParams(raw)):JSON.parse(raw||'{}');}
 // WebKit (Safari, DuckDuckGo) sends `Origin: null` on form posts under a strict referrer policy; Fetch Metadata still proves same-origin.
 export function sameOrigin(req){const h=req.headers||{},origin=h.origin;if(origin&&origin!=='null')return origin===`https://${h.host}`;return h['sec-fetch-site']==='same-origin';}
+// Login attempts per IP. Redis first; if storage is down, a per-instance counter so a storage outage never locks the owner out.
+const attempts=new Map();
+async function loginAttempts(db,key,now){try{return Number(await db(['EVAL',"local n=redis.call('INCR',KEYS[1]); if n==1 then redis.call('EXPIRE',KEYS[1],900) end; return n",'1',key]));}catch(error){console.error('leadhunter login limiter fallback',failureKind(error));const row=attempts.get(key);const next=row&&row.until>now?{n:row.n+1,until:row.until}:{n:1,until:now+900000};attempts.set(key,next);if(attempts.size>5000)attempts.clear();return next.n;}}
+export const STORAGE_DOWN='Storage is unreachable right now. Nothing you saved is lost; try Refresh in a minute.';
 const fields=['name','contact','need','budget_min','budget_max','currency','urgency','warm','next_action','status'];
 export function createHandler({db=redis,env=process.env,clock=Date.now}={}) {
  const setting=async()=>JSON.parse(await db(['GET',KEY+'settings'])||'{}');
@@ -52,9 +56,9 @@ export function createHandler({db=redis,env=process.env,clock=Date.now}={}) {
     await db(['SET',KEY+'snapshot',JSON.stringify(next),'EX','108000']);return json(200,{ok:true,count:next.leads.length});
    }
    if(action==='login'&&method==='POST'){
-    if(!sameOrigin(req))return json(403,{error:'Same-origin login required'});
+    if(!sameOrigin(req))return send(403,'text/html',login('Open leadhunter from corvus.gent and unlock it there.'));
     const ip=String(req.headers['x-forwarded-for']||'unknown').split(',')[0];const key=KEY+'login:'+crypto.createHmac('sha256',password).update(ip).digest('hex');
-    const count=Number(await db(['EVAL',"local n=redis.call('INCR',KEYS[1]); if n==1 then redis.call('EXPIRE',KEYS[1],900) end; return n",'1',key]));
+    const count=await loginAttempts(db,key,clock());
     if(count>10)return send(429,'text/html',login('Too many attempts. Try again in 15 minutes.'));
     if(!equal(body(req).password,password))return send(401,'text/html',login('That password did not match.'));
     res.setHeader('Set-Cookie',`leadhunter=${session(password,clock())}; HttpOnly; Secure; SameSite=Strict; Path=${BASE}; Max-Age=43200`);res.setHeader('Location',BASE);return res.status(303).end();
@@ -89,7 +93,7 @@ export function createHandler({db=redis,env=process.env,clock=Date.now}={}) {
     return json(200,{ok:true,id:next.id});
    }
    return json(404,{error:'Not found'});
-  }catch(error){if(/Invalid|Name and|Budget|Use |Add an|Runner cannot|Payload/.test(error.message))return json(400,{error:error.message});console.error('leadhunter request failed',action,error.name,failureKind(error),safeFailureMessage(error,env));return json(503,{error:'Could not save or load right now. Your last saved data is unchanged.'});}
+  }catch(error){if(/Invalid|Name and|Budget|Use |Add an|Runner cannot|Payload/.test(error.message))return json(400,{error:error.message});console.error('leadhunter request failed',action,error.name,failureKind(error),safeFailureMessage(error,env));return json(503,{error:STORAGE_DOWN});}
  };
 }
 export default createHandler();
