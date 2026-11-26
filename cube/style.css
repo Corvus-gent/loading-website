@@ -1,0 +1,63 @@
+:root{color-scheme:dark;--bg:#101416;--panel:#161c1d;--line:#313b3c;--text:#f4f3e9;--muted:#aab6b3;--accent:#c9ff6b;font:16px system-ui,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text)}
+main{max-width:1280px;margin:auto;padding:0 clamp(16px,4vw,60px)}
+header,footer{display:flex;justify-content:space-between;padding:22px 0;border-bottom:1px solid var(--line);font:13px ui-monospace,monospace}
+a{color:inherit;text-underline-offset:4px}
+.intro{padding:32px 0 22px}
+h1,h2,p{margin:0}
+h1{font-size:clamp(70px,12vw,160px);letter-spacing:-.09em;line-height:.85}
+h1 span{color:var(--accent)}
+.intro p{color:var(--muted);margin-top:22px}
+.workspace{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(320px,1fr);gap:12px}
+.stage,.controls,#boom,.net{border:1px solid var(--line);border-radius:16px;background:var(--panel)}
+.stage{display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;background:radial-gradient(ellipse at center,#202d30,#14191b 72%)}
+.stage-top,.stage-bottom{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;min-height:62px}
+.stage h2,.stage output,.stage-bottom span{font:13px ui-monospace,monospace}
+.stage output{color:var(--accent)}
+#cube{display:block;width:100%;height:auto;max-height:540px;object-fit:contain}
+.controls{padding:20px}
+.controls h2,.tree-heading h2{font-size:24px;letter-spacing:-.04em}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.setup{justify-content:space-between;margin:12px 0;color:var(--muted)}
+button,select{background:#20292b;border:1px solid #435052;border-radius:8px;color:var(--text);font:inherit;font-size:14px;min-height:42px;padding:8px 12px}
+button{cursor:pointer}
+button:hover:not(:disabled){border-color:var(--accent)}
+button:disabled{opacity:.48;cursor:default}
+button:focus-visible,select:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.primary{background:var(--accent);color:#142000;font-weight:750;border-color:var(--accent)}
+#moves{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px;margin:16px 0 8px}
+#moves button{padding:6px 1px;font:14px ui-monospace,monospace;border-top-color:var(--face)}
+.hint,details,.tree-heading p{font-size:13px;line-height:1.5;color:var(--muted)}
+.guide{margin-top:15px;padding-top:14px;border-top:1px solid var(--line)}
+#instruction{min-height:44px;margin:8px 0;font-size:14px}
+#solution{display:flex;flex-wrap:wrap;list-style:none;gap:5px;padding:0;margin:10px 0}
+#solution li{font:13px ui-monospace,monospace;background:#252e2f;padding:4px 6px;border-radius:4px}
+#solution li:first-child{color:var(--accent)}
+summary{cursor:pointer}
+details p{margin-top:6px}
+.net,#boom{margin-top:12px;padding:16px}
+#net{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px}
+.net-face{display:grid;grid-template-columns:repeat(3,16px);gap:3px}
+.net-face strong{grid-column:span 3}
+.net-face span{width:16px;height:16px;border-radius:3px}
+#boom{margin-top:32px;scroll-margin:16px}
+.tree-heading{display:flex;justify-content:space-between;gap:12px;align-items:center}
+.tree-heading p{margin-top:4px}
+#trail{display:flex;gap:6px;flex-wrap:wrap;margin-top:16px}
+#trail button[aria-current]{color:var(--accent)}
+.tree-root{display:grid;justify-items:center;margin-top:12px}
+.tree-root .tree-node{margin-bottom:20px}
+.tree-root .tree-node::after{content:"";position:absolute;bottom:-21px;height:20px;border-left:1px solid #59646a}
+.tree-branches{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:10px;position:relative;border-top:1px solid #59646a;padding-top:12px}
+.tree-node{display:grid;justify-items:center;position:relative;width:100%;padding:4px 2px 7px;font:13px ui-monospace,monospace}
+.tree-node strong{color:var(--accent)}
+.tree-branches .tree-node::before{content:"";position:absolute;top:-13px;height:12px;border-left:1px solid #59646a}
+.tree-root .tree-node{width:120px;text-align:center}
+.tree-node canvas{display:block;width:100%;max-width:88px;height:auto}
+.tree-actions{margin:12px 0}
+#permutations{columns:3;padding-left:24px}
+#permutations button{margin-bottom:5px}
+footer{border:0;color:var(--muted);margin-top:18px}
+@media(max-width:760px){.workspace{grid-template-columns:1fr}.tree-branches{grid-template-columns:repeat(6,minmax(0,1fr))}}
+@media(max-width:430px){.tree-branches{grid-template-columns:repeat(3,minmax(0,1fr))}.tree-heading{align-items:flex-start;flex-direction:column}}

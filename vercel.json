@@ -420,6 +420,14 @@
   ],
   "rewrites": [
     {
+      "source": "/cube",
+      "destination": "/cube/index.html"
+    },
+    {
+      "source": "/cube/",
+      "destination": "/cube/index.html"
+    },
+    {
       "source": "/api/_leads/:path*",
       "destination": "/api/stats?leadhunter=1&leadsAction=page"
     },

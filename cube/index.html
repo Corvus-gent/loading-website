@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101416">
+  <meta name="description" content="Een speelbare Rubiks kubus met negen ringen, een begeleide oplossing en een interactieve beslisboom.">
+  <title>Cube · Corvus</title>
+  <link rel="stylesheet" href="/cube/style.css">
+  <script type="module" src="/cube/cube.js"></script>
+</head>
+<body>
+  <main>
+    <header><a href="/">Corvus</a><a href="#boom">Beslisboom ↘</a></header>
+    <div class="intro"><h1>Cube<span>.</span></h1><p>54 stickers. Negen ringen. Elke draai verandert welke sticker waar zit.</p></div>
+    <div class="workspace">
+      <section class="stage" aria-labelledby="cube-label">
+        <div class="stage-top"><h2 id="cube-label">Kubus</h2><output id="status" aria-live="polite"></output></div>
+        <canvas id="cube" width="640" height="520" role="img" aria-label="Kubusstand als gekleurde stickers op negen ringen">Dezelfde kubusstand staat in het stickeroverzicht onder de bediening.</canvas>
+        <div class="stage-bottom"><span id="last">—</span><button id="view" type="button">Andere kijkhoek</button></div>
+      </section>
+      <section class="controls" aria-labelledby="play-label">
+        <h2 id="play-label">Spelen</h2>
+        <div class="row setup"><label for="length">Scramble</label><select id="length"><option value="4">4 draaien</option><option value="8" selected>8 draaien</option><option value="16">16 draaien</option></select></div>
+        <div class="row"><button class="primary" id="scramble">↻ Scramble</button><button id="reset">Reset</button></div>
+        <div id="moves" aria-label="Draai een vlak"></div>
+        <p class="hint">Letters kiezen een vlak. <strong>′</strong> draait tegen de klok in, <strong>2</strong> draait 180°. Op je toetsenbord gebruik je U, R, F, D, L of B, eventueel met Shift voor de omgekeerde draai.</p>
+        <div class="guide"><h2>Oplossen</h2><p id="instruction" aria-live="polite"></p>
+        <div class="row"><button class="primary" id="step">Volgende stap</button><button id="auto">Speel oplossing</button></div>
+        <ol id="solution" aria-label="Resterende oplossingsdraaien"></ol>
+        <details><summary>Hoe werkt de oplossing?</summary><p>Een draai is een permutatie van de stickers. Om deze scramble terug te draaien, doorloop je de zetten in omgekeerde volgorde en keer je elke draai om. Eigen zetten tellen mee. Twee opeenvolgende draaien van hetzelfde vlak worden samengevoegd.</p></details></div>
+      </section>
+    </div>
+    <details class="net"><summary>Stickeroverzicht per vlak</summary><div id="net"></div></details>
+    <section id="boom" aria-labelledby="tree-label">
+      <div class="tree-heading"><div><h2 id="tree-label">Beslisboom</h2><p>Open een kubusstand om de 18 volgende draaien te zien. Elke tak is bereikbaar via zijn zetten.</p></div><button id="replay">↻ Animeer takken</button></div>
+      <nav id="trail" aria-label="Pad in de beslisboom"></nav>
+      <div class="tree-root" id="root"></div>
+      <div class="tree-branches" id="branches"></div>
+      <div class="row tree-actions"><button id="back">← Vorige vertakking</button><button class="primary" id="load">Speel deze stand</button></div>
+      <details><summary>Draaien als lijst</summary><ol id="permutations"></ol></details>
+    </section>
+    <footer><a href="https://www.instagram.com/reel/DeBrTWChFxy/">Ringvisualisatie geïnspireerd door Math Visualizations ↗</a></footer>
+  </main>
+</body>
+</html>
