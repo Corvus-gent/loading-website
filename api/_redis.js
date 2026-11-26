@@ -60,9 +60,9 @@ function discard(current) {
 async function connection() {
   // Recheck the deadline on every operation, including an already-open connection.
   const url = connectionEndpoint();
-  // A client that gave up reconnecting stays closed forever: drop it so the next
-  // request after a storage blip opens a fresh connection instead of failing.
-  if (client && settled && client.isOpen === false) discard(client);
+  // A client that gave up (closed) or is mid-backoff (not ready) fails every command:
+  // drop it so the next request after a storage blip opens a fresh connection instead of failing.
+  if (client && settled && (client.isOpen === false || client.isReady === false)) discard(client);
   if (!client) {
     settled = false;
     const current = createClient({

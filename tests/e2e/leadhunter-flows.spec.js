@@ -109,6 +109,8 @@ test('storage outage: login still works and the dashboard says what is wrong',as
   await expect(page.locator('#message')).toContainText('Storage is unreachable');
   await expect(page.locator('body')).not.toContainText('{"error"');
   await redis(request,true);
+  // Recovery must happen on the next Refresh, without a redeploy.
   await page.getByRole('button',{name:'Refresh'}).click();
   await expect(page.locator('#message')).toHaveText('');
+  await expect(page.locator('#updated')).not.toHaveText('Loading your pipeline…');
 });
