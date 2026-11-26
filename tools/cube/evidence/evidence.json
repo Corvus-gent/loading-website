@@ -1,0 +1,239 @@
+{
+ "checks": {
+  "proof: lanes unite, exact distance 1, same signature": {
+   "ok": true,
+   "detail": {
+    "d": "1",
+    "s": "#9f83df = #9f83df",
+    "a": "R L R′ → #9f83dfe0",
+    "b": "L → #9f83dfe0"
+   }
+  },
+  "proof: scrubbing back un-commits the endpoint": {
+   "ok": true,
+   "detail": null
+  },
+  "proof: step advances to the next committed turn": {
+   "ok": true,
+   "detail": null
+  },
+  "experiment: histogram and table agree (snapshot)": {
+   "ok": true,
+   "detail": {
+    "hist": [
+     [
+      559,
+      1101,
+      8340,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      10000,
+      0,
+      0,
+      0
+     ]
+    ]
+   }
+  },
+  "experiment: snapshot equals node oracle (2 steps, seed 1729, n 10000)": {
+   "ok": true,
+   "detail": [
+    [
+     559,
+     1101,
+     8340,
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     10000,
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  "experiment: live worker run reproduces the snapshot exactly": {
+   "ok": true,
+   "detail": [
+    [
+     559,
+     1101,
+     8340,
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     10000,
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  "experiment: exact probability overlay present for 2 steps": {
+   "ok": true,
+   "detail": 12
+  },
+  "experiment: 8-step outside-radius counts visible": {
+   "ok": true,
+   "detail": [
+    [
+     4,
+     20,
+     105,
+     310,
+     843,
+     8718
+    ],
+    [
+     0,
+     2,
+     6,
+     14,
+     55,
+     9923
+    ]
+   ]
+  },
+  "experiment: cancel stops the run and keeps the last complete result": {
+   "ok": true,
+   "detail": "Cancelled. The last complete run stays on screen."
+  },
+  "experiment: run after cancel completes; every trial in exactly one bin": {
+   "ok": true,
+   "detail": [
+    20000,
+    20000
+   ]
+  },
+  "inspect: representative d=0 sample opens in the simulator with exact distance 0 and a way back": {
+   "ok": true,
+   "detail": {
+    "inspect": "Example from d = 0 · Uniform · trial #25: D2 D2 Open in the simulator",
+    "facts": "scramble length2history0shortest distanceexact 0"
+   }
+  },
+  "keyboard: R L R′ via keys → history 3, shortest distance exact 1": {
+   "ok": true,
+   "detail": "scramble length0history3shortest distanceexact 1"
+  },
+  "reset during history playback leaves a solved, idle simulator": {
+   "ok": true,
+   "detail": "Solved ✓"
+  },
+  "four views cycle": {
+   "ok": true,
+   "detail": [
+    "View 2/4",
+    "View 3/4",
+    "View 4/4",
+    "View 1/4"
+   ]
+  },
+  "tree: R L R′ branch is annotated as the same state as L": {
+   "ok": true,
+   "detail": [
+    "≡ L"
+   ]
+  },
+  "tree: bounded graph labelled with budget and dedup counts": {
+   "ok": true,
+   "detail": "Bounded graph from this root · depth ≤ 2 · budget 18 + 324 = 342 paths → 261 new unique states; 81 paths land on a state that already existed.Examples of conver"
+  },
+  "share link: parameters applied and run live (4 steps, seed 42, n 1000)": {
+   "ok": true,
+   "detail": [
+    [
+     5,
+     38,
+     178,
+     258,
+     521,
+     0
+    ],
+    [
+     0,
+     0,
+     30,
+     44,
+     926,
+     0
+    ]
+   ]
+  },
+  "share link → open in simulator → browser Back returns to the experiment URL and section": {
+   "ok": true,
+   "detail": {
+    "url": "http://localhost:8770/cube/?exp=scramble&steps=4&seed=42&n=1000&v=cube-lab%2F1&lang=en#experiment",
+    "sim_hash": "#simulator"
+   }
+  },
+  "in-page back link behaves like browser Back": {
+   "ok": true,
+   "detail": "http://localhost:8770/cube/?exp=scramble&steps=4&seed=42&n=1000&v=cube-lab%2F1&lang=en#experiment"
+  },
+  "invalid query falls back to validated defaults": {
+   "ok": true,
+   "detail": [
+    "2",
+    "1729",
+    "10000"
+   ]
+  },
+  "reduced motion: proof resolves immediately": {
+   "ok": true,
+   "detail": null
+  },
+  "blocked worker: snapshot visible and fallback reproduces it": {
+   "ok": true,
+   "detail": null
+  },
+  "390px: no horizontal overflow": {
+   "ok": true,
+   "detail": 390
+  },
+  "390px: proof completes": {
+   "ok": true,
+   "detail": null
+  },
+  "no page errors across all sessions": {
+   "ok": true,
+   "detail": []
+  }
+ },
+ "measurements": {
+  "desktop_2step_meta": "cube-lab/1 · seed 1729 · n = 10,000 per generator · radius 4 · live in your browser: search table 43 ms + run 74 ms",
+  "desktop_8step_meta": "cube-lab/1 · seed 1729 · n = 10,000 per generator · radius 4 · live in your browser: search table 0 ms (cached) + run 90 ms",
+  "mobile_4x_cpu_first_load": {
+   "domContentLoaded": 385,
+   "load": 403,
+   "snapshot_visible_ms": 460
+  },
+  "mobile_4x_cpu_8step_run": {
+   "meta": "cube-lab/1 · seed 1729 · n = 10.000 per generator · straal 4 · live in je browser: zoektabel 42 ms + run 116 ms",
+   "max_frame_gap_ms_during_run": 17,
+   "frames_sampled": 19
+  },
+  "mobile_4x_cpu_8step_warm_run": "cube-lab/1 · seed 1729 · n = 10.000 per generator · straal 4 · live in je browser: zoektabel 0 ms (cached) + run 93 ms",
+  "environment": {
+   "browser": "Google Chrome (headless) via Playwright",
+   "device": "emulated 390×844 @2x, touch, CPU throttled 4× (CDP)",
+   "host": "Darwin 25.6.0 arm64",
+   "version": "158.0.8127.37",
+   "runs": 1
+  }
+ },
+ "errors": []
+}
