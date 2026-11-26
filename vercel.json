@@ -4,33 +4,43 @@
   ],
   "redirects": [
     {
+      "source": "/thecube",
+      "destination": "/the6cube/",
+      "statusCode": 301
+    },
+    {
+      "source": "/thecube/",
+      "destination": "/the6cube/",
+      "statusCode": 301
+    },
+    {
       "source": "/cube",
-      "destination": "/thecube",
+      "destination": "/the6cube/",
       "statusCode": 301
     },
     {
       "source": "/cube/",
-      "destination": "/thecube",
+      "destination": "/the6cube/",
       "statusCode": 301
     },
     {
       "source": "/the-cube",
-      "destination": "/thecube",
+      "destination": "/the6cube/",
       "statusCode": 301
     },
     {
       "source": "/the-cube/",
-      "destination": "/thecube",
+      "destination": "/the6cube/",
       "statusCode": 301
     },
     {
       "source": "/the_cube",
-      "destination": "/thecube",
+      "destination": "/the6cube/",
       "statusCode": 301
     },
     {
       "source": "/the_cube/",
-      "destination": "/thecube",
+      "destination": "/the6cube/",
       "statusCode": 301
     },
     {
@@ -449,14 +459,6 @@
     }
   ],
   "rewrites": [
-    {
-      "source": "/thecube",
-      "destination": "/thecube/index.html"
-    },
-    {
-      "source": "/thecube/",
-      "destination": "/thecube/index.html"
-    },
     {
       "source": "/api/_leads/:path*",
       "destination": "/api/stats?leadhunter=1&leadsAction=page"
