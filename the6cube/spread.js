@@ -269,9 +269,13 @@ export function greet(onFollow) {
   const nextLore = () => { if (!v.isConnected) return; wp.style.opacity = 0; lr.style.opacity = 0;
     setTimeout(() => { const [q, who] = L[li++ % L.length]; wp.textContent = `“${q}”`; lr.textContent = `— ${who}`; wp.style.opacity = 1; lr.style.opacity = 1; }, 900); };
   const lt = setTimeout(function tick() { nextLore(); lore = setTimeout(tick, 14000); }, 20000); let lore = lt;
-  const close = then => { clearTimeout(lore); v.classList.add('fly'); setTimeout(() => v.classList.add('out'), 500); setTimeout(() => { v.remove(); then && then(); }, 1400); removeEventListener('keydown', esc); };
+  const close = then => { if (v.classList.contains('fly')) return; clearTimeout(lore); v.classList.add('fly'); setTimeout(() => v.classList.add('out'), 500); setTimeout(() => { v.remove(); then && then(); }, 1400); removeEventListener('keydown', esc); };
   const esc = e => e.key === 'Escape' && close(() => onFollow && onFollow(hi)); addEventListener('keydown', esc);
-  go.addEventListener('click', () => close(() => onFollow && onFollow(hi)));
+  go.addEventListener('click', () => close(() => {
+    if (ls.get('cube_brain_hint')) { onFollow?.(hi); return; }
+    ls.set('cube_brain_hint', '1');
+    onFollow?.('the cube has a brain. tap 🧠 to enter.');
+  }));
   pass.addEventListener('click', () => close(() => { onFollow && onFollow(hi); setTimeout(sheet, 200); }));
   return hi;
 }
