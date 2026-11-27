@@ -421,4 +421,7 @@ if (caveCv) {
 import { greet, sheet, myRank, backLine } from './spread.js';
 const shareBtn = document.getElementById('share');
 if (shareBtn) { shareBtn.addEventListener('click', sheet); const rk = myRank(); if (rk) shareBtn.insertAdjacentHTML('afterend', `<span class="sp-badge" title="rank">· ${rk === 1 ? 'OG' : 'rank ' + rk}</span>`); }
-greet(line => { guide.classList.add('on'); say.textContent = line; say.classList.remove('hide'); clearTimeout(say._h); say._h = setTimeout(() => { spot = ''; speakGuide('g_top'); }, 5200); });
+// the oracle's line, chosen by Prolog (oracle.pl via Tau Prolog); shown once by the guide cube
+const sayOracle = () => import('./oracle.js').then(o => o.ask({ rank: myRank() ?? 1, visits: +(localStorage.getItem('cube_visits') || 1) })).then(line => { if (!line) return; guide.classList.add('on'); say.textContent = line; say.classList.remove('hide'); spot = ''; clearTimeout(say._h); say._h = setTimeout(() => speakGuide('g_top'), 7000); }).catch(() => {});
+const greeted = greet(line => { guide.classList.add('on'); say.textContent = line; say.classList.remove('hide'); clearTimeout(say._h); say._h = setTimeout(() => { spot = ''; sayOracle(); }, 5200); });
+if (!greeted) setTimeout(sayOracle, 9000);

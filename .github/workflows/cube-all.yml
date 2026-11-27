@@ -1,0 +1,109 @@
+name: cube-all
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      base:
+        description: Production site
+        type: choice
+        options: ['https://corvus.gent']
+        default: 'https://corvus.gent'
+permissions: {contents: read}
+jobs:
+  wasm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22, cache: npm}
+      - run: npm ci
+      - uses: dtolnay/rust-toolchain@stable
+        with: {targets: wasm32-unknown-unknown}
+      - run: cd engine && cargo test --locked --release && cargo build --locked --release --target wasm32-unknown-unknown
+      - run: node tools/cube/engine-test.mjs engine/target/wasm32-unknown-unknown/release/cube_engine.wasm
+      - run: sudo apt-get update -qq && sudo apt-get install -y lld clang
+      - name: Rebuild C and C++ and test the fresh modules
+        run: |
+          clang --target=wasm32 -O3 -nostdlib -fno-builtin -Wl,--no-entry -Wl,--export=perm_ptr -Wl,--export=io_ptr -Wl,--export=path_ptr -Wl,--export=build -Wl,--export=solve -Wl,--initial-memory=33554432 -o /tmp/solver.wasm solver/solver.c
+          clang++ --target=wasm32 -O3 -nostdlib -fno-exceptions -fno-rtti -Wl,--no-entry -Wl,--export=out_ptr -Wl,--export=wilson -o /tmp/wilson.wasm stats-cpp/wilson.cpp
+          TEST_SOLVER=/tmp/solver.wasm TEST_WILSON=/tmp/wilson.wasm node --test --test-name-pattern='^(C solver|C\+\+)' tests/unit/polyglot.test.mjs
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22, cache: npm}
+      - run: npm ci && node --test tests/unit/*.test.mjs && node tools/cube/engine-test.mjs
+  speed:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22, cache: npm}
+      - run: npm ci
+      - run: set -o pipefail; node tools/cube/bench.mjs --json bench.json | tee "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: bench, path: bench.json}
+  haskell:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: haskell-actions/setup@v2
+        with: {ghc-version: '9.8'}
+      - run: cd tests/haskell && runghc Props.hs
+  prolog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -qq && sudo apt-get install -y swi-prolog-nox
+      - run: swipl -q -g "consult('the6cube/oracle.pl'), forall(member(H-R-V,[3-1-1,6-1-1,12-0-3,12-5-1,20-2-1,12-2-6]), once(voice(H,R,V,_))), halt" -t 'halt(1)'
+  flows:
+    name: flows (${{ matrix.project }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {project: desktop-chrome, browser: chromium}
+          - {project: desktop-safari, browser: webkit}
+          - {project: desktop-firefox, browser: firefox}
+          - {project: iphone, browser: webkit}
+          - {project: android, browser: chromium}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22, cache: npm}
+      - run: npm ci && npx playwright install --with-deps "${{ matrix.browser }}"
+      - run: npx playwright test -c tests/e2e/playwright.config.js --project="${{ matrix.project }}"
+        env:
+          BASE: ${{ inputs.base }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: timings-${{ matrix.project }}
+          path: test-results/cube-timings/
+  lighthouse:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22, cache: npm}
+      - run: npm ci && npx playwright install --with-deps chromium
+      - run: |
+          if [[ -z "$BASE" ]]; then
+            node tools/cube/serve.mjs &
+            server=$!
+            trap 'kill "$server"' EXIT
+            curl --silent --fail --retry 8 --retry-connrefused http://127.0.0.1:4176/the6cube/ -o /dev/null
+          fi
+          node tools/cube/lighthouse.mjs
+        env:
+          BASE: ${{ inputs.base }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: lighthouse, path: test-results/lighthouse/scores.json}

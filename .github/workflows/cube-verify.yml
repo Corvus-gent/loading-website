@@ -73,9 +73,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
+          sudo apt-get install -y poppler-utils
           pkg=typst-x86_64-unknown-linux-musl
           curl -fsSL "https://github.com/typst/typst/releases/download/v0.15.1/$pkg.tar.xz" | tar -xJ -C "$RUNNER_TEMP"
           "$RUNNER_TEMP/$pkg/typst" compile --root . paper/the6cube.typ the6cube.pdf
+          test -s the6cube/nota/the6cube.pdf
+          pdftotext -layout the6cube.pdf - | diff - <(pdftotext -layout the6cube/nota/the6cube.pdf -)
       - uses: actions/upload-artifact@v4
         with: {name: the6cube-paper, path: the6cube.pdf}
 
@@ -99,7 +102,7 @@ jobs:
       - uses: actions/checkout@v4
       - run: |
           git clone --depth 1 https://github.com/dzaima/CBQN "$RUNNER_TEMP/cbqn"
-          make -C "$RUNNER_TEMP/cbqn"
+          make -C "$RUNNER_TEMP/cbqn" c singeli=0 REPLXX=0
           "$RUNNER_TEMP/cbqn/BQN" bqn/stats.bqn > "$RUNNER_TEMP/bqn.out"
           diff -u bqn/stats.expected "$RUNNER_TEMP/bqn.out"
 

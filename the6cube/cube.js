@@ -461,6 +461,17 @@ $('scramble').onclick = () => {
   load(scramble, { scramble: n });
 };
 $('reset').onclick = () => load([], { scramble: 0 });
+// optimal solve with the C → WebAssembly solver (meet in the middle, ≤ 8 moves); plays the shortest path
+let C_SOLVER = null; const solverButton = $('csolve'); solverButton.disabled = true;
+import('./solver.js').then(m => m.loadSolver()).then(s => { C_SOLVER = s; solverButton.disabled = false; }).catch(() => { $('csolve').hidden = true; });
+$('csolve').onclick = async () => {
+  if (!C_SOLVER || busy || playing) return; const b = solverButton, label = '⚡ optimal · C';
+  const t0 = performance.now(), sol = C_SOLVER.solve(posFromStickers(state)), ms = (performance.now() - t0).toFixed(0);
+  if (sol === null) { b.textContent = '> 8 · C'; setTimeout(() => b.textContent = label, 2200); return; }
+  b.textContent = `${sol.length} · ${ms} ms · C`; playing = true; update();
+  for (const m of sol) { if (!playing) break; await perform(m); }
+  playing = false; update(); setTimeout(() => b.textContent = label, 2600);
+};
 $('step').onclick = () => { const [move] = solution(); if (move) perform(move); };
 $('auto').onclick = async () => {
   if (playing) { playing = false; update(); return; }
