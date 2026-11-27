@@ -1,8 +1,9 @@
 import fs from 'node:fs';
 const L = await import(new URL('../../the6cube/lab.js', import.meta.url));
 const { loadEngine } = await import(new URL('../../the6cube/engine.js', import.meta.url));
-const WASM = process.env.ENGINE_WASM || 'engine.wasm';   // ENGINE_WASM=engine-simd.wasm runs the same checks on the SIMD build
-const E = await loadEngine(new Uint8Array(fs.readFileSync(new URL('../../the6cube/' + WASM, import.meta.url))));
+const shippedWasm = process.env.ENGINE_WASM || 'engine.wasm';
+const wasm = process.argv[2] ?? new URL('../../the6cube/' + shippedWasm, import.meta.url);
+const E = await loadEngine(new Uint8Array(fs.readFileSync(wasm)));
 let t = performance.now(); const jb = L.buildBall(4); const tj = performance.now() - t;
 t = performance.now(); const rb = E.buildBall(4); const tr = performance.now() - t;
 console.log('layers', JSON.stringify(jb.layers), JSON.stringify(rb.layers), 'ball ms js', tj.toFixed(0), 'rust', tr.toFixed(0));
@@ -19,3 +20,5 @@ const rng = L.mulberry32(5); let dbad = 0;
 for (let i = 0; i < 2000; i++) { const s = L.sampleSequence('uniform', 1 + (i % 6), rng); const p = L.applySequence(s); if (L.distanceOf(jb, p) !== L.distanceOf(rb, p)) dbad++; }
 const ex = L.exactDistribution('distinct', 2, jb), ey = L.exactDistribution('distinct', 2, rb);
 console.log('distance mismatches', dbad, 'exact same', JSON.stringify(ex) === JSON.stringify(ey), 'experiment diffs', bad);
+
+if (bad || dbad || JSON.stringify(ex) !== JSON.stringify(ey) || JSON.stringify(jb.layers) !== JSON.stringify(rb.layers)) process.exitCode = 1;
