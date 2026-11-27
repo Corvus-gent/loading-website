@@ -68,7 +68,8 @@ function rows(el, list, key) {
   $(el).innerHTML = list.length ? "" : '<p class="sub">nothing yet.</p>';
   list.forEach(x => {
     const r = document.createElement("div"); r.className = "lrow";
-    r.innerHTML = `<span class="lname"></span><span class="lbar"><span style="width:${(x.n / max) * 100}%"></span></span><span class="lval">${number(x.n)}</span>`;
+    r.innerHTML = `<span class="lname"></span><span class="lbar"><span></span></span><span class="lval">${number(x.n)}</span>`;
+    r.querySelector(".lbar span").style.width = 100 * x.n / max + '%';
     r.querySelector(".lname").textContent = x[key] || "?";
     $(el).appendChild(r);
   });

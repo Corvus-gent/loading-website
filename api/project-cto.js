@@ -1,9 +1,10 @@
 import { createHmac, randomBytes, timingSafeEqual } from 'node:crypto';
+import { stylePolicy } from './_style-policy.js';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { catalog, cities, summary } from './_openrisk/engine/index.js';
 import land from './_openrisk/land.js';
-import { login, workspace } from './_openrisk/view.js';
+import { css, login, workspace } from './_openrisk/view.js';
 import { client } from './_openrisk/client.js';
 import { metrics, samples } from './_openrisk/engine/metrics.js';
 import { getState, update, apply, project, invitation, runJob, existingStartup, websiteHost, findCompany, Problem } from './_openrisk/store.js';
@@ -23,6 +24,7 @@ import preloadReport from './_openrisk/engine/preload-report.js';
 import insets from './_openrisk/insets.js';
 import logos from './_openrisk/logos.js';
 
+const styles = stylePolicy(css);
 const root = '/project-cto';
 const cookie = 'openrisk_session';
 const lifetime = 7 * 86400;
@@ -123,7 +125,7 @@ export default async function handle(req, res) {
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('X-Frame-Options', 'DENY');
   res.setHeader('Referrer-Policy', 'same-origin');
-  res.setHeader('Content-Security-Policy', "default-src 'none'; script-src 'self'; worker-src 'self'; style-src 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'");
+  res.setHeader('Content-Security-Policy', `default-src 'none'; script-src 'self'; worker-src 'self'; ${styles}; img-src 'self' data:; connect-src 'self'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'`);
   const html = 'text/html; charset=utf-8';
   const route = routeOf(req);
   const appRoute = pageRoute.test(route);

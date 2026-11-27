@@ -2,6 +2,30 @@ export async function client() {
   const root = '/project-cto';
   const main = document.querySelector('#workspace');
   const top = document.querySelector('#top-nav');
+  // Only finite layout values from the renderers may be applied to these CSS properties.
+  const layout = [
+    ['data-map-x', 'left', '%'], ['data-map-y', 'top', '%'],
+    ['data-region-ratio', '--region-ratio', ''], ['data-region-width', '--region-width', 'px'],
+    ['data-segment-width', 'width', '%'], ['data-dossier-index', '--selected', ''],
+    ['data-density', '--density', '%'],
+  ];
+  const layoutSelector = layout.map(([attr]) => '[' + attr + ']').join(',');
+  function applyLayout(element) {
+    for (const [attribute, property, unit] of layout) {
+      if (!element.hasAttribute(attribute)) continue;
+      const value = Number(element.getAttribute(attribute));
+      if (Number.isFinite(value)) element.style.setProperty(property, value + unit);
+    }
+  }
+  new MutationObserver(records => {
+    for (const record of records) {
+      for (const node of record.addedNodes) {
+        if (node.nodeType !== Node.ELEMENT_NODE) continue;
+        if (node.matches(layoutSelector)) applyLayout(node);
+        node.querySelectorAll(layoutSelector).forEach(applyLayout);
+      }
+    }
+  }).observe(main, {childList: true, subtree: true});
   const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[char]));
   const safeUrl = value => {
     try { return new URL(value).protocol === 'https:' ? new URL(value).href : ''; }
@@ -101,7 +125,7 @@ export async function client() {
   }
 
   function pin(city, px, py) {
-    return '<button class="pin" data-city="' + esc(city.name) + '" title="' + esc(city.name) + '" aria-label="' + esc(city.name) + '" aria-pressed="' + (ctx.city === city.name) + '" style="left:' + px + '%;top:' + py + '%"></button><span class="map-label" style="left:' + px + '%;top:' + py + '%">' + esc(city.name) + '</span>';
+    return '<button class="pin" data-city="' + esc(city.name) + '" title="' + esc(city.name) + '" aria-label="' + esc(city.name) + '" aria-pressed="' + (ctx.city === city.name) + '" data-map-x="' + px + '" data-map-y="' + py + '"></button><span class="map-label" data-map-x="' + px + '" data-map-y="' + py + '">' + esc(city.name) + '</span>';
   }
 
   function inset(key, label, cities) {
@@ -112,10 +136,10 @@ export async function client() {
     const pins=cities.map(city=>{
       const x=(city.lon-west)*100/(east-west);
       const y=(north-city.lat)*100/(north-south);
-      return '<button class="pin" data-city="'+esc(city.name)+'" title="'+esc(city.name)+'" aria-label="'+esc(city.name)+' map pin" aria-pressed="'+(ctx.city===city.name)+'" style="left:'+x+'%;top:'+y+'%"></button>';
+      return '<button class="pin" data-city="'+esc(city.name)+'" title="'+esc(city.name)+'" aria-label="'+esc(city.name)+' map pin" aria-pressed="'+(ctx.city===city.name)+'" data-map-x="'+x+'" data-map-y="'+y+'"></button>';
     }).join('');
     const labels=cities.map(city=>button(city.name,'data-city="'+esc(city.name)+'" aria-pressed="'+(ctx.city===city.name)+'"','inset-city')).join('');
-    return '<section class="market" aria-label="'+label+'"><div class="inset-geo" data-map-camera="'+key+'-'+esc(label)+'" tabindex="0" aria-label="'+esc(label)+' map" style="--region-ratio:'+ratio+';--region-width:'+Math.round(310*ratio)+'px"><div class="map-layer"><svg viewBox="0 0 '+projectedWidth+' 115" aria-hidden="true"><path d="'+esc(path)+'" transform="scale('+projectedWidth/300+' 1)" fill="#223754" stroke="#52769c" stroke-width="1" vector-effect="non-scaling-stroke"/></svg>'+pins+'</div><span class="market-name">'+label+'</span>'+mapControls(label)+'</div><div class="inset-cities">'+labels+'</div></section>';
+    return '<section class="market" aria-label="'+label+'"><div class="inset-geo" data-map-camera="'+key+'-'+esc(label)+'" tabindex="0" aria-label="'+esc(label)+' map" data-region-ratio="'+ratio+'" data-region-width="'+Math.round(310*ratio)+'"><div class="map-layer"><svg viewBox="0 0 '+projectedWidth+' 115" aria-hidden="true"><path d="'+esc(path)+'" transform="scale('+projectedWidth/300+' 1)" fill="#223754" stroke="#52769c" stroke-width="1" vector-effect="non-scaling-stroke"/></svg>'+pins+'</div><span class="market-name">'+label+'</span>'+mapControls(label)+'</div><div class="inset-cities">'+labels+'</div></section>';
   }
 
   const mapGroups={
@@ -530,7 +554,7 @@ export async function client() {
     if (r.value==null) return '';
     const observed=r.breakdown.filter(row=>row.points!=null);
     const total=observed.reduce((sum,row)=>sum+row.points*row.weight/r.coverage,0);
-    const segments=observed.map(row=>'<span class="score-segment '+row.key+'" style="width:'+row.points*row.weight/r.coverage+'%" title="'+esc(row.title)+': '+scoreNumber(row.points*row.weight/r.coverage)+' points"></span>').join('');
+    const segments=observed.map(row=>'<span class="score-segment '+row.key+'" data-segment-width="'+row.points*row.weight/r.coverage+'" title="'+esc(row.title)+': '+scoreNumber(row.points*row.weight/r.coverage)+' points"></span>').join('');
     return '<div class="score-visual" aria-label="'+scoreNumber(total)+' points earned and '+scoreNumber(Math.max(0,100-total))+' points below the maximum"><div class="score-track" aria-hidden="true">'+segments+'</div><div class="score-legend"><span>'+scoreNumber(total)+' earned</span><span>'+scoreNumber(Math.max(0,100-total))+' gap</span></div></div>';
   }
 
@@ -615,7 +639,7 @@ export async function client() {
   }
 
   function dossierSwitcher() {
-    return '<div class="dossier-view-controls"><div class="dossier-switcher" role="group" aria-label="Dossier view" style="--selected:'+dossierModes.indexOf(dossierMode)+'">'+
+    return '<div class="dossier-view-controls"><div class="dossier-switcher" role="group" aria-label="Dossier view" data-dossier-index="'+dossierModes.indexOf(dossierMode)+'">'+
       dossierModes.map(mode=>button(mode,'data-dossier-mode="'+mode+'" aria-pressed="'+(mode===dossierMode)+'"')).join('')+'</div>'+feedbackButton('dossier','dossier views')+'</div>';
   }
 
@@ -643,16 +667,16 @@ export async function client() {
     const directoryRoles=listedRoles ? '<p>'+esc(listedRoles)+(listedRoles>=50?'+':'')+' roles listed in StartupMap</p>'+source(s.directoryJobs) : '';
     const teamData=(s.jobs ? val(s.jobs.value.count + ' open roles',s.jobs)
       +(typeof hiringTrend==='number'?'<div class="source">'+(hiringTrend>0?'+':'')+hiringTrend+' since '+stamp(s.jobs.value.priorAt)+'</div>':'')+'<ul class="items">' + s.jobs.value.roles.map(role=>'<li>' + esc(role) + '</li>').join('') + '</ul>' + (s.jobs.value.departments?.length ? '<div class="source">Teams · '+esc(s.jobs.value.departments.join(', '))+'</div>' : '') : directoryRoles)
-      +(headcount ? '<p style="margin-top:8px">'+esc(headcount.value.label || (headcount.value.min+'–'+headcount.value.max+' estimated employees'))+'</p>'+(headcount.value.detail?'<small>'+esc(headcount.value.detail)+'</small>':'')+source(headcount) : '');
+      +(headcount ? '<p class="margin-top-8px">'+esc(headcount.value.label || (headcount.value.min+'–'+headcount.value.max+' estimated employees'))+'</p>'+(headcount.value.detail?'<small>'+esc(headcount.value.detail)+'</small>':'')+source(headcount) : '');
     const founderNames=s.founders?.value;
-    const identityFields=(founderNames?.length?'<p style="margin-top:8px">Founders · '+esc(founderNames.join(', '))+'</p>'+source(s.founders):'')+(s.location?'<p>'+esc(s.location.value)+'</p>'+source(s.location):'')+(s.enterprise?'<div>Belgian enterprise number '+esc(s.enterprise.value)+'</div>'+source(s.enterprise)+'<div class="source">'+link('https://consult.cbso.nbb.be/','NBB annual accounts ↗')+'</div>':'');
+    const identityFields=(founderNames?.length?'<p class="margin-top-8px">Founders · '+esc(founderNames.join(', '))+'</p>'+source(s.founders):'')+(s.location?'<p>'+esc(s.location.value)+'</p>'+source(s.location):'')+(s.enterprise?'<div>Belgian enterprise number '+esc(s.enterprise.value)+'</div>'+source(s.enterprise)+'<div class="source">'+link('https://consult.cbso.nbb.be/','NBB annual accounts ↗')+'</div>':'');
     const accounts = s.accounts?.value;
     const filing = accounts ? panel('Belgian annual accounts','<p>'+esc(accounts.entity)+' · '+esc(accounts.scope)+'</p><div class="scroll"><table class="rules"><thead><tr><th>Filed item</th><th>FY ended '+esc(accounts.fiscalEnd)+'</th></tr></thead><tbody>'+accounts.rows.map(row=>'<tr><td>'+esc(row.label)+' <small>· '+esc(row.code)+'</small></td><td>'+shown({value:row.value,currency:row.code==='9087'?null:accounts.currency})+'</td></tr>').join('')+'</tbody></table></div><div class="source">NBB filing '+esc(accounts.reference)+' · Filed '+esc(accounts.filedAt)+'</div>'+source(s.accounts),'wide') : '';
     const app = s.app?.value;
     const product = (s.github ? '<p>'+esc(s.github.value.repo)+' · Last public push '+date(s.github.value.pushedAt)+'</p>'
       +(Number.isInteger(s.github.value.stars)?'<div>'+number(s.github.value.stars)+' repository stars</div>':'')+source(s.github) : '')
-      +(app ? '<div style="margin-top:13px"><strong>'+esc(app.title)+'</strong><p>'+number(app.rating)+' / 5 · '+number(app.reviews)+' ratings<br>App Store · '+esc(app.storefront)+(app.releasedAt?' · Last version '+date(app.releasedAt):'')+'</p>'+source(s.app)+'</div>' : '')
-      +(s.traction ? '<div style="margin-top:12px"><strong>'+esc(s.traction.value.label)+'</strong><p>'+esc(s.traction.value.detail)+'</p>'+source(s.traction)+'</div>' : '')
+      +(app ? '<div class="margin-top-13px"><strong>'+esc(app.title)+'</strong><p>'+number(app.rating)+' / 5 · '+number(app.reviews)+' ratings<br>App Store · '+esc(app.storefront)+(app.releasedAt?' · Last version '+date(app.releasedAt):'')+'</p>'+source(s.app)+'</div>' : '')
+      +(s.traction ? '<div class="margin-top-12px"><strong>'+esc(s.traction.value.label)+'</strong><p>'+esc(s.traction.value.detail)+'</p>'+source(s.traction)+'</div>' : '')
       +(s.website ? link(s.website.value,'Official site ↗')+source(s.website) : '');
     const event = s.corporateEvent ? '<p>'+esc(s.corporateEvent.value.label)+' · '+esc(s.corporateEvent.value.date)+'</p>'+source(s.corporateEvent) : '';
     const trend=r.trend==null?'No comparable prior snapshot':(r.trend>0?'↑ +':r.trend<0?'↓ ':'→ ')+r.trend+' since '+stamp(r.priorAt);
@@ -1090,7 +1114,7 @@ export async function client() {
           const format=value=>value.toFixed(1);
           const interval=model && model.interval.map(format).join('–');
           const graph=model?'<div class="estimate-density" role="img" aria-label="Truncated normal scenario distribution, from '+format(model.low)+' to '+format(model.high)+'. The shaded center is the 95% model interval.">'
-            +model.density.map(point=>'<i class="'+(point.inside?'in-interval':'')+'" style="--density:'+point.height*100+'%"></i>').join('')+'</div>'
+            +model.density.map(point=>'<i class="'+(point.inside?'in-interval':'')+'" data-density="'+point.height*100+'"></i>').join('')+'</div>'
             +'<div class="estimate-density-labels"><span>'+format(model.low)+'</span><span>'+format(model.mean)+'</span><span>'+format(model.high)+'</span></div>':'';
           result.innerHTML='<h3>Estimated model score</h3><p class="value">'+(event.midpoint==null?'—':format(event.midpoint)+'/100')+'</p>'
             +(model?'<p><strong>95% model interval</strong> · '+interval+'/100</p>'+graph
@@ -1171,7 +1195,7 @@ export async function client() {
       const count=cities.filter(city=>regionIncludes(region,city)).length;
       const label=regionName(region);
       return button(String(count),'data-map-country="'+region+'" aria-label="'+esc(label)+' startup hub" title="'+esc(label)
-        +'" style="left:'+(lon+180)*100/360+'%;top:'+(83-lat)*250/360+'%"','cluster');
+        +'" data-map-x="'+(lon+180)*100/360+'" data-map-y="'+(83-lat)*250/360+'"','cluster');
     }).join('');
   }
   const worldPins = () => {
@@ -1235,7 +1259,7 @@ export async function client() {
     }).join('');
     const updates=Object.entries(company.updates).sort(([a],[b])=>b.localeCompare(a)).slice(0,5).map(([period,entry])=>'<li><strong>'+esc(period)+'</strong>'+sampleTag(entry)+' <small>'+date(entry.at)+'</small><p>'+esc(entry.note)+'</p></li>').join('');
     const audit=(company.audit||[]).slice().reverse().slice(0,12).map(row=>'<tr><td>'+esc(row.period)+'</td><td>'+esc(labelFor(id,row.metric))+sampleTag(row)+'</td><td>'+shown(row.old===null?null:{value:row.old,currency:row.oldCurrency??row.currency})+'</td><td>'+shown(row.value===null?null:row)+'</td><td>'+esc(row.actor)+' · '+date(row.at)+'</td></tr>').join('');
-    return '<section class="stack" id="metric-view" style="margin-top:18px"><div class="split"><h2>Confirmed KPIs</h2><div class="chart-controls"><select id="metric-category" aria-label="KPI category">'+['Financial','Sales','Commercial','Operational'].map(option=>'<option'+(ctx.category===option?' selected':'')+'>'+option+'</option>').join('')+'</select><select id="metric-range" aria-label="Chart range">'+[3,6,12,24].map(option=>'<option value="'+option+'"'+(ctx.range===option?' selected':'')+'>'+option+' months</option>').join('')+'</select></div></div><div class="cards">'+graphs+'</div>'
+    return '<section class="margin-top-18px stack" id="metric-view"><div class="split"><h2>Confirmed KPIs</h2><div class="chart-controls"><select id="metric-category" aria-label="KPI category">'+['Financial','Sales','Commercial','Operational'].map(option=>'<option'+(ctx.category===option?' selected':'')+'>'+option+'</option>').join('')+'</select><select id="metric-range" aria-label="Chart range">'+[3,6,12,24].map(option=>'<option value="'+option+'"'+(ctx.range===option?' selected':'')+'>'+option+' months</option>').join('')+'</select></div></div><div class="cards">'+graphs+'</div>'
       +(updates?panel('Monthly updates','<ul class="items">'+updates+'</ul>'):'')+(audit?panel('Edit history','<div class="scroll"><table class="rules"><thead><tr><th>Period</th><th>Metric</th><th>Previous</th><th>Current</th><th>Changed by</th></tr></thead><tbody>'+audit+'</tbody></table></div>'):'')+'</section>';
   }
 
@@ -1310,12 +1334,12 @@ export async function client() {
     const proposals=(c.proposals||[]).filter(row=>row.status==='proposed');
     const inviteList=ctx.state.invites.filter(row=>row.company===item.id).map(row=>'<li><div class="split"><span>'+esc(row.email)+' '+badge(row.status==='revoked'?'Revoked':Date.parse(row.expiresAt)<=Date.now()?'Expired':row.status)+'</span>'+(row.status==='revoked'?'':button('Revoke','data-revoke="'+row.id+'"','link'))+'</div><small>Expires '+date(row.expiresAt)+'</small></li>').join('');
     main.innerHTML=title('My startup','Assess potential collaborators and publish updates from your claimed profile.')
-      +'<div class="actions" style="margin-bottom:14px">'+claimedPicker(claimed,item.id)+button('View dossier','data-company="'+item.id+'"')+feedbackButton('founder','My startup')+'</div><div class="stack">'
-      +preview+fitPanel(item)+panel('Email → KPI','<div class="actions">'+ctx.samples.map((sample,i)=>button(sample.label,'data-sample="'+i+'"')).join('')+'</div><form id="mail-form" class="stack" style="margin-top:12px"><div><label>Default reporting month<input name="period" type="month" value="'+ctx.selectedPeriod+'" required></label></div><div><label>Investor update<textarea name="text" maxlength="16000" placeholder="Paste a monthly investor update…"></textarea></label></div><div><label>PDF or XLSX attachments <input name="files" type="file" accept=".pdf,.xlsx" multiple></label><small>Files are read locally. Up to two attachments, 2 MB each.</small></div><div><button class="accent">Extract KPI proposals</button></div></form>'
-      +(proposals.length?'<div id="proposals"><h3 style="margin-top:18px">Review proposals</h3><div class="scroll"><table class="rules"><thead><tr><th>KPI</th><th>Period</th><th>Proposed value</th><th>Source sentence</th><th>Review</th></tr></thead><tbody>'+proposals.map(p=>'<tr data-proposal="'+p.id+'"><td>'+esc(labelFor(item.id,p.metric))+'<br>'+badge('proposed','warn')+sampleTag(p)+(p.duplicate?' '+badge('Existing value','red'):'')+'</td><td><input aria-label="Reporting month" name="period" type="month" value="'+p.period+'"></td><td><input aria-label="Proposed value" name="value" type="number" step="any" value="'+p.value+'">'+(ctx.metrics[p.metric]?.unit==='money'?'<select aria-label="Currency" name="currency">'+['EUR','USD','GBP'].map(code=>'<option'+(code===(p.currency||'EUR')?' selected':'')+'>'+code+'</option>').join('')+'</select>':'')+'<small>'+esc(p.confidence)+' · '+date(p.fetchedAt)+'</small></td><td><small>'+esc(p.document||'Investor update')+'</small><blockquote><mark>'+esc(p.evidence)+'</mark></blockquote></td><td><div class="actions">'+button('Confirm','data-review="'+p.id+'"')+button('Reject','data-review="'+p.id+'" data-reject="yes"','link')+'</div></td></tr>').join('')+'</tbody></table></div><div class="actions spaced">'+button('Confirm all','data-confirm-all','accent')+'</div></div>':''))
+      +'<div class="margin-bottom-14px actions">'+claimedPicker(claimed,item.id)+button('View dossier','data-company="'+item.id+'"')+feedbackButton('founder','My startup')+'</div><div class="stack">'
+      +preview+fitPanel(item)+panel('Email → KPI','<div class="actions">'+ctx.samples.map((sample,i)=>button(sample.label,'data-sample="'+i+'"')).join('')+'</div><form id="mail-form" class="margin-top-12px stack"><div><label>Default reporting month<input name="period" type="month" value="'+ctx.selectedPeriod+'" required></label></div><div><label>Investor update<textarea name="text" maxlength="16000" placeholder="Paste a monthly investor update…"></textarea></label></div><div><label>PDF or XLSX attachments <input name="files" type="file" accept=".pdf,.xlsx" multiple></label><small>Files are read locally. Up to two attachments, 2 MB each.</small></div><div><button class="accent">Extract KPI proposals</button></div></form>'
+      +(proposals.length?'<div id="proposals"><h3 class="margin-top-18px">Review proposals</h3><div class="scroll"><table class="rules"><thead><tr><th>KPI</th><th>Period</th><th>Proposed value</th><th>Source sentence</th><th>Review</th></tr></thead><tbody>'+proposals.map(p=>'<tr data-proposal="'+p.id+'"><td>'+esc(labelFor(item.id,p.metric))+'<br>'+badge('proposed','warn')+sampleTag(p)+(p.duplicate?' '+badge('Existing value','red'):'')+'</td><td><input aria-label="Reporting month" name="period" type="month" value="'+p.period+'"></td><td><input aria-label="Proposed value" name="value" type="number" step="any" value="'+p.value+'">'+(ctx.metrics[p.metric]?.unit==='money'?'<select aria-label="Currency" name="currency">'+['EUR','USD','GBP'].map(code=>'<option'+(code===(p.currency||'EUR')?' selected':'')+'>'+code+'</option>').join('')+'</select>':'')+'<small>'+esc(p.confidence)+' · '+date(p.fetchedAt)+'</small></td><td><small>'+esc(p.document||'Investor update')+'</small><blockquote><mark>'+esc(p.evidence)+'</mark></blockquote></td><td><div class="actions">'+button('Confirm','data-review="'+p.id+'"')+button('Reject','data-review="'+p.id+'" data-reject="yes"','link')+'</div></td></tr>').join('')+'</tbody></table></div><div class="actions spaced">'+button('Confirm all','data-confirm-all','accent')+'</div></div>':''))
       +panel('Monthly KPI form','<form id="kpi-form" class="form-grid"><div><label>Reporting month<input name="period" id="kpi-period" type="month" value="'+ctx.selectedPeriod+'" required></label></div><div><label>Currency<select name="currency">'+['EUR','USD','GBP'].map(code=>'<option'+(currency===code?' selected':'')+'>'+code+'</option>').join('')+'</select></label></div><div></div>'+fields+'<div class="full"><label>Monthly text update<textarea name="note" maxlength="2000">'+esc(c.updates[ctx.selectedPeriod]?.note||'')+'</textarea></label></div><div class="full actions"><button class="accent">Save KPI update</button><small>Blank metrics keep their existing values.</small></div></form>')
       +panel('Custom KPI','<form id="custom-form" class="form-grid"><label>Name<input name="label" maxlength="48" required></label><label>Category<select name="category"><option>Operational</option><option>Commercial</option><option>Sales</option><option>Financial</option></select></label><label>Unit<select name="unit"><option value="count">Number</option><option value="money">Currency</option><option value="months">Months</option></select></label><div><button>Create KPI</button></div></form>')
-      +panel('Investor invitations','<form id="invite-form" class="actions"><label style="flex:1">Email<input name="email" type="email" maxlength="180" required></label><button>Create 7-day link</button></form><small>Email delivery is simulated. Copy the link to share it.</small><div id="invite-result"></div><ul class="items">'+inviteList+'</ul>')
+      +panel('Investor invitations','<form id="invite-form" class="actions"><label class="flex-1">Email<input name="email" type="email" maxlength="180" required></label><button>Create 7-day link</button></form><small>Email delivery is simulated. Copy the link to share it.</small><div id="invite-result"></div><ul class="items">'+inviteList+'</ul>')
       +panel('Investor engagement',c.views.length?'<ul class="items">'+c.views.slice().reverse().slice(0,12).map(view=>'<li>'+esc(view.label)+' · '+esc(view.kind)+' · '+date(view.at)+'</li>').join('')+'</ul>':empty('Investor views and invite opens appear here.'))+'</div>';
     void loadPreviews();
   }
@@ -1511,7 +1535,7 @@ export async function client() {
     const health=Object.entries(ctx.preloadReport?.sources||{}).map(([label, row])=>'<tr><td>'+esc(label)+'</td><td>'+stamp(row.lastSuccess)+'</td><td>'+stamp(row.lastFailure)+'</td></tr>').join('');
     main.innerHTML=title('Manage map','Review startup suggestions and preload profiles and cities onto the map.')+'<div class="stack">'
       +'<div class="actions">'+feedbackButton('admin','map management')+'</div>'+evidenceAudit(companies)+panel('Startup request queue','<div id="queue-progress" aria-live="polite"></div>'+(rows?'<div class="scroll"><table class="rules"><thead><tr><th>Startup</th><th>City</th><th>Submitted</th><th>Status</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>':empty('No startup requests yet.'))+'<div class="actions spaced">'+button('Suggest startup','data-open-dialog="startup"')+'</div>')
-      +panel('City preloads','<div class="scroll"><table class="rules"><thead><tr><th>City</th><th>Indexed profiles</th><th>Signals captured</th><th>Snapshot run</th></tr></thead><tbody>'+seeds+'</tbody></table></div>'+(list?'<h3 style="margin-top:14px">Workspace jobs</h3><ul class="items">'+list+'</ul>':'')+'<div class="actions spaced">'+button('+ Add city','data-open-dialog="city"')+'</div>')
+      +panel('City preloads','<div class="scroll"><table class="rules"><thead><tr><th>City</th><th>Indexed profiles</th><th>Signals captured</th><th>Snapshot run</th></tr></thead><tbody>'+seeds+'</tbody></table></div>'+(list?'<h3 class="margin-top-14px">Workspace jobs</h3><ul class="items">'+list+'</ul>':'')+'<div class="actions spaced">'+button('+ Add city','data-open-dialog="city"')+'</div>')
       +(health?panel('Source health','<div class="scroll"><table class="rules"><thead><tr><th>Connector</th><th>Last success</th><th>Last failure</th></tr></thead><tbody>'+health+'</tbody></table></div>'):'')
       +panel('Extraction quality','<div class="cards"><div><div class="value">'+extracted+'</div><small>Documents processed</small></div><div><div class="value">'+confirmed+'</div><small>Confirmed fields</small></div><div><div class="value">'+(confirmed?Math.round(100*unchanged/confirmed)+'%':'—')+'</div><small>Confirmed unchanged</small></div></div>')+'</div>';
   }

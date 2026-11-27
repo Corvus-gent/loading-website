@@ -167,7 +167,14 @@ function routeRequest(request, url) {
       method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ tool: hit[1] }),
     }).catch(() => {}));
     if (url.pathname === "/" && url.hostname !== "stats.corvus.gent") {
-      return new Response(CURL_REPLY, { headers: { "Content-Type": "text/plain; charset=utf-8" } });
+      return new Response(request.method === 'HEAD' ? null : CURL_REPLY, {
+        headers: {
+          'Content-Type': 'text/plain; charset=utf-8',
+          'Content-Security-Policy': "default-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'",
+          'Cache-Control': 'private, no-store',
+          'Vary': 'Cookie, User-Agent',
+        },
+      });
     }
   }
 

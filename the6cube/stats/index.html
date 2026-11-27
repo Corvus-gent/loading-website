@@ -98,7 +98,17 @@ function visit() {
   $('kpis').innerHTML = k.map(([a, v, d, dig]) => `<div class="kpi"><dt>${a}</dt><dd>${dig ? (v ?? 0).toFixed(dig) : ms(v)}</dd><small>${d}</small></div>`).join('');
   const phases = [['redirect', n.redirectStart, n.redirectEnd], ['dns', n.domainLookupStart, n.domainLookupEnd], ['tcp + tls', n.connectStart, n.connectEnd], ['request', n.requestStart, n.responseStart], ['download', n.responseStart, n.responseEnd], ['dom parse', n.responseEnd, n.domInteractive], ['dom ready', n.domInteractive, n.domContentLoadedEventEnd], ['load', n.domContentLoadedEventEnd, n.loadEventEnd]];
   const end = Math.max(1, n.loadEventEnd || performance.now());
-  $('wf').innerHTML = phases.map(([a, s, e]) => { const d = (e || 0) - (s || 0); return `<div><span>${a}</span><span class="track"><span class="seg" style="left:${100 * (s || 0) / end}%;width:${Math.max(.3, 100 * Math.max(0, d) / end)}%"></span></span><span>${ms(Math.max(0, d))}</span></div>`; }).join('');
+  $('wf').replaceChildren(...phases.map(([name, start, finish]) => {
+    const duration = Math.max(0, (finish || 0) - (start || 0));
+    const row = document.createElement('div');
+    row.innerHTML = '<span></span><span class="track"><span class="seg"></span></span><span></span>';
+    row.firstElementChild.textContent = name;
+    row.lastElementChild.textContent = ms(duration);
+    const segment = row.querySelector('.seg');
+    segment.style.left = 100 * (start || 0) / end + '%';
+    segment.style.width = Math.max(.3, 100 * duration / end) + '%';
+    return row;
+  }));
   const c = navigator.connection;
   $('device').textContent = `${navigator.hardwareConcurrency || '?'} cores · ${navigator.deviceMemory ? navigator.deviceMemory + ' GB' : 'memory hidden'} · DPR ${devicePixelRatio} · ${innerWidth}×${innerHeight} · ${c ? c.effectiveType + ', ' + (c.rtt ?? '?') + ' ms rtt' : 'network hidden'} · long tasks ${vit.longTasks} · transfer ${n.transferSize ? kb(n.transferSize) : 'cached'}`;
 }
@@ -121,7 +131,16 @@ $('run').onclick = async () => {
   const rows = [];
   const time = async (label, key, fn) => { await new Promise(r => setTimeout(r, 30)); const t0 = performance.now(); const out = fn(); const t = performance.now() - t0; rows.push([label, t, REF[key], out]); draw(); };
   const draw = () => { const max = Math.max(...rows.flatMap(r => [r[1], r[2]])) * 1.1;
-    $('bench').innerHTML = rows.map(([l, t, r, o]) => `<div><span>${l}</span><span class="track"><span class="me" style="width:${100 * t / max}%"></span><span class="ref" style="left:${100 * r / max}%"></span></span><span>${ms(t)}</span></div>`).join(''); };
+    $('bench').replaceChildren(...rows.map(([name, elapsed, reference]) => {
+      const row = document.createElement('div');
+      row.innerHTML = '<span></span><span class="track"><span class="me"></span><span class="ref"></span></span><span></span>';
+      row.firstElementChild.textContent = name;
+      row.lastElementChild.textContent = ms(elapsed);
+      row.querySelector('.me').style.width = 100 * elapsed / max + '%';
+      row.querySelector('.ref').style.left = 100 * reference / max + '%';
+      return row;
+    }));
+  };
   let ball;
   await time('BFS radius 4 · 46,741 states', 'ball', () => (ball = buildBall(4)).layers.join('·'));
   await time('10,000 random walks · 8 turns', 'sample8', () => runExperiment({ generator: 'uniform', steps: 8, samples: 10000, seed: 1729, ball }).bins.join('·'));

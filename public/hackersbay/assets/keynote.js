@@ -2,7 +2,6 @@ const video = document.querySelector('#keynote-video');
 const sound = document.querySelector('#keynote-sound');
 const mobile = matchMedia('(max-width: 640px)');
 const compact = matchMedia('(max-width: 420px)');
-const media = 'https://github.com/Corvus-gent/the-hackers-bay/releases/download/compound-keynote-v1';
 const art = '/public/hackersbay/art/keynote';
 const params = new URLSearchParams(location.search);
 const playLive = document.querySelector('#keynote-play-live');
@@ -26,7 +25,7 @@ function setVideo() {
   if (layout === 'mobile') formats.unshift(['keynote_mobile_720p.mp4', 'video/mp4']);
   const sources = formats.map(([file, type]) => {
     const source = document.createElement('source');
-    source.src = `${media}/${file}`;
+    source.src = `${art}/${file}`;
     source.type = type;
     return source;
   });

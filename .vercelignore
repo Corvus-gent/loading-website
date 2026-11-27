@@ -58,3 +58,5 @@ output
 .env*
 .runtime/
 output/
+
+!tools/site/csp.py

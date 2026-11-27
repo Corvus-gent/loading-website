@@ -549,7 +549,7 @@ function refreshUI(){
   const list=document.getElementById('movelist');const seq=solution.length?solution:[...path].reverse().map(inverse);
   document.getElementById('movesum').textContent=seq.length?t('moves_n',{n:seq.length}):t('moves_0');
   document.getElementById('moveempty').style.display=seq.length?'none':'';
-  list.innerHTML='';seq.forEach((m,i)=>{const li=document.createElement('li');li.innerHTML=`<code style="--c:${COLORS[m[0]]}">${pm(m)}</code><span>${describe(m)}</span>`;if(solution.length){if(i<solIndex)li.className='done';if(i===solIndex)li.className='cur'}li.onclick=()=>solve(i);list.append(li)});
+  list.innerHTML='';seq.forEach((m,i)=>{const li=document.createElement('li');const code=document.createElement('code');code.style.setProperty('--c',COLORS[m[0]]);code.textContent=pm(m);const detail=document.createElement('span');detail.textContent=describe(m);li.append(code,detail);if(solution.length){if(i<solIndex)li.className='done';if(i===solIndex)li.className='cur'}li.onclick=()=>solve(i);list.append(li)});
   const cur=list.querySelector('.cur');if(cur&&document.getElementById('movesbox').open)cur.scrollIntoView({block:'nearest'});
   const h=homeCount(state);document.getElementById('home').textContent=h+'/54';document.getElementById('homebar').style.width=(h/54*100)+'%';
   document.getElementById('depthv').textContent=path.length;document.getElementById('solve').disabled=!path.length&&!solution.length;
@@ -678,7 +678,7 @@ function renderOrder(){const seq=PRESETS[seqSel];chips.querySelectorAll('.chip')
   const cyc=cyclesOf(permOf(seq));const ord=cyc.reduce((a,c)=>lcm(a,c.length),1);document.getElementById('order').textContent=ord.toLocaleString(lang);
   const lens={};cyc.forEach(c=>lens[c.length]=(lens[c.length]||0)+1);
   document.getElementById('ordertext').textContent=t('order_t',{c:cycleType(cyc)});
-  const box=document.getElementById('cycles');box.innerHTML='';cyc.sort((a,b)=>b.length-a.length).slice(0,9).forEach(c=>{const d=document.createElement('div');d.className='cyc';d.innerHTML=c.map(i=>`<i style="--c:${colorOf(SOLVED[i])}"></i>`).join('')+`<span>${c.length}</span>`;box.append(d)})}
+  const box=document.getElementById('cycles');box.innerHTML='';cyc.sort((a,b)=>b.length-a.length).slice(0,9).forEach(c=>{const d=document.createElement('div');d.className='cyc';for(const i of c){const swatch=document.createElement('i');swatch.style.setProperty('--c',colorOf(SOLVED[i]));d.append(swatch)}const count=document.createElement('span');count.textContent=String(c.length);d.append(count);box.append(d)})}
 
 /* ================= chapter II ================= */
 const TOTAL=43252003274489856000n;let counted=false;
