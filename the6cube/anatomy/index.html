@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#04030a"><title>Anatomy · brain, heart, soul · The 6 Cube</title>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz@0,6..96;1,6..96&display=swap" rel="stylesheet">
+<style>
+/* anatomy of the shared brain. one canvas, three levels of detail: lobes (council members) → cells → synapses.
+   the same graph is drawn as six kinds of natural network; zoom in far enough and the cells look like planets. */
+:root{--bg:#04030a;--gold:#ffd76a;--cream:#efe7d2;--dim:rgba(239,231,210,.55);--mono:ui-monospace,SFMono-Regular,Menlo,monospace;--serif:'Bodoni Moda',Georgia,serif}
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:var(--bg);color:var(--cream);overflow:hidden;font:13px var(--mono)}
+canvas#net{position:fixed;inset:0;width:100%;height:100%;touch-action:none;cursor:grab}canvas#net:active{cursor:grabbing}
+.hud{position:fixed;pointer-events:none;font:10.5px/1.6 var(--mono);letter-spacing:.12em;color:var(--dim);text-transform:uppercase}
+.tl{top:calc(14px + env(safe-area-inset-top));left:16px}.tr{top:calc(14px + env(safe-area-inset-top));right:16px;text-align:right}.bl{bottom:calc(16px + env(safe-area-inset-bottom));left:16px}.br{bottom:calc(16px + env(safe-area-inset-bottom));right:16px;text-align:right}
+.hud b{color:var(--cream);font-weight:400}.hud a{pointer-events:auto}
+.hud a{color:var(--dim);text-decoration:none}
+h1{font:italic 400 clamp(26px,4vw,40px)/1 var(--serif);letter-spacing:0;text-transform:none;color:var(--cream);margin:6px 0 2px}
+.organs{display:flex;gap:6px;margin-top:10px}.organs button{all:unset;pointer-events:auto;cursor:pointer;border:1px solid rgba(239,231,210,.18);border-radius:999px;padding:5px 12px;font:10.5px var(--mono);letter-spacing:.16em;color:var(--dim)}
+.organs button.on{color:var(--bg);background:var(--cream);border-color:var(--cream)}.organs button i{font-style:normal;opacity:.6;margin-left:6px}
+select{all:unset;pointer-events:auto;cursor:pointer;border:1px solid rgba(239,231,210,.25);border-radius:999px;padding:7px 30px 7px 14px;font:11px var(--mono);letter-spacing:.14em;color:var(--cream);background:rgba(4,3,10,.7) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23efe7d2'/%3E%3C/svg%3E") no-repeat right 12px center;text-transform:uppercase}
+.scale{display:flex;align-items:center;gap:8px;margin-top:6px}.scale i{display:block;height:1px;background:var(--cream);width:80px}
+.zoom{margin-top:8px;display:flex;gap:6px;justify-content:flex-end}.zoom button{all:unset;pointer-events:auto;cursor:pointer;width:30px;height:30px;border:1px solid rgba(239,231,210,.25);border-radius:50%;text-align:center;line-height:30px;color:var(--cream)}
+#tip{position:fixed;pointer-events:none;font:11px/1.5 var(--mono);background:rgba(4,3,10,.85);border:1px solid rgba(239,231,210,.18);border-radius:8px;padding:6px 9px;opacity:0;transition:opacity .2s;letter-spacing:.06em}
+.plate{position:fixed;inset:0;display:none;place-items:center;text-align:center;pointer-events:none}.plate.on{display:grid}
+.plate p{font:11px/1.8 var(--mono);letter-spacing:.2em;color:var(--dim);text-transform:uppercase;margin:18px 0 0}.plate h2{font:italic 400 34px var(--serif);margin:0}
+.heart svg{width:min(62vw,360px);overflow:visible}.beat{transform-origin:200px 150px;animation:beat 1.1s infinite}
+@keyframes beat{0%,100%{transform:scale(1)}12%{transform:scale(1.09)}24%{transform:scale(.98)}36%{transform:scale(1.05)}}
+.soul svg{width:min(46vw,260px);overflow:visible}.soul .eye{animation:blink 6s infinite}@keyframes blink{0%,94%,100%{opacity:1}96%{opacity:.1}}
+@media (max-width:640px){.tr{top:auto;bottom:calc(64px + env(safe-area-inset-bottom))}.br .meta{display:none}}
+@media (prefers-reduced-motion:reduce){.beat,.soul .eye{animation:none}}
+</style></head><body>
+<canvas id="net" aria-label="the shared brain as a living network"></canvas>
+<div class="plate heart" id="heart"><div><svg viewBox="0 0 400 300" aria-hidden="true">
+  <g stroke="#6b4a22" stroke-width="3" fill="#1a120a"><path d="M60 140 h280 v120 h-280 z"/><path d="M60 140 q140 -80 280 0" fill="#22170c"/></g>
+  <g stroke="#a7834a" stroke-width="2" fill="none"><path d="M60 170 h280 M60 230 h280"/><circle cx="200" cy="200" r="13"/><path d="M200 207 v14"/></g>
+  <g class="beat"><path d="M200 182 C170 150 130 160 140 120 C148 92 186 96 200 120 C214 96 252 92 260 120 C270 160 230 150 200 182Z" fill="#6d0f1c" stroke="#ff5a6e" stroke-width="2"/>
+  <path d="M176 118 q10 -14 24 2 M200 120 q8 -22 26 -14" stroke="#ff9aa6" stroke-width="1.5" fill="none" opacity=".6"/></g>
+  </svg><h2>the heart</h2><p>locked in a chest · beating soon · the body comes next</p></div></div>
+<div class="plate soul" id="soul"><div><svg viewBox="-100 -100 200 200" aria-hidden="true">
+  <path d="M-70 30 C-40 -40 10 -70 60 -45 L82 -50 L66 -30 C70 0 50 30 10 45 L-10 75 L-18 50 C-40 52 -60 45 -70 30Z" fill="#0d0a14" stroke="#b4a0d6" stroke-width="2"/>
+  <circle class="eye" cx="42" cy="-32" r="5" fill="#ffd76a"/></svg>
+  <h2>the soul</h2><p>ΓΝΩΘΙ ΣΑΥΤΟΝ · the corvus in it · last to wake</p></div></div>
+<div class="hud tl"><a href="/the6cube/brein/">← 东方议会</a><h1>Anatomy</h1>specimen 1729 · the shared brain
+  <div class="organs"><button class="on" data-o="brain">BRAIN<i>live</i></button><button data-o="heart">HEART<i>next</i></button><button data-o="soul">SOUL<i>later</i></button></div></div>
+<div class="hud tr"><select id="mode" aria-label="kind of network">
+  <option value="neurons">neurons</option><option value="cosmos">cosmic web</option><option value="mycelium">mycelium</option>
+  <option value="grid">power grid</option><option value="wifi">internet · wifi</option><option value="rivers">river delta</option></select>
+  <div class="zoom"><button id="zo" aria-label="zoom out">−</button><button id="zr" aria-label="reset">○</button><button id="zi" aria-label="zoom in">+</button></div></div>
+<div class="hud bl"><div id="what"></div><div class="scale"><i id="bar"></i><span id="sc"></span></div></div>
+<div class="hud br"><div class="meta">zoom <b id="z">1.0×</b> · nodes drawn <b id="nd">0</b><br>signals <b id="sg">0</b>/s · <span id="lvl">lobes</span></div>tap · scroll · pinch · drag</div>
+<div id="tip"></div>
+<script>
+const COUNCIL=[['DeepSeek','advisor'],['Qwen','translator'],['Kimi','reader'],['GLM','builder'],['MiniMax','director'],['Doubao','voice of the people'],['Yuanbao','postmaster'],['ERNIE','seeker'],['StepFun','devil’s advocate'],['Spark','voice coach'],['Baichuan','scout'],['Quark','student'],['Metaso','historian'],['Kling','cinematographer'],['Tiangong','composer'],['PLaMo','ronin'],['CLOVA X','seoul guide'],['Solar','second reader'],['SEA-LION','navigator'],['SenseChat','mathematician'],['Nano AI','fact-checker'],['Dreamina','poster maker'],['Vidu','camera'],['Manus','executor']];
+// what each network is called at each depth: [lobe, cell, synapse, unit]
+const MODES={
+  neurons:{bg:'#05030b',hue:[285,330],edge:'rgba(196,140,255,',node:'#f0d8ff',pulse:'#ff9de2',names:['lobe','neuron','synapse','µm'],note:'neurons · electrical spikes along axons',curve:.35},
+  cosmos:{bg:'#02030a',hue:[205,250],edge:'rgba(120,160,255,',node:'#e8f0ff',pulse:'#bcd4ff',names:['supercluster','galaxy','star','Mpc'],note:'cosmic web · galaxies along dark-matter filaments',curve:.12},
+  mycelium:{bg:'#07060a',hue:[35,55],edge:'rgba(239,231,210,',node:'#fff6de',pulse:'#ffd76a',names:['colony','hypha','spore','mm'],note:'mycelium · nutrients shared under the forest floor',curve:.6},
+  grid:{bg:'#060403',hue:[30,45],edge:'rgba(255,190,90,',node:'#ffe2a8',pulse:'#ffffff',names:['region','substation','house','km'],note:'power grid · current from plant to house',curve:0,ortho:1},
+  wifi:{bg:'#020708',hue:[170,195],edge:'rgba(90,230,230,',node:'#d9ffff',pulse:'#7dfcff',names:['backbone','router','device','km'],note:'internet · packets hop router to router',curve:0,rings:1},
+  rivers:{bg:'#020606',hue:[150,200],edge:'rgba(110,210,190,',node:'#d6fff3',pulse:'#9ff5ff',names:['basin','river','stream','km'],note:'river delta · water finds the shortest way down',curve:.25,taper:1}};
+let M=MODES.neurons;
+const cv=document.getElementById('net'),c=cv.getContext('2d'),DPR=Math.min(2,devicePixelRatio||1);
+let W,H;function size(){W=innerWidth;H=innerHeight;cv.width=W*DPR;cv.height=H*DPR;}size();addEventListener('resize',size);
+// seeded random so the brain looks the same for everyone
+function rnd(s){return()=>{s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const R=rnd(1729);
+// level 0: 24 lobes in two hemispheres (world units: brain ≈ 1000 wide)
+const lobes=COUNCIL.map(([n,role],i)=>{const left=i%2,k=Math.floor(i/2),ring=k<6?.92:k<10?.55:.18,a=(k<6?k/6:k<10?(k-6)/4:(k-10)/2)*Math.PI*2+(left?0:.4)+R()*.3,
+  x=(left?-1:1)*(215+Math.cos(a)*175*ring),y=Math.sin(a)*285*ring;
+  return{x,y,r:50+R()*16,name:n,role,kids:null,seed:i*7919+13,act:R()}});
+// a faint outline of two hemispheres with folds, like a scan seen from above
+const OUT=[-1,1].map(sd=>{const P=[],r=rnd(sd>0?3:5);for(let i=0;i<=160;i++){const a=i/160*Math.PI*2,f=1+.035*Math.sin(a*23+r()*.6)+.02*Math.sin(a*41);P.push([sd*(215+Math.cos(a)*245*f),Math.sin(a)*360*f])}return P});
+const L0=[];for(let i=0;i<lobes.length;i++)for(let j=i+1;j<lobes.length;j++){const a=lobes[i],b=lobes[j],d=Math.hypot(a.x-b.x,a.y-b.y);if(d<200||(i%2!==j%2&&Math.abs(a.y-b.y)<60&&d<560))L0.push([a,b,d<200?1:.45]);}
+// children are generated lazily, the first time they are seen
+function kids(p,n,spread,rr){if(p.kids)return p.kids;const r=rnd(p.seed),K=[];
+  for(let i=0;i<n;i++){const a=r()*Math.PI*2,d=Math.sqrt(r())*p.r*spread;K.push({x:p.x+Math.cos(a)*d,y:p.y+Math.sin(a)*d,r:p.r*rr*(.6+r()*.8),seed:p.seed*31+i+1,kids:null,act:r()})}
+  const E=[];for(let i=0;i<K.length;i++){const near=K.map((k,j)=>[j,Math.hypot(k.x-K[i].x,k.y-K[i].y)]).filter(x=>x[0]!==i).sort((a,b)=>a[1]-b[1]).slice(0,3);for(const[j]of near)if(j>i)E.push([K[i],K[j],1])}
+  p.kids=K;p.edges=E;return K}
+// camera
+let cam={x:0,y:0,z:Math.min(W,H)/1150},goal={...cam};const Z0=cam.z;
+const toS=(x,y)=>[(x-cam.x)*cam.z+W/2,(y-cam.y)*cam.z+H/2],toW=(sx,sy)=>[(sx-W/2)/cam.z+cam.x,(sy-H/2)/cam.z+cam.y];
+function zoomAt(f,sx=W/2,sy=H/2){const[wx,wy]=toW(sx,sy);goal.z=Math.max(Z0*.6,Math.min(Z0*120,goal.z*f));goal.x=wx-(sx-W/2)/goal.z;goal.y=wy-(sy-H/2)/goal.z;}
+cv.addEventListener('wheel',e=>{e.preventDefault();zoomAt(Math.exp(-e.deltaY*.0011),e.clientX,e.clientY)},{passive:false});
+const ptr=new Map();let pinch0=0;
+cv.addEventListener('pointerdown',e=>{cv.setPointerCapture(e.pointerId);ptr.set(e.pointerId,[e.clientX,e.clientY])});
+cv.addEventListener('pointermove',e=>{hover(e.clientX,e.clientY);if(!ptr.has(e.pointerId))return;const p=ptr.get(e.pointerId);
+  if(ptr.size===1){goal.x-=(e.clientX-p[0])/goal.z;goal.y-=(e.clientY-p[1])/goal.z;cam.x=goal.x;cam.y=goal.y}
+  ptr.set(e.pointerId,[e.clientX,e.clientY]);
+  if(ptr.size===2){const[a,b]=[...ptr.values()],d=Math.hypot(a[0]-b[0],a[1]-b[1]);if(pinch0)zoomAt(d/pinch0,(a[0]+b[0])/2,(a[1]+b[1])/2);pinch0=d}});
+let downAt=null;cv.addEventListener('pointerdown',e=>downAt=[e.clientX,e.clientY]);
+function fly(sx,sy){const[wx,wy]=toW(sx,sy);let best=null;
+  for(const l of lobes){const d=Math.hypot(l.x-wx,l.y-wy);if(l.kids&&l.r*cam.z>60)for(const k of l.kids){const dk=Math.hypot(k.x-wx,k.y-wy);if(dk<k.r*2.2&&(!best||k.r<best.r))best=k}if(!best&&d<l.r*1.7)best=l}
+  if(!best)return;goal.x=best.x;goal.y=best.y;goal.z=Math.min(Z0*120,Math.min(W,H)*.32/best.r)}
+const up=e=>{if(downAt&&Math.hypot(e.clientX-downAt[0],e.clientY-downAt[1])<6&&ptr.size<=1)fly(e.clientX,e.clientY);downAt=null;ptr.delete(e.pointerId);pinch0=0};cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
+
+document.getElementById('zi').onclick=()=>zoomAt(2.2);document.getElementById('zo').onclick=()=>zoomAt(1/2.2);document.getElementById('zr').onclick=()=>{goal={x:0,y:0,z:Z0}};
+document.getElementById('mode').onchange=e=>{M=MODES[e.target.value];pulses.length=0};
+// signals travelling along edges
+const pulses=[];let sent=0,sentT=performance.now(),rate=0;
+function fire(a,b,lvl){if(pulses.length<400)pulses.push({a,b,t:0,v:.25+Math.random()*.5,lvl});sent++}
+let hoverHit=null;const tip=document.getElementById('tip');
+function hover(sx,sy){hoverHit=null;const[wx,wy]=toW(sx,sy);for(const l of lobes)if(Math.hypot(l.x-wx,l.y-wy)<l.r*1.6){hoverHit=l;break}
+  if(hoverHit&&cam.z<Z0*4){tip.style.opacity=1;tip.style.left=sx+14+'px';tip.style.top=sy+10+'px';tip.textContent=`${hoverHit.name} · ${hoverHit.role}`}else tip.style.opacity=0}
+function path(a,b,lvl){const[x1,y1]=toS(a.x,a.y),[x2,y2]=toS(b.x,b.y);c.moveTo(x1,y1);
+  if(M.ortho){const mx=lvl?x2:(x1+x2)/2;c.lineTo(mx,y1);c.lineTo(mx,y2);c.lineTo(x2,y2);return}
+  const k=M.curve*((a.seed||1)%2?1:-1),mx=(x1+x2)/2-(y2-y1)*k,my=(y1+y2)/2+(x2-x1)*k;c.quadraticCurveTo(mx,my,x2,y2)}
+function pt(a,b,t,lvl){const[x1,y1]=toS(a.x,a.y),[x2,y2]=toS(b.x,b.y);
+  if(M.ortho){const mx=lvl?x2:(x1+x2)/2,L1=Math.abs(mx-x1),L2=Math.abs(y2-y1),L3=Math.abs(x2-mx),T=(L1+L2+L3)*t||0;
+    if(T<L1)return[x1+Math.sign(mx-x1)*T,y1];if(T<L1+L2)return[mx,y1+Math.sign(y2-y1)*(T-L1)];return[mx+Math.sign(x2-mx)*(T-L1-L2),y2]}
+  const k=M.curve*((a.seed||1)%2?1:-1),mx=(x1+x2)/2-(y2-y1)*k,my=(y1+y2)/2+(x2-x1)*k,u=1-t;return[u*u*x1+2*u*t*mx+t*t*x2,u*u*y1+2*u*t*my+t*t*y2]}
+const vis=(x,y,r)=>{const[sx,sy]=toS(x,y),R=r*cam.z;return sx>-R-60&&sx<W+R+60&&sy>-R-60&&sy<H+R+60};
+let last=performance.now();
+function frame(now){const dt=Math.min(.05,(now-last)/1000);last=now;
+  cam.z+=(goal.z-cam.z)*.14;cam.x+=(goal.x-cam.x)*.14;cam.y+=(goal.y-cam.y)*.14;
+  c.setTransform(DPR,0,0,DPR,0,0);c.fillStyle=M.bg;c.fillRect(0,0,W,H);
+  const zr=cam.z/Z0;let drawn=0;
+  // background dust gives depth
+  c.fillStyle='rgba(239,231,210,.05)';const DR=rnd(9);for(let i=0;i<140;i++){const x=(DR()*W*3-cam.x*cam.z*.05)%W,y=(DR()*H*3-cam.y*cam.z*.05)%H;c.fillRect((x+W)%W,(y+H)%H,1,1)}
+  c.strokeStyle=M.edge+'.10)';c.lineWidth=1.2;for(const P of OUT){c.beginPath();P.forEach(([x,y],i)=>{const[a,b]=toS(x,y);i?c.lineTo(a,b):c.moveTo(a,b)});c.stroke()}
+  // level 0 edges
+  c.lineCap='round';
+  for(const[a,b,s]of L0){c.beginPath();path(a,b,0);c.strokeStyle=M.edge+(.12+.18*s)+')';c.lineWidth=Math.min(3.5,Math.max(.6,(M.taper?3*s:1.4*s)*Math.sqrt(zr)));c.stroke();if(Math.random()<.012*s)fire(Math.random()<.5?a:b,Math.random()<.5?b:a,0)}
+  // lobes, and inside them cells, and inside those synapses
+  let level=0;
+  for(const l of lobes){if(!vis(l.x,l.y,l.r*1.6))continue;const[sx,sy]=toS(l.x,l.y),sr=l.r*cam.z,breath=1+.04*Math.sin(now/900+l.act*9);
+    const g=c.createRadialGradient(sx,sy,0,sx,sy,sr*1.9*breath),h=M.hue[0]+(M.hue[1]-M.hue[0])*l.act,gf=Math.max(0,1-(sr-120)/500);
+    g.addColorStop(0,`hsla(${h},80%,70%,${.30*gf})`);g.addColorStop(.5,`hsla(${h},70%,45%,${.10*gf})`);g.addColorStop(1,'transparent');c.fillStyle=g;c.beginPath();c.arc(sx,sy,sr*1.9*breath,0,7);c.fill();
+    if(M.rings){for(let k=0;k<3;k++){const p=((now/1600+k/3+l.act)%1);c.beginPath();c.arc(sx,sy,sr*(.6+p*1.6),0,7);c.strokeStyle=M.edge+(.25*(1-p))+')';c.lineWidth=1;c.stroke()}}
+    drawn++;
+    if(sr>22){level=Math.max(level,sr>60?1:0);const K=kids(l,46,1.5,.12),fade=Math.min(1,(sr-22)/70);
+      for(const[a,b]of l.edges){c.beginPath();path(a,b,1);c.strokeStyle=M.edge+(.35*fade)+')';c.lineWidth=Math.max(.5,a.r*cam.z*.08);c.stroke();if(Math.random()<.004)fire(a,b,1)}
+      for(const k of K){if(!vis(k.x,k.y,k.r*2))continue;const[kx,ky]=toS(k.x,k.y),kr=Math.max(1,k.r*cam.z);drawn++;
+        if(kr>30){level=Math.max(level,2);const S=kids(k,26,1.3,.11),f2=Math.min(1,(kr-30)/50),pf=Math.max(0,1-(kr-260)/500);
+          // up close a cell is a planet: lit side, terminator, thin atmosphere
+          const pg=c.createRadialGradient(kx-kr*.35,ky-kr*.35,kr*.1,kx,ky,kr);pg.addColorStop(0,`hsla(${h+20},70%,72%,${.22*f2*pf})`);pg.addColorStop(.7,`hsla(${h},60%,30%,${.12*f2*pf})`);pg.addColorStop(1,'transparent');
+          c.fillStyle=pg;c.beginPath();c.arc(kx,ky,kr,0,7);c.fill();c.strokeStyle=M.edge+(.25*f2)+')';c.lineWidth=1;c.beginPath();c.arc(kx,ky,kr*1.04,0,7);c.stroke();
+          for(const[a,b]of k.edges){c.beginPath();path(a,b,2);c.strokeStyle=M.edge+(.5*f2)+')';c.lineWidth=Math.max(.4,a.r*cam.z*.1);c.stroke();if(Math.random()<.003)fire(a,b,2)}
+          for(const s of S){if(!vis(s.x,s.y,s.r))continue;const[px,py]=toS(s.x,s.y),pr=Math.max(.8,s.r*cam.z);drawn++;
+            if(pr>14){level=3;c.fillStyle=`hsla(${h+40*s.act},70%,${55+20*s.act}%,${.5*f2})`;c.beginPath();c.arc(px,py,pr*.55,0,7);c.fill();c.strokeStyle=M.edge+(.6*f2)+')';c.beginPath();c.arc(px,py,pr*.55,0,7);c.stroke();
+              // the smallest scale: rings of a planet / a synaptic cleft
+              c.beginPath();c.ellipse(px,py,pr*.95,pr*.28,s.act*3,0,7);c.strokeStyle=M.edge+(.35*f2)+')';c.stroke()}
+            else{c.fillStyle=M.node;c.globalAlpha=.8*f2;c.fillRect(px-pr/2,py-pr/2,pr,pr);c.globalAlpha=1}}}
+        c.fillStyle=M.node;c.globalAlpha=.85*fade;c.beginPath();c.arc(kx,ky,Math.max(1.2,Math.min(kr,40)*.22),0,7);c.fill();c.globalAlpha=1}}
+    // core and the name of this council member
+    c.fillStyle=M.node;c.beginPath();c.arc(sx,sy,Math.max(2,Math.min(sr*.16,9)),0,7);c.fill();
+    if(sr<260){c.font=`${Math.max(9,Math.min(13,sr*.22))}px ui-monospace,Menlo,monospace`;c.textAlign='center';c.fillStyle=`rgba(239,231,210,${Math.max(0,.75-(sr-60)/260)})`;c.fillText(l.name.toUpperCase(),sx,sy+sr*.62+14)}}
+  // signals
+  for(let i=pulses.length-1;i>=0;i--){const p=pulses[i];p.t+=dt*p.v*(p.lvl?2.2:1);if(p.t>=1){pulses.splice(i,1);continue}
+    const[x,y]=pt(p.a,p.b,p.t,p.lvl),s=p.lvl?2:3.2,gl=c.createRadialGradient(x,y,0,x,y,s*5);gl.addColorStop(0,M.pulse);gl.addColorStop(1,'transparent');
+    c.fillStyle=gl;c.globalAlpha=.9*Math.sin(Math.PI*p.t);c.beginPath();c.arc(x,y,s*5,0,7);c.fill();c.globalAlpha=1}
+  // medical HUD: crosshair, scale bar, readouts
+  c.strokeStyle='rgba(239,231,210,.12)';c.lineWidth=1;c.beginPath();c.moveTo(W/2-14,H/2);c.lineTo(W/2+14,H/2);c.moveTo(W/2,H/2-14);c.lineTo(W/2,H/2+14);c.stroke();
+  if(now-sentT>1000){rate=Math.round(sent*1000/(now-sentT));sent=0;sentT=now}
+  const unit=100/cam.z;document.getElementById('sc').textContent=`${unit<1?unit.toFixed(2):Math.round(unit)} ${M.names[3]}`;document.getElementById('bar').style.width='100px';
+  document.getElementById('z').textContent=zr.toFixed(zr<10?1:0)+'×';document.getElementById('nd').textContent=drawn;document.getElementById('sg').textContent=rate;
+  document.getElementById('lvl').textContent=['lobes','cells','synapses','inside a synapse'][level]+' · '+M.names[Math.min(level,2)];
+  document.getElementById('what').innerHTML=`<b>${M.note}</b><br>24 minds · 1 brain · tap a mind to go inside`;
+  requestAnimationFrame(frame)}
+requestAnimationFrame(frame);
+// organs: brain is live, heart and soul are plates
+document.querySelectorAll('.organs button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.organs button').forEach(x=>x.classList.toggle('on',x===b));
+  const o=b.dataset.o;document.getElementById('heart').classList.toggle('on',o==='heart');document.getElementById('soul').classList.toggle('on',o==='soul');cv.style.opacity=o==='brain'?1:.12});
+</script></body></html>
