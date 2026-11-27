@@ -12,7 +12,7 @@ const K = { me: 'cube_me', rank: 'cube_rank', from: 'cube_from' };
 const ls = { get: k => { try { return localStorage.getItem(k); } catch { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch {} } };
 const rid = () => { const a = 'abcdefghjkmnpqrstuvwxyz23456789'; let s = ''; const b = crypto.getRandomValues(new Uint8Array(4)); for (const x of b) s += a[x % a.length]; return s; };
 export const rankOf = r => !r ? null : (r === 'gabe' ? 0 : (/^(\d{1,3})-[a-z0-9]{3,8}$/.test(r) ? +r.split('-')[0] : null));
-const CH = ['wa', 'tg', 'li', 'sms', 'copy', 'more', 'qr', 'wc', 'x'];
+const CH = ['wa', 'tg', 'li', 'sms', 'copy', 'more', 'qr', 'wc', 'x', 'ig'];
 
 export function send(ev) {
   const body = JSON.stringify({ v: 1, ts: Date.now(), ...ev });
