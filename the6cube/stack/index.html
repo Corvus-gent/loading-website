@@ -19,6 +19,7 @@ table{border-collapse:collapse;width:100%;min-width:880px;font-size:13.5px}th,td
 th{font:11px var(--mono);letter-spacing:.08em;color:var(--dim);font-weight:400}th small{color:rgba(239,231,210,.38)}td:first-child{color:var(--gold);white-space:nowrap;font-family:var(--serif);font-size:15px}
 .fine{margin-top:26px;font:11.5px/1.6 var(--mono);color:rgba(239,231,210,.42)}
 .hint{font:12px var(--mono);letter-spacing:.1em;color:var(--dim);margin:2px 0 8px}.hint a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(255,215,106,.35)}
+.crew{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:14px}.crew div{border:1px solid var(--line);border-radius:14px;padding:14px 16px;background:rgba(10,8,16,.7)}.crew b{display:block;font:400 19px var(--serif);color:var(--cream)}.crew span{font:12px/1.5 var(--mono);color:var(--dim)}.crew a{color:var(--gold);text-decoration:none}.crew .last{border-color:rgba(255,215,106,.4)}.crew .last b{color:var(--gold);font-style:italic}
 </style></head><body>
 <header><a href="/the6cube/">← 🏛️ the cube</a><a href="/the6cube/support/">support ✦</a></header>
 <main>
@@ -32,5 +33,14 @@ th{font:11px var(--mono);letter-spacing:.08em;color:var(--dim);font-weight:400}t
 <p class="hint">v2 launches on Product Hunt. <a href="mailto:gabriel@corvus.gent?subject=v2%20first&body=Send%20me%20The%206%20Cube%20v2%20first.">✉ hear it first</a></p>
 <div class="langs"><span class="b">WebGPU · WGSL</span><span class="b">WAT</span><span class="b">Rust threads</span><span>Cloudflare Workers</span><span>Nix</span><span>QuickCheck</span><span>Telegram Mini App</span></div>
 <div class="wrap"><table><thead><tr><th>page</th><th>🖥 desktop<br><small>macOS · Windows · Linux · ChromeOS</small></th><th>📱 iPhone / iPad<br><small>Safari / WebKit</small></th><th>📱 Android<br><small>Chrome · Samsung · Firefox</small></th><th>🍃 old / save-data</th></tr></thead><tbody><tr><td>Portal</td><td>WebGPU + WGSL: temple, Delphi cave, 100k particles</td><td>WebGL temple</td><td>WebGL / WebGPU light</td><td>still image</td></tr><tr><td>A pattern</td><td>Rust + SIMD + threads · WAT hot loop · C two-phase solver (any scramble)</td><td>Rust + SIMD · C</td><td>Rust + SIMD · C</td><td>JS</td></tr><tr><td>Monte Carlo</td><td>WebGPU compute: millions of draws per frame</td><td>Rust + SIMD</td><td>Rust + SIMD</td><td>JS</td></tr><tr><td>Licht</td><td>full show in WGSL shaders</td><td>WebGL</td><td>WebGL, short</td><td>CSS</td></tr><tr><td>Mycelium</td><td>Rust layout · GPU glow · 100k nodes</td><td>Rust · Canvas</td><td>Rust · Canvas</td><td>JS · 1k</td></tr><tr><td>Code gate</td><td>Rust on Cloudflare Workers</td><td>server</td><td>server</td><td>server</td></tr><tr><td>Brain + spread</td><td>Cloudflare D1/KV (lasting, not 12 h) · lend-a-key Worker</td><td>server</td><td>server</td><td>server</td></tr><tr><td>Telegram</td><td>Mini App + bot</td><td>in-app (Safari engine)</td><td>in-app (Chromium)</td><td>light</td></tr><tr><td>Build</td><td>Nix (reproducible) · Haskell QuickCheck · Lighthouse ≥ 90 gate</td><td>CI</td><td>CI</td><td>CI</td></tr></tbody></table></div>
+<h2>Built with <small>THE REAL STACK</small></h2>
+<div class="crew">
+<div><b>one refurbished MacBook</b><span>14″ · 2021 · Apple M1 Pro · 16 GB · the disk filled up during the build</span></div>
+<div><b>Codex 200</b><span>writes, tests, ships, merges</span></div>
+<div><b>2 × Claude 20</b><span>designs, plans, builds in parallel</span></div>
+<div><b>Grok 30</b><span>Lean, Typst, k, BQN</span></div>
+<div><b>a shared brain</b><span>free models from 9 providers, thinking together · <a href="/the6cube/brein/">东方议会</a></span></div>
+<div class="last"><b>hunger and ambition</b><span>sold my console to pay for the AI. GTA 6 can wait.</span></div>
+</div>
 <p class="fine">Haskell and Lean check the move laws in CI. The k and BQN jobs verify reference statistics. The Nota page links to the paper compiled with Typst.</p>
 </main></body></html>
