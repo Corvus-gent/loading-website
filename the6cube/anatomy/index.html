@@ -23,6 +23,7 @@ select{all:unset;pointer-events:auto;cursor:pointer;border:1px solid rgba(239,23
 .plate p{font:11px/1.8 var(--mono);letter-spacing:.2em;color:var(--dim);text-transform:uppercase;margin:18px 0 0}.plate h2{font:italic 400 34px var(--serif);margin:0}
 .heart svg{width:min(72vw,420px);overflow:visible}.beat{transform-origin:200px 150px;animation:beat 1.25s infinite}.glowp{transform-origin:200px 150px;animation:beat 1.25s infinite;opacity:.9}.lid{transform-origin:48px 170px;transform:rotate(-4deg)}
 @keyframes beat{0%,100%{transform:scale(1)}10%{transform:scale(1.11)}20%{transform:scale(.97)}32%{transform:scale(1.06)}48%{transform:scale(1)}}
+.plate .ask{margin-top:8px;font-size:10px;letter-spacing:.14em;color:rgba(239,231,210,.38);pointer-events:auto}.plate .ask a{color:#ffd76a;text-decoration:none;border-bottom:1px solid rgba(255,215,106,.35)}
 .soul svg{width:min(46vw,260px);overflow:visible}.soul .eye{animation:blink 6s infinite}@keyframes blink{0%,94%,100%{opacity:1}96%{opacity:.1}}
 @media (max-width:640px){.tr{top:auto;bottom:calc(84px + env(safe-area-inset-bottom))}.br{display:none}.zoom{justify-content:flex-start}}
 @media (prefers-reduced-motion:reduce){.beat,.soul .eye{animation:none}}
@@ -45,7 +46,7 @@ select{all:unset;pointer-events:auto;cursor:pointer;border:1px solid rgba(239,23
    <g stroke="#ff9aa6" stroke-width="1" fill="none" opacity=".45"><path d="M150 128 C158 112 172 108 182 114"/><path d="M216 98 C232 94 246 102 250 114"/></g></g>
   <g fill="#c8a24a" stroke="#6b5420"><circle cx="200" cy="232" r="13"/><path d="M196 236 h8 l-2 12 h-4z" fill="#120a05" stroke="none"/></g>
   <g fill="#7a8a80" opacity=".55"><circle cx="66" cy="282" r="5"/><circle cx="74" cy="286" r="3"/><circle cx="336" cy="276" r="4"/><circle cx="342" cy="284" r="6"/></g>
-  </svg><h2>the heart</h2><p>locked in an iron-bound chest · still beating · the body comes next</p></div></div>
+  </svg><h2>the heart</h2><p>locked in a chest, like Davy Jones’s · still beating · the body comes next</p><p class="ask">dear Disney, may I borrow the real chest? <a href="mailto:hello@corvus.gent?subject=Dear%20Gabe%2C%20about%20the%20chest">answer here</a> · until then, this one is mine</p></div></div>
 <div class="plate soul" id="soul"><div><svg viewBox="-100 -100 200 200" aria-hidden="true">
   <path d="M-70 30 C-40 -40 10 -70 60 -45 L82 -50 L66 -30 C70 0 50 30 10 45 L-10 75 L-18 50 C-40 52 -60 45 -70 30Z" fill="#0d0a14" stroke="#b4a0d6" stroke-width="2"/>
   <circle class="eye" cx="42" cy="-32" r="5" fill="#ffd76a"/></svg>
