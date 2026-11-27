@@ -118,7 +118,10 @@ test('portal links to both stack tables and selects forced tier B',async ({page,
   await enter(context); await page.goto('/the6cube/?tier=B');
   await expect(page.locator('html')).toHaveAttribute('data-tier','B');
   await page.getByRole('link',{name:'stack',exact:true}).click();
-  await expect(page.locator('table')).toHaveCount(2); await expect(page.getByRole('heading',{name:/^Now/})).toBeVisible();
+  await expect(page.getByRole('heading', {name:'Meet the languages'})).toBeVisible();
+  await expect(page.locator('.lang')).toHaveCount(12);
+  await page.getByText('the full tables, for engineers', {exact:true}).click();
+  await expect(page.getByRole('table')).toHaveCount(2);
 });
 
 test('the portal guide speaks the matching Prolog line', async ({page,context}) => {
