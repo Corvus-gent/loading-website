@@ -2,12 +2,15 @@ import {mkdir, writeFile} from 'node:fs/promises';
 import {launch} from 'chrome-launcher';
 import {chromium} from '@playwright/test';
 import lighthouse from 'lighthouse';
+import {previewState} from './preview-state.mjs';
 import {pages} from './pages.mjs';
 const base = process.env.BASE || 'http://127.0.0.1:4176';
 const chrome = await launch({chromePath:chromium.executablePath(),chromeFlags:['--headless','--no-sandbox','--disable-dev-shm-usage']});
 try {
   const browser = await chromium.connectOverCDP('http://127.0.0.1:' + chrome.port);
   const context = browser.contexts()[0];
+  const access = previewState(base);
+  if (access) await context.addCookies(access.cookies);
   const response = await context.request.get(base + '/6');
   if (!response.ok()) throw Error('Public invitation failed');
   const scores = {};
