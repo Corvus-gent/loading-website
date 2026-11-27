@@ -1,3 +1,6 @@
 
 # PDFs are generated binary artifacts, including text-based application CVs.
 *.pdf binary
+
+# Keep upstream artwork byte-identical, including line endings.
+the6cube/stack/logos/*.svg -text
