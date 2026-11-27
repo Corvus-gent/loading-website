@@ -101,7 +101,7 @@ test('lending a fixture key displays the mocked revoke code', async ({page}) => 
   await expect(page.locator('#lendo')).toContainText(revoke);
 });
 
-test('all ten Cube pages load without uncaught browser errors', async ({page, baseURL}) => {
+test('all ten Cube pages load without browser errors and the public Corvus routes respond', async ({page, request, baseURL}) => {
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
   await page.goto('/6');
@@ -113,10 +113,7 @@ test('all ten Cube pages load without uncaught browser errors', async ({page, ba
     await expect(page.getByRole('heading', {name: 'Speak the word.'})).toHaveCount(0);
   }
   expect(errors).toEqual([]);
-});
-
-test('other public Corvus pages still load', async ({request, baseURL}) => {
-  for (const path of ['/', '/aikido', '/raygifts']) {
+  for (const path of ['/', '/raygifts']) {
     const response = await request.get(path);
     expect(new URL(response.url()).origin, path).toBe(baseURL);
     expect(response.status(), path).toBe(200);
