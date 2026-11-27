@@ -337,7 +337,7 @@ let spot = 'g_top';
 function speakGuide(k) { if (k === spot && say.textContent) return; spot = k; say.classList.add('hide'); setTimeout(() => { say.textContent = t(k); say.classList.remove('hide'); clearTimeout(say._h); if (innerWidth < 700) say._h = setTimeout(() => say.classList.add('hide'), 3800); }, 300); }
 const gio = new IntersectionObserver(es => { const v = es.filter(e => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]; if (v) speakGuide(v.target.dataset.guide); }, { threshold: [.35, .6] });
 for (const [sel, k] of SPOTS) { const el = sel === 'top' ? document.querySelector('main') : sel === 'tiles' ? document.querySelector('.tiles') : sel === 'closing' ? document.querySelector('.closing') : document.getElementById(sel); if (el) { el.dataset.guide = k; gio.observe(el); } }
-setTimeout(async () => { if (document.querySelector('.sp-veil')) return; guide.classList.add('on'); const back = await backLine(); if (back) { say.textContent = back; say.classList.remove('hide'); spot = ''; setTimeout(() => speakGuide('g_top'), 6000); } else speakGuide(spot); }, 4200);
+setTimeout(async () => { if (document.querySelector('.sp-veil, .rit')) return; guide.classList.add('on'); const back = await backLine(); if (back) { say.textContent = back; say.classList.remove('hide'); spot = ''; setTimeout(() => speakGuide('g_top'), 6000); } else speakGuide(spot); }, 4200);
 document.getElementById('fly').addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
 addEventListener('cube-lang', () => { say.textContent = t(spot); piText(); });
 
