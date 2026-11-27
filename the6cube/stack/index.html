@@ -26,8 +26,8 @@ h2{font:400 clamp(26px,3.4vw,36px) var(--serif);margin:70px 0 6px}h2 small{font:
 .mono{flex:none;width:58px;height:58px;border-radius:14px;display:grid;place-items:center;font:600 22px var(--mono);color:#0a0710;background:var(--c);box-shadow:0 0 26px -6px var(--c)}
 .lang b{font:400 21px var(--serif)}.lang p{margin:4px 0 6px;color:var(--dim);font-size:14px}.lang small{font:10.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--lav)}
 .race{border:1px solid var(--line);border-radius:20px;padding:22px;background:rgba(10,8,16,.72)}
-.lane{display:grid;grid-template-columns:120px minmax(0,1fr) 70px;gap:14px;align-items:center;margin:10px 0}
-.who{font:12.5px var(--mono);color:var(--dim)}.lane b{font:400 22px var(--serif);color:var(--gold);text-align:right}
+.lane{display:grid;grid-template-columns:120px minmax(0,1fr) 110px 56px;gap:14px;align-items:center;margin:10px 0}
+.who{font:12.5px var(--mono);color:var(--dim)}.lane b{font:400 22px var(--serif);color:var(--gold);text-align:right}.lane em{font:12px var(--mono);font-style:normal;color:var(--dim);text-align:right}
 .track{height:18px;border-radius:999px;background:rgba(239,231,210,.06);overflow:hidden}
 .track i{display:block;height:100%;width:0;border-radius:999px;background:var(--c);box-shadow:0 0 18px -2px var(--c);transition:width 2.4s cubic-bezier(.2,.8,.2,1)}
 .race.go .track i{width:var(--w)}
@@ -46,7 +46,7 @@ details{margin-top:16px}summary{cursor:pointer;font:12px var(--mono);letter-spac
 .wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:rgba(10,8,16,.7);margin-top:12px}
 table{border-collapse:collapse;width:100%;min-width:880px;font-size:13.5px}th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid rgba(44,31,69,.7)}th{font:11px var(--mono);color:var(--dim);font-weight:400}td:first-child{color:var(--gold);white-space:nowrap;font-family:var(--serif);font-size:15px}
 .crew{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:14px}.crew div{border:1px solid var(--line);border-radius:14px;padding:14px 16px;background:rgba(10,8,16,.7)}.crew b{display:block;font:400 19px var(--serif)}.crew span{font:12px/1.5 var(--mono);color:var(--dim)}.crew a{color:var(--gold);text-decoration:none}.crew .last{border-color:rgba(255,215,106,.45)}.crew .last b{color:var(--gold);font-style:italic}
-@media (max-width:640px){.hero{grid-template-columns:1fr}.cube{max-width:170px}.lane{grid-template-columns:84px minmax(0,1fr) 56px;gap:8px}.stats b{font-size:38px}}
+@media (max-width:640px){.hero{grid-template-columns:1fr}.cube{max-width:170px}.lane{grid-template-columns:78px minmax(0,1fr) 76px 40px;gap:6px}.lane b{font-size:17px}.stats b{font-size:38px}}
 @media (prefers-reduced-motion:reduce){.cube{animation:none}.track i{transition:none}}
 </style></head><body>
 <header><a href="/the6cube/">← 🏛️ the cube</a><a href="/the6cube/support/">support ✦</a></header>
@@ -61,9 +61,9 @@ table{border-collapse:collapse;width:100%;min-width:880px;font-size:13.5px}th,td
 <circle cx="0" cy="-46" r="7" fill="#ffd76a"/></svg>
 <div class="stats">
 <div><b>≈ 9 ms</b><span>to find the shortest solution · written in C</span></div>
-<div><b>14×</b><span>faster Monte Carlo than JavaScript · Rust</span></div>
-<div><b>13×</b><span>faster brain network · C</span></div>
-<div><b>0</b><span>differences with JavaScript · checked bit for bit</span></div>
+<div><b>−93%</b><span>Monte Carlo time · 6140 → 422 ms · Rust</span></div>
+<div><b>−92%</b><span>brain network time · 87 → 6.6 ms · C</span></div>
+<div><b>0%</b><span>difference with JavaScript · checked bit for bit</span></div>
 </div></div>
 
 <h2>Meet the languages</h2>
@@ -73,10 +73,10 @@ table{border-collapse:collapse;width:100%;min-width:880px;font-size:13.5px}th,td
 <h2>The race</h2>
 <p class="sub">Same maths, same answer. Only the language changes.</p>
 <div class="race" id="race">
-<div class="lane"><span class="who">JavaScript</span><div class="track"><i style="--w:100%;--c:#b4a0d6"></i></div><b>6.1 s</b></div>
-<div class="lane"><span class="who">Rust</span><div class="track"><i style="--w:6.9%;--c:#e08a5a"></i></div><b>0.42 s</b></div>
-<div class="lane"><span class="who">Rust + SIMD</span><div class="track"><i style="--w:5.2%;--c:#ffd76a"></i></div><b>0.32 s</b></div>
-<p class="fine">one million random walks of 8 moves on the same machine, median of 5 runs. same answer, to the last bit.</p>
+<div class="lane"><span class="who">JavaScript</span><div class="track"><i style="--w:100%;--c:#b4a0d6"></i></div><b>6140 ms</b><em>100%</em></div>
+<div class="lane"><span class="who">Rust</span><div class="track"><i style="--w:6.9%;--c:#e08a5a"></i></div><b>422 ms</b><em>6.9%</em></div>
+<div class="lane"><span class="who">Rust + SIMD</span><div class="track"><i style="--w:5.2%;--c:#ffd76a"></i></div><b>317 ms</b><em>5.2%</em></div>
+<p class="fine">one million random walks of 8 moves, same machine, median of 5 runs · % = share of the JavaScript time · same answer, to the last bit.</p>
 </div>
 
 <h2>Every page, every device</h2>
