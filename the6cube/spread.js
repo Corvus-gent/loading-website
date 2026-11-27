@@ -76,8 +76,8 @@ const CSS = `
 .sp-veil.on{opacity:1}
 .sp-card{width:min(420px,calc(100% - 32px));background:linear-gradient(160deg,rgba(26,18,42,.96),rgba(10,8,16,.97));border:1px solid #2c1f45;border-radius:18px;padding:26px 24px 22px;text-align:center;box-shadow:0 0 80px rgba(122,92,176,.35);color:#efe7d2;transform:translateY(12px) scale(.98);transition:transform .7s cubic-bezier(.2,.8,.2,1)}
 .sp-veil.on .sp-card{transform:none}
-.sp-card canvas{width:100%;height:150px;display:block;margin:0 0 14px}
-.sp-rank{font:11px ui-monospace,Menlo,monospace;letter-spacing:.22em;text-transform:uppercase;color:#ffd76a;margin:0 0 12px}
+.sp-card canvas{position:static!important;inset:auto!important;width:100%!important;height:150px!important;display:block;margin:0 0 14px}
+.sp-rank{font:11px ui-monospace,Menlo,monospace;letter-spacing:.16em;text-wrap:balance;text-transform:uppercase;color:#ffd76a;margin:0 0 12px}
 .sp-hi{font:italic 400 clamp(21px,3vw,26px)/1.3 'Bodoni Moda',Georgia,serif;margin:0 0 20px;text-wrap:balance}
 .sp-btn{all:unset;cursor:pointer;display:inline-block;background:#ffd76a;color:#1a1206;border-radius:999px;padding:11px 22px;font:600 14px system-ui,sans-serif}
 .sp-btn:focus-visible{outline:2px solid #efe7d2;outline-offset:3px}
