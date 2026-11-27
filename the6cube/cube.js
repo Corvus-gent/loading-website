@@ -517,7 +517,19 @@ function boundedGraph(rootPos) {
   }
   return { first, paths, unique: first.size - 1, convergent };
 }
+// Rebuild the 18 decision previews when the visitor can see the tree.
+let treeVisible = !('IntersectionObserver' in window);
+let treeDirty = true;
+if (!treeVisible) {
+  const treeObserver = new IntersectionObserver(([entry]) => {
+    treeVisible = entry.isIntersecting;
+    if (treeVisible && treeDirty) renderTree();
+  }, {rootMargin:'100px'});
+  treeObserver.observe($('tree-label').closest('section'));
+}
 function renderTree() {
+  treeDirty = !treeVisible;
+  if (treeDirty) return;
   cancelAnimationFrame(previewFrame);
   const rootPos = posFromStickers(state);
   const graph = boundedGraph(rootPos);
