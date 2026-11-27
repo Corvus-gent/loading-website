@@ -155,32 +155,32 @@ const LORE = {
 };
 const ROMAN = n => { const t = [[1000, 'M'], [900, 'CM'], [500, 'D'], [400, 'CD'], [100, 'C'], [90, 'XC'], [50, 'L'], [40, 'XL'], [10, 'X'], [9, 'IX'], [5, 'V'], [4, 'IV'], [1, 'I']]; let r = ''; for (const [v, k] of t) while (n >= v) { r += k; n -= v; } return r; };
 const RIT = `
-.rit{position:fixed;inset:0;z-index:2147483000;display:grid;place-items:center;background:radial-gradient(ellipse at 50% 40%,rgba(30,19,50,.96),rgba(4,3,7,.995) 65%);opacity:0;transition:opacity 1.2s;overflow:hidden;color:#efe7d2}
+.rit{position:fixed;inset:0;z-index:2147483000;display:grid;place-items:center;background:radial-gradient(ellipse at 50% 40%,rgba(18,12,30,.97),rgba(3,2,5,.998) 60%);opacity:0;transition:opacity 1.2s;overflow:hidden;color:#efe7d2}
 .rit.on{opacity:1}.rit.out{opacity:0;transition:opacity .9s}
 .rit canvas.fx{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;pointer-events:none}
 .rit .in{position:relative;display:grid;justify-items:center;gap:0;text-align:center;width:min(560px,92vw)}
-.rit .motto{font:500 11px/1 'Bodoni Moda',Georgia,serif;letter-spacing:.9em;margin-right:-.9em;color:rgba(255,215,106,.42);animation:flick 4s infinite}
+.rit .motto{font:500 11px/1 'Bodoni Moda',Georgia,serif;letter-spacing:.9em;margin-right:-.9em;color:rgba(255,215,106,.26);animation:flick 6s infinite}
 @keyframes flick{0%,100%{opacity:.85}47%{opacity:.55}50%{opacity:1}53%{opacity:.6}}
 .rit .sig{position:relative;width:min(340px,72vw);aspect-ratio:1;margin:18px 0 6px;transition:transform 1.1s cubic-bezier(.6,0,.2,1),opacity 1s}
 .rit .sig svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-.rit .ring{animation:spin 60s linear infinite;transform-origin:150px 150px}
+.rit .ring{animation:spin 140s linear infinite;transform-origin:150px 150px}
 @keyframes spin{to{transform:rotate(360deg)}}
-.rit .ring text{font:500 10.5px ui-monospace,Menlo,monospace;letter-spacing:.42em;fill:rgba(255,215,106,.78)}
-.rit .halo{position:absolute;inset:22%;border-radius:50%;background:radial-gradient(circle,rgba(255,200,90,.22),rgba(122,92,176,.12) 45%,transparent 70%);animation:breathe 5s ease-in-out infinite;filter:blur(6px)}
+.rit .ring text{font:400 9px ui-monospace,Menlo,monospace;letter-spacing:.5em;fill:rgba(255,215,106,.38)}
+.rit .halo{position:absolute;inset:22%;border-radius:50%;background:radial-gradient(circle,rgba(255,200,90,.08),rgba(122,92,176,.08) 45%,transparent 70%);animation:breathe 8s ease-in-out infinite;filter:blur(6px)}
 @keyframes breathe{50%{transform:scale(1.12);opacity:.7}}
-.rit .eye{fill:#ffd76a;filter:drop-shadow(0 0 6px #ffd76a);opacity:0;animation:open .9s 1.1s forwards,blink 6s 3s infinite}
+.rit .eye{fill:#ffd76a;filter:drop-shadow(0 0 3px #ffd76a);opacity:0;animation:open 2.4s 1.6s forwards,blink 9s 5s infinite}
 @keyframes open{to{opacity:1}}@keyframes blink{0%,96%,100%{transform:scaleY(1)}98%{transform:scaleY(.1)}}
-.rit .num{position:absolute;left:50%;top:63%;transform:translateX(-50%);font:italic 400 clamp(34px,6vw,46px)/1 'Bodoni Moda',Georgia,serif;color:#ffd76a;text-shadow:0 0 22px rgba(255,215,106,.55)}
+.rit .num{position:absolute;left:50%;top:63%;transform:translateX(-50%);font:italic 400 clamp(20px,3vw,26px)/1 'Bodoni Moda',Georgia,serif;color:rgba(255,215,106,.6)}
 .rit canvas.stars{position:static!important;inset:auto!important;width:min(380px,80vw)!important;height:56px!important;margin:4px 0 10px}
-.rit .rw{position:static;letter-spacing:0;color:#efe7d2;font:italic 400 clamp(23px,3.6vw,32px)/1.32 'Bodoni Moda',Georgia,serif;min-height:2.7em;margin:0 0 26px;text-wrap:balance}
-.rit .rw span{display:inline-block;opacity:0;filter:blur(9px);transform:translateY(5px);animation:ink .9s forwards}
+.rit .rw{position:static;letter-spacing:0;color:#efe7d2;font:italic 400 clamp(19px,2.8vw,25px)/1.4 'Bodoni Moda',Georgia,serif;color:rgba(239,231,210,.82)!important;min-height:2.7em;margin:0 0 26px;text-wrap:balance}
+.rit .rw span{display:inline-block;opacity:0;filter:blur(9px);transform:translateY(5px);animation:ink 1.6s forwards}
 @keyframes ink{to{opacity:1;filter:blur(0);transform:none}}
 .rit .lore{font:11px ui-monospace,Menlo,monospace;letter-spacing:.2em;color:rgba(255,215,106,.55);margin:-14px 0 24px;min-height:1.4em;transition:opacity .9s}
 .rit .rw{transition:opacity .9s}
-.rit .go{all:unset;cursor:pointer;position:relative;padding:13px 30px;font:500 13px ui-monospace,Menlo,monospace;letter-spacing:.32em;color:#ffd76a;border:1px solid rgba(255,215,106,.55);border-radius:2px;background:linear-gradient(90deg,transparent,rgba(255,215,106,.12),transparent) -100% 0/60% 100% no-repeat;animation:sheen 3.2s 3s infinite;opacity:0;transition:opacity .8s,box-shadow .3s}
-.rit .go.show{opacity:1}.rit .go:hover,.rit .go:focus-visible{box-shadow:0 0 28px rgba(255,215,106,.35);outline:none}
+.rit .go{all:unset;cursor:pointer;position:relative;padding:13px 30px;font:500 13px ui-monospace,Menlo,monospace;letter-spacing:.36em;color:rgba(255,215,106,.8);border:1px solid rgba(255,215,106,.25);border-radius:1px;background:none;opacity:0;transition:opacity 1.6s,border-color .4s,color .4s}
+.rit .go.show{opacity:1}.rit .go:hover,.rit .go:focus-visible{border-color:rgba(255,215,106,.7);color:#ffd76a;outline:none}
 @keyframes sheen{to{background-position:200% 0}}
-.rit .pass{all:unset;cursor:pointer;margin-top:16px;font:12px ui-monospace,Menlo,monospace;letter-spacing:.2em;color:rgba(180,160,214,.85);opacity:0;transition:opacity .8s}.rit .pass.show{opacity:1}
+.rit .pass{all:unset;cursor:pointer;margin-top:16px;font:12px ui-monospace,Menlo,monospace;letter-spacing:.2em;color:rgba(180,160,214,.55);opacity:0;transition:opacity 1.6s}.rit .pass.show{opacity:1}
 .rit.fly .sig{transform:translateY(-38vh) scale(.35);opacity:0}
 @media(prefers-reduced-motion:reduce){.rit *{animation:none!important}.rit .eye,.rit .rw span{opacity:1;filter:none;transform:none}}`;
 
@@ -190,12 +190,12 @@ function smoke(cv) {
   const size = () => { dpr = Math.min(devicePixelRatio || 1, 2); W = cv.clientWidth; H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr; c.setTransform(dpr, 0, 0, dpr, 0, 0); };
   size(); addEventListener('resize', size);
   const R = () => Math.random();
-  const puffs = Array.from({ length: 26 }, () => ({ x: R() * W, y: H * (.35 + R() * .8), r: 80 + R() * 170, v: .12 + R() * .3, a: R() * 6, hue: R() < .7 ? '122,92,176' : '255,215,106' }));
-  const feathers = Array.from({ length: 11 }, () => ({ x: R() * W, y: -R() * H, s: 9 + R() * 16, v: .25 + R() * .5, a: R() * 6, w: .6 + R() * 1.4, gold: R() < .25 }));
+  const puffs = Array.from({ length: 12 }, () => ({ x: R() * W, y: H * (.35 + R() * .8), r: 80 + R() * 170, v: .12 + R() * .3, a: R() * 6, hue: R() < .7 ? '122,92,176' : '255,215,106' }));
+  const feathers = Array.from({ length: 4 }, () => ({ x: R() * W, y: -R() * H, s: 8 + R() * 10, v: .15 + R() * .25, a: R() * 6, w: .6 + R() * 1.4, gold: R() < .12 }));
   (function f(t) {
     if (!cv.isConnected) return; c.clearRect(0, 0, W, H);
     for (const p of puffs) { p.y -= p.v; p.x += Math.sin(t / 3000 + p.a) * .3; if (p.y < -p.r) { p.y = H + p.r; p.x = R() * W; }
-      const g = c.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r); g.addColorStop(0, `rgba(${p.hue},.07)`); g.addColorStop(1, `rgba(${p.hue},0)`); c.fillStyle = g; c.beginPath(); c.arc(p.x, p.y, p.r, 0, 7); c.fill(); }
+      const g = c.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r); g.addColorStop(0, `rgba(${p.hue},.04)`); g.addColorStop(1, `rgba(${p.hue},0)`); c.fillStyle = g; c.beginPath(); c.arc(p.x, p.y, p.r, 0, 7); c.fill(); }
     for (const q of feathers) { q.y += q.v; q.x += Math.sin(t / 900 * q.w + q.a) * .6; if (q.y > H + 30) { q.y = -30; q.x = R() * W; }
       c.save(); c.translate(q.x, q.y); c.rotate(Math.sin(t / 1100 * q.w + q.a) * .9);
       c.beginPath(); c.moveTo(0, -q.s); c.quadraticCurveTo(q.s * .42, -q.s * .2, 0, q.s); c.quadraticCurveTo(-q.s * .36, -q.s * .2, 0, -q.s);
@@ -209,12 +209,25 @@ function stars(cv, n) {
   const c = cv.getContext('2d'), dpr = Math.min(devicePixelRatio || 1, 2), W = cv.clientWidth, H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr; c.setTransform(dpr, 0, 0, dpr, 0, 0);
   const k = Math.min(n, 7), pts = Array.from({ length: k + 1 }, (_, i) => [20 + (W - 40) * i / k, H / 2 + (i && i < k ? Math.sin(i * 2.1) * 12 : 0)]); const t0 = performance.now();
   (function f(t) { if (!cv.isConnected) return; const p = Math.min(1, (t - t0) / 1800); c.clearRect(0, 0, W, H);
-    c.strokeStyle = 'rgba(180,160,214,.45)'; c.lineWidth = .8; c.setLineDash([2, 5]); c.beginPath(); pts.forEach(([x, y], i) => { if (i / k <= p + .001) i ? c.lineTo(x, y) : c.moveTo(x, y); }); c.stroke(); c.setLineDash([]);
+    c.strokeStyle = 'rgba(180,160,214,.22)'; c.lineWidth = .6; c.setLineDash([2, 5]); c.beginPath(); pts.forEach(([x, y], i) => { if (i / k <= p + .001) i ? c.lineTo(x, y) : c.moveTo(x, y); }); c.stroke(); c.setLineDash([]);
     pts.forEach(([x, y], i) => { if (i / k > p + .001) return; const end = i === 0 || i === k, r = end ? 3.2 + Math.sin(t / 400 + i) * .6 : 1.6;
-      c.fillStyle = i === 0 ? '#ffd76a' : i === k ? '#efe7d2' : '#b4a0d6'; c.shadowColor = c.fillStyle; c.shadowBlur = end ? 14 : 6;
+      c.fillStyle = i === 0 ? '#ffd76a' : i === k ? '#efe7d2' : '#b4a0d6'; c.shadowColor = c.fillStyle; c.shadowBlur = end ? 6 : 2;
       c.beginPath(); c.moveTo(x, y - r * 2); c.lineTo(x + r * .5, y - r * .5); c.lineTo(x + r * 2, y); c.lineTo(x + r * .5, y + r * .5); c.lineTo(x, y + r * 2); c.lineTo(x - r * .5, y + r * .5); c.lineTo(x - r * 2, y); c.lineTo(x - r * .5, y - r * .5); c.fill(); c.shadowBlur = 0; });
     c.font = '10px ui-monospace,Menlo,monospace'; c.textAlign = 'center'; c.fillStyle = 'rgba(255,215,106,.7)'; c.fillText(w('root'), pts[0][0], H - 4); if (p === 1) { c.fillStyle = 'rgba(239,231,210,.8)'; c.fillText(w('you'), pts[k][0], H - 4); }
     requestAnimationFrame(f); })(t0);
+}
+
+// raven ⇄ cube: a stepped flip, like an old gif (~10 fps), every few seconds
+export function flip(a, b, every = 7000) {
+  if (!a || !b || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const set = (el, sx, op) => { el.style.transformBox = 'fill-box'; el.style.transformOrigin = 'center'; el.style.transform = `scaleX(${sx})`; el.style.opacity = op; };
+  let front = a, back = b;
+  const steps = [1, .75, .45, .15, 0];
+  const run = () => { if (!a.isConnected) return; let i = 0;
+    const tick = () => { if (i < steps.length) set(front, steps[i], 1); else if (i < steps.length * 2) { set(front, 0, 0); set(back, steps[steps.length * 2 - 1 - i], 1); }
+      if (++i < steps.length * 2) setTimeout(tick, 95); else { [front, back] = [back, front]; setTimeout(run, every); } };
+    tick(); };
+  setTimeout(run, every);
 }
 
 export function greet(onFollow) {
@@ -231,20 +244,24 @@ export function greet(onFollow) {
       <g class="ring"><text><textPath href="#rg" textLength="826">${ring}</textPath></text></g>
       <circle cx="150" cy="150" r="112" fill="none" stroke="rgba(122,92,176,.55)" stroke-width="1"/>
       <circle cx="150" cy="150" r="104" fill="none" stroke="rgba(255,215,106,.18)" stroke-width=".6" stroke-dasharray="1 6"/>
-      <g transform="translate(50 50)"><path d="M60 122 C58 96 68 70 94 62 C105 59 115 62 121 68 Q143 74 162 90 Q139 92 118 95 L114 103 C110 110 106 116 102 122 Z" fill="#2a1d44" stroke="rgba(180,160,214,.6)" stroke-width="1"/>
-      <ellipse class="eye" cx="108" cy="76" rx="3.6" ry="3.6" style="transform-origin:108px 76px"/></g>
+      <g transform="translate(150 150)"><g class="cubeface" style="opacity:0"><path d="M0 -44 L38 -22 L0 0 L-38 -22 Z M-38 -22 L0 0 L0 44 L-38 22 Z M38 -22 L0 0 L0 44 L38 22 Z" fill="#1d1430" stroke="rgba(180,160,214,.6)" stroke-width="1"/>
+        <path d="M-12.7 -36.7 L25.3 -14.7 M12.7 -36.7 L-25.3 -14.7 M-25.3 -29.3 L12.7 -7.3 M25.3 -29.3 L-12.7 -7.3 M-38 -7.3 L0 14.7 M-38 7.3 L0 29.3 M-25.3 -14.7 L-25.3 29.3 M-12.7 -7.3 L-12.7 36.7 M38 -7.3 L0 14.7 M38 7.3 L0 29.3 M25.3 -14.7 L25.3 29.3 M12.7 -7.3 L12.7 36.7" stroke="rgba(180,160,214,.35)" stroke-width=".8"/>
+        <circle cx="0" cy="-22" r="2.6" fill="#ffd76a" opacity=".8"/></g></g>
+      <g transform="translate(50 50)"><g class="ravenface"><path d="M60 122 C58 96 68 70 94 62 C105 59 115 62 121 68 Q143 74 162 90 Q139 92 118 95 L114 103 C110 110 106 116 102 122 Z" fill="#2a1d44" stroke="rgba(180,160,214,.6)" stroke-width="1"/>
+      <ellipse class="eye" cx="108" cy="76" rx="3.6" ry="3.6" style="transform-origin:108px 76px"/></g></g>
     </svg><span class="num">${ROMAN(n)}</span></div>
     <canvas class="stars" aria-hidden="true"></canvas>
     <p class="rw"></p><p class="lore" aria-live="polite"></p>
     <button class="go">${w('follow').toUpperCase()} →</button>
     <button class="pass">${w('pass')} ↗</button><a class="pass sup" href="/the6cube/support/" style="margin-top:10px;font-size:11px;opacity:.0">${w('support')}</a></div>`;
   document.body.append(v); requestAnimationFrame(() => v.classList.add('on'));
-  smoke(v.querySelector('.fx')); setTimeout(() => stars(v.querySelector('.stars'), n), 900);
+  smoke(v.querySelector('.fx')); setTimeout(() => stars(v.querySelector('.stars'), n), 1400);
+  flip(v.querySelector('.ravenface'), v.querySelector('.cubeface'), 7000);
   // the whisper: letter by letter, ink settling
-  const wp = v.querySelector('.rw'); let d = 1700;
-  for (const word of hi.split(/(\s+)/)) { if (!word.trim()) { wp.append(' '); continue; } const sp = document.createElement('span'); sp.textContent = word; sp.style.animationDelay = `${d}ms`; wp.append(sp); d += /[.。,…]$/.test(word) ? 520 : 170; }
+  const wp = v.querySelector('.rw'); let d = 2600;
+  for (const word of hi.split(/(\s+)/)) { if (!word.trim()) { wp.append(' '); continue; } const sp = document.createElement('span'); sp.textContent = word; sp.style.animationDelay = `${d}ms`; wp.append(sp); d += /[.。,…]$/.test(word) ? 900 : 260; }
   const go = v.querySelector('.go'), pass = v.querySelector('.pass');
-  setTimeout(() => { go.classList.add('show'); pass.classList.add('show'); v.querySelector('.sup').style.opacity = '.7'; go.focus(); }, d + 300);
+  setTimeout(() => { go.classList.add('show'); pass.classList.add('show'); v.querySelector('.sup').style.opacity = '.45'; go.focus(); }, d + 300);
     // after 20 s: loading-screen lore, a new line every 14 s
   const L = LORE[currentLang()] || LORE.en, lr = v.querySelector('.lore'); let li = Math.floor(Math.random() * L.length);
   const nextLore = () => { if (!v.isConnected) return; wp.style.opacity = 0; lr.style.opacity = 0;

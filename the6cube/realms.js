@@ -418,7 +418,8 @@ if (caveCv) {
 
 
 // ---- share the realm: a pass-it-on sheet (WhatsApp first). every link carries the sharer's rank → the spread map ----
-import { greet, sheet, myRank, backLine } from './spread.js';
+import { greet, sheet, myRank, backLine, flip } from './spread.js';
+{ const h = document.querySelector('header .hlogo'); if (h) flip(h.querySelector('.ravenface'), h.querySelector('.cubeface'), 6000); }
 const shareBtn = document.getElementById('share');
 if (shareBtn) { shareBtn.addEventListener('click', sheet); const rk = myRank(); if (rk) shareBtn.insertAdjacentHTML('afterend', `<span class="sp-badge" title="rank">· ${rk === 1 ? 'OG' : 'rank ' + rk}</span>`); }
 greet(line => { guide.classList.add('on'); say.textContent = line; say.classList.remove('hide'); clearTimeout(say._h); say._h = setTimeout(() => { spot = ''; speakGuide('g_top'); }, 5200); });

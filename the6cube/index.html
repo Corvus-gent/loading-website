@@ -21,6 +21,8 @@
 html,body{margin:0;background:var(--bg);color:var(--cream)}
 html{overflow-x:clip;scroll-behavior:smooth}
 canvas{position:fixed;inset:0;width:100%;height:100%}
+.hlogo{display:block}.tag .x{display:inline-block;font-style:normal;animation:xturn 9s steps(1) infinite}@keyframes xturn{0%,88%{transform:none}90%{transform:rotate(45deg)}92%{transform:rotate(90deg)}94%{transform:rotate(135deg)}96%,100%{transform:none}}
+@media(prefers-reduced-motion:reduce){.tag .x{animation:none}}
 @media(max-width:700px){.delphi{display:none}header .tag .long{display:none}header .tag{white-space:nowrap}}
 #dio{opacity:0;animation:in 3s .2s forwards}
 .lantern{position:fixed;width:150px;height:150px;margin:-75px 0 0 -75px;pointer-events:none;z-index:0;opacity:0;animation:in 2.4s .6s forwards;transform:translate(var(--lx,0px),var(--ly,0px));transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
@@ -150,7 +152,9 @@ body.leaving main,body.leaving .whisper,body.leaving header{opacity:0;transition
 <canvas id="dio" aria-hidden="true"></canvas><div class="lantern" id="lantern" aria-hidden="true"><i></i></div>
 <canvas id="cv" aria-hidden="true"></canvas>
 <p class="delphi" aria-label="Gnothi seauton: ken uzelf">ΓΝΩΘΙ ΣΑΥΤΟΝ</p>
-<header><a href="/" aria-label="Corvus"><img src="/the6cube/assets/day-1.svg" alt=""></a><span class="tag"><span class="long">Corvus × The Cube · </span><a href="/the6cube/brein/" title="the brain" style="text-decoration:none;color:var(--gold,#ffd76a)">东方议会</a> · <button id="share" type="button" style="all:unset;cursor:pointer;color:var(--gold,#ffd76a);pointer-events:auto">share ↗</button> · <a href="/the6cube/support/" style="text-decoration:none;color:var(--lav,#b4a0d6)">support</a></span></header>
+<header><a href="/" aria-label="Corvus"><svg class="hlogo" viewBox="0 0 200 200" width="34" height="34" aria-hidden="true"><circle cx="100" cy="100" r="78" fill="#0d0a12" stroke="#5B3E8C" stroke-width="6"/>
+<g class="ravenface"><path d="M60 122 C58 96 68 70 94 62 C105 59 115 62 121 68 Q143 74 162 90 Q139 92 118 95 L114 103 C110 110 106 116 102 122 Z" fill="#5B3E8C"/><circle cx="108" cy="76" r="5" fill="#ffd76a"/></g>
+<g transform="translate(100 100) scale(1.05)"><g class="cubeface" style="opacity:0"><path d="M0 -44 L38 -22 L0 0 L-38 -22 Z M-38 -22 L0 0 L0 44 L-38 22 Z M38 -22 L0 0 L0 44 L38 22 Z" fill="#1d1430" stroke="#7a5cb0" stroke-width="3"/><path d="M-12.7 -36.7 L25.3 -14.7 M12.7 -36.7 L-25.3 -14.7 M-38 -7.3 L0 14.7 M-38 7.3 L0 29.3 M38 -7.3 L0 14.7 M38 7.3 L0 29.3 M-12.7 -7.3 L-12.7 36.7 M12.7 -7.3 L12.7 36.7" stroke="#7a5cb0" stroke-width="2"/><circle cx="0" cy="-22" r="5" fill="#ffd76a"/></g></g></svg></a><span class="tag"><span class="long">Corvus <i class="x">×</i> The Cube · </span><a href="/the6cube/brein/" title="the brain" style="text-decoration:none;color:var(--gold,#ffd76a)">东方议会</a> · <button id="share" type="button" style="all:unset;cursor:pointer;color:var(--gold,#ffd76a);pointer-events:auto">share ↗</button> · <a href="/the6cube/support/" style="text-decoration:none;color:var(--lav,#b4a0d6)">support</a></span></header>
 <main><div class="oracle"><h1 id="q"></h1><ul id="doors"></ul><p class="voice" id="voice" aria-live="polite"></p></div><a class="hint" id="hint" href="#realms">↓</a></main>
 <div class="below" id="realms"><div class="in">
   <h2 data-r="realms_t"></h2><p class="sub" data-r="realms_s"></p>
