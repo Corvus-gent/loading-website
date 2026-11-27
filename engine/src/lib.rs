@@ -43,6 +43,43 @@ static mut T_DIST: Vec<i8> = Vec::new();   // every trial's distance (-1 = outsi
 #[inline(always)]
 fn perm() -> &'static [u8; MOVES * N] { unsafe { &*core::ptr::addr_of!(PERM) } }
 
+/// Padded copy of PERM (64 bytes per move) for the SIMD path; rebuilt at the start of every experiment.
+#[cfg(target_feature = "simd128")]
+static mut PERM64: [u8; MOVES * 64] = [0; MOVES * 64];
+
+#[cfg(target_feature = "simd128")]
+fn prep() { unsafe { let p = perm(); let q = &mut *core::ptr::addr_of_mut!(PERM64); for m in 0..MOVES { q[m * 64..m * 64 + N].copy_from_slice(&p[m * N..m * N + N]); } } }
+#[cfg(not(target_feature = "simd128"))]
+fn prep() {}
+
+/// State of 64 bytes (54 used) kept in four 16-byte vectors; one move = 16 swizzles.
+/// swizzle yields 0 for out-of-range indices, so each table chunk is masked to the lanes whose index falls in it.
+#[cfg(target_feature = "simd128")]
+type St = [core::arch::wasm32::v128; 4];
+
+#[cfg(target_feature = "simd128")]
+#[inline(always)]
+fn st_load(b: &[u8; 64]) -> St { unsafe { core::mem::transmute::<[u8; 64], St>(*b) } }
+#[cfg(target_feature = "simd128")]
+#[inline(always)]
+fn st_store(s: &St, b: &mut [u8; 64]) { unsafe { *b = core::mem::transmute::<St, [u8; 64]>(*s); } }
+#[cfg(target_feature = "simd128")]
+#[inline(always)]
+fn st_step(s: &St, m: usize) -> St {
+    use core::arch::wasm32::*;
+    unsafe {
+        let t = (core::ptr::addr_of!(PERM64) as *const u8).add(m * 64) as *const v128;
+        let tab = [t.read_unaligned(), t.add(1).read_unaligned(), t.add(2).read_unaligned(), t.add(3).read_unaligned()];
+        let c16 = u8x16_splat(16);
+        #[inline(never)] fn f(tab: &[v128; 4], x: v128) -> v128 { let c16 = u8x16_splat(16); let mut r = u8x16_splat(0);
+            r = v128_or(r, v128_and(u8x16_swizzle(tab[0], x), u8x16_lt(x, c16)));
+            let x1 = u8x16_sub(x, c16); r = v128_or(r, v128_and(u8x16_swizzle(tab[1], x1), u8x16_lt(x1, c16)));
+            let x2 = u8x16_sub(x1, c16); r = v128_or(r, v128_and(u8x16_swizzle(tab[2], x2), u8x16_lt(x2, c16)));
+            let x3 = u8x16_sub(x2, c16); v128_or(r, v128_and(u8x16_swizzle(tab[3], x3), u8x16_lt(x3, c16))) }
+        [f(&tab, s[0]), f(&tab, s[1]), f(&tab, s[2]), f(&tab, s[3])]
+    }
+}
+
 #[inline(always)]
 fn apply(pos: &[u8; N], m: usize, out: &mut [u8; N]) {
     let p = &perm()[m * N..m * N + N];
@@ -107,6 +144,7 @@ fn lookup(s: &[u8; N]) -> i32 {
 /// Start an experiment. generator: 0 = uniform, 1 = distinct.
 #[no_mangle]
 pub extern "C" fn begin(generator: u32, steps: u32, seed: u32, keep: u32, samples: u32) {
+    prep();
     unsafe {
         KEEP = keep == 1;
         let t_seq = &mut *core::ptr::addr_of_mut!(T_SEQ); let t_dist = &mut *core::ptr::addr_of_mut!(T_DIST);
@@ -123,9 +161,10 @@ pub extern "C" fn run(count: u32) -> u32 {
     unsafe {
         let r = RADIUS;
         let mut seq = [0u8; MAX_STEPS];
-        let (mut a, mut b) = ([0u8; N], [0u8; N]);
+        let mut a = [0u8; 64];
         for _ in 0..count {
-            a = identity();
+            a = [0u8; 64]; a[..N].copy_from_slice(&identity());
+            #[cfg(target_feature = "simd128")] let mut st = st_load(&a);
             let mut prev: i32 = -1;
             for i in 0..STEPS {
                 let m = if !GEN_DISTINCT || prev < 0 {
@@ -137,9 +176,11 @@ pub extern "C" fn run(count: u32) -> u32 {
                     if k < face * 3 { k } else { k + 3 }
                 };
                 seq[i] = m as u8; prev = m as i32;
-                apply(&a, m, &mut b); core::mem::swap(&mut a, &mut b);
+                #[cfg(target_feature = "simd128")] { st = st_step(&st, m); }
+                #[cfg(not(target_feature = "simd128"))] { let (p, mut b) = (&perm()[m * N..m * N + N], [0u8; 64]); for i in 0..N { b[i] = p[a[i] as usize]; } a = b; }
             }
-            let d = lookup(&a);
+            #[cfg(target_feature = "simd128")] st_store(&st, &mut a);
+            let d = lookup((&a[..N]).try_into().unwrap());
             let bin = if d < 0 { r + 1 } else { d as usize };
             BINS[bin] += 1;
             if EX_TRIAL[bin] < 0 {

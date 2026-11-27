@@ -73,7 +73,7 @@ footer a{text-decoration:none;margin-left:14px}
 .lendf fieldset i{font-style:normal;color:var(--dim);font-size:12px}
 .lendf legend{font:12px var(--mono);color:var(--dim);padding:0 6px}
 #lendo{font:13px/1.6 var(--mono);color:var(--gold);white-space:pre-wrap}
-.lh{margin-bottom:6px}.lead2{color:var(--dim);max-width:60ch}
+#lend[hidden]{display:none}.lh{margin-bottom:6px}.lead2{color:var(--dim);max-width:60ch}
 @media(max-width:860px){.stage{grid-template-columns:minmax(0,1fr);min-height:0;padding-top:10px}.sky{max-width:340px;order:2}.steps,.tiers{grid-template-columns:minmax(0,1fr)}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -118,7 +118,7 @@ footer a{text-decoration:none;margin-left:14px}
     <div class="council" id="council"></div>
   </section>
 
-  <section id="lend">
+  <section id="lend" hidden>
     <h2 class="lh" data-l="h"></h2>
     <p class="lead2" data-l="lead"></p>
     <form id="lendf" class="lendf" method="post" action="/lend-api/lend" autocomplete="off" hidden>
@@ -299,13 +299,13 @@ const count = document.getElementById('lends');
 async function stats() {
   try {
     const res = await fetch(API + '/stats', { cache: 'no-store', redirect: 'error' });
-    if (!res.ok) throw new Error();
+    if (res.status !== 200) throw new Error();
     const data = await res.json();
     if (!Number.isSafeInteger(data.lent) || data.lent < 0) throw new Error();
-    lend.hidden = panel.hidden = false;
+    document.getElementById('lend').hidden = lend.hidden = panel.hidden = false;   // shown only once /lend-api/stats answers 200
     count.textContent = l('stats').replace('{n}', data.lent);
   } catch {
-    if (!document.getElementById('lendo').textContent) lend.hidden = true;
+    if (!document.getElementById('lendo').textContent) { lend.hidden = true; document.getElementById('lend').hidden = true; }
     count.textContent = l('offline');
   }
 }

@@ -2,7 +2,9 @@
 import { mountPolyglot, currentLang } from '../polyglot.js';
 import { MC_I18N } from './i18n-mc.js';
 import { stickers, moves, turn, turnInfo, rotate, key } from '../model.js';
-import { buildBall, exactDistribution, applyMove, identity, distanceOf, mulberry32, SLOT, LAB_VERSION } from '../lab.js';
+import { buildBall, exactDistribution, applyMove, identity, distanceOf, SLOT, LAB_VERSION } from '../lab.js';
+import { loadBestEngine } from '../engine.js';
+import { walkBins, histogram } from './walk.js';
 
 const $ = id => document.getElementById(id);
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -49,8 +51,8 @@ const lbl = m => m.replace("'", '′');
 /* ---------- odds: exact by enumeration (2, 4), estimated by simulation (8) ---------- */
 const ball = buildBall();
 // 8 turns cannot be enumerated (18^8 ≈ 1.1e10): estimate once, seeded, in the page.
-function estimate(k, n, seed) { const rng = mulberry32(seed); const bins = new Array(6).fill(0);
-  for (let i = 0; i < n; i++) { let pos = identity(); for (let j = 0; j < k; j++) pos = applyMove(pos, moves[Math.floor(rng() * 18)]); const d = distanceOf(ball, pos); bins[d === null ? 5 : d]++; } return { bins, denominator: n }; }
+let engine = null;                                   // Rust → WebAssembly when it loads; null = JS fallback
+function estimate(k, n, seed) { return { bins: histogram(walkBins(engine, ball, k, n, seed)), denominator: n }; }
 // Precomputed with the same code path (node tools/cube/test.mjs asserts it): uniform, 8 turns, n = 100 000, seed 1729.
 const EST8 = { bins: [32, 236, 1109, 3244, 8323, 87056], denominator: 100000 };
 const MARKETS = { 8: { ...EST8, exact: false, ms: 0, k: 8 } };
@@ -162,7 +164,7 @@ function wilson(x, n, z = 1.96) { if (!n) return [0, 1]; const ph = x / n, den =
 function playHouse() {
   const job = ++houseJob, m = market(k), target = bet ?? 0, p = prob(m, target) || 1e-9, N = Number($('hands').value);
   const seed = Math.max(0, Math.min(0xffffffff, parseInt($('seed').value, 10) || 1729)); $('seed').value = seed;
-  const rng = mulberry32(seed), payout = 1 / p - 1;
+  const payout = 1 / p - 1, hand = walkBins(engine, ball, k, N, seed);   // same stream as the JS loop: hand i = walk i
   const conv = [], walk = []; let wins = 0, bal = 0, i = 0;
   houseData = { conv, walk, p, N, k, target, exact: m.exact, seed };
   const every = Math.max(1, Math.floor(N / 400));
@@ -170,8 +172,7 @@ function playHouse() {
     if (job !== houseJob) return;
     const end = Math.min(N, i + Math.max(200, N / 60));
     for (; i < end; i++) {
-      let pos = identity(); for (let j = 0; j < k; j++) pos = applyMove(pos, moves[Math.floor(rng() * 18)]);
-      const d = distanceOf(ball, pos), bin = d === null ? 5 : d;
+      const bin = hand[i];
       if (bin === target) { wins++; bal += payout; } else bal -= 1;
       if ((i + 1) % every === 0 || i === N - 1) { conv.push([i + 1, wins]); walk.push([i + 1, bal]); }
     }
@@ -219,10 +220,11 @@ function applyLang() {
   document.documentElement.lang = lang;
   document.querySelectorAll('[data-i18n]').forEach(e => e.textContent = t(e.dataset.i18n));
   document.querySelectorAll('[data-i18n-html]').forEach(e => e.innerHTML = t(e.dataset.i18nHtml));
-  $('foot').textContent = t('foot', { v: LAB_VERSION });
+  $('foot').textContent = t('foot', { v: LAB_VERSION }) + (engine ? ' · engine: Rust → WebAssembly' + (engine.file === 'engine-simd.wasm' ? ' (SIMD)' : '') : '');
   renderTable(); drawHouse();
 }
 bet = 0;
+try { engine = await loadBestEngine(); if (engine) engine.buildBall(ball.radius); } catch (e) { engine = null; }
 applyLang();
 mountPolyglot(code => { lang = code; applyLang(); });
 requestAnimationFrame(loop);
