@@ -5,6 +5,7 @@ export default defineConfig({
   testDir: './tests/e2e',
   outputDir: 'test-results/launch-e2e',
   testMatch: '*.spec.js',
+  testIgnore: 'the6cube.spec.js', // Requires the deployed gate and /6 redirect.
   fullyParallel: true,
   workers: 3,
   timeout: 25_000,
