@@ -127,6 +127,7 @@ function chain(cv, n) {
 // Diogenes lines are as reported by Diogenes Laërtius, Lives VI (public domain); the rest are the cube's own.
 const LORE = {
   en: [
+    ['A second form is growing. It will show itself on Product Hunt.', 'the cube'],
     ['I am looking for a human being.', 'Diogenes, lantern in hand, in daylight'],
     ['Stand a little out of my sun.', 'Diogenes, to Alexander the Great'],
     ['I am a citizen of the world.', 'Diogenes, asked where he came from'],
@@ -140,6 +141,7 @@ const LORE = {
     ['Pass it to one person. That is how forests begin.', 'the mycelium'],
   ],
   nl: [
+    ['Er groeit een tweede vorm. Hij toont zich op Product Hunt.', 'de kubus'],
     ['Ik zoek een mens.', 'Diogenes, met een lantaarn, op klaarlichte dag'],
     ['Ga een beetje uit mijn zon.', 'Diogenes, tegen Alexander de Grote'],
     ['Ik ben een burger van de wereld.', 'Diogenes, gevraagd waar hij vandaan kwam'],

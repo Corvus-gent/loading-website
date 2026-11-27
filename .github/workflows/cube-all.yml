@@ -6,9 +6,9 @@ on:
   workflow_dispatch:
     inputs:
       base:
-        description: Production site
-        type: choice
-        options: ['https://corvus.gent']
+        description: Production or exact Vercel preview origin
+        type: string
+        required: true
         default: 'https://corvus.gent'
 permissions: {contents: read}
 jobs:
@@ -81,6 +81,7 @@ jobs:
       - run: npx playwright test -c tests/e2e/playwright.config.js --project="${{ matrix.project }}"
         env:
           BASE: ${{ inputs.base }}
+          CUBE_PREVIEW_ACCESS: ${{ github.event_name == 'workflow_dispatch' && inputs.base != 'https://corvus.gent' && secrets.CUBE_PREVIEW_ACCESS || '' }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -104,6 +105,7 @@ jobs:
           node tools/cube/lighthouse.mjs
         env:
           BASE: ${{ inputs.base }}
+          CUBE_PREVIEW_ACCESS: ${{ github.event_name == 'workflow_dispatch' && inputs.base != 'https://corvus.gent' && secrets.CUBE_PREVIEW_ACCESS || '' }}
       - uses: actions/upload-artifact@v4
         if: always()
         with: {name: lighthouse, path: test-results/lighthouse/scores.json}
