@@ -28,6 +28,8 @@ jobs:
         run: |
           clang --target=wasm32 -O3 -nostdlib -fno-builtin -Wl,--no-entry -Wl,--export=perm_ptr -Wl,--export=io_ptr -Wl,--export=path_ptr -Wl,--export=build -Wl,--export=solve -Wl,--initial-memory=33554432 -o /tmp/solver.wasm solver/solver.c
           clang++ --target=wasm32 -O3 -nostdlib -fno-exceptions -fno-rtti -Wl,--no-entry -Wl,--export=out_ptr -Wl,--export=wilson -o /tmp/wilson.wasm stats-cpp/wilson.cpp
+          clang --target=wasm32 -O3 -nostdlib -fno-builtin -Wl,--no-entry -Wl,--export=grow -Wl,--export=out_ptr -Wl,--export=edges_ptr -o /tmp/net.wasm anatomy-c/net.c
+          TEST_ANATOMY=/tmp/net.wasm node --test tests/unit/anatomy.test.mjs
           TEST_SOLVER=/tmp/solver.wasm TEST_WILSON=/tmp/wilson.wasm node --test --test-name-pattern='^(C solver|C\+\+)' tests/unit/polyglot.test.mjs
   unit:
     runs-on: ubuntu-latest
