@@ -1,5 +1,5 @@
 import fs from 'node:fs'; import test from 'node:test'; import assert from 'node:assert/strict';
-const {instance:{exports:X}}=await WebAssembly.instantiate(fs.readFileSync(new URL('../../the6cube/anatomy/net.wasm', import.meta.url)),{});
+const {instance:{exports:X}}=await WebAssembly.instantiate(fs.readFileSync(process.env.TEST_ANATOMY || new URL('../../the6cube/anatomy/net.wasm', import.meta.url)),{});
 function rnd(s){return()=>{s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
 function js(p,n,spread,rr){const r=rnd(p.seed),K=[];for(let i=0;i<n;i++){const a=r()*Math.PI*2,d=Math.sqrt(r())*p.r*spread;K.push({x:p.x+Math.cos(a)*d,y:p.y+Math.sin(a)*d,r:p.r*rr*(.6+r()*.8),seed:p.seed*31+i+1,act:r()})}
  const E=[];for(let i=0;i<K.length;i++){const near=K.map((k,j)=>[j,Math.hypot(k.x-K[i].x,k.y-K[i].y)]).filter(x=>x[0]!==i).sort((a,b)=>a[1]-b[1]).slice(0,3);for(const[j]of near)if(j>i)E.push([i,j])}return{K,E}}

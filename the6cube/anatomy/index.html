@@ -101,7 +101,7 @@ const L0=[];for(let i=0;i<lobes.length;i++)for(let j=i+1;j<lobes.length;j++){con
 const ROOT={x:90,y:470,r:30,seed:3,act:.5};const TREE=[];(()=>{const done=[ROOT],left=[...lobes].sort((a,b)=>Math.hypot(a.x-ROOT.x,a.y-ROOT.y)-Math.hypot(b.x-ROOT.x,b.y-ROOT.y));for(const l of left){let best=done[0],bd=1e9;for(const d of done){const q=Math.hypot(d.x-l.x,d.y-l.y);if(q<bd){bd=q;best=d}}TREE.push([best,l,1]);done.push(l)}})();
 // children are generated lazily, the first time they are seen
 // the network grower runs in C → WebAssembly (net.c); the JS below is the identical fallback
-let NET=null;WebAssembly.instantiateStreaming?.(fetch('net.wasm'),{}).then(({instance})=>{NET=instance.exports;window.ENGINE='C → WebAssembly'}).catch(()=>{});
+let NET=null;globalThis.WebAssembly?.instantiateStreaming?.(fetch('net.wasm'),{}).then(({instance})=>{NET=instance.exports;window.ENGINE='C → WebAssembly'}).catch(()=>{});
 function kidsC(p,n,spread,rr){const m=NET.grow(p.x,p.y,p.r,p.seed,n,spread,rr),o=new Float64Array(NET.memory.buffer,NET.out_ptr(),n*5),e=new Int32Array(NET.memory.buffer,NET.edges_ptr(),m*2),K=[];
   for(let i=0;i<n;i++)K.push({x:o[i*5],y:o[i*5+1],r:o[i*5+2],seed:o[i*5+3],kids:null,act:o[i*5+4]});const E=[];for(let i=0;i<m;i++)E.push([K[e[i*2]],K[e[i*2+1]],1]);p.kids=K;p.edges=E;return K}
 function kids(p,n,spread,rr){if(p.kids)return p.kids;if(NET&&n<=64)return kidsC(p,n,spread,rr);const r=rnd(p.seed),K=[];
