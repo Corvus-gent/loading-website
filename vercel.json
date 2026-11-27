@@ -24,6 +24,11 @@
       "permanent": true
     },
     {
+      "source": "/cube/",
+      "destination": "/the6cube/",
+      "permanent": true
+    },
+    {
       "source": "/cube/:path*",
       "destination": "/the6cube/:path*",
       "permanent": true

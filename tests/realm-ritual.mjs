@@ -59,6 +59,6 @@ try {
 for (const route of ['/links/gabe','/soldier/santobjj']) {
   const res = request(route+'/?ref=example');
   assert.equal(res.status,308);
-  assert.equal(res.headers.get('location'),'https://corvus.gent'+route+'?ref=example');
+  assert.equal(res.headers.get('location'),route+'?ref=example');
 }
 console.log('Gate, cache variants, canonical routes, 04:02 rollover, DST and year boundary passed.');

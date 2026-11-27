@@ -19,7 +19,7 @@ const {default:middleware}=await import('../middleware.js');
 for(const path of ['/status','/service/']){
  const result=middleware(new Request('https://stats.corvus.gent'+path+'?lang=es'));
  assert.equal(result.status,308);
- assert.equal(result.headers.get('location'),'https://stats.corvus.gent/uptime?lang=es');
+ assert.equal(result.headers.get('location'),'/uptime?lang=es');
 }
 assert.equal(middleware(new Request('https://stats.corvus.gent/uptime?lang=en')).headers.get('x-middleware-rewrite'),'https://stats.corvus.gent/stats/status/index.html?lang=en');
 console.log('PASS: canonical uptime routes preserve language.');

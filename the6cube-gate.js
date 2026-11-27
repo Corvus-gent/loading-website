@@ -1,3 +1,4 @@
+import { relativeRedirect } from './js/relative-redirect.js';
 // The Cube · code gate. Add to the root middleware.js of the corvus.gent repo (call cubeGate first).
 // The code itself is never stored: only sha256("thecube:" + code). Change the code = change GATE_HASH.
 const GATE_HASH = '253d5b0aed5dbee7abe940f0fdb31bf18fd2a2568e7a72c99d9b6518c182bc5e';
@@ -19,7 +20,7 @@ export async function cubeGate(request) {
   if (key !== null) {
     if (await sha('thecube:' + key) === GATE_HASH) {
       url.searchParams.delete('key');
-      return new Response(null, { status: 302, headers: { Location: url.pathname + url.search + url.hash, 'Set-Cookie': `${COOKIE}=${GATE_HASH}; Path=/the6cube; Max-Age=2592000; HttpOnly; Secure; SameSite=Lax`, 'Cache-Control': 'no-store' } });
+      return relativeRedirect(url.pathname + url.search + url.hash, 302, { 'Set-Cookie': `${COOKIE}=${GATE_HASH}; Path=/the6cube; Max-Age=2592000; HttpOnly; Secure; SameSite=Lax`, 'Cache-Control': 'no-store' });
     }
     return new Response(page(true), { status: 401, headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' } });
   }

@@ -6,7 +6,8 @@ const channels = new Map([['/6l', 'li'], ['/6w', 'wc'], ['/6x', 'x'], ['/6t', 't
 export function channelInvite(url) {
   const channel = channels.get(url.pathname);
   if (!channel) return null;
-  const target = new URL(root, url.origin);
+  const target = new URL(root, 'https://corvus.gent');
   target.searchParams.set('utm_source', channel);
-  return target;
+  if (target.origin !== 'https://corvus.gent') return null;
+  return target.pathname + target.search;
 }

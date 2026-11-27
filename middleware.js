@@ -1,4 +1,5 @@
-// - stats.corvus.gent serves the stats pages at clean URLs; corvus.gent/stats redirects there
+import { relativeRedirect } from './js/relative-redirect.js';
+// - stats.corvus.gent serves the stats pages at clean URLs; the apex also serves its local /stats pages
 // - curl / wget / scripts get counted, and curling the homepage gets a little reply
 import { channelInvite } from './the6cube-invites.js';
 import { cubeGate } from './the6cube-gate.js';
@@ -35,7 +36,7 @@ const CURL_REPLY = `
 export default function middleware(request) {
   const url = new URL(request.url);
   const invite = channelInvite(url);
-  if (invite) return Response.redirect(invite, 307);
+  if (invite) return relativeRedirect(invite, 307);
   if (url.pathname.startsWith('/lend-api/')) {
     const route = url.pathname.slice('/lend-api'.length);
     const methods = { '/stats': 'GET', '/lend': 'POST', '/revoke': 'POST' };
@@ -67,39 +68,38 @@ function routeRequest(request, url) {
     return new Response(null, { status:404, headers:{'Cache-Control':'private, no-store','X-Robots-Tag':'noindex, nofollow'} });
   }
   if (/^\/project-cto(?:\/|$)/.test(url.pathname)) {
-    if (url.hostname === 'stats.corvus.gent' || url.pathname.endsWith('/')) {
-      if (url.hostname === 'stats.corvus.gent') url.hostname = 'corvus.gent';
+    if (url.pathname.endsWith('/')) {
       url.pathname = url.pathname.replace(/\/+$/, '');
-      return new Response(null, { status:308, headers:{Location:url.href,'Cache-Control':'private, no-store','X-Robots-Tag':'noindex, nofollow'} });
+      return relativeRedirect(url.pathname + url.search, 308, {'Cache-Control':'private, no-store','X-Robots-Tag':'noindex, nofollow'});
     }
     return next();
   }
   const cleanPath=url.pathname.replace(/\/index\.html$/,'').replace(/\/$/,'')||'/';
   // Uptime has its own canonical URL; keep old bookmarks and language queries.
   if (['/status', '/status/', '/service', '/service/'].includes(url.pathname) && url.hostname === 'stats.corvus.gent') {
-    url.pathname = '/uptime'; return Response.redirect(url, 308);
+    url.pathname = '/uptime'; return relativeRedirect(url.pathname + url.search, 308);
   }
   if (['/uptime', '/uptime/'].includes(url.pathname)) {
-    if (url.hostname !== 'stats.corvus.gent') { url.hostname = 'stats.corvus.gent'; url.pathname = '/uptime'; return Response.redirect(url, 308); }
     url.pathname = '/stats/status/index.html'; return rewrite(url);
   }
   // File-form stats links must reach the same clean routes as directory links.
   if (url.hostname === 'stats.corvus.gent' && /^\/(?:stats\/)?(?:(?:pidgy|games|map|music|hunt|x|coffee|linkedin|status|hack|army|private)\/)?index\.html$/.test(url.pathname)) {
     url.pathname = url.pathname.replace(/index\.html$/, '');
-    return Response.redirect(url, 308);
+    return relativeRedirect(url.pathname + url.search, 308);
   }
   const canonicalPage={'/hack2':'/hack/2','/hack/the-feed':'/hack/1/the-feed','/submission':'/hack/play','/soldier':'/legion/#wall'}[cleanPath];
-  if(canonicalPage){const target=new URL(canonicalPage,'https://'+url.host);target.search=url.search;return Response.redirect(target,301);}
+  if (canonicalPage) {
+    const target = new URL(canonicalPage, 'https://corvus.gent');
+    return relativeRedirect(target.pathname + url.search + target.hash, 301);
+  }
   // These dynamic rewrites accept the slashless path on Vercel.
   if (url.hostname !== 'stats.corvus.gent' && /^\/(?:links\/gabe|soldier\/[a-zA-Z0-9_-]+)\/$/.test(url.pathname)) {
     url.pathname = url.pathname.slice(0, -1);
-    return Response.redirect(url, 308);
+    return relativeRedirect(url.pathname + url.search, 308);
   }
-  // Stats lives on its own host. Other site pages must not become broken clones there.
-  if(url.hostname==='stats.corvus.gent'&&!/^\/(?:$|(?:pidgy|games|map|music|hunt|x|coffee|linkedin|status|hack|army)\/?$|(?:private|stats)(?:\/|$)|(?:api|js|css|img|public|vendor)\/)/.test(url.pathname)&&!(/\.[a-z0-9]+$/i.test(url.pathname))){url.hostname='corvus.gent';return Response.redirect(url,301);}
 
   if(/^\/(?:enlist|join-the-army-now)(?:\/.*)?$/.test(url.pathname)){
-    if(url.hostname==='stats.corvus.gent')url.hostname='corvus.gent';url.pathname='/legion/';return Response.redirect(url,301);
+    return relativeRedirect('/legion/' + url.search, 301);
   }
   const compoundPartner=/^\/go\/compound-([a-z0-9-]{1,48})\/?$/.exec(url.pathname);
   if(compoundPartner){const target=new URL('/api/stats',url);target.search=url.search;target.searchParams.set('compoundV2','1');target.searchParams.set('impact','1');target.searchParams.set('go',compoundPartner[1]);return rewrite(target);}
@@ -136,7 +136,7 @@ function routeRequest(request, url) {
   if(url.hostname!=='stats.corvus.gent'&&/^\/squads\/?$/.test(url.pathname)){
     url.pathname='/hackathons/';
     for(const [key,value]of Object.entries({utm_source:'share',utm_medium:'links',utm_campaign:'hack',utm_content:'squads'}))if(!url.searchParams.has(key))url.searchParams.set(key,value);
-    return Response.redirect(url,307);
+    return relativeRedirect(url.pathname + url.search, 307);
   }
   const compoundSlug=url.pathname.replace(/^\/|\/$/g,'');
   if(url.hostname!=='stats.corvus.gent'&&Object.hasOwn(COMPOUND_LINKS,compoundSlug)){
@@ -146,18 +146,18 @@ function routeRequest(request, url) {
   }
   if (url.hostname !== "stats.corvus.gent" && /^\/sidequest\/?$/.test(url.pathname)) {
     url.pathname = "/sidequests";
-    return Response.redirect(url, 307);
+    return relativeRedirect(url.pathname + url.search, 307);
   }
   if (url.hostname === "stats.corvus.gent" && /^\/coffee-with-gabe\/?$/.test(url.pathname)) {
-    return Response.redirect("https://corvus.gent/go/corvus/coffee/coffee-stats", 307);
+    return relativeRedirect("/go/corvus/coffee/coffee-stats", 307);
   }
   const companyLink=COMPANY_LINKS[url.pathname.replace(/\/$/, "")];
-  if(url.hostname!=="stats.corvus.gent"&&companyLink)return new Response(null,{status:307,headers:{Location:companyLink}});
+  if(url.hostname!=="stats.corvus.gent"&&companyLink)return relativeRedirect(companyLink);
   if (url.hostname !== "stats.corvus.gent" && /^\/important-call-gabe-maxxer\/?$/.test(url.pathname)) {
-    return new Response(null, { status: 307, headers: { Location: "/call/?utm_source=linkedin&utm_medium=post&utm_campaign=gabe-important-call" } });
+    return relativeRedirect("/call/?utm_source=linkedin&utm_medium=post&utm_campaign=gabe-important-call");
   }
   if (url.hostname !== "stats.corvus.gent" && /^\/coffee-with-gabe\/?$/.test(url.pathname)) {
-    return new Response(null, { status: 307, headers: { Location: "/links/gabe/bmc/coffee-bio?utm_source=buymeacoffee&utm_medium=bio&utm_campaign=gabe-coffee-bio" } });
+    return relativeRedirect("/links/gabe/bmc/coffee-bio?utm_source=buymeacoffee&utm_medium=bio&utm_campaign=gabe-coffee-bio");
   }
   const ua = request.headers.get("user-agent") || "";
   const hit = CLI.find(([re]) => re.test(ua));
@@ -182,12 +182,8 @@ function routeRequest(request, url) {
     if (url.pathname === "/") return rewrite(new URL("/stats/", url));
     if (/^\/(pidgy|games|map|music|hunt|x|coffee|linkedin|status|hack|army)\/?$/.test(url.pathname)) return rewrite(new URL(`/stats/${url.pathname.split("/")[1]}/`, url));
     if (url.pathname.startsWith("/private")) return rewrite(new URL("/stats/private/", url));
-    if (/^\/stats(?:\/|$)/.test(url.pathname)) return Response.redirect(new URL((url.pathname.replace(/^\/stats/, "") || "/") + url.search, url), 308);
+    if (/^\/stats(?:\/|$)/.test(url.pathname)) return relativeRedirect((url.pathname.slice(6) || "/") + url.search, 308);
     return next();
-  }
-  if (/^\/stats(?:\/|$)/.test(url.pathname)) {
-    const rest = url.pathname.replace(/^\/stats\/?/, "");
-    return Response.redirect(`https://stats.corvus.gent/${rest}${url.search}`, 308);
   }
   if (cleanPath === '/' && ['GET', 'HEAD'].includes(request.method)) {
     const headers = {'Cache-Control': 'private, no-store', 'Vary': 'Cookie, User-Agent'};
