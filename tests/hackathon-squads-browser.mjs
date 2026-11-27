@@ -16,7 +16,7 @@ try{
  await context.route('**/api/hack',r=>r.request().method()==='POST'?r.fulfill({json:{ok:true}}):r.continue());
  const page=await context.newPage(),errors=[],receipts=[];page.on('pageerror',e=>errors.push(e.message));
  page.on('response',async response=>{
-  if(!response.url().startsWith('https://eu.i.posthog.com/')||response.request().method()!=='POST')return;
+  if(!new URL(response.url()).pathname.startsWith('/ingest/posthog/')||response.request().method()!=='POST')return;
   const r=response.request();let events=[];
   try{
    let raw=r.postDataBuffer();

@@ -74,8 +74,9 @@
     setXCampaigns(allowed?.campaigns);
     if(!analyticsAllowed()||stopped){clearTimeout(cleanupTimer);clearTrackingURL();return;}
     if(!window.posthog?.init){clearTimeout(cleanupTimer);clearTrackingURL();return;}
-    window.posthog.init('phc_tqJYxREMXWjzQusx6xNPuEa2fNCzKmVpAURSHKnVbpro', {
-      api_host:'https://eu.i.posthog.com', cookieless_mode:'always', person_profiles:'never',
+    // The relay supplies the project key after validating each event.
+    window.posthog.init('corvus-browser', {
+      api_host:location.origin+'/ingest/posthog', cookieless_mode:'always', person_profiles:'never',
       persistence:'memory', disable_persistence:true, ip:false, respect_dnt:true, debug:false,
       autocapture:false, capture_pageview:false, capture_pageleave:false,
       capture_heatmaps:false, capture_performance:false, capture_dead_clicks:false, rageclick:false,

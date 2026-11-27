@@ -113,7 +113,7 @@ for(const id of Object.keys(profiles)) {
  test('consented SDK sends '+id+' on page views and hub clicks',async({page,context})=>{
    const seen=[];
    await page.addInitScript(()=>{Object.defineProperty(Navigator.prototype,'webdriver',{get:()=>false});Object.defineProperty(Navigator.prototype,'userAgentData',{get:()=>undefined});});
-   await context.route('https://eu.i.posthog.com/**',async r=>{
+   await context.route('**/ingest/posthog/**',async r=>{
      if(r.request().method()==='POST'){
        let data=r.request().postDataBuffer();
        if(data?.[0]===31 && data?.[1]===139)data=gunzipSync(data);

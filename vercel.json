@@ -474,6 +474,8 @@
     }
   ],
   "rewrites": [
+    { "source": "/ingest/posthog/i/v0/e", "destination": "/api/posthog" },
+    { "source": "/ingest/posthog/e", "destination": "/api/posthog" },
     {
       "source": "/the6cube",
       "destination": "/the6cube/index.html"
