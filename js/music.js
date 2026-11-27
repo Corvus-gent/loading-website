@@ -106,7 +106,15 @@ async function play(id) {
     const url=new URL(apple.url);url.hostname='embed.music.apple.com';url.searchParams.set('theme','dark');
     const frame=document.createElement('iframe');frame.src=url.href;frame.title=`${track.title} · Apple Music`;frame.allow='autoplay; encrypted-media';frame.height='175';frame.style.height='175px';frame.loading='lazy';$('embed').append(frame);
   } else {closePlayer();$('now-artist').textContent=`${track.artist || t('m.unknown')} · ${t('m.review')}`;}
-  $('player-links').innerHTML=links.slice(0,2).map(p=>`<a href="${esc(p.url)}" target="_blank" rel="noopener noreferrer">${p.direct?'':`${label('m.searchOn')} `}${p.name} ↗</a>`).join('');
+  const providerLinks = links.slice(0, 2).map(provider => {
+    const anchor = document.createElement('a');
+    anchor.href = provider.url;
+    anchor.target = '_blank';
+    anchor.rel = 'noopener noreferrer';
+    anchor.textContent = (provider.direct ? '' : t('m.searchOn') + ' ') + provider.name + ' ↗';
+    return anchor;
+  });
+  $('player-links').replaceChildren(...providerLinks);
   $('close-player').hidden=false;
 }
 function getSpotify() {
