@@ -5,7 +5,7 @@ export default defineConfig({
   testDir: './tests/e2e',
   outputDir: 'test-results/launch-e2e',
   testMatch: '*.spec.js',
-  testIgnore: 'the6cube.spec.js', // Requires the deployed gate and /6 redirect.
+  testIgnore: ['the6cube.spec.js', 'flows.spec.js'], // Dedicated Cube suites use the real gate and invite routes.
   fullyParallel: true,
   workers: 3,
   timeout: 25_000,
