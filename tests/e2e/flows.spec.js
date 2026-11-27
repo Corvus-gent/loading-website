@@ -54,8 +54,8 @@ test('gate rejects an incorrect code and accepts the public invitation',async ({
   await page.goto('/6');
   await expect(page.locator('#share')).toBeVisible();
 });
-test('all five public links deliver the right channel',async ({request,baseURL}) => {
-  for (const [path,channel] of [['/6','wa'],['/6l','li'],['/6w','wc'],['/6x','x'],['/6t','tg']]) {
+test('all six public links deliver the right channel',async ({request,baseURL}) => {
+  for (const [path,channel] of [['/6','wa'],['/6l','li'],['/6w','wc'],['/6x','x'],['/6t','tg'],['/6i','ig']]) {
     const res = await request.get(path,{maxRedirects:0});
     expect(res.status(),path).toBe(307);
     const target = new URL(res.headers().location,baseURL);
@@ -112,6 +112,7 @@ test('support has three steps and both payment destinations',async ({page,contex
   await enter(context); await page.goto('/the6cube/support/');
   await expect(page.locator('ol li')).toHaveCount(3);
   for (const host of ['revolut.me','buymeacoffee.com']) await expect(page.locator(`a[href*="${host}"]`)).toBeVisible();
+  await expect(page.getByRole('link', {name:'get v2 first'})).toHaveAttribute('href', /^mailto:gabriel@corvus\.gent\?subject=v2%20first&/);
 });
 test('portal links to both stack tables and selects forced tier B',async ({page,context}) => {
   await enter(context); await page.goto('/the6cube/?tier=B');
