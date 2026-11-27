@@ -470,10 +470,6 @@
   ],
   "rewrites": [
     {
-      "source": "/the6cube/anatomy/",
-      "destination": "/the6cube/brein/index.html"
-    },
-    {
       "source": "/the6cube",
       "destination": "/the6cube/index.html"
     },
