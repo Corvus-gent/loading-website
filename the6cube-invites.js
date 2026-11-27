@@ -1,7 +1,7 @@
 import config from './vercel.json' with { type: 'json' };
 
 const root = config.redirects.find(rule => rule.source === '/6').destination;
-const channels = new Map([['/6l', 'li'], ['/6w', 'wc'], ['/6x', 'x'], ['/6t', 'tg']]);
+const channels = new Map([['/6l', 'li'], ['/6w', 'wc'], ['/6x', 'x'], ['/6t', 'tg'], ['/6i', 'ig']]);
 
 export function channelInvite(url) {
   const channel = channels.get(url.pathname);
