@@ -1,5 +1,6 @@
 // - stats.corvus.gent serves the stats pages at clean URLs; corvus.gent/stats redirects there
 // - curl / wget / scripts get counted, and curling the homepage gets a little reply
+import { channelInvite } from './the6cube-invites.js';
 import { cubeGate } from './the6cube-gate.js';
 import {tierPath} from './js/site/page-tiers.js';
 import {ogRoute} from "./js/og-routes.js";
@@ -33,6 +34,8 @@ const CURL_REPLY = `
 
 export default function middleware(request) {
   const url = new URL(request.url);
+  const invite = channelInvite(url);
+  if (invite) return Response.redirect(invite, 307);
   if (url.pathname.startsWith('/lend-api/')) {
     const route = url.pathname.slice('/lend-api'.length);
     const methods = { '/stats': 'GET', '/lend': 'POST', '/revoke': 'POST' };

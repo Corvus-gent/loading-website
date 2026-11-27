@@ -160,7 +160,9 @@ $('reset').onclick = () => { bank = 1000; history.length = 0; state = stickers; 
 
 /* ---------- the house: seeded Monte Carlo, convergence + random walk ---------- */
 let houseJob = 0, houseData = null;
-function wilson(x, n, z = 1.96) { if (!n) return [0, 1]; const ph = x / n, den = 1 + z * z / n, c = (ph + z * z / (2 * n)) / den, h = z * Math.sqrt(ph * (1 - ph) / n + z * z / (4 * n * n)) / den; return [Math.max(0, c - h), Math.min(1, c + h)]; }
+// the error band comes from C++ → WebAssembly (wilson.cpp); the JS line below is the identical fallback
+let WCPP = null; fetch(new URL('../wilson.wasm', import.meta.url)).then(r => r.arrayBuffer()).then(b => WebAssembly.instantiate(b, {})).then(({ instance }) => { WCPP = instance.exports; }).catch(() => {});
+function wilson(x, n, z = 1.96) { if (WCPP && n) { WCPP.wilson(x, n, z); const o = new Float64Array(WCPP.memory.buffer, WCPP.out_ptr(), 3); return [o[1], o[2]]; } if (!n) return [0, 1]; const ph = x / n, den = 1 + z * z / n, c = (ph + z * z / (2 * n)) / den, h = z * Math.sqrt(ph * (1 - ph) / n + z * z / (4 * n * n)) / den; return [Math.max(0, c - h), Math.min(1, c + h)]; }
 function playHouse() {
   const job = ++houseJob, m = market(k), target = bet ?? 0, p = prob(m, target) || 1e-9, N = Number($('hands').value);
   const seed = Math.max(0, Math.min(0xffffffff, parseInt($('seed').value, 10) || 1729)); $('seed').value = seed;
@@ -190,6 +192,7 @@ function drawHouse() {
     const m = { l: 46, r: 10, t: 10, b: 26 }, X = n => m.l + (W - m.l - m.r) * Math.log10(n) / Math.log10(h.N), ymax = Math.min(1, h.p * 3.2 + .01), Y = v => m.t + (H - m.t - m.b) * (1 - Math.min(ymax, v) / ymax);
     const pts = h.conv.filter(([n]) => n >= 10);
     const band = pts.map(([n, x]) => wilson(x, n));
+    $('conv').dataset.engine = WCPP ? 'cpp' : 'js';
     let o = `<polygon points="${pts.map(([n], i) => `${X(n)},${Y(band[i][1])}`).concat(pts.map(([n], i) => `${X(n)},${Y(band[i][0])}`).reverse()).join(' ')}" fill="rgba(122,92,176,.28)"/>`;
     o += `<polyline points="${pts.map(([n, x]) => `${X(n)},${Y(x / n)}`).join(' ')}" fill="none" stroke="#b4a0d6" stroke-width="2"/>`;
     o += `<line x1="${m.l}" x2="${W - m.r}" y1="${Y(h.p)}" y2="${Y(h.p)}" stroke="#ffd76a" stroke-dasharray="4 5"/><text x="${W - m.r}" y="${Y(h.p) - 6}" text-anchor="end" font-family="ui-monospace,monospace" font-size="12" fill="#ffd76a">p = ${fmt(h.p, 4)}</text>`;

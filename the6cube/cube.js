@@ -117,7 +117,8 @@ const VIEWS = [.61, 2.18, 3.72, 5.27];
 let R3 = null;
 import('./render3d.js').then(m => { if (m.ready()) { R3 = m; try { refresh(); renderProof(); } catch {} } }).catch(() => {});
 function draw(canvas, configuration, highlighted, view = 0, zoom = 1) {
-  if (R3 && R3.draw3d(canvas, configuration, highlighted, view, zoom)) return;
+  // The 18 small tree previews already have a 2D renderer. Avoid 18 GPU readbacks per turn.
+  if (canvas.width > 120 && R3 && R3.draw3d(canvas, configuration, highlighted, view, zoom)) return;
   const ctx = canvas.getContext('2d');
   const { width, height } = canvas;
   const scale = Math.min(width, height) * .165 * zoom;
@@ -461,6 +462,17 @@ $('scramble').onclick = () => {
   load(scramble, { scramble: n });
 };
 $('reset').onclick = () => load([], { scramble: 0 });
+// optimal solve with the C → WebAssembly solver (meet in the middle, ≤ 8 moves); plays the shortest path
+let C_SOLVER = null; const solverButton = $('csolve'); solverButton.disabled = true;
+import('./solver.js').then(m => m.loadSolver()).then(s => { C_SOLVER = s; solverButton.disabled = false; }).catch(() => { $('csolve').hidden = true; });
+$('csolve').onclick = async () => {
+  if (!C_SOLVER || busy || playing) return; const b = solverButton, label = '⚡ optimal · C';
+  const t0 = performance.now(), sol = C_SOLVER.solve(posFromStickers(state)), ms = (performance.now() - t0).toFixed(0);
+  if (sol === null) { b.textContent = '> 8 · C'; setTimeout(() => b.textContent = label, 2200); return; }
+  b.textContent = `${sol.length} · ${ms} ms · C`; playing = true; update();
+  for (const m of sol) { if (!playing) break; await perform(m); }
+  playing = false; update(); setTimeout(() => b.textContent = label, 2600);
+};
 $('step').onclick = () => { const [move] = solution(); if (move) perform(move); };
 $('auto').onclick = async () => {
   if (playing) { playing = false; update(); return; }

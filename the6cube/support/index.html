@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#060509">
+<title>Support · The 6 Cube · Corvus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&display=swap" rel="stylesheet">
+<style>
+/* the support ladder: three ways to help, from free to coffee. same ritual light as the arrival. */
+:root{--bg:#060509;--line:#2c1f45;--violet:#7a5cb0;--lav:#b4a0d6;--gold:#ffd76a;--cream:#efe7d2;--dim:rgba(239,231,210,.6);--serif:'Bodoni Moda',Georgia,serif;--mono:ui-monospace,SFMono-Regular,Menlo,monospace}
+*{box-sizing:border-box}
+html{background:var(--bg);color:var(--cream);font:16px/1.55 system-ui,sans-serif}
+body{margin:0;padding-top:28px;min-height:100vh;background:radial-gradient(ellipse at 50% 18%,rgba(30,19,50,.9),var(--bg) 60%)}
+canvas#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+header,main{position:relative;z-index:1}
+header{display:flex;justify-content:space-between;padding:16px 22px;font:11px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+header a{color:inherit;text-decoration:none}
+main{max-width:720px;margin:0 auto;padding:4vh 22px 80px;text-align:center}
+.motto{font:500 11px var(--serif);letter-spacing:.9em;margin:0 -0.9em 18px 0;color:rgba(255,215,106,.42)}
+.raven{width:86px;height:86px;margin:0 auto 18px;filter:drop-shadow(0 0 24px rgba(122,92,176,.6))}
+h1{font:italic 400 clamp(32px,5vw,50px)/1.12 var(--serif);margin:0 0 12px}
+h1 em{color:var(--gold)}
+.lead{color:var(--dim);max-width:46ch;margin:0 auto 40px}
+ol{list-style:none;padding:0;margin:0;display:grid;gap:16px;text-align:left}
+li{position:relative;display:grid;grid-template-columns:64px 1fr;gap:18px;align-items:start;padding:22px 22px 20px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(160deg,rgba(26,18,42,.78),rgba(10,8,16,.82));backdrop-filter:blur(6px)}
+li .n{font:italic 400 40px/1 var(--serif);color:var(--gold);text-shadow:0 0 18px rgba(255,215,106,.45);text-align:center;padding-top:2px}
+li h2{font:400 22px/1.2 var(--serif);margin:0 0 6px;padding-right:64px}
+li p{margin:0 0 14px;color:var(--dim);font-size:15px}
+li .free{position:absolute;top:14px;right:16px;font:10px var(--mono);letter-spacing:.2em;color:#7ee0b0;border:1px solid rgba(126,224,176,.4);border-radius:999px;padding:2px 8px}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+.btn{all:unset;cursor:pointer;display:inline-block;padding:10px 16px;border:1px solid rgba(255,215,106,.5);border-radius:2px;font:12px var(--mono);letter-spacing:.18em;color:var(--gold);transition:box-shadow .25s,background .25s}
+.btn:hover,.btn:focus-visible{box-shadow:0 0 22px rgba(255,215,106,.3);background:rgba(255,215,106,.06);outline:none}
+.btn.q{border-color:var(--line);color:var(--lav)}
+.fine{margin-top:34px;font:11.5px/1.6 var(--mono);color:rgba(239,231,210,.4)}
+@media(max-width:520px){li{grid-template-columns:44px 1fr;gap:12px;padding:20px 16px}li .n{font-size:32px}}
+@media(prefers-reduced-motion:reduce){canvas#fx{display:none}}
+</style>
+</head>
+<body>
+<canvas id="fx" aria-hidden="true"></canvas>
+<header><a href="/the6cube/" data-t="back"></a><a href="/the6cube/spread/" data-t="map"></a></header>
+<main>
+  <p class="motto" aria-hidden="true">ΓΝΩΘΙ ΣΑΥΤΟΝ</p>
+  <svg class="raven" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="78" fill="none" stroke="#5B3E8C" stroke-width="4"/><path d="M60 122 C58 96 68 70 94 62 C105 59 115 62 121 68 Q143 74 162 90 Q139 92 118 95 L114 103 C110 110 106 116 102 122 Z" fill="#2a1d44" stroke="#b4a0d6" stroke-width="1.2"/><circle cx="108" cy="76" r="4" fill="#ffd76a"/></svg>
+  <h1 data-t="h1"></h1>
+  <p class="lead" data-t="lead"></p>
+  <ol>
+    <li><span class="n">I</span><span class="free" data-t="free"></span><div><h2 data-t="s1h"></h2><p data-t="s1p"></p><div class="btns"><button class="btn" id="pass" data-t="s1b"></button><a class="btn q" href="/the6cube/spread/" data-t="s1m"></a></div></div></li>
+    <li><span class="n">II</span><span class="free" data-t="free"></span><div><h2 data-t="s2h"></h2><p data-t="s2p"></p><div class="btns"><a class="btn" href="/the6cube/brein/#lend" data-t="s2b"></a></div></div></li>
+    <li><span class="n">III</span><div><h2 data-t="s3h"></h2><p data-t="s3p"></p><div class="btns"><a class="btn" href="https://revolut.me/gabe6maxxing" target="_blank" rel="noopener">Revolut</a><a class="btn q" href="https://buymeacoffee.com/gabe.maxxing" target="_blank" rel="noopener">Buy Me a Coffee</a></div></div></li>
+  </ol>
+  <p class="fine" data-t="fine"></p>
+</main>
+<script type="module">
+import { mountPolyglot, currentLang } from '../polyglot.js';
+import { sheet } from '../spread.js';
+const T = {
+  en: { back: '← 🏛️ the cube', map: 'the mycelium ↗', h1: 'If you want to <em>support</em>', lead: 'Three ways, from free to a coffee. The first two cost you nothing.', free: 'FREE', s1h: 'Send it to one person', s1p: 'One. Your link carries your rank, so they land one ring further out. Then watch your branch grow on the mycelium.', s1b: 'PASS IT ON ↗', s1m: 'SEE THE MYCELIUM', s2h: 'Lend the brain a key', s2p: 'An API key, even a free one. The council of the east thinks a little more on it, never more than you allow. Revoke any time.', s2b: 'LEND A KEY →', s3h: 'Buy me a coffee', s3p: 'If it made you think. Every coffee becomes compute.', fine: 'A donation is a voluntary gift to Gabriel personally. You get nothing in return: no product, no access, no prize. Amounts are never shown or stored on this site.' },
+  nl: { back: '← 🏛️ the cube', map: 'het mycelium ↗', h1: 'Als je wil <em>steunen</em>', lead: 'Drie manieren, van gratis tot een koffie. De eerste twee kosten je niets.', free: 'GRATIS', s1h: 'Stuur het naar één persoon', s1p: 'Eén. Jouw link draagt jouw rang, dus zij landen één ring verder. Kijk daarna hoe jouw tak groeit op het mycelium.', s1b: 'GEEF HET DOOR ↗', s1m: 'BEKIJK HET MYCELIUM', s2h: 'Leen het brein een key', s2p: 'Een API-key, ook een gratis. De raad van het oosten denkt er wat meer op, nooit meer dan jij toelaat. Intrekken kan altijd.', s2b: 'LEEN EEN KEY →', s3h: 'Trakteer me op een koffie', s3p: 'Als het je deed nadenken. Elke koffie wordt rekenkracht.', fine: 'Een donatie is een vrijwillige gift aan Gabriel persoonlijk. Je krijgt er niets voor terug: geen product, geen toegang, geen prijs. Bedragen worden nergens getoond of opgeslagen.' },
+  es: { back: '← 🏛️ the cube', map: 'el micelio ↗', h1: 'Si quieres <em>apoyar</em>', lead: 'Tres maneras, de gratis a un café. Las dos primeras no cuestan nada.', free: 'GRATIS', s1h: 'Envíalo a una persona', s1p: 'Una. Tu enlace lleva tu rango, así que cae un anillo más afuera. Luego mira crecer tu rama en el micelio.', s1b: 'PÁSALO ↗', s1m: 'VER EL MICELIO', s2h: 'Presta una clave al cerebro', s2p: 'Una clave API, aunque sea gratis. El consejo del este piensa un poco más con ella, nunca más de lo que permitas. Revócala cuando quieras.', s2b: 'PRESTAR UNA CLAVE →', s3h: 'Invítame a un café', s3p: 'Si te hizo pensar. Cada café se vuelve cómputo.', fine: 'Una donación es un regalo voluntario a Gabriel personalmente. No recibes nada a cambio. Los importes nunca se muestran ni se guardan.' },
+  fr: { back: '← 🏛️ the cube', map: 'le mycélium ↗', h1: 'Si tu veux <em>soutenir</em>', lead: 'Trois façons, du gratuit au café. Les deux premières ne coûtent rien.', free: 'GRATUIT', s1h: 'Envoie-le à une personne', s1p: 'Une. Ton lien porte ton rang : elle atterrit un anneau plus loin. Puis regarde ta branche pousser sur le mycélium.', s1b: 'FAIS PASSER ↗', s1m: 'VOIR LE MYCÉLIUM', s2h: 'Prête une clé au cerveau', s2p: 'Une clé API, même gratuite. Le conseil de l’Est pense un peu plus avec, jamais plus que tu ne permets. Révocable à tout moment.', s2b: 'PRÊTER UNE CLÉ →', s3h: 'Offre-moi un café', s3p: 'Si ça t’a fait réfléchir. Chaque café devient du calcul.', fine: 'Un don est un cadeau volontaire à Gabriel personnellement. Tu ne reçois rien en retour. Les montants ne sont jamais affichés ni enregistrés.' },
+  pt: { back: '← 🏛️ the cube', map: 'o micélio ↗', h1: 'Se quiseres <em>apoiar</em>', lead: 'Três maneiras, do grátis a um café. As duas primeiras não custam nada.', free: 'GRÁTIS', s1h: 'Envia a uma pessoa', s1p: 'Uma. O teu link leva o teu nível, por isso ela cai um anel mais longe. Depois vê o teu ramo crescer no micélio.', s1b: 'PASSA A OUTROS ↗', s1m: 'VER O MICÉLIO', s2h: 'Empresta uma chave ao cérebro', s2p: 'Uma chave API, mesmo grátis. O conselho do Oriente pensa um pouco mais com ela, nunca mais do que permitires. Revoga quando quiseres.', s2b: 'EMPRESTAR UMA CHAVE →', s3h: 'Paga-me um café', s3p: 'Se te fez pensar. Cada café vira computação.', fine: 'Uma doação é um presente voluntário ao Gabriel pessoalmente. Não recebes nada em troca. Os valores nunca são mostrados nem guardados.' },
+  de: { back: '← 🏛️ the cube', map: 'das Myzel ↗', h1: 'Wenn du <em>unterstützen</em> willst', lead: 'Drei Wege, von gratis bis Kaffee. Die ersten zwei kosten nichts.', free: 'GRATIS', s1h: 'Schick es einer Person', s1p: 'Einer. Dein Link trägt deinen Rang, sie landet einen Ring weiter draußen. Dann sieh deinen Ast im Myzel wachsen.', s1b: 'WEITERGEBEN ↗', s1m: 'DAS MYZEL ANSEHEN', s2h: 'Leih dem Gehirn einen Schlüssel', s2p: 'Ein API-Schlüssel, auch ein kostenloser. Der Rat des Ostens denkt etwas mehr damit, nie mehr als du erlaubst. Jederzeit widerrufbar.', s2b: 'SCHLÜSSEL LEIHEN →', s3h: 'Spendier mir einen Kaffee', s3p: 'Wenn es dich zum Denken brachte. Jeder Kaffee wird Rechenzeit.', fine: 'Eine Spende ist ein freiwilliges Geschenk an Gabriel persönlich. Du bekommst nichts dafür. Beträge werden nie gezeigt oder gespeichert.' },
+  zh: { back: '← 🏛️ the cube', map: '菌丝网络 ↗', h1: '如果你想<em>支持</em>', lead: '三种方式，从免费到一杯咖啡。前两种不花一分钱。', free: '免费', s1h: '发给一个人', s1p: '一个就好。你的链接带着你的环数，对方会落在更外一环。然后在菌丝网络上看你的分支生长。', s1b: '传下去 ↗', s1m: '看菌丝网络', s2h: '借给大脑一把钥匙', s2p: '一个 API 密钥，免费的也行。东方议会会用它多想一点，但绝不超过你允许的。随时可撤回。', s2b: '借出密钥 →', s3h: '请我喝杯咖啡', s3p: '如果它让你思考了。每杯咖啡都会变成算力。', fine: '捐赠是给 Gabriel 个人的自愿赠与。你不会得到任何回报。本站从不显示或保存金额。' },
+};
+let lang = currentLang(Object.keys(T));
+const t = k => (T[lang] || T.en)[k] ?? T.en[k];
+function paint() { document.documentElement.lang = lang; document.querySelectorAll('[data-t]').forEach(e => { const v = t(e.dataset.t); /<em>/.test(v) ? e.innerHTML = v : e.textContent = v; }); }
+mountPolyglot(c => { lang = c; paint(); }); paint();
+document.getElementById('pass').addEventListener('click', sheet);
+// slow feathers and violet smoke
+const cv = document.getElementById('fx'), c = cv.getContext('2d'); let W, H;
+const size = () => { const d = Math.min(devicePixelRatio || 1, 2); W = innerWidth; H = innerHeight; cv.width = W * d; cv.height = H * d; c.setTransform(d, 0, 0, d, 0, 0); }; size(); addEventListener('resize', size);
+const R = Math.random, fe = Array.from({ length: 9 }, () => ({ x: R() * innerWidth, y: R() * innerHeight, s: 8 + R() * 14, v: .2 + R() * .4, a: R() * 6, gold: R() < .25 }));
+(function f(tm) { c.clearRect(0, 0, W, H);
+  for (const q of fe) { q.y += q.v; q.x += Math.sin(tm / 1000 + q.a) * .5; if (q.y > H + 30) { q.y = -30; q.x = R() * W; }
+    c.save(); c.translate(q.x, q.y); c.rotate(Math.sin(tm / 1200 + q.a) * .8); c.beginPath(); c.moveTo(0, -q.s); c.quadraticCurveTo(q.s * .42, -q.s * .2, 0, q.s); c.quadraticCurveTo(-q.s * .36, -q.s * .2, 0, -q.s);
+    c.fillStyle = q.gold ? 'rgba(255,215,106,.22)' : 'rgba(18,13,29,.9)'; c.fill(); c.strokeStyle = q.gold ? 'rgba(255,215,106,.5)' : 'rgba(122,92,176,.5)'; c.lineWidth = .7; c.stroke(); c.restore(); }
+  requestAnimationFrame(f); })(0);
+</script>
+</body>
+</html>
