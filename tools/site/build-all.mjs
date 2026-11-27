@@ -1,4 +1,16 @@
 import {execFileSync} from 'node:child_process';
+// Resolve drop-in artwork at build time so missing logos never cause browser requests.
+import {existsSync, readFileSync, writeFileSync} from 'node:fs';
+
+const stackPage = new URL('../../the6cube/stack/index.html', import.meta.url);
+const html = readFileSync(stackPage, 'utf8');
+const optional = /<template data-stack-logo="([a-z]+)"><\/template>/g;
+const output = html.replace(optional, (placeholder, name) => {
+  const src = 'logos/' + name + '.svg';
+  return existsSync(new URL(src, stackPage)) ? `<img src="${src}" alt="">` : placeholder;
+});
+if (output !== html) writeFileSync(stackPage, output);
+
 execFileSync("node", ["tools/site/build-hall-shader.mjs"], {stdio:"inherit"});
 execFileSync("node", ["tools/plethora/verify-routes.mjs"], {stdio:'inherit'});
 execFileSync("node", ["tools/build-gabinho-rolls.mjs"], {stdio:'inherit'});

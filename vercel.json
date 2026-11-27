@@ -9,6 +9,11 @@
       "permanent": false
     },
     {
+      "source": "/6s",
+      "destination": "/the6cube/stack/?key=gabe-maxxing&r=gabe&utm_source=link",
+      "permanent": false
+    },
+    {
       "source": "/6b",
       "destination": "/the6cube/anatomy/?key=gabe-maxxing&r=gabe&utm_source=link",
       "permanent": false
