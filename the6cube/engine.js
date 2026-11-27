@@ -3,6 +3,19 @@
 import { MOVE_PERM, LAB_VERSION } from './lab.js';
 import { moves } from './model.js';
 
+// smallest module that uses a v128 instruction: validates only where WebAssembly SIMD exists
+const SIMD_PROBE = new Uint8Array([0,97,115,109,1,0,0,0,1,5,1,96,0,1,123,3,2,1,0,10,10,1,8,0,65,0,253,15,253,98,11]);
+export const simdSupported = () => typeof WebAssembly === 'object' && WebAssembly.validate(SIMD_PROBE);
+
+/** Pick engine-simd.wasm when the browser can run it, else engine.wasm. Resolves to null when WebAssembly is unavailable or fails. */
+export async function loadBestEngine({ simd = simdSupported() } = {}) {
+  if (typeof WebAssembly !== 'object') return null;
+  for (const file of simd ? ['engine-simd.wasm', 'engine.wasm'] : ['engine.wasm']) {
+    try { const e = await loadEngine(new URL('./' + file, import.meta.url)); e.file = file; return e; } catch (err) { /* try the next binary */ }
+  }
+  return null;
+}
+
 export async function loadEngine(source = new URL('./engine.wasm', import.meta.url)) {
   const bytes = source instanceof Uint8Array || source instanceof ArrayBuffer ? source : await (await fetch(source)).arrayBuffer();
   const { instance } = await WebAssembly.instantiate(bytes, {});
@@ -38,5 +51,12 @@ export async function loadEngine(source = new URL('./engine.wasm', import.meta.u
     }
     return { generator, steps, samples, seed, version: LAB_VERSION, radius: ball.radius, bins, examples, trials };
   }
-  return { buildBall, runExperiment };
+  // Uniform random walk of `steps` turns per trial, mulberry32(seed): the distance (null = outside the ball) of every trial.
+  function walkDistances({ steps, samples, seed }) {
+    x.begin(0, steps, seed >>> 0, 1, samples);
+    for (let done = 0; done < samples;) done = x.run(Math.min(1000, samples - done));
+    const d = new Int8Array(x.memory.buffer, x.trials_dist_ptr(), samples);
+    return Int8Array.from(d);
+  }
+  return { buildBall, runExperiment, walkDistances };
 }

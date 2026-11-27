@@ -183,6 +183,7 @@ body.leaving main,body.leaving .whisper,body.leaving header{opacity:0;transition
 </div></div>
 <div class="whisper" id="whisper">|G| = 43 252 003 274 489 856 000</div>
 <script type="module">
+import { byTier } from '/the6cube/tier.js';
 import { mountPolyglot, currentLang } from '/the6cube/polyglot.js';
 const ROUTES = window.CUBE_ROUTES || { lab: '/the6cube/lab/', casino: '/the6cube/monte-carlo/', show: '/the6cube/licht/', note: '/the6cube/nota/' };
 const T = {
@@ -322,7 +323,7 @@ function drawDiogenes() {
     if (!V.dio) return;
     const wide = W > H, h = (wide ? H * .8 : H * .42) * (V.dio > 1 ? 1.15 : 1), s = h / img.height, w = img.width * s, ox = wide ? -w * .12 : (W - w) / 2, oy = wide ? H - h : H - h * 1.02;
     const off = document.createElement('canvas'); off.width = W; off.height = H; const o = off.getContext('2d'); o.drawImage(img, ox, oy, w, h); const data = o.getImageData(0, 0, W, H).data;
-    const step = Math.round(6 * d), lx = ox + w * .30, ly = oy + h * .46;
+    const step = Math.round(6 * d * Math.sqrt(1 / byTier(1))), lx = ox + w * .30, ly = oy + h * .46;
     for (let y = step / 2; y < H; y += step) for (let xx = step / 2; xx < W; xx += step) {
       const i = (Math.floor(y) * W + Math.floor(xx)) * 4, l = (data[i] + data[i + 1] + data[i + 2]) / 765, a = data[i + 3] / 255; if (!a || l < .08) continue;
       const fade = Math.max(0, 1 - Math.hypot((xx - (ox + w * .45)) / (w * .7), (y - (oy + h * .55)) / (h * .75)));

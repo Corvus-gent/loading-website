@@ -494,10 +494,10 @@ function onMoveDone(job,pts){
   refreshUI()}
 function finale(){showMode='idle';const pts=lastPts||[];pts.forEach(d=>{for(let i=0;i<6;i++){const a=Math.random()*6.28,v=2+Math.random()*7;sparks.push({x:d.q[0],y:d.q[1],vx:Math.cos(a)*v,vy:Math.sin(a)*v,life:1.4,c:d.c})}});
   shock={t0:now()};const el=document.getElementById('toast');el.innerHTML=`${t('solved_in')}.<small>${t('solved_sub',{n:solveMoves,s:((now()-solveStart)/1000).toFixed(1)})}</small>`;el.classList.add('on');setTimeout(()=>el.classList.remove('on'),3200)}
-function scramble(){if(queue.length||anim)return;let seq=[],last=null;const n=20+Math.floor(Math.random()*5);while(seq.length<n){const o=allowedAfter(last);const m=o[Math.floor(Math.random()*o.length)];seq.push(m);last=m}
-  showMode='scrambling';seq.forEach(m=>enqueue(m,{kind:'scramble',dur:130}));enqueue(null,{kind:'end'})}
+function scramble(){if(queue.length||anim)return;let seq=[],last=null;const shortShow=document.documentElement.dataset.tier==='B',n=shortShow?8+Math.floor(Math.random()*3):20+Math.floor(Math.random()*5);while(seq.length<n){const o=allowedAfter(last);const m=o[Math.floor(Math.random()*o.length)];seq.push(m);last=m}
+  showMode='scrambling';seq.forEach(m=>enqueue(m,{kind:'scramble',dur:shortShow?90:130}));enqueue(null,{kind:'end'})}
 function solve(upto){if(!path.length||queue.length||anim)return;if(!solution.length){solution=[...path].reverse().map(inverse);solIndex=0;solveStart=now();solveMoves=solution.length}
-  showMode='solving';const end=upto===undefined?solution.length:upto+1;for(let i=solIndex;i<end;i++)enqueue(solution[i],{kind:'solve',idx:i,dur:solution[i].endsWith('2')?620:460});if(end<solution.length)enqueue(null,{kind:'end'});refreshUI()}
+  showMode='solving';const end=upto===undefined?solution.length:upto+1;for(let i=solIndex;i<end;i++)enqueue(solution[i],{kind:'solve',idx:i,dur:(solution[i].endsWith('2')?620:460)*(document.documentElement.dataset.tier==='B'?.6:1)});if(end<solution.length)enqueue(null,{kind:'end'});refreshUI()}
 function reset(){queue=[];anim=null;state=SOLVED;path=[];solution=[];solIndex=-1;showMode='idle';refreshUI()}
 document.getElementById('scramble').onclick=scramble;document.getElementById('solve').onclick=()=>solve();document.getElementById('reset').onclick=reset;
 const pad=document.getElementById('pad');
@@ -687,6 +687,7 @@ setTimeout(()=>{if(!path.length&&!queue.length)scramble()},1400);
 }
 </script>
 <script type="module">import { mountPolyglot } from '/the6cube/polyglot.js'; mountPolyglot(c => window.__cubeSetLang(c));</script>
+<script type="module" src="/the6cube/tier.js"></script>
 <script type="module" src="/the6cube/coffee.js"></script>
 </body>
 </html>
