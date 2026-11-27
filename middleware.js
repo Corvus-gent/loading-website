@@ -1,11 +1,12 @@
 // - stats.corvus.gent serves the stats pages at clean URLs; corvus.gent/stats redirects there
 // - curl / wget / scripts get counted, and curling the homepage gets a little reply
+import { cubeGate } from './the6cube-gate.js';
 import {tierPath} from './js/site/page-tiers.js';
 import {ogRoute} from "./js/og-routes.js";
 import {COMPOUND_LINKS} from "./js/compound-links.js";
 import { rewrite, next, waitUntil } from "@vercel/functions";
 
-export const config = { matcher: ["/((?!api/|js/|img/|cv/|papers/|.*\\.(?:css|js|png|jpg|svg|pdf|json|ico)$).*)", "/project-cto/:path*", "/api/_openrisk/:path*", "/api/_leads/:path*", "/data/warm-contacts.json"] };
+export const config = { matcher: ["/the6cube/:path*", "/((?!api/|js/|img/|cv/|papers/|.*\\.(?:css|js|png|jpg|svg|pdf|json|ico)$).*)", "/project-cto/:path*", "/api/_openrisk/:path*", "/api/_leads/:path*", "/data/warm-contacts.json"] };
 
 const COMPANY_LINKS = {
   "/enter": "/?utm_source=linkedin&utm_medium=company-page&utm_campaign=gabe-corvus-page&utm_content=button",
@@ -32,6 +33,13 @@ const CURL_REPLY = `
 
 export default function middleware(request) {
   const url = new URL(request.url);
+  if (url.pathname === '/the6cube' || url.pathname.startsWith('/the6cube/')) {
+    return cubeGate(request).then(gated => gated || routeRequest(request, url));
+  }
+  return routeRequest(request, url);
+}
+
+function routeRequest(request, url) {
   // Filesystem assets can win over rewrites: never serve the seed or templates.
   if (url.pathname === '/data/warm-contacts.json' || /^\/api\/_leads(?:\/|$)/.test(url.pathname)) {
     return new Response(null, { status:404, headers:{'Cache-Control':'private, no-store','X-Robots-Tag':'noindex, nofollow'} });

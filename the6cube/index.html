@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#060509">
+<meta name="description" content="Cube · Corvus.">
+<meta property="og:title" content="The 6 Cube · Corvus"><meta property="og:description" content="join the new realm. know thyself, then ask the cube."><meta property="og:image" content="https://corvus.gent/the6cube/assets/og.png"><meta name="twitter:card" content="summary_large_image">
+<title>The 6 Cube · Corvus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&display=swap" rel="stylesheet">
+<style>
+/* VOICE  an oracle in a trading room after hours: almost nothing is said
+   IDEA   the cube is alive; it wanders through its group one move at a time, and the four answers reshape it
+   PICTURE 54 points in perspective, hairline frame, one gold layer when it turns; each answer morphs the points
+   COLOUR  near-black, Corvus violet hairlines, sticker colours muted, gold only in motion and on choice
+   TYPE    Bodoni Moda for the question and the four words, mono for the only number */
+:root{--bg:#060509;--violet:#7a5cb0;--lav:#b4a0d6;--gold:#ffd76a;--cream:#efe7d2;--dim:rgba(239,231,210,.32);--serif:'Bodoni Moda',Didot,Georgia,serif;--mono:ui-monospace,SFMono-Regular,Menlo,monospace}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0;background:var(--bg);color:var(--cream)}
+html{overflow-x:clip;scroll-behavior:smooth}
+canvas{position:fixed;inset:0;width:100%;height:100%}
+#dio{opacity:0;animation:in 3s .2s forwards}
+.lantern{position:fixed;width:150px;height:150px;margin:-75px 0 0 -75px;pointer-events:none;z-index:0;opacity:0;animation:in 2.4s .6s forwards;transform:translate(var(--lx,0px),var(--ly,0px));transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.lantern i{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,rgba(255,226,140,.75),rgba(255,215,106,.18) 32%,transparent 68%);transform-origin:50% -60%;animation:swing 4.6s ease-in-out infinite,flick 2.3s ease-in-out infinite}
+.lantern i::after{content:"";position:absolute;left:50%;top:50%;width:7px;height:9px;margin:-4px 0 0 -3px;border-radius:40%;background:#fff3c4;box-shadow:0 0 14px 6px rgba(255,215,106,.7)}
+@keyframes swing{0%,100%{rotate:-7deg}50%{rotate:7deg}}
+@keyframes flick{0%,100%{filter:brightness(1)}37%{filter:brightness(.78)}41%{filter:brightness(1.15)}70%{filter:brightness(.9)}}
+.delphi{position:fixed;top:48px;left:0;right:0;text-align:center;margin:0;font:12px var(--serif);letter-spacing:.6em;color:rgba(255,215,106,.55);z-index:2;opacity:0;animation:in 2s 1.2s forwards;pointer-events:none}
+.voice{min-height:1.6em;margin:14px 0 0;font:italic 15px var(--serif);color:rgba(239,231,210,.55);transition:opacity .5s}
+.voice b{font:10px var(--mono);font-style:normal;letter-spacing:.2em;color:rgba(255,215,106,.6);margin-right:8px}
+header{position:fixed;top:28px;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:18px max(20px,4vw);z-index:2}
+header a img{width:22px;height:22px;border-radius:50%;opacity:.8;display:block}
+.tag{font:10.5px var(--mono);letter-spacing:.16em;color:var(--dim);text-transform:uppercase}
+main{position:relative;z-index:1;height:100svh;display:grid;place-items:end center;padding:0 20px max(9vh,56px);pointer-events:none}
+.oracle{text-align:center;pointer-events:auto}
+h1{font:400 clamp(28px,4.2vw,52px)/1.1 var(--serif);margin:0;opacity:0;animation:in 2s .6s forwards;letter-spacing:.005em}
+h1 em{font-style:italic;color:var(--gold)}
+ul{list-style:none;padding:0;margin:26px 0 0;display:flex;gap:0;justify-content:center;flex-wrap:wrap}
+li{opacity:0;animation:in 1.4s forwards}
+.ready li,.ready h1{animation:none;opacity:1}
+li:nth-child(1){animation-delay:1.6s}li:nth-child(2){animation-delay:1.85s}li:nth-child(3){animation-delay:2.1s}li:nth-child(4){animation-delay:2.35s}
+li+li::before{content:"·";color:var(--dim);padding:0 14px;font:20px var(--serif)}
+li a{color:var(--cream);text-decoration:none;font:italic 400 clamp(19px,2vw,24px) var(--serif);padding:10px 2px;display:inline-block;min-height:44px;border-bottom:1px solid transparent;transition:color .4s,border-color .4s}
+li a:hover,li a:focus-visible{color:var(--gold);border-color:var(--gold);outline:none}
+.whisper{position:fixed;left:0;right:0;bottom:16px;text-align:center;font:10.5px var(--mono);letter-spacing:.14em;color:var(--dim);z-index:2;opacity:0;animation:in 2s 2.8s forwards}
+@keyframes in{to{opacity:1}}
+body.leaving main,body.leaving .whisper,body.leaving header{opacity:0;transition:opacity .8s}
+
+/* below the oracle: previews of every realm, then the beautiful numbers */
+.hint{position:absolute;left:0;right:0;bottom:44px;text-align:center;font:10px var(--mono);letter-spacing:.3em;color:var(--dim);z-index:2;opacity:0;animation:in 2s 3.4s forwards,bob 2.4s 5s ease-in-out infinite;text-decoration:none}
+@keyframes bob{50%{transform:translateY(5px)}}
+.below{position:relative;z-index:3;background:linear-gradient(180deg,rgba(6,5,9,0),rgba(6,5,9,.94) 120px,var(--bg) 260px);padding:140px max(20px,4vw) 60px}
+.below .in{width:min(1180px,100%);margin:0 auto}
+.below h2{font:400 clamp(26px,3vw,38px)/1.1 var(--serif);margin:0 0 6px;text-align:center}
+.below h2 em{color:var(--gold)}
+.below .sub{font:11px var(--mono);letter-spacing:.14em;color:rgba(239,231,210,.45);text-align:center;margin:0 0 34px;text-transform:uppercase}
+.realms{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.realm{position:relative;display:grid;grid-template-rows:auto 1fr;border:1px solid #2c1f45;border-radius:18px;overflow:hidden;text-decoration:none;color:var(--cream);background:rgba(27,18,48,.35);transition:border-color .4s,transform .4s}
+.realm:hover,.realm:focus-visible{border-color:var(--gold);transform:translateY(-3px);outline:none}
+.realm canvas{position:static;width:100%;height:auto;aspect-ratio:16/10;display:block;background:#09070e}
+.realm .tx{padding:16px 18px 18px;display:grid;gap:6px}
+.realm b{font:italic 400 24px/1.1 var(--serif)}
+.realm p{margin:0;color:rgba(239,231,210,.62);font-size:14px;line-height:1.45}
+.realm small{font:11px var(--mono);color:var(--gold);letter-spacing:.04em}
+.nums{margin-top:110px}
+.phi{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:34px;align-items:center;margin-bottom:46px}
+.phi canvas{position:static;width:100%;height:auto;aspect-ratio:1/1;max-width:440px;justify-self:center;display:block}
+.phi .big{font:400 clamp(40px,5vw,64px)/1 var(--serif);color:var(--gold);margin:0 0 10px}
+.phi p{color:rgba(239,231,210,.7);margin:0 0 12px;max-width:52ch;font:italic 400 clamp(17px,1.6vw,20px)/1.5 var(--serif)}
+.phi .fib{font:12px var(--mono);color:rgba(239,231,210,.5);letter-spacing:.06em}
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.tile{border:1px solid #2c1f45;border-radius:14px;padding:16px;display:grid;gap:6px;align-content:start}
+.tile .n{font:700 34px/1 var(--serif);color:var(--gold)}
+.tile .n.cn{font-weight:400}
+.tile p{margin:0;font-size:13.5px;color:rgba(239,231,210,.66);line-height:1.45}
+.tile .k{font:10px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--lav)}
+.tile.myth{border-style:dashed}
+.pt{margin-top:100px!important}
+.pantheon{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px;perspective:1200px}
+/* god cards: a collectible-card treatment. tilt follows the pointer, foil catches the light, click flips */
+.card{position:relative;aspect-ratio:5/7;cursor:pointer;outline:none;--rx:0deg;--ry:0deg;--mx:50%;--my:50%}
+.card .inner{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(var(--rx)) rotateY(var(--ry));transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.card.flip .inner{transform:rotateX(var(--rx)) rotateY(calc(var(--ry) + 180deg))}
+.card .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;overflow:hidden;background:radial-gradient(ellipse at 50% 30%,#24183d,#0b0912 75%);box-shadow:0 18px 40px rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,215,106,.55),inset 0 0 0 6px #0b0912,inset 0 0 0 7px rgba(255,215,106,.28)}
+.card.gothic .face{box-shadow:0 18px 40px rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,92,92,.5),inset 0 0 0 6px #0b0912,inset 0 0 0 7px rgba(255,215,106,.4)}
+.card:focus-visible .face,.card:hover .face{box-shadow:0 26px 60px rgba(0,0,0,.6),0 0 40px rgba(255,215,106,.12),inset 0 0 0 1px var(--gold),inset 0 0 0 6px #0b0912,inset 0 0 0 7px rgba(255,215,106,.5)}
+.card img{position:absolute;inset:7px;width:calc(100% - 14px);height:calc(100% - 14px);object-fit:cover;border-radius:9px;opacity:0;filter:sepia(.3) saturate(.8) contrast(1.05) brightness(.7);transition:opacity .8s}
+.card img.ok{opacity:1}
+.card img.ok+canvas{opacity:.55;mix-blend-mode:screen}
+.card canvas.sigil{position:absolute;inset:7px;width:calc(100% - 14px);height:calc(100% - 14px)}
+.card .top{position:absolute;top:16px;left:18px;right:18px;display:flex;justify-content:space-between;font:14px var(--mono);color:var(--gold);text-shadow:0 0 8px rgba(255,215,106,.5)}
+.card .st{font-size:10px;letter-spacing:.2em}
+.card .nm{position:absolute;left:0;right:0;bottom:0;padding:44px 16px 16px;text-align:center;background:linear-gradient(transparent,rgba(6,5,9,.92) 55%)}
+.card .nm b{display:block;font:400 clamp(20px,1.8vw,26px)/1 var(--serif);color:var(--cream);letter-spacing:.02em}
+.card .nm i{display:block;margin-top:4px;font:italic 14px var(--serif);color:var(--gold)}
+.card .foil{position:absolute;inset:0;border-radius:14px;pointer-events:none;mix-blend-mode:color-dodge;opacity:0;transition:opacity .4s;background:radial-gradient(circle at var(--mx) var(--my),rgba(255,255,255,.35),transparent 45%),linear-gradient(115deg,transparent 20%,rgba(255,92,154,.25) 35%,rgba(255,215,106,.3) 45%,rgba(90,200,255,.25) 55%,rgba(180,160,214,.25) 65%,transparent 80%);background-size:100% 100%,250% 250%;background-position:center,var(--mx) var(--my)}
+.card:hover .foil{opacity:.9}
+.card .back{transform:rotateY(180deg);display:flex;flex-direction:column;justify-content:center;gap:10px;padding:26px 22px;text-align:center;background:repeating-linear-gradient(45deg,#120d1d 0 8px,#0e0a17 8px 16px)}
+.card .back b{font:400 22px var(--serif)}.card .back b i{color:rgba(239,231,210,.5)}
+.card .back span{font:12.5px/1.5 var(--mono);color:rgba(239,231,210,.75)}
+.card .back small{font:italic 14px/1.45 var(--serif);color:var(--gold)}
+.card .back em{font:italic 13px/1.45 var(--serif);color:rgba(239,231,210,.7)}
+.card .back a{align-self:center;color:var(--gold);text-decoration:none;font:20px var(--serif);border:1px solid rgba(255,215,106,.4);border-radius:999px;width:40px;height:40px;display:grid;place-items:center}
+/* the triumvirate: three original emblems */
+.tri .em{display:inline-block;width:30px;height:30px;vertical-align:-8px;margin:0 6px 0 2px}
+.tri b{color:var(--gold);font-weight:400}
+/* the cave: the oracle at Delphi spoke from below ground, over rising vapour */
+.cave{position:relative;margin:90px auto 0;max-width:760px;aspect-ratio:16/9}
+.cave canvas{position:absolute;inset:0;width:100%;height:100%}
+.cave .closing{position:absolute;left:0;right:0;bottom:16%;margin:0}
+@media(max-width:1100px){.pantheon{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.credit{font:10.5px var(--mono);color:rgba(239,231,210,.4);text-align:center;margin-top:14px}
+.pi{grid-template-columns:minmax(0,6fr) minmax(0,5fr)}
+.pi canvas{aspect-ratio:1/1}
+/* the guide: a small cube that flies along and says one true thing about where you are */
+#guide{position:fixed;right:22px;bottom:22px;z-index:20;display:flex;align-items:flex-end;gap:10px;pointer-events:none;opacity:0;transition:opacity .8s}
+#guide.on{opacity:1}
+#guide .say{pointer-events:auto;max-width:230px;font:italic 13.5px/1.4 var(--serif);color:var(--cream);background:rgba(11,9,18,.88);border:1px solid #2c1f45;border-radius:12px 12px 2px 12px;padding:9px 12px;backdrop-filter:blur(6px);transition:opacity .5s}
+#guide .say.hide{opacity:0}
+#guide .fly{width:26px;height:26px;perspective:200px;animation:hover 5.2s ease-in-out infinite;pointer-events:auto;cursor:pointer}
+#guide .c{position:relative;width:100%;height:100%;transform-style:preserve-3d;animation:spin 14s linear infinite}
+#guide .c i{position:absolute;inset:0;border:1px solid rgba(255,215,106,.45);border-radius:3px;background:rgba(122,92,176,.16)!important;box-shadow:inset 0 0 8px rgba(180,160,214,.35);backdrop-filter:blur(2px)}
+#guide .c i:nth-child(1){background:#e8e8e8;transform:translateZ(13px)}#guide .c i:nth-child(2){background:#ffd23f;transform:rotateY(180deg) translateZ(13px)}
+#guide .c i:nth-child(3){background:#d9433f;transform:rotateY(90deg) translateZ(13px)}#guide .c i:nth-child(4){background:#ff8c3a;transform:rotateY(-90deg) translateZ(13px)}
+#guide .c i:nth-child(5){background:#3b6fd8;transform:rotateX(90deg) translateZ(13px)}#guide .c i:nth-child(6){background:#3fa55b;transform:rotateX(-90deg) translateZ(13px)}
+#guide .fly{filter:drop-shadow(0 0 10px rgba(122,92,176,.7))}
+#guide .fly::before,#guide .fly::after{content:"";position:absolute;top:8px;width:16px;height:7px;border:1px solid rgba(180,160,214,.55);border-bottom:0;border-radius:50% 50% 0 0;animation:flap .35s ease-in-out infinite alternate}
+#guide .fly::before{left:-15px;transform-origin:right bottom}#guide .fly::after{right:-15px;transform-origin:left bottom}
+@keyframes hover{0%,100%{transform:translate(0,0)}25%{transform:translate(-6px,-9px)}50%{transform:translate(3px,-4px)}75%{transform:translate(-3px,-11px)}}
+@keyframes spin{to{transform:rotateX(360deg) rotateY(720deg)}}
+@keyframes flap{to{transform:rotate(-24deg)}}
+@media(max-width:900px){.pantheon{grid-template-columns:repeat(2,minmax(0,1fr))}.pi{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:560px){.pantheon{grid-template-columns:minmax(0,1fr)}#guide .say{max-width:180px}}
+@media(prefers-reduced-motion:reduce){#guide .fly,#guide .c,#guide .fly::before,#guide .fly::after{animation:none}}
+.tri{text-align:center;margin:40px auto 0;max-width:60ch;font:italic 400 clamp(17px,1.7vw,21px)/1.5 var(--serif);color:rgba(239,231,210,.75)}
+.tri b{color:var(--gold);font-weight:400}
+@media(max-width:900px){.pantheon{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.closing{text-align:center;margin:80px 0 10px;font:italic 400 clamp(20px,2.2vw,28px)/1.35 var(--serif);color:rgba(239,231,210,.8)}
+.closing a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(255,215,106,.4)}
+@media(max-width:900px){.realms{grid-template-columns:repeat(2,minmax(0,1fr))}.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.phi{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:560px){.realms{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:560px){li+li::before{padding:0 8px}}
+@media(prefers-reduced-motion:reduce){h1,li,.whisper{animation:none;opacity:1}}
+</style>
+</head>
+<body>
+<canvas id="dio" aria-hidden="true"></canvas><div class="lantern" id="lantern" aria-hidden="true"><i></i></div>
+<canvas id="cv" aria-hidden="true"></canvas>
+<p class="delphi" aria-label="Gnothi seauton: ken uzelf">ΓΝΩΘΙ ΣΑΥΤΟΝ</p>
+<header><a href="/" aria-label="Corvus"><img src="/the6cube/assets/day-1.svg" alt=""></a><span class="tag">Corvus × The Cube · <a href="/the6cube/brein/" title="the brain" style="text-decoration:none;color:var(--gold,#ffd76a)">东方议会</a> · <button id="share" type="button" style="all:unset;cursor:pointer;color:var(--gold,#ffd76a);pointer-events:auto">share ↗</button></span></header>
+<main><div class="oracle"><h1 id="q"></h1><ul id="doors"></ul><p class="voice" id="voice" aria-live="polite"></p></div><a class="hint" id="hint" href="#realms">↓</a></main>
+<div class="below" id="realms"><div class="in">
+  <h2 data-r="realms_t"></h2><p class="sub" data-r="realms_s"></p>
+  <div class="realms">
+    <a class="realm" data-door="lab"><canvas data-prev="lab"></canvas><div class="tx"><b data-r="lab_b"></b><p data-r="lab_p"></p><small data-r="lab_n"></small></div></a>
+    <a class="realm" data-door="casino"><canvas data-prev="casino"></canvas><div class="tx"><b data-r="casino_b"></b><p data-r="casino_p"></p><small data-r="casino_n"></small></div></a>
+    <a class="realm" data-door="show"><canvas data-prev="show"></canvas><div class="tx"><b data-r="show_b"></b><p data-r="show_p"></p><small data-r="show_n"></small></div></a>
+    <a class="realm" data-door="note"><canvas data-prev="note"></canvas><div class="tx"><b data-r="note_b"></b><p data-r="note_p"></p><small data-r="note_n"></small></div></a>
+    <a class="realm" href="/the6cube/brein/"><canvas data-prev="brain"></canvas><div class="tx"><b data-r="brain_b"></b><p data-r="brain_p"></p><small data-r="brain_n"></small></div></a>
+    <a class="realm" href="/the6cube/kas/"><canvas data-prev="kas"></canvas><div class="tx"><b data-r="kas_b"></b><p data-r="kas_p"></p><small data-r="kas_n"></small></div></a>
+  </div>
+  <div class="nums">
+    <h2 data-r-html="nums_t"></h2><p class="sub" data-r="nums_s"></p>
+    <div class="phi"><canvas id="sun" aria-hidden="true"></canvas><div><p class="big">φ = 1.6180339887…</p><p data-r="phi_p"></p><p data-r="phi_p2"></p><p class="fib">1 · 1 · 2 · 3 · 5 · 8 · 13 · 21 · 34 · 55 · 89 → 89/55 = 1.61818…</p></div></div>
+    <div class="phi pi"><div><p class="big">π = 3.14159265…</p><p data-r="pi_p"></p><p class="fib" id="piest"></p></div><canvas id="pi" aria-hidden="true"></canvas></div>
+    <div class="tiles">
+      <div class="tile"><span class="k" data-r="t1k"></span><span class="n">1729</span><p data-r="t1"></p></div>
+      <div class="tile"><span class="k" data-r="t2k"></span><span class="n cn">八 · 8</span><p data-r="t2"></p></div>
+      <div class="tile"><span class="k" data-r="t3k"></span><span class="n cn">四 · 4</span><p data-r="t3"></p></div>
+      <div class="tile"><span class="k" data-r="t4k"></span><span class="n">15</span><p data-r="t4"></p></div>
+      <div class="tile"><span class="k" data-r="t5k"></span><span class="n">20</span><p data-r="t5"></p></div>
+      <div class="tile"><span class="k" data-r="t6k"></span><span class="n">54</span><p data-r="t6"></p></div>
+      <div class="tile myth"><span class="k" data-r="t7k"></span><span class="n">11:11</span><p data-r="t7"></p></div>
+      <div class="tile"><span class="k" data-r="t8k"></span><span class="n">105</span><p data-r="t8"></p></div>
+    </div>
+    <h2 class="pt" data-r-html="pan_t"></h2><p class="sub" data-r="pan_s"></p>
+    <div class="pantheon" id="pantheon"></div>
+    <p class="credit" data-r="credit"></p>
+    <p class="tri" id="tri" data-r-html="tri"></p>
+    <div class="cave"><canvas id="cave" aria-hidden="true"></canvas><p class="closing" data-r-html="closing"></p></div>
+  </div>
+</div></div>
+<div class="whisper" id="whisper">|G| = 43 252 003 274 489 856 000</div>
+<script type="module">
+import { mountPolyglot, currentLang } from '/the6cube/polyglot.js';
+const ROUTES = window.CUBE_ROUTES || { lab: '/the6cube/lab/', casino: '/the6cube/monte-carlo/', show: '/the6cube/licht/', note: '/the6cube/nota/' };
+const T = {
+  es: { q: '¿Qué buscas en el <em>caos?</em>', doors: { lab: 'Un patrón', casino: 'Suerte', show: 'Un espectáculo', note: 'La verdad' }, who: 'DIÓGENES',
+    say: { idle: 'Busco con mi linterna. ¿Y tú?', lab: 'Dos caminos, un lugar. Cuéntalos.', casino: 'La casa no gana. Gana la ley.', show: 'Mira. Pero no creas a tus ojos.', note: 'La verdad tiene 65 bits.' } },
+  fr: { q: 'Que cherches-tu dans le <em>chaos ?</em>', doors: { lab: 'Un motif', casino: 'La chance', show: 'Un spectacle', note: 'La vérité' }, who: 'DIOGÈNE',
+    say: { idle: 'Je cherche avec ma lanterne. Et toi ?', lab: 'Deux chemins, un lieu. Compte-les.', casino: 'La maison ne gagne pas. La loi, si.', show: 'Regarde. Mais ne crois pas tes yeux.', note: 'La vérité tient en 65 bits.' } },
+  pt: { q: 'O que procuras no <em>caos?</em>', doors: { lab: 'Um padrão', casino: 'Sorte', show: 'Um espetáculo', note: 'A verdade' }, who: 'DIÓGENES',
+    say: { idle: 'Procuro com a minha lanterna. E tu?', lab: 'Dois caminhos, um lugar. Conta-os.', casino: 'A casa não ganha. A lei ganha.', show: 'Olha. Mas não confies nos teus olhos.', note: 'A verdade tem 65 bits.' } },
+  de: { q: 'Was suchst du im <em>Chaos?</em>', doors: { lab: 'Ein Muster', casino: 'Glück', show: 'Eine Vorstellung', note: 'Die Wahrheit' }, who: 'DIOGENES',
+    say: { idle: 'Ich suche mit meiner Laterne. Du auch?', lab: 'Zwei Wege, ein Ort. Zähl sie nach.', casino: 'Das Haus gewinnt nicht. Das Gesetz schon.', show: 'Schau hin. Aber trau deinen Augen nicht.', note: 'Die Wahrheit hat 65 Bit.' } },
+  zh: { q: '你在<em>混沌</em>中寻找什么？', doors: { lab: '一种规律', casino: '运气', show: '一场表演', note: '真相' }, who: '第欧根尼',
+    say: { idle: '我提着灯笼在寻找。你呢？', lab: '两条路，同一个地方。数一数。', casino: '庄家不会赢。规律会。', show: '看吧。但别相信你的眼睛。', note: '真相只有 65 比特。' } },
+  nl: { q: 'Wat zoek je in de <em>chaos?</em>', doors: { lab: 'Een patroon', casino: 'Geluk', show: 'Een voorstelling', note: 'De waarheid' }, who: 'DIOGENES',
+    say: { idle: 'Ik zoek met mijn lantaarn. Jij ook?', lab: 'Twee wegen, één plek. Tel ze na.', casino: 'Het huis wint niet. De wet wel.', show: 'Kijk. Maar geloof je ogen niet.', note: 'De waarheid heeft 65 bits.' } },
+  en: { q: 'What are you looking for in <em>chaos?</em>', doors: { lab: 'A pattern', casino: 'Luck', show: 'A show', note: 'The truth' }, who: 'DIOGENES',
+    say: { idle: 'I search with my lantern. So do you?', lab: 'Two roads, one place. Count them.', casino: 'The house does not win. The law does.', show: 'Look. But do not trust your eyes.', note: 'The truth has 65 bits.' } },
+};
+/* ---- A/B/C: one variable per variant, sticky per visitor, overridable with ?v=a|b|c ---- */
+const VARIANTS = {
+  a: { name: 'orakel', dio: 1, delphi: true, voice: true, q: null, cube: 1 },
+  b: { name: 'stilte', dio: 0, delphi: false, voice: false, q: { nl: 'Wat <em>zoek</em> je?', en: 'What do you <em>seek?</em>', es: '¿Qué <em>buscas?</em>', fr: 'Que <em>cherches</em>-tu ?', pt: 'O que <em>procuras?</em>', de: 'Was <em>suchst</em> du?', zh: '你在<em>寻找</em>什么？' }, cube: 1.12 },
+  c: { name: 'diogenes', dio: 1.6, delphi: true, voice: 'lead', q: { nl: '«Wat zoek <em>jij?</em>»', en: '«What do <em>you</em> seek?»', es: '«¿Qué buscas <em>tú?</em>»', fr: '« Que cherches-<em>tu ?</em> »', pt: '«O que procuras <em>tu?</em>»', de: '»Was suchst <em>du?</em>«', zh: '「<em>你</em>在寻找什么？」' }, cube: .82,
+    lead: { nl: 'met een lantaarn, op klaarlichte dag', en: 'with a lantern, in broad daylight', es: 'con una linterna, a plena luz del día', fr: 'avec une lanterne, en plein jour', pt: 'com uma lanterna, em pleno dia', de: 'mit einer Laterne, am helllichten Tag', zh: '提着灯笼，在光天化日之下' } },
+};
+const AB = (() => { const q = new URLSearchParams(location.search).get('v'); if (VARIANTS[q]) return q;
+  try { const s = localStorage.getItem('cube-ab'); if (VARIANTS[s]) return s; const r = 'abc'[Math.floor(Math.random() * 3)]; localStorage.setItem('cube-ab', r); return r; } catch { return 'a'; } })();
+const V = VARIANTS[AB];
+function track(type, extra = {}) {
+  const ev = { t: Date.now(), type, variant: AB, ...extra };
+  try { const log = JSON.parse(localStorage.getItem('cube-ab-log') || '[]'); log.push(ev); localStorage.setItem('cube-ab-log', JSON.stringify(log.slice(-200))); } catch {}
+  try { window.dispatchEvent(new CustomEvent('cube-ab', { detail: ev })); } catch {}
+  if (window.CUBE_AB_ENDPOINT) try { navigator.sendBeacon(window.CUBE_AB_ENDPOINT, JSON.stringify(ev)); } catch {}   // PostHog / Vercel endpoint plugs in here
+}
+document.documentElement.dataset.variant = AB;
+let lang = currentLang(Object.keys(T), 'en');
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---- a minimal cube: 54 stickers, real face turns ---- */
+const FACES = { U: [1, 1], R: [0, 1], F: [2, 1], D: [1, -1], L: [0, -1], B: [2, -1] };
+const COL = { U: '#d8d1c2', R: '#c25468', F: '#459d7d', D: '#d4b264', L: '#c47645', B: '#7277c4' };
+const stickers = Object.entries(FACES).flatMap(([f, [ax, sg]]) => { const rest = [0, 1, 2].filter(i => i !== ax);
+  return Array.from({ length: 9 }, (_, i) => { const p = [0, 0, 0], n = [0, 0, 0]; p[ax] = n[ax] = sg; p[rest[0]] = Math.floor(i / 3) - 1; p[rest[1]] = i % 3 - 1; return { f, p, n }; }); });
+const rot = (v, ax, a, snap) => { const i = (ax + 1) % 3, j = (ax + 2) % 3, c = Math.cos(a), s = Math.sin(a), r = [...v]; r[i] = v[i] * c - v[j] * s; r[j] = v[i] * s + v[j] * c; return snap ? r.map(Math.round) : r; };
+const info = m => { const [ax, sg] = FACES[m[0]]; const amt = m.endsWith('2') ? 2 : m.endsWith("'") ? -1 : 1; return { ax, sg, a: -sg * amt * Math.PI / 2 }; };
+const turn = (st, m, p = 1) => { const { ax, sg, a } = info(m); return st.map(s => s.p[ax] === sg ? { ...s, p: rot(s.p, ax, a * p, p === 1), n: rot(s.n, ax, a * p, p === 1) } : s); };
+const inv = m => m.endsWith('2') ? m : m.endsWith("'") ? m[0] : m + "'";
+const MOVES = Object.keys(FACES).flatMap(f => [f, f + "'", f + '2']);
+
+/* the cube wanders: a slow random walk, then retraces its steps home */
+let state = stickers, walk = [], plan = [], anim = null, pause = 1200;
+function nextMove() {
+  if (!plan.length) plan = walk.length >= 14 ? [...walk].reverse().map(inv) : [null];
+  const m = plan.shift();
+  if (m === null) { let c; do c = MOVES[Math.floor(Math.random() * 18)]; while (walk.length && c[0] === walk.at(-1)[0]); walk.push(c); return c; }
+  walk.pop(); return m;
+}
+
+/* ---- formations for the four answers (from the oracle) ---- */
+const N = 54;
+const shapes = {
+  lab: (i, tm) => { const side = i < 27 ? -1 : 1, j = i % 27, col = j % 3 + Math.floor(j / 9) * 3.6, row = Math.floor(j / 3) % 3, merge = (Math.sin(tm * .0012) + 1) / 2; return [side * (.62 - .52 * merge) + (col - 4.3) * .07, (row - 1) * .2]; },
+  casino: (i, tm) => { const a = i / N * Math.PI * 2 + tm * .0011; return [Math.cos(a) * .95, Math.sin(a) * .95]; },
+  show: (i, tm) => { if (i < 30) { const s = i % 2 ? 1 : -1, k = Math.floor(i / 2) / 15, sway = Math.sin(tm * .0009 + s) * .18; return [s * .55 + (sway - s * .55) * k + s * .03 * k, -1 + k * 1.7]; } const a = (i - 30) / 24 * Math.PI * 2 + tm * .0004; return [Math.cos(a) * .85, .78 + Math.sin(a) * .16]; },
+  note: i => { const col = i < 1 ? 0 : i < 3 ? 1 : i < 7 ? 2 : i < 13 ? 3 : i < 22 ? 4 : 5, start = [0, 1, 3, 7, 13, 22][col], row = i - start; return col < 5 ? [(col - 2.5) * .34, .8 - row * .2] : [(col - 2.5) * .34 + ((row % 2) - .5) * .12, .8 - Math.floor(row / 2) * .1]; },
+};
+const dots = stickers.map(s => ({ c: COL[s.f], x: 0, y: 0, z: 0, init: false }));
+let hover = null, morph = 0;
+
+/* ---- render ---- */
+const cv = document.getElementById('cv'), g = cv.getContext('2d');
+const oracleEl = document.querySelector('.oracle');
+let last = performance.now(), yaw = -.6;
+function frame(tm) {
+  const dt = Math.min(50, tm - last); last = tm;
+  const d = Math.min(2, devicePixelRatio || 1), W = cv.clientWidth * d, H = cv.clientHeight * d;
+  if (cv.width !== W || cv.height !== H) { cv.width = W; cv.height = H; }
+  const top = (oracleEl.getBoundingClientRect().top - 24) * d;   // the cube lives in the space above the question
+  let R = Math.min(W * .3, H * .24) * V.cube; R = Math.max(40 * d, Math.min(R, (top - 40 * d) / 2.7));
+  const cx = W / 2 + (V.dio > 1 && W > H ? W * .12 : 0), cy = Math.min(H * (W > H ? .4 : .36), top / 2 + 20 * d);
+  g.globalCompositeOperation = 'destination-out'; g.fillStyle = 'rgba(0,0,0,.34)'; g.fillRect(0, 0, W, H); g.globalCompositeOperation = 'source-over';
+  // advance the walk
+  if (!reduced && !hover) {
+    if (anim) { anim.p += dt / 620; if (anim.p >= 1) { state = turn(state, anim.m); anim = null; pause = !walk.length ? 2600 : plan.length && walk.length < 14 ? 90 : 560; } }
+    else if ((pause -= dt) <= 0) anim = { m: nextMove(), p: 0 };
+    yaw += dt * .00016;
+  }
+  morph += ((hover ? 1 : 0) - morph) * .07;
+  const ease = x => x < .5 ? 4 * x * x * x : 1 - (-2 * x + 2) ** 3 / 2;
+  const shown = anim ? turn(state, anim.m, ease(anim.p)) : state;
+  const cyaw = Math.cos(yaw), syaw = Math.sin(yaw), pitch = .46, cp = Math.cos(pitch), sp = Math.sin(pitch), dist = 9, F = R / 1.9 * dist / dist;
+  const proj = v => { const x1 = v[0] * cyaw + v[2] * syaw, z1 = -v[0] * syaw + v[2] * cyaw, y1 = v[1] * cp - z1 * sp, z2 = v[1] * sp + z1 * cp, f = R / 2.5 * dist / (dist - z2); return [cx + x1 * f, cy - y1 * f, z2]; };
+  // hairline frame of the cube + the turning layer in gold
+  g.lineWidth = d; g.strokeStyle = `rgba(122,92,176,${.35 * (1 - morph)})`;
+  const c = [-1.5, 1.5]; const E = [];
+  for (const a of c) for (const b of c) { E.push([[a, b, -1.5], [a, b, 1.5]], [[a, -1.5, b], [a, 1.5, b]], [[-1.5, a, b], [1.5, a, b]]); }
+  for (const [p, q] of E) { const A = proj(p), B = proj(q); g.beginPath(); g.moveTo(A[0], A[1]); g.lineTo(B[0], B[1]); g.stroke(); }
+  if (anim && morph < .5) { const { ax, sg, a } = info(anim.m); g.strokeStyle = `rgba(255,215,106,${.55 * Math.sin(Math.PI * anim.p)})`; g.lineWidth = 1.4 * d; g.beginPath();
+    for (let k = 0; k <= 64; k++) { const p0 = [0, 0, 0]; p0[ax] = sg; p0[(ax + 1) % 3] = 1.7; const q = proj(rot(p0, ax, k / 64 * Math.PI * 2)); k ? g.lineTo(q[0], q[1]) : g.moveTo(q[0], q[1]); } g.stroke(); }
+  // points: cube positions blended with the hovered formation
+  const f = hover && shapes[hover];
+  shown.forEach((s, i) => {
+    const q = proj(s.p.map((v, k) => v * .95 + s.n[k] * .5));
+    let tx = q[0], ty = q[1];
+    if (f) { const [x, y] = f(i, reduced ? 0 : tm); tx = q[0] + (cx + x * R * 1.25 - q[0]) * morph; ty = q[1] + (cy + y * R * 1.25 - q[1]) * morph; }
+    const p = dots[i]; if (!p.init) { p.x = tx; p.y = ty; p.init = true; } p.x += (tx - p.x) * .25; p.y += (ty - p.y) * .25; p.z = q[2];
+  });
+  const order = dots.map((p, i) => i).sort((a, b) => dots[a].z - dots[b].z);
+  g.globalCompositeOperation = 'lighter';
+  for (const i of order) { const p = dots[i], front = Math.max(.12, Math.min(1, (p.z + 2.2) / 3.6)) * (1 - morph) + morph;
+    const gr = g.createRadialGradient(p.x, p.y, 0, p.x, p.y, 9 * d); gr.addColorStop(0, p.c); gr.addColorStop(1, 'transparent'); g.fillStyle = gr; g.globalAlpha = .45 * front; g.beginPath(); g.arc(p.x, p.y, 9 * d, 0, 7); g.fill(); }
+  g.globalCompositeOperation = 'source-over';
+  for (const i of order) { const p = dots[i], front = Math.max(.12, Math.min(1, (p.z + 2.2) / 3.6)) * (1 - morph) + morph; g.globalAlpha = front; g.fillStyle = p.c; g.beginPath(); g.arc(p.x, p.y, 2.4 * d, 0, 7); g.fill(); }
+  g.globalAlpha = 1;
+  requestAnimationFrame(frame);
+}
+
+/* ---- the four words ---- */
+function render() {
+  document.documentElement.lang = lang;
+  document.getElementById('q').innerHTML = V.q ? V.q[lang] : T[lang].q;
+  document.getElementById('doors').replaceChildren(...Object.keys(ROUTES).map(id => {
+    const li = document.createElement('li'), a = document.createElement('a');
+    a.href = ROUTES[id] + '?lang=' + lang + '&ab=' + AB; a.textContent = T[lang].doors[id] + '.'; a.dataset.door = id;
+    const on = () => { if (hover !== id) track('hover', { door: id }); hover = id; speak(id); }, off = () => { hover = null; speak('idle'); };
+    a.addEventListener('pointerenter', on); a.addEventListener('focus', on); a.addEventListener('pointerleave', off); a.addEventListener('blur', off);
+    a.addEventListener('click', e => { e.preventDefault(); track('choose', { door: id, ms: Math.round(performance.now()) }); try { localStorage.setItem('cube-door', id); } catch {} hover = id; document.body.classList.add('leaving'); setTimeout(() => { location.href = a.href; }, reduced ? 0 : 800); });
+    li.append(a); return li;
+  }));
+}
+function speak(k) { const v = document.getElementById('voice'); if (!V.voice) { v.textContent = ''; return; } v.innerHTML = V.voice === 'lead' && k === 'idle' ? `<b>${T[lang].who}</b>${V.lead[lang]}` : `<b>${T[lang].who}</b>${T[lang].say[k]}`; }
+/* Diogenes in the dark: the painting as a faint halftone, his lantern as the only warm light */
+function drawDiogenes() {
+  const c = document.getElementById('dio'), img = new Image(); img.src = '/the6cube/assets/diogenes.webp';
+  img.onload = () => {
+    const d = Math.min(2, devicePixelRatio || 1), W = c.clientWidth * d, H = c.clientHeight * d; c.width = W; c.height = H; const x = c.getContext('2d');
+    if (!V.dio) return;
+    const wide = W > H, h = (wide ? H * .8 : H * .42) * (V.dio > 1 ? 1.15 : 1), s = h / img.height, w = img.width * s, ox = wide ? -w * .12 : (W - w) / 2, oy = wide ? H - h : H - h * 1.02;
+    const off = document.createElement('canvas'); off.width = W; off.height = H; const o = off.getContext('2d'); o.drawImage(img, ox, oy, w, h); const data = o.getImageData(0, 0, W, H).data;
+    const step = Math.round(6 * d), lx = ox + w * .30, ly = oy + h * .46;
+    for (let y = step / 2; y < H; y += step) for (let xx = step / 2; xx < W; xx += step) {
+      const i = (Math.floor(y) * W + Math.floor(xx)) * 4, l = (data[i] + data[i + 1] + data[i + 2]) / 765, a = data[i + 3] / 255; if (!a || l < .08) continue;
+      const fade = Math.max(0, 1 - Math.hypot((xx - (ox + w * .45)) / (w * .7), (y - (oy + h * .55)) / (h * .75)));
+      const gold = Math.max(0, 1 - Math.hypot(xx - lx, y - ly) / (w * .16));
+      x.fillStyle = gold > .05 ? `rgba(255,${200 + 30 * gold | 0},110,${(.2 + .7 * gold) * l})` : `rgba(122,92,176,${.22 * V.dio * l * fade})`;
+      x.beginPath(); x.arc(xx, y, l * step * .5, 0, 7); x.fill();
+    }
+    const L = document.getElementById('lantern'); L.style.left = lx / d + 'px'; L.style.top = ly / d + 'px';
+  };
+}
+if (!V.delphi) document.querySelector('.delphi').remove();
+if (!V.dio) document.getElementById('lantern').remove();
+mountPolyglot(code => { document.querySelector('.oracle').classList.add('ready'); lang = code; render(); speak('idle'); dispatchEvent(new CustomEvent('cube-lang', { detail: code })); });
+render(); speak('idle'); drawDiogenes(); track('exposure', { lang, w: innerWidth });
+addEventListener('resize', () => { clearTimeout(drawDiogenes.t); drawDiogenes.t = setTimeout(drawDiogenes, 200); });
+// Diogenes searches: the lantern leans a little toward whoever is looking
+addEventListener('pointermove', e => { const L = document.getElementById('lantern'); if (!L || reduced) return; const r = L.getBoundingClientRect(), dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2), k = Math.min(1, 220 / (Math.hypot(dx, dy) + 1));
+  L.style.setProperty('--lx', (dx * .06 * k).toFixed(1) + 'px'); L.style.setProperty('--ly', (dy * .04 * k).toFixed(1) + 'px'); }, { passive: true });
+requestAnimationFrame(frame);
+document.getElementById('whisper').addEventListener('click', () => window.cubeCoffee?.open('portal'));   // bean: the order of the group
+</script>
+<div id="guide" aria-live="polite"><p class="say" id="say"></p><div class="fly" id="fly" title="↑"><div class="c"><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div>
+<script type="module" src="/the6cube/realms.js"></script>
+<script type="module" src="/the6cube/coffee.js"></script>
+</body>
+</html>

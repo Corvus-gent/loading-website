@@ -1,0 +1,773 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d0a12">
+<title>Onderzoeksnota · Cube · Corvus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,600;1,6..96,500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE  a research note written at night: precise, quiet, philosophical — Corvus
+   IDEA   the cube group as an object of study: a solve rendered like an instrument trace, then the decision tree, then the proofs
+   PICTURE restrained light-trace solve (cube + permutation wheel) with live group telemetry; the tree; Monte Carlo and bounds as figures
+   COLOUR  ink #0d0a12, one violet accent, lantern gold only for what is true/selected; stickers muted
+   TYPE    Bodoni Moda for voice, Instrument Sans for reading, mono for notation and data */
+:root{
+  --bg:#0d0a12; --bg2:#120d1a; --deep:#1d1430; --plum:#2c1f45; --violet:#5b3e8c; --lilac:#7a5cb0; --lav:#b4a0d6;
+  --gold:#ffd76a; --cream:#efe7d2; --fg:rgba(239,231,210,.9); --mute:rgba(239,231,210,.58); --faint:rgba(239,231,210,.16);
+  --serif:'Bodoni Moda','Didot','Bodoni 72',Georgia,serif; --sans:'Instrument Sans',ui-sans-serif,system-ui,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;min-width:0}
+html{background:var(--bg);color:var(--fg);font:16px/1.6 var(--sans);-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+body{margin:0;overflow-x:clip;background:var(--bg)}
+a{color:var(--lav)}
+button{font:inherit;color:inherit}
+.wrap{width:min(1240px,100% - 40px);margin:0 auto}
+
+header.site{position:sticky;top:0;z-index:20;backdrop-filter:blur(12px);background:rgba(13,10,18,.62);border-bottom:1px solid rgba(91,62,140,.25)}
+header.site .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:16px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--cream)}
+.brand img{width:34px;height:34px;border-radius:50%}
+.brand span{font-family:var(--serif);letter-spacing:.42em;font-size:15px}
+
+h1,h2{font-family:var(--serif);font-weight:400;color:var(--cream);margin:0;text-wrap:balance}
+h1{font-size:clamp(38px,5vw,68px);line-height:1.02}
+h2{font-size:clamp(32px,4vw,52px);line-height:1.05}
+em.g{font-style:italic;color:var(--gold);font-weight:500}
+p.lead{color:var(--mute);font-size:clamp(16px,1.3vw,17.5px);max-width:48ch}
+.chnum{font-family:var(--mono);color:var(--lilac);font-size:13px;margin-bottom:10px}
+.tele{position:absolute;right:max(20px,calc((100% - 1240px)/2));top:40px;margin:0;font:12px/1.75 var(--mono);color:var(--mute);border-left:1px solid var(--violet);padding:2px 0 2px 14px;white-space:pre;pointer-events:none}
+.tele b{color:var(--cream);font-weight:500}.tele .gd{color:var(--gold)}
+.cap{font-family:var(--mono);font-size:12px;color:var(--mute);margin:12px 0 0;max-width:80ch}
+.fig{position:relative;height:380px;margin-top:22px}.fig>svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.bound{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:40px;padding-top:28px;border-top:1px solid rgba(91,62,140,.25)}
+.bound .k{font-family:var(--serif);font-size:clamp(28px,3vw,40px);color:var(--cream);line-height:1.1}
+.bound .k em{color:var(--gold)}
+.bound p{color:var(--mute);font-size:14.5px;margin:6px 0 0}
+table.cum{border-collapse:collapse;font:12.5px var(--mono);margin-top:18px}
+table.cum td,table.cum th{padding:4px 18px 4px 0;text-align:right;color:var(--mute);font-weight:400}
+table.cum th{color:var(--lav);border-bottom:1px solid rgba(91,62,140,.35)}
+table.cum tr.hit td{color:var(--gold)}
+.ladder{font-family:var(--mono);font-size:13px;color:var(--cream);margin-top:18px;line-height:1.9}
+
+/* ---------- the show ---------- */
+.show{position:relative;height:calc(100svh - 60px);min-height:640px;overflow:hidden;background:radial-gradient(900px 600px at 64% 48%,rgba(91,62,140,.12),transparent 65%),var(--bg)}
+.show canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:grab}
+.show canvas:active{cursor:grabbing}
+.show .copy{position:absolute;left:max(20px,calc((100% - 1240px)/2));top:44px;width:min(440px,90%);pointer-events:none}
+.show .copy p{pointer-events:auto}
+.dock{position:absolute;left:max(20px,calc((100% - 1240px)/2));bottom:22px;width:min(450px,100% - 40px);display:flex;flex-direction:column;gap:10px;pointer-events:none}
+.dock>*{pointer-events:auto}
+.panel{background:rgba(18,13,26,.72);backdrop-filter:blur(14px);border:1px solid rgba(91,62,140,.4);border-radius:18px;padding:12px}
+.acts{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{border:1px solid rgba(122,92,176,.55);background:rgba(44,31,69,.5);padding:11px 18px;border-radius:999px;cursor:pointer;font-size:14px;min-height:44px;transition:.2s}
+.btn:hover{border-color:var(--lav);background:rgba(91,62,140,.5)}
+.btn.primary{background:var(--gold);color:#1a1206;border-color:var(--gold);font-weight:600}
+.btn.big{font-size:16px;padding:13px 26px}
+.btn:disabled{opacity:.4;cursor:default}
+.seg{display:flex;border:1px solid rgba(122,92,176,.45);border-radius:999px;padding:3px}
+.seg button{background:none;border:0;border-radius:999px;padding:8px 12px;font-size:12.5px;color:var(--mute);cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--violet);color:var(--cream)}
+.pad{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px}
+.pad button{font-family:var(--mono);font-size:13px;height:34px;border-radius:8px;border:1px solid rgba(122,92,176,.28);background:rgba(13,10,18,.7);cursor:pointer;color:var(--cream);border-bottom:2px solid var(--c)}
+.pad button:hover{border-color:var(--lav)}
+.meter{font-family:var(--mono);font-size:12px;color:var(--mute);display:flex;gap:16px;align-items:center;margin-top:10px}
+.meter b{color:var(--cream);font-weight:500}
+.bar{flex:1;height:4px;border-radius:4px;background:rgba(122,92,176,.25);overflow:hidden;min-width:80px}
+.bar i{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--lilac),var(--gold));transition:width .3s}
+details.moves{width:100%}
+details.moves summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:12px;font-size:14px;padding:4px 6px}
+details.moves summary::-webkit-details-marker{display:none}
+details.moves summary::after{content:"▴";color:var(--lav)}
+details.moves[open] summary::after{content:"▾"}
+details.moves ol{margin:8px 0 0;padding:0;list-style:none;max-height:min(260px,34svh);overflow:auto;counter-reset:m}
+details.moves li{counter-increment:m;display:grid;grid-template-columns:26px 40px 1fr;gap:8px;align-items:center;padding:6px 8px;border-radius:8px;font-size:13px;color:var(--mute);cursor:pointer}
+details.moves li::before{content:counter(m);font-family:var(--mono);font-size:11px;color:rgba(239,231,210,.3)}
+details.moves li code{font-family:var(--mono);color:var(--cream);font-size:14px;border-bottom:2px solid var(--c);width:max-content}
+details.moves li.done{opacity:.32}
+details.moves li.cur{background:rgba(255,215,106,.1);color:var(--cream)}
+details.moves .empty{color:var(--mute);font-size:13px;margin:8px 6px 4px}
+.hint{font-size:12px;color:var(--mute);margin:8px 2px 0}
+.hint kbd{font-family:var(--mono);color:var(--cream);border:1px solid var(--faint);border-radius:4px;padding:0 4px;font-size:11px}
+.toast{position:absolute;left:64%;top:12%;transform:translate(-50%,-50%) scale(.96);font-family:var(--serif);font-size:clamp(30px,5vw,64px);color:var(--gold);font-style:italic;opacity:0;pointer-events:none;transition:opacity .6s,transform .9s;text-align:center}
+.toast small{display:block;font-family:var(--mono);font-style:normal;font-size:13px;color:var(--cream);letter-spacing:.1em;margin-top:8px}
+.toast.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
+
+/* ---------- the tree ---------- */
+section.treesec{position:relative;padding:90px 0 40px;background:linear-gradient(180deg,var(--bg),#100a1a 40%,#0b0810)}
+.treehead{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
+.treefig{position:relative;height:min(860px,92svh);min-height:560px;margin-top:10px}
+.treefig canvas{position:absolute;inset:0;width:100%;height:100%}
+.tip{position:absolute;pointer-events:none;background:rgba(29,20,48,.92);border:1px solid var(--lilac);border-radius:10px;padding:8px 10px;font-size:12.5px;color:var(--cream);opacity:0;transition:opacity .15s;max-width:240px;z-index:3}
+.tip code{font-family:var(--mono);color:var(--gold)}
+.selbar{display:flex;gap:14px;align-items:center;flex-wrap:wrap;font-size:14px;color:var(--mute);margin-top:6px}
+.selbar code{font-family:var(--mono);color:var(--gold);font-size:16px}
+.tstats{font-family:var(--mono);font-size:12px;color:var(--mute);display:grid;grid-template-columns:repeat(4,auto);justify-content:start;gap:3px 30px;margin-top:28px}
+.tstats b{color:var(--cream);font-weight:500}.tstats .d{color:var(--gold)}
+
+/* ---------- chapters ---------- */
+section.ch{padding:110px 0;position:relative;border-top:1px solid rgba(91,62,140,.18)}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center}
+.mini{position:relative;aspect-ratio:1/1;width:100%;max-width:520px;justify-self:center}
+.mini canvas{position:absolute;inset:0;width:100%;height:100%}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0}
+.chip{font-family:var(--mono);font-size:13px;padding:8px 12px;border-radius:999px;border:1px solid rgba(122,92,176,.4);background:transparent;cursor:pointer;color:var(--cream);min-height:36px}
+.chip[aria-pressed=true]{background:var(--violet);border-color:var(--lilac)}
+.orderline{display:flex;align-items:baseline;gap:14px;margin:8px 0 18px;flex-wrap:wrap}
+.big{font-family:var(--serif);font-size:clamp(56px,8vw,104px);line-height:1;color:var(--gold)}
+.cycles{display:flex;flex-direction:column;gap:6px;max-height:220px;overflow:hidden;mask-image:linear-gradient(#000 75%,transparent)}
+.cyc{display:flex;align-items:center;gap:4px;font-family:var(--mono);font-size:11px;color:var(--mute)}
+.cyc i{width:10px;height:10px;border-radius:50%;background:var(--c);box-shadow:0 0 6px var(--c);display:inline-block}
+.cyc span{margin-left:8px}
+.factors{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:34px 0}
+.factor{border:1px solid rgba(91,62,140,.35);border-radius:16px;padding:18px;background:linear-gradient(180deg,rgba(44,31,69,.35),rgba(18,13,26,.2))}
+.factor .f{font-family:var(--serif);font-size:30px;color:var(--gold)}
+.factor .v{font-family:var(--mono);font-size:12px;color:var(--lav)}
+.factor p{font-size:13.5px;color:var(--mute);margin:8px 0 0}
+.counter{font-family:var(--mono);font-size:clamp(20px,3.6vw,44px);color:var(--cream);word-break:break-all}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:34px}
+.facts div{border-left:1px solid var(--violet);padding-left:16px;color:var(--mute);font-size:14.5px}
+.facts b{display:block;color:var(--cream);font-family:var(--serif);font-weight:400;font-size:24px}
+#god{overflow:hidden}
+#halftone{position:absolute;inset:0;width:100%;height:100%;opacity:.85;pointer-events:none;mask-image:linear-gradient(90deg,transparent,#000 55%)}
+#god .wrap{position:relative}
+.bars{display:flex;align-items:flex-end;gap:4px;height:300px;margin-top:20px}
+.gbar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;position:relative}
+.gbar i{display:block;width:100%;border-radius:4px 4px 0 0;background:linear-gradient(180deg,var(--lilac),rgba(91,62,140,.25));height:0;transition:height 1.2s cubic-bezier(.2,.7,.2,1)}
+.gbar.twenty i{background:linear-gradient(180deg,var(--gold),rgba(255,215,106,.2))}
+.gbar.you i{box-shadow:0 0 0 2px var(--gold),0 0 22px rgba(255,215,106,.5)}
+.gbar span{font-family:var(--mono);font-size:10.5px;color:var(--mute);margin-top:6px}
+.gbar .t{position:absolute;bottom:calc(100% + 6px);font-family:var(--mono);font-size:11px;color:var(--cream);background:var(--plum);padding:4px 8px;border-radius:6px;white-space:nowrap;opacity:0;pointer-events:none;z-index:2}
+.gbar:hover .t{opacity:1}
+.youtag{font-family:var(--mono);font-size:12px;color:var(--gold);margin-top:14px;min-height:1.4em}
+
+footer{padding:70px 0 60px;border-top:1px solid rgba(91,62,140,.18);color:var(--mute);font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+footer img{width:72px;image-rendering:pixelated}
+footer .sig{display:flex;align-items:center;gap:14px}
+footer .sig em{font-family:var(--serif);color:var(--cream);font-size:18px}
+
+@media (max-width:900px){
+  .show{height:auto;min-height:0;display:flex;flex-direction:column}
+  .show .copy{position:relative;left:auto;top:auto;width:auto;padding:26px 20px 0;order:-1}
+  .toast{left:50%;top:30%}
+  .show canvas{position:relative;height:62svh;min-height:380px}
+  .dock{position:relative;left:auto;transform:none;bottom:auto;width:auto;margin:0 16px 22px;flex-direction:column;align-items:stretch}
+  details.moves{width:100%}
+  .pad{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .split{grid-template-columns:minmax(0,1fr);gap:20px}
+  .factors{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .facts{grid-template-columns:minmax(0,1fr)}
+  section.ch{padding:72px 0}
+  .bars{height:220px;gap:2px}.gbar span{font-size:9px}
+  .brand span{display:none}
+  .treefig{height:78svh;min-height:520px}
+  .tstats{gap:3px 16px}
+  .tele{position:relative;right:auto;top:auto;margin:0 20px 14px;order:0}
+  .bound{grid-template-columns:minmax(0,1fr)}
+  .fig{height:300px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="/"><img src="/the6cube/assets/day-1.svg" alt="Corvus"><span>CORVUS</span></a><a href="/the6cube/" style="font:12px ui-monospace,monospace;color:#b4a0d6;text-decoration:none">← 🏛️ portal</a>
+  </div>
+</header>
+
+<main>
+  <section class="show" id="show">
+    <canvas id="hero" aria-label="Rubik's cube"></canvas>
+    <div class="copy">
+      <h1 data-i18n-html="show_title"></h1>
+      <p class="lead" data-i18n="show_lead"></p>
+    </div>
+    <pre class="tele" id="tele" aria-live="off"></pre>
+    <div class="toast" id="toast"></div>
+    <div class="dock">
+      <div class="panel">
+        <div class="acts">
+          <button class="btn" id="scramble" data-i18n="scramble"></button>
+          <button class="btn primary big" id="solve" data-i18n="solve"></button>
+          <button class="btn" id="reset" data-i18n="reset"></button>
+          <div class="seg" id="palette" role="group"></div>
+        </div>
+        <div class="meter"><span><span data-i18n="home"></span> <b id="home">54/54</b></span><div class="bar"><i id="homebar"></i></div><span><span data-i18n="depth"></span> <b id="depthv">0</b></span></div>
+      </div>
+      <div class="panel">
+        <div class="pad" id="pad"></div>
+        <p class="hint" data-i18n-html="hint"></p>
+      </div>
+      <details class="moves panel" id="movesbox">
+        <summary><span id="movesum"></span></summary>
+        <ol id="movelist"></ol>
+        <p class="empty" id="moveempty" data-i18n="solved_empty"></p>
+      </details>
+    </div>
+  </section>
+
+  <section class="treesec" id="tree">
+    <div class="wrap">
+      <div class="treehead">
+        <div>
+          <h2 data-i18n-html="c4_title"></h2>
+          <p class="lead" data-i18n="tree_lead"></p>
+        </div>
+        <button class="btn" id="treefrom" data-i18n="tree_from"></button>
+      </div>
+    </div>
+    <div class="treefig" id="treefig"><canvas id="treecv" aria-label="Beslisboom"></canvas><div class="tip" id="tip"></div></div>
+    <div class="wrap">
+      <div class="selbar"><span data-i18n="path"></span> <code id="selpath">·</code><button class="btn primary" id="loadsel" data-i18n="load_solve"></button></div>
+      <div class="tstats" id="treestats"></div>
+    </div>
+  </section>
+
+  <section class="ch" id="perm">
+    <div class="wrap split">
+      <div>
+        <div class="chnum">§1 · permutation</div>
+        <h2 data-i18n-html="c1_title"></h2>
+        <p class="lead" data-i18n="c1_body"></p>
+        <div class="chips" id="seqchips"></div>
+        <div class="orderline"><span class="big" id="order">4</span><span class="lead" id="ordertext" style="margin:0"></span></div>
+        <div class="cycles" id="cycles"></div>
+      </div>
+      <div class="mini"><canvas id="permcv"></canvas></div>
+    </div>
+  </section>
+
+  <section class="ch" id="count">
+    <div class="wrap" id="countbox">
+      <div class="chnum">§2 · counting &amp; information</div>
+      <h2 data-i18n-html="c2_title"></h2>
+      <p class="lead" data-i18n="c2_body"></p>
+      <div class="factors">
+        <div class="factor"><div class="f">8!</div><div class="v">40 320</div><p data-i18n="f1"></p></div>
+        <div class="factor"><div class="f">3<sup>7</sup></div><div class="v">2 187</div><p data-i18n="f2"></p></div>
+        <div class="factor"><div class="f">12! / 2</div><div class="v">239 500 800</div><p data-i18n="f3"></p></div>
+        <div class="factor"><div class="f">2<sup>11</sup></div><div class="v">2 048</div><p data-i18n="f4"></p></div>
+      </div>
+      <div class="counter" id="counter">0</div>
+      <div class="facts">
+        <div><b data-i18n="fa1"></b><span data-i18n="fa1b"></span></div>
+        <div><b data-i18n="fa2"></b><span data-i18n="fa2b"></span></div>
+        <div><b data-i18n="fa3"></b><span data-i18n="fa3b"></span></div>
+      </div>
+      <div class="bound">
+        <div><div class="k">log₂|G| ≈ <em>65,23</em></div><p data-i18n="b1"></p></div>
+        <div><div class="k">log₂ 18 ≈ <em>4,17</em></div><p data-i18n="b2"></p></div>
+        <div><div class="k">⇒ d<sub>max</sub> ≥ <em>18</em></div><p data-i18n="b3"></p></div>
+      </div>
+      <table class="cum" id="cumtable"></table>
+    </div>
+  </section>
+
+  <section class="ch" id="mix">
+    <div class="wrap" id="mixbox">
+      <div class="chnum">§3 · mixing</div>
+      <h2 data-i18n-html="c5_title"></h2>
+      <p class="lead" data-i18n="c5_body"></p>
+      <div class="chips"><button class="chip" id="mcrun" data-i18n="mc_rerun"></button><span class="cap" id="mcstat" style="margin:0;align-self:center"></span></div>
+      <div class="fig" id="mcfig"><svg id="mcsvg" role="img"></svg></div>
+      <p class="cap" id="mccap"></p>
+    </div>
+  </section>
+
+  <section class="ch" id="god">
+    <canvas id="halftone" aria-hidden="true"></canvas>
+    <div class="wrap" id="godbox">
+      <div class="chnum">§4 · god's number</div>
+      <h2 data-i18n-html="c3_title"></h2>
+      <p class="lead" data-i18n="c3_body"></p>
+      <div class="chips" id="scalechips"><button class="chip" data-s="log" aria-pressed="true">log₁₀</button><button class="chip" data-s="lin" aria-pressed="false" data-i18n="linear"></button></div>
+      <div class="bars" id="bars" role="img"></div>
+      <div class="youtag" id="youtag"></div>
+      <p class="cap" data-i18n="cap_god"></p>
+      <div class="ladder" data-i18n-html="ladder"></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="sig"><img src="/the6cube/assets/wing-flight.webp" alt="" style="cursor:pointer" onclick="window.cubeCoffee?.open('crow')"><div><em data-i18n="sign"></em><br><span>corvus.gent</span></div></div>
+    <span data-i18n-html="credit"></span>
+  </div>
+</footer>
+
+<script>
+{
+'use strict';
+const LANGS=[['nl','NL'],['en','EN'],['fr','FR'],['de','DE'],['es','ES'],['pt','PT'],['zh','中文'],['hi','हिं'],['ta','த']];
+const T={
+nl:{eyebrow:'Eén kubus · 54 stickers',title:'Elke draai is een <em class="g">permutatie.</em>',lead:'Achter een speelgoedkubus zit een van de mooiste structuren uit de wiskunde. Scramble hem, draai zelf, of laat hem de weg terug vinden.',
+scramble:'Scramble',solve:'Los op',reset:'Reset',hint:'<kbd>U</kbd> <kbd>R</kbd> <kbd>F</kbd> <kbd>D</kbd> <kbd>L</kbd> <kbd>B</kbd> draaien een vlak · <kbd>Shift</kbd> = tegen de klok · sleep om te kijken',
+moves_n:'Weg terug · {n} zetten',moves_0:'Opgelost',solved_empty:'De kubus is opgelost. Scramble om een weg terug te krijgen.',home:'thuis',depth:'zetten',
+face:{U:'boven',D:'onder',F:'voor',B:'achter',L:'links',R:'rechts'},dir:{cw:'kwartslag met de klok',ccw:'kwartslag tegen de klok',half:'halve draai'},
+c1_title:'Een draai is een <em class="g">permutatie.</em>',c1_body:'Eén draai verplaatst 20 stickers, altijd in lussen van vier. Herhaal een reeks zetten en de kubus keert onvermijdelijk terug. Het aantal herhalingen is de orde.',
+order_t:'keer herhalen en alles staat terug. Lussen: {c}.',
+c2_title:'43 triljoen <em class="g">kamers.</em>',c2_body:'Tel hoe de stukken kunnen liggen. Hoeken en randen mogen wisselen en kantelen, maar niet vrij: drie wetten van pariteit delen alles door twaalf.',
+f1:'8 hoeken, elke volgorde',f2:'7 hoeken kantelen vrij, de laatste ligt vast',f3:'12 randen, maar pariteit koppelt ze aan de hoeken',f4:'11 randen flippen vrij, de laatste volgt',
+fa1:'1,4 biljoen jaar',fa1b:'om elke stand één seconde te zien. Honderd keer de leeftijd van het heelal.',fa2:'1 op 12',fa2b:'Haal de kubus uit elkaar en zet hem willekeurig terug: maar één kans op twaalf dat hij oplosbaar is.',fa3:'1 260',fa3b:'De grootste orde die bestaat. Bijvoorbeeld R U2 D′ B D′.',
+c3_title:'Godsgetal: <em class="g">20.</em>',c3_body:'Diogenes zocht met een lantaarn naar een eerlijk mens. In 2010 zochten wiskundigen met 35 CPU-jaren van Google naar de langste kortste weg. Elke stand is in hoogstens 20 zetten op te lossen.',
+you:'jouw scramble is {n} zetten diep, maar ligt gegarandeerd hoogstens {m} zetten van opgelost',linear:'lineair',dist:'afstand',
+c4_title:'De <em class="g">beslisboom.</em>',c4_body:'Elke stand heeft 18 buren. Gesnoeid: geen twee draaien van hetzelfde vlak na elkaar, en tegenoverliggende vlakken in vaste volgorde. Klik om een tak te openen.',
+tree_from:'Start vanaf jouw kubus',path:'Pad',load:'Speel deze stand',more:'+{n} meer',same:'= {p}',
+st_depth:'diepte',st_naive:'naïef 18ⁿ',st_pruned:'gesnoeid',st_true:'echt uniek',
+sign:'Nog steeds op zoek naar de kortste weg.',credit:'Geïnspireerd door <a href="https://www.instagram.com/reel/DeBrTWChFxy/">Math Visualizations</a> · data: <a href="https://cube20.org">cube20.org</a>',
+solved:'opgelost'},
+en:{eyebrow:'One cube · 54 stickers',title:'Every turn is a <em class="g">permutation.</em>',lead:'Behind a toy cube hides one of the most beautiful structures in mathematics. Scramble it, turn it yourself, or let it find the way back.',
+scramble:'Scramble',solve:'Solve',reset:'Reset',hint:'<kbd>U</kbd> <kbd>R</kbd> <kbd>F</kbd> <kbd>D</kbd> <kbd>L</kbd> <kbd>B</kbd> turn a face · <kbd>Shift</kbd> = counter-clockwise · drag to look around',
+moves_n:'Way back · {n} moves',moves_0:'Solved',solved_empty:'The cube is solved. Scramble it to get a way back.',home:'home',depth:'moves',
+face:{U:'up',D:'down',F:'front',B:'back',L:'left',R:'right'},dir:{cw:'quarter turn clockwise',ccw:'quarter turn counter-clockwise',half:'half turn'},
+c1_title:'A turn is a <em class="g">permutation.</em>',c1_body:'One turn moves 20 stickers, always in loops of four. Repeat any sequence and the cube inevitably comes home. The number of repeats is its order.',
+order_t:'repeats and everything is back. Loops: {c}.',
+c2_title:'43 quintillion <em class="g">rooms.</em>',c2_body:'Count how the pieces can lie. Corners and edges may swap and twist, but not freely: three laws of parity divide everything by twelve.',
+f1:'8 corners, any order',f2:'7 corners twist freely, the last is forced',f3:'12 edges, but parity ties them to the corners',f4:'11 edges flip freely, the last follows',
+fa1:'1.4 trillion years',fa1b:'to see every state for one second. A hundred times the age of the universe.',fa2:'1 in 12',fa2b:'Take the cube apart and reassemble it at random: only one chance in twelve it can be solved.',fa3:'1,260',fa3b:'The largest order that exists. For example R U2 D′ B D′.',
+c3_title:"God's number: <em class=\"g\">20.</em>",c3_body:'Diogenes searched with a lantern for an honest man. In 2010 mathematicians used 35 CPU-years from Google to search for the longest shortest path. Every state can be solved in at most 20 moves.',
+you:'your scramble is {n} moves deep, yet guaranteed at most {m} moves from solved',linear:'linear',dist:'distance',
+c4_title:'The <em class="g">decision tree.</em>',c4_body:'Every state has 18 neighbours. Pruned: never two turns of the same face in a row, and opposite faces in a fixed order. Click to open a branch.',
+tree_from:'Start from your cube',path:'Path',load:'Play this state',more:'+{n} more',same:'= {p}',
+st_depth:'depth',st_naive:'naive 18ⁿ',st_pruned:'pruned',st_true:'truly unique',
+sign:'Still looking for the shortest path.',credit:'Inspired by <a href="https://www.instagram.com/reel/DeBrTWChFxy/">Math Visualizations</a> · data: <a href="https://cube20.org">cube20.org</a>',
+solved:'solved'},
+fr:{eyebrow:'Un cube · 54 stickers',title:'Chaque rotation est une <em class="g">permutation.</em>',lead:"Derrière un cube-jouet se cache l'une des plus belles structures des mathématiques. Mélangez-le, tournez-le vous-même, ou laissez-le retrouver le chemin.",
+scramble:'Mélanger',solve:'Résoudre',reset:'Réinitialiser',hint:'<kbd>U</kbd> <kbd>R</kbd> <kbd>F</kbd> <kbd>D</kbd> <kbd>L</kbd> <kbd>B</kbd> tournent une face · <kbd>Shift</kbd> = sens antihoraire · glissez pour regarder',
+moves_n:'Chemin du retour · {n} coups',moves_0:'Résolu',solved_empty:'Le cube est résolu. Mélangez-le pour obtenir un chemin du retour.',home:'en place',depth:'coups',
+face:{U:'haut',D:'bas',F:'avant',B:'arrière',L:'gauche',R:'droite'},dir:{cw:'quart de tour horaire',ccw:'quart de tour antihoraire',half:'demi-tour'},
+c1_title:'Une rotation est une <em class="g">permutation.</em>',c1_body:"Une rotation déplace 20 stickers, toujours en boucles de quatre. Répétez une séquence et le cube revient forcément. Le nombre de répétitions est l'ordre.",
+order_t:'répétitions et tout est revenu. Boucles : {c}.',
+c2_title:'43 trillions de <em class="g">chambres.</em>',c2_body:'Comptez comment les pièces peuvent se placer. Coins et arêtes peuvent échanger et pivoter, mais pas librement : trois lois de parité divisent tout par douze.',
+f1:'8 coins, dans tout ordre',f2:'7 coins pivotent librement, le dernier est imposé',f3:'12 arêtes, liées aux coins par la parité',f4:'11 arêtes se retournent librement, la dernière suit',
+fa1:'1,4 billion d’années',fa1b:"pour voir chaque état une seconde. Cent fois l'âge de l'univers.",fa2:'1 sur 12',fa2b:'Démontez le cube et remontez-le au hasard : une seule chance sur douze qu’il soit résoluble.',fa3:'1 260',fa3b:"Le plus grand ordre qui existe. Par exemple R U2 D′ B D′.",
+c3_title:'Le nombre de Dieu : <em class="g">20.</em>',c3_body:"Diogène cherchait un homme honnête avec une lanterne. En 2010, des mathématiciens ont utilisé 35 années-CPU de Google pour chercher le plus long des plus courts chemins. Tout état se résout en 20 coups au plus.",
+you:'votre mélange fait {n} coups, mais reste à au plus {m} coups de la solution',linear:'linéaire',dist:'distance',
+c4_title:"L'arbre de <em class=\"g\">décision.</em>",c4_body:"Chaque état a 18 voisins. Élagué : jamais deux rotations de la même face d'affilée, et les faces opposées dans un ordre fixe. Cliquez pour ouvrir une branche.",
+tree_from:'Partir de votre cube',path:'Chemin',load:'Jouer cet état',more:'+{n} de plus',same:'= {p}',
+st_depth:'profondeur',st_naive:'naïf 18ⁿ',st_pruned:'élagué',st_true:'vraiment unique',sign:'Toujours à la recherche du plus court chemin.',solved:'résolu'},
+de:{eyebrow:'Ein Würfel · 54 Sticker',title:'Jede Drehung ist eine <em class="g">Permutation.</em>',lead:'Hinter einem Spielzeugwürfel steckt eine der schönsten Strukturen der Mathematik. Verdrehe ihn, drehe selbst oder lass ihn den Weg zurück finden.',
+scramble:'Verdrehen',solve:'Lösen',reset:'Zurücksetzen',hint:'<kbd>U</kbd> <kbd>R</kbd> <kbd>F</kbd> <kbd>D</kbd> <kbd>L</kbd> <kbd>B</kbd> drehen eine Seite · <kbd>Shift</kbd> = gegen den Uhrzeigersinn · ziehen zum Umsehen',
+moves_n:'Weg zurück · {n} Züge',moves_0:'Gelöst',solved_empty:'Der Würfel ist gelöst. Verdrehe ihn, um einen Weg zurück zu bekommen.',home:'zuhause',depth:'Züge',
+face:{U:'oben',D:'unten',F:'vorne',B:'hinten',L:'links',R:'rechts'},dir:{cw:'Vierteldrehung im Uhrzeigersinn',ccw:'Vierteldrehung gegen den Uhrzeigersinn',half:'halbe Drehung'},
+c1_title:'Eine Drehung ist eine <em class="g">Permutation.</em>',c1_body:'Eine Drehung bewegt 20 Sticker, immer in Viererschleifen. Wiederhole eine Zugfolge und der Würfel kehrt unweigerlich zurück. Die Anzahl der Wiederholungen ist die Ordnung.',
+order_t:'Wiederholungen und alles ist zurück. Zyklen: {c}.',
+c2_title:'43 Trillionen <em class="g">Räume.</em>',c2_body:'Zähle, wie die Teile liegen können. Ecken und Kanten dürfen tauschen und kippen, aber nicht frei: drei Paritätsgesetze teilen alles durch zwölf.',
+f1:'8 Ecken, jede Reihenfolge',f2:'7 Ecken drehen frei, die letzte ist festgelegt',f3:'12 Kanten, durch Parität an die Ecken gebunden',f4:'11 Kanten kippen frei, die letzte folgt',
+fa1:'1,4 Billionen Jahre',fa1b:'um jeden Zustand eine Sekunde zu sehen. Hundertmal das Alter des Universums.',fa2:'1 zu 12',fa2b:'Zerlege den Würfel und setze ihn zufällig zusammen: nur eine von zwölf Chancen, dass er lösbar ist.',fa3:'1 260',fa3b:'Die größte Ordnung, die es gibt. Zum Beispiel R U2 D′ B D′.',
+c3_title:'Gottes Zahl: <em class="g">20.</em>',c3_body:'Diogenes suchte mit einer Laterne einen ehrlichen Menschen. 2010 suchten Mathematiker mit 35 CPU-Jahren von Google den längsten kürzesten Weg. Jeder Zustand ist in höchstens 20 Zügen lösbar.',
+you:'dein Würfel ist {n} Züge verdreht, aber garantiert höchstens {m} Züge vom Ziel',linear:'linear',dist:'Abstand',
+c4_title:'Der <em class="g">Entscheidungsbaum.</em>',c4_body:'Jeder Zustand hat 18 Nachbarn. Beschnitten: nie zweimal dieselbe Seite hintereinander, gegenüberliegende Seiten in fester Reihenfolge. Klicke, um einen Ast zu öffnen.',
+tree_from:'Von deinem Würfel starten',path:'Pfad',load:'Diesen Zustand spielen',more:'+{n} mehr',same:'= {p}',
+st_depth:'Tiefe',st_naive:'naiv 18ⁿ',st_pruned:'beschnitten',st_true:'wirklich eindeutig',sign:'Immer noch auf der Suche nach dem kürzesten Weg.',solved:'gelöst'},
+es:{eyebrow:'Un cubo · 54 pegatinas',title:'Cada giro es una <em class="g">permutación.</em>',lead:'Detrás de un cubo de juguete se esconde una de las estructuras más bellas de las matemáticas. Mézclalo, gíralo tú o deja que encuentre el camino de vuelta.',
+scramble:'Mezclar',solve:'Resolver',reset:'Reiniciar',hint:'<kbd>U</kbd> <kbd>R</kbd> <kbd>F</kbd> <kbd>D</kbd> <kbd>L</kbd> <kbd>B</kbd> giran una cara · <kbd>Shift</kbd> = antihorario · arrastra para mirar',
+moves_n:'Camino de vuelta · {n} giros',moves_0:'Resuelto',solved_empty:'El cubo está resuelto. Mézclalo para obtener un camino de vuelta.',home:'en casa',depth:'giros',
+face:{U:'arriba',D:'abajo',F:'frente',B:'atrás',L:'izquierda',R:'derecha'},dir:{cw:'cuarto de vuelta horario',ccw:'cuarto de vuelta antihorario',half:'media vuelta'},
+c1_title:'Un giro es una <em class="g">permutación.</em>',c1_body:'Un giro mueve 20 pegatinas, siempre en ciclos de cuatro. Repite una secuencia y el cubo vuelve inevitablemente. El número de repeticiones es su orden.',
+order_t:'repeticiones y todo vuelve. Ciclos: {c}.',
+c2_title:'43 trillones de <em class="g">habitaciones.</em>',c2_body:'Cuenta cómo pueden quedar las piezas. Esquinas y aristas pueden intercambiarse y girar, pero no libremente: tres leyes de paridad lo dividen todo entre doce.',
+f1:'8 esquinas, en cualquier orden',f2:'7 esquinas giran libremente, la última queda fijada',f3:'12 aristas, ligadas a las esquinas por la paridad',f4:'11 aristas se voltean libremente, la última sigue',
+fa1:'1,4 billones de años',fa1b:'para ver cada estado un segundo. Cien veces la edad del universo.',fa2:'1 de 12',fa2b:'Desmonta el cubo y móntalo al azar: solo una probabilidad entre doce de que tenga solución.',fa3:'1 260',fa3b:'El mayor orden que existe. Por ejemplo R U2 D′ B D′.',
+c3_title:'El número de Dios: <em class="g">20.</em>',c3_body:'Diógenes buscaba con una linterna a un hombre honesto. En 2010, matemáticos usaron 35 años-CPU de Google para buscar el camino más corto más largo. Todo estado se resuelve en 20 giros como máximo.',
+you:'tu mezcla tiene {n} giros, pero está a como mucho {m} de resolverse',linear:'lineal',dist:'distancia',
+c4_title:'El árbol de <em class="g">decisión.</em>',c4_body:'Cada estado tiene 18 vecinos. Podado: nunca dos giros de la misma cara seguidos, y caras opuestas en orden fijo. Haz clic para abrir una rama.',
+tree_from:'Empezar desde tu cubo',path:'Camino',load:'Jugar este estado',more:'+{n} más',same:'= {p}',
+st_depth:'profundidad',st_naive:'ingenuo 18ⁿ',st_pruned:'podado',st_true:'realmente único',sign:'Todavía buscando el camino más corto.',solved:'resuelto'},
+pt:{eyebrow:'Um cubo · 54 adesivos',title:'Cada giro é uma <em class="g">permutação.</em>',lead:'Por trás de um cubo de brinquedo está uma das estruturas mais bonitas da matemática. Embaralhe, gire você mesmo ou deixe-o encontrar o caminho de volta.',
+scramble:'Embaralhar',solve:'Resolver',reset:'Reiniciar',hint:'<kbd>U</kbd> <kbd>R</kbd> <kbd>F</kbd> <kbd>D</kbd> <kbd>L</kbd> <kbd>B</kbd> giram uma face · <kbd>Shift</kbd> = anti-horário · arraste para olhar',
+moves_n:'Caminho de volta · {n} giros',moves_0:'Resolvido',solved_empty:'O cubo está resolvido. Embaralhe para obter um caminho de volta.',home:'no lugar',depth:'giros',
+face:{U:'cima',D:'baixo',F:'frente',B:'trás',L:'esquerda',R:'direita'},dir:{cw:'quarto de volta horário',ccw:'quarto de volta anti-horário',half:'meia volta'},
+c1_title:'Um giro é uma <em class="g">permutação.</em>',c1_body:'Um giro move 20 adesivos, sempre em ciclos de quatro. Repita uma sequência e o cubo inevitavelmente volta. O número de repetições é a ordem.',
+order_t:'repetições e tudo volta. Ciclos: {c}.',
+c2_title:'43 quintilhões de <em class="g">quartos.</em>',c2_body:'Conte como as peças podem ficar. Cantos e arestas podem trocar e girar, mas não livremente: três leis de paridade dividem tudo por doze.',
+f1:'8 cantos, em qualquer ordem',f2:'7 cantos giram livremente, o último é forçado',f3:'12 arestas, ligadas aos cantos pela paridade',f4:'11 arestas viram livremente, a última segue',
+fa1:'1,4 trilhão de anos',fa1b:'para ver cada estado por um segundo. Cem vezes a idade do universo.',fa2:'1 em 12',fa2b:'Desmonte o cubo e monte-o ao acaso: só uma chance em doze de ter solução.',fa3:'1 260',fa3b:'A maior ordem que existe. Por exemplo R U2 D′ B D′.',
+c3_title:'O número de Deus: <em class="g">20.</em>',c3_body:'Diógenes procurava com uma lanterna um homem honesto. Em 2010, matemáticos usaram 35 anos-CPU do Google para procurar o caminho mais curto mais longo. Todo estado se resolve em no máximo 20 giros.',
+you:'seu embaralhamento tem {n} giros, mas está a no máximo {m} da solução',linear:'linear',dist:'distância',
+c4_title:'A árvore de <em class="g">decisão.</em>',c4_body:'Cada estado tem 18 vizinhos. Podada: nunca dois giros da mesma face seguidos, e faces opostas em ordem fixa. Clique para abrir um ramo.',
+tree_from:'Começar do seu cubo',path:'Caminho',load:'Jogar este estado',more:'+{n} mais',same:'= {p}',
+st_depth:'profundidade',st_naive:'ingênuo 18ⁿ',st_pruned:'podada',st_true:'realmente único',sign:'Ainda à procura do caminho mais curto.',solved:'resolvido'},
+zh:{eyebrow:'一个魔方 · 54 个色块',title:'每一次转动都是一个<em class="g">置换。</em>',scramble:'打乱',solve:'还原',reset:'重置',moves_n:'回去的路 · {n} 步',moves_0:'已还原',home:'归位',depth:'步数',
+face:{U:'上',D:'下',F:'前',B:'后',L:'左',R:'右'},dir:{cw:'顺时针四分之一圈',ccw:'逆时针四分之一圈',half:'半圈'},
+c1_title:'一次转动就是一个<em class="g">置换。</em>',c2_title:'43 百京个<em class="g">房间。</em>',c3_title:'上帝之数：<em class="g">20。</em>',c4_title:'<em class="g">决策树。</em>',
+tree_from:'从你的魔方开始',path:'路径',load:'玩这个状态',more:'还有 {n} 个',st_depth:'深度',st_naive:'朴素 18ⁿ',st_pruned:'剪枝后',st_true:'真正唯一',solved:'已还原'},
+hi:{eyebrow:'एक क्यूब · 54 स्टिकर',title:'हर घुमाव एक <em class="g">क्रमचय</em> है।',scramble:'मिलाएँ',solve:'हल करें',reset:'रीसेट',moves_n:'वापसी का रास्ता · {n} चालें',moves_0:'हल हो गया',home:'अपनी जगह',depth:'चालें',
+face:{U:'ऊपर',D:'नीचे',F:'आगे',B:'पीछे',L:'बाएँ',R:'दाएँ'},dir:{cw:'घड़ी की दिशा में चौथाई',ccw:'घड़ी के विपरीत चौथाई',half:'आधा घुमाव'},
+c1_title:'एक घुमाव एक <em class="g">क्रमचय</em> है।',c2_title:'43 क्विंटिलियन <em class="g">कमरे।</em>',c3_title:'ईश्वर की संख्या: <em class="g">20.</em>',c4_title:'<em class="g">निर्णय वृक्ष।</em>',
+tree_from:'अपने क्यूब से शुरू करें',path:'रास्ता',load:'यह स्थिति खेलें',more:'+{n} और',st_depth:'गहराई',st_naive:'सीधा 18ⁿ',st_pruned:'छँटा हुआ',st_true:'सचमुच अलग',solved:'हल'},
+ta:{eyebrow:'ஒரு கியூப் · 54 ஸ்டிக்கர்கள்',title:'ஒவ்வொரு சுழற்சியும் ஒரு <em class="g">வரிசைமாற்றம்.</em>',scramble:'கலக்கு',solve:'தீர்',reset:'மீட்டமை',moves_n:'திரும்பும் வழி · {n} நகர்வுகள்',moves_0:'தீர்ந்தது',home:'இடத்தில்',depth:'நகர்வுகள்',
+face:{U:'மேல்',D:'கீழ்',F:'முன்',B:'பின்',L:'இடது',R:'வலது'},dir:{cw:'கடிகார திசையில் கால்',ccw:'எதிர் திசையில் கால்',half:'அரை சுழற்சி'},
+c1_title:'ஒரு சுழற்சி ஒரு <em class="g">வரிசைமாற்றம்.</em>',c2_title:'43 குவின்டில்லியன் <em class="g">அறைகள்.</em>',c3_title:'கடவுளின் எண்: <em class="g">20.</em>',c4_title:'<em class="g">முடிவு மரம்.</em>',
+tree_from:'உங்கள் கியூபிலிருந்து தொடங்கு',path:'பாதை',load:'இந்த நிலையை விளையாடு',more:'+{n} மேலும்',st_depth:'ஆழம்',st_naive:'நேரடி 18ⁿ',st_pruned:'கத்தரித்தது',st_true:'உண்மையில் தனித்துவம்',solved:'தீர்ந்தது'}
+};
+
+const EXTRA={
+nl:{show_title:'Elke scramble is 65 bits <em class="g">vergetelheid.</em>',show_lead:'De kubusgroep telt 43 252 003 274 489 856 000 elementen. Oplossen is die informatie terugwinnen, hoogstens 4,17 bits per draai. Rechts lees je de stand live af als permutatie.',
+  pal_classic:'Stickers',pal_spectrum:'Index',
+  b1:'De informatie in één willekeurige stand.',b2:'De informatie in één draai, als je uit 18 kiest. Gesnoeid is het nog minder.',
+  b3:'Tel alle gesnoeide reeksen tot lengte n. Pas bij n = 18 zijn er meer reeksen dan standen. Er bestaan dus standen die minstens 18 zetten vragen, bewezen zonder één kubus op te lossen.',
+  cum_n:'n',cum_seq:'reeksen ≤ n',cum_g:'≥ |G| ?',
+  c5_title:'Hoe snel vergeet een kubus? <em class="g">Mixing.</em>',
+  c5_body:'Een willekeurige wandeling op de Cayley-graaf: elke stap één van de 18 draaien, uniform gekozen. We tellen de stickers die nog thuis liggen. Voor een uniform willekeurige stand is de verwachting precies 8: de 6 middenstukken, plus 24 hoek- en 24 randstickers die elk met kans 1/24 thuis liggen.',
+  mc_rerun:'Opnieuw simuleren',mc_stat:'{d} / {n} wandelingen · E[fix] na {k} zetten = {m} ± {s}',
+  mc_cap:'Fig. 3 · Monte Carlo in je browser, n = {n} wandelingen van {k} zetten, seed {seed}. Band = ±1σ. Stippellijn = E[fix] = 8. Na één zet altijd exact 34. Gouden punt = jouw kubus.',
+  cap_god:'Fig. 4 · Aantal standen per afstand, halvedraaimetriek. Afstanden 16–20 zijn afgerond. Bron: cube20.org.',
+  ladder:'ondergrens <b>18</b> · tellen (§2)<br>bovengrens <b>20</b> · Rokicki, Kociemba, Davidson &amp; Dethridge, 2010<br>exact <b>20</b> · de superflip (§1) heeft er precies 20 nodig',
+  order_t:'keer herhalen en alles staat terug. Cyclustype: {c}.',solved_in:'Opgelost',solved_sub:'{n} zetten · {s} seconden licht',
+  tree_lead:'Elke stand is een vrucht, elke draai een tak. Gesnoeid tot de zetten die er echt toe doen. Klik een vrucht om haar takken te laten groeien, klik de knop om ze allemaal te zien.',
+  load_solve:'Speel en los op',you:'jouw scramble is {n} zetten diep, maar ligt gegarandeerd hoogstens {m} zetten van opgelost',linear:'lineair'},
+en:{show_title:'Every scramble is 65 bits of <em class="g">forgetting.</em>',show_lead:'The cube group has 43,252,003,274,489,856,000 elements. Solving is recovering that information, at most 4.17 bits per turn. On the right, read the state live as a permutation.',
+  pal_classic:'Stickers',pal_spectrum:'Index',
+  b1:'The information in one random state.',b2:'The information in one turn when choosing among 18. Pruned, it is even less.',
+  b3:'Count all pruned sequences up to length n. Only at n = 18 are there more sequences than states. So some states need at least 18 moves, proven without solving a single cube.',
+  cum_n:'n',cum_seq:'sequences ≤ n',cum_g:'≥ |G| ?',
+  c5_title:'How fast does a cube forget? <em class="g">Mixing.</em>',
+  c5_body:'A random walk on the Cayley graph: each step one of the 18 turns, chosen uniformly. We count the stickers still at home. For a uniformly random state the expectation is exactly 8: the 6 centres, plus 24 corner and 24 edge stickers that are each home with probability 1/24.',
+  mc_rerun:'Re-run simulation',mc_stat:'{d} / {n} walks · E[fix] after {k} moves = {m} ± {s}',
+  mc_cap:'Fig. 3 · Monte Carlo in your browser, n = {n} walks of {k} moves, seed {seed}. Band = ±1σ. Dashed = E[fix] = 8. After one move always exactly 34. Gold dot = your cube.',
+  cap_god:"Fig. 4 · Number of states per distance, half-turn metric. Distances 16–20 are rounded. Source: cube20.org.",
+  ladder:'lower bound <b>18</b> · counting (§2)<br>upper bound <b>20</b> · Rokicki, Kociemba, Davidson &amp; Dethridge, 2010<br>exact <b>20</b> · the superflip (§1) needs exactly 20',
+  order_t:'repeats and everything is back. Cycle type: {c}.',solved_in:'Solved',solved_sub:'{n} moves · {s} seconds of light',
+  tree_lead:'Every state is a fruit, every turn a branch. Pruned to the moves that matter. Click a fruit to grow its branches, click the bud to see them all.',
+  load_solve:'Play and solve',you:'your scramble is {n} moves deep, yet guaranteed at most {m} moves from solved',linear:'linear'},
+fr:{show_title:'Chaque mélange, c’est 65 bits <em class="g">d’oubli.</em>',c5_title:'À quelle vitesse un cube oublie-t-il ? <em class="g">Mélange.</em>',pal_classic:'Classique',solved_in:'Résolu',load_solve:'Jouer et résoudre',linear:'linéaire'},
+de:{show_title:'Jedes Verdrehen sind 65 Bit <em class="g">Vergessen.</em>',c5_title:'Wie schnell vergisst ein Würfel? <em class="g">Mixing.</em>',pal_classic:'Klassisch',solved_in:'Gelöst',load_solve:'Spielen und lösen'},
+es:{show_title:'Cada mezcla son 65 bits de <em class="g">olvido.</em>',c5_title:'¿Qué tan rápido olvida un cubo? <em class="g">Mezcla.</em>',pal_classic:'Clásico',pal_spectrum:'Espectro',solved_in:'Resuelto',load_solve:'Jugar y resolver',linear:'lineal'},
+pt:{show_title:'Cada embaralhamento são 65 bits de <em class="g">esquecimento.</em>',c5_title:'Quão rápido um cubo esquece? <em class="g">Mistura.</em>',pal_classic:'Clássico',pal_spectrum:'Espectro',solved_in:'Resolvido',load_solve:'Jogar e resolver'},
+zh:{show_title:'每一次打乱都是 65 比特的<em class="g">遗忘。</em>',c5_title:'魔方遗忘得有多快？<em class="g">混合。</em>',pal_classic:'经典',pal_spectrum:'光谱',pal_neon:'霓虹',solved_in:'已还原',load_solve:'播放并还原'},
+hi:{show_title:'हर स्क्रैम्बल 65 बिट की <em class="g">विस्मृति</em> है।',solved_in:'हल',load_solve:'खेलें और हल करें'},
+ta:{show_title:'ஒவ்வொரு கலக்கலும் 65 பிட் <em class="g">மறதி.</em>',solved_in:'தீர்ந்தது',load_solve:'விளையாடி தீர்'}};
+for(const k in EXTRA)Object.assign(T[k],EXTRA[k]);
+
+let lang=(()=>{try{const q=new URLSearchParams(location.search).get('lang');if(q&&T[q])return q;const s=localStorage.getItem('corvus-lang');if(s&&T[s])return s}catch(e){}const n=(navigator.language||'nl').slice(0,2);return T[n]?n:'nl'})();
+const t=(k,vars)=>{let v=(T[lang]&&T[lang][k]!==undefined)?T[lang][k]:(T.en[k]!==undefined?T.en[k]:T.nl[k]);if(typeof v==='string'&&vars)for(const[a,b]of Object.entries(vars))v=v.split('{'+a+'}').join(b);return v};
+
+/* ================= model ================= */
+const FACES={U:[1,1],R:[0,1],F:[2,1],D:[1,-1],L:[0,-1],B:[2,-1]};
+const COLORS={U:'#d8d1c2',R:'#c25468',F:'#459d7d',D:'#d4b264',L:'#c47645',B:'#7277c4'};
+const FACE_ORDER=['U','R','F','D','L','B'];
+const MOVES=FACE_ORDER.flatMap(f=>['',"'",'2'].map(s=>f+s));
+const OPP={U:'D',D:'U',R:'L',L:'R',F:'B',B:'F'};const FIRST=new Set(['U','R','F']);
+const SOLVED=FACE_ORDER.flatMap((face,fi)=>{const[axis,sign]=FACES[face];const rest=[0,1,2].filter(i=>i!==axis);
+  return Array.from({length:9},(_,i)=>{const p=[0,0,0],n=[0,0,0];p[axis]=n[axis]=sign;p[rest[0]]=Math.floor(i/3)-1;p[rest[1]]=i%3-1;return{id:fi*9+i,face,position:p,normal:n}})});
+const key=s=>s.position.join(',')+'|'+s.normal.join(',');
+const SLOT=new Map(SOLVED.map((s,i)=>[key(s),i]));
+const stateKey=st=>st.map(key).join(';');const SOLVED_KEY=stateKey(SOLVED);
+function turnInfo(m){const[axis,sign]=FACES[m[0]];const amt=m.endsWith('2')?2:m.endsWith("'")?-1:1;return{axis,sign,angle:-sign*amt*Math.PI/2}}
+function rot(v,axis,a,snap){const i=(axis+1)%3,j=(axis+2)%3,c=Math.cos(a),s=Math.sin(a),r=[...v];r[i]=v[i]*c-v[j]*s;r[j]=v[i]*s+v[j]*c;return snap?r.map(Math.round):r}
+function turn(st,m,p=1){const{axis,sign,angle}=turnInfo(m);return st.map(s=>s.position[axis]===sign?{...s,position:rot(s.position,axis,angle*p,p===1),normal:rot(s.normal,axis,angle*p,p===1)}:s)}
+const applySeq=(st,seq)=>seq.reduce((acc,m)=>turn(acc,m),st);
+const inverse=m=>m.endsWith('2')?m:m.endsWith("'")?m[0]:m+"'";
+function pushMove(path,m){const prev=path[path.length-1];if(!prev||prev[0]!==m[0])return[...path,m];const amt=v=>v.endsWith('2')?2:v.endsWith("'")?3:1;const sum=(amt(prev)+amt(m))%4;const pre=path.slice(0,-1);return sum?[...pre,m[0]+['','','2',"'"][sum]]:pre}
+const allowedAfter=last=>MOVES.filter(m=>!last||(m[0]!==last[0]&&!(OPP[last[0]]===m[0]&&FIRST.has(m[0]))));
+const homeCount=st=>st.reduce((n,s,i)=>n+(key(s)===key(SOLVED[i])?1:0),0);
+const permOf=seq=>applySeq(SOLVED,seq).map(s=>SLOT.get(key(s)));
+function cyclesOf(perm){const seen=new Array(perm.length).fill(false),out=[];for(let i=0;i<perm.length;i++){if(seen[i]||perm[i]===i){seen[i]=true;continue}const c=[];let j=i;while(!seen[j]){seen[j]=true;c.push(j);j=perm[j]}out.push(c)}return out}
+const gcd=(a,b)=>b?gcd(b,a%b):a;const lcm=(a,b)=>a/gcd(a,b)*b;
+const ease=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const pm=m=>m.replace("'",'′');
+
+/* ================= colour modes ================= */
+let palette='classic';const now=()=>performance.now();
+function hsl(h,s,l){return`hsl(${(h%360+360)%360|0} ${s}% ${l}%)`}
+function colorOf(s){if(palette==='classic')return COLORS[s.face];
+  return hsl(s.id/54*300+250,48,62)}
+const spriteCache=new Map();
+function sprite(color){let c=spriteCache.get(color);if(c)return c;c=document.createElement('canvas');c.width=c.height=64;const g=c.getContext('2d');g.fillStyle=color;const base=g.fillStyle;
+  const gr=g.createRadialGradient(32,32,0,32,32,32);gr.addColorStop(0,'rgba(255,255,255,.55)');gr.addColorStop(.14,color);gr.addColorStop(.3,color);gr.addColorStop(1,'rgba(0,0,0,0)');
+  g.globalAlpha=1;g.fillStyle=gr;g.fillRect(0,0,64,64);
+  // soften mid-ring
+  const g2=g.createRadialGradient(32,32,10,32,32,32);g2.addColorStop(0,'rgba(0,0,0,0)');g2.addColorStop(1,'rgba(13,10,18,1)');g.globalCompositeOperation='destination-out';g.globalAlpha=.55;g.fillStyle=g2;g.fillRect(0,0,64,64);
+  if(spriteCache.size>600)spriteCache.clear();spriteCache.set(color,c);return c}
+
+/* ================= renderer ================= */
+function camRot(v,cam){const cy=Math.cos(cam.yaw),sy=Math.sin(cam.yaw),cp=Math.cos(cam.pitch),sp=Math.sin(cam.pitch);const x1=v[0]*cy+v[2]*sy,z1=-v[0]*sy+v[2]*cy;return[x1,v[1]*cp-z1*sp,v[1]*sp+z1*cp]}
+function makeProj(cx,cy,size,cam){const d=9,F=size*.40/2.6*d*(cam.zoom||1);return v=>{const r=camRot(v,cam),f=F/(d-r[2]);return[cx+r[0]*f,cy-r[1]*f,r[2],f]}}
+const world=s=>[s.position[0]+s.normal[0]*.5,s.position[1]+s.normal[1]*.5,s.position[2]+s.normal[2]*.5];
+function circlePts(p0,axis,a0,a1,n){const pts=[];for(let k=0;k<=n;k++)pts.push(rot(p0,axis,a0+(a1-a0)*k/n));return pts}
+function strokePts(ctx,P,pts){ctx.beginPath();pts.forEach((p,k)=>{const q=P(p);k?ctx.lineTo(q[0],q[1]):ctx.moveTo(q[0],q[1])});ctx.stroke()}
+function drawCube(ctx,st,cam,anim,o={}){
+  const cx=o.cx,cy=o.cy,P=makeProj(cx,cy,o.size,cam),dpr=o.dpr||1;
+  ctx.save();
+  if(o.rings!==false){ctx.lineWidth=dpr;ctx.strokeStyle=`rgba(122,92,176,${o.ringAlpha??.16})`;for(let a=0;a<3;a++)for(const c of[-1,0,1]){const p0=[0,0,0];p0[a]=c;p0[(a+1)%3]=1.58;strokePts(ctx,P,circlePts(p0,a,0,Math.PI*2,64))}}
+  let moving=null,info=null,p=0;
+  if(anim){info=turnInfo(anim.move);p=ease(anim.p);moving=st.map(s=>s.position[info.axis]===info.sign);const pulse=Math.sin(Math.PI*anim.p);
+    if(o.orbits!==false){const seen=new Set();ctx.lineWidth=1.4*dpr;
+      st.forEach((s,i)=>{if(!moving[i])return;const w=world(s);const r=Math.hypot(w[(info.axis+1)%3],w[(info.axis+2)%3]);const k=w[info.axis].toFixed(2)+':'+r.toFixed(2);if(seen.has(k)||r<.01)return;seen.add(k);
+        ctx.strokeStyle=`rgba(180,160,214,${.1+.45*pulse})`;strokePts(ctx,P,circlePts(w,info.axis,0,Math.PI*2,80))})}
+    ctx.lineWidth=(o.trail||2.6)*dpr;ctx.lineCap='round';
+    st.forEach((s,i)=>{if(!moving[i])return;ctx.strokeStyle=colorOf(s);ctx.globalAlpha=.8*pulse+.15;strokePts(ctx,P,circlePts(world(s),info.axis,info.angle*Math.max(0,p-.5),info.angle*p,20))});ctx.globalAlpha=1}
+  const shown=anim?turn(st,anim.move,p):st;
+  const pts=shown.map((s,i)=>{const q=P(world(s));return{q,n:camRot(s.normal,cam)[2],s,c:colorOf(s),mv:moving&&moving[i]}}).sort((a,b)=>a.q[2]-b.q[2]);
+  ctx.globalCompositeOperation='lighter';const base=o.dot||.2;
+  for(const d of pts){const front=Math.max(0,Math.min(1,d.n*1.6+.35));ctx.globalAlpha=(.12+.88*front)*(o.glow??.9);const sz=base*d.q[3]*(d.mv?3.9:3.2);ctx.drawImage(sprite(d.c),d.q[0]-sz/2,d.q[1]-sz/2,sz,sz)}
+  ctx.globalCompositeOperation='source-over';
+  for(const d of pts){const front=Math.max(0,Math.min(1,d.n*1.6+.35));if(front<.2)continue;ctx.globalAlpha=front;ctx.fillStyle=d.c;ctx.beginPath();ctx.arc(d.q[0],d.q[1],base*d.q[3]*.4,0,7);ctx.fill()}
+  ctx.restore();return pts}
+function fitCanvas(cv){const r=cv.getBoundingClientRect(),d=Math.min(2,devicePixelRatio||1);const w=Math.round(r.width*d),h=Math.round(r.height*d);let changed=false;if(cv.width!==w||cv.height!==h){cv.width=w;cv.height=h;changed=true}return[d,changed]}
+
+/* ================= the show ================= */
+let state=SOLVED,path=[],queue=[],anim=null,solution=[],solIndex=-1,showMode='idle',solveStart=0,solveMoves=0;
+const heroCv=document.getElementById('hero'),hctx=heroCv.getContext('2d');
+const cam={yaw:-.62,pitch:.45,zoom:1};let dragging=false,lastInteract=0;
+{let px=0,py=0;heroCv.addEventListener('pointerdown',e=>{dragging=true;px=e.clientX;py=e.clientY;heroCv.setPointerCapture(e.pointerId)});
+ heroCv.addEventListener('pointermove',e=>{if(!dragging)return;cam.yaw+=(e.clientX-px)*.008;cam.pitch=Math.max(-1.3,Math.min(1.3,cam.pitch+(e.clientY-py)*.008));px=e.clientX;py=e.clientY;lastInteract=now()});
+ const up=()=>{dragging=false;lastInteract=now()};heroCv.addEventListener('pointerup',up);heroCv.addEventListener('pointercancel',up)}
+const sparks=[];let shock=null;
+function enqueue(m,o={}){queue.push({move:m,...o})}
+function onMoveDone(job,pts){
+  state=turn(state,job.move);
+  if(job.kind!=='solve'){path=pushMove(path,job.move);solution=[];solIndex=-1}
+  else{path=pushMove(path,job.move);solIndex=job.idx+1}
+  // sparks from the stickers that just moved
+
+  if(job.kind==='solve'&&solIndex>=solution.length){solution=[];solIndex=-1;finale()}
+  refreshUI()}
+function finale(){showMode='idle';const pts=lastPts||[];pts.forEach(d=>{const a=Math.random()*6.28,v=1+Math.random()*3;sparks.push({x:d.q[0],y:d.q[1],vx:Math.cos(a)*v,vy:Math.sin(a)*v,life:1,c:d.c})});
+  shock={t0:now()};const el=document.getElementById('toast');el.innerHTML=`${t('solved_in')}.<small>${t('solved_sub',{n:solveMoves,s:((now()-solveStart)/1000).toFixed(1)})}</small>`;el.classList.add('on');setTimeout(()=>el.classList.remove('on'),3200)}
+function scramble(){if(queue.length||anim)return;let seq=[],last=null;const n=20+Math.floor(Math.random()*5);while(seq.length<n){const o=allowedAfter(last);const m=o[Math.floor(Math.random()*o.length)];seq.push(m);last=m}
+  showMode='scrambling';seq.forEach(m=>enqueue(m,{kind:'scramble',dur:130}));enqueue(null,{kind:'end'})}
+function solve(upto){if(!path.length||queue.length||anim)return;if(!solution.length){solution=[...path].reverse().map(inverse);solIndex=0;solveStart=now();solveMoves=solution.length}
+  showMode='solving';const end=upto===undefined?solution.length:upto+1;for(let i=solIndex;i<end;i++)enqueue(solution[i],{kind:'solve',idx:i,dur:solution[i].endsWith('2')?620:460});if(end<solution.length)enqueue(null,{kind:'end'});refreshUI()}
+function reset(){queue=[];anim=null;state=SOLVED;path=[];solution=[];solIndex=-1;showMode='idle';refreshUI()}
+document.getElementById('scramble').onclick=scramble;document.getElementById('solve').onclick=()=>solve();document.getElementById('reset').onclick=reset;
+const pad=document.getElementById('pad');
+['','2',"'"].forEach(sfx=>FACE_ORDER.forEach(f=>{const m=f+sfx;const b=document.createElement('button');b.textContent=pm(m);b.style.setProperty('--c',COLORS[f]);b.onclick=()=>enqueue(m,{kind:'user'});pad.append(b)}));
+addEventListener('keydown',e=>{if(e.metaKey||e.ctrlKey||e.altKey||/INPUT|SELECT|TEXTAREA/.test(e.target.tagName))return;const f=e.key.toUpperCase();if(FACES[f]){e.preventDefault();enqueue(f+(e.shiftKey?"'":''),{kind:'user'})}});
+const palEl=document.getElementById('palette');
+function renderPal(){palEl.innerHTML='';['classic','spectrum'].forEach(p=>{const b=document.createElement('button');b.textContent=t('pal_'+p);b.setAttribute('aria-pressed',p===palette);b.onclick=()=>{palette=p;renderPal();refreshUI()};palEl.append(b)})}
+function describe(m){const f=t('face'),d=t('dir');return f[m[0]]+' · '+(m.endsWith('2')?d.half:m.endsWith("'")?d.ccw:d.cw)}
+function refreshUI(){
+  const list=document.getElementById('movelist');const seq=solution.length?solution:[...path].reverse().map(inverse);
+  document.getElementById('movesum').textContent=seq.length?t('moves_n',{n:seq.length}):t('moves_0');
+  document.getElementById('moveempty').style.display=seq.length?'none':'';
+  list.innerHTML='';seq.forEach((m,i)=>{const li=document.createElement('li');li.innerHTML=`<code style="--c:${COLORS[m[0]]}">${pm(m)}</code><span>${describe(m)}</span>`;if(solution.length){if(i<solIndex)li.className='done';if(i===solIndex)li.className='cur'}li.onclick=()=>solve(i);list.append(li)});
+  const cur=list.querySelector('.cur');if(cur&&document.getElementById('movesbox').open)cur.scrollIntoView({block:'nearest'});
+  const h=homeCount(state);document.getElementById('home').textContent=h+'/54';document.getElementById('homebar').style.width=(h/54*100)+'%';
+  document.getElementById('depthv').textContent=path.length;document.getElementById('solve').disabled=!path.length&&!solution.length;
+  updateGodMarker();renderTele();mcYou();}
+
+/* live group telemetry */
+const SUP='⁰¹²³⁴⁵⁶⁷⁸⁹';const sup=n=>String(n).split('').map(c=>SUP[c]).join('');
+function cycleType(cs){const m={};cs.forEach(c=>m[c.length]=(m[c.length]||0)+1);const ks=Object.keys(m).map(Number).sort((a,b)=>b-a);return ks.length?ks.map(l=>l+(m[l]>1?sup(m[l]):'')).join('·'):'e'}
+function renderTele(){const p=state.map(s=>SLOT.get(key(s)));const cs=cyclesOf(p);const moved=cs.reduce((a,c)=>a+c.length,0);const ord=cs.reduce((a,c)=>lcm(a,c.length),1);const sg=cs.reduce((a,c)=>a+c.length-1,0)%2?'−1':'+1';
+  const solved=moved===0;
+  document.getElementById('tele').innerHTML=`σ ∈ G ≤ S<sub>54</sub>\n`+
+  `fix(σ)    <b>${54-moved}</b>/54\n`+
+  `type(σ)   <b>${cycleType(cs)}</b>\n`+
+  `ord(σ)    <b>${ord.toLocaleString(lang)}</b>\n`+
+  `sgn(σ)    <b>${sg}</b>\n`+
+  `d(σ)      <b class="${solved?'gd':''}">${solved?'0':'≤ '+Math.min(20,path.length)}</b>`}
+
+/* wheel geometry (from direction B) */
+const GAP=1.6,NSLOT=54+6*GAP;const slotAngle=i=>-Math.PI/2+2*Math.PI*(i+Math.floor(i/9)*GAP+GAP/2)/NSLOT;
+let lastPts=null;
+function drawShow(g,W,H,a,d,ts){
+  // long exposure: fade the previous frame instead of clearing it
+  const fade=showMode==='solving'?.2:showMode==='scrambling'?.26:.34;
+  g.globalCompositeOperation='source-over';g.fillStyle=`rgba(13,10,18,${fade})`;g.fillRect(0,0,W,H);
+  const wide=W>H*1.1;const cx=wide?W*.645:W/2,cy=H*.5,size=Math.min(wide?W*.66:W,H*.96);
+  const R=size*.44;
+  const pos=i=>{const an=slotAngle(i)+ts*.00003;return[cx+Math.cos(an)*R,cy+Math.sin(an)*R]};
+  const ctrl=(A,B,k)=>[cx+(A[0]+B[0]-2*cx)*k,cy+(A[1]+B[1]-2*cy)*k];
+  const bez=(A,C,B,t)=>[(1-t)*(1-t)*A[0]+2*(1-t)*t*C[0]+t*t*B[0],(1-t)*(1-t)*A[1]+2*(1-t)*t*C[1]+t*t*B[1]];
+  g.save();
+  // wheel hairline and home slots
+  g.lineWidth=d;g.strokeStyle='rgba(122,92,176,.14)';g.beginPath();g.arc(cx,cy,R*1.07,0,7);g.stroke();
+  const cur=state.map(s=>SLOT.get(key(s)));let nxt=null,p=0;if(a){nxt=turn(state,a.move).map(s=>SLOT.get(key(s)));p=ease(a.p)}
+  const P=state.map((s,j)=>{if(!nxt||nxt[j]===cur[j])return pos(cur[j]);const A=pos(cur[j]),B=pos(nxt[j]);return bez(A,ctrl(A,B,.3),B,p)});
+  g.globalCompositeOperation='lighter';
+  state.forEach((s,j)=>{const H0=pos(j);g.globalAlpha=.22;g.strokeStyle=colorOf(SOLVED[j]);g.beginPath();g.arc(H0[0],H0[1],R*.026,0,7);g.stroke();
+    const X=P[j];if(Math.hypot(H0[0]-X[0],H0[1]-X[1])<1)return;const C=ctrl(H0,X,.1);g.globalAlpha=showMode==='solving'?.11:.07;g.strokeStyle=colorOf(s);g.lineWidth=d;g.beginPath();g.moveTo(H0[0],H0[1]);g.quadraticCurveTo(C[0],C[1],X[0],X[1]);g.stroke()});
+  const r=R*.03;state.forEach((s,j)=>{const[x,y]=P[j];const sz=r*2.8;g.globalAlpha=.55;g.drawImage(sprite(colorOf(s)),x-sz/2,y-sz/2,sz,sz)});
+  g.restore();
+  // the cube at the heart
+  lastPts=drawCube(g,state,cam,a,{cx,cy,size,dpr:d,ringAlpha:.12,dot:.2,trail:2,glow:.6});
+  // sparks
+  g.save();g.globalCompositeOperation='lighter';
+  for(let i=sparks.length-1;i>=0;i--){const s=sparks[i];s.x+=s.vx*d;s.y+=s.vy*d;s.vx*=.965;s.vy*=.965;s.vy+=.02;s.life-=.018;if(s.life<=0){sparks.splice(i,1);continue}
+    g.globalAlpha=Math.min(1,s.life);const sz=3*d*s.life+1.5;g.drawImage(sprite(s.c),s.x-sz,s.y-sz,sz*2,sz*2)}
+  if(shock){const k=(now()-shock.t0)/1400;if(k>1)shock=null;else{g.globalAlpha=(1-k)*.6;g.strokeStyle='#ffd76a';g.lineWidth=d;g.beginPath();g.arc(cx,cy,R*(.2+1.2*ease(k)),0,7);g.stroke();
+    g.globalAlpha=(1-k)*.4;g.strokeStyle='#b4a0d6';g.beginPath();g.arc(cx,cy,R*(.1+.9*ease(k)),0,7);g.stroke()}}
+  g.restore();
+  return lastPts}
+
+/* ================= the living tree ================= */
+const treeCv=document.getElementById('treecv'),tctx=treeCv.getContext('2d'),tip=document.getElementById('tip');
+const crow=new Image();crow.src='/the6cube/assets/wing-flight.webp';
+let treeRootPath=[],selected=null,hoverNode=null,hits=[];
+const narrowTree=()=>treeCv.clientWidth<640;const showN=()=>narrowTree()?3:5;
+function mkNode(st,p,parent){return{state:st,path:p,parent,children:null,open:false,showAll:false,grow:0,hoverT:0}}
+let rootNode;
+function kids(n){if(!n.children){const last=n.path[n.path.length-1];n.children=allowedAfter(last).map(m=>mkNode(turn(n.state,m),[...n.path,m],n))}return n.children}
+function visibleKids(n){if(!n.open)return[];const k=kids(n);if(n.showAll)return k;const N=showN(),step=k.length/N;let v=Array.from({length:N},(_,i)=>k[Math.floor(i*step+step/2)]);for(let x=selected;x;x=x.parent)if(x.parent===n&&!v.includes(x))v.push(x);return v}
+function seedTree(st){rootNode=mkNode(st,[],null);rootNode.open=true;rootNode.grow=1;const v=visibleKids(rootNode);
+  (narrowTree()?[v[1]]:[v[1],v[3]]).forEach(c=>{if(c){c.open=true;const g=visibleKids(c);if(g[2]){g[2].open=true}}});selected=rootNode;updateSel()}
+const fireflies=Array.from({length:18},()=>({x:Math.random(),y:Math.random(),p:Math.random()*6.28,s:.3+Math.random()*.7,gold:Math.random()<.3}));
+function layout(W,H){const out=[];const nw=W<640;
+  function place(n,x,y,ang,span,depth){n.x=x;n.y=y;n.depth=depth;out.push(n);const v=visibleKids(n);const hidden=n.open&&!n.showAll&&kids(n).length>v.length;const k=v.length+(hidden?1:0);
+    const len=H*(nw?.2:.25)*Math.pow(.86,depth);
+    v.forEach((c,i)=>{const a=ang-span/2+span*(i+.5)/k;place(c,x+Math.sin(a)*len,y-Math.cos(a)*len,a*.9,Math.max(nw?.8:1.05,span*(nw?.7:.82)),depth+1)});
+    n.bud=hidden?{a:ang-span/2+span*(k-.5)/k,len:len*.55,count:kids(n).length-v.length}:null}
+  place(rootNode,0,0,0,nw?2.1:2.5,0);
+  let x0=1e9,x1=-1e9,y0=1e9,y1=-1e9;out.forEach(n=>{x0=Math.min(x0,n.x);x1=Math.max(x1,n.x);y0=Math.min(y0,n.y);y1=Math.max(y1,n.y)});
+  const pad=70,sc=Math.min(1.15,(W-pad*2)/Math.max(1,x1-x0),(H-pad-150)/Math.max(1,y1-y0));
+  return{nodes:out,sc,ox:W/2-(x0+x1)/2*sc,oy:H-120-y1*sc}}
+let TL=null;
+function drawTree(ts,dt){
+  const[d]=fitCanvas(treeCv);const W=treeCv.width,H=treeCv.height,g=tctx;g.clearRect(0,0,W,H);
+  // ground: halftone dots fading up
+  g.save();const step=9*d;for(let y=H-110*d;y<H;y+=step)for(let x=(y/step%2)*step/2;x<W;x+=step){const k=(y-(H-110*d))/(110*d);g.fillStyle=`rgba(122,92,176,${.05+.25*k})`;g.beginPath();g.arc(x,y,1+1.6*k*d,0,7);g.fill()}g.restore();
+  // fireflies
+  g.save();g.globalCompositeOperation='lighter';fireflies.forEach(f=>{f.p+=dt*.0006*f.s;const x=(f.x+Math.sin(f.p)*.03)*W,y=(f.y+Math.cos(f.p*.7)*.04)*H*.85;g.globalAlpha=.12+.2*Math.sin(f.p*3)**2;const sz=5*d*f.s;g.drawImage(sprite(f.gold?'#ffd76a':'#b4a0d6'),x-sz,y-sz,sz*2,sz*2)});g.restore();
+  const L=layout(W/d,H/d);TL=L;const S=(x,y)=>[(L.ox+x*L.sc)*d,(L.oy+y*L.sc)*d];
+  const onPath=new Set();for(let x=selected;x;x=x.parent)onPath.add(x);
+  const sway=n=>Math.sin(ts*.0008+n.depth*1.3+(n.x||0)*.01)*n.depth*1.4;
+  hits=[];
+  // branches
+  L.nodes.forEach(n=>{n.grow=Math.min(1,n.grow+dt*.0022);if(!n.parent)return;const pr=n.parent;const[ax,ay]=S(pr.x+sway(pr),pr.y),[bx0,by0]=S(n.x+sway(n),n.y);const gk=ease(n.grow);const bx=ax+(bx0-ax)*gk,by=ay+(by0-ay)*gk;
+    const mx=(ax+bx)/2+(by-ay)*.12,my=(ay+by)/2-(bx-ax)*.12;const w=Math.max(1.3,12*Math.pow(.62,n.depth))*d*L.sc;const mvc=COLORS[n.path[n.path.length-1][0]];
+    const gr=g.createLinearGradient(ax,ay,bx,by);gr.addColorStop(0,onPath.has(n)?'#ffd76a':'#2c1f45');gr.addColorStop(1,onPath.has(n)?'#ffd76a':'rgba(180,160,214,.55)');
+    g.save();g.strokeStyle=gr;g.lineWidth=w;g.lineCap='round';g.globalAlpha=onPath.has(n)?1:.75;if(onPath.has(n)){g.shadowColor='rgba(255,215,106,.8)';g.shadowBlur=14*d}
+    g.beginPath();g.moveTo(ax,ay);g.quadraticCurveTo(mx,my,bx,by);g.stroke();g.restore()});
+  // trunk into the ground
+  {const[rx,ry]=S(rootNode.x,rootNode.y);g.save();const gr=g.createLinearGradient(rx,ry,rx,H);gr.addColorStop(0,'#5b3e8c');gr.addColorStop(1,'rgba(91,62,140,0)');g.strokeStyle=gr;g.lineWidth=16*d*L.sc;g.lineCap='round';g.beginPath();g.moveTo(rx,ry);g.quadraticCurveTo(rx-10*d,(ry+H)/2,rx,H);g.stroke();g.restore()}
+  // buds
+  L.nodes.forEach(n=>{if(!n.bud||n.grow<.9)return;const[ax,ay]=S(n.x+sway(n),n.y);const bx=ax+Math.sin(n.bud.a)*n.bud.len*L.sc*d,by=ay-Math.cos(n.bud.a)*n.bud.len*L.sc*d;
+    g.save();g.setLineDash([3*d,4*d]);g.strokeStyle='rgba(180,160,214,.6)';g.lineWidth=1.5*d;g.beginPath();g.moveTo(ax,ay);g.lineTo(bx,by);g.stroke();g.setLineDash([]);
+    const rr=(13+Math.sin(ts*.004)*1.5)*d;g.fillStyle='rgba(29,20,48,.95)';g.strokeStyle='#b4a0d6';g.beginPath();g.arc(bx,by,rr,0,7);g.fill();g.stroke();g.fillStyle='#efe7d2';g.font=`${11*d}px ui-monospace,monospace`;g.textAlign='center';g.textBaseline='middle';g.fillText('+'+n.bud.count,bx,by);g.restore();
+    hits.push({type:'bud',n,x:bx/d,y:by/d,r:rr/d+4})});
+  // fruit (states)
+  L.nodes.forEach(n=>{if(n.grow<.85)return;const[x,y]=S(n.x+sway(n),n.y);const rr=Math.max(narrowTree()?13:16,(n.parent?34:52)*Math.pow(.86,n.depth)*Math.min(1.1,L.sc+.25))*d;const breathe=1+Math.sin(ts*.002+n.depth+(n.x||0))*.04;
+    g.save();const glow=g.createRadialGradient(x,y,rr*.4,x,y,rr*1.8);glow.addColorStop(0,onPath.has(n)?'rgba(255,215,106,.22)':'rgba(122,92,176,.2)');glow.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=glow;g.beginPath();g.arc(x,y,rr*1.8,0,7);g.fill();
+    g.fillStyle='rgba(13,10,18,.92)';g.strokeStyle=n===selected?'#ffd76a':onPath.has(n)?'rgba(255,215,106,.6)':'rgba(122,92,176,.55)';g.lineWidth=(n===selected?2.2:1.2)*d;g.beginPath();g.arc(x,y,rr*breathe,0,7);g.fill();g.stroke();g.restore();
+    let an=null;if(n===hoverNode&&n.parent){n.hoverT=Math.min(1,n.hoverT+dt/560);an={move:n.path[n.path.length-1],p:n.hoverT}}else n.hoverT=0;
+    g.save();g.beginPath();g.arc(x,y,rr*breathe-1,0,7);g.clip();drawCube(g,an&&an.p<1?n.parent.state:n.state,{yaw:-.62+Math.sin(ts*.0004+n.depth)*.25,pitch:.5,zoom:1.05},an&&an.p<1?an:null,{cx:x,cy:y,size:rr*1.75,dpr:d,rings:false,orbits:false,dot:.24,glow:.8,trail:1.4});g.restore();
+    g.save();g.font=`${(n.parent?12:13)*d}px ui-monospace,monospace`;g.textAlign='center';g.fillStyle=onPath.has(n)?'#ffd76a':'#efe7d2';g.fillText(n.parent?pm(n.path[n.path.length-1]):(treeRootPath.length?t('tree_from').split(' ')[0]+' ⟲':t('solved')),x,y+rr+14*d);g.restore();
+    hits.push({type:'node',n,x:x/d,y:y/d,r:rr/d})});
+  // the crow perches on the selected fruit
+  if(selected&&crow.complete&&selected.grow>.85){const[x,y]=S(selected.x+sway(selected),selected.y);const rr=Math.max(16,(selected.parent?34:52)*Math.pow(.86,selected.depth)*Math.min(1.1,L.sc+.25))*d;const cs=58*d;g.save();g.imageSmoothingEnabled=false;g.drawImage(crow,x-cs*.48,y-rr-cs*.78+Math.sin(ts*.003)*2*d,cs,cs);g.restore()}
+}
+function pickTree(e){const r=treeCv.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;let best=null;for(const h of hits){const dd=Math.hypot(h.x-x,h.y-y);if(dd<h.r&&(!best||dd<best.d))best={...h,d:dd}}return[best,x,y]}
+treeCv.addEventListener('pointermove',e=>{const[h,x,y]=pickTree(e);treeCv.style.cursor=h?'pointer':'default';hoverNode=h&&h.type==='node'?h.n:null;
+  if(h&&h.type==='node'){tip.style.opacity=1;tip.style.left=Math.min(x+14,treeCv.clientWidth-200)+'px';tip.style.top=(y+14)+'px';{const cs=cyclesOf(h.n.state.map(s=>SLOT.get(key(s))));tip.innerHTML=`<code>${h.n.path.length?h.n.path.map(pm).join(' '):'·'}</code><br>fix ${homeCount(h.n.state)}/54 · ord ${cs.reduce((a,c)=>lcm(a,c.length),1)} · type ${cycleType(cs)}`}}else tip.style.opacity=0});
+treeCv.addEventListener('pointerleave',()=>{tip.style.opacity=0;hoverNode=null});
+treeCv.addEventListener('click',e=>{const[h]=pickTree(e);if(!h)return;if(h.type==='bud'){h.n.showAll=true;return}
+  const n=h.n;if(selected===n&&n.open){n.open=false}else{n.open=true;visibleKids(n).forEach(c=>{if(c.grow>=1)return})}selected=n;updateSel()});
+function updateSel(){document.getElementById('selpath').textContent=selected&&selected.path.length?selected.path.map(pm).join(' '):'·'}
+document.getElementById('treefrom').onclick=()=>{treeRootPath=[...path];seedTree(state)};
+document.getElementById('loadsel').onclick=()=>{if(!selected)return;const st=selected.state,p=[...treeRootPath,...selected.path].reduce(pushMove,[]);reset();state=st;path=p;refreshUI();document.getElementById('show').scrollIntoView({behavior:'smooth'});setTimeout(()=>solve(),900)};
+function treeStats(){let a=9,b=9;const rows=[[t('st_depth'),t('st_naive'),t('st_pruned'),t('st_true')]];for(let d=1;d<=5;d++){rows.push([d,(18**d).toLocaleString(lang),(a+b).toLocaleString(lang),DIST[d].toLocaleString(lang)]);[a,b]=[6*a+6*b,9*a+6*b]}
+  document.getElementById('treestats').innerHTML=rows.map((r,i)=>r.map((c,j)=>i===0?`<span>${c}</span>`:`<b class="${j===3&&i>=4?'d':''}">${c}</b>`).join('')).join('')}
+
+/* ================= chapter I ================= */
+const PRESETS=[['R'],['R','U'],['R','U',"R'","U'"],['R','U2',"D'",'B',"D'"],"U R2 F B R B2 R U2 L B2 R U' D' R2 F R' L B2 U2 F2".split(' ')];
+const PRESET_NAMES=[null,null,'commutator',null,'superflip'];
+let seqSel=1;const permCv=document.getElementById('permcv'),pctx=permCv.getContext('2d');const pcam={yaw:.55,pitch:.42,zoom:.92};let pstate=SOLVED,pstep=0,panim=null;
+const chips=document.getElementById('seqchips');
+PRESETS.forEach((s,i)=>{const b=document.createElement('button');b.className='chip';b.textContent=PRESET_NAMES[i]&&s.length>6?PRESET_NAMES[i]:s.map(pm).join(' ')+(PRESET_NAMES[i]?' · '+PRESET_NAMES[i]:'');b.onclick=()=>{seqSel=i;pstate=SOLVED;pstep=0;panim=null;renderOrder()};chips.append(b)});
+function renderOrder(){const seq=PRESETS[seqSel];chips.querySelectorAll('.chip').forEach((b,i)=>b.setAttribute('aria-pressed',i===seqSel));
+  const cyc=cyclesOf(permOf(seq));const ord=cyc.reduce((a,c)=>lcm(a,c.length),1);document.getElementById('order').textContent=ord.toLocaleString(lang);
+  const lens={};cyc.forEach(c=>lens[c.length]=(lens[c.length]||0)+1);
+  document.getElementById('ordertext').textContent=t('order_t',{c:cycleType(cyc)});
+  const box=document.getElementById('cycles');box.innerHTML='';cyc.sort((a,b)=>b.length-a.length).slice(0,9).forEach(c=>{const d=document.createElement('div');d.className='cyc';d.innerHTML=c.map(i=>`<i style="--c:${colorOf(SOLVED[i])}"></i>`).join('')+`<span>${c.length}</span>`;box.append(d)})}
+
+/* ================= chapter II ================= */
+const TOTAL=43252003274489856000n;let counted=false;
+function runCounter(){if(counted)return;counted=true;const el=document.getElementById('counter');const t0=now(),D=2600;const fmt=n=>n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,' ');
+  (function step(ts){const k=Math.min(1,(ts-t0)/D),e=1-Math.pow(1-k,4);const big=k<1?BigInt(Math.floor(Math.pow(10,e*20*.999)*(.4+Math.random()*.6))):TOTAL;el.textContent=fmt(big<TOTAL?big:TOTAL);if(k<1)requestAnimationFrame(step)})(t0)}
+
+function renderCum(){const G=43252003274489856000n;let a=9n,b=9n,cum=1n;const rows=[];for(let n=1;n<=19;n++){cum+=a+b;if(n>=14)rows.push([n,cum]);[a,b]=[6n*a+6n*b,9n*a+6n*b]}
+  const sci=x=>{const s=x.toString();return s[0]+'.'+s.slice(1,4)+' × 10'+sup(s.length-1)};
+  document.getElementById('cumtable').innerHTML=`<tr><th>${t('cum_n')}</th><th>${t('cum_seq')}</th><th>${t('cum_g')}</th></tr>`+rows.map(([n,c])=>`<tr class="${c>=G&&n===18?'hit':''}"><td>${n}</td><td>${sci(c)}</td><td>${c>=G?'✓':'·'}</td></tr>`).join('')}
+
+/* ================= §3 Monte Carlo mixing ================= */
+const MP=MOVES.map(m=>Int8Array.from(permOf([m])));
+const MC={N:4000,K:30,seed:0x1729,done:0,sum:null,sq:null,rng:null,running:false};
+function mulberry(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function mcReset(seed){MC.seed=seed;MC.done=0;MC.sum=new Float64Array(MC.K+1);MC.sq=new Float64Array(MC.K+1);MC.rng=mulberry(seed);MC.running=true}
+function mcStep(batch){const pos=new Int8Array(54);for(let w=0;w<batch&&MC.done<MC.N;w++,MC.done++){for(let i=0;i<54;i++)pos[i]=i;
+  for(let k=0;k<=MC.K;k++){if(k){const mp=MP[(MC.rng()*18)|0];for(let i=0;i<54;i++)pos[i]=mp[pos[i]]}let h=0;for(let i=0;i<54;i++)if(pos[i]===i)h++;MC.sum[k]+=h;MC.sq[k]+=h*h}}
+  if(MC.done>=MC.N)MC.running=false;drawMC()}
+const mcsvg=document.getElementById('mcsvg');
+function mcYou(){drawMC()}
+function drawMC(){if(!MC.sum)return;const W=mcsvg.clientWidth,H=mcsvg.clientHeight;if(!W)return;const nar=W<520;const m={l:nar?30:44,r:nar?10:24,t:10,b:30};
+  const X=k=>m.l+(W-m.l-m.r)*k/MC.K,Y=v=>m.t+(H-m.t-m.b)*(1-v/54);const n=Math.max(1,MC.done);
+  const mean=[...MC.sum].map(v=>v/n),sd=[...MC.sq].map((v,k)=>Math.sqrt(Math.max(0,v/n-mean[k]**2)));
+  let o='';
+  [0,8,20,34,54].forEach(v=>{o+=`<line x1="${m.l}" x2="${W-m.r}" y1="${Y(v)}" y2="${Y(v)}" stroke="rgba(122,92,176,${v===8?0:.15})"/><text x="${m.l-8}" y="${Y(v)+4}" text-anchor="end" fill="rgba(239,231,210,.5)" font-size="11" font-family="ui-monospace,monospace">${v}</text>`});
+  for(let k=0;k<=MC.K;k+=nar?10:5)o+=`<text x="${X(k)}" y="${H-8}" text-anchor="middle" fill="rgba(239,231,210,.5)" font-size="11" font-family="ui-monospace,monospace">${k}</text>`;
+  o+=`<line x1="${m.l}" x2="${W-m.r}" y1="${Y(8)}" y2="${Y(8)}" stroke="#ffd76a" stroke-dasharray="4 5" opacity=".7"/><text x="${W-m.r}" y="${Y(8)-8}" text-anchor="end" fill="#ffd76a" font-size="12" font-family="ui-monospace,monospace">E[fix] = 8</text>`;
+  const up=mean.map((v,k)=>`${X(k)},${Y(Math.min(54,v+sd[k]))}`),dn=mean.map((v,k)=>`${X(k)},${Y(Math.max(0,v-sd[k]))}`).reverse();
+  o+=`<polygon points="${up.concat(dn).join(' ')}" fill="rgba(122,92,176,.22)"/>`;
+  o+=`<polyline points="${mean.map((v,k)=>`${X(k)},${Y(v)}`).join(' ')}" fill="none" stroke="#b4a0d6" stroke-width="2"/>`;
+  mean.forEach((v,k)=>{o+=`<circle cx="${X(k)}" cy="${Y(v)}" r="2.2" fill="#efe7d2"/>`});
+  if(path.length){const k=Math.min(MC.K,path.length);o+=`<circle cx="${X(k)}" cy="${Y(homeCount(state))}" r="6" fill="none" stroke="#ffd76a" stroke-width="2"/><circle cx="${X(k)}" cy="${Y(homeCount(state))}" r="2" fill="#ffd76a"/>`}
+  o+=`<text x="${m.l}" y="${H-8}" fill="rgba(239,231,210,0)">.</text>`;
+  mcsvg.innerHTML=o;
+  const K=MC.K;document.getElementById('mcstat').textContent=t('mc_stat',{d:MC.done.toLocaleString(lang),n:MC.N.toLocaleString(lang),k:K,m:mean[K].toFixed(3),s:sd[K].toFixed(2)});
+  document.getElementById('mccap').textContent=t('mc_cap',{n:MC.N.toLocaleString(lang),k:K,seed:'0x'+MC.seed.toString(16)})}
+new ResizeObserver(drawMC).observe(mcsvg);
+document.getElementById('mcrun').onclick=()=>mcReset((Math.random()*0xffffffff)>>>0);
+mcReset(0x1729);
+
+/* ================= chapter III ================= */
+const DIST=[1,18,243,3240,43239,574908,7618438,100803036,1332343288,17596479795,232248063316,3063288809012,40374425656248,531653418284628,6989320578825358,91365146187124313,1.1e18,1.2e19,2.9e19,1.5e18,4.9e8];
+const barsEl=document.getElementById('bars');let barScale='log';
+const fmtE=v=>v<1e6?Math.round(v).toLocaleString(lang):v.toExponential(2).replace('e+',' × 10^');
+DIST.forEach((v,d)=>{const b=document.createElement('div');b.className='gbar'+(d===20?' twenty':'');b.innerHTML=`<div class="t">${d}: ${d>=16?'≈ ':''}${fmtE(v)}</div><i></i><span>${d}</span>`;barsEl.append(b)});
+const barH=v=>barScale==='log'?Math.log10(v)/Math.log10(2.9e19)*100:v/2.9e19*100;
+function growBars(){barsEl.querySelectorAll('i').forEach((i,k)=>setTimeout(()=>i.style.height=Math.max(.6,barH(DIST[k]))+'%',k*45))}
+document.querySelectorAll('#scalechips .chip').forEach(b=>b.onclick=()=>{barScale=b.dataset.s;document.querySelectorAll('#scalechips .chip').forEach(x=>x.setAttribute('aria-pressed',x===b));growBars()});
+function updateGodMarker(){const n=path.length;barsEl.querySelectorAll('.gbar').forEach((b,d)=>b.classList.toggle('you',n>0&&d===Math.min(20,n)));document.getElementById('youtag').textContent=n?t('you',{n,m:Math.min(20,n)}):''}
+function drawHalftone(){const cv=document.getElementById('halftone'),img=new Image();img.src='/the6cube/assets/diogenes.webp';img.onload=()=>{const[d]=fitCanvas(cv),W=cv.width,H=cv.height,g=cv.getContext('2d');
+  const s=Math.max(W/img.width,H/img.height),iw=img.width*s,ih=img.height*s,ox=W-iw,oy=(H-ih)/2;const off=document.createElement('canvas');off.width=W;off.height=H;const o=off.getContext('2d');o.drawImage(img,ox,oy,iw,ih);const data=o.getImageData(0,0,W,H).data;
+  const step=Math.round(7*d);g.clearRect(0,0,W,H);const lx=ox+iw*.30,ly=oy+ih*.46;
+  for(let y=step/2;y<H;y+=step)for(let x=step/2;x<W;x+=step){const i=(Math.floor(y)*W+Math.floor(x))*4;const l=(data[i]+data[i+1]+data[i+2])/765;const r=l*step*.55;if(r<.4)continue;const gold=Math.max(0,1-Math.hypot(x-lx,y-ly)/(iw*.22));
+    g.fillStyle=gold>.05?`rgba(255,${190+40*gold|0},106,${.25+.6*gold*l})`:`rgba(122,92,176,${.12+.5*l})`;g.beginPath();g.arc(x,y,r,0,7);g.fill()}}}
+
+/* ================= language ================= */
+window.__cubeSetLang=c=>{lang=c;applyLang()};
+function applyLang(){document.documentElement.lang=lang;
+  document.querySelectorAll('[data-i18n]').forEach(el=>el.textContent=t(el.dataset.i18n));
+  document.querySelectorAll('[data-i18n-html]').forEach(el=>el.innerHTML=t(el.dataset.i18nHtml));
+  renderPal();refreshUI();renderOrder();treeStats();updateSel();renderCum();drawMC()}
+
+/* ================= loop ================= */
+let lastT=now(),showVisible=true,treeVisible=false,permVisible=false,mixVisible=false;
+function frame(ts){const dt=Math.min(50,ts-lastT);lastT=ts;
+  if(!anim&&queue.length){const j=queue.shift();if(j.kind==='end'){showMode='idle'}else anim={...j,t0:ts}}
+  let a=null,done=null;if(anim){const k=Math.min(1,(ts-anim.t0)/(anim.dur||(anim.move.endsWith('2')?560:400)));a={move:anim.move,p:k};if(k>=1){done=anim;anim=null}}
+  if(showVisible){const[d,changed]=fitCanvas(heroCv);if(changed)hctx.clearRect(0,0,heroCv.width,heroCv.height);
+    if(!dragging&&ts-lastInteract>1800)cam.yaw+=dt*(showMode==='solving'?.00045:.00012);
+    const pts=drawShow(hctx,heroCv.width,heroCv.height,done?null:a,d,ts);if(done)onMoveDone(done,(pts||[]).map(p=>({...p,mv:done.move&&p.s.position[turnInfo(done.move).axis]===turnInfo(done.move).sign})))}
+  else if(done)onMoveDone(done,null);
+  if(treeVisible)drawTree(ts,dt);
+  if(mixVisible&&MC.running)mcStep(160);
+  if(permVisible){const[d2]=fitCanvas(permCv);pctx.clearRect(0,0,permCv.width,permCv.height);const seq=PRESETS[seqSel];if(!panim)panim={move:seq[pstep%seq.length],t0:ts};
+    const k=Math.min(1,Math.max(0,(ts-panim.t0)/520));pcam.yaw+=dt*.00009;drawCube(pctx,pstate,pcam,{move:panim.move,p:k},{cx:permCv.width/2,cy:permCv.height/2,size:Math.min(permCv.width,permCv.height),dpr:d2,ringAlpha:.1});
+    if(k>=1){pstate=turn(pstate,panim.move);pstep++;panim=null;if(pstep%seq.length===0&&stateKey(pstate)===SOLVED_KEY)panim={move:seq[0],t0:ts+600}}}
+  requestAnimationFrame(frame)}
+const io=new IntersectionObserver(es=>es.forEach(e=>{const id=e.target.id;
+  if(id==='show')showVisible=e.isIntersecting;else if(id==='treefig')treeVisible=e.isIntersecting;else if(id==='mixbox')mixVisible=e.isIntersecting;else if(id==='permcv')permVisible=e.isIntersecting;
+  else if(e.isIntersecting){if(id==='countbox')runCounter();if(id==='godbox')growBars()}}),{threshold:.05});
+['show','treefig','permcv','countbox','godbox','mixbox'].forEach(id=>io.observe(document.getElementById(id)));
+
+seedTree(SOLVED);applyLang();drawHalftone();
+addEventListener('resize',()=>{clearTimeout(drawHalftone.t);drawHalftone.t=setTimeout(drawHalftone,200)});
+requestAnimationFrame(frame);
+// first impression: a gentle self-scramble so the page opens mid-story
+setTimeout(()=>{if(!path.length&&!queue.length)scramble()},1400);
+}
+</script>
+<script type="module">import { mountPolyglot } from '/the6cube/polyglot.js'; mountPolyglot(c => window.__cubeSetLang(c));</script>
+<script type="module" src="/the6cube/coffee.js"></script>
+</body>
+</html>

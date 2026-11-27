@@ -4,6 +4,51 @@
   ],
   "redirects": [
     {
+      "source": "/6",
+      "destination": "/the6cube/?key=gabe-maxxing&r=gabe&utm_source=wa",
+      "permanent": false
+    },
+    {
+      "source": "/cube",
+      "destination": "/the6cube",
+      "permanent": true
+    },
+    {
+      "source": "/cube/:path*",
+      "destination": "/the6cube/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/the-cube/:path*",
+      "destination": "/the6cube/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/the_cube/:path*",
+      "destination": "/the6cube/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/the-cube",
+      "destination": "/the6cube",
+      "permanent": true
+    },
+    {
+      "source": "/the_cube",
+      "destination": "/the6cube",
+      "permanent": true
+    },
+    {
+      "source": "/thecube",
+      "destination": "/the6cube",
+      "permanent": true
+    },
+    {
+      "source": "/thecube/:path*",
+      "destination": "/the6cube/:path*",
+      "permanent": true
+    },
+    {
       "source": "/shark",
       "destination": "/salesforce",
       "permanent": false
@@ -419,6 +464,14 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/the6cube",
+      "destination": "/the6cube/index.html"
+    },
+    {
+      "source": "/the6cube/",
+      "destination": "/the6cube/index.html"
+    },
     {
       "source": "/cube",
       "destination": "/cube/index.html"
