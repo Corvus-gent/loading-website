@@ -1,0 +1,126 @@
+name: cube-verify
+on:
+  pull_request:
+  push:
+    branches: [main]
+  deployment_status:
+  repository_dispatch:
+    types: [vercel.deployment.success]
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  rust:
+    if: github.event_name == 'pull_request' || github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - name: Build the Rust engine
+        run: |
+          rustup toolchain install 1.91.1 --profile minimal --target wasm32-unknown-unknown
+          cargo +1.91.1 build --locked --manifest-path engine/Cargo.toml --release --target wasm32-unknown-unknown
+      - name: Check move invariants and Rust/JavaScript parity
+        run: |
+          node tools/cube/test.mjs
+          built=engine/target/wasm32-unknown-unknown/release/cube_engine.wasm
+          check_engine() {
+            node tools/cube/engine-test.mjs "$1" | tee "$RUNNER_TEMP/parity.txt"
+            grep -Eq 'experiment diffs 0$' "$RUNNER_TEMP/parity.txt"
+          }
+          check_engine the6cube/engine.wasm
+          if ! cmp "$built" the6cube/engine.wasm; then
+            echo "::warning::Fresh and shipped WASM differ in bytes. Checking the fresh build independently."
+            check_engine "$built"
+          fi
+
+  sources:
+    if: github.event_name == 'pull_request' || github.event_name == 'push'
+    runs-on: ubuntu-latest
+    outputs:
+      lean: ${{ steps.files.outputs.lean }}
+      typst: ${{ steps.files.outputs.typst }}
+      k: ${{ steps.files.outputs.k }}
+      bqn: ${{ steps.files.outputs.bqn }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: files
+        run: |
+          for pair in lean:proofs/Cube.lean typst:paper/the6cube.typ k:k/mc.k bqn:bqn/stats.bqn; do
+            if [[ -f "${pair#*:}" ]]; then echo "${pair%%:*}=true" >> "$GITHUB_OUTPUT"; fi
+          done
+
+  lean:
+    needs: sources
+    if: needs.sources.outputs.lean == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          curl -fsSL https://raw.githubusercontent.com/leanprover/elan/v4.4.0/elan-init.sh | sh -s -- -y --default-toolchain stable
+          "$HOME/.elan/bin/lean" proofs/Cube.lean
+
+  typst:
+    needs: sources
+    if: needs.sources.outputs.typst == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          pkg=typst-x86_64-unknown-linux-musl
+          curl -fsSL "https://github.com/typst/typst/releases/download/v0.15.1/$pkg.tar.xz" | tar -xJ -C "$RUNNER_TEMP"
+          "$RUNNER_TEMP/$pkg/typst" compile --root . paper/the6cube.typ the6cube.pdf
+      - uses: actions/upload-artifact@v4
+        with: {name: the6cube-paper, path: the6cube.pdf}
+
+  k:
+    needs: sources
+    if: needs.sources.outputs.k == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          git clone --depth 1 https://codeberg.org/ngn/k "$RUNNER_TEMP/ngnk"
+          make -C "$RUNNER_TEMP/ngnk" k
+          "$RUNNER_TEMP/ngnk/k" k/mc.k > "$RUNNER_TEMP/k.out"
+          diff -u k/mc.expected "$RUNNER_TEMP/k.out"
+
+  bqn:
+    needs: sources
+    if: needs.sources.outputs.bqn == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          git clone --depth 1 https://github.com/dzaima/CBQN "$RUNNER_TEMP/cbqn"
+          make -C "$RUNNER_TEMP/cbqn"
+          "$RUNNER_TEMP/cbqn/BQN" bqn/stats.bqn > "$RUNNER_TEMP/bqn.out"
+          diff -u bqn/stats.expected "$RUNNER_TEMP/bqn.out"
+
+  flows:
+    # Exercise the public site on PRs, then each deployment when Vercel signals success.
+    if: >-
+      github.event_name == 'pull_request' ||
+      (github.event_name == 'deployment_status' && github.event.deployment_status.state == 'success' &&
+       github.event.deployment_status.creator.login == 'vercel[bot]') ||
+      (github.event_name == 'repository_dispatch' && github.event.client_payload.project.name == 'loading-website')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22, cache: npm}
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test -c playwright.cube.config.mjs
+        env:
+          BASE_URL: >-
+            ${{ (github.event_name == 'pull_request' || github.event.client_payload.environment == 'production' ||
+                github.event.deployment.environment == 'Production') && 'https://corvus.gent' ||
+                github.event.deployment_status.environment_url || github.event.client_payload.url }}
