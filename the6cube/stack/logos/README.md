@@ -14,8 +14,8 @@ The SVG files are distributed unchanged and identify technologies used on this p
 | C | [C language website SVG](https://www.c-language.org/logo.svg). The committee-approved site describes the mark and credits the source in its [FAQ](https://www.c-language.org/faq). |
 | C++ | [Standard C++ Foundation’s original SVG](https://github.com/isocpp/logos/blob/master/cpp_logo.svg), designed by Jeremy Kratz. Used with permission for this tile. [Foundation terms](https://isocpp.org/home/terms-of-use). |
 | WebAssembly | [Carlos Baraza’s original icon](https://github.com/carlosbaraza/web-assembly-logo/blob/master/dist/icon/web-assembly-icon.svg), [CC0](https://github.com/carlosbaraza/web-assembly-logo/blob/master/LICENSE). [WebAssembly project selection](https://github.com/WebAssembly/design/issues/980#issuecomment-281421014). |
-| Haskell | [Haskell.org wordmark](https://www.haskell.org/img/haskell-logo.svg). The language emblem was designed by Darrin Thompson and Jeff Wheeler. [Haskell.org source and license](https://github.com/haskell-infra/www.haskell.org). |
-| Prolog | The browser uses Tau Prolog. [Tau Prolog download page](https://tau-prolog.org/downloads) and [original icon](https://github.com/tau-prolog/tau-prolog/blob/master/logo/tau.svg), BSD-3-Clause. |
+| Haskell | [Standalone emblem from the official Haskell blog](https://github.com/haskell/blog.haskell.org/blob/main/static/images/haskell.svg). Designed by Darrin Thompson and Jeff Wheeler. [Design history](https://wiki.haskell.org/Thompson-Wheeler_logo). |
+| Prolog | [SWI-Prolog’s official owl artwork](https://github.com/SWI-Prolog/plweb-www/blob/master/icons/vector/swipl-logo.svg), designed by [Steve Reeves](https://www.swi-prolog.org/Contributors.html). The tile displays the owl from the original SVG. SWI-Prolog checks the oracle rules in CI. Tau Prolog runs them in the browser. [SWI-Prolog licensing](https://www.swi-prolog.org/license.html). |
 | Lean | [Lean FRO’s official transparent SVG with ™](https://lean-lang.org/logos/). [Trademark policy](https://lean-lang.org/trademark-policy/). |
 | BQN | [Marshall Lochbaum’s original BQN emblem](https://github.com/mlochbaum/BQN/blob/master/logo.svg), ISC. |
 | Typst | [Typst’s own wordmark](https://typst.app/assets/images/typst.svg), used to identify the compiler in the technical stack. [Brand guidelines](https://typst.app/legal/brand/). |
@@ -48,71 +48,6 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-
-### Haskell.org
-
-Copyright (c) 2019, Isaac Shapira
-
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
-    * Redistributions of source code must retain the above copyright
-      notice, this list of conditions and the following disclaimer.
-
-    * Redistributions in binary form must reproduce the above
-      copyright notice, this list of conditions and the following
-      disclaimer in the documentation and/or other materials provided
-      with the distribution.
-
-    * Neither the name of Isaac Shapira nor the names of other
-      contributors may be used to endorse or promote products derived
-      from this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-### Tau Prolog
-
-BSD 3-Clause License
-
-Copyright (c) 2017-2020, José Antonio Riaza Valverde
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
-* Redistributions of source code must retain the above copyright notice, this
-  list of conditions and the following disclaimer.
-
-* Redistributions in binary form must reproduce the above copyright notice,
-  this list of conditions and the following disclaimer in the documentation
-  and/or other materials provided with the distribution.
-
-* Neither the name of the copyright holder nor the names of its
-  contributors may be used to endorse or promote products derived from
-  this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ### BQN
 
