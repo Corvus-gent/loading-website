@@ -13,9 +13,11 @@ try {
   const scores = {};
   for (const [slug] of pages) {
     const url = base + '/the6cube/' + slug;
+    const document = await context.request.get(url);
+    if (!document.ok() || (await document.text()).includes('<h1>Speak the word.')) throw Error('Could not access ' + slug);
     const {lhr} = await lighthouse(url, {port:chrome.port,output:'json',logLevel:'error',onlyCategories:['performance','accessibility'],
       disableStorageReset:true, blockedUrlPatterns:['*ntfy.sh/*','*/lend-api/*']});
-    if (lhr.runtimeError || lhr.mainDocumentUrl !== url || lhr.audits['http-status-code'].score !== 1 ||
+    if (lhr.runtimeError || lhr.mainDocumentUrl !== url ||
         !Number.isFinite(lhr.categories.performance.score)) throw Error('Lighthouse failed on ' + slug);
     const row = scores[slug || 'portal'] = {performance:Math.round(100*lhr.categories.performance.score),
       accessibility:Math.round(100*lhr.categories.accessibility.score), lcp:lhr.audits['largest-contentful-paint'].numericValue};

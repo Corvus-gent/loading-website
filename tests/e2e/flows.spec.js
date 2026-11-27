@@ -119,3 +119,14 @@ test('portal links to both stack tables and selects forced tier B',async ({page,
   await page.getByRole('link',{name:'stack',exact:true}).click();
   await expect(page.locator('table')).toHaveCount(2); await expect(page.getByRole('heading',{name:/^Now/})).toBeVisible();
 });
+
+test('the portal guide speaks the matching Prolog line', async ({page,context}) => {
+  await enter(context);
+  await page.goto('/the6cube/?lang=en');
+  const line = await page.evaluate(async () => {
+    const {ask} = await import('/the6cube/oracle.js');
+    return ask({rank:1,visits:Number(localStorage.getItem('cube_visits'))});
+  });
+  expect(line).toBeTruthy();
+  await expect(page.locator('#guide')).toContainText(line, {timeout:18_000});
+});

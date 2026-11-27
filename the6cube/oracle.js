@@ -1,5 +1,5 @@
 // the oracle's voice, chosen by Prolog rules (oracle.pl) run with Tau Prolog in the browser. JS picks nothing itself.
-const TAU = 'https://cdn.jsdelivr.net/npm/tau-prolog@0.3.4/modules/core.js';
+const TAU = new URL('./vendor/tau-prolog.js', import.meta.url).href;
 const load = () => window.pl ? Promise.resolve(window.pl) : new Promise((ok, no) => { const s = document.createElement('script'); s.src = TAU; s.onload = () => ok(window.pl); s.onerror = no; document.head.append(s); });
 export async function ask({ hour = new Date().getHours(), rank = 1, visits = 1 } = {}) {
   const pl = await load(); const rules = await (await fetch(new URL('./oracle.pl', import.meta.url))).text();

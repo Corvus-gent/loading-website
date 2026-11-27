@@ -117,7 +117,8 @@ const VIEWS = [.61, 2.18, 3.72, 5.27];
 let R3 = null;
 import('./render3d.js').then(m => { if (m.ready()) { R3 = m; try { refresh(); renderProof(); } catch {} } }).catch(() => {});
 function draw(canvas, configuration, highlighted, view = 0, zoom = 1) {
-  if (R3 && R3.draw3d(canvas, configuration, highlighted, view, zoom)) return;
+  // The 18 small tree previews already have a 2D renderer. Avoid 18 GPU readbacks per turn.
+  if (canvas.width > 120 && R3 && R3.draw3d(canvas, configuration, highlighted, view, zoom)) return;
   const ctx = canvas.getContext('2d');
   const { width, height } = canvas;
   const scale = Math.min(width, height) * .165 * zoom;
