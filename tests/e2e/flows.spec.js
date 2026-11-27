@@ -131,3 +131,29 @@ test('the portal guide speaks the matching Prolog line', async ({page,context}) 
   expect(line).toBeTruthy();
   await expect(page.locator('#guide')).toContainText(line, {timeout:18_000});
 });
+
+test('anatomy opens the network, heart and soul in canvas mode', async ({page, context}) => {
+  const errors = [];
+  const cortexRequests = [];
+  page.on('pageerror', error => errors.push(error.message));
+  page.on('console', message => {
+    if (message.type() === 'error') errors.push(message.text());
+  });
+  page.on('request', request => {
+    if (/niivue|\.nii(?:\.gz)?(?:$|\?)/i.test(request.url())) cortexRequests.push(request.url());
+  });
+  await enter(context);
+  await page.goto('/the6cube/anatomy/?tier=B');
+  await expect(page.locator('#net')).toBeVisible();
+  await expect(page.locator('#nd')).toHaveText(/^[1-9]\d*$/);
+  await page.getByLabel('kind of network').selectOption('tree');
+  await expect(page.locator('#what')).toContainText(/tree/i);
+  await page.locator('[data-o="heart"]').click();
+  await expect(page.getByRole('heading', {name:'the heart'})).toBeVisible();
+  await page.locator('#heart svg').click();
+  await expect(page.locator('#heart')).toHaveClass(/open/);
+  await page.locator('[data-o="soul"]').click();
+  await expect(page.getByRole('heading', {name:'the soul'})).toBeVisible();
+  expect(cortexRequests).toEqual([]);
+  expect(errors).toEqual([]);
+});

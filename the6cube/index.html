@@ -9,7 +9,7 @@
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
 <title>The 6 Cube · Corvus</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&display=optional" rel="stylesheet" media="print" onload="this.media='all'">
 <style>
 /* VOICE  an oracle in a trading room after hours: almost nothing is said
    IDEA   the cube is alive; it wanders through its group one move at a time, and the four answers reshape it
@@ -38,7 +38,7 @@ header a img{width:22px;height:22px;border-radius:50%;opacity:.8;display:block}
 .tag{font:10.5px var(--mono);letter-spacing:.16em;color:var(--dim);text-transform:uppercase}
 main{position:relative;z-index:1;height:100svh;display:grid;place-items:end center;padding:0 20px max(9vh,56px);pointer-events:none}
 .oracle{text-align:center;pointer-events:auto}
-h1{font:400 clamp(28px,4.2vw,52px)/1.1 var(--serif);margin:0;opacity:0;animation:in 2s .6s forwards;letter-spacing:.005em}
+h1{font:400 clamp(28px,4.2vw,52px)/1.1 var(--serif);margin:0;letter-spacing:.005em}
 h1 em{font-style:italic;color:var(--gold)}
 ul{list-style:none;padding:0;margin:26px 0 0;display:flex;gap:0;justify-content:center;flex-wrap:wrap}
 li{opacity:0;animation:in 1.4s forwards}
@@ -163,6 +163,7 @@ body.leaving main,body.leaving .whisper,body.leaving header{opacity:0;transition
     <a class="realm" data-door="casino"><canvas data-prev="casino"></canvas><div class="tx"><b data-r="casino_b"></b><p data-r="casino_p"></p><small data-r="casino_n"></small></div></a>
     <a class="realm" data-door="show"><canvas data-prev="show"></canvas><div class="tx"><b data-r="show_b"></b><p data-r="show_p"></p><small data-r="show_n"></small></div></a>
     <a class="realm" data-door="note"><canvas data-prev="note"></canvas><div class="tx"><b data-r="note_b"></b><p data-r="note_p"></p><small data-r="note_n"></small></div></a>
+    <a class="realm" href="/the6cube/anatomy/"><div class="tx"><b>anatomy</b></div></a>
     <a class="realm" href="/the6cube/brein/"><canvas data-prev="brain"></canvas><div class="tx"><b data-r="brain_b"></b><p data-r="brain_p"></p><small data-r="brain_n"></small></div></a>
     <a class="realm" href="/the6cube/kas/"><canvas data-prev="kas"></canvas><div class="tx"><b data-r="kas_b"></b><p data-r="kas_p"></p><small data-r="kas_n"></small></div></a>
   </div>
@@ -263,7 +264,17 @@ let hover = null, morph = 0;
 const cv = document.getElementById('cv'), g = cv.getContext('2d');
 // the hero cube in real 3D (same renderer as "a pattern"); the coloured dots only appear for the oracle's formations
 let R3 = null; const off = document.createElement('canvas');
-if (document.documentElement.dataset.tier !== 'B') import('/the6cube/render3d.js').then(m => { if (m.ready()) R3 = m; }).catch(() => {});
+function loadArtwork() {
+  if (V.dio) drawDiogenes();
+  if (document.documentElement.dataset.tier !== 'B') {
+    import('/the6cube/render3d.js').then(m => { if (m.ready()) R3 = m; }).catch(() => {});
+  }
+}
+function scheduleArtwork() {
+  requestAnimationFrame(() => requestAnimationFrame(loadArtwork));
+}
+if (document.readyState === 'complete') scheduleArtwork();
+else window.addEventListener('load', scheduleArtwork, {once:true});
 const oracleEl = document.querySelector('.oracle');
 let last = performance.now(), yaw = -.6;
 function frame(tm) {
@@ -353,7 +364,7 @@ function drawDiogenes() {
 if (!V.delphi) document.querySelector('.delphi').remove();
 if (!V.dio) document.getElementById('lantern').remove();
 mountPolyglot(code => { document.querySelector('.oracle').classList.add('ready'); lang = code; render(); speak('idle'); dispatchEvent(new CustomEvent('cube-lang', { detail: code })); });
-render(); speak('idle'); drawDiogenes(); track('exposure', { lang, w: innerWidth });
+render(); speak('idle'); track('exposure', { lang, w: innerWidth });
 addEventListener('resize', () => { clearTimeout(drawDiogenes.t); drawDiogenes.t = setTimeout(drawDiogenes, 200); });
 // Diogenes searches: the lantern leans a little toward whoever is looking
 addEventListener('pointermove', e => { const L = document.getElementById('lantern'); if (!L || reduced) return; const r = L.getBoundingClientRect(), dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2), k = Math.min(1, 220 / (Math.hypot(dx, dy) + 1));
