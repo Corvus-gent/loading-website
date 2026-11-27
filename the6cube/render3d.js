@@ -16,6 +16,7 @@ try {
   const pmrem = new THREE.PMREMGenerator(renderer); scene.environment = pmrem.fromScene(new RoomEnvironment(), .04).texture; scene.environmentIntensity = .55;
   const key = new THREE.DirectionalLight(0xffffff, 1.2); key.position.set(4, 7, 5); scene.add(key);
   scene.add(new THREE.HemisphereLight(0xffffff, 0xd8d8e0, .55));
+  const rim = new THREE.DirectionalLight(0xb4a0d6, .9); rim.position.set(-5, 2, -6); scene.add(rim);   // violet rim so the black body reads on a dark page
   camera = new THREE.PerspectiveCamera(28, 1, .1, 100);
   bodyGeo = new RoundedBoxGeometry(.96, .96, .96, 4, .12);
   const s = new THREE.Shape(), h = .41, r = .1;
@@ -47,7 +48,7 @@ export function draw3d(canvas, conf, hl, view = 0, zoom = 1) {
   const W = canvas.width, H = canvas.height;
   renderer.setSize(W, H, false); camera.aspect = W / H;
   // camera: same angles as the old ring view (yaw from VIEWS, pitch .56)
-  const yaw = VIEWS[view] || VIEWS[0], pitch = .56, dist = 13.2 / (1 + (zoom - 1) * .18) * Math.max(1, (H / W) * 1.1);
+  const yaw = typeof view === 'object' ? view.yaw : (VIEWS[view] || VIEWS[0]), pitch = typeof view === 'object' ? (view.pitch ?? .56) : .56, dist = 13.2 / (1 + (zoom - 1) * .18) * Math.max(1, (H / W) * 1.1);
   camera.position.set(Math.sin(yaw) * Math.cos(pitch) * dist, Math.sin(pitch) * dist, Math.cos(yaw) * Math.cos(pitch) * dist); camera.lookAt(0, 0, 0); camera.updateProjectionMatrix();
   // rebuild cubies from sticker state
   cubies.clear();

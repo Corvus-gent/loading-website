@@ -337,7 +337,7 @@ let spot = 'g_top';
 function speakGuide(k) { if (k === spot && say.textContent) return; spot = k; say.classList.add('hide'); setTimeout(() => { say.textContent = t(k); say.classList.remove('hide'); clearTimeout(say._h); if (innerWidth < 700) say._h = setTimeout(() => say.classList.add('hide'), 3800); }, 300); }
 const gio = new IntersectionObserver(es => { const v = es.filter(e => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]; if (v) speakGuide(v.target.dataset.guide); }, { threshold: [.35, .6] });
 for (const [sel, k] of SPOTS) { const el = sel === 'top' ? document.querySelector('main') : sel === 'tiles' ? document.querySelector('.tiles') : sel === 'closing' ? document.querySelector('.closing') : document.getElementById(sel); if (el) { el.dataset.guide = k; gio.observe(el); } }
-setTimeout(async () => { if (document.querySelector('.sp-veil')) return; guide.classList.add('on'); const back = await backLine(); if (back) { say.textContent = back; say.classList.remove('hide'); spot = ''; setTimeout(() => speakGuide('g_top'), 6000); } else speakGuide(spot); }, 4200);
+setTimeout(async () => { if (document.querySelector('.sp-veil, .rit')) return; guide.classList.add('on'); const back = await backLine(); if (back) { say.textContent = back; say.classList.remove('hide'); spot = ''; setTimeout(() => speakGuide('g_top'), 6000); } else speakGuide(spot); }, 4200);
 document.getElementById('fly').addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
 addEventListener('cube-lang', () => { say.textContent = t(spot); piText(); });
 
@@ -418,7 +418,8 @@ if (caveCv) {
 
 
 // ---- share the realm: a pass-it-on sheet (WhatsApp first). every link carries the sharer's rank → the spread map ----
-import { greet, sheet, myRank, backLine } from './spread.js';
+import { greet, sheet, myRank, backLine, flip } from './spread.js';
+{ const h = document.querySelector('header .hlogo'); if (h) flip(h.querySelector('.ravenface'), h.querySelector('.cubeface'), 6000); }
 const shareBtn = document.getElementById('share');
 if (shareBtn) { shareBtn.addEventListener('click', sheet); const rk = myRank(); if (rk) shareBtn.insertAdjacentHTML('afterend', `<span class="sp-badge" title="rank">· ${rk === 1 ? 'OG' : 'rank ' + rk}</span>`); }
 // the oracle's line, chosen by Prolog (oracle.pl via Tau Prolog); shown once by the guide cube

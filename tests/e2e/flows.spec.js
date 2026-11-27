@@ -66,19 +66,19 @@ test('all five public links deliver the right channel',async ({request,baseURL})
 });
 test('root and friend arrivals show and remember the correct rank',async ({page,context}) => {
   await page.goto('/6');
-  await expect(page.locator('.sp-hi')).toContainText('Gabe');
-  await expect(page.locator('.sp-rank')).toContainText(/rank 1\b/i);
-  await page.locator('.sp-btn').click();
-  await expect(page.locator('.sp-veil')).toHaveCount(0);
+  await expect(page.locator('.rit .rw')).toContainText('Gabe');
+  await expect(page.locator('.rit .ring')).toContainText(/rank 1\b/i);
+  await page.locator('.rit .go').click();
+  await expect(page.locator('.rit')).toHaveCount(0);
   expect(await page.evaluate(() => localStorage.getItem('cube_rank'))).toBe('1');
   await page.evaluate(() => {localStorage.clear();sessionStorage.clear();});
   await page.goto('/the6cube/?r=2-abcd&utm_source=wa');
-  await expect(page.locator('.sp-rank')).toContainText(/rank 3\b/i);
-  await expect(page.locator('.sp-hi')).toContainText('somebody');
+  await expect(page.locator('.rit .ring')).toContainText(/rank 3\b/i);
+  await expect(page.locator('.rit .rw')).toContainText('somebody');
 });
 test('share sheet opens WhatsApp with the visitor referral',async ({page}) => {
   await page.goto('/6');
-  await page.locator('.sp-pass').click();
+  await page.locator('.rit button.pass').click();
   const wa = page.locator('.sp-sheet a').first();
   await expect(wa).toHaveText('WhatsApp');
   const opened = page.waitForEvent('popup');

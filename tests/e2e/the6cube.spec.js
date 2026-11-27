@@ -52,9 +52,9 @@ test('the gate refuses a wrong word', async ({page}) => {
 
 test('/6 arrives at rank 1 and passes its rank on through WhatsApp', async ({page}) => {
   await page.goto('/6');
-  await expect(page.locator('.sp-rank')).toContainText(/rank 1\b/i);
-  await expect(page.locator('.sp-hi')).toContainText('Gabe');
-  await page.locator('.sp-pass').click();
+  await expect(page.locator('.rit .ring, .sp-veil .sp-rank')).toContainText(/rank 1\b/i);
+  await expect(page.locator('.rit .rw, .sp-veil .sp-hi')).toContainText('Gabe');
+  await page.locator('.rit button.pass, .sp-pass').click();
   const wa = page.locator('.sp-sheet a[data-c="wa"]');
   await expect(wa).toBeVisible();
   const [popup] = await Promise.all([page.waitForEvent('popup'), wa.click()]);
@@ -76,8 +76,8 @@ test('a fresh visitor following a rank 3 link arrives at rank 4', async ({page, 
   link.searchParams.set('r', '3-abcd');
   link.searchParams.set('utm_source', 'tg');
   await page.goto(link.href);
-  await expect(page.locator('.sp-rank')).toContainText(/rank 4\b/i);
-  await expect(page.locator('.sp-hi')).toContainText('somebody');
+  await expect(page.locator('.rit .ring, .sp-veil .sp-rank')).toContainText(/rank 4\b/i);
+  await expect(page.locator('.rit .rw, .sp-veil .sp-hi')).toContainText('somebody');
 });
 
 test('the lab runs an experiment on the Rust engine', async ({page}) => {

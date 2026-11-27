@@ -6,6 +6,7 @@
 <meta name="theme-color" content="#060509">
 <meta name="description" content="Cube · Corvus.">
 <meta property="og:title" content="The 6 Cube · Corvus"><meta property="og:description" content="join the new realm. know thyself, then ask the cube."><meta property="og:image" content="https://corvus.gent/the6cube/assets/og.png"><meta name="twitter:card" content="summary_large_image">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
 <title>The 6 Cube · Corvus</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&display=swap" rel="stylesheet">
@@ -20,6 +21,9 @@
 html,body{margin:0;background:var(--bg);color:var(--cream)}
 html{overflow-x:clip;scroll-behavior:smooth}
 canvas{position:fixed;inset:0;width:100%;height:100%}
+.hlogo{display:block}.tag .x{display:inline-block;font-style:normal;animation:xturn 9s steps(1) infinite}@keyframes xturn{0%,88%{transform:none}90%{transform:rotate(45deg)}92%{transform:rotate(90deg)}94%{transform:rotate(135deg)}96%,100%{transform:none}}
+@media(prefers-reduced-motion:reduce){.tag .x{animation:none}}
+@media(max-width:700px){.delphi{display:none}header .tag .long{display:none}header .tag{white-space:nowrap}}
 #dio{opacity:0;animation:in 3s .2s forwards}
 .lantern{position:fixed;width:150px;height:150px;margin:-75px 0 0 -75px;pointer-events:none;z-index:0;opacity:0;animation:in 2.4s .6s forwards;transform:translate(var(--lx,0px),var(--ly,0px));transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
 .lantern i{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,rgba(255,226,140,.75),rgba(255,215,106,.18) 32%,transparent 68%);transform-origin:50% -60%;animation:swing 4.6s ease-in-out infinite,flick 2.3s ease-in-out infinite}
@@ -148,7 +152,9 @@ body.leaving main,body.leaving .whisper,body.leaving header{opacity:0;transition
 <canvas id="dio" aria-hidden="true"></canvas><div class="lantern" id="lantern" aria-hidden="true"><i></i></div>
 <canvas id="cv" aria-hidden="true"></canvas>
 <p class="delphi" aria-label="Gnothi seauton: ken uzelf">ΓΝΩΘΙ ΣΑΥΤΟΝ</p>
-<header><a href="/" aria-label="Corvus"><img src="/the6cube/assets/day-1.svg" alt=""></a><span class="tag">Corvus × The Cube · <a href="/the6cube/brein/" title="the brain" style="text-decoration:none;color:var(--gold,#ffd76a)">东方议会</a> · <button id="share" type="button" style="all:unset;cursor:pointer;color:var(--gold,#ffd76a);pointer-events:auto">share ↗</button> · <a href="/the6cube/stack/">stack</a> · <a href="/the6cube/support/">support</a></span></header>
+<header><a href="/" aria-label="Corvus"><svg class="hlogo" viewBox="0 0 200 200" width="34" height="34" aria-hidden="true"><circle cx="100" cy="100" r="78" fill="#0d0a12" stroke="#5B3E8C" stroke-width="6"/>
+<g class="ravenface"><path d="M60 122 C58 96 68 70 94 62 C105 59 115 62 121 68 Q143 74 162 90 Q139 92 118 95 L114 103 C110 110 106 116 102 122 Z" fill="#5B3E8C"/><circle cx="108" cy="76" r="5" fill="#ffd76a"/></g>
+<g transform="translate(100 100) scale(1.05)"><g class="cubeface" style="opacity:0"><path d="M0 -44 L38 -22 L0 0 L-38 -22 Z M-38 -22 L0 0 L0 44 L-38 22 Z M38 -22 L0 0 L0 44 L38 22 Z" fill="#1d1430" stroke="#7a5cb0" stroke-width="3"/><path d="M-12.7 -36.7 L25.3 -14.7 M12.7 -36.7 L-25.3 -14.7 M-38 -7.3 L0 14.7 M-38 7.3 L0 29.3 M38 -7.3 L0 14.7 M38 7.3 L0 29.3 M-12.7 -7.3 L-12.7 36.7 M12.7 -7.3 L12.7 36.7" stroke="#7a5cb0" stroke-width="2"/><circle cx="0" cy="-22" r="5" fill="#ffd76a"/></g></g></svg></a><span class="tag"><span class="long">Corvus <i class="x">×</i> The Cube · </span><a href="/the6cube/brein/" title="the brain" style="text-decoration:none;color:var(--gold,#ffd76a)">东方议会</a> · <button id="share" type="button" style="all:unset;cursor:pointer;color:var(--gold,#ffd76a);pointer-events:auto">share ↗</button> · <a href="/the6cube/stack/" style="color:var(--lav,#b4a0d6)">stack</a> · <a href="/the6cube/support/" style="text-decoration:none;color:var(--lav,#b4a0d6)">support</a></span></header>
 <main><div class="oracle"><h1 id="q"></h1><ul id="doors"></ul><p class="voice" id="voice" aria-live="polite"></p></div><a class="hint" id="hint" href="#realms">↓</a></main>
 <div class="below" id="realms"><div class="in">
   <h2 data-r="realms_t"></h2><p class="sub" data-r="realms_s"></p>
@@ -255,6 +261,9 @@ let hover = null, morph = 0;
 
 /* ---- render ---- */
 const cv = document.getElementById('cv'), g = cv.getContext('2d');
+// the hero cube in real 3D (same renderer as "a pattern"); the coloured dots only appear for the oracle's formations
+let R3 = null; const off = document.createElement('canvas');
+if (document.documentElement.dataset.tier !== 'B') import('/the6cube/render3d.js').then(m => { if (m.ready()) R3 = m; }).catch(() => {});
 const oracleEl = document.querySelector('.oracle');
 let last = performance.now(), yaw = -.6;
 function frame(tm) {
@@ -264,7 +273,7 @@ function frame(tm) {
   const top = (oracleEl.getBoundingClientRect().top - 24) * d;   // the cube lives in the space above the question
   let R = Math.min(W * .3, H * .24) * V.cube; R = Math.max(40 * d, Math.min(R, (top - 40 * d) / 2.7));
   const cx = W / 2 + (V.dio > 1 && W > H ? W * .12 : 0), cy = Math.min(H * (W > H ? .4 : .36), top / 2 + 20 * d);
-  g.globalCompositeOperation = 'destination-out'; g.fillStyle = 'rgba(0,0,0,.34)'; g.fillRect(0, 0, W, H); g.globalCompositeOperation = 'source-over';
+  if (R3) g.clearRect(0, 0, W, H); else { g.globalCompositeOperation = 'destination-out'; g.fillStyle = 'rgba(0,0,0,.34)'; g.fillRect(0, 0, W, H); g.globalCompositeOperation = 'source-over'; }
   // advance the walk
   if (!reduced && !hover) {
     if (anim) { anim.p += dt / 620; if (anim.p >= 1) { state = turn(state, anim.m); anim = null; pause = !walk.length ? 2600 : plan.length && walk.length < 14 ? 90 : 560; } }
@@ -276,12 +285,18 @@ function frame(tm) {
   const shown = anim ? turn(state, anim.m, ease(anim.p)) : state;
   const cyaw = Math.cos(yaw), syaw = Math.sin(yaw), pitch = .46, cp = Math.cos(pitch), sp = Math.sin(pitch), dist = 9, F = R / 1.9 * dist / dist;
   const proj = v => { const x1 = v[0] * cyaw + v[2] * syaw, z1 = -v[0] * syaw + v[2] * cyaw, y1 = v[1] * cp - z1 * sp, z2 = v[1] * sp + z1 * cp, f = R / 2.5 * dist / (dist - z2); return [cx + x1 * f, cy - y1 * f, z2]; };
+  if (R3 && morph < .985) {
+    const S = Math.round(R * 3.3); if (off.width !== S) { off.width = S; off.height = S; off._hd = 1; }
+    const hl = anim ? { axis: info(anim.m).ax, sign: info(anim.m).sg } : null;
+    R3.draw3d(off, shown.map(s => ({ position: s.p, normal: s.n, face: s.f })), hl, { yaw: -yaw + 1.2, pitch: .5 }, 1);
+    g.globalAlpha = 1 - morph; g.drawImage(off, cx - S / 2, cy - S / 2); g.globalAlpha = 1;
+  }
   // hairline frame of the cube + the turning layer in gold
-  g.lineWidth = d; g.strokeStyle = `rgba(122,92,176,${.35 * (1 - morph)})`;
+  g.lineWidth = d; g.strokeStyle = `rgba(122,92,176,${(R3 ? 0 : .35) * (1 - morph)})`;
   const c = [-1.5, 1.5]; const E = [];
   for (const a of c) for (const b of c) { E.push([[a, b, -1.5], [a, b, 1.5]], [[a, -1.5, b], [a, 1.5, b]], [[-1.5, a, b], [1.5, a, b]]); }
   for (const [p, q] of E) { const A = proj(p), B = proj(q); g.beginPath(); g.moveTo(A[0], A[1]); g.lineTo(B[0], B[1]); g.stroke(); }
-  if (anim && morph < .5) { const { ax, sg, a } = info(anim.m); g.strokeStyle = `rgba(255,215,106,${.55 * Math.sin(Math.PI * anim.p)})`; g.lineWidth = 1.4 * d; g.beginPath();
+  if (anim && morph < .5 && !R3) { const { ax, sg, a } = info(anim.m); g.strokeStyle = `rgba(255,215,106,${.55 * Math.sin(Math.PI * anim.p)})`; g.lineWidth = 1.4 * d; g.beginPath();
     for (let k = 0; k <= 64; k++) { const p0 = [0, 0, 0]; p0[ax] = sg; p0[(ax + 1) % 3] = 1.7; const q = proj(rot(p0, ax, k / 64 * Math.PI * 2)); k ? g.lineTo(q[0], q[1]) : g.moveTo(q[0], q[1]); } g.stroke(); }
   // points: cube positions blended with the hovered formation
   const f = hover && shapes[hover];
@@ -293,10 +308,11 @@ function frame(tm) {
   });
   const order = dots.map((p, i) => i).sort((a, b) => dots[a].z - dots[b].z);
   g.globalCompositeOperation = 'lighter';
-  for (const i of order) { const p = dots[i], front = Math.max(.12, Math.min(1, (p.z + 2.2) / 3.6)) * (1 - morph) + morph;
+  const dotA = R3 ? morph : 1;
+  for (const i of order) { const p = dots[i], front = (Math.max(.12, Math.min(1, (p.z + 2.2) / 3.6)) * (1 - morph) + morph) * dotA;
     const gr = g.createRadialGradient(p.x, p.y, 0, p.x, p.y, 9 * d); gr.addColorStop(0, p.c); gr.addColorStop(1, 'transparent'); g.fillStyle = gr; g.globalAlpha = .45 * front; g.beginPath(); g.arc(p.x, p.y, 9 * d, 0, 7); g.fill(); }
   g.globalCompositeOperation = 'source-over';
-  for (const i of order) { const p = dots[i], front = Math.max(.12, Math.min(1, (p.z + 2.2) / 3.6)) * (1 - morph) + morph; g.globalAlpha = front; g.fillStyle = p.c; g.beginPath(); g.arc(p.x, p.y, 2.4 * d, 0, 7); g.fill(); }
+  for (const i of order) { const p = dots[i], front = (Math.max(.12, Math.min(1, (p.z + 2.2) / 3.6)) * (1 - morph) + morph) * dotA; g.globalAlpha = front; g.fillStyle = p.c; g.beginPath(); g.arc(p.x, p.y, 2.4 * d, 0, 7); g.fill(); }
   g.globalAlpha = 1;
   requestAnimationFrame(frame);
 }
