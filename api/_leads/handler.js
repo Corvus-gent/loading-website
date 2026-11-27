@@ -22,6 +22,12 @@ export function authenticated(req,password,now=Date.now()){
 }
 const login=message=>`<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>leadhunter · private</title><style>${STYLE}</style><body><main class="login"><p class="eyebrow">corvus / private tools</p><h1>leadhunter<span>.</span></h1><p>One good conversation. One website to ship.</p><form action="${BASE}/login" method="post"><label>Password<input name="password" type="password" autocomplete="current-password" required maxlength="256"></label><button>Unlock</button><p role="alert">${html(message)}</p></form></main></body></html>`;
 function body(req){if(typeof req.body==='object'&&req.body!==null)return req.body;const raw=String(req.body||'');if(raw.length>2000000)throw Error('Payload too large');return String(req.headers['content-type']).includes('application/x-www-form-urlencoded')?Object.fromEntries(new URLSearchParams(raw)):JSON.parse(raw||'{}');}
+// WebKit (Safari, DuckDuckGo) sends `Origin: null` on form posts under a strict referrer policy; Fetch Metadata still proves same-origin.
+export function sameOrigin(req){const h=req.headers||{},origin=h.origin;if(origin&&origin!=='null')return origin===`https://${h.host}`;return h['sec-fetch-site']==='same-origin';}
+// Login attempts per IP. Redis first; if storage is down, a per-instance counter so a storage outage never locks the owner out.
+const attempts=new Map();
+async function loginAttempts(db,key,now){try{return Number(await db(['EVAL',"local n=redis.call('INCR',KEYS[1]); if n==1 then redis.call('EXPIRE',KEYS[1],900) end; return n",'1',key]));}catch(error){console.error('leadhunter login limiter fallback',failureKind(error));const row=attempts.get(key);const next=row&&row.until>now?{n:row.n+1,until:row.until}:{n:1,until:now+900000};attempts.set(key,next);if(attempts.size>5000)attempts.clear();return next.n;}}
+export const STORAGE_DOWN='Storage is unreachable right now. Nothing you saved is lost; try Refresh in a minute.';
 const fields=['name','contact','need','budget_min','budget_max','currency','urgency','warm','next_action','status'];
 export function createHandler({db=redis,env=process.env,clock=Date.now}={}) {
  const setting=async()=>JSON.parse(await db(['GET',KEY+'settings'])||'{}');
@@ -34,7 +40,7 @@ export function createHandler({db=redis,env=process.env,clock=Date.now}={}) {
  row.outreach={body,subject:'Your website',url:cfg.cal&&cfg.revolut?draftLink(row.contact,row.contact_kind||'',body):'',ready:Boolean(cfg.cal&&cfg.revolut&&draftLink(row.contact,row.contact_kind||'',body)),missing:[!cfg.cal&&'CAL_LINK',!cfg.revolut&&'REVOLUT_LINK'].filter(Boolean)};
  row.offer_draft=cfg.revolut?draftLink(row.contact,row.contact_kind||'',row.offer.text):'';return row;}));return {...snap,schema_version:SCHEMA_VERSION,leads,config:cfg};}
  return async(req,res)=>{
-  res.setHeader('Cache-Control','private, no-store');res.setHeader('Vercel-CDN-Cache-Control','no-store');res.setHeader('X-Robots-Tag','noindex, nofollow, noarchive');res.setHeader('X-Content-Type-Options','nosniff');res.setHeader('Referrer-Policy','no-referrer');res.setHeader('X-Frame-Options','DENY');res.setHeader('Content-Security-Policy',"default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'; frame-ancestors 'none'");
+  res.setHeader('Cache-Control','private, no-store');res.setHeader('Vercel-CDN-Cache-Control','no-store');res.setHeader('X-Robots-Tag','noindex, nofollow, noarchive');res.setHeader('X-Content-Type-Options','nosniff');res.setHeader('Referrer-Policy','same-origin');res.setHeader('X-Frame-Options','DENY');res.setHeader('Content-Security-Policy',"default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'; frame-ancestors 'none'");
   const action=String(req.query?.leadsAction||'page'),method=req.method,password=env.LEADS_PASSWORD;
   const json=(code,data)=>res.status(code).json(data),send=(code,type,data)=>{res.setHeader('Content-Type',type+'; charset=utf-8');return res.status(code).send(data);};
   if(!password||password.length<16)return send(503,'text/html',login('Private access is being configured.'));
@@ -50,9 +56,9 @@ export function createHandler({db=redis,env=process.env,clock=Date.now}={}) {
     await db(['SET',KEY+'snapshot',JSON.stringify(next),'EX','108000']);return json(200,{ok:true,count:next.leads.length});
    }
    if(action==='login'&&method==='POST'){
-    const origin=req.headers.origin,host=req.headers.host;if(!origin||origin!==`https://${host}`)return json(403,{error:'Same-origin login required'});
+    if(!sameOrigin(req))return send(403,'text/html',login('Open leadhunter from corvus.gent and unlock it there.'));
     const ip=String(req.headers['x-forwarded-for']||'unknown').split(',')[0];const key=KEY+'login:'+crypto.createHmac('sha256',password).update(ip).digest('hex');
-    const count=Number(await db(['EVAL',"local n=redis.call('INCR',KEYS[1]); if n==1 then redis.call('EXPIRE',KEYS[1],900) end; return n",'1',key]));
+    const count=await loginAttempts(db,key,clock());
     if(count>10)return send(429,'text/html',login('Too many attempts. Try again in 15 minutes.'));
     if(!equal(body(req).password,password))return send(401,'text/html',login('That password did not match.'));
     res.setHeader('Set-Cookie',`leadhunter=${session(password,clock())}; HttpOnly; Secure; SameSite=Strict; Path=${BASE}; Max-Age=43200`);res.setHeader('Location',BASE);return res.status(303).end();
@@ -66,7 +72,7 @@ export function createHandler({db=redis,env=process.env,clock=Date.now}={}) {
     return json(404,{error:'Not found'});
    }
    if(method!=='POST')return json(405,{error:'Method not allowed'});
-   if(req.headers.origin!==`https://${req.headers.host}`)return json(403,{error:'Same-origin request required'});
+   if(!sameOrigin(req))return json(403,{error:'Same-origin request required'});
    if(action==='logout'){res.setHeader('Set-Cookie',`leadhunter=; HttpOnly; Secure; SameSite=Strict; Path=${BASE}; Max-Age=0`);res.setHeader('Location',BASE);return res.status(303).end();}
    const input=body(req);
    if(action==='settings'){const config={cal:validHttps(input.cal),revolut:validHttps(input.revolut)};if((input.cal&&!config.cal)||(input.revolut&&!config.revolut))throw Error('Use full HTTPS links');await db(['SET',KEY+'settings',JSON.stringify(config)]);return json(200,{ok:true});}
@@ -87,7 +93,7 @@ export function createHandler({db=redis,env=process.env,clock=Date.now}={}) {
     return json(200,{ok:true,id:next.id});
    }
    return json(404,{error:'Not found'});
-  }catch(error){if(/Invalid|Name and|Budget|Use |Add an|Runner cannot|Payload/.test(error.message))return json(400,{error:error.message});console.error('leadhunter request failed',action,error.name,failureKind(error),safeFailureMessage(error,env));return json(503,{error:'Could not save or load right now. Your last saved data is unchanged.'});}
+  }catch(error){if(/Invalid|Name and|Budget|Use |Add an|Runner cannot|Payload/.test(error.message))return json(400,{error:error.message});console.error('leadhunter request failed',action,error.name,failureKind(error),safeFailureMessage(error,env));return json(503,{error:STORAGE_DOWN});}
  };
 }
 export default createHandler();

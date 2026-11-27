@@ -42,7 +42,7 @@ export function connectionEndpoint(raw = REDIS_URL) {
 }
 
 const IO_TIMEOUT = 5000;
-let client, connecting;
+let client, connecting, settled = false;
 function deadline(work, ms, cancel) {
   let timer;
   const timeout = new Promise((_, reject) => {
@@ -60,13 +60,18 @@ function discard(current) {
 async function connection() {
   // Recheck the deadline on every operation, including an already-open connection.
   const url = connectionEndpoint();
+  // A client that gave up (closed) or is mid-backoff (not ready) fails every command:
+  // drop it so the next request after a storage blip opens a fresh connection instead of failing.
+  if (client && settled && (client.isOpen === false || client.isReady === false)) discard(client);
   if (!client) {
+    settled = false;
     const current = createClient({
       url, disableOfflineQueue: true,
       socket: { connectTimeout: 3000, reconnectStrategy: retries => retries < 2 ? 100 * (retries + 1) : false }
     });
     client = current;
     current.on('error', () => {});
+    current.on('end', () => discard(current));
     connecting = deadline(current.connect(), IO_TIMEOUT, () => discard(current)).catch(error => {
       discard(current);
       throw error;
@@ -74,6 +79,7 @@ async function connection() {
   }
   const current = client;
   await connecting;
+  if (client === current) settled = true;
   return current;
 }
 async function tcp(run) {

@@ -59,7 +59,9 @@
     "test:entrances": "node tests/entry-calendar.mjs",
     "test:yogipower": "node tests/yogipower-i18n.mjs",
     "build:leads": "tsc -p lib/leads/tsconfig.json",
-    "test:leads": "npm run build:leads && node --test tests/leads/*.test.mjs"
+    "test:leads": "npm run build:leads && node --test tests/leads/*.test.mjs",
+    "e2e:leads": "playwright test -c playwright.leads.config.mjs",
+    "live:leads": "playwright test -c playwright.leads-prod.config.mjs"
   },
   "overrides": {
     "@vercel/cli-config": {
