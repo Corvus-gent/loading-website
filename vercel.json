@@ -9,6 +9,26 @@
       "permanent": false
     },
     {
+      "source": "/6t",
+      "destination": "/the6cube/?key=gabe-maxxing&r=gabe&utm_source=tg",
+      "permanent": false
+    },
+    {
+      "source": "/6x",
+      "destination": "/the6cube/?key=gabe-maxxing&r=gabe&utm_source=x",
+      "permanent": false
+    },
+    {
+      "source": "/6w",
+      "destination": "/the6cube/?key=gabe-maxxing&r=gabe&utm_source=wc",
+      "permanent": false
+    },
+    {
+      "source": "/6l",
+      "destination": "/the6cube/?key=gabe-maxxing&r=gabe&utm_source=li",
+      "permanent": false
+    },
+    {
       "source": "/cube",
       "destination": "/the6cube",
       "permanent": true
