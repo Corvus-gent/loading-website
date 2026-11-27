@@ -1,3 +1,4 @@
+import '../cube/optional-logos.mjs';
 import {execFileSync} from 'node:child_process';
 execFileSync("node", ["tools/site/build-hall-shader.mjs"], {stdio:"inherit"});
 execFileSync("node", ["tools/plethora/verify-routes.mjs"], {stdio:'inherit'});
