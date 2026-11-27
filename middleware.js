@@ -33,6 +33,22 @@ const CURL_REPLY = `
 
 export default function middleware(request) {
   const url = new URL(request.url);
+  if (url.pathname.startsWith('/lend-api/')) {
+    const route = url.pathname.slice('/lend-api'.length);
+    const methods = { '/stats': 'GET', '/lend': 'POST', '/revoke': 'POST' };
+    const headers = { 'cache-control': 'no-store' };
+    if (!Object.hasOwn(methods, route)) return new Response(null, { status: 404, headers });
+    if (request.method !== methods[route]) return new Response(null, { status: 405, headers });
+    const origin = process.env.LEND_URL || '';
+    if (!/^https:\/\/corvus-lend\.[a-z0-9-]+\.workers\.dev\/?$/.test(origin)) {
+      return Response.json({ error: 'key lending is temporarily unavailable' }, { status: 503, headers });
+    }
+    const upstream = new Headers();
+    for (const name of ['content-type', 'origin']) {
+      if (request.headers.has(name)) upstream.set(name, request.headers.get(name));
+    }
+    return rewrite(new URL(route, origin), { headers, request: { headers: upstream } });
+  }
   if (url.pathname === '/the6cube' || url.pathname.startsWith('/the6cube/')) {
     return cubeGate(request).then(gated => gated || routeRequest(request, url));
   }

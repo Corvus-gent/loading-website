@@ -64,6 +64,16 @@ h2{font:400 clamp(24px,2.6vw,32px)/1.15 var(--serif);margin:0 0 6px}
 footer{padding:30px 0 50px;font:12px var(--mono);color:var(--dim);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid var(--line)}
 footer a{text-decoration:none;margin-left:14px}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.lendf[hidden]{display:none}
+.lendf{display:grid;gap:14px;max-width:560px;margin-top:18px}
+.lendf label{display:grid;gap:6px;font:12px var(--mono);color:var(--dim)}
+.lendf select,.lendf input[type=password]{background:#120d1d;border:1px solid var(--line);border-radius:10px;color:var(--cream);padding:11px 12px;font:14px var(--mono)}
+.lendf fieldset{border:1px solid var(--line);border-radius:14px;padding:10px 14px;display:grid;gap:8px}
+.lendf fieldset label{display:flex;gap:8px;align-items:baseline;font:13px system-ui;color:var(--cream)}
+.lendf fieldset i{font-style:normal;color:var(--dim);font-size:12px}
+.lendf legend{font:12px var(--mono);color:var(--dim);padding:0 6px}
+#lendo{font:13px/1.6 var(--mono);color:var(--gold);white-space:pre-wrap}
+.lh{margin-bottom:6px}.lead2{color:var(--dim);max-width:60ch}
 @media(max-width:860px){.stage{grid-template-columns:minmax(0,1fr);min-height:0;padding-top:10px}.sky{max-width:340px;order:2}.steps,.tiers{grid-template-columns:minmax(0,1fr)}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -106,6 +116,34 @@ footer a{text-decoration:none;margin-left:14px}
     <h2 data-i18n="council_t"></h2>
     <p class="sub" data-i18n="council_s"></p>
     <div class="council" id="council"></div>
+  </section>
+
+  <section id="lend">
+    <h2 class="lh" data-l="h"></h2>
+    <p class="lead2" data-l="lead"></p>
+    <form id="lendf" class="lendf" method="post" action="/lend-api/lend" autocomplete="off" hidden>
+      <label><span data-l="prov"></span><select name="provider">
+        <option value="openrouter">OpenRouter</option><option value="groq">Groq</option><option value="gemini">Google Gemini</option>
+        <option value="mistral">Mistral</option><option value="nvidia">NVIDIA</option><option value="sambanova">SambaNova</option><option value="cohere">Cohere</option></select></label>
+      <label><span data-l="key"></span><input name="key" type="password" autocomplete="new-password" required minlength="16" maxlength="300" spellcheck="false"></label>
+      <fieldset><legend data-l="effort"></legend>
+        <label><input type="radio" name="effort" value="light" checked> <b data-l="e1"></b> <i data-l="e1d"></i></label>
+        <label><input type="radio" name="effort" value="medium"> <b data-l="e2"></b> <i data-l="e2d"></i></label>
+        <label><input type="radio" name="effort" value="heavy"> <b data-l="e3"></b> <i data-l="e3d"></i></label>
+      </fieldset>
+      <button class="btn gold" type="submit" data-l="go"></button>
+      <p class="fine" data-l="safe"></p>
+      <output id="lendo" aria-live="polite"></output>
+    </form>
+    <p class="fine" id="lends" role="status"></p>
+    <details id="revoke-panel" hidden>
+      <summary data-l="revoke"></summary>
+      <form id="revokef" class="lendf" method="post" action="/lend-api/revoke" autocomplete="off">
+        <label><span data-l="code"></span><input type="password" name="revoke" required maxlength="100" autocomplete="off" spellcheck="false"></label>
+        <button class="btn" type="submit" data-l="revoke"></button>
+        <output aria-live="polite"></output>
+      </form>
+    </details>
   </section>
 
   <section id="wachtlijst">
@@ -162,6 +200,7 @@ function render() {
   const mail = `mailto:hello@corvus.gent?subject=${encodeURIComponent(t('subj'))}&body=${encodeURIComponent(t('body') + `\n\n(${cur} · ${lang})`)}`;
   document.getElementById('mail').href = mail;
   document.getElementById('council').innerHTML = COUNCIL.map(([n, r]) => `<span>${n}<i>${r}</i></span>`).join('');
+  window.__lend && window.__lend(lang);
   renderFeed();
 }
 
@@ -228,5 +267,97 @@ mountPolyglot(code => { lang = code; render(); });
 load();
 </script>
 <script type="module" src="../coffee.js"></script>
+<script type="module">
+// lend-a-key: your key goes encrypted to our Cloudflare Worker, never into the public brain.
+const API = '/lend-api';
+const L = {
+  en: { h: 'Lend the brain a key', lead: 'Rather than coffee: lend the brain an API key. Free tiers count. The council thinks a little more on your quota, never more than you allow.', prov: 'provider', key: 'API key', effort: 'how hard may it think on your key?', e1: 'light', e1d: '5 thoughts a day, short', e2: 'medium', e2d: '25 a day', e3: 'heavy', e3d: '100 a day, long', go: 'Lend my key', safe: 'Encrypted on arrival, never shown, never in the public brain. Set a spending limit at your provider first. Revoke any time with your code, or delete the key at your provider.', ok: 'Thank you. Your key is in.\nrevoke code: {r}\nkeep it: it is shown once.', err: 'Not lent: {e}', stats: '{n} keys lent to the brain', busy: 'checking your key…' },
+  nl: { h: 'Leen het brein een key', lead: 'Liever dan koffie: leen het brein een API-key. Gratis tiers tellen ook. De raad denkt dan wat meer op jouw quota, nooit meer dan jij toelaat.', prov: 'provider', key: 'API-key', effort: 'hoe hard mag het denken op jouw key?', e1: 'licht', e1d: '5 gedachten per dag, kort', e2: 'gemiddeld', e2d: '25 per dag', e3: 'zwaar', e3d: '100 per dag, lang', go: 'Leen mijn key', safe: 'Versleuteld bij aankomst, nooit getoond, nooit in het publieke brein. Zet eerst een uitgavelimiet bij je provider. Intrekken kan altijd met je code, of door de key bij je provider te verwijderen.', ok: 'Dank je. Je key zit erin.\nintrekcode: {r}\nbewaar ze: je ziet ze maar één keer.', err: 'Niet geleend: {e}', stats: '{n} keys geleend aan het brein', busy: 'je key wordt gecheckt…' },
+  es: { h: 'Presta una clave al cerebro', lead: 'Mejor que un café: presta al cerebro una clave API. Los planes gratis cuentan. El consejo piensa un poco más con tu cuota, nunca más de lo que permitas.', prov: 'proveedor', key: 'clave API', effort: '¿cuánto puede pensar con tu clave?', e1: 'ligero', e1d: '5 al día, corto', e2: 'medio', e2d: '25 al día', e3: 'intenso', e3d: '100 al día, largo', go: 'Prestar mi clave', safe: 'Cifrada al llegar, nunca mostrada, nunca en el cerebro público. Pon antes un límite de gasto en tu proveedor. Revócala cuando quieras con tu código o borrándola en tu proveedor.', ok: 'Gracias. Tu clave está dentro.\ncódigo para revocar: {r}\nguárdalo: se muestra una vez.', err: 'No prestada: {e}', stats: '{n} claves prestadas al cerebro', busy: 'comprobando tu clave…' },
+  fr: { h: 'Prête une clé au cerveau', lead: 'Plutôt qu’un café : prête une clé API au cerveau. Les offres gratuites comptent. Le conseil pense un peu plus sur ton quota, jamais plus que tu ne permets.', prov: 'fournisseur', key: 'clé API', effort: 'combien peut-il penser avec ta clé ?', e1: 'léger', e1d: '5 par jour, court', e2: 'moyen', e2d: '25 par jour', e3: 'intense', e3d: '100 par jour, long', go: 'Prêter ma clé', safe: 'Chiffrée à l’arrivée, jamais affichée, jamais dans le cerveau public. Mets d’abord une limite de dépense chez ton fournisseur. Révocable à tout moment avec ton code, ou en supprimant la clé chez ton fournisseur.', ok: 'Merci. Ta clé est en place.\ncode de révocation : {r}\ngarde-le : il n’est montré qu’une fois.', err: 'Pas prêtée : {e}', stats: '{n} clés prêtées au cerveau', busy: 'vérification de ta clé…' },
+  pt: { h: 'Empresta uma chave ao cérebro', lead: 'Melhor do que um café: empresta ao cérebro uma chave API. Planos grátis contam. O conselho pensa um pouco mais com a tua quota, nunca mais do que permitires.', prov: 'fornecedor', key: 'chave API', effort: 'quanto pode pensar com a tua chave?', e1: 'leve', e1d: '5 por dia, curto', e2: 'médio', e2d: '25 por dia', e3: 'intenso', e3d: '100 por dia, longo', go: 'Emprestar a minha chave', safe: 'Cifrada à chegada, nunca mostrada, nunca no cérebro público. Define primeiro um limite de gastos no teu fornecedor. Revoga quando quiseres com o teu código, ou apagando a chave no fornecedor.', ok: 'Obrigado. A tua chave está dentro.\ncódigo para revogar: {r}\nguarda-o: só aparece uma vez.', err: 'Não emprestada: {e}', stats: '{n} chaves emprestadas ao cérebro', busy: 'a verificar a tua chave…' },
+  de: { h: 'Leih dem Gehirn einen Schlüssel', lead: 'Lieber als Kaffee: leih dem Gehirn einen API-Schlüssel. Gratis-Tarife zählen. Der Rat denkt etwas mehr auf deinem Kontingent, nie mehr als du erlaubst.', prov: 'Anbieter', key: 'API-Schlüssel', effort: 'wie viel darf es mit deinem Schlüssel denken?', e1: 'leicht', e1d: '5 am Tag, kurz', e2: 'mittel', e2d: '25 am Tag', e3: 'stark', e3d: '100 am Tag, lang', go: 'Schlüssel leihen', safe: 'Bei Ankunft verschlüsselt, nie angezeigt, nie im öffentlichen Gehirn. Setz zuerst ein Ausgabenlimit bei deinem Anbieter. Jederzeit widerrufbar mit deinem Code oder durch Löschen beim Anbieter.', ok: 'Danke. Dein Schlüssel ist drin.\nWiderrufscode: {r}\nbewahr ihn auf: er wird nur einmal gezeigt.', err: 'Nicht verliehen: {e}', stats: '{n} Schlüssel ans Gehirn verliehen', busy: 'dein Schlüssel wird geprüft…' },
+  zh: { h: '借给大脑一把钥匙', lead: '与其请咖啡,不如借给大脑一个 API 密钥。免费额度也算。议会会在你的额度上多想一点,但绝不超过你允许的。', prov: '提供商', key: 'API 密钥', effort: '允许它用你的密钥想多少?', e1: '轻', e1d: '每天 5 次,简短', e2: '中', e2d: '每天 25 次', e3: '重', e3d: '每天 100 次,较长', go: '借出我的密钥', safe: '到达即加密,从不显示,绝不进入公开大脑。请先在提供商处设置消费上限。随时可用撤销码撤回,或在提供商处删除密钥。', ok: '谢谢。你的密钥已加入。\n撤销码:{r}\n请保存:只显示一次。', err: '未借出:{e}', stats: '已有 {n} 把钥匙借给大脑', busy: '正在检查你的密钥…' },
+};
+const labels = {
+  en: ['Revoke my key', 'Revocation code', 'Your key has been revoked.', 'Key lending is temporarily unavailable.', 'Revocation failed. Check the code and try again.'],
+  nl: ['Mijn key intrekken', 'Intrekcode', 'Je key is ingetrokken.', 'Een key uitlenen is tijdelijk niet beschikbaar.', 'Intrekken is mislukt. Controleer de code en probeer het opnieuw.'],
+  fr: ['Révoquer ma clé', 'Code de révocation', 'Votre clé a été révoquée.', 'Le prêt de clés est momentanément indisponible.', 'Vérifiez le code et réessayez.'],
+  es: ['Revocar mi clave', 'Código de revocación', 'Tu clave ha sido revocada.', 'El préstamo de claves no está disponible temporalmente.', 'Comprueba el código y vuelve a intentarlo.'],
+  pt: ['Revogar minha chave', 'Código de revogação', 'Sua chave foi revogada.', 'O empréstimo de chaves está temporariamente indisponível.', 'Confira o código e tente novamente.'],
+  de: ['Meinen Schlüssel widerrufen', 'Widerrufscode', 'Dein Schlüssel wurde widerrufen.', 'Der Schlüsselverleih ist vorübergehend nicht verfügbar.', 'Prüfe den Code und versuche es erneut.'],
+  zh: ['撤销我的密钥', '撤销码', '你的密钥已撤销。', '密钥借用暂时不可用。', '请检查撤销码后重试。'],
+};
+for (const [lang, [revoke, code, revoked, offline, revokeError]] of Object.entries(labels))
+  Object.assign(L[lang], { revoke, code, revoked, offline, revokeError });
+let lang = 'en';
+const l = k => (L[lang] || L.en)[k] ?? L.en[k];
+const lend = document.getElementById('lendf');
+const revoke = document.getElementById('revokef');
+const panel = document.getElementById('revoke-panel');
+const count = document.getElementById('lends');
+async function stats() {
+  try {
+    const res = await fetch(API + '/stats', { cache: 'no-store', redirect: 'error' });
+    if (!res.ok) throw new Error();
+    const data = await res.json();
+    if (!Number.isSafeInteger(data.lent) || data.lent < 0) throw new Error();
+    lend.hidden = panel.hidden = false;
+    count.textContent = l('stats').replace('{n}', data.lent);
+  } catch {
+    if (!document.getElementById('lendo').textContent) lend.hidden = true;
+    count.textContent = l('offline');
+  }
+}
+window.__lend = code => {
+  lang = code;
+  document.querySelectorAll('[data-l]').forEach(el => el.textContent = l(el.dataset.l));
+  stats();
+};
+async function post(path, body) {
+  const res = await fetch(API + path, {
+    method: 'POST', redirect: 'error', cache: 'no-store',
+    headers: { 'content-type': 'application/json' }, body: JSON.stringify(body),
+  });
+  return { res, data: await res.json() };
+}
+lend.addEventListener('submit', async event => {
+  event.preventDefault();
+  const button = lend.querySelector('button');
+  if (button.disabled || lend.hidden) return;
+  const body = Object.fromEntries(new FormData(lend));
+  lend.elements.key.value = '';
+  const output = document.getElementById('lendo');
+  button.disabled = true;
+  output.textContent = l('busy');
+  try {
+    const { res, data } = await post('/lend', body);
+    if (!res.ok || typeof data.revoke !== 'string' || !data.revoke) {
+      output.textContent = l('err').replace('{e}', data.error || res.status);
+      return;
+    }
+    output.textContent = l('ok').replace('{r}', data.revoke);
+    await stats();
+  } catch { output.textContent = l('offline'); }
+  finally { button.disabled = false; }
+});
+revoke.addEventListener('submit', async event => {
+  event.preventDefault();
+  const button = revoke.querySelector('button');
+  const output = revoke.querySelector('output');
+  if (button.disabled) return;
+  button.disabled = true;
+  try {
+    const { res, data } = await post('/revoke', { revoke: revoke.elements.revoke.value.trim() });
+    if (!res.ok || data.ok !== true) { output.textContent = l('revokeError'); return; }
+    revoke.reset();
+    document.getElementById('lendo').textContent = '';
+    output.textContent = l('revoked');
+    await stats();
+  } catch { output.textContent = l('offline'); }
+  finally { button.disabled = false; }
+});
+window.__lend(document.documentElement.lang || 'en');
+</script>
 </body>
 </html>
