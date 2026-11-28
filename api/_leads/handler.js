@@ -1,4 +1,5 @@
 import crypto from 'node:crypto';
+import {stylePolicy} from '../_style-policy.js';
 import {readFileSync} from 'node:fs';
 import {redis} from '../_redis.js';
 import {SCHEMA_VERSION,validateLead,makeOffer,draftLink,validHttps} from './model/schema.js';
@@ -6,6 +7,7 @@ import {assess,rankByValue} from './model/score.js';
 const PAGE=readFileSync(new URL('./page.html',import.meta.url),'utf8');
 const APP=readFileSync(new URL('./app.js',import.meta.url),'utf8');
 const STYLE=readFileSync(new URL('./style.css',import.meta.url),'utf8');
+const styles=stylePolicy(STYLE);
 const OFFERS=JSON.parse(readFileSync(new URL('../../config/offers.json',import.meta.url),'utf8')).tiers;
 const SEED=JSON.parse(readFileSync(new URL('../../data/warm-contacts.json',import.meta.url),'utf8'));
 const BASE='/scraper/fiverr-leads',KEY='leadhunter:v1:';
@@ -34,7 +36,7 @@ export function createHandler({db=redis,env=process.env,clock=Date.now}={}) {
  row.outreach={body,subject:'Your website',url:cfg.cal&&cfg.revolut?draftLink(row.contact,row.contact_kind||'',body):'',ready:Boolean(cfg.cal&&cfg.revolut&&draftLink(row.contact,row.contact_kind||'',body)),missing:[!cfg.cal&&'CAL_LINK',!cfg.revolut&&'REVOLUT_LINK'].filter(Boolean)};
  row.offer_draft=cfg.revolut?draftLink(row.contact,row.contact_kind||'',row.offer.text):'';return row;}));return {...snap,schema_version:SCHEMA_VERSION,leads,config:cfg};}
  return async(req,res)=>{
-  res.setHeader('Cache-Control','private, no-store');res.setHeader('Vercel-CDN-Cache-Control','no-store');res.setHeader('X-Robots-Tag','noindex, nofollow, noarchive');res.setHeader('X-Content-Type-Options','nosniff');res.setHeader('Referrer-Policy','no-referrer');res.setHeader('X-Frame-Options','DENY');res.setHeader('Content-Security-Policy',"default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'; frame-ancestors 'none'");
+  res.setHeader('Cache-Control','private, no-store');res.setHeader('Vercel-CDN-Cache-Control','no-store');res.setHeader('X-Robots-Tag','noindex, nofollow, noarchive');res.setHeader('X-Content-Type-Options','nosniff');res.setHeader('Referrer-Policy','no-referrer');res.setHeader('X-Frame-Options','DENY');res.setHeader('Content-Security-Policy',`default-src 'none'; script-src 'self'; ${styles}; connect-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'; frame-ancestors 'none'`);
   const action=String(req.query?.leadsAction||'page'),method=req.method,password=env.LEADS_PASSWORD;
   const json=(code,data)=>res.status(code).json(data),send=(code,type,data)=>{res.setHeader('Content-Type',type+'; charset=utf-8');return res.status(code).send(data);};
   if(!password||password.length<16)return send(503,'text/html',login('Private access is being configured.'));

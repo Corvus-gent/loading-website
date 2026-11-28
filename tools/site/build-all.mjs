@@ -35,3 +35,6 @@ execFileSync("node", ["lib/hackersbay/build-landing.js"], {stdio:'inherit'});
 
 // Bundle the isolated Ray storefront interactions without changing site chrome.
 execFileSync("node", ["app/raygifts/build.mjs"], {stdio:'inherit'});
+
+// Verify that the deployed pages match the CSP hashes in Vercel's route configuration.
+execFileSync('python3', ['tools/site/csp.py'], {stdio:'inherit'});

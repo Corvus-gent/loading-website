@@ -1,4 +1,6 @@
 import assert from 'node:assert/strict';
+import {createHash} from 'node:crypto';
+import {readFileSync} from 'node:fs';
 import middleware from '../middleware.js';
 import {nextRealmReset} from '../js/realm-reset.js';
 
@@ -20,9 +22,43 @@ for (const cookie of ['', 'corvus_realm=10', 'other_corvus_realm=1']) {
 }
 assert.equal(request('/','abc=x; corvus_realm=1').headers.get('x-middleware-next'),'1');
 assert.equal(request('/realm/').headers.get('x-middleware-next'),'1');
+
+// Vercel applies this header to both the entry rewrite and the returning visitor's HTML.
+const rules = JSON.parse(readFileSync(new URL('../vercel.json', import.meta.url), 'utf8')).headers;
+const homepagePolicy = rules.filter(rule => rule.source === '/')
+  .flatMap(rule => rule.headers).find(header => header.key.toLowerCase() === 'content-security-policy')?.value;
+assert.ok(homepagePolicy, 'an enforcing CSP must cover /');
+assert.match(homepagePolicy, /(?:^|; )default-src 'none'(?:;|$)/);
+assert.doesNotMatch(homepagePolicy, /'unsafe-inline'|'unsafe-eval'/);
+const entry = readFileSync(new URL('../public/realm-entry.html', import.meta.url), 'utf8');
+for (const [,script] of entry.matchAll(/<script>([\s\S]*?)<\/script>/g)) {
+  const hash = createHash('sha256').update(script).digest('base64');
+  assert.ok(homepagePolicy.split(';').find(s => s.trim().startsWith('script-src ')).includes("'sha256-" + hash + "'"));
+}
+
+const originalFetch = globalThis.fetch;
+try {
+  globalThis.fetch = async url => {
+    assert.equal(new URL(url).pathname, '/api/hit');
+    return new Response(null, {status:204});
+  };
+  for (const method of ['GET','HEAD']) {
+    const response = await middleware(new Request('https://corvus.gent/', {
+      method, headers:{'user-agent':'curl/8'},
+    }));
+    assert.match(response.headers.get('content-security-policy'), /default-src 'none'/);
+    assert.equal(response.headers.get('cache-control'), 'private, no-store');
+    const body = await response.text();
+    if (method === 'HEAD') assert.equal(body, '');
+    else assert.match(body, /you curled me/);
+  }
+} finally {
+  globalThis.fetch = originalFetch;
+}
+
 for (const route of ['/links/gabe','/soldier/santobjj']) {
   const res = request(route+'/?ref=example');
   assert.equal(res.status,308);
-  assert.equal(res.headers.get('location'),'https://corvus.gent'+route+'?ref=example');
+  assert.equal(res.headers.get('location'),route+'?ref=example');
 }
 console.log('Gate, cache variants, canonical routes, 04:02 rollover, DST and year boundary passed.');

@@ -13,7 +13,7 @@ export default async function handler(req, res) {
   const handle = typeof req.query.handle === 'string' ? req.query.handle : '';
   const mode = handle === 'quiz' || handle === 'box' || handle === 'scan' ? handle : 'home';
   const result = resultCode(req.query.r);
-  const path = handle ? '/' + encodeURIComponent(handle) : '';
+  const modePath = mode === 'home' ? '' : '/' + mode;
   try {
     if (handle === 'share.png') {
       const image = await shareImage(result);
@@ -28,13 +28,15 @@ export default async function handler(req, res) {
     const missing = mode === 'home' && !!handle && !product;
     res.setHeader('Vercel-CDN-Cache-Control', cache);
     return res.status(missing ? 404 : 200).setHeader('Content-Type', 'text/html; charset=utf-8').send(render({
-      products, currency, product, missing, path, mode, result: mode === 'quiz' ? result : '',
+      products, currency, product, missing, mode,
+      path: product ? '/' + encodeURIComponent(product.handle) : modePath,
+      result: mode === 'quiz' ? result : '',
     }));
   } catch (error) {
     console.error('Ray request failed:', error.message);
     res.setHeader('Cache-Control', 'no-store');
     return res.status(503).setHeader('Content-Type', 'text/html; charset=utf-8').send(render({
-      products: [], currency: 'XXX', unavailable: true, path, mode, result: mode === 'quiz' ? result : '',
+      products: [], currency: 'XXX', unavailable: true, path: modePath, mode, result: mode === 'quiz' ? result : '',
     }));
   }
 }

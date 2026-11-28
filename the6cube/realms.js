@@ -198,22 +198,20 @@ const PANTHEON = [
 ];
 
 
-// the gallery: public-domain renaissance and gothic works, one per realm. served from Wikimedia Commons
-// every filename checked on Commons (26 nov 2026); Codex self-hosts them later. a missing file degrades to its caption.
+// Local thumbnails of public-domain works. The file field identifies the Wikimedia Commons original.
 const ART = [
-  { file: '"The_School_of_Athens"_by_Raffaello_Sanzio_da_Urbino.jpg', work: 'The School of Athens', by: 'Raphael', year: '1509–1511', p: 0 },
-  { file: 'Pallasetlecentaure.jpg', work: 'Pallas and the Centaur', by: 'Sandro Botticelli', year: 'c. 1482', p: 1 },
-  { file: 'Albrecht_Dürer,_Nemesis_(The_Great_Fortune),_c._1501-1502,_NGA_6603.jpg', work: 'Nemesis (The Great Fortune)', by: 'Albrecht Dürer', year: 'c. 1502', p: 2 },
-  { file: 'Titian_Bacchus_and_Ariadne.jpg', work: 'Bacchus and Ariadne', by: 'Titian', year: '1520–1523', p: 3 },
-  { file: 'Sandro_Botticelli_La_calumnia_de_Apeles.jpg', work: 'The Calumny of Apelles', by: 'Sandro Botticelli', year: 'c. 1494–1495', p: 4 },
-  { file: 'Botticelli-primavera.jpg', work: 'Primavera', by: 'Sandro Botticelli', year: 'c. 1480', p: 5 },
-  { file: 'Massysm_Quentin_—_The_Moneylender_and_his_Wife_—_1514.jpg', work: 'The Moneylender and His Wife', by: 'Quentin Matsys', year: '1514', p: 6 },
-  { file: 'Dürer_Melancholia_I.jpg', work: 'Melencolia I', by: 'Albrecht Dürer', year: '1514', p: 16, note: { en: 'Its magic square sums to 34 in every row, column and diagonal.', nl: 'Het magische vierkant telt in elke rij, kolom en diagonaal op tot 34.', es: 'Su cuadrado mágico suma 34 en cada fila, columna y diagonal.', fr: 'Son carré magique fait 34 sur chaque ligne, colonne et diagonale.', pt: 'O seu quadrado mágico soma 34 em cada linha, coluna e diagonal.', de: 'Sein magisches Quadrat ergibt in jeder Zeile, Spalte und Diagonale 34.', zh: '画中的幻方，每行、每列、每条对角线之和都是 34。' } },
-  { file: 'Peter_Paul_Rubens_-_The_Fall_of_Phaeton_(National_Gallery_of_Art).jpg', work: 'The Fall of Phaeton', by: 'Peter Paul Rubens', year: 'c. 1604–1605', p: 18 },
-  { file: 'Wukong_and_Princess_Iron_Fan(Rasetsunyo).jpg', work: 'Sun Wukong and Princess Iron Fan', by: 'Japanese woodblock print', year: '19th c.', p: 19 },
-  { file: 'Anatomical_Man.jpg', work: 'Très Riches Heures · the Zodiac Man', by: 'Limbourg brothers', year: 'c. 1411–1416', p: 17, gothic: true },
+  { image: 'school-of-athens.webp', file: '"The_School_of_Athens"_by_Raffaello_Sanzio_da_Urbino.jpg', work: 'The School of Athens', by: 'Raphael', year: '1509–1511', p: 0 },
+  { image: 'pallas-and-the-centaur.webp', file: 'Pallasetlecentaure.jpg', work: 'Pallas and the Centaur', by: 'Sandro Botticelli', year: 'c. 1482', p: 1 },
+  { image: 'nemesis.webp', file: 'Albrecht_Dürer,_Nemesis_(The_Great_Fortune),_c._1501-1502,_NGA_6603.jpg', work: 'Nemesis (The Great Fortune)', by: 'Albrecht Dürer', year: 'c. 1502', p: 2 },
+  { image: 'bacchus-and-ariadne.webp', file: 'Titian_Bacchus_and_Ariadne.jpg', work: 'Bacchus and Ariadne', by: 'Titian', year: '1520–1523', p: 3 },
+  { image: 'calumny-of-apelles.webp', file: 'Sandro_Botticelli_La_calumnia_de_Apeles.jpg', work: 'The Calumny of Apelles', by: 'Sandro Botticelli', year: 'c. 1494–1495', p: 4 },
+  { image: 'primavera.webp', file: 'Botticelli-primavera.jpg', work: 'Primavera', by: 'Sandro Botticelli', year: 'c. 1480', p: 5 },
+  { image: 'the-moneylender-and-his-wife.webp', file: 'Massysm_Quentin_—_The_Moneylender_and_his_Wife_—_1514.jpg', work: 'The Moneylender and His Wife', by: 'Quentin Matsys', year: '1514', p: 6 },
+  { image: 'melencolia.webp', file: 'Dürer_Melancholia_I.jpg', work: 'Melencolia I', by: 'Albrecht Dürer', year: '1514', p: 16, note: { en: 'Its magic square sums to 34 in every row, column and diagonal.', nl: 'Het magische vierkant telt in elke rij, kolom en diagonaal op tot 34.', es: 'Su cuadrado mágico suma 34 en cada fila, columna y diagonal.', fr: 'Son carré magique fait 34 sur chaque ligne, colonne et diagonale.', pt: 'O seu quadrado mágico soma 34 em cada linha, coluna e diagonal.', de: 'Sein magisches Quadrat ergibt in jeder Zeile, Spalte und Diagonale 34.', zh: '画中的幻方，每行、每列、每条对角线之和都是 34。' } },
+  { image: 'the-fall-of-phaeton.webp', file: 'Peter_Paul_Rubens_-_The_Fall_of_Phaeton_(National_Gallery_of_Art).jpg', work: 'The Fall of Phaeton', by: 'Peter Paul Rubens', year: 'c. 1604–1605', p: 18 },
+  { image: 'wukong-and-princess-iron-fan.webp', file: 'Wukong_and_Princess_Iron_Fan(Rasetsunyo).jpg', work: 'Sun Wukong and Princess Iron Fan', by: 'Japanese woodblock print', year: '19th c.', p: 19 },
+  { image: 'zodiac-man.webp', file: 'Anatomical_Man.jpg', work: 'Très Riches Heures · the Zodiac Man', by: 'Limbourg brothers', year: 'c. 1411–1416', p: 17, gothic: true },
 ];
-const img = f => `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(f)}?width=640`;
 
 let lang = document.documentElement.lang || 'en';
 const t = k => (T[lang] && T[lang][k]) ?? T.en[k];
@@ -379,16 +377,30 @@ function renderCards() {
     const [g, r, , what0, to] = PANTHEON[a.p]; const what = (KEEPS[lang] || [])[a.p] || what0;
     const stars = '★'.repeat(3 + (n % 3));
     return `<div class="card${a.gothic ? ' gothic' : ''}" tabindex="0"><div class="inner">
-      <div class="face front"><img loading="lazy" decoding="async" alt="" src="${img(a.file)}" onload="this.classList.add('ok')" onerror="this.remove()"><canvas class="sigil" data-p="${a.p}"></canvas>
+      <div class="face front"><img loading="lazy" decoding="async" alt="" src="/the6cube/assets/art/${a.image}"><canvas class="sigil" data-p="${a.p}"></canvas>
         <div class="top"><span class="el">${ELEM[a.p] || '✦'}</span><span class="st">${stars}</span></div>
         <div class="nm"><b>${g}</b><i>${r}</i></div><div class="foil"></div></div>
       <div class="face back"><b>${g} <i>· ${r}</i></b><span>${what}</span><small>${a.work}<br>${a.by} · ${a.year}</small>${a.note ? `<em>${a.note[lang] || a.note.en}</em>` : ''}${to ? `<a href="${href(to)}">→</a>` : ''}</div>
     </div></div>`; }).join('');
+  for (const image of document.querySelectorAll('#pantheon .front img')) {
+    const loaded = () => image.classList.add('ok');
+    if (image.complete) {
+      if (image.naturalWidth) loaded(); else image.remove();
+    } else {
+      image.addEventListener('load', loaded, {once:true});
+      image.addEventListener('error', () => image.remove(), {once:true});
+    }
+  }
   cardify();
 }
 addEventListener('resize', drawSigils);
-addEventListener('cube-lang', renderCards);
-renderCards();
+const galleryObserver = new IntersectionObserver(entries => {
+  if (entries.some(entry => entry.isIntersecting)) {
+    galleryObserver.disconnect();
+    renderCards();
+  }
+}, {rootMargin: '600px'});
+galleryObserver.observe(document.getElementById('pantheon'));
 
 // ---- the triumvirate: three original emblems (a baton, an anvil, a whale's spout) — no company logos ----
 const EMB = {

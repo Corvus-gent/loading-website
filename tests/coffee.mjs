@@ -49,7 +49,7 @@ try {
 const query='?utm_id=li_20261105&x=1&x=2&ref=a%2Fb';
 for (const alias of ['/sidequest','/sidequest/']) {
   const r=middleware(new Request('https://corvus.gent'+alias+query));
-  assert.equal(r.status,307);assert.equal(r.headers.get('location'),'https://corvus.gent/sidequests'+query);
+  assert.equal(r.status,307);assert.equal(r.headers.get('location'),'/sidequests'+query);
 }
 assert.equal(middleware(new Request('https://stats.corvus.gent/coffee')).headers.get('x-middleware-rewrite'),'https://stats.corvus.gent/stats/coffee/');
 assert.match(middleware(new Request('https://stats.corvus.gent/coffee-with-gabe')).headers.get('location'),/\/go\/corvus\/coffee\/coffee-stats$/);

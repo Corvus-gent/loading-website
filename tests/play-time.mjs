@@ -1,3 +1,4 @@
+process.env.POSTHOG_PROJECT_KEY='fixture';
 import {createClient} from 'redis';import crypto from 'node:crypto';import assert from 'node:assert/strict';import {applyPlayTime} from '../api/_play-time.js';import {formatPlayTime} from '../public/worldcraft/playtime-format.js';
 const db=createClient({url:process.env.REDIS_URL});await db.connect();await db.flushDb();const p='worldcraft:features:v2';let captures=[];globalThis.fetch=async(url,opts)=>{captures.push({url,body:JSON.parse(opts.body)});return new Response('{}');};
 const owner='visitor-a',session=crypto.randomUUID();await applyPlayTime(p,owner,{action:'play_start',session},{});await db.hSet(p+':play-session:'+session,'started',Date.now()-21000);await db.hSet(p+':play-time:'+owner,'last',Date.now()-21000);

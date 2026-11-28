@@ -321,7 +321,24 @@ function renderExperiment() {
     result.bins.forEach((count, bin) => {
       const b = document.createElement('button'); b.type = 'button'; b.className = 'bin' + (bin > radius ? ' out' : '');
       const share = count / p.samples, ex = exact?.[g];
-      b.innerHTML = `<span>${binLabel(bin)}</span><span class="track"><span class="fill" style="width:${(share * 100).toFixed(3)}%"></span>${ex ? `<span class="exact" style="left:calc(${(100 * ex.bins[bin] / ex.denominator).toFixed(3)}% - 1px)"></span>` : ''}</span><span class="n">${fmt(count)} · ${fmt(100 * share, 1)}%</span>`;
+      const label = document.createElement('span');
+      label.textContent = binLabel(bin);
+      const track = document.createElement('span');
+      track.className = 'track';
+      const fill = document.createElement('span');
+      fill.className = 'fill';
+      fill.style.width = (share * 100).toFixed(3) + '%';
+      track.append(fill);
+      if (ex) {
+        const marker = document.createElement('span');
+        marker.className = 'exact';
+        marker.style.left = 'calc(' + (100 * ex.bins[bin] / ex.denominator).toFixed(3) + '% - 1px)';
+        track.append(marker);
+      }
+      const total = document.createElement('span');
+      total.className = 'n';
+      total.textContent = fmt(count) + ' · ' + fmt(100 * share, 1) + '%';
+      b.append(label, track, total);
       b.setAttribute('aria-label', `${t('gen_' + result.generator)}, ${binLabel(bin)}: ${fmt(count)} / ${fmt(p.samples)}${ex ? `, ${t('exact')} ${ex.bins[bin]}/${ex.denominator}` : ''}`);
       b.setAttribute('aria-pressed', String(selectedBin?.g === g && selectedBin?.bin === bin));
       b.onclick = () => { selectedBin = { g, bin }; renderExperiment(); inspect(result, bin, binLabel(bin)); };

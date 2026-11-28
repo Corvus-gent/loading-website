@@ -18,7 +18,7 @@ async function setup(page,{realSpotify=false}={}){
  });
  await page.route('**/*',async route=>{
   const r=route.request(),u=new URL(r.url());
-  if(u.hostname==='eu.i.posthog.com'){
+  if(u.pathname.startsWith('/ingest/posthog/')){
    if(r.method()==='POST'){
     let body=r.postDataBuffer();
     if(body?.[0]===31&&body?.[1]===139)body=gunzipSync(body);

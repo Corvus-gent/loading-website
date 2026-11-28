@@ -55,7 +55,16 @@ if(state==='play'&&time<memeUntil){ctx.save();const w=host.width>=1100?200:150,h
 
 function beginRun(){attempt++;recordPending=false;host.platform.start();track.reset();void readBest();}
 async function readBest(){const mine=attempt;try{const data=await track.rank('score',{scope:'global',period:'all_time'});if(disposed||mine!==attempt)return;best=data.viewerRank?.value||0;}catch{if(!disposed)$('score-note').textContent='Personal best unavailable. Play still works.';}}
-function board(data){$('game-board').textContent='';for(const row of data.rows||[]){const label=row.username||row.user?.username||'Player';$('game-board').insertAdjacentHTML('beforeend','<li></li>');$('game-board').lastElementChild.textContent='#'+row.rank+' '+label+' · '+row.value;}myRank=data.viewerRank?.rank??null;}
+function board(data) {
+  const rows = (data.rows || []).map(row => {
+    const item = document.createElement('li');
+    const name = row.username || row.user?.username || 'Player';
+    item.textContent = '#' + row.rank + ' ' + name + ' · ' + row.value;
+    return item;
+  });
+  $('game-board').replaceChildren(...rows);
+  myRank = data.viewerRank?.rank ?? null;
+}
 async function submitResult(){const mine=attempt;recordPending=true;$('score-note').textContent='Saving score…';track.set(score);try{await track.submit('score',{metadata:{belt:CONFIG.belts[Math.min(round,4)].name,finishes:kills,ko,submissions}});const data=await track.leaderboard('score',{scope:'global',period:'all_time',limit:3});if(disposed||mine!==attempt)return;recordPending=false;board(data);best=data.viewerRank?.value||best;$('score-note').textContent=myRank?'YOUR BEST RANK: #'+myRank:'Score saved. Board updating.';}catch{if(disposed||mine!==attempt)return;recordPending=false;$('score-note').textContent='Score not confirmed. You can still replay.';}}
 function checkpoint(){const mine=attempt;track.set(score);void track.checkpoint('score').catch(()=>{if(!disposed&&mine===attempt)$('score-note').textContent='Checkpoint not confirmed; final score will submit at game over.';});host.platform.milestone('promotion',{belt:CONFIG.belts[Math.min(round,4)].name,score});}
 function toggleSound(){sound=!sound;for(const id of ['sound','top-mute']){$(id).textContent=sound?'SOUND ON':'MUTED';$(id).setAttribute('aria-pressed',String(sound));}try{host.storage.set('sound',sound);}catch{}if(!sound)audio?.suspend();else unlockAudio();}

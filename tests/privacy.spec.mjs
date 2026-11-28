@@ -18,7 +18,7 @@ async function setup(page,{realSpotify=false}={}){
  });
  await page.route('**/*',async route=>{
   const r=route.request(),u=new URL(r.url());
-  if(u.hostname==='eu.i.posthog.com'){
+  if(u.pathname.startsWith('/ingest/posthog/')){
    if(r.method()==='POST'){
     let body=r.postDataBuffer();
     if(body?.[0]===31&&body?.[1]===139)body=gunzipSync(body);
@@ -56,7 +56,7 @@ for(const path of ['/','/call/','/music/','/games/','/stats/','/stats/map/','/st
   expect(requests.some(url=>url.includes('/api/geo?country'))).toBe(true);
   expect(requests.filter(url=>spotify.test(new URL(url).hostname))).toEqual([]);
   const thirdParty=requests.map(url=>new URL(url).hostname).filter(host=>!['127.0.0.1'].includes(host));
-  expect(thirdParty.every(host=>host==='eu.i.posthog.com')).toBe(true);
+  expect(thirdParty).toEqual([]);
   expect((await context.cookies()).map(c=>c.name).filter(name=>!['mvid','vid','sess'].includes(name))).toEqual([]);
   for(const cookie of await context.cookies()){expect(cookie.httpOnly).toBe(true);expect(cookie.secure).toBe(true);expect(cookie.sameSite).toBe('Strict');}
   const storage=await page.evaluate(()=>({local:Object.keys(localStorage),session:Object.keys(sessionStorage)}));
