@@ -76,8 +76,12 @@ try {
   assets = await response.json();
   // Start with recognizable artwork from several collections.
   const preferred = ['captain-squawk','wing-flight','diogenes','arcade-mark','corvus-os-boot','whitney-logo','hero-sea','london-7658'];
-  const rank = name => { const i = preferred.indexOf(name); return i < 0 ? preferred.length : i; };
-  assets.sort((a,b) => rank(a.name)-rank(b.name) || a.name.localeCompare(b.name));
+  const featured = preferred.map(name => {
+    const variants = assets.filter(asset => asset.name === name);
+    return (variants.find(asset => asset.type === 'image/webp') || variants[0])?.id;
+  });
+  const rank = asset => { const i = featured.indexOf(asset.id); return i < 0 ? featured.length : i; };
+  assets.sort((a,b) => rank(a)-rank(b) || a.name.localeCompare(b.name));
   for (const name of [...new Set(assets.map(asset => asset.collection))].sort()) collection.add(new Option(name,name));
   search.addEventListener('input',filter);
   collection.addEventListener('change',filter);

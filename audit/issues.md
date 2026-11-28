@@ -2,9 +2,9 @@
 
 10 public personal repositories, 37 personal branch tips, plus the hosting repository’s default branch. The live crawl visited 984 page and stylesheet URLs.
 
-2933 valid source payloads. 2958 distinct hosted files including posters. 329 source groups share bytes. 87 sources exceeded 1 MB. 184 Dutch source names or paths were normalized.
+2933 valid source payloads. 2958 distinct hosted files including posters. 338 source groups share bytes. 87 sources exceeded 1 MB. 184 Dutch source names or paths were normalized.
 
-26 remote media requests failed or returned non-media content. 29 crawl requests returned a non-200 response. 361 unresolved source locations include generated values, fixtures and missing files. See [the unresolved index](unresolved.tsv).
+26 remote media requests failed or returned non-media content. 29 crawl requests returned a non-200 response. 363 unresolved source locations include generated values, fixtures and missing files. See [the unresolved index](unresolved.tsv).
 
 The .github repository was added during discovery. AD3 is archived on GitHub and has no media or consumer references.
 
@@ -436,6 +436,8 @@ The unlisted collection contains publicly sourced directory logos. Its short lin
 - 3 source locations · assets/cube/wing-flight-1ihp7zlo.webp
 - 3 source locations · assets/readme/ai-pipeline-igl7ypxx.webp
 - 7 source locations · assets/readme/banner-e2xuh2dw.svg
+- 2 source locations · assets/readme/boot-light-bnejgvw5.svg
+- 2 source locations · assets/readme/boot-u4abl145.svg
 - 7 source locations · assets/readme/codex-dark-aczn1hpb.svg
 - 7 source locations · assets/readme/codex-etee36tc.svg
 - 7 source locations · assets/readme/coding-obsession-wmvvelhe.svg
@@ -443,8 +445,15 @@ The unlisted collection contains publicly sourced directory logos. Its short lin
 - 8 source locations · assets/readme/corvus-flight-light-bzh525b8.gif
 - 3 source locations · assets/readme/corvus-os-boot-xdfwacpo.gif
 - 7 source locations · assets/readme/corvus-wing-flight-u0s240ry.gif
+- 2 source locations · assets/readme/cursor-4bwxsr0a.svg
+- 2 source locations · assets/readme/cursor-light-bg3w8a5k.svg
+- 2 source locations · assets/readme/dark-efbb3k6y.png
 - 7 source locations · assets/readme/grok-dark-3ke3wqis.svg
 - 7 source locations · assets/readme/grok-w3wef1rp.svg
+- 2 source locations · assets/readme/htop-izjefda7.svg
+- 2 source locations · assets/readme/htop-light-oecloqu6.svg
+- 2 source locations · assets/readme/light-r872lnc4.png
+- 2 source locations · assets/readme/mobile-51j2haad.png
 - 2 source locations · assets/site/amplitude-c11v9wcz.webp
 - 2 source locations · assets/site/anchor-g8c0ym7d.svg
 - 2 source locations · assets/site/app-icon-192-emb48al6.png

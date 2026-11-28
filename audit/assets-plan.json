@@ -3807,7 +3807,7 @@
       "gabe-maxxing@claude/profile:README.md:57",
       "gabe-maxxing@codex/brain-v1:README.md:47",
       "gabe-maxxing@codex/lend:README.md:47",
-      "gabe-maxxing@main:README.md:49",
+      "gabe-maxxing@main:README.md:94",
       "gabe-maxxing@profile/parrot-answers:README.md:47",
       "gabe-maxxing@profile/the-cube:README.md:45",
       "gabe-maxxing@terminal-readme:README.md:92"
@@ -5235,11 +5235,14 @@
     ]
   },
   {
-    "source": "gabe-maxxing/gabe-maxxing@terminal-readme:assets/htop-light.svg",
+    "source": "gabe-maxxing/gabe-maxxing@main:assets/htop-light.svg",
     "sources": [
+      "gabe-maxxing/gabe-maxxing@main:assets/htop-light.svg",
       "gabe-maxxing/gabe-maxxing@terminal-readme:assets/htop-light.svg"
     ],
     "found_in": [
+      "gabe-maxxing@main:README.md:82",
+      "gabe-maxxing@main:README.md:83",
       "gabe-maxxing@terminal-readme:README.md:80",
       "gabe-maxxing@terminal-readme:README.md:81"
     ],
@@ -5248,7 +5251,9 @@
     "kb": 2.99,
     "target": "assets/readme/htop-light-oecloqu6.svg",
     "sha256": "6036e1e7bb8e8583976f6b41cd858feeb409f297fefb9f12827e6cade9bb62de",
-    "notes": []
+    "notes": [
+      "One hosted copy for identical source bytes."
+    ]
   },
   {
     "source": "https://cdn.shopify.com/s/files/1/1114/5278/2924/files/bG9jYWw6Ly9tZWRpYS9ITi8yQy82MFIzMEMxSjY0UksyQ0hOLzU4Yjg5ZWQ4LmpwZw.jpg?v=1795622155&width=800",
@@ -13053,11 +13058,13 @@
     ]
   },
   {
-    "source": "gabe-maxxing/gabe-maxxing@terminal-readme:assets/cursor-light.svg",
+    "source": "gabe-maxxing/gabe-maxxing@main:assets/cursor-light.svg",
     "sources": [
+      "gabe-maxxing/gabe-maxxing@main:assets/cursor-light.svg",
       "gabe-maxxing/gabe-maxxing@terminal-readme:assets/cursor-light.svg"
     ],
     "found_in": [
+      "gabe-maxxing@main:README.md:98",
       "gabe-maxxing@terminal-readme:README.md:96"
     ],
     "type": "svg",
@@ -13065,7 +13072,9 @@
     "kb": 0.39,
     "target": "assets/readme/cursor-light-bg3w8a5k.svg",
     "sha256": "bfba5ac1bc42bf4e406903806de7de676807f474485dbccda72df586dd9db168",
-    "notes": []
+    "notes": [
+      "One hosted copy for identical source bytes."
+    ]
   },
   {
     "source": "Corvus-gent/loading-website@main:public/hackersbay/art/coat-trench.png",
@@ -13456,11 +13465,13 @@
     "notes": []
   },
   {
-    "source": "gabe-maxxing/gabe-maxxing@terminal-readme:assets/boot.svg",
+    "source": "gabe-maxxing/gabe-maxxing@main:assets/boot.svg",
     "sources": [
+      "gabe-maxxing/gabe-maxxing@main:assets/boot.svg",
       "gabe-maxxing/gabe-maxxing@terminal-readme:assets/boot.svg"
     ],
     "found_in": [
+      "gabe-maxxing@main:README.md:3",
       "gabe-maxxing@terminal-readme:README.md:3"
     ],
     "type": "svg",
@@ -13468,7 +13479,9 @@
     "kb": 9.73,
     "target": "assets/readme/boot-u4abl145.svg",
     "sha256": "13aecceedc7fb4870dfa0d6b766c226bd1b6c88e802ca7919461c04625c40be5",
-    "notes": []
+    "notes": [
+      "One hosted copy for identical source bytes."
+    ]
   },
   {
     "source": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/rivero_ch.png",
@@ -16320,8 +16333,9 @@
     ]
   },
   {
-    "source": "gabe-maxxing/gabe-maxxing@terminal-readme:assets/previews/dark.png",
+    "source": "gabe-maxxing/gabe-maxxing@main:assets/previews/dark.png",
     "sources": [
+      "gabe-maxxing/gabe-maxxing@main:assets/previews/dark.png",
       "gabe-maxxing/gabe-maxxing@terminal-readme:assets/previews/dark.png"
     ],
     "found_in": [],
@@ -16330,7 +16344,9 @@
     "kb": 305.02,
     "target": "assets/readme/dark-efbb3k6y.png",
     "sha256": "e7d5f0133edd80c77cecac966b7e5e6cfb2fc6427340efeacd615eb1b348effa",
-    "notes": []
+    "notes": [
+      "One hosted copy for identical source bytes."
+    ]
   },
   {
     "source": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/thorizon.png",
@@ -19529,7 +19545,7 @@
     "found_in": [
       "gabe-maxxing@codex/brain-v1:README.md:37",
       "gabe-maxxing@codex/lend:README.md:37",
-      "gabe-maxxing@main:README.md:39",
+      "gabe-maxxing@main:README.md:86",
       "gabe-maxxing@profile/parrot-answers:README.md:37",
       "gabe-maxxing@profile/the-cube:README.md:35",
       "gabe-maxxing@terminal-readme:README.md:84"
@@ -23441,8 +23457,9 @@
     "notes": []
   },
   {
-    "source": "gabe-maxxing/gabe-maxxing@terminal-readme:assets/previews/mobile.png",
+    "source": "gabe-maxxing/gabe-maxxing@main:assets/previews/mobile.png",
     "sources": [
+      "gabe-maxxing/gabe-maxxing@main:assets/previews/mobile.png",
       "gabe-maxxing/gabe-maxxing@terminal-readme:assets/previews/mobile.png"
     ],
     "found_in": [],
@@ -23451,7 +23468,9 @@
     "kb": 215.76,
     "target": "assets/readme/mobile-51j2haad.png",
     "sha256": "18899fe7e4f0e55996d6c3c80c08462d124c6a30bf2e426fc1ee279181650c55",
-    "notes": []
+    "notes": [
+      "One hosted copy for identical source bytes."
+    ]
   },
   {
     "source": "https://sciencepressnews.wordpress.com/wp-content/uploads/2021/10/foto-een-lege-terrassen-jpdubois.jpg",
@@ -26827,7 +26846,6 @@
       "corvus-noctis@main:README.md:3",
       "gabe-maxxing@codex/brain-v1:README.md:3",
       "gabe-maxxing@codex/lend:README.md:3",
-      "gabe-maxxing@main:README.md:3",
       "gabe-maxxing@profile/parrot-answers:README.md:3",
       "gabe-maxxing@profile/the-cube:README.md:3"
     ],
@@ -36081,11 +36099,13 @@
     ]
   },
   {
-    "source": "gabe-maxxing/gabe-maxxing@terminal-readme:assets/cursor.svg",
+    "source": "gabe-maxxing/gabe-maxxing@main:assets/cursor.svg",
     "sources": [
+      "gabe-maxxing/gabe-maxxing@main:assets/cursor.svg",
       "gabe-maxxing/gabe-maxxing@terminal-readme:assets/cursor.svg"
     ],
     "found_in": [
+      "gabe-maxxing@main:README.md:98",
       "gabe-maxxing@terminal-readme:README.md:96"
     ],
     "type": "svg",
@@ -36093,7 +36113,9 @@
     "kb": 0.39,
     "target": "assets/readme/cursor-4bwxsr0a.svg",
     "sha256": "dd48bfb43b1e394a3295cae718416651c5fa7f6d0cbaf70ce9e6a33daaea68ba",
-    "notes": []
+    "notes": [
+      "One hosted copy for identical source bytes."
+    ]
   },
   {
     "source": "https://corvus.gent/api/og?kind=compound&lang=en&hook=b&n=8&video=tt-gm-en-b8&v=20261109og1&updated=1794209244976",
@@ -39448,8 +39470,9 @@
     ]
   },
   {
-    "source": "gabe-maxxing/gabe-maxxing@terminal-readme:assets/previews/light.png",
+    "source": "gabe-maxxing/gabe-maxxing@main:assets/previews/light.png",
     "sources": [
+      "gabe-maxxing/gabe-maxxing@main:assets/previews/light.png",
       "gabe-maxxing/gabe-maxxing@terminal-readme:assets/previews/light.png"
     ],
     "found_in": [],
@@ -39458,7 +39481,9 @@
     "kb": 304.94,
     "target": "assets/readme/light-r872lnc4.png",
     "sha256": "3e1f78c6dffaef372ca6d4f3e6af9a36a1f4ca035932cbb6d18bda1503136764",
-    "notes": []
+    "notes": [
+      "One hosted copy for identical source bytes."
+    ]
   },
   {
     "source": "https://corvus.gent/api/og?kind=compound&lang=es&hook=c&n=2&video=li-gl-es-c2&v=20261109og1&updated=1794213740259",
@@ -40006,11 +40031,13 @@
     ]
   },
   {
-    "source": "gabe-maxxing/gabe-maxxing@terminal-readme:assets/htop.svg",
+    "source": "gabe-maxxing/gabe-maxxing@main:assets/htop.svg",
     "sources": [
+      "gabe-maxxing/gabe-maxxing@main:assets/htop.svg",
       "gabe-maxxing/gabe-maxxing@terminal-readme:assets/htop.svg"
     ],
     "found_in": [
+      "gabe-maxxing@main:README.md:81",
       "gabe-maxxing@terminal-readme:README.md:79"
     ],
     "type": "svg",
@@ -40018,7 +40045,9 @@
     "kb": 2.99,
     "target": "assets/readme/htop-izjefda7.svg",
     "sha256": "bbc606907a1862df1687370ae9d6af685ba83daa11b6d5944d127472a5299aff",
-    "notes": []
+    "notes": [
+      "One hosted copy for identical source bytes."
+    ]
   },
   {
     "source": "https://corvus.gent/api/og?kind=compound&lang=nl&hook=mom&n=7&video=tt-gl-nl-mom7&v=20261109og1&updated=1794209448803",
@@ -41139,7 +41168,7 @@
     "found_in": [
       "gabe-maxxing@codex/brain-v1:README.md:47",
       "gabe-maxxing@codex/lend:README.md:47",
-      "gabe-maxxing@main:README.md:49",
+      "gabe-maxxing@main:README.md:91",
       "gabe-maxxing@profile/parrot-answers:README.md:47",
       "gabe-maxxing@profile/the-cube:README.md:45",
       "gabe-maxxing@terminal-readme:README.md:89",
@@ -45752,11 +45781,14 @@
     "notes": []
   },
   {
-    "source": "gabe-maxxing/gabe-maxxing@terminal-readme:assets/boot-light.svg",
+    "source": "gabe-maxxing/gabe-maxxing@main:assets/boot-light.svg",
     "sources": [
+      "gabe-maxxing/gabe-maxxing@main:assets/boot-light.svg",
       "gabe-maxxing/gabe-maxxing@terminal-readme:assets/boot-light.svg"
     ],
     "found_in": [
+      "gabe-maxxing@main:README.md:4",
+      "gabe-maxxing@main:README.md:5",
       "gabe-maxxing@terminal-readme:README.md:4",
       "gabe-maxxing@terminal-readme:README.md:5"
     ],
@@ -45765,7 +45797,9 @@
     "kb": 9.73,
     "target": "assets/readme/boot-light-bnejgvw5.svg",
     "sha256": "0703f212a663a160143eb84de77e537eefaadfb0955ddd5a29fbd30f193d2075",
-    "notes": []
+    "notes": [
+      "One hosted copy for identical source bytes."
+    ]
   },
   {
     "source": "https://corvus.gent/api/og?kind=compound&lang=ar&hook=b&v=20261109og1",
@@ -49180,8 +49214,6 @@
       "gabe-maxxing@codex/brain-v1:README.md:5",
       "gabe-maxxing@codex/lend:README.md:4",
       "gabe-maxxing@codex/lend:README.md:5",
-      "gabe-maxxing@main:README.md:4",
-      "gabe-maxxing@main:README.md:5",
       "gabe-maxxing@profile/parrot-answers:README.md:4",
       "gabe-maxxing@profile/parrot-answers:README.md:5",
       "gabe-maxxing@profile/the-cube:README.md:4",
