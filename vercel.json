@@ -475,6 +475,14 @@
   ],
   "rewrites": [
     {
+      "source": "/donate",
+      "destination": "/public/gabe-support.html"
+    },
+    {
+      "source": "/donate/",
+      "destination": "/public/gabe-support.html"
+    },
+    {
       "source": "/api/week-auth",
       "destination": "/api/stats?weekAuth=1"
     },
