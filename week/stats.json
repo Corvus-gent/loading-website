@@ -1,0 +1,63 @@
+{
+  "week": "2026-W48",
+  "updated_at": "2026-11-28T18:19:50+00:00",
+  "user": "gabe-maxxing",
+  "totals": {
+    "commits": 147,
+    "additions": 40017,
+    "deletions": 2633,
+    "prs_merged": 53,
+    "repos": 5
+  },
+  "days": {
+    "2026-11-23": {
+      "commits": 16,
+      "additions": 2364,
+      "deletions": 331,
+      "prs_merged": 12,
+      "repo_count": 2
+    },
+    "2026-11-24": {
+      "commits": 46,
+      "additions": 4085,
+      "deletions": 747,
+      "prs_merged": 19,
+      "repo_count": 2
+    },
+    "2026-11-25": {
+      "commits": 26,
+      "additions": 8872,
+      "deletions": 768,
+      "prs_merged": 8,
+      "repo_count": 3
+    },
+    "2026-11-26": {
+      "commits": 3,
+      "additions": 457,
+      "deletions": 1,
+      "prs_merged": 3,
+      "repo_count": 2
+    },
+    "2026-11-27": {
+      "commits": 53,
+      "additions": 24231,
+      "deletions": 786,
+      "prs_merged": 11,
+      "repo_count": 2
+    },
+    "2026-11-28": {
+      "commits": 3,
+      "additions": 8,
+      "deletions": 0,
+      "prs_merged": 0,
+      "repo_count": 1
+    },
+    "2026-11-29": {
+      "commits": 0,
+      "additions": 0,
+      "deletions": 0,
+      "prs_merged": 0,
+      "repo_count": 0
+    }
+  }
+}

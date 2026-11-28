@@ -1,0 +1,124 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><meta name="referrer" content="no-referrer"><title>the week | corvus</title><meta name="description" content="Seven days, five cities, one bedroom. Gabe's week in commits and kilometers."><meta property="og:title" content="the week | corvus"><meta property="og:description" content="Seven days, five cities, one bedroom."><meta property="og:image" content="https://corvus.gent/og-realm.png"><meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://corvus.gent/week/"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/svg+xml" href="/logo/day-1.svg" data-weekly-favicon><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/privacy/privacy.css">
+<style>
+.week-page{max-width:880px;margin:0 auto}
+.week-stats{margin:2rem 0 3rem;text-align:center}
+.week-totals{display:flex;justify-content:center;gap:2.5rem;flex-wrap:wrap;margin-bottom:1.5rem}
+.week-totals div{display:flex;flex-direction:column}
+.week-totals b{font:700 clamp(2rem,6vw,3.2rem)/1 "Bodoni Moda",Georgia,serif;font-variant-numeric:tabular-nums}
+.week-totals span{opacity:.65;font-size:.8rem;letter-spacing:.08em;text-transform:lowercase}
+.week-strip{display:grid;grid-template-columns:repeat(7,1fr);gap:.4rem}
+.week-strip a{display:block;padding:.6rem .3rem;border:1px solid rgba(255,255,255,.12);border-radius:10px;text-decoration:none;color:inherit;font-variant-numeric:tabular-nums}
+.week-strip a:hover{border-color:#ffd76a}
+.week-strip .d{font-weight:700;letter-spacing:.06em}
+.week-strip .n{display:block;font-size:.78rem;opacity:.8;line-height:1.5}
+.week-strip .add{color:#7fd98b}.week-strip .del{color:#ff8a80}
+.week-strip .today{border-color:#ffd76a}
+.week-day{padding:1.6rem 0;border-top:1px solid rgba(255,255,255,.08)}
+.week-day h2{margin:0 0 .2rem}
+.week-route{font-size:1.15rem;margin:.2rem 0 .6rem}
+.week-mini{font-size:.85rem;opacity:.7;font-variant-numeric:tabular-nums}
+.week-fine{opacity:.55;font-size:.8rem;margin-top:1rem}
+@media (max-width:640px){
+  .week-totals{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.25rem .5rem}
+  .week-strip{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+@media (max-width:360px){.week-strip{grid-template-columns:repeat(3,minmax(0,1fr))}}
+</style><!-- SITE_HEAD --><script type="module" src="/js/live-banner.js?v=20261108live1"></script><link rel="stylesheet" href="/plethora/promo.css?v=20261108live1"><link rel="stylesheet" href="/css/site/shell.css?v=20261122less1"><script type="module" src="/js/site/shell.js?v=20261122less1"></script><script type="module" src="/js/site/circus.js?v=20261122uptime1"></script><script type="module" src="/js/site/magic.js?v=20261122uptime1"></script><!-- /SITE_HEAD --></head>
+<body class="site-shell"><!-- SITE_NAV --><nav class="site-nav" aria-label="Corvus rooms" data-site-shell><a class="site-mark" href="/" aria-label="Corvus home"><img data-weekly-logo src="/logo/day-1.svg" width="24" height="24" alt="">corvus</a><span class="site-nav-rooms"><a href="/gabe/">Gabe</a><a href="/legion/">Legion</a><a href="/quests/">(Side) Quests</a><a href="/daily/">Daily</a><a href="/stats/map/">Stats</a></span><button class="site-search-button" data-site-search aria-label="Find a page">/ search</button></nav><p class="site-back" data-site-shell><a href="/daily/">← daily</a></p><!-- /SITE_NAV -->
+<main class="site-page week-page">
+  <p class="site-eyebrow">corvus / week 48</p>
+  <h1>seven days. five cities. one bedroom.</h1>
+  <p class="site-lead">23 – 29 November 2026. London, Gent, Rotterdam, Amsterdam, Calais, and back again.</p>
+
+  <section class="week-stats" aria-label="Code this week">
+    <div class="week-totals">
+      <div><b id="t-commits">–</b><span>commits</span></div>
+      <div><b id="t-lines">–</b><span>lines changed</span></div>
+      <div><b id="t-prs">–</b><span>prs merged</span></div>
+      <div><b id="t-repos">–</b><span>repos</span></div>
+    </div>
+    <div class="week-strip" id="strip"></div>
+    <p class="week-fine" id="stats-updated">counting commits…</p>
+  </section>
+
+  <article class="week-day" id="mon">
+    <h2>mon · tue</h2>
+    <p class="week-route">london → corgi → salesforce → corgi</p>
+    <p>Two days in London. Corgi, then Salesforce, then Corgi again.</p>
+    <p class="week-mini" data-mini="2026-11-23,2026-11-24"></p>
+  </article>
+
+  <article class="week-day" id="wed">
+    <h2>wed</h2>
+    <p class="week-route">wintercircus → gravensteen</p>
+    <p>Home in Gent. Built under the circus roof, then walked to the castle.</p>
+    <p class="week-mini" data-mini="2026-11-25"></p>
+  </article>
+
+  <article class="week-day" id="thu">
+    <h2>thu</h2>
+    <p class="week-route">wintercircus → rotterdam → amsterdam → london → gent → calais</p>
+    <p>Six stops, four countries, one day. Don't ask how.</p>
+    <p class="week-mini" data-mini="2026-11-26"></p>
+  </article>
+
+  <article class="week-day" id="fri">
+    <h2>fri</h2>
+    <p class="week-route">calais → london → corgi → salesforce → pidgy @ conference</p>
+    <p>Back across the water. Corgi, Salesforce, and Pidgy at the conference.</p>
+    <p class="week-mini" data-mini="2026-11-27"></p>
+  </article>
+
+  <article class="week-day" id="sat">
+    <h2>sat</h2>
+    <p class="week-route">my bedroom</p>
+    <p>Zero kilometers. Shipping instead.</p>
+    <p class="week-mini" data-mini="2026-11-28"></p>
+  </article>
+
+  <article class="week-day" id="sun">
+    <h2>sun</h2>
+    <p class="week-route">… who knows</p>
+    <p class="week-mini" data-mini="2026-11-29"></p>
+  </article>
+</main>
+
+<script type="module">
+const DAYS = ["2026-11-23","2026-11-24","2026-11-25","2026-11-26","2026-11-27","2026-11-28","2026-11-29"];
+const NAMES = ["mon","tue","wed","thu","fri","sat","sun"];
+const fmt = n => new Intl.NumberFormat("en").format(n || 0);
+const $ = id => document.getElementById(id);
+const today = new Date().toLocaleDateString("sv-SE", { timeZone: "Europe/Brussels" });
+
+function render(s) {
+  const t = s.totals || {};
+  $("t-commits").textContent = fmt(t.commits);
+  $("t-lines").textContent = fmt((t.additions || 0) + (t.deletions || 0));
+  $("t-prs").textContent = fmt(t.prs_merged);
+  $("t-repos").textContent = fmt(t.repos);
+  const strip = $("strip");
+  DAYS.forEach((d, i) => {
+    const x = (s.days || {})[d] || {};
+    const a = document.createElement("a");
+    a.href = "#" + (i === 1 ? "mon" : NAMES[i]);
+    if (d === today) a.className = "today";
+    a.innerHTML = `<span class="d">${NAMES[i]}</span>
+      <span class="n">${fmt(x.commits)} commits</span>
+      <span class="n"><span class="add">+${fmt(x.additions)}</span> <span class="del">−${fmt(x.deletions)}</span></span>
+      <span class="n">${fmt(x.prs_merged)} prs · ${fmt(x.repo_count)} repos</span>`;
+    strip.append(a);
+  });
+  document.querySelectorAll("[data-mini]").forEach(el => {
+    const ds = el.dataset.mini.split(",");
+    const sum = k => ds.reduce((acc, d) => acc + (((s.days || {})[d] || {})[k] || 0), 0);
+    el.textContent = `${fmt(sum("commits"))} commits · +${fmt(sum("additions"))} −${fmt(sum("deletions"))} · ${fmt(sum("prs_merged"))} prs merged`;
+  });
+  $("stats-updated").textContent = s.updated_at ? `counted ${new Date(s.updated_at).toLocaleString("en-GB", { timeZone: "Europe/Brussels" })}` : "";
+}
+
+fetch("/week/stats.json", { cache: "no-store" })
+  .then(r => r.ok ? r.json() : Promise.reject())
+  .then(render)
+  .catch(() => { $("stats-updated").textContent = "the crow is still counting."; });
+</script>
+<!-- SITE_NEXT --><footer class="site-next site-quiet-footer" data-site-shell><a href="/" aria-label="Corvus home"><img src="/public/wing/wing-still.png" width="32" height="32" alt="Corvus" style="image-rendering:pixelated"></a><a href="/map/">map</a><a href="/feedback/">feedback</a><a href="#lang-switcher">language</a><a href="/privacy/">privacy</a></footer><!-- /SITE_NEXT --></body></html>

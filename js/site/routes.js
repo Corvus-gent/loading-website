@@ -104,6 +104,14 @@ export const CURATED_ROUTES = [
     "status": "open"
   },
   {
+    "path": "/week/",
+    "file": "week/index.html",
+    "section": "daily",
+    "title": "the week",
+    "description": "Gabe’s week in five cities, seven days and daily GitHub stats.",
+    "status": "week 48"
+  },
+  {
     "path": "/quests/",
     "file": "quests/index.html",
     "section": "quests",
