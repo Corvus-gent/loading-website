@@ -2,13 +2,19 @@
 
 10 public personal repositories, 37 personal branch tips, plus the hosting repository’s default branch. The live crawl visited 984 page and stylesheet URLs.
 
-2787 valid source payloads. 2812 distinct hosted files including posters. 329 source groups share bytes. 87 sources exceeded 1 MB. 92 Dutch source names or paths were normalized.
+2933 valid source payloads. 2958 distinct hosted files including posters. 329 source groups share bytes. 87 sources exceeded 1 MB. 184 Dutch source names or paths were normalized.
 
-26 remote media requests failed or returned non-media content. 29 crawl requests returned a non-200 response. 360 unresolved source locations include generated values, fixtures and missing files. See [the unresolved index](unresolved.tsv).
+26 remote media requests failed or returned non-media content. 29 crawl requests returned a non-200 response. 361 unresolved source locations include generated values, fixtures and missing files. See [the unresolved index](unresolved.tsv).
 
-The .github repository was created during discovery and added on the final pass. AD3 is archived on GitHub and has no media or consumer references.
+The .github repository was added during discovery. AD3 is archived on GitHub and has no media or consumer references.
 
 The plan lists branch-qualified sources, observed uses, sizes, and archive paths. Content hashes cover the served bytes. Branch variants remain in the inventory. API-generated artwork and provider badges are snapshots. The original public sources retain their existing attribution and licensing.
+
+## Applying the map
+
+The pull requests update the default branches. Branch-only artwork is mirrored for future use. Source citations, native package inputs, filesystem keys, build outputs, and test examples retain their original paths. Live status and personalized sharing endpoints keep generating current responses. The library contains dated snapshots of the responses observed during discovery. WordPress image sizes and Shopify catalog variants are mapped independently.
+
+The unlisted collection contains publicly sourced directory logos. Its short links are discoverable by readers of this public Git repository. The hosted service excludes readable private paths, the alias backing directory, review files, and source archives.
 
 ## HTTP media exceptions
 
@@ -74,97 +80,189 @@ The plan lists branch-qualified sources, observed uses, sizes, and archive paths
 ## Dutch source names
 
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2020/06/foto-een-bedelaarster-in-brussel-jpdubois-1.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2020/06/foto-een-bedelaarster-in-brussel-jpdubois-1.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2020/06/foto-een-grote-markt-brussel-20-mei-2020-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2020/06/foto-een-grote-markt-brussel-20-mei-2020-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2020/06/foto-een-moeder-met-kind-bxl-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2020/06/foto-een-moeder-met-kind-bxl-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2020/06/foto-een-onkruid-wieden-tijdens-de-lockdown-in-brugge-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2020/06/foto-een-onkruid-wieden-tijdens-de-lockdown-in-brugge-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2020/07/foto-een-drie-bankzitters-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2020/07/foto-een-drie-bankzitters-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2020/09/foto-een-geluierd-in-lokeren-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2020/09/foto-een-geluierd-in-lokeren-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2020/11/fotio-een-mokaferaam-bxl-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2020/11/fotio-een-mokaferaam-bxl-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2020/11/foto-een-kraam-buikje-vol-lokeren-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2020/11/foto-een-kraam-buikje-vol-lokeren-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2020/11/foto-twee-een-bezielde-lezer-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2020/11/foto-twee-een-bezielde-lezer-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2020/12/brt-tv-horizon-okt-1987-fl-en-wvc.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2020/12/brt-tv-horizon-okt-1987-fl-en-wvc.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2020/12/foto-een-gerechtenautomaat-leuven-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2020/12/foto-een-gerechtenautomaat-leuven-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2020/12/foto-een-perron-reizigers-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2020/12/foto-een-perron-reizigers-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2020/12/foto-een-petanque-in-een-parkje-jpdubois-1.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2020/12/foto-een-petanque-in-een-parkje-jpdubois-1.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2020/12/foto-een-veerkracht-in-verviers-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2020/12/foto-een-veerkracht-in-verviers-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2020/12/foto-een-voor-het-raam-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2020/12/foto-een-voor-het-raam-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2020/12/foto-een-wachten-en-een-beker-koffie-drinken-jpdubois-1.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2020/12/foto-een-wachten-en-een-beker-koffie-drinken-jpdubois-1.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/01/foto-een-jongeman-voor-traject-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/01/foto-een-jongeman-voor-traject-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/01/foto-een-reizigster-met-ruiker-bloemen-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/01/foto-een-reizigster-met-ruiker-bloemen-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/01/foto-een-treinbegeleider-in-het-nieuw-jpdubois-1.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/01/foto-een-treinbegeleider-in-het-nieuw-jpdubois-1.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/01/foto-een-zanger-voor-station-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/01/foto-een-zanger-voor-station-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/02/foto-een-in-gsp-vertrek-perron-8-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/02/foto-een-in-gsp-vertrek-perron-8-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/02/foto-een-loggia-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/02/foto-een-loggia-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/02/foto-een-twee-fietsers-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/02/foto-een-twee-fietsers-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/02/foto-een-watersportbaan-gent-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/02/foto-een-watersportbaan-gent-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/03/foto-een-campus-ledeganck-en-deel-plantentuin-ug-vrij-gebruik.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/03/foto-een-campus-ledeganck-en-deel-plantentuin-ug-vrij-gebruik.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/03/foto-een-hoveniers-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/03/foto-een-hoveniers-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/03/foto-een-kas-oranjerie-tuin-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/03/foto-een-kas-oranjerie-tuin-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/03/foto-een-loopbrug-wetteren-jpdubois-1.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/03/foto-een-loopbrug-wetteren-jpdubois-1.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/03/foto-een-rustige-reizigers-gsp-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/03/foto-een-rustige-reizigers-gsp-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/04/foto-een-achteringang-arenbergstraat-jpdubois-1.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/04/foto-een-achteringang-arenbergstraat-jpdubois-1.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/04/foto-een-expozuil-napoleon-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/04/foto-een-expozuil-napoleon-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/04/foto-een-hond-en-reizigster-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/04/foto-een-hond-en-reizigster-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/04/foto-een-kort-na-halfvijf-perron-12-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/04/foto-een-kort-na-halfvijf-perron-12-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/05/foto-een-bankzitters-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/05/foto-een-bankzitters-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/05/foto-een-begijnhofkerk-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/05/foto-een-begijnhofkerk-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/05/foto-een-busstation-bus-55-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/05/foto-een-busstation-bus-55-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/06/foto-een-de-weg-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/06/foto-een-de-weg-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/06/foto-een-gebouwen-in-steigers-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/06/foto-een-gebouwen-in-steigers-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/06/foto-een-geknielde-man-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/06/foto-een-geknielde-man-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/06/foto-een-marktmaskerade-ieper-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/06/foto-een-marktmaskerade-ieper-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/06/foto-een-penniakoflaan-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/06/foto-een-penniakoflaan-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/06/foto-een-wandelen-en-fietsen-leuven-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/06/foto-een-wandelen-en-fietsen-leuven-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/07/foto-een-jeugdbewegingen-brugge-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/07/foto-een-jeugdbewegingen-brugge-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/07/foto-een-twee-studenten-leuven-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/07/foto-een-twee-studenten-leuven-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/08/foto-een-fietstaxi-brugge-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/08/foto-een-fietstaxi-brugge-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/08/foto-een-kaartlezeres-brugge-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/08/foto-een-kaartlezeres-brugge-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/09/foto-een-baasje-met-hond-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/09/foto-een-baasje-met-hond-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/09/foto-een-de-bijloke-en-schapen-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/09/foto-een-de-bijloke-en-schapen-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/09/foto-een-de-witte-haan-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/09/foto-een-de-witte-haan-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/09/foto-een-kloostergebouw-wijngaardplein-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/09/foto-een-kloostergebouw-wijngaardplein-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/09/foto-een-oude-hoogbouw-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/09/foto-een-oude-hoogbouw-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/09/foto-een-paraplugroep-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/09/foto-een-paraplugroep-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/09/foto-een-treinbegeleiders-gsp-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/09/foto-een-treinbegeleiders-gsp-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/09/foto-een-wandelaar-in-verviers-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/09/foto-een-wandelaar-in-verviers-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/10/foto-een-bronzen-beeld-en-kind-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/10/foto-een-bronzen-beeld-en-kind-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/10/foto-een-drie-meisjes-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/10/foto-een-drie-meisjes-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/10/foto-een-jacques-dujardin-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/10/foto-een-jacques-dujardin-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/10/foto-een-lege-terrassen-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/10/foto-een-lege-terrassen-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/10/foto-een-mijn-buitenterras-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/10/foto-een-mijn-buitenterras-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/11/foto-een-de-toog-gent-dampoort-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/11/foto-een-de-toog-gent-dampoort-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/11/foto-een-groep-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/11/foto-een-groep-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/11/foto-een-sleenofiel-geert-ollieuz-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/11/foto-een-sleenofiel-geert-ollieuz-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/11/foto-een-winkelschakers-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/11/foto-een-winkelschakers-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/11/foto-twee-wachter-voor-bakkerij-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/11/foto-twee-wachter-voor-bakkerij-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/12/foto-een-fotografen-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/12/foto-een-fotografen-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/12/foto-een-gesloten-bioscopen-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/12/foto-een-gesloten-bioscopen-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/12/foto-een-rare-vogel-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/12/foto-een-rare-vogel-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/12/foto-een-voorbijgangers-station-jpdubois-1.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/12/foto-een-voorbijgangers-station-jpdubois-1.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2021/12/foto-een-wachter-en-hond-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2021/12/foto-een-wachter-en-hond-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2022/01/foto-een-detail-foto-bank-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2022/01/foto-een-detail-foto-bank-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2022/01/foto-een-perron-jpdubois-1.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2022/01/foto-een-perron-jpdubois-1.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2022/01/foto-een-steengroeve-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2022/01/foto-een-steengroeve-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2022/01/foto-een-wandelaars-jpdubois.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2022/01/foto-een-wandelaars-jpdubois.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2022/04/foto-een-1.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2022/04/foto-een-1.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2022/04/foto-een.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2022/04/foto-een.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2022/05/foto-kijken.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2022/05/foto-kijken.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2022/06/foto.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2022/06/foto.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2022/07/foto-eenentwintig-robert-douchant-leest-woe-19-4-2017-jp-dubois-img_4996.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2022/07/foto-eenentwintig-robert-douchant-leest-woe-19-4-2017-jp-dubois-img_4996.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2022/07/vergr-img_8474.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2022/07/vergr-img_8474.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2022/08/beste.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2022/08/beste.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2022/10/kijken-oke-douchant-img_6868.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2022/10/kijken-oke-douchant-img_6868.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2022/10/kijken.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2022/10/kijken.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2022/11/een.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2022/11/een.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2023/02/beste-voorplaat.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2023/02/beste-voorplaat.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2023/02/plaat.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2023/02/plaat.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2023/04/img_7304-goede-foo.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2023/04/img_7304-goede-foo.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2023/08/plaat-a.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2023/08/plaat-a.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2023/12/beste-front-img_3138.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2023/12/beste-front-img_3138.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2023/12/voor-img_3572.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2023/12/voor-img_3572.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2023/12/voorplaat-wn-98.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2023/12/voorplaat-wn-98.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2024/04/img_3879-crop-rechter.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2024/04/img_3879-crop-rechter.jpg?w=960
 - https://sciencepressnews.wordpress.com/wp-content/uploads/2025/03/urinoir-img_3614.jpg
+- https://sciencepressnews.wordpress.com/wp-content/uploads/2025/03/urinoir-img_3614.jpg?w=960
 
 ## Files over 1 MB
 
@@ -514,20 +612,20 @@ The plan lists branch-qualified sources, observed uses, sizes, and archive paths
 - 3 source locations · assets/site/og-boat-hackathon-credit-5lytbdlp.jpg
 - 2 source locations · assets/site/og-luma-battle-dtl3qzws.jpg
 - 2 source locations · assets/site/og-realm-di57v5kh.png
-- 2 source locations · assets/site/ossman-1x1-kpm6gt12.mp4
-- 2 source locations · assets/site/ossman-9x16-otlxkcrn.mp4
-- 2 source locations · assets/site/ossman-cover-bh0p9iq5.png
+- 3 source locations · assets/site/ossman-1x1-kpm6gt12.mp4
+- 3 source locations · assets/site/ossman-9x16-otlxkcrn.mp4
+- 3 source locations · assets/site/ossman-cover-bh0p9iq5.png
 - 2 source locations · assets/site/parrot-flag-96jbj91k.svg
 - 2 source locations · assets/site/plethora-og-6hno0sfv.png
 - 2 source locations · assets/site/profile-0cwsw3em.jpg
 - 4 source locations · assets/site/qr-ggtu9dp4.svg
 - 2 source locations · assets/site/qr-hero-rjbwqc8i.svg
-- 2 source locations · assets/site/raw-code-fv5jopjy.mp4
-- 2 source locations · assets/site/raw-fighters-3pqz4jgw.mp4
-- 2 source locations · assets/site/raw-finishes-mkhaifc6.mp4
-- 2 source locations · assets/site/raw-gameover-44eth36i.mp4
-- 2 source locations · assets/site/raw-gameplay-full-zqzolioc.mp4
-- 2 source locations · assets/site/raw-vote-e0b74rdv.mp4
+- 3 source locations · assets/site/raw-code-fv5jopjy.mp4
+- 3 source locations · assets/site/raw-fighters-3pqz4jgw.mp4
+- 3 source locations · assets/site/raw-finishes-mkhaifc6.mp4
+- 3 source locations · assets/site/raw-gameover-44eth36i.mp4
+- 3 source locations · assets/site/raw-gameplay-full-zqzolioc.mp4
+- 3 source locations · assets/site/raw-vote-e0b74rdv.mp4
 - 2 source locations · assets/site/ray-bali-dreamcatchers-large-round-blackwhitered-se0hg1ob.jpg
 - 2 source locations · assets/site/ray-bali-dreamcatchers-large-round-creamcoffeechoc-tta1myaq.jpg
 - 2 source locations · assets/site/ray-bali-dreamcatchers-large-round-rainbow-swmxkeh9.jpg
@@ -550,7 +648,7 @@ The plan lists branch-qualified sources, observed uses, sizes, and archive paths
 - 2 source locations · assets/site/ray-set-of-6-scented-tealights-lavender-v8gi5pze.jpg
 - 2 source locations · assets/site/ray-set-of-6-scented-tealights-raspberry-white-lavender-e6f0hqm1.jpg
 - 2 source locations · assets/site/ray-tribal-soul-incense-sticks-white-sage-lavender-2c6uopx4.jpg
-- 2 source locations · assets/site/raygifts-share-wfombjki.png
+- 3 source locations · assets/site/raygifts-share-wfombjki.png
 - 2 source locations · assets/site/realm-night-pmeldkaz.svg
 - 2 source locations · assets/site/ropes-for-rescues-card-2a0u0tjf.jpg
 - 2 source locations · assets/site/run-og-hl4e6ivw.jpg

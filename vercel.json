@@ -1724,6 +1724,22 @@
           "value": "*"
         }
       ]
+    },
+    {
+      "source": "/assets/:collection(brand|court|cube|council|readme|site)/:file",
+      "has": [
+        {
+          "type": "query",
+          "key": "download",
+          "value": "1"
+        }
+      ],
+      "headers": [
+        {
+          "key": "Content-Disposition",
+          "value": "attachment"
+        }
+      ]
     }
   ],
   "crons": [

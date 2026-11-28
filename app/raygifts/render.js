@@ -49,7 +49,7 @@ export function render({ products, currency, product, missing, unavailable, path
   const photo = product?.images[0];
   const productImage = photo?.hosted ? new URL(photo.hosted.full, 'https://corvus.gent').href : photo?.src;
   const canonical = 'https://corvus.gent/raygifts' + path + (result ? '?r=' + result : '');
-  const shareImage = result ? 'https://corvus.gent/raygifts/share.png?r=' + result : 'https://corvus.gent/assets/site/raygifts-share-wfombjki.png';
+  const shareImage = result ? 'https://corvus.gent/assets/site/raygifts-share-wfombjki.png' + result : 'https://corvus.gent/assets/site/raygifts-share-wfombjki.png';
   const data = JSON.stringify({
     currency, mode, initialResult: result,
     products: product && !products.some(item => item.handle === product.handle) ? [...products, product] : products,

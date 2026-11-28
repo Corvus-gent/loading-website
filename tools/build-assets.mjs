@@ -27,15 +27,18 @@ for (const collection of collections) {
     const id = (BigInt('0x' + hash) % space).toString(36).padStart(8, '0');
     if (hashes.has(id)) throw new Error('Duplicate content or short ID collision: ' + file + ' / ' + hashes.get(id));
     hashes.set(id, file);
-    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*\.[a-z0-9]+$/.test(file) || !file.endsWith('-' + id + '.' + ext)) {
-      throw new Error('Expected a content-versioned English filename ending in -' + id + '.' + ext + ': ' + file);
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*\.[a-z0-9]+$/.test(file)) {
+      throw new Error('Use a kebab-case filename: ' + file);
     }
     const key = id + '.' + ext;
     await link(local, path.join(aliases, key));
     if (collection === '_private') continue;
-    const url = '/assets/' + collection + '/' + file;
-    const item = {id, name:file.slice(0, -(key.length + 1)), collection, type:types[ext], bytes:bytes.length, url, short:'/a/' + key};
-    const poster = posters[url.slice(1)];
+    const pathname = '/assets/' + collection + '/' + file;
+    const versionedName = file.endsWith('-' + key);
+    const url = versionedName ? pathname : pathname + '?v=' + id;
+    const name = versionedName ? file.slice(0, -(key.length + 1)) : path.parse(file).name;
+    const item = {id, name, collection, type:types[ext], bytes:bytes.length, url, short:'/a/' + key};
+    const poster = posters[pathname.slice(1)];
     if (poster) {
       if (!poster.startsWith('assets/' + collection + '/')) throw new Error('Invalid poster for ' + file);
       await stat(path.join(root, 'public', poster));

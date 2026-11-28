@@ -93,7 +93,7 @@ function follow(socials) {
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.setAttribute('aria-hidden', 'true');
     const use = document.createElementNS(svg.namespaceURI, 'use');
-    use.setAttribute('href', '/img/follow.svg#' + link.id);
+    use.setAttribute('href', '/assets/site/follow-lujodz15.svg#' + link.id);
     svg.append(use);
     a.replaceChildren(svg);
     nav.append(a);
