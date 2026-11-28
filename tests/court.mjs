@@ -14,9 +14,13 @@ const handlerURL = new URL('../api/_court/handler.js', import.meta.url);
 const context = vm.createContext({URL, URLSearchParams, encodeURIComponent, process: {env: {VERCEL_ENV: 'test'}}});
 const held = new Set();
 let offline = false;
+let failNextRead = false;
 async function redis([command, key, name]) {
   assert.equal(key, 'court:held:v1:test');
-  if (offline) throw new Error('Storage unavailable');
+  if (offline || (command === 'SMEMBERS' && failNextRead)) {
+    failNextRead = false;
+    throw new Error('Storage unavailable');
+  }
   if (command === 'SMEMBERS') return [...held];
   if (command === 'SADD') return held.add(name);
   if (command === 'SREM') return held.delete(name);
@@ -87,6 +91,8 @@ try {
     assert.equal(html.includes('<li id="corvus">'), action === 'restore');
     assert.equal(html.match(/data:image\/png;base64/g).length, action === 'restore' ? 16 : 15);
   }
+  failNextRead = true;
+  assert.equal((await post('/court', {acknowledge:'court-2026-11-28'})).status, 200);
   offline = true;
   const closed = await post('/court',{acknowledge:'court-2026-11-28'});
   assert.equal(closed.status, 503);

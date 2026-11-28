@@ -76,7 +76,10 @@ function form(req) {
 }
 
 async function heldPortraits() {
-  const members = await redis(['SMEMBERS', key]);
+  // A new serverless instance may discard its first timed-out Redis connection.
+  // This read is idempotent. Never render from a cached or assumed empty list.
+  const readHolds = () => redis(['SMEMBERS', key]);
+  const members = await readHolds().catch(readHolds);
   if (!Array.isArray(members)) throw new Error('Gallery availability unknown');
   return new Set(members);
 }
@@ -114,6 +117,7 @@ export default async function court(req, res) {
     if (form(req).acknowledge !== termsVersion) return res.status(400).send(entrance());
     return res.status(200).send(await gallery(await heldPortraits()));
   } catch {
-    return res.status(503).send(page('Court unavailable', `<h1>The gallery is temporarily closed.</h1><p>For rights enquiries, email <a href="${reportLink('')}">${mailbox}</a>.</p>`));
+    res.setHeader('Retry-After', '5');
+    return res.status(503).send(page('Court unavailable', `<h1>The gallery is temporarily closed.</h1><p><a href="/court">Try entering again</a> in a moment.</p><p>For rights enquiries, email <a href="${reportLink('')}">${mailbox}</a>.</p>`));
   }
 }
