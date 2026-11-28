@@ -1,5 +1,5 @@
+import { sendCode } from "./_login-mail.js";
 // Email one-time-code login, only for @corvus.gent addresses.
-import { OWNER, ADMIN_ORIGIN } from "./_week.js";
 import crypto from "node:crypto";
 import { redis, connected } from "./_redis.js";
 import { hash, getSession, createSession, destroySession } from "./_session.js";
@@ -7,19 +7,6 @@ import { hash, getSession, createSession, destroySession } from "./_session.js";
 import { ORIGINS, dailyIPHash, rateLimit as limit, appendPrivateLog } from "./_privacy.js";
 const isAllowed = e => e.length <= 254 && /^[a-z0-9._%+-]+@corvus\.gent$/i.test(e);
 
-async function sendCode(email, code) {
-  const r = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, "Content-Type": "application/json" },
-    body: JSON.stringify({
-      from: process.env.LOGIN_FROM || "corvus <login@corvus.gent>",
-      to: [email],
-      subject: `${code} is your corvus.gent code`,
-      text: `Your code: ${code}\n\nValid for 3 minutes. If you didn't ask for this, ignore it.\n\n— the crow`,
-    }),
-  });
-  if (!r.ok) throw new Error("mail failed");
-}
 
 export default async function handler(req, res) {
   res.setHeader("Cache-Control", "no-store");
@@ -30,9 +17,7 @@ export default async function handler(req, res) {
     return res.status(200).json({ email: s ? s.email : null });
   }
   if (req.method !== "POST") return res.status(405).end();
-  const origin = req.headers.origin || "";
-  const weekLogin = origin === ADMIN_ORIGIN || req.query?.week === "1";
-  if (origin !== ADMIN_ORIGIN && !ORIGINS.includes(origin)) return res.status(403).json({ error: "forbidden" });
+  if (!ORIGINS.includes(req.headers.origin || "")) return res.status(403).json({ error: "forbidden" });
 
   const { action, email: rawEmail, code } = req.body || {};
   const email = String(rawEmail || "").trim().toLowerCase();
@@ -42,7 +27,7 @@ export default async function handler(req, res) {
   if (action === "request") {
     // same answer for every address, so nobody can probe which mailboxes exist
     const ok = { ok: true, message: "if that address is allowed, a code is on its way." };
-    if (!isAllowed(email) || (weekLogin && email !== OWNER)) return res.status(200).json(ok);
+    if (!isAllowed(email)) return res.status(200).json(ok);
     if (!(await limit(`otp:rl:ip:${dailyIPHash(req, "login")}`, 10, 3600))) return res.status(429).json({ error: "slow down" });
     if (!(await limit(`otp:rl:mail:${hash(email)}`, 3, 900))) return res.status(429).json({ error: "slow down" });
     const otp = String(crypto.randomInt(0, 1000000)).padStart(6, "0");
@@ -52,7 +37,7 @@ export default async function handler(req, res) {
   }
 
   if (action === "verify") {
-    if (!isAllowed(email) || (weekLogin && email !== OWNER) || !/^\d{6}$/.test(String(code || ""))) return res.status(400).json({ error: "wrong code" });
+    if (!isAllowed(email) || !/^\d{6}$/.test(String(code || ""))) return res.status(400).json({ error: "wrong code" });
     const key = `otp:${hash(email)}`;
     // One transaction: a code cannot be reused or recreated after its expiry.
     const verify = `local raw=redis.call('GET',KEYS[1]); if not raw then return -2 end

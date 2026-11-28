@@ -475,6 +475,10 @@
   ],
   "rewrites": [
     {
+      "source": "/api/week-auth",
+      "destination": "/api/stats?weekAuth=1"
+    },
+    {
       "source": "/api/week",
       "destination": "/api/stats?weekItinerary=1"
     },

@@ -10,7 +10,7 @@ async function request(path, method = 'GET', body) {
   if (!response.ok) throw Object.assign(new Error('Request failed'), {status:response.status});
   return response.json();
 }
-const auth = (action, code) => request('/api/auth?week=1', 'POST', {action, email:owner, code});
+const auth = (action, code) => request('/api/week-auth', 'POST', {action, email:owner, code});
 function showEditor(visible) {
   $('login').hidden = visible;
   $('editor').hidden = !visible;
@@ -96,5 +96,5 @@ $('logout').onclick = async () => {
   try { await auth('logout'); showEditor(false); $('reload').hidden = true; tell(dirty ? 'Uitgelogd. Je concept blijft in deze tab.' : 'Uitgelogd.'); if (!dirty) draft = null; }
   catch { tell('Uitloggen mislukt. Probeer opnieuw.'); }
 };
-try { if ((await request('/api/auth?week=1')).email === owner) await openEditor(); }
+try { if ((await request('/api/week-auth')).email === owner) await openEditor(); }
 catch { tell('Verbinding mislukt. Herlaad de pagina om opnieuw te proberen.'); }
