@@ -487,10 +487,6 @@
       "destination": "/api/stats?court=manage"
     },
     {
-      "source": "/api/_court/:path*",
-      "destination": "/api/stats?court=gallery"
-    },
-    {
       "source": "/donate",
       "destination": "/public/gabe-support.html"
     },

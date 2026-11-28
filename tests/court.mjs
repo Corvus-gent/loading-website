@@ -4,6 +4,11 @@ import {readFile} from 'node:fs/promises';
 import {createServer} from 'node:http';
 import vm from 'node:vm';
 import {chromium} from 'playwright';
+import middleware, {config} from '../middleware.js';
+
+const assetPath = '/api/_court/art/corvus.png';
+assert.ok(config.matcher.includes('/api/_court/:path*'));
+assert.equal((await middleware(new Request('https://corvus.gent' + assetPath))).status, 404);
 
 const handlerURL = new URL('../api/_court/handler.js', import.meta.url);
 const context = vm.createContext({URL, URLSearchParams, encodeURIComponent, process: {env: {VERCEL_ENV: 'test'}}});
