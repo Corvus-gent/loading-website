@@ -1,10 +1,12 @@
 # Asset audit
 
-9 public personal repositories, 35 personal branch tips, plus the hosting repository’s default branch. The live crawl visited 984 page and stylesheet URLs.
+10 public personal repositories, 37 personal branch tips, plus the hosting repository’s default branch. The live crawl visited 984 page and stylesheet URLs.
 
 2787 valid source payloads. 2812 distinct hosted files including posters. 329 source groups share bytes. 87 sources exceeded 1 MB. 92 Dutch source names or paths were normalized.
 
 26 remote media requests failed or returned non-media content. 29 crawl requests returned a non-200 response. 360 unresolved source locations include generated values, fixtures and missing files. See [the unresolved index](unresolved.tsv).
+
+The .github repository was created during discovery and added on the final pass. AD3 is archived on GitHub and has no media or consumer references.
 
 The plan lists branch-qualified sources, observed uses, sizes, and archive paths. Content hashes cover the served bytes. Branch variants remain in the inventory. API-generated artwork and provider badges are snapshots. The original public sources retain their existing attribution and licensing.
 

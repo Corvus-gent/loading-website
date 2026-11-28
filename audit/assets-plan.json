@@ -33199,7 +33199,9 @@
     "kb": 1.39,
     "target": "assets/site/follow-lujodz15.svg",
     "sha256": "cf9392e0353f42d17f993bf6f6c47d9090841feeca5ad44291d8da7cace45699",
-    "notes": []
+    "notes": [
+      "SVG symbol sheet. Each symbol defines its own viewBox."
+    ]
   },
   {
     "source": "Corvus-gent/loading-website@main:public/logo-lab/sigil/favicon-16.png",
