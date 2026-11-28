@@ -475,6 +475,18 @@
   ],
   "rewrites": [
     {
+      "source": "/court",
+      "destination": "/api/stats?court=gallery"
+    },
+    {
+      "source": "/court/",
+      "destination": "/api/stats?court=gallery"
+    },
+    {
+      "source": "/court/manage",
+      "destination": "/api/stats?court=manage"
+    },
+    {
       "source": "/donate",
       "destination": "/public/gabe-support.html"
     },
@@ -1222,7 +1234,7 @@
       "includeFiles": "music.json"
     },
     "api/stats.js": {
-      "includeFiles": "{**/index.html,music.json,battle/*.json,hack/3/interviews.json,public/gabe.jpg,img/army/fonts/*.ttf,api/{_og/fonts/**,_leads/*},node_modules/{harfbuzzjs,satori}/*.wasm,config/offers.json,data/warm-contacts.json}",
+      "includeFiles": "{**/index.html,music.json,battle/*.json,hack/3/interviews.json,public/gabe.jpg,img/army/fonts/*.ttf,api/{_og/fonts/**,_leads/*,_court/art/*.png},node_modules/{harfbuzzjs,satori}/*.wasm,config/offers.json,data/warm-contacts.json}",
       "maxDuration": 60
     },
     "api/x-stats.js": {

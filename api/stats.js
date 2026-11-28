@@ -7,6 +7,7 @@ const FIRST = "2026-11-02";
 const tzDay = (d = new Date()) => new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Brussels" }).format(d);
 
 async function handler(req, res) {
+  if (req.query.court === "gallery" || req.query.court === "manage") return (await import("./_court/handler.js")).default(req, res);
   if (req.query.weekAuth === "1") return (await import("./_week-auth.js")).default(req, res);
   if (req.query.weekItinerary === "1") return (await import("./_week.js")).default(req, res);
   if(req.query.leadhunter === "1") return (await import("./_leads/handler.js")).default(req,res);

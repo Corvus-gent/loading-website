@@ -7,7 +7,7 @@ import {ogRoute} from "./js/og-routes.js";
 import {COMPOUND_LINKS} from "./js/compound-links.js";
 import { rewrite, next, waitUntil } from "@vercel/functions";
 
-export const config = { matcher: ["/the6cube/:path*", "/((?!api/|js/|img/|cv/|papers/|.*\\.(?:css|js|png|jpg|svg|pdf|json|ico)$).*)", "/project-cto/:path*", "/api/_openrisk/:path*", "/api/_leads/:path*", "/data/warm-contacts.json"] };
+export const config = { matcher: ["/the6cube/:path*", "/((?!api/|js/|img/|cv/|papers/|.*\\.(?:css|js|png|jpg|svg|pdf|json|ico)$).*)", "/project-cto/:path*", "/api/_openrisk/:path*", "/api/_court/:path*", "/api/_leads/:path*", "/data/warm-contacts.json"] };
 
 const COMPANY_LINKS = {
   "/enter": "/?utm_source=linkedin&utm_medium=company-page&utm_campaign=gabe-corvus-page&utm_content=button",
@@ -66,7 +66,7 @@ function routeRequest(request, url) {
   if (url.pathname === '/data/warm-contacts.json' || /^\/api\/_leads(?:\/|$)/.test(url.pathname)) {
     return new Response(null, { status:404, headers:{'Cache-Control':'private, no-store','X-Robots-Tag':'noindex, nofollow'} });
   }
-  if (/^\/api\/_openrisk(?:\/|$)/.test(url.pathname)) {
+  if (/^\/api\/_(?:openrisk|court)(?:\/|$)/.test(url.pathname)) {
     return new Response(null, { status:404, headers:{'Cache-Control':'private, no-store','X-Robots-Tag':'noindex, nofollow'} });
   }
   if (/^\/project-cto(?:\/|$)/.test(url.pathname)) {

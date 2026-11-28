@@ -1,0 +1,56 @@
+:root {
+  color-scheme: dark;
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  color: #f5ecda;
+  background: #18131e;
+  --edge: #55435d;
+  --gold: #ffd76a;
+  --muted: #cbbbd1;
+}
+* { box-sizing: border-box }
+body { margin: 0; min-height: 100vh; background: radial-gradient(ellipse at 8% 20%, #312138, transparent 52rem) }
+header, main { width: min(74rem, 100% - 2.5rem); margin: auto }
+header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.4rem 0; border-bottom: 1px solid var(--edge) }
+header > span, .overline { font: 600 .875rem/1.45 ui-monospace, monospace; letter-spacing: .09em; text-transform: uppercase; color: var(--muted) }
+.wordmark { font-size: 1.35rem; font-weight: 800; letter-spacing: -.06em; color: inherit; text-decoration: none }
+.wordmark span, h1 span { color: var(--gold) }
+main { padding: clamp(2rem, 6vw, 6rem) 0 5rem }
+h1, h2, h3, p, figure, ul { margin: 0 }
+h1, h2 { font-family: Georgia, "Times New Roman", serif; font-weight: 500; line-height: 1.02; text-wrap: balance }
+h1 { font-size: clamp(3.4rem, 8.4vw, 7.5rem); letter-spacing: -.065em }
+h2 { font-size: clamp(2rem, 4vw, 3.25rem); letter-spacing: -.045em }
+h3 { font-size: 1.12rem; line-height: 1.35 }
+p { font-size: 1.05rem; line-height: 1.65 }
+a { color: var(--gold); text-underline-offset: .18em }
+a:focus-visible, input:focus-visible, button:focus-visible { outline: 3px solid #91e6cf; outline-offset: 4px }
+.overline { color: var(--gold); margin-bottom: .85rem }
+.entrance { display: grid; grid-template-columns: 5fr 6fr; gap: clamp(2rem, 8vw, 8rem) }
+.lede { color: var(--muted); margin-top: 1.5rem; max-width: 27rem; font-size: 1.25rem }
+.terms { max-width: 44rem }
+.terms p { margin-top: .75rem }
+.terms h3 { margin-top: 1.7rem }
+.signature { white-space: nowrap }
+.enter { border-top: 1px solid var(--edge); margin-top: 2rem; padding-top: 1.5rem }
+label { display: flex; align-items: baseline; gap: .7rem; cursor: pointer; line-height: 1.5 }
+input[type=checkbox] { width: 1.15rem; height: 1.15rem; accent-color: var(--gold); flex-shrink: 0 }
+button { font: inherit; font-weight: 700; color: #231927; background: var(--gold); border: 0; padding: .85rem 1.25rem; cursor: pointer }
+button:hover { background: #ffe49a }
+.enter button { margin-top: 1.1rem }
+.gallery-head, .management li { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1rem }
+.gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: .8rem; list-style: none; padding: 0; margin: 2.6rem 0 4rem }
+.gallery li { border: 1px solid var(--edge); background: #251c30 }
+.gallery li:target { outline: 2px solid var(--gold) }
+.portrait { height: clamp(8rem, 15vw, 12rem); display: grid; place-items: center; padding: .6rem; background: radial-gradient(ellipse at 50% 92%, #4a355a, #2e223b 68%) }
+.portrait img { width: auto; height: 90%; max-width: 100%; min-height: 0; object-fit: contain; image-rendering: pixelated }
+figcaption { padding: .8rem 1rem }
+figcaption a { display: inline-block; padding: .4rem 0; font-size: .9rem }
+.gallery-terms { padding-top: 2.25rem; border-top: 1px solid var(--edge) }
+.management { list-style: none; padding: 0; max-width: 40rem }
+.management li { align-items: center; border-bottom: 1px solid var(--edge); padding: .8rem 0 }
+@media (max-width: 48rem) {
+  .entrance { grid-template-columns: 1fr }
+  .intro h1 br { display: none }
+  .intro h1 br::after { content: " " }
+  .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)) }
+}
+@media (max-width: 22rem) { header, main { width: calc(100% - 1.5rem) } }
