@@ -58,3 +58,9 @@ output
 .env*
 .runtime/
 output/
+
+# Review inputs and offline source archives.
+audit/
+_originals/
+!tools/build-assets.mjs
+!tools/asset-posters.json

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 568 153" role="img" aria-labelledby="title desc">
+<title id="title">htop — Corvus main</title><desc id="desc">Daily commits for 7–20 November 2026, Brussels time. Counts: 55, 62, 51, 13, 0, 26, 13, 5, 0, 22, 23, 46, 13, 51.</desc>
+<rect width="568" height="153" fill="#faf8ee"/><rect x=".5" y=".5" width="567" height="152" fill="none" stroke="#c2cbb8"/>
+<g font-family="ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', monospace"><text x="24" y="29" font-size="16" font-weight="bold" fill="#114c31">commits / day</text><text x="543" y="29" text-anchor="end" font-size="15" fill="#455c49">NOV 2026</text>
+<path d="M22 116.5h523" stroke="#c2cbb8"/><g font-size="14" text-anchor="middle"><g><rect x="25" y="65" width="24" height="51" fill="#114c31"/><text x="37" y="58" fill="#114c31">55</text><text x="37" y="139" fill="#455c49">07</text></g>
+<g><rect x="62" y="59" width="24" height="57" fill="#8b440a"/><text x="74" y="52" fill="#114c31">62</text><text x="74" y="139" fill="#455c49">08</text></g>
+<g><rect x="99" y="69" width="24" height="47" fill="#114c31"/><text x="111" y="62" fill="#114c31">51</text><text x="111" y="139" fill="#455c49">09</text></g>
+<g><rect x="136" y="104" width="24" height="12" fill="#114c31"/><text x="148" y="97" fill="#114c31">13</text><text x="148" y="139" fill="#455c49">10</text></g>
+<g><rect x="173" y="116" width="24" height="0" fill="#114c31"/><text x="185" y="109" fill="#114c31">0</text><text x="185" y="139" fill="#455c49">11</text></g>
+<g><rect x="210" y="92" width="24" height="24" fill="#114c31"/><text x="222" y="85" fill="#114c31">26</text><text x="222" y="139" fill="#455c49">12</text></g>
+<g><rect x="247" y="104" width="24" height="12" fill="#114c31"/><text x="259" y="97" fill="#114c31">13</text><text x="259" y="139" fill="#455c49">13</text></g>
+<g><rect x="284" y="111" width="24" height="5" fill="#114c31"/><text x="296" y="104" fill="#114c31">5</text><text x="296" y="139" fill="#455c49">14</text></g>
+<g><rect x="321" y="116" width="24" height="0" fill="#114c31"/><text x="333" y="109" fill="#114c31">0</text><text x="333" y="139" fill="#455c49">15</text></g>
+<g><rect x="358" y="96" width="24" height="20" fill="#114c31"/><text x="370" y="89" fill="#114c31">22</text><text x="370" y="139" fill="#455c49">16</text></g>
+<g><rect x="395" y="95" width="24" height="21" fill="#114c31"/><text x="407" y="88" fill="#114c31">23</text><text x="407" y="139" fill="#455c49">17</text></g>
+<g><rect x="432" y="74" width="24" height="42" fill="#114c31"/><text x="444" y="67" fill="#114c31">46</text><text x="444" y="139" fill="#455c49">18</text></g>
+<g><rect x="469" y="104" width="24" height="12" fill="#114c31"/><text x="481" y="97" fill="#114c31">13</text><text x="481" y="139" fill="#455c49">19</text></g>
+<g><rect x="506" y="69" width="24" height="47" fill="#114c31"/><text x="518" y="62" fill="#114c31">51</text><text x="518" y="139" fill="#455c49">20</text></g></g></g>
+</svg>

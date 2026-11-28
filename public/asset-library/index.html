@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en" data-manifest="/assets/manifest.json?v=594aa5531ffc2cd9">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#101510"><title>Asset library · Corvus</title>
+  <link rel="stylesheet" href="/public/asset-library/library.css">
+  <script type="module" src="/public/asset-library/library.js"></script>
+</head>
+<body>
+  <header><a href="/" class="wordmark"><span aria-hidden="true">▚</span> CORVUS</a><span class="path">/ assets</span></header>
+  <main>
+    <h1>Asset library<span aria-hidden="true">_</span></h1>
+    <div class="tools">
+      <label>Search<input type="search" id="search" placeholder="Search filenames" autocomplete="off"></label>
+      <label>Collection<select id="collection"><option value="">All collections</option></select></label>
+      <output id="count" aria-live="polite">Loading…</output>
+    </div>
+    <p id="error" hidden></p>
+    <ul id="grid"></ul>
+    <button type="button" id="more" hidden>Load more</button>
+    <p id="notice" role="status" aria-live="polite"></p>
+  </main>
+</body></html>

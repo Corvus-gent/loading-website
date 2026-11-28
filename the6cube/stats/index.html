@@ -131,7 +131,7 @@ $('run').onclick = async () => {
 };
 
 /* ---- static measured data ---- */
-const W = {"index.html": {"raw": 31358, "gzip": 12839}, "lab.html": {"raw": 66871, "gzip": 22510}, "monte-carlo.html": {"raw": 32020, "gzip": 12839}, "licht.html": {"raw": 76925, "gzip": 28349}, "nota.html": {"raw": 85873, "gzip": 31561}, "ab.html": {"raw": 4613, "gzip": 2184}, "assets/wing-flight.webp": {"raw": 4808, "gzip": 4005}, "assets/diogenes.webp": {"raw": 57670, "gzip": 57708}, "assets/day-1.svg": {"raw": 2082, "gzip": 799}};   // regenerate with tools/cube/weights.py after every build
+const W = {"index.html": {"raw": 31358, "gzip": 12839}, "lab.html": {"raw": 66871, "gzip": 22510}, "monte-carlo.html": {"raw": 32020, "gzip": 12839}, "licht.html": {"raw": 76925, "gzip": 28349}, "nota.html": {"raw": 85873, "gzip": 31561}, "ab.html": {"raw": 4613, "gzip": 2184}, "/assets/cube/wing-flight-1ihp7zlo.webp": {"raw": 4808, "gzip": 4005}, "/assets/court/diogenes-lbe9g6zf.webp": {"raw": 57670, "gzip": 57708}, "/assets/cube/day-1-viza2zpk.svg": {"raw": 2082, "gzip": 799}};   // regenerate with tools/cube/weights.py after every build
 $('weights').innerHTML = '<tr><th>file</th><th>raw</th><th>gzip</th></tr>' + Object.entries(W).map(([f, { raw, gzip }]) => `<tr><td>${f}</td><td>${kb(raw)}</td><td>${kb(gzip)}</td></tr>`).join('');
 const E = [
   ['first load to first results (390 px, CPU 4× slower, headless Chrome)', '1.46 s'],

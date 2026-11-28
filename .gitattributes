@@ -4,3 +4,7 @@
 
 # Keep upstream artwork byte-identical, including line endings.
 the6cube/stack/logos/*.svg -text
+
+# Asset IDs depend on the exact source bytes, including SVG line endings.
+public/assets/** -text
+_originals/** -text

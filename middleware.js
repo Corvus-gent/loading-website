@@ -7,7 +7,7 @@ import {ogRoute} from "./js/og-routes.js";
 import {COMPOUND_LINKS} from "./js/compound-links.js";
 import { rewrite, next, waitUntil } from "@vercel/functions";
 
-export const config = { matcher: ["/the6cube/:path*", "/((?!api/|js/|img/|cv/|papers/|.*\\.(?:css|js|png|jpg|svg|pdf|json|ico)$).*)", "/project-cto/:path*", "/api/_openrisk/:path*", "/api/_leads/:path*", "/data/warm-contacts.json"] };
+export const config = { matcher: ["/_asset-files/:path*", "/public/assets/_private/:path*", "/assets/_private/:path*", "/_originals/:path*", "/audit/:path*", "/tools/asset-posters.json", "/the6cube/:path*", "/((?!api/|js/|img/|cv/|papers/|.*\\.(?:css|js|png|jpg|svg|pdf|json|ico)$).*)", "/project-cto/:path*", "/api/_openrisk/:path*", "/api/_leads/:path*", "/data/warm-contacts.json"] };
 
 const COMPANY_LINKS = {
   "/enter": "/?utm_source=linkedin&utm_medium=company-page&utm_campaign=gabe-corvus-page&utm_content=button",
@@ -37,6 +37,12 @@ export default function middleware(request) {
   if (url.hostname === 'admin.corvus.gent' && ['/', '/week', '/week/', '/week/index.html'].includes(url.pathname)) {
     return rewrite(new URL('/public/week-editor/index.html', url), {headers: {'X-Robots-Tag':'noindex, nofollow', 'Cache-Control':'private, no-store'}});
   }
+  let assetPath;
+  try { assetPath = decodeURIComponent(url.pathname); } catch { return new Response(null, {status:400}); }
+  if (/^\/(?:_asset-files|_originals|audit|(?:public\/)?assets\/_private)(?:\/|$)/i.test(assetPath) || url.pathname === '/tools/asset-posters.json') {
+    return new Response(null, {status:404, headers:{'Cache-Control':'no-store','X-Robots-Tag':'noindex'}});
+  }
+  if (/^\/(?:assets|a)(?:\/|$)/.test(url.pathname)) return next();
   const invite = channelInvite(url);
   if (invite) return Response.redirect(invite, 307);
   if (url.pathname.startsWith('/lend-api/')) {

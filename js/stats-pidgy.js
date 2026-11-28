@@ -16,7 +16,7 @@ view((d) => {
     img.loading = 'lazy';
     return img;
   };
-  trail.append(image('/logo.png', 'corvus'), image('/img/diogenes.svg', 'Diogenes', 'diogenes'));
+  trail.append(image('/assets/brand/corvus-logo-m3gof5jg.png', 'corvus'), image('/assets/court/diogenes-ib7mqrdt.svg', 'Diogenes', 'diogenes'));
   const flight = el('div', formatPageText('{count} clicks', { count: number(d.all.clicks) }), 'flight');
   flight.append(
     el(
@@ -24,7 +24,7 @@ view((d) => {
       d.scene === 1 ? '🪶'.repeat(Math.min(20, Math.floor(d.all.clicks / 10))) : '· · · 🪶 · · ·'
     )
   );
-  trail.append(flight, image(d.variant ? '/img/fire-pidgy.webp' : '/img/sticky-pidgy.webp', 'Pidgy'));
+  trail.append(flight, image(d.variant ? '/assets/court/fire-pidgy-9sqomuv0.webp' : '/assets/court/sticky-pidgy-p9hj8gll.webp', 'Pidgy'));
   if (d.signups && d.scene === 2)
     trail.lastChild.style.transform = `scale(${1 + Math.min(0.4, Math.log1p(d.signups.all) / 20)})`;
   out.append(trail);

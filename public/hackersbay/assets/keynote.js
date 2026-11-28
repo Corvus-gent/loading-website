@@ -17,7 +17,7 @@ function setVideo() {
   const time = video.currentTime;
   const resume = (!currentLayout || !video.paused) && !live;
   currentLayout = layout;
-  video.poster = art + (mobile.matches ? '/keynote_poster_vertical.jpg' : '/keynote_poster.jpg');
+  video.poster = art + (mobile.matches ? '/assets/site/keynote-poster-vertical-57euwqc3.jpg' : '/assets/site/keynote-poster-7afssfb4.jpg');
 
   const formats = [
     [`keynote_${orientation}.mp4`, 'video/mp4'],

@@ -64,7 +64,7 @@ function renderFeather() {
   f.setAttribute('aria-label',caught?`already caught · ${found().length}/${TOTAL}`:'catch the feather');
   f.replaceChildren();
   if(caught)f.textContent='caught';
-  else{const img=document.createElement('img');img.src='/img/feather.png';img.alt='';f.append(img);}
+  else{const img=document.createElement('img');img.src='/assets/site/feather-s48ln7lt.png';img.alt='';f.append(img);}
   Object.assign(f.style,spot);
   f.onclick=e=>{e.stopPropagation();collect(page);};
   if(!f.isConnected)document.body.appendChild(f);
@@ -87,7 +87,7 @@ renderFeather();
 // the sticky-note Pidgy peeks on /now
 if (location.pathname === "/now/") {
   const p = document.createElement("img");
-  p.src = "/img/sticky-pidgy.png"; p.alt = ""; p.className = "peek";
+  p.src = "/assets/court/sticky-pidgy-avbgv5kq.png"; p.alt = ""; p.className = "peek";
   p.addEventListener("click", () => toast("Pidgy remembers what you forget. <a href=\"https://pidgy-ai.com\" target=\"_blank\" rel=\"noreferrer\">pidgy-ai.com</a>"));
   document.body.appendChild(p);
 }

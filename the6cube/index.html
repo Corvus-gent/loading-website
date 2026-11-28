@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#060509">
 <meta name="description" content="Cube · Corvus.">
-<meta property="og:title" content="The 6 Cube · Corvus"><meta property="og:description" content="join the new realm. know thyself, then ask the cube."><meta property="og:image" content="https://corvus.gent/the6cube/assets/og.png"><meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="The 6 Cube · Corvus"><meta property="og:description" content="join the new realm. know thyself, then ask the cube."><meta property="og:image" content="https://corvus.gent/assets/cube/assets-og-cx0h8lq8.png"><meta name="twitter:card" content="summary_large_image">
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
 <title>The 6 Cube · Corvus</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -337,7 +337,7 @@ function render() {
 function speak(k) { const v = document.getElementById('voice'); if (!V.voice) { v.textContent = ''; return; } v.innerHTML = V.voice === 'lead' && k === 'idle' ? `<b>${T[lang].who}</b>${V.lead[lang]}` : `<b>${T[lang].who}</b>${T[lang].say[k]}`; }
 /* Diogenes in the dark: the painting as a faint halftone, his lantern as the only warm light */
 function drawDiogenes() {
-  const c = document.getElementById('dio'), img = new Image(); img.src = '/the6cube/assets/diogenes.webp';
+  const c = document.getElementById('dio'), img = new Image(); img.src = '/assets/court/diogenes-lbe9g6zf.webp';
   img.onload = () => {
     const d = Math.min(2, devicePixelRatio || 1), W = c.clientWidth * d, H = c.clientHeight * d; c.width = W; c.height = H; const x = c.getContext('2d');
     if (!V.dio) return;

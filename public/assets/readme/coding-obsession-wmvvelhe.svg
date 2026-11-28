@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="740" height="283" viewBox="0 0 740 283">
+<title>Corvus commits per day, November 7–20, 2026</title>
+<rect width="740" height="283" rx="16" fill="#101826"/>
+<g font-family="monospace" fill="#f3f6fc">
+<text x="24" y="37" font-size="21" font-weight="bold">Commits per day</text>
+<text x="24" y="62" font-size="13" fill="#abbacf">CORVUS MAIN · NOV 7–20, 2026 · 380 COMMITS</text>
+<path d="M24 230H716" stroke="#54637a"/>
+<rect x="35" y="98.71" width="34" height="131.29" rx="3" fill="#52e5bd"/>
+<text text-anchor="middle" x="52" y="90.71" font-size="12">55</text>
+<text text-anchor="middle" x="52" y="253" font-size="12" fill="#abbacf">07</text>
+<rect x="84" y="82.00" width="34" height="148.00" rx="3" fill="#52e5bd"/>
+<text text-anchor="middle" x="101" y="74.00" font-size="12">62</text>
+<text text-anchor="middle" x="101" y="253" font-size="12" fill="#abbacf">08</text>
+<rect x="133" y="108.26" width="34" height="121.74" rx="3" fill="#52e5bd"/>
+<text text-anchor="middle" x="150" y="100.26" font-size="12">51</text>
+<text text-anchor="middle" x="150" y="253" font-size="12" fill="#abbacf">09</text>
+<rect x="182" y="198.97" width="34" height="31.03" rx="3" fill="#52e5bd"/>
+<text text-anchor="middle" x="199" y="190.97" font-size="12">13</text>
+<text text-anchor="middle" x="199" y="253" font-size="12" fill="#abbacf">10</text>
+<rect x="231" y="230.00" width="34" height="0.00" rx="3" fill="#52e5bd"/>
+<text text-anchor="middle" x="248" y="222.00" font-size="12">0</text>
+<text text-anchor="middle" x="248" y="253" font-size="12" fill="#abbacf">11</text>
+<rect x="280" y="167.94" width="34" height="62.06" rx="3" fill="#52e5bd"/>
+<text text-anchor="middle" x="297" y="159.94" font-size="12">26</text>
+<text text-anchor="middle" x="297" y="253" font-size="12" fill="#abbacf">12</text>
+<rect x="329" y="198.97" width="34" height="31.03" rx="3" fill="#52e5bd"/>
+<text text-anchor="middle" x="346" y="190.97" font-size="12">13</text>
+<text text-anchor="middle" x="346" y="253" font-size="12" fill="#abbacf">13</text>
+<rect x="378" y="218.06" width="34" height="11.94" rx="3" fill="#52e5bd"/>
+<text text-anchor="middle" x="395" y="210.06" font-size="12">5</text>
+<text text-anchor="middle" x="395" y="253" font-size="12" fill="#abbacf">14</text>
+<rect x="427" y="230.00" width="34" height="0.00" rx="3" fill="#52e5bd"/>
+<text text-anchor="middle" x="444" y="222.00" font-size="12">0</text>
+<text text-anchor="middle" x="444" y="253" font-size="12" fill="#abbacf">15</text>
+<rect x="476" y="177.48" width="34" height="52.52" rx="3" fill="#52e5bd"/>
+<text text-anchor="middle" x="493" y="169.48" font-size="12">22</text>
+<text text-anchor="middle" x="493" y="253" font-size="12" fill="#abbacf">16</text>
+<rect x="525" y="175.10" width="34" height="54.90" rx="3" fill="#52e5bd"/>
+<text text-anchor="middle" x="542" y="167.10" font-size="12">23</text>
+<text text-anchor="middle" x="542" y="253" font-size="12" fill="#abbacf">17</text>
+<rect x="574" y="120.19" width="34" height="109.81" rx="3" fill="#52e5bd"/>
+<text text-anchor="middle" x="591" y="112.19" font-size="12">46</text>
+<text text-anchor="middle" x="591" y="253" font-size="12" fill="#abbacf">18</text>
+<rect x="623" y="198.97" width="34" height="31.03" rx="3" fill="#52e5bd"/>
+<text text-anchor="middle" x="640" y="190.97" font-size="12">13</text>
+<text text-anchor="middle" x="640" y="253" font-size="12" fill="#abbacf">19</text>
+<rect x="672" y="108.26" width="34" height="121.74" rx="3" fill="#52e5bd"/>
+<text text-anchor="middle" x="689" y="100.26" font-size="12">51</text>
+<text text-anchor="middle" x="689" y="253" font-size="12" fill="#abbacf">20</text>
+</g></svg>

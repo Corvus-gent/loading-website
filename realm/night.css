@@ -2,7 +2,7 @@
 .night-scene.awake{overflow:hidden;border-radius:8px;background:#060705}
 .night-scene{margin-top:1.5rem}
 .night-scene .realm-places{position:relative;z-index:1;background:none;margin:0;padding:2rem .6rem}
-.awake::before{content:"";position:absolute;inset:0;pointer-events:none;background:url('/img/realm-night.svg') center/100% 100% no-repeat;opacity:.17}
+.awake::before{content:"";position:absolute;inset:0;pointer-events:none;background:url('/assets/site/realm-night-pmeldkaz.svg') center/100% 100% no-repeat;opacity:.17}
 .night-light{pointer-events:none;position:absolute;left:0;top:0;width:320px;height:320px;border-radius:50%;background:radial-gradient(closest-side,#ffe9a523,#dca74410 47%,transparent);will-change:transform;transform:translate(-500px,-500px)}
 .night-scene.drifting .night-light{transition:transform 2.8s ease-in-out}
 .awake .realm-places a{color:#f8d793;background:none;transition:opacity .2s;opacity:.11}

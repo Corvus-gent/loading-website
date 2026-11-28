@@ -153,7 +153,7 @@ function Box({ add }) {
         const image = photo && new URL(photo.src);
         image?.searchParams.set('width', '160');
         return <li key={index}>{item ? <>
-          {image && <img src={image.href} alt={item.product.name} width="80" height="80" loading="lazy" />}
+          {image && <img src={photo.hosted?.card || image.href} alt={item.product.name} width="80" height="80" loading="lazy" />}
           <span>{item.label}</span>
           <button onClick={() => { setSelected(selected.filter((_, slot) => slot !== index)); setMessage(''); }} aria-label={'Remove ' + item.label}>Remove</button>
         </> : <span>Empty slot</span>}</li>;

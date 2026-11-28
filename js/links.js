@@ -65,7 +65,7 @@ function renderLantern(lantern) {
   const bubble = document.createElement('span');
   bubble.className = 'lt-bubble';
   bubble.textContent = lantern.crowText;
-  crow.replaceChildren(image('/img/link-crow.svg'), bubble);
+  crow.replaceChildren(image('/assets/site/link-crow-t6hzhcj6.svg'), bubble);
   crow.tabIndex = -1;
   document.body.append(crow);
   let round = 0;
@@ -93,7 +93,7 @@ function follow(socials) {
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.setAttribute('aria-hidden', 'true');
     const use = document.createElementNS(svg.namespaceURI, 'use');
-    use.setAttribute('href', '/img/follow.svg#' + link.id);
+    use.setAttribute('href', '/assets/site/follow-lujodz15.svg#' + link.id);
     svg.append(use);
     a.replaceChildren(svg);
     nav.append(a);

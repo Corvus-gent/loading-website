@@ -176,7 +176,7 @@ footer .sig em{font-family:var(--serif);color:var(--cream);font-size:18px}
 <body>
 <header class="site">
   <div class="wrap">
-    <a class="brand" href="/"><img src="/the6cube/assets/day-1.svg" alt="Corvus"><span>CORVUS</span></a><a href="/the6cube/" style="font:12px ui-monospace,monospace;color:#b4a0d6;text-decoration:none">← 🏛️ portal</a>
+    <a class="brand" href="/"><img src="/assets/cube/day-1-viza2zpk.svg" alt="Corvus"><span>CORVUS</span></a><a href="/the6cube/" style="font:12px ui-monospace,monospace;color:#b4a0d6;text-decoration:none">← 🏛️ portal</a>
   </div>
 </header>
 
@@ -297,7 +297,7 @@ footer .sig em{font-family:var(--serif);color:var(--cream);font-size:18px}
 
 <footer>
   <div class="wrap">
-    <div class="sig"><img src="/the6cube/assets/wing-flight.webp" alt="" style="cursor:pointer" onclick="window.cubeCoffee?.open('crow')"><div><em data-i18n="sign"></em><br><span>corvus.gent</span></div></div>
+    <div class="sig"><img src="/assets/cube/wing-flight-1ihp7zlo.webp" alt="" style="cursor:pointer" onclick="window.cubeCoffee?.open('crow')"><div><em data-i18n="sign"></em><br><span>corvus.gent</span></div></div>
     <span data-i18n-html="credit"></span>
   </div>
 </footer>
@@ -602,7 +602,7 @@ function drawShow(g,W,H,a,d,ts){
 
 /* ================= the living tree ================= */
 const treeCv=document.getElementById('treecv'),tctx=treeCv.getContext('2d'),tip=document.getElementById('tip');
-const crow=new Image();crow.src='/the6cube/assets/wing-flight.webp';
+const crow=new Image();crow.src='/assets/cube/wing-flight-1ihp7zlo.webp';
 let treeRootPath=[],selected=null,hoverNode=null,hits=[];
 const narrowTree=()=>treeCv.clientWidth<640;const showN=()=>narrowTree()?3:5;
 function mkNode(st,p,parent){return{state:st,path:p,parent,children:null,open:false,showAll:false,grow:0,hoverT:0}}
@@ -728,7 +728,7 @@ const barH=v=>barScale==='log'?Math.log10(v)/Math.log10(2.9e19)*100:v/2.9e19*100
 function growBars(){barsEl.querySelectorAll('i').forEach((i,k)=>setTimeout(()=>i.style.height=Math.max(.6,barH(DIST[k]))+'%',k*45))}
 document.querySelectorAll('#scalechips .chip').forEach(b=>b.onclick=()=>{barScale=b.dataset.s;document.querySelectorAll('#scalechips .chip').forEach(x=>x.setAttribute('aria-pressed',x===b));growBars()});
 function updateGodMarker(){const n=path.length;barsEl.querySelectorAll('.gbar').forEach((b,d)=>b.classList.toggle('you',n>0&&d===Math.min(20,n)));document.getElementById('youtag').textContent=n?t('you',{n,m:Math.min(20,n)}):''}
-function drawHalftone(){const cv=document.getElementById('halftone'),img=new Image();img.src='/the6cube/assets/diogenes.webp';img.onload=()=>{const[d]=fitCanvas(cv),W=cv.width,H=cv.height,g=cv.getContext('2d');
+function drawHalftone(){const cv=document.getElementById('halftone'),img=new Image();img.src='/assets/court/diogenes-lbe9g6zf.webp';img.onload=()=>{const[d]=fitCanvas(cv),W=cv.width,H=cv.height,g=cv.getContext('2d');
   const s=Math.max(W/img.width,H/img.height),iw=img.width*s,ih=img.height*s,ox=W-iw,oy=(H-ih)/2;const off=document.createElement('canvas');off.width=W;off.height=H;const o=off.getContext('2d');o.drawImage(img,ox,oy,iw,ih);const data=o.getImageData(0,0,W,H).data;
   const step=Math.round(7*d);g.clearRect(0,0,W,H);const lx=ox+iw*.30,ly=oy+ih*.46;
   for(let y=step/2;y<H;y+=step)for(let x=step/2;x<W;x+=step){const i=(Math.floor(y)*W+Math.floor(x))*4;const l=(data[i]+data[i+1]+data[i+2])/765;const r=l*step*.55;if(r<.4)continue;const gold=Math.max(0,1-Math.hypot(x-lx,y-ly)/(iw*.22));
