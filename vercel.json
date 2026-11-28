@@ -475,6 +475,14 @@
   ],
   "rewrites": [
     {
+      "source": "/api/week",
+      "destination": "/api/stats?weekItinerary=1"
+    },
+    {
+      "source": "/admin/week",
+      "destination": "/public/week-editor/index.html"
+    },
+    {
       "source": "/the6cube",
       "destination": "/the6cube/index.html"
     },

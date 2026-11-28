@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#171714"><title>Week bewerken · Corvus</title><link rel="stylesheet" href="/public/week-editor/editor.css"><script type="module" src="/public/week-editor/editor.js"></script></head>
+<body><main>
+<header><a href="https://corvus.gent/week/">Bekijk de publieke week ↗</a><span>23–29 nov 2026</span></header>
+<h1>Week bewerken</h1>
+<section id="login" aria-label="Inloggen">
+<p>Gebruik de eenmalige code voor <strong>gabriel@corvus.gent</strong>.</p>
+<button id="send" type="button">Stuur mij een code</button>
+<form id="verify"><label for="code">Code uit je e-mail</label><div class="code-row"><input id="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" placeholder="000000" required><button class="primary">Inloggen</button></div></form>
+</section>
+<form id="editor" hidden><fieldset id="fields">
+<label for="title">Titel van de week</label><input id="title" required maxlength="160">
+<label for="intro">Intro</label><textarea id="intro" maxlength="1200" rows="2"></textarea>
+<div class="divider"><label for="day">Dag</label><select id="day"><option>Maandag 23 nov</option><option>Dinsdag 24 nov</option><option>Woensdag 25 nov</option><option>Donderdag 26 nov</option><option>Vrijdag 27 nov</option><option>Zaterdag 28 nov</option><option>Zondag 29 nov</option></select></div>
+<label for="route">Route</label><input id="route" maxlength="300">
+<label for="note">Notities</label><textarea id="note" maxlength="1600" rows="2"></textarea>
+<h2>Tijdlijn</h2><div id="events"></div><button id="add" type="button">+ Tijdstip</button>
+<div class="actions"><button class="primary">Publiceer</button><button id="logout" type="button">Uitloggen</button></div>
+</fieldset></form>
+<p id="status" role="status" aria-live="polite"></p><button hidden id="reload" type="button">Laad de gepubliceerde versie opnieuw</button>
+</main></body></html>

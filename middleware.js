@@ -34,6 +34,9 @@ const CURL_REPLY = `
 
 export default function middleware(request) {
   const url = new URL(request.url);
+  if (url.hostname === 'admin.corvus.gent' && ['/', '/week', '/week/', '/week/index.html'].includes(url.pathname)) {
+    return rewrite(new URL('/public/week-editor/index.html', url), {headers: {'X-Robots-Tag':'noindex, nofollow', 'Cache-Control':'private, no-store'}});
+  }
   const invite = channelInvite(url);
   if (invite) return Response.redirect(invite, 307);
   if (url.pathname.startsWith('/lend-api/')) {

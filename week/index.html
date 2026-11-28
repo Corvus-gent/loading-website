@@ -14,6 +14,10 @@
 .week-strip .add{color:#7fd98b}.week-strip .del{color:#ff8a80}
 .week-strip .today{border-color:#ffd76a}
 .week-day{padding:1.6rem 0;border-top:1px solid rgba(255,255,255,.08)}
+.week-timeline{list-style:none;padding:0;margin:1rem 0;max-width:42rem}
+.week-timeline:empty,.week-note:empty,.week-route:empty{display:none}
+.week-timeline li{display:grid;grid-template-columns:4.5rem 1fr;gap:.7rem;padding:.5rem 0;border-bottom:1px solid #ffffff18;text-align:left;overflow-wrap:anywhere}
+.week-timeline time{font-family:monospace;font-variant-numeric:tabular-nums;color:#ffd76a}
 .week-day h2{margin:0 0 .2rem}
 .week-route{font-size:1.15rem;margin:.2rem 0 .6rem}
 .week-mini{font-size:.85rem;opacity:.7;font-variant-numeric:tabular-nums}
@@ -42,47 +46,64 @@
   </section>
 
   <article class="week-day" id="mon">
-    <h2>mon · tue</h2>
-    <p class="week-route">london → corgi → salesforce → corgi</p>
-    <p>Two days in London. Corgi, then Salesforce, then Corgi again.</p>
-    <p class="week-mini" data-mini="2026-11-23,2026-11-24"></p>
+    <h2>mon · 23 November</h2>
+    <p class="week-route">Brussels → London</p>
+    <p class="week-note"></p>
+    <ol class="week-timeline"><li><time datetime="2026-11-23T07:00">07:00</time><span>Wake up</span></li><li><time datetime="2026-11-23T08:00">08:00</time><span>Book the Eurostar</span></li><li><time datetime="2026-11-23T09:00">09:00</time><span>Head to Brussels</span></li><li><time datetime="2026-11-23T10:00">10:00</time><span>Board the train</span></li><li><time datetime="2026-11-23T11:00">11:00</time><span>Work on the train</span></li><li><time datetime="2026-11-23T12:00">12:00</time><span>Arrive in London</span></li></ol>
+    <p class="week-mini" data-mini="2026-11-23"></p>
+  </article>
+
+  <article class="week-day" id="tue">
+    <h2>tue · 24 November</h2>
+    <p class="week-route">London · Corgi and Salesforce</p>
+    <p class="week-note">Two days in London. Corgi, then Salesforce, then Corgi again.</p>
+    <ol class="week-timeline"></ol>
+    <p class="week-mini" data-mini="2026-11-24"></p>
   </article>
 
   <article class="week-day" id="wed">
-    <h2>wed</h2>
+    <h2>wed · 25 November</h2>
     <p class="week-route">wintercircus → gravensteen</p>
-    <p>Home in Gent. Built under the circus roof, then walked to the castle.</p>
+    <p class="week-note">Home in Gent. Built under the circus roof, then walked to the castle.</p>
+    <ol class="week-timeline"></ol>
     <p class="week-mini" data-mini="2026-11-25"></p>
   </article>
 
   <article class="week-day" id="thu">
-    <h2>thu</h2>
+    <h2>thu · 26 November</h2>
     <p class="week-route">wintercircus → rotterdam → amsterdam → london → gent → calais</p>
-    <p>Six stops, four countries, one day. Don't ask how.</p>
+    <p class="week-note">Six stops, four countries, one day. Don't ask how.</p>
+    <ol class="week-timeline"></ol>
     <p class="week-mini" data-mini="2026-11-26"></p>
   </article>
 
   <article class="week-day" id="fri">
-    <h2>fri</h2>
+    <h2>fri · 27 November</h2>
     <p class="week-route">calais → london → corgi → salesforce → pidgy @ conference</p>
-    <p>Back across the water. Corgi, Salesforce, and Pidgy at the conference.</p>
+    <p class="week-note">Back across the water. Corgi, Salesforce, and Pidgy at the conference.</p>
+    <ol class="week-timeline"></ol>
     <p class="week-mini" data-mini="2026-11-27"></p>
   </article>
 
   <article class="week-day" id="sat">
-    <h2>sat</h2>
+    <h2>sat · 28 November</h2>
     <p class="week-route">my bedroom</p>
-    <p>Zero kilometers. Shipping instead.</p>
+    <p class="week-note">Zero kilometers. Shipping instead.</p>
+    <ol class="week-timeline"></ol>
     <p class="week-mini" data-mini="2026-11-28"></p>
   </article>
 
   <article class="week-day" id="sun">
-    <h2>sun</h2>
+    <h2>sun · 29 November</h2>
     <p class="week-route">… who knows</p>
+    <p class="week-note"></p>
+    <ol class="week-timeline"></ol>
     <p class="week-mini" data-mini="2026-11-29"></p>
   </article>
+  <p id="week-offline" class="week-fine" hidden>Showing the original itinerary. Recent edits could not be loaded.</p>
 </main>
 
+<script type="module" src="/week/timeline.js"></script>
 <script type="module">
 const DAYS = ["2026-11-23","2026-11-24","2026-11-25","2026-11-26","2026-11-27","2026-11-28","2026-11-29"];
 const NAMES = ["mon","tue","wed","thu","fri","sat","sun"];
@@ -100,7 +121,7 @@ function render(s) {
   DAYS.forEach((d, i) => {
     const x = (s.days || {})[d] || {};
     const a = document.createElement("a");
-    a.href = "#" + (i === 1 ? "mon" : NAMES[i]);
+    a.href = "#" + NAMES[i];
     if (d === today) a.className = "today";
     a.innerHTML = `<span class="d">${NAMES[i]}</span>
       <span class="n">${fmt(x.commits)} commits</span>
