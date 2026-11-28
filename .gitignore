@@ -43,3 +43,6 @@ tests/results/
 .runtime/
 output/
 /engine/target/
+
+# Rebuilt as hard links to the canonical assets.
+/_asset-files/

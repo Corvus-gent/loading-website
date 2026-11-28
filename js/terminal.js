@@ -36,7 +36,7 @@ const COMMANDS = {
   pay: () => ["402 payment required."],
   pidgy: () => ["coo. 🐦", "→ pidgy-ai.com"],
   coo: () => ["coo coo."],
-  headache: () => ["fast-acting inbox relief: paracetamail® 500 mg", "side effects may include free time."].concat(go("/img/paracetamail.png")),
+  headache: () => ["fast-acting inbox relief: paracetamail® 500 mg", "side effects may include free time."].concat(go("/assets/site/paracetamail-5eni0lc1.png")),
   sudo: args => args.join(" ") === "hire gabe"
     ? ["permission granted.", "→ gabriel@corvus.gent"]
     : ["nice try."],

@@ -1,3 +1,15 @@
+import hostedImages from './hosted-images.json' with {type: 'json'};
+
+function hostedImage(image) {
+  const url = new URL(image.src);
+  const full = hostedImages[url.href];
+  if (!full) return image;
+  url.searchParams.set('width', '480');
+  const card = hostedImages[url.href] || full;
+  url.searchParams.set('width', '800');
+  return {...image, hosted: { full, card, detail: hostedImages[url.href] || full }};
+}
+
 export const store = 'https://raygifts-2.myshopify.com';
 export const title = 'Ray — Gifts for the quiet hour';
 export const description = 'Put the day down. Discover small gifts for the hour before bed.';
@@ -33,7 +45,7 @@ export async function catalog() {
       name,
       handle: product.handle,
       type: product.product_type,
-      images: product.images.filter(image => /^https:\/\/cdn\.shopify\.com\//.test(image.src)),
+      images: product.images.filter(image => /^https:\/\/cdn\.shopify\.com\//.test(image.src)).map(hostedImage),
       variants: product.variants.map(({id, title, price, available}) => ({ id, name: title, price: Number(price), available })),
     };
     byHandle.set(item.handle, item);

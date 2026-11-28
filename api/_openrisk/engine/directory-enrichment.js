@@ -60,7 +60,7 @@ export default {
   },
   "https://startupmap.one/startup/peripass_be": {
     "domain": "peripass.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/peripass_be.png",
+    "logoUrl": "https://corvus.gent/a/ows51onc.png",
     "sector": "Logistics",
     "signals": {
       "founded": {
@@ -120,7 +120,7 @@ export default {
   },
   "https://startupmap.one/startup/askdonna_be": {
     "domain": "www.askdonna.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/askdonna_be_v2.png",
+    "logoUrl": "https://corvus.gent/a/aubenc44.jpg",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -180,7 +180,7 @@ export default {
   },
   "https://startupmap.one/startup/peliqan_be": {
     "domain": "peliqan.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/peliqan_be.png",
+    "logoUrl": "https://corvus.gent/a/p3xubrcd.png",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -240,7 +240,7 @@ export default {
   },
   "https://startupmap.one/startup/azumuta": {
     "domain": "www.azumuta.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/azumuta.png",
+    "logoUrl": "https://corvus.gent/a/epinbpvv.png",
     "sector": "Supply Chain & Ops Tech",
     "signals": {
       "founded": {
@@ -359,7 +359,7 @@ export default {
   },
   "https://startupmap.one/startup/buildhive_be": {
     "domain": "www.buildhive.be",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/buildhive_be.png",
+    "logoUrl": "https://corvus.gent/a/zpop78y0.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -412,7 +412,7 @@ export default {
   },
   "https://startupmap.one/startup/legalfly_be": {
     "domain": "www.legalfly.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/legalfly_be.png",
+    "logoUrl": "https://corvus.gent/a/r5tcndhm.png",
     "sector": "Legal & Compliance Tech",
     "signals": {
       "founded": {
@@ -472,7 +472,7 @@ export default {
   },
   "https://startupmap.one/startup/warren_ai_be": {
     "domain": "warren.eu",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/warren_ai_be.png",
+    "logoUrl": "https://corvus.gent/a/ebo9byq6.png",
     "sector": "Wealthtech & Insurtech",
     "signals": {
       "founded": {
@@ -532,7 +532,7 @@ export default {
   },
   "https://startupmap.one/startup/feedelity_be": {
     "domain": "www.feedelity.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/feedelity_be.png",
+    "logoUrl": "https://corvus.gent/a/qt7bhxtk.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -592,7 +592,7 @@ export default {
   },
   "https://startupmap.one/startup/optimile_be": {
     "domain": "www.optimile.eu",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/optimile_be.png",
+    "logoUrl": "https://corvus.gent/a/2by5yadm.png",
     "sector": "Mobility & Transport",
     "signals": {
       "founded": {
@@ -763,7 +763,7 @@ export default {
   },
   "https://startupmap.one/startup/polysense_be": {
     "domain": "www.polysense.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/polysense_be.png",
+    "logoUrl": "https://corvus.gent/a/z4ntw3e6.png",
     "sector": "Agritech & Foodtech",
     "signals": {
       "founded": {
@@ -823,7 +823,7 @@ export default {
   },
   "https://startupmap.one/startup/tekst_ai_be": {
     "domain": "tekst.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/tekst_ai_be.png",
+    "logoUrl": "https://corvus.gent/a/85afjtkt.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -935,7 +935,7 @@ export default {
   },
   "https://startupmap.one/startup/wedrivesolar_be": {
     "domain": "wedrivesolar.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/wedrivesolar_be.png",
+    "logoUrl": "https://corvus.gent/a/pu2fru0m.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -988,7 +988,7 @@ export default {
   },
   "https://startupmap.one/startup/bondapp_io": {
     "domain": "bondapp.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/bondapp_io.png",
+    "logoUrl": "https://corvus.gent/a/rnhaiexo.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -1048,7 +1048,7 @@ export default {
   },
   "https://startupmap.one/startup/lizy_be": {
     "domain": "www.lizy.be",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/lizy_be.png",
+    "logoUrl": "https://corvus.gent/a/kk1qshtu.png",
     "sector": "Mobility & Transport",
     "signals": {
       "founded": {
@@ -1108,7 +1108,7 @@ export default {
   },
   "https://startupmap.one/startup/dalton_be": {
     "domain": "www.getdalton.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/dalton_be.png",
+    "logoUrl": "https://corvus.gent/a/k7imsmn5.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "stage": {
@@ -1161,7 +1161,7 @@ export default {
   },
   "https://startupmap.one/startup/companion_energy_be": {
     "domain": "www.companion.energy",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/companion_energy_be.png",
+    "logoUrl": "https://corvus.gent/a/3dxbz992.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -1221,7 +1221,7 @@ export default {
   },
   "https://startupmap.one/startup/ibanfirst_be": {
     "domain": "ibanfirst.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/ibanfirst_be.png",
+    "logoUrl": "https://corvus.gent/a/kpdctivs.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -1281,7 +1281,7 @@ export default {
   },
   "https://startupmap.one/startup/keyrock_be": {
     "domain": "keyrock.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/keyrock_be.png",
+    "logoUrl": "https://corvus.gent/a/rxtt63za.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -1341,7 +1341,7 @@ export default {
   },
   "https://startupmap.one/startup/chift_be": {
     "domain": "www.chift.eu",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/chift_be.png",
+    "logoUrl": "https://corvus.gent/a/wj4dc1ro.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -1401,7 +1401,7 @@ export default {
   },
   "https://startupmap.one/startup/leexi_ai_be": {
     "domain": "www.leexi.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/leexi_ai_be.png",
+    "logoUrl": "https://corvus.gent/a/t8wuxbgp.png",
     "sector": "Productivity & Collaboration",
     "signals": {
       "founded": {
@@ -1513,7 +1513,7 @@ export default {
   },
   "https://startupmap.one/startup/mbrella_be": {
     "domain": "www.mbrella.eu",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/mbrella_be.png",
+    "logoUrl": "https://corvus.gent/a/np78em55.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -1573,7 +1573,7 @@ export default {
   },
   "https://startupmap.one/startup/enersee_be": {
     "domain": "www.enersee.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/enersee_be.png",
+    "logoUrl": "https://corvus.gent/a/cye5ci0d.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -1633,7 +1633,7 @@ export default {
   },
   "https://startupmap.one/startup/payflip_be": {
     "domain": "payflip.be",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/payflip_be.png",
+    "logoUrl": "https://corvus.gent/a/bh5864aw.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -1745,7 +1745,7 @@ export default {
   },
   "https://startupmap.one/startup/simplycure_be": {
     "domain": "www.simplycure.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/simplycure_be.png",
+    "logoUrl": "https://corvus.gent/a/tnzk11ts.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -1805,7 +1805,7 @@ export default {
   },
   "https://startupmap.one/startup/superlinear_eu": {
     "domain": "superlinear.eu",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/superlinear_eu.png",
+    "logoUrl": "https://corvus.gent/a/pguq161u.jpg",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -1858,7 +1858,7 @@ export default {
   },
   "https://startupmap.one/startup/tapio_be": {
     "domain": "www.tapio.eco",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/tapio_be.png",
+    "logoUrl": "https://corvus.gent/a/myi6tlk7.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -1918,7 +1918,7 @@ export default {
   },
   "https://startupmap.one/startup/axonjay_be": {
     "domain": "www.axonjay.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/axonjay_be.png",
+    "logoUrl": "https://corvus.gent/a/nb62754b.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -1978,7 +1978,7 @@ export default {
   },
   "https://startupmap.one/startup/semactic_be": {
     "domain": "semactic.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/semactic_be.png",
+    "logoUrl": "https://corvus.gent/a/m78ccsto.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -2038,7 +2038,7 @@ export default {
   },
   "https://startupmap.one/startup/shyfter_be": {
     "domain": "www.shyfter.co",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/shyfter_be.png",
+    "logoUrl": "https://corvus.gent/a/yn9gwijs.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -2098,7 +2098,7 @@ export default {
   },
   "https://startupmap.one/startup/sirona_technologies": {
     "domain": "www.sirona.tech",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/sirona_technologies.png",
+    "logoUrl": "https://corvus.gent/a/6xrwkv3h.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -2158,7 +2158,7 @@ export default {
   },
   "https://startupmap.one/startup/dripl_be": {
     "domain": "dripl.be",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/dripl_be.png",
+    "logoUrl": "https://corvus.gent/a/re3f2nl1.png",
     "sector": "Agritech & Foodtech",
     "signals": {
       "founded": {
@@ -2218,7 +2218,7 @@ export default {
   },
   "https://startupmap.one/startup/uma_health_be": {
     "domain": "www.umahealth.care",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/uma_health_be.png",
+    "logoUrl": "https://corvus.gent/a/owdo0y4h.jpg",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -2271,7 +2271,7 @@ export default {
   },
   "https://startupmap.one/startup/ai_blox_be": {
     "domain": "ai-blox.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/ai_blox_be.png",
+    "logoUrl": "https://corvus.gent/a/io1iirdp.png",
     "sector": "Hardware & Semiconductors",
     "signals": {
       "founded": {
@@ -2324,7 +2324,7 @@ export default {
   },
   "https://startupmap.one/startup/ailos_robotics_be": {
     "domain": "ailos-robotics.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/ailos_robotics_be.png",
+    "logoUrl": "https://corvus.gent/a/kjudxzb8.png",
     "sector": "Robotics",
     "signals": {
       "founded": {
@@ -2377,7 +2377,7 @@ export default {
   },
   "https://startupmap.one/startup/archer_and_summit_be": {
     "domain": "www.archerandsummit.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/archer_and_summit_be.png",
+    "logoUrl": "https://corvus.gent/a/634eavpa.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -2406,7 +2406,7 @@ export default {
   },
   "https://startupmap.one/startup/eyeo_be": {
     "domain": "eyeo-imaging.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/eyeo_be.png",
+    "logoUrl": "https://corvus.gent/a/hcpd182t.png",
     "sector": "Hardware & Semiconductors",
     "signals": {
       "founded": {
@@ -2466,7 +2466,7 @@ export default {
   },
   "https://startupmap.one/startup/conveo_be": {
     "domain": "conveo.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/conveo_be.png",
+    "logoUrl": "https://corvus.gent/a/kdrq636n.jpg",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -2526,7 +2526,7 @@ export default {
   },
   "https://startupmap.one/startup/iflux_be": {
     "domain": "iflux.be",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/iflux_be.png",
+    "logoUrl": "https://corvus.gent/a/uirpo3y2.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -2586,7 +2586,7 @@ export default {
   },
   "https://startupmap.one/startup/addmore_be": {
     "domain": "www.addmore.be",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/addmore_be.png",
+    "logoUrl": "https://corvus.gent/a/gul1cqpt.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -2639,7 +2639,7 @@ export default {
   },
   "https://startupmap.one/startup/rollo_be": {
     "domain": "rollo.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/rollo_be.png",
+    "logoUrl": "https://corvus.gent/a/0j1pjawc.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -2685,7 +2685,7 @@ export default {
   },
   "https://startupmap.one/startup/apicbase_be": {
     "domain": "www.apicbase.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/apicbase_be.png",
+    "logoUrl": "https://corvus.gent/a/3hj3edk5.png",
     "sector": "Supply Chain & Ops Tech",
     "signals": {
       "founded": {
@@ -2745,7 +2745,7 @@ export default {
   },
   "https://startupmap.one/startup/falora_be": {
     "domain": "falora.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/falora_be.png",
+    "logoUrl": "https://corvus.gent/a/ii38xb2w.jpg",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -2805,7 +2805,7 @@ export default {
   },
   "https://startupmap.one/startup/xfa_be": {
     "domain": "xfa.tech",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/xfa_be.png",
+    "logoUrl": "https://corvus.gent/a/wxxet80z.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -2865,7 +2865,7 @@ export default {
   },
   "https://startupmap.one/startup/yields_be": {
     "domain": "www.yields.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/yields_be.png",
+    "logoUrl": "https://corvus.gent/a/h10ht8d6.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -2925,7 +2925,7 @@ export default {
   },
   "https://startupmap.one/startup/gorilla_be": {
     "domain": "gorilla.co",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/gorilla_be.png",
+    "logoUrl": "https://corvus.gent/a/3f60h6x2.png",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -3044,7 +3044,7 @@ export default {
   },
   "https://startupmap.one/startup/webclew_be": {
     "domain": "www.webclew.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/webclew_be.png",
+    "logoUrl": "https://corvus.gent/a/c6rpfycg.png",
     "sector": "Legal & Compliance Tech",
     "signals": {
       "founded": {
@@ -3097,7 +3097,7 @@ export default {
   },
   "https://startupmap.one/startup/invitedesk_be": {
     "domain": "invitedesk.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/invitedesk_be.png",
+    "logoUrl": "https://corvus.gent/a/ajlnonqu.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -3150,7 +3150,7 @@ export default {
   },
   "https://startupmap.one/startup/autonomousknight_be": {
     "domain": "www.autonomousknight.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/autonomousknight_be.png",
+    "logoUrl": "https://corvus.gent/a/8x3lzj58.png",
     "sector": "Robotics",
     "signals": {
       "founded": {
@@ -3210,7 +3210,7 @@ export default {
   },
   "https://startupmap.one/startup/dockflow_be": {
     "domain": "dockflow.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/dockflow_be.png",
+    "logoUrl": "https://corvus.gent/a/vjptd5h1.png",
     "sector": "Supply Chain & Ops Tech",
     "signals": {
       "founded": {
@@ -3270,7 +3270,7 @@ export default {
   },
   "https://startupmap.one/startup/sebas_be": {
     "domain": "www.mysebas.be",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/sebas_be.png",
+    "logoUrl": "https://corvus.gent/a/3kjcc1bh.png",
     "sector": "Real Estate Tech",
     "signals": {
       "founded": {
@@ -3330,7 +3330,7 @@ export default {
   },
   "https://startupmap.one/startup/sequesto_be": {
     "domain": "www.sequesto.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/sequesto_be.png",
+    "logoUrl": "https://corvus.gent/a/evnp4dkz.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -3390,7 +3390,7 @@ export default {
   },
   "https://startupmap.one/startup/9id_be": {
     "domain": "www.nineid.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/9id_be.png",
+    "logoUrl": "https://corvus.gent/a/lo7syhmf.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -3488,7 +3488,7 @@ export default {
   },
   "https://startupmap.one/startup/bloom_biotech_be": {
     "domain": "www.bloom-biotech.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/bloom_biotech_be.png",
+    "logoUrl": "https://corvus.gent/a/of6ecl3z.png",
     "sector": "E Commerce & Retail Tech",
     "signals": {
       "founded": {
@@ -3541,7 +3541,7 @@ export default {
   },
   "https://startupmap.one/startup/bloomup_be": {
     "domain": "www.bloomup.org",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/bloomup_be.png",
+    "logoUrl": "https://corvus.gent/a/pxn194je.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -3594,7 +3594,7 @@ export default {
   },
   "https://startupmap.one/startup/byteflies_be": {
     "domain": "www.byteflies.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/byteflies_be.png",
+    "logoUrl": "https://corvus.gent/a/m1ncfcnt.png",
     "sector": "Medtech & Devices",
     "signals": {
       "founded": {
@@ -3647,7 +3647,7 @@ export default {
   },
   "https://startupmap.one/startup/ceeyu_be": {
     "domain": "www.ceeyu.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/ceeyu_be.png",
+    "logoUrl": "https://corvus.gent/a/69z0j216.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -3700,7 +3700,7 @@ export default {
   },
   "https://startupmap.one/startup/credix_be": {
     "domain": "credix.finance",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/credix_be.png",
+    "logoUrl": "https://corvus.gent/a/nffzcc04.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -3753,7 +3753,7 @@ export default {
   },
   "https://startupmap.one/startup/datacamp_be": {
     "domain": "www.datacamp.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/datacamp_be.png",
+    "logoUrl": "https://corvus.gent/a/s4qrfbva.png",
     "sector": "Edtech",
     "signals": {
       "founded": {
@@ -3813,7 +3813,7 @@ export default {
   },
   "https://startupmap.one/startup/spott_be": {
     "domain": "spott.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/spott_be.png",
+    "logoUrl": "https://corvus.gent/a/nkmuq97n.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -3873,7 +3873,7 @@ export default {
   },
   "https://startupmap.one/startup/phished_be": {
     "domain": "phished.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/phished_be.png",
+    "logoUrl": "https://corvus.gent/a/qyfq979s.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -3933,7 +3933,7 @@ export default {
   },
   "https://startupmap.one/startup/relu_be": {
     "domain": "relu.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/relu_be.png",
+    "logoUrl": "https://corvus.gent/a/i41thuac.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -3993,7 +3993,7 @@ export default {
   },
   "https://startupmap.one/startup/sitemark_be": {
     "domain": "www.sitemark.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/sitemark_be.png",
+    "logoUrl": "https://corvus.gent/a/cqc146x2.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -4053,7 +4053,7 @@ export default {
   },
   "https://startupmap.one/startup/inku": {
     "domain": "inku.tech",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/inku_v2.png",
+    "logoUrl": "https://corvus.gent/a/xkiift5u.jpg",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -4106,7 +4106,7 @@ export default {
   },
   "https://startupmap.one/startup/vertical_compute_be": {
     "domain": "verticalcompute.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/vertical_compute_be.png",
+    "logoUrl": "https://corvus.gent/a/lqb4q7xv.png",
     "sector": "Hardware & Semiconductors",
     "signals": {
       "founded": {
@@ -4166,7 +4166,7 @@ export default {
   },
   "https://startupmap.one/startup/twipe_be": {
     "domain": "www.twipemobile.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/twipe_be.png",
+    "logoUrl": "https://corvus.gent/a/upx3ch03.png",
     "sector": "Media & Entertainment",
     "signals": {
       "founded": {
@@ -4219,7 +4219,7 @@ export default {
   },
   "https://startupmap.one/startup/xeryon_be": {
     "domain": "xeryon.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/xeryon_be.png",
+    "logoUrl": "https://corvus.gent/a/15hrwrue.png",
     "sector": "Hardware & Semiconductors",
     "signals": {
       "founded": {
@@ -4279,7 +4279,7 @@ export default {
   },
   "https://startupmap.one/startup/Cuez": {
     "domain": "cuez.app",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/Cuez.png",
+    "logoUrl": "https://corvus.gent/a/z6heyxs8.png",
     "sector": "Media & Entertainment",
     "signals": {
       "stage": {
@@ -4332,7 +4332,7 @@ export default {
   },
   "https://startupmap.one/startup/predikt_be": {
     "domain": "predikt.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/predikt_be.png",
+    "logoUrl": "https://corvus.gent/a/uhumn3n1.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -4392,7 +4392,7 @@ export default {
   },
   "https://startupmap.one/startup/raidyn_be": {
     "domain": "raidyn.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/raidyn_be.png",
+    "logoUrl": "https://corvus.gent/a/kurcel2n.png",
     "sector": "IoT & Sensors",
     "signals": {
       "founded": {
@@ -4445,7 +4445,7 @@ export default {
   },
   "https://startupmap.one/startup/customaite_be": {
     "domain": "customaite.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/customaite_be.png",
+    "logoUrl": "https://corvus.gent/a/oj2lpd5f.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -4550,7 +4550,7 @@ export default {
   },
   "https://startupmap.one/startup/parkeet_be": {
     "domain": "parkeet.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/parkeet_be.png",
+    "logoUrl": "https://corvus.gent/a/leckugb0.png",
     "sector": "IoT & Sensors",
     "signals": {
       "founded": {
@@ -4603,7 +4603,7 @@ export default {
   },
   "https://startupmap.one/startup/airflora_be": {
     "domain": "airflora.care",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/airflora_be.png",
+    "logoUrl": "https://corvus.gent/a/j1bezmda.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -4656,7 +4656,7 @@ export default {
   },
   "https://startupmap.one/startup/belfort_be": {
     "domain": "belfortlabs.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/belfort_be.png",
+    "logoUrl": "https://corvus.gent/a/j7wgf6c5.png",
     "sector": "Cybersecurity",
     "signals": {
       "stage": {
@@ -4709,7 +4709,7 @@ export default {
   },
   "https://startupmap.one/startup/cumbaya_be": {
     "domain": "cumbaya.travel",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/cumbaya_be.png",
+    "logoUrl": "https://corvus.gent/a/c3e73997.jpg",
     "sector": "Travel & Hospitality",
     "signals": {
       "founded": {
@@ -4769,7 +4769,7 @@ export default {
   },
   "https://startupmap.one/startup/mantis_robotics_be": {
     "domain": "www.mantis-robotics.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/mantis_robotics_be.png",
+    "logoUrl": "https://corvus.gent/a/pp4izuc8.png",
     "sector": "Robotics",
     "signals": {
       "founded": {
@@ -4829,7 +4829,7 @@ export default {
   },
   "https://startupmap.one/startup/mygameplan_be": {
     "domain": "mygameplan.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/mygameplan_be.png",
+    "logoUrl": "https://corvus.gent/a/6r7um5v9.png",
     "sector": "Sports & Wellness",
     "signals": {
       "founded": {
@@ -4976,7 +4976,7 @@ export default {
   },
   "https://startupmap.one/startup/swave_be": {
     "domain": "www.swave.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/swave_be.png",
+    "logoUrl": "https://corvus.gent/a/x4albh7x.png",
     "sector": "Hardware & Semiconductors",
     "signals": {
       "founded": {
@@ -5036,7 +5036,7 @@ export default {
   },
   "https://startupmap.one/startup/treasure_cruise_trading_be": {
     "domain": "treasurecruisetrading.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/treasure_cruise_trading_be.png",
+    "logoUrl": "https://corvus.gent/a/fsyys7bf.jpg",
     "sector": "E Commerce & Retail Tech",
     "signals": {
       "founded": {
@@ -5089,7 +5089,7 @@ export default {
   },
   "https://startupmap.one/startup/sol_one_be": {
     "domain": "www.sol.one",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/sol_one_be.png",
+    "logoUrl": "https://corvus.gent/a/ubr8ml99.png",
     "sector": "Aviation & Drones",
     "signals": {
       "founded": {
@@ -5132,7 +5132,7 @@ export default {
   },
   "https://startupmap.one/startup/up2d8_be": {
     "domain": "up2d8.eu",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/up2d8_be.png",
+    "logoUrl": "https://corvus.gent/a/eybcexc5.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -5178,7 +5178,7 @@ export default {
   },
   "https://startupmap.one/startup/yeatapp_be": {
     "domain": "yeatapp.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/yeatapp_be.png",
+    "logoUrl": "https://corvus.gent/a/cdntkhg8.png",
     "sector": "Travel & Hospitality",
     "signals": {
       "founded": {
@@ -5231,7 +5231,7 @@ export default {
   },
   "https://startupmap.one/startup/ark_capture_solutions_be": {
     "domain": "www.arkcapturesolutions.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/ark_capture_solutions_be.png",
+    "logoUrl": "https://corvus.gent/a/618fxjxs.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -5277,7 +5277,7 @@ export default {
   },
   "https://startupmap.one/startup/tessares_be": {
     "domain": "www.tessares.net",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/tessares_be.png",
+    "logoUrl": "https://corvus.gent/a/iqijwv1c.png",
     "sector": "Developer Tools",
     "signals": {
       "founded": {
@@ -5323,7 +5323,7 @@ export default {
   },
   "https://startupmap.one/startup/nscale_uk": {
     "domain": "nscale.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/nscale_uk.png",
+    "logoUrl": "https://corvus.gent/a/xm1vqnv0.png",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -5442,7 +5442,7 @@ export default {
   },
   "https://startupmap.one/startup/sierra_gb": {
     "domain": "sierra.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/sierra_gb.png",
+    "logoUrl": "https://corvus.gent/a/e5m1qqpn.jpg",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -5502,7 +5502,7 @@ export default {
   },
   "https://startupmap.one/startup/wayve_gb": {
     "domain": "wayve.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/wayve_gb.png",
+    "logoUrl": "https://corvus.gent/a/hcjg1wik.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -5562,7 +5562,7 @@ export default {
   },
   "https://startupmap.one/startup/humanoid_gb": {
     "domain": "thehumanoid.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/humanoid_gb.png",
+    "logoUrl": "https://corvus.gent/a/r4rk90ba.png",
     "sector": "Robotics",
     "signals": {
       "founded": {
@@ -5622,7 +5622,7 @@ export default {
   },
   "https://startupmap.one/startup/payhawk_gb": {
     "domain": "payhawk.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/payhawk_gb.png",
+    "logoUrl": "https://corvus.gent/a/tibvkzqe.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -5682,7 +5682,7 @@ export default {
   },
   "https://startupmap.one/startup/fuse_energy_uk": {
     "domain": "fuseenergy.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/fuse_energy_uk.png",
+    "logoUrl": "https://corvus.gent/a/6a3d1c6z.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -5742,7 +5742,7 @@ export default {
   },
   "https://startupmap.one/startup/dualentry_uk": {
     "domain": "dualentry.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/dualentry_uk.png",
+    "logoUrl": "https://corvus.gent/a/d0bvougi.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -5861,7 +5861,7 @@ export default {
   },
   "https://startupmap.one/startup/physicsx_gb": {
     "domain": "www.physicsx.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/physicsx_gb.png",
+    "logoUrl": "https://corvus.gent/a/dleyc1rf.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -5921,7 +5921,7 @@ export default {
   },
   "https://startupmap.one/startup/xyz_reality_uk": {
     "domain": "www.xyzreality.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/xyz_reality_uk.png",
+    "logoUrl": "https://corvus.gent/a/z0q3cobh.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -5981,7 +5981,7 @@ export default {
   },
   "https://startupmap.one/startup/prolific_uk": {
     "domain": "www.prolific.co",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/prolific_uk.png",
+    "logoUrl": "https://corvus.gent/a/4xnbsm9w.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -6041,7 +6041,7 @@ export default {
   },
   "https://startupmap.one/startup/arq_gb": {
     "domain": "www.arqfinance.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/arq_gb.png",
+    "logoUrl": "https://corvus.gent/a/fjv9mhn3.jpg",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -6101,7 +6101,7 @@ export default {
   },
   "https://startupmap.one/startup/fractile_gb": {
     "domain": "www.fractile.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/fractile_gb.png",
+    "logoUrl": "https://corvus.gent/a/ji6oshpp.png",
     "sector": "Hardware & Semiconductors",
     "signals": {
       "founded": {
@@ -6161,7 +6161,7 @@ export default {
   },
   "https://startupmap.one/startup/isomorphic_labs_gb": {
     "domain": "www.isomorphiclabs.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/isomorphic_labs_gb.png",
+    "logoUrl": "https://corvus.gent/a/ac2kn2u8.png",
     "sector": "Biotech",
     "signals": {
       "founded": {
@@ -6221,7 +6221,7 @@ export default {
   },
   "https://startupmap.one/startup/metaview_uk": {
     "domain": "www.metaview.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/metaview_uk.png",
+    "logoUrl": "https://corvus.gent/a/enqmv2bu.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -6281,7 +6281,7 @@ export default {
   },
   "https://startupmap.one/startup/hyperexponential_gb": {
     "domain": "www.hyperexponential.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/hyperexponential_gb.png",
+    "logoUrl": "https://corvus.gent/a/xr845upc.png",
     "sector": "Wealthtech & Insurtech",
     "signals": {
       "founded": {
@@ -6341,7 +6341,7 @@ export default {
   },
   "https://startupmap.one/startup/flow_engineering_gb": {
     "domain": "flowengineering.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/flow_engineering_gb.png",
+    "logoUrl": "https://corvus.gent/a/ao0k2i8i.png",
     "sector": "Developer Tools",
     "signals": {
       "founded": {
@@ -6401,7 +6401,7 @@ export default {
   },
   "https://startupmap.one/startup/vertice_uk": {
     "domain": "www.vertice.one",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/vertice_uk.png",
+    "logoUrl": "https://corvus.gent/a/q6hcrzii.png",
     "sector": "No Code & Automation",
     "signals": {
       "founded": {
@@ -6520,7 +6520,7 @@ export default {
   },
   "https://startupmap.one/startup/sumsub_uk": {
     "domain": "sumsub.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/sumsub_uk.png",
+    "logoUrl": "https://corvus.gent/a/3e9p5q6b.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -6573,7 +6573,7 @@ export default {
   },
   "https://startupmap.one/startup/incident_io_uk": {
     "domain": "incident.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/incident_io_uk.png",
+    "logoUrl": "https://corvus.gent/a/lybqk9kz.png",
     "sector": "Developer Tools",
     "signals": {
       "founded": {
@@ -6633,7 +6633,7 @@ export default {
   },
   "https://startupmap.one/startup/flo_health_gb": {
     "domain": "flo.health",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/flo_health_gb.png",
+    "logoUrl": "https://corvus.gent/a/jfi6oyjz.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -6693,7 +6693,7 @@ export default {
   },
   "https://startupmap.one/startup/gocardless_gb": {
     "domain": "gocardless.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/gocardless_gb.png",
+    "logoUrl": "https://corvus.gent/a/g7zebien.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -6812,7 +6812,7 @@ export default {
   },
   "https://startupmap.one/startup/outpost_gb": {
     "domain": "outpost.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/outpost_gb.png",
+    "logoUrl": "https://corvus.gent/a/21xwyjah.png",
     "sector": "E Commerce & Retail",
     "signals": {
       "founded": {
@@ -6924,7 +6924,7 @@ export default {
   },
   "https://startupmap.one/startup/synthesia_uk": {
     "domain": "synthesia.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/synthesia_uk.png",
+    "logoUrl": "https://corvus.gent/a/lmr6bplq.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -6984,7 +6984,7 @@ export default {
   },
   "https://startupmap.one/startup/qargo_gb": {
     "domain": "www.qargo.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/qargo_gb.png",
+    "logoUrl": "https://corvus.gent/a/5j267jzr.png",
     "sector": "Logistics",
     "signals": {
       "founded": {
@@ -7044,7 +7044,7 @@ export default {
   },
   "https://startupmap.one/startup/taptap_send_uk": {
     "domain": "www.taptapsend.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/taptap_send_uk.png",
+    "logoUrl": "https://corvus.gent/a/9edl5wjo.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -7104,7 +7104,7 @@ export default {
   },
   "https://startupmap.one/startup/lemfi_gb": {
     "domain": "lemfi.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/lemfi_gb.png",
+    "logoUrl": "https://corvus.gent/a/3l9swpnf.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -7157,7 +7157,7 @@ export default {
   },
   "https://startupmap.one/startup/olix_gb": {
     "domain": "olix.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/olix_gb.png",
+    "logoUrl": "https://corvus.gent/a/252gcwyj.png",
     "sector": "Hardware & Semiconductors",
     "signals": {
       "founded": {
@@ -7217,7 +7217,7 @@ export default {
   },
   "https://startupmap.one/startup/hiya_us": {
     "domain": "www.hiya.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/hiya_us.png",
+    "logoUrl": "https://corvus.gent/a/f1z1og0q.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -7336,7 +7336,7 @@ export default {
   },
   "https://startupmap.one/startup/attio_uk": {
     "domain": "attio.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/attio_uk.png",
+    "logoUrl": "https://corvus.gent/a/347tua8v.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -7396,7 +7396,7 @@ export default {
   },
   "https://startupmap.one/startup/elliptic_gb": {
     "domain": "www.elliptic.co",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/elliptic_gb.png",
+    "logoUrl": "https://corvus.gent/a/rph8xhsp.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -7456,7 +7456,7 @@ export default {
   },
   "https://startupmap.one/startup/runware_uk": {
     "domain": "runware.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/runware_uk.png",
+    "logoUrl": "https://corvus.gent/a/p4vvihb1.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -7516,7 +7516,7 @@ export default {
   },
   "https://startupmap.one/startup/nevis_uk": {
     "domain": "www.neviswealth.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/nevis_uk.png",
+    "logoUrl": "https://corvus.gent/a/63pkj9hx.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -7635,7 +7635,7 @@ export default {
   },
   "https://startupmap.one/startup/comply_advantage_uk": {
     "domain": "complyadvantage.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/comply_advantage_uk.png",
+    "logoUrl": "https://corvus.gent/a/92zhw26c.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -7695,7 +7695,7 @@ export default {
   },
   "https://startupmap.one/startup/orbital_gb": {
     "domain": "www.orbital.tech",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/orbital_gb.png",
+    "logoUrl": "https://corvus.gent/a/qmh9qa3h.png",
     "sector": "Legal & Compliance Tech",
     "signals": {
       "founded": {
@@ -7755,7 +7755,7 @@ export default {
   },
   "https://startupmap.one/startup/solve_intelligence_uk": {
     "domain": "www.solveintelligence.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/solve_intelligence_uk.png",
+    "logoUrl": "https://corvus.gent/a/vmmwjjld.png",
     "sector": "Legal & Compliance Tech",
     "signals": {
       "founded": {
@@ -7815,7 +7815,7 @@ export default {
   },
   "https://startupmap.one/startup/claimsorted_gb": {
     "domain": "claimsorted.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/claimsorted_gb.png",
+    "logoUrl": "https://corvus.gent/a/ng9p63bz.png",
     "sector": "Wealthtech & Insurtech",
     "signals": {
       "founded": {
@@ -7875,7 +7875,7 @@ export default {
   },
   "https://startupmap.one/startup/granola_uk": {
     "domain": "granola.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/granola_uk.png",
+    "logoUrl": "https://corvus.gent/a/o8vv8z7x.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -7935,7 +7935,7 @@ export default {
   },
   "https://startupmap.one/startup/cognism_gb": {
     "domain": "www.cognism.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/cognism_gb.png",
+    "logoUrl": "https://corvus.gent/a/blgfo4sn.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -7995,7 +7995,7 @@ export default {
   },
   "https://startupmap.one/startup/motorway_gb": {
     "domain": "motorway.co.uk",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/motorway_gb.png",
+    "logoUrl": "https://corvus.gent/a/670o3hs2.png",
     "sector": "E Commerce & Retail",
     "signals": {
       "founded": {
@@ -8055,7 +8055,7 @@ export default {
   },
   "https://startupmap.one/startup/reedsy_uk": {
     "domain": "reedsy.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/reedsy_uk.png",
+    "logoUrl": "https://corvus.gent/a/n3bf7433.png",
     "sector": "Media & Entertainment",
     "signals": {
       "founded": {
@@ -8115,7 +8115,7 @@ export default {
   },
   "https://startupmap.one/startup/scan_com_gb": {
     "domain": "scan.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/scan_com_gb.png",
+    "logoUrl": "https://corvus.gent/a/rpklmjvl.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -8168,7 +8168,7 @@ export default {
   },
   "https://startupmap.one/startup/scarlet_gb": {
     "domain": "scarlet.cc",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/scarlet_gb.png",
+    "logoUrl": "https://corvus.gent/a/ra6dq97m.png",
     "sector": "Medtech & Devices",
     "signals": {
       "founded": {
@@ -8228,7 +8228,7 @@ export default {
   },
   "https://startupmap.one/startup/heidi_health_gb": {
     "domain": "www.heidihealth.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/heidi_health_gb.png",
+    "logoUrl": "https://corvus.gent/a/ey6hs94v.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -8288,7 +8288,7 @@ export default {
   },
   "https://startupmap.one/startup/mimica_gb": {
     "domain": "www.mimica.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/mimica_gb.png",
+    "logoUrl": "https://corvus.gent/a/whni09c3.png",
     "sector": "No Code & Automation",
     "signals": {
       "founded": {
@@ -8348,7 +8348,7 @@ export default {
   },
   "https://startupmap.one/startup/model_ml_gb": {
     "domain": "www.modelml.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/model_ml_gb.png",
+    "logoUrl": "https://corvus.gent/a/7amnc8kl.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -8467,7 +8467,7 @@ export default {
   },
   "https://startupmap.one/startup/firstwork_gb": {
     "domain": "www.firstwork.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/firstwork_gb.png",
+    "logoUrl": "https://corvus.gent/a/9h8g9ssi.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -8527,7 +8527,7 @@ export default {
   },
   "https://startupmap.one/startup/moneybox_uk": {
     "domain": "www.moneyboxapp.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/moneybox_uk.png",
+    "logoUrl": "https://corvus.gent/a/stjwtl5n.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -8587,7 +8587,7 @@ export default {
   },
   "https://startupmap.one/startup/junction_uk": {
     "domain": "www.junction.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/junction_uk.png",
+    "logoUrl": "https://corvus.gent/a/nszj0jl0.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -8647,7 +8647,7 @@ export default {
   },
   "https://startupmap.one/startup/plum_uk": {
     "domain": "withplum.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/plum_uk.png",
+    "logoUrl": "https://corvus.gent/a/pf91f84a.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -8697,7 +8697,7 @@ export default {
   },
   "https://startupmap.one/startup/valarian_gb": {
     "domain": "www.valarian.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/valarian_gb.png",
+    "logoUrl": "https://corvus.gent/a/b3glkyf6.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -8816,7 +8816,7 @@ export default {
   },
   "https://startupmap.one/startup/accurx_uk": {
     "domain": "www.accurx.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/accurx_uk.png",
+    "logoUrl": "https://corvus.gent/a/ks88nrlx.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -8994,7 +8994,7 @@ export default {
   },
   "https://startupmap.one/startup/mytos_uk": {
     "domain": "mytos.bio",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/mytos_uk.png",
+    "logoUrl": "https://corvus.gent/a/ch56p6z7.png",
     "sector": "Biotech",
     "signals": {
       "founded": {
@@ -9054,7 +9054,7 @@ export default {
   },
   "https://startupmap.one/startup/spaitial_uk": {
     "domain": "www.spaitial.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/spaitial_uk.png",
+    "logoUrl": "https://corvus.gent/a/baeo9zwe.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -9114,7 +9114,7 @@ export default {
   },
   "https://startupmap.one/startup/auquan_gb": {
     "domain": "www.auquan.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/auquan_gb.png",
+    "logoUrl": "https://corvus.gent/a/ktqak852.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -9233,7 +9233,7 @@ export default {
   },
   "https://startupmap.one/startup/cambridge_aerospace_gb": {
     "domain": "www.cambridgeaerospace.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/cambridge_aerospace_gb.png",
+    "logoUrl": "https://corvus.gent/a/on4hm1vf.png",
     "sector": "Aerospace & Defense",
     "signals": {
       "founded": {
@@ -9293,7 +9293,7 @@ export default {
   },
   "https://startupmap.one/startup/riverlane_uk": {
     "domain": "www.riverlane.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/riverlane_uk.png",
+    "logoUrl": "https://corvus.gent/a/s27cuc4p.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -9412,7 +9412,7 @@ export default {
   },
   "https://startupmap.one/startup/gearset_gb": {
     "domain": "gearset.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/gearset_gb.png",
+    "logoUrl": "https://corvus.gent/a/g0xhvsnl.png",
     "sector": "Developer Tools",
     "signals": {
       "founded": {
@@ -9472,7 +9472,7 @@ export default {
   },
   "https://startupmap.one/startup/speechmatics_gb": {
     "domain": "www.speechmatics.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/speechmatics_gb.png",
+    "logoUrl": "https://corvus.gent/a/z79q3gji.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -9532,7 +9532,7 @@ export default {
   },
   "https://startupmap.one/startup/warebee_gb": {
     "domain": "warebee.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/warebee_gb.png",
+    "logoUrl": "https://corvus.gent/a/2esjt7fb.png",
     "sector": "Supply Chain & Ops Tech",
     "signals": {
       "founded": {
@@ -9585,7 +9585,7 @@ export default {
   },
   "https://startupmap.one/startup/opto_bio_gb": {
     "domain": "www.coherenceneuro.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/opto_bio_gb.png",
+    "logoUrl": "https://corvus.gent/a/8t3prgot.png",
     "sector": "Biotech",
     "signals": {
       "founded": {
@@ -9645,7 +9645,7 @@ export default {
   },
   "https://startupmap.one/startup/constructive_bio_uk": {
     "domain": "constructive.bio",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/constructive_bio_uk.png",
+    "logoUrl": "https://corvus.gent/a/3aewmn64.jpg",
     "sector": "Biotech",
     "signals": {
       "founded": {
@@ -9764,7 +9764,7 @@ export default {
   },
   "https://startupmap.one/startup/intellegens_uk": {
     "domain": "intellegens.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/intellegens_uk.png",
+    "logoUrl": "https://corvus.gent/a/rhmibv6v.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -9824,7 +9824,7 @@ export default {
   },
   "https://startupmap.one/startup/qureight_gb": {
     "domain": "www.qureight.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/qureight_gb.png",
+    "logoUrl": "https://corvus.gent/a/ecnrh67l.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -9884,7 +9884,7 @@ export default {
   },
   "https://startupmap.one/startup/thoughtriver_gb": {
     "domain": "www.thoughtriver.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/thoughtriver_gb.png",
+    "logoUrl": "https://corvus.gent/a/jvheniz6.png",
     "sector": "Legal & Compliance Tech",
     "signals": {
       "founded": {
@@ -9944,7 +9944,7 @@ export default {
   },
   "https://startupmap.one/startup/vsim_robotics_gb": {
     "domain": "www.vsimrobotics.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/vsim_robotics_gb.png",
+    "logoUrl": "https://corvus.gent/a/neqwt2nc.png",
     "sector": "Robotics",
     "signals": {
       "founded": {
@@ -9994,7 +9994,7 @@ export default {
   },
   "https://startupmap.one/startup/cmr_surgical_gb": {
     "domain": "cmrsurgical.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/cmr_surgical_gb.png",
+    "logoUrl": "https://corvus.gent/a/335amvqx.png",
     "sector": "Medtech & Devices",
     "signals": {
       "founded": {
@@ -10054,7 +10054,7 @@ export default {
   },
   "https://startupmap.one/startup/street_co_uk_gb": {
     "domain": "street.co.uk",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/street_co_uk_gb.png",
+    "logoUrl": "https://corvus.gent/a/p4pl5hki.png",
     "sector": "Real Estate Tech",
     "signals": {
       "founded": {
@@ -10173,7 +10173,7 @@ export default {
   },
   "https://startupmap.one/startup/summize_gb": {
     "domain": "www.summize.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/summize_gb.png",
+    "logoUrl": "https://corvus.gent/a/ys2nnof1.png",
     "sector": "Legal & Compliance Tech",
     "signals": {
       "founded": {
@@ -10226,7 +10226,7 @@ export default {
   },
   "https://startupmap.one/startup/lunio_gb": {
     "domain": "lunio.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/lunio_gb.png",
+    "logoUrl": "https://corvus.gent/a/1hxlri51.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -10279,7 +10279,7 @@ export default {
   },
   "https://startupmap.one/startup/lichen_ai_gb": {
     "domain": "lichenai.co",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/lichen_ai_gb.png",
+    "logoUrl": "https://corvus.gent/a/jr3gdk1g.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -10332,7 +10332,7 @@ export default {
   },
   "https://startupmap.one/startup/revnu_gb": {
     "domain": "revnu.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/revnu_gb.png",
+    "logoUrl": "https://corvus.gent/a/lk9y6b1g.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -10444,7 +10444,7 @@ export default {
   },
   "https://startupmap.one/startup/homefans_gb": {
     "domain": "homefans.net",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/homefans_gb.png",
+    "logoUrl": "https://corvus.gent/a/eg80z1m3.png",
     "sector": "Sports & Wellness",
     "signals": {
       "founded": {
@@ -10497,7 +10497,7 @@ export default {
   },
   "https://startupmap.one/startup/housr_gb": {
     "domain": "www.housr.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/housr_gb.png",
+    "logoUrl": "https://corvus.gent/a/tkthp8vw.png",
     "sector": "Real Estate Tech",
     "signals": {
       "founded": {
@@ -10550,7 +10550,7 @@ export default {
   },
   "https://startupmap.one/startup/seechange_gb": {
     "domain": "seechange.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/seechange_gb.png",
+    "logoUrl": "https://corvus.gent/a/nvl904r7.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -10603,7 +10603,7 @@ export default {
   },
   "https://startupmap.one/startup/immersive_labs_gb": {
     "domain": "immersivelabs.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/immersive_labs_gb.png",
+    "logoUrl": "https://corvus.gent/a/i4e4f9cr.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -10663,7 +10663,7 @@ export default {
   },
   "https://startupmap.one/startup/astral_systems_uk": {
     "domain": "www.astralsystems.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/astral_systems_uk.png",
+    "logoUrl": "https://corvus.gent/a/y0nlnb1y.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -10716,7 +10716,7 @@ export default {
   },
   "https://startupmap.one/startup/kets_gb": {
     "domain": "kets-quantum.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/kets_gb.png",
+    "logoUrl": "https://corvus.gent/a/9lk7tlrd.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -10769,7 +10769,7 @@ export default {
   },
   "https://startupmap.one/startup/circuithub_gb": {
     "domain": "www.circuithub.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/circuithub_gb.png",
+    "logoUrl": "https://corvus.gent/a/6iazqe4u.png",
     "sector": "Hardware & Semiconductors",
     "signals": {
       "founded": {
@@ -10829,7 +10829,7 @@ export default {
   },
   "https://startupmap.one/startup/muzz_gb": {
     "domain": "muzz.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/muzz_gb.png",
+    "logoUrl": "https://corvus.gent/a/fycu0vkm.png",
     "sector": "Media & Entertainment",
     "signals": {
       "founded": {
@@ -10889,7 +10889,7 @@ export default {
   },
   "https://startupmap.one/startup/aspora_uk": {
     "domain": "www.aspora.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/aspora_uk.png",
+    "logoUrl": "https://corvus.gent/a/qtu6hyoo.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -10949,7 +10949,7 @@ export default {
   },
   "https://startupmap.one/startup/better_dairy_uk": {
     "domain": "betterdairy.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/better_dairy_uk.png",
+    "logoUrl": "https://corvus.gent/a/n6s00f02.png",
     "sector": "Agritech & Foodtech",
     "signals": {
       "founded": {
@@ -11009,7 +11009,7 @@ export default {
   },
   "https://startupmap.one/startup/flagright_gb": {
     "domain": "www.flagright.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/flagright_gb.png",
+    "logoUrl": "https://corvus.gent/a/bxg0eg8n.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -11062,7 +11062,7 @@ export default {
   },
   "https://startupmap.one/startup/intropic_uk": {
     "domain": "intropic.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/intropic_uk.png",
+    "logoUrl": "https://corvus.gent/a/jrhgpfgt.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -11122,7 +11122,7 @@ export default {
   },
   "https://startupmap.one/startup/yoto_uk": {
     "domain": "uk.yotoplay.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/yoto_uk.png",
+    "logoUrl": "https://corvus.gent/a/18u7bplm.png",
     "sector": "Edtech",
     "signals": {
       "founded": {
@@ -11182,7 +11182,7 @@ export default {
   },
   "https://startupmap.one/startup/quatt_nl": {
     "domain": "quatt.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/quatt_nl.png",
+    "logoUrl": "https://corvus.gent/a/q3hh1bde.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -11301,7 +11301,7 @@ export default {
   },
   "https://startupmap.one/startup/monumental_nl": {
     "domain": "monumental.co",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/monumental_nl.png",
+    "logoUrl": "https://corvus.gent/a/zqs040d1.png",
     "sector": "Robotics",
     "signals": {
       "founded": {
@@ -11420,7 +11420,7 @@ export default {
   },
   "https://startupmap.one/startup/promptwatch_nl": {
     "domain": "promptwatch.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/promptwatch_nl.png",
+    "logoUrl": "https://corvus.gent/a/wfgx6qtj.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -11480,7 +11480,7 @@ export default {
   },
   "https://startupmap.one/startup/fortaegis_technologies_nl": {
     "domain": "fortaegis.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/fortaegis_technologies_nl.png",
+    "logoUrl": "https://corvus.gent/a/m7b3k5u4.png",
     "sector": "Hardware & Semiconductors",
     "signals": {
       "founded": {
@@ -11540,7 +11540,7 @@ export default {
   },
   "https://startupmap.one/startup/insify": {
     "domain": "www.insify.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/insify.png",
+    "logoUrl": "https://corvus.gent/a/2zpt8omj.png",
     "sector": "Insurtech",
     "signals": {
       "founded": {
@@ -11600,7 +11600,7 @@ export default {
   },
   "https://startupmap.one/startup/bitvavo": {
     "domain": "www.bitvavo.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/bitvavo.png",
+    "logoUrl": "https://corvus.gent/a/4pbdzevc.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -11653,7 +11653,7 @@ export default {
   },
   "https://startupmap.one/startup/aquablu_nl": {
     "domain": "www.aquablu.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/aquablu_nl.png",
+    "logoUrl": "https://corvus.gent/a/lh9zpwta.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -11713,7 +11713,7 @@ export default {
   },
   "https://startupmap.one/startup/hadrian_nl": {
     "domain": "hadrian.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/hadrian_nl.png",
+    "logoUrl": "https://corvus.gent/a/bmdw1md8.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -11773,7 +11773,7 @@ export default {
   },
   "https://startupmap.one/startup/workwize": {
     "domain": "www.goworkwize.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/workwize.png",
+    "logoUrl": "https://corvus.gent/a/ez9vzk7n.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -11833,7 +11833,7 @@ export default {
   },
   "https://startupmap.one/startup/duna": {
     "domain": "www.duna.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/duna.png",
+    "logoUrl": "https://corvus.gent/a/m8z7a9ce.png",
     "sector": "Legal & Compliance Tech",
     "signals": {
       "founded": {
@@ -11893,7 +11893,7 @@ export default {
   },
   "https://startupmap.one/startup/godutch_nl": {
     "domain": "godutch.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/godutch_nl.png",
+    "logoUrl": "https://corvus.gent/a/bo7u9hyq.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -11953,7 +11953,7 @@ export default {
   },
   "https://startupmap.one/startup/oneleet_nl": {
     "domain": "oneleet.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/oneleet_nl.png",
+    "logoUrl": "https://corvus.gent/a/xmloskgw.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -12013,7 +12013,7 @@ export default {
   },
   "https://startupmap.one/startup/firsty_nl": {
     "domain": "firsty.app",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/firsty_nl.png",
+    "logoUrl": "https://corvus.gent/a/c4xy4ecj.png",
     "sector": "Developer Tools",
     "signals": {
       "founded": {
@@ -12073,7 +12073,7 @@ export default {
   },
   "https://startupmap.one/startup/zenchef": {
     "domain": "www.zenchef.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/zenchef.png",
+    "logoUrl": "https://corvus.gent/a/i7t5xoh0.png",
     "sector": "Travel & Hospitality",
     "signals": {
       "founded": {
@@ -12126,7 +12126,7 @@ export default {
   },
   "https://startupmap.one/startup/intelic_ai": {
     "domain": "intelic.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/intelic_ai.png",
+    "logoUrl": "https://corvus.gent/a/r95ykuu2.png",
     "sector": "Aerospace & Defense",
     "signals": {
       "founded": {
@@ -12186,7 +12186,7 @@ export default {
   },
   "https://startupmap.one/startup/twindo_nl": {
     "domain": "twindo.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/twindo_nl.png",
+    "logoUrl": "https://corvus.gent/a/ii9mqf3q.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -12246,7 +12246,7 @@ export default {
   },
   "https://startupmap.one/startup/vesper": {
     "domain": "www.vespertool.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/vesper.png",
+    "logoUrl": "https://corvus.gent/a/3vnimfuj.png",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -12306,7 +12306,7 @@ export default {
   },
   "https://startupmap.one/startup/cargoplot_nl": {
     "domain": "www.cargoplot.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/cargoplot_nl.png",
+    "logoUrl": "https://corvus.gent/a/ofzu7vaj.png",
     "sector": "Logistics",
     "signals": {
       "founded": {
@@ -12366,7 +12366,7 @@ export default {
   },
   "https://startupmap.one/startup/farmless_nl": {
     "domain": "farmless.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/farmless_nl.png",
+    "logoUrl": "https://corvus.gent/a/jrhq2yw1.png",
     "sector": "Agritech & Foodtech",
     "signals": {
       "founded": {
@@ -12426,7 +12426,7 @@ export default {
   },
   "https://startupmap.one/startup/klearly": {
     "domain": "klearly.eu",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/klearly.png",
+    "logoUrl": "https://corvus.gent/a/3zs01i4k.jpg",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -12486,7 +12486,7 @@ export default {
   },
   "https://startupmap.one/startup/motherduck_eu": {
     "domain": "motherduck.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/motherduck_eu.png",
+    "logoUrl": "https://corvus.gent/a/oqgpfr0o.png",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -12546,7 +12546,7 @@ export default {
   },
   "https://startupmap.one/startup/polarsteps": {
     "domain": "www.polarsteps.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/polarsteps.png",
+    "logoUrl": "https://corvus.gent/a/g66mvhri.png",
     "sector": "Travel & Hospitality",
     "signals": {
       "founded": {
@@ -12606,7 +12606,7 @@ export default {
   },
   "https://startupmap.one/startup/stacks_ai": {
     "domain": "stacks.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/stacks_ai_v2.png",
+    "logoUrl": "https://corvus.gent/a/c3wnzpgf.jpg",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -12666,7 +12666,7 @@ export default {
   },
   "https://startupmap.one/startup/thorizon": {
     "domain": "thorizon.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/thorizon.png",
+    "logoUrl": "https://corvus.gent/a/7lmdp5k8.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -12726,7 +12726,7 @@ export default {
   },
   "https://startupmap.one/startup/cape_io_nl": {
     "domain": "cape.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/cape_io_nl.png",
+    "logoUrl": "https://corvus.gent/a/tu093wy1.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -12838,7 +12838,7 @@ export default {
   },
   "https://startupmap.one/startup/cutr_nl": {
     "domain": "cutr.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/cutr_nl.png",
+    "logoUrl": "https://corvus.gent/a/ucuznddn.png",
     "sector": "Construction Tech",
     "signals": {
       "founded": {
@@ -12898,7 +12898,7 @@ export default {
   },
   "https://startupmap.one/startup/kaiko_ai": {
     "domain": "kaiko.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/kaiko_ai.png",
+    "logoUrl": "https://corvus.gent/a/zk95rtxx.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -12951,7 +12951,7 @@ export default {
   },
   "https://startupmap.one/startup/lemni_nl": {
     "domain": "lemni.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/lemni_nl.png",
+    "logoUrl": "https://corvus.gent/a/x3bnyfap.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -13011,7 +13011,7 @@ export default {
   },
   "https://startupmap.one/startup/lleverage": {
     "domain": "www.lleverage.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/lleverage.png",
+    "logoUrl": "https://corvus.gent/a/30smfpaq.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -13071,7 +13071,7 @@ export default {
   },
   "https://startupmap.one/startup/marvelx_ai": {
     "domain": "marvelx.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/marvelx_ai.png",
+    "logoUrl": "https://corvus.gent/a/srd4eqjs.png",
     "sector": "Insurtech",
     "signals": {
       "founded": {
@@ -13131,7 +13131,7 @@ export default {
   },
   "https://startupmap.one/startup/sous_nl": {
     "domain": "poweredbysous.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/sous_nl.png",
+    "logoUrl": "https://corvus.gent/a/79df2nis.png",
     "sector": "Agritech & Foodtech",
     "signals": {
       "founded": {
@@ -13191,7 +13191,7 @@ export default {
   },
   "https://startupmap.one/startup/skytree_nl": {
     "domain": "skytree.tech",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/skytree_nl.png",
+    "logoUrl": "https://corvus.gent/a/nit983uz.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -13251,7 +13251,7 @@ export default {
   },
   "https://startupmap.one/startup/stellar_nl": {
     "domain": "www.stellarcs.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/stellar_nl.png",
+    "logoUrl": "https://corvus.gent/a/hp3jw1qj.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -13304,7 +13304,7 @@ export default {
   },
   "https://startupmap.one/startup/teero": {
     "domain": "www.teero.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/teero.png",
+    "logoUrl": "https://corvus.gent/a/x7whzu98.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -13357,7 +13357,7 @@ export default {
   },
   "https://startupmap.one/startup/chargetrip_nl": {
     "domain": "www.chargetrip.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/chargetrip_nl.png",
+    "logoUrl": "https://corvus.gent/a/zwftfa58.png",
     "sector": "Mobility & Transport",
     "signals": {
       "founded": {
@@ -13417,7 +13417,7 @@ export default {
   },
   "https://startupmap.one/startup/cradle_bio": {
     "domain": "cradle.bio",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/cradle_bio.png",
+    "logoUrl": "https://corvus.gent/a/gvu43pv9.png",
     "sector": "Biotech",
     "signals": {
       "founded": {
@@ -13477,7 +13477,7 @@ export default {
   },
   "https://startupmap.one/startup/dashmote": {
     "domain": "www.dashmote.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/dashmote.png",
+    "logoUrl": "https://corvus.gent/a/f280ifbb.png",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -13537,7 +13537,7 @@ export default {
   },
   "https://startupmap.one/startup/momants_nl": {
     "domain": "www.momants.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/momants_nl.png",
+    "logoUrl": "https://corvus.gent/a/f5ksomtc.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -13597,7 +13597,7 @@ export default {
   },
   "https://startupmap.one/startup/rootline_nl": {
     "domain": "rootline.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/rootline_nl.png",
+    "logoUrl": "https://corvus.gent/a/xd6i0z3g.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -13650,7 +13650,7 @@ export default {
   },
   "https://startupmap.one/startup/source_ag_nl": {
     "domain": "source.ag",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/source_ag_nl.png",
+    "logoUrl": "https://corvus.gent/a/cwpvnu95.png",
     "sector": "Agritech & Foodtech",
     "signals": {
       "founded": {
@@ -13710,7 +13710,7 @@ export default {
   },
   "https://startupmap.one/startup/spadework_nl": {
     "domain": "spadework.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/spadework_nl.png",
+    "logoUrl": "https://corvus.gent/a/08ynuyvx.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -13763,7 +13763,7 @@ export default {
   },
   "https://startupmap.one/startup/weaviate": {
     "domain": "weaviate.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/weaviate.png",
+    "logoUrl": "https://corvus.gent/a/ucr8rqjd.png",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -13823,7 +13823,7 @@ export default {
   },
   "https://startupmap.one/startup/mytomorrows_nl": {
     "domain": "mytomorrows.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/mytomorrows_nl.png",
+    "logoUrl": "https://corvus.gent/a/3mm0wowb.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -13883,7 +13883,7 @@ export default {
   },
   "https://startupmap.one/startup/airweave_ai": {
     "domain": "airweave.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/airweave_ai.png",
+    "logoUrl": "https://corvus.gent/a/7zub42k7.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -13943,7 +13943,7 @@ export default {
   },
   "https://startupmap.one/startup/altura": {
     "domain": "www.altura.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/altura.png",
+    "logoUrl": "https://corvus.gent/a/q6ig3lq8.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -14003,7 +14003,7 @@ export default {
   },
   "https://startupmap.one/startup/bird_nl": {
     "domain": "bird.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/bird_nl.png",
+    "logoUrl": "https://corvus.gent/a/snvqat8j.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -14063,7 +14063,7 @@ export default {
   },
   "https://startupmap.one/startup/carbon_equity_nl": {
     "domain": "www.carbonequity.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/carbon_equity_nl.png",
+    "logoUrl": "https://corvus.gent/a/k4u7hgq8.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -14123,7 +14123,7 @@ export default {
   },
   "https://startupmap.one/startup/elanza": {
     "domain": "www.elanza.nl",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/elanza.png",
+    "logoUrl": "https://corvus.gent/a/mubmdlq0.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -14183,7 +14183,7 @@ export default {
   },
   "https://startupmap.one/startup/fairphone_nl": {
     "domain": "www.fairphone.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/fairphone_nl.png",
+    "logoUrl": "https://corvus.gent/a/hopy1pzh.jpg",
     "sector": "Hardware & Semiconductors",
     "signals": {
       "founded": {
@@ -14236,7 +14236,7 @@ export default {
   },
   "https://startupmap.one/startup/fini_ai_nl": {
     "domain": "usefini.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/fini_ai_nl.png",
+    "logoUrl": "https://corvus.gent/a/3o6xv3h9.jpg",
     "sector": "AI & Machine Learning",
     "signals": {
       "stage": {
@@ -14289,7 +14289,7 @@ export default {
   },
   "https://startupmap.one/startup/fourthline": {
     "domain": "www.fourthline.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/fourthline.png",
+    "logoUrl": "https://corvus.gent/a/63c5821q.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -14467,7 +14467,7 @@ export default {
   },
   "https://startupmap.one/startup/kaizo_nl": {
     "domain": "kaizo.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/kaizo_nl.png",
+    "logoUrl": "https://corvus.gent/a/htnft5fh.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -14527,7 +14527,7 @@ export default {
   },
   "https://startupmap.one/startup/langwatch": {
     "domain": "www.langwatch.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/langwatch.png",
+    "logoUrl": "https://corvus.gent/a/f5zyzgo6.jpg",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -14587,7 +14587,7 @@ export default {
   },
   "https://startupmap.one/startup/viktor": {
     "domain": "www.viktor.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/viktor.png",
+    "logoUrl": "https://corvus.gent/a/0y1j1zq7.png",
     "sector": "Developer Tools",
     "signals": {
       "founded": {
@@ -14640,7 +14640,7 @@ export default {
   },
   "https://startupmap.one/startup/maqqie": {
     "domain": "www.maqqie.nl",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/maqqie.png",
+    "logoUrl": "https://corvus.gent/a/kpbtb34u.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -14693,7 +14693,7 @@ export default {
   },
   "https://startupmap.one/startup/shipping_technology": {
     "domain": "www.shippingtechnology.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/shipping_technology.png",
+    "logoUrl": "https://corvus.gent/a/mnjidit8.png",
     "sector": "Maritime",
     "signals": {
       "founded": {
@@ -14746,7 +14746,7 @@ export default {
   },
   "https://startupmap.one/startup/levvr": {
     "domain": "www.levvr.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/levvr.png",
+    "logoUrl": "https://corvus.gent/a/ojf8w4li.png",
     "sector": "Construction Tech",
     "signals": {
       "founded": {
@@ -14799,7 +14799,7 @@ export default {
   },
   "https://startupmap.one/startup/zeno": {
     "domain": "www.zeno.law",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/zeno.png",
+    "logoUrl": "https://corvus.gent/a/uwh4ydgu.png",
     "sector": "Legal & Compliance Tech",
     "signals": {
       "founded": {
@@ -14852,7 +14852,7 @@ export default {
   },
   "https://startupmap.one/startup/blockbax": {
     "domain": "www.blockbax.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/blockbax.png",
+    "logoUrl": "https://corvus.gent/a/twy9oisw.png",
     "sector": "IoT & Sensors",
     "signals": {
       "stage": {
@@ -14898,7 +14898,7 @@ export default {
   },
   "https://startupmap.one/startup/alicia_insurance_nl": {
     "domain": "alicia.insure",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/alicia_insurance_nl.png",
+    "logoUrl": "https://corvus.gent/a/vag3o8vg.png",
     "sector": "Wealthtech & Insurtech",
     "signals": {
       "founded": {
@@ -14951,7 +14951,7 @@ export default {
   },
   "https://startupmap.one/startup/arboretica": {
     "domain": "www.arboretica.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/arboretica.png",
+    "logoUrl": "https://corvus.gent/a/nrbvy7ky.png",
     "sector": "Climate Tech",
     "signals": {
       "stage": {
@@ -14990,7 +14990,7 @@ export default {
   },
   "https://startupmap.one/startup/avery": {
     "domain": "www.getavery.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/avery.png",
+    "logoUrl": "https://corvus.gent/a/r89nf7w2.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -15036,7 +15036,7 @@ export default {
   },
   "https://startupmap.one/startup/breeze": {
     "domain": "www.breeze.social",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/breeze.png",
+    "logoUrl": "https://corvus.gent/a/h4nd0e9n.png",
     "sector": "Social & Creator Economy",
     "signals": {
       "founded": {
@@ -15089,7 +15089,7 @@ export default {
   },
   "https://startupmap.one/startup/closure": {
     "domain": "www.closure.nl",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/closure.png",
+    "logoUrl": "https://corvus.gent/a/a3cozn6f.png",
     "sector": "Legal & Compliance Tech",
     "signals": {
       "stage": {
@@ -15135,7 +15135,7 @@ export default {
   },
   "https://startupmap.one/startup/coastruction": {
     "domain": "www.coastruction.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/coastruction.png",
+    "logoUrl": "https://corvus.gent/a/31035j8j.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -15181,7 +15181,7 @@ export default {
   },
   "https://startupmap.one/startup/deep_breath": {
     "domain": "www.deepbreath.tech",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/deep_breath.png",
+    "logoUrl": "https://corvus.gent/a/7sr0sd6i.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -15227,7 +15227,7 @@ export default {
   },
   "https://startupmap.one/startup/deeplight_system": {
     "domain": "www.deeplightds.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/deeplight_system.png",
+    "logoUrl": "https://corvus.gent/a/zsbjedvp.png",
     "sector": "Agritech & Foodtech",
     "signals": {
       "stage": {
@@ -15266,7 +15266,7 @@ export default {
   },
   "https://startupmap.one/startup/ditto": {
     "domain": "www.dittocare.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/ditto.png",
+    "logoUrl": "https://corvus.gent/a/hczwq8gg.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -15312,7 +15312,7 @@ export default {
   },
   "https://startupmap.one/startup/ease2pay": {
     "domain": "www.ease2pay.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/ease2pay.png",
+    "logoUrl": "https://corvus.gent/a/s640v5rl.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -15358,7 +15358,7 @@ export default {
   },
   "https://startupmap.one/startup/faslet": {
     "domain": "www.faslet.me",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/faslet.png",
+    "logoUrl": "https://corvus.gent/a/6ow6hfc7.png",
     "sector": "E Commerce & Retail Tech",
     "signals": {
       "founded": {
@@ -15404,7 +15404,7 @@ export default {
   },
   "https://startupmap.one/startup/eyk": {
     "domain": "www.eykdata.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/eyk.png",
+    "logoUrl": "https://corvus.gent/a/k2u7b7w5.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -15450,7 +15450,7 @@ export default {
   },
   "https://startupmap.one/startup/fuelfwd": {
     "domain": "www.fuelfwd.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/fuelfwd.png",
+    "logoUrl": "https://corvus.gent/a/p3w9vxx9.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -15503,7 +15503,7 @@ export default {
   },
   "https://startupmap.one/startup/gameye_nl": {
     "domain": "gameye.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/gameye_nl.png",
+    "logoUrl": "https://corvus.gent/a/bzs9xwwt.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -15556,7 +15556,7 @@ export default {
   },
   "https://startupmap.one/startup/koji_nl": {
     "domain": "www.koji.so",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/koji_nl.png",
+    "logoUrl": "https://corvus.gent/a/6eyr8d99.jpg",
     "sector": "Ai",
     "signals": {
       "stage": {
@@ -15588,7 +15588,7 @@ export default {
   },
   "https://startupmap.one/startup/magnet_me": {
     "domain": "www.magnet.me",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/magnet_me.png",
+    "logoUrl": "https://corvus.gent/a/z9uf5fzg.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -15641,7 +15641,7 @@ export default {
   },
   "https://startupmap.one/startup/monytri": {
     "domain": "www.monytri.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/monytri.png",
+    "logoUrl": "https://corvus.gent/a/v7hm6c4b.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -15687,7 +15687,7 @@ export default {
   },
   "https://startupmap.one/startup/narmin": {
     "domain": "www.narmin.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/narmin.png",
+    "logoUrl": "https://corvus.gent/a/35a9cbpp.png",
     "sector": "Logistics",
     "signals": {
       "stage": {
@@ -15726,7 +15726,7 @@ export default {
   },
   "https://startupmap.one/startup/oneteam": {
     "domain": "www.oneteam.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/oneteam.png",
+    "logoUrl": "https://corvus.gent/a/i1zzuhoi.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -15772,7 +15772,7 @@ export default {
   },
   "https://startupmap.one/startup/relive": {
     "domain": "www.relive.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/relive.png",
+    "logoUrl": "https://corvus.gent/a/69fq3wd7.png",
     "sector": "Sports & Wellness",
     "signals": {
       "founded": {
@@ -15811,7 +15811,7 @@ export default {
   },
   "https://startupmap.one/startup/channable_nl": {
     "domain": "www.channable.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/channable_nl.png",
+    "logoUrl": "https://corvus.gent/a/9r5esnie.png",
     "sector": "E Commerce & Retail",
     "signals": {
       "founded": {
@@ -15871,7 +15871,7 @@ export default {
   },
   "https://startupmap.one/startup/axoniq": {
     "domain": "www.axoniq.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/axoniq.png",
+    "logoUrl": "https://corvus.gent/a/l1gcay3c.png",
     "sector": "Developer Tools",
     "signals": {
       "founded": {
@@ -15924,7 +15924,7 @@ export default {
   },
   "https://startupmap.one/startup/legionelladossier_nl": {
     "domain": "www.legionelladossier.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/legionelladossier_nl.png",
+    "logoUrl": "https://corvus.gent/a/vtcgvmfi.png",
     "sector": "IoT & Sensors",
     "signals": {
       "founded": {
@@ -15977,7 +15977,7 @@ export default {
   },
   "https://startupmap.one/startup/medendo_nl": {
     "domain": "www.medendo.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/medendo_nl.png",
+    "logoUrl": "https://corvus.gent/a/471trqa6.png",
     "sector": "Healthtech",
     "signals": {
       "stage": {
@@ -16009,7 +16009,7 @@ export default {
   },
   "https://startupmap.one/startup/orderli_nl": {
     "domain": "orderli.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/orderli_nl.png",
+    "logoUrl": "https://corvus.gent/a/vffcl5og.png",
     "sector": "Productivity & Collaboration",
     "signals": {
       "founded": {
@@ -16062,7 +16062,7 @@ export default {
   },
   "https://startupmap.one/startup/eye_security_nl": {
     "domain": "www.eye.security",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/eye_security_nl.png",
+    "logoUrl": "https://corvus.gent/a/hj0v25yl.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -16122,7 +16122,7 @@ export default {
   },
   "https://startupmap.one/startup/qphox_nl": {
     "domain": "qphox.eu",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/qphox_nl.png",
+    "logoUrl": "https://corvus.gent/a/bh569d5t.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -16182,7 +16182,7 @@ export default {
   },
   "https://startupmap.one/startup/vydar_nl": {
     "domain": "www.vydar.eu",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/vydar_nl.png",
+    "logoUrl": "https://corvus.gent/a/5apn8203.png",
     "sector": "Hardware & Semiconductors",
     "signals": {
       "founded": {
@@ -16235,7 +16235,7 @@ export default {
   },
   "https://startupmap.one/startup/zander_labs_nl": {
     "domain": "www.zanderlabs.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/zander_labs_nl.png",
+    "logoUrl": "https://corvus.gent/a/pzoegmwx.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -16288,7 +16288,7 @@ export default {
   },
   "https://startupmap.one/startup/oasys_now_nl": {
     "domain": "oasysnow.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/oasys_now_nl.png",
+    "logoUrl": "https://corvus.gent/a/h2l4e7fl.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -16341,7 +16341,7 @@ export default {
   },
   "https://startupmap.one/startup/inspace_nl": {
     "domain": "inspace.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/inspace_nl.png",
+    "logoUrl": "https://corvus.gent/a/brre50r2.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "stage": {
@@ -16387,7 +16387,7 @@ export default {
   },
   "https://startupmap.one/startup/tibo_energy_nl": {
     "domain": "tibo.energy",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/tibo_energy_nl.png",
+    "logoUrl": "https://corvus.gent/a/oqoezssy.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -16447,7 +16447,7 @@ export default {
   },
   "https://startupmap.one/startup/tweaq_nl": {
     "domain": "www.tweaq.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/tweaq_nl.png",
+    "logoUrl": "https://corvus.gent/a/lqj6sc9q.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -16500,7 +16500,7 @@ export default {
   },
   "https://startupmap.one/startup/maaind_nl": {
     "domain": "www.maaind.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/maaind_nl.png",
+    "logoUrl": "https://corvus.gent/a/gn2ia0kx.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -16539,7 +16539,7 @@ export default {
   },
   "https://startupmap.one/startup/talkjs_nl": {
     "domain": "talkjs.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/talkjs_nl.png",
+    "logoUrl": "https://corvus.gent/a/lle5tnfs.png",
     "sector": "Developer Tools",
     "signals": {
       "founded": {
@@ -16585,7 +16585,7 @@ export default {
   },
   "https://startupmap.one/startup/ore_energy_nl": {
     "domain": "oreenergy.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/ore_energy_nl.png",
+    "logoUrl": "https://corvus.gent/a/d5vxre6g.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -16645,7 +16645,7 @@ export default {
   },
   "https://startupmap.one/startup/stark_de": {
     "domain": "stark-defence.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/stark_de.png",
+    "logoUrl": "https://corvus.gent/a/jcue71p0.png",
     "sector": "Aerospace & Defense",
     "signals": {
       "founded": {
@@ -16705,7 +16705,7 @@ export default {
   },
   "https://startupmap.one/startup/n8n_de": {
     "domain": "n8n.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/n8n_de.png",
+    "logoUrl": "https://corvus.gent/a/44p65d5n.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -16765,7 +16765,7 @@ export default {
   },
   "https://startupmap.one/startup/voize": {
     "domain": "www.voize.de",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/voize.png",
+    "logoUrl": "https://corvus.gent/a/4rk5q9ur.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -16825,7 +16825,7 @@ export default {
   },
   "https://startupmap.one/startup/parloa_de": {
     "domain": "www.parloa.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/parloa_de.png",
+    "logoUrl": "https://corvus.gent/a/dq1jvr4u.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -16885,7 +16885,7 @@ export default {
   },
   "https://startupmap.one/startup/taktile_de": {
     "domain": "www.taktile.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/taktile_de_v2.png",
+    "logoUrl": "https://corvus.gent/a/2bezx7lb.jpg",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -16945,7 +16945,7 @@ export default {
   },
   "https://startupmap.one/startup/cloover_de": {
     "domain": "cloover.co",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/cloover_de.png",
+    "logoUrl": "https://corvus.gent/a/jgmum6me.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -17005,7 +17005,7 @@ export default {
   },
   "https://startupmap.one/startup/moss_de": {
     "domain": "www.getmoss.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/moss_de.png",
+    "logoUrl": "https://corvus.gent/a/88mfi8f1.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -17065,7 +17065,7 @@ export default {
   },
   "https://startupmap.one/startup/peec_ai_de": {
     "domain": "peec.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/peec_ai_de.png",
+    "logoUrl": "https://corvus.gent/a/i664jfmh.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -17125,7 +17125,7 @@ export default {
   },
   "https://startupmap.one/startup/pliant_de": {
     "domain": "www.getpliant.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/pliant_de.png",
+    "logoUrl": "https://corvus.gent/a/u5sino1h.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -17185,7 +17185,7 @@ export default {
   },
   "https://startupmap.one/startup/upvest_de": {
     "domain": "upvest.co",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/upvest_de.png",
+    "logoUrl": "https://corvus.gent/a/lya9yc75.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -17245,7 +17245,7 @@ export default {
   },
   "https://startupmap.one/startup/lyceum_de": {
     "domain": "lyceum.technology",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/lyceum_de.png",
+    "logoUrl": "https://corvus.gent/a/v1a3knhe.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -17305,7 +17305,7 @@ export default {
   },
   "https://startupmap.one/startup/superchat_de": {
     "domain": "www.superchat.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/superchat_de.png",
+    "logoUrl": "https://corvus.gent/a/gw98hjqr.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -17424,7 +17424,7 @@ export default {
   },
   "https://startupmap.one/startup/kombo_de": {
     "domain": "www.kombo.dev",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/kombo_de.png",
+    "logoUrl": "https://corvus.gent/a/iuuc0jm0.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -17484,7 +17484,7 @@ export default {
   },
   "https://startupmap.one/startup/mercanis_de": {
     "domain": "www.mercanis.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/mercanis_de.png",
+    "logoUrl": "https://corvus.gent/a/qtmlhnvh.png",
     "sector": "Supply Chain & Ops Tech",
     "signals": {
       "founded": {
@@ -17544,7 +17544,7 @@ export default {
   },
   "https://startupmap.one/startup/workmotion_de": {
     "domain": "workmotion.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/workmotion_de.png",
+    "logoUrl": "https://corvus.gent/a/7tfhj6k3.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -17604,7 +17604,7 @@ export default {
   },
   "https://startupmap.one/startup/integral_de": {
     "domain": "www.integral.de",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/integral_de.png",
+    "logoUrl": "https://corvus.gent/a/yleolwiw.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -17664,7 +17664,7 @@ export default {
   },
   "https://startupmap.one/startup/revel8_de": {
     "domain": "www.revel8.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/revel8_de.png",
+    "logoUrl": "https://corvus.gent/a/0jlb0472.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -17724,7 +17724,7 @@ export default {
   },
   "https://startupmap.one/startup/rulemapping_de": {
     "domain": "www.rulemapping.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/rulemapping_de.png",
+    "logoUrl": "https://corvus.gent/a/17zehu9e.png",
     "sector": "Legal & Compliance Tech",
     "signals": {
       "founded": {
@@ -17784,7 +17784,7 @@ export default {
   },
   "https://startupmap.one/startup/netbird_de": {
     "domain": "netbird.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/netbird_de.png",
+    "logoUrl": "https://corvus.gent/a/io6280xn.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -17844,7 +17844,7 @@ export default {
   },
   "https://startupmap.one/startup/nelly_de": {
     "domain": "www.getnelly.de",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/nelly_de.png",
+    "logoUrl": "https://corvus.gent/a/dw91n4ut.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -17904,7 +17904,7 @@ export default {
   },
   "https://startupmap.one/startup/vay": {
     "domain": "www.vay.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/vay.png",
+    "logoUrl": "https://corvus.gent/a/3hos7kvx.png",
     "sector": "Mobility & Transport",
     "signals": {
       "founded": {
@@ -17964,7 +17964,7 @@ export default {
   },
   "https://startupmap.one/startup/telli_de": {
     "domain": "telli.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/telli_de.png",
+    "logoUrl": "https://corvus.gent/a/ed0meuq3.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -18024,7 +18024,7 @@ export default {
   },
   "https://startupmap.one/startup/augustus_de": {
     "domain": "augustus.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/augustus_de.png",
+    "logoUrl": "https://corvus.gent/a/l4j4qpu8.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -18084,7 +18084,7 @@ export default {
   },
   "https://startupmap.one/startup/trawa_de": {
     "domain": "www.trawa.de",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/trawa_de.png",
+    "logoUrl": "https://corvus.gent/a/mga6fldo.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -18262,7 +18262,7 @@ export default {
   },
   "https://startupmap.one/startup/lemon_markets_de": {
     "domain": "www.lemon.markets",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/lemon_markets_de.png",
+    "logoUrl": "https://corvus.gent/a/1y5eef62.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -18322,7 +18322,7 @@ export default {
   },
   "https://startupmap.one/startup/cortea_ai_de": {
     "domain": "www.cortea.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/cortea_ai_de.png",
+    "logoUrl": "https://corvus.gent/a/fkl7298r.png",
     "sector": "Legal & Compliance Tech",
     "signals": {
       "founded": {
@@ -18382,7 +18382,7 @@ export default {
   },
   "https://startupmap.one/startup/ablefy_de": {
     "domain": "ablefy.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/ablefy_de.png",
+    "logoUrl": "https://corvus.gent/a/kamk521y.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -18442,7 +18442,7 @@ export default {
   },
   "https://startupmap.one/startup/qdrant_de": {
     "domain": "qdrant.tech",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/qdrant_de.png",
+    "logoUrl": "https://corvus.gent/a/r0nq0ip4.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -18502,7 +18502,7 @@ export default {
   },
   "https://startupmap.one/startup/getquin_de": {
     "domain": "getquin.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/getquin_de.png",
+    "logoUrl": "https://corvus.gent/a/podsu8wa.png",
     "sector": "Wealthtech & Insurtech",
     "signals": {
       "founded": {
@@ -18562,7 +18562,7 @@ export default {
   },
   "https://startupmap.one/startup/maze_de": {
     "domain": "maze.co",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/maze_de.png",
+    "logoUrl": "https://corvus.gent/a/rlqfdufi.png",
     "sector": "Developer Tools",
     "signals": {
       "founded": {
@@ -18622,7 +18622,7 @@ export default {
   },
   "https://startupmap.one/startup/spread_de": {
     "domain": "www.spread.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/spread_de.png",
+    "logoUrl": "https://corvus.gent/a/jac4m4n3.png",
     "sector": "Developer Tools",
     "signals": {
       "founded": {
@@ -18682,7 +18682,7 @@ export default {
   },
   "https://startupmap.one/startup/metiundo_de": {
     "domain": "www.metiundo.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/metiundo_de.png",
+    "logoUrl": "https://corvus.gent/a/66n226lj.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -18742,7 +18742,7 @@ export default {
   },
   "https://startupmap.one/startup/helsing_de": {
     "domain": "helsing.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/helsing_de.png",
+    "logoUrl": "https://corvus.gent/a/cw1x8cvy.png",
     "sector": "Aerospace & Defense",
     "signals": {
       "founded": {
@@ -18802,7 +18802,7 @@ export default {
   },
   "https://startupmap.one/startup/isar_aerospace_de": {
     "domain": "isaraerospace.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/isar_aerospace_de.png",
+    "logoUrl": "https://corvus.gent/a/dxs1yntx.png",
     "sector": "Aerospace & Defense",
     "signals": {
       "founded": {
@@ -18862,7 +18862,7 @@ export default {
   },
   "https://startupmap.one/startup/the_exploration_company_de": {
     "domain": "www.exploration.space",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/the_exploration_company_de.png",
+    "logoUrl": "https://corvus.gent/a/f16i7w2a.png",
     "sector": "Aerospace & Defense",
     "signals": {
       "founded": {
@@ -18981,7 +18981,7 @@ export default {
   },
   "https://startupmap.one/startup/tytan_technologies_de": {
     "domain": "www.tytan-technologies.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/tytan_technologies_de.png",
+    "logoUrl": "https://corvus.gent/a/brxy55rb.png",
     "sector": "Aerospace & Defense",
     "signals": {
       "founded": {
@@ -19041,7 +19041,7 @@ export default {
   },
   "https://startupmap.one/startup/proxima_fusion": {
     "domain": "www.proximafusion.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/proxima_fusion.png",
+    "logoUrl": "https://corvus.gent/a/dd6t2jiu.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -19101,7 +19101,7 @@ export default {
   },
   "https://startupmap.one/startup/arx_robotics_de": {
     "domain": "www.arx-robotics.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/arx_robotics_de.png",
+    "logoUrl": "https://corvus.gent/a/a4d6raep.png",
     "sector": "Aerospace & Defense",
     "signals": {
       "founded": {
@@ -19161,7 +19161,7 @@ export default {
   },
   "https://startupmap.one/startup/avelios_medical_de": {
     "domain": "www.avelios.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/avelios_medical_de.png",
+    "logoUrl": "https://corvus.gent/a/b0vzad1u.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -19221,7 +19221,7 @@ export default {
   },
   "https://startupmap.one/startup/robco_de": {
     "domain": "www.rob.co",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/robco_de.png",
+    "logoUrl": "https://corvus.gent/a/p4gsrexi.png",
     "sector": "Robotics",
     "signals": {
       "founded": {
@@ -19333,7 +19333,7 @@ export default {
   },
   "https://startupmap.one/startup/erc_system_de": {
     "domain": "www.erc-system.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/erc_system_de.png",
+    "logoUrl": "https://corvus.gent/a/vln54ac3.png",
     "sector": "Aviation & Drones",
     "signals": {
       "stage": {
@@ -19431,7 +19431,7 @@ export default {
   },
   "https://startupmap.one/startup/se3_labs_de": {
     "domain": "www.se3.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/se3_labs_de.png",
+    "logoUrl": "https://corvus.gent/a/6epn46px.png",
     "sector": "Robotics",
     "signals": {
       "founded": {
@@ -19491,7 +19491,7 @@ export default {
   },
   "https://startupmap.one/startup/qplix_de": {
     "domain": "www.qplix.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/qplix_de.png",
+    "logoUrl": "https://corvus.gent/a/7zy8qvr8.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -19551,7 +19551,7 @@ export default {
   },
   "https://startupmap.one/startup/usercentrics_de": {
     "domain": "usercentrics.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/usercentrics_de.png",
+    "logoUrl": "https://corvus.gent/a/s0slun62.png",
     "sector": "Legal & Compliance Tech",
     "signals": {
       "founded": {
@@ -19611,7 +19611,7 @@ export default {
   },
   "https://startupmap.one/startup/deltavision_de": {
     "domain": "www.deltavision.space",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/deltavision_de.png",
+    "logoUrl": "https://corvus.gent/a/6vrglvsl.png",
     "sector": "Aerospace & Defense",
     "signals": {
       "founded": {
@@ -19671,7 +19671,7 @@ export default {
   },
   "https://startupmap.one/startup/tacto_de": {
     "domain": "tacto.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/tacto_de.png",
+    "logoUrl": "https://corvus.gent/a/njxo71eb.png",
     "sector": "Logistics",
     "signals": {
       "founded": {
@@ -19790,7 +19790,7 @@ export default {
   },
   "https://startupmap.one/startup/voiceline_de": {
     "domain": "voiceline.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/voiceline_de.png",
+    "logoUrl": "https://corvus.gent/a/x73o47bs.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -19850,7 +19850,7 @@ export default {
   },
   "https://startupmap.one/startup/marvel_fusion_de": {
     "domain": "www.marvelfusion.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/marvel_fusion_de.png",
+    "logoUrl": "https://corvus.gent/a/mghl904m.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -19969,7 +19969,7 @@ export default {
   },
   "https://startupmap.one/startup/dataguard_de": {
     "domain": "www.dataguard.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/dataguard_de.png",
+    "logoUrl": "https://corvus.gent/a/8u56o877.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -20029,7 +20029,7 @@ export default {
   },
   "https://startupmap.one/startup/apaleo_de": {
     "domain": "apaleo.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/apaleo_de.png",
+    "logoUrl": "https://corvus.gent/a/ppqvtqod.png",
     "sector": "Travel & Hospitality",
     "signals": {
       "founded": {
@@ -20089,7 +20089,7 @@ export default {
   },
   "https://startupmap.one/startup/qualifyze_de": {
     "domain": "www.qualifyze.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/qualifyze_de.png",
+    "logoUrl": "https://corvus.gent/a/fav9onky.png",
     "sector": "Supply Chain & Ops Tech",
     "signals": {
       "founded": {
@@ -20149,7 +20149,7 @@ export default {
   },
   "https://startupmap.one/startup/bavest_de": {
     "domain": "www.bavest.co",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/bavest_de.png",
+    "logoUrl": "https://corvus.gent/a/yr23v9lt.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -20209,7 +20209,7 @@ export default {
   },
   "https://startupmap.one/startup/leverest_de": {
     "domain": "leverest.net",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/leverest_de.png",
+    "logoUrl": "https://corvus.gent/a/1cei8vju.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -20262,7 +20262,7 @@ export default {
   },
   "https://startupmap.one/startup/fels_group_de": {
     "domain": "followmymoney.de",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/fels_group_de.png",
+    "logoUrl": "https://corvus.gent/a/91gnkux0.png",
     "sector": "Wealthtech & Insurtech",
     "signals": {
       "stage": {
@@ -20315,7 +20315,7 @@ export default {
   },
   "https://startupmap.one/startup/rail_flow_de": {
     "domain": "www.rail-flow.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/rail_flow_de.png",
+    "logoUrl": "https://corvus.gent/a/xh2jiajb.png",
     "sector": "Logistics",
     "signals": {
       "founded": {
@@ -20375,7 +20375,7 @@ export default {
   },
   "https://startupmap.one/startup/cashlink_de": {
     "domain": "cashlink.de",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/cashlink_de.png",
+    "logoUrl": "https://corvus.gent/a/cdua2esi.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -20435,7 +20435,7 @@ export default {
   },
   "https://startupmap.one/startup/quointelligence_de": {
     "domain": "quointelligence.eu",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/quointelligence_de.png",
+    "logoUrl": "https://corvus.gent/a/vu7ig9vv.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -20495,7 +20495,7 @@ export default {
   },
   "https://startupmap.one/startup/equipme_de": {
     "domain": "equipme.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/equipme_de.png",
+    "logoUrl": "https://corvus.gent/a/kuyv0mmi.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -20555,7 +20555,7 @@ export default {
   },
   "https://startupmap.one/startup/implify_de": {
     "domain": "implify.de",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/implify_de.png",
+    "logoUrl": "https://corvus.gent/a/v8hmjtar.png",
     "sector": "Medtech & Devices",
     "signals": {
       "founded": {
@@ -20608,7 +20608,7 @@ export default {
   },
   "https://startupmap.one/startup/spotixx_de": {
     "domain": "spotixx.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/spotixx_de.png",
+    "logoUrl": "https://corvus.gent/a/q2zjclvu.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -20668,7 +20668,7 @@ export default {
   },
   "https://startupmap.one/startup/blocksize_de": {
     "domain": "blocksize.info",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/blocksize_de.png",
+    "logoUrl": "https://corvus.gent/a/nck24sm2.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -20728,7 +20728,7 @@ export default {
   },
   "https://startupmap.one/startup/bullfinch_de": {
     "domain": "www.bullfinch.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/bullfinch_de.png",
+    "logoUrl": "https://corvus.gent/a/st147zrd.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -20781,7 +20781,7 @@ export default {
   },
   "https://startupmap.one/startup/genow_de": {
     "domain": "www.genow.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/genow_de.png",
+    "logoUrl": "https://corvus.gent/a/osg0v475.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -20841,7 +20841,7 @@ export default {
   },
   "https://startupmap.one/startup/louco_de": {
     "domain": "www.louco.app",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/louco_de.png",
+    "logoUrl": "https://corvus.gent/a/g9ytbu61.png",
     "sector": "Social & Creator Economy",
     "signals": {
       "founded": {
@@ -20894,7 +20894,7 @@ export default {
   },
   "https://startupmap.one/startup/leonardo_impact_de": {
     "domain": "leonardo-impact.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/leonardo_impact_de.png",
+    "logoUrl": "https://corvus.gent/a/u8a20ife.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -20954,7 +20954,7 @@ export default {
   },
   "https://startupmap.one/startup/1_cp_de": {
     "domain": "www.1-click-procurement.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/1_cp_de.png",
+    "logoUrl": "https://corvus.gent/a/sh3lb1jl.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -20993,7 +20993,7 @@ export default {
   },
   "https://startupmap.one/startup/archigas_de": {
     "domain": "archigas.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/archigas_de.png",
+    "logoUrl": "https://corvus.gent/a/7qio3xsu.png",
     "sector": "Hardware & Semiconductors",
     "signals": {
       "founded": {
@@ -21039,7 +21039,7 @@ export default {
   },
   "https://startupmap.one/startup/bita_de": {
     "domain": "www.bitadata.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/bita_de.png",
+    "logoUrl": "https://corvus.gent/a/h4gxjh0h.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -21092,7 +21092,7 @@ export default {
   },
   "https://startupmap.one/startup/desion_de": {
     "domain": "desion.de",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/desion_de.png",
+    "logoUrl": "https://corvus.gent/a/wabnk7lp.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -21138,7 +21138,7 @@ export default {
   },
   "https://startupmap.one/startup/donnerstag_ai_de": {
     "domain": "www.donnerstag.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/donnerstag_ai_de.png",
+    "logoUrl": "https://corvus.gent/a/29nt5z06.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -21191,7 +21191,7 @@ export default {
   },
   "https://startupmap.one/startup/embold_technologies_de": {
     "domain": "embold.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/embold_technologies_de.png",
+    "logoUrl": "https://corvus.gent/a/0463ud5n.png",
     "sector": "Developer Tools",
     "signals": {
       "stage": {
@@ -21237,7 +21237,7 @@ export default {
   },
   "https://startupmap.one/startup/finanzguru_de": {
     "domain": "finanzguru.de",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/finanzguru_de.png",
+    "logoUrl": "https://corvus.gent/a/q6sqt7f7.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -21290,7 +21290,7 @@ export default {
   },
   "https://startupmap.one/startup/dash0_de": {
     "domain": "www.dash0.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/dash0_de.png",
+    "logoUrl": "https://corvus.gent/a/t0etnwxu.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -21350,7 +21350,7 @@ export default {
   },
   "https://startupmap.one/startup/vivenu_de": {
     "domain": "vivenu.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/vivenu_de.png",
+    "logoUrl": "https://corvus.gent/a/2igg3xyt.png",
     "sector": "E Commerce & Retail",
     "signals": {
       "founded": {
@@ -21410,7 +21410,7 @@ export default {
   },
   "https://startupmap.one/startup/retraced_de": {
     "domain": "www.retraced.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/retraced_de.png",
+    "logoUrl": "https://corvus.gent/a/zyas4ydy.png",
     "sector": "Supply Chain & Ops Tech",
     "signals": {
       "founded": {
@@ -21463,7 +21463,7 @@ export default {
   },
   "https://startupmap.one/startup/universal_quantum_deutschland_de": {
     "domain": "universalquantum.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/universal_quantum_deutschland_de.png",
+    "logoUrl": "https://corvus.gent/a/sy95tuu7.png",
     "sector": "Hardware & Semiconductors",
     "signals": {
       "founded": {
@@ -21523,7 +21523,7 @@ export default {
   },
   "https://startupmap.one/startup/plancraft_de": {
     "domain": "plancraft.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/plancraft_de.png",
+    "logoUrl": "https://corvus.gent/a/nq7s074s.png",
     "sector": "Construction Tech",
     "signals": {
       "founded": {
@@ -21583,7 +21583,7 @@ export default {
   },
   "https://startupmap.one/startup/eleqtron_de": {
     "domain": "eleqtron.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/eleqtron_de.png",
+    "logoUrl": "https://corvus.gent/a/l7fs96q4.png",
     "sector": "Hardware & Semiconductors",
     "signals": {
       "founded": {
@@ -21643,7 +21643,7 @@ export default {
   },
   "https://startupmap.one/startup/quantilope_de": {
     "domain": "www.quantilope.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/quantilope_de.png",
+    "logoUrl": "https://corvus.gent/a/ubxkuve6.png",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -21703,7 +21703,7 @@ export default {
   },
   "https://startupmap.one/startup/appinio_de": {
     "domain": "www.appinio.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/appinio_de.png",
+    "logoUrl": "https://corvus.gent/a/dgcu1l2x.png",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -21756,7 +21756,7 @@ export default {
   },
   "https://startupmap.one/startup/impossible_cloud_de": {
     "domain": "www.impossiblecloud.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/impossible_cloud_de.png",
+    "logoUrl": "https://corvus.gent/a/713yumlb.png",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -21809,7 +21809,7 @@ export default {
   },
   "https://startupmap.one/startup/holy_technologies_de": {
     "domain": "www.holy-technologies.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/holy_technologies_de.png",
+    "logoUrl": "https://corvus.gent/a/cvrv5o01.png",
     "sector": "Hardware & Semiconductors",
     "signals": {
       "founded": {
@@ -21869,7 +21869,7 @@ export default {
   },
   "https://startupmap.one/startup/mindpeak_de": {
     "domain": "www.mindpeak.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/mindpeak_de.png",
+    "logoUrl": "https://corvus.gent/a/wl7uw03y.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -21929,7 +21929,7 @@ export default {
   },
   "https://startupmap.one/startup/buynomics_de": {
     "domain": "www.buynomics.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/buynomics_de.png",
+    "logoUrl": "https://corvus.gent/a/hvb54xkt.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -21972,7 +21972,7 @@ export default {
   },
   "https://startupmap.one/startup/deepl_de": {
     "domain": "www.deepl.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/deepl_de.png",
+    "logoUrl": "https://corvus.gent/a/tco3dhbw.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -22025,7 +22025,7 @@ export default {
   },
   "https://startupmap.one/startup/sunhat_de": {
     "domain": "www.getsunhat.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/sunhat_de.png",
+    "logoUrl": "https://corvus.gent/a/05pb2bat.png",
     "sector": "Legal & Compliance Tech",
     "signals": {
       "founded": {
@@ -22085,7 +22085,7 @@ export default {
   },
   "https://startupmap.one/startup/oniq_de": {
     "domain": "www.oniq.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/oniq_de.png",
+    "logoUrl": "https://corvus.gent/a/mb9l7ts9.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -22145,7 +22145,7 @@ export default {
   },
   "https://startupmap.one/startup/roofline_de": {
     "domain": "roofline.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/roofline_de.png",
+    "logoUrl": "https://corvus.gent/a/3ji22150.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -22205,7 +22205,7 @@ export default {
   },
   "https://startupmap.one/startup/epilot_de": {
     "domain": "epilot.cloud",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/epilot_de.png",
+    "logoUrl": "https://corvus.gent/a/1y4kkgwy.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -22265,7 +22265,7 @@ export default {
   },
   "https://startupmap.one/startup/alpha_sophia_de": {
     "domain": "www.alphasophia.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/alpha_sophia_de.png",
+    "logoUrl": "https://corvus.gent/a/u2leas6d.png",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -22325,7 +22325,7 @@ export default {
   },
   "https://startupmap.one/startup/apheris_de": {
     "domain": "www.apheris.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/apheris_de.png",
+    "logoUrl": "https://corvus.gent/a/arn1qjlg.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -22385,7 +22385,7 @@ export default {
   },
   "https://startupmap.one/startup/harmattan_ai_fr": {
     "domain": "www.harmattan.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/harmattan_ai_fr.png",
+    "logoUrl": "https://corvus.gent/a/4i7dwpon.png",
     "sector": "Aerospace & Defense",
     "signals": {
       "founded": {
@@ -22445,7 +22445,7 @@ export default {
   },
   "https://startupmap.one/startup/pigment_fr": {
     "domain": "www.pigment.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/pigment_fr.png",
+    "logoUrl": "https://corvus.gent/a/3op5smrf.png",
     "sector": "Productivity & Collaboration",
     "signals": {
       "founded": {
@@ -22505,7 +22505,7 @@ export default {
   },
   "https://startupmap.one/startup/aircall_fr": {
     "domain": "aircall.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/aircall_fr.png",
+    "logoUrl": "https://corvus.gent/a/8zpwaj6y.png",
     "sector": "Productivity & Collaboration",
     "signals": {
       "founded": {
@@ -22624,7 +22624,7 @@ export default {
   },
   "https://startupmap.one/startup/quandela_fr": {
     "domain": "www.quandela.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/quandela_fr.png",
+    "logoUrl": "https://corvus.gent/a/2k1ai3u7.png",
     "sector": "Hardware & Semiconductors",
     "signals": {
       "founded": {
@@ -22684,7 +22684,7 @@ export default {
   },
   "https://startupmap.one/startup/skello_fr": {
     "domain": "www.skello.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/skello_fr.png",
+    "logoUrl": "https://corvus.gent/a/c7nlsl2p.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -22744,7 +22744,7 @@ export default {
   },
   "https://startupmap.one/startup/qonto_fr": {
     "domain": "qonto.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/qonto_fr.png",
+    "logoUrl": "https://corvus.gent/a/dx8qjba9.png",
     "sector": "Payments & Banking",
     "signals": {
       "founded": {
@@ -22804,7 +22804,7 @@ export default {
   },
   "https://startupmap.one/startup/alice_bob_fr": {
     "domain": "alice-bob.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/alice_bob_fr.png",
+    "logoUrl": "https://corvus.gent/a/8s2nvr9h.png",
     "sector": "Hardware & Semiconductors",
     "signals": {
       "founded": {
@@ -22864,7 +22864,7 @@ export default {
   },
   "https://startupmap.one/startup/alta_ares_fr": {
     "domain": "altaares.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/alta_ares_fr.png",
+    "logoUrl": "https://corvus.gent/a/803fednw.png",
     "sector": "Aerospace & Defense",
     "signals": {
       "founded": {
@@ -22924,7 +22924,7 @@ export default {
   },
   "https://startupmap.one/startup/dust_fr": {
     "domain": "dust.tt",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/dust_fr.png",
+    "logoUrl": "https://corvus.gent/a/ps0i5nf2.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -22984,7 +22984,7 @@ export default {
   },
   "https://startupmap.one/startup/chapsvision_fr": {
     "domain": "www.chapsvision.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/chapsvision_fr.png",
+    "logoUrl": "https://corvus.gent/a/94rpzcm4.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -23044,7 +23044,7 @@ export default {
   },
   "https://startupmap.one/startup/spendesk_fr": {
     "domain": "www.spendesk.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/spendesk_fr.png",
+    "logoUrl": "https://corvus.gent/a/tdzd6l2t.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -23163,7 +23163,7 @@ export default {
   },
   "https://startupmap.one/startup/hublo_fr": {
     "domain": "www.hublo.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/hublo_fr_v2.png",
+    "logoUrl": "https://corvus.gent/a/9hzmkzk7.jpg",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -23213,7 +23213,7 @@ export default {
   },
   "https://startupmap.one/startup/pasqal_fr": {
     "domain": "www.pasqal.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/pasqal_fr.png",
+    "logoUrl": "https://corvus.gent/a/c0grffwq.png",
     "sector": "Hardware & Semiconductors",
     "signals": {
       "founded": {
@@ -23273,7 +23273,7 @@ export default {
   },
   "https://startupmap.one/startup/h_company_fr": {
     "domain": "hcompany.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/h_company_fr.png",
+    "logoUrl": "https://corvus.gent/a/1mc7aknp.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -23333,7 +23333,7 @@ export default {
   },
   "https://startupmap.one/startup/wandercraft_fr": {
     "domain": "www.wandercraft.eu",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/wandercraft_fr.png",
+    "logoUrl": "https://corvus.gent/a/xfihxqfh.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -23393,7 +23393,7 @@ export default {
   },
   "https://startupmap.one/startup/stoik_fr": {
     "domain": "www.stoik.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/stoik_fr.png",
+    "logoUrl": "https://corvus.gent/a/nvc28zpa.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -23453,7 +23453,7 @@ export default {
   },
   "https://startupmap.one/startup/gitguardian_fr": {
     "domain": "www.gitguardian.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/gitguardian_fr.png",
+    "logoUrl": "https://corvus.gent/a/k5w8p3a4.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -23572,7 +23572,7 @@ export default {
   },
   "https://startupmap.one/startup/matera_fr": {
     "domain": "www.matera.eu",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/matera_fr.png",
+    "logoUrl": "https://corvus.gent/a/lh9zpwta.png",
     "sector": "Real Estate Tech",
     "signals": {
       "founded": {
@@ -23632,7 +23632,7 @@ export default {
   },
   "https://startupmap.one/startup/riot_fr": {
     "domain": "tryriot.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/riot_fr.png",
+    "logoUrl": "https://corvus.gent/a/1ar9lnka.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -23692,7 +23692,7 @@ export default {
   },
   "https://startupmap.one/startup/roundtable_fr": {
     "domain": "www.roundtable.eu",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/roundtable_fr.png",
+    "logoUrl": "https://corvus.gent/a/iemh93ze.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -23752,7 +23752,7 @@ export default {
   },
   "https://startupmap.one/startup/uma_fr": {
     "domain": "uma.bot",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/uma_fr.png",
+    "logoUrl": "https://corvus.gent/a/9rftwfsh.png",
     "sector": "Robotics",
     "signals": {
       "founded": {
@@ -23805,7 +23805,7 @@ export default {
   },
   "https://startupmap.one/startup/lemlist_fr": {
     "domain": "lemlist.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/lemlist_fr.png",
+    "logoUrl": "https://corvus.gent/a/k58nm6vf.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -23858,7 +23858,7 @@ export default {
   },
   "https://startupmap.one/startup/greenly_fr": {
     "domain": "greenly.earth",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/greenly_fr.png",
+    "logoUrl": "https://corvus.gent/a/mu415zj2.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -23918,7 +23918,7 @@ export default {
   },
   "https://startupmap.one/startup/padoa_fr": {
     "domain": "www.padoa.fr",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/padoa_fr.png",
+    "logoUrl": "https://corvus.gent/a/l1xkxpw4.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -23978,7 +23978,7 @@ export default {
   },
   "https://startupmap.one/startup/pelico_fr": {
     "domain": "www.pelico.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/pelico_fr.png",
+    "logoUrl": "https://corvus.gent/a/2i4ss4mi.png",
     "sector": "Supply Chain & Ops Tech",
     "signals": {
       "founded": {
@@ -24031,7 +24031,7 @@ export default {
   },
   "https://startupmap.one/startup/spore_bio_fr": {
     "domain": "www.spore.bio",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/spore_bio_fr.png",
+    "logoUrl": "https://corvus.gent/a/14x02boo.png",
     "sector": "Biotech",
     "signals": {
       "founded": {
@@ -24091,7 +24091,7 @@ export default {
   },
   "https://startupmap.one/startup/odaseva_fr": {
     "domain": "www.odaseva.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/odaseva_fr.png",
+    "logoUrl": "https://corvus.gent/a/cz1uq0ll.png",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -24151,7 +24151,7 @@ export default {
   },
   "https://startupmap.one/startup/outsight_fr": {
     "domain": "www.outsight.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/outsight_fr.png",
+    "logoUrl": "https://corvus.gent/a/8l894vgd.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -24381,7 +24381,7 @@ export default {
   },
   "https://startupmap.one/startup/dashlane_fr": {
     "domain": "www.dashlane.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/dashlane_fr.png",
+    "logoUrl": "https://corvus.gent/a/54r4ww9w.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -24441,7 +24441,7 @@ export default {
   },
   "https://startupmap.one/startup/expliseat_fr": {
     "domain": "expliseat.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/expliseat_fr.png",
+    "logoUrl": "https://corvus.gent/a/27jtzdru.png",
     "sector": "Aerospace & Defense",
     "signals": {
       "founded": {
@@ -24501,7 +24501,7 @@ export default {
   },
   "https://startupmap.one/startup/linkup_fr": {
     "domain": "linkup.so",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/linkup_fr.png",
+    "logoUrl": "https://corvus.gent/a/s8izpo5j.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -24561,7 +24561,7 @@ export default {
   },
   "https://startupmap.one/startup/fairmat_fr": {
     "domain": "www.fairmat.tech",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/fairmat_fr.png",
+    "logoUrl": "https://corvus.gent/a/c4kns6yy.png",
     "sector": "Circular Economy",
     "signals": {
       "founded": {
@@ -24621,7 +24621,7 @@ export default {
   },
   "https://startupmap.one/startup/implicity_fr": {
     "domain": "www.implicity.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/implicity_fr.png",
+    "logoUrl": "https://corvus.gent/a/phusxvu5.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -24681,7 +24681,7 @@ export default {
   },
   "https://startupmap.one/startup/maki_fr": {
     "domain": "www.makipeople.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/maki_fr.png",
+    "logoUrl": "https://corvus.gent/a/u9r3f8x9.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -24741,7 +24741,7 @@ export default {
   },
   "https://startupmap.one/startup/skillcorner_fr": {
     "domain": "www.skillcorner.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/skillcorner_fr.png",
+    "logoUrl": "https://corvus.gent/a/iyzcjos9.png",
     "sector": "Sports & Wellness",
     "signals": {
       "founded": {
@@ -24860,7 +24860,7 @@ export default {
   },
   "https://startupmap.one/startup/morpho_fr": {
     "domain": "morpho.org",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/morpho_fr.png",
+    "logoUrl": "https://corvus.gent/a/1naiizh3.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -24920,7 +24920,7 @@ export default {
   },
   "https://startupmap.one/startup/prelude_fr": {
     "domain": "www.prelude.so",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/prelude_fr.png",
+    "logoUrl": "https://corvus.gent/a/ly9rnwsd.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -24980,7 +24980,7 @@ export default {
   },
   "https://startupmap.one/startup/seyna_fr": {
     "domain": "www.seyna.eu",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/seyna_fr.png",
+    "logoUrl": "https://corvus.gent/a/tzb7qawu.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -25040,7 +25040,7 @@ export default {
   },
   "https://startupmap.one/startup/comand_ai_fr": {
     "domain": "www.comand.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/comand_ai_fr.png",
+    "logoUrl": "https://corvus.gent/a/614ineka.png",
     "sector": "Aerospace & Defense",
     "signals": {
       "founded": {
@@ -25100,7 +25100,7 @@ export default {
   },
   "https://startupmap.one/startup/innovorder_fr": {
     "domain": "www.innovorder.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/innovorder_fr.png",
+    "logoUrl": "https://corvus.gent/a/ntsxcn89.png",
     "sector": "Agritech & Foodtech",
     "signals": {
       "founded": {
@@ -25160,7 +25160,7 @@ export default {
   },
   "https://startupmap.one/startup/orasio_fr": {
     "domain": "www.orasio.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/orasio_fr.png",
+    "logoUrl": "https://corvus.gent/a/qm5azb46.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -25220,7 +25220,7 @@ export default {
   },
   "https://startupmap.one/startup/robeaute_fr": {
     "domain": "www.robeaute.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/robeaute_fr.png",
+    "logoUrl": "https://corvus.gent/a/nwj64hnm.png",
     "sector": "Medtech & Devices",
     "signals": {
       "founded": {
@@ -25273,7 +25273,7 @@ export default {
   },
   "https://startupmap.one/startup/zefir_fr": {
     "domain": "zefir.fr",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/zefir_fr.png",
+    "logoUrl": "https://corvus.gent/a/df3lehd1.png",
     "sector": "Real Estate Tech",
     "signals": {
       "founded": {
@@ -25333,7 +25333,7 @@ export default {
   },
   "https://startupmap.one/startup/filigran_fr": {
     "domain": "filigran.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/filigran_fr.png",
+    "logoUrl": "https://corvus.gent/a/sq53b7px.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -25393,7 +25393,7 @@ export default {
   },
   "https://startupmap.one/startup/koncrete_fr": {
     "domain": "www.koncrete.fr",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/koncrete_fr.png",
+    "logoUrl": "https://corvus.gent/a/c7sq4uxm.png",
     "sector": "Supply Chain & Ops Tech",
     "signals": {
       "founded": {
@@ -25453,7 +25453,7 @@ export default {
   },
   "https://startupmap.one/startup/tomorro_fr": {
     "domain": "www.tomorro.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/tomorro_fr.png",
+    "logoUrl": "https://corvus.gent/a/cr752uh2.png",
     "sector": "Legal & Compliance Tech",
     "signals": {
       "founded": {
@@ -25513,7 +25513,7 @@ export default {
   },
   "https://startupmap.one/startup/dotfile_fr": {
     "domain": "www.dotfile.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/dotfile_fr.png",
+    "logoUrl": "https://corvus.gent/a/pe5v50b4.png",
     "sector": "Legal & Compliance Tech",
     "signals": {
       "founded": {
@@ -25573,7 +25573,7 @@ export default {
   },
   "https://startupmap.one/startup/alpic_fr": {
     "domain": "www.alpic.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/alpic_fr_v2.png",
+    "logoUrl": "https://corvus.gent/a/vo3bgqvs.jpg",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -25633,7 +25633,7 @@ export default {
   },
   "https://startupmap.one/startup/dioxycle_fr": {
     "domain": "dioxycle.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/dioxycle_fr.png",
+    "logoUrl": "https://corvus.gent/a/ptew6hys.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -25693,7 +25693,7 @@ export default {
   },
   "https://startupmap.one/startup/mooncard_fr": {
     "domain": "www.mooncard.co",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/mooncard_fr.png",
+    "logoUrl": "https://corvus.gent/a/755x6s85.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -25753,7 +25753,7 @@ export default {
   },
   "https://startupmap.one/startup/orakl_oncology_fr": {
     "domain": "www.orakl-oncology.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/orakl_oncology_fr.png",
+    "logoUrl": "https://corvus.gent/a/k3zgm0mb.png",
     "sector": "Biotech",
     "signals": {
       "founded": {
@@ -25813,7 +25813,7 @@ export default {
   },
   "https://startupmap.one/startup/rayon_fr": {
     "domain": "www.rayon.design",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/rayon_fr.png",
+    "logoUrl": "https://corvus.gent/a/bdxzollv.png",
     "sector": "Developer Tools",
     "signals": {
       "founded": {
@@ -25873,7 +25873,7 @@ export default {
   },
   "https://startupmap.one/startup/vizzia_fr": {
     "domain": "www.vizzia.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/vizzia_fr.png",
+    "logoUrl": "https://corvus.gent/a/9t47l6ny.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -25933,7 +25933,7 @@ export default {
   },
   "https://startupmap.one/startup/73_strings_fr": {
     "domain": "www.73strings.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/73_strings_fr.png",
+    "logoUrl": "https://corvus.gent/a/ioel61p3.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -25993,7 +25993,7 @@ export default {
   },
   "https://startupmap.one/startup/ami_labs_fr": {
     "domain": "amilabs.xyz",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/ami_labs_fr.png",
+    "logoUrl": "https://corvus.gent/a/qx82521v.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -26053,7 +26053,7 @@ export default {
   },
   "https://startupmap.one/startup/descartes_underwriting_fr": {
     "domain": "descartesunderwriting.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/descartes_underwriting_fr.png",
+    "logoUrl": "https://corvus.gent/a/lhh0ey93.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -26113,7 +26113,7 @@ export default {
   },
   "https://startupmap.one/startup/epsor_fr": {
     "domain": "www.epsor.fr",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/epsor_fr.png",
+    "logoUrl": "https://corvus.gent/a/xe1p1prv.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -26166,7 +26166,7 @@ export default {
   },
   "https://startupmap.one/startup/agicap_fr": {
     "domain": "agicap.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/agicap_fr.png",
+    "logoUrl": "https://corvus.gent/a/w5jegmri.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -26219,7 +26219,7 @@ export default {
   },
   "https://startupmap.one/startup/indy_fr": {
     "domain": "www.indy.fr",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/indy_fr.png",
+    "logoUrl": "https://corvus.gent/a/vacb6wr0.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -26279,7 +26279,7 @@ export default {
   },
   "https://startupmap.one/startup/traefik_labs_fr": {
     "domain": "traefik.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/traefik_labs_fr.png",
+    "logoUrl": "https://corvus.gent/a/5pkicn6h.png",
     "sector": "Developer Tools",
     "signals": {
       "founded": {
@@ -26339,7 +26339,7 @@ export default {
   },
   "https://startupmap.one/startup/aviwell_fr": {
     "domain": "www.aviwell.fr",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/aviwell_fr.png",
+    "logoUrl": "https://corvus.gent/a/vm9nefoa.png",
     "sector": "Agritech & Foodtech",
     "signals": {
       "founded": {
@@ -26392,7 +26392,7 @@ export default {
   },
   "https://startupmap.one/startup/getinside_fr": {
     "domain": "www.getinside.fr",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/getinside_fr.png",
+    "logoUrl": "https://corvus.gent/a/pkepudr7.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -26445,7 +26445,7 @@ export default {
   },
   "https://startupmap.one/startup/green_spot_technologies_fr": {
     "domain": "greenspot-tech.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/green_spot_technologies_fr.png",
+    "logoUrl": "https://corvus.gent/a/5widccrt.png",
     "sector": "Agritech & Foodtech",
     "signals": {
       "founded": {
@@ -26498,7 +26498,7 @@ export default {
   },
   "https://startupmap.one/startup/deblock_fr": {
     "domain": "deblock.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/deblock_fr.png",
+    "logoUrl": "https://corvus.gent/a/nufxao3q.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -26551,7 +26551,7 @@ export default {
   },
   "https://startupmap.one/startup/karnott_fr": {
     "domain": "www.karnott.fr",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/karnott_fr.png",
+    "logoUrl": "https://corvus.gent/a/9isg6omb.png",
     "sector": "Agritech & Foodtech",
     "signals": {
       "founded": {
@@ -26604,7 +26604,7 @@ export default {
   },
   "https://startupmap.one/startup/lemrock_fr": {
     "domain": "www.lemrock.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/lemrock_fr.png",
+    "logoUrl": "https://corvus.gent/a/qmeufseq.png",
     "sector": "E Commerce & Retail",
     "signals": {
       "founded": {
@@ -26664,7 +26664,7 @@ export default {
   },
   "https://startupmap.one/startup/nabla_fr": {
     "domain": "nabla.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/nabla_fr.png",
+    "logoUrl": "https://corvus.gent/a/qsa0lub7.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -26724,7 +26724,7 @@ export default {
   },
   "https://startupmap.one/startup/oneflash_fr": {
     "domain": "www.oneflash.fr",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/oneflash_fr.png",
+    "logoUrl": "https://corvus.gent/a/yigiflly.png",
     "sector": "Hardware & Semiconductors",
     "signals": {
       "founded": {
@@ -26784,7 +26784,7 @@ export default {
   },
   "https://startupmap.one/startup/photoroom_fr": {
     "domain": "photoroom.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/photoroom_fr.png",
+    "logoUrl": "https://corvus.gent/a/vxijdxnb.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -26903,7 +26903,7 @@ export default {
   },
   "https://startupmap.one/startup/veesion_fr": {
     "domain": "veesion.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/veesion_fr.png",
+    "logoUrl": "https://corvus.gent/a/tsxed9ye.png",
     "sector": "E Commerce & Retail Tech",
     "signals": {
       "founded": {
@@ -26963,7 +26963,7 @@ export default {
   },
   "https://startupmap.one/startup/wakeo_fr": {
     "domain": "wakeo.co",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/wakeo_fr.png",
+    "logoUrl": "https://corvus.gent/a/27167sik.png",
     "sector": "Supply Chain & Ops Tech",
     "signals": {
       "founded": {
@@ -27023,7 +27023,7 @@ export default {
   },
   "https://startupmap.one/startup/c12_fr": {
     "domain": "www.c12qe.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/c12_fr.png",
+    "logoUrl": "https://corvus.gent/a/jq72m2nk.png",
     "sector": "Hardware & Semiconductors",
     "signals": {
       "founded": {
@@ -27083,7 +27083,7 @@ export default {
   },
   "https://startupmap.one/startup/escape_fr": {
     "domain": "escape.tech",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/escape_fr.png",
+    "logoUrl": "https://corvus.gent/a/m9kh4heg.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -27143,7 +27143,7 @@ export default {
   },
   "https://startupmap.one/startup/hugging_face_fr": {
     "domain": "huggingface.co",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/hugging_face_fr.png",
+    "logoUrl": "https://corvus.gent/a/vn2qh60z.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -27203,7 +27203,7 @@ export default {
   },
   "https://startupmap.one/startup/yuka_fr": {
     "domain": "yuka.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/yuka_fr.png",
+    "logoUrl": "https://corvus.gent/a/1b78rc17.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -27256,7 +27256,7 @@ export default {
   },
   "https://startupmap.one/startup/carbonfact_fr": {
     "domain": "www.carbonfact.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/carbonfact_fr.png",
+    "logoUrl": "https://corvus.gent/a/dey8h92h.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -27316,7 +27316,7 @@ export default {
   },
   "https://startupmap.one/startup/defacto_fr": {
     "domain": "www.getdefacto.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/defacto_fr.png",
+    "logoUrl": "https://corvus.gent/a/v75j0956.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -27376,7 +27376,7 @@ export default {
   },
   "https://startupmap.one/startup/deepip_fr": {
     "domain": "www.deepip.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/deepip_fr.png",
+    "logoUrl": "https://corvus.gent/a/bi70xetu.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -27436,7 +27436,7 @@ export default {
   },
   "https://startupmap.one/startup/fairly_made_fr": {
     "domain": "www.fairlymade.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/fairly_made_fr.png",
+    "logoUrl": "https://corvus.gent/a/vzb1skan.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -27496,7 +27496,7 @@ export default {
   },
   "https://startupmap.one/startup/formance_fr": {
     "domain": "www.formance.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/formance_fr.png",
+    "logoUrl": "https://corvus.gent/a/2wr9llnl.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -27556,7 +27556,7 @@ export default {
   },
   "https://startupmap.one/startup/karos_fr": {
     "domain": "www.karos.fr",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/karos_fr.png",
+    "logoUrl": "https://corvus.gent/a/awfue4eq.png",
     "sector": "Mobility & Transport",
     "signals": {
       "founded": {
@@ -27616,7 +27616,7 @@ export default {
   },
   "https://startupmap.one/startup/lithosquare_fr": {
     "domain": "www.lithosquare.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/lithosquare_fr.png",
+    "logoUrl": "https://corvus.gent/a/h56dn5c7.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -27676,7 +27676,7 @@ export default {
   },
   "https://startupmap.one/startup/mindee_fr": {
     "domain": "mindee.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/mindee_fr.png",
+    "logoUrl": "https://corvus.gent/a/mp5la575.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -27736,7 +27736,7 @@ export default {
   },
   "https://startupmap.one/startup/najar_fr": {
     "domain": "najar.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/najar_fr.png",
+    "logoUrl": "https://corvus.gent/a/ed8307ak.png",
     "sector": "Supply Chain & Ops Tech",
     "signals": {
       "founded": {
@@ -27789,7 +27789,7 @@ export default {
   },
   "https://startupmap.one/startup/payflows_fr": {
     "domain": "www.payflows.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/payflows_fr.png",
+    "logoUrl": "https://corvus.gent/a/c7sr0sxl.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -27908,7 +27908,7 @@ export default {
   },
   "https://startupmap.one/startup/probabl_fr": {
     "domain": "probabl.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/probabl_fr.png",
+    "logoUrl": "https://corvus.gent/a/4or2xza2.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -27968,7 +27968,7 @@ export default {
   },
   "https://startupmap.one/startup/scality_fr": {
     "domain": "www.scality.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/scality_fr.png",
+    "logoUrl": "https://corvus.gent/a/ce2lekwd.png",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -28028,7 +28028,7 @@ export default {
   },
   "https://startupmap.one/startup/shippeo_fr": {
     "domain": "www.shippeo.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/shippeo_fr.png",
+    "logoUrl": "https://corvus.gent/a/ix9o2700.png",
     "sector": "Supply Chain & Ops Tech",
     "signals": {
       "founded": {
@@ -28088,7 +28088,7 @@ export default {
   },
   "https://startupmap.one/startup/shotgun_fr": {
     "domain": "shotgun.live",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/shotgun_fr.png",
+    "logoUrl": "https://corvus.gent/a/hk76ecve.png",
     "sector": "Media & Entertainment",
     "signals": {
       "founded": {
@@ -28148,7 +28148,7 @@ export default {
   },
   "https://startupmap.one/startup/armature_fr": {
     "domain": "armature.tech",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/armature_fr.png",
+    "logoUrl": "https://corvus.gent/a/wi948gyn.png",
     "sector": "Developer Tools",
     "signals": {
       "founded": {
@@ -28208,7 +28208,7 @@ export default {
   },
   "https://startupmap.one/startup/volcaino_be": {
     "domain": "www.volcaino.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/volcaino_be.png",
+    "logoUrl": "https://corvus.gent/a/mz7ab2ob.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -28268,7 +28268,7 @@ export default {
   },
   "https://startupmap.one/startup/am_team_be": {
     "domain": "www.am-team.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/am_team_be.png",
+    "logoUrl": "https://corvus.gent/a/guj9w5sj.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -28314,7 +28314,7 @@ export default {
   },
   "https://startupmap.one/startup/xeos_care_be": {
     "domain": "xeos.care",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/xeos_care_be.png",
+    "logoUrl": "https://corvus.gent/a/kizkf000.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -28374,7 +28374,7 @@ export default {
   },
   "https://startupmap.one/startup/alice_be": {
     "domain": "www.alice.law",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/alice_be.png",
+    "logoUrl": "https://corvus.gent/a/bj53uzz8.png",
     "sector": "Legal & Compliance Tech",
     "signals": {
       "stage": {
@@ -28427,7 +28427,7 @@ export default {
   },
   "https://startupmap.one/startup/exhibitlyai_be": {
     "domain": "www.exhibitly.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/exhibitlyai_be.png",
+    "logoUrl": "https://corvus.gent/a/8iz1sg4s.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "stage": {
@@ -28480,7 +28480,7 @@ export default {
   },
   "https://startupmap.one/startup/harmoney_be": {
     "domain": "www.myharmoney.eu",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/harmoney_be.png",
+    "logoUrl": "https://corvus.gent/a/ee3uo63d.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -28540,7 +28540,7 @@ export default {
   },
   "https://startupmap.one/startup/holmes_be": {
     "domain": "useholmes.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/holmes_be.png",
+    "logoUrl": "https://corvus.gent/a/fhw7fbxk.png",
     "sector": "Developer Tools",
     "signals": {
       "founded": {
@@ -28600,7 +28600,7 @@ export default {
   },
   "https://startupmap.one/startup/24flow_be": {
     "domain": "24flow.eu",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/24flow_be.png",
+    "logoUrl": "https://corvus.gent/a/jxqkr7p7.png",
     "sector": "Supply Chain & Ops Tech",
     "signals": {
       "founded": {
@@ -28712,7 +28712,7 @@ export default {
   },
   "https://startupmap.one/startup/fixform_be": {
     "domain": "www.fixform.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/fixform_be.png",
+    "logoUrl": "https://corvus.gent/a/24qse8cr.png",
     "sector": "Software",
     "signals": {
       "founded": {
@@ -28772,7 +28772,7 @@ export default {
   },
   "https://startupmap.one/startup/paperbox_be": {
     "domain": "www.paperbox.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/paperbox_be.png",
+    "logoUrl": "https://corvus.gent/a/c2hszozw.png",
     "sector": "Productivity & Collaboration",
     "signals": {
       "founded": {
@@ -28877,7 +28877,7 @@ export default {
   },
   "https://startupmap.one/startup/shelfion_be": {
     "domain": "www.shelfion.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/shelfion_be.png",
+    "logoUrl": "https://corvus.gent/a/z3f18a6c.png",
     "sector": "Agritech & Foodtech",
     "signals": {
       "founded": {
@@ -28937,7 +28937,7 @@ export default {
   },
   "https://startupmap.one/startup/trendtracker_be": {
     "domain": "www.trendtracker.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/trendtracker_be.png",
+    "logoUrl": "https://corvus.gent/a/2xtjt18s.png",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -28997,7 +28997,7 @@ export default {
   },
   "https://startupmap.one/startup/verity_be": {
     "domain": "verity.global",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/verity_be.png",
+    "logoUrl": "https://corvus.gent/a/k1lau6j9.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -29102,7 +29102,7 @@ export default {
   },
   "https://startupmap.one/startup/cascador_health_be": {
     "domain": "www.cascador.health",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/cascador_health_be.png",
+    "logoUrl": "https://corvus.gent/a/jt1lplqs.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -29162,7 +29162,7 @@ export default {
   },
   "https://startupmap.one/startup/dropon_be": {
     "domain": "www.dropon.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/dropon_be.png",
+    "logoUrl": "https://corvus.gent/a/oy3zetl2.png",
     "sector": "Logistics",
     "signals": {
       "founded": {
@@ -29215,7 +29215,7 @@ export default {
   },
   "https://startupmap.one/startup/ella_be": {
     "domain": "ella.energy",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/ella_be.png",
+    "logoUrl": "https://corvus.gent/a/9owfslkh.png",
     "sector": "Energy",
     "signals": {
       "stage": {
@@ -29313,7 +29313,7 @@ export default {
   },
   "https://startupmap.one/startup/macadamia_be": {
     "domain": "macadamialabs.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/macadamia_be.png",
+    "logoUrl": "https://corvus.gent/a/vivdrri9.png",
     "sector": "Supply Chain & Ops Tech",
     "signals": {
       "founded": {
@@ -29425,7 +29425,7 @@ export default {
   },
   "https://startupmap.one/startup/alkmist_be": {
     "domain": "www.alkmist.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/alkmist_be.png",
+    "logoUrl": "https://corvus.gent/a/jf30yuk3.png",
     "sector": "Productivity & Collaboration",
     "signals": {
       "founded": {
@@ -29485,7 +29485,7 @@ export default {
   },
   "https://startupmap.one/startup/amphistar_be": {
     "domain": "www.amphistar.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/amphistar_be.png",
+    "logoUrl": "https://corvus.gent/a/5xw6bqam.png",
     "sector": "Biotech",
     "signals": {
       "founded": {
@@ -29545,7 +29545,7 @@ export default {
   },
   "https://startupmap.one/startup/clarida_be": {
     "domain": "clarida.bio",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/clarida_be.png",
+    "logoUrl": "https://corvus.gent/a/qv4stoed.png",
     "sector": "Biotech",
     "signals": {
       "founded": {
@@ -29650,7 +29650,7 @@ export default {
   },
   "https://startupmap.one/startup/nuclivision_be": {
     "domain": "www.nuclivision.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/nuclivision_be.png",
+    "logoUrl": "https://corvus.gent/a/ptromh21.png",
     "sector": "Medtech & Devices",
     "signals": {
       "founded": {
@@ -29710,7 +29710,7 @@ export default {
   },
   "https://startupmap.one/startup/rookoo_be": {
     "domain": "rookoo.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/rookoo_be.png",
+    "logoUrl": "https://corvus.gent/a/vav7j0dy.png",
     "sector": "Travel & Hospitality",
     "signals": {
       "founded": {
@@ -29770,7 +29770,7 @@ export default {
   },
   "https://startupmap.one/startup/toqua_be": {
     "domain": "toqua.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/toqua_be.png",
+    "logoUrl": "https://corvus.gent/a/i65loqe7.png",
     "sector": "Maritime",
     "signals": {
       "founded": {
@@ -29830,7 +29830,7 @@ export default {
   },
   "https://startupmap.one/startup/arcnc_be": {
     "domain": "arcnc.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/arcnc_be.png",
+    "logoUrl": "https://corvus.gent/a/eay4dtsc.png",
     "sector": "Robotics",
     "signals": {
       "founded": {
@@ -29914,7 +29914,7 @@ export default {
   },
   "https://startupmap.one/startup/betterstudio_be": {
     "domain": "betterstudio.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/betterstudio_be.png",
+    "logoUrl": "https://corvus.gent/a/l5d7z2g6.png",
     "sector": "E Commerce & Retail Tech",
     "signals": {
       "stage": {
@@ -29960,7 +29960,7 @@ export default {
   },
   "https://startupmap.one/startup/blulinc_be": {
     "domain": "www.blulinc.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/blulinc_be.png",
+    "logoUrl": "https://corvus.gent/a/wzfu9vg4.png",
     "sector": "Mobility & Transport",
     "signals": {
       "founded": {
@@ -30051,7 +30051,7 @@ export default {
   },
   "https://startupmap.one/startup/cubby": {
     "domain": "cubby.be",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/cubby.png",
+    "logoUrl": "https://corvus.gent/a/zx31zluv.png",
     "sector": "Hardware & Semiconductors",
     "signals": {
       "founded": {
@@ -30097,7 +30097,7 @@ export default {
   },
   "https://startupmap.one/startup/cyfora_be": {
     "domain": "www.cyfora.be",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/cyfora_be.png",
+    "logoUrl": "https://corvus.gent/a/vfx2orid.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -30136,7 +30136,7 @@ export default {
   },
   "https://startupmap.one/startup/dyamand_be": {
     "domain": "www.dyamand.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/dyamand_be.png",
+    "logoUrl": "https://corvus.gent/a/lt2ndr7t.png",
     "sector": "IoT & Sensors",
     "signals": {
       "founded": {
@@ -30182,7 +30182,7 @@ export default {
   },
   "https://startupmap.one/startup/edgx_be": {
     "domain": "",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/edgx_be.png",
+    "logoUrl": "https://corvus.gent/a/wost9n32.png",
     "sector": "Aerospace & Defense",
     "signals": {
       "founded": {
@@ -30228,7 +30228,7 @@ export default {
   },
   "https://startupmap.one/startup/askwhisper_be": {
     "domain": "askwhipser.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/askwhisper_be_v2.png",
+    "logoUrl": "https://corvus.gent/a/fcf9aiiy.jpg",
     "sector": "Travel & Hospitality",
     "signals": {
       "stage": {
@@ -30274,7 +30274,7 @@ export default {
   },
   "https://startupmap.one/startup/borro_be": {
     "domain": "www.borro.one",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/borro_be.png",
+    "logoUrl": "https://corvus.gent/a/ykpro1la.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -30327,7 +30327,7 @@ export default {
   },
   "https://startupmap.one/startup/botronics_be": {
     "domain": "botronics.be",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/botronics_be.png",
+    "logoUrl": "https://corvus.gent/a/lp5999ml.png",
     "sector": "Robotics",
     "signals": {
       "founded": {
@@ -30380,7 +30380,7 @@ export default {
   },
   "https://startupmap.one/startup/contracto_be": {
     "domain": "contracto-software.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/contracto_be.png",
+    "logoUrl": "https://corvus.gent/a/6nxhnn4p.png",
     "sector": "Legal & Compliance Tech",
     "signals": {
       "founded": {
@@ -30426,7 +30426,7 @@ export default {
   },
   "https://startupmap.one/startup/curewiki_be": {
     "domain": "www.curewiki.health",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/curewiki_be.png",
+    "logoUrl": "https://corvus.gent/a/bfmy4r87.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -30472,7 +30472,7 @@ export default {
   },
   "https://startupmap.one/startup/dwice": {
     "domain": "www.dwice.app",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/dwice.png",
+    "logoUrl": "https://corvus.gent/a/3ldbl6go.png",
     "sector": "E Commerce & Retail Tech",
     "signals": {
       "founded": {
@@ -30518,7 +30518,7 @@ export default {
   },
   "https://startupmap.one/startup/databe_be": {
     "domain": "data.be",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/databe_be.png",
+    "logoUrl": "https://corvus.gent/a/og513z6a.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -30564,7 +30564,7 @@ export default {
   },
   "https://startupmap.one/startup/easyvest_be": {
     "domain": "www.easyvest.be",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/easyvest_be.png",
+    "logoUrl": "https://corvus.gent/a/yg1uvbd7.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -30617,7 +30617,7 @@ export default {
   },
   "https://startupmap.one/startup/eforto_health_be": {
     "domain": "www.eforto.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/eforto_health_be.png",
+    "logoUrl": "https://corvus.gent/a/de8mxdy2.png",
     "sector": "Medtech & Devices",
     "signals": {
       "founded": {
@@ -30663,7 +30663,7 @@ export default {
   },
   "https://startupmap.one/startup/eno_be": {
     "domain": "www.enobase.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/eno_be.png",
+    "logoUrl": "https://corvus.gent/a/xvusywuq.png",
     "sector": "No Code & Automation",
     "signals": {
       "founded": {
@@ -30716,7 +30716,7 @@ export default {
   },
   "https://startupmap.one/startup/estimore_be": {
     "domain": "estimore.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/estimore_be.png",
+    "logoUrl": "https://corvus.gent/a/clx7umpk.png",
     "sector": "Construction Tech",
     "signals": {
       "stage": {
@@ -30755,7 +30755,7 @@ export default {
   },
   "https://startupmap.one/startup/exante_be": {
     "domain": "www.ex-ante.be",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/exante_be.png",
+    "logoUrl": "https://corvus.gent/a/pj9nl1vm.png",
     "sector": "Legal & Compliance Tech",
     "signals": {
       "founded": {
@@ -30801,7 +30801,7 @@ export default {
   },
   "https://startupmap.one/startup/govrn_be": {
     "domain": "www.govrn.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/govrn_be.png",
+    "logoUrl": "https://corvus.gent/a/2la75nne.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -30854,7 +30854,7 @@ export default {
   },
   "https://startupmap.one/startup/hozint_be": {
     "domain": "www.hozint.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/hozint_be.png",
+    "logoUrl": "https://corvus.gent/a/xos66xro.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -30900,7 +30900,7 @@ export default {
   },
   "https://startupmap.one/startup/humansintheloop_be": {
     "domain": "humansintheloop.be",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/humansintheloop_be.png",
+    "logoUrl": "https://corvus.gent/a/8kcmaj6h.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -30946,7 +30946,7 @@ export default {
   },
   "https://startupmap.one/startup/usehusk_be": {
     "domain": "usehusk.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/usehusk_be.png",
+    "logoUrl": "https://corvus.gent/a/y5ed81u2.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -30999,7 +30999,7 @@ export default {
   },
   "https://startupmap.one/startup/hylyght_be": {
     "domain": "hylyght.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/hylyght_be.png",
+    "logoUrl": "https://corvus.gent/a/joqgnfhj.png",
     "sector": "Sports & Wellness",
     "signals": {
       "founded": {
@@ -31052,7 +31052,7 @@ export default {
   },
   "https://startupmap.one/startup/livo_be": {
     "domain": "www.livo.pro",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/livo_be.png",
+    "logoUrl": "https://corvus.gent/a/ypezapnh.png",
     "sector": "Real Estate Tech",
     "signals": {
       "founded": {
@@ -31091,7 +31091,7 @@ export default {
   },
   "https://startupmap.one/startup/minersai_be": {
     "domain": "www.minersai.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/minersai_be.png",
+    "logoUrl": "https://corvus.gent/a/gfloy7z7.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -31144,7 +31144,7 @@ export default {
   },
   "https://startupmap.one/startup/mobvious_be": {
     "domain": "www.mobvious.me",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/mobvious_be.png",
+    "logoUrl": "https://corvus.gent/a/5z7jrqgs.png",
     "sector": "Logistics",
     "signals": {
       "founded": {
@@ -31190,7 +31190,7 @@ export default {
   },
   "https://startupmap.one/startup/nexus_agent_be": {
     "domain": "agent.nexus",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/nexus_agent_be.png",
+    "logoUrl": "https://corvus.gent/a/czq6ytuu.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -31243,7 +31243,7 @@ export default {
   },
   "https://startupmap.one/startup/novable_be": {
     "domain": "www.novable.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/novable_be.png",
+    "logoUrl": "https://corvus.gent/a/e2wnf1k8.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -31348,7 +31348,7 @@ export default {
   },
   "https://startupmap.one/startup/pingprice_be": {
     "domain": "www.pingprice.be",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/pingprice_be.png",
+    "logoUrl": "https://corvus.gent/a/p0sr7i0s.png",
     "sector": "E Commerce & Retail Tech",
     "signals": {
       "founded": {
@@ -31453,7 +31453,7 @@ export default {
   },
   "https://startupmap.one/startup/propease_be": {
     "domain": "propease.eu",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/propease_be.png",
+    "logoUrl": "https://corvus.gent/a/t87ax1y1.png",
     "sector": "Real Estate Tech",
     "signals": {
       "founded": {
@@ -31499,7 +31499,7 @@ export default {
   },
   "https://startupmap.one/startup/pleevi_be": {
     "domain": "www.pleevi.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/pleevi_be.png",
+    "logoUrl": "https://corvus.gent/a/4za7087a.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -31535,7 +31535,7 @@ export default {
   },
   "https://startupmap.one/startup/recovr_be": {
     "domain": "www.recovr.eu",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/recovr_be.png",
+    "logoUrl": "https://corvus.gent/a/bqob9tip.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -31588,7 +31588,7 @@ export default {
   },
   "https://startupmap.one/startup/shippr_io_be": {
     "domain": "www.shippr.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/shippr_io_be.png",
+    "logoUrl": "https://corvus.gent/a/ejfa93lh.png",
     "sector": "Logistics",
     "signals": {
       "founded": {
@@ -31641,7 +31641,7 @@ export default {
   },
   "https://startupmap.one/startup/shayp_be": {
     "domain": "www.shayp.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/shayp_be.png",
+    "logoUrl": "https://corvus.gent/a/1nldop6e.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -31694,7 +31694,7 @@ export default {
   },
   "https://startupmap.one/startup/smovin_be": {
     "domain": "www.smovin.app",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/smovin_be.png",
+    "logoUrl": "https://corvus.gent/a/3nhbg056.png",
     "sector": "Real Estate Tech",
     "signals": {
       "founded": {
@@ -31747,7 +31747,7 @@ export default {
   },
   "https://startupmap.one/startup/solv_be": {
     "domain": "www.solv.world",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/solv_be.png",
+    "logoUrl": "https://corvus.gent/a/qzolxd4d.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -31783,7 +31783,7 @@ export default {
   },
   "https://startupmap.one/startup/soda_be": {
     "domain": "www.soda.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/soda_be.png",
+    "logoUrl": "https://corvus.gent/a/uodyqvha.png",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -31836,7 +31836,7 @@ export default {
   },
   "https://startupmap.one/startup/sonaar_be": {
     "domain": "www.sonaar.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/sonaar_be.png",
+    "logoUrl": "https://corvus.gent/a/3ym71gfk.jpg",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -31882,7 +31882,7 @@ export default {
   },
   "https://startupmap.one/startup/synergy_ai_be": {
     "domain": "masynergy.eu",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/synergy_ai_be.png",
+    "logoUrl": "https://corvus.gent/a/rjsrhtny.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -31928,7 +31928,7 @@ export default {
   },
   "https://startupmap.one/startup/curvecatch_be": {
     "domain": "www.curvecatch.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/curvecatch_be.png",
+    "logoUrl": "https://corvus.gent/a/pjbuo7sy.png",
     "sector": "E Commerce & Retail",
     "signals": {
       "founded": {
@@ -31981,7 +31981,7 @@ export default {
   },
   "https://startupmap.one/startup/d_crbn_be": {
     "domain": "d-crbn.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/d_crbn_be.png",
+    "logoUrl": "https://corvus.gent/a/iswa5boy.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -32034,7 +32034,7 @@ export default {
   },
   "https://startupmap.one/startup/deselect_be": {
     "domain": "deselect.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/deselect_be.png",
+    "logoUrl": "https://corvus.gent/a/604jip8v.jpg",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -32132,7 +32132,7 @@ export default {
   },
   "https://startupmap.one/startup/driven_be": {
     "domain": "www.driven.work",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/driven_be.png",
+    "logoUrl": "https://corvus.gent/a/tr5bmlke.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "stage": {
@@ -32178,7 +32178,7 @@ export default {
   },
   "https://startupmap.one/startup/evolv_be": {
     "domain": "evolvstudio.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/evolv_be.png",
+    "logoUrl": "https://corvus.gent/a/a605zro8.jpg",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -32224,7 +32224,7 @@ export default {
   },
   "https://startupmap.one/startup/fromwastetowind_be": {
     "domain": "www.fromwastetowind.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/fromwastetowind_be.png",
+    "logoUrl": "https://corvus.gent/a/bk29qx18.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -32263,7 +32263,7 @@ export default {
   },
   "https://startupmap.one/startup/homy": {
     "domain": "www.tellhomy.be",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/homy.png",
+    "logoUrl": "https://corvus.gent/a/0z8m1m0r.png",
     "sector": "Real Estate Tech",
     "signals": {
       "founded": {
@@ -32309,7 +32309,7 @@ export default {
   },
   "https://startupmap.one/startup/immunewatch_be": {
     "domain": "www.immunewatch.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/immunewatch_be.png",
+    "logoUrl": "https://corvus.gent/a/c19p425l.jpg",
     "sector": "Biotech",
     "signals": {
       "founded": {
@@ -32348,7 +32348,7 @@ export default {
   },
   "https://startupmap.one/startup/innocens_be": {
     "domain": "innocens.be",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/innocens_be.png",
+    "logoUrl": "https://corvus.gent/a/jk1sb0bn.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -32384,7 +32384,7 @@ export default {
   },
   "https://startupmap.one/startup/koios_care_be": {
     "domain": "koios.care",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/koios_care_be.png",
+    "logoUrl": "https://corvus.gent/a/scsbcr34.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -32437,7 +32437,7 @@ export default {
   },
   "https://startupmap.one/startup/lifepowr_be": {
     "domain": "www.lifepowr.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/lifepowr_be.png",
+    "logoUrl": "https://corvus.gent/a/jnrf3zyd.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -32490,7 +32490,7 @@ export default {
   },
   "https://startupmap.one/startup/lynqo_be": {
     "domain": "www.lynqo.care",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/lynqo_be.png",
+    "logoUrl": "https://corvus.gent/a/maarpwwp.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -32536,7 +32536,7 @@ export default {
   },
   "https://startupmap.one/startup/marple_be": {
     "domain": "www.marpledata.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/marple_be.png",
+    "logoUrl": "https://corvus.gent/a/2b62mn4w.png",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -32641,7 +32641,7 @@ export default {
   },
   "https://startupmap.one/startup/maya_be": {
     "domain": "www.mayatravel.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/maya_be.png",
+    "logoUrl": "https://corvus.gent/a/oeea4yek.png",
     "sector": "Travel & Hospitality",
     "signals": {
       "founded": {
@@ -32694,7 +32694,7 @@ export default {
   },
   "https://startupmap.one/startup/ngrave_be": {
     "domain": "ngrave.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/ngrave_be.png",
+    "logoUrl": "https://corvus.gent/a/pjcnpfih.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -32747,7 +32747,7 @@ export default {
   },
   "https://startupmap.one/startup/oper_credits_be": {
     "domain": "www.opercredits.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/oper_credits_be.png",
+    "logoUrl": "https://corvus.gent/a/ibbmm5a3.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -32800,7 +32800,7 @@ export default {
   },
   "https://startupmap.one/startup/palau_be": {
     "domain": "www.palauproject.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/palau_be.png",
+    "logoUrl": "https://corvus.gent/a/4vah6kjj.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -32839,7 +32839,7 @@ export default {
   },
   "https://startupmap.one/startup/qpinch_be": {
     "domain": "www.qpinch.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/qpinch_be.png",
+    "logoUrl": "https://corvus.gent/a/fx2dd1cr.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -32892,7 +32892,7 @@ export default {
   },
   "https://startupmap.one/startup/tryrank_be": {
     "domain": "tryrank.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/tryrank_be.png",
+    "logoUrl": "https://corvus.gent/a/sph607hm.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -32938,7 +32938,7 @@ export default {
   },
   "https://startupmap.one/startup/sentiance_be": {
     "domain": "www.sentiance.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/sentiance_be.png",
+    "logoUrl": "https://corvus.gent/a/phj70w6j.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -32991,7 +32991,7 @@ export default {
   },
   "https://startupmap.one/startup/shipnext_be": {
     "domain": "shipnext.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/shipnext_be.png",
+    "logoUrl": "https://corvus.gent/a/bodgfq84.png",
     "sector": "Maritime",
     "signals": {
       "founded": {
@@ -33044,7 +33044,7 @@ export default {
   },
   "https://startupmap.one/startup/skyebase_be": {
     "domain": "skyebase.be",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/skyebase_be.png",
+    "logoUrl": "https://corvus.gent/a/lm33l54u.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -33097,7 +33097,7 @@ export default {
   },
   "https://startupmap.one/startup/speaksoon_be": {
     "domain": "speaksoon.app",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/speaksoon_be.png",
+    "logoUrl": "https://corvus.gent/a/ecrhbqxs.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -33136,7 +33136,7 @@ export default {
   },
   "https://startupmap.one/startup/spiralink_be": {
     "domain": "spiralink.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/spiralink_be.png",
+    "logoUrl": "https://corvus.gent/a/pwah30mo.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -33175,7 +33175,7 @@ export default {
   },
   "https://startupmap.one/startup/sweep_bright_be": {
     "domain": "sweepbright.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/sweep_bright_be.png",
+    "logoUrl": "https://corvus.gent/a/tplzcfl5.png",
     "sector": "Real Estate Tech",
     "signals": {
       "founded": {
@@ -33228,7 +33228,7 @@ export default {
   },
   "https://startupmap.one/startup/taglayer_be": {
     "domain": "www.taglayer.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/taglayer_be.png",
+    "logoUrl": "https://corvus.gent/a/ab2gwqch.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -33274,7 +33274,7 @@ export default {
   },
   "https://startupmap.one/startup/toolsquare_be": {
     "domain": "www.toolsquare.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/toolsquare_be.png",
+    "logoUrl": "https://corvus.gent/a/331xtodf.png",
     "sector": "Supply Chain & Ops Tech",
     "signals": {
       "founded": {
@@ -33320,7 +33320,7 @@ export default {
   },
   "https://startupmap.one/startup/trackbox_be": {
     "domain": "trackbox.be",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/trackbox_be.png",
+    "logoUrl": "https://corvus.gent/a/066lbron.png",
     "sector": "Sports & Wellness",
     "signals": {
       "founded": {
@@ -33425,7 +33425,7 @@ export default {
   },
   "https://startupmap.one/startup/antleron_be": {
     "domain": "www.antleron.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/antleron_be.png",
+    "logoUrl": "https://corvus.gent/a/tikb0qph.png",
     "sector": "Biotech",
     "signals": {
       "founded": {
@@ -33464,7 +33464,7 @@ export default {
   },
   "https://startupmap.one/startup/astrivax_be": {
     "domain": "www.astrivax.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/astrivax_be.png",
+    "logoUrl": "https://corvus.gent/a/cpni8zu4.png",
     "sector": "Biotech",
     "signals": {
       "founded": {
@@ -33517,7 +33517,7 @@ export default {
   },
   "https://startupmap.one/startup/atmire_be": {
     "domain": "www.atmire.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/atmire_be.png",
+    "logoUrl": "https://corvus.gent/a/k63zcyd1.png",
     "sector": "Edtech",
     "signals": {
       "founded": {
@@ -33556,7 +33556,7 @@ export default {
   },
   "https://startupmap.one/startup/brainphonics": {
     "domain": "www.brainphonics.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/brainphonics.png",
+    "logoUrl": "https://corvus.gent/a/p44ul4ki.png",
     "sector": "Medtech & Devices",
     "signals": {
       "founded": {
@@ -33609,7 +33609,7 @@ export default {
   },
   "https://startupmap.one/startup/codon_one_be": {
     "domain": "codon.one",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/codon_one_be.png",
+    "logoUrl": "https://corvus.gent/a/ikol8t6s.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -33655,7 +33655,7 @@ export default {
   },
   "https://startupmap.one/startup/common_sense_robotics_be": {
     "domain": "www.commonsense-robotics.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/common_sense_robotics_be.png",
+    "logoUrl": "https://corvus.gent/a/v1qt7zyb.png",
     "sector": "Robotics",
     "signals": {
       "founded": {
@@ -33708,7 +33708,7 @@ export default {
   },
   "https://startupmap.one/startup/creyten_be": {
     "domain": "www.creyten.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/creyten_be.png",
+    "logoUrl": "https://corvus.gent/a/w1j8dy1c.png",
     "sector": "Legal & Compliance Tech",
     "signals": {
       "founded": {
@@ -33754,7 +33754,7 @@ export default {
   },
   "https://startupmap.one/startup/datavillage_be": {
     "domain": "www.datavillage.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/datavillage_be.png",
+    "logoUrl": "https://corvus.gent/a/yc596wd3.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -33859,7 +33859,7 @@ export default {
   },
   "https://startupmap.one/startup/extraqt_be": {
     "domain": "www.extraqt.be",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/extraqt_be.png",
+    "logoUrl": "https://corvus.gent/a/p14485ch.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -33905,7 +33905,7 @@ export default {
   },
   "https://startupmap.one/startup/fishway_be": {
     "domain": "fishway.be",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/fishway_be.png",
+    "logoUrl": "https://corvus.gent/a/betkrfow.png",
     "sector": "Agritech & Foodtech",
     "signals": {
       "founded": {
@@ -33944,7 +33944,7 @@ export default {
   },
   "https://startupmap.one/startup/forcebit_be": {
     "domain": "www.forcebit.eu",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/forcebit_be.png",
+    "logoUrl": "https://corvus.gent/a/zn3p79em.png",
     "sector": "IoT & Sensors",
     "signals": {
       "founded": {
@@ -33997,7 +33997,7 @@ export default {
   },
   "https://startupmap.one/startup/gridual_be": {
     "domain": "gridual.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/gridual_be.png",
+    "logoUrl": "https://corvus.gent/a/scs5dhvu.png",
     "sector": "Energy",
     "signals": {
       "stage": {
@@ -34043,7 +34043,7 @@ export default {
   },
   "https://startupmap.one/startup/heliovision_be": {
     "domain": "www.heliovision.be",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/heliovision_be.png",
+    "logoUrl": "https://corvus.gent/a/zb9mxh0n.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -34089,7 +34089,7 @@ export default {
   },
   "https://startupmap.one/startup/lynxcare_be": {
     "domain": "www.lynx.care",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/lynxcare_be.png",
+    "logoUrl": "https://corvus.gent/a/oqvye32u.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -34142,7 +34142,7 @@ export default {
   },
   "https://startupmap.one/startup/mindspeller_be": {
     "domain": "www.mindspeller.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/mindspeller_be.png",
+    "logoUrl": "https://corvus.gent/a/pq2p8in9.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -34195,7 +34195,7 @@ export default {
   },
   "https://startupmap.one/startup/novelyeast_be": {
     "domain": "www.novelyeast.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/novelyeast_be.png",
+    "logoUrl": "https://corvus.gent/a/9318un75.png",
     "sector": "Biotech",
     "signals": {
       "founded": {
@@ -34234,7 +34234,7 @@ export default {
   },
   "https://startupmap.one/startup/montis_biosciences_be": {
     "domain": "www.montisbio.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/montis_biosciences_be.png",
+    "logoUrl": "https://corvus.gent/a/07jenw3q.png",
     "sector": "Biotech",
     "signals": {
       "founded": {
@@ -34287,7 +34287,7 @@ export default {
   },
   "https://startupmap.one/startup/nunki_be": {
     "domain": "nunki.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/nunki_be.png",
+    "logoUrl": "https://corvus.gent/a/lx0aztvs.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -34333,7 +34333,7 @@ export default {
   },
   "https://startupmap.one/startup/pulsifymedical_be": {
     "domain": "www.pulsify-medical.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/pulsifymedical_be.png",
+    "logoUrl": "https://corvus.gent/a/fge4wpj1.png",
     "sector": "Medtech & Devices",
     "signals": {
       "founded": {
@@ -34386,7 +34386,7 @@ export default {
   },
   "https://startupmap.one/startup/paleo_be": {
     "domain": "paleo.bio",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/paleo_be.png",
+    "logoUrl": "https://corvus.gent/a/swp91koy.png",
     "sector": "Agritech & Foodtech",
     "signals": {
       "founded": {
@@ -34439,7 +34439,7 @@ export default {
   },
   "https://startupmap.one/startup/rewind_therapeutics_be": {
     "domain": "rwdtx.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/rewind_therapeutics_be.png",
+    "logoUrl": "https://corvus.gent/a/y3hrbjdn.png",
     "sector": "Biotech",
     "signals": {
       "founded": {
@@ -34492,7 +34492,7 @@ export default {
   },
   "https://startupmap.one/startup/setle_be": {
     "domain": "setle.app",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/setle_be.png",
+    "logoUrl": "https://corvus.gent/a/gkwbhdvm.png",
     "sector": "Real Estate Tech",
     "signals": {
       "founded": {
@@ -34545,7 +34545,7 @@ export default {
   },
   "https://startupmap.one/startup/skygor_be": {
     "domain": "www.skygor.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/skygor_be.png",
+    "logoUrl": "https://corvus.gent/a/g0rov3xt.png",
     "sector": "Aviation & Drones",
     "signals": {
       "founded": {
@@ -34591,7 +34591,7 @@ export default {
   },
   "https://startupmap.one/startup/preply_es": {
     "domain": "preply.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/preply_es.png",
+    "logoUrl": "https://corvus.gent/a/pydr6is8.png",
     "sector": "Edtech",
     "signals": {
       "founded": {
@@ -34651,7 +34651,7 @@ export default {
   },
   "https://startupmap.one/startup/bsport_es": {
     "domain": "pro.bsport.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/bsport_es.png",
+    "logoUrl": "https://corvus.gent/a/od4u1vt5.png",
     "sector": "Sports & Wellness",
     "signals": {
       "founded": {
@@ -34701,7 +34701,7 @@ export default {
   },
   "https://startupmap.one/startup/innovamat_es": {
     "domain": "www.innovamat.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/innovamat_es.png",
+    "logoUrl": "https://corvus.gent/a/7fihw0m4.png",
     "sector": "Edtech",
     "signals": {
       "founded": {
@@ -34761,7 +34761,7 @@ export default {
   },
   "https://startupmap.one/startup/build38_es": {
     "domain": "build38.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/build38_es.png",
+    "logoUrl": "https://corvus.gent/a/wrwgffgm.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -34821,7 +34821,7 @@ export default {
   },
   "https://startupmap.one/startup/amenitiz_es": {
     "domain": "amenitiz.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/amenitiz_es.png",
+    "logoUrl": "https://corvus.gent/a/33cwyhug.png",
     "sector": "Travel & Hospitality",
     "signals": {
       "founded": {
@@ -34940,7 +34940,7 @@ export default {
   },
   "https://startupmap.one/startup/veriff_es": {
     "domain": "www.veriff.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/veriff_es.png",
+    "logoUrl": "https://corvus.gent/a/iml6aqd6.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -35000,7 +35000,7 @@ export default {
   },
   "https://startupmap.one/startup/genesy_es": {
     "domain": "enginy.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/genesy_es.png",
+    "logoUrl": "https://corvus.gent/a/0nbf887g.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -35060,7 +35060,7 @@ export default {
   },
   "https://startupmap.one/startup/abacum_es": {
     "domain": "abacum.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/abacum_es.png",
+    "logoUrl": "https://corvus.gent/a/3y8dk7o9.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -35120,7 +35120,7 @@ export default {
   },
   "https://startupmap.one/startup/inbrain_neuroelectronics_es": {
     "domain": "inbrain-neuroelectronics.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/inbrain_neuroelectronics_es.png",
+    "logoUrl": "https://corvus.gent/a/g4zifa9w.png",
     "sector": "Biotech",
     "signals": {
       "founded": {
@@ -35180,7 +35180,7 @@ export default {
   },
   "https://startupmap.one/startup/seqera_es": {
     "domain": "seqera.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/seqera_es_v2.png",
+    "logoUrl": "https://corvus.gent/a/a9p9u2bn.jpg",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -35240,7 +35240,7 @@ export default {
   },
   "https://startupmap.one/startup/haddock_es": {
     "domain": "haddock.app",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/haddock_es.png",
+    "logoUrl": "https://corvus.gent/a/slg3gi20.png",
     "sector": "Agritech & Foodtech",
     "signals": {
       "founded": {
@@ -35293,7 +35293,7 @@ export default {
   },
   "https://startupmap.one/startup/payfit_es": {
     "domain": "payfit.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/payfit_es.png",
+    "logoUrl": "https://corvus.gent/a/4hvgg5ko.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -35353,7 +35353,7 @@ export default {
   },
   "https://startupmap.one/startup/novicap_es": {
     "domain": "novicap.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/novicap_es.png",
+    "logoUrl": "https://corvus.gent/a/r2ukmspx.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -35406,7 +35406,7 @@ export default {
   },
   "https://startupmap.one/startup/loyal_guru_es": {
     "domain": "www.loyal.guru",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/loyal_guru_es.png",
+    "logoUrl": "https://corvus.gent/a/l8tjzvi6.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -35466,7 +35466,7 @@ export default {
   },
   "https://startupmap.one/startup/submer_es": {
     "domain": "submer.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/submer_es.png",
+    "logoUrl": "https://corvus.gent/a/3gd4mi7v.png",
     "sector": "Hardware & Semiconductors",
     "signals": {
       "founded": {
@@ -35526,7 +35526,7 @@ export default {
   },
   "https://startupmap.one/startup/lodgify_es": {
     "domain": "www.lodgify.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/lodgify_es.png",
+    "logoUrl": "https://corvus.gent/a/engn9jbo.png",
     "sector": "Travel & Hospitality",
     "signals": {
       "founded": {
@@ -35586,7 +35586,7 @@ export default {
   },
   "https://startupmap.one/startup/topsort_es": {
     "domain": "www.topsort.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/topsort_es.png",
+    "logoUrl": "https://corvus.gent/a/byq8k92p.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -35646,7 +35646,7 @@ export default {
   },
   "https://startupmap.one/startup/typeform_es": {
     "domain": "www.typeform.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/typeform_es.png",
+    "logoUrl": "https://corvus.gent/a/wacf3woc.png",
     "sector": "Productivity & Collaboration",
     "signals": {
       "founded": {
@@ -35706,7 +35706,7 @@ export default {
   },
   "https://startupmap.one/startup/wattwin_es": {
     "domain": "wattwin.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/wattwin_es.png",
+    "logoUrl": "https://corvus.gent/a/ksdscufe.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -35766,7 +35766,7 @@ export default {
   },
   "https://startupmap.one/startup/nearby_computing_es": {
     "domain": "www.nearbycomputing.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/nearby_computing_es.png",
+    "logoUrl": "https://corvus.gent/a/iuxkfmhr.png",
     "sector": "No Code & Automation",
     "signals": {
       "founded": {
@@ -35826,7 +35826,7 @@ export default {
   },
   "https://startupmap.one/startup/wallapop_es": {
     "domain": "wallapop.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/wallapop_es.png",
+    "logoUrl": "https://corvus.gent/a/a4id2h1d.png",
     "sector": "E Commerce & Retail",
     "signals": {
       "founded": {
@@ -35886,7 +35886,7 @@ export default {
   },
   "https://startupmap.one/startup/macadam_es": {
     "domain": "www.macadam.app",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/macadam_es.png",
+    "logoUrl": "https://corvus.gent/a/jkkn1hzt.png",
     "sector": "Sports & Wellness",
     "signals": {
       "founded": {
@@ -35939,7 +35939,7 @@ export default {
   },
   "https://startupmap.one/startup/shalion_es": {
     "domain": "shalion.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/shalion_es.png",
+    "logoUrl": "https://corvus.gent/a/gda5o8m8.png",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -35999,7 +35999,7 @@ export default {
   },
   "https://startupmap.one/startup/flexidao_es": {
     "domain": "www.flexidao.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/flexidao_es.png",
+    "logoUrl": "https://corvus.gent/a/e9v1zftz.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -36059,7 +36059,7 @@ export default {
   },
   "https://startupmap.one/startup/hemav_es": {
     "domain": "hemav.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/hemav_es.png",
+    "logoUrl": "https://corvus.gent/a/st4ompwq.png",
     "sector": "Agritech & Foodtech",
     "signals": {
       "founded": {
@@ -36119,7 +36119,7 @@ export default {
   },
   "https://startupmap.one/startup/bespoke_pixel_s_es": {
     "domain": "bespokepixel.studio",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/bespoke_pixel_s_es.png",
+    "logoUrl": "https://corvus.gent/a/675reo7l.png",
     "sector": "Media & Entertainment",
     "signals": {
       "founded": {
@@ -36172,7 +36172,7 @@ export default {
   },
   "https://startupmap.one/startup/landbot_es": {
     "domain": "landbot.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/landbot_es.png",
+    "logoUrl": "https://corvus.gent/a/37u375sx.png",
     "sector": "No Code & Automation",
     "signals": {
       "founded": {
@@ -36232,7 +36232,7 @@ export default {
   },
   "https://startupmap.one/startup/eroots_analytic_es": {
     "domain": "eroots.tech",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/eroots_analytic_es.png",
+    "logoUrl": "https://corvus.gent/a/9qjzr6a2.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -36278,7 +36278,7 @@ export default {
   },
   "https://startupmap.one/startup/mitiga_solutions_es": {
     "domain": "www.mitigasolutions.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/mitiga_solutions_es.png",
+    "logoUrl": "https://corvus.gent/a/ocub4ef2.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -36338,7 +36338,7 @@ export default {
   },
   "https://startupmap.one/startup/lawwwing_es": {
     "domain": "lawwwing.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/lawwwing_es.png",
+    "logoUrl": "https://corvus.gent/a/jivndng4.png",
     "sector": "Legal & Compliance Tech",
     "signals": {
       "founded": {
@@ -36398,7 +36398,7 @@ export default {
   },
   "https://startupmap.one/startup/3d_digital_venue_es": {
     "domain": "3ddigitalvenue.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/3d_digital_venue_es.png",
+    "logoUrl": "https://corvus.gent/a/5tskn7mo.png",
     "sector": "Sports & Wellness",
     "signals": {
       "founded": {
@@ -36451,7 +36451,7 @@ export default {
   },
   "https://startupmap.one/startup/afori_es": {
     "domain": "www.afori.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/afori_es.png",
+    "logoUrl": "https://corvus.gent/a/rxnxym5c.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -36504,7 +36504,7 @@ export default {
   },
   "https://startupmap.one/startup/antidote_es": {
     "domain": "antidote.gg",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/antidote_es.png",
+    "logoUrl": "https://corvus.gent/a/nnn65w1w.png",
     "sector": "Media & Entertainment",
     "signals": {
       "stage": {
@@ -36550,7 +36550,7 @@ export default {
   },
   "https://startupmap.one/startup/beau_es": {
     "domain": "beau.to",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/beau_es.png",
+    "logoUrl": "https://corvus.gent/a/nl8avshu.png",
     "sector": "Productivity & Collaboration",
     "signals": {
       "founded": {
@@ -36603,7 +36603,7 @@ export default {
   },
   "https://startupmap.one/startup/badi_es": {
     "domain": "www.badi.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/badi_es.png",
+    "logoUrl": "https://corvus.gent/a/nglbe3wv.png",
     "sector": "Real Estate Tech",
     "signals": {
       "founded": {
@@ -36656,7 +36656,7 @@ export default {
   },
   "https://startupmap.one/startup/biorce_es": {
     "domain": "www.biorce.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/biorce_es.png",
+    "logoUrl": "https://corvus.gent/a/1g9rztvt.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -36709,7 +36709,7 @@ export default {
   },
   "https://startupmap.one/startup/busup_es": {
     "domain": "www.busup.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/busup_es.png",
+    "logoUrl": "https://corvus.gent/a/8b3mak1j.png",
     "sector": "Mobility & Transport",
     "signals": {
       "founded": {
@@ -36762,7 +36762,7 @@ export default {
   },
   "https://startupmap.one/startup/happy_robot_us": {
     "domain": "www.happyrobot.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/happy_robot_us.png",
+    "logoUrl": "https://corvus.gent/a/aonry2ns.jpg",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -36881,7 +36881,7 @@ export default {
   },
   "https://startupmap.one/startup/fracttal_es": {
     "domain": "www.fracttal.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/fracttal_es.png",
+    "logoUrl": "https://corvus.gent/a/me67iwjq.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -36941,7 +36941,7 @@ export default {
   },
   "https://startupmap.one/startup/causa_prima_es": {
     "domain": "causaprima.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/causa_prima_es.png",
+    "logoUrl": "https://corvus.gent/a/7z0sisfr.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -36991,7 +36991,7 @@ export default {
   },
   "https://startupmap.one/startup/jotelulu_es": {
     "domain": "jotelulu.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/jotelulu_es.png",
+    "logoUrl": "https://corvus.gent/a/uixilrpu.png",
     "sector": "Developer Tools",
     "signals": {
       "founded": {
@@ -37051,7 +37051,7 @@ export default {
   },
   "https://startupmap.one/startup/karumi_es": {
     "domain": "karumi.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/karumi_es.png",
+    "logoUrl": "https://corvus.gent/a/iqkxrazn.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -37111,7 +37111,7 @@ export default {
   },
   "https://startupmap.one/startup/orbio_es": {
     "domain": "orbio.work",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/orbio_es.png",
+    "logoUrl": "https://corvus.gent/a/z7fgvv7a.jpg",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -37171,7 +37171,7 @@ export default {
   },
   "https://startupmap.one/startup/shakers_es": {
     "domain": "www.shakersworks.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/shakers_es.png",
+    "logoUrl": "https://corvus.gent/a/dsdb0oxk.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -37231,7 +37231,7 @@ export default {
   },
   "https://startupmap.one/startup/embat_es": {
     "domain": "www.embat.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/embat_es.png",
+    "logoUrl": "https://corvus.gent/a/7z5fxsl3.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -37291,7 +37291,7 @@ export default {
   },
   "https://startupmap.one/startup/infinitewatch_es": {
     "domain": "www.infinitewatch.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/infinitewatch_es.png",
+    "logoUrl": "https://corvus.gent/a/n9zbowzz.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -37351,7 +37351,7 @@ export default {
   },
   "https://startupmap.one/startup/playtomic_es": {
     "domain": "playtomic.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/playtomic_es.png",
+    "logoUrl": "https://corvus.gent/a/5sv45x3p.png",
     "sector": "Sports & Wellness",
     "signals": {
       "founded": {
@@ -37411,7 +37411,7 @@ export default {
   },
   "https://startupmap.one/startup/spotahome_es": {
     "domain": "www.spotahome.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/spotahome_es.png",
+    "logoUrl": "https://corvus.gent/a/2nf9sprb.png",
     "sector": "Real Estate Tech",
     "signals": {
       "founded": {
@@ -37471,7 +37471,7 @@ export default {
   },
   "https://startupmap.one/startup/reversa_es": {
     "domain": "reversa.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/reversa_es.png",
+    "logoUrl": "https://corvus.gent/a/qjn7qrbf.png",
     "sector": "Legal & Compliance Tech",
     "signals": {
       "founded": {
@@ -37517,7 +37517,7 @@ export default {
   },
   "https://startupmap.one/startup/savana_es": {
     "domain": "savanamed.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/savana_es.png",
+    "logoUrl": "https://corvus.gent/a/zct5b4a8.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -37577,7 +37577,7 @@ export default {
   },
   "https://startupmap.one/startup/graphext_es": {
     "domain": "www.graphext.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/graphext_es.png",
+    "logoUrl": "https://corvus.gent/a/5d738kuu.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -37637,7 +37637,7 @@ export default {
   },
   "https://startupmap.one/startup/indigitall_es": {
     "domain": "indigitall.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/indigitall_es.png",
+    "logoUrl": "https://corvus.gent/a/ivt19d5h.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -37687,7 +37687,7 @@ export default {
   },
   "https://startupmap.one/startup/invopop_es": {
     "domain": "www.invopop.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/invopop_es.png",
+    "logoUrl": "https://corvus.gent/a/b74v247k.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -37747,7 +37747,7 @@ export default {
   },
   "https://startupmap.one/startup/tinybird_es": {
     "domain": "www.tinybird.co",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/tinybird_es.png",
+    "logoUrl": "https://corvus.gent/a/0l31aenr.png",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -37807,7 +37807,7 @@ export default {
   },
   "https://startupmap.one/startup/lingokids_es": {
     "domain": "lingokids.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/lingokids_es.png",
+    "logoUrl": "https://corvus.gent/a/wy74tvw3.png",
     "sector": "Edtech",
     "signals": {
       "founded": {
@@ -37926,7 +37926,7 @@ export default {
   },
   "https://startupmap.one/startup/smart_protection_es": {
     "domain": "www.smartprotection.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/smart_protection_es.png",
+    "logoUrl": "https://corvus.gent/a/x0k6sz32.jpg",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -37986,7 +37986,7 @@ export default {
   },
   "https://startupmap.one/startup/24genetics_es": {
     "domain": "24genetics.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/24genetics_es.png",
+    "logoUrl": "https://corvus.gent/a/oisfx1lh.png",
     "sector": "Biotech",
     "signals": {
       "founded": {
@@ -38032,7 +38032,7 @@ export default {
   },
   "https://startupmap.one/startup/8layers_es": {
     "domain": "www.8layers.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/8layers_es.png",
+    "logoUrl": "https://corvus.gent/a/w4yvqhoq.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -38078,7 +38078,7 @@ export default {
   },
   "https://startupmap.one/startup/acoru_es": {
     "domain": "www.acoru.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/acoru_es.png",
+    "logoUrl": "https://corvus.gent/a/10enggti.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -38131,7 +38131,7 @@ export default {
   },
   "https://startupmap.one/startup/barbara_es": {
     "domain": "www.barbara.tech",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/barbara_es.png",
+    "logoUrl": "https://corvus.gent/a/qqtsobvi.jpg",
     "sector": "Supply Chain & Ops Tech",
     "signals": {
       "founded": {
@@ -38184,7 +38184,7 @@ export default {
   },
   "https://startupmap.one/startup/clevergy_es": {
     "domain": "clever.gy",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/clevergy_es.png",
+    "logoUrl": "https://corvus.gent/a/8btc1fsx.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -38237,7 +38237,7 @@ export default {
   },
   "https://startupmap.one/startup/citibox_es": {
     "domain": "citibox.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/citibox_es.png",
+    "logoUrl": "https://corvus.gent/a/zbw57ryw.png",
     "sector": "Logistics",
     "signals": {
       "founded": {
@@ -38290,7 +38290,7 @@ export default {
   },
   "https://startupmap.one/startup/dealcar_es": {
     "domain": "www.dealcar.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/dealcar_es.png",
+    "logoUrl": "https://corvus.gent/a/ndwiwb2d.png",
     "sector": "Mobility & Transport",
     "signals": {
       "founded": {
@@ -38343,7 +38343,7 @@ export default {
   },
   "https://startupmap.one/startup/dedge_security_es": {
     "domain": "dedgesecurity.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/dedge_security_es.png",
+    "logoUrl": "https://corvus.gent/a/yi1cdtlw.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -38396,7 +38396,7 @@ export default {
   },
   "https://startupmap.one/startup/eccocar_es": {
     "domain": "www.eccocar.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/eccocar_es.png",
+    "logoUrl": "https://corvus.gent/a/rjuptaas.png",
     "sector": "Mobility & Transport",
     "signals": {
       "founded": {
@@ -38449,7 +38449,7 @@ export default {
   },
   "https://startupmap.one/startup/frenetic_es": {
     "domain": "www.frenetic.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/frenetic_es.png",
+    "logoUrl": "https://corvus.gent/a/0ajtya2q.png",
     "sector": "Hardware & Semiconductors",
     "signals": {
       "founded": {
@@ -38502,7 +38502,7 @@ export default {
   },
   "https://startupmap.one/startup/gataca_es": {
     "domain": "gataca.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/gataca_es.png",
+    "logoUrl": "https://corvus.gent/a/xh4yltl0.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -38555,7 +38555,7 @@ export default {
   },
   "https://startupmap.one/startup/halo_space_es": {
     "domain": "www.halospaceflight.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/halo_space_es.png",
+    "logoUrl": "https://corvus.gent/a/gxnhkfsp.png",
     "sector": "Aerospace & Defense",
     "signals": {
       "founded": {
@@ -38601,7 +38601,7 @@ export default {
   },
   "https://startupmap.one/startup/huspy_es": {
     "domain": "huspy.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/huspy_es.png",
+    "logoUrl": "https://corvus.gent/a/jyvxdl4j.png",
     "sector": "Real Estate Tech",
     "signals": {
       "founded": {
@@ -38654,7 +38654,7 @@ export default {
   },
   "https://startupmap.one/startup/influencity_es": {
     "domain": "influencity.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/influencity_es.png",
+    "logoUrl": "https://corvus.gent/a/0j89coiy.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -38707,7 +38707,7 @@ export default {
   },
   "https://startupmap.one/startup/luyoa_es": {
     "domain": "luyoa.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/luyoa_es.png",
+    "logoUrl": "https://corvus.gent/a/uofbaxmu.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -38736,7 +38736,7 @@ export default {
   },
   "https://startupmap.one/startup/medux_es": {
     "domain": "medux.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/medux_es.png",
+    "logoUrl": "https://corvus.gent/a/g7zs3p8q.png",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -38789,7 +38789,7 @@ export default {
   },
   "https://startupmap.one/startup/mettis_ai_es": {
     "domain": "mettis.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/mettis_ai_es.png",
+    "logoUrl": "https://corvus.gent/a/fcpfkad0.png",
     "sector": "Edtech",
     "signals": {
       "founded": {
@@ -38842,7 +38842,7 @@ export default {
   },
   "https://startupmap.one/startup/legora_se": {
     "domain": "legora.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/legora_se_v2.png",
+    "logoUrl": "https://corvus.gent/a/u6rm6svo.jpg",
     "sector": "Legal & Compliance Tech",
     "signals": {
       "founded": {
@@ -38902,7 +38902,7 @@ export default {
   },
   "https://startupmap.one/startup/neko_health_se": {
     "domain": "www.nekohealth.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/neko_health_se.png",
+    "logoUrl": "https://corvus.gent/a/jh50835j.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -38962,7 +38962,7 @@ export default {
   },
   "https://startupmap.one/startup/lovable_se": {
     "domain": "lovable.dev",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/lovable_se.png",
+    "logoUrl": "https://corvus.gent/a/n9gx6ji9.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -39081,7 +39081,7 @@ export default {
   },
   "https://startupmap.one/startup/blykalla_se": {
     "domain": "www.blykalla.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/blykalla_se.png",
+    "logoUrl": "https://corvus.gent/a/oilb6326.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -39141,7 +39141,7 @@ export default {
   },
   "https://startupmap.one/startup/modal_se": {
     "domain": "modal.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/modal_se.png",
+    "logoUrl": "https://corvus.gent/a/krdjlw4j.png",
     "sector": "Developer Tools",
     "signals": {
       "founded": {
@@ -39201,7 +39201,7 @@ export default {
   },
   "https://startupmap.one/startup/qred_se": {
     "domain": "www.qred.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/qred_se.png",
+    "logoUrl": "https://corvus.gent/a/lslg5j5r.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -39261,7 +39261,7 @@ export default {
   },
   "https://startupmap.one/startup/teamtailor_se": {
     "domain": "www.teamtailor.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/teamtailor_se.png",
+    "logoUrl": "https://corvus.gent/a/f5hvuiek.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -39321,7 +39321,7 @@ export default {
   },
   "https://startupmap.one/startup/brickanta_se": {
     "domain": "brickanta.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/brickanta_se.png",
+    "logoUrl": "https://corvus.gent/a/n0fcbuzs.png",
     "sector": "Construction Tech",
     "signals": {
       "founded": {
@@ -39381,7 +39381,7 @@ export default {
   },
   "https://startupmap.one/startup/endra_se": {
     "domain": "www.endra.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/endra_se.png",
+    "logoUrl": "https://corvus.gent/a/s7k6vgig.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -39441,7 +39441,7 @@ export default {
   },
   "https://startupmap.one/startup/mentimeter_se": {
     "domain": "www.mentimeter.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/mentimeter_se.png",
+    "logoUrl": "https://corvus.gent/a/b76s06gx.png",
     "sector": "Productivity & Collaboration",
     "signals": {
       "founded": {
@@ -39501,7 +39501,7 @@ export default {
   },
   "https://startupmap.one/startup/magma_math_se": {
     "domain": "www.magmamath.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/magma_math_se.png",
+    "logoUrl": "https://corvus.gent/a/rohzhfd0.png",
     "sector": "Edtech",
     "signals": {
       "founded": {
@@ -39561,7 +39561,7 @@ export default {
   },
   "https://startupmap.one/startup/quartr_se": {
     "domain": "quartr.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/quartr_se.png",
+    "logoUrl": "https://corvus.gent/a/e1py8gh4.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -39621,7 +39621,7 @@ export default {
   },
   "https://startupmap.one/startup/anyfin_se": {
     "domain": "anyfin.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/anyfin_se.png",
+    "logoUrl": "https://corvus.gent/a/ngd8vtut.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -39681,7 +39681,7 @@ export default {
   },
   "https://startupmap.one/startup/dentio_se": {
     "domain": "dentio.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/dentio_se.png",
+    "logoUrl": "https://corvus.gent/a/efy518h0.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -39800,7 +39800,7 @@ export default {
   },
   "https://startupmap.one/startup/grasp_se": {
     "domain": "www.grasp-ai.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/grasp_se.png",
+    "logoUrl": "https://corvus.gent/a/2l4cadeb.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -39860,7 +39860,7 @@ export default {
   },
   "https://startupmap.one/startup/atlar_se": {
     "domain": "www.atlar.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/atlar_se.png",
+    "logoUrl": "https://corvus.gent/a/3lgfx588.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -39920,7 +39920,7 @@ export default {
   },
   "https://startupmap.one/startup/scrl_se": {
     "domain": "www.scrl.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/scrl_se.png",
+    "logoUrl": "https://corvus.gent/a/rgu5lhxb.png",
     "sector": "Social & Creator Economy",
     "signals": {
       "founded": {
@@ -39966,7 +39966,7 @@ export default {
   },
   "https://startupmap.one/startup/spiich_labs_se": {
     "domain": "spiich.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/spiich_labs_se_v2.png",
+    "logoUrl": "https://corvus.gent/a/um8ke5jv.jpg",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -40026,7 +40026,7 @@ export default {
   },
   "https://startupmap.one/startup/mynt_se": {
     "domain": "www.mynt.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/mynt_se.png",
+    "logoUrl": "https://corvus.gent/a/ejzzo1ez.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -40138,7 +40138,7 @@ export default {
   },
   "https://startupmap.one/startup/planhat_se": {
     "domain": "www.planhat.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/planhat_se.png",
+    "logoUrl": "https://corvus.gent/a/n8x3818k.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -40257,7 +40257,7 @@ export default {
   },
   "https://startupmap.one/startup/vessla_se": {
     "domain": "vessla.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/vessla_se.png",
+    "logoUrl": "https://corvus.gent/a/s2uk5zdm.png",
     "sector": "Real Estate Tech",
     "signals": {
       "founded": {
@@ -40317,7 +40317,7 @@ export default {
   },
   "https://startupmap.one/startup/material_exchange_se": {
     "domain": "material-exchange.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/material_exchange_se.png",
+    "logoUrl": "https://corvus.gent/a/koygvi4m.png",
     "sector": "E Commerce & Retail Tech",
     "signals": {
       "founded": {
@@ -40377,7 +40377,7 @@ export default {
   },
   "https://startupmap.one/startup/miramis_se": {
     "domain": "miramis.co",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/miramis_se.png",
+    "logoUrl": "https://corvus.gent/a/ev753j6b.png",
     "sector": "Legal & Compliance Tech",
     "signals": {
       "founded": {
@@ -40437,7 +40437,7 @@ export default {
   },
   "https://startupmap.one/startup/velory_se": {
     "domain": "velory.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/velory_se.png",
+    "logoUrl": "https://corvus.gent/a/13g910t4.png",
     "sector": "Supply Chain & Ops Tech",
     "signals": {
       "founded": {
@@ -40490,7 +40490,7 @@ export default {
   },
   "https://startupmap.one/startup/detectify_se": {
     "domain": "detectify.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/detectify_se.png",
+    "logoUrl": "https://corvus.gent/a/k3cahna7.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -40550,7 +40550,7 @@ export default {
   },
   "https://startupmap.one/startup/pango_se": {
     "domain": "pango.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/pango_se.png",
+    "logoUrl": "https://corvus.gent/a/9b36d0fx.png",
     "sector": "Supply Chain & Ops Tech",
     "signals": {
       "founded": {
@@ -40603,7 +40603,7 @@ export default {
   },
   "https://startupmap.one/startup/validio_se": {
     "domain": "validio.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/validio_se.png",
+    "logoUrl": "https://corvus.gent/a/4nqtegpt.png",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -40663,7 +40663,7 @@ export default {
   },
   "https://startupmap.one/startup/fluencify_se": {
     "domain": "fluencify.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/fluencify_se.png",
+    "logoUrl": "https://corvus.gent/a/t7s9vper.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -40723,7 +40723,7 @@ export default {
   },
   "https://startupmap.one/startup/autorfp_ai_se": {
     "domain": "autorfp.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/autorfp_ai_se.png",
+    "logoUrl": "https://corvus.gent/a/d48cg6h9.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -40776,7 +40776,7 @@ export default {
   },
   "https://startupmap.one/startup/klar_se": {
     "domain": "klarlabs.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/klar_se.png",
+    "logoUrl": "https://corvus.gent/a/v7lbu64p.png",
     "sector": "Edtech",
     "signals": {
       "founded": {
@@ -40829,7 +40829,7 @@ export default {
   },
   "https://startupmap.one/startup/polar_se": {
     "domain": "polar.sh",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/polar_se_v3.png",
+    "logoUrl": "https://corvus.gent/a/iqw2iynz.jpg",
     "sector": "Payments & Banking",
     "signals": {
       "founded": {
@@ -40889,7 +40889,7 @@ export default {
   },
   "https://startupmap.one/startup/natural_cycles_se": {
     "domain": "www.naturalcycles.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/natural_cycles_se.png",
+    "logoUrl": "https://corvus.gent/a/wdxk6a8g.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -41008,7 +41008,7 @@ export default {
   },
   "https://startupmap.one/startup/flatpay_dk": {
     "domain": "www.flatpay.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/flatpay_dk.png",
+    "logoUrl": "https://corvus.gent/a/cup299lb.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -41068,7 +41068,7 @@ export default {
   },
   "https://startupmap.one/startup/too_good_to_go_dk": {
     "domain": "www.toogoodtogo.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/too_good_to_go_dk.png",
+    "logoUrl": "https://corvus.gent/a/l5cdtqiq.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -41128,7 +41128,7 @@ export default {
   },
   "https://startupmap.one/startup/teton_dk": {
     "domain": "www.teton.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/teton_dk.png",
+    "logoUrl": "https://corvus.gent/a/9p2odz7p.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -41188,7 +41188,7 @@ export default {
   },
   "https://startupmap.one/startup/veo_dk": {
     "domain": "www.veo.co",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/veo_dk.png",
+    "logoUrl": "https://corvus.gent/a/xmpnx8yv.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -41248,7 +41248,7 @@ export default {
   },
   "https://startupmap.one/startup/pleo_dk": {
     "domain": "www.pleo.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/pleo_dk.png",
+    "logoUrl": "https://corvus.gent/a/pke4ppje.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -41308,7 +41308,7 @@ export default {
   },
   "https://startupmap.one/startup/light_dk": {
     "domain": "light.inc",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/light_dk.png",
+    "logoUrl": "https://corvus.gent/a/e1psxzyv.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -41368,7 +41368,7 @@ export default {
   },
   "https://startupmap.one/startup/all_gravy_dk": {
     "domain": "www.allgravy.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/all_gravy_dk.png",
+    "logoUrl": "https://corvus.gent/a/o7t65wr0.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -41428,7 +41428,7 @@ export default {
   },
   "https://startupmap.one/startup/copenhagen_atomics_dk": {
     "domain": "www.copenhagenatomics.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/copenhagen_atomics_dk.png",
+    "logoUrl": "https://corvus.gent/a/fgbhsch7.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -41481,7 +41481,7 @@ export default {
   },
   "https://startupmap.one/startup/performativ_dk": {
     "domain": "www.performativ.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/performativ_dk.png",
+    "logoUrl": "https://corvus.gent/a/nk64z44r.png",
     "sector": "Wealthtech & Insurtech",
     "signals": {
       "founded": {
@@ -41541,7 +41541,7 @@ export default {
   },
   "https://startupmap.one/startup/formalize_dk": {
     "domain": "formalize.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/formalize_dk.png",
+    "logoUrl": "https://corvus.gent/a/tav0qbt6.png",
     "sector": "Legal & Compliance Tech",
     "signals": {
       "founded": {
@@ -41601,7 +41601,7 @@ export default {
   },
   "https://startupmap.one/startup/kapa_ai_dk": {
     "domain": "www.kapa.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/kapa_ai_dk.png",
+    "logoUrl": "https://corvus.gent/a/vcihdj1b.png",
     "sector": "Developer Tools",
     "signals": {
       "founded": {
@@ -41661,7 +41661,7 @@ export default {
   },
   "https://startupmap.one/startup/podimo_dk": {
     "domain": "podimo.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/podimo_dk.png",
+    "logoUrl": "https://corvus.gent/a/jmc6orso.png",
     "sector": "Media & Entertainment",
     "signals": {
       "founded": {
@@ -41721,7 +41721,7 @@ export default {
   },
   "https://startupmap.one/startup/pandektes_dk": {
     "domain": "pandektes.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/pandektes_dk.png",
+    "logoUrl": "https://corvus.gent/a/s23tl3qs.png",
     "sector": "Legal & Compliance Tech",
     "signals": {
       "founded": {
@@ -41781,7 +41781,7 @@ export default {
   },
   "https://startupmap.one/startup/paradox_dk": {
     "domain": "paradox.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/paradox_dk.png",
+    "logoUrl": "https://corvus.gent/a/nsq9vvp8.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -41841,7 +41841,7 @@ export default {
   },
   "https://startupmap.one/startup/monta_dk": {
     "domain": "monta.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/monta_dk.png",
+    "logoUrl": "https://corvus.gent/a/2gj031k1.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -41901,7 +41901,7 @@ export default {
   },
   "https://startupmap.one/startup/understory_dk": {
     "domain": "understory.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/understory_dk.png",
+    "logoUrl": "https://corvus.gent/a/jupa83rz.png",
     "sector": "Travel & Hospitality",
     "signals": {
       "founded": {
@@ -41961,7 +41961,7 @@ export default {
   },
   "https://startupmap.one/startup/dreamdata_dk": {
     "domain": "dreamdata.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/dreamdata_dk.png",
+    "logoUrl": "https://corvus.gent/a/s6awcigm.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -42021,7 +42021,7 @@ export default {
   },
   "https://startupmap.one/startup/driversnote_dk": {
     "domain": "www.driversnote.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/driversnote_dk.png",
+    "logoUrl": "https://corvus.gent/a/9hiw0nko.png",
     "sector": "Productivity & Collaboration",
     "signals": {
       "founded": {
@@ -42074,7 +42074,7 @@ export default {
   },
   "https://startupmap.one/startup/palette_dk": {
     "domain": "palette.team",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/palette_dk.png",
+    "logoUrl": "https://corvus.gent/a/ccj0fwm3.png",
     "sector": "Productivity & Collaboration",
     "signals": {
       "founded": {
@@ -42127,7 +42127,7 @@ export default {
   },
   "https://startupmap.one/startup/zeronorth_dk": {
     "domain": "zeronorth.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/zeronorth_dk.png",
+    "logoUrl": "https://corvus.gent/a/c9o1q47h.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -42187,7 +42187,7 @@ export default {
   },
   "https://startupmap.one/startup/again_dk": {
     "domain": "again.bio",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/again_dk.png",
+    "logoUrl": "https://corvus.gent/a/tmk9p27h.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -42230,7 +42230,7 @@ export default {
   },
   "https://startupmap.one/startup/churney_dk": {
     "domain": "churney.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/churney_dk.png",
+    "logoUrl": "https://corvus.gent/a/lcfh9cll.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -42290,7 +42290,7 @@ export default {
   },
   "https://startupmap.one/startup/leapwork_dk": {
     "domain": "www.leapwork.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/leapwork_dk.png",
+    "logoUrl": "https://corvus.gent/a/0i9v4gb6.png",
     "sector": "No Code & Automation",
     "signals": {
       "founded": {
@@ -42350,7 +42350,7 @@ export default {
   },
   "https://startupmap.one/startup/reel_dk": {
     "domain": "reel.energy",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/reel_dk.png",
+    "logoUrl": "https://corvus.gent/a/ske7awkp.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -42410,7 +42410,7 @@ export default {
   },
   "https://startupmap.one/startup/resights_dk": {
     "domain": "resights.dk",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/resights_dk.png",
+    "logoUrl": "https://corvus.gent/a/li8skdlv.png",
     "sector": "Real Estate Tech",
     "signals": {
       "founded": {
@@ -42463,7 +42463,7 @@ export default {
   },
   "https://startupmap.one/startup/soundboks_dk": {
     "domain": "soundboks.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/soundboks_dk.png",
+    "logoUrl": "https://corvus.gent/a/zu95hpjr.png",
     "sector": "Hardware & Semiconductors",
     "signals": {
       "founded": {
@@ -42523,7 +42523,7 @@ export default {
   },
   "https://startupmap.one/startup/templafy_dk": {
     "domain": "www.templafy.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/templafy_dk.png",
+    "logoUrl": "https://corvus.gent/a/1r31tw3v.png",
     "sector": "Productivity & Collaboration",
     "signals": {
       "founded": {
@@ -42583,7 +42583,7 @@ export default {
   },
   "https://startupmap.one/startup/agreena_dk": {
     "domain": "agreena.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/agreena_dk.png",
+    "logoUrl": "https://corvus.gent/a/8bto3b94.png",
     "sector": "Agritech & Foodtech",
     "signals": {
       "founded": {
@@ -42643,7 +42643,7 @@ export default {
   },
   "https://startupmap.one/startup/complir_dk": {
     "domain": "complir.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/complir_dk.png",
+    "logoUrl": "https://corvus.gent/a/2kruurgi.png",
     "sector": "Compliance Tech",
     "signals": {
       "founded": {
@@ -42703,7 +42703,7 @@ export default {
   },
   "https://startupmap.one/startup/hemab_therapeutics_dk": {
     "domain": "www.hemab.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/hemab_therapeutics_dk.png",
+    "logoUrl": "https://corvus.gent/a/zoe53f7s.png",
     "sector": "Biotech",
     "signals": {
       "founded": {
@@ -42763,7 +42763,7 @@ export default {
   },
   "https://startupmap.one/startup/medusa_dk": {
     "domain": "medusajs.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/medusa_dk.png",
+    "logoUrl": "https://corvus.gent/a/47ryceav.png",
     "sector": "E Commerce & Retail",
     "signals": {
       "founded": {
@@ -42823,7 +42823,7 @@ export default {
   },
   "https://startupmap.one/startup/tembi_dk": {
     "domain": "www.tembi.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/tembi_dk.png",
+    "logoUrl": "https://corvus.gent/a/9jyw3e1j.png",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -42883,7 +42883,7 @@ export default {
   },
   "https://startupmap.one/startup/atlant_3d_dk": {
     "domain": "atlant3d.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/atlant_3d_dk.png",
+    "logoUrl": "https://corvus.gent/a/rfue7elu.png",
     "sector": "Hardware & Semiconductors",
     "signals": {
       "founded": {
@@ -42936,7 +42936,7 @@ export default {
   },
   "https://startupmap.one/startup/adcendo_dk": {
     "domain": "adcendo.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/adcendo_dk.png",
+    "logoUrl": "https://corvus.gent/a/xqdpbfwr.png",
     "sector": "Biotech",
     "signals": {
       "founded": {
@@ -42989,7 +42989,7 @@ export default {
   },
   "https://startupmap.one/startup/alcolase_dk": {
     "domain": "alcolase.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/alcolase_dk.png",
+    "logoUrl": "https://corvus.gent/a/vkcl9i7t.png",
     "sector": "Biotech",
     "signals": {
       "founded": {
@@ -43042,7 +43042,7 @@ export default {
   },
   "https://startupmap.one/startup/bifrost_defence_dk": {
     "domain": "bifrostdefence.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/bifrost_defence_dk.png",
+    "logoUrl": "https://corvus.gent/a/aemuho8r.png",
     "sector": "Aerospace & Defense",
     "signals": {
       "founded": {
@@ -43095,7 +43095,7 @@ export default {
   },
   "https://startupmap.one/startup/dandelion_diagnostics_dk": {
     "domain": "dandeliondx.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/dandelion_diagnostics_dk.png",
+    "logoUrl": "https://corvus.gent/a/jr4rxc5m.png",
     "sector": "Medtech & Devices",
     "signals": {
       "founded": {
@@ -43141,7 +43141,7 @@ export default {
   },
   "https://startupmap.one/startup/auterion_us": {
     "domain": "auterion.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/auterion_us.png",
+    "logoUrl": "https://corvus.gent/a/f61qsxny.png",
     "sector": "Robotics",
     "signals": {
       "founded": {
@@ -43184,7 +43184,7 @@ export default {
   },
   "https://startupmap.one/startup/anybotics_ch": {
     "domain": "www.anybotics.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/anybotics_ch.png",
+    "logoUrl": "https://corvus.gent/a/2nvehj0j.png",
     "sector": "Robotics",
     "signals": {
       "founded": {
@@ -43244,7 +43244,7 @@ export default {
   },
   "https://startupmap.one/startup/deepjudge_ch": {
     "domain": "www.deepjudge.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/deepjudge_ch.png",
+    "logoUrl": "https://corvus.gent/a/w7nt6wyp.png",
     "sector": "Legal & Compliance Tech",
     "signals": {
       "founded": {
@@ -43304,7 +43304,7 @@ export default {
   },
   "https://startupmap.one/startup/flexion_ch": {
     "domain": "flexion.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/flexion_ch.png",
+    "logoUrl": "https://corvus.gent/a/4hegb1qi.png",
     "sector": "Robotics",
     "signals": {
       "founded": {
@@ -43364,7 +43364,7 @@ export default {
   },
   "https://startupmap.one/startup/gravisrobotics_ch": {
     "domain": "www.gravisrobotics.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/gravisrobotics_ch.png",
+    "logoUrl": "https://corvus.gent/a/vz2ygaep.png",
     "sector": "Robotics",
     "signals": {
       "founded": {
@@ -43424,7 +43424,7 @@ export default {
   },
   "https://startupmap.one/startup/enact_intelligence_ch": {
     "domain": "enact-intelligence.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/enact_intelligence_ch.png",
+    "logoUrl": "https://corvus.gent/a/8i9k3mrx.jpg",
     "sector": "Robotics",
     "signals": {
       "founded": {
@@ -43484,7 +43484,7 @@ export default {
   },
   "https://startupmap.one/startup/lightium_ch": {
     "domain": "lightium.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/lightium_ch.png",
+    "logoUrl": "https://corvus.gent/a/gjpio54c.png",
     "sector": "Hardware & Semiconductors",
     "signals": {
       "founded": {
@@ -43544,7 +43544,7 @@ export default {
   },
   "https://startupmap.one/startup/exaforce_us": {
     "domain": "www.exaforce.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/exaforce_us.png",
+    "logoUrl": "https://corvus.gent/a/r2ppu2lg.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -43604,7 +43604,7 @@ export default {
   },
   "https://startupmap.one/startup/ligentec_ch": {
     "domain": "www.ligentec.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/ligentec_ch.png",
+    "logoUrl": "https://corvus.gent/a/crzuttef.png",
     "sector": "Hardware & Semiconductors",
     "signals": {
       "founded": {
@@ -43657,7 +43657,7 @@ export default {
   },
   "https://startupmap.one/startup/fore_ai_ch": {
     "domain": "www.foreai.co",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/fore_ai_ch.png",
+    "logoUrl": "https://corvus.gent/a/j9axbu2c.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -43717,7 +43717,7 @@ export default {
   },
   "https://startupmap.one/startup/advertima_ch": {
     "domain": "www.advertima.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/advertima_ch.png",
+    "logoUrl": "https://corvus.gent/a/o7u2t7ns.png",
     "sector": "E Commerce & Retail",
     "signals": {
       "founded": {
@@ -43777,7 +43777,7 @@ export default {
   },
   "https://startupmap.one/startup/instimatch_global_ch": {
     "domain": "www.instimatch.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/instimatch_global_ch.png",
+    "logoUrl": "https://corvus.gent/a/s6ej7480.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -43830,7 +43830,7 @@ export default {
   },
   "https://startupmap.one/startup/lightly_ch": {
     "domain": "www.lightly.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/lightly_ch.png",
+    "logoUrl": "https://corvus.gent/a/4307xf3w.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -43890,7 +43890,7 @@ export default {
   },
   "https://startupmap.one/startup/pastahr_ch": {
     "domain": "pastahr.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/pastahr_ch.png",
+    "logoUrl": "https://corvus.gent/a/6sep9y8w.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -43943,7 +43943,7 @@ export default {
   },
   "https://startupmap.one/startup/climefi_ch": {
     "domain": "climefi.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/climefi_ch.png",
+    "logoUrl": "https://corvus.gent/a/ge23wpnm.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -43996,7 +43996,7 @@ export default {
   },
   "https://startupmap.one/startup/pexapark_ch": {
     "domain": "pexapark.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/pexapark_ch.png",
+    "logoUrl": "https://corvus.gent/a/72encs33.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -44115,7 +44115,7 @@ export default {
   },
   "https://startupmap.one/startup/smallpdf_ch": {
     "domain": "smallpdf.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/smallpdf_ch.png",
+    "logoUrl": "https://corvus.gent/a/s3k9axr8.png",
     "sector": "Productivity & Collaboration",
     "signals": {
       "founded": {
@@ -44168,7 +44168,7 @@ export default {
   },
   "https://startupmap.one/startup/anapaya_ch": {
     "domain": "www.anapaya.net",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/anapaya_ch.png",
+    "logoUrl": "https://corvus.gent/a/lpb2lkec.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -44211,7 +44211,7 @@ export default {
   },
   "https://startupmap.one/startup/bring_ch": {
     "domain": "www.getbring.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/bring_ch.png",
+    "logoUrl": "https://corvus.gent/a/ardjkxe1.png",
     "sector": "Agritech & Foodtech",
     "signals": {
       "founded": {
@@ -44271,7 +44271,7 @@ export default {
   },
   "https://startupmap.one/startup/ledgy_ch": {
     "domain": "ledgy.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/ledgy_ch.png",
+    "logoUrl": "https://corvus.gent/a/i6b4upp5.png",
     "sector": "Wealthtech & Insurtech",
     "signals": {
       "founded": {
@@ -44331,7 +44331,7 @@ export default {
   },
   "https://startupmap.one/startup/typewise_ch": {
     "domain": "www.typewise.app",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/typewise_ch.png",
+    "logoUrl": "https://corvus.gent/a/2r71poqi.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -44367,7 +44367,7 @@ export default {
   },
   "https://startupmap.one/startup/tzafon_ch": {
     "domain": "www.tzafon.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/tzafon_ch.png",
+    "logoUrl": "https://corvus.gent/a/siloryp8.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -44427,7 +44427,7 @@ export default {
   },
   "https://startupmap.one/startup/ahead_health_ch": {
     "domain": "www.aheadhealth.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/ahead_health_ch.png",
+    "logoUrl": "https://corvus.gent/a/ps72tnm8.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -44487,7 +44487,7 @@ export default {
   },
   "https://startupmap.one/startup/veezoo_ch": {
     "domain": "www.veezoo.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/veezoo_ch.png",
+    "logoUrl": "https://corvus.gent/a/wp3i5zzk.png",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -44547,7 +44547,7 @@ export default {
   },
   "https://startupmap.one/startup/deskbird_ch": {
     "domain": "www.deskbird.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/deskbird_ch.png",
+    "logoUrl": "https://corvus.gent/a/y7pk6keb.png",
     "sector": "Productivity & Collaboration",
     "signals": {
       "founded": {
@@ -44607,7 +44607,7 @@ export default {
   },
   "https://startupmap.one/startup/irmos_ch": {
     "domain": "www.irmos-tech.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/irmos_ch.png",
+    "logoUrl": "https://corvus.gent/a/2rn0plr1.png",
     "sector": "IoT & Sensors",
     "signals": {
       "founded": {
@@ -44660,7 +44660,7 @@ export default {
   },
   "https://startupmap.one/startup/autoform_ch": {
     "domain": "www.autoform.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/autoform_ch.png",
+    "logoUrl": "https://corvus.gent/a/qhhmg14k.png",
     "sector": "Supply Chain & Ops Tech",
     "signals": {
       "founded": {
@@ -44713,7 +44713,7 @@ export default {
   },
   "https://startupmap.one/startup/cerrion_ch": {
     "domain": "www.cerrion.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/cerrion_ch.png",
+    "logoUrl": "https://corvus.gent/a/grt0e4x3.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -44832,7 +44832,7 @@ export default {
   },
   "https://startupmap.one/startup/futurae_ch": {
     "domain": "www.futurae.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/futurae_ch.png",
+    "logoUrl": "https://corvus.gent/a/rxplx9xy.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -44892,7 +44892,7 @@ export default {
   },
   "https://startupmap.one/startup/gentwo_ch": {
     "domain": "www.gentwo.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/gentwo_ch.png",
+    "logoUrl": "https://corvus.gent/a/clwxbegz.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -44935,7 +44935,7 @@ export default {
   },
   "https://startupmap.one/startup/hoshii_ch": {
     "domain": "www.hoshii.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/hoshii_ch.png",
+    "logoUrl": "https://corvus.gent/a/gx4pe0q6.png",
     "sector": "Supply Chain & Ops Tech",
     "signals": {
       "founded": {
@@ -44988,7 +44988,7 @@ export default {
   },
   "https://startupmap.one/startup/rivero_ch": {
     "domain": "rivero.tech",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/rivero_ch.png",
+    "logoUrl": "https://corvus.gent/a/1w8s4soq.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -45048,7 +45048,7 @@ export default {
   },
   "https://startupmap.one/startup/selma_finance_ch": {
     "domain": "www.selma.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/selma_finance_ch.png",
+    "logoUrl": "https://corvus.gent/a/vtgu7qsr.png",
     "sector": "Wealthtech & Insurtech",
     "signals": {
       "founded": {
@@ -45101,7 +45101,7 @@ export default {
   },
   "https://startupmap.one/startup/zatap_ch": {
     "domain": "zatap.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/zatap_ch.png",
+    "logoUrl": "https://corvus.gent/a/nj3pdfdu.png",
     "sector": "E Commerce & Retail Tech",
     "signals": {
       "founded": {
@@ -45161,7 +45161,7 @@ export default {
   },
   "https://startupmap.one/startup/eightinks_ch": {
     "domain": "8inks.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/eightinks_ch.png",
+    "logoUrl": "https://corvus.gent/a/g0q99vw3.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -45214,7 +45214,7 @@ export default {
   },
   "https://startupmap.one/startup/nuitee_ie": {
     "domain": "nuitee.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/nuitee_ie.png",
+    "logoUrl": "https://corvus.gent/a/nqdjigj5.png",
     "sector": "Travel & Hospitality",
     "signals": {
       "founded": {
@@ -45326,7 +45326,7 @@ export default {
   },
   "https://startupmap.one/startup/kota_ie": {
     "domain": "www.kota.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/kota_ie.png",
+    "logoUrl": "https://corvus.gent/a/haffvhsu.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -45386,7 +45386,7 @@ export default {
   },
   "https://startupmap.one/startup/wayflyer_ie": {
     "domain": "wayflyer.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/wayflyer_ie.png",
+    "logoUrl": "https://corvus.gent/a/up2e3poc.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -45446,7 +45446,7 @@ export default {
   },
   "https://startupmap.one/startup/tines_ie": {
     "domain": "www.tines.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/tines_ie.png",
+    "logoUrl": "https://corvus.gent/a/gs6hnyn4.png",
     "sector": "No Code & Automation",
     "signals": {
       "founded": {
@@ -45624,7 +45624,7 @@ export default {
   },
   "https://startupmap.one/startup/somai_ie": {
     "domain": "somaipharma.eu",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/somai_ie.png",
+    "logoUrl": "https://corvus.gent/a/wvdjhb66.png",
     "sector": "Biotech",
     "signals": {
       "founded": {
@@ -45743,7 +45743,7 @@ export default {
   },
   "https://startupmap.one/startup/nory_ie": {
     "domain": "www.nory.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/nory_ie.png",
+    "logoUrl": "https://corvus.gent/a/tdxyfoxa.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -45803,7 +45803,7 @@ export default {
   },
   "https://startupmap.one/startup/nomupay_ie": {
     "domain": "nomupay.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/nomupay_ie.png",
+    "logoUrl": "https://corvus.gent/a/09tcz7z4.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -45863,7 +45863,7 @@ export default {
   },
   "https://startupmap.one/startup/edgetier_ie": {
     "domain": "www.edgetier.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/edgetier_ie.png",
+    "logoUrl": "https://corvus.gent/a/a09qv4jd.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -45923,7 +45923,7 @@ export default {
   },
   "https://startupmap.one/startup/lative_ie": {
     "domain": "lative.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/lative_ie.png",
+    "logoUrl": "https://corvus.gent/a/qbue3f30.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -45983,7 +45983,7 @@ export default {
   },
   "https://startupmap.one/startup/lette_ai_ie": {
     "domain": "www.lette.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/lette_ai_ie.png",
+    "logoUrl": "https://corvus.gent/a/bku3mpjf.png",
     "sector": "Real Estate Tech",
     "signals": {
       "founded": {
@@ -46043,7 +46043,7 @@ export default {
   },
   "https://startupmap.one/startup/noloco_ie": {
     "domain": "noloco.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/noloco_ie.png",
+    "logoUrl": "https://corvus.gent/a/qpt2xkyo.png",
     "sector": "No Code & Automation",
     "signals": {
       "founded": {
@@ -46103,7 +46103,7 @@ export default {
   },
   "https://startupmap.one/startup/boundless_ie": {
     "domain": "boundlesshq.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/boundless_ie.png",
+    "logoUrl": "https://corvus.gent/a/uhl0e3fb.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -46163,7 +46163,7 @@ export default {
   },
   "https://startupmap.one/startup/logchat_ie": {
     "domain": "bronto.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/logchat_ie.png",
+    "logoUrl": "https://corvus.gent/a/aa32i170.png",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -46223,7 +46223,7 @@ export default {
   },
   "https://startupmap.one/startup/croivalve_ie": {
     "domain": "www.croivalve.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/croivalve_ie.png",
+    "logoUrl": "https://corvus.gent/a/ocp2056i.png",
     "sector": "Medtech & Devices",
     "signals": {
       "founded": {
@@ -46283,7 +46283,7 @@ export default {
   },
   "https://startupmap.one/startup/fire1_ie": {
     "domain": "fire1foundry.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/fire1_ie.png",
+    "logoUrl": "https://corvus.gent/a/6zcw2zyv.png",
     "sector": "Medtech & Devices",
     "signals": {
       "founded": {
@@ -46343,7 +46343,7 @@ export default {
   },
   "https://startupmap.one/startup/grand_ie": {
     "domain": "heygrand.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/grand_ie.png",
+    "logoUrl": "https://corvus.gent/a/15c9ic2m.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -46386,7 +46386,7 @@ export default {
   },
   "https://startupmap.one/startup/kitman_labs_ie": {
     "domain": "www.kitmanlabs.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/kitman_labs_ie.png",
+    "logoUrl": "https://corvus.gent/a/sw6d2piw.png",
     "sector": "Sports & Wellness",
     "signals": {
       "founded": {
@@ -46446,7 +46446,7 @@ export default {
   },
   "https://startupmap.one/startup/aerska_ie": {
     "domain": "www.aerska.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/aerska_ie.png",
+    "logoUrl": "https://corvus.gent/a/y0ssz0lh.png",
     "sector": "Biotech",
     "signals": {
       "founded": {
@@ -46499,7 +46499,7 @@ export default {
   },
   "https://startupmap.one/startup/akara_ie": {
     "domain": "www.akara.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/akara_ie.png",
+    "logoUrl": "https://corvus.gent/a/o8imprlu.png",
     "sector": "Robotics",
     "signals": {
       "founded": {
@@ -46545,7 +46545,7 @@ export default {
   },
   "https://startupmap.one/startup/alchelyst_ie": {
     "domain": "www.alchelyst.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/alchelyst_ie.png",
+    "logoUrl": "https://corvus.gent/a/d3pelv9x.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -46591,7 +46591,7 @@ export default {
   },
   "https://startupmap.one/startup/alludium_ie": {
     "domain": "www.alludium.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/alludium_ie.png",
+    "logoUrl": "https://corvus.gent/a/sfr8414y.png",
     "sector": "No Code & Automation",
     "signals": {
       "founded": {
@@ -46644,7 +46644,7 @@ export default {
   },
   "https://startupmap.one/startup/barespace_ie": {
     "domain": "barespace.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/barespace_ie.png",
+    "logoUrl": "https://corvus.gent/a/9uabtye1.png",
     "sector": "No Code & Automation",
     "signals": {
       "founded": {
@@ -46697,7 +46697,7 @@ export default {
   },
   "https://startupmap.one/startup/browserstack_ie": {
     "domain": "www.browserstack.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/browserstack_ie.png",
+    "logoUrl": "https://corvus.gent/a/8x28bso8.png",
     "sector": "Developer Tools",
     "signals": {
       "founded": {
@@ -46750,7 +46750,7 @@ export default {
   },
   "https://startupmap.one/startup/fresco_ie": {
     "domain": "frescocooks.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/fresco_ie.png",
+    "logoUrl": "https://corvus.gent/a/51m9jha8.png",
     "sector": "IoT & Sensors",
     "signals": {
       "founded": {
@@ -46796,7 +46796,7 @@ export default {
   },
   "https://startupmap.one/startup/ht_materials_science_ie": {
     "domain": "htmaterialsscience.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/ht_materials_science_ie.png",
+    "logoUrl": "https://corvus.gent/a/lkvcw9ob.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -46849,7 +46849,7 @@ export default {
   },
   "https://startupmap.one/startup/manna_air_delivery_ie": {
     "domain": "www.manna.aero",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/manna_air_delivery_ie.png",
+    "logoUrl": "https://corvus.gent/a/0fnaftpu.png",
     "sector": "Logistics",
     "signals": {
       "founded": {
@@ -46902,7 +46902,7 @@ export default {
   },
   "https://startupmap.one/startup/meili_ie": {
     "domain": "www.meili.travel",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/meili_ie.png",
+    "logoUrl": "https://corvus.gent/a/z7dy2y5m.png",
     "sector": "Travel & Hospitality",
     "signals": {
       "founded": {
@@ -46955,7 +46955,7 @@ export default {
   },
   "https://startupmap.one/startup/mirror_security_ie": {
     "domain": "mirrorsecurity.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/mirror_security_ie.png",
+    "logoUrl": "https://corvus.gent/a/kww62wmm.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -47008,7 +47008,7 @@ export default {
   },
   "https://startupmap.one/startup/mobility_mojo_ie": {
     "domain": "mobilitymojo.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/mobility_mojo_ie.png",
+    "logoUrl": "https://corvus.gent/a/qvh5y1jy.png",
     "sector": "No Code & Automation",
     "signals": {
       "founded": {
@@ -47061,7 +47061,7 @@ export default {
   },
   "https://startupmap.one/startup/novogrid_ie": {
     "domain": "novogrid.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/novogrid_ie.png",
+    "logoUrl": "https://corvus.gent/a/58cp27oq.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -47107,7 +47107,7 @@ export default {
   },
   "https://startupmap.one/startup/overpath_ie": {
     "domain": "overpath.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/overpath_ie.png",
+    "logoUrl": "https://corvus.gent/a/3436oqjy.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -47160,7 +47160,7 @@ export default {
   },
   "https://startupmap.one/startup/proverum_ie": {
     "domain": "www.proverummedical.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/proverum_ie.png",
+    "logoUrl": "https://corvus.gent/a/gha4o7ns.png",
     "sector": "Medtech & Devices",
     "signals": {
       "founded": {
@@ -47213,7 +47213,7 @@ export default {
   },
   "https://startupmap.one/startup/rove_ie": {
     "domain": "rove.ie",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/rove_ie.png",
+    "logoUrl": "https://corvus.gent/a/9rbingmt.png",
     "sector": "Travel & Hospitality",
     "signals": {
       "founded": {
@@ -47266,7 +47266,7 @@ export default {
   },
   "https://startupmap.one/startup/fonio_ai_at": {
     "domain": "fonio.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/fonio_ai_at.png",
+    "logoUrl": "https://corvus.gent/a/5an8p6zu.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -47326,7 +47326,7 @@ export default {
   },
   "https://startupmap.one/startup/nyra_health_at": {
     "domain": "www.nyra.health",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/nyra_health_at.png",
+    "logoUrl": "https://corvus.gent/a/goxatmz7.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -47386,7 +47386,7 @@ export default {
   },
   "https://startupmap.one/startup/nutrient_at": {
     "domain": "www.nutrient.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/nutrient_at.png",
+    "logoUrl": "https://corvus.gent/a/iackolmt.png",
     "sector": "Developer Tools",
     "signals": {
       "founded": {
@@ -47446,7 +47446,7 @@ export default {
   },
   "https://startupmap.one/startup/eversports_at": {
     "domain": "www.eversports.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/eversports_at.png",
+    "logoUrl": "https://corvus.gent/a/hh7qwmtn.png",
     "sector": "Sports & Wellness",
     "signals": {
       "founded": {
@@ -47506,7 +47506,7 @@ export default {
   },
   "https://startupmap.one/startup/podero_at": {
     "domain": "podero.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/podero_at.png",
+    "logoUrl": "https://corvus.gent/a/fmjppfsf.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -47566,7 +47566,7 @@ export default {
   },
   "https://startupmap.one/startup/prewave_at": {
     "domain": "www.prewave.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/prewave_at.png",
+    "logoUrl": "https://corvus.gent/a/itm99p9w.png",
     "sector": "Supply Chain & Ops Tech",
     "signals": {
       "founded": {
@@ -47626,7 +47626,7 @@ export default {
   },
   "https://startupmap.one/startup/rankscale_ai_at": {
     "domain": "rankscale.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/rankscale_ai_at.png",
+    "logoUrl": "https://corvus.gent/a/z25pk155.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -47679,7 +47679,7 @@ export default {
   },
   "https://startupmap.one/startup/talentir_at": {
     "domain": "talentir.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/talentir_at.png",
+    "logoUrl": "https://corvus.gent/a/rrcuegbj.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -47732,7 +47732,7 @@ export default {
   },
   "https://startupmap.one/startup/enspired_at": {
     "domain": "www.enspired-trading.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/enspired_at.png",
+    "logoUrl": "https://corvus.gent/a/wx4lca3p.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -47792,7 +47792,7 @@ export default {
   },
   "https://startupmap.one/startup/planradar_at": {
     "domain": "www.planradar.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/planradar_at.png",
+    "logoUrl": "https://corvus.gent/a/dkxqo4y2.png",
     "sector": "Real Estate Tech",
     "signals": {
       "founded": {
@@ -47852,7 +47852,7 @@ export default {
   },
   "https://startupmap.one/startup/metorial_at": {
     "domain": "metorial.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/metorial_at.png",
+    "logoUrl": "https://corvus.gent/a/84fmbqbk.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -47912,7 +47912,7 @@ export default {
   },
   "https://startupmap.one/startup/muse_electronics_at": {
     "domain": "backbone.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/muse_electronics_at.png",
+    "logoUrl": "https://corvus.gent/a/odlt3i44.png",
     "sector": "Aerospace & Defense",
     "signals": {
       "founded": {
@@ -47972,7 +47972,7 @@ export default {
   },
   "https://startupmap.one/startup/toolsense_at": {
     "domain": "toolsense.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/toolsense_at.png",
+    "logoUrl": "https://corvus.gent/a/bqmm02nv.png",
     "sector": "IoT & Sensors",
     "signals": {
       "founded": {
@@ -48032,7 +48032,7 @@ export default {
   },
   "https://startupmap.one/startup/trilite_technologies_at": {
     "domain": "www.trilite-tech.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/trilite_technologies_at.png",
+    "logoUrl": "https://corvus.gent/a/6beh08e6.png",
     "sector": "Hardware & Semiconductors",
     "signals": {
       "founded": {
@@ -48092,7 +48092,7 @@ export default {
   },
   "https://startupmap.one/startup/xund_at": {
     "domain": "xund.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/xund_at.png",
+    "logoUrl": "https://corvus.gent/a/jjmwowc7.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -48152,7 +48152,7 @@ export default {
   },
   "https://startupmap.one/startup/graph_therapeutics_at": {
     "domain": "www.graphtx.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/graph_therapeutics_at.png",
+    "logoUrl": "https://corvus.gent/a/4luxab68.png",
     "sector": "Biotech",
     "signals": {
       "founded": {
@@ -48212,7 +48212,7 @@ export default {
   },
   "https://startupmap.one/startup/hydrogrid_at": {
     "domain": "www.hydrogrid.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/hydrogrid_at.png",
+    "logoUrl": "https://corvus.gent/a/o153i5w4.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -48272,7 +48272,7 @@ export default {
   },
   "https://startupmap.one/startup/helu_io_at": {
     "domain": "www.helu.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/helu_io_at.png",
+    "logoUrl": "https://corvus.gent/a/ikuh659q.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -48332,7 +48332,7 @@ export default {
   },
   "https://startupmap.one/startup/jentis_at": {
     "domain": "www.jentis.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/jentis_at.png",
+    "logoUrl": "https://corvus.gent/a/iz0w7ikf.png",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -48392,7 +48392,7 @@ export default {
   },
   "https://startupmap.one/startup/optimuse_at": {
     "domain": "www.optimuse.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/optimuse_at.png",
+    "logoUrl": "https://corvus.gent/a/o0yigk7y.png",
     "sector": "Real Estate Tech",
     "signals": {
       "founded": {
@@ -48452,7 +48452,7 @@ export default {
   },
   "https://startupmap.one/startup/sarcura_at": {
     "domain": "sarcura.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/sarcura_at.png",
+    "logoUrl": "https://corvus.gent/a/vl6x8ril.png",
     "sector": "Biotech",
     "signals": {
       "founded": {
@@ -48512,7 +48512,7 @@ export default {
   },
   "https://startupmap.one/startup/signpath_at": {
     "domain": "signpath.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/signpath_at.png",
+    "logoUrl": "https://corvus.gent/a/76kj4mtx.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -48572,7 +48572,7 @@ export default {
   },
   "https://startupmap.one/startup/vendure_at": {
     "domain": "vendure.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/vendure_at.png",
+    "logoUrl": "https://corvus.gent/a/xuuqi2bl.png",
     "sector": "E Commerce & Retail",
     "signals": {
       "founded": {
@@ -48625,7 +48625,7 @@ export default {
   },
   "https://startupmap.one/startup/contextflow_at": {
     "domain": "contextflow.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/contextflow_at.png",
+    "logoUrl": "https://corvus.gent/a/ir04tyod.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -48685,7 +48685,7 @@ export default {
   },
   "https://startupmap.one/startup/mypaperwork_ai_at": {
     "domain": "mypaperwork.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/mypaperwork_ai_at.png",
+    "logoUrl": "https://corvus.gent/a/2ixel0fh.png",
     "sector": "Legal & Compliance Tech",
     "signals": {
       "founded": {
@@ -48745,7 +48745,7 @@ export default {
   },
   "https://startupmap.one/startup/adverity_at": {
     "domain": "www.adverity.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/adverity_at.png",
+    "logoUrl": "https://corvus.gent/a/in1ik9kt.png",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -48798,7 +48798,7 @@ export default {
   },
   "https://startupmap.one/startup/arkeon_at": {
     "domain": "arkeon.bio",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/arkeon_at.png",
+    "logoUrl": "https://corvus.gent/a/3zor4s6g.png",
     "sector": "Agritech & Foodtech",
     "signals": {
       "founded": {
@@ -48851,7 +48851,7 @@ export default {
   },
   "https://startupmap.one/startup/chatlyn_at": {
     "domain": "chatlyn.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/chatlyn_at.png",
+    "logoUrl": "https://corvus.gent/a/vqoo8ahl.png",
     "sector": "Travel & Hospitality",
     "signals": {
       "founded": {
@@ -48904,7 +48904,7 @@ export default {
   },
   "https://startupmap.one/startup/crafts_at": {
     "domain": "crafts.dev",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/crafts_at.png",
+    "logoUrl": "https://corvus.gent/a/jal35tcf.png",
     "sector": "Productivity & Collaboration",
     "signals": {
       "founded": {
@@ -48957,7 +48957,7 @@ export default {
   },
   "https://startupmap.one/startup/delphi_data_labs_at": {
     "domain": "www.delphidata.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/delphi_data_labs_at.png",
+    "logoUrl": "https://corvus.gent/a/9qiet53m.png",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -49003,7 +49003,7 @@ export default {
   },
   "https://startupmap.one/startup/elio_at": {
     "domain": "www.elio.earth",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/elio_at.png",
+    "logoUrl": "https://corvus.gent/a/zsw0qgh0.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -49039,7 +49039,7 @@ export default {
   },
   "https://startupmap.one/startup/finmatics_at": {
     "domain": "www.finmatics.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/finmatics_at.png",
+    "logoUrl": "https://corvus.gent/a/udtxc05z.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -49092,7 +49092,7 @@ export default {
   },
   "https://startupmap.one/startup/flinn_at": {
     "domain": "www.flinn.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/flinn_at.png",
+    "logoUrl": "https://corvus.gent/a/23rvwqfj.png",
     "sector": "Medtech & Devices",
     "signals": {
       "founded": {
@@ -49145,7 +49145,7 @@ export default {
   },
   "https://startupmap.one/startup/heartbeat_bio_at": {
     "domain": "heartbeat.bio",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/heartbeat_bio_at.png",
+    "logoUrl": "https://corvus.gent/a/e83c0dja.png",
     "sector": "Biotech",
     "signals": {
       "founded": {
@@ -49198,7 +49198,7 @@ export default {
   },
   "https://startupmap.one/startup/ixopay_at": {
     "domain": "www.ixopay.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/ixopay_at.png",
+    "logoUrl": "https://corvus.gent/a/sph6exqd.png",
     "sector": "Payments & Banking",
     "signals": {
       "founded": {
@@ -49251,7 +49251,7 @@ export default {
   },
   "https://startupmap.one/startup/kickscale_at": {
     "domain": "www.kickscale.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/kickscale_at.png",
+    "logoUrl": "https://corvus.gent/a/icpjp5ei.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -49304,7 +49304,7 @@ export default {
   },
   "https://startupmap.one/startup/lunatic_at": {
     "domain": "lunatic.solutions",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/lunatic_at.png",
+    "logoUrl": "https://corvus.gent/a/jmbq2qqo.png",
     "sector": "Developer Tools",
     "signals": {
       "founded": {
@@ -49350,7 +49350,7 @@ export default {
   },
   "https://startupmap.one/startup/datacrunch_fi": {
     "domain": "datacrunch.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/datacrunch_fi.png",
+    "logoUrl": "https://corvus.gent/a/qzj1l6cn.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -49410,7 +49410,7 @@ export default {
   },
   "https://startupmap.one/startup/reorbit_fi": {
     "domain": "www.reorbit.space",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/reorbit_fi.png",
+    "logoUrl": "https://corvus.gent/a/xxxsqbm6.png",
     "sector": "Aerospace & Defense",
     "signals": {
       "founded": {
@@ -49529,7 +49529,7 @@ export default {
   },
   "https://startupmap.one/startup/supermetrics_fi": {
     "domain": "supermetrics.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/supermetrics_fi.png",
+    "logoUrl": "https://corvus.gent/a/awcros1t.png",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -49589,7 +49589,7 @@ export default {
   },
   "https://startupmap.one/startup/curifylabs_fi": {
     "domain": "curifylabs.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/curifylabs_fi.png",
+    "logoUrl": "https://corvus.gent/a/aeo1xl0h.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -49649,7 +49649,7 @@ export default {
   },
   "https://startupmap.one/startup/distance_technologies_fi": {
     "domain": "distance.tech",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/distance_technologies_fi.png",
+    "logoUrl": "https://corvus.gent/a/t6j3ghy1.jpg",
     "sector": "Aerospace & Defense",
     "signals": {
       "founded": {
@@ -49709,7 +49709,7 @@ export default {
   },
   "https://startupmap.one/startup/inven_fi": {
     "domain": "www.inven.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/inven_fi.png",
+    "logoUrl": "https://corvus.gent/a/mwks3tgz.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -49769,7 +49769,7 @@ export default {
   },
   "https://startupmap.one/startup/swarmia_fi": {
     "domain": "www.swarmia.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/swarmia_fi.png",
+    "logoUrl": "https://corvus.gent/a/z3wdund4.png",
     "sector": "Developer Tools",
     "signals": {
       "founded": {
@@ -49829,7 +49829,7 @@ export default {
   },
   "https://startupmap.one/startup/intergrid_fi": {
     "domain": "www.intergridsystems.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/intergrid_fi.png",
+    "logoUrl": "https://corvus.gent/a/dl8kyyk2.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -49889,7 +49889,7 @@ export default {
   },
   "https://startupmap.one/startup/aibidia_fi": {
     "domain": "www.aibidia.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/aibidia_fi.png",
+    "logoUrl": "https://corvus.gent/a/i4z99f9v.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -49949,7 +49949,7 @@ export default {
   },
   "https://startupmap.one/startup/financekey_fi": {
     "domain": "financekey.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/financekey_fi.png",
+    "logoUrl": "https://corvus.gent/a/0yvydzb8.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -50009,7 +50009,7 @@ export default {
   },
   "https://startupmap.one/startup/iprally_fi": {
     "domain": "www.iprally.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/iprally_fi.png",
+    "logoUrl": "https://corvus.gent/a/0cuydsc4.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -50069,7 +50069,7 @@ export default {
   },
   "https://startupmap.one/startup/shook_fi": {
     "domain": "shook.digital",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/shook_fi.png",
+    "logoUrl": "https://corvus.gent/a/3sveuq5u.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -50122,7 +50122,7 @@ export default {
   },
   "https://startupmap.one/startup/aiforia_fi": {
     "domain": "www.aiforia.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/aiforia_fi.png",
+    "logoUrl": "https://corvus.gent/a/mtobcacy.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -50182,7 +50182,7 @@ export default {
   },
   "https://startupmap.one/startup/ellie_fi": {
     "domain": "www.ellie.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/ellie_fi.png",
+    "logoUrl": "https://corvus.gent/a/4f43ni46.png",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -50242,7 +50242,7 @@ export default {
   },
   "https://startupmap.one/startup/narvi_payments_fi": {
     "domain": "narvi.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/narvi_payments_fi.png",
+    "logoUrl": "https://corvus.gent/a/vy5wvpe4.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -50302,7 +50302,7 @@ export default {
   },
   "https://startupmap.one/startup/zero_fi": {
     "domain": "zero.inc",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/zero_fi.png",
+    "logoUrl": "https://corvus.gent/a/4ey86i7s.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -50362,7 +50362,7 @@ export default {
   },
   "https://startupmap.one/startup/booksalon_fi": {
     "domain": "pro.booksalon.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/booksalon_fi.png",
+    "logoUrl": "https://corvus.gent/a/hnjhhhiq.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -50422,7 +50422,7 @@ export default {
   },
   "https://startupmap.one/startup/appfollow_fi": {
     "domain": "appfollow.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/appfollow_fi.png",
+    "logoUrl": "https://corvus.gent/a/vx8nnuuv.png",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -50475,7 +50475,7 @@ export default {
   },
   "https://startupmap.one/startup/boksi_fi": {
     "domain": "boksi.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/boksi_fi.png",
+    "logoUrl": "https://corvus.gent/a/zfxijkiv.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -50535,7 +50535,7 @@ export default {
   },
   "https://startupmap.one/startup/happysignals_fi": {
     "domain": "www.happysignals.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/happysignals_fi.png",
+    "logoUrl": "https://corvus.gent/a/lg9x8gyp.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -50595,7 +50595,7 @@ export default {
   },
   "https://startupmap.one/startup/aiatella_fi": {
     "domain": "www.aiatella.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/aiatella_fi.png",
+    "logoUrl": "https://corvus.gent/a/hef5rgli.png",
     "sector": "Medtech & Devices",
     "signals": {
       "founded": {
@@ -50648,7 +50648,7 @@ export default {
   },
   "https://startupmap.one/startup/alveos_fi": {
     "domain": "alveoslabs.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/alveos_fi.png",
+    "logoUrl": "https://corvus.gent/a/uuo9z0vp.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -50736,7 +50736,7 @@ export default {
   },
   "https://startupmap.one/startup/bear_inc_fi": {
     "domain": "bear.inc",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/bear_inc_fi.png",
+    "logoUrl": "https://corvus.gent/a/njf996u6.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -50775,7 +50775,7 @@ export default {
   },
   "https://startupmap.one/startup/carbo_culture_fi": {
     "domain": "carboculture.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/carbo_culture_fi.png",
+    "logoUrl": "https://corvus.gent/a/87rq74zk.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -50828,7 +50828,7 @@ export default {
   },
   "https://startupmap.one/startup/cardiolyse_fi": {
     "domain": "cardiolyse.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/cardiolyse_fi.png",
+    "logoUrl": "https://corvus.gent/a/5m1kruwv.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -50881,7 +50881,7 @@ export default {
   },
   "https://startupmap.one/startup/clarvo_fi": {
     "domain": "www.clarvo.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/clarvo_fi.png",
+    "logoUrl": "https://corvus.gent/a/pn8z3v4z.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -50934,7 +50934,7 @@ export default {
   },
   "https://startupmap.one/startup/cronvall_fi": {
     "domain": "www.cronvall.fi",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/cronvall_fi.png",
+    "logoUrl": "https://corvus.gent/a/hkatpt6n.png",
     "sector": "Supply Chain & Ops Tech",
     "signals": {
       "founded": {
@@ -50987,7 +50987,7 @@ export default {
   },
   "https://startupmap.one/startup/elmery_fi": {
     "domain": "elmery.fi",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/elmery_fi.png",
+    "logoUrl": "https://corvus.gent/a/popn78lt.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -51040,7 +51040,7 @@ export default {
   },
   "https://startupmap.one/startup/elva_fi": {
     "domain": "withelva.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/elva_fi.png",
+    "logoUrl": "https://corvus.gent/a/553dfmqa.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -51093,7 +51093,7 @@ export default {
   },
   "https://startupmap.one/startup/flow_computing_fi": {
     "domain": "flow-computing.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/flow_computing_fi.png",
+    "logoUrl": "https://corvus.gent/a/k8vnltwx.png",
     "sector": "Hardware & Semiconductors",
     "signals": {
       "founded": {
@@ -51146,7 +51146,7 @@ export default {
   },
   "https://startupmap.one/startup/focal_fi": {
     "domain": "focal.inc",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/focal_fi.png",
+    "logoUrl": "https://corvus.gent/a/js1d24l4.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -51192,7 +51192,7 @@ export default {
   },
   "https://startupmap.one/startup/glucomodicum_fi": {
     "domain": "glucomodicum.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/glucomodicum_fi.png",
+    "logoUrl": "https://corvus.gent/a/kyz8rrgj.png",
     "sector": "Medtech & Devices",
     "signals": {
       "founded": {
@@ -51245,7 +51245,7 @@ export default {
   },
   "https://startupmap.one/startup/hashlist_fi": {
     "domain": "www.hashlist.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/hashlist_fi.png",
+    "logoUrl": "https://corvus.gent/a/q68eyewx.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -51298,7 +51298,7 @@ export default {
   },
   "https://startupmap.one/startup/homie_fi": {
     "domain": "www.usehomie.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/homie_fi.png",
+    "logoUrl": "https://corvus.gent/a/rga94odo.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -51351,7 +51351,7 @@ export default {
   },
   "https://startupmap.one/startup/kapacity_io_fi": {
     "domain": "kapacity.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/kapacity_io_fi.png",
+    "logoUrl": "https://corvus.gent/a/29utze6w.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -51404,7 +51404,7 @@ export default {
   },
   "https://startupmap.one/startup/amplemarket_pt": {
     "domain": "www.amplemarket.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/amplemarket_pt.png",
+    "logoUrl": "https://corvus.gent/a/qy8qc6c0.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -51464,7 +51464,7 @@ export default {
   },
   "https://startupmap.one/startup/ethena_pt": {
     "domain": "ethena.fi",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/ethena_pt.png",
+    "logoUrl": "https://corvus.gent/a/j2k8bgd0.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -51524,7 +51524,7 @@ export default {
   },
   "https://startupmap.one/startup/granter_pt": {
     "domain": "granter.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/granter_pt.png",
+    "logoUrl": "https://corvus.gent/a/hrt953vs.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -51584,7 +51584,7 @@ export default {
   },
   "https://startupmap.one/startup/proprhome_pt": {
     "domain": "www.proprhome.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/proprhome_pt.png",
+    "logoUrl": "https://corvus.gent/a/hc6hs5db.png",
     "sector": "Real Estate Tech",
     "signals": {
       "founded": {
@@ -51630,7 +51630,7 @@ export default {
   },
   "https://startupmap.one/startup/doinn_pt": {
     "domain": "doinn.co",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/doinn_pt.png",
+    "logoUrl": "https://corvus.gent/a/97ynp2oc.png",
     "sector": "Real Estate Tech",
     "signals": {
       "founded": {
@@ -51690,7 +51690,7 @@ export default {
   },
   "https://startupmap.one/startup/starkdata_pt": {
     "domain": "www.starkdata.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/starkdata_pt.png",
+    "logoUrl": "https://corvus.gent/a/77kh7bpi.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -51743,7 +51743,7 @@ export default {
   },
   "https://startupmap.one/startup/nortech_ai_pt": {
     "domain": "nortech.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/nortech_ai_pt.png",
+    "logoUrl": "https://corvus.gent/a/9tbt93g6.png",
     "sector": "IoT & Sensors",
     "signals": {
       "founded": {
@@ -51803,7 +51803,7 @@ export default {
   },
   "https://startupmap.one/startup/advertio_pt": {
     "domain": "www.leadzai.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/advertio_pt.png",
+    "logoUrl": "https://corvus.gent/a/2w0pvtqr.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -51863,7 +51863,7 @@ export default {
   },
   "https://startupmap.one/startup/bloq_it_pt": {
     "domain": "www.bloq.it",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/bloq_it_pt.png",
+    "logoUrl": "https://corvus.gent/a/7uqedjak.png",
     "sector": "Logistics",
     "signals": {
       "founded": {
@@ -51923,7 +51923,7 @@ export default {
   },
   "https://startupmap.one/startup/casafari_pt": {
     "domain": "www.casafari.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/casafari_pt.png",
+    "logoUrl": "https://corvus.gent/a/acad55vu.png",
     "sector": "Real Estate Tech",
     "signals": {
       "founded": {
@@ -51983,7 +51983,7 @@ export default {
   },
   "https://startupmap.one/startup/codacy_pt": {
     "domain": "www.codacy.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/codacy_pt.png",
+    "logoUrl": "https://corvus.gent/a/292fuhke.png",
     "sector": "Developer Tools",
     "signals": {
       "founded": {
@@ -52043,7 +52043,7 @@ export default {
   },
   "https://startupmap.one/startup/vawlt_pt": {
     "domain": "vawlt.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/vawlt_pt.png",
+    "logoUrl": "https://corvus.gent/a/acjmiiym.png",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -52103,7 +52103,7 @@ export default {
   },
   "https://startupmap.one/startup/affine_pt": {
     "domain": "affine.law",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/affine_pt.png",
+    "logoUrl": "https://corvus.gent/a/etbgm9lh.png",
     "sector": "Legal & Compliance Tech",
     "signals": {
       "founded": {
@@ -52149,7 +52149,7 @@ export default {
   },
   "https://startupmap.one/startup/atmospheric_ai_pt": {
     "domain": "www.atmosphericai.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/atmospheric_ai_pt.png",
+    "logoUrl": "https://corvus.gent/a/szdi2veu.png",
     "sector": "Supply Chain & Ops Tech",
     "signals": {
       "founded": {
@@ -52185,7 +52185,7 @@ export default {
   },
   "https://startupmap.one/startup/aptoide_pt": {
     "domain": "en.aptoide.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/aptoide_pt.png",
+    "logoUrl": "https://corvus.gent/a/0n1untcd.png",
     "sector": "E Commerce & Retail",
     "signals": {
       "founded": {
@@ -52238,7 +52238,7 @@ export default {
   },
   "https://startupmap.one/startup/augusta_labs_pt": {
     "domain": "www.augustalabs.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/augusta_labs_pt.png",
+    "logoUrl": "https://corvus.gent/a/badckik0.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -52291,7 +52291,7 @@ export default {
   },
   "https://startupmap.one/startup/bairro_direct_pt": {
     "domain": "bairro.pt",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/bairro_direct_pt.png",
+    "logoUrl": "https://corvus.gent/a/ej4muqzi.png",
     "sector": "E Commerce & Retail",
     "signals": {
       "founded": {
@@ -52337,7 +52337,7 @@ export default {
   },
   "https://startupmap.one/startup/builtrix_pt": {
     "domain": "builtrix.tech",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/builtrix_pt.png",
+    "logoUrl": "https://corvus.gent/a/bltorgs6.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -52390,7 +52390,7 @@ export default {
   },
   "https://startupmap.one/startup/dig_in_pt": {
     "domain": "dig-in.pt",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/dig_in_pt.png",
+    "logoUrl": "https://corvus.gent/a/3rjj0jes.png",
     "sector": "Agritech & Foodtech",
     "signals": {
       "founded": {
@@ -52436,7 +52436,7 @@ export default {
   },
   "https://startupmap.one/startup/docdigitizer_pt": {
     "domain": "www.docdigitizer.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/docdigitizer_pt.png",
+    "logoUrl": "https://corvus.gent/a/jc28bil5.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -52489,7 +52489,7 @@ export default {
   },
   "https://startupmap.one/startup/dreamshaper_pt": {
     "domain": "dreamshaper.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/dreamshaper_pt.png",
+    "logoUrl": "https://corvus.gent/a/ne407izp.png",
     "sector": "Edtech",
     "signals": {
       "founded": {
@@ -52542,7 +52542,7 @@ export default {
   },
   "https://startupmap.one/startup/ekiden_pt": {
     "domain": "ekiden.fi",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/ekiden_pt.png",
+    "logoUrl": "https://corvus.gent/a/oosydtqh.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -52595,7 +52595,7 @@ export default {
   },
   "https://startupmap.one/startup/guardian_labs_pt": {
     "domain": "stopburlas.pt",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/guardian_labs_pt.png",
+    "logoUrl": "https://corvus.gent/a/y8koxdbn.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -52641,7 +52641,7 @@ export default {
   },
   "https://startupmap.one/startup/hands_on_pt": {
     "domain": "handson.pt",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/hands_on_pt.png",
+    "logoUrl": "https://corvus.gent/a/9zjb3xxb.png",
     "sector": "Edtech",
     "signals": {
       "founded": {
@@ -52677,7 +52677,7 @@ export default {
   },
   "https://startupmap.one/startup/hole19_pt": {
     "domain": "www.hole19golf.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/hole19_pt.png",
+    "logoUrl": "https://corvus.gent/a/4bq0vft5.png",
     "sector": "Sports & Wellness",
     "signals": {
       "founded": {
@@ -52730,7 +52730,7 @@ export default {
   },
   "https://startupmap.one/startup/interface_labs_pt": {
     "domain": "www.interface.social",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/interface_labs_pt.png",
+    "logoUrl": "https://corvus.gent/a/fineftfw.png",
     "sector": "Developer Tools",
     "signals": {
       "founded": {
@@ -52836,7 +52836,7 @@ export default {
   },
   "https://startupmap.one/startup/jungle_ai_pt": {
     "domain": "www.jungle.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/jungle_ai_pt.png",
+    "logoUrl": "https://corvus.gent/a/ka1nyjtv.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -52882,7 +52882,7 @@ export default {
   },
   "https://startupmap.one/startup/kitch_pt": {
     "domain": "www.eatkitch.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/kitch_pt.png",
+    "logoUrl": "https://corvus.gent/a/4h99po2b.png",
     "sector": "E Commerce & Retail",
     "signals": {
       "founded": {
@@ -52935,7 +52935,7 @@ export default {
   },
   "https://startupmap.one/startup/manie_pt": {
     "domain": "www.manie.pt",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/manie_pt.png",
+    "logoUrl": "https://corvus.gent/a/606nfm77.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -52981,7 +52981,7 @@ export default {
   },
   "https://startupmap.one/startup/networkme_pt": {
     "domain": "www.networkme.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/networkme_pt.png",
+    "logoUrl": "https://corvus.gent/a/1lk3ivsu.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -53027,7 +53027,7 @@ export default {
   },
   "https://startupmap.one/startup/rely_io_pt": {
     "domain": "rely.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/rely_io_pt.png",
+    "logoUrl": "https://corvus.gent/a/5taxk1t5.png",
     "sector": "Developer Tools",
     "signals": {
       "founded": {
@@ -53073,7 +53073,7 @@ export default {
   },
   "https://startupmap.one/startup/sentivue_pt": {
     "domain": "sentivue.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/sentivue_pt.png",
+    "logoUrl": "https://corvus.gent/a/j4qfqck6.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -53126,7 +53126,7 @@ export default {
   },
   "https://startupmap.one/startup/shiptimize_pt": {
     "domain": "www.shiptimize.me",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/shiptimize_pt.png",
+    "logoUrl": "https://corvus.gent/a/7nuc9zu6.png",
     "sector": "Logistics",
     "signals": {
       "founded": {
@@ -53179,7 +53179,7 @@ export default {
   },
   "https://startupmap.one/startup/neat_no": {
     "domain": "neat.no",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/neat_no.png",
+    "logoUrl": "https://corvus.gent/a/itfteh2b.png",
     "sector": "Hardware & Semiconductors",
     "signals": {
       "founded": {
@@ -53298,7 +53298,7 @@ export default {
   },
   "https://startupmap.one/startup/newcode_no": {
     "domain": "newcode.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/newcode_no.png",
+    "logoUrl": "https://corvus.gent/a/jo0yfr84.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -53358,7 +53358,7 @@ export default {
   },
   "https://startupmap.one/startup/coinpanda_no": {
     "domain": "coinpanda.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/coinpanda_no.png",
+    "logoUrl": "https://corvus.gent/a/nyakp4rs.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -53463,7 +53463,7 @@ export default {
   },
   "https://startupmap.one/startup/bislab_no": {
     "domain": "bislab.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/bislab_no.png",
+    "logoUrl": "https://corvus.gent/a/uacsbxzf.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -53523,7 +53523,7 @@ export default {
   },
   "https://startupmap.one/startup/kosli_no": {
     "domain": "www.kosli.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/kosli_no.png",
+    "logoUrl": "https://corvus.gent/a/k2czanda.png",
     "sector": "Developer Tools",
     "signals": {
       "founded": {
@@ -53583,7 +53583,7 @@ export default {
   },
   "https://startupmap.one/startup/laiout_no": {
     "domain": "laiout.co",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/laiout_no.png",
+    "logoUrl": "https://corvus.gent/a/2bwafprk.png",
     "sector": "Real Estate Tech",
     "signals": {
       "founded": {
@@ -53643,7 +53643,7 @@ export default {
   },
   "https://startupmap.one/startup/oivi_no": {
     "domain": "www.oivi.co",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/oivi_no.png",
+    "logoUrl": "https://corvus.gent/a/915iinku.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -53703,7 +53703,7 @@ export default {
   },
   "https://startupmap.one/startup/enode_no": {
     "domain": "enode.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/enode_no.png",
+    "logoUrl": "https://corvus.gent/a/grhvd7fl.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -53763,7 +53763,7 @@ export default {
   },
   "https://startupmap.one/startup/leasi_no": {
     "domain": "leasi.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/leasi_no.png",
+    "logoUrl": "https://corvus.gent/a/ndxkey1q.png",
     "sector": "Supply Chain & Ops Tech",
     "signals": {
       "founded": {
@@ -53823,7 +53823,7 @@ export default {
   },
   "https://startupmap.one/startup/unleash_no": {
     "domain": "www.getunleash.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/unleash_no.png",
+    "logoUrl": "https://corvus.gent/a/lvcrof65.png",
     "sector": "Developer Tools",
     "signals": {
       "founded": {
@@ -53883,7 +53883,7 @@ export default {
   },
   "https://startupmap.one/startup/attensi_no": {
     "domain": "attensi.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/attensi_no.png",
+    "logoUrl": "https://corvus.gent/a/whfzlosu.png",
     "sector": "Edtech",
     "signals": {
       "founded": {
@@ -53943,7 +53943,7 @@ export default {
   },
   "https://startupmap.one/startup/carbon_crusher_no": {
     "domain": "www.carboncrusher.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/carbon_crusher_no.png",
+    "logoUrl": "https://corvus.gent/a/s5svvglk.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -54121,7 +54121,7 @@ export default {
   },
   "https://startupmap.one/startup/moritz_no": {
     "domain": "moritzlegal.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/moritz_no.png",
+    "logoUrl": "https://corvus.gent/a/ft3jk1lf.png",
     "sector": "Legal & Compliance Tech",
     "signals": {
       "founded": {
@@ -54181,7 +54181,7 @@ export default {
   },
   "https://startupmap.one/startup/trademate_sports_no": {
     "domain": "www.tradematesports.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/trademate_sports_no.png",
+    "logoUrl": "https://corvus.gent/a/l78hdw7u.png",
     "sector": "Sports & Wellness",
     "signals": {
       "founded": {
@@ -54234,7 +54234,7 @@ export default {
   },
   "https://startupmap.one/startup/appfarm_no": {
     "domain": "www.appfarm.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/appfarm_no.png",
+    "logoUrl": "https://corvus.gent/a/yi853tq3.png",
     "sector": "No Code & Automation",
     "signals": {
       "founded": {
@@ -54294,7 +54294,7 @@ export default {
   },
   "https://startupmap.one/startup/auk_no": {
     "domain": "auk.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/auk_no.png",
+    "logoUrl": "https://corvus.gent/a/l7eqw1bu.png",
     "sector": "Agritech & Foodtech",
     "signals": {
       "founded": {
@@ -54354,7 +54354,7 @@ export default {
   },
   "https://startupmap.one/startup/catchwise_no": {
     "domain": "catchwise.no",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/catchwise_no.png",
+    "logoUrl": "https://corvus.gent/a/t1ag3m62.png",
     "sector": "Agritech & Foodtech",
     "signals": {
       "founded": {
@@ -54414,7 +54414,7 @@ export default {
   },
   "https://startupmap.one/startup/cleria_no": {
     "domain": "www.cleria.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/cleria_no.png",
+    "logoUrl": "https://corvus.gent/a/0n5p6dxp.png",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -54467,7 +54467,7 @@ export default {
   },
   "https://startupmap.one/startup/cobrief_no": {
     "domain": "cobrief.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/cobrief_no.png",
+    "logoUrl": "https://corvus.gent/a/rpxnr3si.png",
     "sector": "Legal & Compliance Tech",
     "signals": {
       "founded": {
@@ -54520,7 +54520,7 @@ export default {
   },
   "https://startupmap.one/startup/alba_no": {
     "domain": "albaplay.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/alba_no.png",
+    "logoUrl": "https://corvus.gent/a/m9uefu2o.png",
     "sector": "Sports & Wellness",
     "signals": {
       "founded": {
@@ -54573,7 +54573,7 @@ export default {
   },
   "https://startupmap.one/startup/findable_no": {
     "domain": "www.findable.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/findable_no.png",
+    "logoUrl": "https://corvus.gent/a/7ynhkb15.png",
     "sector": "Real Estate Tech",
     "signals": {
       "founded": {
@@ -54633,7 +54633,7 @@ export default {
   },
   "https://startupmap.one/startup/glint_solar_no": {
     "domain": "www.glintsolar.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/glint_solar_no.png",
+    "logoUrl": "https://corvus.gent/a/jpl3wod6.png",
     "sector": "Energy",
     "signals": {
       "founded": {
@@ -54693,7 +54693,7 @@ export default {
   },
   "https://startupmap.one/startup/talentech_no": {
     "domain": "talentech.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/talentech_no.png",
+    "logoUrl": "https://corvus.gent/a/nun8zwoe.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -54746,7 +54746,7 @@ export default {
   },
   "https://startupmap.one/startup/tana_no": {
     "domain": "tana.inc",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/tana_no.png",
+    "logoUrl": "https://corvus.gent/a/mrelyxbj.png",
     "sector": "Productivity & Collaboration",
     "signals": {
       "founded": {
@@ -54806,7 +54806,7 @@ export default {
   },
   "https://startupmap.one/startup/timely_app_no": {
     "domain": "timelyapp.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/timely_app_no.png",
+    "logoUrl": "https://corvus.gent/a/d26tsilm.png",
     "sector": "Productivity & Collaboration",
     "signals": {
       "founded": {
@@ -54866,7 +54866,7 @@ export default {
   },
   "https://startupmap.one/startup/actithera_no": {
     "domain": "www.actithera.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/actithera_no.png",
+    "logoUrl": "https://corvus.gent/a/vx487iqp.png",
     "sector": "Biotech",
     "signals": {
       "founded": {
@@ -54919,7 +54919,7 @@ export default {
   },
   "https://startupmap.one/startup/aurora_analytica_no": {
     "domain": "auroraanalytica.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/aurora_analytica_no.png",
+    "logoUrl": "https://corvus.gent/a/cfrhbhqa.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -54965,7 +54965,7 @@ export default {
   },
   "https://startupmap.one/startup/breyta_no": {
     "domain": "breyta.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/breyta_no.png",
+    "logoUrl": "https://corvus.gent/a/drhvdova.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -55018,7 +55018,7 @@ export default {
   },
   "https://startupmap.one/startup/bsure_no": {
     "domain": "www.bsure.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/bsure_no.png",
+    "logoUrl": "https://corvus.gent/a/6g6grbcq.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -55071,7 +55071,7 @@ export default {
   },
   "https://startupmap.one/startup/campanyon_no": {
     "domain": "campanyon.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/campanyon_no.png",
+    "logoUrl": "https://corvus.gent/a/cgkkajbh.png",
     "sector": "Travel & Hospitality",
     "signals": {
       "founded": {
@@ -55124,7 +55124,7 @@ export default {
   },
   "https://startupmap.one/startup/cityq_no": {
     "domain": "cityq.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/cityq_no.png",
+    "logoUrl": "https://corvus.gent/a/gp9ifo2b.png",
     "sector": "Mobility & Transport",
     "signals": {
       "founded": {
@@ -55167,7 +55167,7 @@ export default {
   },
   "https://startupmap.one/startup/clexbio_no": {
     "domain": "www.clexbio.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/clexbio_no.png",
+    "logoUrl": "https://corvus.gent/a/8ccv743k.png",
     "sector": "Biotech",
     "signals": {
       "founded": {
@@ -55213,7 +55213,7 @@ export default {
   },
   "https://startupmap.one/startup/crunched_no": {
     "domain": "www.usecrunched.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/crunched_no.png",
+    "logoUrl": "https://corvus.gent/a/siwjab2q.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -55266,7 +55266,7 @@ export default {
   },
   "https://startupmap.one/startup/satispay_it": {
     "domain": "www.satispay.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/satispay_it.png",
+    "logoUrl": "https://corvus.gent/a/91ijdsqf.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -55326,7 +55326,7 @@ export default {
   },
   "https://startupmap.one/startup/lexroom_it": {
     "domain": "www.lexroom.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/lexroom_it.png",
+    "logoUrl": "https://corvus.gent/a/wm6g7hhs.png",
     "sector": "Legal & Compliance Tech",
     "signals": {
       "founded": {
@@ -55386,7 +55386,7 @@ export default {
   },
   "https://startupmap.one/startup/talentware_it": {
     "domain": "talentware.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/talentware_it.png",
+    "logoUrl": "https://corvus.gent/a/5sztzifk.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -55446,7 +55446,7 @@ export default {
   },
   "https://startupmap.one/startup/leaf_space_it": {
     "domain": "leaf.space",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/leaf_space_it.png",
+    "logoUrl": "https://corvus.gent/a/2p4qav0l.png",
     "sector": "Aerospace & Defense",
     "signals": {
       "founded": {
@@ -55506,7 +55506,7 @@ export default {
   },
   "https://startupmap.one/startup/ephos_it": {
     "domain": "ephos.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/ephos_it.png",
+    "logoUrl": "https://corvus.gent/a/4lssymvb.png",
     "sector": "Hardware & Semiconductors",
     "signals": {
       "founded": {
@@ -55566,7 +55566,7 @@ export default {
   },
   "https://startupmap.one/startup/cleafy_it": {
     "domain": "www.cleafy.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/cleafy_it.png",
+    "logoUrl": "https://corvus.gent/a/vy6mtx20.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -55626,7 +55626,7 @@ export default {
   },
   "https://startupmap.one/startup/jet_hr_it": {
     "domain": "www.jethr.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/jet_hr_it.png",
+    "logoUrl": "https://corvus.gent/a/natuhe0q.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -55738,7 +55738,7 @@ export default {
   },
   "https://startupmap.one/startup/akamas_it": {
     "domain": "akamas.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/akamas_it.png",
+    "logoUrl": "https://corvus.gent/a/m2hqf0df.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -55798,7 +55798,7 @@ export default {
   },
   "https://startupmap.one/startup/adaptronics_it": {
     "domain": "www.adaptronics.it",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/adaptronics_it.png",
+    "logoUrl": "https://corvus.gent/a/ovgsuxyh.png",
     "sector": "Robotics",
     "signals": {
       "founded": {
@@ -55858,7 +55858,7 @@ export default {
   },
   "https://startupmap.one/startup/compri_it": {
     "domain": "www.compri.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/compri_it.png",
+    "logoUrl": "https://corvus.gent/a/rse4nnim.png",
     "sector": "Supply Chain & Ops Tech",
     "signals": {
       "founded": {
@@ -55918,7 +55918,7 @@ export default {
   },
   "https://startupmap.one/startup/crescitalia_it": {
     "domain": "www.crescitalia.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/crescitalia_it.png",
+    "logoUrl": "https://corvus.gent/a/em90payq.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -55978,7 +55978,7 @@ export default {
   },
   "https://startupmap.one/startup/switcho_it": {
     "domain": "www.switcho.it",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/switcho_it.png",
+    "logoUrl": "https://corvus.gent/a/fx03rjt7.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -56038,7 +56038,7 @@ export default {
   },
   "https://startupmap.one/startup/arsenale_bioyards_it": {
     "domain": "arsenale.bio",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/arsenale_bioyards_it.png",
+    "logoUrl": "https://corvus.gent/a/m4zzby00.png",
     "sector": "Biotech",
     "signals": {
       "founded": {
@@ -56098,7 +56098,7 @@ export default {
   },
   "https://startupmap.one/startup/aryel_it": {
     "domain": "aryel.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/aryel_it.png",
+    "logoUrl": "https://corvus.gent/a/luzukc7i.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -56158,7 +56158,7 @@ export default {
   },
   "https://startupmap.one/startup/cassandra_it": {
     "domain": "cassandra.app",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/cassandra_it.png",
+    "logoUrl": "https://corvus.gent/a/5jbztiwx.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -56218,7 +56218,7 @@ export default {
   },
   "https://startupmap.one/startup/contents_it": {
     "domain": "contents.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/contents_it.png",
+    "logoUrl": "https://corvus.gent/a/cetrtglp.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -56271,7 +56271,7 @@ export default {
   },
   "https://startupmap.one/startup/lucebox_it": {
     "domain": "www.lucebox.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/lucebox_it.png",
+    "logoUrl": "https://corvus.gent/a/qenmqa6w.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -56324,7 +56324,7 @@ export default {
   },
   "https://startupmap.one/startup/volvero_it": {
     "domain": "www.volvero.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/volvero_it.png",
+    "logoUrl": "https://corvus.gent/a/msv1oete.png",
     "sector": "Mobility & Transport",
     "signals": {
       "founded": {
@@ -56384,7 +56384,7 @@ export default {
   },
   "https://startupmap.one/startup/agade_it": {
     "domain": "agade-exoskeletons.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/agade_it.png",
+    "logoUrl": "https://corvus.gent/a/m6js6jco.png",
     "sector": "Robotics",
     "signals": {
       "founded": {
@@ -56437,7 +56437,7 @@ export default {
   },
   "https://startupmap.one/startup/arke_it": {
     "domain": "www.arke.so",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/arke_it.png",
+    "logoUrl": "https://corvus.gent/a/0yswxot9.png",
     "sector": "Supply Chain & Ops Tech",
     "signals": {
       "founded": {
@@ -56490,7 +56490,7 @@ export default {
   },
   "https://startupmap.one/startup/boom_it": {
     "domain": "boomimagestudio.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/boom_it.png",
+    "logoUrl": "https://corvus.gent/a/k2w2imsy.png",
     "sector": "Media & Entertainment",
     "signals": {
       "founded": {
@@ -56596,7 +56596,7 @@ export default {
   },
   "https://startupmap.one/startup/caracol_it": {
     "domain": "caracol-am.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/caracol_it.png",
+    "logoUrl": "https://corvus.gent/a/9poygjs9.png",
     "sector": "Hardware & Semiconductors",
     "signals": {
       "founded": {
@@ -56649,7 +56649,7 @@ export default {
   },
   "https://startupmap.one/startup/cardo_ai_it": {
     "domain": "cardoai.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/cardo_ai_it.png",
+    "logoUrl": "https://corvus.gent/a/vpqg8gvn.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -56702,7 +56702,7 @@ export default {
   },
   "https://startupmap.one/startup/everli_it": {
     "domain": "www.everli.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/everli_it.png",
+    "logoUrl": "https://corvus.gent/a/qfqlej1o.png",
     "sector": "E Commerce & Retail",
     "signals": {
       "founded": {
@@ -56755,7 +56755,7 @@ export default {
   },
   "https://startupmap.one/startup/finanz_it": {
     "domain": "www.finanzapp.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/finanz_it.png",
+    "logoUrl": "https://corvus.gent/a/470alcg9.png",
     "sector": "Edtech",
     "signals": {
       "founded": {
@@ -56808,7 +56808,7 @@ export default {
   },
   "https://startupmap.one/startup/fiscozen_it": {
     "domain": "fiscozen.it",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/fiscozen_it.png",
+    "logoUrl": "https://corvus.gent/a/c2lvjacq.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -56861,7 +56861,7 @@ export default {
   },
   "https://startupmap.one/startup/freedome_it": {
     "domain": "freedome.it",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/freedome_it.png",
+    "logoUrl": "https://corvus.gent/a/kgxrh4rv.png",
     "sector": "Travel & Hospitality",
     "signals": {
       "founded": {
@@ -56914,7 +56914,7 @@ export default {
   },
   "https://startupmap.one/startup/green_future_project_it": {
     "domain": "www.greenfutureproject.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/green_future_project_it.png",
+    "logoUrl": "https://corvus.gent/a/7uuemr7p.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -56967,7 +56967,7 @@ export default {
   },
   "https://startupmap.one/startup/isaac_it": {
     "domain": "isaacantisismica.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/isaac_it.png",
+    "logoUrl": "https://corvus.gent/a/50iptb17.png",
     "sector": "Hardware & Semiconductors",
     "signals": {
       "founded": {
@@ -57020,7 +57020,7 @@ export default {
   },
   "https://startupmap.one/startup/joinrs_it": {
     "domain": "joinrs.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/joinrs_it.png",
+    "logoUrl": "https://corvus.gent/a/4mmpn5sn.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -57073,7 +57073,7 @@ export default {
   },
   "https://startupmap.one/startup/khooa_it": {
     "domain": "khooa.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/khooa_it.png",
+    "logoUrl": "https://corvus.gent/a/rrmkh9w1.png",
     "sector": "Fashion & Retail Tech",
     "signals": {
       "founded": {
@@ -57112,7 +57112,7 @@ export default {
   },
   "https://startupmap.one/startup/krill_design_it": {
     "domain": "en.krilldesign.net",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/krill_design_it.png",
+    "logoUrl": "https://corvus.gent/a/vpoon8j7.png",
     "sector": "Circular Economy",
     "signals": {
       "founded": {
@@ -57165,7 +57165,7 @@ export default {
   },
   "https://startupmap.one/startup/lexdoit_it": {
     "domain": "www.lexdo.it",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/lexdoit_it.png",
+    "logoUrl": "https://corvus.gent/a/eldw118p.png",
     "sector": "Legal & Compliance Tech",
     "signals": {
       "founded": {
@@ -57218,7 +57218,7 @@ export default {
   },
   "https://startupmap.one/startup/nanophoria_it": {
     "domain": "www.nanophoria.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/nanophoria_it.png",
+    "logoUrl": "https://corvus.gent/a/sicybk25.png",
     "sector": "Biotech",
     "signals": {
       "founded": {
@@ -57264,7 +57264,7 @@ export default {
   },
   "https://startupmap.one/startup/newronika_it": {
     "domain": "newronika.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/newronika_it.png",
+    "logoUrl": "https://corvus.gent/a/wlwew6vp.png",
     "sector": "Medtech & Devices",
     "signals": {
       "founded": {
@@ -57317,7 +57317,7 @@ export default {
   },
   "https://startupmap.one/startup/elevenlabs_pl": {
     "domain": "elevenlabs.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/elevenlabs_pl.png",
+    "logoUrl": "https://corvus.gent/a/egkwmzww.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -57377,7 +57377,7 @@ export default {
   },
   "https://startupmap.one/startup/cloudferro_pl": {
     "domain": "cloudferro.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/cloudferro_pl.png",
+    "logoUrl": "https://corvus.gent/a/ka9o74lt.png",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -57430,7 +57430,7 @@ export default {
   },
   "https://startupmap.one/startup/riseguide_pl": {
     "domain": "riseguide.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/riseguide_pl.png",
+    "logoUrl": "https://corvus.gent/a/cvn673w3.jpg",
     "sector": "Edtech",
     "signals": {
       "founded": {
@@ -57483,7 +57483,7 @@ export default {
   },
   "https://startupmap.one/startup/respovision_pl": {
     "domain": "respo.vision",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/respovision_pl.png",
+    "logoUrl": "https://corvus.gent/a/631c7zu8.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -57543,7 +57543,7 @@ export default {
   },
   "https://startupmap.one/startup/instreamly_pl": {
     "domain": "instreamly.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/instreamly_pl.png",
+    "logoUrl": "https://corvus.gent/a/ni9kvuaw.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -57603,7 +57603,7 @@ export default {
   },
   "https://startupmap.one/startup/booksy_pl": {
     "domain": "booksy.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/booksy_pl.png",
+    "logoUrl": "https://corvus.gent/a/lk6x3odx.png",
     "sector": "No Code & Automation",
     "signals": {
       "founded": {
@@ -57663,7 +57663,7 @@ export default {
   },
   "https://startupmap.one/startup/cthings_co_pl": {
     "domain": "cthings.co",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/cthings_co_pl.png",
+    "logoUrl": "https://corvus.gent/a/4ypyrtw0.png",
     "sector": "IoT & Sensors",
     "signals": {
       "founded": {
@@ -57723,7 +57723,7 @@ export default {
   },
   "https://startupmap.one/startup/inxy_payments_pl": {
     "domain": "www.inxy.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/inxy_payments_pl.png",
+    "logoUrl": "https://corvus.gent/a/6y6uwv7a.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -57766,7 +57766,7 @@ export default {
   },
   "https://startupmap.one/startup/ingenix_ai_pl": {
     "domain": "ingenix.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/ingenix_ai_pl.png",
+    "logoUrl": "https://corvus.gent/a/a6y1c2yv.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -57878,7 +57878,7 @@ export default {
   },
   "https://startupmap.one/startup/alohacamp_pl": {
     "domain": "alohacamp.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/alohacamp_pl.png",
+    "logoUrl": "https://corvus.gent/a/9x186fg6.png",
     "sector": "Travel & Hospitality",
     "signals": {
       "founded": {
@@ -57931,7 +57931,7 @@ export default {
   },
   "https://startupmap.one/startup/alokai_pl": {
     "domain": "alokai.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/alokai_pl.png",
+    "logoUrl": "https://corvus.gent/a/1bho7wzo.png",
     "sector": "E Commerce & Retail",
     "signals": {
       "founded": {
@@ -57984,7 +57984,7 @@ export default {
   },
   "https://startupmap.one/startup/asynchronics_pl": {
     "domain": "asynchronics.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/asynchronics_pl.png",
+    "logoUrl": "https://corvus.gent/a/py03ircs.png",
     "sector": "Aerospace & Defense",
     "signals": {
       "founded": {
@@ -58030,7 +58030,7 @@ export default {
   },
   "https://startupmap.one/startup/authologic_pl": {
     "domain": "authologic.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/authologic_pl.png",
+    "logoUrl": "https://corvus.gent/a/9ssr9l7b.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -58083,7 +58083,7 @@ export default {
   },
   "https://startupmap.one/startup/better_payment_pl": {
     "domain": "www.bpn.finance",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/better_payment_pl.png",
+    "logoUrl": "https://corvus.gent/a/mkcw6fns.png",
     "sector": "Payments & Banking",
     "signals": {
       "founded": {
@@ -58126,7 +58126,7 @@ export default {
   },
   "https://startupmap.one/startup/cashdirector_pl": {
     "domain": "www.cashdirector.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/cashdirector_pl.png",
+    "logoUrl": "https://corvus.gent/a/0992nn9t.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -58179,7 +58179,7 @@ export default {
   },
   "https://startupmap.one/startup/cyberly_pl": {
     "domain": "cyberly.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/cyberly_pl.png",
+    "logoUrl": "https://corvus.gent/a/1e62e6ow.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -58218,7 +58218,7 @@ export default {
   },
   "https://startupmap.one/startup/doctor_one_pl": {
     "domain": "www.doctor.one",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/doctor_one_pl.png",
+    "logoUrl": "https://corvus.gent/a/xtx0jniu.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -58264,7 +58264,7 @@ export default {
   },
   "https://startupmap.one/startup/eycore_pl": {
     "domain": "www.eycore.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/eycore_pl.png",
+    "logoUrl": "https://corvus.gent/a/dmkzn2mg.png",
     "sector": "Aerospace & Defense",
     "signals": {
       "founded": {
@@ -58310,7 +58310,7 @@ export default {
   },
   "https://startupmap.one/startup/fibritech_pl": {
     "domain": "fibri.tech",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/fibritech_pl.png",
+    "logoUrl": "https://corvus.gent/a/cbvtpj18.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -58363,7 +58363,7 @@ export default {
   },
   "https://startupmap.one/startup/foodsi_pl": {
     "domain": "foodsi.pl",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/foodsi_pl.png",
+    "logoUrl": "https://corvus.gent/a/qi0p7rqc.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -58416,7 +58416,7 @@ export default {
   },
   "https://startupmap.one/startup/foractive_pl": {
     "domain": "www.foractive.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/foractive_pl.png",
+    "logoUrl": "https://corvus.gent/a/z3bnixti.png",
     "sector": "Payments & Banking",
     "signals": {
       "founded": {
@@ -58469,7 +58469,7 @@ export default {
   },
   "https://startupmap.one/startup/microamp_pl": {
     "domain": "microamp-solutions.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/microamp_pl.png",
+    "logoUrl": "https://corvus.gent/a/alamnaht.png",
     "sector": "Hardware & Semiconductors",
     "signals": {
       "founded": {
@@ -58522,7 +58522,7 @@ export default {
   },
   "https://startupmap.one/startup/mindgram_pl": {
     "domain": "mindgram.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/mindgram_pl.png",
+    "logoUrl": "https://corvus.gent/a/tfj0ih3o.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -58575,7 +58575,7 @@ export default {
   },
   "https://startupmap.one/startup/mokka_pl": {
     "domain": "mokka.world",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/mokka_pl.png",
+    "logoUrl": "https://corvus.gent/a/xoxsont6.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -58628,7 +58628,7 @@ export default {
   },
   "https://startupmap.one/startup/mudita_pl": {
     "domain": "mudita.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/mudita_pl.png",
+    "logoUrl": "https://corvus.gent/a/x6rguym8.png",
     "sector": "Hardware & Semiconductors",
     "signals": {
       "founded": {
@@ -58667,7 +58667,7 @@ export default {
   },
   "https://startupmap.one/startup/nanosci_pl": {
     "domain": "nanosci.solutions",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/nanosci_pl.png",
+    "logoUrl": "https://corvus.gent/a/cpjht4ir.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -58720,7 +58720,7 @@ export default {
   },
   "https://startupmap.one/startup/orbital_matter_pl": {
     "domain": "www.orbital-matter.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/orbital_matter_pl.png",
+    "logoUrl": "https://corvus.gent/a/5bqmsnzj.png",
     "sector": "Aerospace & Defense",
     "signals": {
       "founded": {
@@ -58773,7 +58773,7 @@ export default {
   },
   "https://startupmap.one/startup/orbotix_pl": {
     "domain": "orbotix.tech",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/orbotix_pl.png",
+    "logoUrl": "https://corvus.gent/a/nernbpep.png",
     "sector": "Aerospace & Defense",
     "signals": {
       "founded": {
@@ -58826,7 +58826,7 @@ export default {
   },
   "https://startupmap.one/startup/paypo_pl": {
     "domain": "paypo.pl",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/paypo_pl.png",
+    "logoUrl": "https://corvus.gent/a/gasgbfzl.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -58879,7 +58879,7 @@ export default {
   },
   "https://startupmap.one/startup/petsy_pl": {
     "domain": "petsy.pl",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/petsy_pl.png",
+    "logoUrl": "https://corvus.gent/a/zhnyufx7.png",
     "sector": "E Commerce & Retail",
     "signals": {
       "founded": {
@@ -58925,7 +58925,7 @@ export default {
   },
   "https://startupmap.one/startup/primio_pl": {
     "domain": "primio.dev",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/primio_pl.png",
+    "logoUrl": "https://corvus.gent/a/6xnx0jg1.png",
     "sector": "No Code & Automation",
     "signals": {
       "founded": {
@@ -58971,7 +58971,7 @@ export default {
   },
   "https://startupmap.one/startup/quantum_innovations_pl": {
     "domain": "quantuminnovations.pl",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/quantum_innovations_pl.png",
+    "logoUrl": "https://corvus.gent/a/p7tzfrgr.png",
     "sector": "Medtech & Devices",
     "signals": {
       "founded": {
@@ -59007,7 +59007,7 @@ export default {
   },
   "https://startupmap.one/startup/quesma_pl": {
     "domain": "quesma.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/quesma_pl.png",
+    "logoUrl": "https://corvus.gent/a/0m6mzh2v.png",
     "sector": "Developer Tools",
     "signals": {
       "founded": {
@@ -59060,7 +59060,7 @@ export default {
   },
   "https://startupmap.one/startup/rainbow_weather_pl": {
     "domain": "rainbow.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/rainbow_weather_pl.png",
+    "logoUrl": "https://corvus.gent/a/bwqyhjs6.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -59113,7 +59113,7 @@ export default {
   },
   "https://startupmap.one/startup/ramp_network_pl": {
     "domain": "rampnetwork.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/ramp_network_pl.png",
+    "logoUrl": "https://corvus.gent/a/hb8q1n2o.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -59159,7 +59159,7 @@ export default {
   },
   "https://startupmap.one/startup/survicate_pl": {
     "domain": "survicate.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/survicate_pl.png",
+    "logoUrl": "https://corvus.gent/a/q19uk8gh.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -59212,7 +59212,7 @@ export default {
   },
   "https://startupmap.one/startup/blackwall_ee": {
     "domain": "blackwall.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/blackwall_ee.png",
+    "logoUrl": "https://corvus.gent/a/x96x3dr2.jpg",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -59272,7 +59272,7 @@ export default {
   },
   "https://startupmap.one/startup/farsight_vision_ee": {
     "domain": "farsightvision.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/farsight_vision_ee.png",
+    "logoUrl": "https://corvus.gent/a/t501nz1u.png",
     "sector": "Aerospace & Defense",
     "signals": {
       "founded": {
@@ -59332,7 +59332,7 @@ export default {
   },
   "https://startupmap.one/startup/ark_robotics_ee": {
     "domain": "ark-robotics.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/ark_robotics_ee.png",
+    "logoUrl": "https://corvus.gent/a/9j8uj99f.png",
     "sector": "Aerospace & Defense",
     "signals": {
       "founded": {
@@ -59385,7 +59385,7 @@ export default {
   },
   "https://startupmap.one/startup/wiply_ee": {
     "domain": "wiply.net",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/wiply_ee.png",
+    "logoUrl": "https://corvus.gent/a/9byddk6k.png",
     "sector": "Social & Creator Economy",
     "signals": {
       "founded": {
@@ -59421,7 +59421,7 @@ export default {
   },
   "https://startupmap.one/startup/haut_ai_ee": {
     "domain": "haut.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/haut_ai_ee.png",
+    "logoUrl": "https://corvus.gent/a/aon2lgps.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -59464,7 +59464,7 @@ export default {
   },
   "https://startupmap.one/startup/plummy_games_ee": {
     "domain": "www.plummygames.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/plummy_games_ee.png",
+    "logoUrl": "https://corvus.gent/a/4vled3a6.png",
     "sector": "Media & Entertainment",
     "signals": {
       "founded": {
@@ -59524,7 +59524,7 @@ export default {
   },
   "https://startupmap.one/startup/creem_ee": {
     "domain": "creem.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/creem_ee.png",
+    "logoUrl": "https://corvus.gent/a/3pyxpid8.png",
     "sector": "Payments & Banking",
     "signals": {
       "founded": {
@@ -59584,7 +59584,7 @@ export default {
   },
   "https://startupmap.one/startup/crewpoint_ee": {
     "domain": "www.crewpoint.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/crewpoint_ee.png",
+    "logoUrl": "https://corvus.gent/a/vkufiolm.png",
     "sector": "Maritime",
     "signals": {
       "founded": {
@@ -59637,7 +59637,7 @@ export default {
   },
   "https://startupmap.one/startup/hygge_games_ee": {
     "domain": "www.hyggegs.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/hygge_games_ee.png",
+    "logoUrl": "https://corvus.gent/a/cndzh6om.png",
     "sector": "Media & Entertainment",
     "signals": {
       "founded": {
@@ -59673,7 +59673,7 @@ export default {
   },
   "https://startupmap.one/startup/longstage_ee": {
     "domain": "longstage.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/longstage_ee.png",
+    "logoUrl": "https://corvus.gent/a/z02p598o.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -59726,7 +59726,7 @@ export default {
   },
   "https://startupmap.one/startup/salv_ee": {
     "domain": "salv.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/salv_ee.png",
+    "logoUrl": "https://corvus.gent/a/auhgrw21.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -59786,7 +59786,7 @@ export default {
   },
   "https://startupmap.one/startup/sensusq_ee": {
     "domain": "www.sensusq.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/sensusq_ee.png",
+    "logoUrl": "https://corvus.gent/a/t517a69a.png",
     "sector": "Aerospace & Defense",
     "signals": {
       "founded": {
@@ -59846,7 +59846,7 @@ export default {
   },
   "https://startupmap.one/startup/swipelux_ee": {
     "domain": "swipelux.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/swipelux_ee.png",
+    "logoUrl": "https://corvus.gent/a/lm3hisxb.png",
     "sector": "Payments & Banking",
     "signals": {
       "founded": {
@@ -59899,7 +59899,7 @@ export default {
   },
   "https://startupmap.one/startup/vanongo_ee": {
     "domain": "www.vanongo.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/vanongo_ee.png",
+    "logoUrl": "https://corvus.gent/a/tgpyjcdg.png",
     "sector": "Logistics",
     "signals": {
       "founded": {
@@ -59959,7 +59959,7 @@ export default {
   },
   "https://startupmap.one/startup/shen_ai_ee": {
     "domain": "shen.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/shen_ai_ee.png",
+    "logoUrl": "https://corvus.gent/a/rcw6eri8.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -60012,7 +60012,7 @@ export default {
   },
   "https://startupmap.one/startup/maxibook_ee": {
     "domain": "maxibook.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/maxibook_ee.png",
+    "logoUrl": "https://corvus.gent/a/m0vmjxp4.png",
     "sector": "Edtech",
     "signals": {
       "founded": {
@@ -60058,7 +60058,7 @@ export default {
   },
   "https://startupmap.one/startup/mifundo_ee": {
     "domain": "mifundo.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/mifundo_ee.png",
+    "logoUrl": "https://corvus.gent/a/anreqwa7.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -60118,7 +60118,7 @@ export default {
   },
   "https://startupmap.one/startup/shorelink_ee": {
     "domain": "shore-link.eu",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/shorelink_ee.png",
+    "logoUrl": "https://corvus.gent/a/h79dorg5.png",
     "sector": "Maritime",
     "signals": {
       "founded": {
@@ -60178,7 +60178,7 @@ export default {
   },
   "https://startupmap.one/startup/zerofy_ee": {
     "domain": "www.zerofy.net",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/zerofy_ee.png",
+    "logoUrl": "https://corvus.gent/a/y15c6mm4.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -60231,7 +60231,7 @@ export default {
   },
   "https://startupmap.one/startup/betterpic_ee": {
     "domain": "www.betterpic.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/betterpic_ee.png",
+    "logoUrl": "https://corvus.gent/a/lkjxhp8d.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -60291,7 +60291,7 @@ export default {
   },
   "https://startupmap.one/startup/katana_ee": {
     "domain": "katanamrp.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/katana_ee.png",
+    "logoUrl": "https://corvus.gent/a/fayht8y4.png",
     "sector": "Supply Chain & Ops Tech",
     "signals": {
       "founded": {
@@ -60351,7 +60351,7 @@ export default {
   },
   "https://startupmap.one/startup/roofit_solar_ee": {
     "domain": "roofit.solar",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/roofit_solar_ee.png",
+    "logoUrl": "https://corvus.gent/a/helugmy4.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -60404,7 +60404,7 @@ export default {
   },
   "https://startupmap.one/startup/spindl_ee": {
     "domain": "spindl.app",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/spindl_ee.png",
+    "logoUrl": "https://corvus.gent/a/487y6iyh.png",
     "sector": "Supply Chain & Ops Tech",
     "signals": {
       "founded": {
@@ -60440,7 +60440,7 @@ export default {
   },
   "https://startupmap.one/startup/up_catalyst_ee": {
     "domain": "upcatalyst.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/up_catalyst_ee.png",
+    "logoUrl": "https://corvus.gent/a/4mgzbj5w.png",
     "sector": "Climate Tech",
     "signals": {
       "founded": {
@@ -60500,7 +60500,7 @@ export default {
   },
   "https://startupmap.one/startup/waybiller_ee": {
     "domain": "waybiller.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/waybiller_ee.png",
+    "logoUrl": "https://corvus.gent/a/jsxyv8yx.png",
     "sector": "Logistics",
     "signals": {
       "founded": {
@@ -60553,7 +60553,7 @@ export default {
   },
   "https://startupmap.one/startup/5_0_robotics_ee": {
     "domain": "www.50robotics.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/5_0_robotics_ee.png",
+    "logoUrl": "https://corvus.gent/a/havga5mp.png",
     "sector": "Robotics",
     "signals": {
       "founded": {
@@ -60606,7 +60606,7 @@ export default {
   },
   "https://startupmap.one/startup/actinis_ee": {
     "domain": "actinis.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/actinis_ee.png",
+    "logoUrl": "https://corvus.gent/a/7zv482xg.png",
     "sector": "Developer Tools",
     "signals": {
       "founded": {
@@ -60635,7 +60635,7 @@ export default {
   },
   "https://startupmap.one/startup/adorney_ee": {
     "domain": "",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/adorney_ee.png",
+    "logoUrl": "https://corvus.gent/a/xurj2p8s.png",
     "sector": "Real Estate Tech",
     "signals": {
       "founded": {
@@ -60664,7 +60664,7 @@ export default {
   },
   "https://startupmap.one/startup/alertbird_ee": {
     "domain": "",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/alertbird_ee.png",
+    "logoUrl": "https://corvus.gent/a/vb69m32s.png",
     "sector": "Developer Tools",
     "signals": {
       "founded": {
@@ -60686,7 +60686,7 @@ export default {
   },
   "https://startupmap.one/startup/analytical_alley_ee": {
     "domain": "www.analyticalalley.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/analytical_alley_ee.png",
+    "logoUrl": "https://corvus.gent/a/upx4r512.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -60739,7 +60739,7 @@ export default {
   },
   "https://startupmap.one/startup/analyzify_ee": {
     "domain": "analyzify.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/analyzify_ee.png",
+    "logoUrl": "https://corvus.gent/a/izrtywlv.png",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -60785,7 +60785,7 @@ export default {
   },
   "https://startupmap.one/startup/anyflexo_ee": {
     "domain": "www.anyflexo.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/anyflexo_ee.png",
+    "logoUrl": "https://corvus.gent/a/qeviu6tg.png",
     "sector": "E Commerce & Retail",
     "signals": {
       "founded": {
@@ -60838,7 +60838,7 @@ export default {
   },
   "https://startupmap.one/startup/apme_ee": {
     "domain": "apme.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/apme_ee.png",
+    "logoUrl": "https://corvus.gent/a/l8oz5yfx.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -60877,7 +60877,7 @@ export default {
   },
   "https://startupmap.one/startup/artificial_tracking_ee": {
     "domain": "artificialtracking.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/artificial_tracking_ee.png",
+    "logoUrl": "https://corvus.gent/a/3nr5zv32.png",
     "sector": "Maritime",
     "signals": {
       "founded": {
@@ -60906,7 +60906,7 @@ export default {
   },
   "https://startupmap.one/startup/rentster_online_ee": {
     "domain": "autlio.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/rentster_online_ee.png",
+    "logoUrl": "https://corvus.gent/a/aw2o3o6f.png",
     "sector": "No Code & Automation",
     "signals": {
       "founded": {
@@ -60945,7 +60945,7 @@ export default {
   },
   "https://startupmap.one/startup/bebotech_ee": {
     "domain": "bebo.ee",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/bebotech_ee.png",
+    "logoUrl": "https://corvus.gent/a/19yfyo1g.png",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -60981,7 +60981,7 @@ export default {
   },
   "https://startupmap.one/startup/bekodu_ee": {
     "domain": "bekodu.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/bekodu_ee.png",
+    "logoUrl": "https://corvus.gent/a/isnor9uj.png",
     "sector": "Social & Creator Economy",
     "signals": {
       "founded": {
@@ -61010,7 +61010,7 @@ export default {
   },
   "https://startupmap.one/startup/oddin_cz": {
     "domain": "oddin.gg",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/oddin_cz.png",
+    "logoUrl": "https://corvus.gent/a/739j2ohm.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -61070,7 +61070,7 @@ export default {
   },
   "https://startupmap.one/startup/valkaai_cz": {
     "domain": "valka.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/valkaai_cz.png",
+    "logoUrl": "https://corvus.gent/a/vto1z4ty.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -61182,7 +61182,7 @@ export default {
   },
   "https://startupmap.one/startup/duvo_cz": {
     "domain": "www.duvo.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/duvo_cz.png",
+    "logoUrl": "https://corvus.gent/a/c7xyb2te.png",
     "sector": "No Code & Automation",
     "signals": {
       "founded": {
@@ -61242,7 +61242,7 @@ export default {
   },
   "https://startupmap.one/startup/apify_cz": {
     "domain": "apify.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/apify_cz.png",
+    "logoUrl": "https://corvus.gent/a/7oc7095g.png",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -61302,7 +61302,7 @@ export default {
   },
   "https://startupmap.one/startup/gooddata_cz": {
     "domain": "www.gooddata.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/gooddata_cz.png",
+    "logoUrl": "https://corvus.gent/a/9jrlo223.png",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -61362,7 +61362,7 @@ export default {
   },
   "https://startupmap.one/startup/codenow_cz": {
     "domain": "www.codenow.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/codenow_cz.png",
+    "logoUrl": "https://corvus.gent/a/6yzm93o0.png",
     "sector": "Developer Tools",
     "signals": {
       "founded": {
@@ -61415,7 +61415,7 @@ export default {
   },
   "https://startupmap.one/startup/sharry_cz": {
     "domain": "www.sharry.tech",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/sharry_cz.png",
+    "logoUrl": "https://corvus.gent/a/ci9p8am5.png",
     "sector": "Real Estate Tech",
     "signals": {
       "founded": {
@@ -61475,7 +61475,7 @@ export default {
   },
   "https://startupmap.one/startup/supernova_cz": {
     "domain": "www.supernova.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/supernova_cz.png",
+    "logoUrl": "https://corvus.gent/a/cfxgc7li.png",
     "sector": "Developer Tools",
     "signals": {
       "founded": {
@@ -61535,7 +61535,7 @@ export default {
   },
   "https://startupmap.one/startup/victoria_vr_cz": {
     "domain": "www.victoriavr.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/victoria_vr_cz.png",
+    "logoUrl": "https://corvus.gent/a/0rifxmay.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -61595,7 +61595,7 @@ export default {
   },
   "https://startupmap.one/startup/bandits_cz": {
     "domain": "banditshq.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/bandits_cz.png",
+    "logoUrl": "https://corvus.gent/a/1rn4vu20.png",
     "sector": "No Code & Automation",
     "signals": {
       "founded": {
@@ -61655,7 +61655,7 @@ export default {
   },
   "https://startupmap.one/startup/waypoint_ai_cz": {
     "domain": "mywaypoint.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/waypoint_ai_cz.png",
+    "logoUrl": "https://corvus.gent/a/q936hzsi.png",
     "sector": "AI & Machine Learning",
     "signals": {
       "founded": {
@@ -61715,7 +61715,7 @@ export default {
   },
   "https://startupmap.one/startup/aisle_cz": {
     "domain": "aisle.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/aisle_cz.png",
+    "logoUrl": "https://corvus.gent/a/r5mgrcvq.png",
     "sector": "Cybersecurity",
     "signals": {
       "founded": {
@@ -61768,7 +61768,7 @@ export default {
   },
   "https://startupmap.one/startup/dataddo_cz": {
     "domain": "www.dataddo.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/dataddo_cz.png",
+    "logoUrl": "https://corvus.gent/a/7xkr20e7.png",
     "sector": "Data & Analytics",
     "signals": {
       "founded": {
@@ -61828,7 +61828,7 @@ export default {
   },
   "https://startupmap.one/startup/lemonero_cz": {
     "domain": "www.lemonero.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/lemonero_cz.png",
+    "logoUrl": "https://corvus.gent/a/zfo2d1jt.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -61888,7 +61888,7 @@ export default {
   },
   "https://startupmap.one/startup/product_fruits_cz": {
     "domain": "productfruits.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/product_fruits_cz.png",
+    "logoUrl": "https://corvus.gent/a/y5n68gso.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -61941,7 +61941,7 @@ export default {
   },
   "https://startupmap.one/startup/tropic_square_cz": {
     "domain": "tropicsquare.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/tropic_square_cz.png",
+    "logoUrl": "https://corvus.gent/a/upvds32n.png",
     "sector": "Hardware & Semiconductors",
     "signals": {
       "founded": {
@@ -62001,7 +62001,7 @@ export default {
   },
   "https://startupmap.one/startup/upheal_cz": {
     "domain": "www.upheal.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/upheal_cz.png",
+    "logoUrl": "https://corvus.gent/a/05pyfkzy.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -62061,7 +62061,7 @@ export default {
   },
   "https://startupmap.one/startup/zuri_cz": {
     "domain": "zuri.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/zuri_cz.png",
+    "logoUrl": "https://corvus.gent/a/ay696g6i.png",
     "sector": "Aerospace & Defense",
     "signals": {
       "founded": {
@@ -62121,7 +62121,7 @@ export default {
   },
   "https://startupmap.one/startup/4trans_cz": {
     "domain": "4trans.eu",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/4trans_cz.png",
+    "logoUrl": "https://corvus.gent/a/o7yt846x.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -62174,7 +62174,7 @@ export default {
   },
   "https://startupmap.one/startup/adam_cz": {
     "domain": "www.myadam.eu",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/adam_cz.png",
+    "logoUrl": "https://corvus.gent/a/ech4yotc.png",
     "sector": "E Commerce & Retail",
     "signals": {
       "founded": {
@@ -62227,7 +62227,7 @@ export default {
   },
   "https://startupmap.one/startup/advanto_cz": {
     "domain": "advanto.cz",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/advanto_cz.png",
+    "logoUrl": "https://corvus.gent/a/d99tip9g.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -62280,7 +62280,7 @@ export default {
   },
   "https://startupmap.one/startup/bitdca_cz": {
     "domain": "www.bitdca.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/bitdca_cz.png",
+    "logoUrl": "https://corvus.gent/a/vtaj9f1c.png",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -62326,7 +62326,7 @@ export default {
   },
   "https://startupmap.one/startup/boostspace_cz": {
     "domain": "boost.space",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/boostspace_cz.png",
+    "logoUrl": "https://corvus.gent/a/1eno52ky.png",
     "sector": "No Code & Automation",
     "signals": {
       "founded": {
@@ -62379,7 +62379,7 @@ export default {
   },
   "https://startupmap.one/startup/brainbeams_health_cz": {
     "domain": "www.brainbeams.health",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/brainbeams_health_cz.png",
+    "logoUrl": "https://corvus.gent/a/wznuz4jk.png",
     "sector": "Healthtech",
     "signals": {
       "stage": {
@@ -62418,7 +62418,7 @@ export default {
   },
   "https://startupmap.one/startup/choice_cz": {
     "domain": "choiceqr.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/choice_cz.png",
+    "logoUrl": "https://corvus.gent/a/13ku8oec.png",
     "sector": "Agritech & Foodtech",
     "signals": {
       "founded": {
@@ -62461,7 +62461,7 @@ export default {
   },
   "https://startupmap.one/startup/decisionrules_cz": {
     "domain": "www.decisionrules.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/decisionrules_cz.png",
+    "logoUrl": "https://corvus.gent/a/3k15azsj.png",
     "sector": "No Code & Automation",
     "signals": {
       "founded": {
@@ -62514,7 +62514,7 @@ export default {
   },
   "https://startupmap.one/startup/elin_ai_cz": {
     "domain": "www.elin.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/elin_ai_cz.png",
+    "logoUrl": "https://corvus.gent/a/tpf6j8z0.png",
     "sector": "Healthtech",
     "signals": {
       "founded": {
@@ -62567,7 +62567,7 @@ export default {
   },
   "https://startupmap.one/startup/faceup_cz": {
     "domain": "www.faceup.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/faceup_cz.png",
+    "logoUrl": "https://corvus.gent/a/edrcote7.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -62620,7 +62620,7 @@ export default {
   },
   "https://startupmap.one/startup/finlay_cz": {
     "domain": "www.finlay.ai",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/finlay_cz.png",
+    "logoUrl": "https://corvus.gent/a/2gb2id8k.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -62673,7 +62673,7 @@ export default {
   },
   "https://startupmap.one/startup/fitify_cz": {
     "domain": "gofitify.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/fitify_cz.png",
+    "logoUrl": "https://corvus.gent/a/p5pnxt4a.png",
     "sector": "Sports & Wellness",
     "signals": {
       "founded": {
@@ -62726,7 +62726,7 @@ export default {
   },
   "https://startupmap.one/startup/flowpay_cz": {
     "domain": "www.flowpay.io",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/flowpay_cz.png",
+    "logoUrl": "https://corvus.gent/a/3z0aosp2.jpg",
     "sector": "Fintech",
     "signals": {
       "founded": {
@@ -62779,7 +62779,7 @@ export default {
   },
   "https://startupmap.one/startup/gamee_cz": {
     "domain": "gamee.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/gamee_cz.png",
+    "logoUrl": "https://corvus.gent/a/yarhbh6k.png",
     "sector": "Media & Entertainment",
     "signals": {
       "founded": {
@@ -62825,7 +62825,7 @@ export default {
   },
   "https://startupmap.one/startup/lasso_cz": {
     "domain": "productlasso.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/lasso_cz_v2.png",
+    "logoUrl": "https://corvus.gent/a/ydpf9mfa.png",
     "sector": "E Commerce & Retail",
     "signals": {
       "stage": {
@@ -62857,7 +62857,7 @@ export default {
   },
   "https://startupmap.one/startup/leadspicker_cz": {
     "domain": "www.leadspicker.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/leadspicker_cz.png",
+    "logoUrl": "https://corvus.gent/a/bldmwupf.png",
     "sector": "Sales & Marketing Tech",
     "signals": {
       "founded": {
@@ -62910,7 +62910,7 @@ export default {
   },
   "https://startupmap.one/startup/lemondia_cz": {
     "domain": "lemondia.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/lemondia_cz.png",
+    "logoUrl": "https://corvus.gent/a/x52keagc.png",
     "sector": "HR Tech",
     "signals": {
       "founded": {
@@ -62956,7 +62956,7 @@ export default {
   },
   "https://startupmap.one/startup/macromo_cz": {
     "domain": "macromo.com",
-    "logoUrl": "https://ctyjqoiryugiaxojrgve.supabase.co/storage/v1/object/public/startup-logos/macromo_cz_v2.png",
+    "logoUrl": "https://corvus.gent/a/4zlmt7rt.jpg",
     "sector": "Healthtech",
     "signals": {
       "founded": {

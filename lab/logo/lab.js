@@ -22,7 +22,7 @@ for (const [slug] of [['current'],...editions]){
   const btn=document.createElement('button');
   btn.className='sample';btn.dataset.slug=slug;
   const current=slug==='current';btn.disabled=current;
-  btn.innerHTML='<span class="pair">'+['black','white'].map(tone=>'<i>'+photo(current?'/logo.png':base+slug+'/mono-'+tone+'.svg',58)+'</i>').join('')+'</span><strong>'+(current?'CURRENT':numbers[slug]+' · '+slug.toUpperCase())+'</strong>';
+  btn.innerHTML='<span class="pair">'+['black','white'].map(tone=>'<i>'+photo(current?'/assets/brand/corvus-logo-m3gof5jg.png':base+slug+'/mono-'+tone+'.svg',58)+'</i>').join('')+'</span><strong>'+(current?'CURRENT':numbers[slug]+' · '+slug.toUpperCase())+'</strong>';
   $('compare').append(btn);
   if(!current){$('edition').add(new Option(slug.toUpperCase(),slug));btn.onclick=()=>choose(slug)}
 }

@@ -2,6 +2,8 @@ import {execFileSync} from 'node:child_process';
 // Resolve drop-in artwork at build time so missing logos never cause browser requests.
 import {existsSync, readFileSync, writeFileSync} from 'node:fs';
 
+execFileSync("node", ["tools/build-assets.mjs"], {stdio:"inherit"});
+
 const stackPage = new URL('../../the6cube/stack/index.html', import.meta.url);
 const html = readFileSync(stackPage, 'utf8');
 const optional = /<template data-stack-logo="([a-z]+)"><\/template>/g;

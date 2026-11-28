@@ -1,7 +1,7 @@
 import {canvasScene, image, offscreen, NIGHT, RAMP, glow} from './runtime.js';
 const seed = i => { const n = Math.sin(i * 127.1 + 31.7) * 43758.5453; return n - Math.floor(n); };
 export async function mount(api) {
-  const wing = await image('/public/wing/wing-still.png', api.signal);
+  const wing = await image('/assets/site/wing-still-kgvvou5x.png', api.signal);
   if (api.signal.aborted) return;
   let cells, box, cw, ch;
   return canvasScene(api, ctx => ({

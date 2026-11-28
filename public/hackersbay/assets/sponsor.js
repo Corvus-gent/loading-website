@@ -21,7 +21,7 @@ function projectCard(person) {
   const title = element('div');
   title.append(element('h3', person.project), element('p', person.name + ' · ' + person.role, 'fine'));
   const chest = element('img', undefined, 'treasure-chest');
-  chest.src = '/public/hackersbay/assets/chest.svg';
+  chest.src = '/assets/site/chest-d3a1ujsj.svg';
   chest.alt = '';
   chest.width = 36;
   chest.height = 29;

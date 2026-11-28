@@ -11,7 +11,7 @@ async function interviews(){if(document.hidden||!active)return;try{const r=await
 function apply(){
  const enabled=home&&hackLiveMode(override,Date.now()+offset).enabled;
  if(home&&active!==enabled){active=enabled;if(topLabel)topLabel.textContent=active?'CORVUS / LIVE':originalTopLabel;document.body.classList.toggle('hack-live-mode',active);document.querySelectorAll('[data-hack-live-only]').forEach(el=>el.hidden=!active);
-  if(active){const archive=front?.closest('details');if(archive)archive.open=true;interviews();document.title='Live at a robotics hackathon in SF · Corvus';for(const [el]of originalMeta)el.content=el.matches('[property="og:image"]')?'https://corvus.gent/live/og.png':el.matches('[property="og:title"]')?'Live at a robotics hackathon in SF · Corvus':'One-man army. Many editors. Livestream, robot interviews, 100+ videos in 10+ languages.';}else{document.title=originalTitle;for(const[el,value]of originalMeta)el.content=value;}
+  if(active){const archive=front?.closest('details');if(archive)archive.open=true;interviews();document.title='Live at a robotics hackathon in SF · Corvus';for(const [el]of originalMeta)el.content=el.matches('[property="og:image"]')?'https://corvus.gent/assets/site/live-og-gjjqqftx.png':el.matches('[property="og:title"]')?'Live at a robotics hackathon in SF · Corvus':'One-man army. Many editors. Livestream, robot interviews, 100+ videos in 10+ languages.';}else{document.title=originalTitle;for(const[el,value]of originalMeta)el.content=value;}
  }
  if(bar)bar.hidden=home?!enabled:!third;renderStream();
 }

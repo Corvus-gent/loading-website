@@ -475,6 +475,22 @@
   ],
   "rewrites": [
     {
+      "source": "/assets",
+      "destination": "/public/asset-library/index.html"
+    },
+    {
+      "source": "/assets/manifest.json",
+      "destination": "/public/assets/manifest.json"
+    },
+    {
+      "source": "/assets/:collection(brand|court|cube|council|readme|site)/:name",
+      "destination": "/public/assets/:collection/:name"
+    },
+    {
+      "source": "/a/:id([a-z0-9]{8}).:ext",
+      "destination": "/_asset-files/:id.:ext"
+    },
+    {
       "source": "/donate",
       "destination": "/public/gabe-support.html"
     },
@@ -1647,6 +1663,65 @@
         {
           "key": "Referrer-Policy",
           "value": "no-referrer"
+        }
+      ]
+    },
+    {
+      "source": "/assets/:collection(brand|court|cube|council|readme|site)/:file",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "sandbox; default-src 'none'; style-src 'unsafe-inline'; img-src data:"
+        }
+      ]
+    },
+    {
+      "source": "/a/:file",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "sandbox; default-src 'none'; style-src 'unsafe-inline'; img-src data:"
+        },
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
+    },
+    {
+      "source": "/assets/manifest.json",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
         }
       ]
     }

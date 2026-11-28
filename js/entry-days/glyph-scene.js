@@ -2,8 +2,8 @@ import {canvasScene, image, offscreen, NIGHT, PLUM, RAMP} from './runtime.js';
 
 export async function glyphScene(api, room = false) {
   const [dio, wing] = await Promise.all([
-    room ? null : image('/public/inspiration/diogenes.webp', api.signal),
-    image('/public/wing/wing-still.png', api.signal),
+    room ? null : image('/assets/court/diogenes-lbe9g6zf.webp', api.signal),
+    image('/assets/site/wing-still-kgvvou5x.png', api.signal),
   ]);
   if (api.signal.aborted) return;
   let cols, rows, cw, ch, lum, previousGlyph, previousColour;

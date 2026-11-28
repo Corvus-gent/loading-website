@@ -7,7 +7,7 @@
 <title>Yogi Power · yoga & meditatie in Affligem</title>
 <meta name="description" content="Prototype nieuwe website en boekingsplatform voor Yogi Power, op basis van requirements v1.3.">
 <meta name="theme-color" content="#fbf6ee">
-<link rel="icon" type="image/png" href="/clients/yogipower/assets/logo-original.png">
+<link rel="icon" type="image/png" href="/assets/brand/logo-original-alx6wdy1.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>:root{
@@ -304,7 +304,7 @@ html{scroll-padding-top:130px}
 <body class="grain">
 <nav id="yp-languages" aria-label="Taal" translate="no"><button type="button" data-language="nl" lang="nl" aria-label="Nederlands" aria-pressed="true">NL</button><button type="button" data-language="fr" lang="fr" aria-label="Français" aria-pressed="false">FR</button><button type="button" data-language="en" lang="en" aria-label="English" aria-pressed="false">EN</button><button type="button" data-language="es" lang="es" aria-label="Español" aria-pressed="false">ES</button></nav>
 <script type="module" src="/clients/yogipower/i18n.js?v=20261122yogi1"></script>
-<div id="gate" style="display:none"><div class="card"><img class="sun" src="/clients/yogipower/assets/logo-original.png" alt="Yogi Power" width="3400" height="3074"><h1>Yogi Power</h1><p>Prototype · requirements v1.3<br>Voer de toegangscode in.</p><form><input type="password" placeholder="code" autocomplete="off" aria-label="Toegangscode"><button>Open</button></form><div class="err"></div></div></div>
+<div id="gate" style="display:none"><div class="card"><img class="sun" src="/assets/brand/logo-original-alx6wdy1.png" alt="Yogi Power" width="3400" height="3074"><h1>Yogi Power</h1><p>Prototype · requirements v1.3<br>Voer de toegangscode in.</p><form><input type="password" placeholder="code" autocomplete="off" aria-label="Toegangscode"><button>Open</button></form><div class="err"></div></div></div>
 <header class="top" id="hdr"></header>
 <main id="main"></main>
 <div id="demobar"></div>
@@ -717,7 +717,7 @@ const initials=n=>n.split(/\s+/).map(x=>x[0]).slice(0,2).join('').toUpperCase();
 function toast(msg,kind=''){const t=document.createElement('div');t.className='toast '+kind;t.textContent=msg;$('#toasts').append(t);setTimeout(()=>t.remove(),4200);}
 function commit(){save();render();}
 
-const LOGO=`<img class="original-logo" src="/clients/yogipower/assets/logo-original.png" alt="Yogi Power" width="3400" height="3074">`;
+const LOGO=`<img class="original-logo" src="/assets/brand/logo-original-alx6wdy1.png" alt="Yogi Power" width="3400" height="3074">`;
 
 const ICON={
   clock:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',

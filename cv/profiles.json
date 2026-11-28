@@ -64,7 +64,7 @@
       "label": "On-location storytelling",
       "text": "A first-person account of meeting builders and documenting the San Francisco hackathon scene, with original photography.",
       "href": "/sf/larp/",
-      "image": "/sf/larp/photos/hackathon-corgi.webp",
+      "image": "/assets/site/hackathon-corgi-zdoputfb.webp",
       "imageAlt": "Gabe with a corgi at a San Francisco hackathon"
     },
     {
@@ -72,7 +72,7 @@
       "label": "Content workflow",
       "text": "An experiment connecting raw footage, AI-assisted editing and platform-specific cuts. Explore the workflow and examples.",
       "href": "/compound/impact/",
-      "image": "/compound/impact/assets/simon.jpg",
+      "image": "/assets/site/simon-dc64afe7.jpg",
       "imageAlt": "Simon Lorenzo, co-founder of Compound",
       "imageFit": "contain"
     },

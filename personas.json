@@ -12,7 +12,7 @@
       "text": "start your free trial week →",
       "href": "https://app.pidgy-ai.com/?invite=GABE",
       "qr": {
-        "src": "/img/pidgy-trial-qr.svg",
+        "src": "/assets/court/pidgy-trial-qr-o9jcujss.svg",
         "summary": "▦ show QR for the free trial",
         "caption": "scan → free trial week"
       }
@@ -101,7 +101,7 @@
     "preview": {
       "title": "Gabe | corvus.gent",
       "description": "Gabe’s links, writing, sidequests and free Pidgy trial.",
-      "image": "/img/gabe.jpg"
+      "image": "/assets/site/gabe-6hrlpc5e.jpg"
     },
     "lantern": {
       "id": "lantern",
@@ -187,7 +187,7 @@
     "preview": {
       "title": "Corvus | corvus.gent",
       "description": "The crow of Ghent. Find the realm, the music collection and the lantern.",
-      "image": "/logo.png"
+      "image": "/assets/brand/corvus-logo-m3gof5jg.png"
     },
     "lantern": {
       "id": "lantern",
@@ -262,7 +262,7 @@
     "preview": {
       "title": "Pidgy | corvus.gent",
       "description": "Meet the Alkmist pigeon that sorts your inbox and drafts your replies.",
-      "image": "/img/pidgy-happy.png"
+      "image": "/assets/court/pidgy-happy-d2ogh55c.png"
     }
   }
 }

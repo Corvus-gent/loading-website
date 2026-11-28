@@ -12,7 +12,7 @@ export function mountSFNote(){
   if(Date.now()>=SF_END)return;try{if(sessionStorage.getItem(KEY))return;sessionStorage.setItem(KEY,'1');}catch{}
   const hero=document.getElementById('hero'),rect=hero.getBoundingClientRect();
   flyer=document.createElement('button');flyer.type='button';flyer.className='sf-flyer';flyer.style.setProperty('--sf-y',Math.max(48,rect.top+rect.height*.12)+'px');flyer.style.setProperty('--sf-x',Math.max(12,Math.min(innerWidth-136,rect.left+rect.width*.1))+'px');
-  const img=document.createElement('img');img.src='/img/sf-crow.svg';img.alt='';img.width=124;img.height=92;flyer.append(img);
+  const img=document.createElement('img');img.src='/assets/site/sf-crow-zg57ul3r.svg';img.alt='';img.width=124;img.height=92;flyer.append(img);
   const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(reduced)flyer.classList.add('resting');else flyer.addEventListener('animationend',()=>flyer.remove(),{once:true});
   flyer.onclick=()=>{

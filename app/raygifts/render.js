@@ -30,7 +30,7 @@ export function card(product, currency, detail = false) {
   const picks = variants.filter(variant => variant.available);
   const options = picks.map(({id, name, price}) => `<option value="${id}">${escape(name)} · ${prices.format(price)}</option>`).join('');
   return `<article class="flyer${detail ? ' detail' : ''}">
-    ${source ? `<img src="${escape(source.href)}" width="${image.width}" height="${image.height}" ${detail ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async" alt="${escape(image.alt || name)}">` : ''}
+    ${source ? `<img src="${escape((detail ? image.hosted?.detail : image.hosted?.card) || source.href)}" width="${image.width}" height="${image.height}" ${detail ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async" alt="${escape(image.alt || name)}">` : ''}
     <div class="flyer-copy">${heading}${pencil}<p>${escape(moment)}</p>
     ${picks.length ? `<form class="pick" data-add>${picks.length === 1
       ? `<input type="hidden" name="variant" value="${picks[0].id}"><span class="price">${prices.format(picks[0].price)}</span>`
@@ -46,9 +46,10 @@ export function render({ products, currency, product, missing, unavailable, path
   const landing = !product && !missing && !box && !quiz && !scan;
   const pageTitle = product ? `${product.name} · Ray` : missing ? 'Gift not found · Ray'
     : scan ? 'Quiet-hour scan · Ray' : quiz ? resultTitle(result) + ' · Ray' : box ? 'Build a gift box · Ray' : title;
-  const productImage = product?.images[0]?.src;
+  const photo = product?.images[0];
+  const productImage = photo?.hosted ? new URL(photo.hosted.full, 'https://corvus.gent').href : photo?.src;
   const canonical = 'https://corvus.gent/raygifts' + path + (result ? '?r=' + result : '');
-  const shareImage = result ? 'https://corvus.gent/raygifts/share.png?r=' + result : 'https://corvus.gent/raygifts/share.png';
+  const shareImage = result ? 'https://corvus.gent/raygifts/share.png?r=' + result : 'https://corvus.gent/assets/site/raygifts-share-wfombjki.png';
   const data = JSON.stringify({
     currency, mode, initialResult: result,
     products: product && !products.some(item => item.handle === product.handle) ? [...products, product] : products,

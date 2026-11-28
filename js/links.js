@@ -65,7 +65,7 @@ function renderLantern(lantern) {
   const bubble = document.createElement('span');
   bubble.className = 'lt-bubble';
   bubble.textContent = lantern.crowText;
-  crow.replaceChildren(image('/img/link-crow.svg'), bubble);
+  crow.replaceChildren(image('/assets/site/link-crow-t6hzhcj6.svg'), bubble);
   crow.tabIndex = -1;
   document.body.append(crow);
   let round = 0;
